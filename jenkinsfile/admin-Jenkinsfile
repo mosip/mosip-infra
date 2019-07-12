@@ -1,0 +1,332 @@
+node {
+ try{
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def buildInfo
+ def branch = env.NEXT_BRANCH_NAME
+ def dockerImagesTagVersion = 'NaV'  //This will ensure that docker images tag should have 1-1 relation ship with project version
+ projectToBuild = 'admin'
+ def registryUrl = env.REGISTRY_URL
+ def registryName = env.REGISTRY_NAME
+ def registryCredentials = env.REGISTRY_CREDENTIALS
+ def gitUrl = env.GIT_URL
+ def gitCredentials = env.GIT_CREDENTIALS
+ updatedServices = []
+ updatedDockerImages = []
+ containersToRun = ''
+ containersNames = ''
+ k8DevContext = 'mosip-dev-cluster'
+
+ stage('------- Checkout --------') {
+  // Checkout only pre-registration Module
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId:gitCredentials ]
+    ],
+    extensions: [
+
+     [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/' + projectToBuild + '/']
+     ]]
+
+    ],
+   ])
+  }
+ }
+
+ stage('--------- Artifactory configuration ----------------') {
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+
+stage ('---------- build ---------------') {
+         
+	// for building java projects
+        rtMaven.run pom: branch + '/' + projectToBuild + '/pom.xml', goals: 'clean install', buildInfo: buildInfo
+ 	// For building angular project
+	dir(branch) {
+	
+		// Looking for angular.json file to to find out if the submodule we are building is an angular project
+		echo "Looking for angular projects to build"
+		sh "find . -name 'angular.json'> directoryAngularFiles"
+		locationOfAngularFiles = readFile( "directoryAngularFiles" ).split( "\\r?\\n" );
+		for (int i=0; i < locationOfAngularFiles.size(); i++) {
+			if(locationOfAngularFiles[i].equals("")){
+			break;
+			}
+			def currentModule = locationOfAngularFiles[i]
+			sh "dirname $currentModule > parentDirectoryPath"
+			parentDirectoryPath = readFile('parentDirectoryPath').trim()
+			sh "rm -f parentDirectoryPath"
+			parentDirectoryPathFormatted = parentDirectoryPath.substring(1);
+			// to check if angular.json is present in root of submodule to build, for this purpose checking if
+			// Dockerfile is present in same directory.
+			currentWorkingPath = pwd()
+			// creating absolute path to the Dockerfile
+			fileToLookFor= currentWorkingPath+parentDirectoryPathFormatted+"/Dockerfile"
+			sh "pwd"
+			echo fileToLookFor
+			def file= new File(fileToLookFor)
+			print file.exists()
+			if(file.exists()){
+			// installing node modules and building the angular project
+			sh "pushd $parentDirectoryPath && npm install && npm run-script build -- --prod --base-href . --output-path=dist && popd"
+			}
+		}
+	}
+}
+
+ stage('---------- SonarQube Analysis --------------') {
+  def mvnHome = tool name: 'M2_HOME', type: 'maven'
+  withSonarQubeEnv('sonar') {
+   sh "${mvnHome}/bin/mvn -f '$branch/$projectToBuild/' sonar:sonar"
+  }
+ }
+ 
+ stage('----------- Publish build info -------------') {
+  /*
+  Publishing build info to Artifcatory (JFrog)
+  */
+  server.publishBuildInfo buildInfo
+ }
+
+ stage('------ Docker Images : Push & Cleanup -------') {
+  /*
+   Building Docker images of the services which have to be run inside a Docker Container and pushing the
+   images to Docker Registry.
+   This stage will build either all the Services (modules) present or only modules that have been changed
+   since last build according to the build parameter provided.
+  */
+  dir(branch) {
+	/*
+	finding parent pom version to create Docker tags
+	*/
+   pomFile = readMavenPom file: projectToBuild+'/pom.xml'
+   dockerImagesTagVersion = pomFile.parent.version
+   echo dockerImagesTagVersion
+ 
+   /*
+     Checking if there is any Dockerfile present to build, if not, returning from this stage
+   */
+   sh "find . -name 'Dockerfile'> testdirectoryDockerFiles"
+   testlocationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n");
+   sh "rm -f testdirectoryDockerFiles"
+   if (testlocationOfDockerFiles[0].equals("")) {
+      echo "tested:::: no docker files present, returning"
+      return;
+     }
+   /*
+   Finding location of all the Dockerfiles present in module
+   */
+   sh "dirname `find . -name 'Dockerfile'`> directoryDockerFiles"
+   locationOfDockerFiles = readFile("directoryDockerFiles").split("\\r?\\n");
+   sh "rm -f directoryDockerFiles"
+   /*
+   If build paramerter is passed as Build All (All submodules have to be built)
+   */
+   if ("${env.BUIILD_OPTION}" == "Build All") {
+    echo "BUILD_OPTION is set to Build All."
+    echo "Building all submodules."
+    for (int i = 0; i < locationOfDockerFiles.size(); i++) {
+     if (locationOfDockerFiles[i].equals("")) {
+      break;
+     }
+     def currentModule = locationOfDockerFiles[i]
+     /*
+     Getting name of the module to be built
+     */
+     sh "basename $currentModule > moduleName"
+     moduleName = readFile('moduleName').trim()
+     sh "rm -f moduleName"
+     /*
+     Getting path of the module to be built
+     */
+     modulePath = locationOfDockerFiles[i].substring(2);
+     updatedServices.add(moduleName)
+     updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+     /*
+     Updating containersToRun List
+     */
+     containersToRun = containersToRun + " " + registryName + '/' + moduleName
+     /*
+     Updating containersName List
+     */
+     containersNames = containersNames + " " + moduleName
+     echo moduleName + " will be built"
+     /*
+     Pushing the module image with tag as version.buildnumber and tag as latest to docker registry
+     */
+     docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+      newApp = docker.build(buildName, '-f ' + currentModule + "/Dockerfile" + ' ' + modulePath)
+      newApp.push()
+      newApp.push 'latest'
+     }
+     /*
+     Removing local images
+     */
+     sh "docker rmi $moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName"
+    }
+   } 
+   else {
+    /*
+     If build paramerter is passed as Build Changes (Only changed submodules have to be built)
+    */   
+    echo "BUILD_OPTION is set to Build Changed."
+    echo "Building only changed submodules."
+    changedModulesLocation = getChangedModulesPaths();
+    for (int i = 0; i < changedModulesLocation.size(); i++) {
+     def currentModule = changedModulesLocation[i]
+     /*
+     Getting name of the module to be built
+     */
+     sh "basename $currentModule > moduleName"
+     moduleName = readFile('moduleName').trim()
+     sh "rm -f moduleName"
+     /*
+     Getting path of the module to be built
+     */
+     modulePath = changedModulesLocation[i].substring(2);
+     updatedServices.add(moduleName)
+     updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+     /*
+     Updating containersToRun List
+     */
+     containersToRun = containersToRun + " " + registryName + '/' + moduleName
+     /*
+     Updating containersName List
+     */
+     containersNames = containersNames + " " + moduleName
+     echo moduleName + " will be built"
+     /*
+     Pushing the module image with tag as version.buildnumber and tag as latest to docker registry
+     */
+     docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+      newApp = docker.build(buildName, '-f ' + currentModule + "/Dockerfile" + ' ' + modulePath)
+      newApp.push()
+      newApp.push 'latest'
+     }
+     /*
+     Removing local images
+     */
+     sh "docker rmi $moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName"
+    }
+   }
+
+    /*
+     Removing all untagged images
+     */
+    sh "docker rmi \$(docker images | awk '/<none>/ {print \$3}') || true"
+
+  }
+
+ }
+
+    stage('Kubernetes Deploy : DEV'){
+      //this stage will rollout the changes on Kubernetes Cluster
+      sh "kubectl config use-context $k8DevContext"
+      for(int i = 0; i<updatedDockerImages.size(); i++){
+        def updatedDockerImage = updatedDockerImages[i]
+        def updatedService = updatedServices[i]
+        echo "Updating [ Service:$updatedService, Image:$updatedDockerImage ]"
+        sh "kubectl set image deployment/$updatedService $updatedService=$updatedDockerImage"
+      }
+      echo "Getting list of all services" 
+      sh "kubectl get pods"
+    }
+    
+
+	}
+ // Catching the exception for triggering email
+  catch (exception) {
+        print exception
+		// If the job was aborted by any user
+        if (exception instanceof InterruptedException) {
+           currentBuild.result = "ABORTED"
+        }
+		// If the job failed due to some error
+        else{
+            currentBuild.result = "FAILURE"
+        }
+        
+        throw exception //rethrow exception to prevent the build from proceeding
+    
+        
+        }
+  finally{
+		if(currentBuild.result == "FAILURE"){
+		// sending email to admin recipients
+		recipients = "$env.ADMIN_LIST"
+		emailext (
+					subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER failed'",
+					body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+					to: "$recipients",
+					from: '"Jenkins" <info@mosip.io>'
+				)
+	}
+	}
+}
+
+@NonCPS
+def getChangedModulesPaths() {
+ Set modifiedModulePaths = [] as TreeSet
+
+ /*
+ ChangeSets until last build
+ */
+ def changeLogSets = currentBuild.changeSets
+
+ /*
+ A treeSet to store paths of all the files that have been changed until last build
+ */
+ Set affectedPaths = [] as TreeSet
+ for (int i = 0; i < changeLogSets.size(); i++) {
+  def entries = changeLogSets[i].items 
+  for (int j = 0; j < entries.length; j++) {
+   def entry = entries[j]
+   echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+   affectedPaths.addAll(entry.affectedPaths);
+   }
+  }
+  /*
+  Filtering all the modules from affected path that do not belong to project to build
+  */
+  echo "affected paths are :" + affectedPaths
+  affectedPaths.retainAll{it.startsWith(projectToBuild)}
+  echo "affected paths after retaining only admin modules are --------:" + affectedPaths
+for (int i = 0; i < locationOfDockerFiles.size(); i++) {
+        /*
+        If there is no Dockerfile present in the Services
+        */
+        if(locationOfDockerFiles[i].equals("")){
+        	break;
+        }
+	/*
+        Checking if the paths affected belong to modules that have to be deployed
+        */
+		if(affectedPaths.any{it.startsWith(locationOfDockerFiles[i].substring(2))}){
+			modifiedModulePaths.add(locationOfDockerFiles[i])
+            /*
+            Removing affected paths that belong to same module (Because we have already taken
+            into consideration this module)
+            */
+			affectedPaths.removeAll{it.startsWith(locationOfDockerFiles[i].substring(2))}
+		}
+  }
+	echo "paths of modules to be built ::::::::::::>" + modifiedModulePaths
+ 	return modifiedModulePaths
+}
+

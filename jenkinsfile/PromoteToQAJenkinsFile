@@ -1,0 +1,118 @@
+import hudson.EnvVars;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.NodePropertyDescriptor;
+import hudson.util.DescribableList;
+import jenkins.model.Jenkins;
+
+node {
+ def mvnHome = tool name: 'M2_HOME', type: 'maven'
+ def branch = params.BRANCH_NAME
+ def mosip_config_branch=params.BRANCH_NAME
+ def newVersion
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def gitURL = params.GIT_URL
+ def gitCredentials = params.GIT_CREDENTIALS
+ 
+ def buildInfo
+ 
+ // Asking user if he wants to promote the code to QA, user will choose either proceed or abort
+ stage('checkout') {
+  input 'Do you want to promote the code to QA?'
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: gitURL, credentialsId: gitCredentials]
+    ]
+   ])
+  }
+ }
+
+ // updating the pom versions to a new version inputed by user and removing '-snapshot'
+ stage('update-versions') {
+  dir(branch) {
+	  sh "git status"
+   pom = readMavenPom file: 'pom.xml'
+   version = pom.version
+   suggestedValue = pom.version
+   String[] st = suggestedValue.split("\\.");
+   int n = Integer.parseInt(st[2]) + 1;
+   suggestedValue = st[0] + "." + st[1] + "."+n;
+   def userInput = input(
+    id: 'userInput', message: 'Enter version number',
+    parameters: [
+
+     string(
+      defaultValue: suggestedValue,
+      description: 'Previous version in pom.xml is ' + version,
+      name: 'Version')
+    ])
+   // Save to variables. Default to empty string if not found.
+   echo userInput
+
+   newVersion = pom.version.replace("${version}", "${userInput}")
+   sh "${mvnHome}/bin/mvn versions:set -DnewVersion=${newVersion}"
+   sh "${mvnHome}/bin/mvn versions:commit"
+  }
+ }
+ 
+   stage('--------- Artifactory configuration ----------------') {
+  /*
+  JFrog artifactory configuration
+  */
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+
+ 
+ 
+  stage('---------- mvn-clean-install and push to artifactory  ---------------') {
+  rtMaven.run pom: branch + '/pom.xml', goals: 'clean install -Dspring.cloud.config.label='+branch, buildInfo: buildInfo
+ }
+ 
+  stage('----------- Publish build info -------------') {
+  /*
+  Publishing build info to Artifcatory (JFrog)
+  */
+  server.publishBuildInfo buildInfo
+ }
+ 
+ stage('GIT - Push the code and Create new tag') {
+  dir(branch) {
+      // jenkins git plugin detaches the head after checking out the code, stashing the changes to check out branch code
+	  sh "git stash"
+	  // checking out branch
+	  sh "git checkout $branch"
+	  // applying stashed changes to branch
+	  sh "git stash apply"  
+	  sh "git add ."
+	  // clearing the stash
+	  sh "git stash clear"
+	  // commiting changes to branch
+	  sh "git commit -m 'MOS-14569 updating versions and tagging the code '"
+      sshagent(['fd9c5f45-e6ac-45ea-b345-f6fbeb303044']) {
+       sh "git push origin $branch"
+      }
+      // creating a git tag
+      sh "git tag ${newVersion}"
+	  // pushing tag to github
+      sshagent(['fd9c5f45-e6ac-45ea-b345-f6fbeb303044']) {
+      sh "git push origin ${newVersion}"
+      }
+ 
+  }
+
+  // Clean the workspace to avoid GIT conflicts when next time this pipeline is triggered
+  	cleanWs()
+ } 
+}
+
+

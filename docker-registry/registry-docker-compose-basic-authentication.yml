@@ -1,0 +1,9 @@
+version: '2'
+services:
+  registry:
+    environment:
+      REGISTRY_AUTH: 'htpasswd'
+      REGISTRY_AUTH_HTPASSWD_REALM: '<YOUR-REALM-NAME>'
+      REGISTRY_AUTH_HTPASSWD_PATH: '<YOUR-HTPASSWD-PATH>'
+    volumes:
+      - <YOUR-HTPASSWD-PATH>:<YOUR-HTPASSWD-PATH-INSIDE-CONTAINER>

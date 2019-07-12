@@ -1,0 +1,110 @@
+{{- $root := . -}}
+{{- range $serviceName, $val := $root.Values.deploymentsAndServices }} 
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ $serviceName }}
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ $serviceName }}
+    spec:
+      {{- if not .noInitContainer}}
+      initContainers:
+      - name: config-server-availability-check
+        image: centos:centos7
+        command: [ "sh", "-c"]
+        args:
+        - while [ $(curl -sw '%{http_code}' $spring_config_url_env/actuator/health -o /dev/null) -ne 200 ]; do
+            echo "config server not up at address $spring_config_url_env sleeping for 15 secs" ;
+            sleep 15;
+          done;
+        env:
+         - name: spring_config_url_env
+           value: {{ $root.Values.commons.configServer.url }}
+      {{- end }}
+      containers:
+      - name: {{ $serviceName }}
+        image: {{ $root.Values.commons.dockerRegistry.url }}/{{ .dockerImageName }}:{{ $root.Values.commons.dockerRegistry.dockerImageTag }}
+        env:
+        {{- if not .overideCommonEnvironmentVariables }}
+        - name: active_profile_env
+          value: {{ $root.Values.commons.configServer.activeProfile }}
+        - name: spring_config_label_env
+          value: {{ $root.Values.commons.configServer.configLabel }}
+        - name: spring_config_url_env
+          value: {{ $root.Values.commons.configServer.url }}
+        {{- end }}
+        {{- if .configServerEnvironments }}
+        - name: git_url_env
+          value: {{ .configServerEnvironments.gitUrlEnv }}
+        - name: git_config_folder_env
+          value: {{ .configServerEnvironments.gitConfigFolderEnv }}
+        {{- end }}
+        {{- if .environmentVariables }}
+{{ toYaml .environmentVariables | indent 8}}
+        {{- end }}
+        ports:
+        {{- if $val.ports}}
+        {{- range $portName, $portValue := $val.ports }} 
+          - name: {{$portName}}
+            containerPort: {{$portValue}}
+        {{- end }}
+        {{- else }}
+        - containerPort: {{ .servicePort }}
+        {{- end }}
+        imagePullPolicy: Always
+        {{- if .volumes}}
+        volumeMounts:
+          {{- range $volumeName, $volumeValues := .volumes}}
+            - name: {{ $volumeName }}
+              mountPath: {{ .mountPath }}
+              {{- if .subPath}}
+              subPath: {{ .subPath }}
+              {{- end }}
+          {{- end }}
+        {{- end }}
+      imagePullSecrets:
+      - name: {{ $root.Values.commons.dockerRegistry.pullSecret }}
+      {{- if .volumes}}
+      volumes:
+        {{- range $volumeName, $volumeValues := .volumes}}
+        - name: {{ $volumeName }}
+          {{ .type }}:
+            {{- if eq .type "secret"}}
+            secretName: {{ .name }}
+            defaultMode: {{ .defaultMode }}
+            {{- end }}
+            {{- if eq .type "configMap"}}
+            name: {{ .name }}
+            {{- end }}
+        {{- end }}
+      {{- end}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  {{- if .internalLoadBalancerIP }}
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  {{- end }}
+spec:
+  {{- if .internalLoadBalancerIP }}
+  type: LoadBalancer
+  loadBalancerIP: {{ .internalLoadBalancerIP }}
+  {{- end }}
+  ports:
+    - port: {{ .servicePort }}
+  selector:
+    app: {{ $serviceName }}
+{{- end }}

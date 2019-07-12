@@ -1,0 +1,21 @@
+node{
+def branch=env.NEXT_BRANCH_NAME
+def mvnHome = tool name: 'M2_HOME', type: 'maven'
+
+    stage('checkout') {
+    sh 'pwd'
+//   input 'Do you want to promote the code to QA?'
+        checkout([$class: 'GitSCM',
+        branches: [[name: '*/0.12.0']], 
+        userRemoteConfigs: [[credentialsId: 'tarun', url: 'https://github.com/mosip/mosip.git']]])
+    }
+    
+
+    stage('build'){
+        pom = readMavenPom file: 'pom.xml' 
+        version=pom.version  
+        echo "${version}"
+       cleanWs()
+
+    }
+}

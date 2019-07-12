@@ -1,0 +1,109 @@
+commons:
+    dockerRegistry:
+        url: docker-registry.mosip.io:5000
+        pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull
+    configServer:
+        url: http://config-server:51000/config
+    ingress:
+        annotations:
+            kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/proxy-body-size: "50m"
+            ingress.kubernetes.io/proxy-connect-timeout: "3600"
+            ingress.kubernetes.io/proxy-read-timeout: "3600"
+            ingress.kubernetes.io/proxy-send-timeout: "3600"
+            ingress.kubernetes.io/send-timeout: "3600"
+
+services:
+    kernel-cryptomanager-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8087
+       dockerImageName: kernel-cryptomanager-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-uingenerator-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8080
+       dockerImageName: kernel-uingenerator-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev   
+    kernel-auditmanager-service:
+       servicePath: /v1/auditmanager
+       servicePort: 8081
+       dockerImageName: kernel-auditmanager-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev   
+    kernel-otpmanager-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8085
+       dockerImageName: kernel-otpmanager-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-emailnotification-service:
+       servicePath: /v1/emailnotifier
+       servicePort: 8083
+       dockerImageName: kernel-emailnotification-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-smsnotification-service:
+       servicePath: /v1/smsnotifier
+       servicePort: 8084
+       dockerImageName: kernel-smsnotification-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-masterdata-service:
+       servicePath: /v1/masterdata
+       servicePort: 8086
+       dockerImageName: kernel-masterdata-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-syncdata-service:
+       servicePath: /v1/syncdata
+       servicePort: 8089
+       dockerImageName: kernel-syncdata-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-licensekeymanager-service:
+       servicePath: /v1/licensekeymanager
+       servicePort: 8093
+       dockerImageName: kernel-licensekeymanager-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-applicanttype-service:
+       servicePath: /v1/applicanttype
+       servicePort: 8094
+       dockerImageName: kernel-applicanttype-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-auth-service:
+       servicePath: /v1/authmanager
+       servicePort: 8091
+       dockerImageName: kernel-auth-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-ridgenerator-service:
+       servicePath: /v1/ridgenerator
+       servicePort: 8096
+       dockerImageName: kernel-ridgenerator-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    kernel-tokenidgenerator-service:
+       servicePath: /v1/tokenidgenerator
+       servicePort: 8097
+       dockerImageName: kernel-tokenidgenerator-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    

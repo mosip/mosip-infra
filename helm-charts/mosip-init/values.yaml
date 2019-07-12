@@ -1,0 +1,349 @@
+commons:
+    dockerRegistry:
+        url: docker-registry.mosip.io:5000
+        pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull
+        dockerImageTag: latest
+    configServer:
+        url: http://config-server:51000/config
+        configLabel: 0.12.0
+        activeProfile: dev
+    ingress:
+        defaultBackendDockerImage: gcr.io/google_containers/defaultbackend:1.0
+        ingressControllerDockerImage: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.9.0-beta.17
+        # ingressServiceLoadbalancerIP: XXX.XXX.XXX.XXX
+        annotations:
+            kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/proxy-body-size: "50m"
+            ingress.kubernetes.io/proxy-connect-timeout: "3600"
+            ingress.kubernetes.io/proxy-read-timeout: "3600"
+            ingress.kubernetes.io/proxy-send-timeout: "3600"
+            ingress.kubernetes.io/send-timeout: "3600"
+
+
+
+secrets:
+    pvt-reg-cred:
+        .dockercfg: <registry secret here>
+        type: kubernetes.io/dockercfg
+    config-server-keystore:
+        server.keystore: <Key Store Text> # in base64 encoded format
+    config-server-keystore-values-secret:
+        alias: <fill here>  # in base64 encoded format
+        password: <fill here>  # in base64 encoded format
+        secret: <fill here>  # in base64 encoded format
+    config-server-secret:
+        id_rsa: <Private key> # in base64 encoded format
+        id_rsa.pub: < Public Key> # in base64 encoded format, must have read access to your version control repository
+        known_hosts: <Known hosts> # in base64 encoded format, must include your version control hostname
+
+configMaps:
+   pre-registration-ui-configuration:
+        # carriagereturnnewline provides support for new line character when passing this value through --set flag of helm install
+        config.json: '\{ carriagereturnnewline \"BASE_URL\":\"<url>\"\, carriagereturnnewline \"PRE_REG_URL\":\"preregistration/v1/\" carriagereturnnewline \}'
+
+deploymentsAndServices:
+    authentication-internal-service:
+       servicePath: /idauthentication/v1/internal
+       servicePort: 8093
+       dockerImageName: authentication-internal-service
+    authentication-kyc-service:
+       servicePath: /idauthentication/v1/kyc
+       servicePort: 8091
+       dockerImageName: authentication-kyc-service
+    authentication-otp-service:
+       servicePath: /idauthentication/v1/otp
+       servicePort: 8092
+       dockerImageName: authentication-otp-service
+    authentication-service:
+       servicePath: /idauthentication/v1/auth
+       servicePort: 8090
+       dockerImageName: authentication-service
+    id-repository-identity-service:
+       servicePath: /idrepository/v1/identity
+       servicePort: 8090
+       dockerImageName: id-repository-identity-service
+    id-repository-vid-service:
+       servicePath: /idrepository/v1/
+       servicePort: 8091
+       dockerImageName: id-repository-vid-service
+    kernel-cryptomanager-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8087
+       dockerImageName: kernel-cryptomanager-service
+    kernel-signature-service:
+       servicePath: /v1/signature
+       servicePort: 8089
+       dockerImageName: kernel-signature-service
+    kernel-uingenerator-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8080
+       dockerImageName: kernel-uingenerator-service
+       overideCommonEnvironmentVariables: true
+    #    environmentVariables:
+    #         - name: spring.cloud.config.label
+    #           value: 
+    #         - name: spring.profiles.active
+    #           value: 
+    #         - name: spring.cloud.config.uri
+    #           value: 
+
+    kernel-auditmanager-service:
+       servicePath: /v1/auditmanager
+       servicePort: 8081
+       dockerImageName: kernel-auditmanager-service
+    kernel-otpmanager-service:
+       servicePath: /v1/cryptomanager
+       servicePort: 8085
+       dockerImageName: kernel-otpmanager-service
+    kernel-emailnotification-service:
+       servicePath: /v1/emailnotifier
+       servicePort: 8083
+       dockerImageName: kernel-emailnotification-service
+    kernel-smsnotification-service:
+       servicePath: /v1/smsnotifier
+       servicePort: 8084
+       dockerImageName: kernel-smsnotification-service
+    kernel-masterdata-service:
+       servicePath: /v1/masterdata
+       servicePort: 8086
+       dockerImageName: kernel-masterdata-service
+    kernel-syncdata-service:
+       servicePath: /v1/syncdata
+       servicePort: 8089
+       dockerImageName: kernel-syncdata-service
+    kernel-licensekeymanager-service:
+       servicePath: /v1/licensekeymanager
+       servicePort: 8093
+       dockerImageName: kernel-licensekeymanager-service
+    kernel-applicanttype-service:
+       servicePath: /v1/applicanttype
+       servicePort: 8094
+       dockerImageName: kernel-applicanttype-service
+    kernel-auth-service:
+       servicePath: /v1/authmanager
+       servicePort: 8091
+       dockerImageName: kernel-auth-service
+    kernel-ridgenerator-service:
+       servicePath: /v1/ridgenerator
+       servicePort: 8096
+       dockerImageName: kernel-ridgenerator-service
+    kernel-tokenidgenerator-service:
+       servicePath: /v1/tokenidgenerator
+       servicePort: 8097
+       dockerImageName: kernel-tokenidgenerator-service
+    pre-registration-demographic-service:
+       servicePath: /preregistration/v1/applications
+       servicePort: 8087
+       dockerImageName: pre-registration-demographic-service
+    pre-registration-document-service:
+       servicePath: /preregistration/v1/documents
+       servicePort: 9093
+       dockerImageName: pre-registration-document-service
+    pre-registration-datasync-service:
+       servicePath: /preregistration/v1/sync
+       servicePort: 9094
+       dockerImageName: pre-registration-datasync-service
+    pre-registration-booking-service:
+       servicePath: /preregistration/v1/appointment
+       servicePort: 9095
+       dockerImageName: pre-registration-booking-service
+    pre-registration-batchjob-service:
+       servicePath: /preregistration/v1/batch
+       servicePort: 9096
+       dockerImageName: pre-registration-batchjob-service
+    pre-registration-notification-service:
+       servicePath: /preregistration/v1/notification
+       servicePort: 9099
+       dockerImageName: pre-registration-notification-service
+    pre-registration-login-service:
+       servicePath: /preregistration/v1/login
+       servicePort: 9090
+       dockerImageName: pre-registration-login-service
+    pre-registration-generateqrcode-service:
+       servicePath: /preregistration/v1/qrCode
+       servicePort: 9091
+       dockerImageName: pre-registration-generateqrcode-service
+    pre-registration-ui:
+       servicePath: /pre-registration-ui
+       servicePort: 80
+       dockerImageName: pre-registration-ui
+       volumes: 
+         pre-registration-ui-configuration-volume: 
+            name: pre-registration-ui-configuration # This name should be same as configMaps defined in this file.
+            type: configMap 
+            mountPath: /usr/share/nginx/html/assets/config.json
+            subPath: config.json
+    registration-processor-bio-dedupe-service:
+        servicePath: /registrationprocessor/v1/bio-dedupe
+        servicePort: 9097
+        ports:
+            verticle-port: 9097
+        dockerImageName: registration-processor-bio-dedupe-service
+    registration-processor-abis:
+        servicePath: /abis
+        servicePort: 9098
+        ports:
+            verticle-port: 9098
+        dockerImageName: registration-processor-abis
+    registration-processor-packet-uploader-stage:
+        servicePath: /registrationprocessor/v1/uploader
+        servicePort: 8087
+        ports:
+            eventbus-port: 5714
+            hazelcast-port: 5701
+            verticle-port: 8087
+        dockerImageName: registration-processor-packet-uploader-stage
+    registration-processor-manual-verification-stage:
+        servicePath: /registrationprocessor/v1/manualverification
+        servicePort: 8084
+        ports:
+            eventbus-port: 5720
+            hazelcast-port: 5701
+            verticle-port: 8084
+        dockerImageName: registration-processor-manual-verification-stage
+    registration-processor-external-integration-service:
+        servicePath: /registrationprocessor/v1/eis
+        servicePort: 8201
+        ports:
+            verticle-port: 8201
+        dockerImageName: registration-processor-external-integration-service
+    registration-processor-print-service:
+        servicePath: /registrationprocessor/v1/print
+        servicePort: 9099
+        ports:
+            verticle-port: 9099
+        dockerImageName: registration-processor-print-service
+    registration-processor-printing-stage:
+        servicePath: /registrationprocessor/v1/print-stage
+        servicePort: 8099
+        ports:
+            eventbus-port: 5722
+            hazelcast-port: 5701
+            verticle-port: 8099
+        dockerImageName: registration-processor-printing-stage
+    config-server:
+        servicePath: /config
+        servicePort: 51000
+        # internalLoadBalancerIP: X.X.X.X # IP address, subnet based
+        overideCommonEnvironmentVariables: true
+        noInitContainer: true
+        dockerImageName: kernel-config-server
+        configServerEnvironments:
+            # gitUrlEnv: <Your git url>
+            # gitConfigFolderEnv: <Your config folder name inside your git repo>
+        environmentVariables:
+            - name: encrypt_keyStore_location_env
+              value: file:////root/server.keystore
+            - name: encrypt_keyStore_password_env
+              valueFrom:
+                secretKeyRef:
+                  name: config-server-keystore-values-secret
+                  key: password
+            - name: encrypt_keyStore_secret_env
+              valueFrom:
+                secretKeyRef:
+                  name: config-server-keystore-values-secret
+                  key: secret
+            - name: encrypt_keyStore_alias_env
+              valueFrom:
+                secretKeyRef:
+                  name: config-server-keystore-values-secret
+                  key: secret
+        volumes:
+            config-server-secret-volume:
+                name: config-server-secret #secret with same name must be created
+                type: secret
+                defaultMode: 256
+                mountPath: /root/.ssh
+            config-server-keystore-volume:
+                name: config-server-keystore #secret with same name must be created
+                type: secret
+                defaultMode: 256 
+                mountPath: /root/server.keystore
+                subPath: server.keystore
+    
+
+deploymentsOnly:
+    registration-processor-abis-middleware-stage:
+        ports:
+            eventbus-port: 5888
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-abis-middleware-stage
+    registration-processor-abis-handler-stage:
+        ports:
+            eventbus-port: 5726
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-abis-handler-stage
+    registration-processor-bio-dedupe-stage:
+        ports:
+            eventbus-port: 5718
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-bio-dedupe-stage
+    registration-processor-biometric-authentication-stage:
+        ports:
+            eventbus-port: 5702
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-biometric-authentication-stage
+    registration-processor-common-camel-bridge:
+        ports:
+            eventbus-port: 5723
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-common-camel-bridge
+    registration-processor-demo-dedupe-stage:
+        ports:
+            eventbus-port: 5723
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-demo-dedupe-stage
+    registration-processor-external-stage:
+        ports:
+            eventbus-port: 5736
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-external-stage
+    registration-processor-message-sender-stage:
+        ports:
+            eventbus-port: 5721
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-message-sender-stage
+    registration-processor-message-sender-stage:
+        ports:
+            eventbus-port: 5721
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-message-sender-stage
+    registration-processor-osi-validator-stage:
+        ports:
+            eventbus-port: 5716
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-osi-validator-stage
+    registration-processor-packet-validator-stage:
+        ports:
+            eventbus-port: 5715
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-packet-validator-stage
+    registration-processor-quality-checker-stage:
+        ports:
+            eventbus-port: 5715
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-quality-checker-stage
+    registration-processor-reprocessor-stage:
+        ports:
+            eventbus-port: 5750
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-reprocessor-stage
+    registration-processor-retry-stage:
+        ports:
+            eventbus-port: 5722
+            hazelcast-port: 5701
+        dockerImageName: registration-processor-reprocessor-stage
+    registration-processor-uin-generator-stage:
+        ports:
+            eventbus-port: 5719
+            hazelcast-port: 5701
+        dockerImageName:  registration-processor-uin-generator-stage
+
+servicesOnly:
+    service-hazelcast-server:
+        ports:
+        - name: hz-port-name
+          port: 5701
+          protocol: TCP

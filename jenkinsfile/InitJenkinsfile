@@ -1,0 +1,464 @@
+node{
+  def server = Artifactory.server env.artifactoryServerId
+  def rtMaven = Artifactory.newMavenBuild()
+  def mvnHome = tool name: 'M2_HOME', type: 'maven'
+  def buildInfo
+  def branch = env.scmBranch
+  def gitCredentialsId = env.scmRepoCredentials
+  def gitUrl =env.scmUrl
+  def dockerImagesTagVersion = 'NaV' //This will ensure that docker images tag should have 1-1 relation ship with project version
+  def registryUrl = env.dockerRegistryUrl
+  def registryName =  registryUrl.replace("https://", "")
+  def registryCredentials = env.dockerRegistryCredentials
+  def dmzDeploymentServer = "${env.environment}DmzDeploymentServer" // example devDmzDeploymentServer
+  def keymanagerDeploymentServer = "${env.environment}KeymanagerDeploymentServer" // example devKeymanagerDeploymentServer
+  def deploymentClusterCredentials = "${env.environment}DeploymentClusterCredentials"
+
+  deploymentsClusterAddressKey = "${env.environment}DeploymentsClusterAddress"
+  deploymentsClusterAddressValue = env."${deploymentsClusterAddressKey}"
+
+  proxyServerAddressKey = "${env.environment}ProxyServerAddress"
+  proxyServerAddressValue = env."${proxyServerAddressKey}"
+  
+
+ // For DMZ
+  updatedServicesForDmz = []
+  updatedDockerImagesForDmz = []
+  containersToRunForDmz=''
+  containerNamesForDmz=''
+
+  updatedServices = []
+  updatedDockerImages = []
+
+  // For Keymanager
+  containersToRun = ""
+  containersNames = ""
+
+  stage('checkout'){
+    // Clean the workspace to avoid conflicts
+  	cleanWs()
+    checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId: gitCredentialsId]
+    ],
+    extensions: [
+	  [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch]
+   ]
+   ]) 
+  }
+
+  stage('--------- Artifactory configuration ----------------') {
+  /*
+  JFrog artifactory configuration
+  */
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+  }
+
+  stage('---------- mvn-clean-install and push to artifactory  ---------------') {
+        echo "$registryName"
+        rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests', buildInfo: buildInfo 
+         
+        // Looking for angular.json file to to find out if the submodule we are building is an angular project
+        echo "Looking for angular projects to build"
+        sh "find . -name 'angular.json'> directoryAngularFiles"
+        locationOfAngularFiles = readFile( "directoryAngularFiles" ).split( "\\r?\\n" );
+        for (int i=0; i < locationOfAngularFiles.size(); i++) {
+            if(locationOfAngularFiles[i].equals("")){
+            break;
+            }
+            def currentModule = locationOfAngularFiles[i]
+            sh "dirname $currentModule > parentDirectoryPath"
+            parentDirectoryPath = readFile('parentDirectoryPath').trim()
+            sh "rm -f parentDirectoryPath"
+            parentDirectoryPathFormatted = parentDirectoryPath.substring(1);
+            
+            // installing node modules and building the angular project
+            sh "npm --prefix $parentDirectoryPath install $parentDirectoryPath"
+            sh "npm --prefix $parentDirectoryPath run-script build -- --prod --base-href . --output-path=dist"
+		}
+    
+  } 
+
+  stage('----------- Publish build info -------------') {
+    /*
+    Publishing build info to Artifcatory (JFrog)
+    */
+    server.publishBuildInfo buildInfo
+  }
+
+  stage('------ Docker Images : Push & Cleanup -------') {
+    /*
+    * Building Docker images of the services which have to be run inside a Docker Container and pushing the
+    * images to Docker Registry.
+    */  
+    //finding parent pom version to create Docker tags
+    pomFile = readMavenPom file: 'pom.xml'
+    dockerImagesTagVersion = pomFile.version
+    echo dockerImagesTagVersion
+
+
+    
+    //---------------------------- Creating custom Images for SoftHSM ----------------------------
+    echo "Creating custom Images for SoftHSM"
+    sh "find . -name 'Dockerfile-softhsm'>> testdirectoryDockerFiles" // find softhsm dockerfile
+    locationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n")
+    sh "rm -f testdirectoryDockerFiles"
+
+    //finding directory name for the Dockerfile
+    sh "dirname `find . -name 'Dockerfile-softhsm'`> directoryDockerFiles"
+    locationOfDockerFileDirectory = readFile("directoryDockerFiles").split("\\r?\\n")
+    sh "rm -f directoryDockerFiles"
+
+    docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = registryName+'/kernel-keymanager-softhsm:0.1'
+      def modulePath = locationOfDockerFileDirectory[0].substring(2)
+      newApp = docker.build(buildName, '-f ' + locationOfDockerFiles[0] + ' --build-arg softhsm_pin=1234 ' + modulePath)
+      newApp.push()
+      newApp.push 'latest'
+      sh "docker rmi $buildName" //removing local copy of docker image
+     }
+
+
+    // Creating custom image for KeyManager
+    echo "Creating custom image for KeyManager"
+    sh "find . -name 'Dockerfile_DO_NOT_BUILD'> testdirectoryDockerFiles" // find keymanager dockerfile
+    locationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n")
+    sh "rm -f testdirectoryDockerFiles"
+
+    //finding directory name for the Dockerfile
+    sh "dirname `find . -name 'Dockerfile_DO_NOT_BUILD'`> directoryDockerFiles"
+    locationOfDockerFileDirectory = readFile("directoryDockerFiles").split("\\r?\\n")
+    sh "rm -f directoryDockerFiles"
+
+    docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = registryName+'/kernel-keymanager-service'+ ":$dockerImagesTagVersion.$BUILD_NUMBER"
+      def modulePath = locationOfDockerFileDirectory[0].substring(2)
+      newApp = docker.build(buildName, '-f ' + locationOfDockerFiles[0] + ' --build-arg docker_registry_url='+registryName+' '+ modulePath)
+      newApp.push()
+      newApp.push 'latest'
+      sh "docker rmi $buildName" //removing local copy of docker image
+
+      containersToRun = containersToRun + " " + buildName
+      containersNames = containersNames + " " + "kernel-keymanager-service"
+
+
+
+     }
+    //-------------------------END: Creating custom Images for SoftHSM ----------------------------
+
+    //-------------------------Start: Creating custom Images for Config Server ----------------------------
+    echo "Creating custom Images for Config Server"
+    sh "find . -name 'Dockerfile-no-updates'> testdirectoryDockerFiles" // find keymanager dockerfile
+    locationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n")
+    sh "rm -f testdirectoryDockerFiles"
+
+    //finding directory name for the Dockerfile
+    sh "dirname `find . -name 'Dockerfile-no-updates'`> directoryDockerFiles"
+    locationOfDockerFileDirectory = readFile("directoryDockerFiles").split("\\r?\\n")
+    sh "rm -f directoryDockerFiles"
+
+    docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = registryName+'/kernel-config-server'+ ":$dockerImagesTagVersion.$BUILD_NUMBER"
+      def modulePath = locationOfDockerFileDirectory[0].substring(2)
+      newApp = docker.build(buildName, '-f ' + locationOfDockerFiles[0] + ' --build-arg docker_registry_url='+registryName+' '+ modulePath)
+      newApp.push()
+      newApp.push 'latest'
+      sh "docker rmi $buildName" //removing local copy of docker image
+     }
+    //-------------------------END: Creating custom Images for Config Server ----------------------------
+    
+    /*
+    * Checking if there is any Dockerfile present to build, if not, returning from this stage
+    */
+    sh "find . -name 'Dockerfile'> testdirectoryDockerFiles"
+    testlocationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n");
+    sh "rm -f testdirectoryDockerFiles"
+    if (testlocationOfDockerFiles[0].equals("")) {
+        echo "tested:::: no docker files present, returning"
+        return;
+        }
+
+    /*
+    Finding location of all the Dockerfiles present in module
+    */
+    sh "dirname `find . -name 'Dockerfile'`> directoryDockerFiles"
+    locationOfDockerFiles = readFile("directoryDockerFiles").split("\\r?\\n");
+    sh "rm -f directoryDockerFiles"
+
+    for (int i = 0; i < locationOfDockerFiles.size(); i++) {
+     if (locationOfDockerFiles[i].equals("")) {
+      break;
+     }
+     def currentModule = locationOfDockerFiles[i]
+     /*
+     Getting name of the module to be built
+     */
+     sh "basename $currentModule > moduleName"
+     moduleName = readFile('moduleName').trim()
+     sh "rm -f moduleName"
+     /*
+     Getting path of the module to be built
+     */
+     modulePath = locationOfDockerFiles[i].substring(2);
+
+     /**
+     Finding out the parent directory of modules to deploy services accordingly.
+     **/
+     sh "dirname $currentModule > parentDirectory"
+     def parentDirectory = readFile('parentDirectory').trim()
+     parentDirectory = parentDirectory.substring(2);
+     /*
+     If Services are present in init directory, they have to be deployed in DM Zone
+     */
+     if(parentDirectory == 'registration-processor/init'){
+         updatedServicesForDmz.add(moduleName)
+         updatedDockerImagesForDmz.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+              /*
+              Updating containersToRun List for dmz
+              */
+              containersToRunForDmz = containersToRunForDmz + " " + registryName + '/' + moduleName  + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+              /*
+              /*
+              Updating containersName List for dmz
+              */
+              containerNamesForDmz = containerNamesForDmz + " " + moduleName
+     }
+     /*
+     If Services are present in pre-processor, post-processor or core-processor directory, they have to be deployed in Private Zone
+     */
+     else if ((parentDirectory == 'registration-processor/core-processor') || (parentDirectory == 'registration-processor/pre-processor') ||(parentDirectory == 'registration-processor/post-processor')){
+         updatedServices.add(moduleName)
+         updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+     }
+     /*
+     If Services are present in root path in registartion-processor module and starts with 'registration-processor-common', they have to be deployed in both private and DM Zones.
+     */
+     else if (parentDirectory == 'registration-processor' && moduleName.startsWith('registration-processor-common')) 
+     {
+          updatedServicesForDmz.add(moduleName)
+          updatedDockerImagesForDmz.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+          updatedServices.add(moduleName)
+          updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+              /*
+              Updating containersToRun List for dmz
+              */
+              containersToRunForDmz = containersToRunForDmz + " " + registryName + '/' + moduleName  + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+              /*
+              /*
+              Updating containersName List for dmz
+              */
+              containerNamesForDmz = containerNamesForDmz + " " + moduleName
+     }
+
+     echo moduleName + " will be built"
+     /*
+     Pushing the module image with tag as version.buildnumber and tag as latest to docker registry
+     */
+     docker.withRegistry(registryUrl, registryCredentials) {
+      def buildName = moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+      newApp = docker.build(buildName, '-f ' + currentModule + "/Dockerfile" + ' ' + modulePath)
+      newApp.push()
+      newApp.push 'latest'
+     }
+     /*
+     Removing local images
+     */
+     sh "docker rmi $moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
+     sh "docker rmi $registryName/$moduleName"
+    }
+    
+    /*
+     Removing all untagged images
+     */
+    sh "docker rmi \$(docker images | awk '/<none>/ {print \$3}') || true"
+  }
+
+ 
+
+  stage('Setting up services in Kubernetes Cluster') {
+    withKubeConfig([credentialsId: deploymentClusterCredentials]) {
+      sh 'kubectl cluster-info'
+      sh 'helm init --upgrade'
+      sh 'helm ls --debug'
+      sh 'helm delete --purge mosip-complete || true'
+      sh """
+        helm install --name mosip-complete ./scripts/helm-charts/mosip-init --set commons.dockerRegistry.url=$registryName --set commons.dockerRegistry.dockerImageTag=$dockerImagesTagVersion.$BUILD_NUMBER --set secrets.pvt-reg-cred.\"\\.dockercfg"=${env.privateRegistrySecret} --set commons.configServer.configLabel=$branch --set commons.configServer.activeProfile=${env.environment} --set commons.ingress.ingressServiceLoadbalancerIP=$deploymentsClusterAddressValue --set secrets.config-server-keystore.\"server\\.keystore\"=${env.keystoreContent} --set secrets.config-server-keystore-values-secret.alias=${env.KeystoreAlias} --set secrets.config-server-keystore-values-secret.password=${env.KeystoreStorePassword} --set secrets.config-server-keystore-values-secret.secret=${env.KeystoreKeySecret} --set secrets.config-server-secret.id_rsa=${env.gitPrivateKey} --set secrets.config-server-secret.\"id_rsa\\.pub\"=${env.gitPublicKey} --set secrets.config-server-secret.known_hosts=${env.gitKnownHosts} --set-string configMaps.pre-registration-ui-configuration.\"config\\.json\"='\\{ carriagereturnnewline \\"BASE_URL\\":\\"$proxyServerAddressValue/\\"\\, carriagereturnnewline \\"PRE_REG_URL\\":\\"preregistration/v1/\\" carriagereturnnewline \\}' --set deploymentsAndServices.config-server.internalLoadBalancerIP=${env.deploymentsClusterInternalLoadBalancerIp} --set deploymentsAndServices.config-server.configServerEnvironments.gitUrlEnv=${env.gitConfigRepositorySshUrl} --set deploymentsAndServices.config-server.configServerEnvironments.gitConfigFolderEnv=${env.gitConfigFolder}
+      """
+    }
+  }
+
+  stage(' Waiting for kubernetes deployment'){
+    sleep(time:10,unit:"MINUTES")
+  }
+  
+  stage('Setting up dmz non k8 Services'){
+
+    print containersToRunForDmz 
+    print containerNamesForDmz
+
+     command = """
+      INDEX=0
+      containersToRunShell=(${containersToRunForDmz})
+      containersNamesShell=(${containerNamesForDmz})
+      
+      for i in "\${containersToRunShell[@]}"
+        do
+          echo "Deploying Service - " \$i
+          docker pull \$i
+          portExposed="\$(docker inspect --format='{{range \$p, \$conf := .Config.ExposedPorts}} {{index (split \$p "/") 0}} {{end}}' \$i)"
+          portExposedFormatted="\$(echo \$portExposed| xargs)"
+          echo Container will expose services on \$portExposedFormatted 
+          volumeMounted="\$(docker inspect --format='{{range \$p, \$conf := .Config.Volumes}} {{ \$p }} {{end}}' \$i)"
+          portExposedFormatted="\$(echo \$portExposed| xargs)"
+        if [ "\$(docker ps -a | grep \${containersNamesShell[\$INDEX]})" ]; then
+          docker rename \${containersNamesShell[\$INDEX]} \${containersNamesShell[\$INDEX]}-backup && docker stop \${containersNamesShell[\$INDEX]}-backup
+        fi
+            portExposed="\$(docker inspect --format='{{range \$p, \$conf := .Config.ExposedPorts}} {{index (split \$p "/") 0}} {{end}}' \$i)"
+            portExposed="\$(echo \$portExposed| xargs)"
+            portBlock=
+            if [ -z "\${portExposed}" ]
+            then
+            portBlock=" ";
+            else
+            portBlock="-p \${portExposed}:\${portExposed}"
+            fi
+            echo \$portBlock
+
+            zoneEnvironment="\$(docker inspect --format='{{ index .Config.Labels "zone_env"}}' \$i)"
+            zoneBlock=;
+            if [ -z "\${zoneEnvironment}" ]
+            then
+            eaawewedededoneBlock=" ";
+            else
+            zoneBlock="--env zone_env=\${zoneEnvironment}"
+            fi
+            echo \$zoneBlock
+
+
+            hostMode=\$(docker inspect --format '{{ index .Config.Labels "network"}}' \$i)
+            hostBlock=
+            if [ -z "\${hostMode}" ]
+            then
+            hostBlock=" ";
+            else
+            hostBlock="--network \${hostMode}"
+            fi
+            echo \$hostBlock
+
+            priviledgedMode=\$(docker inspect --format '{{ index .Config.Labels "privileged"}}' \$i)
+            priviledgedBlock=
+            if [ -z "\${priviledgedMode}" ]
+            then
+            priviledgedBlock=" ";
+            else
+            priviledgedBlock="--privileged=\${priviledgedMode}"
+            fi
+            echo \$priviledgedBlock
+
+            volumesMounted=\$(docker inspect --format='{{range \$p, \$conf := .Config.Volumes}} {{ \$p }} {{end}}' \$i)
+            IFS=' ' read -r -a volumesToBeMountedArray <<< "\$volumesMounted"
+            volumeSymbol=-v
+            for element in "\${volumesToBeMountedArray[@]}"
+            do
+            volumeBlock="\${volumeBlock} \${volumeSymbol} \${element}:\${element}"
+            done
+            echo \$volumeBlock
+
+            docker run -d \$volumeBlock \$portBlock \$zoneBlock \$hostBlock \$priviledgedBlock -e active_profile_env=${env.environment} -e spring_config_label_env="${branch}" -e spring_config_url_env=http://${env.deploymentsClusterInternalLoadBalancerIp}:51000 --name "\${containersNamesShell[\$INDEX]}" \$i
+              if [ \$? -eq 0 ]; then
+              echo Container Started - \${containersNamesShell[\$INDEX]}
+              if [ "\$(docker ps -a | grep \${containersNamesShell[\$INDEX]}-backup)" ]; then
+                echo Removing Backed up container - \${containersNamesShell[\$INDEX]}-backup
+                docker rm \${containersNamesShell[\$INDEX]}-backup
+              fi
+              else
+              echo Error - Cannot start new container, rollbacking to previous container
+              docker start \${containersNamesShell[\$INDEX]}-backup && docker rename \${containersNamesShell[\$INDEX]}-backup \${containersNamesShell[\$INDEX]}
+              fi
+          let INDEX=\${INDEX}+1
+        done
+        
+        if [ "\$(docker images | grep  '<none>')" ]; then
+          echo Removing all untagged images
+          docker rmi \$(docker images | awk '/<none>/ {print \$3}')
+        fi
+              echo Deployment process completed
+    """
+
+    sh "touch dummyFile" // creating dummy file to transfer to avoid source error
+    // All the Deployment steps that have to be performed in deployment server are written in this command string
+    sshPublisher(publishers: [sshPublisherDesc(configName: dmzDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "./dummyFile")],verbose: true)])
+ 
+   }
+  stage('Setting up kernel non k8 Services'){
+    print containersToRun
+    print containersNames
+    command = """
+      INDEX=0
+      containersToRunShell=(${containersToRun})
+      containersNamesShell=(${containersNames})
+      
+      for i in "\${containersToRunShell[@]}"
+        do
+          echo "Deploying Service - " \$i
+          docker pull \$i
+          portExposed="\$(docker inspect --format='{{range \$p, \$conf := .Config.ExposedPorts}} {{index (split \$p "/") 0}} {{end}}' \$i)"
+          portExposedFormatted="\$(echo \$portExposed| xargs)"
+          echo Container will expose services on \$portExposedFormatted 
+          volumeMounted="\$(docker inspect --format='{{range \$p, \$conf := .Config.Volumes}} {{ \$p }} {{end}}' \$i)"
+          portExposedFormatted="\$(echo \$portExposed| xargs)"
+        if [ "\$(docker ps -a | grep \${containersNamesShell[\$INDEX]})" ]; then
+          docker rename \${containersNamesShell[\$INDEX]} \${containersNamesShell[\$INDEX]}-backup && docker stop \${containersNamesShell[\$INDEX]}-backup
+        fi
+          if [ "\$volumeMounted" = "" ]; then 
+            echo "No volume to mount" 
+            docker run -d  -e active_profile_env=${env.environment} -e spring_config_label_env="${branch}" -e spring_config_url_env=http://${env.deploymentsClusterInternalLoadBalancerIp}:51000  -p \$portExposedFormatted:\$portExposedFormatted --name "\${containersNamesShell[\$INDEX]}" \$i
+              if [ \$? -eq 0 ]; then
+              echo Container Started - \${containersNamesShell[\$INDEX]}
+              if [ "\$(docker ps -a | grep \${containersNamesShell[\$INDEX]}-backup)" ]; then
+                echo Removing Backed up container - \${containersNamesShell[\$INDEX]}-backup
+                docker rm \${containersNamesShell[\$INDEX]}-backup
+              fi
+              else
+              echo Error - Cannot start new container, rollbacking to previous container
+              docker start \${containersNamesShell[\$INDEX]}-backup && docker rename \${containersNamesShell[\$INDEX]}-backup \${containersNamesShell[\$INDEX]}
+              fi
+          else
+            echo "Volume to me mounted : \$volumeMounted" 
+            currentDirectory=\$(echo \$(pwd))
+            volumeMountedFormatted="\$(echo \$volumeMounted| xargs)"
+            docker run -d -v \$currentDirectory\$volumeMountedFormatted:\$volumeMountedFormatted  -e active_profile_env=${env.environment} -e spring_config_label_env="${branch}" -e spring_config_url_env=http://${env.deploymentsClusterInternalLoadBalancerIp}:51000 -p \$portExposedFormatted:\$portExposedFormatted --name "\${containersNamesShell[\$INDEX]}" \$i
+              if [ \$? -eq 0 ]; then
+              echo Container Started - \${containersNamesShell[\$INDEX]}
+              if [ "\$(docker ps -a | grep \${containersNamesShell[\$INDEX]}-backup)" ]; then
+                echo Removing Backed up container - \${containersNamesShell[\$INDEX]}-backup
+                docker rm \${containersNamesShell[\$INDEX]}-backup
+              fi
+              else
+              echo Error - Cannot start new container, rollbacking to previous container
+              docker start \${containersNamesShell[\$INDEX]}-backup && docker rename \${containersNamesShell[\$INDEX]}-backup \${containersNamesShell[\$INDEX]}
+              fi					
+          fi;
+          let INDEX=\${INDEX}+1
+        done
+        
+        if [ "\$(docker images | grep  '<none>')" ]; then
+          echo Removing all untagged images
+          docker rmi \$(docker images | awk '/<none>/ {print \$3}')
+        fi
+              echo Deployment process completed
+    """
+
+    sh "touch dummyFile" // creating dummy file to transfer to avoid source error
+    // All the Deployment steps that have to be performed in deployment server are written in this command string
+    sshPublisher(publishers: [sshPublisherDesc(configName: keymanagerDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "./dummyFile")],verbose: true)])
+  }
+}

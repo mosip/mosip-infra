@@ -1,0 +1,91 @@
+commons:
+    dockerRegistry:
+        url: docker-registry.mosip.io:5000
+        pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull
+    configServer:
+        url: http://config-server:51000/config
+    ingress:
+        annotations:
+            kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/proxy-body-size: "50m"
+            ingress.kubernetes.io/proxy-connect-timeout: "3600"
+            ingress.kubernetes.io/proxy-read-timeout: "3600"
+            ingress.kubernetes.io/proxy-send-timeout: "3600"
+            ingress.kubernetes.io/send-timeout: "3600"
+
+services:
+    pre-registration-demographic-service:
+       servicePath: /preregistration/v1/applications
+       servicePort: 8087
+       dockerImageName: pre-registration-demographic-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-document-service:
+       servicePath: /preregistration/v1/documents
+       servicePort: 9093
+       dockerImageName: pre-registration-document-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-datasync-service:
+       servicePath: /preregistration/v1/sync
+       servicePort: 9094
+       dockerImageName: pre-registration-datasync-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-booking-service:
+       servicePath: /preregistration/v1/appointment
+       servicePort: 9095
+       dockerImageName: pre-registration-booking-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-batchjob-service:
+       servicePath: /preregistration/v1/batch
+       servicePort: 9096
+       dockerImageName: pre-registration-batchjob-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-notification-service:
+       servicePath: /preregistration/v1/notification
+       servicePort: 9099
+       dockerImageName: pre-registration-notification-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-login-service:
+       servicePath: /preregistration/v1/login
+       servicePort: 9090
+       dockerImageName: pre-registration-login-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-generateqrcode-service:
+       servicePath: /preregistration/v1/qrCode
+       servicePort: 9091
+       dockerImageName: pre-registration-generateqrcode-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    pre-registration-ui:
+       servicePath: /pre-registration-ui
+       servicePort: 80
+       dockerImageName: pre-registration-ui
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+       volumes: 
+         pre-registration-ui-configuration-volume: 
+            name: pre-registration-ui-configuration # This name should be same as configMaps defined in this file.
+            type: configMap 
+            mountPath: /usr/share/nginx/html/assets/config.json
+            subPath: config.json
+
+configMaps:
+   pre-registration-ui-configuration:
+         config.json: "{\r\n \"BASE_URL\":\"https://dev.mosip.io/\",\r\n \"PRE_REG_URL\":\"preregistration/v1/\"\r\n}"
+    
