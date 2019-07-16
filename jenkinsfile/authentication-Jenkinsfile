@@ -29,6 +29,7 @@ node {
     extensions: [
 
      [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild +'/.*'],
+     [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
      [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
       [$class: 'SparseCheckoutPath', path: '/'+projectToBuild + '/']
      ]]
