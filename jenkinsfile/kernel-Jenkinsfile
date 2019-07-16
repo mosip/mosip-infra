@@ -37,6 +37,7 @@ node {
      only if there is any change in Kernel Module
      */
      [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
+     [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
      /*
      Checkout only Kernel Module through sparse checkout class
      */
