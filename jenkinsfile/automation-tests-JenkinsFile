@@ -10,7 +10,7 @@ node {
      [name: branch]
     ],
     userRemoteConfigs: [
-     [url: 'https://github.com/mosip/mosip', credentialsId: '4c9741a2-4c15-4aad-a13d-3a1206u05321']
+     [url: 'https://github.com/mosip/mosip-functional-tests-mt', credentialsId: '4c9741a2-4c15-4aad-a13d-3a1206u05321']
     ],
     extensions: [
 
