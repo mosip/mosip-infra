@@ -1,6 +1,6 @@
 node {
 
- def branch = env.NEXT_BRANCH_NAME
+ def branch = 'master'
  def projectToBuild = 'automationtests'
  stage('------- Checkout --------') {
   // Checkout only automation tests Module
