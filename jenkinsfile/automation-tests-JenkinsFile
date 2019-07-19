@@ -1,0 +1,54 @@
+node {
+
+ def branch = env.NEXT_BRANCH_NAME
+ def projectToBuild = 'automationtests'
+ stage('------- Checkout --------') {
+  // Checkout only automation tests Module
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: 'https://github.com/mosip/mosip', credentialsId: '4c9741a2-4c15-4aad-a13d-3a1206u05321']
+    ],
+    extensions: [
+
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/'+projectToBuild + '/']
+     ]]
+
+    ],
+   ])
+  }
+ }
+
+
+stage ('---------- mvn-clean-test ---------------') {
+	  dir(branch+"/"+projectToBuild)
+  {
+	sh '/usr/local/maven/bin/mvn clean install'
+	sh "java -Dmaven.test.failure.ignore=true -Dmaven.test.failure.ignore=true -Denv.user=${params.Environment} -Denv.endpoint=https://${params.Environment}.mosip.io -Denv.testLevel=smokeAndRegression -jar ./target/automationtests-0.12.16-jar-with-dependencies.jar"	  
+  }
+  
+  publishHTML(
+   target:[
+   allowMissing: false, 
+   alwaysLinkToLastBuild: false, 
+   keepAll: true, 
+   reportDir: branch+"/"+projectToBuild+"/testng-report", 
+   reportFiles: 'MOSIP_ModuleLevelAutoRun_TestNGReport.html', 
+   reportName: 'HTML Report'
+])
+}
+          recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
+emailext ( 
+	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
+	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER'",
+	    body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+	    to: "$recipients",
+	    from: '"Jenkins" <info@mosip.io>'
+	)
+
+
+}
