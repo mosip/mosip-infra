@@ -1,0 +1,354 @@
+---
+- name: Devops Setup
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  vars:
+    docker_registry_username: admin
+    docker_registry_image_pull_secret_name: docker-registry-image-pull-secret
+    custom_htpswd_file_location: "/passwordfile"
+    jenkins_agent_jnlp_custom_image_name: "jenkins-slave-custom-jnlp"
+    jenkins_agent_jnlp_custom_image_tag: "0.1"
+    # Dont change artifactory username, it defaults to admin. If changed, jenkins will not be
+    # able to connect to artifactory.
+    artifactory_username: admin
+
+  vars_prompt:
+    - name: "scm_repo_url"
+      prompt: "Enter SCM repository SSH url, which you use to clone the source code"
+      default: "localhost/repository"
+      
+      private: no
+    - name: "scm_repo_branch"
+      prompt: "Enter the repository branch containing the code"
+      default: "master"
+      private: no
+    - name: "scm_username"
+      prompt: "Enter your username for scm?"
+      default: "myuser"
+      private: no
+    - name: "docker_registry_password"
+      prompt: "Enter password that you want to setup for docker registry?"
+      default: "Welcome123"
+      private: no
+      confirm: yes
+    - name: "artifactory_password"
+      prompt: "Enter password that you want to setup for artifactory server?"
+      default: "Welcome123"
+      private: no
+      confirm: yes
+    - name: "jenkins_admin_password"
+      prompt: "Enter password that you want to setup for Jenkins server?"
+      default: "Welcome123"
+      private: no
+      confirm: yes
+  pre_tasks:
+    - pause:
+        prompt: "What is the name of your application?"
+      register: application
+      when: application_name is not defined
+
+  tasks:
+
+  - name: Make application name persistant
+    set_fact:
+      application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
+    when: application_name is not defined
+
+  - name: Make scm branch persistant
+    set_fact:
+      scm_branch: "{{ scm_repo_branch }}"
+
+  - name: Make scm url persistant
+    set_fact:
+      scm_url: "{{ scm_repo_url }}"
+
+  - name: Make scm credentialsID persistant
+    set_fact:
+      application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
+    when: application_name is not defined
+
+  - name: Printing User Inputs
+    debug:
+      msg:
+        - "You have entered following inputs"
+        - "********************************************************************"
+        - "Application Name : {{ application_name }}"
+        - "SCM Repo URL : {{ scm_repo_url }}"
+        - "Repo Branch : {{ scm_repo_branch }}"
+        - "SCM Repo Username : {{ scm_username }}"
+
+  - name: Confirm Inputs
+    pause: prompt='Please confirm you want to continue with above values! Press return to continue. Press Ctrl+c and then "a" to abort'
+
+  - name: Generate ssh key for SCM Provider
+    command: ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+    args:
+      creates: ~/.ssh/id_rsa
+
+  - name: Getting private ssh key for SCM Provider
+    command: cat ~/.ssh/id_rsa
+    register: output_ssh_private_key_generate
+    
+  - name: Printing Private SSH Key
+    debug: 
+      msg: "{{ output_ssh_private_key_generate | json_query('stdout')  }}"
+
+  - name: Getting public ssh key for SCM
+    command: cat ~/.ssh/id_rsa.pub
+    register: output_ssh_public_key_generate
+    
+  - name: Printing Public SSH Key
+    debug: 
+      msg: "\nAdd this SSH Key to your SCM Provider Account- \n\n{{ output_ssh_public_key_generate | json_query('stdout')  }}"
+  - pause:
+      prompt: "Make sure you have pasted the public key to your SCM provider account! Press return to continue."
+
+
+  - name: Including Devops Kubernetes cluster configuration values from variable file.
+    include_vars:
+        file: ./configurations.yml
+        name: k8
+
+  - name: Including Azure credentials configuration values from variable file.
+    include_vars:
+        file: ../configurations/common-configurations.yml
+        name: common
+
+  # - name: Print environments
+  #   debug:
+  #     msg:
+  #       - "Following are the environments for which Jenkins file will be setup."
+  #       - "Environments: {{'{'}}{{ common.environments|join(', ') }}{{'}'}}"
+
+  - name: Printing configuration for kubernetes cluster
+    debug:
+      msg:
+        - "Following are the values for configuring Devops Kubernetes cluster"
+        - "********************************************************************"
+        - "Numer for Agent Nodes : {{ k8.agent_count }}"
+        - "Location of Cluster : {{ k8.location }}"
+        - "Azure Client ID : {{ common.client_id }}"
+        - "Azure Client Secret : {{ common.client_secret }}"
+        - "Operating System Type : {{ k8.os_type }}"
+        - "Admin Username For Node VMs : {{ k8.admin_username }}"
+        - "VM Type for each Agent Node : {{ k8.vm_size }}"
+        - "Environment tag for the cluster : {{ k8.environment }}"
+        - "OS Disk size for Agent VMs : {{ k8.os_disk_size_gb }} gb"
+
+  - name: Confirm Inputs
+    pause: prompt='Please confirm you want to continue with above values for Devops cluster! If you want to make any changes, change them in the variables.yml file in the same folder. Press return to continue. Press Ctrl+c and then "a" to abort'
+
+  - name: Running Devops Kubernetes cluster creation and setup
+    environment:
+        ARM_SUBSCRIPTION_ID: "{{ common.subscription_id }}"
+        ARM_CLIENT_ID: "{{ common.client_id }}"
+        ARM_CLIENT_SECRET: "{{ common.client_secret }}"
+        ARM_TENANT_ID: "{{ common.tenant_id }}"
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-setup'
+      state: present
+      force_init: true
+      variables:
+        dns_prefix: "{{ application_name }}-devops"
+        cluster_name: "{{ application_name }}"
+        resource_group_name: "{{ application_name }}-devops-rg"
+        ssh_public_key: ~/.ssh/id_rsa.pub
+        agent_count: "{{ k8.agent_count }}"
+        location: "{{ k8.location }}"
+        client_id: "{{ common.client_id }}"
+        client_secret: "{{ common.client_secret }}"
+        os_type: "{{ k8.os_type }}"
+        admin_username: "{{ k8.admin_username }}"
+        vm_size: "{{ k8.vm_size }}"
+        environment: "{{ k8.environment }}"
+        os_disk_size_gb : "{{ k8.os_disk_size_gb }}"
+    register: output_k8_cluster_setup
+
+  - name:  Public IP and domain name creation for Devops Kubernetes cluster
+    environment:
+        ARM_SUBSCRIPTION_ID: "{{ common.subscription_id }}"
+        ARM_CLIENT_ID: "{{ common.client_id }}"
+        ARM_CLIENT_SECRET: "{{ common.client_secret }}"
+        ARM_TENANT_ID: "{{ common.tenant_id }}"
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-public-ip'
+      state: present
+      force_init: true
+      variables:
+        location: "{{ k8.location }}"
+        resource_group_name: "{{lookup('file', '~/k8_devops_node_resource_group.txt') }}"
+        domain_name_label: "{{ application_name }}-devops"
+
+  - name: Getting Domain Name
+    command: terraform output -state={{ playbook_dir }}/../../terraform-scripts/terraform-devops-setup/terraform-public-ip/terraform.tfstate domain_name 
+    register: output_domain_name
+
+  - name: Getting Public IP Address
+    command: terraform output -state={{ playbook_dir }}/../../terraform-scripts/terraform-devops-setup/terraform-public-ip/terraform.tfstate public_ip 
+    register: output_public_ip
+
+  - name: Printing Domain Name
+    debug: msg="{{ output_domain_name | json_query('stdout')  }}"
+  
+  - name: Printing Public IP Address
+    debug: msg="{{ output_public_ip | json_query('stdout')  }}"
+    
+  - name: Deploying common config on kubernetes cluster
+    run_once: true
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-common-config'
+      state: present
+      force_init: true
+      variables:
+        loadbalancer_ip: "{{ output_public_ip | json_query('stdout') }}"
+    register: output_common_config
+
+  - name: Running Terraform for deploying Kube Lego for lets encrypt
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-kube-lego'
+      state: present
+      force_init: true
+    register: kube_lego_output_tf
+
+  - name: Printing tf
+    debug: msg="{{ kube_lego_output_tf }}"
+
+  - name: Ensuring htpasswd credentials are configured for docker registry
+    command: "docker run --entrypoint htpasswd registry:2 -Bbn {{ docker_registry_username }} {{ docker_registry_password }}"
+    register: htpasswd_content
+
+  - debug: msg="{{ htpasswd_content | json_query('stdout') }}"
+
+  - name: Ansible create file with htpasswd content
+    copy:
+      dest: "{{ custom_htpswd_file_location }}"
+      content: "{{ htpasswd_content | json_query('stdout') }}"
+
+  - name: Running Terraform for deploying Docker Registry
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-docker-registry'
+      state: present
+      force_init: true
+      variables:
+        secrets_htpasswd_file: "{{ custom_htpswd_file_location }}"
+        domain_name: "{{ output_domain_name | json_query('stdout')  }}"
+        docker_registry_username: "{{ docker_registry_username }}"
+        docker_registry_password: "{{ docker_registry_password }}"
+        docker_registry_image_pull_secret_name: "{{ docker_registry_image_pull_secret_name }}"
+    register: docker_registry_output_tf
+
+  - name: Printing tf
+    debug: msg="{{ docker_registry_output_tf }}"
+
+  - name: Deploying Jfrog on kubernetes cluster
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-jfrog'
+      state: present
+      force_init: true
+      variables:
+        domain_name: "{{ output_domain_name | json_query('stdout')  }}"
+        password: "{{ artifactory_password }}"
+    register: jfrog_output_tf
+  
+  - name: Jfrog deployment result
+    debug: msg="{{ jfrog_output_tf }}"
+      
+  - name: "Waiting for Docker Registry to come up"
+    uri:
+      url: "https://{{ output_domain_name | json_query('stdout')  }}/v2/"
+      status_code: 200
+      user: "{{ docker_registry_username }}"
+      password: "{{ docker_registry_password }}"
+    register: result
+    until: result.status == 200
+    retries: 60
+    delay: 1
+
+  - name: Log into private registry that we deployed earlier and force re-authorization
+    docker_login:
+      registry: "{{ output_domain_name | json_query('stdout')  }}"
+      username: "{{ docker_registry_username }}"
+      password: "{{ docker_registry_password }}"
+      reauthorize: yes
+
+  - name: Build jenkins slave jnlp custom image and push it to a private repo ..This may take some time
+    docker_image:
+      path: ../configurations/jenkins-slave-config/
+      name: "{{ output_domain_name | json_query('stdout')  }}/{{ jenkins_agent_jnlp_custom_image_name }}"
+      tag: "{{ jenkins_agent_jnlp_custom_image_tag }}"
+      push: yes
+
+#pod has unbound immediate PersistentVolumeClaims
+  - name: Deploying Jenkins on kubernetes cluster
+    terraform:
+      project_path: '../../terraform-scripts/terraform-devops-setup/terraform-k8-jenkins'
+      state: present
+      force_init: true
+      variables:
+        master_jenkins_url: "https://{{ output_domain_name | json_query('stdout')  }}/jenkins"
+        artifactory_url: "http://jfrog-jfrog:8081/artifactory"
+        artifactory_username: "{{ artifactory_username }}"
+        artifactory_password: "{{ artifactory_password }}"
+        domain_name: "{{ output_domain_name | json_query('stdout')  }}"
+        scm_username: "{{ scm_username }}"
+        scm_repo_url: "{{ scm_repo_url }}"
+        docker_registry_url: "https://{{ output_domain_name | json_query('stdout')  }}"
+        scm_repo_branch: "{{ scm_repo_branch }}"
+        docker_registry_username: "{{ docker_registry_username }}"
+        docker_registry_password: "{{ docker_registry_password }}"
+        docker_registry_image_pull_secret: "{{ docker_registry_image_pull_secret_name }}"
+        jenkins_agent_jnlp_custom_image_name: "{{ output_domain_name | json_query('stdout')  }}/{{ jenkins_agent_jnlp_custom_image_name }}"
+        jenkins_agent_jnlp_custom_image_tag: "{{ jenkins_agent_jnlp_custom_image_tag }}"
+        jenkins_admin_password: "{{ jenkins_admin_password }}"
+        key_file: "~/.ssh/id_rsa"
+  #      environments: "{{'{'}}{{ common.environments|join(', ') }}{{'}'}}"
+
+    register: jenkins_output_tf
+
+  - name: Jenkins deployment result
+    debug: msg="{{ jenkins_output_tf }}"
+
+  - name: Make Devops cluster Domain name persistant
+    set_fact:
+      devops_cluster_dns: "https://{{ output_domain_name | json_query('stdout')  }}"
+
+  - name: Make jenkins username persistant
+    set_fact:
+      jenkins_username: "admin"
+
+  - name: Make jenkins password persistant
+    set_fact:
+      jenkins_password: "{{ jenkins_admin_password }}"
+
+  - name: Make docker registry username persistant
+    set_fact:
+      docker_registry_username: "{{ docker_registry_username }}"
+
+  - name: Make docker registry password persistant
+    set_fact:
+      docker_registry_password: "{{ docker_registry_password }}"
+
+  - name: Make jfrog username persistant
+    set_fact:
+      jfrog_username: "admin"
+
+  - name: Make docker registry password persistant
+    set_fact:
+      jfrog_password: "{{ docker_registry_password }}"
+
+  - name: Getting scm credentials ID
+    command: terraform output -state={{ playbook_dir }}/../../terraform-scripts/terraform-devops-setup/terraform-k8-jenkins/terraform.tfstate scm_credential_id 
+    register: output_scm_credentials_id
+
+
+  - name: Make scm credentials persistant
+    set_fact:
+      scm_credentials: "{{ output_scm_credentials_id | json_query('stdout')  }}"
+
+
+
+
+
+
+

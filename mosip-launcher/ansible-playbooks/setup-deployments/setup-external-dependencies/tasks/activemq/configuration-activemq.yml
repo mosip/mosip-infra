@@ -1,0 +1,129 @@
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('activemq-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name  }}"
+
+- name: Check uname for ActiveMQ server for {{ env_name  }}
+  command: uname -a
+  register: system_info_activemq
+
+- name: Printing system info for ActiveMQ for {{ env_name  }}
+  debug: msg="{{ system_info_activemq | json_query('stdout')  }}"
+
+
+- name: Including Services configuration values from variable file.
+  include_vars:
+      file: ../../../../configurations/services-configurations.yml
+      name: services
+
+- name: Open port {{ services.activemq_portal_port }}
+  become: yes
+  firewalld:
+    port: "{{ services.activemq_portal_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port {{ services.activemq_port }}
+  become: yes
+  firewalld:
+    port: "{{ services.activemq_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+
+- name: Install java for activemq for {{ env_name  }} environment
+  become: yes
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: present
+
+- name: Getting JAVA home path to set
+  become: yes
+  shell: 'echo $(readlink -f /etc/alternatives/java) | sed "s|/bin/java||"'
+  register: java_home
+
+- name: Printing output java home
+  debug: msg="{{ java_home }}"
+
+- name: Update bashrc for {{ hostvars['localhost']['global_username'] }} user for activemq for {{ env_name }}
+  run_once: true
+  lineinfile:
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/.bashrc
+    line: "export JAVA_HOME={{ java_home| json_query('stdout') }}"
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    insertafter: EOF
+    create: True
+
+
+- name: Set environment variable  JAVA_HOME
+  become: yes
+  run_once: true
+  lineinfile:
+    dest: /etc/profile
+    line: "export JAVA_HOME={{ java_home| json_query('stdout') }}"
+    state: present
+    insertafter: EOF
+
+- name: Sourcing .bashrc file
+  shell: "source /home/{{ hostvars['localhost']['global_username'] }}/.bashrc"
+
+- name: Sourcing /etc/profile file
+  become: yes
+  shell: "source /etc/profile"
+
+- name: Install activemq binary
+  become: yes
+  shell:
+    cmd: "wget https://archive.apache.org/dist/activemq/5.15.0/apache-activemq-5.15.0-bin.zip"
+    chdir: /opt/
+  args:
+    creates: /opt/apache-activemq-5.15.0-bin.zip
+
+- name: Unzip binary
+  become: yes
+  shell:
+    cmd: "unzip apache-activemq-5.15.0-bin.zip"
+    chdir: /opt/
+  args:
+    creates: /opt/apache-activemq-5.15.0
+
+- name: Make ActiveMQ binary executable
+  become: yes
+  shell:
+    cmd: "chmod 777 -R /opt/apache-activemq-5.15.0"
+
+- name: Make ActiveMQ binary link
+  become: yes
+  shell:
+    cmd: "ln -s /opt/apache-activemq-5.15.0 /opt/activemq"
+
+- name: Creating activemq service configuration for {{ env_name }}
+  become: yes
+  template:
+    src: ../../configuration/activemq-service-configuration.j2
+    dest: /etc/systemd/system/activemq.service
+    mode: u=rw,g=rw,o=rw
+  
+- name: Make ActiveMQ binary executable
+  become: yes
+  shell:
+    cmd: systemctl daemon-reload
+
+- name: Start service for {{ env_name  }}
+  become: yes
+  service:
+    name: activemq.service
+    state: started
+    enabled: yes
+  register: output_activemq_start
+
+- name: Printing output of Active MQ start environment
+  debug: msg="{{ output_activemq_start | json_query('stdout')}}"
+
+
+

@@ -1,0 +1,33 @@
+---
+- name: Deployment Resource Group
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  pre_tasks:
+    - pause:
+        prompt: "What is the name of your application?"
+      register: application
+      when: application_name is not defined
+
+  vars:
+
+  vars_prompt:
+
+  tasks:
+
+    - name: Make application name persistant
+      set_fact:
+        application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
+      when: application_name is not defined
+
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+
+    - include_tasks: "./tasks/configure-resource-group.yml"
+      # with_sequence: start=1 end={{ environments }}
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+

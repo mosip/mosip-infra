@@ -1,0 +1,191 @@
+- name: Make Proxy Server IP persistant
+  set_fact:
+    proxy_server_ip: "https://{{ hostvars['localhost']['output_public_ip_proxy_server_fact_' + env_name]}}"
+  when: item is defined
+  with_items: 
+    - "output_public_ip_proxy_server_fact_{{ env_name }}"
+
+- name: Make Proxy Server IP persistant
+  set_fact:
+    proxy_server_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_public_ip_proxy_server_fact_{{ env_name }}"
+
+- name: Make Proxy Server DNS persistant
+  set_fact:
+    proxy_server_dns: "https://{{ hostvars['localhost']['output_domain_name_proxy_server_fact_' + env_name]}}"
+  when: item is defined
+  with_items: 
+    - "output_domain_name_proxy_server_fact_{{ env_name }}"
+  
+- name: Make Proxy Server DNS persistant
+  set_fact:
+    proxy_server_dns: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_domain_name_proxy_server_fact_{{ env_name }}"
+
+- name: Make postgres IP persistant
+  set_fact:
+    postgres_server_ip: "{{ hostvars['localhost']['output_private_ip_postgres_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_postgres_fact_{{ env_name }}"
+
+- name: Make postgres IP persistant
+  set_fact:
+    postgres_server_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_postgres_fact_{{ env_name }}"
+
+- name: Make keymanager IP persistant
+  set_fact:
+    keymanager_server_ip: "{{ hostvars['localhost']['output_private_ip_keymanager_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_keymanager_fact_{{ env_name }}"
+
+- name: Make keymanager IP persistant
+  set_fact:
+    keymanager_server_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_keymanager_fact_{{ env_name }}"
+
+- name: Make hdfs master IP persistant
+  set_fact:
+    hdfs_master_ip: "{{ hostvars['localhost']['output_private_ip_hdfs_master_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_hdfs_master_fact_{{ env_name }}"
+
+- name: Make hdfs master IP persistant
+  set_fact:
+    hdfs_master_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_hdfs_master_fact_{{ env_name }}"
+
+- name: Make hdfs slave IP persistant
+  set_fact:
+    hdfs_slave_ip: "{{ hostvars['localhost']['output_private_ip_hdfs_slave_fact_' + env_name]}}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_hdfs_slave_fact_{{ env_name }}"
+
+- name: Make hdfs slave IP persistant
+  set_fact:
+    hdfs_slave_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_hdfs_slave_fact_{{ env_name }}"
+
+- name: Make dmz IP persistant
+  set_fact:
+    dmz_ip: "{{ hostvars['localhost']['output_private_ip_dmz_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_dmz_fact_{{ env_name }}"
+
+- name: Make dmz IP persistant
+  set_fact:
+    dmz_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_dmz_fact_{{ env_name }}"
+
+- name: Make clamav IP persistant
+  set_fact:
+    clamav_ip: "{{ hostvars['localhost']['output_private_ip_clamav_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_clamav_fact_{{ env_name }}"
+
+- name: Make clamav IP persistant
+  set_fact:
+    clamav_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_clamav_fact_{{ env_name }}"
+
+- name: Make activmq IP persistant
+  set_fact:
+    activemq_ip: "{{ hostvars['localhost']['output_private_ip_activemq_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_private_ip_activemq_fact_{{ env_name }}"
+
+- name: Make clamav IP persistant
+  set_fact:
+    activemq_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_private_ip_activemq_fact_{{ env_name }}"
+
+- name: Make deployments_cluster_ip persistant
+  set_fact:
+    deployments_cluster_ip: "https://{{ hostvars['localhost']['output_public_ip_deployments_cluster_fact_' + env_name] }}"
+  when: item is defined
+  with_items: 
+    - "output_public_ip_deployments_cluster_fact_{{ env_name }}"
+
+- name: Make deployments_cluster_ip persistant
+  set_fact:
+    deployments_cluster_ip: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_public_ip_deployments_cluster_fact_{{ env_name }}"
+
+- name: Make deployments_cluster_dns persistant
+  set_fact:
+    deployments_cluster_dns: "https://{{ hostvars['localhost']['output_domain_name_deployments_cluster_fact_' + env_name]}}"
+  when: item is defined
+  with_items: 
+    - "output_domain_name_deployments_cluster_fact_{{ env_name }}"
+  
+- name: Make deployments_cluster_dns persistant
+  set_fact:
+    deployments_cluster_dns: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_domain_name_deployments_cluster_fact_{{ env_name }}"
+
+- name: Make deployments_cluster_config_location persistant
+  set_fact:
+    deployments_cluster_config_location: "<not generated in the current run>"
+  when: item is not defined
+  with_items: 
+    - "output_domain_name_deployments_cluster_fact_{{ env_name }}"
+
+- name: Make deployments_cluster_config_location persistant
+  set_fact:
+    deployments_cluster_config_location: "~/k8_deployment_config_{{ env_name }}.yaml"
+  when: item is defined
+  with_items: 
+    - "output_domain_name_deployments_cluster_fact_{{ env_name }}"
+
+- name: Make private key location  persistant
+  set_fact:
+    private_key_location: "~/.ssh/id_rsa"
+  when: global_username is defined
+
+- name: Make private key location  persistant
+  set_fact:
+    private_key_location: "<not generated in the current run>"
+  when: global_username is not defined
+
+- name: Make username persistant
+  set_fact:
+    global_username: "<not generated in the current run>"
+  when: global_username is not defined
+
+
+- name: Creating template Deployments  box information for {{ env_name }}
+  template:
+    src: ./configuration/deployments-box-information.j2
+    dest: /usr/local/deployments-box-information-{{ env_name }}.txt
+    mode: u=rw,g=rw,o=rw
+  
+  

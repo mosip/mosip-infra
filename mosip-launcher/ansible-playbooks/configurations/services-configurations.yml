@@ -1,0 +1,8 @@
+---
+
+kernel_keymanager_port: 8088
+registration_processor_packet_receiver_port: 8081
+registration_processor_registration_status_port: 8083
+registration_processor_packet_generator_port: 8082
+activemq_portal_port: 8161
+activemq_port: 61616

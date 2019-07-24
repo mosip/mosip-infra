@@ -1,0 +1,37 @@
+- name: Format namenode
+  shell: echo Y | hdfs namenode -format
+
+- name: Starting hdfs cluster for {{ env_name }} environment
+  shell: sh /home/{{ hostvars['localhost']['global_username'] }}/hadoop/sbin/start-dfs.sh
+
+
+- name: Install, configure, and start Apache
+  block:
+  - name: Creating hdfs users
+    become: yes
+    shell: useradd  {{ item }}
+    args:
+      creates: /home/{{ item }}
+    with_items:
+      - regprocessor
+      - prereg
+      - idrepo
+  - name: Creating hdfs user  directory for  users
+    shell: hdfs dfs -mkdir -p /user/{{ item }}
+    with_items:
+      - regprocessor
+      - prereg
+      - idrepo
+  - name: Giving permission for user  directory to  users
+    shell: hdfs dfs -chown -R {{ item }}:{{ item }}  /user/{{ item }}
+    with_items:
+      - regprocessor
+      - prereg
+      - idrepo
+
+
+  
+
+  
+
+

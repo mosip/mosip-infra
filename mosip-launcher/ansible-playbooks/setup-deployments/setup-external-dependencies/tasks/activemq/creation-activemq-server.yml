@@ -1,0 +1,53 @@
+- name: Creating ActiveMQ VM for {{ env_name }} environment
+  environment:
+      ARM_SUBSCRIPTION_ID: "{{ common.subscription_id }}"
+      ARM_CLIENT_ID: "{{ common.client_id }}"
+      ARM_CLIENT_SECRET: "{{ common.client_secret }}"
+      ARM_TENANT_ID: "{{ common.tenant_id }}"
+  terraform:
+    project_path: '../../../terraform-scripts/terraform-deployments-setup/terraform-activemq-setup/terraform-vm-setup'
+    state: present
+    workspace: "{{ env_name  }}"
+    force_init: true
+    variables:
+      application_name: "{{ config.resource_group_name }}-{{ env_name  }}"
+      resource_group_name: "{{ config.resource_group_name }}-{{ env_name  }}-rg"
+      subnet_id: "{{ hostvars['localhost']['output_subnet_id_' + env_name] | json_query('stdout')}}"
+      hostname: "{{ config.resource_group_name }}-{{ env_name  }}-activemq"
+      username: "{{ global_username }}"
+      # # password: "{{ global_password }}"
+      location: "{{ config.location }}"
+      vm_size: "{{ config.external_dependencies_vm_size }}"
+      ssh_public_key: "~/.ssh/id_rsa.pub"
+  register: output_activemq_vm_setup_{{ env_name }}
+
+
+- name: Getting Private IP of ActiveMQ for {{ env_name }} environment
+  command: terraform output -state={{ playbook_dir }}/../../../terraform-scripts/terraform-deployments-setup/terraform-activemq-setup/terraform-vm-setup/terraform.tfstate.d/{{ env_name  }}/terraform.tfstate network_interface_private_ip
+  register: output_private_ip_activemq_{{ env_name }}
+
+- name: Printing output of ActiveMQ VM creation for {{ env_name }} environment
+  debug: msg="{{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}}"
+
+- name: output_private_ip_activemq for {{ env_name }} environment
+  set_fact:
+    output_private_ip_activemq_fact_{{ env_name }}: "{{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}}"
+
+
+- name: Adding ActiveMQ host in ansible for configuration for {{ env_name }} environment
+  add_host:
+    hostname: "activemq-vm-{{ env_name }}"
+    ansible_host: "{{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}}"
+    ansible_user: "{{ global_username }}"
+    ansible_port: 22
+    ansible_ssh_common_args: -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -q {{ global_username }}@{{ hostvars['localhost']['output_public_ip_proxy_server_' + env_name] | json_query('stdout')}}"
+  
+
+- name: add ActiveMQ host for {{ env_name }} environment to known hosts
+  connection: local
+  run_once: true
+  shell: "ssh-keyscan -H {{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}} >> ~/.ssh/known_hosts"
+
+- name: private_key_content for activemq {{ env_name }} environment
+  set_fact:
+    private_key_content_activemq_{{ env_name  }}: "{{ lookup('file', '~/.ssh/id_rsa') }}"

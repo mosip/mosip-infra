@@ -1,0 +1,112 @@
+  
+
+  - name: Make Domain Name for Deployments Kubernetes cluster for {{ env_name }} environment persistant
+    set_fact:
+      base_url: "https://{{ hostvars['localhost']['output_domain_name_proxy_server_' + env_name] | json_query('stdout')}}"
+    # # when: item is defined
+    # # with_items: 
+    # #   - "output_public_ip_deployments_cluster_{{ env_name }}"
+      
+  - name: Make HDFS master url for {{ env_name }} environment persistant
+    set_fact:
+      hdfs_namenode_url: "hdfs://{{ hostvars['localhost']['output_private_ip_hdfs_master_' + env_name] | json_query('stdout')}}:51000"
+
+  - name: Make Clamav URL for {{ env_name }} environment persistant
+    set_fact:
+      virus_scanner_url: "{{ hostvars['localhost']['output_private_ip_clamav_' + env_name] | json_query('stdout')}}"
+
+  - name: Make DMZ URL for {{ env_name }} environment persistant
+    set_fact:
+      dmz_hostname: "{{ hostvars['localhost']['output_private_ip_dmz_' + env_name] | json_query('stdout')}}"
+
+  - name: Make activemq URL for {{ env_name }} environment persistant
+    set_fact:
+      activemq_address: "{{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}}"
+
+  - name: Including password configuration values from variable file.
+    include_vars:
+        file: ../../configurations/services-configurations.yml
+        name: services
+
+  - name: Make activemq port for {{ env_name }} environment persistant
+    set_fact:
+      activemq_port: "{{ services.activemq_port }}"
+
+  - name: Make Clamav port for {{ env_name }} environment persistant
+    set_fact:
+      virus_scanner_port: 3310
+
+  - name: Make postgres url for {{ env_name }} environment persistant
+    set_fact:
+      db_hostname: "{{ hostvars['localhost']['output_private_ip_postgres_' + env_name] | json_query('stdout')}}"
+
+  - name: Make postgres port for {{ env_name }} environment persistant
+    set_fact:
+      db_port: 9001
+
+  - name: Make private key content for dmz server for {{ env_name }} environment persistant
+    set_fact:
+      dmz_private_key_content: "{{ hostvars['localhost']['private_key_content_dmz_' + env_name]}}"
+
+  - name: Including password configuration values from variable file.
+    include_vars:
+        file: ../../configurations/postgres-configuration.yml
+        name: password
+  
+  - name: Making all the passwords for postgres persistant.
+    set_fact:
+      postgres_password: "{{ password.postgres_password }}"
+      kerneluser_password: "{{ password.kerneluser_password }}"
+      masteruser_password: "{{ password.masteruser_password }}"
+      regprcuser_password: "{{ password.regprcuser_password }}"
+      iamuser_password: "{{ password.iamuser_password }}"
+      prereguser_password: "{{ password.prereguser_password }}"
+      idauser_password: "{{ password.idauser_password }}"
+      idrepouser_password: "{{ password.idrepouser_password }}"
+      idmapuser_password: "{{ password.idmapuser_password }}"
+      audituser_password: "{{ password.audituser_password }}"
+
+  - name: Registrying all the templates present
+    command: "ls /opt/configuration/config-templates"
+    register: template_files
+
+
+  - name: Creates directory for rendered configuration
+    file:
+      path: /opt/configuration/rendered-config
+      state: directory
+
+  - name: Creates temporary directory for rendered configuration
+    file:
+      path: /opt/configuration/rendered-config-temp
+      state: directory
+
+  - name: Rendering configurations from template files
+    template:
+      src: /opt/configuration/config-templates/{{ item }}
+      dest: /opt/configuration/rendered-config-temp/{{ item  | replace('.j2','')}}
+      mode: u=rw,g=rw,o=rw
+    with_items: "{{ template_files.stdout_lines }}"
+
+  - name: Registrying all the templates present
+    command: "ls /opt/configuration/rendered-config-temp"
+    register: updated_template_files
+
+  - name: Rendering configurations from template files
+    template:
+      src: /opt/configuration/rendered-config-temp/{{ item }}
+      dest: /opt/configuration/rendered-config/{{ item  | replace('env',env_name)}}
+      mode: u=rw,g=rw,o=rw
+    with_items: "{{ updated_template_files.stdout_lines }}"
+
+  - name: Rendering configurations from template files
+    command: "rm -rf /opt/configuration/rendered-config-temp"
+
+  - name: Pushing rendered configuration back to github
+    shell: |
+      git add .
+      git commit -m "adding rendered configuration in rendered-config file which will be used by all the services"
+      git push origin "{{ scm_branch }}"
+    args:
+      chdir: /opt/configuration
+  

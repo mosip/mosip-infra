@@ -1,0 +1,7 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: {{ template "jenkins.fullname" . }}-jobs
+# data:
+#   master-build-all-modules: |-
+#     {{- (tpl (.Files.Get "configuration/build-all-modules-job-config.xml") . ) | nindent 4 }}

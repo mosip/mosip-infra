@@ -1,0 +1,121 @@
+---
+- name: Configuration Setup for config sever and deployments
+  hosts: localhost
+  become: yes
+  gather_facts: false
+
+  pre_tasks:
+  - pause:
+      prompt: "What is the name of your application?"
+    register: application
+    when: application_name is not defined
+
+  - pause:
+      prompt: "Enter SCM repository ssh url, which contains configuration files and config-templates folder in same branch name as that of MOSIP code"
+    register: scm_config_repo_url
+
+  - pause:
+      prompt: "Enter SCM repository branch, which contains configuration template files. Should be same as code branch"
+    register: scm_config_branch
+    when: scm_branch is not defined
+
+  - pause:
+      prompt: "Enter Jenkins URL, to setup configuration into Jenkins"
+    register: jenkins_address
+    when: devops_cluster_dns is not defined and jenkins_url is not defined
+
+  - pause:
+      prompt: "Enter Jenkins username, to setup configuration into Jenkins?"
+    register: jenkins_uname
+    when: jenkins_username is not defined
+
+  - pause:
+      prompt: "Enter Jenkins password, to setup configuration into Jenkins"
+    register: jenkins_pass
+    when: jenkins_password is not defined
+
+  - pause:
+      prompt: "Enter Docker registry username, to setup configuration for helm charts in jenkins"
+    register: docker_registry_user
+    when: docker_registry_username is not defined
+
+  - pause:
+      prompt: "Enter Docker registry password, to setup configuration for helm charts in jenkins"
+    register: docker_registry_pass
+    when: docker_registry_password is not defined
+
+  - pause:
+      prompt: "Enter Docker registry url, to setup configuration for helm charts in jenkins"
+    register: docker_registry_address
+    when: devops_cluster_dns is not defined and docker_registry_url is not defined
+
+
+  tasks:
+
+    - name: Make jenkins_url persistant
+      set_fact:
+          jenkins_url: "{{ hostvars['localhost']['jenkins_address']['user_input'] }}"
+      when: devops_cluster_dns is not defined and jenkins_url is not defined
+  
+    - name: Make SCM branch  persistant
+      set_fact:
+          scm_branch: "{{ hostvars['localhost']['scm_config_branch']['user_input'] }}"
+      when: scm_branch is not defined
+
+    - name: Make SCM config url  persistant
+      set_fact:
+          scm_config_repo_url: "{{ hostvars['localhost']['scm_config_repo_url']['user_input'] }}"
+
+    - name: Make docker registry url persistant
+      set_fact:
+          docker_registry_url: "{{ hostvars['localhost']['docker_registry_address']['user_input'] }}"
+      when: devops_cluster_dns is not defined and docker_registry_url is not defined
+  
+    - name: Make docker registry url persistant
+      set_fact:
+          docker_registry_url: "{{ hostvars['localhost']['devops_cluster_dns'] | replace('https://','') }}"
+      when: devops_cluster_dns is defined
+
+    - name: Make jenkins_username persistant
+      set_fact:
+          jenkins_username: "{{ hostvars['localhost']['jenkins_uname']['user_input'] }}"
+      when: jenkins_username is not defined
+
+    - name: Make jenkins_password persistant
+      set_fact:
+          jenkins_password: "{{ hostvars['localhost']['jenkins_pass']['user_input'] }}"
+      when: jenkins_password is not defined
+
+    - name: Make docker registry username persistant
+      set_fact:
+          docker_registry_username: "{{ hostvars['localhost']['docker_registry_user']['user_input'] }}"
+      when: docker_registry_username is not defined
+
+    - name: Make docker registry password persistant
+      set_fact:
+          docker_registry_password: "{{ hostvars['localhost']['docker_registry_pass']['user_input'] }}"
+      when: docker_registry_password is not defined
+
+    - name: Make application name persistant
+      set_fact:
+        application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
+      when: application_name is not defined
+
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../configurations/common-configurations.yml
+          name: common
+
+    - include_tasks: './tasks/code-checkout.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/render-config-properties.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/configure-jenkins-environment-variables.yml'
+
+

@@ -1,0 +1,84 @@
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('clamav-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name  }}"
+
+- name: Open port 3310
+  become: yes
+  firewalld:
+    port: 3310/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Check uname for clamav server for {{ env_name  }}
+  command: uname -a
+  register: system_info_clamav_{{ env_name  }}
+
+- name: Printing system info for clamav for {{ env_name  }} for {{ ansible_hostname }}
+  debug: msg="{{ hostvars[inventory_hostname]['system_info_clamav_' + env_name] | json_query('stdout')}}"
+
+- name: Install epel-release for clamav server for {{ env_name  }}
+  become: yes
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Enable Repos for RHEL for clamav server for {{ env_name  }}
+  become: yes
+  ignore_errors: yes  # comment it out once shifted to RHEL
+  command: subscription-manager repos --enable "rhel-*-optional-rpms" --enable "rhel-*-extras-rpms"  --enable "rhel-ha-for-rhel-*-server-rpms"
+
+- name: Install clamav and dependencies for clamav server for {{ env_name  }}
+  become: yes
+  yum:
+    name: ['epel-release', 'clamav-server', 'clamav-data', 'clamav-update', 'clamav-filesystem', 'clamav', 'clamav-scanner-systemd', 'clamav-devel', 'clamav-lib', 'clamav-server-systemd']
+    state: present
+
+- name: Updating FreshClam configuration for clamav server for {{ env_name  }}
+  become: yes
+  command: sed -i '/^Example$/d' /etc/freshclam.conf
+
+- name: Updating scan configuration for clamav server for {{ env_name  }}
+  become: yes
+  command: sed -i '/^Example$/d' /etc/clamd.d/scan.conf
+
+- name: Uncommenting scan configuration localsocket for clamav server for {{ env_name  }}
+  become: yes
+  command: sed -i -e 's/#LocalSocket \/var\/run\/clamd.scan\/clamd.sock/LocalSocket \/var\/run\/clamd.scan\/clamd.sock/g' /etc/clamd.d/scan.conf
+
+- name: Uncommenting scan configuration TCPSocket for clamav server for {{ env_name  }}
+  become: yes
+  command: sed -i -e 's/#TCPSocket 3310/TCPSocket 3310/g' /etc/clamd.d/scan.conf
+
+- name: Updating freshclam conf removing extra lines for clamav server for {{ env_name  }}
+  become: yes
+  command: sed -i '/REMOVE ME/d' /etc/sysconfig/freshclam
+
+- name: copying freshclam config for clamav server for {{ env_name  }}
+  become: yes
+  template:
+    src: ../../configuration/freshclam-config.j2
+    dest: /usr/lib/systemd/system/clam-freshclam.service
+    mode: u=rw,g=rw,o=rw
+
+- name: systemctl daemon-reload for clamav server for {{ env_name  }}
+  become: yes
+  command: systemctl daemon-reload
+
+- name: Start clam-freshclam.service for clamav server for {{ env_name  }}
+  become: yes
+  service:
+    name: clam-freshclam.service
+    state: started
+    enabled: yes
+
+- name: Start clamd@scan for clamav server for {{ env_name  }}
+  become: yes
+  service:
+    name: clamd@scan
+    state: started
+    enabled: yes
+

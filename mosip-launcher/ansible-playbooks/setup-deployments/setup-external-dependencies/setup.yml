@@ -1,0 +1,353 @@
+---
+- name: Deployment External Services Setup
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  
+  pre_tasks:
+    - pause:
+        prompt: "What is the name of your application?"
+      register: application
+      when: application_name is not defined
+
+    - pause:
+        prompt: "Enter Jenkins URL, to setup configuration into Jenkins"
+      register: jenkins_address
+      when: devops_cluster_dns is not defined and jenkins_url is not defined
+
+    - pause:
+        prompt: "Enter Jenkins username, to setup configuration into Jenkins?"
+      register: jenkins_uname
+      when: jenkins_username is not defined
+
+    - pause:
+        prompt: "Enter Jenkins password, to setup configuration into Jenkins"
+      register: jenkins_pass
+      when: jenkins_password is not defined
+
+    - pause:
+        prompt: "Enter URL for SCM repo ssh containing the MOSIP code"
+      register: scm_repo_url
+      when: scm_url is not defined
+
+    - pause:
+        prompt: "Enter SCM branch containing the MOSIP code"
+      register: scm_config_branch
+      when: scm_branch is not defined
+
+    - name: Generate ssh key for SCM Provider
+      command: ssh-keygen -q -t rsa -f ~/.ssh/id_rsa -C "" -N ""
+      args:
+        creates: ~/.ssh/id_rsa
+
+    - name: Getting private ssh key for SCM Provider
+      command: cat ~/.ssh/id_rsa
+      register: output_ssh_private_key_generate
+      
+    - name: Printing Private SSH Key
+      debug: 
+        msg: "{{ output_ssh_private_key_generate | json_query('stdout')  }}"
+
+    - name: Getting public ssh key for SCM
+      command: cat ~/.ssh/id_rsa.pub
+      register: output_ssh_public_key_generate
+      
+    - name: Printing Public SSH Key
+      debug: 
+        msg: "\nAdd this SSH Key to your SCM Provider Account- \n\n{{ output_ssh_public_key_generate | json_query('stdout')  }}"
+    - pause:
+        prompt: "Make sure you have pasted the public key to your SCM provider account! Press return to continue."
+
+    - name: Creating knownhost file
+      file:
+        path:  ~/.ssh/known_hosts
+        state: touch
+
+    - name: Adding git providers to known hosts
+      run_once: true
+      shell: |
+        # If you are using SCM providers other than github, gitlab and bitbucket, add them here
+        ssh-keyscan -H  'github.com' >> ~/.ssh/known_hosts
+        ssh-keyscan -H  'gitlab.com' >> ~/.ssh/known_hosts
+        ssh-keyscan -H  'bitbucket.org' >> ~/.ssh/known_hosts
+
+    - pause:
+        prompt: "Enter Docker registry url, to connect keymanager vms/ dmz vms to registry"
+      register: docker_registry_address
+      when: devops_cluster_dns is not defined and docker_registry_url is not defined
+    - pause:
+        prompt: "Enter Docker registry username, to connect keymanager vms/ dmz vms to registry"
+      register: docker_registry_user
+      when: docker_registry_username is not defined
+
+    - pause:
+        prompt: "Enter Docker registry password, to connectkeymanager vms/ dmz vms to registry"
+      register: docker_registry_pass
+      when: docker_registry_password is not defined
+
+
+
+  vars_prompt:
+    - name: "global_username"
+      prompt: "Enter your username, for VMs creation"
+      default: "myuser"
+      private: no
+
+  vars:
+    number_list: []  
+    env_names: []
+    # - name: "environment names"
+    #   prompt: "Enter {{ item }} environment name"
+    #   with_sequence: start=1 end={{ environments }}
+
+
+  tasks:
+
+
+    - name: Make application name persistant
+      set_fact:
+        application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
+      when: application_name is not defined
+
+    - name: Make docker registry username persistant
+      set_fact:
+          docker_registry_username: "{{ hostvars['localhost']['docker_registry_user']['user_input'] }}"
+      when: docker_registry_username is not defined
+
+    - name: Make docker registry password persistant
+      set_fact:
+          docker_registry_password: "{{ hostvars['localhost']['docker_registry_pass']['user_input'] }}"
+      when: docker_registry_password is not defined
+
+    - name: Make docker registry url persistant
+      set_fact:
+          docker_registry_url: "{{ hostvars['localhost']['docker_registry_address']['user_input'] }}"
+      when: devops_cluster_dns is not defined and docker_registry_url is not defined
+  
+    - name: Make docker registry url persistant
+      set_fact:
+          docker_registry_url: "{{ hostvars['localhost']['devops_cluster_dns'] | replace('https://','') }}"
+      when: devops_cluster_dns is defined
+
+    - name: Make SCM URL persistant
+      set_fact:
+        scm_url: "{{ hostvars['localhost']['scm_repo_url']['user_input'] }}"
+      when: scm_url is not defined
+
+    - name: Make SCM branch  persistant
+      set_fact:
+          scm_branch: "{{ hostvars['localhost']['scm_config_branch']['user_input'] }}"
+      when: scm_branch is not defined
+
+    - name: Make jenkins_url persistant
+      set_fact:
+          jenkins_url: "{{ hostvars['localhost']['jenkins_address']['user_input'] }}"
+      when: devops_cluster_dns is not defined and jenkins_url is not defined
+
+    - name: Make jenkins_username persistant
+      set_fact:
+          jenkins_username: "{{ hostvars['localhost']['jenkins_uname']['user_input'] }}"
+      when: jenkins_username is not defined
+
+    - name: Make jenkins_password persistant
+      set_fact:
+          jenkins_password: "{{ hostvars['localhost']['jenkins_pass']['user_input'] }}"
+      when: jenkins_password is not defined
+
+    # # - name: Make number of environments  persistant
+    # #   set_fact:
+    # #     environments: "{{ hostvars['localhost']['envs']['user_input'] }}"
+    # #   when: environments is not defined
+      
+    # # - name: Build a list of all sequences.
+    # #   set_fact:
+    # #     number_list: "{{ number_list }} + [ '{{ item }}' ]"
+    # #   with_sequence: start=1 end={{ environments }}
+
+    # # - pause:
+    # #     prompt: "Name of environment {{ number_list }}?"
+    # #   register: "env_var"
+    # #   with_sequence: start=1 end={{ environments }}
+
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - name: Make global user name persistant for External dependencies
+      set_fact:
+        global_username: "{{ global_username }}"
+
+    - name: Including Deployments configuration values from variable file.
+      include_vars:
+          file: ../configurations.yml
+          name: config
+
+    - include_tasks: './tasks/network-setup/creation-vnet-and-subnet.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/proxy-server/creation-proxy-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/keymanager/creation-keymanager-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/dmz/creation-dmz-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/clamav/creation-clamav-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/hdfs/creation-hdfs-master-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/hdfs/creation-hdfs-slave-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/postgres/creation-postgres-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+
+    - include_tasks: './tasks/activemq/creation-activemq-server.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name
+ 
+- name: Configuring remote proxy server
+  hosts: "proxy-server-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/proxy-server/configuration-proxy-server.yml"
+
+- name: Configuring keymanager server
+  hosts: "keymanager-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/keymanager/configuration-keymanager.yml"
+
+- name: Configuring dmz server
+  hosts: "dmz-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/dmz/configuration-dmz-server.yml"
+
+- name: Configuring clamav server
+  hosts: "clamav-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/clamav/configuration-clamav-server.yml"
+
+- name: Configuring hdfs master server
+  hosts: "hdfs-master-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/hdfs/configuration-hdfs-master-server.yml"
+
+- name: Configuring hdfs slave server
+  hosts: "hdfs-slave-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/hdfs/configuration-hdfs-slave-server.yml"
+
+- name: Configuring hdfs master server
+  hosts: "hdfs-master-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/hdfs/start-hdfs.yml"
+
+- name: Configuring postgres server
+  hosts: "postgres-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/postgres/configuration-postgres-server.yml"
+
+- name: Configuring activemq server
+  hosts: "activemq-vm-*"
+  # serial one so that each host completes the whole set of tasks before moving on to next host
+  # by default strategy is linear which involves each task completion by each host.
+  serial: 1
+  gather_facts: true
+  tasks:
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../../configurations/common-configurations.yml
+          name: common
+    - include_tasks: "./tasks/activemq/configuration-activemq.yml"
+ 
+
+
+
+  
+   
+
+

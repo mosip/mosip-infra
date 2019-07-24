@@ -1,0 +1,223 @@
+# configuration hdfs master
+
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('hdfs-master-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name  }}"
+
+- name: Check uname for hdfs master server for {{ env_name  }} environment
+  command: uname -a
+  register: system_info_hdfs_master
+
+- name: Install java for hdfs master for {{ env_name  }} environment
+  become: yes
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: present
+
+- name: Open port 51000
+  become: yes
+  firewalld:
+    port: "51000/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51090
+  become: yes
+  firewalld:
+    port: "51090/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51010
+  become: yes
+  firewalld:
+    port: "51010/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51075
+  become: yes
+  firewalld:
+    port: "51075/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51020
+  become: yes
+  firewalld:
+    port: "51020/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51070
+  become: yes
+  firewalld:
+    port: "51070/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51100
+  become: yes
+  firewalld:
+    port: "51100/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51105
+  become: yes
+  firewalld:
+    port: "51105/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+    
+- name: Getting JAVA home path to set
+  shell: 'echo $(readlink -f /etc/alternatives/java) | sed "s|/bin/java||"'
+  become: yes
+  register: java_home
+
+- name: Printing output java home
+  debug: msg="{{ java_home }}"
+
+- name: Update bashrc  for {{ hostvars['localhost']['global_username'] }} user for hdfs master for {{ env_name }}
+  run_once: true
+  lineinfile:
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/.bashrc
+    line: "export JAVA_HOME={{ java_home| json_query('stdout') }}"
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    insertafter: EOF
+    create: True
+
+- name: Sourcing .bashrc file
+  shell: "source /home/{{ hostvars['localhost']['global_username'] }}/.bashrc"
+
+- name: Update host file for hdfs master for {{ env_name }}
+  run_once: true
+  become: yes
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item }}"
+  with_items:
+    - "{{ hostvars['localhost']['output_private_ip_hdfs_master_' + env_name] | json_query('stdout')}} hdfs-master"
+    - "{{ hostvars['localhost']['output_private_ip_hdfs_slave_' + env_name] | json_query('stdout')}} hdfs-slave"
+
+- name: Adding authorized keys of master for hdfs master for {{ env_name }}
+  authorized_key:
+    user: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    key: "{{ hostvars['localhost']['public_key_content_hdfs_master_' + env_name]}}"
+
+- name: Adding authorized keys of slave for hdfs master for {{ env_name }}
+  authorized_key:
+    user: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    key: "{{ hostvars['localhost']['public_key_content_hdfs_slave_' + env_name]}}"
+
+- name: put private key in hdfs master for {{ env_name }}
+  template:
+    src: ../../configuration/hdfs/master-private-key.j2
+    dest: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa"
+    mode: u=rw,g=,o=
+
+- name: put public key in hdfs master for {{ env_name }}
+  template:
+    src: ../../configuration/hdfs/master-public-key.j2
+    dest: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa.pub"
+    mode: u=rw,g=,o=
+
+- name: Download hadoop binary from url
+  get_url:
+    url: https://archive.apache.org/dist/hadoop/core/hadoop-2.8.1/hadoop-2.8.1.tar.gz
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop-2.8.1.tar.gz
+
+- name: Unarchive hadoop binary ... It may take sometime
+  unarchive: src=/home/{{ hostvars['localhost']['global_username'] }}/hadoop-2.8.1.tar.gz dest=/home/{{ hostvars['localhost']['global_username'] }} remote_src=yes 
+  args:
+    creates: /home/{{ hostvars['localhost']['global_username'] }}/hadoop
+
+- name: Renaming hadoop binary folder  ... It may take sometime
+  synchronize:
+    src: /home/{{ hostvars['localhost']['global_username'] }}/hadoop-2.8.1/.
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/
+  delegate_to: hdfs-master-vm-{{ env_name }}
+
+- name: Update bashrc  for {{ hostvars['localhost']['global_username'] }} user for hdfs variables hdfs master for {{ env_name }}
+  run_once: true
+  lineinfile:
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/.bashrc
+    line: "{{ item }}"
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    insertafter: EOF
+    create: True
+  with_items:
+    - export HADOOP_HOME=$HOME/hadoop
+    - export HADOOP_CONF_DIR=$HOME/hadoop/etc/hadoop
+    - export HADOOP_MAPRED_HOME=$HOME/hadoop
+    - export HADOOP_COMMON_HOME=$HOME/hadoop
+    - export HADOOP_HDFS_HOME=$HOME/hadoop
+    - export YARN_HOME=$HOME/hadoop
+    - export PATH=$PATH:$HOME/hadoop/bin
+
+- name: Sourcing .bashrc file
+  shell: "source /home/{{ hostvars['localhost']['global_username'] }}/.bashrc"
+
+- name: copying core-site config for hdfs master for {{ env_name  }}
+  template:
+    src: ../../configuration/hdfs/core-site-template.j2
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/etc/hadoop/core-site.xml
+    mode: u=rw,g=rw,o=rw
+
+- name: Creates namenode directory
+  file:
+    path: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/data/nameNode
+    state: directory
+
+- name: Creates datanode directory
+  file:
+    path: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/data/dataNode
+    state: directory
+
+- name: copying hdfs-site config for hdfs master for {{ env_name  }}
+  template:
+    src: ../../configuration/hdfs/hdfs-site-template.j2
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/etc/hadoop/hdfs-site.xml
+    mode: u=rw,g=rw,o=rw
+
+- name: copying master file for hdfs master for {{ env_name  }}
+  template:
+    src: ../../configuration/hdfs/master-template.j2
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/etc/hadoop/masters
+    mode: u=rw,g=rw,o=rw
+
+- name: copying slave file for hdfs master for {{ env_name  }}
+  template:
+    src: ../../configuration/hdfs/slave-template.j2
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/etc/hadoop/slaves
+    mode: u=rw,g=rw,o=rw
+
+- name: copying slave file for hdfs master for {{ env_name  }}
+  template:
+    src: ../../configuration/hdfs/hdfs-env-template.j2
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/hadoop/etc/hadoop/hadoop-env.sh
+    mode: u=rw,g=rw,o=rw
+
+- name: add hdfs master host for {{ env_name }} environment to known hosts
+  shell: "ssh-keyscan -H  'hdfs-master' >> ~/.ssh/known_hosts"
+
+- name: add hdfs slave host for {{ env_name }} environment to known hosts
+  shell: "ssh-keyscan -H 'hdfs-slave' >> ~/.ssh/known_hosts"
+
+- name: add 0.0.0.0 host for {{ env_name }} environment to known hosts
+  shell: "ssh-keyscan -H '0.0.0.0' >> ~/.ssh/known_hosts"

@@ -1,0 +1,73 @@
+#!/bin/bash
+echo "start sourcing the DB scripts"
+
+export PGPASSWORD={{ password.postgres_password }}
+echo PGPASSWORD
+
+cd /opt/mosip/scripts/database/mosip_audit/
+psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_common.sql
+psql --username=postgres --port=9001 --dbname=postgres -c "ALTER ROLE sysadmin WITH PASSWORD {{ password.postgres_password }}"
+psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_audituser.sql
+psql --username=postgres --port=9001 --dbname=postgres -f mosip_audit_db.sql
+psql --username=postgres --port=9001 --dbname=postgres -f mosip_audit_grants.sql
+psql --username=postgres --port=9001 --dbname=postgres -f mosip_audit_ddl_deploy.sql
+cd /opt/mosip/scripts/database/mosip_iam
+
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_iamuser.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_iam_db.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_iam_grants.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_iam_ddl_deploy.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_iam_dml_deploy.sql
+
+cd /opt/mosip/scripts/database/mosip_ida
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_idauser.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_ida_db.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_ida_grants.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_ida_ddl_deploy.sql
+
+cd /opt/mosip/scripts/database/mosip_idrepo
+
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_idrepouser.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_idrepo_db.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_idrepo_grants.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_idrepo_ddl_deploy.sql
+
+cd /opt/mosip/scripts/database/mosip_idmap
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_idmap_db.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_idmap_ddl_deploy.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_idmap_grants.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_common.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_idmapuser.sql
+
+
+cd /opt/mosip/scripts/database/mosip_kernel
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_kerneluser.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_kernel_db.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_kernel_grants.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_kernel_ddl_deploy.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_kernel_dml_deploy.sql
+
+ cd /opt/mosip/scripts/database/mosip_master/
+
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_masteruser.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_master_db.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_master_grants.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_master_ddl_deploy.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_master_dml_deploy.sql
+
+cd /opt/mosip/scripts/database/mosip_prereg
+
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_prereguser.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_prereg_db.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_prereg_grants.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_prereg_ddl_deploy.sql
+  psql --username=postgres --port=9001 --dbname=postgres -f mosip_prereg_dml_deploy.sql
+
+cd /opt/mosip/scripts/database/mosip_regprc
+
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_role_regprcuser.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_regprc_db.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_regprc_grants.sql
+ psql --username=postgres --port=9001 --dbname=postgres -f mosip_regprc_ddl_deploy.sql
+ psql --username=postgres --port=9001 --dbname=postgres -c "ALTER ROLE sysadmin WITH PASSWORD {{ password.sysadmin_password }}" # change this hardcoded password to different password once database script updation is done by db team
+  echo " END of sourcing script "

@@ -1,0 +1,151 @@
+---
+- name: Setting up local workstation
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  vars_prompt:
+      - name: "application_name"
+        prompt: "What is the name of your application?"
+        default: mosip-launcher
+        private: no
+
+  tasks:
+
+  - name: Make vars persistant
+    set_fact:
+      application_name: "{{ application_name }}"
+
+  - name: Install epel-release 
+    become: yes
+    yum:
+      name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      state: present
+
+  - name: Installing python-pip
+    become: yes
+    yum:
+      name: python-pip
+      state: present
+
+  - name: install certain python modules for  docker-py
+    become: yes
+    pip:
+      name: "{{ item.name }}"
+      version: "{{ item.version }}"
+      state: present
+    with_items:
+    - { name: docker-py, version: 1.10.6 }
+    - { name: jmespath, version: 0.9.4}
+
+  - name: Install se-linux
+    become: yes
+    yum:
+      name: http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.68-1.el7.noarch.rpm
+      state: present
+
+  - name: Fetch docker version
+    shell: docker version 2>&1 | grep Version | awk '{print $2}'
+    register: docker_version
+
+  - name: Add Docker repo
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docer-ce.repo
+    become: yes
+    when: docker_version.stdout == ''
+
+  - name: Enable Docker Edge repo
+    ini_file:
+      dest: /etc/yum.repos.d/docer-ce.repo
+      section: 'docker-ce-edge'
+      option: enabled
+      value: 0
+    become: yes
+    when: docker_version.stdout == ''
+
+  - name: Enable Docker Test repo
+    ini_file:
+      dest: /etc/yum.repos.d/docer-ce.repo
+      section: 'docker-ce-test'
+      option: enabled
+      value: 0
+    become: yes
+    when: docker_version.stdout == ''
+
+  - name: Install Docker
+    yum:
+      name: docker-ce-18.06.1.ce
+      state: present
+    become: yes
+    when: docker_version.stdout == ''
+
+  - name: Start Docker service
+    service:
+      name: docker
+      state: started
+      enabled: yes
+    become: yes
+    when: docker_version.stdout == ''
+
+  - name: Add user to docker group
+    user:
+      name: "{{lookup('env', 'USER') }}"
+      groups: docker
+      append: yes
+    become: yes
+    when: docker_version.stdout == ''
+    register: output_add_user_to_docker_group
+
+  - name: reset ssh connection to allow user changes to affect 'current login user'
+    meta: reset_connection
+  
+  - name: Installing Terraform
+    become: yes
+    unarchive:
+      src: https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+      dest: /usr/bin
+      remote_src: True
+  
+  - name: Adding Kubectl Repository
+    become: yes
+    yum_repository:
+      name: Kubernetes
+      description: Kubernetes Repository
+      file: external_repos
+      baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+      gpgcheck: no
+  
+  - name: Installing Kubectl
+    become: yes
+    yum:
+      name: kubectl
+  
+  - name: Download Helm
+    become: yes
+    unarchive: 
+      src: "https://storage.googleapis.com/kubernetes-helm/helm-v2.8.2-linux-amd64.tar.gz"
+      dest: /tmp
+      copy: no
+    tags: download
+
+  - name: Create Helm installation directory
+    become: yes
+    file:
+      path: "/opt/bin"
+      state: directory
+
+  - name: Copy Helm binary
+    become: yes
+    copy:
+      src: /tmp/linux-amd64/helm
+      dest: "/opt/bin"
+      mode: 0755
+      remote_src: yes
+
+  - name: Create Helm soft-link
+    become: yes
+    file:
+      src: "/opt/bin/helm"
+      dest: "/usr/bin/helm"
+      state: link
+  

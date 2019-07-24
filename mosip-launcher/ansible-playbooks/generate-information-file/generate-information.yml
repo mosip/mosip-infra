@@ -1,0 +1,154 @@
+---
+- name: Deployment External Services Setup
+  hosts: localhost
+  become: yes
+  gather_facts: false
+  
+
+
+  tasks:
+
+    - name: Make Jenkins URL persistant
+      set_fact:
+        jenkins_url: "{{ devops_cluster_dns }}/jenkins"
+      when: devops_cluster_dns is defined
+
+    - name: Make Jenkins URL persistant
+      set_fact:
+        jenkins_url: "{{ jenkins_url }}"
+      when: jenkins_url is defined
+
+    - name: Make Jenkins URL persistant
+      set_fact:
+        jenkins_url: "<not generated in the current run>"
+      when: jenkins_url is not defined and devops_cluster_dns is not defined
+
+    - name: Make Jenkins username persistant
+      set_fact:
+        jenkins_username: "{{ jenkins_username }}"
+      when: jenkins_username is defined and jenkins_url is defined
+
+    - name: Make Jenkins username persistant
+      set_fact:
+        jenkins_username: "<not generated in the current run>"
+      when: jenkins_username is not defined
+
+    - name: Make Jenkins password persistant
+      set_fact:
+        jenkins_passowrd: "{{ jenkins_password }}"
+      when: jenkins_passowrd is defined and jenkins_url is defined
+
+    - name: Make Jenkins password persistant
+      set_fact:
+        jenkins_passowrd: "<not generated in the current run>"
+      when: jenkins_password is not defined
+
+####################################
+
+    - name: Make Docker registry URL persistant
+      set_fact:
+        docker_registry_url: "{{ devops_cluster_dns }}"
+      when: devops_cluster_dns is defined
+
+    - name: Make Docker registry URL persistant
+      set_fact:
+        docker_registry_url: "{{ docker_registry_url }}"
+      when: docker_registry_url is defined
+
+    - name: Make Docker registry URL persistant
+      set_fact:
+        docker_registry_url: "<not generated in the current run>"
+      when: docker_registry_url is not defined and devops_cluster_dns is not defined
+
+    - name: Make Docker registry username persistant
+      set_fact:
+        docker_registry_username: "{{ docker_registry_username }}"
+      when: docker_registry_username is defined and docker_registry_url is defined
+
+    - name: Make Docker registry username persistant
+      set_fact:
+        docker_registry_username: "<not generated in the current run>"
+      when: docker_registry_username is not defined
+
+    - name: Make Docker registry password persistant
+      set_fact:
+        docker_registry_password: "{{ docker_registry_password }}"
+      when: docker_registry_password is defined and docker_registry_url is defined
+
+    - name: Make Docker registry password persistant
+      set_fact:
+        docker_registry_password: "<not generated in the current run>"
+      when: docker_registry_password is not defined
+
+####################################
+
+    - name: Make Jfrog URL persistant
+      set_fact:
+        jfrog_url: "{{ devops_cluster_dns }}/artifactory"
+      when: devops_cluster_dns is defined
+
+    - name: Make Jfrog URL persistant
+      set_fact:
+        jfrog_url: "<not generated in the current run>"
+      when: devops_cluster_dns is not defined
+
+    - name: Make Jfrog username persistant
+      set_fact:
+        jfrog_username: "{{ jfrog_username }}"
+      when: jfrog_username is defined and jfrog_url is defined
+
+    - name: Make Jfrog username persistant
+      set_fact:
+        jfrog_username: "<not generated in the current run>"
+      when: jfrog_username is not defined
+
+    - name: Make Jfrog password persistant
+      set_fact:
+        jfrog_password: "{{ jfrog_password }}"
+      when: jfrog_password is defined and jfrog_url is defined
+
+    - name: Make Jfrog password persistant
+      set_fact:
+        jfrog_password: "<not generated in the current run>"
+      when: jfrog_password is not defined
+
+####################################
+
+    - name: Make Devops cluster DNS persistant
+      set_fact:
+        devops_cluster_dns: "{{ devops_cluster_dns }}"
+      when: devops_cluster_dns is defined
+
+    - name: Make Devops cluster config location persistant
+      set_fact:
+        devops_cluster_config_location: "~/k8_devops_config.yaml"
+      when: devops_cluster_dns is defined
+      
+    - name: Make Devops cluster config location persistant
+      set_fact:
+        devops_cluster_config_location: "<not generated in the current run>"
+      when: devops_cluster_dns is not defined
+
+    - name: Make Devops cluster DNS persistant
+      set_fact:
+        devops_cluster_dns: "<not generated in the current run>"
+      when: devops_cluster_dns is not defined
+
+    - name: Creating template Devops box information
+      template:
+        src: ./configuration/devops-box-information.j2
+        dest: /usr/local/devops-box-information.txt
+        mode: u=rw,g=rw,o=rw
+
+      
+####################################   
+
+    - name: Including Azure credentials configuration values from variable file.
+      include_vars:
+          file: ../configurations/common-configurations.yml
+          name: common
+
+    - include_tasks: './generate-environment-specific-information.yml'
+      loop: "{{ common.environments }}"
+      loop_control:
+        loop_var: env_name

@@ -1,0 +1,81 @@
+- name: Setup Jenkins Job to initialize modules
+  hosts: localhost
+  become: yes
+  gather_facts: false
+
+  pre_tasks:
+
+  - pause:
+      prompt: "Enter Jenkins URL, to setup configuration into Jenkins"
+    register: jenkins_address
+    when: devops_cluster_dns is not defined and jenkins_url is not defined
+
+  - pause:
+      prompt: "Enter Jenkins username, to setup configuration into Jenkins?"
+    register: jenkins_uname
+    when: jenkins_username is not defined
+
+  - pause:
+      prompt: "Enter Jenkins password, to setup configuration into Jenkins"
+    register: jenkins_pass
+    when: jenkins_password is not defined
+
+  - pause:
+      prompt: "Enter git credential id set up in your jenkins server, to configure the job having access to connect to git mosip repo"
+    register: scm_creds
+    when: scm_credentials is not defined
+
+ 
+  tasks:
+
+    - name: getting all the environments
+      set_fact:
+        environments: "{{ common.environments }}"
+
+    - name: Make scm credentials persistant
+      set_fact:
+        scm_credentials: "{{ hostvars['localhost']['scm_creds']['user_input'] }}"
+      when: scm_credentials is not defined
+
+    - name: Creating init job config xml from template
+      template:
+        src: ./configuration/init-modules-jenkins-job.j2
+        dest: /tmp/init-modules-jenkins-job.xml
+        mode: u=rw,g=rw,o=rw
+
+    - name: Creating template for the Jenkins job for initializing the modules
+      template:
+        src: ./configuration/create-jenkins-init-modules-job.j2
+        dest: /tmp/create-jenkins-init-modules-job.groovy
+        mode: u=rw,g=rw,o=rw
+
+    - name: Creating the Jenkins job for initializing the modules
+      jenkins_script:
+        script: "{{ lookup('file', '/tmp/create-jenkins-init-modules-job.groovy') }}"
+        url: "{{ hostvars['localhost']['devops_cluster_dns'] }}/jenkins"
+        user:  "{{ hostvars['localhost']['jenkins_username'] }}"
+        password: "{{ hostvars['localhost']['jenkins_password'] }}"
+      when: devops_cluster_dns is defined and jenkins_username is defined and jenkins_password is defined
+
+    - name: Make jenkins_url persistant
+      set_fact:
+          jenkins_url: "{{ hostvars['localhost']['jenkins_address']['user_input'] }}"
+      when: devops_cluster_dns is not defined and jenkins_url is not defined
+
+    - name: Make jenkins_username persistant
+      set_fact:
+          jenkins_username: "{{ hostvars['localhost']['jenkins_uname']['user_input'] }}"
+      when: jenkins_username is not defined
+
+    - name: Make jenkins_password persistant
+      set_fact:
+          jenkins_username: "{{ hostvars['localhost']['jenkins_pass']['user_input'] }}"
+      when: jenkins_password is not defined
+
+    - name: Creating the Jenkins job for initializing the modules
+      jenkins_script:
+        script: "{{ lookup('file', '/tmp/create-jenkins-init-modules-job.groovy') }}"
+        url: "{{ jenkins_url }}"
+        user:  "{{ jenkins_username}}"
+        password: "{{ jenkins_password }}"
+      when: devops_cluster_dns is not defined
