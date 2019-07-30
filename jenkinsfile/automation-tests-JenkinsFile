@@ -28,7 +28,7 @@ stage ('---------- mvn-clean-test ---------------') {
 	  dir(branch+"/"+projectToBuild)
   {
 	sh '/usr/local/maven/bin/mvn clean install'
-	sh "java -Denv.user=${params.Environment} -Denv.endpoint=https://${params.Environment}.mosip.io -Denv.testLevel=smokeAndRegression -Dmosip.reg.dbpath=MosipTestResource/reg -Dmosip.reg.db.key=keys.properties -Dspring.profiles.active=qa -Dmosip.reg.healthcheck.url=https://qa.mosip.io/v1/authmanager/actuator/health -DuserID=110017 -Dmaven.test.failure.ignore=true -jar ./target/automationtests-0.12.18-jar-with-dependencies.jar"	  
+	sh "java -Denv.user=${params.Environment} -Denv.endpoint=https://${params.Environment}.mosip.io -Denv.testLevel=smokeAndRegression -Dmosip.reg.dbpath=/var/lib/jenkins/workspace/ModuleLevel-AutoFullSuite/master/automationtests/target/MosipTestResource/reg -Dmosip.reg.db.key=keys.properties -Dspring.profiles.active=qa -Dmosip.reg.healthcheck.url=https://qa.mosip.io/v1/authmanager/actuator/health -DuserID=110017 -Dmaven.test.failure.ignore=true -jar ./target/automationtests-0.12.18-jar-with-dependencies.jar"	  
   }
   
   publishHTML(
