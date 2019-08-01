@@ -21,6 +21,24 @@
           <defaultValue>{{ scm_branch }}</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>scmInfraRepo</name>
+          <description></description>
+          <defaultValue>{{ scm_infra_repository }}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>scmReferenceImplementationRepo</name>
+          <description></description>
+          <defaultValue>{{ scm_reference_impl_repository }}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>scmInfraBranch</name>
+          <description></description>
+          <defaultValue>{{ scm_infra_branch }}</defaultValue>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
         <hudson.model.ChoiceParameterDefinition>
           <name>environment</name>
           <description>Environment on which code should be built and deployed</description>
@@ -39,11 +57,7 @@
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty> -->
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
-      <triggers>
-        <hudson.triggers.TimerTrigger>
-          <spec>0 1 * * *</spec>
-        </hudson.triggers.TimerTrigger>
-      </triggers>
+      <triggers/>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
   </properties>
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.59">
@@ -51,20 +65,20 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>{{ scm_url }}</url>
+          <url>{{ scm_infra_repository }}</url>
           <credentialsId>{{ scm_credentials }}</credentialsId>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
         <hudson.plugins.git.BranchSpec>
-          <name>*/{{ scm_branch }}</name>
+          <name>*/{{ scm_infra_branch }}</name>
         </hudson.plugins.git.BranchSpec>
       </branches>
       <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>InitJenkinsfile</scriptPath>
+    <scriptPath>jenkinsfile/InitJenkinsfile</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>

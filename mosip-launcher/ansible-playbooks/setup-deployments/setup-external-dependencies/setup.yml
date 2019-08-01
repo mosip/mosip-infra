@@ -6,7 +6,7 @@
   
   pre_tasks:
     - pause:
-        prompt: "What is the name of your application?"
+        prompt: "What is the name of your application? (Keep Application name to a maximum of 14 characters length, comprising only of uppercase, lowercase alphabets (a-z, A-Z) and hiphen (-), or it can show unexpected results in later parts)"
       register: application
       when: application_name is not defined
 
@@ -26,12 +26,12 @@
       when: jenkins_password is not defined
 
     - pause:
-        prompt: "Enter URL for SCM repo ssh containing the MOSIP code"
+        prompt: "Enter URL for SCM repo ssh containing the MOSIP platforms code (mosip-platforms repo ssh url)"
       register: scm_repo_url
       when: scm_url is not defined
 
     - pause:
-        prompt: "Enter SCM branch containing the MOSIP code"
+        prompt: "Enter SCM branch containing the MOSIP platforms code (mosip-platforms repo branch)"
       register: scm_config_branch
       when: scm_branch is not defined
 
@@ -104,57 +104,57 @@
   tasks:
 
 
-    - name: Make application name persistant
+    - name: Make application name persistent
       set_fact:
         application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
       when: application_name is not defined
 
-    - name: Make docker registry username persistant
+    - name: Make docker registry username persistent
       set_fact:
           docker_registry_username: "{{ hostvars['localhost']['docker_registry_user']['user_input'] }}"
       when: docker_registry_username is not defined
 
-    - name: Make docker registry password persistant
+    - name: Make docker registry password persistent
       set_fact:
           docker_registry_password: "{{ hostvars['localhost']['docker_registry_pass']['user_input'] }}"
       when: docker_registry_password is not defined
 
-    - name: Make docker registry url persistant
+    - name: Make docker registry url persistent
       set_fact:
           docker_registry_url: "{{ hostvars['localhost']['docker_registry_address']['user_input'] }}"
       when: devops_cluster_dns is not defined and docker_registry_url is not defined
   
-    - name: Make docker registry url persistant
+    - name: Make docker registry url persistent
       set_fact:
           docker_registry_url: "{{ hostvars['localhost']['devops_cluster_dns'] | replace('https://','') }}"
       when: devops_cluster_dns is defined
 
-    - name: Make SCM URL persistant
+    - name: Make SCM URL persistent
       set_fact:
         scm_url: "{{ hostvars['localhost']['scm_repo_url']['user_input'] }}"
       when: scm_url is not defined
 
-    - name: Make SCM branch  persistant
+    - name: Make SCM branch  persistent
       set_fact:
           scm_branch: "{{ hostvars['localhost']['scm_config_branch']['user_input'] }}"
       when: scm_branch is not defined
 
-    - name: Make jenkins_url persistant
+    - name: Make jenkins_url persistent
       set_fact:
           jenkins_url: "{{ hostvars['localhost']['jenkins_address']['user_input'] }}"
       when: devops_cluster_dns is not defined and jenkins_url is not defined
 
-    - name: Make jenkins_username persistant
+    - name: Make jenkins_username persistent
       set_fact:
           jenkins_username: "{{ hostvars['localhost']['jenkins_uname']['user_input'] }}"
       when: jenkins_username is not defined
 
-    - name: Make jenkins_password persistant
+    - name: Make jenkins_password persistent
       set_fact:
           jenkins_password: "{{ hostvars['localhost']['jenkins_pass']['user_input'] }}"
       when: jenkins_password is not defined
 
-    # # - name: Make number of environments  persistant
+    # # - name: Make number of environments  persistent
     # #   set_fact:
     # #     environments: "{{ hostvars['localhost']['envs']['user_input'] }}"
     # #   when: environments is not defined
@@ -173,7 +173,7 @@
       include_vars:
           file: ../../configurations/common-configurations.yml
           name: common
-    - name: Make global user name persistant for External dependencies
+    - name: Make global user name persistent for External dependencies
       set_fact:
         global_username: "{{ global_username }}"
 

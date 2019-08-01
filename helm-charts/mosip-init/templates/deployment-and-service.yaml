@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         app: {{ $serviceName }}
+        {{- if .component}}
+        component: service-hazelcast-server
+        {{- end }}
     spec:
       {{- if not .noInitContainer}}
       initContainers:

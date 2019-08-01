@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         app: {{ $deploymentName }}
+        {{- if .component}}
+        component: service-hazelcast-server
+        {{- end }}
     spec:
       initContainers:
       - name: config-server-availability-check

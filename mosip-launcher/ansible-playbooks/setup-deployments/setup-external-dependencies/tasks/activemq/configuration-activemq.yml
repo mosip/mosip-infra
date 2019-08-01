@@ -99,8 +99,9 @@
 
 - name: Make ActiveMQ binary link
   become: yes
-  shell:
-    cmd: "ln -s /opt/apache-activemq-5.15.0 /opt/activemq"
+  command: ln -s /opt/apache-activemq-5.15.0 /opt/activemq
+  args:
+    creates: /opt/activemq
 
 - name: Creating activemq service configuration for {{ env_name }}
   become: yes

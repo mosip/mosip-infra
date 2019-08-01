@@ -1,25 +1,25 @@
   
 
-  - name: Make Domain Name for Deployments Kubernetes cluster for {{ env_name }} environment persistant
+  - name: Make Domain Name for Deployments Kubernetes cluster for {{ env_name }} environment persistent
     set_fact:
       base_url: "https://{{ hostvars['localhost']['output_domain_name_proxy_server_' + env_name] | json_query('stdout')}}"
     # # when: item is defined
     # # with_items: 
     # #   - "output_public_ip_deployments_cluster_{{ env_name }}"
       
-  - name: Make HDFS master url for {{ env_name }} environment persistant
+  - name: Make HDFS master url for {{ env_name }} environment persistent
     set_fact:
       hdfs_namenode_url: "hdfs://{{ hostvars['localhost']['output_private_ip_hdfs_master_' + env_name] | json_query('stdout')}}:51000"
 
-  - name: Make Clamav URL for {{ env_name }} environment persistant
+  - name: Make Clamav URL for {{ env_name }} environment persistent
     set_fact:
       virus_scanner_url: "{{ hostvars['localhost']['output_private_ip_clamav_' + env_name] | json_query('stdout')}}"
 
-  - name: Make DMZ URL for {{ env_name }} environment persistant
+  - name: Make DMZ URL for {{ env_name }} environment persistent
     set_fact:
       dmz_hostname: "{{ hostvars['localhost']['output_private_ip_dmz_' + env_name] | json_query('stdout')}}"
 
-  - name: Make activemq URL for {{ env_name }} environment persistant
+  - name: Make activemq URL for {{ env_name }} environment persistent
     set_fact:
       activemq_address: "{{ hostvars['localhost']['output_private_ip_activemq_' + env_name] | json_query('stdout')}}"
 
@@ -28,23 +28,23 @@
         file: ../../configurations/services-configurations.yml
         name: services
 
-  - name: Make activemq port for {{ env_name }} environment persistant
+  - name: Make activemq port for {{ env_name }} environment persistent
     set_fact:
       activemq_port: "{{ services.activemq_port }}"
 
-  - name: Make Clamav port for {{ env_name }} environment persistant
+  - name: Make Clamav port for {{ env_name }} environment persistent
     set_fact:
       virus_scanner_port: 3310
 
-  - name: Make postgres url for {{ env_name }} environment persistant
+  - name: Make postgres url for {{ env_name }} environment persistent
     set_fact:
       db_hostname: "{{ hostvars['localhost']['output_private_ip_postgres_' + env_name] | json_query('stdout')}}"
 
-  - name: Make postgres port for {{ env_name }} environment persistant
+  - name: Make postgres port for {{ env_name }} environment persistent
     set_fact:
       db_port: 9001
 
-  - name: Make private key content for dmz server for {{ env_name }} environment persistant
+  - name: Make private key content for dmz server for {{ env_name }} environment persistent
     set_fact:
       dmz_private_key_content: "{{ hostvars['localhost']['private_key_content_dmz_' + env_name]}}"
 
@@ -53,7 +53,7 @@
         file: ../../configurations/postgres-configuration.yml
         name: password
   
-  - name: Making all the passwords for postgres persistant.
+  - name: Making all the passwords for postgres persistent.
     set_fact:
       postgres_password: "{{ password.postgres_password }}"
       kerneluser_password: "{{ password.kerneluser_password }}"

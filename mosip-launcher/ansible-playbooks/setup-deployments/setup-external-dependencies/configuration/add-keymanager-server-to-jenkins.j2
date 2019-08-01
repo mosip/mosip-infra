@@ -15,7 +15,7 @@ println '''{{ hostvars["localhost"]["private_key_content_keymanager_" + env_name
   name,hostname,username,encryptedPassword,remoteRootDir,port,timeout,overrideKey,keyPath,key,disableExec
 */
 def hosts = [
-        ["{{ env_name }}KeymanagerDeploymentServer","{{ hostvars['localhost']['output_private_ip_keymanager_' + env_name] | json_query('stdout')}}","{{ global_username }}",'',"",22,30000,true,'','''{{ hostvars["localhost"]["private_key_content_keymanager_" + env_name]}}''',false]
+        ["{{ env_name }}KeymanagerDeploymentServer","{{ hostvars['localhost']['output_private_ip_keymanager_' + env_name] | json_query('stdout')}}","{{ global_username }}",'',"/home/{{ global_username }}",22,30000,true,'','''{{ hostvars["localhost"]["private_key_content_keymanager_" + env_name]}}''',false]
 ]
 
 println 'Renewing Global Publish-Over-SSH-Server Configs'

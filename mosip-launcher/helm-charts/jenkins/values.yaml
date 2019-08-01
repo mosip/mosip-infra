@@ -143,11 +143,12 @@ Master:
     - workflow-aggregator:2.6
     - credentials-binding:1.19
     - git:3.10.0
-    - artifactory:3.2.4
+    - artifactory:3.2.2
     - kubernetes-cli:1.6.0
     - matrix-auth:2.4.2
     - publish-over-ssh:1.20.1
     - pipeline-utility-steps:2.2.0
+    - ws-cleanup:0.37
 
   # Enable to always override the installed plugins with the values of 'Master.InstallPlugins' on upgrade or redeployment.
   # OverwritePlugins: true

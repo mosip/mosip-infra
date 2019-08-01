@@ -15,12 +15,12 @@
 
   vars_prompt:
     - name: "scm_repo_url"
-      prompt: "Enter SCM repository SSH url, which you use to clone the source code"
+      prompt: "Enter SCM repository SSH url, which you use to clone the source code of platforms (mosip-platforms repo ssh URL)"
       default: "localhost/repository"
       
       private: no
     - name: "scm_repo_branch"
-      prompt: "Enter the repository branch containing the code"
+      prompt: "Enter the repository branch containing the platforms code (mosip-platforms repo branch)"
       default: "master"
       private: no
     - name: "scm_username"
@@ -44,26 +44,26 @@
       confirm: yes
   pre_tasks:
     - pause:
-        prompt: "What is the name of your application?"
+        prompt: "What is the name of your application? (Keep Application name to a maximum of 14 characters length, comprising only of uppercase, lowercase alphabets (a-z, A-Z) and hiphen (-), or it can show unexpected results in later parts)"
       register: application
       when: application_name is not defined
 
   tasks:
 
-  - name: Make application name persistant
+  - name: Make application name persistent
     set_fact:
       application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
     when: application_name is not defined
 
-  - name: Make scm branch persistant
+  - name: Make scm branch persistent
     set_fact:
       scm_branch: "{{ scm_repo_branch }}"
 
-  - name: Make scm url persistant
+  - name: Make scm url persistent
     set_fact:
       scm_url: "{{ scm_repo_url }}"
 
-  - name: Make scm credentialsID persistant
+  - name: Make scm credentialsID persistent
     set_fact:
       application_name: "{{ hostvars['localhost']['application']['user_input'] }}"
     when: application_name is not defined
@@ -253,7 +253,10 @@
   
   - name: Jfrog deployment result
     debug: msg="{{ jfrog_output_tf }}"
-      
+    
+  - name: Sleep for 2 minutes to wait for cluster IP to be reachable
+    pause:
+      minutes: 2     
   - name: "Waiting for Docker Registry to come up"
     uri:
       url: "https://{{ output_domain_name | json_query('stdout')  }}/v2/"
@@ -309,31 +312,31 @@
   - name: Jenkins deployment result
     debug: msg="{{ jenkins_output_tf }}"
 
-  - name: Make Devops cluster Domain name persistant
+  - name: Make Devops cluster Domain name persistent
     set_fact:
       devops_cluster_dns: "https://{{ output_domain_name | json_query('stdout')  }}"
 
-  - name: Make jenkins username persistant
+  - name: Make jenkins username persistent
     set_fact:
       jenkins_username: "admin"
 
-  - name: Make jenkins password persistant
+  - name: Make jenkins password persistent
     set_fact:
       jenkins_password: "{{ jenkins_admin_password }}"
 
-  - name: Make docker registry username persistant
+  - name: Make docker registry username persistent
     set_fact:
       docker_registry_username: "{{ docker_registry_username }}"
 
-  - name: Make docker registry password persistant
+  - name: Make docker registry password persistent
     set_fact:
       docker_registry_password: "{{ docker_registry_password }}"
 
-  - name: Make jfrog username persistant
+  - name: Make jfrog username persistent
     set_fact:
       jfrog_username: "admin"
 
-  - name: Make docker registry password persistant
+  - name: Make docker registry password persistent
     set_fact:
       jfrog_password: "{{ docker_registry_password }}"
 
@@ -342,7 +345,7 @@
     register: output_scm_credentials_id
 
 
-  - name: Make scm credentials persistant
+  - name: Make scm credentials persistent
     set_fact:
       scm_credentials: "{{ output_scm_credentials_id | json_query('stdout')  }}"
 

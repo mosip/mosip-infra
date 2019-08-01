@@ -4,7 +4,7 @@
         file: ../configurations.yml
         name: k8
   
-  - name:  Public IP and domain name creation for Devops Kubernetes cluster
+  - name:  Public IP and domain name creation for Deployments Kubernetes cluster
     environment:
         ARM_SUBSCRIPTION_ID: "{{ common.subscription_id }}"
         ARM_CLIENT_ID: "{{ common.client_id }}"

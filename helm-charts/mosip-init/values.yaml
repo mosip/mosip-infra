@@ -194,6 +194,7 @@ deploymentsAndServices:
             hazelcast-port: 5701
             verticle-port: 8087
         dockerImageName: registration-processor-packet-uploader-stage
+        component: service-hazelcast-server
     registration-processor-manual-verification-stage:
         servicePath: /registrationprocessor/v1/manualverification
         servicePort: 8084
@@ -202,6 +203,7 @@ deploymentsAndServices:
             hazelcast-port: 5701
             verticle-port: 8084
         dockerImageName: registration-processor-manual-verification-stage
+        component: service-hazelcast-server
     registration-processor-external-integration-service:
         servicePath: /registrationprocessor/v1/eis
         servicePort: 8201
@@ -222,6 +224,7 @@ deploymentsAndServices:
             hazelcast-port: 5701
             verticle-port: 8099
         dockerImageName: registration-processor-printing-stage
+        component: service-hazelcast-server
     config-server:
         servicePath: /config
         servicePort: 51000
@@ -270,76 +273,85 @@ deploymentsOnly:
             eventbus-port: 5888
             hazelcast-port: 5701
         dockerImageName: registration-processor-abis-middleware-stage
+        component: service-hazelcast-server
     registration-processor-abis-handler-stage:
         ports:
             eventbus-port: 5726
             hazelcast-port: 5701
         dockerImageName: registration-processor-abis-handler-stage
+        component: service-hazelcast-server
     registration-processor-bio-dedupe-stage:
         ports:
             eventbus-port: 5718
             hazelcast-port: 5701
         dockerImageName: registration-processor-bio-dedupe-stage
+        component: service-hazelcast-server
     registration-processor-biometric-authentication-stage:
         ports:
             eventbus-port: 5702
             hazelcast-port: 5701
         dockerImageName: registration-processor-biometric-authentication-stage
+        component: service-hazelcast-server
     registration-processor-common-camel-bridge:
         ports:
             eventbus-port: 5723
             hazelcast-port: 5701
         dockerImageName: registration-processor-common-camel-bridge
+        component: service-hazelcast-server
     registration-processor-demo-dedupe-stage:
         ports:
             eventbus-port: 5723
             hazelcast-port: 5701
         dockerImageName: registration-processor-demo-dedupe-stage
+        component: service-hazelcast-server
     registration-processor-external-stage:
         ports:
             eventbus-port: 5736
             hazelcast-port: 5701
         dockerImageName: registration-processor-external-stage
+        component: service-hazelcast-server
     registration-processor-message-sender-stage:
         ports:
             eventbus-port: 5721
             hazelcast-port: 5701
         dockerImageName: registration-processor-message-sender-stage
-    registration-processor-message-sender-stage:
-        ports:
-            eventbus-port: 5721
-            hazelcast-port: 5701
-        dockerImageName: registration-processor-message-sender-stage
+        component: service-hazelcast-server
     registration-processor-osi-validator-stage:
         ports:
             eventbus-port: 5716
             hazelcast-port: 5701
         dockerImageName: registration-processor-osi-validator-stage
+        component: service-hazelcast-server
     registration-processor-packet-validator-stage:
         ports:
             eventbus-port: 5715
             hazelcast-port: 5701
         dockerImageName: registration-processor-packet-validator-stage
+        component: service-hazelcast-server
     registration-processor-quality-checker-stage:
         ports:
             eventbus-port: 5715
             hazelcast-port: 5701
         dockerImageName: registration-processor-quality-checker-stage
+        component: service-hazelcast-server
     registration-processor-reprocessor-stage:
         ports:
             eventbus-port: 5750
             hazelcast-port: 5701
         dockerImageName: registration-processor-reprocessor-stage
+        component: service-hazelcast-server
     registration-processor-retry-stage:
         ports:
             eventbus-port: 5722
             hazelcast-port: 5701
-        dockerImageName: registration-processor-reprocessor-stage
+        dockerImageName: registration-processor-retry-stage
+        component: service-hazelcast-server
     registration-processor-uin-generator-stage:
         ports:
             eventbus-port: 5719
             hazelcast-port: 5701
         dockerImageName:  registration-processor-uin-generator-stage
+        component: service-hazelcast-server
 
 servicesOnly:
     service-hazelcast-server:
