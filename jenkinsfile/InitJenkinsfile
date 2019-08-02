@@ -78,7 +78,7 @@ node{
   buildInfo.env.capture = true
   }
 
-  stage('---------- mvn-clean-install and push to artifactory  ---------------') {
+  stage('---------- Build Java and angular Projects  ---------------') {
   
           // Looking for angular.json file to to find out if the submodule we are building is an angular project
         echo "Looking for angular projects to build"
@@ -429,9 +429,9 @@ node{
               echo Deployment process completed
     """
 
-    sh "touch dummyFile" // creating dummy file to transfer to avoid source error
+    sh "touch /tmp/dummyFile" // creating dummy file to transfer to avoid source error
     // All the Deployment steps that have to be performed in deployment server are written in this command string
-    sshPublisher(publishers: [sshPublisherDesc(configName: dmzDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "./dummyFile")],verbose: true)])
+    sshPublisher(publishers: [sshPublisherDesc(configName: dmzDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "/tmp/dummyFile")],verbose: true)])
  
    }
   stage('Setting up kernel non k8 Services'){
@@ -493,8 +493,8 @@ node{
               echo Deployment process completed
     """
 
-    sh "touch dummyFile" // creating dummy file to transfer to avoid source error
+    sh "touch /tmp/dummyFile" // creating dummy file to transfer to avoid source error
     // All the Deployment steps that have to be performed in deployment server are written in this command string
-    sshPublisher(publishers: [sshPublisherDesc(configName: keymanagerDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "./dummyFile")],verbose: true)])
+    sshPublisher(publishers: [sshPublisherDesc(configName: keymanagerDeploymentServer , transfers: [sshTransfer(execCommand: "$command", sourceFiles: "/tmp/dummyFile")],verbose: true)])
   }
 }
