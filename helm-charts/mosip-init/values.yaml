@@ -73,10 +73,10 @@ deploymentsAndServices:
        dockerImageName: kernel-cryptomanager-service
     kernel-signature-service:
        servicePath: /v1/signature
-       servicePort: 8089
+       servicePort: 8092
        dockerImageName: kernel-signature-service
     kernel-uingenerator-service:
-       servicePath: /v1/cryptomanager
+       servicePath: /v1/uingenerator
        servicePort: 8080
        dockerImageName: kernel-uingenerator-service
        overideCommonEnvironmentVariables: true
@@ -134,7 +134,7 @@ deploymentsAndServices:
        dockerImageName: kernel-tokenidgenerator-service
     pre-registration-demographic-service:
        servicePath: /preregistration/v1/applications
-       servicePort: 8087
+       servicePort: 9092
        dockerImageName: pre-registration-demographic-service
     pre-registration-document-service:
        servicePath: /preregistration/v1/documents
@@ -164,6 +164,10 @@ deploymentsAndServices:
        servicePath: /preregistration/v1/qrCode
        servicePort: 9091
        dockerImageName: pre-registration-generateqrcode-service
+    pre-registration-translitration-service:
+       servicePath: /preregistration/v1/transliteration
+       servicePort: 9098
+       dockerImageName: pre-registration-translitration-service
     pre-registration-ui:
        servicePath: /pre-registration-ui
        servicePort: 80
@@ -300,7 +304,7 @@ deploymentsOnly:
         component: service-hazelcast-server
     registration-processor-demo-dedupe-stage:
         ports:
-            eventbus-port: 5723
+            eventbus-port: 5717
             hazelcast-port: 5701
         dockerImageName: registration-processor-demo-dedupe-stage
         component: service-hazelcast-server
