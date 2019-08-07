@@ -2,6 +2,8 @@ node {
 try{
  def branch = 'master'
  def projectToBuild = 'automationtests'
+ recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
+
  stage('------- Checkout --------') {
   // Checkout only automation tests Module
   dir(branch) {
@@ -42,8 +44,7 @@ stage ('---------- mvn-clean-test ---------------') {
 ])
 }
 }
-recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
-catch (exception){
+catch (exception) {
 if (exception instanceof InterruptedException) {
            currentBuild.result = "ABORTED"
         }
