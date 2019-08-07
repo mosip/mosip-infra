@@ -61,7 +61,7 @@ if (exception instanceof InterruptedException) {
 	throw exception
 }
 finally{
-if(currentBuild.result == "FAILURE"){
+if(currentBuild.result !== "FAILURE" && currentBuild.result !== "ABORTED" ){
 emailext ( 
 	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
 	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER'",
