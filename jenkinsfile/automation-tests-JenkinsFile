@@ -41,6 +41,7 @@ stage ('---------- mvn-clean-test ---------------') {
    reportName: 'HTML Report'
 ])
 }
+	finally{
           recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
 emailext ( 
 	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
@@ -49,6 +50,6 @@ emailext (
 	    to: "$recipients",
 	    from: 'mosip.emailnotifier@gmail.com'
 	)
-
+}
 
 }
