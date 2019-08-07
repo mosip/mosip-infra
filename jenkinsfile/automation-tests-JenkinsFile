@@ -41,15 +41,13 @@ stage ('---------- mvn-clean-test ---------------') {
    reportName: 'HTML Report'
 ])
 }
-	finally{
           recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
 emailext ( 
 	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
 	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER'",
 	    body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
 	    to: "$recipients",
-	    from: 'mosip.emailnotifier@gmail.com'
+	    from: '"Jenkins" <info@mosip.io>'
 	)
-}
 
 }
