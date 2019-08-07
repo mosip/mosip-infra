@@ -42,16 +42,25 @@ stage ('---------- mvn-clean-test ---------------') {
 ])
 }
 }
+recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
 catch (exception){
-	emailext ( 
+if (exception instanceof InterruptedException) {
+           currentBuild.result = "ABORTED"
+        }
+		// If the job failed due to some error
+        else{
+            currentBuild.result = "FAILURE"
+	    emailext ( 
 	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER' failed",
 	    body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
 	    to: "$recipients",
 	    from: '"Jenkins" <info@mosip.io>'
 	)
+        }    
+	throw exception
 }
 finally{
-recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
+if(currentBuild.result == "FAILURE"){
 emailext ( 
 	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
 	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER'",
@@ -59,5 +68,6 @@ emailext (
 	    to: "$recipients",
 	    from: '"Jenkins" <info@mosip.io>'
 	)
+}
 }
 }
