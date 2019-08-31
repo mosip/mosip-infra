@@ -39,6 +39,7 @@ def install_tools():
     command('sudo yum install -y python-devel')
     command('sudo pip3.6 install psutil')
     command('sudo pip3.6 install psycopg2')
+    command('sudo pip3.6 install requests')
 
 def install_environ():
     logger.info('Installing environ')
