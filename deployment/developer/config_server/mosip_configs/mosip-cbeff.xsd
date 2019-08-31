@@ -1,0 +1,173 @@
+<!-- Biometric Identity Assurance Services (BIAS) SOAP Profile Version 1.0 
+	OASIS Standard incorporating Approved Errata 02 06 May 2014 Copyright (c) 
+	OASIS Open 2014. All Rights Reserved. Source: http://docs.oasis-open.org/bias/soap-profile/v1.0/errata02/os/ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://docs.oasis-open.org/bias/ns/biaspatronformat-1.0/"
+	targetNamespace="http://docs.oasis-open.org/bias/ns/biaspatronformat-1.0/"
+	elementFormDefault="qualified">
+	<xs:element name="BIR" type="BIRType" />
+	<xs:complexType name="BIRType">
+		<xs:sequence>
+			<xs:element name="Version" type="VersionType"
+				minOccurs="0" />
+			<xs:element name="CBEFFVersion" type="VersionType"
+				minOccurs="0" />
+			<xs:any namespace="##other" processContents="skip"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="BIRInfo" type="BIRInfoType" />
+			<xs:element name="BDBInfo" type="BDBInfoType"
+				minOccurs="0" />
+			<xs:element name="SBInfo" type="SBInfoType" minOccurs="0" />
+			<xs:element name="BIR" type="BIRType" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xs:element name="BDB" type="xs:base64Binary"
+				minOccurs="0" />
+			<xs:element name="SB" type="xs:base64Binary" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VersionType">
+		<xs:sequence>
+			<xs:element name="Major" type="xs:nonNegativeInteger" />
+			<xs:element name="Minor" type="xs:nonNegativeInteger" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BIRInfoType">
+		<xs:sequence>
+			<xs:element name="Creator" type="xs:string" minOccurs="0" />
+			<xs:element name="Index" type="UUIDType" minOccurs="0" />
+			<xs:element name="Payload" type="xs:base64Binary"
+				minOccurs="0" />
+			<xs:element name="Integrity" type="xs:boolean" />
+			<xs:element name="CreationDate" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="NotValidBefore" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="NotValidAfter" type="xs:dateTime"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BDBInfoType">
+		<xs:sequence>
+			<xs:element name="ChallengeResponse"
+				type="xs:base64Binary" minOccurs="0" />
+			<xs:element name="Index" type="UUIDType" minOccurs="0" />
+			<xs:element name="FormatOwner" type="xs:positiveInteger"
+				minOccurs="0" />
+			<xs:element name="FormatType" type="xs:positiveInteger"
+				minOccurs="0" />
+			<xs:element name="Encryption" type="xs:boolean"
+				minOccurs="0" />
+			<xs:element name="CreationDate" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="NotValidBefore" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="NotValidAfter" type="xs:dateTime"
+				minOccurs="0" />
+			<xs:element name="Type" type="MultipleTypesType"
+				minOccurs="0" />
+			<xs:element name="Subtype" type="SubtypeType"
+				minOccurs="0" />
+			<xs:element name="Level" type="ProcessedLevelType"
+				minOccurs="0" />
+			<xs:element name="ProductOwner" type="xs:positiveInteger"
+				minOccurs="0" />
+			<xs:element name="ProductType" type="xs:positiveInteger"
+				minOccurs="0" />
+			<xs:element name="Purpose" type="PurposeType"
+				minOccurs="0" />
+			<xs:element name="Quality" type="QualityType"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SBInfoType">
+		<xs:sequence>
+			<xs:element name="FormatOwner" type="xs:positiveInteger"
+				minOccurs="0" />
+			<xs:element name="FormatType" type="xs:positiveInteger"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="QualityType">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="-2" />
+			<xs:maxInclusive value="100" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SingleTypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Scent" />
+			<xs:enumeration value="DNA" />
+			<xs:enumeration value="Ear " />
+			<xs:enumeration value="Face" />
+			<xs:enumeration value="Finger" />
+			<xs:enumeration value="Foot" />
+			<xs:enumeration value="Vein" />
+			<xs:enumeration value="HandGeometry" />
+			<xs:enumeration value="Iris" />
+			<xs:enumeration value="Retina" />
+			<xs:enumeration value="Voice" />
+			<xs:enumeration value="Gait" />
+			<xs:enumeration value="Keystroke" />
+			<xs:enumeration value="LipMovement" />
+			<xs:enumeration value="SignatureSign" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MultipleTypesType">
+		<xs:list itemType="SingleTypeType" />
+	</xs:simpleType>
+	<xs:simpleType name="SingleAnySubtypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Left" />
+			<xs:enumeration value="Right" />
+			<xs:enumeration value="Thumb" />
+			<xs:enumeration value="IndexFinger" />
+			<xs:enumeration value="MiddleFinger" />
+			<xs:enumeration value="RingFinger" />
+			<xs:enumeration value="LittleFinger" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SingleVeinOnlySubtypeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LeftVein" />
+			<xs:enumeration value="RightVein" />
+			<xs:enumeration value="Palm" />
+			<xs:enumeration value="BackOfHand" />
+			<xs:enumeration value="Wrist" />
+			<xs:enumeration value="Reserved1" />
+			<xs:enumeration value="Reserved2" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MultipleAnySubtypesType">
+		<xs:list itemType="SingleAnySubtypeType" />
+	</xs:simpleType>
+	<xs:simpleType name="MultipleVeinOnlySubtypesType">
+		<xs:list itemType="SingleVeinOnlySubtypeType" />
+	</xs:simpleType>
+	<xs:simpleType name="SubtypeType">
+		<xs:union
+			memberTypes="MultipleAnySubtypesType MultipleVeinOnlySubtypesType" />
+	</xs:simpleType>
+	<xs:simpleType name="ProcessedLevelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Raw" />
+			<xs:enumeration value="Intermediate" />
+			<xs:enumeration value="Processed" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PurposeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Verify" />
+			<xs:enumeration value="Identify" />
+			<xs:enumeration value="Enroll" />
+			<xs:enumeration value="EnrollVerify" />
+			<xs:enumeration value="EnrollIdentify" />
+			<xs:enumeration value="Audit" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UUIDType">
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="[a-fA-F0-9]{8}\-([a-fA-F0-9]{4}\-){3}[a-fA-F0-9]{12}" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

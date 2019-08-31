@@ -1,0 +1,74 @@
+node {
+try{
+ def branch = 'master'
+ def projectToBuild = 'automationtests'
+ recipients = "$env.AUTOMATION_TEST_RECIPIENT_LIST"
+
+ stage('------- Checkout --------') {
+  // Checkout only automation tests Module
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: 'https://github.com/mosip/mosip-functional-tests-mt', credentialsId: '4c9741a2-4c15-4aad-a13d-3a1206u05321']
+    ],
+    extensions: [
+
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/'+projectToBuild + '/']
+     ]]
+
+    ],
+   ])
+  }
+ }
+
+
+stage ('---------- mvn-clean-test ---------------') {
+	  dir(branch+"/"+projectToBuild)
+  {
+	sh '/usr/local/maven/bin/mvn clean install'
+        sh "java -Denv.user=${params.Environment} -Denv.endpoint=https://${params.Environment}.mosip.io -Denv.testLevel=smokeAndRegression -Dmosip.reg.dbpath=./db/reg -Dmosip.reg.db.key=./db/keys.properties -Dspring.profiles.active=${params.Environment} -Dmosip.reg.healthcheck.url=https://${params.Environment}.mosip.io/v1/authmanager/actuator/health -DuserID=110017 -Dmaven.test.failure.ignore=true -jar ./target/automationtests-${params.BuildVersion}-jar-with-dependencies.jar" 
+  }
+  
+  publishHTML(
+   target:[
+   allowMissing: false, 
+   alwaysLinkToLastBuild: false, 
+   keepAll: true, 
+   reportDir: branch+"/"+projectToBuild+"/testng-report", 
+   reportFiles: 'MOSIP_ModuleLevelAutoRun_TestNGReport.html', 
+   reportName: 'HTML Report'
+])
+}
+}
+catch (exception) {
+if (exception instanceof InterruptedException) {
+           currentBuild.result = "ABORTED"
+        }
+		// If the job failed due to some error
+        else{
+            currentBuild.result = "FAILURE"
+	    emailext ( 
+	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER' failed",
+	    body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+	    to: "$recipients",
+	    from: '"Jenkins" <info@mosip.io>' 
+	)
+        }    
+	throw exception
+}
+finally{
+if(!(currentBuild.result == "FAILURE") && !(currentBuild.result == "ABORTED" )){
+emailext ( 
+	    attachmentsPattern:'**/testng-report/MOSIP_ModuleLevelAutoRun_TestNGReport.html',
+	    subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER on env ${params.Environment}",
+	    body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+	    to: "$recipients",
+	    from: '"Jenkins" <info@mosip.io>'
+	)
+}
+}
+}

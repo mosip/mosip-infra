@@ -1,0 +1,45 @@
+# All the users in the database will be created with respective passwords given below, change the below passwords
+#  accordingly for security reasons.
+
+# password postgres user  used to create all other users and roles etc
+postgres_password: Password@postgres
+# password kerneluser  used in Kernel admin service, Database mappings uin, kernel keymanager Service, kernel otp manager
+kerneluser_password: Password@kernel
+
+# password audituser    used in kernel auditmanager service
+audituser_password: Password@audit
+
+# password masteruser   used in kernel masterdata service, licensekeymanager, syncdata
+masteruser_password: Password@masterdata
+
+# password regprcuser  used in kernel rid generator, packet-info-storage-service
+regprcuser_password: Password@registrationprocessor
+
+# password iamuser  used in  kernel authmanager service
+iamuser_password: Password@iam
+
+# password prereguser used in registration processor and preregistartion services
+prereguser_password: Password@prereg
+
+# idauser passowrd  used in id-authentication services
+idauser_password: Password@ida
+
+# idrepouser used in id-repository services
+idrepouser_password: Password@idrepo
+
+# idmapuser used in id-repository vid service
+idmapuser_password: Password@idma
+
+##################################################################################################
+
+# Keystore configurations are stored below which will be used to generate a jks which can be used by config
+# server to encrypt and decrypt properties. Please change the secret and passwords accordingly.
+keystore_alias: configServerKeystore
+keystore_key_secret: myKeySecret
+keystore_store_password: myStorePassword
+common_name: myCommonName
+organizational_unit: myOrganizationalUnit
+organization: myOrganization
+language: myLanguage
+state: myState
+country: myCountry

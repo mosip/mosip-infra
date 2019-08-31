@@ -1,0 +1,145 @@
+node {
+ try {
+
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def buildInfo
+ def branch = params.BRANCH_NAME
+ def dockerImagesTagVersion = 'NaV' //This will ensure that docker images tag should have 1-1 relation ship with project version
+ def projectToBuild = 'id-repository'
+ def registryUrl = params.REGISTRY_URL
+ def registryName = params.REGISTRY_NAME
+ def registryCredentials = params.REGISTRY_CREDENTIALS
+ def gitUrl = params.GIT_URL
+ def gitCredentials = params.GIT_CREDENTIALS
+ k8Context = params.K8_CLUSTER_CONTEXT
+ updatedServices = []
+ updatedDockerImages = []
+ 
+ stage('------- Checkout --------') {
+  // Checkout only Authentication Module
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId:gitCredentials]
+    ],
+    extensions: [
+
+     [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild +'/.*'],
+     [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/'+projectToBuild + '/']
+     ]]
+
+    ],
+   ])
+  }
+ }
+ stage('--------- Artifactory configuration ----------------') {
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+
+stage ('---------- mvn-clean-install ---------------') {
+        rtMaven.run pom: branch + '/' + projectToBuild + '/pom.xml', goals: 'clean install', buildInfo: buildInfo
+}
+
+stage('---------- SonarQube Analysis --------------') {
+  def mvnHome = tool name: 'M2_HOME', type: 'maven'
+  withSonarQubeEnv('sonar') {
+   sh "${mvnHome}/bin/mvn -f '$branch/$projectToBuild/' sonar:sonar"
+  }
+ }
+
+stage('----------- Publish build info -------------') {
+  server.publishBuildInfo buildInfo
+ }
+ 
+stage('-----------Docker image push and cleanup-----------') {
+	dir(branch) {
+		   pomFile = readMavenPom file: projectToBuild+'/pom.xml'
+		   dockerImagesTagVersion = pomFile.parent.version
+   		   echo dockerImagesTagVersion
+			sh "find . -name 'Dockerfile'> directoryDockerFiles"
+			locationOfDockerFiles = readFile( "directoryDockerFiles" ).split( "\\r?\\n" );
+			sh "rm -f directoryDockerFiles"
+			for (int i=0; i < locationOfDockerFiles.size(); i++) {
+			if(locationOfDockerFiles[i].equals("")){
+			echo "No Dockerfile found"
+			break;
+			}
+			echo locationOfDockerFiles[i]
+			def currentModule = locationOfDockerFiles[i]
+			sh "basename `dirname $currentModule` > parentDirectoryName"
+			parentDirectoryName = readFile('parentDirectoryName').trim()
+			sh "rm -f parentDirectoryName"
+			sh "dirname $currentModule > parentDirectoryPath"
+			parentDirectoryPath = readFile('parentDirectoryPath').trim()
+			sh "rm -f parentDirectoryPath"
+			docker.withRegistry(registryUrl,registryCredentials) {
+			echo "$currentModule"
+			echo "$parentDirectoryName"
+			echo "$parentDirectoryPath"
+			def buildName = "$parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+			newApp = docker.build(buildName, '-f '+locationOfDockerFiles[i]+' '+parentDirectoryPath)
+			    newApp.push()
+			    newApp.push 'latest'
+			 }
+			sh "docker rmi $parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+			sh "docker rmi $registryName/$parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+			sh "docker rmi $registryName/$parentDirectoryName"
+
+			}
+
+	}
+
+
+}
+
+stage('Kubernetes Deploy : DEV'){
+      //this stage will rollout the changes on Kubernetes Cluster
+      sh "kubectl config use-context $k8Context"
+      sh " kubectl set image deployment/id-repository-identity-service id-repository-identity-service=$registryName/id-repository-identity-service:$dockerImagesTagVersion.$BUILD_NUMBER"
+      sh " kubectl set image deployment/id-repository-vid-service id-repository-vid-service=$registryName/id-repository-vid-service:$dockerImagesTagVersion.$BUILD_NUMBER"
+      echo "Getting list of all services" 
+      sh "kubectl get pods"
+    }
+	
+	}
+ // Catching the exception for triggering email
+  catch (exception) {
+        print exception
+		// If the job was aborted by any user
+        if (exception instanceof InterruptedException) {
+           currentBuild.result = "ABORTED"
+        }
+		// If the job failed due to some error
+        else{
+            currentBuild.result = "FAILURE"
+        }
+        
+        throw exception //rethrow exception to prevent the build from proceeding
+    
+        
+        }
+	finally{
+		if(currentBuild.result == "FAILURE"){
+		// sending email to kernel recipients
+		recipients = "$env.IDA_RECIPIENT_LIST"
+		emailext (
+					subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER failed'",
+					body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+					to: "$recipients",
+					from: '"Jenkins" <info@mosip.io>'
+				)
+	}
+	}
+ 
+
+}

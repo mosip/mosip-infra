@@ -1,0 +1,190 @@
+node {
+ try{
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def buildInfo
+ def branch = params.BRANCH_NAME
+ def dockerImagesTagVersion = branch  //This will ensure that docker images tag should have 1-1 relation ship with project version
+ projectToBuild = 'registration'
+ def registryUrl = params.REG_CLIENT_REGISTRYURL
+ def registryName = params.REG_CLIENT_REGISTRYNAME
+ def gitUrl = params.GIT_URL
+ def gitCredentials = params.GIT_CREDENTIALS
+ def buildInfo1
+ def pom
+ def version 
+ def uploadSpec
+ 
+ stage('------- Checkout --------') {
+  // Checkout only registration Module
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId:gitCredentials]
+    ],
+    extensions: [
+
+     [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
+     [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/'+projectToBuild + '/']
+     ]]
+
+    ],
+   ])
+  }
+   pom = readMavenPom file: branch + '/' + projectToBuild + '/pom.xml'
+   version = pom.version 
+   print version
+   print "libs-release-local/io/mosip/registration/registration-client/${version}/"
+   uploadSpec = """{
+  "files": [
+    {
+      "pattern": "${branch}/registration/registration-client/target/*.zip",
+      "target": "libs-release-local/io/mosip/registration/registration-client/${version}/"
+    },
+    {
+      "pattern": "${branch}/registration/registration-client/target/MANIFEST.MF",
+      "target": "libs-release-local/io/mosip/registration/registration-client/${version}/"
+    },
+    {
+      "pattern": "${branch}/registration/registration-client/target/lib/*.jar",
+      "target": "libs-release-local/io/mosip/registration/registration-client/${version}/lib/"
+    },
+    {
+      "pattern": "${branch}/registration/registration-client/target/lib/*.dll",
+      "target": "libs-release-local/io/mosip/registration/registration-client/${version}/lib/"
+    }
+ ]
+ }"""
+ }
+
+ stage('--------- Artifactory configuration ----------------') {
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+
+ stage('---------- mvn-clean-install ---------------') {
+  rtMaven.run pom: branch + '/' + projectToBuild + '/pom.xml', goals: 'clean install', buildInfo: buildInfo
+  buildInfo1 = server.upload spec: uploadSpec
+ }
+
+ stage('---------- SonarQube Analysis --------------') {
+  def mvnHome = tool name: 'M2_HOME', type: 'maven'
+  withSonarQubeEnv('sonar') {
+   sh "${mvnHome}/bin/mvn -f '$branch/$projectToBuild/' sonar:sonar"
+  }
+ }
+
+ stage('----------- Publish build info -------------') {
+ // buildInfo.append buildInfo1
+  server.publishBuildInfo buildInfo
+  //server.publishBuildInfo buildInfo1
+ }
+
+ /*
+
+ stage('-----------Docker image push and cleanup-----------') {
+  dir(branch) {
+   sh "find . -name 'Dockerfile'> directoryDockerFiles"
+   locationOfDockerFiles = readFile("directoryDockerFiles").split("\\r?\\n");
+   sh "rm -f directoryDockerFiles"
+   showChangeLogs();
+   for (int j = 0; j < changedModules.size(); j++) {
+    for (int i = 0; i < locationOfDockerFiles.size(); i++) {
+     if(locationOfDockerFiles[i].equals("")){
+     break;
+     }
+     echo locationOfDockerFiles[i]
+     def currentModule = locationOfDockerFiles[i]
+     sh "basename `dirname $currentModule` > parentDirectoryName"
+     parentDirectoryName = readFile('parentDirectoryName').trim()
+     sh "rm -f parentDirectoryName"
+     sh "dirname $currentModule > parentDirectoryPath"
+     parentDirectoryPath = readFile('parentDirectoryPath').trim()
+     sh "rm -f parentDirectoryPath"
+
+     parentDirectoryPathForamtted = parentDirectoryPath.substring(2);
+
+     echo "------------------------" + changedModules[j]
+     echo ">>>>>>>>>>>>>>>>>>>>>>>>" + parentDirectoryPathForamtted
+
+     if (changedModules[j].contains(parentDirectoryPathForamtted)) {
+      echo parentDirectoryPathForamtted + " will be built"
+      docker.withRegistry(registryUrl) {
+      def buildName = "$parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+      newApp = docker.build(buildName, '--build-arg spring_config_label='+branch+'-f ' + locationOfDockerFiles[i] + ' ' + parentDirectoryPath)
+      newApp.push()
+      newApp.push 'latest'
+      }
+      sh "docker rmi $parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+      sh "docker rmi $registryName/$parentDirectoryName:$dockerImagesTagVersion.$BUILD_NUMBER"
+      sh "docker rmi $registryName/$parentDirectoryName"
+
+     }
+    }
+
+
+   }
+
+  }
+ }*/
+
+ }
+    // Catching the exception for triggering email
+  catch (exception) {
+        print exception
+		// If the job was aborted by any user
+        if (exception instanceof InterruptedException) {
+           currentBuild.result = "ABORTED"
+        }
+		// If the job failed due to some error
+        else{
+            currentBuild.result = "FAILURE"
+        }
+        
+        throw exception //rethrow exception to prevent the build from proceeding
+    
+        
+        }
+	finally{
+		if(currentBuild.result == "FAILURE"){
+		// sending email to kernel recipients
+		recipients = "$env.REGISTRATION_RECIPIENT_LIST"
+		emailext (
+					subject: "MOSIP Jenkins Job $JOB_NAME with build no $BUILD_NUMBER failed'",
+					body: """<p>Check console output at <a href="$BUILD_URL">'${JOB_NAME}'</a></p>""",
+					to: "$recipients",
+					from: '"Jenkins" <info@mosip.io>'
+				)
+	}
+  }
+
+}
+
+@NonCPS
+def showChangeLogs() {
+ def changeLogSets = currentBuild.changeSets
+ changedModules = []
+ for (int i = 0; i < changeLogSets.size(); i++) {
+  def entries = changeLogSets[i].items
+  for (int j = 0; j < entries.length; j++) {
+   def entry = entries[j]
+   echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+   def paths = new ArrayList(entry.affectedPaths)
+   for (int k = 0; k < paths.size(); k++) {
+    def path = paths[k]
+    if (path.startsWith(projectToBuild)) {
+     changedModules.add(path);
+    }
+
+   }
+  }
+ }
+}

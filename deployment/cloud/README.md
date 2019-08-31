@@ -1,0 +1,1 @@
+This folder contains scripts and utilities to deploy MOSIP in a cloud environment with CI/CD pipeline setup.  The cloud setup is useful for testing the MOSIP platform emulating a close-to-real production setup.  

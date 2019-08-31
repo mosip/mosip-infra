@@ -1,0 +1,20 @@
+<org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+    <key>{{ .Values.Artifactory.serverkey }}</key>
+    <value>{{ .Values.Artifactory.serverid }}</value>
+</org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+<org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+    <key>{{ .Values.Docker.registrykey }}</key>
+    <value>{{ .Values.Docker.registryid }}</value>
+</org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+<org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+    <key>{{ .Values.Scm.credentialskey }}</key>
+    <value>{{ .Values.Scm.credentialsid }}</value>
+</org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+<org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+    <key>{{ .Values.Scm.urlkey }}</key>
+    <value>{{ .Values.Scm.url }}</value>
+</org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+<org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
+    <key>{{ .Values.Docker.Registry.urlkey }}</key>
+    <value>{{ .Values.Docker.Registry.url }}</value>
+</org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>

@@ -1,0 +1,8 @@
+version: '2'
+services:
+  registry:
+    volumes:
+      - <YOUR-CERTS-PATH>:<PATH-TO-VOLUME-MOUNT-YOUR-CERTS>
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: <YOUR-TLS-CERT-PATH>
+      REGISTRY_HTTP_TLS_KEY: <YOUR-TLS-KEY-PATH>
