@@ -15,7 +15,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 - Clone this repo:    
 `$ git clone https://github.com/mosip/mosip-infra.git`  
 - Install Python3.6 and other tools:  
-`$ cd mosip-dev-installer`  
+`$ cd deployment/developer 
 `$ sh prerequisites.sh`
 - Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
@@ -24,7 +24,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 - Clone `mosip-platform` repo:  
 `$ git clone https://github.com/mosip/mosip-platform.git`    
 `$ cd mosip-platform`  
-`$ git checkout 0.9.0_phil`  
+`$ git checkout 0.9.0_a`  
 - Run installer as below (do **not** run with `sudo`):  
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher --help`  
