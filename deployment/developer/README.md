@@ -9,7 +9,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 - Create a new user, login as this user.
 - Add current user to `/etc/sudoers` file.     
 - Install git:  
-`$ sudo yum install git`
+`$ sudo yum install -y git`
 - Create `mosip` directory in home directory.
 - `$ cd $HOME/mosip`
 - Clone this repo:    
