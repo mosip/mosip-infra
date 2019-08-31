@@ -1,6 +1,0 @@
-defaultBackend:
-    dockerImage: gcr.io/google_containers/defaultbackend:1.0
-ingressController:
-    dockerImage: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.9.0-beta.17
-# ingressService:
-#     loadbalancerIP: XXX.XXX.XXX.XXX
