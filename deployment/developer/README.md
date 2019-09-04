@@ -27,10 +27,10 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 `$ git checkout 0.9.0_a`  
 1. Run installer as below (do **not** run with `sudo`):  
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
-`$ ./launcher --help`  
-`$ ./launcher --install-environ` (one time)  
-`$ ./launcher --build-code`  
-`$ ./launcher --start-services`  
+`$ ./launcher.py --help`  
+`$ ./launcher.py --install-environ` (one time)  
+`$ ./launcher.py --build-code`  
+`$ ./launcher.py --start-services`  
 1. Monitor the logs under `launcher/logs` dir for any errors.  
 `$ grep ERROR *`
 1. Once all services are up, run a test api under `launcher/test/api_test.py` (inspect and modify the API parameters before running). For the OTP email test, you will have to allow Google to receive emails from apps (lesser security setting).  
