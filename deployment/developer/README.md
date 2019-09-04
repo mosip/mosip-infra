@@ -4,7 +4,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 
 ## Running the Installer
 
-1. This Installer runs on CenOS 7. Create a new VM with CentOS 7. The installer was tested with CentOS-7-x86_64-DVD-1810.iso with 8GB RAM, 2 CPU configuration.
+1. This Installer runs on CentOS 7. Create a new VM with CentOS 7. The installer was tested with CentOS-7-x86_64-DVD-1810.iso with 8GB RAM, 2 CPU configuration.
 1. Make sure network is enabled on the VM.
 1. Create a new user, login as this user.
 1. Add current user to `/etc/sudoers` file.     
