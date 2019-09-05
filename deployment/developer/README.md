@@ -14,7 +14,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. `$ cd $HOME/mosip`
 1. Clone this repo:    
 `$ git clone https://github.com/mosip/mosip-infra.git`  
-1. Install Python3.6 and other tools:  
+1. Install prerequisties (Python3.6 etc):  
 `$ cd deployment/developer`  
 `$ sh prerequisites.sh`  
 1. Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
