@@ -12,4 +12,3 @@ spec:
   selector:
     k8s-app: nginx-ingress-controller
   type: LoadBalancer
-  loadBalancerIP: 104.211.231.5
