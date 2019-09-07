@@ -1,4 +1,4 @@
-# MOSIP Developer Installer
+# MOSIP Single Machine Developer Installer
 
 The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  
 
@@ -21,7 +21,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
-1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:
+1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:  
 `registration.processor.dmz.server.user=<your login id>`
 1. `$ cd $HOME/mosip` 
 1. Clone `mosip-platform` repo:  
@@ -54,18 +54,18 @@ http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
 
 ### Notes
-* config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
+* Config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
 * HDFS secure authentication is disabled, hence Kerberos is not used. 
-* For local run all ports have to be different. In the above branch of mosip-platform code, all kernel ports have been changed to 81xx.
+* For local run all ports have to be different. Hence, the kernel services are run on ports 81xx.
 * HTTPS connections have been changed to HTTP connection in code.
-* Detailed logs have been redirected by changing code (path was hardcoded)
+* Detailed logs have been redirected by changing code (path was hardcoded).
 * To run a particular jar (for debugging etc):  
 `java -Dspring.cloud.config.uri=http://localhost:8888 -Dspring.cloud.config.label=master -Dspring.profiles.active=dev -Xmx256m -jar <jar_path> >> <log_path> 2>&1 &`
-* Digital signature has been disabled in `registration-processor.properties`.  Enable it later.  
+* Digital signature has been disabled in `registration-processor.properties`.  Enable it later.    
 `registration.processor.signature.isEnabled=false` 
-* Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:  
+* Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:   
 `configuration.set("dfs.client.use.datanode.hostname", "false");`
-* Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml
+* Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml.
 * Two camel bridge instances are run - one for dmz and another one for secure zone.
 
 ## License
