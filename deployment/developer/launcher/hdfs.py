@@ -41,7 +41,7 @@ def run_hdfs():
         logger.info('Container exists. Starting it..')
         command('docker container start %s' % container_id)     
     else: # Run fresh
-        cmd = 'docker run --name %s -d sequenceiq/hadoop-docker:2.7.0' % cname 
+        cmd = 'docker run -p 50070:50070 --name %s -d sequenceiq/hadoop-docker:2.7.0' % cname 
         proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
         container_id = proc.stdout.readline().strip()
         container_id = container_id.decode() # bytes -> str
