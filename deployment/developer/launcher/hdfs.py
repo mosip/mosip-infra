@@ -6,6 +6,26 @@ from config import *
 
 logger = logging.getLogger(__name__)
 
+def is_container_running(container_name):
+    proc = subprocess.Popen('docker ps --filter name=%s' % container_name, 
+                             shell=True, stdout=subprocess.PIPE)
+    while 1:
+        s = proc.stdout.readline().decode() # bytes -> str
+        if len(s) == 0: # All output is read
+            return False 
+        if container_name in s: 
+            container_id = s.split()[0]
+            return True 
+
+def get_container_id(container_name):
+    proc = subprocess.Popen('docker container ls -a | grep %s ' % 
+                             container_name, shell=True, stdout=subprocess.PIPE)
+    s = proc.stdout.readline().decode() # bytes -> str
+    if len(s) == 0:  # Not found
+       return None
+
+    return s.split()[0]  # Container id
+
 def run_hdfs():
     #TODO: Container stop/rm etc. needs to be much more elaborate. Multiple
     # containers may exist with same name. 
@@ -13,21 +33,20 @@ def run_hdfs():
     # Check if container already running
     cname = 'mosip_hdfs' # Container name
     # TODO: Should not really use sudo for this
-    proc = subprocess.Popen('sudo docker ps --filter name=%s' % cname, 
-                             shell=True, stdout=subprocess.PIPE)
-    while 1:
-        s = proc.stdout.readline().decode() # bytes -> str
-        if len(s) == 0: # No running container with this name
-            break
-        if cname in s: 
-            logger.info('Container already running')
-            container_id = s.split()[0]
-            return 
-         
-    proc = subprocess.Popen('sudo docker run --name %s -d sequenceiq/hadoop-docker:2.7.0' % cname, shell=True, stdout=subprocess.PIPE)
-    container_id = proc.stdout.readline().strip()
-    container_id = container_id.decode() # bytes -> str
-    proc = subprocess.Popen('sudo docker attach %s' % container_id, stdout=subprocess.PIPE, shell=True)
+    if is_container_running(cname):
+        logger.info('Container is already running')
+        return  
+    container_id = get_container_id(cname)
+    if container_id is not None:  # Container already exists 
+        logger.info('Container exists. Starting it..')
+        command('docker container start %s' % container_id)     
+    else: # Run fresh
+        cmd = 'docker run --name %s -d sequenceiq/hadoop-docker:2.7.0' % cname 
+        proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
+        container_id = proc.stdout.readline().strip()
+        container_id = container_id.decode() # bytes -> str
+
+    proc = subprocess.Popen('docker attach %s' % container_id, stdout=subprocess.PIPE, shell=True)
     while 1: 
         s = proc.stdout.readline().decode() # bytes -> str
         if s.find('starting nodemanager') != -1: 
