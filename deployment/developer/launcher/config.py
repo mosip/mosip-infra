@@ -20,6 +20,8 @@ CONFIG_SERVER_PORT = 8888 # Should be same as in application.properties of
                           # config-server
 COUNTRY_NAME='mycountry'  # For LDAP 
 
+CLAMAV_PORT = 3310 # CAUTION: Change resources/clamav_scan.conf if you change this
+
 # Local repo where all config files of MOSIP will be fetched by config server.
 CONFIG_REPO= os.path.join(MOSIP_DIR, 'myconfig')  # git repo 
 LOGS_DIR = os.path.join(MOSIP_DIR, 'mosip-infra/deployment/developer/launcher/logs')
@@ -103,10 +105,19 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
 MOSIP_SERVICES = [ 
     ('kernel', 'kernel-auth-service'),
     ('kernel', 'kernel-keymanager-service'),
-    ('kernel', 'kernel-otpmanager-service'),
-    ('kernel', 'kernel-emailnotification-service'),
+    #('kernel', 'kernel-otpmanager-service'),
+    #('kernel', 'kernel-emailnotification-service'),
     ('kernel', 'kernel-masterdata-service'),
-    ('preregistration', 'pre-registration-login-service'),
-    ('preregistration', 'pre-registration-notification-service'),
-    ('preregistration', 'pre-registration-demographic-service')
+    ('kernel', 'kernel-cryptomanager-service'),
+    ('kernel', 'kernel-signature-service'),
+    ('kernel', 'kernel-auditmanager-service'),
+    ('registrationprocessor', 'registration-processor-packet-receiver-stage'),
+    ('registrationprocessor', 'registration-processor-packet-uploader-stage'),
+    ('registrationprocessor', 'registration-processor-packet-validator-stage'), 
+    ('registrationprocessor', 'registration-processor-osi-validator-stage'),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge'),
+
+    #('preregistration', 'pre-registration-login-service'),
+    #('preregistration', 'pre-registration-notification-service'),
+    #('preregistration', 'pre-registration-demographic-service')
 ]
