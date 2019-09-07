@@ -74,23 +74,12 @@ def clone_code(version, repos):
     pass 
 
 def build_code(code_dir):
-    #TODO: Check out code
     logger.info('Building code')
     cwd = os.getcwd() 
     os.chdir(code_dir) 
     command('mvn -DskipTests install')
     os.chdir(cwd)
     logger.info('Building code done')
-
-def init_and_cleanup():
-    '''
-    Before starting the services, perform cleanup for a fresh start.
-    '''
-    logger.info('Cleanup ..')
-    #TODO: Keymanger does not start if there are entries in key_alias table. 
-    # CAUTION: investigate this - we should not be deleting this table
-
-    clean_table('mosip_kernel', 'key_alias') 
 
 def start_services(services, version):
     '''
@@ -100,8 +89,6 @@ def start_services(services, version):
         version: Assumed all services have same version specified in pom.xml.
     '''
     logger.info('Starting MOSIP services')    
-
-    init_and_cleanup()
 
     logger.info('Running Config Server ..')
     err = run_config_server(CONFIG_REPO, LOGS_DIR)
