@@ -34,6 +34,6 @@ def install_sftp(keyname):
     command('chmod 600 authorized_keys') 
     
     command('ssh-keyscan -H localhost >> known_hosts') 
-    command('chmod 600 known_hosts') 
+    command('chmod 644 known_hosts') 
     
     os.chdir(cwd) # restore
