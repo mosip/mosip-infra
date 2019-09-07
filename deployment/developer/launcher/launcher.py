@@ -69,10 +69,6 @@ def start_environ():
     restart_clamav()
     run_hdfs()
 
-def clone_code(version, repos):
-    # TODO: Check out all repos
-    pass 
-
 def build_code(code_dir):
     logger.info('Building code')
     cwd = os.getcwd() 
