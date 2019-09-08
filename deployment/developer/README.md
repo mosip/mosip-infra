@@ -45,7 +45,7 @@ http://directory.apache.org/studio/download/download-linux.html
 ## Notes
 * config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
 * HDFS secure authentication is disabled, hence Kerberos is not used. 
-* Kernel AuditManager and RegProc Packet Receiver both run on port 8081. TODO: Change the ports in one of them.  For now Kernel AuditManager is not run. 
+* For local run all ports have to be different. In the above branch of mosip-platform code, all kernel ports have been changed to 81--.
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
