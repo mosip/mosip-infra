@@ -1,5 +1,8 @@
 # This file contains the config parameters of the launcher. Inspect the file
 # carefully before running the launcher.  Esp. MOSIP_DIR.
+# Ports:
+# Kernel Auth Service: 8191
+# Kernel Keymanager Service: 8188
 
 import os
 
