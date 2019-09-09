@@ -41,8 +41,8 @@
     </outbound-ports>
     <join>
       <multicast enabled="false">
-        <multicast-group>${IP}</multicast-group>
-        <multicast-port>${PORT}</multicast-port>
+        <multicast-group>localhost</multicast-group>
+        <multicast-port>54327</multicast-port>
       </multicast>
       <tcp-ip enabled="true">
         <interface>127.0.0.1</interface>
