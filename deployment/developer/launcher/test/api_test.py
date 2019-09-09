@@ -74,8 +74,9 @@ def get_public_key(appid, center_id, machine_id, token):
     r = requests.get(url, params = {'referenceId' : refid,
                                     'timeStamp' : get_timestamp()}, 
                      cookies = cookies)
-    print_response(r)
-   
+    r = json.loads(r.content) # Get dict
+    return r['response']['publicKey'] 
+
 def test_reg_proc():
     '''
     1. First get authorization token (whos?) 
@@ -86,7 +87,8 @@ def test_reg_proc():
     '''
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
-    get_public_key('REGISTRATION', '10001', '10001', token)
+    key = get_public_key('REGISTRATION', '10001', '10001', token)
+    print(key)
     
 def main():
     #prereg_send_otp()
