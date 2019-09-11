@@ -23,7 +23,7 @@ spec:
       # https://github.com/kubernetes/ingress-nginx/releases
       terminationGracePeriodSeconds: 60
       containers:
-      - image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.10.0-beta.17
+      - image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.9.0-beta.17
         name: nginx-ingress-controller        
         ports:
         - containerPort: 80
