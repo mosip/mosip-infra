@@ -40,6 +40,7 @@ def install_tools():
     command('sudo pip3.6 install psutil')
     command('sudo pip3.6 install psycopg2')
     command('sudo pip3.6 install requests')
+    command('sudo pip3.6 install pycrypto')
 
 def install_environ():
     logger.info('Installing environ')
