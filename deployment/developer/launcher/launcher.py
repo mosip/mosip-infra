@@ -53,8 +53,8 @@ def install_environ():
     load_ldap(COUNTRY_NAME)
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
-    install_config_repo(CONFIG_REPO)
-    install_sftp(SFTP_KEY)
+    install_sftp(SFTP_KEY)  
+    install_config_repo(CONFIG_REPO) # Always install in the end
     logger.info('Env install done')
 
 def start_environ():
