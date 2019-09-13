@@ -1,7 +1,11 @@
+#!/usr/bin/python3.6
 import json
 import requests
 import os
 import datetime as dt
+from Crypto.Cipher import AES
+from Crypto.PublicKey import RSA
+import base64
 
 def print_response(r):
     print(r.headers)
@@ -68,6 +72,10 @@ def auth_get_token(appid, username, password):
     return token 
 
 def get_public_key(appid, center_id, machine_id, token):
+    '''
+    Returns:
+        Bytes of public key (after base64 decoding)
+    '''
     url = 'http://localhost:8188/v1/keymanager/publickey/REGISTRATION'
     cookies = {'Authorization' : token}
     refid = center_id + '_' + machine_id
@@ -75,7 +83,46 @@ def get_public_key(appid, center_id, machine_id, token):
                                     'timeStamp' : get_timestamp()}, 
                      cookies = cookies)
     r = json.loads(r.content) # Get dict
-    return r['response']['publicKey'] 
+    publickey = base64.urlsafe_b64decode(r['response']['publicKey']) 
+    return publickey
+
+def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
+    url = 'http://localhost:8083/registrationprocessor/v1/registrationstatus/sync' 
+    cookies = {'Authorization' : token}
+    headers = {'Center-Machine-RefId' : center_id,
+               'timestamp' : get_timestamp()} 
+    j = {
+        "id": "mosip.registration.sync",
+        "version": "1.0",
+        "requesttime": get_timestamp(), 
+        "request": [{
+            "registrationId": regid, 
+            "registrationType": "NEW",
+            "packetHashValue": packet_hash, 
+            "packetSize": packet_size,
+            "supervisorStatus": "APPROVED",
+            "supervisorComment": "Approved, all good",
+            "langCode": "eng"
+        }]
+    } 
+    r = requests.post(json = j, cookies = cookies, headers = headers) 
+    print(r)
+
+def pad_data(data, block_size):
+    '''
+    Pad data (bytes) to multiples of block_size bytes and return padded data
+    '''
+    data = data + bytes( block_size - (len(data) % block_size)t)
+    return data 
+
+def encrypt_packet(packet_zip_file, publickey):
+    data = open(packet_zip_file, 'rb').read()
+    print(data)
+    sym_key = os.urandom(32)  # 32 bytes long random key  
+    iv = os.urandom(16) # 16 bytes
+    obj = AES.new(sym_key, AES.MODE_CBC, iv) 
+    data = pad_data(data, block_size=16)
+    ciphertext = obj.encrypt(data)
 
 def test_reg_proc():
     '''
@@ -87,8 +134,11 @@ def test_reg_proc():
     '''
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
-    key = get_public_key('REGISTRATION', '10001', '10001', token)
-    print(key)
+    publickey = get_public_key('REGISTRATION', '10006', '10036', token)
+    regid = '10006100360002120190905051341'
+    packet_zip_file = 'data/10006100360002120190905051341.zip'
+    encrypt_packet(packet_zip_file, publickey)
+    #sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
     
 def main():
     #prereg_send_otp()
