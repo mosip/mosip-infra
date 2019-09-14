@@ -5,6 +5,9 @@
 # Kernel Keymanager Service: 8188
 # Registration Process Status Service: 8013
 # Audit Manager: 8181
+# Signature Service: 8192
+# Cryptomanager Service: 8187
+# Masterdata Service: 8186
 
 import os
 
