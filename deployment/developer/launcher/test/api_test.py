@@ -119,7 +119,8 @@ def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token,
     # TODO: code repetition below w.r.t. to refid in get_public_key()
     refid = center_id + '_' + machine_id
     headers = {'Center-Machine-RefId' : refid,
-               'timestamp' : get_timestamp()} 
+               'timestamp' : get_timestamp(),
+               'Content-Type' : 'application/json'} 
     j = {
         "id": "mosip.registration.sync",
         "version": "1.0",
@@ -139,8 +140,10 @@ def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token,
     bytes_s = s.encode()
     b64_s = base64.b64encode(bytes_s).decode()
     encrypted = get_ecrypted_data_from_server('REGISTRATION', refid, b64_s, token)
+    print(encrypted)
+    exit(0)
     r = requests.post(url, data=encrypted, cookies = cookies, headers = headers) 
-    print(r)
+    print_response(r)
 
 def pad_data(data, block_size):
     '''

@@ -24,7 +24,7 @@ def run_jar(jar_dir, jar_name, logs_dir, config_port,
         '-Dspring.profiles.active=dev',
         '-Xmx%s' % max_heap_size 
     ]
-    cmd = 'java %s -jar %s >>%s/%s.log 2>&1 &' % (' '.join(options), 
+    cmd = 'java %s -jar %s >>%s/%s.server.log 2>&1 &' % (' '.join(options), 
                                                     jar_name, logs_dir, 
                                                     jar_name)
     logger.info('Command: %s' % cmd)
