@@ -88,10 +88,37 @@ def get_public_key(appid, center_id, machine_id, token):
     publickey = base64.urlsafe_b64decode(r['response']['publicKey']) 
     return publickey
 
-def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
+def get_ecrypted_data_from_server(appid, refid, data, token):
+    '''
+    Args:
+        data: string
+    '''
+    url = 'http://localhost:8187/v1/cryptomanager/encrypt'
+    j = {
+        "id" : "string",
+        "metadata" : {},
+        "request" : {
+            "applicationId" : appid,
+            "data": data,
+            "referenceId" : refid,
+            "timeStamp" :  get_timestamp()
+        },
+        "requesttime" : get_timestamp(),
+        "version" : "1.0"
+    }
+    cookies = {'Authorization' : token}
+    r = requests.post(url, json = j, cookies=cookies)
+    r = r.content.decode() # to str 
+    r = json.loads(r)
+    return r['response']['data'] 
+
+def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token,
+                publickey):
     url = 'http://localhost:8083/registrationprocessor/v1/registrationstatus/sync' 
     cookies = {'Authorization' : token}
-    headers = {'Center-Machine-RefId' : center_id,
+    # TODO: code repetition below w.r.t. to refid in get_public_key()
+    refid = center_id + '_' + machine_id
+    headers = {'Center-Machine-RefId' : refid,
                'timestamp' : get_timestamp()} 
     j = {
         "id": "mosip.registration.sync",
@@ -107,7 +134,12 @@ def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
             "langCode": "eng"
         }]
     } 
-    r = requests.post(url, json = j, cookies = cookies, headers = headers) 
+
+    s = json.dumps(j)
+    bytes_s = s.encode()
+    b64_s = base64.b64encode(bytes_s).decode()
+    encrypted = get_ecrypted_data_from_server('REGISTRATION', refid, b64_s, token)
+    r = requests.post(url, data=encrypted, cookies = cookies, headers = headers) 
     print(r)
 
 def pad_data(data, block_size):
@@ -191,7 +223,7 @@ def test_reg_proc():
 
     phash, psize = encrypt_packet(in_packet_zip, out_packet_zip, publickey)
 
-    sync_packet(regid, phash, psize, center_id, machine_id, token)
+    sync_packet(regid, phash, psize, center_id, machine_id, token, publickey)
     
 def main():
     #prereg_send_otp()
