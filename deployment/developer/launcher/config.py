@@ -3,6 +3,8 @@
 # Ports:
 # Kernel Auth Service: 8191
 # Kernel Keymanager Service: 8188
+# Registration Process Status Service: 8013
+# Audit Manager: 8181
 
 import os
 
@@ -119,6 +121,7 @@ MOSIP_SERVICES = [
     ('registrationprocessor', 'registration-processor-packet-validator-stage'), 
     ('registrationprocessor', 'registration-processor-osi-validator-stage'),
     ('registrationprocessor', 'registration-processor-common-camel-bridge'),
+    ('registrationprocessor', 'registration-processor-registration-status-service')
 
     #('preregistration', 'pre-registration-login-service'),
     #('preregistration', 'pre-registration-notification-service'),

@@ -5,7 +5,9 @@ import os
 import datetime as dt
 from Crypto.Cipher import AES
 from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 import base64
+import hashlib
 
 def print_response(r):
     print(r.headers)
@@ -105,25 +107,71 @@ def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
             "langCode": "eng"
         }]
     } 
-    r = requests.post(json = j, cookies = cookies, headers = headers) 
+    r = requests.post(url, json = j, cookies = cookies, headers = headers) 
     print(r)
 
 def pad_data(data, block_size):
     '''
     Pad data (bytes) to multiples of block_size bytes and return padded data
     '''
-    data = data + bytes( block_size - (len(data) % block_size)t)
+    data = data + bytes(block_size - (len(data) % block_size))
     return data 
 
-def encrypt_packet(packet_zip_file, publickey):
-    data = open(packet_zip_file, 'rb').read()
-    print(data)
-    sym_key = os.urandom(32)  # 32 bytes long random key  
+def aes_encrypt(data, sym_key):
+    '''
+    Pads data if needed.  Generates random IV vector and returns the same
+    '''
+    data = pad_data(data, block_size=16)
     iv = os.urandom(16) # 16 bytes
     obj = AES.new(sym_key, AES.MODE_CBC, iv) 
-    data = pad_data(data, block_size=16)
-    ciphertext = obj.encrypt(data)
+    encrypted = obj.encrypt(data)
+    return encrypted, iv
 
+def rsa_encrypt(data, publickey):
+    '''
+    publickey in sequence of bytes
+    '''
+    rsa_key = RSA.importKey(publickey) 
+    cipher = Cipher_PKCS1_v1_5.new(rsa_key)
+    encrypted = cipher.encrypt(data)
+    return encrypted
+
+def sha256_hash(data):
+    '''
+    data assumed as type bytes
+    '''
+    m = hashlib.sha256()
+    m.update(data)
+    return m.hexdigest()
+ 
+def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
+    '''
+    Returns:
+        Packet hash
+        Size of packet
+    '''
+    data = open(in_packet_zip, 'rb').read()
+    sym_key = os.urandom(32)  # 32 bytes long random key  
+    encrypted, iv = aes_encrypt(data, sym_key)
+    encrypted_key = rsa_encrypt(sym_key, publickey)
+
+    # append iv to encrypted packet
+    packet = encrypted + iv
+    packet = packet + '#KEY_SPLITTER'.encode('utf-8') + encrypted_key
+
+    # HTTP safe base64  encode
+    packet = base64.urlsafe_b64encode(packet)
+
+    # Write in file 
+    fd = open(out_packet_zip, 'wb')
+    fd.write(packet)
+    fd.close()
+
+    # Rturn hash of packet
+    packet_hash = sha256_hash(packet) 
+
+    return packet_hash, len(packet)
+ 
 def test_reg_proc():
     '''
     1. First get authorization token (whos?) 
@@ -134,11 +182,16 @@ def test_reg_proc():
     '''
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
-    publickey = get_public_key('REGISTRATION', '10006', '10036', token)
+    center_id = '10006'
+    machine_id = '10036'
+    publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
     regid = '10006100360002120190905051341'
-    packet_zip_file = 'data/10006100360002120190905051341.zip'
-    encrypt_packet(packet_zip_file, publickey)
-    #sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token):
+    in_packet_zip = 'data/packet/unencrypted/%s.zip' % regid
+    out_packet_zip = '%s.zip' % regid # in current folder
+
+    phash, psize = encrypt_packet(in_packet_zip, out_packet_zip, publickey)
+
+    sync_packet(regid, phash, psize, center_id, machine_id, token)
     
 def main():
     #prereg_send_otp()

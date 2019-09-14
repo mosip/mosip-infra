@@ -548,7 +548,7 @@ mail: idaappuser@mosip.io
 mobile: 1234567890 
 rid: 100011000100002201905101216468
 uid: regproc_app_user
-userPassword: {SSHA256}UBWBoVuIM1ZG/mTdBX4sTKbC1Nfvy7G8bIaVthdGCj1ZpSKfOuH9XQ==
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI=
 
 dn: uid=sagar,ou=people,c=mycountry
 objectClass: userDetails
