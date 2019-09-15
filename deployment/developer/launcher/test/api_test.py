@@ -88,10 +88,14 @@ def get_public_key(appid, center_id, machine_id, token):
     publickey = base64.urlsafe_b64decode(r['response']['publicKey']) 
     return publickey
 
-def get_ecrypted_data_from_server(appid, refid, data, token):
+def encrypt_using_server(appid, refid, data, token):
     '''
+    Encrypt 'data' using server APIs.
+
     Args:
-        data: string
+        data: str
+    Returns:
+        encrypted data as str 
     '''
     url = 'http://localhost:8187/v1/cryptomanager/encrypt'
     j = {
@@ -101,13 +105,42 @@ def get_ecrypted_data_from_server(appid, refid, data, token):
             "applicationId" : appid,
             "data": data,
             "referenceId" : refid,
-            "timeStamp" :  get_timestamp()
+            "timeStamp" :  get_timestamp(),
+            "salt" : None
         },
         "requesttime" : get_timestamp(),
         "version" : "1.0"
     }
     cookies = {'Authorization' : token}
     r = requests.post(url, json = j, cookies=cookies)
+    r = r.content.decode() # to str 
+    r = json.loads(r)
+    return r['response']['data'] 
+
+def decrypt_using_server(appid, refid, data, token):
+    '''
+    Args:
+        data: str
+    Returns:
+        encrypted data as str 
+    '''
+    url = 'http://localhost:8187/v1/cryptomanager/decrypt'
+    j = {
+        "id" : "string",
+        "metadata" : {},
+        "requesttime" : get_timestamp(),
+        "version" : "1.0",
+        "request" : {
+            "applicationId" : appid,
+            "data": data,
+            "referenceId" : refid,
+            "timeStamp" :  get_timestamp(),
+            "salt" : None
+        }
+    }
+    cookies = {'Authorization' : token}
+    r = requests.post(url, json = j, cookies=cookies)
+    print_response(r)
     r = r.content.decode() # to str 
     r = json.loads(r)
     return r['response']['data'] 
@@ -138,11 +171,12 @@ def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token,
 
     s = json.dumps(j)
     bytes_s = s.encode()
-    b64_s = base64.b64encode(bytes_s).decode()
-    encrypted = get_ecrypted_data_from_server('REGISTRATION', refid, b64_s, token)
-    print(encrypted)
-    exit(0)
-    r = requests.post(url, data=encrypted, cookies = cookies, headers = headers) 
+    b64_s = base64.urlsafe_b64encode(bytes_s).decode()
+    appid = 'REGISTRATION'
+    encrypted = encrypt_using_server(appid, refid, b64_s, token)
+    # encrypted is string
+    encrypted = '"' + encrypted + '"' 
+    r = requests.post(url, data=encrypted, cookies=cookies, headers=headers) 
     print_response(r)
 
 def pad_data(data, block_size):
@@ -217,6 +251,7 @@ def test_reg_proc():
     '''
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
+    print(token)
     center_id = '10006'
     machine_id = '10036'
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
@@ -228,6 +263,12 @@ def test_reg_proc():
 
     sync_packet(regid, phash, psize, center_id, machine_id, token, publickey)
     
+def validate_token(token):
+    url = 'http://localhost:8191/v1/authmanager/authorize/validateToken'
+    cookies = {'Authorization' : token}
+    r = requests.post(url, cookies=cookies)
+    return r
+
 def main():
     #prereg_send_otp()
     test_reg_proc()
