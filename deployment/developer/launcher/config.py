@@ -8,6 +8,8 @@
 # Signature Service: 8192
 # Cryptomanager Service: 8187
 # Masterdata Service: 8186
+# Reg Proc Sync Service: 8083
+# Reg Proc Packet Receiver Service: 8081
 
 import os
 
@@ -107,7 +109,7 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_regprc/mosip_regprc_db.sql',
     'mosip_regprc/mosip_regprc_grants.sql',
     'mosip_regprc/mosip_regprc_ddl_deploy.sql',
-    #'mosip_regprc/mosip_regprc_dml_deploy.sql' # TODO: not in 0.9.0 
+    'mosip_regprc/mosip_regprc_dml_deploy.sql' # Added in 0.9.0_a
 ]
 
 MOSIP_SERVICES = [ 

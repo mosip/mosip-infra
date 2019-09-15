@@ -73,6 +73,12 @@ def auth_get_token(appid, username, password):
     token = read_token(r) 
     return token 
 
+def validate_token(token):
+    url = 'http://localhost:8191/v1/authmanager/authorize/validateToken'
+    cookies = {'Authorization' : token}
+    r = requests.post(url, cookies=cookies)
+    return r
+
 def get_public_key(appid, center_id, machine_id, token):
     '''
     Returns:
@@ -211,7 +217,8 @@ def sha256_hash(data):
     '''
     m = hashlib.sha256()
     m.update(data)
-    return m.hexdigest()
+    h = m.hexdigest().upper()
+    return h 
  
 def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
     '''
@@ -240,6 +247,15 @@ def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
     packet_hash = sha256_hash(packet) 
 
     return packet_hash, len(packet)
+
+def upload_packet(packet_file, token):
+    url = 'http://localhost:8081/registrationprocessor/v1/packetreceiver/registrationpackets'
+    cookies = {'Authorization' : token}
+    print(packet_file)
+    files = {packet_file : open(packet_file, 'rb')}
+    r = requests.post(url, files=files, cookies=cookies)
+    return r
+    
  
 def test_reg_proc():
     '''
@@ -251,7 +267,6 @@ def test_reg_proc():
     '''
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
-    print(token)
     center_id = '10006'
     machine_id = '10036'
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
@@ -262,12 +277,9 @@ def test_reg_proc():
     phash, psize = encrypt_packet(in_packet_zip, out_packet_zip, publickey)
 
     sync_packet(regid, phash, psize, center_id, machine_id, token, publickey)
-    
-def validate_token(token):
-    url = 'http://localhost:8191/v1/authmanager/authorize/validateToken'
-    cookies = {'Authorization' : token}
-    r = requests.post(url, cookies=cookies)
-    return r
+
+    r = upload_packet(out_packet_zip, token)
+    print_response(r)
 
 def main():
     #prereg_send_otp()
