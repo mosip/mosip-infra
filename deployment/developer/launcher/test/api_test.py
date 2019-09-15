@@ -20,7 +20,7 @@ def print_response(r):
 def get_timestamp():
     '''
     Current TS.
-    Format: 2019-02-14T12:40:59.768Z  (local time)
+    Format: 2019-02-14T12:40:59.768Z  (UTC)
     '''
     ts = dt.datetime.utcnow()
     ms = ts.strftime('%f')[0:2]
@@ -99,7 +99,7 @@ def encrypt_using_server(appid, refid, data, token):
     Encrypt 'data' using server APIs.
 
     Args:
-        data: str
+        data: str (base64 encoded if needed) 
     Returns:
         encrypted data as str 
     '''
@@ -128,7 +128,7 @@ def decrypt_using_server(appid, refid, data, token):
     Args:
         data: str
     Returns:
-        encrypted data as str 
+        decrypted data as str 
     '''
     url = 'http://localhost:8187/v1/cryptomanager/decrypt'
     j = {
@@ -151,12 +151,11 @@ def decrypt_using_server(appid, refid, data, token):
     r = json.loads(r)
     return r['response']['data'] 
 
-def sync_packet(regid, packet_hash, packet_size, center_id, machine_id, token,
+def sync_packet(regid, packet_hash, packet_size, refid, token,
                 publickey):
     url = 'http://localhost:8083/registrationprocessor/v1/registrationstatus/sync' 
     cookies = {'Authorization' : token}
     # TODO: code repetition below w.r.t. to refid in get_public_key()
-    refid = center_id + '_' + machine_id
     headers = {'Center-Machine-RefId' : refid,
                'timestamp' : get_timestamp(),
                'Content-Type' : 'application/json'} 
@@ -251,7 +250,6 @@ def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
 def upload_packet(packet_file, token):
     url = 'http://localhost:8081/registrationprocessor/v1/packetreceiver/registrationpackets'
     cookies = {'Authorization' : token}
-    print(packet_file)
     files = {packet_file : open(packet_file, 'rb')}
     r = requests.post(url, files=files, cookies=cookies)
     return r
@@ -273,10 +271,19 @@ def test_reg_proc():
     regid = '10006100360002120190905051341'
     in_packet_zip = 'data/packet/unencrypted/%s.zip' % regid
     out_packet_zip = '%s.zip' % regid # in current folder
+    refid = center_id + '_' + machine_id
+    data = open(in_packet_zip, 'rb').read()
+    data =  base64.urlsafe_b64encode(data)
+    data = data.decode() # to str
+    appid = 'REGISTRATION'
+    encrypted = encrypt_using_server(appid, refid, data, token) # b64 encoded
+    fd = open(out_packet_zip, 'wb')
+    fd.write(encrypted.encode())
+    fd.close()
+    phash = sha256_hash(encrypted.encode())
+    psize = len(encrypted.encode())
 
-    phash, psize = encrypt_packet(in_packet_zip, out_packet_zip, publickey)
-
-    sync_packet(regid, phash, psize, center_id, machine_id, token, publickey)
+    sync_packet(regid, phash, psize, refid, token, publickey)
 
     r = upload_packet(out_packet_zip, token)
     print_response(r)
