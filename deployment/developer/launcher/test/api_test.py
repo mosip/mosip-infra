@@ -268,6 +268,7 @@ def test_reg_proc():
     center_id = '10006'
     machine_id = '10036'
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
+    #TODO: generate packet with latest timestamp.
     regid = '10006100360002120190905051341'
     in_packet_zip = 'data/packet/unencrypted/%s.zip' % regid
     out_packet_zip = '%s.zip' % regid # in current folder
