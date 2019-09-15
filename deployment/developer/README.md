@@ -53,6 +53,7 @@ http://directory.apache.org/studio/download/download-linux.html
 `java -Dspring.cloud.config.uri=http://localhost:8888 -Dspring.cloud.config.label=master -Dspring.profiles.active=dev -Xmx256m -jar <jar_path> >> <log_path> 2>&1 &`
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.  
 `registration.processor.signature.isEnabled=false`
+* Make sure the timestamp after the encrytion keys are created in `key_alias` table
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
