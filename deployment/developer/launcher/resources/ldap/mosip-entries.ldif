@@ -134,7 +134,7 @@ mail: das@ylt.com
 mobile: 1234567890 
 rid: 100011000100002201905101214658
 uid: registrationprocessor
-userPassword: {SHA512}WdSCGMngFZqv+EVnOoN06vsVLJExBXnDLgSoro30NPatX8OHt6Oxv2XdFjtneLdguBJ0Yb341auf6MGAWp/WMw==
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI=
 
 dn: uid=auth_server_id,ou=people,c=mycountry
 objectClass: userDetails
