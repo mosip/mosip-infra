@@ -1499,6 +1499,14 @@ roleOccupant: uid=registration-admin,ou=people,c=mycountry
 roleOccupant: uid=reg_client_id1,ou=people,c=mycountry
 roleOccupant: uid=registration_admin1,ou=people,c=mycountry
 
+dn: cn=REGISTRATION_PROCESSOR,ou=roles,c=mycountry
+objectClass: organizationalRole
+objectClass: top
+cn: REGISTRATION_PROCESSOR
+description: Registration processor 
+roleOccupant: uid=regproc_app_user,ou=people,c=mycountry
+roleOccupant: uid=registrationprocessor,ou=people,c=mycountry
+
 dn: cn=SUPERADMIN,ou=roles,c=mycountry
 objectClass: organizationalRole
 objectClass: top
