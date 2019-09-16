@@ -6,7 +6,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 
 1. This Installer runs on CenOS 7. Create a new VM with CentOS 7. The installer was tested with CentOS-7-x86_64-DVD-1810.iso with 2 CPU, 8GB RAM, 40GB storage configuration.
 1. Make sure network is enabled on the VM.
-1. Create a new user, login as this user.
+1. Create a new user. Login as this user.
 1. Add current user to `/etc/sudoers` file.     
 1. Install git:  
 `$ sudo yum install -y git`
