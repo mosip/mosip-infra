@@ -8,24 +8,20 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 import base64
 import hashlib
+import shutil
+from common import *
 
-def print_response(r):
-    print(r.headers)
-    print(r.links)
-    print(r.encoding)
-    print(r.status_code)
-    print('Size = %s' % len(r.content))
-    print('Response Data = %s' % r.content)
-     
-def get_timestamp():
+def get_regid(center_id, machine_id, serial_number):
     '''
-    Current TS.
-    Format: 2019-02-14T12:40:59.768Z  (UTC)
+    Generate a 29 character regid
+    Args:
+        center_id: str
+        machine_id: str
+        serial_number: int.  Any running number to distinguish packets
     '''
-    ts = dt.datetime.utcnow()
-    ms = ts.strftime('%f')[0:2]
-    s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
-    return s 
+    ts = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    regid = '%5s%5s%05d%s' % (center_id, machine_id, serial_number, ts)
+    return regid
  
 def prereg_send_otp():
     '''
@@ -123,6 +119,18 @@ def encrypt_using_server(appid, refid, data, token):
     r = json.loads(r)
     return r['response']['data'] 
 
+def zip_packet(regid, base_path, out_dir):
+    '''
+    Args:
+        base_path:  Zip will cd into this dir and archive from here
+        out_dir: Dir in which zip file will be written 
+    Returns:
+        path of zipped packet
+    '''
+    out_path = os.path.join(out_dir, regid) 
+    shutil.make_archive(out_path, 'zip', base_path) 
+    return out_path + '.zip'
+
 def decrypt_using_server(appid, refid, data, token):
     '''
     Args:
@@ -184,68 +192,26 @@ def sync_packet(regid, packet_hash, packet_size, refid, token,
     r = requests.post(url, data=encrypted, cookies=cookies, headers=headers) 
     print_response(r)
 
-def pad_data(data, block_size):
+def encrypt_packet(packet_zip, out_packet_zip, center_id, machine_id, token):
     '''
-    Pad data (bytes) to multiples of block_size bytes and return padded data
-    '''
-    data = data + bytes(block_size - (len(data) % block_size))
-    return data 
-
-def aes_encrypt(data, sym_key):
-    '''
-    Pads data if needed.  Generates random IV vector and returns the same
-    '''
-    data = pad_data(data, block_size=16)
-    iv = os.urandom(16) # 16 bytes
-    obj = AES.new(sym_key, AES.MODE_CBC, iv) 
-    encrypted = obj.encrypt(data)
-    return encrypted, iv
-
-def rsa_encrypt(data, publickey):
-    '''
-    publickey in sequence of bytes
-    '''
-    rsa_key = RSA.importKey(publickey) 
-    cipher = Cipher_PKCS1_v1_5.new(rsa_key)
-    encrypted = cipher.encrypt(data)
-    return encrypted
-
-def sha256_hash(data):
-    '''
-    data assumed as type bytes
-    '''
-    m = hashlib.sha256()
-    m.update(data)
-    h = m.hexdigest().upper()
-    return h 
- 
-def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
-    '''
+    Given an uncrypted zip file of a packet encrypt and write as out_packet_zip
     Returns:
-        Packet hash
-        Size of packet
+        hash and size of the encrypted packet
     '''
-    data = open(in_packet_zip, 'rb').read()
-    sym_key = os.urandom(32)  # 32 bytes long random key  
-    encrypted, iv = aes_encrypt(data, sym_key)
-    encrypted_key = rsa_encrypt(sym_key, publickey)
-
-    # append iv to encrypted packet
-    packet = encrypted + iv
-    packet = packet + '#KEY_SPLITTER'.encode('utf-8') + encrypted_key
-
-    # HTTP safe base64  encode
-    packet = base64.urlsafe_b64encode(packet)
-
-    # Write in file 
+    refid = center_id + '_' + machine_id
+    data = open(packet_zip, 'rb').read()
+    data =  base64.urlsafe_b64encode(data)
+    data = data.decode() # to str
+    appid = 'REGISTRATION'
+    encrypted = encrypt_using_server(appid, refid, data, token) # b64 encoded
     fd = open(out_packet_zip, 'wb')
-    fd.write(packet)
+    fd.write(encrypted.encode())
     fd.close()
 
-    # Rturn hash of packet
-    packet_hash = sha256_hash(packet) 
+    phash = sha256_hash(encrypted.encode())
+    psize = len(encrypted.encode())
 
-    return packet_hash, len(packet)
+    return phash, psize 
 
 def upload_packet(packet_file, token):
     url = 'http://localhost:8081/registrationprocessor/v1/packetreceiver/registrationpackets'
@@ -254,8 +220,7 @@ def upload_packet(packet_file, token):
     r = requests.post(url, files=files, cookies=cookies)
     return r
     
- 
-def test_reg_proc():
+def test_reg_proc(center_id, machine_id, serial_number):
     '''
     1. First get authorization token (whos?) 
     2. Using keymanager API get public key of center_machine (rid)
@@ -263,35 +228,32 @@ def test_reg_proc():
     4. Sync Packet
     5. Upload packet
     '''
+
+    regid = get_regid(center_id, machine_id, serial_number)
+    base_path = './data/packet/unencrypted/unzipped'
+    out_dir = './data/packet/unencrypted'
+    packet_zip = zip_packet(regid, base_path, out_dir)
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
-    center_id = '10006'
-    machine_id = '10036'
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
-    #TODO: generate packet with latest timestamp.
-    regid = '10006100360002120190905051341'
-    in_packet_zip = 'data/packet/unencrypted/%s.zip' % regid
-    out_packet_zip = '%s.zip' % regid # in current folder
-    refid = center_id + '_' + machine_id
-    data = open(in_packet_zip, 'rb').read()
-    data =  base64.urlsafe_b64encode(data)
-    data = data.decode() # to str
-    appid = 'REGISTRATION'
-    encrypted = encrypt_using_server(appid, refid, data, token) # b64 encoded
-    fd = open(out_packet_zip, 'wb')
-    fd.write(encrypted.encode())
-    fd.close()
-    phash = sha256_hash(encrypted.encode())
-    psize = len(encrypted.encode())
 
+    out_packet_zip = os.path.join('./data/packet/encrypted/', 
+                                  os.path.basename(packet_zip)) 
+    phash, psize = encrypt_packet(packet_zip, out_packet_zip, center_id, 
+                                 machine_id, token)
+
+    refid = center_id + '_' + machine_id
     sync_packet(regid, phash, psize, refid, token, publickey)
 
     r = upload_packet(out_packet_zip, token)
+
     print_response(r)
 
 def main():
     #prereg_send_otp()
-    test_reg_proc()
+    center_id = '10006'
+    machine_id = '10036'
+    test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
 
 if __name__=='__main__':
     main() 
