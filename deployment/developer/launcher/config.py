@@ -38,6 +38,7 @@ LOGS_DIR = os.path.join(MOSIP_DIR, 'mosip-infra/deployment/developer/launcher/lo
 
 JAVA_HEAP_SIZE = '256m' 
 
+PACKET_LANDING_ZONE_PATH = os.path.join(MOSIP_DIR, 'dmz_packet_store') 
 DB_SCRIPTS_PATH = os.path.join(MOSIP_DIR, 'mosip-platform/db_scripts/')
 SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_kernel/mosip_role_common.sql',

@@ -48,12 +48,10 @@ http://directory.apache.org/studio/download/download-linux.html
 * For local run all ports have to be different. In the above branch of mosip-platform code, all kernel ports have been changed to 81--.
 * HTTPS connections have been changed to HTTP connection in code.
 * Detailed logs have been redirected by changing code (path was hardcoded)
-* `dmz_packet_store` directory needs to be created under `~/mosip`
 * To run a particular jar (for debugging etc):  
 `java -Dspring.cloud.config.uri=http://localhost:8888 -Dspring.cloud.config.label=master -Dspring.profiles.active=dev -Xmx256m -jar <jar_path> >> <log_path> 2>&1 &`
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.  
 `registration.processor.signature.isEnabled=false`
-* Make sure the timestamp after the encrytion keys are created in `key_alias` table
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
