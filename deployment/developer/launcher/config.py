@@ -113,23 +113,24 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_regprc/mosip_regprc_dml_deploy.sql' # Added in 0.9.0_a
 ]
 
+# (module, service, additional run options)
 MOSIP_SERVICES = [ 
-    ('kernel', 'kernel-auth-service'),
-    ('kernel', 'kernel-keymanager-service'),
-    #('kernel', 'kernel-otpmanager-service'),
-    #('kernel', 'kernel-emailnotification-service'),
-    ('kernel', 'kernel-masterdata-service'),
-    ('kernel', 'kernel-cryptomanager-service'),
-    ('kernel', 'kernel-signature-service'),
-    ('kernel', 'kernel-auditmanager-service'),
-    ('registrationprocessor', 'registration-processor-packet-receiver-stage'),
-    ('registrationprocessor', 'registration-processor-packet-uploader-stage'),
-    ('registrationprocessor', 'registration-processor-packet-validator-stage'), 
-    ('registrationprocessor', 'registration-processor-osi-validator-stage'),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge'),
-    ('registrationprocessor', 'registration-processor-registration-status-service')
+    ('kernel', 'kernel-auth-service', ''),
+    ('kernel', 'kernel-keymanager-service', ''),
+    #('kernel', 'kernel-otpmanager-service', ''),
+    #('kernel', 'kernel-emailnotification-service', ''),
+    ('kernel', 'kernel-masterdata-service', ''),
+    ('kernel', 'kernel-cryptomanager-service', ''),
+    ('kernel', 'kernel-signature-service', ''),
+    ('kernel', 'kernel-auditmanager-service', ''),
+    ('registrationprocessor', 'registration-processor-packet-receiver-stage', ''),
+    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=dmz'),
+    ('registrationprocessor', 'registration-processor-packet-validator-stage', ''), 
+    ('registrationprocessor', 'registration-processor-osi-validator-stage', ''),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz'),
+    ('registrationprocessor', 'registration-processor-registration-status-service', '')
 
-    #('preregistration', 'pre-registration-login-service'),
-    #('preregistration', 'pre-registration-notification-service'),
-    #('preregistration', 'pre-registration-demographic-service')
+    #('preregistration', 'pre-registration-login-service', ''),
+    #('preregistration', 'pre-registration-notification-service', ''),
+    #('preregistration', 'pre-registration-demographic-service', '')
 ]

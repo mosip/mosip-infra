@@ -229,14 +229,16 @@ def test_reg_proc(center_id, machine_id, serial_number):
     5. Upload packet
     '''
 
-    regid = get_regid(center_id, machine_id, serial_number)
-    base_path = './data/packet/unencrypted/unzipped'
-    out_dir = './data/packet/unencrypted'
-    packet_zip = zip_packet(regid, base_path, out_dir)
     token = auth_get_token('registrationprocessor', 'registration_admin',
                             'mosip')
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
 
+    # Always created regid after publickey, otherwise timestamp of packet
+    # will be ahead of public key creation.
+    regid = get_regid(center_id, machine_id, serial_number)
+    base_path = './data/packet/unencrypted/unzipped'
+    out_dir = './data/packet/unencrypted'
+    packet_zip = zip_packet(regid, base_path, out_dir)
     out_packet_zip = os.path.join('./data/packet/encrypted/', 
                                   os.path.basename(packet_zip)) 
     phash, psize = encrypt_packet(packet_zip, out_packet_zip, center_id, 

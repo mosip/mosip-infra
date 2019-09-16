@@ -14,7 +14,11 @@ def get_jar_name(service, version):
     return service + '-' + version + '.jar'
 
 def run_jar(jar_dir, jar_name, logs_dir, config_port, 
-            max_heap_size=JAVA_HEAP_SIZE):
+            max_heap_size=JAVA_HEAP_SIZE, add_options=''):
+    '''
+    Args:
+        add_options:  Any additional options in the for '-D<option>'
+    '''
     logger.info('Running jar %s' % jar_name)
     cwd = os.getcwd() 
     os.chdir(jar_dir)
@@ -22,7 +26,8 @@ def run_jar(jar_dir, jar_name, logs_dir, config_port,
         '-Dspring.cloud.config.uri=http://localhost:%d' % config_port, 
         '-Dspring.cloud.config.label=master',
         '-Dspring.profiles.active=dev',
-        '-Xmx%s' % max_heap_size 
+        '-Xmx%s' % max_heap_size,
+        add_options 
     ]
     cmd = 'java %s -jar %s >>%s/%s.server.log 2>&1 &' % (' '.join(options), 
                                                     jar_name, logs_dir, 
