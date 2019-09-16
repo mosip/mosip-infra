@@ -41,7 +41,6 @@ def install_tools():
     command('sudo pip3.6 install psycopg2')
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
-    os.makedirs(PACKET_LANDING_ZONE_PATH, exist_ok=True)
 
 def install_environ():
     logger.info('Installing environ')
