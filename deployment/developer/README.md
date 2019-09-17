@@ -17,6 +17,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Install prerequisties (Python3.6 etc):  
 `$ cd deployment/developer`  
 `$ sh prerequisites.sh`  
+1. Logout, and login again as the same user.
 1. Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
@@ -52,6 +53,7 @@ http://directory.apache.org/studio/download/download-linux.html
 `java -Dspring.cloud.config.uri=http://localhost:8888 -Dspring.cloud.config.label=master -Dspring.profiles.active=dev -Xmx256m -jar <jar_path> >> <log_path> 2>&1 &`
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.  
 `registration.processor.signature.isEnabled=false`
+* Change dmz user name to your user name in properties file.  And generate keys for sftp. 
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)

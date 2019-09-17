@@ -26,18 +26,26 @@ def get_container_id(container_name):
 
     return s.split()[0]  # Container id
 
+def create_user(container_id, user):
+    '''
+    Create users and directories
+    '''
+    command('docker -exec -it %s useradd %s' % (container_id, user))
+    command('docker -exec -it %s /usr/local/hadoop/bin/hdfs dfs -mkdir /user/%s' % (container_id, user))  
+    command('docker -exec -it %s /usr/local/hadoop/bin/hdfs dfs -chown -R %s:%s' % (container_id, user, user)) 
+
 def run_hdfs():
-    #TODO: Container stop/rm etc. needs to be much more elaborate. Multiple
-    # containers may exist with same name. 
     logger.info('Running HDFS docker container')
-    # Check if container already running
     cname = 'mosip_hdfs' # Container name
-    # TODO: Should not really use sudo for this
+
     if is_container_running(cname):
         logger.info('Container is already running')
         return  
+
     container_id = get_container_id(cname)
-    if container_id is not None:  # Container already exists 
+    new_container = container_id is None 
+
+    if not new_container:  # Container already exists 
         logger.info('Container exists. Starting it..')
         command('docker container start %s' % container_id)     
     else: # Run fresh
@@ -46,6 +54,7 @@ def run_hdfs():
         container_id = proc.stdout.readline().strip()
         container_id = container_id.decode() # bytes -> str
 
+    # Attach to a running container
     proc = subprocess.Popen('docker attach %s' % container_id, stdout=subprocess.PIPE, shell=True)
     while 1: 
         s = proc.stdout.readline().decode() # bytes -> str
@@ -53,6 +62,13 @@ def run_hdfs():
             break
         time.sleep(1) 
     logger.info('HDFS started')
+
+    if new_container: 
+        logger.info('Creating users')
+        create_user(container_id, 'regprocessor')
+        create_user(container_id, 'prereg')
+        create_user(container_id, 'idrepo')
+
     return container_id
 
 def stop_hdfs(container_id):

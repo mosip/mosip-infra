@@ -56,6 +56,7 @@ def install_environ():
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
     install_config_repo(CONFIG_REPO)
+    shutil.copy('../config_server/mosip_configs/sftpkey* ~/.ssh')
     logger.info('Env install done')
 
 def start_environ():
