@@ -114,23 +114,30 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
 ]
 
 # (module, service, additional run options)
-MOSIP_SERVICES = [ 
-    ('kernel', 'kernel-auth-service', ''),
-    ('kernel', 'kernel-keymanager-service', ''),
-    #('kernel', 'kernel-otpmanager-service', ''),
-    #('kernel', 'kernel-emailnotification-service', ''),
-    ('kernel', 'kernel-masterdata-service', ''),
-    ('kernel', 'kernel-cryptomanager-service', ''),
-    ('kernel', 'kernel-signature-service', ''),
-    ('kernel', 'kernel-auditmanager-service', ''),
+PREREG_SERVICES = [
+    ('preregistration', 'pre-registration-login-service', ''),
+    ('preregistration', 'pre-registration-notification-service', ''),
+    ('preregistration', 'pre-registration-demographic-service', '')]
+
+REGPROC_SERVICES = [
     ('registrationprocessor', 'registration-processor-packet-receiver-stage', ''),
     ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=dmz'),
     ('registrationprocessor', 'registration-processor-packet-validator-stage', ''), 
     ('registrationprocessor', 'registration-processor-osi-validator-stage', ''),
     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz'),
     ('registrationprocessor', 'registration-processor-registration-status-service', '')
-
-    #('preregistration', 'pre-registration-login-service', ''),
-    #('preregistration', 'pre-registration-notification-service', ''),
-    #('preregistration', 'pre-registration-demographic-service', '')
 ]
+
+KERNEL_SERVICES = [ 
+    ('kernel', 'kernel-auth-service', ''),
+    ('kernel', 'kernel-keymanager-service', ''),
+    ('kernel', 'kernel-otpmanager-service', ''),
+    ('kernel', 'kernel-emailnotification-service', ''),
+    ('kernel', 'kernel-masterdata-service', ''),
+    ('kernel', 'kernel-cryptomanager-service', ''),
+    ('kernel', 'kernel-signature-service', ''),
+    ('kernel', 'kernel-auditmanager-service', ''),
+
+]
+MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
+
