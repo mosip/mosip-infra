@@ -30,9 +30,9 @@ def create_user(container_id, user):
     '''
     Create users and directories
     '''
-    command('docker -exec -it %s useradd %s' % (container_id, user))
-    command('docker -exec -it %s /usr/local/hadoop/bin/hdfs dfs -mkdir /user/%s' % (container_id, user))  
-    command('docker -exec -it %s /usr/local/hadoop/bin/hdfs dfs -chown -R %s:%s' % (container_id, user, user)) 
+    command('docker exec -it %s useradd %s' % (container_id, user))
+    command('docker exec -it %s /usr/local/hadoop/bin/hdfs dfs -mkdir /user/%s' % (container_id, user))  
+    command('docker exec -it %s /usr/local/hadoop/bin/hdfs dfs -chown -R %s:%s /user/%s' % (container_id, user, user, user)) 
 
 def run_hdfs():
     logger.info('Running HDFS docker container')
@@ -55,6 +55,7 @@ def run_hdfs():
         container_id = container_id.decode() # bytes -> str
 
     # Attach to a running container
+    print('attaching container')
     proc = subprocess.Popen('docker attach %s' % container_id, stdout=subprocess.PIPE, shell=True)
     while 1: 
         s = proc.stdout.readline().decode() # bytes -> str
@@ -62,7 +63,9 @@ def run_hdfs():
             break
         time.sleep(1) 
     logger.info('HDFS started')
-
+    t = 20
+    logger.info('Waiting for %d seconds for all processes to start up' % t)
+    time.sleep(t)  # TODO: Wait like this is not good. 
     if new_container: 
         logger.info('Creating users')
         create_user(container_id, 'regprocessor')

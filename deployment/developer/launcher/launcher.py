@@ -28,10 +28,11 @@ def give_home_read_permissions():
     command('chmod 755 %s' % os.environ['HOME']) 
 
 def install_tools():
-    #TODO Install python 3.6
+    # Set python3.6 as default
+    command('sudo alternatives --install /usr/bin/python python /usr/bin/python2.7 50')
+    command('sudo alternatives --install /usr/bin/python python /usr/bin/python3.6 60')
     logger.info('Installing  EPEL')
     command('sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm')
-    logger.info('Installing Maven')
     command('sudo yum install -y maven')
     command('sudo yum install -y gcc')
     command('sudo yum install -y gcc-c++')
