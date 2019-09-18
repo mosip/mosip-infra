@@ -45,6 +45,13 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
 
+## HDFS Docker
+* To access the hdfs docker (for debugging or inspection), get the container id with:  
+`$ docker container ls`
+* `$ docker exec -it <container id> /bin/bash`
+* Hadoop tools can be found at `/usr/local/hadoop`
+* HTTP interface of name node can be accessed via `http://localhost:50070`
+
 ## Notes
 * config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
 * HDFS secure authentication is disabled, hence Kerberos is not used. 
