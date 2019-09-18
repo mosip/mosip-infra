@@ -54,6 +54,8 @@ http://directory.apache.org/studio/download/download-linux.html
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.  
 `registration.processor.signature.isEnabled=false`
 * Change dmz user name to your user name in properties file.  And generate keys for sftp. 
+* Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:  
+`configuration.set("dfs.client.use.datanode.hostname", "false");`
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
