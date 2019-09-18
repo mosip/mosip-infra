@@ -28,9 +28,6 @@ def give_home_read_permissions():
     command('chmod 755 %s' % os.environ['HOME']) 
 
 def install_tools():
-    # Set python3.6 as default
-    command('sudo alternatives --install /usr/bin/python python /usr/bin/python2.7 50')
-    command('sudo alternatives --install /usr/bin/python python /usr/bin/python3.6 60')
     logger.info('Installing  EPEL')
     command('sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm')
     command('sudo yum install -y maven')
@@ -42,6 +39,17 @@ def install_tools():
     command('sudo pip3.6 install psycopg2')
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
+
+def install_sftp():
+    dst = os.path.join(os.environ['HOME'], '.ssh')
+    shutil.copy('../config_server/mosip_configs/sftpkey', dst) 
+    shutil.copy('../config_server/mosip_configs/sftpkey.pub', dst)
+    cwd = os.getcwd() 
+    os.chdir(dst)
+    command('chmod 600 sftpkey')
+    command('cat sftpkey.pub >> authorized_keys')
+    command('chmod 600 authorized_keys') 
+    os.chdir(cwd) # restore
 
 def install_environ():
     logger.info('Installing environ')
@@ -57,7 +65,7 @@ def install_environ():
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
     install_config_repo(CONFIG_REPO)
-    shutil.copy('../config_server/mosip_configs/sftpkey* ~/.ssh')
+    install_sftp()
     logger.info('Env install done')
 
 def start_environ():

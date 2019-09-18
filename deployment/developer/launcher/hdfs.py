@@ -63,7 +63,7 @@ def run_hdfs():
             break
         time.sleep(1) 
     logger.info('HDFS started')
-    t = 20
+    t = 30
     logger.info('Waiting for %d seconds for all processes to start up' % t)
     time.sleep(t)  # TODO: Wait like this is not good. 
     if new_container: 
