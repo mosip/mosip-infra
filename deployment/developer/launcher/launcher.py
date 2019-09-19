@@ -111,7 +111,7 @@ def start_services(services, version):
     if err:
         logger.error('Could not run config server. Exiting..')
         return 1
-    time.sleep(5)
+    time.sleep(10)
     logger.info('Running all services..')
     for module, service, options in services:
         jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'], 
