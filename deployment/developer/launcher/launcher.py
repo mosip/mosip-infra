@@ -2,8 +2,6 @@
 # Centos - Get the full DVD iso.  Custom select softwares - select GNU Desktop
 # version while installing in VM.  
 # The script has been tried on CentOS 7
-# Before running the launcher, install 'gcc' using
-# sudo yum install gcc
 
 import subprocess
 import argparse
