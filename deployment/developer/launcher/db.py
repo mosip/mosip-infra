@@ -41,8 +41,7 @@ def init_db(db_scripts_path, sql_scripts):
 def clean_table(dbname, table_name):
     import psycopg2
     '''
-    The KeyManager does not start if there is already and entry in this table.
-    So clean it
+    Delete all entries from a table
     '''
     logger.info('Cleaning %s table' % table_name)
     print("dbname=%s user=postgres" % dbname)

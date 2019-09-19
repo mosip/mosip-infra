@@ -24,4 +24,3 @@ def install_docker():
 def restart_docker():
     logger.info('Restarting Docker')
     command('sudo systemctl restart docker')
-    #command('exec su -l $USER') # TODO: permission problem without this. 

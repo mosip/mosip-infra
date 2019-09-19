@@ -91,13 +91,16 @@ def init_and_cleanup():
     Before starting the services, perform cleanup for a fresh start.
     '''
     logger.info('Cleanup ..')
+    #TODO: Keymanger does not start if there are entries in key_alias table. 
+    # CAUTION: investigate this - we should not be deleting this table
+
     clean_table('mosip_kernel', 'key_alias') 
 
 def start_services(services, version):
     '''
-    The location of the jar file is assumend to at $HOME/.m2/repository/io/mosip/module/service/version' 
+    The location of jar files is assumed as $HOME/.m2/repository/io/mosip/<module>/<service>/<version>' 
     Args:
-        services:  List of tuples [(module, service), (module, service) ..] 
+        services:  List of tuples [(module, service, options), ..] 
         version: Assumed all services have same version specified in pom.xml.
     '''
     logger.info('Starting MOSIP services')    
