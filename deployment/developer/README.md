@@ -41,19 +41,19 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 `$ cd launcher/test/`  
 `$ python3.6 api_test.py`  
 
-## HDFS Docker (debugging and inspection)
+### HDFS Docker (debugging and inspection)
 * To access the hdfs docker (for debugging or inspection), get the container id with:  
 `$ docker container ls`
 * `$ docker exec -it <container id> /bin/bash`
 * Hadoop tools can be found at `/usr/local/hadoop`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
 
-## LDAP UI tool(optional)
+### LDAP UI tool(optional)
 - For inspecting contents of LDAP, download and install Apache Studio DS
 http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
 
-## Notes
+### Notes
 * config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
 * HDFS secure authentication is disabled, hence Kerberos is not used. 
 * For local run all ports have to be different. In the above branch of mosip-platform code, all kernel ports have been changed to 81xx.
