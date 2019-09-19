@@ -17,7 +17,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Install prerequisties (Python3.6 etc):  
 `$ cd deployment/developer`  
 `$ sh prerequisites.sh`  
-1. Logout, and login again as the same user.
+1. Logout, and login again as the same user (to avoid permission problems with docker).
 1. Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
