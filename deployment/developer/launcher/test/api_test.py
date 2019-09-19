@@ -251,6 +251,8 @@ def test_reg_proc(center_id, machine_id, serial_number):
 
     print_response(r)
 
+    print('Check if the packet is uploaded to HDFS in /user/regprocessor folder')
+
 def main():
     #prereg_send_otp()
     center_id = '10006'
