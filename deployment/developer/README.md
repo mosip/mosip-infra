@@ -17,11 +17,11 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Install prerequisties (Python3.6 etc):  
 `$ cd deployment/developer`  
 `$ sh prerequisites.sh`  
-1. Logout, and login again as the same user.
+1. Logout, and login again as the same user (to avoid permission problems with docker).
 1. Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
-1. Modify `config_server/mosip_configs/registration-processor.properties` to add your login user id here:
+1. Modify `config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:
 `registration.processor.dmz.server.user=<your login id>`
 1. `$ cd $HOME/mosip` 
 1. Clone `mosip-platform` repo:  
@@ -41,19 +41,19 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 `$ cd launcher/test/`  
 `$ python3.6 api_test.py`  
 
-## LDAP UI tool
-- For inspecting contents of LDAP, download and install Apache Studio DS
-http://directory.apache.org/studio/download/download-linux.html
-- Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
-
-## HDFS Docker
+### HDFS Docker (debugging and inspection)
 * To access the hdfs docker (for debugging or inspection), get the container id with:  
 `$ docker container ls`
 * `$ docker exec -it <container id> /bin/bash`
 * Hadoop tools can be found at `/usr/local/hadoop`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
 
-## Notes
+### LDAP UI tool(optional)
+- For inspecting contents of LDAP, download and install Apache Studio DS
+http://directory.apache.org/studio/download/download-linux.html
+- Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
+
+### Notes
 * config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
 * HDFS secure authentication is disabled, hence Kerberos is not used. 
 * For local run all ports have to be different. In the above branch of mosip-platform code, all kernel ports have been changed to 81xx.
