@@ -18,10 +18,10 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 `$ cd mosip-infra/deployment/developer`  
 `$ sh prerequisites.sh`  
 1. Logout, and login again as the same user (to avoid permission problems with docker).
-1. Modify `config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
+1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
-1. Modify `mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:
+1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:
 `registration.processor.dmz.server.user=<your login id>`
 1. `$ cd $HOME/mosip` 
 1. Clone `mosip-platform` repo:  
@@ -35,7 +35,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 `$ ./launcher.py --build-code`  
 `$ ./launcher.py --start-services`  
 1. Wait for services to come up.  The `top` utility will show CPU utilization of all java processes.  One indication of whether all services are up is when the CPU utilization of the respective processes goes low.
-1. Monitor the logs under `launcher/logs` dir for any errors.  
+1. Monitor the logs under `/logs` dir for any errors.  
 `$ grep ERROR *`
 1. Once all services are up, run a test api under `launcher/test/api_test.py` (inspect and modify the API parameters before running). For the OTP email test, you will have to allow Google to receive emails from apps (lesser security setting).  
 `$ cd /test/`  
