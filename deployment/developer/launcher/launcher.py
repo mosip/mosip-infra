@@ -33,6 +33,7 @@ def install_tools():
     command('sudo yum install -y gcc-c++')
     command('sudo yum install -y postgresql-devel')
     command('sudo yum install -y python-devel')
+    command('sudo yum install -y telnet')
     command('sudo pip3.6 install psutil')
     command('sudo pip3.6 install psycopg2')
     command('sudo pip3.6 install requests')
