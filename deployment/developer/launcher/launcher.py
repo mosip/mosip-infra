@@ -18,6 +18,7 @@ from clamav import *
 from docker import *
 from softhsm import *
 from config_server import *
+from sftp_utils import *
 
 logger = logging.getLogger() # Root Logger 
 
@@ -39,17 +40,6 @@ def install_tools():
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
 
-def install_sftp():
-    dst = os.path.join(os.environ['HOME'], '.ssh')
-    shutil.copy('../config_server/mosip_configs/sftpkey', dst) 
-    shutil.copy('../config_server/mosip_configs/sftpkey.pub', dst)
-    cwd = os.getcwd() 
-    os.chdir(dst)
-    command('chmod 600 sftpkey')
-    command('cat sftpkey.pub >> authorized_keys')
-    command('chmod 600 authorized_keys') 
-    os.chdir(cwd) # restore
-
 def install_environ():
     logger.info('Installing environ')
     give_home_read_permissions() # For various access
@@ -64,7 +54,7 @@ def install_environ():
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
     install_config_repo(CONFIG_REPO)
-    install_sftp()
+    install_sftp(SFTP_KEY)
     logger.info('Env install done')
 
 def start_environ():
