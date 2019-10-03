@@ -10,11 +10,12 @@
 # Masterdata Service: 8186
 # Reg Proc Sync Service: 8083
 # Reg Proc Packet Receiver Service: 8081
+# Reg Proc Packet Uploader Service: 8087
 
 import os
 
 MOSIP_DIR = os.path.join(os.environ['HOME'], 'mosip')
-MOSIP_VERSION = '0.9.0'  # Such a tag should exist on the repo
+MOSIP_VERSION = '0.9.1'  # Such a tag should exist on the repo
 MOSIP_REPO = 'https://github.com/mosip/mosip-platform'
 
 SOFTHSM_INSTALL_DIR = MOSIP_DIR
@@ -122,22 +123,23 @@ PREREG_SERVICES = [
 
 REGPROC_SERVICES = [
     ('registrationprocessor', 'registration-processor-packet-receiver-stage', ''),
-    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=dmz'),
+    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=secure'),
     ('registrationprocessor', 'registration-processor-packet-validator-stage', ''), 
     ('registrationprocessor', 'registration-processor-osi-validator-stage', ''),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz'),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722'),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723'),
     ('registrationprocessor', 'registration-processor-registration-status-service', '')
 ]
 
 KERNEL_SERVICES = [ 
-    ('kernel', 'kernel-auth-service', ''),
-    ('kernel', 'kernel-keymanager-service', ''),
-    ('kernel', 'kernel-otpmanager-service', ''),
-    ('kernel', 'kernel-emailnotification-service', ''),
-    ('kernel', 'kernel-masterdata-service', ''),
-    ('kernel', 'kernel-cryptomanager-service', ''),
-    ('kernel', 'kernel-signature-service', ''),
-    ('kernel', 'kernel-auditmanager-service', ''),
+    ('kernel', 'kernel-auth-service', '-Dserver.port=8191'),
+    ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188'),
+    ('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185'),
+    ('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183'),
+    ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186'),
+    ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187'),
+    ('kernel', 'kernel-signature-service', '-Dserver.port=8192'),
+    ('kernel', 'kernel-auditmanager-service', '-Dserver.port=8181'),
 
 ]
 MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
