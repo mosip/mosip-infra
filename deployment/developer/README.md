@@ -27,7 +27,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Clone `mosip-platform` repo:  
 `$ git clone https://github.com/mosip/mosip-platform.git`    
 `$ cd mosip-platform`  
-`$ git checkout 0.9.0_a`  
+`$ git checkout 0.9.1_10092019_a`  
 1. Run installer as below (do **not** run with `sudo`):  
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher.py --help`  
