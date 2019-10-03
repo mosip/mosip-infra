@@ -10,7 +10,7 @@
 			"title": "identity",
 			"description": "This schema holds all the attributes of an Identity",
 			"type": "object",
-			"additionalProperties": false,
+			"additionalProperties": true,
 			"properties": {
 				"IDSchemaVersion": {
 					"type": "number",
@@ -62,12 +62,6 @@
 				"residenceStatus": {
 					"$ref": "#/definitions/simpleType"
 				},
-				"CNIENumber": {
-					"type": "string"
-				},
-				"localAdministrativeAuthority": {
-					"$ref": "#/definitions/simpleType"
-				},
 				"parentOrGuardianName": {
 					"$ref": "#/definitions/simpleType"
 				},
@@ -117,8 +111,7 @@
 				"additionalProperties": false,
 				"properties": {
 					"language": {
-						"type": "string",
-						"pattern": "^[(?i)a-z]{3}$"
+						"type": "string"
 					},
 					"value": {
 						"type": "string"

@@ -125,6 +125,7 @@ REGPROC_SERVICES = [
     ('registrationprocessor', 'registration-processor-packet-receiver-stage', ''),
     ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=secure'),
     ('registrationprocessor', 'registration-processor-packet-validator-stage', ''), 
+    ('registrationprocessor', 'registration-processor-quality-checker-stage', ''), 
     ('registrationprocessor', 'registration-processor-osi-validator-stage', ''),
     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722'),
     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723'),
@@ -134,8 +135,8 @@ REGPROC_SERVICES = [
 KERNEL_SERVICES = [ 
     ('kernel', 'kernel-auth-service', '-Dserver.port=8191'),
     ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188'),
-    ('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185'),
-    ('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183'),
+    #('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185'),
+    #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183'),
     ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186'),
     ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187'),
     ('kernel', 'kernel-signature-service', '-Dserver.port=8192'),
