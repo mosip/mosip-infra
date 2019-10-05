@@ -26,14 +26,23 @@ def configure_postgres():
     command('sudo -u postgres cp resources/pg_hba.conf %s/pg_hba.conf' % PG_CONF_DIR)
     restart_postgres()
 
-def init_db(db_scripts_path, sql_scripts):
+def init_db(db_scripts_path, sql_scripts, passwords=None):
+    '''
+    Args:
+        passwords:  Dictionary of various passwords used by DB. The key is
+            the placeholder given in sql filies
+    '''
     pwd = os.getcwd()    
     os.chdir(db_scripts_path)
+    options = ''
+    if passwords is not None:
+        for key, value in passwords.items():
+            options += "-v %s=\\'%s\\' " % (key, value)
     for sql_path in sql_scripts:
         sql_dir = os.path.join(db_scripts_path, os.path.dirname(sql_path)) 
         sql_file = os.path.basename(sql_path)
         os.chdir(sql_dir)
-        command('sudo -u postgres psql -f %s' % sql_file)
+        command('sudo -u postgres psql -f %s %s' % (sql_file, options))
 
     os.chdir(pwd) # Return back to where we started 
     restart_postgres()

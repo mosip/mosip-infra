@@ -42,6 +42,13 @@ JAVA_HEAP_SIZE = '256m'
 
 PACKET_LANDING_ZONE_PATH = os.path.join(MOSIP_DIR, 'dmz_packet_store') 
 DB_SCRIPTS_PATH = os.path.join(MOSIP_DIR, 'mosip-platform/db_scripts/')
+DB_PASSWORDS = { # Same passwords should be present in .properties files
+    'sysadminpwd' : 'Mosipadm@dev123',
+    'dbadminpwd' : 'Mosipadm@dev123', 
+    'appadminpwd': 'Mosipadm@dev123', 
+    'dbuserpwd' : 'Mosip@dev123'
+}
+
 SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_kernel/mosip_role_common.sql',
     'mosip_kernel/mosip_role_kerneluser.sql',
@@ -88,12 +95,11 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_master/mosip_master_ddl_deploy.sql',
     'mosip_master/mosip_master_dml_deploy.sql',
   
-    # TODO: Not in version 0.9.0
-    #'mosip_pmp/mosip_role_common.sql',
-    #'mosip_pmp/mosip_role_pmpuser.sql',
-    #'mosip_pmp/mosip_pmp_db.sql',
-    #'mosip_pmp/mosip_pmp_grants.sql',
-    #'mosip_pmp/mosip_pmp_ddl_deploy.sql',
+    'mosip_pmp/mosip_role_common.sql',
+    'mosip_pmp/mosip_role_pmpuser.sql',
+    'mosip_pmp/mosip_pmp_db.sql',
+    'mosip_pmp/mosip_pmp_grants.sql',
+    'mosip_pmp/mosip_pmp_ddl_deploy.sql',
 
     'mosip_prereg/mosip_role_common.sql',
     'mosip_prereg/mosip_role_prereguser.sql',
@@ -112,7 +118,7 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_regprc/mosip_regprc_db.sql',
     'mosip_regprc/mosip_regprc_grants.sql',
     'mosip_regprc/mosip_regprc_ddl_deploy.sql',
-    'mosip_regprc/mosip_regprc_dml_deploy.sql' # Added in 0.9.0_a
+    'mosip_regprc/mosip_regprc_dml_deploy.sql' 
 ]
 
 # (module, service, additional run options)
