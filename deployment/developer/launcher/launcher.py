@@ -40,9 +40,12 @@ def install_tools():
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
 
+def create_various_folders():
+    os.makedirs(PACKET_LANDING, exist_ok=True) 
+    os.makedirs(PACKET_ARCHIVAL, exist_ok=True) 
+
 def install_environ():
     logger.info('Installing environ')
-    '''
     give_home_read_permissions() # For various access
     install_tools()
     install_docker()
@@ -55,7 +58,7 @@ def install_environ():
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
     install_sftp(SFTP_KEY)  
-    '''
+    create_various_folders() 
     install_config_repo(CONFIG_REPO, SFTP_KEY) # Always install in the end
     logger.info('Env install done')
 
