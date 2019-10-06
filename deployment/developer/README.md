@@ -65,6 +65,8 @@ http://directory.apache.org/studio/download/download-linux.html
 `registration.processor.signature.isEnabled=false` 
 * Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:  
 `configuration.set("dfs.client.use.datanode.hostname", "false");`
+* Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml
+* Two camel bridge instances are run - one for dmz and another one for secure zone.
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
