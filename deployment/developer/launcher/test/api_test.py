@@ -18,10 +18,12 @@ def get_regid(center_id, machine_id, serial_number):
         center_id: str
         machine_id: str
         serial_number: int.  Any running number to distinguish packets
+
+    Returns: regid and timestamp
     '''
     ts = dt.datetime.utcnow().strftime('%Y%m%d%H%M%S')
     regid = '%5s%5s%05d%s' % (center_id, machine_id, serial_number, ts)
-    return regid
+    return regid, ts
  
 def prereg_send_otp():
     '''
@@ -122,6 +124,7 @@ def encrypt_using_server(appid, refid, data, token):
 def zip_packet(regid, base_path, out_dir):
     '''
     Args:
+        regid: Registration id - this will be the name of the packet
         base_path:  Zip will cd into this dir and archive from here
         out_dir: Dir in which zip file will be written 
     Returns:
@@ -219,6 +222,38 @@ def upload_packet(packet_file, token):
     files = {packet_file : open(packet_file, 'rb')}
     r = requests.post(url, files=files, cookies=cookies)
     return r
+
+def update_packet_date(packet_path):
+    '''
+    Modifies creation date of the packet_meta_info.json to current date
+    '''
+    fp = open(os.path.join(packet_path, 'packet_meta_info.json'), 'rt')
+    j = json.load(fp)
+    fp.close()
+
+    meta = j['identity']['metaData']
+    for m in meta:
+        if m['label'] == 'creationDate':
+            m['value'] = get_timestamp()
+    
+    fp = open(os.path.join(packet_path, 'packet_meta_info.json'), 'wt')
+    json.dump(j, fp, indent='    ')
+    fp.close()
+
+
+def create_packet_zip(regid, packet_path, ts, out_dir):
+    '''
+    The creation date of the packet needs to updated, and then packed zipped.
+    Args:
+        regid: Registration id - this will be the name of the packet
+        packet_path:  Zip will cd into this dir and archive from here
+        out_dir: Dir in which zip file will be written 
+    Returns:
+        path of zipped packet
+    '''
+    update_packet_date(packet_path)
+    packet_zip = zip_packet(regid, packet_path, out_dir)
+    return packet_zip 
     
 def test_reg_proc(center_id, machine_id, serial_number):
     '''
@@ -235,19 +270,19 @@ def test_reg_proc(center_id, machine_id, serial_number):
 
     # Always created regid after publickey, otherwise timestamp of packet
     # will be ahead of public key creation.
-    regid = get_regid(center_id, machine_id, serial_number)
-    base_path = './data/packet/unencrypted/unzipped'
+    regid, ts = get_regid(center_id, machine_id, serial_number)
+    packet_path = './data/packet/unencrypted/unzipped'
     out_dir = './data/packet/unencrypted'
-    packet_zip = zip_packet(regid, base_path, out_dir)
-    out_packet_zip = os.path.join('./data/packet/encrypted/', 
+    packet_zip = create_packet_zip(regid, packet_path, ts, out_dir)
+    encrypted_packet = os.path.join('./data/packet/encrypted/', 
                                   os.path.basename(packet_zip)) 
-    phash, psize = encrypt_packet(packet_zip, out_packet_zip, center_id, 
+    phash, psize = encrypt_packet(packet_zip, encrypted_packet, center_id, 
                                  machine_id, token)
 
     refid = center_id + '_' + machine_id
     sync_packet(regid, phash, psize, refid, token, publickey)
 
-    r = upload_packet(out_packet_zip, token)
+    r = upload_packet(encrypted_packet, token)
 
     print_response(r)
 
