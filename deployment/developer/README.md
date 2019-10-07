@@ -21,7 +21,7 @@ The scripts here enable a developer to run MOSIP modules on a single machine wit
 1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
-1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:
+1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:  
 `registration.processor.dmz.server.user=<your login id>`
 1. `$ cd $HOME/mosip` 
 1. Clone `mosip-platform` repo:  
