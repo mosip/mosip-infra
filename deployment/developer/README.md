@@ -1,4 +1,4 @@
-# MOSIP Developer Installer
+# MOSIP Single Machine Developer Installer
 
 The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  
 
