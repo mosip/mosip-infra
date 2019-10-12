@@ -33,6 +33,8 @@ def install_config_repo(repo_path, sftpkey):
     shutil.copy(os.path.join(src, sftpkey + '.pub'), '.')
 
     command('git add .')
+    command('git config user.name %s' % os.environ['USER'])
+    command('git config user.email %s@mosip.io' % os.environ['USER'])
     command('git commit -m "Added"')
     os.chdir(cwd)
 
