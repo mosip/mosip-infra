@@ -33,3 +33,10 @@ $ docker exec -it <container id> /bin/bash
 $ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/regprocessor
 $ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/prereg
 $ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/idrepo
+===============
+
+Changes for kernel-syncdata-service
+
+pom.xml -- change version number to 0.9.1
+pom.xml -- change parent pom name to kernel-parent
+
