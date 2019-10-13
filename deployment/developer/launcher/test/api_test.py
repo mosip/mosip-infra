@@ -288,10 +288,22 @@ def test_reg_proc(center_id, machine_id, serial_number):
 
     print('\nCheck if the packet is uploaded to HDFS in /user/regprocessor folder')
 
+def get_reg_centers(token):
+    url = 'http://localhost:8186/v1/masterdata/registrationcenters'
+    cookies = {'Authorization' : token}
+    r = requests.get(url, cookies=cookies)
+    return r
+
+def test_master_services():
+    token = auth_get_token('registrationprocessor', 'zonal-admin', 'mosip')
+    r = get_reg_centers(token)
+    return r
+
 def main():
     #prereg_send_otp()
     center_id = '10006'
     machine_id = '10036'
+    #r = test_master_services() 
     test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
 
 if __name__=='__main__':
