@@ -145,6 +145,7 @@ KERNEL_SERVICES = [
     #('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185'),
     #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183'),
     ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186'),
+    ('kernel', 'kernel-syncdata-service', '-Dserver.port=8189'),
     ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187'),
     ('kernel', 'kernel-signature-service', '-Dserver.port=8192'),
     ('kernel', 'kernel-auditmanager-service', '-Dserver.port=8181'),
