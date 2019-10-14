@@ -1,6 +1,6 @@
 # MOSIP Single Machine Developer Installer
 
-The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  
+The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  The guide here assumes familiarity with Linux systems.
 
 ## Running the Installer
 
