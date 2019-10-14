@@ -19,6 +19,7 @@ from docker import *
 from softhsm import *
 from config_server import *
 from sftp_utils import *
+from nginx_utils import *
 
 logger = logging.getLogger() # Root Logger 
 
@@ -58,6 +59,7 @@ def install_environ():
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
     install_sftp(SFTP_KEY)  
+    install_nginx()
     create_various_folders() 
     install_config_repo(CONFIG_REPO, SFTP_KEY) # Always install in the end
     logger.info('Env install done')
