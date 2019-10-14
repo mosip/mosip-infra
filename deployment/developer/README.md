@@ -16,6 +16,11 @@ This guide assumes familiarity with Linux systems.
 1. `$ cd $HOME/mosip`
 1. Clone this repo:    
 `$ git clone https://github.com/mosip/mosip-infra.git`  
+1. Clone `mosip-platform` repo:  
+`$ git clone https://github.com/mosip/mosip-platform.git`    
+`$ cd mosip-platform`  
+`$ git checkout 0.9.1_10092019_a`  
+1. Run any *country specific* scripts now.
 1. Install prerequisties (Python3.6 etc):  
 `$ cd mosip-infra/deployment/developer`  
 `$ sh prerequisites.sh`  
@@ -26,10 +31,6 @@ This guide assumes familiarity with Linux systems.
 1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:  
 `registration.processor.dmz.server.user=<your login id>`
 1. `$ cd $HOME/mosip` 
-1. Clone `mosip-platform` repo:  
-`$ git clone https://github.com/mosip/mosip-platform.git`    
-`$ cd mosip-platform`  
-`$ git checkout 0.9.1_10092019_a`  
 1. Run installer as below (do **not** run with `sudo`):  
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher.py --help`  
