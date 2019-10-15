@@ -122,34 +122,34 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_regprc/mosip_regprc_dml_deploy.sql' 
 ]
 
-# (module, service, additional run options)
+# (module, service, additional run options, log file suffix)
 PREREG_SERVICES = [
-    ('preregistration', 'pre-registration-login-service', ''),
-    ('preregistration', 'pre-registration-notification-service', ''),
-    ('preregistration', 'pre-registration-demographic-service', '')]
+    ('preregistration', 'pre-registration-login-service', '', ''),
+    ('preregistration', 'pre-registration-notification-service', '', ''),
+    ('preregistration', 'pre-registration-demographic-service', '', '')]
 
 REGPROC_SERVICES = [
-    ('registrationprocessor', 'registration-processor-packet-receiver-stage', ''),
-    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=secure'),
-    ('registrationprocessor', 'registration-processor-packet-validator-stage', ''), 
-    ('registrationprocessor', 'registration-processor-quality-checker-stage', ''), 
-    ('registrationprocessor', 'registration-processor-osi-validator-stage', ''),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722'),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723'),
-    ('registrationprocessor', 'registration-processor-registration-status-service', '')
+    ('registrationprocessor', 'registration-processor-packet-receiver-stage', '', ''),
+    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=secure', ''),
+    ('registrationprocessor', 'registration-processor-packet-validator-stage', '', ''), 
+    ('registrationprocessor', 'registration-processor-quality-checker-stage', '', ''), 
+    ('registrationprocessor', 'registration-processor-osi-validator-stage', '', ''),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722', '_dmz'),
+    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723', '_secure'),
+    ('registrationprocessor', 'registration-processor-registration-status-service', '', '')
 ]
 
 KERNEL_SERVICES = [ 
-    ('kernel', 'kernel-auth-service', '-Dserver.port=8191'),
-    ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188'),
-    #('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185'),
-    #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183'),
-    ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186'),
-    ('kernel', 'kernel-syncdata-service', '-Dserver.port=8189'),
-    ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187'),
-    ('kernel', 'kernel-signature-service', '-Dserver.port=8192'),
-    ('kernel', 'kernel-auditmanager-service', '-Dserver.port=8181'),
-
+    ('kernel', 'kernel-auth-service', '-Dserver.port=8191', ''),
+    ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188', ''),
+    #('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185', ''),
+    #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183', ''),
+    ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186', ''),
+    ('kernel', 'kernel-syncdata-service', '-Dserver.port=8189', ''),
+    ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187', ''),
+    ('kernel', 'kernel-signature-service', '-Dserver.port=8192', ''),
+    ('kernel', 'kernel-auditmanager-service', '-Dserver.port=8181', ''),
 ]
+
 MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
 

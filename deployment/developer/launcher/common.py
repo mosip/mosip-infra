@@ -14,10 +14,13 @@ def get_jar_name(service, version):
     return service + '-' + version + '.jar'
 
 def run_jar(jar_dir, jar_name, logs_dir, config_port, 
-            max_heap_size=JAVA_HEAP_SIZE, add_options=''):
+            max_heap_size=JAVA_HEAP_SIZE, add_options='', 
+            log_suffix=''):
     '''
     Args:
         add_options:  Any additional options in the for '-D<option>'
+        log_suffix: Suffix to be added to log file name. Useful when mutliple
+            instances of same service are run 
     '''
     logger.info('Running jar %s' % jar_name)
     cwd = os.getcwd() 
@@ -29,9 +32,9 @@ def run_jar(jar_dir, jar_name, logs_dir, config_port,
         '-Xmx%s' % max_heap_size,
         add_options 
     ]
-    cmd = 'java %s -jar %s >>%s/%s.server.log 2>&1 &' % (' '.join(options), 
+    cmd = 'java %s -jar %s >>%s/%s.server%s.log 2>&1 &' % (' '.join(options), 
                                                     jar_name, logs_dir, 
-                                                    jar_name)
+                                                    jar_name,   log_suffix)
     logger.info('Command: %s' % cmd)
     command(cmd)
     logger.info('%s run in background' % jar_name)
