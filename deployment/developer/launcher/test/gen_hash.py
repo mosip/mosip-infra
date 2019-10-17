@@ -39,8 +39,8 @@ def main():
     path_dict =  gen_path_dict(base)
     packet_hash = gen_hash(j, 'hashSequence1', path_dict)
     osi_hash = gen_hash(j, 'hashSequence2', path_dict)
-    open('packet_hash.txt', 'wb').write(packet_hash.encode())
-    open('osi_hash.txt', 'wb').write(osi_hash.encode())
+    open('packet_data_hash.txt', 'wb').write(packet_hash.encode())
+    open('packet_osi_hash.txt', 'wb').write(osi_hash.encode())
     
 if __name__== '__main__':
     main()
