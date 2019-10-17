@@ -223,7 +223,7 @@ def upload_packet(packet_file, token):
     r = requests.post(url, files=files, cookies=cookies)
     return r
 
-def update_packet_date(packet_path):
+def update_packet_date(packet_path, days_offset=None):
     '''
     Modifies creation date of the packet_meta_info.json to current date
     '''
@@ -234,14 +234,14 @@ def update_packet_date(packet_path):
     meta = j['identity']['metaData']
     for m in meta:
         if m['label'] == 'creationDate':
-            m['value'] = get_timestamp()
+            m['value'] = get_timestamp(days_offset)
     
     fp = open(os.path.join(packet_path, 'packet_meta_info.json'), 'wt')
     json.dump(j, fp, indent='    ')
     fp.close()
 
 
-def create_packet_zip(regid, packet_path, ts, out_dir):
+def create_packet_zip(regid, packet_path, ts, out_dir, days_offset=None):
     '''
     The creation date of the packet needs to updated, and then packed zipped.
     Args:
@@ -251,7 +251,7 @@ def create_packet_zip(regid, packet_path, ts, out_dir):
     Returns:
         path of zipped packet
     '''
-    update_packet_date(packet_path)
+    update_packet_date(packet_path, days_offset)
     packet_zip = zip_packet(regid, packet_path, out_dir)
     return packet_zip 
     
@@ -271,9 +271,9 @@ def test_reg_proc(center_id, machine_id, serial_number):
     # Always created regid after publickey, otherwise timestamp of packet
     # will be ahead of public key creation.
     regid, ts = get_regid(center_id, machine_id, serial_number)
-    packet_path = './data/packet/unencrypted/unzipped'
+    packet_path = './data/packet/unencrypted/packet1'
     out_dir = './data/packet/unencrypted'
-    packet_zip = create_packet_zip(regid, packet_path, ts, out_dir)
+    packet_zip = create_packet_zip(regid, packet_path, ts, out_dir, days_offset=5)
     encrypted_packet = os.path.join('./data/packet/encrypted/', 
                                   os.path.basename(packet_zip)) 
     phash, psize = encrypt_packet(packet_zip, encrypted_packet, center_id, 
@@ -294,9 +294,20 @@ def get_reg_centers(token):
     r = requests.get(url, cookies=cookies)
     return r
 
+def get_syncdata_configs(token):
+    url = 'http://localhost:8189/v1/syncdata/configs'
+    cookies = {'Authorization' : token}
+    r = requests.get(url, cookies=cookies)
+    return r
+
 def test_master_services():
     token = auth_get_token('registrationprocessor', 'zonal-admin', 'mosip')
     r = get_reg_centers(token)
+    return r
+
+def test_sync_services():
+    token = auth_get_token('registrationclient', 'registration_supervisor', 'mosip')
+    r = get_syncdata_configs(token)
     return r
 
 def main():
@@ -304,7 +315,9 @@ def main():
     center_id = '10006'
     machine_id = '10036'
     #r = test_master_services() 
-    test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
+    r =  test_sync_services()
+    print_response(r)
+    #test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
 
 if __name__=='__main__':
     main() 
