@@ -708,7 +708,7 @@ mail: registration_supervisor@mosip.io
 mobile: 1234567890 
 rid: 100011000100002201905101217123
 uid: registration_supervisor
-userPassword: {SSHA256}dWV1d99JydFc7MxfhI955mcnfovQ0GeeaYsVsHHStBw9WDoaYHDrVg==
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI=
 
 dn: uid=ajay15,ou=people,c=mycountry
 objectClass: userDetails
