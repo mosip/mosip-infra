@@ -20,7 +20,7 @@ This guide assumes familiarity with Linux systems.
 `$ git clone https://github.com/mosip/mosip-platform.git`    
 `$ cd mosip-platform`  
 `$ git checkout 0.9.1_10092019_a`  
-1. Run any *country specific* scripts now.
+
 1. Install prerequisties (Python3.6 etc):  
 `$ cd mosip-infra/deployment/developer`  
 `$ sh prerequisites.sh`  
@@ -35,7 +35,9 @@ This guide assumes familiarity with Linux systems.
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher.py --help`  
 `$ ./launcher.py --install-environ` (one time)  
-`$ ./launcher.py --build-code`  
+1. Run any *country specific* scripts now.
+1. Build and start services.  
+`$ ./launcher.py --build-code`    
 `$ ./launcher.py --start-services`  
 1. Wait for services to come up.  The `top` utility will show CPU utilization of all java processes.  One indication of whether all services are up is when the CPU utilization of the respective processes goes low.
 1. Monitor the logs under `/logs` dir for any errors.  
