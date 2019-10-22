@@ -1,0 +1,13 @@
+dn: uid=990015,ou=people,c=mycountry
+objectClass: userDetails
+objectClass: organizationalPerson
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: top
+cn: Puneet	 
+sn: Joshi
+mail: pj@xyz.com
+mobile: 1234567890 
+rid: 10001100010000220190510121471
+uid: 990015 
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI= 

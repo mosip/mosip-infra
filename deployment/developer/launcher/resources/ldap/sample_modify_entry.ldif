@@ -1,0 +1,4 @@
+dn: uid=990015,ou=people,c=mycountry
+changetype: modify
+replace: userPassword
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI= 
