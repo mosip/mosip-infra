@@ -70,6 +70,7 @@ def start_environ():
     restart_apacheds()
     restart_clamav()
     run_hdfs()
+    restart_nginx()
 
 def build_code(code_dir):
     logger.info('Building code')

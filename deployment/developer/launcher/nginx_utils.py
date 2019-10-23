@@ -13,3 +13,6 @@ def install_nginx():
     command('sudo systemctl restart nginx')
     # Enable nginx to access the ports
     command('sudo setsebool httpd_can_network_connect on -P')
+
+def restart_nginx():
+    command('sudo systemctl restart nginx')
