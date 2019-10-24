@@ -19,7 +19,7 @@ This guide assumes familiarity with Linux systems.
 1. Clone `mosip-platform` repo:  
 `$ git clone https://github.com/mosip/mosip-platform.git`    
 `$ cd mosip-platform`  
-`$ git checkout 0.9.1_10092019_a`  
+`$ git checkout 0.10.0_10232019_a`  
 
 1. Install prerequisties (Python3.6 etc):  
 `$ cd mosip-infra/deployment/developer`  
