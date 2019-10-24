@@ -15,7 +15,7 @@
 import os
 
 MOSIP_DIR = os.path.join(os.environ['HOME'], 'mosip')
-MOSIP_VERSION = '0.9.1'  # Such a tag should exist on the repo
+MOSIP_VERSION = '0.10.0'  # Such a tag should exist on the repo
 MOSIP_REPO = 'https://github.com/mosip/mosip-platform'
 
 SOFTHSM_INSTALL_DIR = MOSIP_DIR

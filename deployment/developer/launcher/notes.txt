@@ -51,3 +51,8 @@ location /v1/authmanager {
         }
 
 $ sudo setsebool httpd_can_network_connect on -P
+
+==============
+Changes for new platform version tag 0.10.0_10232019:
+- kernel.properties added:
+iam.datastore.commonname=mycountry

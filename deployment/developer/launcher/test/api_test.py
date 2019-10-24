@@ -54,7 +54,8 @@ def read_token(response):
     return None
 
 def auth_get_token(appid, username, password):
-    url = 'http://localhost:8191/v1/authmanager/authenticate/useridPwd'
+    #url = 'http://localhost:8191/v1/authmanager/authenticate/useridPwd'
+    url = 'http://localhost/v1/authmanager/authenticate/useridPwd'
     ts = get_timestamp()
     j = {
         "id": "mosip.io.userId.pwd",
@@ -294,8 +295,9 @@ def get_reg_centers(token):
     r = requests.get(url, cookies=cookies)
     return r
 
-def get_syncdata_configs(token):
-    url = 'http://localhost:8189/v1/syncdata/configs'
+def get_syncdata_configs(token, center_id):
+    #url = 'http://localhost:8189/v1/syncdata/configs'
+    url = 'http://localhost:8189/v1/syncdata/userdetails/%s' % center_id
     cookies = {'Authorization' : token}
     r = requests.get(url, cookies=cookies)
     return r
@@ -305,19 +307,21 @@ def test_master_services():
     r = get_reg_centers(token)
     return r
 
-def test_sync_services():
+
+def test_sync_services(center_id, machine_id):
     token = auth_get_token('registrationclient', 'registration_supervisor', 'mosip')
-    r = get_syncdata_configs(token)
+    r = get_syncdata_configs(token, center_id)
     return r
 
 def main():
     #prereg_send_otp()
     center_id = '10006'
     machine_id = '10036'
+
     #r = test_master_services() 
-    r =  test_sync_services()
-    print_response(r)
-    #test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
+    #r =  test_sync_services(center_id, machine_id)
+    #print_response(r)
+    test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
 
 if __name__=='__main__':
     main() 
