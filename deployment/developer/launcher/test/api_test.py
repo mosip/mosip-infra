@@ -256,7 +256,7 @@ def create_packet_zip(regid, packet_path, ts, out_dir, days_offset=None):
     packet_zip = zip_packet(regid, packet_path, out_dir)
     return packet_zip 
     
-def test_reg_proc(center_id, machine_id, serial_number):
+def test_reg_proc(center_id, machine_id, packet_path, serial_number):
     '''
     1. First get authorization token (whos?) 
     2. Using keymanager API get public key of center_machine (rid)
@@ -272,7 +272,6 @@ def test_reg_proc(center_id, machine_id, serial_number):
     # Always created regid after publickey, otherwise timestamp of packet
     # will be ahead of public key creation.
     regid, ts = get_regid(center_id, machine_id, serial_number)
-    packet_path = './data/packet/unencrypted/packet1'
     out_dir = './data/packet/unencrypted'
     packet_zip = create_packet_zip(regid, packet_path, ts, out_dir, days_offset=5)
     encrypted_packet = os.path.join('./data/packet/encrypted/', 
@@ -315,13 +314,16 @@ def test_sync_services(center_id, machine_id):
 
 def main():
     #prereg_send_otp()
-    center_id = '10006'
-    machine_id = '10036'
-
+    #center_id = '10006'
+    #machine_id = '10036'
+    center_id = '10001'
+    machine_id = '99915'
+  
     #r = test_master_services() 
     #r =  test_sync_services(center_id, machine_id)
     #print_response(r)
-    test_reg_proc(center_id, machine_id, serial_number = 1) # Arbitrary
+    test_reg_proc(center_id, machine_id, './data/packet/unencrypted/packet1',
+                  serial_number = 1) # Serial number is arbitrary
 
 if __name__=='__main__':
     main() 
