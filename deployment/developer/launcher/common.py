@@ -13,6 +13,13 @@ def command(cmd):
 def get_jar_name(service, version):
     return service + '-' + version + '.jar'
 
+def start_service(module, service, version, options, suffix):
+    jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'], 
+               module, service, version)
+    jar_name = get_jar_name(service, version)
+    run_jar(jar_dir, jar_name, LOGS_DIR, CONFIG_SERVER_PORT,  JAVA_HEAP_SIZE, 
+            options, suffix)
+
 def run_jar(jar_dir, jar_name, logs_dir, config_port, 
             max_heap_size=JAVA_HEAP_SIZE, add_options='', 
             log_suffix=''):
