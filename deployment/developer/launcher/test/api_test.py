@@ -295,11 +295,39 @@ def get_reg_centers(token):
     return r
 
 def get_syncdata_configs(token, center_id):
-    #url = 'http://localhost:8189/v1/syncdata/configs'
-    url = 'http://localhost:8189/v1/syncdata/userdetails/%s' % center_id
+    #url = 'http://localhost/v1/syncdata/configs'
+    #url = 'http://localhost:8189/v1/syncdata/userdetails/%s' % center_id'
+    url = 'http://localhost/v1/syncdata/masterdata?macaddress=44-8A-5B-00-07-87'
+    #url = 'http://localhost/v1/authmanager/usersaltdetails/registrationclient'
+    #url = ' http://localhost/v1/keymanager/publickey/KERNEL?timeStamp=2019-10-27T03:38:19.053Z&referenceId=SIGN'
+
     cookies = {'Authorization' : token}
     r = requests.get(url, cookies=cookies)
     return r
+
+def sign_request():
+    token = auth_get_token('registrationclient', 'registration_supervisor', 'mosip')
+    url = 'http://localhost/v1/keymanager/sign'
+    j = {
+        "id": "SIGNATURE.REQUEST",
+        "metadata": {},
+        "request": {
+          "applicationId": "KERNEL",
+          "referenceId": "SIGN",
+          "data" : "hello",
+          "timeStamp": "2019-10-28T05:59:29.928Z"
+        },
+
+        "requesttime": "2018-10-28T06:12:52.994Z",
+
+        "version": "v1.0"
+    }
+    cookies = {'Authorization' : token}
+    r = requests.post(url, json=j, cookies=cookies)
+
+    return r
+
+
 
 def test_master_services():
     token = auth_get_token('registrationprocessor', 'zonal-admin', 'mosip')
@@ -319,12 +347,17 @@ def main():
     center_id = '10001'
     machine_id = '99915'
   
+    #token = auth_get_token('registrationprocessor', 'registration_admin',
+    #                        'mosip')
+    #publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
     #r = test_master_services() 
-    #r =  test_sync_services(center_id, machine_id)
-    #print_response(r)
-    test_reg_proc(center_id, machine_id, './data/packet/unencrypted/packet1',
-                  serial_number = 1) # Serial number is arbitrary
+    r =  test_sync_services(center_id, machine_id)
+    #r = sign_request()
+    print_response(r)
+    #test_reg_proc(center_id, machine_id, './data/packet/unencrypted/packet1',
+    #              serial_number = 1) # Serial number is arbitrary
 
+     
 if __name__=='__main__':
     main() 
 
