@@ -9,3 +9,7 @@ CAUTION: While adding entries make sure there no white spaces at the end of the 
 TODO: Add a user with SSHA256 - which will generate a salt - this
 is important for Reg Client.
 
+Salted password hash:  hash(password + salt)
+In LDAP with salted password hash is stored as follows:
+base64 (salted password hash + salt)
+
