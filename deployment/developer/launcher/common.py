@@ -5,6 +5,18 @@ from config import *
 
 logger = logging.getLogger(__name__)
 
+class UserInfo:
+    def __init__(self):
+        self.user_id= None
+        self.user_name = None
+        self.user_password = None
+        self.user_email = None
+        self.user_mobile = None
+        self.machine_id = None
+        self.machine_mac = None
+        self.machine_name = None
+        self.center_id = None
+
 def command(cmd):
     r = subprocess.run(cmd, shell=True)
     if r.returncode != 0: 
