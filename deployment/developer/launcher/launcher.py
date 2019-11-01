@@ -52,7 +52,7 @@ def install_environ():
     install_tools()
     install_docker()
     install_postgres()
-    init_db(DB_SCRIPTS_PATH, SQL_SCRIPTS, DB_PASSWORDS)
+    init_db(DB_DICT.keys(), DB_DICT, DB_SCRIPTS_PATH, DB_PASSWORDS)
     run_hdfs()
     install_clamav()
     install_apacheds()
