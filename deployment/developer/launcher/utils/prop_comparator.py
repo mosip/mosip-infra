@@ -1,5 +1,5 @@
 #!/usr/bin/python3.6
-# This script compares two propertie files - reports missing, common, and
+# This script compares two properties files. Reports missing, common, and
 # different properties
 
 import argparse
