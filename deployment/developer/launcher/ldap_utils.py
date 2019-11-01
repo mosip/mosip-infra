@@ -6,6 +6,7 @@ import sys
 from common import *
 from config import *
 import base64
+import ldap.modlist as modlist 
 
 logger = logging.getLogger(__name__)
 

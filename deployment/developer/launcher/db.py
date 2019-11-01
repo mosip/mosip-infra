@@ -80,10 +80,10 @@ def clean_table(dbname, table_name):
     Delete all entries from a table
     '''
     logger.info('Cleaning %s table' % table_name)
-    print("dbname=%s user=postgres" % dbname)
+    logger.info("dbname=%s user=postgres" % dbname)
     conn = psycopg2.connect("dbname=%s user=postgres" % dbname)
     cur = conn.cursor()
-    print('delete from %s;' % table_name)
+    logger.info('delete from %s;' % table_name)
     cur.execute('delete from %s;' % table_name)
     conn.commit() 
     cur.close()
@@ -100,7 +100,7 @@ def add_umc(user_info, cur):
     TODO: Update the row with new data in case of conflict     
     '''
     u = user_info
-    print('Adding id=%s, name=%s, mac=%s, center=%s' % (u.user_id, u.user_name, u.machine_mac, u.center_id)) 
+    logger.info('Adding id=%s, name=%s, mac=%s, center=%s' % (u.user_id, u.user_name, u.machine_mac, u.center_id)) 
 
     cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
 
