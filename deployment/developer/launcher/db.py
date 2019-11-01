@@ -62,3 +62,50 @@ def clean_table(dbname, table_name):
     cur.close()
     conn.close()
      
+def add_umc(user_info, cur):
+    '''
+    Add User, Machine, Center info in various tables in DB.
+    user_info:  UserInfo structure in common.py 
+    cur:  DB Cursor
+
+    CAUTION: If there is any conflict in insert, the insert is skipped, which
+    means the row in not updated.
+    TODO: Update the row with new data in case of conflict     
+    '''
+    u = user_info
+    print('Adding id=%s, name=%s, mac=%s, center=%s' % (u.user_id, u.user_name, u.machine_mac, u.center_id)) 
+
+    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
+
+    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
+
+    cur.execute("insert into machine_master_h (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac))
+
+    cur.execute("insert into user_detail values (%s, '1823955523', %s, 'xyz@123.com', '1000000027', 'ACT', 'eng', 'now()', 'PWD', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.user_id, u.user_name))
+
+    # NOTE: User mobile is filled for uin
+    cur.execute("insert into user_detail_h (id, uin, name, email, mobile, status_code, lang_code, last_login_dtimes, last_login_method, is_active, cr_by, cr_dtimes, eff_dtimes) values (%s, %s, %s, %s, %s, 'ACT', 'eng', 'now()', 'PWD', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.user_id, u.user_mobile, u.user_name, u.user_email, u.user_mobile))
+
+    cur.execute("insert into reg_center_user values(%s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.user_id)) 
+
+    cur.execute("insert into reg_center_user_h (regcntr_id, usr_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.user_id))
+
+    cur.execute("insert into reg_center_machine values(%s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.machine_id))
+
+    cur.execute("insert into reg_center_machine_h (regcntr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.machine_id))
+
+    cur.execute("insert into reg_center_user_machine values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.user_id, u.machine_id))
+
+    cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.user_id, u.machine_id));
+
+def drop_db(dbname):
+    import psycopg2
+    '''
+    '''
+    logger.info('Dropping DB %s' % dbname) 
+    conn = psycopg2.connect("dbname=postgres user=postgres")
+    cur = conn.cursor()
+    conn.autocommit = True
+    cur.execute('drop database if exists %s;' % dbname)
+    cur.close()
+    conn.close()
