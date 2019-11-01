@@ -60,3 +60,26 @@ def create_partition(partition_name):
     f.close()
     command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f %s' % ldif)
     restart_apacheds()
+
+def add_user_in_ldap(user_info, ld):
+    '''
+    Adds entry into LDAP. Note that if the DN already exists the skipped 
+    meaning update does not take place.
+    TODO: Update records if anything changes
+
+    Args:
+        ld: ldap connection 
+        user_info:  UserInfo structure in common.py 
+    '''
+    u = user_info
+    dn = 'uid=%s,ou=people,c=mycountry' % u.user_id 
+    attrs = {}
+    attrs['objectClass'] = [b'userDetails']
+    attrs['cn'] = [u.user_name.encode()]
+    attrs['sn'] = [u.user_name.encode()]
+    attrs['userPassword'] = [u.user_password.encode()]
+    attrs['mail'] = [u.user_email.encode()]
+    attrs['mobile'] = [u.user_mobile.encode()]
+    
+    ldif = modlist.addModlist(attrs)
+    ld.add_s(dn, ldif)
