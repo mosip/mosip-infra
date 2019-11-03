@@ -53,7 +53,6 @@ This guide assumes familiarity with Linux systems.
 * To list packets:  
 `$ cd /usr/local/hadoop`  
 `$ ./hdfs dfs -ls /user/regprocessor`  
-`$ .
 * To delete packet  
 `$ ./hdfs dfs -rm -r -f /user/regprocessor/<packet directory>`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
