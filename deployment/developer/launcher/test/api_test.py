@@ -73,7 +73,7 @@ def auth_get_token(appid, username, password):
     return token 
 
 def validate_token(token):
-    url = 'http://localhost:8191/v1/authmanager/authorize/validateToken'
+    url = 'http://localhost/v1/authmanager/authorize/validateToken'
     cookies = {'Authorization' : token}
     r = requests.post(url, cookies=cookies)
     return r
@@ -83,7 +83,7 @@ def get_public_key(appid, center_id, machine_id, token):
     Returns:
         Bytes of public key (after base64 decoding)
     '''
-    url = 'http://localhost:8188/v1/keymanager/publickey/REGISTRATION'
+    url = 'http://localhost/v1/keymanager/publickey/REGISTRATION'
     cookies = {'Authorization' : token}
     refid = center_id + '_' + machine_id
     r = requests.get(url, params = {'referenceId' : refid,
@@ -102,7 +102,7 @@ def encrypt_using_server(appid, refid, data, token):
     Returns:
         encrypted data as str 
     '''
-    url = 'http://localhost:8187/v1/cryptomanager/encrypt'
+    url = 'http://localhost/v1/cryptomanager/encrypt'
     j = {
         "id" : "string",
         "metadata" : {},
@@ -142,7 +142,7 @@ def decrypt_using_server(appid, refid, data, token):
     Returns:
         decrypted data as str 
     '''
-    url = 'http://localhost:8187/v1/cryptomanager/decrypt'
+    url = 'http://localhost/v1/cryptomanager/decrypt'
     j = {
         "id" : "string",
         "metadata" : {},
@@ -165,7 +165,7 @@ def decrypt_using_server(appid, refid, data, token):
 
 def sync_packet(regid, packet_hash, packet_size, refid, token,
                 publickey):
-    url = 'http://localhost:8083/registrationprocessor/v1/registrationstatus/sync' 
+    url = 'http://localhost/registrationprocessor/v1/registrationstatus/sync' 
     cookies = {'Authorization' : token}
     # TODO: code repetition below w.r.t. to refid in get_public_key()
     headers = {'Center-Machine-RefId' : refid,
@@ -218,7 +218,7 @@ def encrypt_packet(packet_zip, out_packet_zip, center_id, machine_id, token):
     return phash, psize 
 
 def upload_packet(packet_file, token):
-    url = 'http://localhost:8081/registrationprocessor/v1/packetreceiver/registrationpackets'
+    url = 'http://localhost/registrationprocessor/v1/packetreceiver/registrationpackets'
     cookies = {'Authorization' : token}
     files = {packet_file : open(packet_file, 'rb')}
     r = requests.post(url, files=files, cookies=cookies)
@@ -289,14 +289,14 @@ def test_reg_proc(center_id, machine_id, packet_path, serial_number):
     print('\nCheck if the packet is uploaded to HDFS in /user/regprocessor folder')
 
 def get_reg_centers(token):
-    url = 'http://localhost:8186/v1/masterdata/registrationcenters'
+    url = 'http://localhost/v1/masterdata/registrationcenters'
     cookies = {'Authorization' : token}
     r = requests.get(url, cookies=cookies)
     return r
 
 def get_syncdata_configs(token, center_id):
     #url = 'http://localhost/v1/syncdata/configs'
-    #url = 'http://localhost:8189/v1/syncdata/userdetails/%s' % center_id'
+    #url = 'http://localhost/v1/syncdata/userdetails/%s' % center_id'
     url = 'http://localhost/v1/syncdata/masterdata?macaddress=44-8A-5B-00-07-87'
     #url = 'http://localhost/v1/authmanager/usersaltdetails/registrationclient'
     #url = ' http://localhost/v1/keymanager/publickey/KERNEL?timeStamp=2019-10-27T03:38:19.053Z&referenceId=SIGN'
@@ -349,13 +349,14 @@ def main():
   
     #token = auth_get_token('registrationprocessor', 'registration_admin',
     #                        'mosip')
+    #r = validate_token(token)
     #publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
     #r = test_master_services() 
-    r =  test_sync_services(center_id, machine_id)
+    #r =  test_sync_services(center_id, machine_id)
     #r = sign_request()
-    print_response(r)
-    #test_reg_proc(center_id, machine_id, './data/packet/unencrypted/packet1',
-    #              serial_number = 1) # Serial number is arbitrary
+    #print_response(r)
+    test_reg_proc(center_id, machine_id, '/home/puneet/mosip/mosip-phil-ref-impl/sandbox/resources/phil_packet',
+                  serial_number = 1) # Serial number is arbitrary
 
      
 if __name__=='__main__':
