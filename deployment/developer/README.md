@@ -65,14 +65,16 @@ http://directory.apache.org/studio/download/download-linux.html
 * For local run all ports have to be different. Hence, the kernel services are run on ports 81xx.
 * HTTPS connections have been changed to HTTP connection in code.
 * Detailed logs have been redirected by changing code (path was hardcoded).
-* To run a particular jar (for debugging etc):  
-`java -Dspring.cloud.config.uri=http://localhost:8888 -Dspring.cloud.config.label=master -Dspring.profiles.active=dev -Dserver.port=<port> -Xmx256m -jar <jar_path> >> <log_path> 2>&1 &`
+* To run a particular service:  
+`$ cd utils`  
+`$ ./run_service.py <service name>`  
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.    
 `registration.processor.signature.isEnabled=false` 
 * Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:   
 `configuration.set("dfs.client.use.datanode.hostname", "false");`
 * Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml.
 * Two camel bridge instances are run - one for dmz and another one for secure zone.
+* Self-signed SSL certificates have been generated using 'localhost' as domain name.  If you are accessing this installation from outside, create new certificate and key with IP/domain name of the machine and place in `/etc/ssl/` dir.
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)
