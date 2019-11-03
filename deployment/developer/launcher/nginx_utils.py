@@ -12,7 +12,7 @@ def install_ssl():
     using the IP/domain name of the machine.  Procedure:
     https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7
     '''
-    command('sudo mkdir /etc/ssl/private') 
+    command('sudo mkdir -p /etc/ssl/private') 
     command('sudo chmod 700 /etc/ssl/private') 
     command('sudo cp resources/nginx/nginx-selfsigned.crt /etc/ssl/certs') 
     command('sudo cp resources/nginx/nginx-selfsigned.key /etc/ssl/private')
