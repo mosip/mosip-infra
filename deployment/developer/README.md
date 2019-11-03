@@ -50,7 +50,12 @@ This guide assumes familiarity with Linux systems.
 * To access the hdfs docker (for debugging or inspection), get the container id with:  
 `$ docker container ls`
 * `$ docker exec -it <container id> /bin/bash`
-* Hadoop tools can be found at `/usr/local/hadoop`
+* To list packets:  
+`$ cd /usr/local/hadoop`  
+`$ ./hdfs dfs -ls /user/regprocessor`  
+`$ .
+* To delete packet  
+`$ ./hdfs dfs -rm -r -f /user/regprocessor/<packet directory>`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
 
 ### LDAP UI tool(optional)
