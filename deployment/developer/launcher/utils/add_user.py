@@ -5,6 +5,7 @@
 # 
 # CAUTION: If any SQL changes here, make sure it is changed in other places
 # as well like resources/sql and vice-a-versa
+# TODO: Add unique MAC address constraint while adding record to machine_master
 
 import sys
 import os
