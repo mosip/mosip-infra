@@ -62,6 +62,12 @@ This guide assumes familiarity with Linux systems.
 http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
 
+### Utils
+A few useful scripts are available in `utils` folder:
+* `add_user.py`:  Add a user, machine, center into DB and LDAP.
+* `prop_comparator`:  Compare two property files.
+* `run_service.py`:  Re-run a single service. 
+
 ### Notes
 * This version of installer runs selected modules of Pre-Reg and Reg Processor.  Further enahncements to the installer are in progress.  Developers are expected to learn the installation process using these reference scripts.
 * Config server runs on port 8888 by default.  It may conflict with some services. TODO: Change the port.
@@ -69,9 +75,6 @@ http://directory.apache.org/studio/download/download-linux.html
 * For local run all ports have to be different. Hence, the kernel services are run on ports 81xx.
 * HTTPS connections have been changed to HTTP connection in code.
 * Detailed logs have been redirected by changing code (path was hardcoded).
-* To run a particular service:  
-`$ cd utils`  
-`$ ./run_service.py <service name>`  
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.    
 `registration.processor.signature.isEnabled=false` 
 * Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:   
