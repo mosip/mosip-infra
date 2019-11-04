@@ -50,13 +50,23 @@ This guide assumes familiarity with Linux systems.
 * To access the hdfs docker (for debugging or inspection), get the container id with:  
 `$ docker container ls`
 * `$ docker exec -it <container id> /bin/bash`
-* Hadoop tools can be found at `/usr/local/hadoop`
+* To list packets:  
+`$ cd /usr/local/hadoop`  
+`$ ./hdfs dfs -ls /user/regprocessor`  
+* To delete packet  
+`$ ./hdfs dfs -rm -r -f /user/regprocessor/<packet directory>`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
 
 ### LDAP UI tool(optional)
 - For inspecting contents of LDAP, download and install Apache Studio DS
 http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
+
+### Utils
+A few useful scripts are available in `utils` folder:
+* `add_user.py`:  Add a user, machine, center into DB and LDAP.
+* `prop_comparator.py`:  Compare two property files.
+* `run_service.py`:  Re-run a single service. 
 
 ### Notes
 * This version of installer runs selected modules of Pre-Reg and Reg Processor.  Further enahncements to the installer are in progress.  Developers are expected to learn the installation process using these reference scripts.
@@ -65,9 +75,6 @@ http://directory.apache.org/studio/download/download-linux.html
 * For local run all ports have to be different. Hence, the kernel services are run on ports 81xx.
 * HTTPS connections have been changed to HTTP connection in code.
 * Detailed logs have been redirected by changing code (path was hardcoded).
-* To run a particular service:  
-`$ cd utils`  
-`$ ./run_service.py <service name>`  
 * Digital signature has been disabled in `registration-processor.properties`.  Enable it later.    
 `registration.processor.signature.isEnabled=false` 
 * Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:   
