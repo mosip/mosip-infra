@@ -65,7 +65,7 @@ http://directory.apache.org/studio/download/download-linux.html
 ### Utils
 A few useful scripts are available in `utils` folder:
 * `add_user.py`:  Add a user, machine, center into DB and LDAP.
-* `prop_comparator`:  Compare two property files.
+* `prop_comparator.py`:  Compare two property files.
 * `run_service.py`:  Re-run a single service. 
 
 ### Notes
