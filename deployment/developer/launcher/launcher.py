@@ -45,6 +45,7 @@ def install_tools():
 def create_various_folders():
     os.makedirs(PACKET_LANDING, exist_ok=True) 
     os.makedirs(PACKET_ARCHIVAL, exist_ok=True) 
+    os.makedirs(LOGS_DIR, exist_ok=True) 
 
 def install_environ():
     logger.info('Installing environ')
@@ -133,7 +134,7 @@ def parse_args():
 
 def main():
     global logger
-    init_logger(logger, 'logs/launcher.log', 10000000, 'info', 2)
+    init_logger(logger, os.path.join(LOGS_DIR, 'launcher.log'), 10000000, 'info', 2)
 
     parser = parse_args()
     args = parser.parse_args()

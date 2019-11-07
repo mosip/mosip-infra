@@ -42,7 +42,7 @@ CLAMAV_PORT = 3310 # CAUTION: Change resources/clamav_scan.conf if you change th
 
 # Local repo where all config files of MOSIP will be fetched by config server.
 CONFIG_REPO= os.path.join(MOSIP_DIR, 'myconfig')  # git repo 
-LOGS_DIR = os.path.join(MOSIP_DIR, 'mosip-infra/deployment/developer/launcher/logs')
+LOGS_DIR = os.path.join(MOSIP_DIR, 'logs')
 
 JAVA_HEAP_SIZE = '256m' 
 
