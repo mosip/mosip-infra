@@ -41,6 +41,7 @@ def install_tools():
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
     command('sudo pip3.6 install python-ldap')
+    command('timedatectl set-timezone UTC') # TODO: remove after regproc patch  
 
 def create_various_folders():
     os.makedirs(PACKET_LANDING, exist_ok=True) 
