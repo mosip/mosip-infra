@@ -58,7 +58,7 @@ This guide assumes familiarity with Linux systems.
 `$ ./hdfs dfs -rm -r -f /user/regprocessor/<packet directory>`
 * HTTP interface of name node can be accessed via `http://localhost:50070`
 
-### LDAP UI tool(optional)
+### LDAP UI tool (optional)
 - For inspecting contents of LDAP, download and install Apache Studio DS
 http://directory.apache.org/studio/download/download-linux.html
 - Create a new connection with following params: host = localhost, port = 10389, Simple Authentication, Bind DN = "uid=admin,ou=system", Bind password = "secret"
