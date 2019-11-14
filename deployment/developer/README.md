@@ -77,8 +77,6 @@ A few useful scripts are available in `utils` folder:
 * For local run all ports have to be different. Hence, the kernel services are run on ports 81xx.
 * HTTPS connections have been changed to HTTP connection in code.
 * Detailed logs have been redirected by changing code (path was hardcoded).
-* Digital signature has been disabled in `registration-processor.properties`.  Enable it later.    
-`registration.processor.signature.isEnabled=false` 
 * Following change has been made in the `mosip-platform` code in `ConnectionUtils.java` to make HDFS work in single node docker mode:   
 `configuration.set("dfs.client.use.datanode.hostname", "false");`
 * Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml.
