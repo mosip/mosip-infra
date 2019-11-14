@@ -1,4 +1,4 @@
-# MOSIP Single Machine Developer Installer
+# MOSIP Single Machine Installer
 
 The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  
 
@@ -68,6 +68,7 @@ A few useful scripts are available in `utils` folder:
 * `add_user.py`:  Add a user, machine, center into DB and LDAP.
 * `prop_comparator.py`:  Compare two property files.
 * `run_service.py`:  Re-run a single service. 
+* `reprocessor.py`:  To re-process any failed packets.
 
 ### Notes
 * This version of installer runs selected modules of Pre-Reg and Reg Processor.  Further enahncements to the installer are in progress.  Developers are expected to learn the installation process using these reference scripts.

@@ -1,7 +1,9 @@
 import subprocess
 import logging
+import requests
 import os
 from config import *
+import datetime as dt
 
 logger = logging.getLogger(__name__)
 
@@ -72,3 +74,46 @@ def kill_process(search_str):
         pinfo = p.as_dict(attrs=['pid', 'cmdline'])
         if search_str in '#'.join(pinfo['cmdline']):
             p.kill()
+
+def read_token(response):
+    cookies = response.headers['Set-Cookie'].split(';')
+    for cookie in cookies:
+        key = cookie.split('=')[0]
+        value = cookie.split('=')[1]
+        if key == 'Authorization':
+            return value
+
+    return None
+
+def auth_get_token(appid, username, password):
+
+    url = 'http://localhost/v1/authmanager/authenticate/useridPwd'
+    ts = get_timestamp()
+    j = {
+        "id": "mosip.io.userId.pwd",
+        "metadata" : {},
+            "version":"1.0",
+            "requesttime": ts, 
+            "request": {
+                "appId" : appid, 
+                "userName": username,
+                "password": password
+        }
+    }
+    r = requests.post(url, json = j)
+    token = read_token(r) 
+    return token 
+
+def get_timestamp(days_offset=None):
+    '''
+    Current TS.
+    Format: 2019-02-14T12:40:59.768Z  (UTC)
+    '''
+    delta = dt.timedelta(days=0)
+    if days_offset is not None:
+        delta = dt.timedelta(days=days_offset)
+         
+    ts = dt.datetime.utcnow() + delta
+    ms = ts.strftime('%f')[0:2]
+    s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
+    return s 
