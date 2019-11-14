@@ -100,7 +100,7 @@ def add_umc(user_info, cur):
 
     cur.execute("insert into reg_center_user_machine values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.user_id, u.machine_id))
 
-    cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.user_id, u.machine_id));
+    cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.user_id, u.machine_id))
 
 def drop_db(dbname):
     import psycopg2
@@ -113,3 +113,30 @@ def drop_db(dbname):
     cur.execute('drop database if exists %s;' % dbname)
     cur.close()
     conn.close()
+
+def set_packet_retry_count(rid, count, cur):
+    '''
+    In the transaction table set retry count for packet to 'count'. Typically
+    done while debugging a problem and you want to re-run the packet uploader
+    stage
+    cur: Cursor for mosip_regprc db.
+    '''
+    logger.info('Setting retry count for %s to %d' % (rid, count))
+    q = "update registration set trn_retry_count =%d where id='%s';" 
+    cur.execute(q, (count, rid)) 
+
+def get_invalid_packets(cur):
+    '''
+    Args:
+        cur: Cursor for mosip_regprc db
+    Returns: 
+        List of rids of packets
+    '''
+    q = "select reg_id from registration_transaction where trn_type_code='VALIDATE_PACKET' and status_code='ERROR'"
+    cur.execute(q)
+    rows = cur.fetchall()
+    rids = []
+    for row in rows:
+       rids.append(row[0])    
+
+    return rids
