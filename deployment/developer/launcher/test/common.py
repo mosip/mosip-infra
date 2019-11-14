@@ -17,20 +17,6 @@ def print_response(r):
     print('Size = %s' % len(r.content))
     print('Response Data = %s' % r.content)
      
-def get_timestamp(days_offset=None):
-    '''
-    Current TS.
-    Format: 2019-02-14T12:40:59.768Z  (UTC)
-    '''
-    delta = dt.timedelta(days=0)
-    if days_offset is not None:
-        delta = dt.timedelta(days=days_offset)
-         
-    ts = dt.datetime.utcnow() + delta
-    ms = ts.strftime('%f')[0:2]
-    s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
-    return s 
-
 def encrypt_packet(in_packet_zip, out_packet_zip, publickey):
     '''
     Encrypt packet without using server. CAUTION: MAY BE BUGGGY

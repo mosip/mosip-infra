@@ -43,35 +43,6 @@ def prereg_send_otp():
 
     print_response(r)
 
-def read_token(response):
-    cookies = response.headers['Set-Cookie'].split(';')
-    for cookie in cookies:
-        key = cookie.split('=')[0]
-        value = cookie.split('=')[1]
-        if key == 'Authorization':
-            return value
-
-    return None
-
-def auth_get_token(appid, username, password):
-    #url = 'http://localhost:8191/v1/authmanager/authenticate/useridPwd'
-    url = 'http://localhost/v1/authmanager/authenticate/useridPwd'
-    ts = get_timestamp()
-    j = {
-        "id": "mosip.io.userId.pwd",
-        "metadata" : {},
-            "version":"1.0",
-            "requesttime": ts, 
-            "request": {
-                "appId" : appid, 
-                "userName": username,
-                "password": password
-        }
-    }
-    r = requests.post(url, json = j)
-    token = read_token(r) 
-    return token 
-
 def validate_token(token):
     url = 'http://localhost/v1/authmanager/authorize/validateToken'
     cookies = {'Authorization' : token}
@@ -350,13 +321,16 @@ def main():
     #token = auth_get_token('registrationprocessor', 'registration_admin',
     #                        'mosip')
     #r = validate_token(token)
+
     #publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
     #r = test_master_services() 
     #r =  test_sync_services(center_id, machine_id)
     #r = sign_request()
     #print_response(r)
-    test_reg_proc(center_id, machine_id, '/home/puneet/mosip/mosip-phil-ref-impl/sandbox/resources/phil_packet',
-                  serial_number = 1) # Serial number is arbitrary
+    #test_reg_proc(center_id, machine_id, '/home/pmosip/mosip/mosip-phil-ref-impl/sandbox/resources/phil_packet',
+    #              serial_number = 1) # Serial number is arbitrary
+
+
 
      
 if __name__=='__main__':
