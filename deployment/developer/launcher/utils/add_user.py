@@ -16,7 +16,7 @@ import argparse
 sys.path.insert(0, '../')
 from common import *
 from logger import init_logger
-from ldap_utils import add_user_in_ldap
+from ldap_utils import add_user_in_ldap, add_user_to_role
 from db import add_umc
 
 logger = logging.getLogger() # Root Logger 
@@ -34,18 +34,19 @@ def parse_csv(csv_file):
         u.machine_mac = row[1]
         u.machine_name = row[2]
         u.user_name = row[3]
-        u.user_id = row[4] 
+        u.uid = row[4] 
         u.user_password = row[5]
         u.user_email = row[6]
         u.user_mobile = row[7]
         u.center_id = row[8] 
+        u.role = row[9] # Currently only one role is assumed. TODO.
         user_infos.append(u)
     return user_infos
 
 def parse_args():
 
     parser = argparse.ArgumentParser(description='Script to add a user to DB and LDAP. If no options are specified attempt is made to add entries into both DB and LDAP. If there is any conflict the insert is skipped, meaning update is NOT done') 
-    parser.add_argument('csv', help='csv: machine_id,mac,machine_name,user_name,user_id,password,user_email,user_mobile,center_id')
+    parser.add_argument('csv', help='csv: machine_id,mac,machine_name,user_name,uid,password,user_email,user_mobile,center_id,ldap_role')
     parser.add_argument('--only-ldap', action='store_true', help='Update only LDAP')
     parser.add_argument('--only-db', action='store_true', help='Update only DB') 
     return parser
@@ -79,7 +80,11 @@ def main():
             try:
                 add_user_in_ldap(u, ld)
             except ldap.ALREADY_EXISTS: 
-                logger.info('User already exists in LDAP: %s' % (u.user_id))
+                logger.info('User already exists in LDAP: %s' % (u.uid))
+            try:
+                add_user_to_role(u.uid, u.role, ld)
+            except: ldap.TYPE_OR_VALUE_EXISTS:
+                logger.info('User-Role already in LDAP: %s-%s' % (u.uid, u.role))
 
     conn.commit()
     conn.close()

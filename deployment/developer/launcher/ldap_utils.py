@@ -7,6 +7,7 @@ from common import *
 from config import *
 import base64
 import ldap.modlist as modlist 
+import ldap
 
 logger = logging.getLogger(__name__)
 
@@ -73,7 +74,7 @@ def add_user_in_ldap(user_info, ld):
         user_info:  UserInfo structure in common.py 
     '''
     u = user_info
-    dn = 'uid=%s,ou=people,c=mycountry' % u.user_id 
+    dn = 'uid=%s,ou=people,c=mycountry' % u.uid 
     attrs = {}
     attrs['objectClass'] = [b'userDetails']
     attrs['cn'] = [u.user_name.encode()]
@@ -84,3 +85,21 @@ def add_user_in_ldap(user_info, ld):
     
     ldif = modlist.addModlist(attrs)
     ld.add_s(dn, ldif)
+
+def add_user_to_role(uid, role, ld):
+    '''
+    Args:
+        uid: As in LDAP
+        role: str
+        ld: LDAP connection
+    '''
+    dn = 'cn=%s,ou=roles,c=mycountry' % role
+    attrs = {}
+    attrs['changetype'] = [b'modify']
+    attrs['add'] = [b'roleOccupant']
+    s = 'uid=%s,ou=people,c=mycountry' % uid
+    attrs['roleOccupant'] = [s.encode()]
+    s = 'uid=%s,ou=people,c=mycountry' % uid
+    t = [(ldap.MOD_ADD, 'roleOccupant', s.encode())]
+
+    ld.modify_s(dn, t) 

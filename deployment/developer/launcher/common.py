@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class UserInfo:
     def __init__(self):
-        self.user_id= None
+        self.uid= None
         self.user_name = None
         self.user_password = None
         self.user_email = None
@@ -16,6 +16,7 @@ class UserInfo:
         self.machine_mac = None
         self.machine_name = None
         self.center_id = None
+        self.role = None  # Roles as in LDAP
 
 def command(cmd):
     r = subprocess.run(cmd, shell=True)
