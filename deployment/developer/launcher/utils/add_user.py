@@ -83,7 +83,7 @@ def main():
                 logger.info('User already exists in LDAP: %s' % (u.uid))
             try:
                 add_user_to_role(u.uid, u.role, ld)
-            except: ldap.TYPE_OR_VALUE_EXISTS:
+            except ldap.TYPE_OR_VALUE_EXISTS:
                 logger.info('User-Role already in LDAP: %s-%s' % (u.uid, u.role))
 
     conn.commit()
