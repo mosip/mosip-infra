@@ -81,8 +81,6 @@ def add_umc(user_info, cur):
 
     cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
 
-    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
-
     cur.execute("insert into machine_master_h (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac))
 
     cur.execute("insert into user_detail values (%s, '1823955523', %s, 'xyz@123.com', '1000000027', 'ACT', 'eng', 'now()', 'PWD', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.uid, u.user_name))
@@ -101,6 +99,24 @@ def add_umc(user_info, cur):
     cur.execute("insert into reg_center_user_machine values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.uid, u.machine_id))
 
     cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.uid, u.machine_id))
+
+def clear_umc_tables(cur):
+    '''
+    Clear all tables containing user, machine tables and their association
+    with center.  
+    '''
+    logger.info('Clearing user, machine tables and their relation to centers')
+
+    cur.execute("truncate machine_master cascade;")
+    cur.execute("truncate machine_master_h cascade;")
+    cur.execute("truncate user_detail cascade;")
+    cur.execute("truncate user_detail_h cascade;")
+    cur.execute("truncate reg_center_user cascade;")
+    cur.execute("truncate reg_center_user_h cascade;")
+    cur.execute("truncate reg_center_machine cascade;")
+    cur.execute("truncate reg_center_machine_h cascade;")
+    cur.execute("truncate reg_center_user_machine cascade;")
+    cur.execute("truncate reg_center_user_machine_h cascade;")
 
 def drop_db(dbname):
     import psycopg2
