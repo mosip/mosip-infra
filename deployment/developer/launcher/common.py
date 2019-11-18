@@ -4,6 +4,7 @@ import requests
 import os
 from config import *
 import datetime as dt
+import hashlib
 
 logger = logging.getLogger(__name__)
 
@@ -117,3 +118,17 @@ def get_timestamp(days_offset=None):
     ms = ts.strftime('%f')[0:2]
     s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
     return s 
+
+def generate_machine_id_from_mac(mac, nchars):
+    '''
+    Args:
+        mac: mac address as str (format does not matter)
+        nchars: number of chars in id 
+    '''
+
+    m = hashlib.md5()
+    m.update(mac.encode())
+    machine_id = m.hexdigest()[0 : nchars]
+
+    return machine_id
+    

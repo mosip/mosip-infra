@@ -30,8 +30,9 @@ def parse_csv(csv_file):
     user_infos = []
     for row in reader:
         u = UserInfo()
-        u.machine_id = row[0]
+        u.machine_id = row[0]  # TODO: Remove machine id as it is generated
         u.machine_mac = row[1]
+        u.machine_id =  generate_machine_id_from_mac(u.machine_mac, 8)
         u.machine_name = row[2]
         u.user_name = row[3]
         u.uid = row[4] 
@@ -67,6 +68,7 @@ def main():
 
     uinfo = parse_csv(args.csv)
     conn = psycopg2.connect("dbname=mosip_master user=postgres")
+    conn.autocommit = True
     cur = conn.cursor() 
 
     ld = ldap.initialize('ldap://localhost:10389')
