@@ -81,8 +81,6 @@ def add_umc(user_info, cur):
 
     cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
 
-    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
-
     cur.execute("insert into machine_master_h (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac))
 
     cur.execute("insert into user_detail values (%s, '1823955523', %s, 'xyz@123.com', '1000000027', 'ACT', 'eng', 'now()', 'PWD', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.uid, u.user_name))
@@ -132,13 +130,15 @@ def get_invalid_packets(cur):
     Returns: 
         List of rids of packets
     '''
-    q = "select reg_id from registration_transaction where trn_type_code='VALIDATE_PACKET' and status_code='ERROR'"
+    q = "select reg_id from registration_transaction where trn_type_code='VALIDATE_PACKET' and status_code!='SUCCESS'"
     cur.execute(q)
     rows = cur.fetchall()
     rids = []
     for row in rows:
        rids.append(row[0])    
 
+    # Make rids unique
+    rids = list(set(rids))
     # Check if the rids have been successful later. So take the latest status of 
     # an rid. TODO: This can be perhaps done with a single SQL query
     q = "select status_code from registration_transaction where trn_type_code='VALIDATE_PACKET' and reg_id=%s order by upd_dtimes desc limit 1"
