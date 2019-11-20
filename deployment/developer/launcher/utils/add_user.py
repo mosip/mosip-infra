@@ -21,28 +21,6 @@ from db import add_umc
 
 logger = logging.getLogger() # Root Logger 
 
-def parse_csv(csv_file):
-    f = open(csv_file, 'rt')
-    reader = csv.reader(f)    
-    next(reader, None)  # Skip header row
-    #['1234','F8-B4-6A-B2-0E-59','DESKTOP-A96IHMO','Marie Catherine L. Garilao', 'REG203', 'h@ppyBox24', '10001']
-
-    user_infos = []
-    for row in reader:
-        u = UserInfo()
-        u.machine_mac = row[0]
-        u.machine_id =  generate_machine_id_from_mac(u.machine_mac, 8)
-        u.machine_name = row[1]
-        u.user_name = row[2]
-        u.uid = row[3] 
-        u.user_password = row[4]
-        u.user_email = row[5]
-        u.user_mobile = row[6]
-        u.center_id = row[7] 
-        u.role = row[8] # Currently only one role is assumed. TODO.
-        user_infos.append(u)
-    return user_infos
-
 def parse_args():
 
     parser = argparse.ArgumentParser(description='Script to add a user to DB and LDAP. If no options are specified attempt is made to add entries into both DB and LDAP. If there is any conflict the insert is skipped, meaning update is NOT done') 
@@ -65,7 +43,7 @@ def main():
    
     init_logger(logger, 'logs/add_user.log', 10000000, 'info', 1)
 
-    uinfo = parse_csv(args.csv)
+    uinfo = parse_umc_csv(args.csv)
     conn = psycopg2.connect("dbname=mosip_master user=postgres")
     conn.autocommit = True
     cur = conn.cursor() 

@@ -132,3 +132,29 @@ def generate_machine_id_from_mac(mac, nchars):
 
     return machine_id
     
+def parse_umc_csv(csv_file):
+    '''
+    User-machine-center mapping is specified in a csv as
+    [mac,machine_name,user_name,uid,password,user_email,user_mobile,
+     center_id,ldap_role']
+    '''
+    f = open(csv_file, 'rt')
+    reader = csv.reader(f)    
+    next(reader, None)  # Skip header row
+    #['1234','F8-B4-6A-B2-0E-59','DESKTOP-A96IHMO','Marie Catherine L. Garilao', 'REG203', 'h@ppyBox24', '10001', 'REGISRTATION_OFFICER]
+
+    user_infos = []
+    for row in reader:
+        u = UserInfo()
+        u.machine_mac = row[0]
+        u.machine_id =  generate_machine_id_from_mac(u.machine_mac, 8)
+        u.machine_name = row[1]
+        u.user_name = row[2]
+        u.uid = row[3] 
+        u.user_password = row[4]
+        u.user_email = row[5]
+        u.user_mobile = row[6]
+        u.center_id = row[7] 
+        u.role = row[8] # Currently only one role is assumed. TODO.
+        user_infos.append(u)
+    return user_infos

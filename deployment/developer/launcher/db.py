@@ -4,7 +4,6 @@ import logging
 import psycopg2
 from common import *
 from config import *
-import utils.add_user as add_user
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +56,7 @@ def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
     cur = conn.cursor() 
     clear_umc_tables(cur)
     # Populate fresh
-    user_infos = add_user.parse_csv('resources/umc/umc.csv')
+    user_infos = parse_umc_csv('resources/umc/umc.csv')
     for ui in user_infos:
         add_umc(ui, cur)
     conn.close()
