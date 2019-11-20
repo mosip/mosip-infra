@@ -1,8 +1,10 @@
 import subprocess
 import os
 import logging
+import psycopg2
 from common import *
 from config import *
+import utils.add_user as add_user
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +49,17 @@ def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
             sql_file = os.path.basename(sql_path)
             os.chdir(sql_dir)
             command('sudo -u postgres psql -f %s %s' % (sql_file, options))
+    # mosip_master may have many UMC (User-Machine-Center) mappings. Clean
+    # them and add only single user for testing.
+    conn = psycopg2.connect("dbname=mosip_master user=postgres")
+    conn.autocommit = True
+    cur = conn.cursor() 
+    clear_umc_tables(cur)
+    # Populate fresh
+    user_infos = add_user.parse_csv('resources/umc/umc.csv')
+    for ui in user_infos:
+        add_umc(ui, cur)
+    conn.close()
 
     os.chdir(pwd) # Return back to where we started 
     restart_postgres()
