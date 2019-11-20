@@ -30,24 +30,23 @@ def parse_csv(csv_file):
     user_infos = []
     for row in reader:
         u = UserInfo()
-        u.machine_id = row[0]  # TODO: Remove machine id as it is generated
-        u.machine_mac = row[1]
+        u.machine_mac = row[0]
         u.machine_id =  generate_machine_id_from_mac(u.machine_mac, 8)
-        u.machine_name = row[2]
-        u.user_name = row[3]
-        u.uid = row[4] 
-        u.user_password = row[5]
-        u.user_email = row[6]
-        u.user_mobile = row[7]
-        u.center_id = row[8] 
-        u.role = row[9] # Currently only one role is assumed. TODO.
+        u.machine_name = row[1]
+        u.user_name = row[2]
+        u.uid = row[3] 
+        u.user_password = row[4]
+        u.user_email = row[5]
+        u.user_mobile = row[6]
+        u.center_id = row[7] 
+        u.role = row[8] # Currently only one role is assumed. TODO.
         user_infos.append(u)
     return user_infos
 
 def parse_args():
 
     parser = argparse.ArgumentParser(description='Script to add a user to DB and LDAP. If no options are specified attempt is made to add entries into both DB and LDAP. If there is any conflict the insert is skipped, meaning update is NOT done') 
-    parser.add_argument('csv', help='csv: machine_id,mac,machine_name,user_name,uid,password,user_email,user_mobile,center_id,ldap_role')
+    parser.add_argument('csv', help='csv: mac,machine_name,user_name,uid,password,user_email,user_mobile,center_id,ldap_role')
     parser.add_argument('--only-ldap', action='store_true', help='Update only LDAP')
     parser.add_argument('--only-db', action='store_true', help='Update only DB') 
     return parser
