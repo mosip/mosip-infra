@@ -160,13 +160,6 @@ cn: MISP
 description: Trusted Service Provider
 roleOccupant: uid=testuser1,ou=people,c=mycountry
 
-dn: cn=REGISTRATION_OPERATOR,ou=roles,c=mycountry
-objectClass: organizationalRole
-objectClass: top
-cn: REGISTRATION_OPERATOR
-description: registration operator
-roleOccupant: uid=testuser1,ou=people,c=mycountry
-
 dn: cn=REGISTRATION_OFFICER,ou=roles,c=mycountry
 objectClass: organizationalRole
 objectClass: top
