@@ -41,11 +41,15 @@ def install_apacheds():
 
 def load_ldap(partition_name):
     create_partition(partition_name) 
+    load_schema()
     load_data()
    
+def load_schema():
+    logger.info('Loading schema')
+    command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-schema-extn.ldif')
+
 def load_data():
     logger.info('Loading with sample data')
-    command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-schema-extn.ldif')
     command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-entries.ldif')
 
     restart_apacheds()
