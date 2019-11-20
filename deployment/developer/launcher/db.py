@@ -50,7 +50,8 @@ def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
             os.chdir(sql_dir)
             command('sudo -u postgres psql -f %s %s' % (sql_file, options))
     # mosip_master may have many UMC (User-Machine-Center) mappings. Clean
-    # them and add only single user for testing.
+    # them and add only single user for testing. It is assumed that users
+    # mentioned in CSV are already populated in LDAP during LDAP initialization.
     conn = psycopg2.connect("dbname=mosip_master user=postgres")
     conn.autocommit = True
     cur = conn.cursor() 
