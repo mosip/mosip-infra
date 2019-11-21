@@ -78,12 +78,46 @@ def clean_table(dbname, table_name):
     conn.commit() 
     cur.close()
     conn.close()
+
+def get_unique_machine_id(cur):
+    '''
+    Machine id is 5 digit numeric (although in string format). To assign a unique
+    machine id, we find the largest number by querying table and then adding 1
+    to it. 
+    Args:
+        cur:  Cursor of mosip_master db
+    '''
+
+    q = 'select id from machine_master order by id desc limit 1' 
+    cur.execute(q)
+    rows = cur.fetchall()
+    if len(rows) == 0:
+        return '10001'  # Default first machine id
+    largest_id = rows[0][0]  # str
+    largest_id_int = int(largest_id)
+    new_id = largest_id_int + 1
+    new_id_str = str(new_id)
+    return new_id_str
+
+def get_machine_id(cur, mac):
+    '''
+    get machine id given mac
+    Returns:
+        None if not found
+    '''
+    q = "select id from machine_master where mac_address=%s;"
+    cur.execute(q, (mac,))
+    rows = cur.fetchall()
+    if len(rows) == 0:
+        return None 
+    else:
+        return rows[0][0]
      
 def add_umc(user_info, cur):
     '''
     Add User, Machine, Center info in various tables in DB.
     user_info:  UserInfo structure in common.py 
-    cur:  DB Cursor
+    cur: Cursor to mosip_master db. 
 
     CAUTION: If there is any conflict in insert, the insert is skipped, which
     means the row in not updated.
@@ -92,9 +126,14 @@ def add_umc(user_info, cur):
     u = user_info
     logger.info('Adding id=%s, name=%s, mac=%s, center=%s' % (u.uid, u.user_name, u.machine_mac, u.center_id)) 
 
-    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac)) 
+    # Check if mac already exists
+    machine_id = get_machine_id(cur, u.machine_mac)
+    if machine_id is None:
+        machine_id = get_unique_machine_id(cur)  # Assign machine id
+    
+    cur.execute("insert into machine_master (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (machine_id, u.machine_name, u.machine_mac)) 
 
-    cur.execute("insert into machine_master_h (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.machine_id, u.machine_name, u.machine_mac))
+    cur.execute("insert into machine_master_h (id, name, mac_address, serial_num, mspec_id, zone_code, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, '000', '1001', 'PHIL', 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (machine_id, u.machine_name, u.machine_mac))
 
     cur.execute("insert into user_detail values (%s, '1823955523', %s, 'xyz@123.com', '1000000027', 'ACT', 'eng', 'now()', 'PWD', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.uid, u.user_name))
 
@@ -105,13 +144,13 @@ def add_umc(user_info, cur):
 
     cur.execute("insert into reg_center_user_h (regcntr_id, usr_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.uid))
 
-    cur.execute("insert into reg_center_machine values(%s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.machine_id))
+    cur.execute("insert into reg_center_machine values(%s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, machine_id))
 
-    cur.execute("insert into reg_center_machine_h (regcntr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.machine_id))
+    cur.execute("insert into reg_center_machine_h (regcntr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, machine_id))
 
-    cur.execute("insert into reg_center_user_machine values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.uid, u.machine_id))
+    cur.execute("insert into reg_center_user_machine values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()') on conflict do nothing;", (u.center_id, u.uid, machine_id))
 
-    cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.uid, u.machine_id))
+    cur.execute("insert into reg_center_user_machine_h (regcntr_id, usr_id, machine_id, lang_code, is_active, cr_by, cr_dtimes, eff_dtimes) values(%s, %s, %s, 'eng', 'true', 'superadmin', 'now()', 'now()') on conflict do nothing;", (u.center_id, u.uid, machine_id))
 
 def clear_umc_tables(cur):
     '''

@@ -2,6 +2,7 @@ import subprocess
 import logging
 import requests
 import os
+import csv
 from config import *
 import datetime as dt
 import hashlib
@@ -15,7 +16,6 @@ class UserInfo:
         self.user_password = None
         self.user_email = None
         self.user_mobile = None
-        self.machine_id = None
         self.machine_mac = None
         self.machine_name = None
         self.center_id = None
@@ -147,7 +147,6 @@ def parse_umc_csv(csv_file):
     for row in reader:
         u = UserInfo()
         u.machine_mac = row[0]
-        u.machine_id =  generate_machine_id_from_mac(u.machine_mac, 8)
         u.machine_name = row[1]
         u.user_name = row[2]
         u.uid = row[3] 
