@@ -194,6 +194,8 @@ objectClass: top
 cn: REGISTRATION_PROCESSOR
 description: Registration processor 
 roleOccupant: uid=testuser1,ou=people,c=mycountry
+roleOccupant: uid=registrationprocessor,ou=people,c=mycountry
+roleOccupant: uid=regproc_app_user,ou=people,c=mycountry
 
 dn: cn=SUPERADMIN,ou=roles,c=mycountry
 objectClass: organizationalRole
@@ -215,6 +217,7 @@ objectClass: top
 cn: REGISTRATION_SUPERVISOR
 description: Registration supervisor
 roleOccupant: uid=testuser1,ou=people,c=mycountry
+roleOccupant: uid=registrationclient_batch_user,ou=people,c=mycountry
 
 dn: cn=ZONAL_ADMIN,ou=roles,c=mycountry
 objectClass: organizationalRole
