@@ -41,6 +41,7 @@ def install_apacheds():
 
 def load_ldap(partition_name):
     create_partition(partition_name) 
+    modify_ssha_algo('SSHA-256')  # Default is SSHA
     load_schema()
     load_data()
    
@@ -107,3 +108,21 @@ def add_user_to_role(uid, role, ld):
     t = [(ldap.MOD_ADD, 'roleOccupant', s.encode())]
 
     ld.modify_s(dn, t) 
+
+def modify_ssha_algo(algo):
+    '''
+    Args:
+        algo: str like 'SSHA', 'SSHA-256' etc.
+        ld: LDAP connection
+    '''
+    ld = ldap.initialize('ldap://localhost:%d' % LDAP_PORT)
+    ld.bind_s('uid=admin,ou=system', 'secret')
+
+    dn = 'ads-interceptorId=passwordHashingInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config'
+    attrs = {} 
+    attrs['changetype'] = [b'modify']
+    t = [(ldap.MOD_REPLACE, 'ads-hashalgorithm',  algo.encode())]
+    ld.modify_s(dn, t)
+
+    ld.unbind_s()
+

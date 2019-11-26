@@ -38,6 +38,7 @@ CONFIG_SERVER_PORT = 8888 # Should be same as in application.properties of
                           # config-server
 COUNTRY_NAME='mycountry'  # For LDAP 
 
+LDAP_PORT = 10389
 CLAMAV_PORT = 3310 # CAUTION: Change resources/clamav_scan.conf if you change this
 
 # Local repo where all config files of MOSIP will be fetched by config server.
