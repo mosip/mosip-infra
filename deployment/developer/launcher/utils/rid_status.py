@@ -1,13 +1,16 @@
 #!/bin/python3.6
-# This scripts shows status of rid from regiatration table, registration_transaction table and packet store.
+# This scripts shows status of rid from registration table, registration_transaction table and packet store.
 # Usage (example):
-# python rid_status.py list_of_rid
+# python rid_status.py list_of_rid 
+# where list_of_rid contains list of rids seperated by \n
+
 import psycopg2
 import sys
+from config import *
 from datetime import datetime
 import os
 
-def findPath(name, path):
+def find_path(name, path):
     # search for a name in the path if found prints path of it.
     for root, dirs, files in os.walk(path):
         if (name+'.zip') in files:
@@ -35,16 +38,17 @@ def fetch_values(dbname, id):
     conn.close()
 
     print('--------PATH--------')
-    findPath(id, '/home/pmosip/mosip/packet_store/ARCHIVE_PACKET_LOCATION')
-    findPath(id, '/home/pmosip/mosip/packet_store/LANDING_ZONE')
+    find_path(id, PACKET_ARCHIVAL)
+    find_path(id, PACKET_LANDING)
 
 def read_file(filename, dbname):
     # read list of rid from filename
     print("dbname=%s user=postgres" % dbname)
-    with open(filename, 'r') as file:
-        data = list(file.read().split("\n"))
-        for row in data:
+    with open(filename, 'rt') as fd:
+        rows = fd.readlines()
+        for row in rows:
             fetch_values(dbname, row)
+
 
 if __name__== '__main__':
     read_file(sys.argv[1], 'mosip_regprc')
