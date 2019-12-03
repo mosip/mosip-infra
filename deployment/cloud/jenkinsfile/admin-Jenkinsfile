@@ -3,14 +3,14 @@ node {
  def server = Artifactory.server 'ART'
  def rtMaven = Artifactory.newMavenBuild()
  def buildInfo
- def branch = env.NEXT_BRANCH_NAME
+ def branch = params.BRANCH_NAME
  def dockerImagesTagVersion = 'NaV'  //This will ensure that docker images tag should have 1-1 relation ship with project version
  projectToBuild = 'admin'
- def registryUrl = env.REGISTRY_URL
- def registryName = env.REGISTRY_NAME
- def registryCredentials = env.REGISTRY_CREDENTIALS
- def gitUrl = env.GIT_URL
- def gitCredentials = env.GIT_CREDENTIALS
+ def registryUrl = params.REGISTRY_URL
+ def registryName = params.REGISTRY_NAME
+ def registryCredentials = params.REGISTRY_CREDENTIALS
+ def gitUrl = params.GIT_URL
+ def gitCredentials = params.GIT_CREDENTIALS
  updatedServices = []
  updatedDockerImages = []
  containersToRun = ''
@@ -30,7 +30,6 @@ node {
     extensions: [
 
      [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
-     [$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
      [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
       [$class: 'SparseCheckoutPath', path: '/' + projectToBuild + '/']
      ]]
@@ -330,4 +329,3 @@ for (int i = 0; i < locationOfDockerFiles.size(); i++) {
 	echo "paths of modules to be built ::::::::::::>" + modifiedModulePaths
  	return modifiedModulePaths
 }
-

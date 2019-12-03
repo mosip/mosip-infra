@@ -1,5 +1,5 @@
 node {
- def branch = '0.12.0_ADMIN'
+ def branch = params.BRANCH_NAME
  def dockerImagesTagVersion = 'NaV'  
  def registryUrl = params.REGISTRY_URL
  def registryName = params.REGISTRY_NAME
@@ -8,33 +8,54 @@ node {
  def gitCredentials = params.GIT_CREDENTIALS
  k8DevContext = params.K8_CLUSTER_CONTEXT
  def moduleName = params.MODULE_NAME
+ def projectToBuild = 'admin-ui'
 
  stage('------- Checkout --------') {
-  dir('admin-ui') {
-   git branch: branch, credentialsId: gitCredentials, url: gitUrl
-  }
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId: gitCredentials]
+    ],
+    extensions: [
+     /*
+     Using PathRestriction Class and adding Kernel in includedRegions so that the build will be triggered
+     only if there is any change in Kernel Module
+     */
+     [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
+     //[$class: 'CloneOption', noTags: false, reference: '', shallow: true, timeout: 120, depth: 1, refspec:"+refs/heads/"+branch+":refs/remotes/origin/"+branch],
+     /*
+     Checkout only Kernel Module through sparse checkout class
+     */
+     [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [
+      [$class: 'SparseCheckoutPath', path: '/' + projectToBuild + '/']
+     ]]
+
+    ],
+   ])
  }
 
 
 stage ('---------- build ---------------') {
-  dir('admin-ui'){
+  dir(moduleName){
 			sh "npm install && npm run-script build -- --prod --base-href . --output-path=dist "
   }
 }
 
 
  stage('------ Docker Images : Push & Cleanup -------') {
- dir('admin-ui'){
+ dir(moduleName){
  def packageJSON = readJSON file: 'package.json'
     def packageJSONVersion = packageJSON.version
     echo packageJSONVersion
    dockerImagesTagVersion = "$packageJSONVersion"
-   }
+   
    echo dockerImagesTagVersion
     updatedDockerImages = "$registryName/$moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
      docker.withRegistry(registryUrl, registryCredentials) {
       def buildName = "$registryName/$moduleName:$dockerImagesTagVersion.$BUILD_NUMBER"
-      newApp = docker.build(buildName,"./admin-ui/")
+      newApp = docker.build(buildName)
       newApp.push()
       newApp.push 'latest'
      }
@@ -46,7 +67,8 @@ stage ('---------- build ---------------') {
      Removing all untagged images
      */
     sh "docker rmi \$(docker images | awk '/<none>/ {print \$3}') || true"
-
+    
+  }
   }
 
 
