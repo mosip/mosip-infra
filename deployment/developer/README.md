@@ -29,8 +29,7 @@ This guide assumes familiarity with Linux systems.
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
 1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:  
-`registration.processor.dmz.server.user=<your login id>`
-1. `$ cd $HOME/mosip` 
+`registration.processor.dmz.server.user=<your login id>` 
 1. Run installer as below (do **not** run with `sudo`):  
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher.py --help`  
