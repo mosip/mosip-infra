@@ -27,22 +27,6 @@ def give_home_read_permissions():
     logger.info('Giving read persmissons to home directory')
     command('chmod 755 %s' % os.environ['HOME']) 
 
-def install_tools():
-    logger.info('Installing  EPEL')
-    command('sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm')
-    command('sudo yum install -y maven')
-    command('sudo yum install -y gcc')
-    command('sudo yum install -y gcc-c++')
-    command('sudo yum install -y postgresql-devel')
-    command('sudo yum install -y python-devel')
-    command('sudo yum install -y telnet')
-    command('sudo pip3.6 install psutil')
-    command('sudo pip3.6 install psycopg2')
-    command('sudo pip3.6 install requests')
-    command('sudo pip3.6 install pycrypto')
-    command('sudo pip3.6 install python-ldap')
-    command('timedatectl set-timezone UTC') # TODO: remove after regproc patch  
-
 def create_various_folders():
     os.makedirs(PACKET_LANDING, exist_ok=True) 
     os.makedirs(PACKET_ARCHIVAL, exist_ok=True) 
@@ -51,7 +35,6 @@ def create_various_folders():
 def install_environ():
     logger.info('Installing environ')
     give_home_read_permissions() # For various access
-    install_tools()
     install_docker()
     install_postgres()
     init_db(DB_DICT.keys(), DB_DICT, DB_SCRIPTS_PATH, DB_PASSWORDS)
