@@ -1,0 +1,13 @@
+﻿code,name,hierarchy_level,hierarchy_level_name,parent_loc_code,lang_code,is_active,cr_by,cr_dtimes
+CON,MyCountry,0,Country,,eng,TRUE,superadmin,now()
+CON,بلدي0,بلد,,ara,TRUE,superadmin,now()
+CON,MonPays,0,Pays,,fra,TRUE,superadmin,now()
+ST1,State A,1,State,CON,eng,TRUE,superadmin,now()
+ST1,الدولة أ,1,دولة,CON,eng,TRUE,superadmin,now()
+ST1,état A,1,l' État,CON,eng,TRUE,superadmin,now()
+CT1,City A,2,City,ST1,eng,TRUE,superadmin,now()
+CT1,المدينة,2,مدينة,ST1,eng,TRUE,superadmin,now()
+CT1,Ville A,2,Ville,ST1,eng,TRUE,superadmin,now()
+PC1,14022,3,Postal Code,CT1,eng,TRUE,superadmin,now()
+PC1,14022,3,الرمز البريدي,CT1,ara,TRUE,superadmin,now()
+PC1,14022,3,code postal,CT1,fra,TRUE,superadmin,now()

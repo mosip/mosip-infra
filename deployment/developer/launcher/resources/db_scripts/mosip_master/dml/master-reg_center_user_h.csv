@@ -1,0 +1,4 @@
+﻿regcntr_id,usr_id,lang_code,is_active,cr_by,cr_dtimes,eff_dtimes
+10001,110001,eng,TRUE,superadmin,now(),now()
+10001,110001,ara,TRUE,superadmin,now(),now()
+10001,110001,fra,TRUE,superadmin,now(),now()

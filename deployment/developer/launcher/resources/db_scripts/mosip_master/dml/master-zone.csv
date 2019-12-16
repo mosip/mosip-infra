@@ -1,0 +1,8 @@
+﻿code,name,hierarchy_level,hierarchy_level_name,hierarchy_path,parent_zone_code,lang_code,is_active,cr_by,cr_dtimes
+CON,MyCountry,0,Country,CON,,eng,TRUE,superadmin,now()
+CON,بلدي,0,بلد,CON,,ara,TRUE,superadmin,now()
+CON,MonPays,0,Pays,CON,,fra,TRUE,superadmin,now()
+ZNA,Zone A,1,State,CON/ZNA,CON,eng,TRUE,superadmin,now()
+ZNA,المنطقة أ,1,دولة,CON/ZNA,CON,ara,TRUE,superadmin,now()
+ZNA,Zone A,1,Etat,CON/ZNA,CON,fra,TRUE,superadmin,now()
+
