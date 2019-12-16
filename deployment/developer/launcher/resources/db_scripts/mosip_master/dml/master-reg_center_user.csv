@@ -1,4 +1,2 @@
 ﻿regcntr_id,usr_id,lang_code,is_active,cr_by,cr_dtimes
 10001,110001,eng,TRUE,superadmin,now()
-10001,110001,ara,TRUE,superadmin,now()
-10001,110001,fra,TRUE,superadmin,now()

@@ -1,4 +1,2 @@
 ﻿id,uin,name,email,mobile,status_code,lang_code,last_login_method,is_active,cr_by,cr_dtimes,eff_dtimes
 110001,5402120055,Ron Bill,rb@xyz.com,1234567890,ACT,eng,PWD,TRUE,superadmin,now(),now()
-110001,5402120055,رون بيل,rb@xyz.com,1234567890,ACT,ara,PWD,TRUE,superadmin,now(),now()
-110001,5402120055,RonBill,rb@xyz.com,1234567890,ACT,fra,PWD,TRUE,superadmin,now(),now()

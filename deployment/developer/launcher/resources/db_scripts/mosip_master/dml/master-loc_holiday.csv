@@ -1,4 +1,4 @@
 ﻿id,location_code,holiday_date,holiday_name,holiday_desc,lang_code,is_active,cr_by,cr_dtimes
-2000001,KTA,1/1/2019,New Year's Day,National Holiday,eng,TRUE,superadmin,now()
-2000001,KTA,1/1/2019,الميلادية رأس السنة,عيد وطني,ara,TRUE,superadmin,now()
-2000001,KTA,1/1/2019,Jour de l’an,Fête nationale,fra,TRUE,superadmin,now()
+2000001,CON,1/1/2019,New Year's Day,National Holiday,eng,TRUE,superadmin,now()
+2000001,CON,1/1/2019,الميلادية رأس السنة,عيد وطني,ara,TRUE,superadmin,now()
+2000001,CON,1/1/2019,Jour de l’an,Fête nationale,fra,TRUE,superadmin,now()
