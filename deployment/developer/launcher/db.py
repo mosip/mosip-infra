@@ -27,7 +27,7 @@ def configure_postgres():
     command('sudo -u postgres cp resources/pg_hba.conf %s/pg_hba.conf' % PG_CONF_DIR)
     restart_postgres()
 
-def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
+def init_db(dbnames, db_dict, passwords=None):
     '''
     Args:
         databases: dict {dbname : list of associated sql scripts}
@@ -35,7 +35,6 @@ def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
             the placeholder given in sql filies
     '''
     pwd = os.getcwd()    
-    os.chdir(db_scripts_path)
     options = ''
     if passwords is not None:
         for key, value in passwords.items():
@@ -44,22 +43,9 @@ def init_db(dbnames, db_dict, db_scripts_path, passwords=None):
         drop_db(dbname)   
         sql_paths = db_dict[dbname] 
         for sql_path in sql_paths:
-            sql_dir = os.path.join(db_scripts_path, os.path.dirname(sql_path)) 
             sql_file = os.path.basename(sql_path)
-            os.chdir(sql_dir)
+            os.chdir(os.path.dirname(sql_path))
             command('sudo -u postgres psql -f %s %s' % (sql_file, options))
-    # mosip_master may have many UMC (User-Machine-Center) mappings. Clean
-    # them and add only single user for testing. It is assumed that users
-    # mentioned in CSV are already populated in LDAP during LDAP initialization.
-    conn = psycopg2.connect("dbname=mosip_master user=postgres")
-    conn.autocommit = True
-    cur = conn.cursor() 
-    clear_umc_tables(cur)
-    # Populate fresh
-    user_infos = parse_umc_csv('resources/umc/umc.csv')
-    for ui in user_infos:
-        add_umc(ui, cur)
-    conn.close()
 
     os.chdir(pwd) # Return back to where we started 
     restart_postgres()

@@ -37,7 +37,7 @@ def install_environ():
     give_home_read_permissions() # For various access
     install_docker()
     install_postgres()
-    init_db(DB_DICT.keys(), DB_DICT, DB_SCRIPTS_PATH, DB_PASSWORDS)
+    init_db(DB_DICT.keys(), DB_DICT, DB_PASSWORDS)
     run_hdfs()
     install_clamav()
     install_apacheds()
