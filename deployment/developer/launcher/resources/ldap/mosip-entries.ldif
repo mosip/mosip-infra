@@ -73,7 +73,7 @@ sn: testuser1
 dob: 1980-05-06
 firstName: Test
 genderCode: MLE
-isActive: false
+isActive: true 
 lastName: User1 
 mail: xy@xyz.com
 mobile: 1234567890 
