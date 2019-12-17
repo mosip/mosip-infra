@@ -20,6 +20,8 @@ class UserInfo:
         self.machine_name = None
         self.center_id = None
         self.role = None  # Roles as in LDAP
+        self.zone_code = None
+        self.lang_code = None
 
 def command(cmd):
     r = subprocess.run(cmd, shell=True)
@@ -155,5 +157,7 @@ def parse_umc_csv(csv_file):
         u.user_mobile = row[6]
         u.center_id = row[7] 
         u.role = row[8] # Currently only one role is assumed. TODO.
+        u.zone_code = row[9]
+        u.lang_code = row[10]
         user_infos.append(u)
     return user_infos
