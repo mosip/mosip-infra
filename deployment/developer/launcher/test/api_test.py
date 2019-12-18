@@ -9,6 +9,9 @@ from Crypto.Cipher import PKCS1_v1_5 as Cipher_PKCS1_v1_5
 import base64
 import hashlib
 import shutil
+import sys
+from test_common import *
+sys.path.insert(0, '../')
 from common import *
 
 def get_regid(center_id, machine_id, serial_number):
@@ -265,10 +268,11 @@ def get_reg_centers(token):
     r = requests.get(url, cookies=cookies)
     return r
 
-def get_syncdata_configs(token, center_id):
+def get_syncdata_configs(token, center_id, mac_address=None):
     #url = 'http://localhost/v1/syncdata/configs'
     #url = 'http://localhost/v1/syncdata/userdetails/%s' % center_id'
-    url = 'http://localhost/v1/syncdata/masterdata?macaddress=44-8A-5B-00-07-87'
+    if mac_address is not None:
+        url = 'http://localhost/v1/syncdata/masterdata?macaddress=%s' % mac_address
     #url = 'http://localhost/v1/authmanager/usersaltdetails/registrationclient'
     #url = ' http://localhost/v1/keymanager/publickey/KERNEL?timeStamp=2019-10-27T03:38:19.053Z&referenceId=SIGN'
 
@@ -300,33 +304,32 @@ def sign_request():
 
 
 
-def test_master_services():
-    token = auth_get_token('registrationprocessor', 'zonal-admin', 'mosip')
+def test_master_services(user, passwd):
+    token = auth_get_token('registrationprocessor', user, passwd)
     r = get_reg_centers(token)
     return r
 
 
-def test_sync_services(center_id, machine_id):
-    token = auth_get_token('registrationclient', 'registration_supervisor', 'mosip')
-    r = get_syncdata_configs(token, center_id)
+def test_sync_services(center_id, machine_id, user, passwd, mac_address):
+    token = auth_get_token('registrationclient', user, passwd)
+    r = get_syncdata_configs(token, center_id, mac_address)
     return r
 
 def main():
     #prereg_send_otp()
-    #center_id = '10006'
-    #machine_id = '10036'
     center_id = '10001'
-    machine_id = '99915'
+    machine_id = '10001'
+    mac_address = '8C-16-45-5A-5D-0D' 
   
-    #token = auth_get_token('registrationprocessor', 'registration_admin',
-    #                        'mosip')
-    #r = validate_token(token)
+    #token = auth_get_token('registrationprocessor', 'testuser1', 'mosip')
 
+    #r = validate_token(token)
     #publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
-    #r = test_master_services() 
-    #r =  test_sync_services(center_id, machine_id)
+    #r = test_master_services('testuser1', 'mosip') 
+    r =  test_sync_services(center_id, machine_id, 'testuser1', 'mosip', 
+                            mac_address)
     #r = sign_request()
-    #print_response(r)
+    print_response(r)
     #test_reg_proc(center_id, machine_id, '/home/pmosip/mosip/mosip-phil-ref-impl/sandbox/resources/phil_packet',
     #              serial_number = 1) # Serial number is arbitrary
 
