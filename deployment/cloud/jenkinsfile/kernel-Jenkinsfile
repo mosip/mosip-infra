@@ -33,7 +33,7 @@ node {
     ],
     extensions: [
      /*
-     Using PathRestriction Class and adding Kernel in includedRegions so that the build will be triggered
+     Using PathRestriction Class and adding Kernel in includedRegions so that the build will be triggered 
      only if there is any change in Kernel Module
      */
      [$class: 'PathRestriction', excludedRegions: '', includedRegions: projectToBuild + '/.*'],
