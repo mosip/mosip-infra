@@ -81,6 +81,7 @@ A few useful scripts are available in `utils` folder:
 * Since we are not using Kubernetes cluster here, hazelcast_secure.xml is identical to hazelcast_dmz.xml.
 * Two camel bridge instances are run - one for dmz and another one for secure zone.
 * Self-signed SSL certificates have been generated using 'localhost' as domain name.  If you are accessing this installation from outside, create new certificate and key with IP/domain name of the machine and place in `/etc/ssl/` dir.
+* If you modify master data and ID object for Arabic language, then make sure while using `vim` the mode is set to `:set rightleft` before cut-and-paste into `vim`.  Make sure the characters seen in DB are same as in ID object.
 
 ## License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-infra/blob/master/LICENSE)

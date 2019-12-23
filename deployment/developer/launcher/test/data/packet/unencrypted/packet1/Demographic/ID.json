@@ -32,36 +32,37 @@
     } ],
     "region" : [ {
       "language" : "eng",
-      "value" : "Rabat Sale Kenitra"
+      "value" : "North"
     }, {
       "language" : "ara",
-      "value" : "جهة الرباط سلا القنيطرة"
+      "value" : "ﻝﺎﻤﺷ"
     } ],
     "province" : [ {
       "language" : "eng",
-      "value" : "Kenitra"
+      "value" : "Province A"
     }, {
       "language" : "ara",
-      "value" : "القنيطرة"
+      "value" : "ﺃ ﺔﻌﻃﺎﻘﻣ"
     } ],
     "city" : [ {
       "language" : "eng",
-      "value" : "Kenitra"
+      "value" : "City A"
     }, {
       "language" : "ara",
-      "value" : "القنيطرة"
+      "value" : "ﺃ ﺔﻨﻳﺪﻤﻟﺍ"
     } ],
     "postalCode" : "14022",
     "phone" : "8144203235",
-    "email" : "girish.yarru@mindtree.com",
+    "email" : "ravan@xyz.com",
     "referenceIdentityNumber" : "9876543210",
     "zone" : [ {
       "language" : "eng",
-      "value" : "Ben Mansour"
+      "value" : "North"
     }, {
       "language" : "ara",
-      "value" : "بن منصور"
+      "value" : "ﺶﻣﺎﻟ"
     } ],
+
     "proofOfAddress" : {
       "value" : "POA_Certificate of residence",
       "type" : "COR",

@@ -230,7 +230,8 @@ def create_packet_zip(regid, packet_path, ts, out_dir, days_offset=None):
     packet_zip = zip_packet(regid, packet_path, out_dir)
     return packet_zip 
     
-def test_reg_proc(center_id, machine_id, packet_path, serial_number):
+def test_reg_proc(center_id, machine_id, packet_path, user, passwd, 
+                  serial_number):
     '''
     1. First get authorization token (whos?) 
     2. Using keymanager API get public key of center_machine (rid)
@@ -239,8 +240,7 @@ def test_reg_proc(center_id, machine_id, packet_path, serial_number):
     5. Upload packet
     '''
 
-    token = auth_get_token('registrationprocessor', 'registration_admin',
-                            'mosip')
+    token = auth_get_token('registrationprocessor', user, passwd)
     publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
 
     # Always created regid after publickey, otherwise timestamp of packet
@@ -326,16 +326,13 @@ def main():
     #r = validate_token(token)
     #publickey = get_public_key('REGISTRATION', center_id, machine_id, token)
     #r = test_master_services('testuser1', 'mosip') 
-    r =  test_sync_services(center_id, machine_id, 'testuser1', 'mosip', 
-                            mac_address)
+    #r =  test_sync_services(center_id, machine_id, 'testuser1', 'mosip', 
+    #                        mac_address)
     #r = sign_request()
-    print_response(r)
-    #test_reg_proc(center_id, machine_id, '/home/pmosip/mosip/mosip-phil-ref-impl/sandbox/resources/phil_packet',
-    #              serial_number = 1) # Serial number is arbitrary
+    #print_response(r)
+    test_reg_proc(center_id, machine_id, './data/packet/unencrypted/packet1',
+                  'testuser1', 'mosip', serial_number = 1) # Serial number is arbitrary
 
-
-
-     
 if __name__=='__main__':
     main() 
 
