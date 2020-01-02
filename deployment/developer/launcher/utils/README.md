@@ -16,12 +16,12 @@ This script is helps in reprocessing the packet which is stuck in the flow by ag
 This script will stop the existing running service if running and then start the service mentioned.
 
 * To Start/Restart a service    
-` ./run_service.py <mosip_service>` 
+` ./run_service.py <mosip_service>`     
     mosip_service can be any of below service that can be used to start/restart a service.  
-    ` registration-processor-packet-receiver-stage` 
-    ` registration-processor-packet-uploader-stage` 
-    ` registration-processor-packet-validator-stage`    
-    ` registration-processor-quality-checker-stage` 
-    ` registration-processor-osi-validator-stage`   
-    ` registration-processor-registration-status-service`   
+    ` registration-processor-packet-receiver-stage`     
+    ` registration-processor-packet-uploader-stage`     
+    ` registration-processor-packet-validator-stage`      
+    ` registration-processor-quality-checker-stage`     
+    ` registration-processor-osi-validator-stage`    
+    ` registration-processor-registration-status-service`     
     ` registration-processor-common-camel-bridge`
