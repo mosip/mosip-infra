@@ -4,6 +4,7 @@
 # machine. Also, it is advisable to use the reprocessor service for this 
 # purpose, however, since for a sandbox we are running limited stages (till
 # OSI validation), reprocessor service may give problems.
+# ./reprocess.py updated_dtime
 
 import sys
 import shutil
@@ -70,7 +71,11 @@ def reprocess_packet(rid, cur, host):
 
     return 0
 
-def main():
+def main(dtime):
+    '''
+    Args:
+        dtime: Updated dtime for the db script
+    '''
     global logger
 
     init_logger(logger, 'logs/reprocess.log', 10000000, 'info', 1)
@@ -78,7 +83,7 @@ def main():
     conn = psycopg2.connect("dbname=mosip_regprc user=postgres")
     conn.autocommit = True
     cur = conn.cursor() 
-    rids = get_invalid_packets(cur)
+    rids = get_invalid_packets(cur, dtime)
     logger.info('Total invalid packets = %s' % len(rids)) 
     logger.info('Invalid packets = %s' %  rids)
     for rid in rids:
@@ -88,4 +93,4 @@ def main():
             logger.error('Packet %s.zip not found' % rid)
    
 if __name__== '__main__':
-    main()
+    main(sys.argv[1])

@@ -180,30 +180,19 @@ def set_packet_retry_count(rid, count, cur):
     q = "update registration set trn_retry_count=%s where id=%s;" 
     cur.execute(q, (count, rid)) 
 
-def get_invalid_packets(cur):
+def get_invalid_packets(cur, dtime):
     '''
     Args:
         cur: Cursor for mosip_regprc db
+        dtime: Updated dtime for the sql script
     Returns: 
         List of rids of packets
     '''
-    q = "select reg_id from registration_transaction where trn_type_code='VALIDATE_PACKET' and status_code!='SUCCESS'"
+    filtered = []
+    q = "select id from registration where upd_dtimes> '"+dtime+"' and status_comment !='OSI Validation is Successful'"
     cur.execute(q)
     rows = cur.fetchall()
-    rids = []
     for row in rows:
-       rids.append(row[0])    
+       filtered.append(row[0])
 
-    # Make rids unique
-    rids = list(set(rids))
-    # Check if the rids have been successful later. So take the latest status of 
-    # an rid. TODO: This can be perhaps done with a single SQL query
-    q = "select status_code from registration_transaction where trn_type_code='VALIDATE_PACKET' and reg_id=%s order by upd_dtimes desc limit 1"
-    filtered = []
-    for rid in rids:
-        cur.execute(q, (rid,))
-        row = cur.fetchone()
-        if row[0] != 'SUCCESS': 
-            filtered.append(rid)
-
-    return filtered 
+    return filtered
