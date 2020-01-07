@@ -34,7 +34,7 @@ This guide assumes familiarity with Linux systems.
 `$ cd $HOME/mosip/mosip-infra/deployment/developer/launcher`  
 `$ ./launcher.py --help`  
 `$ ./launcher.py --install-environ` (one time)  
-1. Run any *country specific* scripts now.
+1. Run any *country specific* scripts now (optional)
 1. Build and start services.  
 `$ ./launcher.py --build-code`    
 `$ ./launcher.py --start-services`  
