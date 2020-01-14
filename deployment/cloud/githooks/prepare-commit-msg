@@ -13,4 +13,4 @@ commit_msg=`cat $1`
 # echo `expr substr $commit_msg 0 9`
 issue_number=`echo $commit_msg | awk '{print substr($0,0,9)}'`
 
-cat `echo "https://mosipid.atlassian.net/browse/$issue_number">>$msg_file`
+cat `echo "https://mosip.atlassian.net/browse/$issue_number">>$msg_file`
