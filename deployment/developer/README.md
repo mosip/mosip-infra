@@ -25,7 +25,7 @@ This guide assumes familiarity with Linux systems.
 `$ cd mosip-infra/deployment/developer`  
 `$ sh prerequisites.sh`  
 1. Logout, and login again as the same user (to avoid permission problems with docker).
-1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields:    
+1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/kernel.properties` to add your Gmail account SMTP credentials in the following fields (WARNING: Use a test Gmail account, as your password will be exposed below!)    
 `spring.mail.username=<user email id>`   
  `spring.mail.password=<password>`
 1. Modify `$HOME/mosip/mosip-infra/deployment/developer/config_server/mosip_configs/registration-processor.properties` to add your Linux login user id here:  
