@@ -40,7 +40,7 @@ This guide assumes familiarity with Linux systems.
 `$ ./launcher.py --build-code`    
 `$ ./launcher.py --start-services`  
 1. Wait for services to come up.  The `top` utility will show CPU utilization of all java processes.  One indication of whether all services are up is when the CPU utilization of the respective processes goes low.
-1. Monitor the logs under `/logs` dir for any errors.  
+1. Monitor the logs under `/logs` dir for any errors. If there is NullPointerException in any service, re-run the service using the script `utils/run_service.py`  
 `$ grep ERROR *`  
 `$ grep -i NullPointerException *`
 1. Once all services are up, run a test api under `launcher/test/api_test.py` (inspect and modify the API parameters before running). For the OTP email test, you will have to allow Google to receive emails from apps (lesser security setting).  
