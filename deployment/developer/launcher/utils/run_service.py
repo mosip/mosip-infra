@@ -9,6 +9,8 @@ from common import *
 
 if len(sys.argv) != 2:
     print('Usage: ./run_service.py <service name>')
+    print('service name: Name of service as in config.py.') 
+    print('If there are multipleservices with same name like "registration-processor-common-camel-bridge" then all are stopped and re-run')
     exit(0)
 
 found = False 
