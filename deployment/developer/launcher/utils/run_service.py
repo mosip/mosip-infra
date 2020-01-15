@@ -13,13 +13,17 @@ if len(sys.argv) != 2:
 
 found = False 
 service_to_run = sys.argv[1].strip()
+matches = [] 
 for module, service, options, suffix in MOSIP_SERVICES: 
     if service == service_to_run:
-        found = True
-        jar_name = get_jar_name(service, MOSIP_VERSION) 
-        kill_process(jar_name)
-        start_service(module, service, MOSIP_VERSION, options, suffix) 
-        break
+        matches.append((module, service, options, suffix)) 
 
-if not found:
+for module, service, options, suffix in matches: 
+    jar_name = get_jar_name(service, MOSIP_VERSION) 
+    kill_process(jar_name)
+
+for module, service, options, suffix in matches: 
+    start_service(module, service, MOSIP_VERSION, options, suffix) 
+
+if len(matches) == 0: 
     print('%s not found' % service_to_run)
