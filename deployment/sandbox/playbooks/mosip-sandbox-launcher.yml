@@ -1,0 +1,16 @@
+
+- include: reading-all-playbook-properties.yml
+- include: install-configure-jre.yml
+- include: install-docker.yml
+- include: install-apacheds.yml
+- include: configure-postgres.yml
+- include: install-minikube.yml
+- include: install-configure-activemq.yml
+- include: kernel-config-server.yml
+- include: deploying-docker-registry-secret.yml
+- include: install-configure-keycloakserver.yml
+- include: deploying-kernel-modules.yml
+- include: deploying-ingress-file.yml
+- include: deploying-pre-registration-modules.yml
+- include: install-configure-hdfs.yml
+- include: deploying-registration-processor-modules.yml

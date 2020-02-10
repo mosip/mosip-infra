@@ -1,0 +1,453 @@
+---
+  - hosts: all
+    become: true
+    gather_facts: true
+
+    tasks:
+      - set_fact:
+          mosip_user: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user'] }}"
+          mosip_user_password: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user_password'] }}"
+          VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
+          version_kernel_config_jar: 1.0.5
+
+      - name: Download Kernel Config Server
+        get_url:
+          url: http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{ version_kernel_config_jar }}/kernel-config-server-{{ version_kernel_config_jar }}.jar
+          dest: "{{ playbook_dir | dirname}}/Dockerfiles"
+      
+      - name: getting private IP of machine
+        shell: hostname -I | awk '{print $1}'
+        register: private_ip
+      
+      - debug:
+          msg: "{{ private_ip }}"
+
+      - name: Changing mosip.kernel.database.hostname in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.database.hostname='
+          line: mosip.kernel.database.hostname={{ private_ip.stdout }}
+
+      - name: Changing ldap_1_DS.datastore.ipaddress in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^ldap_1_DS.datastore.ipaddress='
+          line: ldap_1_DS.datastore.ipaddress={{ private_ip.stdout }}
+
+      - name: Changing spring.mail.username in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^spring.mail.username='
+          line: spring.mail.username={{ lookup('ini', 'spring.mail.username type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Changing spring.mail.password in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^spring.mail.password='
+          line: spring.mail.password={{ lookup('ini', 'spring.mail.password type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Changing spring.mail.host in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^spring.mail.host='
+          line: spring.mail.host={{ lookup('ini', 'spring.mail.host type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Changing spring.mail.port in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^spring.mail.port='
+          line: spring.mail.port={{ lookup('ini', 'spring.mail.port type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      # - name: Changing mosip.kernel.sms.authkey in kernel-qa.properties
+      #   lineinfile:
+      #     path: ../config-properties/kernel-qa.properties
+      #     regexp: '^mosip.kernel.sms.authkey='
+      #     line: mosip.kernel.sms.authkey={{ lookup('ini', 'mosip.kernel.sms.authkey type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Changing mosip.kernel.sms.gateway in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sms.gateway='
+          line: mosip.kernel.sms.gateway={{ lookup('ini', 'mosip.kernel.sms.gateway type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Commenting mosip.kernel.sms.api in kernel-qa.properties
+        replace:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sms.api='
+          replace: '#mosip.kernel.sms.api='
+
+      - name: Commenting mosip.kernel.sms.authkey in kernel-qa.properties
+        replace:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sms.authkey='
+          replace: '#mosip.kernel.sms.authkey='
+
+      - name: Commenting mosip.kernel.sms.route in kernel-qa.properties
+        replace:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sms.route='
+          replace: '#mosip.kernel.sms.route='
+
+      - name: Commenting mosip.kernel.sms.sender in kernel-qa.properties
+        replace:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sms.sender='
+          replace: '#mosip.kernel.sms.sender='
+
+      - name: Changing mosip.kernel.sms.api in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^#mosip.kernel.sms.api='
+          line: mosip.kernel.sms.api={{ lookup('ini', 'mosip.kernel.sms.api type=properties file=../playbooks-properties/all-playbooks.properties') }}
+          firstmatch: yes
+
+      - name: Changing mosip.kernel.sms.username in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^#mosip.kernel.sms.username='
+          line: mosip.kernel.sms.username={{ lookup('ini', 'mosip.kernel.sms.username type=properties file=../playbooks-properties/all-playbooks.properties') }}
+          firstmatch: yes
+
+      - name: Changing mosip.kernel.sms.password in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^#mosip.kernel.sms.password='
+          line: mosip.kernel.sms.password={{ lookup('ini', 'mosip.kernel.sms.password type=properties file=../playbooks-properties/all-playbooks.properties') }}
+          firstmatch: yes
+
+      - name: Changing mosip.kernel.sms.sender in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^#mosip.kernel.sms.sender='
+          line: mosip.kernel.sms.sender={{ lookup('ini', 'mosip.kernel.sms.sender type=properties file=../playbooks-properties/all-playbooks.properties') }}
+          firstmatch: yes
+
+      - name: Changing mosip.kernel.auth.app.id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.auth.app.id='
+          line: mosip.kernel.auth.app.id=auth
+
+      - name: Changing mosip.kernel.auth.client.id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.auth.client.id='
+          line: mosip.kernel.auth.client.id=auth
+
+      - name: Changing mosip.kernel.auth.secret.key in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.auth.secret.key='
+          line: mosip.kernel.auth.secret.key=5142e55e-e3f0-428e-ba45-7be21a7cf732
+
+      - name: Changing mosip.kernel.ida.app.id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.ida.app.id='
+          line: mosip.kernel.ida.app.id=ida
+
+      - name: Changing mosip.kernel.ida.client.id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.ida.client.id='
+          line: mosip.kernel.ida.client.id=ida
+
+      - name: Changing mosip.kernel.ida.secret.key in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.ida.secret.key='
+          line: mosip.kernel.ida.secret.key=54429689-2203-48c1-9fbf-3ea0d2181944
+
+      - name: Changing mosip.kernel.realm-id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.realm-id='
+          line: mosip.kernel.realm-id=mosip
+
+      - name: Changing mosip.kernel.open-id-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.open-id-url='
+          line: mosip.kernel.open-id-url=http://{{ private_ip.stdout }}:8444/auth/realms/{realmId}/protocol/openid-connect/
+
+      - name: Changing mosip.kernel.base-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.base-url='
+          line: mosip.kernel.base-url=http://{{ private_ip.stdout }}:8444/auth/realms/{realmId}
+
+      - name: Changing mosip.kernel.admin-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.admin-url='
+          line: mosip.kernel.admin-url=http://{{ private_ip.stdout }}:8444/auth/admin/
+
+      - name: Changing keycloak.auth-server-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^keycloak.auth-server-url='
+          line: keycloak.auth-server-url=http://{{ private_ip.stdout }}:8444/auth
+
+      - name: Changing mosip.keycloak.base-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.keycloak.base-url='
+          line: mosip.keycloak.base-url=http://{{ private_ip.stdout }}:8444
+
+      - name: Changing mosip.authmanager.base-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.authmanager.base-url='
+          line: mosip.authmanager.base-url=http://{{ private_ip.stdout }}/v1/authmanager
+
+      - name: Changing mosip.admin.clientid in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.admin.clientid='
+          line: mosip.admin.clientid=mosip-client
+
+      - name: Changing mosip.admin.clientsecret in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.admin.clientsecret='
+          line: mosip.admin.clientsecret=5dce7172-c8af-4fc1-805a-2febd6af575f 
+
+      - name: Changing mosip.admin_realm_id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.admin_realm_id='
+          line: mosip.admin_realm_id=mosip 
+          
+      - name: Changing mosip.admin.individual_role_id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.admin.individual_role_id='
+          line: mosip.admin.individual_role_id=535549c1-3541-4264-b766-cd2cb38c41cd
+          
+      - name: Changing db_3_DS.keycloak.ipaddress in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^db_3_DS.keycloak.ipaddress='
+          line: db_3_DS.keycloak.ipaddress=jdbc:postgresql://{{ private_ip.stdout }}:9001/keycloak
+
+      - name: Changing db_3_DS.keycloak.password in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^db_3_DS.keycloak.password='
+          line: db_3_DS.keycloak.password=postgres
+
+      - name: Changing mosip.keycloak.admin.user.id in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.keycloak.admin.user.id='
+          line: mosip.keycloak.admin.user.id=mosip
+
+      - name: Changing mosip.keycloak.admin.secret.key in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.keycloak.admin.secret.key='
+          line: mosip.keycloak.admin.secret.key=mosip
+
+      - name: Changing mosip.kernel.masterdata.audit-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.masterdata.audit-url='
+          line: mosip.kernel.masterdata.audit-url=http://{{ private_ip.stdout }}/v1/auditmanager/audits
+
+      - name: Changing mosip.authmanager.base-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.authmanager.base-url='
+          line: mosip.authmanager.base-url=http://{{ private_ip.stdout }}/v1/authmanager
+
+      - name: Changing mosip.kernel.masterdata.audit-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.masterdata.audit-url='
+          line: mosip.kernel.masterdata.audit-url=http://{{ private_ip.stdout }}/v1/auditmanager/audits
+
+      - name: Changing mosip.kernel.sign-url in kernel-qa.properties
+        lineinfile:
+          path: ../config-properties/kernel-qa.properties
+          regexp: '^mosip.kernel.sign-url='
+          line: mosip.kernel.sign-url=http://{{ private_ip.stdout }}/v1/signature/sign
+
+      - name: Changing mosip.kernel.auth.adapter.ssl-bypass in application-qa.properties
+        lineinfile:
+          path: ../config-properties/application-qa.properties
+          regexp: '^mosip.kernel.auth.adapter.ssl-bypass='
+          line: mosip.kernel.auth.adapter.ssl-bypass=true
+
+      - name: Changing mosip.base.url in properties
+        lineinfile:
+          path: ../config-properties/application-qa.properties
+          regexp: '^mosip.base.url='
+          line: mosip.base.url=http://{{ private_ip.stdout }}
+
+      - name: Changing mosip.kernel.pdf_owner_password in properties
+        lineinfile:
+          path: ../config-properties/application-qa.properties
+          regexp: '^mosip.kernel.pdf_owner_password='
+          line: mosip.kernel.pdf_owner_password=Mosip@dev123
+
+      - name: Changing Pre Reg javax.persistence.jdbc.password in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^javax.persistence.jdbc.password='
+          line: javax.persistence.jdbc.password=Mosip@dev123
+
+      - name: Changing mosip.database.ip in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^mosip.database.ip='
+          line: mosip.database.ip={{ private_ip.stdout }}
+
+      - name: Changing clientId in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^clientId='
+          line: clientId=pre-registration
+
+      - name: Changing secretKey in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^secretKey='
+          line: secretKey=41fcabc1-dd48-4c40-951a-b80e0af34c47
+
+      - name: Changing auth.server.validate.url in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^auth.server.validate.url='
+          line: auth.server.validate.url=http://{{ private_ip.stdout }}/v1/authmanager/authorize/admin/validateToken
+
+      - name: Changing mosip.batch.token.authmanager.appId in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^mosip.batch.token.authmanager.appId='
+          line: mosip.batch.token.authmanager.appId=pre-registration
+          
+      - name: Changing mosip.batch.token.authmanager.userName in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^mosip.batch.token.authmanager.userName='
+          line: mosip.batch.token.authmanager.userName=pre-registration   
+          
+      - name: Changing mosip.batch.token.authmanager.password in pre-registration-qa.properties
+        lineinfile:
+          path: ../config-properties/pre-registration-qa.properties
+          regexp: '^mosip.batch.token.authmanager.password='
+          line: mosip.batch.token.authmanager.password=41fcabc1-dd48-4c40-951a-b80e0af34c47 
+
+      - name: Changing mosip.registration.processor.database.hostname in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^mosip.registration.processor.database.hostname='
+          line: mosip.registration.processor.database.hostname={{ private_ip.stdout }}
+
+      - name: Changing javax.persistence.jdbc.password in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^javax.persistence.jdbc.password='
+          line: javax.persistence.jdbc.password=Mosip@dev123
+
+      - name: Changing mosip.base.url in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^mosip.base.url='
+          line: mosip.base.url=http://{{ private_ip.stdout }}
+
+      - name: Changing token.request.password in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^token.request.password='
+          line: token.request.password=mosip
+
+      # - name: Changing token.request.secretKey in registration-processor-qa.properties
+      #   lineinfile:
+      #     path: ../config-properties/registration-processor-qa.properties
+      #     regexp: '^token.request.secretKey='
+      #     line: token.request.secretKey=80565e06e382d5e8b924123feb6ef43b
+
+      - name: Changing registration.processor.queue.password in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^registration.processor.queue.password='
+          line: registration.processor.queue.password=admin
+
+      - name: Changing registration.processor.dmz.server.host in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^registration.processor.dmz.server.host='
+          line: registration.processor.dmz.server.host={{ private_ip.stdout }}
+
+      - name: Changing registration.processor.dmz.server.password in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^#registration.processor.dmz.server.password='
+          line: registration.processor.dmz.server.password={{ lookup('ini', 'registration.processor.dmz.server.password type=properties file=../playbooks-properties/all-playbooks.properties') }}
+
+      - name: Commenting out registration.processor.dmz.server.password in registration-processor-qa.properties
+        replace:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^registration.processor.vm.ppk'
+          replace: '#registration.processor.vm.ppk'
+      
+      - name: Changing registration.processor.queue.url in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^registration.processor.queue.url='
+          line: registration.processor.queue.url=tcp://{{ private_ip.stdout }}:61616
+      
+      - name: Changing brokerUrl in registration-processor-qa.properties
+        replace:
+          path: ../config-properties/RegistrationProcessorAbis_qa.json
+          regexp: '104.211.200.46'
+          replace: "{{ private_ip.stdout }}"
+
+      - name: Changing token.request.clientId in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^token.request.clientId='
+          line: token.request.clientId=registration-processor
+
+      - name: Changing token.request.secretKey in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^token.request.secretKey='
+          line: token.request.secretKey=6754d6f8-3e1b-4d60-9b94-be46ed9e6262
+
+      - name: Changing NameNode url in hdfs
+        lineinfile:
+          path: ../config-properties/application-qa.properties
+          regexp: '^mosip.kernel.fsadapter.hdfs.name-node-url='
+          line: mosip.kernel.fsadapter.hdfs.name-node-url=hdfs://{{ private_ip.stdout }}:9000
+
+      - name: Changing kernel fsadapter authentication enabled value
+        lineinfile:
+          path: ../config-properties/application-qa.properties
+          regexp: '^mosip.kernel.fsadapter.hdfs.authentication-enabled='
+          line: mosip.kernel.fsadapter.hdfs.authentication-enabled=false
+
+      # - name: Running config server
+      #   shell : nohup java -jar -Dspring.profiles.active=native -Dspring.cloud.config.server.native.search-locations=file:///"{{ playbook_dir | dirname}}"/mosip-config-mt/config -Dspring.cloud.config.server.accept-empty=true -Dspring.cloud.config.server.git.force-pull=false -Dspring.cloud.config.server.git.cloneOnStart=false -Dspring.cloud.config.server.git.refreshRate=0 ../kernel-config-server-"{{ version_kernel_config_jar }}".jar &
+
+      - name: Building Docker Image for Kernel Config Server
+        docker_image:
+          name: kernel-config-server
+          build:
+            path: ../Dockerfiles
+            dockerfile: kernel-config-server-Dockerfile
+          source: build
+          force: yes
+
+      - name: Changing hostPath in kernel-config yml
+        replace: 
+          path: ../kubernetes/commons/config-server-deployment-and-service.yml
+          regexp: '<hostPath>'
+          replace: "{{ playbook_dir | dirname }}"
+
+      - name: Deploying Kernel Config Server
+        k8s:
+          state: present
+          definition: "{{ lookup('file', '../kubernetes/commons/config-server-deployment-and-service.yml') }}"
+            

@@ -1,0 +1,207 @@
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  namespace: default
+  annotations:
+          #    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /v1/uingenerator
+        backend:
+          serviceName: kernel-uingenerator-service
+          servicePort: 8080
+      - path: /v1/auditmanager
+        backend:
+          serviceName: kernel-auditmanager-service
+          servicePort: 8081
+      - path: /v1/vidgenerator
+        backend:
+          serviceName: kernel-vidgenerator-service
+          servicePort: 8099
+      - path: /v1/pridgenerator
+        backend:
+          serviceName: kernel-pridgenerator-service
+          servicePort: 8100
+      - path: /v1/emailnotifier
+        backend:
+          serviceName: kernel-emailnotification-service
+          servicePort: 8083
+      - path: /v1/smsnotifier
+        backend:
+          serviceName: kernel-smsnotification-service
+          servicePort: 8084
+      - path: /v1/otpmanager
+        backend:
+          serviceName: kernel-otpmanager-service
+          servicePort: 8085
+      - path: /v1/masterdata
+        backend:
+          serviceName: kernel-masterdata-service
+          servicePort: 8086
+      - path: /v1/cryptomanager
+        backend:
+          serviceName: kernel-cryptomanager-service
+          servicePort: 8087
+      - path: /v1/syncdata
+        backend:
+          serviceName: kernel-syncdata-service
+          servicePort: 8089
+      - path: /v1/authmanager
+        backend:
+          serviceName: kernel-auth-service
+          servicePort: 8091
+      - path: /v1/signature
+        backend:
+          serviceName: kernel-signature-service
+          servicePort: 8092
+      - path: /v1/licensekeymanager
+        backend:
+          serviceName: kernel-licensekeymanager-service
+          servicePort: 8093
+      - path: /v1/applicanttype
+        backend:
+          serviceName: kernel-applicanttype-service
+          servicePort: 8094
+      - path: /v1/ridgenerator
+        backend:
+          serviceName: kernel-ridgenerator-service
+          servicePort: 8096
+      - path: /v1/tokenidgenerator
+        backend:
+          serviceName: kernel-tokenidgenerator-service
+          servicePort: 8097
+      - path: /preregistration/v1/login
+        backend:
+          serviceName: pre-registration-login-service
+          servicePort: 9090
+      - path: /preregistration/v1/applications
+        backend:
+          serviceName: pre-registration-demographic-service
+          servicePort: 9092
+      - path: /preregistration/v1/documents
+        backend:
+          serviceName: pre-registration-document-service
+          servicePort: 9093
+      - path: /preregistration/v1/sync
+        backend:
+          serviceName: pre-registration-datasync-service
+          servicePort: 9094
+      - path: /preregistration/v1/appointment
+        backend:
+          serviceName: pre-registration-booking-service
+          servicePort: 9095
+      - path: /preregistration/v1/batch
+        backend:
+          serviceName: pre-registration-batchjob-service
+          servicePort: 9096
+      - path: /preregistration/v1/transliteration
+        backend:
+          serviceName: pre-registration-translitration-service
+          servicePort: 9098
+      - path: /preregistration/v1/notification
+        backend:
+          serviceName: pre-registration-notification-service
+          servicePort: 9099
+      - path: /preregistration/v1/qrCode
+        backend:
+          serviceName: pre-registration-generateqrcode-service
+          servicePort: 9091
+      - path: /pre-registration-ui
+        backend:
+          serviceName: pre-registration-ui
+          servicePort: 80
+      - path: /registrationprocessor/v1/bio-dedupe
+        backend:
+          serviceName: registration-processor-bio-dedupe-service
+          servicePort: 9097
+      - path: /abis
+        backend:
+          serviceName: registration-processor-abis
+          servicePort: 9098
+      - path: /registrationprocessor/v1/uploader
+        backend:
+          serviceName: registration-processor-packet-uploader-stage
+          servicePort: 8087
+      - path: /registrationprocessor/v1/manualverification
+        backend:
+          serviceName: registration-processor-manual-verification-stage
+          servicePort: 8084
+      - path: /registrationprocessor/v1/eis
+        backend:
+          serviceName: registration-processor-external-integration-service
+          servicePort: 8201
+      - path: /registrationprocessor/v1/print
+        backend:
+          serviceName: registration-processor-print-service
+          servicePort: 9099
+      - path: /registrationprocessor/v1/print-stage
+        backend:
+          serviceName: registration-processor-printing-stage
+          servicePort: 8099
+      - path: /registrationprocessor/v1/registrationtransaction
+        backend:
+          serviceName: registration-processor-registration-transaction-service
+          servicePort: 8110
+      - path: /registrationprocessor/v1/requesthandler
+        backend:
+          serviceName: registration-processor-request-handler-service
+          servicePort: 8082
+      - path: /registrationprocessor/v1/packetvalidator
+        backend:
+          serviceName: registration-processor-packet-validator-stage
+          servicePort: 8088
+      - path: /registrationprocessor/v1/osivalidator
+        backend:
+          serviceName: registration-processor-osi-validator-stage
+          servicePort: 8089
+      - path: /registrationprocessor/v1/qualitychecker
+        backend:
+          serviceName: registration-processor-quality-checker-stage
+          servicePort: 9072
+      - path: /registrationprocessor/v1/abishandler
+        backend:
+          serviceName: registration-processor-abis-handler-stage
+          servicePort: 9071
+      - path: /registrationprocessor/v1/external
+        backend:
+          serviceName: registration-processor-external-stage
+          servicePort: 8095
+      - path: /registrationprocessor/v1/abismiddleware
+        backend:
+          serviceName: registration-processor-abis-middleware-stage
+          servicePort: 8091
+      - path: /registrationprocessor/v1/reprocessor
+        backend:
+          serviceName: registration-processor-reprocessor-stage
+          servicePort: 8021
+      - path: /registrationprocessor/v1/bioauth
+        backend:
+          serviceName: registration-processor-biometric-authentication-stage
+          servicePort: 8020
+      - path: /registrationprocessor/v1/camelbridge
+        backend:
+          serviceName: registration-processor-common-camel-bridge
+          servicePort: 8022
+      - path: /registrationprocessor/v1/biodedupe
+        backend:
+          serviceName: registration-processor-bio-dedupe-stage
+          servicePort: 9096
+      - path: /registrationprocessor/v1/demodedupe
+        backend:
+          serviceName: registration-processor-demo-dedupe-stage
+          servicePort: 8091
+      - path: /registrationprocessor/v1/uin-generator
+        backend:
+          serviceName: registration-processor-uin-generator-stage
+          servicePort: 8099
+      - path: /registrationprocessor/v1/sender-stage
+        backend:
+          serviceName: registration-processor-message-sender-stage
+          servicePort: 8088
+      - path: /config
+        backend:
+          serviceName: kernel-config-server
+          servicePort: 51000

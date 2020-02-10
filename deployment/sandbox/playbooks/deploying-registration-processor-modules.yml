@@ -1,0 +1,82 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Getting url for Kernel Config Server
+        shell: minikube service kernel-config-server --url
+        register: config_private_ip
+
+      - debug:
+          msg: "{{ config_private_ip.stdout }}"
+
+      - name: Run Registration Status
+        docker_container:
+          name: registration-status
+          image: docker-registry.mosip.io:5000/registration-processor-registration-status-service:1.0.6-SNAPSHOT.62
+          state: started
+          env:
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_label_env: master
+            active_profile_env: qa
+          ports:
+            - "8083:8083"
+          pull: yes
+
+      # - name: Run Registration Processor Packet generator 
+      #   docker_container:
+      #     name: registration-processor-packet-generator
+      #     image: docker-registry.mosip.io:5000/registration-processor-packet-generator-service:0.10.2.3166
+      #     state: started
+      #     env:
+      #       spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+      #       spring_config_label_env: master
+      #       active_profile_env: qa
+      #     ports:
+      #       - "8082:8082"
+      #     pull: yes
+
+      - name: Run Registration Processor Packet Receiver Stage
+        docker_container:
+          name: registration-processor-packet-receiver-stage
+          image: docker-registry.mosip.io:5000/registration-processor-packet-receiver-stage:1.0.6-SNAPSHOT.62
+          state: started
+          env:
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_label_env: master
+            active_profile_env: qa
+          volumes:
+            - /home/ftp1/LANDING_ZONE:/home/ftp1/LANDING_ZONE
+            - /home/ftp1/ARCHIVE_PACKET_LOCATION:/home/ftp1/ARCHIVE_PACKET_LOCATION
+          pull: yes
+          ulimits:
+            - "memlock:-1"
+          keep_volumes: yes
+          network_mode: host
+          privileged: yes
+
+      - name: Run Registration Processor Common Camel Bridge
+        docker_container:
+          name: registration-processor-common-camel-bridge
+          image: docker-registry.mosip.io:5000/registration-processor-common-camel-bridge:1.0.6-SNAPSHOT.62
+          state: started
+          env:
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_label_env: master
+            active_profile_env: qa
+            zone_env: dmz
+          pull: yes
+          network_mode: host
+          privileged: yes
+
+      - name: Finding all the Registration processor ymls
+        find:
+          paths: ../kubernetes/registration-processor
+          patterns: '*.yml'
+          recurse: yes
+        register: paths_registration_processor_ymls
+
+      - name: Deploying all the Registration Processor Modules
+        k8s:
+          state: present
+          src: "{{ item.path }}"
+        with_items: "{{ paths_registration_processor_ymls.files }}"

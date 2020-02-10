@@ -1,0 +1,19 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Install OpenJDK
+        apt: name=openjdk-8-jdk state=present update_cache=yes
+        
+      - name: Set JAVA_HOME
+        lineinfile: 
+          dest: /root/.bashrc
+          line: 'export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/jre"'
+          insertafter: 'EOF'
+          state: present
+          
+      - shell: source /root/.bashrc && echo $JAVA_HOME
+        args:
+          executable: /bin/bash
+        register: java_home
+
