@@ -10,9 +10,6 @@ Operating System : Linux (ubuntu 18.04)
 * RAM: 48GB
 * HDD: 2TB
 
-## Setup overview
-![Component diagram](images/SandboxInstallation.jpg)
-
 ## Run
 1. Clone this repo
 `$ git clone https://github.com/mosip/mosip-infra.git`
@@ -21,6 +18,5 @@ Operating System : Linux (ubuntu 18.04)
 `$ sudo sh install-ansible-run-playbooks.sh`
 
 ## Test
-
 Pre-Registration:
 1. Open the URL <TODO> in the browser to access Pre-Registration module
