@@ -1,4 +1,4 @@
-#MOSIP Sandbox Installer
+# MOSIP Sandbox Installer
   
 The Ansible scripts here install MOSIP on a single machine. This installation is a single node installation useful for developers and pilots. The scripts here serve as reference for larger scale deployment with different architecture.
 
