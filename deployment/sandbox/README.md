@@ -19,10 +19,8 @@ Operating System : Linux (ubuntu 18.04)
 1. Install Ansible
 1. Run Ansible scripts
 
+## Test
+
 ## Sandbox external components
 You need to connect to an SMS and Email Gateway to test notifications.  Default gateways with a minimum subscription limit is provided with this installer.
 
-## Test
-
-## Modularized scripts   
-![Modularized scripts  diagram](_images/modularizedscripts.jpg)
