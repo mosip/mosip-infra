@@ -11,7 +11,7 @@ Operating System : Linux (ubuntu 18.04)
 * HDD: 2TB
 
 ## Run
-1. Clone this repo
+1. Clone this repo  
 `$ git clone https://github.com/mosip/mosip-infra.git`
 1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values
 1. Run `/mosip-infra/deployment/sandbox/install-ansible-run-playbooks.sh`     
