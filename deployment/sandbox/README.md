@@ -11,16 +11,17 @@ Operating System : Linux (ubuntu 18.04)
 * HDD: 2TB
 
 ## Setup overview
-![Component diagram](images/SandboxComponents.jpg)
+![Component diagram](images/SandboxInstallation.jpg)
 
 ## Run
 1. Clone this repo.  
 `$ git clone https://github.com/mosip/mosip-infra.git`
-1. Install Ansible
-1. Run Ansible scripts
+2. Edit mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties with appropriate values
+3. Execute, /mosip-infra/deployment/sandbox/install-ansible-run-playbooks.sh with execute permission, 
+`$ sudo install-ansible-run-playbooks.sh`
+
 
 ## Test
 
-## Sandbox external components
-You need to connect to an SMS and Email Gateway to test notifications.  Default gateways with a minimum subscription limit is provided with this installer.
-
+Pre-Registration:
+1. Open the URL <TODO> in the browser to access Pre-Registration module
