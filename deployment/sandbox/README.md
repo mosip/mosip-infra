@@ -14,7 +14,7 @@ Operating System : Linux (ubuntu 18.04)
 ![Component diagram](images/SandboxComponents.jpg)
 
 ## Run
-1. Clones this repo.  
+1. Clone this repo.  
 `$ git clone https://github.com/mosip/mosip-infra.git`
 1. Install Ansible
 1. Run Ansible scripts
