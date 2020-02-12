@@ -7,7 +7,6 @@
 - include: install-minikube.yml
 - include: install-configure-activemq.yml
 - include: kernel-config-server.yml
-- include: deploying-docker-registry-secret.yml
 - include: install-configure-keycloakserver.yml
 - include: deploying-kernel-modules.yml
 - include: deploying-ingress-file.yml
