@@ -110,21 +110,21 @@
       #     insertafter: 'EOF'
       #     state: present
         
-      - name: Create a directory for sandbox.com in let's encrypt directory
-        file:
-          path: /etc/letsencrypt/live/sandbox.com
-          state: directory
-          recurse: yes
+      # - name: Create a directory for sandbox.com in let's encrypt directory
+      #   file:
+      #     path: /etc/letsencrypt/live/sandbox.com
+      #     state: directory
+      #     recurse: yes
 
-      - name: Copying fullchain.pem into let's encrypt directory
-        copy:
-          src: ../external-files/fullchain.pem
-          dest: /etc/letsencrypt/live/sandbox.com/fullchain.pem
+      # - name: Copying fullchain.pem into let's encrypt directory
+      #   copy:
+      #     src: ../external-files/fullchain.pem
+      #     dest: /etc/letsencrypt/live/sandbox.com/fullchain.pem
       
-      - name: Copying privkey.pem into let's encrypt directory
-        copy:
-          src: ../external-files/privkey.pem
-          dest: /etc/letsencrypt/live/sandbox.com/privkey.pem
+      # - name: Copying privkey.pem into let's encrypt directory
+      #   copy:
+      #     src: ../external-files/privkey.pem
+      #     dest: /etc/letsencrypt/live/sandbox.com/privkey.pem
 
       - name: Changing configurations for nginx default file
         template:
