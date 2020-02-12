@@ -30,8 +30,8 @@ spec:
             - name: config
               mountPath: /usr/share/nginx/html/assets/config.json
               subPath: config.json
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
       volumes:
         - name: config
           configMap:

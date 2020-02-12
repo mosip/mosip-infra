@@ -49,5 +49,5 @@ spec:
         ports:
         - containerPort: 9097
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
