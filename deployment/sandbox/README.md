@@ -9,9 +9,9 @@ The Ansible scripts here install MOSIP on a single machine. This is a single nod
 Operating System : Linux (ubuntu 18.04)
 
 ## Hardware requirements
-* Number of CPUs: 12
-* RAM: 48GB
-* HDD: 2TB
+* CPU cores: 4
+* RAM: 32GB
+* HDD: 1TB
 
 ## Run
 1. Clone this repo  
