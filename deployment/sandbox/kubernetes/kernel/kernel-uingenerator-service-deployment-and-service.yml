@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: kernel-uingenerator-service
-        image: docker-registry.mosip.io:5000/kernel-uingenerator-service:1.0.6-SNAPSHOT.96
+        image: mosipid/kernel-uingenerator-service:1.0.6-SNAPSHOT.96
         env:
         - name: spring.profiles.active
           value: qa
@@ -49,8 +49,8 @@ spec:
         ports:
         - containerPort: 8080
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service

@@ -1,0 +1,7 @@
+﻿code,dtyp_code,name,descr,is_active,cr_by,cr_dtimes
+Slab,Finger,Slab,Fingerprint Slab,TRUE,now(),now()
+Single,Finger,Single,Fingerprint Single Finger,TRUE,now(),now()
+Touchless,Finger,Touchless,Touch Fingerprint,TRUE,now(),now()
+SingleIris,Iris,Single,Single Iris,TRUE,now(),now()
+DoubleIris,Iris,Double,Double Iris,TRUE,now(),now()
+Full face,Face,Full face,Full Face,TRUE,now(),now()

@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: pre-registration-ui
-        image: docker-registry.mosip.io:5000/pre-registration-ui:1.0.6-SNAPSHOT.217
+        image: mosipid/pre-registration-ui:1.0.6-SNAPSHOT.217
         ports:
         - containerPort: 80
         imagePullPolicy: Always

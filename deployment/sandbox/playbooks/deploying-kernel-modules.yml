@@ -24,7 +24,7 @@
       - name: Run Key Manager
         docker_container:
           name: keymanager
-          image: docker-registry.mosip.io:5000/kernel-keymanager-service:1.0.6-SNAPSHOT.96
+          image: mosipid/kernel-keymanager-service:1.0.6-SNAPSHOT.96
           state: started
           env:
             spring_config_url_env: "{{ config_private_ip.stdout }}/config"

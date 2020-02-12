@@ -35,7 +35,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: registration-processor-external-stage
-        image: docker-registry.mosip.io:5000/registration-processor-external-stage:1.0.6-SNAPSHOT.62
+        image: mosipid/registration-processor-external-stage:1.0.6-SNAPSHOT.62
         ports:
           - name: eventbus-port
             containerPort: 5736

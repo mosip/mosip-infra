@@ -5,8 +5,8 @@
 
     tasks:
       - set_fact:
-          mosip_user: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user'] }}"
-          mosip_user_password: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user_password'] }}"
+          # mosip_user: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user'] }}"
+          # mosip_user_password: "{{ hostvars[groups['SandboxVM'][0]]['mosip_user_password'] }}"
           VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
           version_kernel_config_jar: 1.0.5
 
@@ -337,6 +337,48 @@
           path: ../config-properties/pre-registration-qa.properties
           regexp: '^mosip.batch.token.authmanager.password='
           line: mosip.batch.token.authmanager.password=41fcabc1-dd48-4c40-951a-b80e0af34c47 
+
+      - name: Changing mosip.base.url in id-repository-qa.properties
+        lineinfile:
+          path: ../config-properties/id-repository-qa.properties
+          regexp: '^mosip.base.url='
+          line: mosip.base.url=http://{{ private_ip.stdout }}
+
+      - name: Changing mosip.idrepo.db.url in id-repository-qa.properties
+        lineinfile:
+          path: ../config-properties/id-repository-qa.properties
+          regexp: '^mosip.idrepo.db.url='
+          line: mosip.idrepo.db.url={{ private_ip.stdout }}
+
+      - name: Changing mosip.idrepo.db.identity.password in id-repository-qa.properties
+        lineinfile:
+          path: ../config-properties/id-repository-qa.properties
+          regexp: '^mosip.idrepo.db.identity.password='
+          line: mosip.idrepo.db.identity.password=Mosip@dev123
+
+      - name: Changing mosip.idrepo.db.vid.password in id-repository-qa.properties
+        lineinfile:
+          path: ../config-properties/id-repository-qa.properties
+          regexp: '^mosip.idrepo.db.vid.password='
+          line: mosip.idrepo.db.vid.password=Mosip@dev123
+
+      - name: Changing mosip.ida.database.hostname in id-authentication-qa.properties
+        lineinfile:
+          path: ../config-properties/id-authentication-qa.properties
+          regexp: '^mosip.ida.database.hostname='
+          line: mosip.ida.database.hostname={{ private_ip.stdout }}
+
+      - name: Changing mosip.ida.database.user in id-authentication-qa.properties
+        lineinfile:
+          path: ../config-properties/id-authentication-qa.properties
+          regexp: '^mosip.ida.database.user='
+          line: mosip.ida.database.user=idauser
+
+      - name: Changing mosip.ida.database.password in id-authentication-qa.properties
+        lineinfile:
+          path: ../config-properties/id-authentication-qa.properties
+          regexp: '^mosip.ida.database.password='
+          line: mosip.ida.database.password=Mosip@dev123
 
       - name: Changing mosip.registration.processor.database.hostname in registration-processor-qa.properties
         lineinfile:

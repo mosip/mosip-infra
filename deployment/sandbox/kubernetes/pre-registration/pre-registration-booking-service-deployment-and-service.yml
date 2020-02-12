@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: pre-registration-booking-service
-        image: docker-registry.mosip.io:5000/pre-registration-booking-service:1.0.6-SNAPSHOT.73
+        image: mosipid/pre-registration-booking-service:1.0.6-SNAPSHOT.73
         env:
         - name: active_profile_env
           value: qa

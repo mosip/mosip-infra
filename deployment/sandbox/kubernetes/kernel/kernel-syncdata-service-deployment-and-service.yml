@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: kernel-syncdata-service
-        image: docker-registry.mosip.io:5000/kernel-syncdata-service:1.0.6-SNAPSHOT.96
+        image: mosipid/kernel-syncdata-service:1.0.6-SNAPSHOT.96
         env:
         - name: active_profile_env
           value: qa
@@ -49,8 +49,8 @@ spec:
         ports:
         - containerPort: 8089
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service

@@ -113,6 +113,14 @@ spec:
         backend:
           serviceName: pre-registration-ui
           servicePort: 80
+      - path: /idrepository/v1/identity 
+        backend:
+          serviceName: id-repository-identity-service
+          servicePort: 8090
+      - path: /idrepository/v1/ 
+        backend:
+          serviceName: id-repository-vid-service
+          servicePort: 8091 
       - path: /registrationprocessor/v1/bio-dedupe
         backend:
           serviceName: registration-processor-bio-dedupe-service

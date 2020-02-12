@@ -1,0 +1,7 @@
+﻿app_id,key_validity_duration,is_active,cr_by,cr_dtimes
+PRE_REGISTRATION,365,TRUE,mosipadmin,11/11/2018 12:00
+REGISTRATION,365,TRUE,mosipadmin,11/11/2018 12:00
+REGISTRATION_PROCESSOR,365,TRUE,mosipadmin,11/11/2018 12:00
+IDA,365,TRUE,mosipadmin,11/11/2018 12:00
+ID_REPO,365,TRUE,mosipadmin,11/11/2018 12:00
+KERNEL,366,TRUE,mosipadmin,11/12/2018 12:00

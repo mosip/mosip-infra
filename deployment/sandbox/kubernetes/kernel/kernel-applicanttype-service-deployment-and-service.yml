@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: kernel-applicanttype-service
-        image: docker-registry.mosip.io:5000/kernel-applicanttype-service:1.0.6-SNAPSHOT.96
+        image: mosipid/kernel-applicanttype-service:1.0.6-SNAPSHOT.96
         env:
         - name: active_profile_env
           value: qa
@@ -37,8 +37,8 @@ spec:
         ports:
         - containerPort: 8094
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service

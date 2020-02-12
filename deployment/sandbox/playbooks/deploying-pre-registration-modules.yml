@@ -5,11 +5,15 @@
       - set_fact:
           VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
 
-      # - name: Changing Pre Reg base url in properties
-      #   replace:
-      #     path: ../kubernetes/pre-registration/pre-registration-ui-configuration.yml
-      #     regexp: '<yourVMIP>'
-      #     replace: "{{ VMIP }}"
+      - name: getting private IP of machine
+        shell: hostname -I | awk '{print $1}'
+        register: private_ip
+
+      - name: Changing Pre Reg base url in properties
+        replace:
+          path: ../kubernetes/pre-registration/pre-registration-ui-configuration.yml
+          regexp: '<yourPrivateIp>'
+          replace: "{{ private_ip.stdout }}"
 
       - name: Finding all the Pre registration ymls
         find:

@@ -2,11 +2,11 @@
   - hosts: all
     become: true
     tasks:      
-      - name: Performing Docker-Registry login
-        docker_login: 
-          registry: "{{ lookup('ini', 'docker_registry type=properties file=../playbooks-properties/all-playbooks.properties') }}"
-          username: "{{ lookup('ini', 'dockerhub_username type=properties file=../playbooks-properties/all-playbooks.properties') }}"
-          password: "{{ lookup('ini', 'dockerhub_password type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+      # - name: Performing Docker-Registry login
+      #   docker_login: 
+      #     registry: "{{ lookup('ini', 'docker_registry type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+      #     username: "{{ lookup('ini', 'dockerhub_username type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+      #     password: "{{ lookup('ini', 'dockerhub_password type=properties file=../playbooks-properties/all-playbooks.properties') }}"
 
       - name: create a database
         postgresql_db:
@@ -29,7 +29,7 @@
       - name: Run Keycloak
         docker_container:
           name: keycloak
-          image: docker-registry.mosip.io:5000/keycloak:1.0.6
+          image: mosipid/keycloak:1.0.6
           state: started
           ports:
             - "8444:8080"

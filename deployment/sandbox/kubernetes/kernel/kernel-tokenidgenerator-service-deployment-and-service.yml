@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: kernel-tokenidgenerator-service
-        image: docker-registry.mosip.io:5000/kernel-tokenidgenerator-service:1.0.6-SNAPSHOT.96
+        image: mosipid/kernel-tokenidgenerator-service:1.0.6-SNAPSHOT.96
         env:
         - name: active_profile_env
           value: qa
@@ -49,8 +49,8 @@ spec:
         ports:
         - containerPort: 8097
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service

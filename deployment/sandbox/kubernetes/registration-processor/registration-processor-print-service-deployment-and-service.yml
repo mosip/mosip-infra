@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config 
       containers:
       - name: registration-processor-print-service
-        image: docker-registry.mosip.io:5000/registration-processor-print-service:1.0.6-SNAPSHOT.62
+        image: mosipid/registration-processor-print-service:1.0.6-SNAPSHOT.62
         ports:
           - name: verticle-port
             containerPort: 9099

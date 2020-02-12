@@ -3,19 +3,9 @@
     become: true
     strategy: debug
     gather_facts: true
-    vars_prompt: 
-      - name: "mosip_user"
-        prompt: Please enter github user name for mosip-private repo
-        private: no
-
-      - name: "mosip_user_password"
-        prompt: Please enter github password
-        private: yes
 
     tasks:      
       - set_fact:
-          mosip_user_password: "{{ mosip_user_password }}"
-          mosip_user: "{{ mosip_user }}"
           VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
       
       - debug: 
@@ -122,48 +112,11 @@
 
       - name: Restart postgres
         service: name=postgresql state=restarted enabled=yes
-
-      - name: Deleting directory db_scripts
-        file: 
-          path: ../db_scripts
-          state: absent
-      
-      - name: Creating directory for db_scripts
-        file: 
-          path: ../db_scripts
-          state: directory
-
-      - name: Configuring for sparse checkout
-        shell: |
-          git init
-          git config core.sparsecheckout true
-          git remote add origin https://{{ mosip_user | urlencode }}:{{ mosip_user_password | urlencode }}@github.com/mosip/mosip-platform-mt.git
-        args:
-          chdir: ../db_scripts
-        register: result_git_origin
-        failed_when: result_git_origin.rc==1
-
-      - name: Writing folder name into sparse checkout
-        lineinfile:  
-          path: ../db_scripts/.git/info/sparse-checkout
-          line: db_scripts/*
-          create: yes
-
-      - name: Cloning db_scripts folder
-        shell: git pull origin master
-        args: 
-          chdir: ../db_scripts
-      
-      - name: Changing name of db_scripts folder
-        command:  mv "{{ playbook_dir | dirname}}"/db_scripts/db_scripts "{{ playbook_dir | dirname}}"/db_scripts/database
-        args:
-          creates: "{{ playbook_dir | dirname}}/db_scripts/database"
-
+     
       - name: Verifying logs folder
         file:
           path: ../db_scripts/logs
           state: directory
-
 
       - name:  Finding all the properties file and storing in a variable
         find:
@@ -235,7 +188,7 @@
       # - name: Ensure the postgres service is running
       #   service: name=postgresql state=started enabled=yes
 
-      # - name: Install PostgreSQL
+      # - name: Uninstall PostgreSQL
       #   apt: name={{item}} state=absent purge=yes
       #   with_items:
       #     - postgresql-*
