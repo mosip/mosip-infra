@@ -16,7 +16,7 @@ Operating System : Linux (ubuntu 18.04)
 ## Run
 1. Clone this repo  
 `$ git clone https://github.com/mosip/mosip-infra.git`
-1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (Change only "\<ToBeReplaced\>")
+1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (Change only \<ToBeReplaced\>)
 1. Run `/mosip-infra/deployment/sandbox/install-ansible-run-playbooks.sh`     
 `$ sudo sh install-ansible-run-playbooks.sh`
 
