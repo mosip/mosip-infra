@@ -5,7 +5,6 @@
 - include: install-apacheds.yml
 - include: configure-postgres.yml
 - include: install-minikube.yml
-- include: install-configure-activemq.yml
 - include: kernel-config-server.yml
 - include: install-configure-keycloakserver.yml
 - include: deploying-kernel-modules.yml
