@@ -1,0 +1,3 @@
+- include: reading-all-playbook-properties.yml
+- include: deploying-registration-processor-modules.yml
+- include: deploying-id-repo-modules.yml

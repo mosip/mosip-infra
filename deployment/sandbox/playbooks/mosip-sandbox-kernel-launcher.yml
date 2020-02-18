@@ -1,4 +1,3 @@
-
 - include: reading-all-playbook-properties.yml
 - include: install-configure-jre.yml
 - include: install-docker.yml
@@ -9,3 +8,4 @@
 - include: install-configure-keycloakserver.yml
 - include: deploying-kernel-modules.yml
 - include: deploying-ingress-file.yml
+- include: install-configure-hdfs.yml
