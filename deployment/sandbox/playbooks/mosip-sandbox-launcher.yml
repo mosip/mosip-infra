@@ -10,7 +10,3 @@
 - include: install-configure-keycloakserver.yml
 - include: deploying-kernel-modules.yml
 - include: deploying-ingress-file.yml
-- include: deploying-pre-registration-modules.yml
-- include: install-configure-hdfs.yml
-- include: deploying-registration-processor-modules.yml
-- include: deploying-id-repo-modules.yml
