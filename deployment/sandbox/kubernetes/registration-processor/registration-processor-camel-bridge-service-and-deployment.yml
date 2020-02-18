@@ -68,3 +68,4 @@ spec:
   - port: 8022
   selector:
     app: registration-processor-common-camel-bridge
+  type: NodePort

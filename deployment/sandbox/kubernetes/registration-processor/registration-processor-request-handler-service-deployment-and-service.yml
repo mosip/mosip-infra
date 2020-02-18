@@ -66,3 +66,4 @@ spec:
   - port: 8082
   selector:
     app: registration-processor-request-handler-service
+  type: NodePort

@@ -59,4 +59,4 @@ spec:
     - port: 9099
   selector:
     app: registration-processor-print-service
-
+  type: NodePort

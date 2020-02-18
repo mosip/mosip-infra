@@ -66,3 +66,4 @@ spec:
     - port: 9096
   selector:
     app: registration-processor-bio-dedupe-stage
+  type: NodePort

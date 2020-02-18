@@ -59,4 +59,4 @@ spec:
     - port: 8110
   selector:
     app: registration-processor-registration-transaction-service
-
+  type: NodePort

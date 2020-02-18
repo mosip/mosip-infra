@@ -66,3 +66,4 @@ spec:
   - port: 8091
   selector:
     app: registration-processor-abis-middleware-stage
+  type: NodePort

@@ -66,3 +66,4 @@ spec:
     - port: 8095
   selector:
     app: registration-processor-external-stage
+  type: NodePort

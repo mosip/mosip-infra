@@ -59,4 +59,4 @@ spec:
     - port: 9097
   selector:
     app: registration-processor-bio-dedupe-service
-
+  type: NodePort

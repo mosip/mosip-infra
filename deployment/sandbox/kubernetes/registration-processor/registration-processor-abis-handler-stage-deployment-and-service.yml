@@ -66,3 +66,4 @@ spec:
   - port: 9071
   selector:
     app: registration-processor-abis-handler-stage
+  type: NodePort

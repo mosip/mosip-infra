@@ -66,3 +66,4 @@ spec:
   - port: 8099
   selector:
     app: registration-processor-uin-generator-stage
+  type: NodePort

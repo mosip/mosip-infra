@@ -66,3 +66,4 @@ spec:
   - port: 8089
   selector:
     app: registration-processor-osi-validator-stage
+  type: NodePort

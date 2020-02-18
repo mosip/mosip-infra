@@ -59,4 +59,4 @@ spec:
     - port: 8201
   selector:
     app: registration-processor-external-integration-service
-
+  type: NodePort

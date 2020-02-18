@@ -66,3 +66,4 @@ spec:
   - port: 8087
   selector:
     app: registration-processor-packet-uploader-stage
+  type: NodePort
