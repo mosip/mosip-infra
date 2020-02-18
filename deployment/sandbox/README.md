@@ -24,10 +24,10 @@ Operating System : Linux (ubuntu 18.04)
 
 4. Go into this directory `mosip-infra/deployment/sandbox/`  <br /> `$ cd mosip-infra/deployment/sandbox`
 
-5. Run `install-mosip-kernel.sh` <br /> `$ sudo sh install-mosip-kernel.sh`
+5. Run `install-mosip-kernel.sh` <br /> `$ sh install-mosip-kernel.sh`
 <br /> This is a base shell script which must be run before any other script. It will configure the system for the base dependecies which are required for any module to be deployed.
 
-6. Run `install-mosip-pre-reg.sh` <br /> `$ sudo install-mosip-pre-reg.sh`
+6. Run `install-mosip-pre-reg.sh` <br /> `$ sh install-mosip-pre-reg.sh`
 <br /> This will run all the pre registration services.
 
 ## Test
