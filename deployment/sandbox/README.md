@@ -26,4 +26,4 @@ This will run all the pre registration services.
 
 ## Test
 Pre-Registration:
-1. Open the URL <TODO> in the browser to access Pre-Registration module
+1. Open the URL <TODO> in the browser to access Pre-Registration module viz http://<your_private_ip>/pre-registration-ui
