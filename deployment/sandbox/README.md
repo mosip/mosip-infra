@@ -29,11 +29,11 @@ This has been tried and verified
 
        $ sudo sh install-mosip-kernel.sh
 
-1. Check for errors in 'install-mosip-sandbox.log'.  Got to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
+1. Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
 
-1. If there are no errors in the log, wait for 5 minutes for the kernel services to be up and running.
+1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running.
 
-
+ install-mosip-pre-reg.sh
 ***  
   
 #### Pre-registration 
@@ -41,29 +41,27 @@ This has been tried and verified
 
        $ sudo sh install-mosip-pre-reg.sh
     
-1. Check for errors in 'install-mosip-sandbox.log'.  Got to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
+1. Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
 
-1. If there are no errors in the log, wait for 10 minutes for the pre-registration services to be up and running.
-
+1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
+ install-mosip-pre-reg.sh
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
 
+***
 
 #### Registration Processor
+1. Install the MOSIP Registration processor component
 
+       $ sudo sh install-mosip-reg-proc.sh
+    
+1. Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
 
-_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._
-***
 
 #### ID Authentication
 
 
-_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._ 
-***
-
 #### ID Repo
 
 
-_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._
-***
 
 
