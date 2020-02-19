@@ -21,6 +21,19 @@ This has been tried and verified
 
 1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (Change only \<ToBeReplaced\>)
 
+  * Below is the sample key-value pair of the playbook properties
+  
+          spring.mail.username=xxx@gmail.com
+          spring.mail.password=xxxpwd
+          spring.mail.host=smtp.gmail.com
+          spring.mail.port=587
+          mosip.kernel.sms.gateway=SMSgatewayProviderName
+          mosip.kernel.sms.api=<SMS POST message URL> eg:- https://SMSGatewayHostName/sms/2/text/single
+          mosip.kernel.sms.username=<registered username with SMS gateway provider>
+          mosip.kernel.sms.password=<registered password>
+          mosip.kernel.sms.sender=MOSSIP
+          registration.processor.dmz.server.password=<password>
+          
 1. Change over to 'sandbox' folder which has the shell scripts for installing various MOSIP components
 
        $ cd ~/mosip-infra/deployment/sandbox/
@@ -45,7 +58,15 @@ This has been tried and verified
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
  install-mosip-pre-reg.sh
+ 
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
+
+            Sample screen of Pre-registration startup page
+            
+            
+1. Login into the Pre-registration portal using OTP sent to email or phone.  
+
+
 
 ***
 
