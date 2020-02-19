@@ -1,6 +1,8 @@
 # MOSIP Sandbox Deployer
   
-Enables the creation of MOSIP sandbox on a Linux OS.  Using pre-crafted docker images, it enables one to quickly setup MOSIP for trying and demonstrating. THIS IS NOT FOR PRODUCTION DEPLOYMENTS.  
+Enables the creation of MOSIP sandbox on a Linux OS.  Using pre-crafted docker images, it enables one to quickly setup MOSIP for trying and demonstrating. 
+
+THIS IS NOT FOR PRODUCTION DEPLOYMENTS.  
 
 ## Overview
 ![](images/sandbox-overview.png)
@@ -33,7 +35,7 @@ This has been tried and verified
 
      $ sudo sh install-mosip-pre-reg.sh
      
-MOSIP Pre-registration UI can be accessed using *https://<hostname or ip address>/pre-registration-ui*
+MOSIP Pre-registration UI can be accessed using *https://\<hostname or ip address\>/pre-registration-ui*
 
 ***
 
@@ -41,11 +43,11 @@ MOSIP Pre-registration UI can be accessed using *https://<hostname or ip address
 
 ***
 
-#### Install ID Authentication
+#### ID Authentication
 
 ***
 
-#### Install ID Repo
+#### ID Repo
 
 ***
 
