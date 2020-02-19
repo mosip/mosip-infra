@@ -25,30 +25,39 @@ This has been tried and verified
 
        $ cd ~/mosip-infra/deployment/sandbox/
 
-1. Install the MOSIP Kernel *****Pre-requisite for installing other modules
+1. First, install the MOSIP Kernel.  This is the base for all other modules.
 
-       $ sudu sh install-mosip-kernel.sh
-  
+       $ sudo sh install-mosip-kernel.sh
+
+Note : All log messages are logged in 'install-mosip-sandbox.log'   
+
 ***  
   
 #### Pre-registration 
 
      $ sudo sh install-mosip-pre-reg.sh
-     
+    
 MOSIP Pre-registration UI can be accessed using *https://\<hostname or ip address\>/pre-registration-ui*
 
+Note : All log messages are log appended in 'install-mosip-sandbox.log'  
 ***
 
 #### Registration Processor
 
+
+Note : All log messages are log appended in 'install-mosip-sandbox.log' 
 ***
 
 #### ID Authentication
 
+
+Note : All log messages are log appended in 'install-mosip-sandbox.log' 
 ***
 
 #### ID Repo
 
+
+Note : All log messages are log appended in 'install-mosip-sandbox.log' 
 ***
 
 
