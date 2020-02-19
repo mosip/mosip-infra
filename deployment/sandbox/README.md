@@ -46,7 +46,7 @@ This has been tried and verified
 
 1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running.
 
- install-mosip-pre-reg.sh
+
 ***  
   
 #### Pre-registration 
@@ -57,13 +57,13 @@ This has been tried and verified
 1. Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
- install-mosip-pre-reg.sh
  
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
    
     1. Sample screen of Pre-registration startup page
 ![](images/pre-reg-screehshot.png)
-            
+     
+     
     1. Login into the Pre-registration portal using OTP sent to email or phone.  
 
 
