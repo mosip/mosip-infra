@@ -8,7 +8,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
 ![](images/sandbox-overview.png)
 
 ## Pre-requisites
-This has been tried and verified
+This has been tried and verified on
 
       * OS : Ubuntu 18.0.4 LTS
       * Hardware : 4 core CPU with 32 GB RAM and a about 200 GB of free hard disk space.
