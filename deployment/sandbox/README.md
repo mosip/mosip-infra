@@ -31,7 +31,7 @@ This has been tried and verified
           mosip.kernel.sms.api=<SMS POST message URL> eg:- https://SMSGatewayHostName/sms/2/text/single
           mosip.kernel.sms.username=<registered username with SMS gateway provider>
           mosip.kernel.sms.password=<registered password>
-          mosip.kernel.sms.sender=MOSSIP
+          mosip.kernel.sms.sender=<SMS Sender name, can be any name>
           registration.processor.dmz.server.password=<password>
           
 1. Change over to 'sandbox' folder which has the shell scripts for installing various MOSIP components
@@ -60,12 +60,11 @@ This has been tried and verified
  install-mosip-pre-reg.sh
  
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
-
-Sample screen of Pre-registration startup page
+   
+    1. Sample screen of Pre-registration startup page
 ![](images/pre-reg-screehshot.png)
             
-1. Login into the Pre-registration portal using OTP sent to email or phone.  
-
+    1. Login into the Pre-registration portal using OTP sent to email or phone.  
 
 
 ***
