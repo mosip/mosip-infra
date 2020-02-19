@@ -61,8 +61,8 @@ This has been tried and verified
  
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
 
-            Sample screen of Pre-registration startup page
-            
+Sample screen of Pre-registration startup page
+![](images/pre-reg-screehshot.png)
             
 1. Login into the Pre-registration portal using OTP sent to email or phone.  
 
