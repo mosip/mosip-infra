@@ -29,7 +29,8 @@ This has been tried and verified
 
        $ sudo sh install-mosip-kernel.sh
 
-Note : All log messages are logged in 'install-mosip-sandbox.log'   
+1. Check for errors in 'install-mosip-sandbox.log'.  Got to the last time and check for 'failed=0' which indicates that there are no failures during the deployment.
+
 
 ***  
   
@@ -37,27 +38,27 @@ Note : All log messages are logged in 'install-mosip-sandbox.log'
 
      $ sudo sh install-mosip-pre-reg.sh
     
-MOSIP Pre-registration UI can be accessed using *https://\<hostname or ip address\>/pre-registration-ui*
+MOSIP Pre-registration UI can be accessed using *http://\<hostname or ip address\>/pre-registration-ui*
 
-Note : All log messages are log appended in 'install-mosip-sandbox.log'  
+_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._
 ***
 
 #### Registration Processor
 
 
-Note : All log messages are log appended in 'install-mosip-sandbox.log' 
+_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._
 ***
 
 #### ID Authentication
 
 
-Note : All log messages are log appended in 'install-mosip-sandbox.log' 
+_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._ 
 ***
 
 #### ID Repo
 
 
-Note : All log messages are log appended in 'install-mosip-sandbox.log' 
+_Note : All log messages are log appended in 'install-mosip-sandbox.log'.  Check for errors in 'install-mosip-sandbox.log'.  Go to the last time and check for 'failed=0' which indicates that there are no failures during the deployment._
 ***
 
 
