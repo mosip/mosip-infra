@@ -1,35 +1,38 @@
-# MOSIP Sandbox Installer
+# MOSIP Sandbox Deployer
   
-The Ansible scripts here install MOSIP on a single machine. This is a single node Minikube and Docker based installation useful for developers and pilots. The scripts here serve as reference for larger scale deployment with different architecture. Currently, it can run all the pre registration services.
+Enables the creation of MOSIP sandbox on a Linux OS.  Using pre-crafted docker images, it enables one to quickly setup MOSIP for trying and demonstrating. THIS IS NOT FOR PRODUCTION DEPLOYMENTS.  
 
 ## Overview
 ![](images/sandbox-overview.png)
 
-## Software requirements
-Operating System : Linux (ubuntu 18.04)
+## Pre-requisites
+This has been tried and verified 
+      * OS : Ubuntu 18.0.4 LTS
+      * Hardware : 4 core CPU with 32 GB RAM and a about 200 GB of free hard disk space.
+      * Make sure you have installed 'curl' and 'git'
+      
+## Get, Set, Go!
+1. Clone the 'mosip-infra' repo
+      $ git clone https://github.com/mosip/mosip-infra
 
-## Hardware requirements
-* CPU cores: 4
-* RAM: 32GB
-* HDD: 1TB
+1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (Change only \<ToBeReplaced\>)
 
-## Run
-1. Clone this repo  
-`$ git clone https://github.com/mosip/mosip-infra.git`
+1. Change over to 'sandbox' folder which has the shell scripts for installing various MOSIP components
+     $ cd ~/mosip-infra/deployment/sandbox/
 
-2. Go to the root
-`$ sudo su`
+1. Install the MOSIP Kernel *****Pre-requisite for installing other modules
+     $ sudu sh install-mosip-kernel.sh
+     
+#### Pre-registration 
+     $ sudo sh install-mosip-pre-reg.sh
+     
+     * Check for successful installation
+     ** From any browser, type 'https://<hostname or ip address>/pre-registration-ui'
 
-3. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (Change only \<ToBeReplaced\>)
+#### Registration Processor
 
-4. Go into this directory `mosip-infra/deployment/sandbox/`  <br /> `$ cd mosip-infra/deployment/sandbox`
+#### Install ID Authentication
 
-5. Run `install-mosip-kernel.sh` <br /> `$ sh install-mosip-kernel.sh`
-<br /> This is a base shell script which must be run before any other script. It will configure the system for the base dependecies which are required for any module to be deployed.
+#### Install ID Repo
 
-6. Run `install-mosip-pre-reg.sh` <br /> `$ sh install-mosip-pre-reg.sh`
-<br /> This will run all the pre registration services.
 
-## Test
-Pre-Registration:
-1. Open the URL <TODO> in the browser to access Pre-Registration module viz http://<your_private_ip>/pre-registration-ui
