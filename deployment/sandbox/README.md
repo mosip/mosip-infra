@@ -37,7 +37,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     ```
     $ cd mosip-infra/deployment/sandbox/
     ````
-### Kernel
+### MOSIP Kernel
 1. First, install the MOSIP Kernel.  This is the base for all other modules.
     ```
     $ sudo sh install-mosip-kernel.sh
