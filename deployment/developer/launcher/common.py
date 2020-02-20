@@ -143,7 +143,6 @@ def parse_umc_csv(csv_file):
     f = open(csv_file, 'rt')
     reader = csv.reader(f)    
     next(reader, None)  # Skip header row
-    #['1234','F8-B4-6A-B2-0E-59','DESKTOP-A96IHMO','Marie Catherine L. Garilao', 'REG203', 'h@ppyBox24', '10001', 'REGISRTATION_OFFICER]
 
     user_infos = []
     for row in reader:
@@ -157,7 +156,7 @@ def parse_umc_csv(csv_file):
         u.user_mobile = row[6]
         u.center_id = row[7] 
         u.role = row[8] # Currently only one role is assumed. TODO.
-        u.zone_code = row[9]
-        u.lang_code = row[10]
+        u.zone_code = 'PHIL' # Default, so hardcoded 
+        u.lang_code = 'eng' # Default, so hardcoded
         user_infos.append(u)
     return user_infos
