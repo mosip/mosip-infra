@@ -35,7 +35,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
           
 1.  Change to 'sandbox' dir: `
     ```
-    $ cd ~/mosip-infra/deployment/sandbox/`
+    $ cd mosip-infra/deployment/sandbox/
     ````
 ### Kernel
 1. First, install the MOSIP Kernel.  This is the base for all other modules.
@@ -44,7 +44,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     ```
 1. Check for errors in `install-mosip-sandbox.log`.  Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
-1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running.
+1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running. 
 
 ### Pre-registration 
 1. Install the MOSIP Pre-registration component
