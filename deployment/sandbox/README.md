@@ -1,6 +1,6 @@
 # MOSIP Sandbox Deployer
   
-Enables the creation of MOSIP sandbox on a machine with Linux OS.  Using pre-crafted docker images, it enables one to quickly setup MOSIP for trying and demonstrating. 
+Enables the creation of MOSIP sandbox on a single machine running Linux.  Using pre-crafted docker images, it enables one to quickly setup MOSIP for trying and demonstrating. 
 
 THIS IS NOT FOR PRODUCTION DEPLOYMENTS.  
 
@@ -33,7 +33,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     registration.processor.dmz.server.password=<password>
     ```
           
-1.  Change to 'sandbox' dir: `
+1.  Change to 'sandbox' dir: 
     ```
     $ cd mosip-infra/deployment/sandbox/
     ````
