@@ -9,7 +9,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
 
 ## Pre-requisites
 * OS : Ubuntu 18.0.4 LTS
-* Hardware : 4 core CPU with 32 GB RAM and a about 80 GB of free hard disk space.
+* Hardware : 4 core CPU with 32 GB RAM and about 80 GB of free hard disk space.
 * Tools:  Install `curl` and `git`
       
 ## Get, Set, Go!
