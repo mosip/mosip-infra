@@ -1,5 +1,5 @@
 ﻿code,name,hierarchy_level,hierarchy_level_name,parent_loc_code,lang_code,is_active,cr_by,cr_dtimes
-MOR,Morocco,0,Country,,eng,TRUE,superadmin,now()
+MOR,MyCountry,0,Country,,eng,TRUE,superadmin,now()
 MOR,الْـمَغْرِبُ,0,بلد,,ara,TRUE,superadmin,now()
 MOR,Maroc,0,Pays,,fra,TRUE,superadmin,now()
 RSK,Rabat Sale Kenitra,1,Region,MOR,eng,TRUE,superadmin,now()

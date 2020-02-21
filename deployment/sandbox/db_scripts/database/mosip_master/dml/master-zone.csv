@@ -1,5 +1,5 @@
 ﻿code,name,hierarchy_level,hierarchy_level_name,hierarchy_path,parent_zone_code,lang_code,is_active,cr_by,cr_dtimes
-MOR,Morocco,0,Country,MOR,,eng,TRUE,superadmin,now()
+MOR,MyCountry,0,Country,MOR,,eng,TRUE,superadmin,now()
 MOR,الْـمَغْرِبُ,0,بلد,MOR,,ara,TRUE,superadmin,now()
 MOR,Maroc,0,Pays,MOR,,fra,TRUE,superadmin,now()
 NTH,North,1,Direction,MOR/NTH,MOR,eng,TRUE,superadmin,now()

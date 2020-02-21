@@ -360,7 +360,7 @@ objectClass: top
 objectClass: organizationalUnit
 entryParentId: 656bac6f-0f3b-40af-b8ad-a94424b84deb
 
-dn: ads-partitionId=morocco,ou=partitions,ads-directoryServiceId=default,ou=conf
+dn: ads-partitionId=mycountry,ou=partitions,ads-directoryServiceId=default,ou=conf
  ig
 ads-contextEntry:: ZG46IGM9bW9yb2NjbwpjOiBtb3JvY2NvCm9iamVjdGNsYXNzOiBkb21haW4Kb
  2JqZWN0Y2xhc3M6IHRvcApvYmplY3RjbGFzczogZXh0ZW5zaWJsZU9iamVjdApkYzogbW9yb2NjbwoK
@@ -371,14 +371,14 @@ objectClass: ads-partition
 objectClass: ads-base
 objectClass: ads-jdbmPartition
 ads-enabled: TRUE
-ads-partitionSuffix: c=morocco
+ads-partitionSuffix: c=mycountry
 entryUUID: 607936fd-3249-4992-a8fa-dedd9cb9e3a3
-ads-partitionId: morocco
+ads-partitionId: mycountry
 ads-partitionCacheSize: 100
 ads-partitionSyncOnWrite: TRUE
 entryParentId: 50c6ee4d-3211-42df-86c5-be3c98c76947
 
-dn: ou=indexes,ads-partitionId=morocco,ou=partitions,ads-directoryServiceId=defa
+dn: ou=indexes,ads-partitionId=mycountry,ou=partitions,ads-directoryServiceId=defa
  ult,ou=config
 entryCSN: 20191216095849.393000Z#000000#000#000000
 entryUUID: e5e35366-a09a-409f-b21c-f42230aad61f
@@ -387,7 +387,7 @@ objectClass: top
 objectClass: organizationalUnit
 entryParentId: 607936fd-3249-4992-a8fa-dedd9cb9e3a3
 
-dn: ads-indexAttributeId=uid,ou=indexes,ads-partitionId=morocco,ou=partitions,ad
+dn: ads-indexAttributeId=uid,ou=indexes,ads-partitionId=mycountry,ou=partitions,ad
  s-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.517000Z#000000#000#000000
@@ -400,7 +400,7 @@ ads-enabled: TRUE
 entryUUID: fa089313-c566-4bcd-8e7d-b0bb42e59278
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=dc,ou=indexes,ads-partitionId=morocco,ou=partitions,ads
+dn: ads-indexAttributeId=dc,ou=indexes,ads-partitionId=mycountry,ou=partitions,ads
  -directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.588000Z#000000#000#000000
@@ -413,7 +413,7 @@ ads-enabled: TRUE
 entryUUID: 510e591c-a3c2-48ce-97d1-947e1dfb4343
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=entryUUID,ou=indexes,ads-partitionId=morocco,ou=partiti
+dn: ads-indexAttributeId=entryUUID,ou=indexes,ads-partitionId=mycountry,ou=partiti
  ons,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.613000Z#000000#000#000000
@@ -426,7 +426,7 @@ ads-enabled: TRUE
 entryUUID: e68a790a-48e8-439e-9492-7b709fda3cd4
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apachePresence,ou=indexes,ads-partitionId=morocco,ou=pa
+dn: ads-indexAttributeId=apachePresence,ou=indexes,ads-partitionId=mycountry,ou=pa
  rtitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.494000Z#000000#000#000000
@@ -439,7 +439,7 @@ ads-enabled: TRUE
 entryUUID: 6168223c-c5d3-439e-93ba-10e85f7b193d
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheOneLevel,ou=indexes,ads-partitionId=morocco,ou=pa
+dn: ads-indexAttributeId=apacheOneLevel,ou=indexes,ads-partitionId=mycountry,ou=pa
  rtitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.565000Z#000000#000#000000
@@ -452,7 +452,7 @@ ads-enabled: TRUE
 entryUUID: 7534a06c-db02-4b35-bde6-b43640bf70f7
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheSubLevel,ou=indexes,ads-partitionId=morocco,ou=pa
+dn: ads-indexAttributeId=apacheSubLevel,ou=indexes,ads-partitionId=mycountry,ou=pa
  rtitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.453000Z#000000#000#000000
@@ -465,7 +465,7 @@ ads-enabled: TRUE
 entryUUID: e77b2144-3900-46d9-acba-df5c01b34ac6
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheOneAlias,ou=indexes,ads-partitionId=morocco,ou=pa
+dn: ads-indexAttributeId=apacheOneAlias,ou=indexes,ads-partitionId=mycountry,ou=pa
  rtitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.683000Z#000000#000#000000
@@ -478,7 +478,7 @@ ads-enabled: TRUE
 entryUUID: 06bdebbc-7000-44ea-a67f-3d1af3d8db43
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheRdn,ou=indexes,ads-partitionId=morocco,ou=partiti
+dn: ads-indexAttributeId=apacheRdn,ou=indexes,ads-partitionId=mycountry,ou=partiti
  ons,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.473000Z#000000#000#000000
@@ -491,7 +491,7 @@ ads-enabled: TRUE
 entryUUID: 91fb8754-1fb0-4447-8717-3f87b65e877c
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheSubAlias,ou=indexes,ads-partitionId=morocco,ou=pa
+dn: ads-indexAttributeId=apacheSubAlias,ou=indexes,ads-partitionId=mycountry,ou=pa
  rtitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.414000Z#000000#000#000000
@@ -504,7 +504,7 @@ ads-enabled: TRUE
 entryUUID: b58d4537-969e-44cd-a735-7c72116f7c39
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=apacheAlias,ou=indexes,ads-partitionId=morocco,ou=parti
+dn: ads-indexAttributeId=apacheAlias,ou=indexes,ads-partitionId=mycountry,ou=parti
  tions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.637000Z#000000#000#000000
@@ -517,7 +517,7 @@ ads-enabled: TRUE
 entryUUID: d7796d7b-1889-43d5-9405-ea3618475aa0
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=entryCSN,ou=indexes,ads-partitionId=morocco,ou=partitio
+dn: ads-indexAttributeId=entryCSN,ou=indexes,ads-partitionId=mycountry,ou=partitio
  ns,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.752000Z#000000#000#000000
@@ -530,7 +530,7 @@ ads-enabled: TRUE
 entryUUID: 78522b0e-178f-45bc-bc87-e457e5cee61e
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=objectClass,ou=indexes,ads-partitionId=morocco,ou=parti
+dn: ads-indexAttributeId=objectClass,ou=indexes,ads-partitionId=mycountry,ou=parti
  tions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.434000Z#000000#000#000000
@@ -543,7 +543,7 @@ ads-enabled: TRUE
 entryUUID: bbc4adb2-d03e-43c6-8579-c0fdc4352fa6
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=ou,ou=indexes,ads-partitionId=morocco,ou=partitions,ads
+dn: ads-indexAttributeId=ou,ou=indexes,ads-partitionId=mycountry,ou=partitions,ads
  -directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.539000Z#000000#000#000000
@@ -556,7 +556,7 @@ ads-enabled: TRUE
 entryUUID: 4163f511-16b2-453b-b85c-1cf0ef935338
 entryParentId: e5e35366-a09a-409f-b21c-f42230aad61f
 
-dn: ads-indexAttributeId=krb5PrincipalName,ou=indexes,ads-partitionId=morocco,ou
+dn: ads-indexAttributeId=krb5PrincipalName,ou=indexes,ads-partitionId=mycountry,ou
  =partitions,ads-directoryServiceId=default,ou=config
 ads-indexHasReverse: FALSE
 entryCSN: 20191216095849.660000Z#000000#000#000000
