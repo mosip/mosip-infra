@@ -1,4 +1,4 @@
-# _This installer is deprecated. Please use [sandbox installer](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox) scripts for runing MOSIP_
+# _This installer is deprecated. Please use [sandbox installer](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox) scripts for runing MOSIP._
 ---
 # MOSIP Single Machine Installer
 
