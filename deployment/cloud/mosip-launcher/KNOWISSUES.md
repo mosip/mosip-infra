@@ -1,4 +1,0 @@
-# Known issues with using third party tools
-1. We are not able to create helm release with underscore(_) in it's name. The problem we faced is it will still create all resources but it wont be visible and available through helm (tried `$helm ls`). And since it is not available through helm, next time running through `$helm install --name <release> <chart name>`. It will fail as it doesn't have any record of resource creation but resource exist. [Helm issue -> Follow here](https://github.com/helm/helm/issues/3493)
-
-2. While initializing helm chart through jenkins Helm command, using --set for config map, we are using `carriagereturnnewline` string to denote `\r\n` as set command automatically removes **\r\n** and does not pass it to helm chart later on.

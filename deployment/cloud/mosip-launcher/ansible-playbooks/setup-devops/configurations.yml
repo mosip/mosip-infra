@@ -1,9 +1,0 @@
----
-
-agent_count: 3
-location: South India
-os_type: Linux
-admin_username: ubuntu
-vm_size: Standard_D2s_v3
-environment: development
-os_disk_size_gb: 30
