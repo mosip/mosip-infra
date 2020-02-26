@@ -1,3 +1,5 @@
+# _This installer is deprecated:  please use [sandbox installer](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox) scripts for runing MOSIP_
+---
 # MOSIP Single Machine Installer
 
 The scripts here enable a developer to run MOSIP modules on a single machine with very low memory configuration.  The module Jars are run directly without any containerization.  
