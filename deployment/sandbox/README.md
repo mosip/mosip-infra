@@ -17,6 +17,10 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     ```
     $ git clone https://github.com/mosip/mosip-infra
     ```
+1. Go to the root:
+    ```
+    $ sudo su
+    ```
 1.  Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (change only `<ToBeReplaced\>`)
 
     Below is a sample (example) key-value pair of the playbook properties
