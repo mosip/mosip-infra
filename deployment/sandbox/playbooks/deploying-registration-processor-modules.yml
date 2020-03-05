@@ -28,7 +28,7 @@
       - name: Run Registration Status
         docker_container:
           name: registration-status
-          image: docker-registry.mosip.io:5000/registration-processor-registration-status-service:1.0.6
+          image: mosipid/registration-processor-registration-status-service:1.0.6
           state: started
           env:
             spring_config_url_env: "{{ config_private_ip.stdout }}/config"
@@ -41,7 +41,7 @@
       # - name: Run Registration Processor Packet generator 
       #   docker_container:
       #     name: registration-processor-packet-generator
-      #     image: docker-registry.mosip.io:5000/registration-processor-packet-generator-service:0.10.2.3166
+      #     image: mosipid/registration-processor-packet-generator-service:0.10.2.3166
       #     state: started
       #     env:
       #       spring_config_url_env: "{{ config_private_ip.stdout }}/config"
@@ -54,7 +54,7 @@
       - name: Run Registration Processor Packet Receiver Stage
         docker_container:
           name: registration-processor-packet-receiver-stage
-          image: docker-registry.mosip.io:5000/registration-processor-packet-receiver-stage:1.0.6
+          image: mosipid/registration-processor-packet-receiver-stage:1.0.6
           state: started
           env:
             spring_config_url_env: "{{ config_private_ip.stdout }}/config"
@@ -82,7 +82,7 @@
       - name: Run Registration Processor Common Camel Bridge
         docker_container:
           name: registration-processor-common-camel-bridge
-          image: docker-registry.mosip.io:5000/registration-processor-common-camel-bridge:1.0.6
+          image: mosipid/registration-processor-common-camel-bridge:1.0.6
           state: started
           env:
             spring_config_url_env: "{{ config_private_ip.stdout }}/config"
