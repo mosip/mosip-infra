@@ -11,7 +11,7 @@
           version_kernel_config_jar: 1.0.5
 
       - name: Download Kernel Config Server
-          get_url:
+        get_url:
           url: http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{ version_kernel_config_jar }}/kernel-config-server-{{ version_kernel_config_jar }}.jar
           dest: "{{ playbook_dir | dirname}}/Dockerfiles"
       
