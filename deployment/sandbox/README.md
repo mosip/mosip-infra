@@ -60,7 +60,10 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
  
 1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
-   
+    * Note :  To find the ip address, you may use the following command 
+          
+          $ hostname -I | awk '{print $1}'
+             
     * Sample screen of Pre-registration startup page
 ![](images/pre-reg-screenshot.png)
           
