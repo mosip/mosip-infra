@@ -10,10 +10,10 @@
           VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
           version_kernel_config_jar: 1.0.5
 
-      - name: Download Kernel Config Server
-        get_url:
-          url: http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{ version_kernel_config_jar }}/kernel-config-server-{{ version_kernel_config_jar }}.jar
-          dest: "{{ playbook_dir | dirname}}/Dockerfiles"
+      # - name: Download Kernel Config Server
+      #   get_url:
+      #     url: http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{ version_kernel_config_jar }}/kernel-config-server-{{ version_kernel_config_jar }}.jar
+      #     dest: "{{ playbook_dir | dirname}}/Dockerfiles"
       
       - name: getting private IP of machine
         shell: hostname -I | awk '{print $1}'
@@ -422,17 +422,23 @@
           regexp: '^registration.processor.dmz.server.host='
           line: registration.processor.dmz.server.host={{ private_ip.stdout }}
 
+      - name: Changing registration.processor.dmz.server.user in registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^registration.processor.dmz.server.user='
+          line: registration.processor.dmz.server.user=regprocuser
+
       - name: Changing registration.processor.dmz.server.password in registration-processor-qa.properties
         lineinfile:
           path: ../config-properties/registration-processor-qa.properties
-          regexp: '^#registration.processor.dmz.server.password='
-          line: registration.processor.dmz.server.password={{ lookup('ini', 'registration.processor.dmz.server.password type=properties file=../playbooks-properties/all-playbooks.properties') }}
+          regexp: '^registration.processor.dmz.server.password='
+          line: registration.processor.dmz.server.password=Mosip@12345
 
-      - name: Commenting out registration.processor.dmz.server.password in registration-processor-qa.properties
-        replace:
-          path: ../config-properties/registration-processor-qa.properties
-          regexp: '^registration.processor.vm.ppk'
-          replace: '#registration.processor.vm.ppk'
+          #      - name: Commenting out registration.processor.dmz.server.password in registration-processor-qa.properties
+          # replace:
+          # path: ../config-properties/registration-processor-qa.properties
+          # regexp: '^registration.processor.vm.ppk'
+          # replace: '#registration.processor.vm.ppk'
       
       - name: Changing registration.processor.queue.url in registration-processor-qa.properties
         lineinfile:
@@ -443,7 +449,7 @@
       - name: Changing brokerUrl in registration-processor-qa.properties
         replace:
           path: ../config-properties/RegistrationProcessorAbis_qa.json
-          regexp: '104.211.200.46'
+          regexp: '<your_private_ip>'
           replace: "{{ private_ip.stdout }}"
 
       - name: Changing token.request.clientId in registration-processor-qa.properties
@@ -457,6 +463,12 @@
           path: ../config-properties/registration-processor-qa.properties
           regexp: '^token.request.secretKey='
           line: token.request.secretKey=6754d6f8-3e1b-4d60-9b94-be46ed9e6262
+
+      - name: Changing token.request.secretKey in registration-processor-qa.properties
+        replace:
+          path: ../config-properties/registration-processor-camel-routes-new-dmz-qa.xml
+          regexp: '<your_private_ip>'
+          replace: "{{ private_ip.stdout }}"
 
       - name: Changing NameNode url in hdfs
         lineinfile:
