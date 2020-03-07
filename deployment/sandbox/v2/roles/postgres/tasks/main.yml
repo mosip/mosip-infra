@@ -1,0 +1,18 @@
+---
+# This script runs all the init SQL queries and populates all tables with
+# test data 
+- name: Create logs directory
+  file:
+    path: "{{db_log_path}}"
+    state: directory
+    mode: '0755'
+
+- include: init_db.yml
+  with_items:
+    - mosip_kernel
+    - mosip_master
+    - mosip_iam
+    - mosip_audit
+    - mosip_idrepo
+    - mosip_idmap        
+        
