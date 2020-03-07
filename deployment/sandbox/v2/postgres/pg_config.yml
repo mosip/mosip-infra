@@ -1,3 +1,3 @@
-db_ip: 192.168.39.98 
+db_ip: 192.168.39.98
 db_path: /home/puneet/projects/mosip/commons/db_scripts
-db_port: 5432
+db_port: 32690

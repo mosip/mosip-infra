@@ -5,17 +5,21 @@
 - hosts: all
   tasks:
     - name: Include vars
-      include_vars: config.yml
+      include_vars: pg_config.yml
 
-    - name: Replace IP address and Port in DB properties files
+    - name: Replace IP address 
       lineinfile:
         path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
         regexp: '^DB_SERVERIP='
-        line: 'DB_SERRVERIP=192.16.32.39'
+        line: DB_SERVERIP={{db_ip}}
+   
+    - name: Replace Port 
       lineinfile:
         path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
         regexp: '^DB_PORT='
-        line: 'DB_PORT=5432'
+        line: DB_PORT={{db_port}}
 
-    - debug:
-        msg: DB prop {{vars.db_prop}}
+    - name: Run mosip_master shell script 
+      shell: bash mosip_master_db_deploy.sh mosip_master_deploy.properties 
+      args:
+        chdir: "{{ db_path }}/mosip_master"
