@@ -1,0 +1,21 @@
+---
+# This script runs all the init SQL queries and populates all tables with
+# test data 
+
+- hosts: all
+  tasks:
+    - name: Include vars
+      include_vars: config.yml
+
+    - name: Replace IP address and Port in DB properties files
+      lineinfile:
+        path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
+        regexp: '^DB_SERVERIP='
+        line: 'DB_SERRVERIP=192.16.32.39'
+      lineinfile:
+        path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
+        regexp: '^DB_PORT='
+        line: 'DB_PORT=5432'
+
+    - debug:
+        msg: DB prop {{vars.db_prop}}
