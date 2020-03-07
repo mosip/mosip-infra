@@ -16,4 +16,9 @@
     - include: init_db.yml
       with_items:
         - mosip_kernel
+        - mosip_master
+        - mosip_iam
+        - mosip_audit
+        - mosip_idrepo
+        - mosip_idmap        
         
