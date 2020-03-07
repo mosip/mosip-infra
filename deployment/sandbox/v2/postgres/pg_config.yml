@@ -1,3 +1,5 @@
 db_ip: 192.168.39.98
 db_path: /home/puneet/projects/mosip/commons/db_scripts
 db_port: 32690
+db_password: postgres
+db_log_path: "{{lookup('env', 'PWD')}}/logs/"

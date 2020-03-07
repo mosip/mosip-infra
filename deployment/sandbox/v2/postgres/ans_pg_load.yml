@@ -6,20 +6,14 @@
   tasks:
     - name: Include vars
       include_vars: pg_config.yml
-
-    - name: Replace IP address 
-      lineinfile:
-        path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
-        regexp: '^DB_SERVERIP='
-        line: DB_SERVERIP={{db_ip}}
    
-    - name: Replace Port 
-      lineinfile:
-        path: "{{db_path}}/mosip_master/mosip_master_deploy.properties"
-        regexp: '^DB_PORT='
-        line: DB_PORT={{db_port}}
+    - name: Create logs directory
+      file:
+        path: "{{db_log_path}}"
+        state: directory
+        mode: '0755'
 
-    - name: Run mosip_master shell script 
-      shell: bash mosip_master_db_deploy.sh mosip_master_deploy.properties 
-      args:
-        chdir: "{{ db_path }}/mosip_master"
+    - include: init_db.yml
+      with_items:
+        - mosip_kernel
+        
