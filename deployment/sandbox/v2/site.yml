@@ -1,6 +1,6 @@
 ---
 - hosts: all
   roles:
-    - initializer
-    - postgres
-
+#    - initializer
+#    - postgres
+    - config-server

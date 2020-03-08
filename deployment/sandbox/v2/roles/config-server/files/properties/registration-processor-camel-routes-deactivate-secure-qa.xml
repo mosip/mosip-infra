@@ -1,0 +1,41 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+	<!-- Packet uploader to uin-generator Route -->
+	<route id="packet-uploader-->uin-generator deactivated route">
+		<from uri="vertx:packet-uploader-deactivated-bus-out" />
+		<log
+			message="packet-uploader-->uin-generator deactivated route ${bodyAs(String)}" />
+		<choice>
+			<when>
+	          <simple>${bodyAs(String)} contains '"isValid":true'</simple>
+              <to uri="vertx:uin-generator-bus-in" />
+            </when>
+			<when>
+				<simple>${bodyAs(String)} contains '"internalError":true'</simple>
+				<to uri="vertx:retry-bus-in" />
+			</when>
+			<otherwise>
+				<to uri="vertx:error-bus-in" />
+			</otherwise>
+		</choice>
+	</route>
+	<!-- UIN Generator to Printing and Message Sender Route -->
+	<route id="uin-generation route-->printing-stage-->message-sender deactivated route">
+		<from uri="vertx:uin-generator-deactivated-bus-out" />
+		<log
+			message="uin-generation-->printing-stage and message-sender-stage deactivated route ${bodyAs(String)}" />
+		<choice>
+			<when>
+				<simple>${bodyAs(String)} contains '"isValid":true'</simple>
+				<to uri="vertx:message-sender-bus-in" />
+				<to uri="vertx:printing-bus-in" />
+			</when>
+			<when>
+				<simple>${bodyAs(String)} contains '"internalError":true'</simple>
+				<to uri="vertx:retry-bus-in" />
+			</when>
+			<otherwise>
+				<to uri="vertx:error-bus-in" />
+			</otherwise>
+		</choice>
+	</route>
+</routes>
