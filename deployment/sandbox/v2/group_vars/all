@@ -2,8 +2,7 @@
 # Variables here are common
 
 ansible_python_interpreter: /usr/bin/python3
-db_ip: 192.168.39.98
 db_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts
-db_port: 32690
+#db_port: 32690
 db_password: postgres
 db_log_path: "{{lookup('env', 'PWD')}}/logs/"

@@ -1,5 +1,6 @@
 ---
-# This is the master playbook to run all modules
 - hosts: all
   roles:
-  - postgres
+    - initializer
+    - postgres
+

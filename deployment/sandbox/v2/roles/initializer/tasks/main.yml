@@ -1,0 +1,17 @@
+---
+- name: Get minikube IP address
+  command: minikube ip
+  register: out 
+
+- set_fact:
+    minikube_ip: '{{out.stdout}}' 
+    db_ip: '{{out.stdout}}' # DB ip is same as minikube ip
+
+- name: Get DB port IP
+  command: 'kubectl get service -o json postgres'
+  register: out
+
+- set_fact: 
+    db_port: '{{(out.stdout | from_json).spec.ports[0].nodePort}}'
+
+
