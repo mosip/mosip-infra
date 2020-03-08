@@ -1,2 +1,4 @@
 ---
 docker_path: '{{playbook_dir}}/roles/config-server/files/'
+version: "{{modules['kernel-config-server']['version']}}"
+config_host_path: "{{playbook_dir}}/roles/config-server/files/properties"

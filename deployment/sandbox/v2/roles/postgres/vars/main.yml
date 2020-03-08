@@ -1,0 +1,4 @@
+db_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts
+db_password: postgres
+db_log_path: "{{playbook_dir}/logs/"
+

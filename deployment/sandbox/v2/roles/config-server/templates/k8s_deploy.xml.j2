@@ -1,0 +1,46 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: kernel-config-server
+  namespace: default
+spec:
+  replicas: 2 
+  selector:
+    matchLabels:
+      app: kernel-config-server
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: kernel-config-server 
+    spec:
+      containers:
+      - name: kernel-config-server
+        image: "kernel-config-server:{{version}}"
+        ports:
+        - containerPort: 51000 
+        volumeMounts:
+        - name: config-dir
+          mountPath: /mnt/config
+        imagePullPolicy: Never
+      volumes:
+      - name: config-dir
+        hostPath:
+          path: "{{config_host_path}}" 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kernel-config-server
+  namespace: default
+spec:
+  ports:
+    - port: 51000
+  selector:
+    app: kernel-config-server
