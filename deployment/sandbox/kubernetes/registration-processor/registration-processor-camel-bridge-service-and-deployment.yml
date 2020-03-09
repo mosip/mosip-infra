@@ -35,7 +35,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: registration-processor-common-camel-bridge
-        image: mosipid/registration-processor-common-camel-bridge:1.0.6-SNAPSHOT.62
+        image: mosipid/registration-processor-common-camel-bridge:1.0.6
         ports:
           - name: eventbus-port
             containerPort: 5723
@@ -55,8 +55,8 @@ spec:
         - name: zone_env
           value: secure
         imagePullPolicy: Always
-      # imagePullSecrets:
-      # - name: pvt-reg-cred
+      imagePullSecrets:
+      - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service
@@ -68,4 +68,3 @@ spec:
   - port: 8022
   selector:
     app: registration-processor-common-camel-bridge
-  type: NodePort

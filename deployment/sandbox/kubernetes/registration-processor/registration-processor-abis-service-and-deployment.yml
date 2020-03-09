@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: registration-processor-abis
-        image: mosipid/registration-processor-abis:1.0.6-SNAPSHOT.62
+        image: mosipid/registration-processor-abis:1.0.6
         ports:
           - name: verticle-port
             containerPort: 9098
@@ -46,8 +46,8 @@ spec:
         - name: spring_config_url_env
           value: http://kernel-config-server:51000/config
         imagePullPolicy: Always
-      # imagePullSecrets:
-      # - name: pvt-reg-cred
+      imagePullSecrets:
+      - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service
@@ -59,5 +59,4 @@ spec:
     - port: 9098
   selector:
     app: registration-processor-abis
-  type: NodePort
 
