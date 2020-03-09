@@ -2,11 +2,11 @@
 
 - name: Download kernel-server-config tar
   get_url:
-    url: http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{modules['kernel-config-server']}}/kernel-config-server-{{modules['kernel-config-server']['version']}}.jar
+    url: "http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{version}}/kernel-config-server-{{version}}.jar"
     dest: '{{docker_path}}'
 
 - name: Build docker  # We have to set docker environ variables for the shell
-  shell: "eval $(minikube docker-env); docker build --tag kernel-config-server:modules['kernel-config-server']['version'] --build-arg config_git_path=/mnt/config --build-arg version=1.0.5 -f {{docker_path}}/Dockerfile  {{docker_path}}"
+  shell: "eval $(minikube docker-env); docker build --tag kernel-config-server:{{version}} --build-arg config_git_path=/mnt/config --build-arg version={{version}} -f {{docker_path}}/Dockerfile  {{docker_path}}"
   register: out  
   
 - debug: var=out.stdout_lines
