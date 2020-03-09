@@ -25,7 +25,7 @@
 
       - name: Downloading minikube
         get_url: 
-          url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          url: https://storage.googleapis.com/minikube/releases/v1.7.3/minikube-linux-amd64
           dest: /usr/local/bin/minikube
           mode: '0777'
 
