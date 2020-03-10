@@ -1,7 +1,7 @@
 db_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts
 db_password: postgres
 db_log_path: "{{playbook_dir}}/logs/"
-tmp_dir : '{{role_path}}/files/tmp'
+tmp_dir : '{{playbook_dir}}/roles/postgres/files/tmp'
 db_ip: '{{minikube_ip}}' # DB ip is same as minikube ip
 db_port: ''  # To be set in the tasks
 
