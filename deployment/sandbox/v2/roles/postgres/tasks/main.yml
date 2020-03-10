@@ -28,6 +28,8 @@
   retries: 5
   delay: 5 
   
+# TODO: Check if service has been deployed properly
+
 - name: Get DB port IP
   command: 'kubectl get service -o json postgres'
   register: out
