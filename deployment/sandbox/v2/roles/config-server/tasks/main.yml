@@ -20,7 +20,7 @@
 - name: Copy k8s template
   template:
      src: k8s_deploy.xml.j2
-     dest: '{{tmp_dir}}'
+     dest: '{{tmp_dir}}/k8s_deploy.xml'
 
 
 

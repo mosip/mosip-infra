@@ -7,12 +7,43 @@
     state: directory
     mode: '0755'
 
-- include: init_db.yml
-  with_items:
-    - mosip_kernel
-    - mosip_master
-    - mosip_iam
-    - mosip_audit
-    - mosip_idrepo
-    - mosip_idmap        
+# Deploy postgress kubernetes
+- name: Ensures directory is present
+  file: 
+    path: '{{tmp_dir}}'
+    state: directory
+
+- name: Copy k8s template
+  template:
+     src: k8s_deploy.yml.j2
+     dest: '{{tmp_dir}}/k8s_deploy.yml'  #.j2 is removed automatically
+
+- name: Deploy on Kurbernetes
+  command: 'kubectl apply -f {{tmp_dir}}/k8s_deploy.yml'  
+
+- name: Check status of deployment
+  command: 'kubectl rollout status deployment/postgres'
+  register: result
+  until: result.stdout.find('deployment "postgres" successfully rolled out') != -1
+  retries: 5
+  delay: 5 
+  
+- name: Get DB port IP
+  command: 'kubectl get service -o json postgres'
+  register: out
+
+- set_fact:
+    db_port: '{{(out.stdout | from_json).spec.ports[0].nodePort}}'
+ 
+- debug:
+    msg: 'DB Port = {{db_port}}'
+
+#- include: init_db.yml
+#  with_items:
+#    - mosip_kernel
+#    - mosip_master
+#    - mosip_iam
+#    - mosip_audit
+#    - mosip_idrepo
+#    - mosip_idmap        
         
