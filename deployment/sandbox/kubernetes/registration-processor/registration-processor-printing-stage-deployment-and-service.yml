@@ -53,8 +53,8 @@ spec:
         - name: spring_config_url_env
           value: http://kernel-config-server:51000/config
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+        #      imagePullSecrets:
+        #  - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service
