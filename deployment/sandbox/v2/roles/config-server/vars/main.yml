@@ -1,4 +1,5 @@
 ---
 docker_path: '{{role_path}}/files/'
 version: "{{modules['kernel-config-server']['version']}}"
-config_host_path: "{{role_path}}/files/properties"
+config_host_path: "/mnt/config"  # Path in Minikube VM where configs are avaiable
+tmp_dir : '{{role_path}}/files/tmp'

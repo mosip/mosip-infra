@@ -5,7 +5,7 @@ metadata:
   name: kernel-config-server
   namespace: default
 spec:
-  replicas: 2 
+  replicas: 1 
   selector:
     matchLabels:
       app: kernel-config-server
@@ -39,8 +39,11 @@ kind: Service
 metadata:
   name: kernel-config-server
   namespace: default
+
 spec:
-  ports:
-    - port: 51000
   selector:
     app: kernel-config-server
+  type: LoadBalancer
+  ports:
+    - port: 51000
+      targetPort: 51000

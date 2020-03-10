@@ -1,5 +1,11 @@
 ---
 
+- name: Create a tmp directory
+  file:
+    path: '{{tmp_dir}}'
+    state: directory
+    mode: '0755'
+
 - name: Download kernel-server-config tar
   get_url:
     url: "http://13.71.87.138:8040/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{version}}/kernel-config-server-{{version}}.jar"
@@ -14,7 +20,7 @@
 - name: Copy k8s template
   template:
      src: k8s_deploy.xml.j2
-     dest: /tmp/k8s.yml
+     dest: '{{tmp_dir}}'
 
 
 
