@@ -20,8 +20,14 @@
 - name: Copy k8s template
   template:
      src: k8s_deploy.xml.j2
-     dest: '{{tmp_dir}}/k8s_deploy.xml'
+     dest: '{{tmp_dir}}/k8s_deploy.yml'
 
-
+- name: Deploy
+  vars:
+    deployment_yml_path: '{{tmp_dir}}/k8s_deploy.yml'  
+    deployment_name: kernel-config-server
+  include_role:
+    name: common
+    tasks_from: k8s_deployment 
 
 

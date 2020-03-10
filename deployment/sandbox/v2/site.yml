@@ -1,6 +1,6 @@
 ---
 - hosts: all
   roles:
-    - minikube
-    - postgres
-#    - config-server
+#    - minikube
+#    - postgres
+    - config-server
