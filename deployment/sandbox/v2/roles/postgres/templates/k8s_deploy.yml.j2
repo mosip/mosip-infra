@@ -31,18 +31,16 @@ spec:
         env:
         - name: POSTGRES_PASSWORD
           value: "postgres"
-        - name: PGDATA
-          value: /var/lib/postgresql/data/pgdata
         ports:
         - containerPort: 5432 # default 
         volumeMounts:
         - name: pg-data
           mountPath: /var/lib/postgresql/data/ # See notes above
-        imagePullPolicy: Never
+        imagePullPolicy: "IfNotPresent"
       volumes:
       - name: pg-data
-        hostPath:
-          path: /home/docker # This directory already exists in Minikube VM
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
 ---
 apiVersion: v1
 kind: Service
@@ -53,7 +51,7 @@ metadata:
 spec:
   selector:
     app: postgres
-  type: LoadBalancer  # For init of DB from outside Minikube VM. 
+  type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
     - port: 9001  # We use this port in MOSIP.  
       targetPort: 5432
