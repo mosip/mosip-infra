@@ -1,0 +1,12 @@
+---
+# Variables here are common
+
+console_ip: 192.168.100.1  # This should be in same subnet as Kubernetes nodes
+config_gitrepo_port: 8080 # Git repo container will expose this port on console 
+config_gitrepo_dir: /home/puneet/projects/mosip/
+config_gitrepo: '{{config_gitrepo_dir}}/config_repo.git'
+
+ansible_python_interpreter: /usr/bin/python3
+modules:
+  kernel-config-server: 
+    version: 1.0.5

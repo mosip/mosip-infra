@@ -1,6 +1,6 @@
 ---
-- hosts: all
+- hosts: console
   roles:
-#    - minikube
-    - postgres
+    - config-gitrepo
+#    - postgres
 #    - config-server

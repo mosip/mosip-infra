@@ -2,6 +2,6 @@
 # Run it on a seperate terminal.
 # $ ansible-playbook -i hosts dashboard.yml
 ---
-- hosts: all
+- hosts: console
   roles:
     - dashboard

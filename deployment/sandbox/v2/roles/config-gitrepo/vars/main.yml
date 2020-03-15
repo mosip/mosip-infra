@@ -1,0 +1,2 @@
+tmp_dir : '{{playbook_dir}}/roles/config-gitrepo/files/tmp'
+

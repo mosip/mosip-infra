@@ -1,7 +1,0 @@
----
-# Variables here are common
-
-ansible_python_interpreter: /usr/bin/python3
-modules:
-  kernel-config-server: 
-    version: 1.0.5
