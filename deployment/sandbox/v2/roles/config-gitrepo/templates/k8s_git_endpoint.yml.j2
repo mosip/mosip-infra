@@ -2,9 +2,9 @@
 kind: Endpoints
 apiVersion: v1
 metadata:
- name: gitrepo 
+  name: '{{gitrepo_service_name}}'
 subsets:
   - addresses:
-      - ip: '{{console_ip}}'
+    - ip: '{{console_ip}}'
     ports:
       - port: {{config_gitrepo_port}} 

@@ -25,14 +25,7 @@ spec:
         image: "kernel-config-server:{{version}}"
         ports:
         - containerPort: 51000 
-        volumeMounts:
-        - name: config-dir
-          mountPath: /mnt/config
         imagePullPolicy: Never
-      volumes:
-      - name: config-dir
-        hostPath:
-          path: "{{config_host_path}}" 
 ---
 apiVersion: v1
 kind: Service
