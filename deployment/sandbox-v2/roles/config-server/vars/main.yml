@@ -1,0 +1,4 @@
+---
+docker_path: '{{role_path}}/files/'
+version: "{{modules['kernel-config-server']['version']}}"
+tmp_dir : '{{playbook_dir}}/roles/config-server/files/tmp'
