@@ -1,7 +1,0 @@
-# This script is only to bring up the Kubernetes dashboard.
-# Run it on a seperate terminal.
-# $ ansible-playbook -i hosts dashboard.yml
----
-- hosts: console
-  roles:
-    - dashboard

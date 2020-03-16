@@ -1,7 +1,0 @@
----
-- hosts: console
-  roles:
-    - local-registry
-    - config-gitrepo
-    - config-server
-    - postgres
