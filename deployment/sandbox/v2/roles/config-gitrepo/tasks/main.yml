@@ -1,7 +1,7 @@
 # This script creates a git repo on the console with property files
 # and runs a git http server on console to be accessed by kernel-config-server
 # pod from inside Kubernetes cluster.  
-# Assumes docker is installed on console
+# Assumes docker is installed on console and local registry is running
 
 - name: Create git repo  
   file:

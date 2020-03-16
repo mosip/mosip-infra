@@ -22,8 +22,7 @@ spec:
     spec:
       containers:
       - name: kernel-config-server
-        # console:5000 is the registry running on console
-        image: "console:5000/kernel-config-server:{{version}}"
+        image: "{{local_registry}}/kernel-config-server:{{version}}"
         ports:
         - containerPort: 51000 
 ---
