@@ -1,0 +1,69 @@
+---
+# This script runs all the init SQL queries and populates all tables with
+# test data 
+- name: Create logs directory
+  file:
+    path: "{{db_log_path}}"
+    state: directory
+    mode: '0755'
+
+# Get db_ip
+- name: Get db_ip
+  command: "kubectl get node --selector='!node-role.kubernetes.io/master' -o json"
+  register: out
+
+- set_fact:
+    db_ip: "{{(out.stdout | from_json)['items'][0].status.addresses[0].address}}"
+    # Note that 'items' is a python keyword, hence we have used ['items']
+    # instead of .items 
+
+# Deploy postgress kubernetes
+- name: Ensures directory is present
+  file: 
+    path: '{{tmp_dir}}'
+    state: directory
+
+# Create persistent storage
+- name: Create  
+  template:
+     src: k8s_pg_storage.yml.j2
+     dest: '{{tmp_dir}}/k8s_pg_storage.yml'
+
+- name: Deploy on Kurbernetes
+  command: 'kubectl apply -f {{tmp_dir}}/k8s_pg_storage.yml' # TODO: repetition
+
+# Deploy Postgres
+- name: Copy k8s template
+  template:
+     src: k8s_deploy.yml.j2
+     dest: '{{tmp_dir}}/k8s_deploy.yml'  #.j2 is removed automatically
+
+- name: Deploy
+  vars:
+    deployment_yml_path: '{{tmp_dir}}/k8s_deploy.yml'  
+    deployment_name: postgres
+  include_role:
+    name: common
+    tasks_from: k8s_deployment   
+  
+# TODO: Check if service has been deployed properly
+
+- name: Get DB port IP
+  command: 'kubectl get service -o json postgres'
+  register: out
+
+- set_fact:
+    db_port: '{{(out.stdout | from_json).spec.ports[0].nodePort}}'
+ 
+- debug:
+    msg: 'DB Port = {{db_port}}'
+
+- include: init_db.yml
+  with_items:
+    - mosip_kernel
+    - mosip_master
+    - mosip_iam
+    - mosip_audit
+    - mosip_idrepo
+    - mosip_idmap        
+        

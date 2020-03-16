@@ -1,0 +1,11 @@
+# This service connects to git endpoint
+kind: Service
+apiVersion: v1
+metadata:
+  name: '{{gitrepo_service_name}}'
+
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: {{config_gitrepo_port}} 

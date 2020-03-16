@@ -1,0 +1,66 @@
+# This script creates a git repo on the console with property files
+# and runs a git http server on console to be accessed by kernel-config-server
+# pod from inside Kubernetes cluster.  
+# Assumes docker is installed on console and local registry is running
+
+- name: Create git repo  
+  file:
+    path: '{{config_gitrepo}}'
+    state: directory
+    mode: '0755'
+
+- name: Delete any files in the above directory if reset
+  file: 
+    path: '{{config_gitrepo}}/'
+    state: absent
+  tags:
+    - never # special ansible keyword.
+    - reset # Delete only on reset
+
+- name: Copy all the property files  
+  copy:
+    src: properties/  
+    dest: '{{config_gitrepo}}' 
+    force: no  # Do not overwrite existing copy
+
+- name: Init git repo
+  command: 'git init {{config_gitrepo}}'
+
+- name: Check-in existing files
+  shell: 'git add -A; git -c user.email="{{ansible_user_id}}@mosip" commit -a -m "Updated"'
+  args:
+    chdir: '{{config_gitrepo}}' 
+  ignore_errors: yes  # TODO: Check git status properly
+ 
+- name: Start git http server docker 
+  docker_container:
+    name: git-http-server
+    image: cirocosta/gitserver-http
+    volumes:
+      - '{{config_gitrepo_dir}}:/var/lib/git'
+    published_ports: 
+      - '{{config_gitrepo_port}}:80'
+
+# Deploy endpoint and gitrepo service on Kubernetes 
+- name: Create tmp dir 
+  file:
+    path: '{{tmp_dir}}'
+    state: directory
+
+- name: Gitrepo service yml
+  template:
+     src: k8s_git_service.yml.j2
+     dest: '{{tmp_dir}}/k8s_git_service.yml'
+
+- name: Deploy gitrepo Endpoint on Kurbernetes
+  command: 'kubectl apply -f {{tmp_dir}}/k8s_git_service.yml'
+
+- name: Gitrepo endpoint yml
+  template:
+     src: k8s_git_endpoint.yml.j2
+     dest: '{{tmp_dir}}/k8s_git_endpoint.yml'
+
+- name: Deploy gitrepo endpoint on Kurbernetes
+  command: 'kubectl apply -f {{tmp_dir}}/k8s_git_endpoint.yml' 
+
+
