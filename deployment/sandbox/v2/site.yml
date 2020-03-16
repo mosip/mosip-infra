@@ -3,4 +3,4 @@
   roles:
     - config-gitrepo
 #    - postgres
-#    - config-server
+    - config-server

@@ -9,16 +9,17 @@
 - name: Download kernel-server-config tar
   get_url:
     url: "{{artifactory_uri}}/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{version}}/kernel-config-server-{{version}}.jar"
-    dest: '{{docker_path}}'
+    dest: '{{docker_path}}/kernel-config-server-{{version}}.jar'
 
 - name: Build docker  # We have to set docker environ variables for the shell
   docker_image:
-    path: '{{docker_path}}' 
     name: kernel-config-server
     tag: '{{version}}'
-    args:
-      version: '{{version}}'
-      git_uri: 'http://gitrepo/{{config_gitrepo_name}}'
+    build:
+      path: '{{docker_path}}' 
+      args:
+        version: '{{version}}'
+        git_uri: 'http://gitrepo/{{config_gitrepo_name}}'
       #TODO: pickup gitrepo from service name
   register: out  
   
