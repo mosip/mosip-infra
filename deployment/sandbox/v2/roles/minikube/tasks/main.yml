@@ -1,9 +1,0 @@
----
-- name: Get minikube IP address
-  command: minikube ip
-  register: out 
-
-- set_fact:
-    minikube_ip: '{{out.stdout}}' 
-
-
