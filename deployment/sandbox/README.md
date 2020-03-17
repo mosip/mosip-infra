@@ -37,7 +37,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     registration.processor.dmz.server.password=<password>
     ```
     
-    (Tip-> If you do not have sms configuration, you can replace these four sms configurations i.e. gateway, api, username, password and sedner with dummy values)
+    (Tip-> If you do not have sms configuration, you can replace these four sms configurations i.e. gateway, api, username, password and sender with dummy values)
     
 1.  Change to 'sandbox' dir: 
     ```
