@@ -20,6 +20,12 @@
     regexp: '^SU_USER_PWD='
     line: SU_USER_PWD={{db_password}}
 
+- name: Replace base path 
+  lineinfile:
+    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^BASEPATH='
+    line: BASEPATH={{db_path}}
+
 - name: Replace log path 
   lineinfile:
     path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
