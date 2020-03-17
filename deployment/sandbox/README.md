@@ -73,7 +73,7 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
    
 1. After connecting ubuntu machine from RDP application, open google-chrome browser.
  
-1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<private ip address\>/pre-registration-ui*
+1. MOSIP Pre-registration UI can be accessed using *http://\<private ip address\>/pre-registration-ui*
     * Note :  To find the private ip address, you may use the following command 
           
           $ hostname -I | awk '{print $1}'
