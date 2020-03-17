@@ -58,9 +58,23 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
 1. Check for any errors as above.
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
+
+## Steps to access the Pre-registration-ui
+1. As this sandbox works on private ip address, you have to access the pre registration ui from the google chrome installed inside the 
+   machine on which you are working. 
+   
+1. Please follow this link for <a href="https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux">Installing the Google Chrome in your Ubuntu Machine</a>
+
+1. Please follow this link for <a href="https://gist.github.com/hehuan2112/54cca01be23973a9f8b369e8d0df216e">Installing the Remote     Desktop in your Ubuntu Machine</a>. 
+   After restarting the xRDP service, which is the last instruction in the above link, connect your ubuntu machine from RDP        application present in your Windows system.
+   
+   Great, now you have UI access for your Ubuntu. 
+   (Tip-> You will need to open 3389 port number from the cloud side)
+   
+1. After connecting ubuntu machine from RDP application, open google-chrome browser.
  
-1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<hostname or ip address\>/pre-registration-ui*
-    * Note :  To find the ip address, you may use the following command 
+1. MOSIP Pre-registration UI can be accessed through a browser using *http://\<private ip address\>/pre-registration-ui*
+    * Note :  To find the private ip address, you may use the following command 
           
           $ hostname -I | awk '{print $1}'
              
