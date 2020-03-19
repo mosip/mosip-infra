@@ -18,6 +18,10 @@ postgres_password: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
 
+# Keycloak
+keycloak_user: admin
+keycloak_password: admin
+
 # Local Docker registry
 local_registry_port: 5000  # Docker registry running on console
 local_registry: 'console:{{local_registry_port}}'
