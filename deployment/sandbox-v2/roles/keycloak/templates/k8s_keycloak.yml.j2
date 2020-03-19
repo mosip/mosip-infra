@@ -26,11 +26,11 @@ spec:
         image: jboss/keycloak 
         env:
         - name: DB_VENDOR 
-          value: postgress
+          value: postgres
         - name: KEYCLOAK_USER 
-          value: {{keycloak_user}} 
+          value: '{{keycloak_user}}' 
         - name: KEYCLOAK_PASSWORD 
-          value: {{keycloak_password}}
+          value: '{{keycloak_password}}'
         - name: DB_ADDR
           value: postgres
         - name: DB_USER 
@@ -54,5 +54,6 @@ spec:
     app: keycloak 
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
-    - port: 8080 
-      targetPort: 9000 
+    - name: keycloak-port 
+      port: 8080 
+      targetPort: 8080 
