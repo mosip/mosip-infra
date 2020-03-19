@@ -38,7 +38,7 @@
         name: clamav-daemon
         state: stopped
 
-    - name: Stopping clamav-daemon
+    - name: Starting clamav-daemon
       systemd: 
         name: clamav-daemon
         state: started
