@@ -1,8 +1,4 @@
-# Here we use a directory within Minikube VM for persistence of 
-# postgres data.  This is a temporary solution.  DO NOT DELETE Minikube
-# VM! All data will be lost.  Tried mounting a directory from host machine
-# to Minikube VM, but ran into permission issues.  The directory /home/docker
-# is already available in Minikube VM, so that's used.
+# Script to deploy a postgres db on kubernetes
 ---
 apiVersion: apps/v1
 kind: Deployment 
@@ -30,7 +26,11 @@ spec:
         image: postgres:latest 
         env:
         - name: POSTGRES_PASSWORD
-          value: "postgres"
+          value: {{postgres_password}} 
+        - name: POSTGRES_DB
+          value: {{postgres_db}}
+        - name: POSTGRES_USER
+          value: {{postgres_user}}
         ports:
         - containerPort: 5432 # default 
         volumeMounts:
@@ -53,5 +53,5 @@ spec:
     app: postgres
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
-    - port: 9001  # We use this port in MOSIP.  
+    - port: 5432 
       targetPort: 5432

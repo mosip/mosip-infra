@@ -4,13 +4,19 @@
 console_ip: 192.168.100.1  # This should be in same subnet as Kubernetes nodes
 ansible_become_password: puneet 
 
+tmp_dir: '{{playbook_dir}}/tmp'
+
 # Config repo  
 config_gitrepo_port: 8080 # Git repo container will expose this port on console 
 config_gitrepo_dir: /home/puneet/projects/mosip/
 config_gitrepo_name: config_repo.git
 config_gitrepo: '{{config_gitrepo_dir}}/{{config_gitrepo_name}}'
-
 artifactory_uri: 'http://13.71.87.138:8040'
+
+# DB
+postgres_password: postgres
+postgres_db: keycloak # Default DB on Postgres
+postgres_user: postgres
 
 # Local Docker registry
 local_registry_port: 5000  # Docker registry running on console
