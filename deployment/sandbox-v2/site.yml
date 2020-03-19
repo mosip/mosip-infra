@@ -1,8 +1,7 @@
 ---
 - hosts: console
   roles:
-    - only_pg
+    - postgres 
 #    - local-registry
 #    - config-gitrepo
 #    - config-server
-#    - postgres
