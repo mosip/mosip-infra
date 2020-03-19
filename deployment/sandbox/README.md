@@ -34,7 +34,6 @@ THIS IS NOT FOR PRODUCTION DEPLOYMENTS.
     mosip.kernel.sms.username=<registered username with SMS gateway provider>
     mosip.kernel.sms.password=<registered password>
     mosip.kernel.sms.sender=<SMS Sender name, can be any name>
-    registration.processor.dmz.server.password=<password>
     ```
     
     (Tip-> If you do not have sms configuration, you can replace these four sms configurations i.e. gateway, api, username, password and sender with dummy values)
