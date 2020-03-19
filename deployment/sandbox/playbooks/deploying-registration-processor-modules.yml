@@ -105,3 +105,12 @@
           state: present
           src: "{{ item.path }}"
         with_items: "{{ paths_registration_processor_ymls.files }}"
+
+      - name: Wait for Reg Proc Modules to be up
+        wait_for:
+          timeout: 1200
+
+      - name: Deploying Reg Proc Camel Service
+        k8s:
+          state: present
+          src: ../kubernetes/registration-processor-camel/registration-processor-camel-bridge-service-and-deployment.yml
