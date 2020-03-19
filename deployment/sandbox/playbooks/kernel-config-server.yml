@@ -463,6 +463,12 @@
           path: ../config-properties/registration-processor-qa.properties
           regexp: '^token.request.secretKey='
           line: token.request.secretKey=6754d6f8-3e1b-4d60-9b94-be46ed9e6262
+       
+      - name: Changing mosip.kernel.virus-scanner.host registration-processor-qa.properties
+        lineinfile:
+          path: ../config-properties/registration-processor-qa.properties
+          regexp: '^mosip.kernel.virus-scanner.host='
+          line: mosip.kernel.virus-scanner.host={{ private_ip.stdout }}
 
       - name: Changing token.request.secretKey in registration-processor-qa.properties
         replace:

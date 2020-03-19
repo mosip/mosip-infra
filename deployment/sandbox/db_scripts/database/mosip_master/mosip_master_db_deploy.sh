@@ -87,13 +87,13 @@ else
 fi
 PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -f $DB_CREATION_FILENAME >> $LOG 2>&1
 PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -f $ACCESS_GRANT_FILENAME >> $LOG 2>&1
-PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -f $DDL_FILENAME >> $LOG 2>&1
+#PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -f $DDL_FILENAME >> $LOG 2>&1
 
 
 if [ ${DML_FLAG} == 1 ]
 then
     echo `date "+%m/%d/%Y %H:%M:%S"` ": Deploying DML for ${MOSIP_DB_NAME} database" | tee -a $LOG 2>&1
-    PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -a -b -f $DML_FILENAME >> $LOG 2>&1
+ #   PGPASSWORD=$SYSADMIN_PWD psql --username=$SYSADMIN_USER --host=$DB_SERVERIP --port=$DB_PORT --dbname=$DEFAULT_DB_NAME -a -b -f $DML_FILENAME >> $LOG 2>&1
 else
     echo `date "+%m/%d/%Y %H:%M:%S"` ": There are no DML deployment required for ${MOSIP_DB_NAME}" | tee -a $LOG 2>&1
 fi

@@ -183,7 +183,10 @@
         command: bash mosip_all_db_deployment.sh
         args: 
           chdir: ../db_scripts/database
-        
+      
+      - name: Running sql file for mosip_master
+        run_once: true
+        command:  sudo -u postgres PGPASSWORD=postgres psql --port=9001 -d mosip_master -f ../external-files/bexport_mosip_master_sandbox03182020.sql     
 
       # - name: Ensure the postgres service is running
       #   service: name=postgresql state=started enabled=yes
