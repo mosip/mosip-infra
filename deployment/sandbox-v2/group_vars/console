@@ -2,9 +2,14 @@
 # Variables across roles
 
 console_ip: 192.168.100.1  # This should be in same subnet as Kubernetes nodes
-ansible_become_password: puneet 
+kubemaster: 192.168.100.223    
+kubeslave: 192.168.100.176 
 
-tmp_dir: '{{playbook_dir}}/tmp'
+ansible_become_password: puneet  # For commands that require sudo
+
+tmp_dir: '{{playbook_dir}}/tmp/'
+logs_dir: '{{playbook_dir}}/logs/'
+
 
 artifactory_uri: 'http://13.71.87.138:8040'
 
@@ -19,6 +24,8 @@ config_server_url:  'http://kernel-config-server/config'
 postgres_password: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
+postgres_external_ip: '{{kubeslave}}'  # Any worker node
+sql_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts # All DB init scripts
 
 # Keycloak
 keycloak_user: admin
@@ -27,8 +34,6 @@ keycloak_password: admin
 # Local Docker registry
 local_registry_port: 5000  # Docker registry running on console
 local_registry: 'console:{{local_registry_port}}'
-
-db_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts
 
 ansible_python_interpreter: /usr/bin/python3
 
