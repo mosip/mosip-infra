@@ -41,7 +41,7 @@
     published_ports: 
       - '{{config_gitrepo_port}}:80'
 
-# Deploy endpoint and gitrepo service on Kubernetes 
+# Deploy service and gitrepo endpoint on Kubernetes 
 - name: Create tmp dir 
   file:
     path: '{{tmp_dir}}'
@@ -52,7 +52,7 @@
      src: k8s_git_service.yml.j2
      dest: '{{tmp_dir}}/k8s_git_service.yml'
 
-- name: Deploy gitrepo Endpoint on Kurbernetes
+- name: Deploy gitrepo service on Kurbernetes
   command: 'kubectl apply -f {{tmp_dir}}/k8s_git_service.yml'
 
 - name: Gitrepo endpoint yml

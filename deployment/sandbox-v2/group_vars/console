@@ -40,6 +40,7 @@ ansible_python_interpreter: /usr/bin/python3
 modules:
   kernel-config-server: 
     version: 1.0.5
+    image: kernel-config-server 
   kernel-auth-service:
     version: 1.0.6-SNAPSHOT.96
     image: mosipid/kernel-auth-service
