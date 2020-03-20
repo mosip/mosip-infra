@@ -22,16 +22,16 @@ spec:
     spec:
       containers:
       - name: kernel-auth-service
-        image: '{{auth_image}}:{{auth_version}}'
+        image: '{{modules['kernel-auth-service']['image']}}:{{modules['kernel-auth-service']['version']}}'
         env:
         - name: active_profile_env
           value: qa
         - name: spring_config_label_env
           value: master
         - name: spring_config_url_env
-          value: '{{config_server_url}}' 
+          value: {{config_server_url}}
         - name: artifactory_url_env
-          value: '{{artifactory_uri}}' 
+          value: '{{artifactory_uri}}'
         - name: is_glowroot_env
           value: absent
         ports:
@@ -45,7 +45,8 @@ metadata:
   namespace: default
 spec:
   ports:
-    - port: 8091
+  - port: 80 
+    targetPort: 8091
   selector:
     app: kernel-auth-service
   type: NodePort

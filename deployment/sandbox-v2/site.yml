@@ -5,4 +5,5 @@
 #    - local-registry
 #    - config-gitrepo
 #    - config-server
-    - keycloak
+#    - keycloak
+    - postgres-init
