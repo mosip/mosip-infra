@@ -1,10 +1,10 @@
 ---
 - hosts: console
   roles:
-     - postgres 
-     - postgres-init
-     - local-registry
-     - config-gitrepo
+#     - postgres 
+#     - postgres-init
+#     - local-registry
+#     - config-gitrepo
      - config-server
      - keycloak
      - kernel-auth-service
