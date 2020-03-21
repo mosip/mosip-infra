@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: kernel-config-server
-        image: "{{local_registry}}/kernel-config-server:{{version}}"
+        image: "{{local_registry}}/kernel-config-server:{{modules['kernel-config-server']['version']}}"
         ports:
         - containerPort: 51000 
 ---

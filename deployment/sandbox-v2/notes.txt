@@ -1,0 +1,64 @@
+* Install  openshift
+$ pip3 install openshift
+
+* Installer python3 docker
+$ pip3 install docker 
+
+* Run keycloak: 
+ $ docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 9000:8080 jboss/keycloak
+
+* Keycloak webpage:
+
+http://<kubeslave ip>:<node port/auth/
+
+* Got the following wait message when tried quering for deployment status:
+
+$ kubectl rollout status deployment/postgres
+
+Waiting for deployment spec update to be observed...
+
+* Checkout mosip/commmons repo on branch MOSIP-257
+
+* To setup a cluster fresh, following instructions here:
+
+https://www.tecmint.com/install-kubernetes-cluster-on-centos-7/
+
+but start kubeadmn before kubelet.   kubeadmn will start kubelet 
+
+* To disable swap,
+$ sudo swapoff -a
+
+Comment out the swap line from /etc/fstab (to permanently disable swap)
+
+* Put console ip in /etc/hosts of each node (including master)
+192.168.100.1 console
+
+* Set up a local registry on console (localhost) and push kernel-config-server
+to that registry which is picked from kernel-config-server POD in kubernets.
+TODO: Automate this.  Follow instructions here:
+
+https://docs.docker.com/registry/deploying/
+
+###
+
+When nodes stop and restart, the following needs to be done on each node:
+
+$ sudo swapoff -a (only if swap still appears) 
+$ sudo kubeadm init (ignore errors, only on Master, not needed on slave) 
+
+* To connect to postgres
+  * Get node port using  
+   $  kubectl get service postgres
+
+  * Get a worker/slave nodes ip from /etc/hosts of console (any worker node is fine)
+   $ psql -h <node ip> -p <node port> -U postgres
+   
+   password: postgres 
+
+
+*  Keycloak
+^keycloak.* is not needed.
+
+* Keycloak user account - Remove the condition to "Updated Password" for a user.
+
+* Postgres DB mosip_iam needs an init to start Kernel Auth Service.

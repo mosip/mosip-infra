@@ -4,35 +4,35 @@
 
 - name: Replace IP address 
   lineinfile:
-    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
     regexp: '^DB_SERVERIP='
-    line: DB_SERVERIP={{db_ip}}
+    line: DB_SERVERIP={{postgres_external_ip}}
    
 - name: Replace Port 
   lineinfile:
-    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
     regexp: '^DB_PORT='
     line: DB_PORT={{db_port}}
 
 - name: Replace password
   lineinfile:
-    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
     regexp: '^SU_USER_PWD='
-    line: SU_USER_PWD={{db_password}}
+    line: SU_USER_PWD={{postgres_password}}
 
 - name: Replace base path 
   lineinfile:
-    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
     regexp: '^BASEPATH='
-    line: BASEPATH={{db_path}}
+    line: BASEPATH={{sql_path}}
 
 - name: Replace log path 
   lineinfile:
-    path: '{{db_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
     regexp: '^LOG_PATH='
-    line: LOG_PATH={{db_log_path}}
+    line: LOG_PATH={{logs_dir}}
 
 - name: Run {{item}} shell script
   shell: 'bash {{item}}_db_deploy.sh {{item}}_deploy.properties'
   args:
-    chdir: '{{ db_path }}/{{item}}'
+    chdir: '{{ sql_path }}/{{item}}'
