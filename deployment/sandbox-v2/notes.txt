@@ -1,6 +1,9 @@
 * Install  openshift
 $ pip3 install openshift
 
+* Installer python3 docker
+$ pip3 install docker 
+
 * Run keycloak: 
  $ docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 9000:8080 jboss/keycloak
 
@@ -41,7 +44,7 @@ https://docs.docker.com/registry/deploying/
 When nodes stop and restart, the following needs to be done on each node:
 
 $ sudo swapoff -a (only if swap still appears) 
-$ sudo kubeadm init (ignore errors) 
+$ sudo kubeadm init (ignore errors, only on Master, not needed on slave) 
 
 * To connect to postgres
   * Get node port using  

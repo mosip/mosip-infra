@@ -1,4 +1,6 @@
 # This script downloads kernel config jar, builds docker and deploys it
+# The docker is pushed to a local registry with SSL as Kubernetes 
+# deployment needs such a registry.
 ---
 - name: Create a tmp directory
   file:
