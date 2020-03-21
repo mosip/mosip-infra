@@ -53,14 +53,17 @@
      dest: '{{tmp_dir}}/k8s_git_service.yml'
 
 - name: Deploy gitrepo service on Kurbernetes
-  command: 'kubectl apply -f {{tmp_dir}}/k8s_git_service.yml'
+  k8s:
+     state: present
+     src: '{{tmp_dir}}/k8s_git_service.yml'
 
-- name: Gitrepo endpoint yml
+- name: Gitrepo endpoint yml from template
   template:
      src: k8s_git_endpoint.yml.j2
      dest: '{{tmp_dir}}/k8s_git_endpoint.yml'
 
 - name: Deploy gitrepo endpoint on Kurbernetes
-  command: 'kubectl apply -f {{tmp_dir}}/k8s_git_endpoint.yml' 
-
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/k8s_git_endpoint.yml' 
 
