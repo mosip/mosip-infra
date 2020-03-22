@@ -1,0 +1,6 @@
+keycloak_mosip_realms:
+  - {realm_name: 'mosip', realm_file: 'realm_mosip.json'}
+
+keycloak_mosip_clients:
+  - {realm_id: 'mosip', client_id: 'mosip-admin-client'} 
+  - {realm_id: 'mosip', client_id: 'mosip-registration-client'} 

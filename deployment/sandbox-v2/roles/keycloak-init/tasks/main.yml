@@ -26,19 +26,16 @@
 - set_fact:
     keycloak_admin_token: '{{keycloak_token.json.access_token}}'
 
+- include_tasks:
+    file: create_realm.yml
+  vars:
+    keycloak_realm_name: '{{item.realm_name}}' 
+    keycloak_realm_data_file: '{{item.realm_file}}'
+  with_items: '{{keycloak_mosip_realms}}'
 
 - include_tasks:
     file: create_client.yml
   vars:
       realm_id: '{{item.realm_id}}'   
       client_id: '{{item.client_id}}'
-  with_items:
-  - {realm_id: 'mosip', client_id: 'test_cli'} 
-
-- include_tasks:
-    file: create_realm.yml
-  vars:
-    keycloak_realm_name: '{{item.realm_name}}' 
-    keycloak_realm_data_file: '{{item.realm_file}}'
-  with_items:
-  - {realm_name: 'mosip', realm_file: 'realm_mosip.json'}
+  with_items: '{{keycloak_mosip_clients}}'
