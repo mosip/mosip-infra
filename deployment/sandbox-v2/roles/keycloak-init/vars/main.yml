@@ -4,3 +4,7 @@ keycloak_mosip_realms:
 keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-admin-client'} 
   - {realm_id: 'mosip', client_id: 'mosip-registration-client'} 
+
+keycloak_mosip_roles:
+  - {realm_id: 'mosip', client_id: '', role_file: 'roles/admin.json'}
+  - {realm_id: 'mosip', client_id: 'mosip-registration-client', role_file: 'roles/reg_officer.json'}

@@ -1,0 +1,27 @@
+# These tasks create a role inside a client 
+- name: 'Get "id" of a client (not "client_id")' 
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{realm_id}}/clients?clientId={{client_id}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: client_info 
+
+- name: Create role inside {{client_id}}
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{realm_id}}/clients/{{client_info.json[0].id}}/roles'
+    method: POST
+    src: '{{role_file}}' 
+    remote_src: 'no'
+    status_code:
+     - 201
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+
