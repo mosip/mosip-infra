@@ -1,5 +1,5 @@
 ---
-- name: Get port  of Keycloak service
+- name: Get port of keycloak service
   k8s_info:
     api_version: v1
     kind: Service
@@ -11,21 +11,20 @@
   set_fact: 
     keycloak_url: 'http://{{kubeworkers.worker1.ip}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
 
+- name: "Get admin token"
+  uri:
+    url: "{{keycloak_url}}/auth/realms/master/protocol/openid-connect/token"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      username: '{{keycloak_user}}'
+      password: '{{keycloak_password}}' 
+      grant_type: "password"
+      client_id: "admin-cli"
+  register: keycloak_token
 
-#- name: "Get Admin token for Keycloak"
-#  uri:
-#    url: "http://kubeslave:{{keycloak_nodeport}}/auth/realms/master/protocol/openid-connect/token"
-#    method: POST
-#    body_format: form-urlencoded
-#    body:
-#      username: '{{keycloak_user}}'
-#      password: '{{keycloak_password}}' 
-#      grant_type: "password"
-#      client_id: "admin-cli"
-#  register: keycloak_token
-#
-#- debug:
-#    msg: 'Token = {{keycloak_token.json.access_token}}'
+- set_fact:
+    keycloak_admin_token: '{{keycloak_token.json.access_token}}'
 
 
 - include_tasks:
@@ -36,3 +35,10 @@
   with_items:
   - {realm_id: 'mosip', client_id: 'test_cli'} 
 
+- include_tasks:
+    file: create_realm.yml
+  vars:
+    keycloak_realm_name: '{{item.realm_name}}' 
+    keycloak_realm_data_file: '{{item.realm_file}}'
+  with_items:
+  - {realm_name: 'mosip', realm_file: 'realm_mosip.json'}
