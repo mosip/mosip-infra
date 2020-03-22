@@ -32,11 +32,11 @@ spec:
         - name: KEYCLOAK_PASSWORD 
           value: '{{keycloak_password}}'
         - name: DB_ADDR
-          value: postgres
+          value: postgres # Service name
         - name: DB_USER 
-          value: postgres
+          value: '{{postgres_user}}' 
         - name: DB_PASSWORD
-          value: postgres
+          value: '{{postgres_password}}' 
   
         ports:
         - containerPort: 8080 # default 

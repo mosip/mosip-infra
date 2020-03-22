@@ -1,0 +1,38 @@
+---
+- name: Get port  of Keycloak service
+  k8s_info:
+    api_version: v1
+    kind: Service
+    name: keycloak 
+    namespace: default 
+  register: web_service
+
+- name: Get nodePort and create url 
+  set_fact: 
+    keycloak_url: 'http://{{kubeworkers.worker1.ip}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
+
+
+#- name: "Get Admin token for Keycloak"
+#  uri:
+#    url: "http://kubeslave:{{keycloak_nodeport}}/auth/realms/master/protocol/openid-connect/token"
+#    method: POST
+#    body_format: form-urlencoded
+#    body:
+#      username: '{{keycloak_user}}'
+#      password: '{{keycloak_password}}' 
+#      grant_type: "password"
+#      client_id: "admin-cli"
+#  register: keycloak_token
+#
+#- debug:
+#    msg: 'Token = {{keycloak_token.json.access_token}}'
+
+
+- include_tasks:
+    file: create_client.yml
+  vars:
+      realm_id: '{{item.realm_id}}'   
+      client_id: '{{item.client_id}}'
+  with_items:
+  - {realm_id: 'mosip', client_id: 'test_cli'} 
+
