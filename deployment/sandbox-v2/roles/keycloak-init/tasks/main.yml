@@ -40,20 +40,11 @@
       client_id: '{{item.client_id}}'
   with_items: '{{keycloak_mosip_clients}}'
 
+# Roles 
 - include_tasks:
-    file: create_realm_role.yml
+    file: create_role.yml
   vars:
-      realm_id: '{{item.realm_id}}'   
-      client_id: '{{item.client_id}}'
-      role_file: '{{item.role_file}}' 
+    realm_id: '{{item.realm_id}}'   
+    client_id: '{{item.client_id}}'
+    role_file: '{{item.role_file}}' 
   with_items: '{{keycloak_mosip_roles}}'
-  when: client_id == '' 
-
-- include_tasks:
-    file: create_client_role.yml
-  vars:
-      realm_id: '{{item.realm_id}}'   
-      client_id: '{{item.client_id}}'
-      role_file: '{{item.role_file}}' 
-  with_items: '{{keycloak_mosip_roles}}'
-  when: client_id != '' 
