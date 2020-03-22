@@ -44,7 +44,7 @@
 - include_tasks:
     file: create_role.yml
   vars:
-    realm_id: '{{item.realm_id}}'   
-    client_id: '{{item.client_id}}'
-    role_file: '{{item.role_file}}' 
+    kc_realm_id: '{{item.realm_id}}'   
+    kc_client_id: '{{item.client_id}}'
+    kc_role_file: '{{item.role_file}}' 
   with_items: '{{keycloak_mosip_roles}}'
