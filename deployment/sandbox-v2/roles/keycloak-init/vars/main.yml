@@ -1,5 +1,5 @@
 keycloak_mosip_realms:
-  - {realm_name: 'mosip', realm_file: 'realm_mosip.json'}
+  - {realm_id: 'mosip', realm_file: 'realms/realm_mosip.json'}
 
 keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-admin-client'} 
@@ -8,3 +8,6 @@ keycloak_mosip_clients:
 keycloak_mosip_roles:
   - {realm_id: 'mosip', client_id: '', role_file: 'roles/admin.json'}
   - {realm_id: 'mosip', client_id: 'mosip-registration-client', role_file: 'roles/reg_officer.json'}
+
+keycloak_mosip_users:
+  - {realm_id: 'mosip', user_file: 'users/puneet.json'}

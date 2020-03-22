@@ -26,13 +26,15 @@
 - set_fact:
     keycloak_admin_token: '{{keycloak_token.json.access_token}}'
 
+# Realms
 - include_tasks:
     file: create_realm.yml
   vars:
-    keycloak_realm_name: '{{item.realm_name}}' 
+    keycloak_realm_id: '{{item.realm_id}}' 
     keycloak_realm_data_file: '{{item.realm_file}}'
   with_items: '{{keycloak_mosip_realms}}'
 
+# Clients
 - include_tasks:
     file: create_client.yml
   vars:
@@ -48,3 +50,11 @@
     kc_client_id: '{{item.client_id}}'
     kc_role_file: '{{item.role_file}}' 
   with_items: '{{keycloak_mosip_roles}}'
+
+# Users
+- include_tasks:
+    file: create_user.yml
+  vars:
+    keycloak_realm_id: '{{item.realm_id}}' 
+    keycloak_user_file: '{{item.user_file}}'
+  with_items: '{{keycloak_mosip_users}}'

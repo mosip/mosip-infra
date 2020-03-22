@@ -1,0 +1,15 @@
+{
+    "username": "puneet",
+    "enabled": true,
+    "emailVerified": false,
+    "firstName": "Puneet",
+    "lastName": "Joshi",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "puneet123",
+            "temporary": false
+        }
+    ]
+}
+
