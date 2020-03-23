@@ -64,22 +64,20 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 #### Steps to access the Pre-registration-ui
 1. Sandbox works on private IP address, hence, you can access the pre-registration ui from the chrome browser installed inside the machine where you have installed pre-registration module.
    
-1. Please follow this link for [Installing the Google Chrome Browser in your Ubuntu Machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux) if you don't have google chrome installed in your Ubuntu machine.
+1. If you don't have google chrome installed in your Ubuntu machine, please follow this link for [Installing the Google Chrome Browser in your Ubuntu Machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux) .
 
-1. Please follow this link for [Installing the Remote Desktop in your Ubuntu Machine](https://gist.github.com/hehuan2112/54cca01be23973a9f8b369e8d0df216e). 
-   After restarting the xRDP service, which is the last instruction in the above link, connect your ubuntu machine from RDP application present in your Windows system.
+1. If you want to access chrome using remote desktop connection, please follow this link for [Installing the Remote Desktop in your Ubuntu Machine](https://gist.github.com/hehuan2112/54cca01be23973a9f8b369e8d0df216e). 
    
-   Now you have UI access in your ubuntu machine. 
-   (Tip-> You will need to open 3389 port number from the cloud side)
+   After restarting the xRDP service, which is the last instruction in the above link, connect your ubuntu machine from RDP application present in your Windows system. Now you will have UI access in your ubuntu machine. 
+   
+   **_Note:_** You will need to open 3389 port number from the cloud side.
    
 1. After connecting to the ubuntu machine from RDP application, open the chrome browser.
  
-1. MOSIP Pre-registration UI can be accessed using `*http://\<private ip address\>/pre-registration-ui*`
-    * Note :  To find the private ip address, you may use the following command 
-          
-          `$ hostname -I | awk '{print $1}'`
-             
-    * Sample screen of Pre-registration startup page
+1. MOSIP Pre-registration UI can be accessed using the url `http://\<private ip address\>/pre-registration-ui`
+    * **_Note_**:  To find the private ip address of your machine, you may use the following command: 
+          $ hostname -I | awk '{print $1}'
+    * Below is the screenshot of the Pre-registration startup page
 ![](images/pre-reg-screenshot.png)
 
 1. Login into the Pre-registration portal using OTP sent to email or phone.
