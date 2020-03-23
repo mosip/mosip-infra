@@ -1,5 +1,5 @@
 
-- name: 'Find out, if Realm {{keycloak_realm_id}} exists'
+- name: 'Find out, if realm {{keycloak_realm_id}} exists'
   uri:
     url: "{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}"
     method: GET
@@ -14,7 +14,7 @@
 - debug:
      msg: 'Realm {{keycloak_realm_id}} exists: {{keycloak_realm_exists.status}}' 
 
-- name: 'Create Realm {{keycloak_realm_id}}' 
+- name: 'Create realm {{keycloak_realm_id}}' 
   uri:
     url: '{{keycloak_url}}/auth/admin/realms'
     method: POST
@@ -28,7 +28,7 @@
       Authorization: "Bearer {{keycloak_admin_token}}"
   when: "keycloak_realm_exists.status == 404"
 
-- name: 'Update Realm {{keycloak_realm_id}} for service Keycloak'
+- name: 'Update realm {{keycloak_realm_id}} for service keycloak'
   uri:
     url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}'
     method: PUT

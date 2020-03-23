@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:latest 
+        image: postgres:12.2
         env:
         - name: POSTGRES_PASSWORD
           value: {{postgres_password}} 
@@ -53,5 +53,5 @@ spec:
     app: postgres
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
-    - port: 5432 
+    - port: 80 
       targetPort: 5432
