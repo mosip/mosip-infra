@@ -1,6 +1,7 @@
 ---
 # This script runs all the init SQL queries and populates all tables with
 # test data 
+# TODO: Init should not happend if Postgres has valuable data
 - name: Create logs directory
   file:
     path: "{{logs_dir}}"

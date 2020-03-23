@@ -2,7 +2,6 @@
   set_fact:
     kc_role_name: "{{(lookup('file', '{{kc_role_file}}') | from_json).name}}"
 
-#TODO: The below will fail if client is not present
 - name: 'Get "id" of a client (not "client_id")' 
   uri:
     url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'

@@ -1,5 +1,6 @@
 ---
 # Deploy postgress kubernetes
+# TODO: Internally postgress service can run on port 80
 - name: Ensures directory is present
   file: 
     path: '{{tmp_dir}}'

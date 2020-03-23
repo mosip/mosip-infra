@@ -1,4 +1,5 @@
 ---
+# TODO: Update mosip-admin-client secret key in kernel properties
 - name: Get port of keycloak service
   k8s_info:
     api_version: v1
