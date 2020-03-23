@@ -1,0 +1,72 @@
+- name: Read name of role
+  set_fact:
+    kc_role_name: "{{(lookup('file', '{{kc_role_file}}') | from_json).name}}"
+
+#TODO: The below will fail if client is not present
+- name: 'Get "id" of a client (not "client_id")' 
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: client_info 
+  when: (kc_client_id | trim) != ''
+
+# Url is different for client and realm roles
+- set_fact:
+    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/roles'
+  when: (kc_client_id | trim)  == ''  # Role inside realm
+
+- set_fact:
+    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{client_info.json[0].id}}/roles'
+  when: (kc_client_id | trim) != ''  # Role inside client
+
+# Check if the role exists
+- name: Check if role exists.  
+  uri:
+    url: '{{keycloak_role_url}}/{{kc_role_name}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+     - 404
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: kc_role_exists 
+
+# Check if role exists, update it
+
+- name: Create role 
+  uri:
+    url: '{{keycloak_role_url}}'
+    method: POST 
+    src: '{{kc_role_file}}' 
+    remote_src: 'no'
+    status_code:
+     - 201
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: "kc_role_exists.status == 404"  # Role does not exist
+
+- name: Update role 
+  uri:
+    url: '{{keycloak_role_url}}/{{kc_role_name}}'
+    method: PUT 
+    src: '{{kc_role_file}}' 
+    remote_src: 'no'
+    status_code:
+     - 204
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: "kc_role_exists.status == 200"  # Role does not exist

@@ -1,0 +1,13 @@
+{
+  "id": "mosip",
+  "realm": "mosip",
+  "displayName": "mosip",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": false 
+}
