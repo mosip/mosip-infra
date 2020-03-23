@@ -1,7 +1,7 @@
 ---
 # This script runs all the init SQL queries and populates all tables with
 # test data 
-# TODO: Init should not happend if Postgres has valuable data
+# TODO: Init should not happen if Postgres has valuable data
 # TODO: Common logs directory should be created by default earlier itself
 - name: Create logs directory
   file:

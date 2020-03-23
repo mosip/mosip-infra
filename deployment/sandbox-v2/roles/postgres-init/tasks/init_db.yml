@@ -32,7 +32,7 @@
     regexp: '^LOG_PATH='
     line: LOG_PATH={{logs_dir}}
 
-- name: Run {{item}} shell script
+- name: 'Run {{item}} shell script'
   shell: 'bash {{item}}_db_deploy.sh {{item}}_deploy.properties'
   args:
-    chdir: '{{ sql_path }}/{{item}'
+    chdir: '{{ sql_path }}/{{item}}'
