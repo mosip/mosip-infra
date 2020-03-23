@@ -2,8 +2,6 @@
 # Centos - Get the full DVD iso.  Custom select softwares - select GNU Desktop
 # version while installing in VM.  
 # The script has been tried on CentOS 7
-# Before running the launcher, install 'gcc' using
-# sudo yum install gcc
 
 import subprocess
 import argparse
@@ -20,6 +18,8 @@ from clamav import *
 from docker import *
 from softhsm import *
 from config_server import *
+from sftp_utils import *
+from nginx_utils import *
 
 logger = logging.getLogger() # Root Logger 
 
@@ -27,34 +27,27 @@ def give_home_read_permissions():
     logger.info('Giving read persmissons to home directory')
     command('chmod 755 %s' % os.environ['HOME']) 
 
-def install_tools():
-    #TODO Install python 3.6
-    logger.info('Installing  EPEL')
-    command('sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm')
-    logger.info('Installing Maven')
-    command('sudo yum install -y maven')
-    command('sudo yum install -y gcc')
-    command('sudo yum install -y gcc-c++')
-    command('sudo yum install -y postgresql-devel')
-    command('sudo yum install -y python-devel')
-    command('sudo pip3.6 install psutil')
-    command('sudo pip3.6 install psycopg2')
-    command('sudo pip3.6 install requests')
+def create_various_folders():
+    os.makedirs(PACKET_LANDING, exist_ok=True) 
+    os.makedirs(PACKET_ARCHIVAL, exist_ok=True) 
+    os.makedirs(LOGS_DIR, exist_ok=True) 
 
 def install_environ():
     logger.info('Installing environ')
     give_home_read_permissions() # For various access
-    install_tools()
     install_docker()
     install_postgres()
-    init_db(DB_SCRIPTS_PATH, SQL_SCRIPTS)
+    init_db(DB_DICT.keys(), DB_DICT, DB_PASSWORDS)
     run_hdfs()
     install_clamav()
     install_apacheds()
     load_ldap(COUNTRY_NAME)
     install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
     init_softhsm(SOFTHSM_PIN)
-    install_config_repo(CONFIG_REPO)
+    install_sftp(SFTP_KEY)  
+    install_nginx()
+    create_various_folders() 
+    install_config_repo(CONFIG_REPO, SFTP_KEY) # Always install in the end
     logger.info('Env install done')
 
 def start_environ():
@@ -63,13 +56,9 @@ def start_environ():
     restart_apacheds()
     restart_clamav()
     run_hdfs()
-
-def clone_code(version, repos):
-    # TODO: Check out all repos
-    pass 
+    restart_nginx()
 
 def build_code(code_dir):
-    #TODO: Check out code
     logger.info('Building code')
     cwd = os.getcwd() 
     os.chdir(code_dir) 
@@ -77,36 +66,24 @@ def build_code(code_dir):
     os.chdir(cwd)
     logger.info('Building code done')
 
-def init_and_cleanup():
-    '''
-    Before starting the services, perform cleanup for a fresh start.
-    '''
-    logger.info('Cleanup ..')
-    clean_table('mosip_kernel', 'key_alias') 
-
 def start_services(services, version):
     '''
-    The location of the jar file is assumend to at $HOME/.m2/repository/io/mosip/module/service/version' 
+    The location of jar files is assumed as $HOME/.m2/repository/io/mosip/<module>/<service>/<version>' 
     Args:
-        services:  List of tuples [(module, service), (module, service) ..] 
+        services:  List of tuples [(module, service, options), ..] 
         version: Assumed all services have same version specified in pom.xml.
     '''
     logger.info('Starting MOSIP services')    
-
-    init_and_cleanup()
 
     logger.info('Running Config Server ..')
     err = run_config_server(CONFIG_REPO, LOGS_DIR)
     if err:
         logger.error('Could not run config server. Exiting..')
         return 1
-    time.sleep(5)
+    time.sleep(10)
     logger.info('Running all services..')
-    for module, service in services:
-        jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'], 
-            module, service, version)
-        jar_name = get_jar_name(service, version)
-        run_jar(jar_dir, jar_name, LOGS_DIR, CONFIG_SERVER_PORT)
+    for module, service, options, suffix in services:
+        start_service(module, service, version, options, suffix)
 
     logger.info('Starting MOSIP services - Done')    
 
@@ -119,7 +96,7 @@ def stop_services(services, version):
         services:  Dict of form {service_name : service_dir}
     '''
     logger.info('Stopping MOSIP services')
-    for module, service in services: 
+    for _, service, _, _ in services: 
         jar_name = get_jar_name(service, version)
         kill_process(jar_name)
 
@@ -141,7 +118,7 @@ def parse_args():
 
 def main():
     global logger
-    init_logger(logger, 'logs/launcher.log', 10000000, 'info', 2)
+    init_logger(logger, os.path.join(LOGS_DIR, 'launcher.log'), 10000000, 'info', 2)
 
     parser = parse_args()
     args = parser.parse_args()

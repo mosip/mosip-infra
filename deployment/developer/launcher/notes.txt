@@ -21,3 +21,38 @@ $ delete from key_alias;
 To get in PSQL
 $ sudo su postgres
 $ psql
+
+===================
+Add the following steps
+-- Generate public and private key using keygen, and copy the keys in ~/.ssh
+-- Give the private key name in properties file
+
+-- log on to hdfs
+$ docker exec -it <container id> /bin/bash
+
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/regprocessor
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/prereg
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/idrepo
+===============
+
+Changes for kernel-syncdata-service
+
+pom.xml -- change version number to 0.9.1
+pom.xml -- change parent pom name to kernel-parent
+
+===============
+Install nginx using
+sudo yum install -y nginx
+
+In /etc/nginx.conf add such links:
+
+location /v1/authmanager {
+            proxy_pass http://localhost:8191;
+        }
+
+$ sudo setsebool httpd_can_network_connect on -P
+
+==============
+Changes for new platform version tag 0.10.0_10232019:
+- kernel.properties added:
+iam.datastore.commonname=mycountry

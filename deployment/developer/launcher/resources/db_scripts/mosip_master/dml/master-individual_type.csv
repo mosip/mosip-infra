@@ -1,0 +1,7 @@
+﻿code,name,lang_code,is_active,cr_by,cr_dtimes
+FR,Foreigner,eng,TRUE,superadmin,now()
+NFR,Non-Foreigner,eng,TRUE,superadmin,now()
+FR,أجنبي,ara,TRUE,superadmin,now()
+NFR,غير أجنبي,ara,TRUE,superadmin,now()
+FR,Étranger,fra,TRUE,superadmin,now()
+NFR,Non-étranger,fra,TRUE,superadmin,now()

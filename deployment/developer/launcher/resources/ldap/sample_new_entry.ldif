@@ -1,0 +1,16 @@
+dn: uid=mhow,ou=people,c=mycountry
+objectClass: userDetails
+objectClass: organizationalPerson
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: top
+cn: Mhow
+sn: Joshi
+mail: pj@xyz.com
+mobile: 1234567890
+rid: 10022100010000220190510121471
+uid: mhow
+userPassword: {SSHA256}4uSI7K+RiX1xvqwliUM4mEFP7rFAg3KExpDfwmcHsmI=
+
+
+

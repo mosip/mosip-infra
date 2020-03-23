@@ -1,0 +1,21 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+	<!-- packet-uploader to printing-stage Route -->
+	<route id="packet-uploader-->printing-stage res_reprint route">
+	<from uri="vertx:packet-uploader-res_reprint-bus-out" />
+	<log
+			message="packet-uploader-->printing-stage res_reprint route ${bodyAs(String)}" />
+		<choice>
+			<when>
+				<simple>${bodyAs(String)} contains '"isValid":true'</simple>
+				<to uri="vertx:printing-bus-in" />
+			</when>
+			<when>
+				<simple>${bodyAs(String)} contains '"internalError":true'</simple>
+				<to uri="vertx:retry-bus-in" />
+			</when>
+			<otherwise>
+				<to uri="vertx:error-bus-in" />
+			</otherwise>
+		</choice>
+	</route>
+</routes>

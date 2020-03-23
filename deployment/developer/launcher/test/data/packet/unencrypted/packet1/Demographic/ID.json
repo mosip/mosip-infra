@@ -1,0 +1,88 @@
+{
+  "identity" : {
+    "fullName" : [ {
+      "language" : "eng",
+      "value" : "ravan ravan"
+    }, {
+      "language" : "ara",
+      "value" : "قشرشى قشرشى"
+    } ],
+    "dateOfBirth" : "1994/02/01",
+    "age" : 25,
+    "gender" : [ {
+      "language" : "eng",
+      "value" : "Male"
+    }, {
+      "language" : "ara",
+      "value" : "الذكر"
+    } ],
+    "residenceStatus" : [ {
+      "language" : "eng",
+      "value" : "Non-Foreigner"
+    }, {
+      "language" : "ara",
+      "value" : "غير أجنبي"
+    } ],
+    "addressLine1" : [ {
+      "language" : "eng",
+      "value" : "#ravan,karnataka"
+    }, {
+      "language" : "ara",
+      "value" : "٣قشرشىونشقىشفشنش"
+    } ],
+    "region" : [ {
+      "language" : "eng",
+      "value" : "North"
+    }, {
+      "language" : "ara",
+      "value" : "ﻝﺎﻤﺷ"
+    } ],
+    "province" : [ {
+      "language" : "eng",
+      "value" : "Province A"
+    }, {
+      "language" : "ara",
+      "value" : "ﺃ ﺔﻌﻃﺎﻘﻣ"
+    } ],
+    "city" : [ {
+      "language" : "eng",
+      "value" : "City A"
+    }, {
+      "language" : "ara",
+      "value" : "ﺃ ﺔﻨﻳﺪﻤﻟﺍ"
+    } ],
+    "postalCode" : "14022",
+    "phone" : "8144203235",
+    "email" : "ravan@xyz.com",
+    "referenceIdentityNumber" : "9876543210",
+    "zone" : [ {
+      "language" : "eng",
+      "value" : "North"
+    }, {
+      "language" : "ara",
+      "value" : "ﺶﻣﺎﻟ"
+    } ],
+
+    "proofOfAddress" : {
+      "value" : "POA_Certificate of residence",
+      "type" : "COR",
+      "format" : "jpg"
+    },
+    "proofOfIdentity" : {
+      "value" : "POI_PAN card",
+      "type" : "DOC002",
+      "format" : "jpg"
+    },
+    "proofOfRelationship" : {
+      "value" : "POR_Certificate of Relationship",
+      "type" : "CRN",
+      "format" : "jpg"
+    },
+    "individualBiometrics" : {
+      "format" : "cbeff",
+      "version" : 1.0,
+      "value" : "applicant_bio_CBEFF"
+    },
+    "IDSchemaVersion" : 1.0
+  }
+}

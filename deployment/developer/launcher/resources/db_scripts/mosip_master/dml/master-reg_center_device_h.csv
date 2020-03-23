@@ -1,0 +1,6 @@
+﻿regcntr_id,device_id,lang_code,is_active,cr_by,cr_dtimes,eff_dtimes
+10001,3000001,eng,TRUE,superadmin,now(),now()
+10001,3000002,eng,TRUE,superadmin,now(),now()
+10001,3000003,eng,TRUE,superadmin,now(),now()
+10001,3000004,eng,TRUE,superadmin,now(),now()
+10001,3000005,eng,TRUE,superadmin,now(),now()

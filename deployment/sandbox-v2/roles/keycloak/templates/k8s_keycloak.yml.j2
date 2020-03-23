@@ -1,0 +1,59 @@
+# Script to deploy a postgres db on kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: keycloak 
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: keycloak 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: keycloak 
+    spec:
+      containers:
+      - name: keycloak 
+        image: jboss/keycloak 
+        env:
+        - name: DB_VENDOR 
+          value: postgres
+        - name: KEYCLOAK_USER 
+          value: '{{keycloak_user}}' 
+        - name: KEYCLOAK_PASSWORD 
+          value: '{{keycloak_password}}'
+        - name: DB_ADDR
+          value: postgres # Service name
+        - name: DB_USER 
+          value: '{{postgres_user}}' 
+        - name: DB_PASSWORD
+          value: '{{postgres_password}}' 
+  
+        ports:
+        - containerPort: 8080 # default 
+
+        imagePullPolicy: "IfNotPresent"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+  namespace: default
+
+spec:
+  selector:
+    app: keycloak 
+  type: NodePort  # For init of DB from outside Minikube VM. 
+  ports:
+    - name: keycloak-port 
+      port: 80 
+      targetPort: 8080 

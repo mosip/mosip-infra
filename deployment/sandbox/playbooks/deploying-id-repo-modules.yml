@@ -1,0 +1,109 @@
+--- 
+  - hosts: all
+    become: true
+    tasks:
+      - name: Getting url for Key manager 
+        shell: minikube service kernel-config-server --url
+        register: config_private_ip
+
+      - name: Populating salt
+        docker_container:
+          name: salt1
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-repository 
+            db_alias: mosip.idrepo.identity.db.shard
+            schema_name: mosip.idrepo.identity.db.shard.schema
+            table_name: mosip.idrepo.identity.db.shard.uinHashTable
+          ports:
+            - "8092:8092"
+
+      - name: Populating salt
+        docker_container:
+          name: salt2
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-repository
+            db_alias: mosip.idrepo.identity.db.shard
+            schema_name: mosip.idrepo.identity.db.shard.schema
+            table_name: mosip.idrepo.identity.db.shard.uinEncryptTable
+          ports:
+            - "8093:8092"
+
+      - name: Populating salt
+        docker_container:
+          name: salt3
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-repository
+            db_alias: mosip.idrepo.vid.db
+            schema_name: mosip.idrepo.vid.db.schema
+            table_name: mosip.idrepo.vid.db.uinHashTable
+          ports:
+            - "8094:8092"
+
+      - name: Populating salt
+        docker_container:
+          name: salt4
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-repository
+            db_alias: mosip.idrepo.vid.db
+            schema_name: mosip.idrepo.vid.db.schema
+            table_name: mosip.idrepo.vid.db.uinEncryptTable
+          ports:
+            - "8095:8092"
+
+      - name: Populating salt
+        docker_container:
+          name: salt5
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-authentication
+            table_name: javax.persistence.jdbc.uinHashTable
+          ports:
+            - "8096:8092"
+
+      - name: Populating salt
+        docker_container:
+          name: salt6
+          image: mosipid/kernel-salt-generator
+          env:
+            active_profile_env: qa
+            spring_config_label_env: master
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_name_env: id-authentication
+            table_name: javax.persistence.jdbc.uinEncryptTable
+          ports:
+            - "8097:8092"
+
+      - name: Finding all the id repo modules
+        find: 
+          paths: ../kubernetes/id-repository-deployment/
+          patterns: '*.yml'
+          recurse: yes
+        register: paths_id_repo_ymls
+
+      - debug:
+          msg: "{{ paths_id_repo_ymls }}"
+
+      - name: Deploying all the id repo modules
+        k8s:
+          state: present
+          src: "{{ item.path }}"
+        with_items: "{{ paths_id_repo_ymls.files }}"

@@ -1,0 +1,5 @@
+- include: reading-all-playbook-properties.yml
+- include: install-configure-activemq.yml
+- include: install-configure-clamav.yml
+- include: deploying-registration-processor-modules.yml
+- include: deploying-id-repo-modules.yml

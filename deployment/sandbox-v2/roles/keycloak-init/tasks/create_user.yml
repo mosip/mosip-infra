@@ -1,0 +1,56 @@
+
+- name: Read name of user 
+  set_fact:
+    keycloak_user_name: "{{(lookup('file', '{{keycloak_user_file}}') | from_json).username}}"
+
+- name: 'Get "id" of the user' 
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users?username={{keycloak_user_name}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: user_info 
+
+- debug:
+    msg: '{{user_info.json | length}}'
+
+- set_fact:
+    keycloak_user_id: '{{user_info.json[0].id}}'
+  when: (user_info.json | length) > 0
+
+- set_fact:
+    keycloak_user_id: ''
+  when: (user_info.json | length) == 0  
+
+- name: 'Create user {{keycloak_user_file}}' 
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users'
+    method: POST
+    src: '{{keycloak_user_file}}'
+    remote_src: 'no'
+    status_code:
+     - 201
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: keycloak_user_id == '' 
+
+- name: 'Update User {{keycloak_user_name}}' 
+  uri:
+    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users/{{keycloak_user_id}}'
+    method: PUT
+    src: "{{keycloak_user_file}}"
+    remote_src: "no"
+    status_code:
+     - 204
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: keycloak_user_id != '' 

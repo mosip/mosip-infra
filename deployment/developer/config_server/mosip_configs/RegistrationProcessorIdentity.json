@@ -39,14 +39,8 @@
 		"age": {
 			"value" : "age"
 		},
-		"addressLine1": {
-			"value" : "addressLine1"
-		},
-		"addressLine2": {
-			"value" : "addressLine2"
-		},
-		"addressLine3": {
-			"value" : "addressLine3"
+		"address": {
+			"value" : "addressLine1,addressLine2,addressLine3"
 		},
 		"region": {
 			"value" : "region"
@@ -73,10 +67,11 @@
 			"value" : "CNIENumber"
 		},
 		"city": {
-			"value" : "city"
+			"value" : "city",
+			"isMandatory" : true
 		},
 		"parentOrGuardianBiometrics": {
 			"value" : "parentOrGuardianBiometrics"
 		}
 	}
-}
+}  

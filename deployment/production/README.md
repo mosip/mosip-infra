@@ -1,4 +1,3 @@
+This folder contains documentation and scripts to deploy MOSIP in a Production environment.  It is recommended that deployment follows Cell based approach that is depicted in the diagram below.
 
-This folder contains documentation and scripts to deploy MOSIP in a Production environment. 
-
-[MOSIP Deployment Architecture](mosip_deployment_architecture.png)
+[MOSIP Cell Based Deployment Architecture](images/mosip-cell-deployment.jpg)

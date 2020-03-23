@@ -9,7 +9,11 @@ from config import *
 
 logger = logging.getLogger(__name__)
 
-def install_config_repo(repo_path):
+def install_config_repo(repo_path, sftpkey):
+    '''
+    Args:
+        sftpkey:  Name of keys in ~/.ssh used for seamless sftp  
+    '''
     logger.info('Creating config git repo for config server')
     if os.path.exists(repo_path):  # Assuming it is indeed a git repo
         return 
@@ -17,10 +21,20 @@ def install_config_repo(repo_path):
     cwd = os.getcwd() 
     os.chdir(repo_path)
     command('git init') 
+    # Copy all config files
     files = glob.glob(os.path.join(cwd, '../config_server/mosip_configs/*')) 
     for f in files:
         shutil.copy(f, '.')
+
+    # Copy sftp keys from ~/.ssh (assuming they have been created before 
+    # calling this function
+    src = os.path.join(os.environ['HOME'], '.ssh')
+    shutil.copy(os.path.join(src, sftpkey), '.')
+    shutil.copy(os.path.join(src, sftpkey + '.pub'), '.')
+
     command('git add .')
+    command('git config user.name %s' % os.environ['USER'])
+    command('git config user.email %s@mosip.io' % os.environ['USER'])
     command('git commit -m "Added"')
     os.chdir(cwd)
 

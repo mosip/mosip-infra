@@ -1,0 +1,67 @@
+---
+  - hosts: all
+    become: true
+    tasks:  
+      - set_fact:
+          VMIP: "{{ hostvars[groups['SandboxVM'][0]]['VMIP'] }}"
+
+      - name: Installing Docker SDK for python
+        pip: name=docker-py
+
+      # - name: Performing Docker-Registry login
+      #   docker_login: 
+      #     registry: "{{ lookup('ini', 'docker_registry type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+      #     username: "{{ lookup('ini', 'dockerhub_username type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+      #     password: "{{ lookup('ini', 'dockerhub_password type=properties file=../playbooks-properties/all-playbooks.properties') }}"
+
+      - name: Getting url for Key manager 
+        shell: minikube service kernel-config-server --url
+        register: config_private_ip
+
+      - debug:
+          msg: "{{ config_private_ip.stdout }}"
+
+      - name: Run Key Manager
+        docker_container:
+          name: keymanager
+          image: mosipid/kernel-keymanager-service:1.0.6-SNAPSHOT.96
+          state: started
+          env:
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_label_env: master
+            active_profile_env: qa
+          volumes:
+            - softhsm:/softhsm
+          ports:
+            - "8088:8088"
+          pull: yes
+          ulimits:
+            - "memlock:-1"
+          keep_volumes: yes
+
+      - name: Finding all the kernel ymls
+        find:
+          paths: ../kubernetes/kernel/
+          patterns: '*.yml'
+          recurse: yes
+        register: paths_kernel_ymls
+
+      # - name: Updating the config server url
+      #   replace:
+      #     path: "{{ item.path }}"
+      #     regexp: '<yourVMIP>'
+      #     replace: "{{ VMIP }}"
+      #   with_items: "{{ paths_kernel_ymls.files }}"
+
+      - name: Deploying all the Kernel Modules
+        k8s:
+          state: present
+          src: "{{ item.path }}"
+        with_items: "{{ paths_kernel_ymls.files }}"
+
+      # - debug:
+      #     msg: "{{ paths_kernel_ymls.files }}"
+
+      - name: Wait for kernel Modules to be deployed
+        wait_for:
+          timeout: 100

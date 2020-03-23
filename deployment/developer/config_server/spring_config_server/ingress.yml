@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: main-ingress
+  namespace: default
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /v1/config
+        backend:
+          serviceName: config-server
+          servicePort: 8888

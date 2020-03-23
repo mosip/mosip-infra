@@ -1,0 +1,6 @@
+﻿id,name,mac_address,serial_num,ip_address,dspec_id,zone_code,lang_code,is_active,cr_by,cr_dtimes,eff_dtimes
+3000001,Finger Print Scanner 1,85-BB-97-4B-14-05,SZ5912878988,,165,ZNA,eng,TRUE,superadmin,now(),now()
+3000002,IRIS Scanner 1,11-FB-CF-6A-BF-29,JN7935692567,,327,ZNA,eng,TRUE,superadmin,now(),now()
+3000003,Web Camera 1,D1-2C-D9-BA-5F-FE,J499B8422627284,,736,ZNA,eng,TRUE,superadmin,now(),now()
+3000004,Document Scanner 1,7D-8B-8C-F7-26-BB,YZ492N3059198,,801,ZNA,eng,TRUE,superadmin,now(),now()
+3000005,Printer 1,79-2F-A1-5B-DC-EC,BS563Q2230804,,920,ZNA,eng,TRUE,superadmin,now(),now()

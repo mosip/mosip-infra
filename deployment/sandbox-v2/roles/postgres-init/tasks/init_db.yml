@@ -1,0 +1,38 @@
+# This sequence of tasks runs the required sqls and loads DB with test data
+- debug:
+    msg: Initialize {{item}} DB
+
+- name: Replace IP address 
+  lineinfile:
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^DB_SERVERIP='
+    line: DB_SERVERIP={{postgres_external_ip}}
+   
+- name: Replace Port 
+  lineinfile:
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^DB_PORT='
+    line: DB_PORT={{db_port}}
+
+- name: Replace password
+  lineinfile:
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^SU_USER_PWD='
+    line: SU_USER_PWD={{postgres_password}}
+
+- name: Replace base path 
+  lineinfile:
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^BASEPATH='
+    line: BASEPATH={{sql_path}}
+
+- name: Replace log path 
+  lineinfile:
+    path: '{{sql_path}}/{{item}}/{{item}}_deploy.properties'
+    regexp: '^LOG_PATH='
+    line: LOG_PATH={{logs_dir}}
+
+- name: Run {{item}} shell script
+  shell: 'bash {{item}}_db_deploy.sh {{item}}_deploy.properties'
+  args:
+    chdir: '{{ sql_path }}/{{item}}'

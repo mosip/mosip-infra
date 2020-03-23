@@ -1,0 +1,26 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      # - name: Download activemq tar
+      #   get_url:
+      #     url: https://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.tar.gz
+      #     dest: "{{ inventory_dir }}"
+      
+      - name: Downloading and Extracting activemq tar
+        unarchive:
+          src: https://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.tar.gz
+          dest: "{{ inventory_dir }}"
+          remote_src: yes
+
+      # - name: Changing permission for active script file
+      #   file:
+      #     path: "{{ inventory_dir }}/apache-activemq-5.14.3/bin/activemq"
+      #     mode: '0755'
+
+      - name: Run activemq
+        shell: ./bin/activemq start
+        args:
+          chdir: "{{ inventory_dir }}/apache-activemq-5.14.3"
+
+

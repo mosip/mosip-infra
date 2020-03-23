@@ -1,0 +1,4 @@
+﻿code,name,descr,lang_code,is_active,cr_by,cr_dtimes
+REG,Regular,Regular Registration Center,eng,TRUE,superadmin,now()
+REG,منتظم,مركز التسجيل العادي,ara,TRUE,superadmin,now()
+REG,Ordinaire,Centre dinscription régulière,fra,TRUE,superadmin,now()

@@ -6,6 +6,8 @@ import sys
 from common import *
 from config import *
 import base64
+import ldap.modlist as modlist 
+import ldap
 
 logger = logging.getLogger(__name__)
 
@@ -39,11 +41,16 @@ def install_apacheds():
 
 def load_ldap(partition_name):
     create_partition(partition_name) 
+    modify_ssha_algo('SSHA-256')  # Default is SSHA
+    load_schema()
     load_data()
    
+def load_schema():
+    logger.info('Loading schema')
+    command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-schema-extn.ldif')
+
 def load_data():
     logger.info('Loading with sample data')
-    command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-schema-extn.ldif')
     command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f ./resources/ldap/mosip-entries.ldif')
 
     restart_apacheds()
@@ -60,3 +67,62 @@ def create_partition(partition_name):
     f.close()
     command('ldapmodify -h localhost -p 10389 -D "uid=admin,ou=system" -w "secret" -a -f %s' % ldif)
     restart_apacheds()
+
+def add_user_in_ldap(user_info, ld):
+    '''
+    Adds entry into LDAP. Note that if the DN already exists the skipped 
+    meaning update does not take place.
+    TODO: Update records if anything changes
+
+    Args:
+        ld: ldap connection 
+        user_info:  UserInfo structure in common.py 
+    '''
+    u = user_info
+    dn = 'uid=%s,ou=people,c=mycountry' % u.uid 
+    attrs = {}
+    attrs['objectClass'] = [b'userDetails']
+    attrs['cn'] = [u.user_name.encode()]
+    attrs['sn'] = [u.user_name.encode()]
+    attrs['userPassword'] = [u.user_password.encode()]
+    attrs['mail'] = [u.user_email.encode()]
+    attrs['mobile'] = [u.user_mobile.encode()]
+    
+    ldif = modlist.addModlist(attrs)
+    ld.add_s(dn, ldif)
+
+def add_user_to_role(uid, role, ld):
+    '''
+    Args:
+        uid: As in LDAP
+        role: str
+        ld: LDAP connection
+    '''
+    dn = 'cn=%s,ou=roles,c=mycountry' % role
+    attrs = {}
+    attrs['changetype'] = [b'modify']
+    attrs['add'] = [b'roleOccupant']
+    s = 'uid=%s,ou=people,c=mycountry' % uid
+    attrs['roleOccupant'] = [s.encode()]
+    s = 'uid=%s,ou=people,c=mycountry' % uid
+    t = [(ldap.MOD_ADD, 'roleOccupant', s.encode())]
+
+    ld.modify_s(dn, t) 
+
+def modify_ssha_algo(algo):
+    '''
+    Args:
+        algo: str like 'SSHA', 'SSHA-256' etc.
+        ld: LDAP connection
+    '''
+    ld = ldap.initialize('ldap://localhost:%d' % LDAP_PORT)
+    ld.bind_s('uid=admin,ou=system', 'secret')
+
+    dn = 'ads-interceptorId=passwordHashingInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config'
+    attrs = {} 
+    attrs['changetype'] = [b'modify']
+    t = [(ldap.MOD_REPLACE, 'ads-hashalgorithm',  algo.encode())]
+    ld.modify_s(dn, t)
+
+    ld.unbind_s()
+

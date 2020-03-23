@@ -1,0 +1,8 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Deploying Ingress file
+        k8s:
+          state: present
+          src: ../kubernetes/commons/example-ingress.yaml

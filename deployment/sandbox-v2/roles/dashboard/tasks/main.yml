@@ -1,0 +1,17 @@
+- name: Deploy dashboard 
+  k8s:
+    src: '{{role_path}}/files/k8s_dashboard.yml' 
+    state: present 
+
+- name: Get dashboard pod name
+  command: 'kubectl -n kubernetes-dashboard -l k8s-app=kubernetes-dashboard get pods --no-headers -o custom-columns=":metadata.name"'
+  register: out
+
+- debug:
+    msg: 
+    - "See dashboard on https://localhost:{{dashboard_port}}.  Use below token (without quotes) for login"
+    - '{{lookup("file", "token.txt")}}'
+
+- name: Start port forwarding
+  shell:  'kubectl -n kubernetes-dashboard port-forward pod/{{out.stdout}} {{dashboard_port}}:8443'
+

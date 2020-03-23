@@ -1,0 +1,76 @@
+{
+	"identity": {
+		"name": {
+			"value": "fullName",
+			"isMandatory" : true
+		},
+		"gender": {
+			"value": "gender",
+			"isMandatory" : true
+		},
+		"dob": {
+			"value": "dateOfBirth",
+			"isMandatory" : true
+		},
+		"parentOrGuardianRID": {
+			"value" : "parentOrGuardianRID"
+		},
+		"parentOrGuardianUIN": {
+			"value" : "parentOrGuardianUIN"
+		},
+		"parentOrGuardianName": {
+			"value" : "parentOrGuardianName"
+		},
+		"poa": {
+			"value" : "proofOfAddress"
+		},
+		"poi": {
+			"value" : "proofOfIdentity"
+		},
+		"por": {
+			"value" : "proofOfRelationship"
+		},
+		"pob": {
+			"value" : "proofOfDateOfBirth"
+		},
+		"individualBiometrics": {
+			"value" : "individualBiometrics"
+		},
+		"age": {
+			"value" : "age"
+		},
+		"address": {
+			"value" : "addressLine1,addressLine2,addressLine3"
+		},
+		"region": {
+			"value" : "region"
+		},
+		"province": {
+			"value" : "province"
+		},
+		"postalCode": {
+			"value" : "postalCode"
+		},
+		"phone": {
+			"value" : "phone"
+		},
+		"email": {
+			"value" : "email"
+		},
+		"localAdministrativeAuthority": {
+			"value" : "localAdministrativeAuthority"
+		},
+		"idschemaversion": {
+			"value" : "IDSchemaVersion"
+		},
+		"cnienumber": {
+			"value" : "CNIENumber"
+		},
+		"city": {
+			"value" : "city"
+		},
+		"parentOrGuardianBiometrics": {
+			"value" : "parentOrGuardianBiometrics"
+		}
+	}
+}

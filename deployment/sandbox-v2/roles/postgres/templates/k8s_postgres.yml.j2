@@ -1,0 +1,57 @@
+# Script to deploy a postgres db on kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: postgres
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: postgres 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: postgres 
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:latest 
+        env:
+        - name: POSTGRES_PASSWORD
+          value: {{postgres_password}} 
+        - name: POSTGRES_DB
+          value: {{postgres_db}}
+        - name: POSTGRES_USER
+          value: {{postgres_user}}
+        ports:
+        - containerPort: 5432 # default 
+        volumeMounts:
+        - name: pg-data
+          mountPath: /var/lib/postgresql/data/ # See notes above
+        imagePullPolicy: "IfNotPresent"
+      volumes:
+      - name: pg-data
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: default
+
+spec:
+  selector:
+    app: postgres
+  type: NodePort  # For init of DB from outside Minikube VM. 
+  ports:
+    - port: 5432 
+      targetPort: 5432
