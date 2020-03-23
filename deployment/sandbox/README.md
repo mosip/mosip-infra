@@ -9,8 +9,9 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 ## Pre-requisites
 * OS : Ubuntu 18.0.4 LTS
-* Hardware : For Running Kernel and Pre Registration -> 4 core CPU with 32 GB RAM and about 80 GB of free hard disk space.
-           : For Running Kernel, Registration Processor and ID Repo -> 8 core CPU with 56 GB RAM and about 80 GB of free hard disk space
+* Hardware
+  * For Running Kernel and Pre Registration -> 4 core CPU with 32 GB RAM and about 80 GB of free hard disk space.
+  * For Running Kernel, Registration Processor and ID Repo -> 8 core CPU with 56 GB RAM and about 80 GB of free hard disk space
 * Tools:  Install `curl` and `git`
       
 ## Get, Set, Go!
