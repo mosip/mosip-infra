@@ -1,5 +1,5 @@
 ---
-- name: Create or update Keycloak client 
+- name: 'Create or update client {{client_id}} on Keycloak'
   local_action:
     module: keycloak_client
     auth_client_id: admin-cli
@@ -7,13 +7,35 @@
     auth_realm: master
     auth_username: '{{keycloak_user}}'
     auth_password: '{{keycloak_password}}'
-    client_id: '{{client_id}}'
-    realm: '{{realm_id}}' 
+    client_id: '{{kc_client_id}}'
+    realm: '{{kc_realm_id}}' 
+    secret: '{{kc_client_secret}}'
     standard_flow_enabled: yes 
     direct_access_grants_enabled: yes
     service_accounts_enabled: yes
     authorization_services_enabled: yes
     state: present
 
-- 
+# Update property file if client is of type admin 
+- name: Update mosip.admin.clientid property in property file 
+  include_role:
+    name:  config-gitrepo
+    tasks_from: update_property
+  vars:
+    property_file: 'kernel-qa.properties'
+    property: 'mosip.admin.clientid'
+    value: '{{kc_client_id}}'  
+  when: kc_client_is_admin == true 
+
+- name: Update property file if admin client
+  include_role:
+    name:  config-gitrepo
+    tasks_from: update_property
+  vars:
+    property_file: 'kernel-qa.properties'
+    property: 'mosip.admin.clientsecret'
+    value: '{{kc_client_secret}}'  
+  when: kc_client_is_admin == true 
+
+
 

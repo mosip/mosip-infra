@@ -1,4 +1,5 @@
 ---
+# TODO: Update mosip-admin-client secret key in kernel properties
 - name: Get port of keycloak service
   k8s_info:
     api_version: v1
@@ -11,7 +12,7 @@
   set_fact: 
     keycloak_url: 'http://{{kubeworkers.worker1.ip}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
 
-- name: "Get admin token"
+- name: Get admin token
   uri:
     url: "{{keycloak_url}}/auth/realms/master/protocol/openid-connect/token"
     method: POST
@@ -38,8 +39,10 @@
 - include_tasks:
     file: create_client.yml
   vars:
-      realm_id: '{{item.realm_id}}'   
-      client_id: '{{item.client_id}}'
+      kc_realm_id: '{{item.realm_id}}'   
+      kc_client_id: '{{item.client_id}}'
+      kc_client_is_admin: '{{item.is_admin}}'  
+      kc_client_secret: '{{item.secret}}'
   with_items: '{{keycloak_mosip_clients}}'
 
 # Roles 
