@@ -45,7 +45,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
     $ cd mosip-infra/deployment/sandbox/
     ````
 ### MOSIP Kernel
-1. First, install the MOSIP Kernel. This is the base for all other modules.
+1. First, install the kernel module. This is the base for all other modules.
     ```
     $ sh install-mosip-kernel.sh
     ```
@@ -54,15 +54,15 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running. 
 
 ### MOSIP Pre-registration 
-1. Install the MOSIP Pre-registration.
+1. Install the pre-registration module.
     ```
     $ sh install-mosip-pre-reg.sh
     ```    
-1. Check for any errors as above.
+1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
 
-## Steps to access the Pre-registration-ui
+#### Steps to access the Pre-registration-ui
 1. Sandbox works on private IP address, hence, you have to access the pre-registration ui from the chrome browser installed inside the machine on which you are working on.
    
 1. Please follow this link for [Installing the Google Chrome Browser in your Ubuntu Machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux).
@@ -85,11 +85,11 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 1. Login into the Pre-registration portal using OTP sent to email or phone.
 
-### MOSIP Registration-Processor
-1. Install the MOSIP Registration-Processor.
+### MOSIP Registration Processor
+1. Install the registration processor module.
     ```
     $ sh install-mosip-reg-proc.sh
     ```    
-1. Check for any errors as above.
+1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
 1. If there are no errors in the log, wait for about 10 minutes for the registration-processor services to be up and running.
