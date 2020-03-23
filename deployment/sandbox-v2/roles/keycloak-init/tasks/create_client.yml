@@ -1,5 +1,5 @@
 ---
-- name: Create or update Keycloak client 
+- name: 'Create or update client {{client_id}} on Keycloak'
   local_action:
     module: keycloak_client
     auth_client_id: admin-cli

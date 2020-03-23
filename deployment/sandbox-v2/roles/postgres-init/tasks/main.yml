@@ -2,6 +2,7 @@
 # This script runs all the init SQL queries and populates all tables with
 # test data 
 # TODO: Init should not happend if Postgres has valuable data
+# TODO: Common logs directory should be created by default earlier itself
 - name: Create logs directory
   file:
     path: "{{logs_dir}}"
@@ -10,11 +11,11 @@
 
 # Get db_ip. Since Postgres is published as a node port we get the IP of any
 # work node.
-- name: Get db_ip
+- name: Get postgres nodeport ip 
   command: "kubectl get node --selector='!node-role.kubernetes.io/master' -o json"
   register: out
 
-- name: Get DB port IP
+- name: Get postgres nodeport ip 
   command: 'kubectl get service -o json postgres'
   register: out
 

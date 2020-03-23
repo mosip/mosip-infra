@@ -1,6 +1,6 @@
 ---
-# Deploy on Kubernetes 
-- name: Ensures directory is present
+# Deploy on kubernetes 
+- name: Ensure tmp directory is present
   file: 
     path: '{{tmp_dir}}'
     state: directory
@@ -11,10 +11,10 @@
      src: k8s_auth.yml.j2
      dest: '{{tmp_dir}}/k8s_auth.yml'
 
-- name: Deploy on Kurbernetes
+- name: Deploy on kurbernetes
   k8s:
     state: present
     src: '{{tmp_dir}}/k8s_auth.yml'
     wait: 'yes'
-    wait_timeout: 60
+    wait_timeout: 120 
 

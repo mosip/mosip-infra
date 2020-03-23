@@ -1,4 +1,4 @@
-- name: Read name of role
+- name: 'Read name of role from {{kc_role_file}}'
   set_fact:
     kc_role_name: "{{(lookup('file', '{{kc_role_file}}') | from_json).name}}"
 
@@ -26,7 +26,7 @@
   when: (kc_client_id | trim) != ''  # Role inside client
 
 # Check if the role exists
-- name: Check if role exists.  
+- name: 'Check if role {{kc_role_name}} exists.'  
   uri:
     url: '{{keycloak_role_url}}/{{kc_role_name}}'
     method: GET 
@@ -42,7 +42,7 @@
 
 # Check if role exists, update it
 
-- name: Create role 
+- name: 'Create role {{kc_role_file}}'
   uri:
     url: '{{keycloak_role_url}}'
     method: POST 
@@ -56,7 +56,7 @@
       Authorization: "Bearer {{keycloak_admin_token}}"
   when: "kc_role_exists.status == 404"  # Role does not exist
 
-- name: Update role 
+- name: 'Update role {{kc_role_name}}' 
   uri:
     url: '{{keycloak_role_url}}/{{kc_role_name}}'
     method: PUT 

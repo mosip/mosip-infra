@@ -1,9 +1,9 @@
 
-- name: Read name of user 
+- name: 'Read name of user from {{keycloak_user_file}}' 
   set_fact:
     keycloak_user_name: "{{(lookup('file', '{{keycloak_user_file}}') | from_json).username}}"
 
-- name: 'Get "id" of the user' 
+- name: 'Get "id" of the user {{keycloak_user_name}}' 
   uri:
     url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users?username={{keycloak_user_name}}'
     method: GET 

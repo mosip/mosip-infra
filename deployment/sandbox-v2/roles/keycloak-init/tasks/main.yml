@@ -12,7 +12,7 @@
   set_fact: 
     keycloak_url: 'http://{{kubeworkers.worker1.ip}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
 
-- name: "Get admin token"
+- name: Get admin token
   uri:
     url: "{{keycloak_url}}/auth/realms/master/protocol/openid-connect/token"
     method: POST
