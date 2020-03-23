@@ -39,8 +39,10 @@
 - include_tasks:
     file: create_client.yml
   vars:
-      realm_id: '{{item.realm_id}}'   
-      client_id: '{{item.client_id}}'
+      kc_realm_id: '{{item.realm_id}}'   
+      kc_client_id: '{{item.client_id}}'
+      kc_client_is_admin: '{{item.is_admin}}'  
+      kc_client_secret: '{{item.secret}}'
   with_items: '{{keycloak_mosip_clients}}'
 
 # Roles 

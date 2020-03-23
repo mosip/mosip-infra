@@ -2,19 +2,9 @@
   set_fact:
     kc_role_name: "{{(lookup('file', '{{kc_role_file}}') | from_json).name}}"
 
-- name: 'Get "id" of a client (not "client_id")' 
-  uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'
-    method: GET 
-    remote_src: 'no'
-    status_code:
-     - 200
-    headers:
-      Content-type: "application/json"
-      Accept: "application/json"
-      Authorization: "Bearer {{keycloak_admin_token}}"
-  register: client_info 
-  when: (kc_client_id | trim) != ''
+- name: 'Get id of client {{kc_client_id}}'
+  include_tasks: get_client_info.yml
+  # Returns kc_client_info
 
 # Url is different for client and realm roles
 - set_fact:
@@ -22,7 +12,7 @@
   when: (kc_client_id | trim)  == ''  # Role inside realm
 
 - set_fact:
-    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{client_info.json[0].id}}/roles'
+    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{kc_client_info.json[0].id}}/roles'
   when: (kc_client_id | trim) != ''  # Role inside client
 
 # Check if the role exists
