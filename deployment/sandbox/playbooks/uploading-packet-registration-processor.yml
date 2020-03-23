@@ -1,0 +1,16 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Run Registration Packet Generator for Uploading Packet
+        docker_container:
+          name: registration-packet-generator
+          image: mosipid/registration-processor-packet-generator-service-test:1.0.6
+          state: started
+          env:
+            spring_config_url_env: "{{ config_private_ip.stdout }}/config"
+            spring_config_label_env: master
+            active_profile_env: qa
+          ports:
+            - "8082:8082"
+          pull: yes
