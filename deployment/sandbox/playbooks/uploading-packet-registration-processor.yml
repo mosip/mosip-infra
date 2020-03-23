@@ -2,6 +2,10 @@
   - hosts: all
     become: true
     tasks:
+      - name: Getting url for Kernel Config Server
+        shell: minikube service kernel-config-server --url
+        register: config_private_ip
+        
       - name: Run Registration Packet Generator for Uploading Packet
         docker_container:
           name: registration-packet-generator
