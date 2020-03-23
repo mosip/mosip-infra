@@ -15,34 +15,34 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 * Tools:  Install `curl` and `git`
       
 ## Get, Set, Go!
-1.  Clone this repo:
-    ```
-    $ git clone https://github.com/mosip/mosip-infra
-    ```
-1. Go to the root:
-    ```
-    $ sudo su
-    ```
-1.  Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (change only `<ToBeReplaced\>`)
+1. Clone this repository:
+   ```
+   $ git clone https://github.com/mosip/mosip-infra
+   ```
+1. Go to root:
+   ```
+   $ sudo su
+   ```
+1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (change only properties marked as `<ToBeReplaced\>`)
 
-    Below is a sample (example) key-value pair of the playbook properties
-    ```
-    spring.mail.username=xxx@gmail.com
-    spring.mail.password=xxxpwd
-    spring.mail.host=smtp.gmail.com
-    spring.mail.port=587
-    mosip.kernel.sms.gateway=SMSgatewayProviderName
-    mosip.kernel.sms.api=https://SMSGatewayHostName/sms/2/text/single
-    mosip.kernel.sms.username=<registered username with SMS gateway provider>
-    mosip.kernel.sms.password=<registered password>
-    mosip.kernel.sms.sender=<SMS Sender name, can be any name>
-    ```
-    **_Note:_** If you do not have a SMS service provider, you can replace the configurations related to SMS (i.e. gateway, api, username, password and sender) with dummy values.
+   Below is a sample example for key-value pair of the playbook properties
+   ```
+   spring.mail.username=xxx@gmail.com
+   spring.mail.password=xxxpwd
+   spring.mail.host=smtp.gmail.com
+   spring.mail.port=587
+   mosip.kernel.sms.gateway=SMSgatewayProviderName
+   mosip.kernel.sms.api=https://SMSGatewayHostName/sms/2/text/single
+   mosip.kernel.sms.username=<registered username with SMS gateway provider>
+   mosip.kernel.sms.password=<registered password>
+   mosip.kernel.sms.sender=<SMS Sender name, can be any name>
+   ```
+   **_Note:_** If you do not have a SMS service provider, you can replace the configurations related to SMS (i.e. gateway, api, username, password and sender) with dummy values.
     
-1.  Change to 'sandbox' dir: 
-    ```
-    $ cd mosip-infra/deployment/sandbox/
-    ````
+1. Go to 'sandbox' directory: 
+   ```
+   $ cd mosip-infra/deployment/sandbox/
+   ````
 ### MOSIP Kernel
 1. First, install the kernel module. This is the base for all other modules.
     ```
@@ -62,9 +62,9 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
 
 #### Steps to access the Pre-registration-ui
-1. Sandbox works on private IP address, hence, you have to access the pre-registration ui from the chrome browser installed inside the machine on which you are working on.
+1. Sandbox works on private IP address, hence, you can access the pre-registration ui from the chrome browser installed inside the machine where you have installed pre-registration module.
    
-1. Please follow this link for [Installing the Google Chrome Browser in your Ubuntu Machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux).
+1. Please follow this link for [Installing the Google Chrome Browser in your Ubuntu Machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux) if you don't have google chrome installed in your Ubuntu machine.
 
 1. Please follow this link for [Installing the Remote Desktop in your Ubuntu Machine](https://gist.github.com/hehuan2112/54cca01be23973a9f8b369e8d0df216e). 
    After restarting the xRDP service, which is the last instruction in the above link, connect your ubuntu machine from RDP application present in your Windows system.
@@ -74,10 +74,10 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
    
 1. After connecting to the ubuntu machine from RDP application, open the chrome browser.
  
-1. MOSIP Pre-registration UI can be accessed using *http://\<private ip address\>/pre-registration-ui*
+1. MOSIP Pre-registration UI can be accessed using `*http://\<private ip address\>/pre-registration-ui*`
     * Note :  To find the private ip address, you may use the following command 
           
-          $ hostname -I | awk '{print $1}'
+          `$ hostname -I | awk '{print $1}'`
              
     * Sample screen of Pre-registration startup page
 ![](images/pre-reg-screenshot.png)
