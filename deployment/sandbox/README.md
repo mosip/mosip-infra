@@ -9,7 +9,8 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 ## Pre-requisites
 * OS : Ubuntu 18.0.4 LTS
-* Hardware : 4 core CPU with 32 GB RAM and about 80 GB of free hard disk space.
+* Hardware : For Running Kernel and Pre Registration -> 4 core CPU with 32 GB RAM and about 80 GB of free hard disk space.
+           : For Running Kernel, Registration Processor and ID Repo -> 8 core CPU with 56 GB RAM and about 80 GB of free hard disk space
 * Tools:  Install `curl` and `git`
       
 ## Get, Set, Go!
@@ -45,7 +46,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 ### MOSIP Kernel
 1. First, install the MOSIP Kernel. This is the base for all other modules.
     ```
-    $ sudo sh install-mosip-kernel.sh
+    $ sh install-mosip-kernel.sh
     ```
 1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
@@ -54,7 +55,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 ### MOSIP Pre-registration 
 1. Install the MOSIP Pre-registration.
     ```
-    $ sudo sh install-mosip-pre-reg.sh
+    $ sh install-mosip-pre-reg.sh
     ```    
 1. Check for any errors as above.
 
@@ -82,3 +83,12 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 ![](images/pre-reg-screenshot.png)
 
 1. Login into the Pre-registration portal using OTP sent to email or phone.
+
+### MOSIP Registration-Processor
+1. Install the MOSIP Registration-Processor.
+    ```
+    $ sh install-mosip-reg-proc.sh
+    ```    
+1. Check for any errors as above.
+
+1. If there are no errors in the log, wait for about 10 minutes for the registration-processor services to be up and running.
