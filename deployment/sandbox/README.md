@@ -37,8 +37,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
     mosip.kernel.sms.password=<registered password>
     mosip.kernel.sms.sender=<SMS Sender name, can be any name>
     ```
-    
-    (Tip-> If you do not have a SMS service provider, you can replace the configurations related to SMS (i.e. gateway, api, username, password and sender) with dummy values)
+    **_Note:_** If you do not have a SMS service provider, you can replace the configurations related to SMS (i.e. gateway, api, username, password and sender) with dummy values.
     
 1.  Change to 'sandbox' dir: 
     ```
