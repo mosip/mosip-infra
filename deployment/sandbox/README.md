@@ -90,4 +90,4 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 1. If there are no errors in the log, wait for about 10 minutes for the registration-processor services to be up and running.
 
-* **_Note_**  In case the internet connection is slow, you might face a failure while deploying Registration Processor Services, in that scenario, you can run the install-mosip-reg-proc.sh again.
+* **_Note_**  In case the internet connection is slow, you might face a failure while deploying Registration Processor Services. In that scenario, you can run the install-mosip-reg-proc.sh again.
