@@ -61,8 +61,8 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
 
-#### Steps to access the Pre-registration-ui
-1. Sandbox works on private IP address, hence, you can access the pre-registration ui from the chrome browser installed inside the machine where pre-registration module is deployed.
+#### Steps to access the Pre-registration UI
+1. Sandbox works on private IP address, hence, you can access the pre-registration UI from the chrome browser installed inside the machine where pre-registration module is deployed.
    
 1. If you don't have google chrome installed in your ubuntu machine, please follow this link for [installing the google chrome in your ubuntu machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux).
 
