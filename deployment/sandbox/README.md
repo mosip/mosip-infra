@@ -19,10 +19,6 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
    ```
    $ git clone https://github.com/mosip/mosip-infra
    ```
-1. Go to root.
-   ```
-   $ sudo su
-   ```
 1. Edit `mosip-infra/deployment/sandbox/playbooks-properties/all-playbooks.properties` with appropriate values (change only properties marked as `<ToBeReplaced\>`).
 
    Below is a sample example for key-value pair of the playbook properties.
@@ -43,8 +39,15 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
    ```
    $ cd mosip-infra/deployment/sandbox/
    ````
+1. Go to root.
+   ```
+   $ sudo su
+   ```
+**_Note:_** This is a major step before installing anything. You have to execute all the remaining steps as a root user.
+
 ### MOSIP Kernel
-1. First, install the kernel module by executing the below command. This is the base for all other modules.
+1. First, please make sure you are root user.
+1. Install the kernel module by executing the below command. This is the base for all other modules.
     ```
     $ sh install-mosip-kernel.sh
     ```
@@ -53,6 +56,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running. 
 
 ### MOSIP Pre-registration 
+1. First, please make sure you are root user.
 1. Install the pre-registration module by executing the below command.
     ```
     $ sh install-mosip-pre-reg.sh
@@ -82,6 +86,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. Login into the Pre-registration portal using OTP sent to email or phone.
 
 ### MOSIP Registration Processor
+1. First, please make sure you are root user.
 1. Install the registration processor module by executing the below command.
     ```
     $ sh install-mosip-reg-proc.sh
