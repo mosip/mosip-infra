@@ -2,13 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kernel-auth-service
+  name: {{kernel_auth_name}}
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kernel-auth-service
+      app: {{kernel_auth_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: kernel-auth-service
+        app: {{kernel_auth_name}}
     spec:
       containers:
-      - name: kernel-auth-service
-        image: '{{modules['kernel-auth-service']['image']}}:{{modules['kernel-auth-service']['version']}}'
+      - name: {{kernel_auth_name}}
+        image: '{{kernel_auth_image}}:{{kernel_auth_version}}'
         env:
         - name: active_profile_env
           value: qa
@@ -41,12 +41,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kernel-auth-service
+  name: {{kernel_auth_name}}
   namespace: default
 spec:
   ports:
   - port: 80 
     targetPort: 8091
   selector:
-    app: kernel-auth-service
+    app: {{kernel_auth_name}}
   type: NodePort

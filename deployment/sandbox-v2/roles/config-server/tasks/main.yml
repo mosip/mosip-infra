@@ -10,21 +10,22 @@
 
 - name: Download kernel-server-config tar
   get_url:
-    url: "{{artifactory_uri}}/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{modules['kernel-config-server']['version']}}/kernel-config-server-{{modules['kernel-config-server']['version']}}.jar"
-    dest: "{{role_path}}/files/kernel-config-server-{{modules['kernel-config-server']['version']}}.jar"
+    url: '{{config_server_jar_uri}}'
+    dest: "{{role_path}}/files/config_server_name-{{config_server_version}}.jar"
 
 - name: Build docker and push it local registry  
   docker_image:
-    name: '{{local_registry}}/kernel-config-server'
-    tag: "{{modules['kernel-config-server']['version']}}"
+    name: "{{local_registry}}/config_server_name"
+    tag: "{{config_server_version}}"
     push: yes
     source: build
     build:
       path: '{{role_path}}/files' 
       pull: yes
       args:
-        version: "{{modules['kernel-config-server']['version']}}"
+        version: "{{config_server_version}}"
         git_uri: 'http://gitrepo/{{config_gitrepo_name}}'
+        jar_name: '{{config_server_jar_name}}'
       #TODO: pickup gitrepo from service name
 
 - name: Kubernetes yml file from template 

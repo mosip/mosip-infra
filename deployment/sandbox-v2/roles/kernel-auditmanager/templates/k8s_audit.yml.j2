@@ -2,13 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kernel-auditmanager-service
+  name: {{kernel_auditmanager_name}}
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kernel-auditmanager-service
+      app: {{kernel_auditmanager_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: kernel-auditmanager-service
+        app: {{kernel_auditmanager_name}}
     spec:
       containers:
-      - name: kernel-auditmanager-service
-        image: '{{modules['kernel-auditmanager-service']['image']}}:{{modules['kernel-auditmanager-service']['version']}}'
+      - name: {{kernel_auditmanager_name}}
+        image: '{kernel_auditmanager_image']}}:{{kernel_auditmanager_version}}'
         env:
         - name: active_profile_env
           value: qa
@@ -41,12 +41,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kernel-auditmanager-service
+  name: {{kernel_auditmanager_name}}
   namespace: default
 spec:
   ports:
   - port: 80 
     targetPort: 8081
   selector:
-    app: kernel-auditmanager-service
+    app: {{kernel_auditmanager_name}}
   type: NodePort
