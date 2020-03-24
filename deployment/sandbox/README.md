@@ -89,3 +89,5 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
 1. If there are no errors in the log, wait for about 10 minutes for the registration-processor services to be up and running.
+
+* **_Note_**  In case the internet connection is slow, you might face a failure while deploying Registration Processor Services, in that scenario, you can run the install-mosip-reg-proc.sh again.
