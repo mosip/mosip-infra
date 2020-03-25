@@ -51,7 +51,7 @@
   vars:
     kc_realm_id: '{{item.realm_id}}'   
     kc_client_id: '{{item.client_id}}'
-    kc_role_file: '{{item.role_file}}' 
+    kc_role_json: '{{item.role_json}}' 
   with_items: '{{keycloak_mosip_roles}}'
 
 # Users

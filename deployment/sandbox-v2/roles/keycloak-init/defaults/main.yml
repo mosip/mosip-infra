@@ -1,0 +1,33 @@
+keycloak_mosip_realms:
+  - {realm_id: 'mosip', realm_file: 'realms/realm_mosip.json'}
+
+# There can be only one admin client at this point of time, whose secret
+# Key should be updated in properties file
+keycloak_mosip_clients:
+  - {realm_id: 'mosip', client_id: 'mosip-admin-client', is_admin: true, secret: 'xyz123'}  
+  - {realm_id: 'mosip', client_id: 'mosip-registration-client', is_admin: false, secret: 'abc123'} 
+
+keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_OFFICER"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "ID_AUTHENTICATION"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "DEVICE_PROVIDER"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "SUPERADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "ZONAL_ADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "GLOBAL_ADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "RESIDENT"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_PROCESSOR"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "ZONAL_APPROVER"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_OFFICER"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_OPERATOR"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "INDIVIDUAL"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "AUTH"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "CENTRAL_APPROVER"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "MISP"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "CENTRAL_ADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "PREREG"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "PRE_REGISTRATION_ADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_ADMIN"}'}
+  - {realm_id: 'mosip', client_id: '', role_json: '{"name": "REGISTRATION_SUPERVISOR"}'}
+
+keycloak_mosip_users:
+  - {realm_id: 'mosip', user_file: 'users/puneet.json'}

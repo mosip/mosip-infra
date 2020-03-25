@@ -1,6 +1,7 @@
-- name: 'Read name of role from {{kc_role_file}}'
+
+- name: 'Read name of role'
   set_fact:
-    kc_role_name: "{{(lookup('file', '{{kc_role_file}}') | from_json).name}}"
+    kc_role_name: '{{kc_role_json.name}}' # kc_role_json is a dict
 
 - name: 'Get id of client {{kc_client_id}}'
   include_tasks: get_client_info.yml
@@ -36,7 +37,8 @@
   uri:
     url: '{{keycloak_role_url}}'
     method: POST 
-    src: '{{kc_role_file}}' 
+    body: '{{kc_role_json}}' 
+    body_format: json
     remote_src: 'no'
     status_code:
      - 201
@@ -50,7 +52,8 @@
   uri:
     url: '{{keycloak_role_url}}/{{kc_role_name}}'
     method: PUT 
-    src: '{{kc_role_file}}' 
+    body: '{{kc_role_json}}' 
+    body_format: json
     remote_src: 'no'
     status_code:
      - 204
