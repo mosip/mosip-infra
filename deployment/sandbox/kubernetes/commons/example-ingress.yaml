@@ -209,6 +209,22 @@ spec:
         backend:
           serviceName: registration-processor-message-sender-stage
           servicePort: 8088
+      - path: /idauthentication/v1/auth
+        backend:
+          serviceName: authentication-service
+          servicePort: 8090
+      - path: /idauthentication/v1/kyc
+        backend:
+          serviceName: authentication-kyc-service
+          servicePort: 8091
+      - path: /idauthentication/v1/otp
+        backend:
+          serviceName: authentication-otp-service
+          servicePort: 8092
+      - path: /idauthentication/v1/internal
+        backend:
+          serviceName: authentication-internal-service
+          servicePort: 8093
       - path: /config
         backend:
           serviceName: kernel-config-server

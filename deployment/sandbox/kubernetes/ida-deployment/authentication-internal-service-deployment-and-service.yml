@@ -34,7 +34,7 @@ spec:
            value: http://kernel-config-server:51000/config
       containers:
       - name: authentication-internal-service
-        image: docker-registry.mosip.io:5000/authentication-internal-service:1.0.6-SNAPSHOT.52
+        image: mosipid/authentication-internal-service:1.0.6-SNAPSHOT.52
         env:
         - name: active_profile_env
           value: qa
@@ -49,8 +49,8 @@ spec:
         ports:
         - containerPort: 8093
         imagePullPolicy: Always
-      imagePullSecrets:
-      - name: pvt-reg-cred
+      # imagePullSecrets:
+      # - name: pvt-reg-cred
 ---
 apiVersion: v1
 kind: Service
