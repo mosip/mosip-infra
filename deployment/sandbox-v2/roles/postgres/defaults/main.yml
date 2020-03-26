@@ -1,0 +1,4 @@
+postgres_password: postgres
+postgres_db: keycloak # Default DB on Postgres
+postgres_user: postgres
+postgres_external_ip: '{{kubeworkers.worker1.ip}}'  # Any worker node

@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{config_server_name}}
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{config_server_name}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{config_server_name}} 
+    spec:
+      containers:
+      - name: {{config_server_name}}
+        image: "{{local_registry}}/{{config_server_name}}:{{config_server_version}}"
+        ports:
+        - containerPort: 51000 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{config_server_name}}
+  namespace: default
+
+spec:
+  selector:
+    app: {{config_server_name}}
+  ports:
+    - port: 80
+      targetPort: 51000

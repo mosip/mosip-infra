@@ -1,0 +1,2 @@
+local_registry_port: 5000  # Docker registry running on console
+local_registry: 'console:{{local_registry_port}}'

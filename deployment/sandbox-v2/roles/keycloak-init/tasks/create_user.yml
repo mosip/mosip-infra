@@ -1,37 +1,24 @@
 
-- name: 'Read name of user from {{keycloak_user_file}}' 
+- name: 'Read name of user from {{kc_user_file}}' 
   set_fact:
-    keycloak_user_name: "{{(lookup('file', '{{keycloak_user_file}}') | from_json).username}}"
+    kc_user_name: "{{(lookup('file', '{{kc_user_file}}') | from_json).username}}"
 
-- name: 'Get "id" of the user {{keycloak_user_name}}' 
-  uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users?username={{keycloak_user_name}}'
-    method: GET 
-    remote_src: 'no'
-    status_code:
-     - 200
-    headers:
-      Content-type: "application/json"
-      Accept: "application/json"
-      Authorization: "Bearer {{keycloak_admin_token}}"
-  register: user_info 
-
-- debug:
-    msg: '{{user_info.json | length}}'
+- name: 'Get "id" of the user {{kc_user_name}}' 
+  include_tasks: get_user_info.yml # Returns kc_user_info
 
 - set_fact:
-    keycloak_user_id: '{{user_info.json[0].id}}'
-  when: (user_info.json | length) > 0
+    kc_user_id: '{{kc_user_info.json[0].id}}'
+  when: (kc_user_info.json | length) > 0
 
 - set_fact:
-    keycloak_user_id: ''
-  when: (user_info.json | length) == 0  
+    kc_user_id: ''
+  when: (kc_user_info.json | length) == 0  
 
-- name: 'Create user {{keycloak_user_file}}' 
+- name: 'Create user {{kc_user_file}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users'
+    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users'
     method: POST
-    src: '{{keycloak_user_file}}'
+    src: '{{kc_user_file}}'
     remote_src: 'no'
     status_code:
      - 201
@@ -39,13 +26,13 @@
       Content-type: "application/json"
       Accept: "application/json"
       Authorization: "Bearer {{keycloak_admin_token}}"
-  when: keycloak_user_id == '' 
+  when: kc_user_id == '' 
 
-- name: 'Update User {{keycloak_user_name}}' 
+- name: 'Update User {{kc_user_name}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}/users/{{keycloak_user_id}}'
+    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}'
     method: PUT
-    src: "{{keycloak_user_file}}"
+    src: "{{kc_user_file}}"
     remote_src: "no"
     status_code:
      - 204
@@ -53,4 +40,4 @@
       Content-type: "application/json"
       Accept: "application/json"
       Authorization: "Bearer {{keycloak_admin_token}}"
-  when: keycloak_user_id != '' 
+  when: kc_user_id != '' 

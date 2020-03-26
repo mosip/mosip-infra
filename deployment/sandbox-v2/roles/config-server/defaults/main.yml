@@ -1,0 +1,6 @@
+config_server_name: kernel-config-server  # Will be used as service name too
+config_server_version: 1.0.5
+config_server_image: kernel-config-server 
+config_server_jar_name: kernel-config-server # Without .jar. Used locally for Docker
+config_server_jar_uri: "{{artifactory_uri}}/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{config_server_version}}/{{config_server_jar_name}}-{{config_server_version}}.jar"
+config_server_url: 'http://{{config_server_name}}/config'

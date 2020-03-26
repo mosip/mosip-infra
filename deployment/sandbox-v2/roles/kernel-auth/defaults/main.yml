@@ -1,0 +1,3 @@
+kernel_auth_name: kernel-auth-service
+kernel_auth_version: 1.0.6-SNAPSHOT.96
+kernel_auth_image: mosipid/kernel-auth-service
