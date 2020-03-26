@@ -31,3 +31,8 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
 
 keycloak_mosip_users:
   - {realm_id: 'mosip', user_file: 'users/puneet.json'}
+
+keycloak_mosip_user_role_map:
+  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'ID_AUTHENTICATION'}
+
