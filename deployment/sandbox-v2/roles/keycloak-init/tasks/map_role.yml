@@ -18,7 +18,10 @@
 - name: 'Get id for role {{kc_role_name}}'
   include_tasks: get_role_info.yml # Returns kc_role_info
 
-- name: 'Create role mapping {{kc_user_id}} : {{kc_role_file}}'
+- debug:
+    msg: '{{kc_role_info}}'
+
+- name: 'Create role mapping {{kc_user_id}} : {{kc_role_name}}'
   uri:
     url: '{{kc_role_mapping_url}}'
     method: POST 

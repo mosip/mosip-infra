@@ -1,6 +1,6 @@
 # Get roles of a relam 
 # Returns kc_role_info
-- name: 'Get roles of realm {{realm_id}}'
+- name: 'Get roles of realm {{kc_realm_id}}'
   uri:
     url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/roles/{{kc_role_name}}'
     method: GET 
