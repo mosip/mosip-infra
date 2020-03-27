@@ -1,0 +1,20 @@
+---
+  - hosts: all
+    become: true
+    tasks:
+      - name: Getting url for Key manager 
+        shell: minikube service kernel-config-server --url
+        register: config_private_ip
+
+      - name: Finding all IDA yml files
+        find:
+          paths: ../kubernetes/ida-deployment
+          patterns: '*.yml'
+          recurse: yes
+        register: paths_ida_ymls
+
+      - name: Deploying all the IDA modules
+        k8s:
+          state: present
+          src: "{{ item.path }}" 
+        with_items: "{{ paths_ida_ymls.files }}"
