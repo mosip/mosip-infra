@@ -91,3 +91,32 @@ KERNEL AUTH SERVICE
     "requesttime": "2020-03-23T06:12:52.994Z",
     "version": "1.0"
   }
+
+KERNEL AUDIT MANAGER
+* Swager URL
+  http://kubeslave:30154/v1/auditmanager/swagger-ui.html
+
+* Sample json to test auditmanager:
+  { "id": "mosip.auditmanager.audits",
+    "metadata": {},
+    "request": {
+      "eventId": "hello",
+      "eventName": "world",
+      "eventType": "nice",
+      "actionTimeStamp": "2020-03-26T05:57:20.929Z",
+      "hostName": "nice",
+      "hostIp": "string",
+      "applicationId": "string",
+      "applicationName": "string",
+      "sessionUserId": "string",
+      "sessionUserName": "string",
+      "id": "string",
+      "idType": "string",
+      "createdBy": "string",
+      "moduleName": "string",
+      "moduleId": "string",
+      "description": "string" 
+    },
+    "requesttime": "2020-03-26T06:12:52.994Z",
+    "version": "1.0"
+  }

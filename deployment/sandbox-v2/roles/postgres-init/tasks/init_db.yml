@@ -1,38 +1,38 @@
 # This sequence of tasks runs the required sqls and loads DB with test data
 - debug:
-    msg: Initialize {{item}} db 
+    msg: 'Initialize {{pg_db_name}} db'
 
-- name: '{{item}}: Update ip address in postgres init files'
+- name: '{{pg_db_name}}: Update ip address in postgres init files'
   lineinfile:
-    path: '{{pg_init_sql_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_SERVERIP='
     line: DB_SERVERIP={{postgres_external_ip}}
    
-- name: '{{item}}: Update port in postgres init files'
+- name: '{{pg_db_name}}: Update port in postgres init files'
   lineinfile:
-    path: '{{pg_init_sql_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_PORT='
     line: DB_PORT={{db_port}}
 
-- name: '{{item}}: Update super user password in postgres init files' 
+- name: '{{pg_db_name}}: Update super user password in postgres init files' 
   lineinfile:
-    path: '{{pg_init_sql_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^SU_USER_PWD='
     line: SU_USER_PWD={{postgres_password}}
 
-- name: '{{item}}: Update basepath in postgres init files' 
+- name: '{{pg_db_name}}: Update basepath in postgres init files' 
   lineinfile:
-    path: '{{pg_init_sql_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^BASEPATH='
-    line: BASEPATH={{pg_init_sql_path}}
+    line: BASEPATH={{pg_sql_path}}
 
-- name: '{{item}}: Update log path in postgres init files' 
+- name: '{{pg_db_name}}: Update log path in postgres init files' 
   lineinfile:
-    path: '{{pg_init_sql_path}}/{{item}}/{{item}}_deploy.properties'
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^LOG_PATH='
     line: LOG_PATH={{logs_dir}}
 
-- name: 'Run {{item}} shell script'
-  shell: 'bash {{item}}_db_deploy.sh {{item}}_deploy.properties'
+- name: 'Run {{pg_db_name}} shell script'
+  shell: 'bash {{pg_db_name}}_db_deploy.sh {{pg_db_name}}_deploy.properties'
   args:
-    chdir: '{{pg_init_sql_path}}/{{item}}'
+    chdir: '{{pg_sql_path}}/{{pg_db_name}}'
