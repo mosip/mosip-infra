@@ -1,0 +1,11 @@
+- hosts: console
+  gather_facts: no
+  vars:
+    myvar: '[{"name": "REGISTRATION_OFFICER"}]'
+    json_var: '{{myvar | from_json}}'
+
+  tasks:
+    - debug:
+        msg: '{{json_var | type_debug}}'
+    - debug:
+        msg: '{{myvar | type_debug}}'

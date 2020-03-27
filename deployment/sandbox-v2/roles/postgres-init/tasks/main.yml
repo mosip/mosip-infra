@@ -23,11 +23,8 @@
     db_port: '{{(out.stdout | from_json).spec.ports[0].nodePort}}'
  
 - include: init_db.yml
-  with_items:
-    - mosip_kernel
-    - mosip_master
-    - mosip_iam
-    - mosip_audit
-    - mosip_idrepo
-    - mosip_idmap        
+  vars:
+    pg_db_name: '{{item.db_name}}'
+    pg_sql_path: '{{item.sql}}'
+  with_items: '{{pg_databases}}'
         
