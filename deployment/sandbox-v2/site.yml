@@ -1,13 +1,16 @@
 ---
 - hosts: console
+  # Note: we have put tags here to run roles individually if needed.
+  gather_facts: false
   roles:
-     - postgres 
-     - {role: postgres-init, tags: postgres-init}
+     - {role: postgres-init, tags: postgres-init} 
      - local-registry
      - config-gitrepo
      - config-server
      - keycloak
      - keycloak-init
-     - kernel-auth
+     - {role: kernel/kernel-auth, tags: kernel-auth} 
+     - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
+     - {role: pre-reg/pre-reg-notification, tags: pre-reg-notification}
 
