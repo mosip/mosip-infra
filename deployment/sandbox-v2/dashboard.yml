@@ -3,5 +3,6 @@
 # $ ansible-playbook -i hosts dashboard.yml
 ---
 - hosts: console
+  gather_facts: no
   roles:
     - dashboard

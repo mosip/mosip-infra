@@ -1,14 +1,6 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
 
-console_ip: 192.168.100.1  # This should be in same subnet as Kubernetes nodes
-kubemaster:
-  host: 192.168.100.223    
-
-kubeworkers:
-  worker1:
-    ip: 192.168.100.176 
-
 ansible_become_password: puneet  # For commands that require sudo
 
 tmp_dir: '{{playbook_dir}}/tmp/'
@@ -20,7 +12,6 @@ postgres_password: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
 postgres_external_ip: '{{kubeworkers.worker1.ip}}'  # Any worker node
-
 
 keycloak_user: admin
 keycloak_password: admin

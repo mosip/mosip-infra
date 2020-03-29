@@ -1,0 +1,5 @@
+pre_reg_api_host: https://dev.mosip.io/  # UI client will connect to this host for Pre Reg APIs for external access
+pre_reg_ui_name: pre-registration-ui
+pre_reg_ui_version: 1.0.6-SNAPSHOT.217 
+pre_reg_ui_image: mosipid/pre-registration-ui
+pre_reg_ui_config_name: pre-registration-ui-config  #ConfigMap name

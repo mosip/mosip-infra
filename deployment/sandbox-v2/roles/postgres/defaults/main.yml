@@ -1,4 +1,4 @@
 postgres_password: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
-postgres_external_ip: '{{kubeworkers.worker1.ip}}'  # Any worker node
+postgres_external_ip: '{{hostvars[groups.kubeworkers[0]].ansible_host}}'  # Any k8s worker node
