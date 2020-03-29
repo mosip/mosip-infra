@@ -10,7 +10,7 @@
 
 - name: Get nodePort and create url 
   set_fact: 
-    keycloak_url: 'http://{{kubeworkers.worker1.ip}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
+    keycloak_url: 'http://{{hostvars[groups.kubeworkers[0]].ansible_host}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
 
 - name: Get admin token
   uri:

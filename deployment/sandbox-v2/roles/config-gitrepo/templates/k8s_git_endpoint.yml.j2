@@ -5,6 +5,6 @@ metadata:
   name: gitrepo
 subsets:
   - addresses:
-    - ip: '{{console_ip}}'
+    - ip: "{{hostvars['console']['ansible_host']}}"
     ports:
       - port: {{config_gitrepo_port}} 
