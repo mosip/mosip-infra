@@ -65,22 +65,11 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
 
-#### Steps to access the Pre-registration UI
-1. Sandbox works on private IP address, hence, you can access the pre-registration UI from the chrome browser installed inside the machine where pre-registration module is deployed.
-   
-1. If you don't have google chrome installed in your ubuntu machine, please follow this link for [installing the google chrome in your ubuntu machine](https://linuxconfig.org/how-to-install-google-chrome-web-browser-on-ubuntu-18-04-bionic-beaver-linux).
-
-1. If you want to access google chrome using remote desktop connection, please follow this link for [installing the remote desktop in your ubuntu machine](https://gist.github.com/hehuan2112/54cca01be23973a9f8b369e8d0df216e). 
-   
-   After restarting the xRDP service, which is the last instruction in the above link, connect your ubuntu machine from RDP application present in your Windows system. Now you will have UI access in your ubuntu machine. 
-   
-   **_Note:_** You will need to open 3389 port number from the cloud side.
-   
-1. After connecting to the ubuntu machine from RDP application, open the chrome browser.
- 
-1. MOSIP Pre-registration UI can be accessed using the url `http://\<private ip address\>/pre-registration-ui`
-    * **_Note_**:  To find the private ip address of your machine, you may use the following command: `$ hostname -I | awk '{print $1}'`.    
+#### Steps to access the Pre-registration UI    
+1. MOSIP Pre-registration UI can be accessed using the url `http://<public_ip_address>/pre-registration-ui`
+    * **_Note_**:  To find the public ip address of your  machine, you may use the following command: `$ curl ifconfig.me`.    
 	* Below is the screenshot of the Pre-registration startup page.
+	
 ![](images/pre-reg-screenshot.png)
 
 1. Login into the Pre-registration portal using OTP sent to email or phone.
