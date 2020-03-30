@@ -102,7 +102,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
     
    and provide the below json data in the body.
 
-      **_Note:_**  _Replace email in the body with your email id._
+      **_Note:_**  _Replace email in the below body with your email id._
 ```
      {
         "id": "io.mosip.packetgenerator.uploader",
