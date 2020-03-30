@@ -1,9 +1,9 @@
 console ansible_host=192.168.100.1
 
-kubemaster ansible_host=192.168.100.223    
+kubemaster ansible_host=175.100.151.50
 
 [kubeworkers]
-kubeworker1 ansible_host=192.168.100.176 
+kubeslave ansible_host=192.168.100.176 
 
 
 

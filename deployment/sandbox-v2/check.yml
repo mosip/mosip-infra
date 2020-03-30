@@ -1,7 +1,0 @@
----
-- hosts: console 
-  gather_facts: no
-  tasks:
-    - debug:
-        msg: "{{hostvars[groups.kubeworkers[0]].ansible_host}}"
-

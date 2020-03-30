@@ -6,7 +6,7 @@
     path: '{{tmp_dir}}'
     state: directory
 
-# Create persistent storage
+## Create persistent storage
 - name: Get persistent storage yml from template 
   template:
      src: k8s_pg_storage.yml.j2
