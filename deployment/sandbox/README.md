@@ -90,51 +90,51 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 #### Steps to upload a packet into Reg Proc
 1. Run the test script for Reg Proc.
-    ```
-    $ sh testing-upload-packet-registration-processor.sh
-    ```   
+     ```
+     $ sh testing-upload-packet-registration-processor.sh
+     ```   
 1. Through Postman, perform post operation on the below URL,
 
-**_Note:_** _Replace <public_ip_address> with the public IP of your machine._
-    ```
-    http://<public_ip_address>/v1/utility/packetgenerator/createAndUpload
-    ```
+     **_Note:_** _Replace <public_ip_address> with the public IP of your machine._
+     ```
+     http://<public_ip_address>/v1/utility/packetgenerator/createAndUpload
+     ```
     
-and provide the below json data in the body.
+   and provide the below json data in the body.
 
-**_Note:_**  _Replace email in the body with your email id._
+     **_Note:_**  _Replace email in the body with your email id._
 ```
-    {
-       "id": "io.mosip.packetgenerator.uploader",
-       "request": {
-            "firstName": "Foo",
-            "lastName": "User",
-	    "gender": "Male",
-	    "dateOfBirth": "1995/02/20",
-	    "age": 26,
-	    "phone": "8144203333",
-	    "email": "youremailid@domain",
-	    "addressLine1": "string",
-	    "addressLine2": "string",
-	    "addressLine3": "string"
-	    },
-       "requesttime": "2020-02-11T14:07:03.134Z",
-       "version": "v1"
-    }
+     {
+        "id": "io.mosip.packetgenerator.uploader",
+        "request": {
+             "firstName": "Foo",
+             "lastName": "User",
+	     "gender": "Male",
+	     "dateOfBirth": "1995/02/20",
+	     "age": 26,
+	     "phone": "8144203333",
+ 	     "email": "youremailid@domain",
+ 	     "addressLine1": "string",
+	     "addressLine2": "string",
+	     "addressLine3": "string"
+	     },
+        "requesttime": "2020-02-11T14:07:03.134Z",
+        "version": "v1"
+     }
 ```
- ### You will get a response like this
+      ### You will get a response like this
 ```
-    {
-       "id": "io.mosip.packetgenerator.uploader",
-       "version": "v1",
-       "responsetime": "2020-03-30T18:28:47.150Z",
-       "metadata": null,
-       "errors": null,
-       "response": {
-           "registartionId": "10002100320000220200330182847",
-           "status": "packet has been created and uploaded"
-        }
-    }
+     {
+        "id": "io.mosip.packetgenerator.uploader",
+        "version": "v1",
+        "responsetime": "2020-03-30T18:28:47.150Z",
+        "metadata": null,
+        "errors": null,
+        "response": {
+            "registartionId": "10002100320000220200330182847",
+            "status": "packet has been created and uploaded"
+         }
+     }
 ```
 
 Hence, your packet has been successfully created and uploaded. Once all the stages of Reg Proc are passed, you will get a confirmation mail on the email id you provided in the body.
