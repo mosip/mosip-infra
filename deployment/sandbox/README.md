@@ -93,7 +93,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
     ```
     $ sh testing-upload-packet-registration-processor.sh
     ```   
-1. Through Postman, perform post operation on this URL,
+1. Through Postman, perform post operation on the below URL,
 
 **_Note:_** _Replace <public_ip_address> with the public IP of your machine._
     ```
