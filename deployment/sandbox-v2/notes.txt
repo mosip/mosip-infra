@@ -15,7 +15,6 @@
   $ pip3 install docker 
 
 KEYCLOAK
-* TODO: Mosip-admin-client of Keycload - the key needs to be updaded in properties file
 * Admin account:
   username: admin
   password: admin
@@ -50,12 +49,6 @@ KEYCLOAK
 
 * Put console ip in /etc/hosts of each node (including master)
   192.168.100.1 console
-
-* Set up a local registry on console (localhost) and push kernel-config-server
-to that registry which is picked from kernel-config-server POD in kubernets.
-TODO: Automate this.  Follow instructions here:
-
-  https://docs.docker.com/registry/deploying/
 
 ###
 
