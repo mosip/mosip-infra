@@ -89,6 +89,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 10 minutes for the Reg Proc services to be up and running. 
 
 #### Steps to upload a packet into Reg Proc
+1. Make sure that, you are the root user.
 1. Run the test script for Reg Proc.
      ```
      $ sh testing-upload-packet-registration-processor.sh
