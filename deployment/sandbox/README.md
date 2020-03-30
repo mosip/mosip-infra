@@ -66,8 +66,8 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 10 minutes for the pre-registration services to be up and running.
 
 #### Steps to access the Pre-registration UI    
-1. MOSIP Pre-registration UI can be accessed using the url `http://\<vm_public_ip_address\>/pre-registration-ui`
-    * **_Note_**:  To find the public ip address of your machine, you may use the following command: `$ curl ifconfig.me`.    
+1. MOSIP Pre-registration UI can be accessed using the url `http://<public_ip_address>/pre-registration-ui`
+    * **_Note_**:  To find the public ip address of your  machine, you may use the following command: `$ curl ifconfig.me`.    
 	* Below is the screenshot of the Pre-registration startup page.
 ![](images/pre-reg-screenshot.png)
 
