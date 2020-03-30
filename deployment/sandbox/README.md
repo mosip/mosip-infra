@@ -94,16 +94,15 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
     $ sh testing-upload-packet-registration-processor.sh
     ```   
 1. Through Postman, perform post operation on this URL,
+
+**_Note:_** _Replace <public_ip_address> with the public IP of your machine._
     ```
     http://<public_ip_address>/v1/utility/packetgenerator/createAndUpload
     ```
-
-**_Note:_** _Replace <public_ip_address> with the public IP of your machine._
-
+    
 and provide the below json data in the body.
 
 **_Note:_**  _Replace email in the body with your email id._
-
 ```
     {
        "id": "io.mosip.packetgenerator.uploader",
