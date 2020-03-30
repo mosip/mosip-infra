@@ -110,7 +110,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
              "firstName": "Foo",
              "lastName": "User",
 	     "gender": "Male",
-	     "dateOfBirth": "1995/02/20",
+	     "dateOfBirth": "1993/02/20",
 	     "age": 26,
 	     "phone": "8144203333",
  	     "email": "youremailid@domain",
