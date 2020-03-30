@@ -1,0 +1,1 @@
+The Docker file in this folder is built and images are pushed to Docker Hub via a separate process. This is not while deploying the sandbox.  it is assumed that the docker images are present on Docker Hub.

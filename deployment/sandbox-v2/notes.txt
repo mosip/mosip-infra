@@ -120,3 +120,8 @@ KERNEL AUDIT MANAGER
     "requesttime": "2020-03-26T06:12:52.994Z",
     "version": "1.0"
   }
+
+TODO:
+- Change all the k8s files to have Image pull policy as "Ifnotpresent"
+- Write automation of building and pushing config server docker 
+

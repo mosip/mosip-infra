@@ -3,9 +3,7 @@
   gather_facts: false
   # Note: we have put tags here to run roles individually if needed.
   roles:
-#     - local-registry
-#     - config-gitrepo
-#     - config-server
+     - {role: config-server, tags: config-server}
      - {role: postgres, tags: postgres}
      - {role: postgres-init, tags: postgres-init} 
      - keycloak

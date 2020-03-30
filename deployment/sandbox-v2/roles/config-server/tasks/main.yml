@@ -8,25 +8,26 @@
     state: directory
     mode: '0755'
 
-- name: Download kernel-server-config tar
-  get_url:
-    url: '{{config_server_jar_uri}}'
-    dest: "{{role_path}}/files/config_server_name-{{config_server_version}}.jar"
-
-- name: Build docker and push it local registry  
-  docker_image:
-    name: "{{local_registry}}/config_server_name"
-    tag: "{{config_server_version}}"
-    push: yes
-    source: build
-    build:
-      path: '{{role_path}}/files' 
-      pull: yes
-      args:
-        version: "{{config_server_version}}"
-        git_uri: 'http://gitrepo/{{config_gitrepo_name}}'
-        jar_name: '{{config_server_jar_name}}'
-      #TODO: pickup gitrepo from service name
+#- name: Download kernel-server-config tar
+#  get_url:
+#    url: '{{config_server_jar_uri}}'
+#    dest: "{{role_path}}/files/{{config_server_name}}-{{config_server_version}}.jar"
+#
+#- name: Build docker and push it local registry  
+#  docker_image:
+#    name: "mosipid/sandbox-config-server"
+#    tag: "{{config_server_version}}"
+#    push: yes
+#    source: build
+#    build:
+#      path: '{{role_path}}/files' 
+#      pull: no 
+#      args:
+#        version: "{{config_server_version}}"
+#        git_uri: '/mnt/mosip_data/configs/'
+#        config_folder: 'mosip-infra/deployment/sandbox-v2/roles/config-gitrepo/files/properties'
+#        jar_name: '{{config_server_jar_name}}'
+#      #TODO: pickup gitrepo from service name
 
 - name: Kubernetes yml file from template 
   template:

@@ -1,4 +1,0 @@
-config_gitrepo_port: 8080 # Git repo container will expose this port on console 
-config_gitrepo_dir: /home/puneet/projects/mosip/
-config_gitrepo_name: config_repo.git
-config_gitrepo: '{{config_gitrepo_dir}}/{{config_gitrepo_name}}'
