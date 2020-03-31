@@ -16,4 +16,8 @@ Enter username/password
 $ docker push mosipid/sandbox-config-server:1.0.5
 ```
 
+## Git repo
+It is assumed that the git repo `/mnt/mosip_data/configs/mosip_infra` is available on the mounted on container and property files are checked-in over there.
+
+
 
