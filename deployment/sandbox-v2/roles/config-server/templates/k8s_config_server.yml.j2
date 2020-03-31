@@ -22,9 +22,28 @@ spec:
     spec:
       containers:
       - name: {{config_server_name}}
-        image: "{{local_registry}}/{{config_server_name}}:{{config_server_version}}"
+        image: {{config_server_image}}
+        env:
+        - name: env_git_uri 
+          value: {{config_repo_uri}}         
+        - name: env_version
+          value: {{config_server_version}}
+        - name: env_jar_name 
+          value: {{config_server_jar_name}}
+        - name: env_config_folder 
+          value: {{config_repo_search_folder}}
+        imagePullPolicy: "IfNotPresent" 
         ports:
         - containerPort: 51000 
+        volumeMounts:
+        - name: repo
+          mountPath: {{config_repo_mount_path}} 
+        imagePullPolicy: "IfNotPresent"
+      volumes:
+      - name: repo 
+        persistentVolumeClaim:
+          claimName: config-repo-pv-claim
+
 ---
 apiVersion: v1
 kind: Service

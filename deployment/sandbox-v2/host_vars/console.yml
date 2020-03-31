@@ -11,7 +11,7 @@ artifactory_uri: 'http://13.71.87.138:8040'
 postgres_password: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
-postgres_external_ip: '{{kubeworkers.worker1.ip}}'  # Any worker node
+postgres_external_ip: '{{hostvars[groups.kubeworkers[0]].ansible_host}}'
 
 keycloak_user: admin
 keycloak_password: admin

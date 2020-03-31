@@ -5,25 +5,26 @@ kind: StorageClass
 metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
-volumeBindingMode: WaitForFirstConsumer
+volumeBindingMode: WaitForFirstConsumer 
+
 ---
 
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postgres-local-storage 
+  name: config-repo-local-storage 
   labels:
-    name: postgres-local-storage
+    name: config-repo-local-storage
 spec:
   capacity:
-    storage: 1Gi 
+    storage: 10Mi 
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
   storageClassName: local-storage
   local:
-    path: '{{postgres_local_storage_path}}'
+    path: {{config_repo_node_path}}
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -31,23 +32,25 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - '{{postgres_local_storage_node}}' # The node on which this directory exists
+          - {{config_repo_local_storage_node}} # The node on which this directory exists
+  
 ---
 
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: config-repo-pv-claim
   labels:
-    app: postgres-pv-claim
+    app: config-repo-pv-claim
 spec:
   storageClassName: local-storage
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Mi
   selector:
     matchLabels:
-      name: 'postgres-local-storage'
-  
+      name: config-repo-local-storage
+---
