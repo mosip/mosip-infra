@@ -142,14 +142,14 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 Hence, your packet has been successfully created and uploaded. Once all the stages of Reg Proc are passed, you will get a confirmation mail on the email id you provided in the body.
 
-### MOSIP ID-Authetication (IDA)
+### MOSIP ID-Authentication (IDA)
 1. Make sure that, you are the root user and you have already installed the Kernel module as well as Registration-Processor Module
-1. Install the id-authetication module by executing the below command.
+1. Install the id-authentication module by executing the below command.
     ```
     $ sh install-mosip-ida.sh
     ```
 1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
-1. If there are no errors in the log, wait for about 10 minutes for the id-authetication services to be up and running.
+1. If there are no errors in the log, wait for about 10 minutes for the id-authentication services to be up and running.
  
 
