@@ -117,4 +117,6 @@ KERNEL AUDIT MANAGER
 TODO:
 - Change all the k8s files to have Image pull policy as "Ifnotpresent"
 - Write automation of building and pushing config server docker 
+- Link git repo mount path to Kubernetes setup local node path
+- Add Pv pVC for config-server
 

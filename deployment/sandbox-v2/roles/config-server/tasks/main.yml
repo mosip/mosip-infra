@@ -8,26 +8,17 @@
     state: directory
     mode: '0755'
 
-#- name: Download kernel-server-config tar
-#  get_url:
-#    url: '{{config_server_jar_uri}}'
-#    dest: "{{role_path}}/files/{{config_server_name}}-{{config_server_version}}.jar"
-#
-#- name: Build docker and push it local registry  
-#  docker_image:
-#    name: "mosipid/sandbox-config-server"
-#    tag: "{{config_server_version}}"
-#    push: yes
-#    source: build
-#    build:
-#      path: '{{role_path}}/files' 
-#      pull: no 
-#      args:
-#        version: "{{config_server_version}}"
-#        git_uri: '/mnt/mosip_data/configs/'
-#        config_folder: 'mosip-infra/deployment/sandbox-v2/roles/config-gitrepo/files/properties'
-#        jar_name: '{{config_server_jar_name}}'
-#      #TODO: pickup gitrepo from service name
+## Create persistent storage
+- name: Get persistent storage yml from template 
+  template:
+     src: k8s_repo_storage.yml.j2
+     dest: '{{tmp_dir}}/k8s_repo_storage.yml'
+
+- name: Deploy persistent storage on kurbernetes
+  k8s:
+    namespace: default
+    state: present
+    src: '{{tmp_dir}}/k8s_repo_storage.yml'
 
 - name: Kubernetes yml file from template 
   template:
