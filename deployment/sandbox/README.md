@@ -47,7 +47,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 
 ### MOSIP Kernel
 1. Make sure that, you are the root user.
-1. Install the kernel module by executing the below command. This is the base for all other modules.
+1. Install the kernel module by executing the below command. This is the base for all other module, it has to be installed.
     ```
     $ sh install-mosip-kernel.sh
     ```
@@ -56,7 +56,7 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. If there are no errors in the log, wait for about 5 minutes for the kernel services to be up and running. 
 
 ### MOSIP Pre-registration 
-1. Make sure that, you are the root user.
+1. Make sure that, you are the root user and you have already installed the Kernel module.
 1. Install the pre-registration module by executing the below command.
     ```
     $ sh install-mosip-pre-reg.sh
@@ -75,11 +75,13 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 1. Login into the Pre-registration portal using OTP sent to email or phone.
 
 ### MOSIP Registration Processor
-1. Make sure that, you are the root user.
+1. Make sure that, you are the root user and you have already installed the Kernel module.
 1. Install the registration processor module by executing the below command.
     ```
     $ sh install-mosip-reg-proc.sh
     ```    
+     **_Note:_**  This will also install ID-Repository modules.
+     
 1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
 
 1. If there are no errors in the log, wait for about 10 minutes for the registration-processor services to be up and running.
@@ -139,5 +141,15 @@ MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single mach
 ```
 
 Hence, your packet has been successfully created and uploaded. Once all the stages of Reg Proc are passed, you will get a confirmation mail on the email id you provided in the body.
+
+### MOSIP ID-Authetication (IDA)
+1. Make sure that, you are the root user and you have already installed the Kernel module as well as Registration-Processor Module
+1. Install the id-authetication module by executing the below command.
+    ```
+    $ sh install-mosip-ida.sh
+    ```
+1. Check for errors in `install-mosip-sandbox.log`. Go to the last line and check for `failed=0` which indicates that there are no failures during the deployment.
+
+1. If there are no errors in the log, wait for about 10 minutes for the id-authetication services to be up and running.
  
 
