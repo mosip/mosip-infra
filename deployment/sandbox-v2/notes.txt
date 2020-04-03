@@ -119,4 +119,55 @@ TODO:
 - Write automation of building and pushing config server docker 
 - Link git repo mount path to Kubernetes setup local node path
 - Add Pv pVC for config-server
+- Pv and PVC are immutable. Script fails while installing them again, so there existence must be checked.
 
+===================
+Installing Kuberntes using ansible on a fresh VM in TF cluster:
+
+* Install ansible
+a) sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+b) sudo yum install ansible # This will install 2.9 version
+
+If you don't do (a), it will install ansible 2.4. But we need 2.9.
+
+* Change network_inface in group_vars/all.yml to "eth0" (or whaterver network interface available on nodes)
+
+## Sandbox-v2 - Console
+* Generate public and private keys as id_rsa and id_rsa.pub and cat the 
+  contents of id_rsa.pub in authorized_keys file.
+* sudo yum install python3
+* sudo pip3 install openshift
+* sudo pip3 install selinux
+* sudo yum install postgresql (for psql client)
+* change hosts ini file:
+  * Update correct hostnames of master and works that will appear as labels
+    in kubernetes
+* Install psql version 10
+  * sudo rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+  * sudo yum install postgresql10
+  
+* checkout mosip/commons and mosip/pre-registration
+* Update roles/postgres-init/defaults/main.yml for following:
+  * pg_common_sql_path: /home/puneet/commons/db_scripts                         
+  * pg_pre_reg_sql_path: /home/puneet/pre-registration/db_scripts
+
+## Kubeworker 1
+* create /mnt/mosip_data/postgre directory which must be empty.
+* Install git
+  * sudo yum install git
+* For config server
+  * create /mnt/mosip_data/config_repo dir.
+  * Copy all property files from roles/config-server/files/properties to the above dir
+  * git init 
+  * git add .
+  * git commit
+   
+
+
+
+
+
+
+
+=--
+P@ssw0rd@321
