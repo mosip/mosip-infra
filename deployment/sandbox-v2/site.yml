@@ -3,11 +3,11 @@
   gather_facts: false
   # Note: we have put tags here to run roles individually if needed.
   roles:
-     - {role: config-server, tags: config-server}
      - {role: postgres, tags: postgres}
      - {role: postgres-init, tags: postgres-init} 
-     - keycloak
-     - keycloak-init
+     - {role: config-server, tags: config-server}
+     - {role: keycloak, tags: keycloak} 
+     - {role: keycloak-init, tags: keycloak-init} 
      - {role: kernel/kernel-auth, tags: kernel-auth} 
      - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}

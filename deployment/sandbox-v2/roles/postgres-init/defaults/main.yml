@@ -1,8 +1,8 @@
 #TODO: Automate checking out of db_scripts repos
 #TODO: Split postgres-init module wise such that init of database for a
 # particular module should not be forced here as common init. 
-pg_common_sql_path: /home/puneet/projects/mosip/pjoshi751/commons/db_scripts 
-pg_pre_reg_sql_path: /home/puneet/projects/mosip/pjoshi751/pre-registration/db_scripts 
+pg_common_sql_path: /home/puneet/commons/db_scripts 
+pg_pre_reg_sql_path: /home/puneet/pre-registration/db_scripts 
 pg_databases:
     - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_kernel'}
     - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_master'}
