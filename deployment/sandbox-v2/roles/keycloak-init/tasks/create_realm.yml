@@ -41,3 +41,4 @@
       Accept: "application/json"
       Authorization: "Bearer {{keycloak_admin_token}}"
   when: "keycloak_realm_exists.status == 200"
+

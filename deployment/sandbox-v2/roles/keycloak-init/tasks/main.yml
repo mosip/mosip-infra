@@ -12,20 +12,8 @@
   set_fact: 
     keycloak_url: 'http://{{hostvars[groups.kubeworkers[0]].ansible_host}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
 
-- name: Get admin token
-  uri:
-    url: "{{keycloak_url}}/auth/realms/master/protocol/openid-connect/token"
-    method: POST
-    body_format: form-urlencoded
-    body:
-      username: '{{keycloak_user}}'
-      password: '{{keycloak_password}}' 
-      grant_type: "password"
-      client_id: "admin-cli"
-  register: keycloak_token
-
-- set_fact:
-    keycloak_admin_token: '{{keycloak_token.json.access_token}}'
+- include_tasks:
+    file: get_admin_token.yml
 
 # Realms
 - include_tasks:
@@ -34,6 +22,10 @@
     keycloak_realm_id: '{{item.realm_id}}' 
     keycloak_realm_data_file: '{{item.realm_file}}'
   with_items: '{{keycloak_mosip_realms}}'
+
+# Get admin token once again as something  may have changed in master realm.
+- include_tasks:
+    file: get_admin_token.yml
 
 # Clients
 - include_tasks:

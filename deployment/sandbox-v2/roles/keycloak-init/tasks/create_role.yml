@@ -23,6 +23,7 @@
     status_code:
      - 201
      - 409 # Role already exists
+     - 401
     headers:
       Content-type: "application/json"
       Accept: "application/json"

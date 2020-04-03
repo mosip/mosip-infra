@@ -1,8 +1,10 @@
 keycloak_mosip_realms:
+  - {realm_id: 'master', realm_file: 'realms/realm_master.json'}  # Only to update Master settings
   - {realm_id: 'mosip', realm_file: 'realms/realm_mosip.json'}
 
 # There can be only one admin client at this point of time, whose secret
 # Key should be updated in properties file
+# IMPORTANT: If the client secret is changed below make sure you update the corresponding property in the property files of config-server. 
 keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-admin-client', is_admin: true, secret: 'xyz123'}  
   - {realm_id: 'mosip', client_id: 'mosip-registration-client', is_admin: false, secret: 'abc123'} 
