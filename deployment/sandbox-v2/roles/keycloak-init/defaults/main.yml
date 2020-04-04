@@ -7,7 +7,7 @@ keycloak_mosip_realms:
 # IMPORTANT: If the client secret is changed below make sure you update the corresponding property in the property files of config-server. 
 keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-admin-client', is_admin: true, secret: 'xyz123'}  
-  - {realm_id: 'mosip', client_id: 'mosip-registration-client', is_admin: false, secret: 'abc123'} 
+  - {realm_id: 'mosip', client_id: 'mosip-pre-registration-client', is_admin: false, secret: 'abc123'} 
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}

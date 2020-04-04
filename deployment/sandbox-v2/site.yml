@@ -3,15 +3,22 @@
   gather_facts: false
   # Note: we have put tags here to run roles individually if needed.
   roles:
+     # Base infra
      - {role: postgres, tags: postgres}
-     - {role: postgres-init, tags: postgres-init} 
-     - {role: config-server, tags: config-server}
-     - {role: keycloak, tags: keycloak} 
-     - {role: keycloak-init, tags: keycloak-init} 
-     - {role: kernel/kernel-auth, tags: kernel-auth} 
+     - {role: postgres-init, tags: postgres-init} # Depends on postgres
+     - {role: config-server, tags: config-server} 
+     - {role: keycloak, tags: keycloak} # Depends on postgres 
+     - {role: keycloak-init, tags: keycloak-init} # Depends on keycloak
+
+     # Kernel  
+     - {role: kernel/kernel-auth, tags: kernel-auth}  
      - {role: kernel/kernel-auditmanager, tags: kernel-audit} 
+     - {role: kernel/kernel-masterdata, tags: kernel-masterdata} 
      - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
+
+     # Pre-Reg
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
+     - {role: pre-reg/pre-reg-demographic, tags: pre-reg-demographic}
      - {role: pre-reg/pre-reg-notification, tags: pre-reg-notification}
      - {role: pre-reg/pre-reg-ui, tags: pre-reg-ui}
 

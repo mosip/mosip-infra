@@ -35,7 +35,7 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: 8083
+        - containerPort: {{kernel_emailnotification_container_port}} 
         imagePullPolicy: Always
 ---
 apiVersion: v1
@@ -46,7 +46,7 @@ metadata:
 spec:
   ports:
   - port: 80 
-    targetPort: 8083
+    targetPort: {{kernel_emailnotification_container_port}} 
   selector:
     app: {{kernel_emailnotification_name}}
   type: NodePort
