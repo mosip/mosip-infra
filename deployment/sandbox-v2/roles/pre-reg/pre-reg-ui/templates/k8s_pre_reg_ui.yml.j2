@@ -27,10 +27,11 @@ spec:
         - containerPort: 80
         imagePullPolicy: Always
         volumeMounts:
-            - name: ui-config
+            - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json
-              subPath: config.json
+              subPath: config.json #TODO: subPath is needed.  Check why
               # The above path is fixed in Dockerfile
+              # The config map gets mounted like files where key=file, value=file contents
       volumes:
         - name: ui-config
           configMap:
