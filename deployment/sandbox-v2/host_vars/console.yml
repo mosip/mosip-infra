@@ -15,3 +15,6 @@ postgres_external_ip: '{{hostvars[groups.kubeworkers[0]].ansible_host}}'
 
 keycloak_user: admin
 keycloak_password: admin
+
+docker_wait_time: 600   # Wait for docker to pull and deploy
+

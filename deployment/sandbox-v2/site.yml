@@ -9,6 +9,7 @@
      - {role: keycloak, tags: keycloak} 
      - {role: keycloak-init, tags: keycloak-init} 
      - {role: kernel/kernel-auth, tags: kernel-auth} 
+     - {role: kernel/kernel-auditmanager, tags: kernel-audit} 
      - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
      - {role: pre-reg/pre-reg-notification, tags: pre-reg-notification}

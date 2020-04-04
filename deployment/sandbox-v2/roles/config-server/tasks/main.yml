@@ -30,5 +30,5 @@
     src: '{{tmp_dir}}/k8s_config_server.yml'  
     state: present
     wait: yes
-    wait_timeout: 240 
+    wait_timeout: '{{docker_wait_time}}'
 
