@@ -35,7 +35,7 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: 9090
+        - containerPort: {{pre_reg_login_container_port}} 
         imagePullPolicy: Always
 ---
 apiVersion: v1
@@ -46,7 +46,7 @@ metadata:
 spec:
   ports:
   - port: 80 
-    targetPort: 9090
+    targetPort: {{pre_reg_login_container_port}} 
   selector:
     app: {{pre_reg_login_name}}
   type: NodePort
