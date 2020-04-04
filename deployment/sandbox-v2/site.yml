@@ -20,5 +20,11 @@
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
      - {role: pre-reg/pre-reg-demographic, tags: pre-reg-demographic}
      - {role: pre-reg/pre-reg-notification, tags: pre-reg-notification}
+     - {role: pre-reg/pre-reg-booking, tags: pre-reg-booking}
+     - {role: pre-reg/pre-reg-datasync, tags: pre-reg-datasync}
+     - {role: pre-reg/pre-reg-document, tags: pre-reg-document}
+     - {role: pre-reg/pre-reg-generateqrcode, tags: pre-reg-generateqrcode}
+     - {role: pre-reg/pre-reg-translitration, tags: pre-reg-translitration}
+     - {role: pre-reg/pre-reg-batchjob, tags: pre-reg-batchjob}
      - {role: pre-reg/pre-reg-ui, tags: pre-reg-ui}
 

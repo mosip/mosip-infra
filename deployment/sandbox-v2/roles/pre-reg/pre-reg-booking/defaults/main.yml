@@ -1,0 +1,4 @@
+pre_reg_booking_name: pre-registration-booking-service 
+pre_reg_booking_version: 1.0.6-SNAPSHOT.73 
+pre_reg_booking_image: mosipid/pre-registration-booking-service
+pre_reg_booking_container_port: 9095
