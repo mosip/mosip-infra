@@ -10,6 +10,7 @@
      - {role: keycloak, tags: keycloak} # Depends on postgres 
      - {role: keycloak-init, tags: keycloak-init} # Depends on keycloak
      - {role: ingress, tags: ingress} 
+#     - {role: config-updater, tags: config-updater}
 
      # Kernel  
      - {role: kernel/kernel-auth, tags: kernel-auth}  

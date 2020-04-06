@@ -1,5 +1,5 @@
 
-- name: 'Find out, if realm {{keycloak_realm_id}} exists'
+- name: 'Check if realm {{keycloak_realm_id}} exists'
   uri:
     url: "{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}"
     method: GET
