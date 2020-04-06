@@ -1,17 +1,4 @@
 ---
-# TODO: Update mosip-admin-client secret key in kernel properties
-- name: Get port of keycloak service
-  k8s_info:
-    api_version: v1
-    kind: Service
-    name: keycloak 
-    namespace: default 
-  register: web_service
-
-- name: Get nodePort and create url 
-  set_fact: 
-    keycloak_url: 'http://{{hostvars[groups.kubeworkers[0]].ansible_host}}:{{web_service.resources[0].spec.ports[0].nodePort}}'
-
 - include_tasks:
     file: get_admin_token.yml
 
@@ -33,7 +20,6 @@
   vars:
       kc_realm_id: '{{item.realm_id}}'   
       kc_client_id: '{{item.client_id}}'
-      kc_client_is_admin: '{{item.is_admin}}'  
       kc_client_secret: '{{item.secret}}'
   with_items: '{{keycloak_mosip_clients}}'
 

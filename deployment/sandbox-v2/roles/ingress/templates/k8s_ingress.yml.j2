@@ -20,4 +20,8 @@ spec:
         backend:
           serviceName: {{pre_reg_login_name}}
           servicePort: 80
+      - path: /auth
+        backend:
+          serviceName: keycloak
+          servicePort: 80
 

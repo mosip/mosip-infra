@@ -18,3 +18,4 @@ keycloak_password: admin
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
+ingress_ip: 10.6.1.125

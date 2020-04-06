@@ -1,2 +1,4 @@
 keycloak_user: admin
 keycloak_password: admin
+keycloak_url: 'http://{{ingress_ip}}'
+
