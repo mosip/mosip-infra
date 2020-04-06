@@ -120,6 +120,9 @@ TODO:
 - Link git repo mount path to Kubernetes setup local node path
 - Add Pv pVC for config-server
 - Pv and PVC are immutable. Script fails while installing them again, so there existence must be checked.
+- Automate Keycloak's service account role mapping (client - role mapping)
+- The ips used in metallb need to be used for nginx ingress.
+- Automate role id update in properties
 
 ===================
 Installing Kuberntes using ansible on a fresh VM in TF cluster:
@@ -151,6 +154,13 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
   * pg_common_sql_path: /home/puneet/commons/db_scripts                         
   * pg_pre_reg_sql_path: /home/puneet/pre-registration/db_scripts
 
+* Ingress:
+  * Make sure metallB is installed with usable IPs
+
+* Keycloak
+  * Assign all roles to all clients (just for now). 
+  * INDIVIDUAL role's id needs to be copied to kernel-qa.properties
+
 ## Kubeworker 1
 * create /mnt/mosip_data/postgre directory which must be empty.
 * Install git
@@ -161,7 +171,7 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
   * git init 
   * git add .
   * git commit
-   
+  * CAUTION: An empty space is properties is not removed - be carefully if there is a space after a password string.   
 
 
 
