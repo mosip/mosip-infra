@@ -16,7 +16,7 @@ spec:
         backend:
           serviceName: {{kernel_auth_name}}
           servicePort: 80
-      - path: /preregistration/v1
+      - path: /preregistration/v1/login
         backend:
           serviceName: {{pre_reg_login_name}}
           servicePort: 80
