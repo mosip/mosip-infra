@@ -29,7 +29,7 @@ Console machine is the machine from where you will run all the scripts.  The mac
 
 ## Installation
 1.  Install Kubernetes with instructions given in `kube/`
-1.  Install MOSIP modules with instructions given in `app`
+1.  Install MOSIP modules with instructions given in `app/`
 
 
 
