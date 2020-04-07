@@ -1,5 +1,23 @@
-# MultiVM Sandbox Installer
+# MOSIP Components installation
 
-### _UNDER CONSTRUCTION!_
+## Console setup 
+<tbd>
+  
+## Kube worker node setup
+* Creation of git config repo
+* Creation of postgres folder
 
-This installer deploys MOSIP on a multi VM Kubernetes cluster based sandbox environment.
+## Ansible variables
+Modifying variables in Ansible roles for your  setup.
+
+## Running Ansible scripts
+```
+$ ansible-playbook -i hosts site.yml
+```
+To run individual roles, use tags, e.g
+```
+$ ansible-playbook -i hosts --tags postgres site.yml
+```
+## Testing 
+<tbd>
+
