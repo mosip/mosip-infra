@@ -114,6 +114,25 @@ KERNEL AUDIT MANAGER
     "version": "1.0"
   }
 
+
+* Sample json to check Authmanager SendOTP:
+
+{
+  "id": "mosip.pre-registration.login.sendotp",
+  "metadata": {},
+  "request": {
+    "appId": "preregistration",
+    "context": "auth-otp",
+    "otpChannel": ["email"],
+    "templateVariables": {},
+    "userId": "puneet.joshi007@gmail.com",
+    "useridtype": "USERID"
+  },
+"requesttime": "2020-04-07T06:12:52.994Z",
+"version": "1.0"
+}
+
+
 TODO:
 - Change all the k8s files to have Image pull policy as "Ifnotpresent"
 - Write automation of building and pushing config server docker 

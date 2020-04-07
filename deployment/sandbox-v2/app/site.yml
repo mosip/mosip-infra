@@ -16,6 +16,7 @@
      - {role: kernel/kernel-auditmanager, tags: kernel-audit} 
      - {role: kernel/kernel-masterdata, tags: kernel-masterdata} 
      - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
+     - {role: kernel/kernel-otp, tags: kernel-otp}
 
      # Pre-Reg
      - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
