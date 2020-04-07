@@ -12,9 +12,9 @@ The folders here contain Ansible scripts to run MOSIP on a multi Virtual Machine
 
 The following VMs are recommended:
 
-### Kubernetes nodes
-1. Kubernetes master:  (4 CPU, 16 GB RAM) x 1
-1. Kubernetes workers:  (4 CPU, 16 GB RAM) x n
+### Kubernetes node VMs
+1. Kubernetes master:  1 (4 CPU, 16 GB RAM)
+1. Kubernetes workers:  n (4 CPU, 16 GB RAM)
 
 * n = 2 for Pre Reg only
 * n = 4 for Pre Reg + Reg Proc
@@ -23,7 +23,7 @@ The following VMs are recommended:
 All the above in the same network.
 
 ### Console
-1. Console machine: (2 CPU, 8 GB RAM) x 1 
+1. Console machine: 1 (2 CPU, 8 GB RAM) 
 
 Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.
 
