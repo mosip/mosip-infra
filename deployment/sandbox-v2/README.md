@@ -23,7 +23,7 @@ The following VMs are recommended:
 All the above in the same network.
 
 ### Console
-1. Console machine: (2 CPU, 8 GB RAM) x 1 
+1. Console machine: 1 (2 CPU, 8 GB RAM) 
 
 Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.
 
