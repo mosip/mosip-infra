@@ -1,4 +1,4 @@
-# MOSIP Components installation
+# MOSIP Components Installation
 
 ## Console setup 
 TBD
