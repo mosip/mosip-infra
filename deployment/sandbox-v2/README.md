@@ -1,5 +1,34 @@
-# MultiVM Sandbox Installer
+# MOSIP Multi-VM Sandbox Installer
 
-### _UNDER CONSTRUCTION!_
+## Introduction
 
-This installer deploys MOSIP on a multi VM Kubernetes cluster based sandbox environment.
+The folders here contain Ansible scripts to run MOSIP on a multi (virtual) machine setup.  
+
+* `kube`:  Contains scripts to install Kubernetes
+* `app/`:  Contains all MOSIP related modules
+
+
+## Setup 
+
+Although the VM configurations are not necessarily, the following VMs are recommended:
+
+### Kubernetes nodes
+1. Kubernetes master:  (4 CPU, 16 GB RAM) x 1
+1. Kubernetes workers:  (4 CPU, 16 GB RAM) x 2
+
+All the above in the same network.
+
+### Console
+1. Console machine: (2 CPU, 8 GB RAM) x 1 
+
+Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the nodes.
+
+## Installation
+1.  Install Kubernetes with instructions given in `kube/`
+1.  Install MOSIP modules with instructions given in `app`
+
+
+
+
+
+

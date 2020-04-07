@@ -1,0 +1,59 @@
+# Script to deploy a postgres db on kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: hdfs 
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: hdfs 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: hdfs 
+    spec:
+      containers:
+      - name: hdfs 
+        image: jboss/hdfs:9.0.0 
+        env:
+        - name: KEYCLOAK_USER 
+          value: '{{hdfs_user}}' 
+        - name: KEYCLOAK_PASSWORD 
+          value: '{{hdfs_password}}'
+        - name: DB_VENDOR 
+          value: postgres
+        - name: DB_ADDR
+          value: postgres # Service name TODO: pickup up name from config
+        - name: DB_PORT
+          value: "80" 
+        - name: DB_USER 
+          value: '{{postgres_user}}' 
+        - name: DB_PASSWORD
+          value: '{{postgres_password}}' 
+  
+        ports:
+        - containerPort: 9000 # Name node
+
+        imagePullPolicy: "IfNotPresent"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs
+  namespace: default
+
+spec:
+  selector:
+    app: hdfs 
+  ports:
+      port: 80 
+      targetPort: 8080 
