@@ -1,7 +1,7 @@
 # MOSIP Components installation
 
 ## Console setup 
-<tbd>
+TBD
   
 ## Kube worker node setup
 * Creation of git config repo
@@ -19,5 +19,5 @@ To run individual roles, use tags, e.g
 $ ansible-playbook -i hosts --tags postgres site.yml
 ```
 ## Testing 
-<tbd>
+TBD
 
