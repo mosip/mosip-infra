@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # This utility lists all the vars under "defaults" of all roles
+# Run this script from this directory
+# $ ./view_vars.py
 
 import os
 import glob
