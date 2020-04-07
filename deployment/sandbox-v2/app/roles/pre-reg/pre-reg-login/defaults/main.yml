@@ -1,0 +1,4 @@
+pre_reg_login_name: pre-registration-login-service 
+pre_reg_login_version: 1.0.6-SNAPSHOT.73 
+pre_reg_login_image: mosipid/pre-registration-login-service
+pre_reg_login_container_port: 9090

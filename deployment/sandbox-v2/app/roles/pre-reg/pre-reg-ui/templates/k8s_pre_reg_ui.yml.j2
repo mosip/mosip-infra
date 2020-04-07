@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{pre_reg_ui_name}}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{pre_reg_ui_name}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{pre_reg_ui_name}}
+    spec:
+      containers:
+      - name: {{pre_reg_ui_name}}
+        image: '{{pre_reg_ui_image}}:{{pre_reg_ui_version}}'
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+        volumeMounts:
+            - name: ui-config 
+              mountPath: /usr/share/nginx/html/assets/config.json
+              subPath: config.json #TODO: subPath is needed.  Check why
+              # The above path is fixed in Dockerfile
+              # The config map gets mounted like files where key=file, value=file contents
+      volumes:
+        - name: ui-config
+          configMap:
+            name: {{pre_reg_ui_config_name}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{pre_reg_ui_name}}
+  namespace: default
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: {{pre_reg_ui_name}}
+  type: NodePort

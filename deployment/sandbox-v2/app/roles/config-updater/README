@@ -1,0 +1,1 @@
+This role updates properties/configs of MOSIP that differ from default.  Note that this role only applies to node on which config git repo resides. 

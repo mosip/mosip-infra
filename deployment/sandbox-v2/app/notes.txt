@@ -1,0 +1,183 @@
+* Docker version:
+  Docker version 18.09.7, build 2d0083d
+
+* Ansible version
+  ansible 2.9.4
+
+* Install  openshift
+  $ pip3 install openshift
+
+* Python version
+  python 3.6.8
+
+
+* Installer python3 docker
+  $ pip3 install docker 
+
+KEYCLOAK
+* Admin account:
+  username: admin
+  password: admin
+* Run keycloak: 
+  $ docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 9000:8080 jboss/keycloak
+* Keycloak webpage:
+* mosip-admin-client (same in properties) needs to exist for user to successfully login in.
+  But Role is not necessary for user.
+*  Keycloak
+  ^keycloak.* is not needed in properties files - they have to be defined, but ignored.
+* Keycloak user account - Remove the condition to "Updated Password" for a user.
+
+* Got the following wait message when tried quering for deployment status:
+  $ kubectl rollout status deployment/postgres
+
+  "Waiting for deployment spec update to be observed..."
+
+   Had to restart nodes
+  
+* Steps:
+  Checkout mosip/commmons repo on branch MOSIP-257
+
+* To setup a cluster fresh, following instructions here:
+  https://www.tecmint.com/install-kubernetes-cluster-on-centos-7/
+
+  but start kubeadmn before kubelet.   kubeadmn will start kubelet 
+
+* To disable swap,
+  $ sudo swapoff -a
+
+  Comment out the swap line from /etc/fstab (to permanently disable swap)
+
+* Put console ip in /etc/hosts of each node (including master)
+  192.168.100.1 console
+
+###
+
+When nodes stop and restart, the following needs to be done on each node:
+
+  $ sudo swapoff -a (only if swap still appears) 
+  $ sudo kubeadm init (ignore errors, only on Master, not needed on slave) 
+
+* To connect to postgres
+  * Get node port using  
+   $  kubectl get service postgres
+
+  * Get a worker/slave nodes ip from /etc/hosts of console (any worker node is fine)
+   $ psql -h <node ip> -p <node port> -U postgres
+   
+   password: postgres 
+
+* Postgres DB mosip_iam needs an init to start Kernel Auth Service.
+
+KERNEL AUTH SERVICE
+* Swagger URL
+  kubeslave:315010/v1/authmanager/swagger-ui.html
+
+* Sample json to test password authentication:
+  {
+    "id": "mosip.authentication.useridPwd",
+    "metadata": {},
+    "request": {
+      "appId": "REGISTRATIONCLIENT",
+      "password": "puneet123",
+      "userName": "puneet"
+    },
+    "requesttime": "2020-03-23T06:12:52.994Z",
+    "version": "1.0"
+  }
+
+KERNEL AUDIT MANAGER
+* Swager URL
+  http://kubeslave:30154/v1/auditmanager/swagger-ui.html
+
+* Sample json to test auditmanager:
+  { "id": "mosip.auditmanager.audits",
+    "metadata": {},
+    "request": {
+      "eventId": "hello",
+      "eventName": "world",
+      "eventType": "nice",
+      "actionTimeStamp": "2020-03-26T05:57:20.929Z",
+      "hostName": "nice",
+      "hostIp": "string",
+      "applicationId": "string",
+      "applicationName": "string",
+      "sessionUserId": "string",
+      "sessionUserName": "string",
+      "id": "string",
+      "idType": "string",
+      "createdBy": "string",
+      "moduleName": "string",
+      "moduleId": "string",
+      "description": "string" 
+    },
+    "requesttime": "2020-03-26T06:12:52.994Z",
+    "version": "1.0"
+  }
+
+TODO:
+- Change all the k8s files to have Image pull policy as "Ifnotpresent"
+- Write automation of building and pushing config server docker 
+- Link git repo mount path to Kubernetes setup local node path
+- Add Pv pVC for config-server
+- Pv and PVC are immutable. Script fails while installing them again, so there existence must be checked.
+- Automate Keycloak's service account role mapping (client - role mapping)
+- The ips used in metallb need to be used for nginx ingress.
+- Automate role id update in properties
+
+===================
+Installing Kuberntes using ansible on a fresh VM in TF cluster:
+
+* Install ansible
+a) sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+b) sudo yum install ansible # This will install 2.9 version
+
+If you don't do (a), it will install ansible 2.4. But we need 2.9.
+
+* Change network_inface in group_vars/all.yml to "eth0" (or whaterver network interface available on nodes)
+
+## Sandbox-v2 - Console
+* Generate public and private keys as id_rsa and id_rsa.pub and cat the 
+  contents of id_rsa.pub in authorized_keys file.
+* sudo yum install python3
+* sudo pip3 install openshift
+* sudo pip3 install selinux
+* sudo yum install postgresql (for psql client)
+* change hosts ini file:
+  * Update correct hostnames of master and works that will appear as labels
+    in kubernetes
+* Install psql version 10
+  * sudo rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+  * sudo yum install postgresql10
+  
+* checkout mosip/commons and mosip/pre-registration
+* Update roles/postgres-init/defaults/main.yml for following:
+  * pg_common_sql_path: /home/puneet/commons/db_scripts                         
+  * pg_pre_reg_sql_path: /home/puneet/pre-registration/db_scripts
+
+* Ingress:
+  * Make sure metallB is installed with usable IPs
+
+* Keycloak
+  * Assign all roles to all clients (just for now). 
+  * INDIVIDUAL role's id needs to be copied to kernel-qa.properties
+
+## Kubeworker 1
+* create /mnt/mosip_data/postgre directory which must be empty.
+* Install git
+  * sudo yum install git
+* For config server
+  * create /mnt/mosip_data/config_repo dir.
+  * Copy all property files from roles/config-server/files/properties to the above dir
+  * git init 
+  * git add .
+  * git commit
+  * CAUTION: An empty space is properties is not removed - be carefully if there is a space after a password string.   
+
+
+
+
+
+
+
+=--
+P@ssw0rd@321

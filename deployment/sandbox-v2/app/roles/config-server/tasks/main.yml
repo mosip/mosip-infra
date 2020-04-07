@@ -1,0 +1,34 @@
+# This script downloads kernel config jar, builds docker and deploys it
+# The docker is pushed to a local registry with SSL as Kubernetes 
+# deployment needs such a registry.
+---
+- name: Create a tmp directory
+  file:
+    path: '{{tmp_dir}}'
+    state: directory
+    mode: '0755'
+
+## Create persistent storage
+- name: Get persistent storage yml from template 
+  template:
+     src: k8s_repo_storage.yml.j2
+     dest: '{{tmp_dir}}/k8s_repo_storage.yml'
+
+- name: Deploy persistent storage on kurbernetes
+  k8s:
+    namespace: default
+    state: present
+    src: '{{tmp_dir}}/k8s_repo_storage.yml'
+
+- name: Kubernetes yml file from template 
+  template:
+     src: k8s_config_server.yml.j2
+     dest: '{{tmp_dir}}/k8s_config_server.yml'
+
+- name: Deploy on Kubernetes
+  k8s:
+    src: '{{tmp_dir}}/k8s_config_server.yml'  
+    state: present
+    wait: yes
+    wait_timeout: '{{docker_wait_time}}'
+

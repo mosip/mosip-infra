@@ -1,0 +1,31 @@
+---
+- hosts: console
+  gather_facts: false
+  # Note: we have put tags here to run roles individually if needed.
+  roles:
+     # Base infra
+     - {role: postgres, tags: postgres}
+     - {role: postgres-init, tags: postgres-init} # Depends on postgres
+     - {role: config-server, tags: config-server} 
+     - {role: keycloak, tags: keycloak} # Depends on postgres 
+     - {role: keycloak-init, tags: keycloak-init} # Depends on keycloak
+     - {role: ingress, tags: ingress} 
+
+     # Kernel  
+     - {role: kernel/kernel-auth, tags: kernel-auth}  
+     - {role: kernel/kernel-auditmanager, tags: kernel-audit} 
+     - {role: kernel/kernel-masterdata, tags: kernel-masterdata} 
+     - {role: kernel/kernel-emailnotification, tags: kernel-emailnotification}
+
+     # Pre-Reg
+     - {role: pre-reg/pre-reg-login, tags: pre-reg-login}
+     - {role: pre-reg/pre-reg-demographic, tags: pre-reg-demographic}
+     - {role: pre-reg/pre-reg-notification, tags: pre-reg-notification}
+     - {role: pre-reg/pre-reg-booking, tags: pre-reg-booking}
+     - {role: pre-reg/pre-reg-datasync, tags: pre-reg-datasync}
+     - {role: pre-reg/pre-reg-document, tags: pre-reg-document}
+     - {role: pre-reg/pre-reg-generateqrcode, tags: pre-reg-generateqrcode}
+     - {role: pre-reg/pre-reg-translitration, tags: pre-reg-translitration}
+     - {role: pre-reg/pre-reg-batchjob, tags: pre-reg-batchjob}
+     - {role: pre-reg/pre-reg-ui, tags: pre-reg-ui}
+

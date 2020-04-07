@@ -1,0 +1,9 @@
+console ansible_user=puneet ansible_host=10.6.1.180
+
+kubean-m.technoforte.co.in ansible_host=10.6.1.130 ansible_user=root
+[kubeworkers]
+kubean-w1.technoforte.co.in ansible_host=10.6.1.131 ansible_user=root 
+kubean-w2.technoforte.co.in ansible_host=10.6.1.132 ansible_user=root 
+
+
+

@@ -1,0 +1,20 @@
+---
+# Deploy on kubernetes 
+- name: Ensure tmp directory is present
+  file: 
+    path: '{{tmp_dir}}'
+    state: directory
+
+# Deploy container 
+- name: Get yml from template 
+  template:
+     src: k8s_audit.yml.j2
+     dest: '{{tmp_dir}}/k8s_audit.yml'
+
+- name: Deploy on kurbernetes
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/k8s_audit.yml'
+    wait: 'yes'
+    wait_timeout: '{{docker_wait_time}}'
+

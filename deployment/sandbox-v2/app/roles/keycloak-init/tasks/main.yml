@@ -1,0 +1,50 @@
+---
+- include_tasks:
+    file: get_admin_token.yml
+
+# Realms
+- include_tasks:
+    file: create_realm.yml
+  vars:
+    keycloak_realm_id: '{{item.realm_id}}' 
+    keycloak_realm_data_file: '{{item.realm_file}}'
+  with_items: '{{keycloak_mosip_realms}}'
+
+# Get admin token once again as something  may have changed in master realm.
+- include_tasks:
+    file: get_admin_token.yml
+
+# Clients
+- include_tasks:
+    file: create_client.yml
+  vars:
+      kc_realm_id: '{{item.realm_id}}'   
+      kc_client_id: '{{item.client_id}}'
+      kc_client_secret: '{{item.secret}}'
+  with_items: '{{keycloak_mosip_clients}}'
+
+# Roles 
+- include_tasks:
+    file: create_role.yml
+  vars:
+    kc_realm_id: '{{item.realm_id}}'   
+    kc_client_id: '{{item.client_id}}'
+    kc_role_name: '{{item.role_name}}' 
+  with_items: '{{keycloak_mosip_roles}}'
+
+# Users
+- include_tasks:
+    file: create_user.yml
+  vars:
+    kc_realm_id: '{{item.realm_id}}' 
+    kc_user_file: '{{item.user_file}}'
+  with_items: '{{keycloak_mosip_users}}'
+
+# Users-Role mapping
+- include_tasks:
+    file: map_role.yml
+  vars:
+    kc_realm_id: '{{item.realm_id}}'   
+    kc_role_name: '{{item.role_name}}'
+    kc_user_file: '{{item.user_file}}' 
+  with_items: '{{keycloak_mosip_user_role_map}}'
