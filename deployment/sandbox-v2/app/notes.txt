@@ -136,11 +136,9 @@ KERNEL AUDIT MANAGER
 TODO:
 - Change all the k8s files to have Image pull policy as "Ifnotpresent"
 - Write automation of building and pushing config server docker 
-- Link git repo mount path to Kubernetes setup local node path
-- Add Pv pVC for config-server
 - Pv and PVC are immutable. Script fails while installing them again, so there existence must be checked.
 - Automate Keycloak's service account role mapping (client - role mapping)
-- The ips used in metallb need to be used for nginx ingress.
+- The ips used in metallb need to be used for nginx ingress. (link)
 - Automate role id update in properties
 - Automate nginx setup (conf file)
 
@@ -152,8 +150,6 @@ a) sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest
 b) sudo yum install ansible # This will install 2.9 version
 
 If you don't do (a), it will install ansible 2.4. But we need 2.9.
-
-* Change network_inface in group_vars/all.yml to "eth0" (or whaterver network interface available on nodes)
 
 ## Sandbox-v2 - Console
 * Generate public and private keys as id_rsa and id_rsa.pub and cat the 
