@@ -123,6 +123,7 @@ TODO:
 - Automate Keycloak's service account role mapping (client - role mapping)
 - The ips used in metallb need to be used for nginx ingress.
 - Automate role id update in properties
+- Automate nginx setup (conf file)
 
 ===================
 Installing Kuberntes using ansible on a fresh VM in TF cluster:
