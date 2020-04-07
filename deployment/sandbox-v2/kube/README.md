@@ -7,8 +7,10 @@ Run the following on console machine:
 $ ssh-keygen -t rsa 
 $ ssh-copy-id root@<kubernetes-master-ip>
 $ ssh-copy-id root@<kubernetes-node-ip> 
-$ ssh-keygen -t rsa 
-```      
+```
+
+ - Disable firewalld services in all the kubernetes vms
+      
 ## Kubeadm Ansible Playbook
 
 Build a Kubernetes cluster using Ansible with kubeadm. The goal is easily install a Kubernetes cluster on machines running:
@@ -101,12 +103,12 @@ $ ansible-playbook reset-site.yaml
 ## Additional features
 These are features that you could want to install to make your life easier.
 
-Enable/disable these features in `group_vars/all.yml` (all disabled by default):
+Enable/disable these features in `group_vars/all.yml` (all enabled by default):
 ```
 additional_features:
-  helm: false
-  metallb: false
-  healthcheck: false
+  helm: true
+  metallb: true
+  healthcheck: true
 ```
 
 ### Helm
