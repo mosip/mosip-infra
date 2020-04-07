@@ -1,26 +1,24 @@
-# Clone the code
+# Kubernetes setup
 
-# Generate ssh key
-For better access generate ssh keys in ansible controller and copy to all the machines and copy it to the root user.
-    
-    Example: Copy to all machines to all but I am giving you below example. 
-    
-      ssh-keygen -t rsa 
-      ssh-copy-id root@<kubernetes-master-ip>
-      ssh-copy-id root@<kubernetes-node-ip> 
-      ssh-keygen -t rsa 
-      
-# Kubeadm Ansible Playbook
+##  SSH Keys 
+
+Run the following on console machine:
+```
+$ ssh-keygen -t rsa 
+$ ssh-copy-id root@<kubernetes-master-ip>
+$ ssh-copy-id root@<kubernetes-node-ip> 
+$ ssh-keygen -t rsa 
+```      
+## Kubeadm Ansible Playbook
 
 Build a Kubernetes cluster using Ansible with kubeadm. The goal is easily install a Kubernetes cluster on machines running:
   - CentOS 7
 
 System requirements:
-
   - Deployment environment must have Ansible `2.4.0+`
   - Master and nodes must have passwordless SSH access
 
-# Usage
+## Usage
 
 Add the system information gathered above into a file called `hosts.ini`. For example:
 ```
@@ -45,7 +43,7 @@ network: flannel
 
 **Note:** Depending on your setup, you may need to modify `cni_opts` to an available network interface. By default, `kubeadm-ansible` uses `eth1`. Your default interface may be `eth0`.
 
-# Metallb Changes
+## Metallb Changes
 
 Reserver the ip address for loadbalancer at the below var folder
 
@@ -92,7 +90,7 @@ etcd-master1                            1/1       Running   0          23m
 ...
 ```
 
-# Resetting the environment
+## Resetting the environment
 
 Finally, reset all kubeadm installed state using `reset-site.yaml` playbook:
 
@@ -100,32 +98,31 @@ Finally, reset all kubeadm installed state using `reset-site.yaml` playbook:
 $ ansible-playbook reset-site.yaml
 ```
 
-# Additional features
+## Additional features
 These are features that you could want to install to make your life easier.
 
 Enable/disable these features in `group_vars/all.yml` (all disabled by default):
 ```
-# Additional feature to install
 additional_features:
   helm: false
   metallb: false
   healthcheck: false
 ```
 
-## Helm
+### Helm
 This will install helm in your cluster (https://helm.sh/) so you can deploy charts.
 
-## MetalLB
+### MetalLB
 This will install MetalLB (https://metallb.universe.tf/), very useful if you deploy the cluster locally and you need a load balancer to access the services.
 
-## Healthcheck
+### Healthcheck
 This will install k8s-healthcheck (https://github.com/emrekenci/k8s-healthcheck), a small application to report cluster status.
 
-# Utils
+## Utils
 Collection of scripts/utilities
 
-# Tips & Tricks
-## Specify user for Ansible
+## Tips & Tricks
+### Specify user for Ansible
 If you use vms or your remote user is root, add this to `hosts.ini`(optional)
 ```
 [master]
