@@ -4,19 +4,19 @@
     path: '{{tmp_dir}}'
     state: directory
 
-#- name: Deploy ingress init 
-#  k8s:
-#    state: present
-#    src: '{{role_path}}/files/k8s_ingress_init.yml'
-#    wait: 'yes'
-#    wait_timeout: 240 
-#
-#- name: Deploy ingress service
-#  k8s:
-#    state: present
-#    src: '{{role_path}}/files/k8s_ingress_service.yml'
-#    wait: 'yes'
-#    wait_timeout: 240 
+- name: Deploy ingress init 
+  k8s:
+    state: present
+    src: '{{role_path}}/files/k8s_ingress_init.yml'
+    wait: 'yes'
+    wait_timeout: 240 
+
+- name: Deploy ingress service
+  k8s:
+    state: present
+    src: '{{role_path}}/files/k8s_ingress_service.yml'
+    wait: 'yes'
+    wait_timeout: 240 
 
 # Deploy ingress rules 
 - name: Get yml from template 
