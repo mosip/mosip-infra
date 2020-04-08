@@ -4,11 +4,11 @@
   # Note: we have put tags here to run roles individually if needed.
   roles:
      # Base infra
-     - {role: postgres, tags: postgres}
-     - {role: postgres-init, tags: postgres-init} # Depends on postgres
+     - {role: postgres/postgres, tags: postgres}
+     - {role: postgres/postgres-init, tags: postgres-init} # Depends on postgres
      - {role: config-server, tags: config-server} 
-     - {role: keycloak, tags: keycloak} # Depends on postgres 
-     - {role: keycloak-init, tags: keycloak-init} # Depends on keycloak
+     - {role: keycloak/keycloak, tags: keycloak} # Depends on postgres 
+     - {role: keycloak/keycloak-init, tags: keycloak-init} # Depends on keycloak
      - {role: ingress, tags: ingress} 
 
      # Kernel  
