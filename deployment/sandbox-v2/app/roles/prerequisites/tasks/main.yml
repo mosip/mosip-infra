@@ -1,0 +1,11 @@
+
+- name: Ensures tmp directory is present
+  file: 
+    path: '{{tmp_dir}}'
+    state: directory
+
+- name: Ensures log directory is present
+  file: 
+    path: '{{logs_dir}}'
+    state: directory
+

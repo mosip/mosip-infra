@@ -3,11 +3,6 @@
 # test data 
 # TODO: Init should not happen if Postgres has valuable data
 # TODO: Common logs directory should be created by default earlier itself
-- name: Create logs directory
-  file:
-    path: "{{logs_dir}}"
-    state: directory
-    mode: '0755'
 
 # Get db_ip. Since Postgres is published as a node port we get the IP of any
 # work node.

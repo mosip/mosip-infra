@@ -1,9 +1,4 @@
 ---
-- name: Ensure tmp directory is present
-  file: 
-    path: '{{tmp_dir}}'
-    state: directory
-
 - name: Deploy ingress init 
   k8s:
     state: present

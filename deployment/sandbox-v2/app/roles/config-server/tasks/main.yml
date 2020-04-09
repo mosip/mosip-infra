@@ -2,12 +2,6 @@
 # The docker is pushed to a local registry with SSL as Kubernetes 
 # deployment needs such a registry.
 ---
-- name: Create a tmp directory
-  file:
-    path: '{{tmp_dir}}'
-    state: directory
-    mode: '0755'
-
 ## Create persistent storage
 - name: Get persistent storage yml from template 
   template:
