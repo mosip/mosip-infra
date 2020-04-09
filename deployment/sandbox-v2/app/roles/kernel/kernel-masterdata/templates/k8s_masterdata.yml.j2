@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: {{kernel_masterdata_name}}
   namespace: default
+  module: kernel
 spec:
   replicas: 1
   selector:
@@ -19,6 +20,7 @@ spec:
     metadata:
       labels:
         app: {{kernel_masterdata_name}}
+        module: kernel
     spec:
       containers:
       - name: {{kernel_masterdata_name}}

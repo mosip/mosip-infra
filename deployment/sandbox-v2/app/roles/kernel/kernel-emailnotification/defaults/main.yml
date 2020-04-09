@@ -1,4 +1,4 @@
 kernel_emailnotification_name: kernel-emailnotification-service 
-kernel_emailnotification_version: 1.0.6-SNAPSHOT.96
+kernel_emailnotification_version: 1.0.6
 kernel_emailnotification_image: mosipid/kernel-emailnotification-service
 kernel_emailnotification_container_port: 8083

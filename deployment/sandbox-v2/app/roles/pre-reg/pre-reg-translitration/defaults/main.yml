@@ -1,4 +1,4 @@
 pre_reg_translitration_name: pre-registration-translitration-service 
-pre_reg_translitration_version: 1.0.6-SNAPSHOT.73 
+pre_reg_translitration_version: 1.0.7
 pre_reg_translitration_image: mosipid/pre-registration-translitration-service
 pre_reg_translitration_container_port: 9098

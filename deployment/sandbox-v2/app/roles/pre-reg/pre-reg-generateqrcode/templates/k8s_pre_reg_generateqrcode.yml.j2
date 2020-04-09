@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: {{pre_reg_generateqrcode_name}}
   namespace: default
+  labels:
+    module: pre-reg
 spec:
   replicas: 1
   selector:
@@ -19,6 +21,7 @@ spec:
     metadata:
       labels:
         app: {{pre_reg_generateqrcode_name}}
+        module: pre-reg
     spec:
       containers:
       - name: {{pre_reg_generateqrcode_name}}

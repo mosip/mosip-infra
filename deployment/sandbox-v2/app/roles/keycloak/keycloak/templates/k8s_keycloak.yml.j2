@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: keycloak 
+  name: {{keycloak_name}}
   namespace: default
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: keycloak 
+      app: {{keycloak_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -19,10 +19,10 @@ spec:
   template:
     metadata:
       labels:
-        app: keycloak 
+        app: {{keycloak_name}}
     spec:
       containers:
-      - name: keycloak 
+      - name: {{keycloak_name}}
         image: jboss/keycloak:9.0.0 
         env:
         - name: KEYCLOAK_USER 
@@ -50,14 +50,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: keycloak
+  name: {{keycloak_name}}
   namespace: default
 
 spec:
   selector:
-    app: keycloak 
+    app: {{keycloak_name}}
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
-    - name: keycloak-port 
       port: 80 
       targetPort: 8080 
