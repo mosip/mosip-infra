@@ -4,7 +4,7 @@
   # Note: we have put tags here to run roles individually if needed.
   roles:
      # Prerequistes 
-     - {role: prerequisites, tags: [never, one-time]}
+     - {role: prerequisites/hadoop, tags: hadoop}
 
      # Base MOSIP infra
      - {role: postgres/postgres, tags: postgres}
