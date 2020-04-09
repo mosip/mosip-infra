@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   name: {{kernel_emailnotification_name}}
   namespace: default
+  labels:
+    module: kernel
 spec:
   replicas: 1
   selector:
@@ -19,6 +21,7 @@ spec:
     metadata:
       labels:
         app: {{kernel_emailnotification_name}}
+        module: kernel
     spec:
       containers:
       - name: {{kernel_emailnotification_name}}

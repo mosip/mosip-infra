@@ -8,20 +8,87 @@ spec:
   rules:
   - http:
       paths:
+
       - path: /config
         backend:
-          serviceName: kernel-config-server 
+          serviceName: {{config_server_name}}
           servicePort: 80
+
       - path: /v1/authmanager
         backend:
           serviceName: {{kernel_auth_name}}
           servicePort: 80
+
       - path: /preregistration/v1/login
         backend:
           serviceName: {{pre_reg_login_name}}
           servicePort: 80
-      - path: /auth
+
+      - path: /preregistration/v1/applications
         backend:
-          serviceName: keycloak
+          serviceName: {{pre_reg_demographic_name}}
           servicePort: 80
 
+      - path: /preregistration/v1/applications
+        backend:
+          serviceName: {{pre_reg_demographic_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/documents
+        backend:
+          serviceName: {{pre_reg_document_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/sync
+        backend:
+          serviceName: {{pre_reg_datasync_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/appointment
+        backend:
+          serviceName: {{pre_reg_booking_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/appointment
+        backend:
+          serviceName: {{pre_reg_booking_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/batch
+        backend:
+          serviceName: {{pre_reg_batchjob_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/translitration
+        backend:
+          serviceName: {{pre_reg_translitration_name}}
+          servicePort: 80
+
+      - path: /pre-registration-ui
+        backend:
+          serviceName: {{pre_reg_ui_name}}
+          servicePort: 80
+
+---
+# We have written a separate ingress for keycloak 'cause it requires
+# a different rewrite rule.  We want keycloak url to be 
+# https://public_server/keycloak/auth, rather than
+# https://public_server/auth
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: default
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /keycloak(/|$)(.*)
+        backend:
+          serviceName: {{keycloak_name}}
+          servicePort: 80

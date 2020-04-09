@@ -1,11 +1,5 @@
 ---
 # Deploy on kubernetes 
-- name: Ensure tmp directory is present
-  file: 
-    path: '{{tmp_dir}}'
-    state: directory
-
-# Deploy container 
 - name: Get yml from template 
   template:
      src: k8s_auth.yml.j2

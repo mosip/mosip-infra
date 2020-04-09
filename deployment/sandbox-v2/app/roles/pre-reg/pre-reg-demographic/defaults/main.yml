@@ -1,4 +1,4 @@
 pre_reg_demographic_name: pre-registration-demographic-service 
-pre_reg_demographic_version: 1.0.6-SNAPSHOT.73 
+pre_reg_demographic_version: 1.0.7
 pre_reg_demographic_image: mosipid/pre-registration-demographic-service
 pre_reg_demographic_container_port: 9092

@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: hdfs 
+  name: {{keycloak_name}}
   namespace: default
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: hdfs 
+      app: {{keycloak_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -19,16 +19,16 @@ spec:
   template:
     metadata:
       labels:
-        app: hdfs 
+        app: {{keycloak_name}}
     spec:
       containers:
-      - name: hdfs 
-        image: jboss/hdfs:9.0.0 
+      - name: {{keycloak_name}}
+        image: jboss/keycloak:9.0.0 
         env:
         - name: KEYCLOAK_USER 
-          value: '{{hdfs_user}}' 
+          value: '{{keycloak_user}}' 
         - name: KEYCLOAK_PASSWORD 
-          value: '{{hdfs_password}}'
+          value: '{{keycloak_password}}'
         - name: DB_VENDOR 
           value: postgres
         - name: DB_ADDR
@@ -39,21 +39,24 @@ spec:
           value: '{{postgres_user}}' 
         - name: DB_PASSWORD
           value: '{{postgres_password}}' 
+        - name: KEYCLOAK_FRONTEND_URL
+          value: '{{keycloak_external_url}}' 
   
         ports:
-        - containerPort: 9000 # Name node
+        - containerPort: 8080 # default 
 
         imagePullPolicy: "IfNotPresent"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hdfs
+  name: {{keycloak_name}}
   namespace: default
 
 spec:
   selector:
-    app: hdfs 
+    app: {{keycloak_name}}
+  type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
       port: 80 
       targetPort: 8080 
