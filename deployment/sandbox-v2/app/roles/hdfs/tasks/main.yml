@@ -1,0 +1,29 @@
+---
+# Copying helm file to run hadoop on kubernetes
+- name: Copy the custom file
+  template:
+    src: hdfs.j2
+    dest: /tmp/hdfs
+
+# Deploy hadoop through helm
+- name: Hadoop deploy through helm
+  command: helm install stable/hadoop --values /tmp/hdfs --name {{ hdfs_name }} 
+
+# To pause the running script to bring up the pods
+- name: wait
+  pause:
+    minutes: 1
+
+# Creating users inside the hdfs cluster
+- name:  Users creation
+  command: kubectl exec {{ hdfs_name }}-hadoop-yarn-nm-0  -- /bin/sh -c "adduser "{{ hdfs_user_preregistration }}";useradd "{{ hdfs_user_registrationprocessor }}";useradd "{{ hdfs_user_idrepository }}""
+
+# Creating folder and giving permissions as per mosip requirement     
+- name: HDFS folder creation for user
+  command: kubectl exec {{ hdfs_name }}-hadoop-yarn-nm-0  -- /bin/sh -c "hdfs dfs -mkdir /"{{ hdfs_init_folder }}";hdfs dfs -mkdir /"{{ hdfs_init_folder }}"/"{{ hdfs_user_preregistration }}";hdfs dfs -mkdir /"{{ hdfs_init_folder }}"/"{{ hdfs_user_registrationprocessor }}";hdfs dfs -mkdir /"{{ hdfs_init_folder }}"/"{{ hdfs_user_idrepository }}"" 
+    
+- name: HDFS folder  permission for user
+  command: kubectl exec {{ hdfs_name }}-hadoop-yarn-nm-0  -- /bin/sh -c "hdfs dfs -chown -R "{{ hdfs_user_preregistration }}":"{{ hdfs_user_preregistration }}" /"{{ hdfs_init_folder }}"/"{{ hdfs_user_preregistration }}";hdfs dfs -chown -R "{{ hdfs_user_registrationprocessor }}":"{{ hdfs_user_registrationprocessor }}" /"{{ hdfs_init_folder }}"/"{{ hdfs_user_registrationprocessor }}";hdfs dfs -chown -R "{{ hdfs_user_idrepository }}":"{{ hdfs_user_idrepository }}" /"{{ hdfs_init_folder }}"/"{{ hdfs_user_idrepository }}" "
+    
+
+

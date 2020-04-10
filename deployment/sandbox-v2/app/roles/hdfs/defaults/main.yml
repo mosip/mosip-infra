@@ -1,0 +1,18 @@
+---
+# HDFS pods name
+hdfs_name: hdfs
+
+
+# Init folder for as per mosip require
+hdfs_init_folder: user 
+
+
+# Pod details to create users
+
+hdfs_user_preregistration: prereg
+ 
+hdfs_user_registrationprocessor: regprocessor
+
+hdfs_user_idrepository: idrepo
+
+

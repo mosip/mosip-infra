@@ -1,6 +1,0 @@
----
-# HDFS pods name
-hadoop_name: hadoop
-
-# Pod details to create users
-pod: "{{ hadoop_name }}-hadoop-yarn-nm-0"
