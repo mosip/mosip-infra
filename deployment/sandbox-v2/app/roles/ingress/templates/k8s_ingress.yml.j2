@@ -24,6 +24,11 @@ spec:
           serviceName: {{kernel_masterdata_name}}
           servicePort: 80
 
+      - path: /v1/applicanttype
+        backend:
+          serviceName: {{kernel_applicanttype_name}}
+          servicePort: 80
+
       - path: /preregistration/v1/login
         backend:
           serviceName: {{pre_reg_login_name}}

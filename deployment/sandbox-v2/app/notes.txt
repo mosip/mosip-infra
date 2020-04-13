@@ -144,6 +144,16 @@ TODO:
 - Insert the following line in master data valid_documents table (it will be available in 1.0.8)
  insert into valid_document (doctyp_code, doccat_code, lang_code,is_active, cr_by, cr_dtimes) values ('COE', 'POE', 'ara', true, 'superadmin', now());
 
+- Have to restart Kernel auth if OTP is not received.  Needs to be fixed.
+- HDFS:  name node runs on port 9000 for this docker.  Inside docker you have to do following:
+  kubectl exec -it %s /usr/local/hadoop/bin/hdfs dfs -mkdir /user/%s' % (container_id, user))
+  kubectl exec -it %s /usr/local/hadoop/bin/hdfs dfs -chown -R %s:%s /user/%s' % (container_id, user, user, user))
+
+  for:
+   - regprocessor
+   - prepreg
+   - idrepo
+
 ===================
 Installing Kuberntes using ansible on a fresh VM in TF cluster:
 
@@ -214,3 +224,6 @@ ApplicantType_Document_Mapping.json - not being used.
 Generic PIN code for Pre Reg UI
 14080
 P@ssw0rd@321
+============
+TO TEST
+"POST /preregistration/v1/notification/notify HTTP/1.1" 500 

@@ -1,0 +1,4 @@
+kernel_keymanager_name: kernel-keymanager-service 
+kernel_keymanager_version: 1.0.6
+kernel_keymanager_image: mosipid/kernel-keymanager-service
+kernel_keymanager_container_port: 8088
