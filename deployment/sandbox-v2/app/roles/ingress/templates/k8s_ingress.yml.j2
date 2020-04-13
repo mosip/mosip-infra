@@ -19,14 +19,19 @@ spec:
           serviceName: {{kernel_auth_name}}
           servicePort: 80
 
+      - path: /v1/masterdata
+        backend:
+          serviceName: {{kernel_masterdata_name}}
+          servicePort: 80
+
+      - path: /v1/applicanttype
+        backend:
+          serviceName: {{kernel_applicanttype_name}}
+          servicePort: 80
+
       - path: /preregistration/v1/login
         backend:
           serviceName: {{pre_reg_login_name}}
-          servicePort: 80
-
-      - path: /preregistration/v1/applications
-        backend:
-          serviceName: {{pre_reg_demographic_name}}
           servicePort: 80
 
       - path: /preregistration/v1/applications
@@ -49,19 +54,24 @@ spec:
           serviceName: {{pre_reg_booking_name}}
           servicePort: 80
 
-      - path: /preregistration/v1/appointment
-        backend:
-          serviceName: {{pre_reg_booking_name}}
-          servicePort: 80
-
       - path: /preregistration/v1/batch
         backend:
           serviceName: {{pre_reg_batchjob_name}}
           servicePort: 80
 
-      - path: /preregistration/v1/translitration
+      - path: /preregistration/v1/transliteration
         backend:
-          serviceName: {{pre_reg_translitration_name}}
+          serviceName: {{pre_reg_transliteration_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/qrCode
+        backend:
+          serviceName: {{pre_reg_generateqrcode_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/notification
+        backend:
+          serviceName: {{pre_reg_notification_name}}
           servicePort: 80
 
       - path: /pre-registration-ui

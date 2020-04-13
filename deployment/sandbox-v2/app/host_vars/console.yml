@@ -20,4 +20,5 @@ docker_wait_time: 600   # Wait for docker to pull and deploy
 
 ingress_ip: 10.6.1.125
 
-mosip_public_server: 175.100.151.53
+mosip_public_server: mosip-tf.technoforte.co.in
+mosip_public_server_ip: 106.51.81.136:81  # For keycloak. TODO: Temporary. Remove later.
