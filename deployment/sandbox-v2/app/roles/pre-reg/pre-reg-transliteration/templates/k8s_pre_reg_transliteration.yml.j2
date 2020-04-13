@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{pre_reg_translitration_name}}
+  name: {{pre_reg_transliteration_name}}
   namespace: default
   labels:
     module: pre-reg
@@ -10,7 +10,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{pre_reg_translitration_name}}
+      app: {{pre_reg_transliteration_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -20,12 +20,12 @@ spec:
   template:
     metadata:
       labels:
-        app: {{pre_reg_translitration_name}}
+        app: {{pre_reg_transliteration_name}}
         module: pre-reg
     spec:
       containers:
-      - name: {{pre_reg_translitration_name}}
-        image: '{{pre_reg_translitration_image}}:{{pre_reg_translitration_version}}'
+      - name: {{pre_reg_transliteration_name}}
+        image: '{{pre_reg_transliteration_image}}:{{pre_reg_transliteration_version}}'
         env:
         - name: active_profile_env
           value: qa
@@ -38,18 +38,18 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: {{pre_reg_translitration_container_port}}
+        - containerPort: {{pre_reg_transliteration_container_port}}
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{pre_reg_translitration_name}}
+  name: {{pre_reg_transliteration_name}}
   namespace: default
 spec:
   ports:
   - port: 80 
-    targetPort: {{pre_reg_translitration_container_port}} 
+    targetPort: {{pre_reg_transliteration_container_port}} 
   selector:
-    app: {{pre_reg_translitration_name}}
+    app: {{pre_reg_transliteration_name}}
   type: NodePort

@@ -12,6 +12,7 @@
      - {role: config-server, tags: config-server} 
      - {role: keycloak/keycloak, tags: keycloak} # Depends on postgres 
      - {role: keycloak/keycloak-init, tags: keycloak-init} # Depends on keycloak
+     - {role: hdfs, tags: hdfs} # 
      - {role: ingress, tags: ingress} 
 
      # Kernel  
@@ -20,6 +21,8 @@
      - {role: kernel/kernel-masterdata, tags: [kernel-masterdata, kernel]} 
      - {role: kernel/kernel-emailnotification, tags: [kernel-emailnotification, kernel]}
      - {role: kernel/kernel-otp, tags: [kernel-otp, kernel]}
+     - {role: kernel/kernel-prid, tags: [kernel-prid, kernel]}
+     - {role: kernel/kernel-crypto, tags: [kernel-crypto, kernel]}
 
      # Pre-Reg
      - {role: pre-reg/pre-reg-login, tags: [pre-reg-login, pre-reg]}
@@ -29,7 +32,7 @@
      - {role: pre-reg/pre-reg-datasync, tags: [pre-reg-datasync, pre-reg]}
      - {role: pre-reg/pre-reg-document, tags: [pre-reg-document, pre-reg]}
      - {role: pre-reg/pre-reg-generateqrcode, tags: [pre-reg-generateqrcode, pre-reg]}
-     - {role: pre-reg/pre-reg-translitration, tags: [pre-reg-translitration, pre-reg]}
+     - {role: pre-reg/pre-reg-transliteration, tags: [pre-reg-transliteration, pre-reg]}
      - {role: pre-reg/pre-reg-batchjob, tags: [pre-reg-batchjob, pre-reg]}
      - {role: pre-reg/pre-reg-ui, tags: [pre-reg-ui, pre-reg]}
 

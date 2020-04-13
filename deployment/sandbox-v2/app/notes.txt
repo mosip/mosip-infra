@@ -141,6 +141,8 @@ TODO:
 - The ips used in metallb need to be used for nginx ingress. (link)
 - Automate role id update in properties
 - Automate nginx setup (conf file)
+- Insert the following line in master data valid_documents table (it will be available in 1.0.8)
+ insert into valid_document (doctyp_code, doccat_code, lang_code,is_active, cr_by, cr_dtimes) values ('COE', 'POE', 'ara', true, 'superadmin', now());
 
 ===================
 Installing Kuberntes using ansible on a fresh VM in TF cluster:
@@ -172,10 +174,23 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
 
 * Ingress:
   * Make sure metallB is installed with usable IPs
+  * Nginx controller proxy buffer needs to be increased (has been done in the controller file)
+  * Same needs to be done on external NGINX.
 
 * Keycloak
   * Assign all roles to all clients (just for now). 
   * INDIVIDUAL role's id needs to be copied to kernel-qa.properties
+
+* Masterdata
+  * Master db access had to be changed to sysadmin:
+```
+   masterdata_database_username=sysadmin
+   masterdata_database_password=Mosipadm@dev123
+```
+
+* Properties:
+ApplicantType_Document_Mapping.json - not being used.
+
 
 ## Kubeworker 1
 * create /mnt/mosip_data/postgre directory which must be empty.
@@ -196,4 +211,6 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
 
 
 =--
+Generic PIN code for Pre Reg UI
+14080
 P@ssw0rd@321

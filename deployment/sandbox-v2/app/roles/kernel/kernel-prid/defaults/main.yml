@@ -1,0 +1,4 @@
+kernel_pridgenerator_name: kernel-pridgenerator-service 
+kernel_pridgenerator_version: 1.0.6-SNAPSHOT.96 
+kernel_pridgenerator_image: mosipid/kernel-pridgenerator-service
+kernel_pridgenerator_container_port: 8100

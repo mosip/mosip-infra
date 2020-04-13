@@ -54,9 +54,9 @@ spec:
           serviceName: {{pre_reg_batchjob_name}}
           servicePort: 80
 
-      - path: /preregistration/v1/translitration
+      - path: /preregistration/v1/transliteration
         backend:
-          serviceName: {{pre_reg_translitration_name}}
+          serviceName: {{pre_reg_transliteration_name}}
           servicePort: 80
 
       - path: /preregistration/v1/qrCode
