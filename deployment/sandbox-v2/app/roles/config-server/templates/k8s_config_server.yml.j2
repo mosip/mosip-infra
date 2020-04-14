@@ -32,13 +32,11 @@ spec:
           value: {{config_server_jar_name}}
         - name: env_config_folder 
           value: {{config_repo_search_folder}}
-        imagePullPolicy: "IfNotPresent" 
         ports:
         - containerPort: 51000 
         volumeMounts:
         - name: repo
           mountPath: {{config_repo_mount_path}} 
-        imagePullPolicy: "IfNotPresent"
       volumes:
       - name: repo 
         persistentVolumeClaim:
