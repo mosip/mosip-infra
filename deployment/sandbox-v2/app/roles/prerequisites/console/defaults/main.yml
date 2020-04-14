@@ -1,0 +1,2 @@
+commons_repo_location: '{{lookup("env",  "HOME")}}/commons'
+pre_reg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'

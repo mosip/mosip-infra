@@ -1,40 +1,5 @@
 ---
-- hosts: console
-  gather_facts: false
-  # Note: we have put tags here to run roles individually if needed.
-  roles:
-     # Prerequistes 
-     - {role: prerequisites, tags: [never, one-time]}
-
-     # Base MOSIP infra
-     - {role: postgres/postgres, tags: postgres}
-     - {role: postgres/postgres-init, tags: postgres-init} # Depends on postgres
-     - {role: config-server, tags: config-server} 
-     - {role: keycloak/keycloak, tags: keycloak} # Depends on postgres 
-     - {role: keycloak/keycloak-init, tags: keycloak-init} # Depends on keycloak
-     - {role: hdfs, tags: hdfs} # 
-     - {role: ingress, tags: ingress} 
-
-     # Kernel  
-     - {role: kernel/kernel-auth, tags: [kernel-auth, kernel]}  
-     - {role: kernel/kernel-audit, tags: [kernel-audit, kernel]} 
-     - {role: kernel/kernel-masterdata, tags: [kernel-masterdata, kernel]} 
-     - {role: kernel/kernel-email, tags: [kernel-email, kernel]}
-     - {role: kernel/kernel-otp, tags: [kernel-otp, kernel]}
-     - {role: kernel/kernel-prid, tags: [kernel-prid, kernel]}
-     - {role: kernel/kernel-crypto, tags: [kernel-crypto, kernel]}
-     - {role: kernel/kernel-key, tags: [kernel-key, kernel]}
-     - {role: kernel/kernel-applicant, tags: [kernel-applicant, kernel]}
-
-     # Pre-Reg
-     - {role: pre-reg/pre-reg-login, tags: [pre-reg-login, pre-reg]}
-     - {role: pre-reg/pre-reg-demographic, tags: [pre-reg-demographic, pre-reg]}
-     - {role: pre-reg/pre-reg-notification, tags: [pre-reg-notification, pre-reg]}
-     - {role: pre-reg/pre-reg-booking, tags: [pre-reg-booking, pre-reg]}
-     - {role: pre-reg/pre-reg-datasync, tags: [pre-reg-datasync, pre-reg]}
-     - {role: pre-reg/pre-reg-document, tags: [pre-reg-document, pre-reg]}
-     - {role: pre-reg/pre-reg-generateqrcode, tags: [pre-reg-generateqrcode, pre-reg]}
-     - {role: pre-reg/pre-reg-transliteration, tags: [pre-reg-transliteration, pre-reg]}
-     - {role: pre-reg/pre-reg-batchjob, tags: [pre-reg-batchjob, pre-reg]}
-     - {role: pre-reg/pre-reg-ui, tags: [pre-reg-ui, pre-reg]}
-
+- hosts: kubeworker1
+  gather_facts: true
+  roles: 
+    - prerequisites/kubenode

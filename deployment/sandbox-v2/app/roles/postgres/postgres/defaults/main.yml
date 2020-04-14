@@ -4,5 +4,5 @@ postgres_user: postgres
 postgres_external_ip: '{{hostvars[groups.kubeworkers[0]].ansible_host}}'  # Any k8s worker node
 
 # Permanent storage params
-postgres_local_storage_node: '{{hostvars[groups.kubeworkers[0]].inventory_hostname}}'  # Any k8s worker node
+postgres_local_storage_node: '{{groups.persistent_data_node}}'
 postgres_local_storage_path: /mnt/mosip_data/postgres

@@ -1,0 +1,9 @@
+- name: 'Generate ssh key pair on host {{inventory_hostname}}'
+  openssh_keypair:
+    path: '{{ansible_env.HOME}}/.ssh/id_rsa'
+    force: no
+
+- authorized_key:
+      user: '{{ansible_user}}'
+      state: present
+      key: "{{lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
