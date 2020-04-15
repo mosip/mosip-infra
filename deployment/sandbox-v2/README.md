@@ -5,7 +5,7 @@
 The folders here contain Ansible scripts to run MOSIP on a multi Virtual Machine (VM) setup.  
 
 * `kube/`:  Scripts to install Kubernetes
-* `app/`:  Scripts to install all MOSIP related modules
+* `app/`:  Scripts to install all MOSIP modules
 
 
 ## Hardware setup 
