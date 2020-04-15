@@ -34,9 +34,6 @@ KEYCLOAK
 
    Had to restart nodes
   
-* Steps:
-  Checkout mosip/commmons repo on branch MOSIP-257
-
 * To setup a cluster fresh, following instructions here:
   https://www.tecmint.com/install-kubernetes-cluster-on-centos-7/
 
@@ -46,9 +43,6 @@ KEYCLOAK
   $ sudo swapoff -a
 
   Comment out the swap line from /etc/fstab (to permanently disable swap)
-
-* Put console ip in /etc/hosts of each node (including master)
-  192.168.100.1 console
 
 ###
 
@@ -146,8 +140,6 @@ TODO:
 
 - Have to restart Kernel auth if OTP is not received.  Needs to be fixed.
 - HDFS:  name node runs on port 9000 for this docker.  Inside docker you have to do following:
-  kubectl exec -it %s /usr/local/hadoop/bin/hdfs dfs -mkdir /user/%s' % (container_id, user))
-  kubectl exec -it %s /usr/local/hadoop/bin/hdfs dfs -chown -R %s:%s /user/%s' % (container_id, user, user, user))
 
   for:
    - regprocessor
