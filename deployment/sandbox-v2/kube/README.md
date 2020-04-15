@@ -35,9 +35,6 @@ master
 node
 ```
 Before continuing, edit `group_vars/all.yml` to your specified configuration.
-
-For example, I choose to run `flannel` instead of calico, and thus:
-
 ```yaml
 # Network implementation('flannel', 'calico')
 network: flannel
@@ -49,7 +46,7 @@ network: flannel
 
 Reserver the ip address for loadbalancer at the below var folder
 
-        roles/metallb/var/main.yml
+        roles/metallb/vars/main.yml
         
 change the variable metallb_address_space: 192.168.205.200-192.168.205.210 according to your VMs subnet.
 
