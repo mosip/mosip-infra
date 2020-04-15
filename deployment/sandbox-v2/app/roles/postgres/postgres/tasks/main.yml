@@ -1,6 +1,5 @@
 ---
 # Deploy postgress kubernetes
-# TODO: Internally postgress service can run on port 80
 ## Create persistent storage
 - name: Get persistent storage yml from template 
   template:

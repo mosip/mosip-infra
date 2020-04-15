@@ -28,7 +28,6 @@ spec:
         image: '{{pre_reg_ui_image}}:{{pre_reg_ui_version}}'
         ports:
         - containerPort: 80
-        imagePullPolicy: Always
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json

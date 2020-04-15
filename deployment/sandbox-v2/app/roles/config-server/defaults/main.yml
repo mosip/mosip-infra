@@ -3,10 +3,12 @@ config_server_version: 1.0.5
 config_server_image: 'mosipid/sandbox-config-server:1.0.5'
 config_server_jar_name: kernel-config-server # Without .jar. Used locally for Docker
 config_server_jar_uri: "{{artifactory_uri}}/artifactory/libs-release-local/io/mosip/kernel/kernel-config-server/{{config_server_version}}/{{config_server_jar_name}}-{{config_server_version}}.jar"
-config_repo_node_path: /mnt/mosip_data/
+config_repo_node_dir: /mnt/mosip_data/
 config_repo_name: config_repo  # Git repo inside above node_path
+config_repo_node_path: '{{config_repo_node_dir}}/{{config_repo_name}}'
 config_repo_search_folder: ''  # If all properites at at the root repo level, then this will be empty
 config_repo_mount_path: /var/lib/  
-config_repo_local_storage_node: '{{hostvars[groups.kubeworkers[0]].inventory_hostname}}'  # Any k8s worker node
+config_repo_local_storage_node: '{{groups.persistent_data_node}}'
 config_repo_uri: '{{config_repo_mount_path}}{{config_repo_name}}'
 config_server_url: 'http://{{config_server_name}}/config'
+

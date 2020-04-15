@@ -24,7 +24,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
   storageClassName: local-storage
   local:
-    path: {{config_repo_node_path}}
+    path: {{config_repo_node_dir}}
   nodeAffinity:
     required:
       nodeSelectorTerms:

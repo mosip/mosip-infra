@@ -1,0 +1,6 @@
+- hosts: all
+  gather_facts: on
+  roles:
+     - {role: ssh, tags: [never, one-time, ssh]}
+
+    

@@ -1,3 +1,9 @@
 hdfs_name: hdfs
 hdfs_image: sequenceiq/hadoop-docker
 hdfs_version: 2.7.1
+# Below users should match with property files
+hdfs_users:  # PROP
+  - regprocessor
+  - prereg
+  - idrepo 
+hdfs_user_base_dir: /user

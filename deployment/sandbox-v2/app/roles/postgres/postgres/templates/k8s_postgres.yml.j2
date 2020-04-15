@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: postgres
+  name: {{postgres_name}}
   namespace: default
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: postgres 
+      app: {{postgres_name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -19,10 +19,10 @@ spec:
   template:
     metadata:
       labels:
-        app: postgres 
+        app: {{postgres_name}} 
     spec:
       containers:
-      - name: postgres
+      - name: {{postgres_name}} 
         image: postgres:12.2
         env:
         - name: POSTGRES_PASSWORD
@@ -45,12 +45,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: {{postgres_name}} 
   namespace: default
 
 spec:
   selector:
-    app: postgres
+    app: {{postgres_name}} 
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
     - port: 80 

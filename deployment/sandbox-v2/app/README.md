@@ -12,7 +12,8 @@ Modifying variables in Ansible roles for your  setup.
 
 ## Running Ansible scripts
 ```
-$ ansible-playbook -i hosts site.yml
+$ ansible-playbook -i hosts ssh.yml
+$ ansible-playbook -i hosts mosip.yml 
 ```
 To run individual roles, use tags, e.g
 ```

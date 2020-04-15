@@ -1,13 +1,39 @@
 
 # Deploy container 
-- name: Get yml from template 
-  template:
-     src: k8s_hdfs.yml.j2
-     dest: '{{tmp_dir}}/k8s_hdfs.yml'
+#- name: Get yml from template 
+#  template:
+#     src: k8s_hdfs.yml.j2
+#     dest: '{{tmp_dir}}/k8s_hdfs.yml'
+#
+#- name: Deploy on kurbernetes
+#  k8s:
+#    state: present
+#    src: '{{tmp_dir}}/k8s_hdfs.yml'
+#    wait: 'yes'
+#    wait_timeout: '{{docker_wait_time}}'
 
-- name: Deploy on kurbernetes
-  k8s:
-    state: present
-    src: '{{tmp_dir}}/k8s_hdfs.yml'
-    wait: 'yes'
-    wait_timeout: '{{docker_wait_time}}'
+# Create users  
+# First get pod name
+- name: Get pod name
+  k8s_info:
+    kind: Pod
+    namespace: default
+    label_selectors:
+      - app = {{hdfs_name}} 
+  register: hdfs_pod
+
+- name:
+  debug:
+    msg: '{{hdfs_pod.resources[0].metadata.name}}'
+
+
+# TODO: Persistence of hdfs
+#
+- include_tasks:
+    file: create_dir.yml  
+  vars:
+    hdfs_pod_id: '{{hdfs_pod.resources[0].metadata.name}}'
+    hdfs_user: '{{item}}'
+    hdfs_user_dir: '{{hdfs_user_base_dir}}/{{item}}'
+  with_items: '{{hdfs_users}}'
+- 
