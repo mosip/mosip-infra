@@ -2,7 +2,6 @@
 # This script runs all the init SQL queries and populates all tables with
 # test data 
 # TODO: Init should not happen if Postgres has valuable data
-# TODO: Common logs directory should be created by default earlier itself
 
 # Get db_ip. Since Postgres is published as a node port we get the IP of any
 # work node.
