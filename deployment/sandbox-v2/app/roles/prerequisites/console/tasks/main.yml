@@ -22,6 +22,8 @@
 #    state: present
 #  become: yes
 
+# TODO Install kubectl and transfer admin conf file
+#
 - name: Install openshift
   pip:
     name: openshift
