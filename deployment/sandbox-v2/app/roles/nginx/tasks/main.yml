@@ -1,0 +1,69 @@
+---
+# Installing epel repository addation
+- name: Epel repository install
+  yum:
+    name: epel-release
+    state: present
+
+# Installing certbot and letsencrypt
+- name: certbot
+  yum: name=letsencrypt state=present
+
+- name: certbot
+  yum: name=certbot state=present
+
+- name: plugin
+  yum: name=python2-certbot-nginx state=present
+
+# Installing nginx
+- name: nginx
+  yum: name=nginx state=present
+
+# Ports to be enabled
+- name: enable firewall port
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    permanent: yes
+  with_items:
+    - "80/tcp"
+    - "443/tcp" 
+  notify:
+    - restart firewalld
+
+# Nginx service restarting
+- name: services
+  service:
+    name: nginx 
+    enabled: yes
+    state: restarted
+
+- name: firewalld stop
+  service: name=firewalld state=stopped
+
+# SSl certbot generation for nginx
+- name: SSl certbot generation for nginx
+  command: letsencrypt certonly -n --nginx  -m "{{ admin_email }}" --agree-tos -d "{{ domain_name }}"
+
+# Folder creation in nginx service
+- name: Folder creation for nginx service
+  file: name=/etc/nginx/conf.d state=directory
+ 
+# Copying configuration file
+- name: Copying nginx config file
+  template:
+    src: my.conf.j2
+    dest: /etc/nginx/conf.d/my.conf
+
+# Nginx restarting
+- name: Nginx service restarting
+  service: name=nginx state=restarted
+
+# Cron job for certbot
+- name: Cron job for auto renewel
+  cron:
+    name: letsencrypt_renewal
+    special_time: monthly
+    job: letsencrypt --renew certonly -n --nginx  -m "{{ admin_email }}" --agree-tos -d "{{ domain_name }}" && systemctl restart nginx
+  notify:
+    - restart firewalld

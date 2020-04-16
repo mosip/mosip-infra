@@ -4,6 +4,12 @@
   roles: 
     - {role: prerequisites/kubenode, tags: [never, one-time, kubenode]}
 
+- hosts: nginx
+  gather_facts: true
+  # Note: we have put tags here to run roles individually if needed.
+  roles:
+     - {role: nginx, tags: nginx}
+
 - hosts: console
   gather_facts: true
   # Note: we have put tags here to run roles individually if needed.
@@ -20,6 +26,7 @@
      - {role: keycloak/keycloak-init, tags: keycloak-init} # Depends on keycloak
      - {role: hdfs, tags: hdfs} # 
      - {role: ingress, tags: ingress} 
+
 
      # Kernel  
      - {role: kernel/kernel-auth, tags: [kernel-auth, kernel]}  

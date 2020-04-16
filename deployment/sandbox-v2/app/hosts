@@ -21,6 +21,7 @@ kubean-w2.technoforte.co.in ansible_host=10.6.1.132 ansible_user=root
 [persistent_data_node:children]
 kubeworker1
 
-
+[nginx]
+nginx test.technoforte.co.in ansible_host=10.6.1.220 ansible_user=root
 
 

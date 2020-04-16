@@ -2,6 +2,9 @@
 
 ## Console setup 
 TBD
+
+## Nginx setup
+* Assigne a public ip and public DNS 
   
 ## Kube worker node setup
 * Creation of git config repo
