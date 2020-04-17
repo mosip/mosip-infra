@@ -5,7 +5,12 @@ Set up kubernetes machines. Make sure all have the same root password.
 ## Console setup 
 * Configure all variables of the setup as below:
 * Create a normal (non-root) account on console machine
-* Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder
+* Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
+```
+$ ssh-keygen -t rsa
+```
+No passphrase, all defaults.
+
 * Include public key in ~/.ssh/authorized_keys.  
 * Include current user in /etc/sudoers file with no password. 
 ```
