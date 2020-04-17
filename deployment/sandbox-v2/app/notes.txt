@@ -1,18 +1,5 @@
-* Docker version:
-  Docker version 18.09.7, build 2d0083d
-
 * Ansible version
   ansible 2.9.4
-
-* Install  openshift
-  $ pip3 install openshift
-
-* Python version
-  python 3.6.8
-
-
-* Installer python3 docker
-  $ pip3 install docker 
 
 KEYCLOAK
 * Admin account:
@@ -33,8 +20,8 @@ KEYCLOAK
   "Waiting for deployment spec update to be observed..."
 
    Had to restart nodes
+* Front end URL needs to be added while installing pod. 
 
-* Front end URL needs to be added while installing docker.
   
 * To setup a cluster fresh, following instructions here:
   https://www.tecmint.com/install-kubernetes-cluster-on-centos-7/
@@ -180,6 +167,8 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
   * Make sure metallB is installed with usable IPs
   * Nginx controller proxy buffer needs to be increased (has been done in the controller file)
   * Same needs to be done on external NGINX.
+  * IMPORTANT: The range in metallb settings has to have atleast two addresses like thiss:
+    10.6.1.125-10.6.1.126. (Single address did not work for me)
 
 * Keycloak
   * Assign all roles to all clients (just for now). 
