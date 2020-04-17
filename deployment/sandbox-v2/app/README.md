@@ -12,6 +12,7 @@ $ ssh-keygen -t rsa
 No passphrase, all defaults.
 
 * Include public key in ~/.ssh/authorized_keys.  
+* Do the same for root user.
 * Include current user in /etc/sudoers file with no password. 
 ```
 $ ansible-playbook -i --ask-pass hosts.ini ssh.yml 
