@@ -1,26 +1,34 @@
 ---
 # Installing epel repository addation
-- name: Epel repository install
+- name: Epel repository package install
   yum:
     name: epel-release
     state: present
 
 # Installing certbot and letsencrypt
-- name: certbot
-  yum: name=letsencrypt state=present
+- name: Install certbot packages
+  yum: 
+    name: letsencrypt
+    state: present
 
-- name: certbot
-  yum: name=certbot state=present
+- name: Install certbot
+  yum: 
+    name: certbot 
+    state: present
 
-- name: plugin
-  yum: name=python2-certbot-nginx state=present
+- name: Python certbot plugin installation
+  yum: 
+    name: python2-certbot-nginx 
+    state: present
 
 # Installing nginx
-- name: nginx
-  yum: name=nginx state=present
+- name: Install nginx
+  yum: 
+    name: nginx 
+    state: present
 
 # Ports to be enabled
-- name: enable firewall port
+- name: Enable firewall port
   firewalld:
     port: "{{ item }}"
     state: enabled
@@ -32,21 +40,23 @@
     - restart firewalld
 
 # Nginx service restarting
-- name: services
+- name: Restarting nginx services
   service:
     name: nginx 
     enabled: yes
     state: restarted
 
-- name: firewalld stop
-  service: name=firewalld state=stopped
+- name: Stop firewalld service for certbot ssl creation
+  service: 
+    name: firewalld 
+    state: stopped
 
 # SSl certbot generation for nginx
 - name: SSl certbot generation for nginx
   command: letsencrypt certonly -n --nginx  -m "{{ admin_email }}" --agree-tos -d "{{ domain_name }}"
 
 # Folder creation in nginx service
-- name: Folder creation for nginx service
+- name: Folder creation for nginx proxypass service
   file: name=/etc/nginx/conf.d state=directory
  
 # Copying configuration file
@@ -56,8 +66,10 @@
     dest: /etc/nginx/conf.d/my.conf
 
 # Nginx restarting
-- name: Nginx service restarting
-  service: name=nginx state=restarted
+- name: Restarting nginx service
+  service: 
+    name: nginx 
+    state: restarted
 
 # Cron job for certbot
 - name: Cron job for auto renewel

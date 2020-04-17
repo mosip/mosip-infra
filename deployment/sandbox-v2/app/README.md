@@ -4,7 +4,7 @@
 TBD
 
 ## Nginx setup
-* Assigne a public ip and public DNS 
+* Allocate a public ip and public DNS to the server.
   
 ## Kube worker node setup
 * Creation of git config repo
