@@ -1,0 +1,6 @@
+# This play creates persistent directories on worker node for
+# postgres, config server, etc.
+- hosts: kubeworker1
+  gather_facts: false
+  roles: 
+    - {role: prerequisites/kubenode, tags: [never, one-time, kubenode]}

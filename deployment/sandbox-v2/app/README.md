@@ -1,7 +1,26 @@
-# MOSIP Components Installation
+# MOSIP Components Installation 
+## Setup of all machines  
+Set up kubernetes machines. Make sure all have the same root password. 
 
 ## Console setup 
-TBD
+Configure all variables of the setup as below:
+* Create a normal (non-root) account on console machine
+* Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
+```
+$ ssh-keygen -t rsa
+```
+No passphrase, all defaults.
+
+* Include public key in ~/.ssh/authorized_keys.  
+* Do the same for root user.
+* Include current user in /etc/sudoers file with no password. 
+```
+$ ansible-playbook -i --ask-pass hosts.ini ssh.yml 
+```
+* Install git:
+```
+$ sudo yum install -y git
+```
   
 ## Kube worker node setup
 * Creation of git config repo

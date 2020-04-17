@@ -1,6 +1,6 @@
 
 ---
-ansible_python_interpreter: /usr/bin/python3
+#ansible_python_interpreter: /usr/bin/python3
 
 ansible_become_password: puneet  # For commands that require sudo
 
@@ -9,10 +9,11 @@ logs_dir: '{{playbook_dir}}/logs/'
 
 artifactory_uri: 'http://13.71.87.138:8040'
 
+metallb_address_space: 10.6.1.125-10.6.1.126 # Assign free/available IPs in the same subnet
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
-ingress_ip: 10.6.1.125
+ingress_ip: 10.6.1.126
 
 mosip_public_server: mosip-tf.technoforte.co.in
 mosip_public_server_ip: 106.51.81.136:81  # For keycloak. TODO: Temporary. Remove later.

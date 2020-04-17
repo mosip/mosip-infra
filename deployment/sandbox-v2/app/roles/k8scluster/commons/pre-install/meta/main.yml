@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: k8scluster/commons/os-checker }

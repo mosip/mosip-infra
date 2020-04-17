@@ -1,0 +1,14 @@
+# These repositories are checked out from github 
+- name: Check out mosip/commmons git repo
+  git:
+    repo: https://github.com/mosip/commons
+    dest: '{{commons_repo_location}}'
+    update: no
+    force: no
+    
+- name: Check out mosip/pre-registration git repo
+  git:
+    repo: https://github.com/mosip/pre-registration
+    dest: '{{pre_reg_repo_location}}'
+    update: no
+    force: no
