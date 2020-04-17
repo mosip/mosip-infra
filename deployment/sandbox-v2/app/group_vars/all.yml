@@ -9,13 +9,6 @@ logs_dir: '{{playbook_dir}}/logs/'
 
 artifactory_uri: 'http://13.71.87.138:8040'
 
-postgres_password: postgres
-postgres_db: keycloak # Default DB on Postgres
-postgres_user: postgres
-postgres_external_ip: '{{hostvars[groups.kubeworkers[0]].ansible_host}}'
-
-keycloak_user: admin
-keycloak_password: admin
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
@@ -23,3 +16,9 @@ ingress_ip: 10.6.1.125
 
 mosip_public_server: mosip-tf.technoforte.co.in
 mosip_public_server_ip: 106.51.81.136:81  # For keycloak. TODO: Temporary. Remove later.
+
+# Variables that are shared across plays (otherwise, all variables are in respective
+# roles)
+commons_repo_location: '{{lookup("env",  "HOME")}}/commons'
+pre_reg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'
+

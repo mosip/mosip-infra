@@ -3,14 +3,8 @@
 # test data 
 # TODO: Init should not happen if Postgres has valuable data
 
-# Get db_ip. Since Postgres is published as a node port we get the IP of any
-# work node.
 - name: Get postgres nodeport ip 
-  command: "kubectl get node --selector='!node-role.kubernetes.io/master' -o json"
-  register: out
-
-- name: Get postgres nodeport ip 
-  command: 'kubectl get service -o json postgres'
+  command: 'kubectl get service -o json {{postgres_name}}'
   register: out
 
 - set_fact:

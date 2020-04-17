@@ -1,6 +1,5 @@
 - include_vars:
     file: roles/postgres/postgres/defaults/main.yml
-    name: postgres_local_storage_path
 
 - name: Create postgres data folder
   file:
@@ -17,11 +16,13 @@
 
 - name: Copy all the properties from console to node 
   copy:
-     src: '{{playbook_dir}}/roles/config-server/files/properties'  
+     src: '{{playbook_dir}}/roles/config-server/files/properties/'  
      dest: '{{config_repo_node_path}}' 
      force: no
     
 - name: Install git 
+  vars:
+    ansible_python_interpreter: /usr/bin/python2.7 # Needed otherwise ansible not able to install
   yum:
     name: git
     state: present

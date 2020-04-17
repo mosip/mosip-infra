@@ -1,6 +1,17 @@
 ---
+- hosts: all
+  gather_facts: false
+  roles:
+     - {role: ssh, tags: [never, one-time, ssh]}
+     - {role: python3, tags: [never, one-time, python3]}
+
+- hosts: console
+  gather_facts: false
+  roles:
+     - {role: prerequisites/console, tags: [never, one-time, prerequisites]}
+
 - hosts: kubeworker1
-  gather_facts: true
+  gather_facts: false
   roles: 
     - {role: prerequisites/kubenode, tags: [never, one-time, kubenode]}
 
@@ -11,13 +22,8 @@
      - {role: nginx, tags: nginx}
 
 - hosts: console
-  gather_facts: true
-  # Note: we have put tags here to run roles individually if needed.
-  
+  gather_facts: false
   roles:
-     # Prerequistes 
-     - {role: prerequisites/console, tags: [never, one-time, prerequisites]}
-
      # Base MOSIP infra
      - {role: postgres/postgres, tags: postgres}
      - {role: postgres/postgres-init, tags: postgres-init} # Depends on postgres
