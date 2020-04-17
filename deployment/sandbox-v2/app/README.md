@@ -3,7 +3,7 @@
 Set up kubernetes machines. Make sure all have the same root password. 
 
 ## Console setup 
-* Configure all variables of the setup as below:
+Configure all variables of the setup as below:
 * Create a normal (non-root) account on console machine
 * Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
 ```
@@ -16,6 +16,10 @@ No passphrase, all defaults.
 * Include current user in /etc/sudoers file with no password. 
 ```
 $ ansible-playbook -i --ask-pass hosts.ini ssh.yml 
+```
+* Install git:
+```
+$ sudo yum install -y git
 ```
   
 ## Kube worker node setup
