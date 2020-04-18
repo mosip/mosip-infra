@@ -2,11 +2,12 @@
 ---
 artifactory_uri: 'http://13.71.87.138:8040'
 
-metallb_address_space: 10.2.0.9-10.2.0.10 # Assign free/available IPs in the same subnet
-
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
-ingress_ip: 10.2.0.10
+# Ingress is in NodePort configuration. So connect to any node cluster
+ingress_nodeport_http: 30080 
+ingress_nodeport_https: 300443
+ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}'
 
 mosip_public_server: ansible1.southindia.cloudapp.azure.com
 mosip_public_server_ip: 104.211.247.206
