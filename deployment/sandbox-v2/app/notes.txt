@@ -199,6 +199,13 @@ ApplicantType_Document_Mapping.json - not being used.
 
 
 
+NGINX:
+Install
+* sudo yum install -y nginx
+* sudo firewall-cmd --permanent --zone=public --add-service=http
+* sudo firewall-cmd --permanent --zone=public --add-service=https
+* sudo firewall-cmd --reload
+
 PYTHON3:
 
 Face some issues with python3.  Basically if Ansible interpreter is set to python3 then the same must be available 
@@ -222,3 +229,4 @@ ssh.yml
 console.yml
 k8cluster.yml
 kubenode.yml
+mosip.yml

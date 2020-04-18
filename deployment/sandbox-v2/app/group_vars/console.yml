@@ -1,4 +1,5 @@
-
+# Variable very specific to console that runs all the ansible scripts.
+#
 tmp_dir: '{{playbook_dir}}/tmp/'
 logs_dir: '{{playbook_dir}}/logs/'
 

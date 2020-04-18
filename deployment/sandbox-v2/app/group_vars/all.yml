@@ -1,5 +1,7 @@
 
 ---
+# Global variables - accessed by different roles and plays
+#
 artifactory_uri: 'http://13.71.87.138:8040'
 
 docker_wait_time: 600   # Wait for docker to pull and deploy

@@ -32,30 +32,32 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'INDIVIDUAL'}
+  - {realm_id: 'preregistration', client_id: '', role_name: 'AUTH'}
+  - {realm_id: 'preregistration', client_id: '', role_name: 'PRE_REGISTRATION_ADMIN'}
 
 keycloak_mosip_users:
-  - {realm_id: 'mosip', user_file: 'users/puneet.json'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json'}
 
 keycloak_mosip_user_role_map:
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_OFFICER'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'ID_AUTHENTICATION'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'SUPERADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'ZONAL_ADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'GLOBAL_ADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'RESIDENT'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_PROCESSOR'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'ZONAL_APPROVER'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_OFFICER'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_OPERATOR'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'AUTH'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'CENTRAL_APPROVER'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'MISP'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'PREREG'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'CENTRAL_ADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'PRE_REGISTRATION'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'PRE_REGISTRATION_ADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_ADMIN'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'REGISTRATION_SUPERVISOR'}
-  - {realm_id: 'mosip', user_file: 'users/puneet.json', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'ID_AUTHENTICATION'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'DEVICE_PROVIDER'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'SUPERADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'ZONAL_ADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_PROCESSOR'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'ZONAL_APPROVER'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_OPERATOR'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'AUTH'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'CENTRAL_APPROVER'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'MISP'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'PREREG'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'CENTRAL_ADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'PRE_REGISTRATION'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'PRE_REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'REGISTRATION_SUPERVISOR'}
+  - {realm_id: 'mosip', user_file: 'users/testuser.json', role_name: 'RESIDENT'}
 

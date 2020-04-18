@@ -40,7 +40,7 @@ kube_addon_dir: /etc/kubernetes/addon
 # Additional feature to install
 additional_features:
   helm: true
-  metallb: true
+  metallb: false  # For sandbox installation we don't need metallb, we can use Ingress in nodeport mode
   healthcheck: true
 
 # temporary directory used by additional features
