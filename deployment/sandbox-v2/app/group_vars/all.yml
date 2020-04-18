@@ -2,11 +2,11 @@
 ---
 artifactory_uri: 'http://13.71.87.138:8040'
 
-metallb_address_space: 10.2.0.3-10.2.0.4 # Assign free/available IPs in the same subnet
+metallb_address_space: 10.2.0.9-10.2.0.10 # Assign free/available IPs in the same subnet
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
-ingress_ip: 10.2.0.4
+ingress_ip: 10.2.0.10
 
 mosip_public_server: ansible1.southindia.cloudapp.azure.com
 mosip_public_server_ip: 104.211.247.206

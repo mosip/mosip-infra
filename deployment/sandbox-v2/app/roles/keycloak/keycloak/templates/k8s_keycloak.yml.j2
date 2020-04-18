@@ -50,13 +50,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{keycloak_name}}
+  name: '{{keycloak_name}}'
   namespace: default
 
 spec:
   selector:
-    app: {{keycloak_name}}
+    app: '{{keycloak_name}}'
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
-    port: 80 
-    targetPort: 8080 
+    - port: 80 
+      targetPort: 8080 
