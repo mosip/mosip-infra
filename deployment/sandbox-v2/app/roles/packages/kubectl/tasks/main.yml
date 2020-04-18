@@ -1,0 +1,11 @@
+- name: Install kubectl config
+  copy:  
+    src: kubectl_config
+    dest: /etc/yum.repos.d/kubernetes.repo
+  become: yes
+
+- name: Install kubectl
+  yum:
+    name: kubectl
+    state: present
+  become: yes

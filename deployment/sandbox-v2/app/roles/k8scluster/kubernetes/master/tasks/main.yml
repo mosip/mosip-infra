@@ -18,10 +18,15 @@
     enabled: yes
   register: started_kubelet
 
+- name: Make sure .kube file is present on console
+  file:
+    name: "{{lookup('env', 'HOME')}}/.kube"
+    state: directory
+
 - name: "Copy config file"
   fetch:
     src: /etc/kubernetes/admin.conf 
-    dest: "{{ lookup('env', 'HOME') }}/admin.conf"
+    dest: "{{ lookup('env', 'HOME') }}/.kube/config"
     flat: yes
   run_once: yes
   ignore_errors: yes
