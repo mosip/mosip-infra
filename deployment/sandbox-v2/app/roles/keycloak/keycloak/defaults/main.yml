@@ -4,3 +4,4 @@ keycloak_password: admin # Should match  mosip.keycloak.admin.secret.key in mosi
 keycloak_url: '{{ingress_base_url}}/{{keycloak_name}}' # To acces Keycloak from outside cluster but within network. Refer ingress file.
 #keycloak_external_url: 'http://{{mosip_public_server}}/keycloak/auth'  # Should match with Nginx conf
 keycloak_external_url: 'http://{{mosip_public_server_ip}}/keycloak/auth'  # For some reason domain name does not work, so we use ip here. 
+keycloak_container_port: 8080

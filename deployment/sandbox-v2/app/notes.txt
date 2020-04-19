@@ -212,7 +212,27 @@ Face some issues with python3.  Basically if Ansible interpreter is set to pytho
 on all machines.  However, centos 7 does not have the same enabled by default.  So, you can't use 
 Ansible to install python!  Has to be installed with some other scripts or manually. 
 
-
+==========
+ACTUATOR HEALTH RESPONSE
+{"status":"UP",
+"details": {
+   "diskSpace": {
+      "status":"UP",
+      "details":{"total":31671447552,"free":26219851776,"threshold":10485760}
+    },
+    "db":{
+      "status":"UP",
+      "details":{
+        "database":"PostgreSQL","hello":1}
+     },
+    "refreshScope":{"status":"UP"},
+    "configServer":{
+      "status":"UP",
+       "details":{"propertySources":["configClient","/var/lib/config_repo/kernel-qa.properties","/var/lib/config_repo/application-qa.properties"]}
+     }
+  }
+}
+~      
 
 =--
 Generic PIN code for Pre Reg UI
@@ -230,3 +250,5 @@ console.yml
 k8cluster.yml
 kubenode.yml
 mosip.yml
+
+

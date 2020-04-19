@@ -8,7 +8,7 @@ docker_wait_time: 600   # Wait for docker to pull and deploy
 
 # Ingress is in NodePort configuration. So connect to any node cluster
 ingress_nodeport_http: 30080 
-ingress_nodeport_https: 300443
+ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}'
 
 mosip_public_server: ansible1.southindia.cloudapp.azure.com

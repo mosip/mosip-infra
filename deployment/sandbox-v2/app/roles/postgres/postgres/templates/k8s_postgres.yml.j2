@@ -32,15 +32,18 @@ spec:
         - name: POSTGRES_USER
           value: {{postgres_user}}
         ports:
-        - containerPort: 5432 # default 
+        - containerPort: {{postgres_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{keycloak_container_port}}  # All defaults used
         volumeMounts:
         - name: pg-data
           mountPath: /var/lib/postgresql/data/ # See notes above
-        imagePullPolicy: "IfNotPresent"
       volumes:
       - name: pg-data
         persistentVolumeClaim:
           claimName: postgres-pv-claim
+
 ---
 apiVersion: v1
 kind: Service
@@ -51,7 +54,9 @@ metadata:
 spec:
   selector:
     app: {{postgres_name}} 
+  # We need nodeport here to connect DB from outside the cluster. 
+  # Cannot use ingress (rather, haven't figured out)
   type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
     - port: 80 
-      targetPort: 5432
+      targetPort: {{postgres_container_port}} 

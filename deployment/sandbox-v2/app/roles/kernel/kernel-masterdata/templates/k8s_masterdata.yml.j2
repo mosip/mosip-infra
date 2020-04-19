@@ -38,6 +38,9 @@ spec:
           value: absent
         ports:
         - containerPort: {{kernel_masterdata_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{kernel_masterdata_container_port}}  # All defaults used
 ---
 apiVersion: v1
 kind: Service
@@ -50,4 +53,3 @@ spec:
     targetPort: {{kernel_masterdata_container_port}} 
   selector:
     app: {{kernel_masterdata_name}}
-  type: NodePort

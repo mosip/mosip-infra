@@ -6,3 +6,4 @@ postgres_external_ip: '{{groups.kubeworkers[0]}}' # Any k8s worker node since it
 # Permanent storage params
 postgres_local_storage_hostname: '{{persistent_storage_hostname}}'
 postgres_local_storage_path: /mnt/mosip_data/postgres
+postgres_container_port: 5432

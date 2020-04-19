@@ -41,11 +41,12 @@ spec:
           value: '{{postgres_password}}' 
         - name: KEYCLOAK_FRONTEND_URL
           value: '{{keycloak_external_url}}' 
-  
         ports:
-        - containerPort: 8080 # default 
+        - containerPort: {{keycloak_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{keycloak_container_port}}  # All defaults used
 
-        imagePullPolicy: "IfNotPresent"
 ---
 apiVersion: v1
 kind: Service
@@ -56,7 +57,6 @@ metadata:
 spec:
   selector:
     app: '{{keycloak_name}}'
-  type: NodePort  # For init of DB from outside Minikube VM. 
   ports:
     - port: 80 
       targetPort: 8080 
