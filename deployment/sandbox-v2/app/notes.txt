@@ -242,6 +242,8 @@ P@ssw0rd@321
 TO TEST
 "POST /preregistration/v1/notification/notify HTTP/1.1" 500 
 
+=====
+We are waiting only for dependent containers - making sure they come up synchronously.  For most the pods we don't wait in Ansible scripts.  The pods have their health check. 
 ===========
 sequence
 first 

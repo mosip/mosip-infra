@@ -35,7 +35,7 @@ spec:
         - containerPort: {{postgres_container_port}} 
         readinessProbe:
           tcpSocket:
-            port: {{keycloak_container_port}}  # All defaults used
+            port: {{postgres_container_port}}  # All defaults used
         volumeMounts:
         - name: pg-data
           mountPath: /var/lib/postgresql/data/ # See notes above
