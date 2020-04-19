@@ -13,7 +13,7 @@ ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}
 
 mosip_public_server: ansible1.southindia.cloudapp.azure.com
 mosip_public_server_ip: 104.211.247.206
-mosip_public_server_url: 'http://{{mosip_public_server}}'
+mosip_public_server_url: 'https://{{mosip_public_server}}'
 
 persistent_storage_node: "{{groups['kubeworkers'][0]}}" # All persistent data will be stored on this node
 # CAUTTION: Assuming actual hostname and inventory hostname is same

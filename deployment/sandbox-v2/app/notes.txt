@@ -150,6 +150,8 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
 * sudo yum install python3
 * sudo pip3 install openshift
 * sudo pip3 install selinux
+* Upgrade pip version
+* Upgrade requests version
 * sudo yum install postgresql (for psql client)
 * change hosts ini file:
   * Update correct hostnames of master and works that will appear as labels
