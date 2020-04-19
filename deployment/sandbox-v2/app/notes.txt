@@ -9,7 +9,7 @@ KEYCLOAK
   $ docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 9000:8080 jboss/keycloak
 * Keycloak webpage:
 * mosip-admin-client (same in properties) needs to exist for user to successfully login in.
-  But Role is not necessary for user.
+  But Role is not necessary for this user.
 *  Keycloak
   ^keycloak.* is not needed in properties files - they have to be defined, but ignored.
 * Keycloak user account - Remove the condition to "Updated Password" for a user.
