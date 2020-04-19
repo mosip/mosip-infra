@@ -206,6 +206,10 @@ Install
 * sudo firewall-cmd --permanent --zone=public --add-service=https
 * sudo firewall-cmd --reload
 
+* Nginx permission problem. On console machine or on which nginx is running disable selinux:
+ *  setsebool httpd_can_network_connect on -P
+
+
 PYTHON3:
 
 Face some issues with python3.  Basically if Ansible interpreter is set to python3 then the same must be available 
