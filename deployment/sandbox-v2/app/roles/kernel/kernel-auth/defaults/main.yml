@@ -1,3 +1,4 @@
 kernel_auth_name: kernel-auth-service
 kernel_auth_version: 1.0.7
 kernel_auth_image: mosipid/kernel-auth-service
+kernel_auth_container_port: 8091

@@ -1,10 +1,15 @@
 # MOSIP Components Installation 
 ## Setup of all machines  
-Set up kubernetes machines. Make sure all have the same root password. 
-
+* Set up kubernetes machines with following hostnames:
+  * kubemaster
+  * kubeworker0
+  * kuberworker1
+* Make sure hostname in inventory match with actual hostnames.
+    ...
 ## Console setup 
 Configure all variables of the setup as below:
-* Create a normal (non-root) account on console machine
+* Create a normal (non-root) account on console machine with hostname 'console'.
+* Change "PasswordAuthentication no" to "PasswordAuthentication yes" in /etc/ssh/sshd_config. And restart sshd.
 * Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
 ```
 $ ssh-keygen -t rsa
@@ -14,6 +19,12 @@ No passphrase, all defaults.
 * Include public key in ~/.ssh/authorized_keys.  
 * Do the same for root user.
 * Include current user in /etc/sudoers file with no password. 
+* Install Ansible
+```
+$ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+$ sudo yum install ansible # This will install 2.9 version
+```
+
 ```
 $ ansible-playbook -i --ask-pass hosts.ini ssh.yml 
 ```

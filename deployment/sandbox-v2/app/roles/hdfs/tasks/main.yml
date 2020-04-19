@@ -12,14 +12,6 @@
     wait: 'yes'
     wait_timeout: '{{docker_wait_time}}'
 
-- name: Wait for HDFS to come out of safe mode
-  command: 'kubectl exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"' 
-  register: out 
-  retries: 3 
-  delay: 10
-  until: "'Safe mode is OFF' in out.stdout"
-
-# Create users  
 # First get pod name
 - name: Get pod name
   k8s_info:
@@ -29,14 +21,25 @@
       - app = {{hdfs_name}} 
   register: hdfs_pod
 
+- set_fact:
+    hdfs_pod_id: '{{hdfs_pod.resources[0].metadata.name}}'
+
+- name: Wait for HDFS to come out of safe mode
+  command: 'kubectl exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"' 
+  register: out 
+  retries: 3 
+  delay: 10
+  until: "'Safe mode is OFF' in out.stdout"
+
+# Create users  
+
 
 # TODO: Persistence of hdfs
 #
 - include_tasks:
     file: create_dir.yml  
   vars:
-    hdfs_pod_id: '{{hdfs_pod.resources[0].metadata.name}}'
     hdfs_user: '{{item}}'
     hdfs_user_dir: '{{hdfs_user_base_dir}}/{{item}}'
   with_items: '{{hdfs_users}}'
-- 
+ 

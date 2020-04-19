@@ -1,5 +1,5 @@
 - name: Install openshift
-  pip:
-    name: openshift
+  yum:
+    name: python-openshift
   become: yes
 

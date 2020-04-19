@@ -1,7 +1,0 @@
-- name: Install dnf
-  vars:
-    ansible_python_interpreter: /usr/bin/python2  # Only python2 available in default CentOS7 installation
-  yum: 
-    name: dnf
-    state: present
-  become: yes

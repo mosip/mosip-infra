@@ -1,7 +1,0 @@
-- name: Install python3
-  vars:
-    ansible_python_interpreter: /usr/bin/python2  # Only python2 available in default CentOS7 installation
-  yum: 
-    name: python3
-    state: present
-  become: yes

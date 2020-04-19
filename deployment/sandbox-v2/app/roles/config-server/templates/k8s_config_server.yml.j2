@@ -33,7 +33,10 @@ spec:
         - name: env_config_folder 
           value: {{config_repo_search_folder}}
         ports:
-        - containerPort: 51000 
+        - containerPort: {{config_server_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{config_server_container_port}}  # All defaults used
         volumeMounts:
         - name: repo
           mountPath: {{config_repo_mount_path}} 
@@ -54,4 +57,4 @@ spec:
     app: {{config_server_name}}
   ports:
     - port: 80
-      targetPort: 51000
+      targetPort: {{config_server_container_port}} 

@@ -38,7 +38,11 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: 8081
+        - containerPort: {{kernel_auditmanager_container_port}}  
+        readinessProbe:
+          tcpSocket:
+            port: {{kernel_auditmanager_container_port}}  # All defaults used
+
 ---
 apiVersion: v1
 kind: Service
@@ -48,7 +52,6 @@ metadata:
 spec:
   ports:
   - port: 80 
-    targetPort: 8081
+    targetPort: {{kernel_auditmanager_container_port}}  
   selector:
     app: {{kernel_auditmanager_name}}
-  type: NodePort

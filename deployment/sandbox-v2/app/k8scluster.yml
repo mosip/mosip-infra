@@ -1,17 +1,12 @@
 ---
 - hosts: kubecluster
-  gather_facts: yes
   become: yes
-  tasks:
-    - name: Install selinux
-      pip:
-        name: selinux
-      become: yes
-
-- hosts: kubecluster
   gather_facts: yes
-  become: yes
   roles:
+    #- { role: packages/ansible, tags: [ansible]}  # May not be needed TODO
+    #- { role: packages/pip, tags: [pip] # May not be needed TODO}
+    #- { role: packages/git, tags: [git]} # May not be needed TODO 
+    #- { role: packages/selinux, tags: [selinux]} # May not be needed TODO
     - { role: k8scluster/docker, tags: docker }
 
 - hosts: kubemaster

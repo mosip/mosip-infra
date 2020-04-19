@@ -1,7 +1,7 @@
 # TODO: For some reason below link is not working any more.  Check after some time
 - name: Install psql10 rpm
   yum: 
-    name:  https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm 
+    name:  https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm 
     state: present
   become: yes
 

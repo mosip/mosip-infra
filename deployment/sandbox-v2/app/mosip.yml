@@ -1,16 +1,16 @@
 # This play installs all the MOSIP related modules on Kubernetes
 # cluster 
 - hosts: console
-  gather_facts: false
+  gather_facts: true
   roles:
      # Base MOSIP infra
      - {role: postgres/postgres, tags: postgres}
-     - {role: postgres/postgres-init, tags: postgres-init} # Depends on postgres
      - {role: config-server, tags: config-server} 
      - {role: keycloak/keycloak, tags: keycloak} # Depends on postgres 
-     - {role: keycloak/keycloak-init, tags: keycloak-init} # Depends on keycloak
      - {role: hdfs, tags: hdfs} # 
-     - {role: ingress, tags: ingress} 
+     - {role: ingress, tags: ingress}
+     - {role: postgres/postgres-init, tags: postgres-init} # Start only after ingress is installed 
+     - {role: keycloak/keycloak-init, tags: keycloak-init}  
 
      # Kernel  
      - {role: kernel/kernel-auth, tags: [kernel-auth, kernel]}  

@@ -30,6 +30,8 @@ spec:
         - containerPort: 50010
         - containerPort: 50020
         - containerPort: 50090
+
+        #TODO: Put a readiness probe
 ---
 apiVersion: v1
 kind: Service
@@ -58,4 +60,3 @@ spec:
     targetPort: 50090
   selector:
     app: {{hdfs_name}}
-  type: NodePort

@@ -28,6 +28,9 @@ spec:
         image: '{{pre_reg_ui_image}}:{{pre_reg_ui_version}}'
         ports:
         - containerPort: 80
+        readinessProbe:
+          tcpSocket:
+            port: 80  # All defaults used
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json
@@ -49,4 +52,3 @@ spec:
     - port: 80
   selector:
     app: {{pre_reg_ui_name}}
-  type: NodePort

@@ -39,6 +39,9 @@ spec:
           value: absent
         ports:
         - containerPort: {{kernel_emailnotification_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{kernel_emailnotification_container_port}}  # All defaults used
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +54,3 @@ spec:
     targetPort: {{kernel_emailnotification_container_port}} 
   selector:
     app: {{kernel_emailnotification_name}}
-  type: NodePort

@@ -1,25 +1,22 @@
 
 ---
-#ansible_python_interpreter: /usr/bin/python3
-
-ansible_become_password: puneet  # For commands that require sudo
-
-tmp_dir: '{{playbook_dir}}/tmp/'
-logs_dir: '{{playbook_dir}}/logs/'
-
+# Global variables - accessed by different roles and plays
+#
 artifactory_uri: 'http://13.71.87.138:8040'
-
-metallb_address_space: 10.6.1.125-10.6.1.126 # Assign free/available IPs in the same subnet
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
-ingress_ip: 10.6.1.126
+# Ingress is in NodePort configuration. So connect to any node cluster
+ingress_nodeport_http: 30080 
+ingress_nodeport_https: 30443
+ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}'
 
-mosip_public_server: mosip-tf.technoforte.co.in
-mosip_public_server_ip: 106.51.81.136:81  # For keycloak. TODO: Temporary. Remove later.
+mosip_public_server: ansible1.southindia.cloudapp.azure.com
+mosip_public_server_ip: 104.211.247.206
+mosip_public_server_url: 'https://{{mosip_public_server}}'
 
-# Variables that are shared across plays (otherwise, all variables are in respective
-# roles)
-commons_repo_location: '{{lookup("env",  "HOME")}}/commons'
-pre_reg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'
+persistent_storage_node: "{{groups['kubeworkers'][0]}}" # All persistent data will be stored on this node
+# CAUTTION: Assuming actual hostname and inventory hostname is same
+# TODO: Another variables in hosts.ini may be defined like remote_hostname in case the two are different.
+persistent_storage_hostname: '{{hostvars[persistent_storage_node]["inventory_hostname"]}}' 
 

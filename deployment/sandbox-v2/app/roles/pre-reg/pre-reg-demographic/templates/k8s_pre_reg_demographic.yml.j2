@@ -39,6 +39,9 @@ spec:
           value: absent
         ports:
         - containerPort: {{pre_reg_demographic_container_port}}
+        readinessProbe:
+          tcpSocket:
+            port: {{pre_reg_demographic_container_port}}  # All defaults used
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +54,3 @@ spec:
     targetPort: {{pre_reg_demographic_container_port}} 
   selector:
     app: {{pre_reg_demographic_name}}
-  type: NodePort

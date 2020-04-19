@@ -39,6 +39,9 @@ spec:
           value: absent
         ports:
         - containerPort: {{kernel_otpmanager_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{kernel_otpmanager_container_port}}  # All defaults used
 ---
 apiVersion: v1
 kind: Service
@@ -51,4 +54,3 @@ spec:
     targetPort: {{kernel_otpmanager_container_port}} 
   selector:
     app: {{kernel_otpmanager_name}}
-  type: NodePort

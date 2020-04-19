@@ -9,7 +9,7 @@ KEYCLOAK
   $ docker run -d -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 9000:8080 jboss/keycloak
 * Keycloak webpage:
 * mosip-admin-client (same in properties) needs to exist for user to successfully login in.
-  But Role is not necessary for user.
+  But Role is not necessary for this user.
 *  Keycloak
   ^keycloak.* is not needed in properties files - they have to be defined, but ignored.
 * Keycloak user account - Remove the condition to "Updated Password" for a user.
@@ -150,6 +150,8 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
 * sudo yum install python3
 * sudo pip3 install openshift
 * sudo pip3 install selinux
+* Upgrade pip version
+* Upgrade requests version
 * sudo yum install postgresql (for psql client)
 * change hosts ini file:
   * Update correct hostnames of master and works that will appear as labels
@@ -199,13 +201,44 @@ ApplicantType_Document_Mapping.json - not being used.
 
 
 
+NGINX:
+Install
+* sudo yum install -y nginx
+* sudo firewall-cmd --permanent --zone=public --add-service=http
+* sudo firewall-cmd --permanent --zone=public --add-service=https
+* sudo firewall-cmd --reload
+
+* Nginx permission problem. On console machine or on which nginx is running disable selinux:
+ *  setsebool httpd_can_network_connect on -P
+
+
 PYTHON3:
 
 Face some issues with python3.  Basically if Ansible interpreter is set to python3 then the same must be available 
 on all machines.  However, centos 7 does not have the same enabled by default.  So, you can't use 
 Ansible to install python!  Has to be installed with some other scripts or manually. 
 
-
+==========
+ACTUATOR HEALTH RESPONSE
+{"status":"UP",
+"details": {
+   "diskSpace": {
+      "status":"UP",
+      "details":{"total":31671447552,"free":26219851776,"threshold":10485760}
+    },
+    "db":{
+      "status":"UP",
+      "details":{
+        "database":"PostgreSQL","hello":1}
+     },
+    "refreshScope":{"status":"UP"},
+    "configServer":{
+      "status":"UP",
+       "details":{"propertySources":["configClient","/var/lib/config_repo/kernel-qa.properties","/var/lib/config_repo/application-qa.properties"]}
+     }
+  }
+}
+~      
 
 =--
 Generic PIN code for Pre Reg UI
@@ -214,4 +247,16 @@ P@ssw0rd@321
 ============
 TO TEST
 "POST /preregistration/v1/notification/notify HTTP/1.1" 500 
+
+=====
+We are waiting only for dependent containers - making sure they come up synchronously.  For most the pods we don't wait in Ansible scripts.  The pods have their health check. 
+===========
+sequence
+first 
+ssh.yml
+console.yml
+k8cluster.yml
+kubenode.yml
+mosip.yml
+
 
