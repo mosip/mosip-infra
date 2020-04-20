@@ -7,6 +7,8 @@ ansible_python_interpreter: /usr/bin/python2  # Python3 will be best to use with
 
 artifactory_uri: 'http://13.71.87.138:8040'
 
+info_email_address: info@mosip.io  # Used in generating letsencrypt certificates
+
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
 # Ingress is in NodePort configuration. So connect to any node cluster
@@ -14,9 +16,8 @@ ingress_nodeport_http: 30080
 ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}'
 
-mosip_public_server: ansible1.southindia.cloudapp.azure.com
-mosip_public_server_ip: 104.211.247.206
-mosip_public_server_url: 'https://{{mosip_public_server}}'
+sandbox_domain_name: ansible1.southindia.cloudapp.azure.com
+sandbox_public_url: 'https://{{mosip_public_server}}'
 
 persistent_storage_node: "{{groups['kubeworkers'][0]}}" # All persistent data will be stored on this node
 # CAUTTION: Assuming actual hostname and inventory hostname is same

@@ -1,0 +1,11 @@
+- hosts: nginxserver
+  gather_facts: true
+  roles:
+    - {role: packages/epel, tags: [epel]}
+    - {role: nginx, tags: [nginx]}
+    - {role: letsencrypt, tags: [letsencrypt]}
+    - {role: nginx, nginx_conf_template: nginx_https_conf.yml.j2}  # Update conf file that contains letsencrypt cert with https
+  
+
+
+

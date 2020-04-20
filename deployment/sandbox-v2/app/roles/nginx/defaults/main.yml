@@ -1,0 +1,4 @@
+nginx_ssl_certificate: '{{letsencrypt_ssl_certificate}}' 
+nginx_ssl_certificate_key: '{{letsencrypt_ssl_certificate_key}}'
+
+
