@@ -31,7 +31,7 @@
 
 - name: Install docker engine (RHEL/CentOS)
   when: ansible_os_family == "RedHat"
-  yum:
+  yum: 
     name: docker-ce-*
     update_cache: true
     state: present

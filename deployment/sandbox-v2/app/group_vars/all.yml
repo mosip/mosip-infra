@@ -2,6 +2,9 @@
 ---
 # Global variables - accessed by different roles and plays
 #
+
+ansible_python_interpreter: /usr/bin/python2  # Python3 will be best to use with CentOS 8
+
 artifactory_uri: 'http://13.71.87.138:8040'
 
 docker_wait_time: 600   # Wait for docker to pull and deploy

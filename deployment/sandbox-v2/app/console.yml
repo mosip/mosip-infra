@@ -6,7 +6,6 @@
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
-#     - {role: packages/selinux, tags: [selinux]}  # May not be needed TODO
      - {role: repos, tags: [repos]}
      - {role: tmp-dirs, tags: [tmp-dirs]}
 
