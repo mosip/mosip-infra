@@ -1,0 +1,33 @@
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present
+  become: yes
+
+- name: Make a backup of existing conf file 
+  command: 'cp -n /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original' 
+  become: yes
+
+- name: Enable firewall for http
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+  become: yes
+
+- name: Enable firewall for https
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+  become: yes 
+
+- name: Restart nginx
+  command: 'systemctl restart nginx'
+  become: yes
+
+- name: allow selinux to conenct to httpd
+  # Note: otherwise selinux prevents it. TODO: find ansible way of doing this
+  command: 'setsebool httpd_can_network_connect on -P'
+  become: yes
+   

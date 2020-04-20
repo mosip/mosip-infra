@@ -218,6 +218,10 @@ Face some issues with python3.  Basically if Ansible interpreter is set to pytho
 on all machines.  However, centos 7 does not have the same enabled by default.  So, you can't use 
 Ansible to install python!  Has to be installed with some other scripts or manually. 
 
+If python3 is installed, /bin/yum has to be changed to /usr/bin/python2 on the top as yum runs only on python2
+
+set python interpreter to python2 for yum only
+
 ==========
 ACTUATOR HEALTH RESPONSE
 {"status":"UP",

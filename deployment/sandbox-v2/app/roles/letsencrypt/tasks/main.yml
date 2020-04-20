@@ -1,0 +1,14 @@
+- name: Install certbot 
+  yum:
+    name: certbot 
+    state: present
+  become: yes
+
+- name: Install certbot-nginx
+  yum:
+    name: python2-certbot-nginx
+  become: yes
+
+- name: Create certification
+  command: 'certbot certonly -n  --nginx  -m "{{letsencrypt_email}}" --agree-tos -d "{{letsencrypt_domain_name}}"'
+  become: yes

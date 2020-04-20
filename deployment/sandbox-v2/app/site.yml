@@ -1,8 +1,7 @@
 # Master playbook
-# The sequence here is important
-- import_playbook: playbooks/ssh.yml
-- import playbook: playbooks/k8scluster.yml
-- import_playbook: playbooks/console.yml 
-- import_playbook: playbooks/kubenode.yml
-- import_playbook: playbooks/mosip.yml 
+- import_playbook: ssh.yml
+- import playbook: k8scluster.yml
+- import_playbook: console.yml 
+- import_playbook: persistence.yml
+- import_playbook: mosip.yml 
 

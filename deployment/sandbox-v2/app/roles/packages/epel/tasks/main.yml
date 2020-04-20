@@ -3,9 +3,3 @@
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
     state: present
   become: yes
-   
-- name: Install ansible
-  yum:
-    name: ansible
-    state: present
-  become: yes
