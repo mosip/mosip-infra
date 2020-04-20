@@ -20,6 +20,8 @@ $ sudo yum install ansible # This will install 2.9 version
 ```
 $ sudo yum install -y git
 ```
+* Git clone this repo in user home directory.
+
 * Set root user password, say `rootpassword`.
 
 ## K8s cluster machine setup
