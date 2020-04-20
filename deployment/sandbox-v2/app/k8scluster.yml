@@ -4,6 +4,7 @@
   gather_facts: yes
   roles:
     - { role: k8scluster/docker, tags: docker }
+    - { role: packages/git, tags: git }
 
 - hosts: kubemaster
   gather_facts: yes

@@ -16,8 +16,8 @@ ingress_nodeport_http: 30080
 ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{groups["kubeworkers"][0]}}:{{ingress_nodeport_http}}'
 
-sandbox_domain_name: ansible1.southindia.cloudapp.azure.com
-sandbox_public_url: 'https://{{mosip_public_server}}'
+sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
+sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 persistent_storage_node: "{{groups['kubeworkers'][0]}}" # All persistent data will be stored on this node
 # CAUTTION: Assuming actual hostname and inventory hostname is same
