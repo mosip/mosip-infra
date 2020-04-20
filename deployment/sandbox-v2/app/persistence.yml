@@ -1,6 +1,6 @@
 # This play creates persistent directories on worker node for
 # postgres, config server, etc.
-- hosts: kubeworker1
+- hosts: kubeworker0
   gather_facts: true
   roles: 
     - {role: persistence, tags: [persistence]}
