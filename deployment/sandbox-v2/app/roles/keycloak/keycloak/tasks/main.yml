@@ -1,5 +1,9 @@
 ---
+
 # Deploy Keycloak kubernetes
+- include_vars:
+    file: roles/postgres/postgres/defaults/main.yml
+
 - name: Ensures directory is present
   file: 
     path: '{{tmp_dir}}'

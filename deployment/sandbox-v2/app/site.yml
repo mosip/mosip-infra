@@ -1,5 +1,4 @@
 # Master playbook
-- import_playbook: ssh.yml
 - import playbook: k8scluster.yml
 - import_playbook: console.yml 
 - import_playbook: persistence.yml

@@ -6,7 +6,7 @@
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_SERVERIP='
-    line: DB_SERVERIP={{postgres_external_ip}}
+    line: DB_SERVERIP={{postgres_server}}
    
 - name: '{{pg_db_name}}: Update port in postgres init files'
   lineinfile:
