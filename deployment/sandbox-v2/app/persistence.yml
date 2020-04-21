@@ -1,5 +1,6 @@
 # This play creates persistent directories on worker node for
-# postgres, config server, etc.
+# postgres, config server, etc.  The persistent directories are 
+# in the secure zone (mz).
 - hosts: mzworker0
   gather_facts: true
   roles: 

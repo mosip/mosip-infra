@@ -4,6 +4,10 @@
   gather_facts: true 
   roles:
      - {role: packages/epel, tags: [epel]}
+     - {role: packages/pip, tags: [pip]}
+     - {role: packages/requests, tags: [requests]} # For certbot
+     - {role: packages/six, tags: [six]} #  For certbot
+     - {role: packages/six, tags: [urllib3]} #  For certbot
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}

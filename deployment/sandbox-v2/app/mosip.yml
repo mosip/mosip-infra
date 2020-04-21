@@ -2,6 +2,9 @@
 # cluster 
 - hosts: console
   gather_facts: true
+  vars:
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
+    kubeconfig: '{{mz_kube_config}}'  # Deploy all these on mz cluster
   roles:
      # Base MOSIP infra
      - {role: postgres/postgres, tags: [postgres, infra]}

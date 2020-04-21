@@ -37,6 +37,8 @@ systemd_dir: /lib/systemd/system
 system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
+# The above config file is transferred to the console machine at below location
+console_kubeadmin_config_path: '{{dmz_kube_config}}' 
 kube_addon_dir: /etc/kubernetes/addon
 
 # Additional feature to install

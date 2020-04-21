@@ -1,0 +1,11 @@
+
+- name: Reinstall requests (otherwise certbot gives issues)
+  pip:
+    name: requests
+    state: absent
+
+- name: Install requests with yum
+  yum:
+    name: python-requests
+    state: present
+
