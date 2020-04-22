@@ -7,3 +7,4 @@ logs_dir: '{{playbook_dir}}/logs/'
 # roles)
 commons_repo_location: '{{lookup("env",  "HOME")}}/commons'
 pre_reg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'
+regproc_repo_location: '{{lookup("env",  "HOME")}}/registration'

@@ -1,0 +1,40 @@
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: regproc-landing-pv-claim 
+  labels:
+    app: regproc-landing-pv-claim
+spec:
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{regproc_packet_receiver_landing_size}} 
+  selector:
+    matchLabels:
+      name: {{regproc_landing_pv_name}} # Persistent volume 
+--
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: regproc-archival-pv-claim 
+  labels:
+    app: regproc-archival-pv-claim
+spec:
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{regproc_packet_reciever_archival_size}}
+  selector:
+    matchLabels:
+      name: {{regproc_archival_pv_name}} # Persistent volume 
+
+-
+

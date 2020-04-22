@@ -4,7 +4,7 @@
   gather_facts: true
   vars:
     kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
-    kubeconfig: '{{mz_kube_config}}'  # Deploy all these on mz cluster
+    kubeconfig: '{{mz_kube_config}}'  # Used in k8s role. TODO: Make it consistent so that only one variable is needed.
   roles:
      # Base MOSIP infra
      - {role: postgres/postgres, tags: [postgres, infra]}

@@ -1,7 +1,0 @@
-# This play installs ssh and python3 on all machines - the very
-# basic tools needed to start any automation
-- hosts: kubecluster
-  gather_facts: true
-  roles:
-    - {role: ssh, tags: [ssh]} # --ask-pass is needed here
-    

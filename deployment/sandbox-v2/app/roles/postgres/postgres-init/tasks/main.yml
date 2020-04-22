@@ -3,13 +3,6 @@
 # test data 
 # TODO: Init should not happen if Postgres has valuable data
 
-- name: Get postgres nodeport ip 
-  command: 'kubectl get service -o json {{postgres_name}}'
-  register: out
-
-- set_fact:
-    db_port: '{{(out.stdout | from_json).spec.ports[0].nodePort}}'
- 
 - include: init_db.yml
   vars:
     pg_db_name: '{{item.db_name}}'

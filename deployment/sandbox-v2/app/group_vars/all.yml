@@ -24,6 +24,8 @@ ingress_nodeport_http: 30080
 ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
 
+postgres_nodeport: 30090  # fixed for connecting from outside the cluster
+
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
@@ -32,4 +34,10 @@ persistent_storage_node: mzworker0  # All persistent data will be stored on this
 # CAUTTION: Assuming actual hostname and inventory hostname is same
 # TODO: Another variables in hosts.ini may be defined like remote_hostname in case the two are different.
 persistent_storage_hostname: '{{hostvars[persistent_storage_node]["inventory_hostname"]}}' 
+
+# Registration processor shared variables
+regproc_landing_folder: /mnt/reproc/landing 
+regrpoc_landing_hostname: dmzworker0  # Should be same one used in creating these folders (see regproc.yml) 
+regproc_archival_folder: /mnt/reproc/archival
+regproc_archival_hosntame: dmzworker0
 

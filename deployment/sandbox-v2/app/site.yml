@@ -1,6 +1,4 @@
 # Master playbook
-- import playbook: mzcluster.yml
-- import_playbook: console.yml 
-- import_playbook: persistence.yml
-- import_playbook: mosip.yml 
+#
+- import_playbook: playbooks/check.yml
 
