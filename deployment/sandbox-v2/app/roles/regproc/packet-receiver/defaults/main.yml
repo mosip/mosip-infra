@@ -1,12 +1,12 @@
-regproc_packet_receiver_name: registraion-processor-packet-receiver-stage
-regproc_packet_receiver_version: 1.0.7
+regproc_packet_receiver_name: regproc-packet-receiver-stage
+regproc_packet_receiver_version: 1.0.6
 regproc_packet_receiver_image: mosipid/registration-processor-packet-receiver-stage 
 regproc_packet_receiver_container_port: 8081
 regproc_packet_receiver_landing_mount_path: '{{regproc_landing_folder}}' 
 regproc_packet_receiver_archival_mount_path: '{{regproc_archival_folder}}' 
-regproc_packet_receiver_archival_size: 10Gi
 regproc_landing_pv_name: regproc-landing-pv 
 regproc_landing_size: 1Gi
+regproc_landing_pvc_name: regproc-landing-pvc
 regproc_archival_pv_name: regproc-archival-pv
-regproc_archival_pv_name: regproc-landing-pv 
 regproc_archival_size: 10Gi
+regproc_archival_pvc_name: regproc-archival-pvc

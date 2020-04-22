@@ -1,0 +1,5 @@
+clamav_name: clamav
+clamav_container_port: 3310
+clamav_image: mkodockx/docker-clamav
+clamav_version: alpine-edge
+ 

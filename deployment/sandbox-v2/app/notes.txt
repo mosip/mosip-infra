@@ -136,41 +136,6 @@ TODO:
    - idrepo
 
 ===================
-Installing Kuberntes using ansible on a fresh VM in TF cluster:
-
-* Install ansible
-a) sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-b) sudo yum install ansible # This will install 2.9 version
-
-If you don't do (a), it will install ansible 2.4. But we need 2.9.
-
-## Sandbox-v2 - Console
-* Generate public and private keys as id_rsa and id_rsa.pub and cat the 
-  contents of id_rsa.pub in authorized_keys file.
-* sudo yum install python3
-* sudo pip3 install openshift
-* sudo pip3 install selinux
-* Upgrade pip version
-* Upgrade requests version
-* sudo yum install postgresql (for psql client)
-* change hosts ini file:
-  * Update correct hostnames of master and works that will appear as labels
-    in kubernetes
-* Install psql version 10
-  * sudo rpm -Uvh https://yum.postgresql.org/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
-  * sudo yum install postgresql10
-  
-* checkout mosip/commons and mosip/pre-registration
-* Update roles/postgres-init/defaults/main.yml for following:
-  * pg_common_sql_path: /home/puneet/commons/db_scripts                         
-  * pg_pre_reg_sql_path: /home/puneet/pre-registration/db_scripts
-
-* Ingress:
-  * Make sure metallB is installed with usable IPs
-  * Nginx controller proxy buffer needs to be increased (has been done in the controller file)
-  * Same needs to be done on external NGINX.
-  * IMPORTANT: The range in metallb settings has to have atleast two addresses like thiss:
-    10.6.1.125-10.6.1.126. (Single address did not work for me)
 
 * Keycloak
   * Assign all roles to all clients (just for now). 
@@ -185,7 +150,6 @@ If you don't do (a), it will install ansible 2.4. But we need 2.9.
 
 * Properties:
 ApplicantType_Document_Mapping.json - not being used.
-
 
 ## Kubeworker 1
 * create /mnt/mosip_data/postgre directory which must be empty.
@@ -265,4 +229,7 @@ mosip.yml
 
 CERTBOT
 Issues with python requests module version.
+==============
+HDFS
 
+Currently hdfs port 9000 has been made nodeport and access of the same has been enabled from DMZ cluster as hdfs://mzworker0:30124. This is a bit as dmz should not be accessing it.  Remove it later.

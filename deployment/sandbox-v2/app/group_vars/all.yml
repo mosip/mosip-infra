@@ -31,10 +31,10 @@ sandbox_public_url: 'https://{{sandbox_domain_name}}'
 mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node
 
 # Registration processor shared variables
-regproc_landing_folder: /mnt/reproc/landing 
-regrpoc_landing_hostname: dmzworker0  # Should be same one used in creating these folders (see regproc.yml) 
-regproc_archival_folder: /mnt/reproc/archival
-regproc_archival_hosntame: dmzworker0
+regproc_landing_folder: /mnt/regproc/landing 
+regproc_landing_hostname: dmzworker0  # Should be same one used in creating these folders (see regproc.yml) 
+regproc_archival_folder: /mnt/regproc/archival
+regproc_archival_hostname: dmzworker0
 
 # Postgres persistent storage
 postgres_local_storage_path: /mnt/mosip_data/postgres
@@ -42,3 +42,4 @@ postgres_nodeport: 30090  # fixed for connecting from outside the cluster
 
 # Config server
 config_server_local_storage_path: /mnt/mosip_data/
+config_server_external_url: '{{ingress_base_url}}/config'

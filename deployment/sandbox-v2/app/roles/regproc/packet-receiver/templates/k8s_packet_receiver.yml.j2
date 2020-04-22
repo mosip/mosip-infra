@@ -32,7 +32,7 @@ spec:
         - name: spring_config_label_env
           value: master
         - name: spring_config_url_env
-          value: {{config_server_url}}
+          value: {{config_server_external_url}}  # Config server is on MZ cluster
         - name: artifactory_url_env
           value: '{{artifactory_uri}}'
         - name: is_glowroot_env
@@ -43,17 +43,17 @@ spec:
           tcpSocket:
             port: {{regproc_packet_receiver_container_port}}  
         volumeMounts:
-        - name: landing_zone
+        - name: landing-zone
           mountPath: {{regproc_packet_receiver_landing_mount_path}} 
-        - name: archival_zone
+        - name: archival-zone
           mountPath: {{regproc_packet_receiver_archival_mount_path}}
       volumes:
-      - name: landing_zone 
+      - name: landing-zone 
         persistentVolumeClaim:
-          claimName: regproc-landing-pv-claim
-      - name: landing_zone 
+          claimName: {{regproc_landing_pvc_name}} 
+      - name: archival-zone
         persistentVolumeClaim:
-          claimName: regproc-archival-pv-claim 
+          claimName: {{regproc_archival_pvc_name}}
 ---
 apiVersion: v1
 kind: Service

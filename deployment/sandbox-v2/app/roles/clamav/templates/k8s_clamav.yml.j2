@@ -1,0 +1,45 @@
+# Script to deploy a postgres db on kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{clamav_name}}
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{clamav_name}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{clamav_name}}
+    spec:
+      containers:
+      - name: {{clamav_name}}
+        image: {{clamav_image}}:{{clamav_version}} 
+        ports:
+        - containerPort: {{clamav_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{clamav_container_port}}  # All defaults used
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{clamav_name}}
+  namespace: default
+
+spec:
+  selector:
+    app: {{clamav_name}}
+  ports:
+    - port: 80 
+      targetPort: {{clamav_container_port}} 
