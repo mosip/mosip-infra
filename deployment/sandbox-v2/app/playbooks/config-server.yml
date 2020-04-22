@@ -1,0 +1,14 @@
+- hosts: mzworker0
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
+  roles:
+    - {role: config-repo, tags: [config-repo, env]}  
+
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
+  roles:
+    - {role: config-server, tags: [config-server, env]}  
+

@@ -1,7 +1,7 @@
 # Variable very specific to console that runs all the ansible scripts.
 #
-tmp_dir: '{{playbook_dir}}/tmp/'
-logs_dir: '{{playbook_dir}}/logs/'
+tmp_dir: '/tmp' 
+logs_dir: '/tmp'
 
 # Variables that are shared across plays (otherwise, all variables are in respective
 # roles)
