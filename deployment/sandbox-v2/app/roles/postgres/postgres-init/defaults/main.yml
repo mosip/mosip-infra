@@ -1,6 +1,6 @@
 pg_common_sql_path: '{{commons_repo_location}}/db_scripts' 
 pg_pre_reg_sql_path: '{{pre_reg_repo_location}}/db_scripts'
-pg_regproc_sql_path: '{{regproc_repo_location}}/registration-processor/db_scripts'
+pg_regproc_sql_path: '{{regproc_repo_location}}/db_scripts'
 pg_databases:
     - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_kernel'}
     - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_master'}
