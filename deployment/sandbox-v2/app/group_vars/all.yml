@@ -28,7 +28,7 @@ ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
-mz_persistent_storage_node: mzworker0  # All persistent data will be stored on this node
+mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node
 
 # Registration processor shared variables
 regproc_landing_folder: /mnt/reproc/landing 
@@ -39,3 +39,6 @@ regproc_archival_hosntame: dmzworker0
 # Postgres persistent storage
 postgres_local_storage_path: /mnt/mosip_data/postgres
 postgres_nodeport: 30090  # fixed for connecting from outside the cluster
+
+# Config server
+config_server_local_storage_path: /mnt/mosip_data/
