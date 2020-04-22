@@ -24,7 +24,6 @@ ingress_nodeport_http: 30080
 ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
 
-postgres_nodeport: 30090  # fixed for connecting from outside the cluster
 
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
@@ -39,3 +38,4 @@ regproc_archival_hosntame: dmzworker0
 
 # Postgres persistent storage
 postgres_local_storage_path: /mnt/mosip_data/postgres
+postgres_nodeport: 30090  # fixed for connecting from outside the cluster

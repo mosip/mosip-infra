@@ -1,6 +1,6 @@
 
 - include_vars:
-    file: roles/config-server/defaults/main.yml
+    file: ../../config-server/defaults/main.yml
 
 - name: Create git config repo dir 
   file:
@@ -9,7 +9,7 @@
 
 - name: Copy all the properties from console to node 
   copy:
-     src: '{{playbook_dir}}/roles/config-server/files/properties/'  
+     src: '../../roles/config-server/files/properties/'  
      dest: '{{config_repo_node_path}}' 
      force: no
     
