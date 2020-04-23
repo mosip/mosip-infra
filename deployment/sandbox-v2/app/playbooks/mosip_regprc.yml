@@ -8,22 +8,15 @@
   tasks:
     - {name: 'Create landing folder', file: {name: '{{regproc_landing_folder}}', state: directory}}
     - {name: 'Create archival folder', file: {name: '{{regproc_archival_folder}}', state: directory}}
-    - name: Create sftp user 
-      user:
-        name: '{{sftp_user}}'
-      become: yes
-     
-    - name: Add sftp pub key to authorized_keys
-      authorized_key:
-        user: '{{sftp_user}}'
-        state: present
-        key: "{{lookup('file', '../roles/config-server/files/properties/sftp_key.pub')}}"
-      become: yes
+    - {name: 'Create sftp user', user: {name: '{{sftp_user}}'}, become: yes}
+    - {name: 'sft key exchange', authorized_key: {user: '{{sftp_user}}', state: present, key: "{{lookup('file', '../roles/config-server/files/properties/sftp_key.pub')}}"}, become: yes}
 
 - hosts: console
   gather_facts: true
   vars:   
     kube_config: '{{dmz_kube_config}}'  # Deploy all these on dmz cluster
   roles:
-    - {role: regproc/packet-receiver, tags: [packet_receiver, regproc]}
+    - {role: regproc/packet-receiver, tags: [packet-receiver, regproc]}
+    - {role: regproc/reg_status, tags: [reg-status, regproc]}
+    - {role: regproc/camel_dmz, tags: [camel-dmz, regproc]}
  

@@ -1,0 +1,4 @@
+regproc_reg_status_name: regproc-registration-status-service
+regproc_reg_status_version: 1.0.6
+regproc_reg_status_image: mosipid/registration-processor-registration-status-service
+regproc_reg_status_container_port: 8083

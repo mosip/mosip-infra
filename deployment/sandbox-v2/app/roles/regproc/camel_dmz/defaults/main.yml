@@ -1,0 +1,4 @@
+regproc_camel_dmz_name: regproc-camel-dmz-stage
+regproc_camel_dmz_version: 1.0.6
+regproc_camel_dmz_image: mosipid/registration-processor-common-camel-bridge 
+regproc_camel_dmz_container_port: 8022
