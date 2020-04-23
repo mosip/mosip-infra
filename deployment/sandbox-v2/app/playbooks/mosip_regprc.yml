@@ -32,3 +32,12 @@
     - {role: regproc/packet-uploader, tags: [packet-uploader, regproc]}
     - {role: regproc/packet-validator, tags: [packet-validator, regproc]}
     - {role: regproc/quality-checker, tags: [quality-checker, regproc]}
+    - {role: regproc/demo-dedupe, tags: [demo-dedupe, regproc]}
+    - {role: regproc/bio-dedupe, tags: [bio-dedupe, regproc]}
+    - {role: regproc/bio-dedupe-svc, tags: [bio-dedupe-svc, regproc]}
+    - {role: regproc/bio-auth, tags: [bio-auth, regproc]}
+    - {role: regproc/abis-handler, tags: [abis-handler, regproc]}
+    - {role: regproc/abis-middleware, tags: [abis-middleware, regproc]}
+    - {role: regproc/manual-verification, tags: [manual-verification, regproc]}
+    - {role: regproc/uin-generator, tags: [uin-generator, regproc]}
+    - {role: regproc/msg-sender, tags: [msg-sender, regproc]}
