@@ -39,7 +39,12 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: {{regproc_packet_receiver_container_port}}
+          - name: eventbus-port
+            containerPort: 5723
+          - name: hazelcast-port
+            containerPort: 5701
+          - name: verticle-port
+            containerPort: {{regproc_packet_receiver_container_port}}
         readinessProbe:
           tcpSocket:
             port: {{regproc_packet_receiver_container_port}}  
