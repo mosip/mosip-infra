@@ -17,9 +17,10 @@
   vars:   
     kube_config: '{{dmz_kube_config}}'  # Deploy all these on dmz cluster
   roles:
-    - {role: regproc/camel_dmz, tags: [camel-dmz, regproc]}
+    - {role: ingress/dmz-ingress, tags: [dmz-ingress, regproc]}
+    - {role: regproc/camel-dmz, tags: [camel-dmz, regproc]}
     - {role: regproc/packet-receiver, tags: [packet-receiver, regproc]}
-    - {role: regproc/reg_status, tags: [reg-status, regproc]}
+    - {role: regproc/reg-status, tags: [reg-status, regproc]}
  
 # MZ services
 - hosts: console
@@ -27,5 +28,5 @@
   vars:   
     kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
   roles:
-    - {role: regproc/camel_mz, tags: [camel-mz, regproc]}
+    - {role: regproc/camel-mz, tags: [camel-mz, regproc]}
     - {role: regproc/packet-uploader, tags: [packet-uploader, regproc]}

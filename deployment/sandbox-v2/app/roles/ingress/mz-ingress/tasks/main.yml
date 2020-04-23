@@ -7,7 +7,7 @@
 - include_vars: ../../kernel/kernel-applicant/defaults/main.yml 
 - include_vars: ../../pre-reg/pre-reg-batchjob/defaults/main.yml 
 - include_vars: ../../pre-reg/pre-reg-booking/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-datasync/defaults/main.yml 
+- include_vars: ../../../pre-reg/pre-reg-datasync/defaults/main.yml 
 - include_vars: ../../pre-reg/pre-reg-demographic/defaults/main.yml 
 - include_vars: ../../pre-reg/pre-reg-document/defaults/main.yml 
 - include_vars: ../../pre-reg/pre-reg-generateqrcode/defaults/main.yml 
