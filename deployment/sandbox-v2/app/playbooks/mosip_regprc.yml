@@ -8,6 +8,17 @@
   tasks:
     - {name: 'Create landing folder', file: {name: '{{regproc_landing_folder}}', state: directory}}
     - {name: 'Create archival folder', file: {name: '{{regproc_archival_folder}}', state: directory}}
+    - name: Create sftp user 
+      user:
+        name: '{{sftp_user}}'
+      become: yes
+     
+    - name: Add sftp pub key to authorized_keys
+      authorized_key:
+        user: '{{sftp_user}}'
+        state: present
+        key: "{{lookup('file', '../roles/config-server/files/properties/sftp_key.pub')}}"
+      become: yes
 
 - hosts: console
   gather_facts: true
