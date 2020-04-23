@@ -30,3 +30,5 @@
   roles:
     - {role: regproc/camel-mz, tags: [camel-mz, regproc]}
     - {role: regproc/packet-uploader, tags: [packet-uploader, regproc]}
+    - {role: regproc/packet-validator, tags: [packet-validator, regproc]}
+    - {role: regproc/quality-checker, tags: [quality-checker, regproc]}
