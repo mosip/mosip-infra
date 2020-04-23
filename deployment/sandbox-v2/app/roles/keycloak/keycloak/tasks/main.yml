@@ -1,9 +1,8 @@
 ---
+
 # Deploy Keycloak kubernetes
-- name: Ensures directory is present
-  file: 
-    path: '{{tmp_dir}}'
-    state: directory
+- include_vars:
+    file: ../../../postgres/postgres/defaults/main.yml
 
 # Deploy Keycloak container 
 - name: Get yml from template 
@@ -15,5 +14,6 @@
   k8s:
     state: present
     src: '{{tmp_dir}}/k8s_keycloak.yml'
+    kubeconfig: '{{kube_config}}'
     wait: 'yes'
     wait_timeout: '{{docker_wait_time}}'

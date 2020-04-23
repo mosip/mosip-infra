@@ -1,0 +1,12 @@
+- name: template to yml
+  template:
+    src: k8_pv.yml.j2
+    dest: '/tmp/k8s_pv_{{pv_name}}.yml'
+
+- name: 'Deploy {{pv_name}} on k8s'
+  k8s:
+    namespace: default
+    state: present
+    src: '/tmp/k8s_pv_{{pv_name}}.yml'
+    kubeconfig: '{{kube_config}}'
+

@@ -1,0 +1,6 @@
+clamav_name: clamav
+clamav_container_port: 3310
+clamav_image: mkodockx/docker-clamav
+clamav_version: alpine-edge
+clamav_nodeport: 30310 # Arbitrary. PROP. Should match with property files
+ 

@@ -1,0 +1,23 @@
+# This play installs all the MOSIP environment
+#
+- hosts: mzworker0  # One of the dmz nodes is chosen for persistence
+  gather_facts: true
+  vars: 
+    kube_config: '{{dmz_kube_config}}'  # Deploy all these on dmz cluster
+  tasks:
+    - {name: 'Create folder', file: {name: '{{postgres_local_storage_path}}', state: directory}}
+
+- hosts: console
+  gather_facts: true
+  vars:
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
+  roles:
+     # Base MOSIP infra
+     - {role: postgres/postgres, tags: [postgres, infra]}
+     - {role: keycloak/keycloak, tags: [keycloak, infra]}
+     - {role: hdfs, tags: [hdfs, infra]} # 
+     - {role: clamav, tags: [clamav, infra]} # 
+     - {role: ingress, tags: [ingress, infra]}
+     - {role: postgres/postgres-init, tags: [postgres-init, infra]} # Start only after ingress is installed 
+     - {role: keycloak/keycloak-init, tags: [keycloak-init, infra]}  
+

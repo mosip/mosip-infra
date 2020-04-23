@@ -1,0 +1,50 @@
+# Create PV for landing and archival zone
+
+- name: Create pv for landing zone 
+  include_role:
+    name: common/pv
+  vars:
+    pv_name: '{{regproc_landing_pv_name}}'
+    pv_path: '{{regproc_landing_folder}}' 
+    pv_size: '{{regproc_landing_size}}' 
+    pv_node_hostname: '{{regproc_landing_hostname}}'
+
+- name: Create pv for archival zone 
+  include_role:
+    name: common/pv
+  vars:
+    pv_name: '{{regproc_archival_pv_name}}'
+    pv_path: '{{regproc_archival_folder}}' 
+    pv_size: '{{regproc_archival_size}}' 
+    pv_node_hostname: '{{regproc_archival_hostname}}'
+
+
+# Create pvc for landing and archival
+#
+- name: template to yml 
+  template:
+     src: k8s_receiver_pvc.yml.j2
+     dest: '{{tmp_dir}}/k8s_receiver_pvc.yml'
+ 
+- name: Deploy pvc 
+  k8s:
+    namespace: default
+    state: present
+    src: '{{tmp_dir}}/k8s_receiver_pvc.yml'
+    kubeconfig: '{{kube_config}}'
+
+
+# Deploy on kubernetes 
+- name: Get yml from template 
+  template:
+     src: k8s_packet_receiver.yml.j2
+     dest: '{{tmp_dir}}/k8s_packet_receiver.yml'
+
+- name: Deploy on kurbernetes
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/k8s_packet_receiver.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: no
+    wait_timeout: '{{docker_wait_time}}' 
+

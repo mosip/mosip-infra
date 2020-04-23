@@ -1,0 +1,21 @@
+# This play installs all the MOSIP related modules on Kubernetes
+# cluster 
+- hosts: console
+  gather_facts: true
+  vars_files:
+    - ../roles/config-server/defaults/main.yml 
+  vars:
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
+    kubeconfig: '{{mz_kube_config}}'  # Used in k8s role. TODO: Make it consistent so that only one variable is needed.
+  roles:
+     - {role: pre-reg/pre-reg-login, tags: [pre-reg-login, pre-reg]}
+     - {role: pre-reg/pre-reg-demographic, tags: [pre-reg-demographic, pre-reg]}
+     - {role: pre-reg/pre-reg-notification, tags: [pre-reg-notification, pre-reg]}
+     - {role: pre-reg/pre-reg-booking, tags: [pre-reg-booking, pre-reg]}
+     - {role: pre-reg/pre-reg-datasync, tags: [pre-reg-datasync, pre-reg]}
+     - {role: pre-reg/pre-reg-document, tags: [pre-reg-document, pre-reg]}
+     - {role: pre-reg/pre-reg-generateqrcode, tags: [pre-reg-generateqrcode, pre-reg]}
+     - {role: pre-reg/pre-reg-transliteration, tags: [pre-reg-transliteration, pre-reg]}
+     - {role: pre-reg/pre-reg-batchjob, tags: [pre-reg-batchjob, pre-reg]}
+     - {role: pre-reg/pre-reg-ui, tags: [pre-reg-ui, pre-reg]}
+

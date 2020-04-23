@@ -1,0 +1,12 @@
+
+- name: Reinstall urllib3 (otherwise certbot gives issues)
+  pip:
+    name: urllib3
+    state: absent
+
+- name: Install urllib3 with yum
+  yum:
+    name: python-urllib3
+    state: present
+
+

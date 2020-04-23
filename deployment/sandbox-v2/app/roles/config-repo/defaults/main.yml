@@ -1,0 +1,5 @@
+config_repo_node_dir: /mnt/mosip_data/
+config_repo_name: config_repo  # Git repo inside above node_path
+config_repo_node_path: '{{config_repo_node_dir}}/{{config_repo_name}}'
+config_repo_search_folder: ''  # If all properites at at the root repo level, then this will be empt
+config_repo_storage_size: 10Mi

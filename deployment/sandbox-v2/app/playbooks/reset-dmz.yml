@@ -1,6 +1,6 @@
 ---
 
-- hosts: kubecluster
+- hosts: dmzcluster
   gather_facts: no
   become: yes
   tasks:

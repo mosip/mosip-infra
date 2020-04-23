@@ -12,3 +12,10 @@
     dest: '{{pre_reg_repo_location}}'
     update: no
     force: no
+
+- name: Check out mosip/registration git repo
+  git:
+    repo: https://github.com/mosip/registration
+    dest: '{{regproc_repo_location}}'
+    update: no
+    force: no

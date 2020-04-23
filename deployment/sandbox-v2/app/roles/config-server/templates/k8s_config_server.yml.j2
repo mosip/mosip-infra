@@ -25,7 +25,7 @@ spec:
         image: {{config_server_image}}
         env:
         - name: env_git_uri 
-          value: {{config_repo_uri}}         
+          value: {{config_server_repo_uri}}
         - name: env_version
           value: {{config_server_version}}
         - name: env_jar_name 
@@ -39,11 +39,11 @@ spec:
             port: {{config_server_container_port}}  # All defaults used
         volumeMounts:
         - name: repo
-          mountPath: {{config_repo_mount_path}} 
+          mountPath: {{config_server_repo_mount_path}} 
       volumes:
       - name: repo 
         persistentVolumeClaim:
-          claimName: config-repo-pv-claim
+          claimName: {{config_server_pvc_name}}
 
 ---
 apiVersion: v1

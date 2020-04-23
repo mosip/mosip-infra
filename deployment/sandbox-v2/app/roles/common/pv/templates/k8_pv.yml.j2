@@ -12,19 +12,19 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: config-repo-local-storage 
+  name: {{pv_name}} 
   labels:
-    name: config-repo-local-storage
+    name: {{pv_name}} 
 spec:
   capacity:
-    storage: 10Mi 
+    storage: {{pv_size}} 
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
   storageClassName: local-storage
   local:
-    path: {{config_repo_node_dir}}
+    path: {{pv_path}}
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -32,25 +32,5 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - {{config_repo_local_storage_hostname}} # The node on which this directory exists
+          - {{pv_node_hostname}} # The node on which pv_path directory exists
   
----
-
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: config-repo-pv-claim
-  labels:
-    app: config-repo-pv-claim
-spec:
-  storageClassName: local-storage
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Mi
-  selector:
-    matchLabels:
-      name: config-repo-local-storage
----

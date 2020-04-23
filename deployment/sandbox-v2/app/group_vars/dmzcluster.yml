@@ -1,7 +1,9 @@
 # Ansible
 # ansible_user: root
 
-kubemaster_ip: "{{ hostvars[groups['kubemaster'][0]]['ansible_default_ipv4'].address | default(groups['kubemasster'][0]) }}"
+cluster_name: 'dmzcluster'  # Same as in hosts.ini
+cluster_master: 'dmzmaster' # Same as in hosts.ini
+kubemaster_ip: "{{ hostvars[groups[cluster_master][0]]['ansible_default_ipv4'].address | default(groups[cluster_master][0]) }}"
 
 # Kubernetes
 kube_version: v1.18.0
@@ -35,6 +37,8 @@ systemd_dir: /lib/systemd/system
 system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
+# The above config file is transferred to the console machine at below location
+console_kubeadmin_config_path: '{{dmz_kube_config}}' 
 kube_addon_dir: /etc/kubernetes/addon
 
 # Additional feature to install

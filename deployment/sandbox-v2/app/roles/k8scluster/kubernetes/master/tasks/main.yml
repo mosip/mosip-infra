@@ -23,10 +23,10 @@
     name: "{{lookup('env', 'HOME')}}/.kube"
     state: directory
 
-- name: "Copy config file"
+- name: Copy config file to console machine for kubectl
   fetch:
-    src: /etc/kubernetes/admin.conf 
-    dest: "{{ lookup('env', 'HOME') }}/.kube/config"
+    src: '{{kubeadmin_config}}'
+    dest: '{{console_kubeadmin_config_path}}'
     flat: yes
   run_once: yes
   ignore_errors: yes

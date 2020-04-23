@@ -1,0 +1,11 @@
+# https://medium.com/@getpagespeed/fix-importerror-pyopenssl-module-missing-required-functionality-e1c514797204
+- name: Reinstall six (otherwise certbot gives issues)
+  pip:
+    name: six
+    state: absent
+
+- name: Install six with yum
+  yum:
+    name: python-six
+    state: present
+

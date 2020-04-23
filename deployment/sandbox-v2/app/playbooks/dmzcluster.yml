@@ -1,24 +1,25 @@
 ---
-- hosts: kubecluster
+- hosts: dmzcluster
   become: yes
   gather_facts: yes
   roles:
     - { role: k8scluster/docker, tags: docker }
+    - { role: packages/git, tags: git }
 
-- hosts: kubemaster
+- hosts: dmzmaster
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/master, tags: master }
     - { role: k8scluster/cni, tags: cni }
 
-- hosts: kubeworkers 
+- hosts: dmzworkers 
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/node, tags: node }
 
-- hosts: kubemaster
+- hosts: dmzmaster
   gather_facts: yes
   become: yes
   tasks:

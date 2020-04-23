@@ -2,8 +2,7 @@ postgres_password: postgres
 postgres_name: postgres
 postgres_db: keycloak # Default DB on Postgres
 postgres_user: postgres
-postgres_external_ip: '{{groups.kubeworkers[0]}}' # Any k8s worker node since its a nodeport
+postgres_server: '{{mz_cluster_any_node}}' # As postgres is on nodeport
 # Permanent storage params
-postgres_local_storage_hostname: '{{persistent_storage_hostname}}'
-postgres_local_storage_path: /mnt/mosip_data/postgres
+postgres_local_storage_hostname: '{{mz_persistent_storage_node}}'
 postgres_container_port: 5432

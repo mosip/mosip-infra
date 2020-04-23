@@ -21,6 +21,16 @@ spec:
           serviceName: {{kernel_auth_name}}
           servicePort: 80
 
+      - path: /v1/auditmanager
+        backend:
+          serviceName: {{kernel_auditmanager_name}}
+          servicePort: 80
+
+      - path: /v1/cryptomanager
+        backend:
+          serviceName: {{kernel_cryptomanager_name}}
+          servicePort: 80
+
       - path: /v1/masterdata
         backend:
           serviceName: {{kernel_masterdata_name}}

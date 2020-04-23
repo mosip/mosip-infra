@@ -39,6 +39,7 @@ metadata:
   name: {{hdfs_name}}
   namespace: default
 spec:
+  type: NodePort
   ports:
   - name: hdfs1 
     port: 50070
@@ -46,6 +47,7 @@ spec:
   - name: hdfs2
     port: 9000
     targetPort: 9000
+    nodePort: {{hdfs_nodeport}}  #TODO: done only for dmz. Remove it after bug is fixed. dmz should not be accessing hdfs.
   - name: hdfs3
     port: 50075
     targetPort: 50075

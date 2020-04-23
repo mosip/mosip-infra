@@ -1,0 +1,4 @@
+- name: Upgrade requests
+  yum:
+    name: requests[security]
+    state: present

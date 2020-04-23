@@ -4,8 +4,10 @@
     state: present
   become: yes
 
-- name: Make a backup of existing conf file 
-  command: 'cp -n /etc/nginx/nginx.conf /etc/nginx/nginx.conf.original' 
+- name: Copy the default nginx conf file
+  copy:
+    src: 'nginx.default.conf'
+    dest: '/etc/nginx/nginx.conf'
   become: yes
 
 - name: Enable firewall for http
