@@ -7,5 +7,6 @@
 - import_playbook: playbooks/config-server.yml   
 - import_playbook: playbooks/mosip_kernel.yml
 - import_playbook: playbooks/mosip_prereg.yml
+- import_playbook: playbooks/mosip_regproc.yml
 - import_playbook: playbooks/nginx.xml
 

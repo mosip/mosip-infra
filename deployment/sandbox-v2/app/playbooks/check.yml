@@ -1,5 +1,0 @@
-- hosts: console
-  tasks:
-    - debug: 
-        msg: "{{playbook_dir}}"
-  
