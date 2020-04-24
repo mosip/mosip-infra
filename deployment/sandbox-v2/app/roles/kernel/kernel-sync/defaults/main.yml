@@ -1,0 +1,4 @@
+kernel_syncdata_name: kernel-syncdata-service 
+kernel_syncdata_version: 1.0.6
+kernel_syncdata_image: mosipid/kernel-syncdata-service
+kernel_syncdata_container_port: 8089

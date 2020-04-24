@@ -17,4 +17,11 @@
      - {role: kernel/kernel-crypto, tags: [kernel-crypto, kernel]}
      - {role: kernel/kernel-key, tags: [kernel-key, kernel]}
      - {role: kernel/kernel-applicant, tags: [kernel-applicant, kernel]}
+     - {role: kernel/kernel-rid, tags: [kernel-rid, kernel]}
+     - {role: kernel/kernel-sig, tags: [kernel-sig, kernel]}
+     - {role: kernel/kernel-sms, tags: [kernel-sms, kernel]}
+     - {role: kernel/kernel-sync, tags: [kernel-sync, kernel]}
+     - {role: kernel/kernel-token, tags: [kernel-token, kernel]}
+     - {role: kernel/kernel-uin, tags: [kernel-uin, kernel]}
+     - {role: kernel/kernel-vid, tags: [kernel-vid, kernel]}
 
