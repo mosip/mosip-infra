@@ -5,7 +5,7 @@ metadata:
   name: {{regproc_reg_status_name}}
   namespace: default
   labels:
-    module: reproc
+    module: regproc
 spec:
   replicas: 1
   selector:
@@ -21,7 +21,7 @@ spec:
     metadata:
       labels:
         app: {{regproc_reg_status_name}}
-        module: reproc
+        module: regproc
     spec:
       containers:
       - name: {{regproc_reg_status_name}}

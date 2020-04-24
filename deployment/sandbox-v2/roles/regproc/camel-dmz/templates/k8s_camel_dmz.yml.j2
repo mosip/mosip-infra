@@ -5,7 +5,7 @@ metadata:
   name: {{regproc_camel_dmz_name}}
   namespace: default
   labels:
-    module: reproc
+    module: regproc
 spec:
   replicas: 1
   selector:
@@ -21,7 +21,7 @@ spec:
     metadata:
       labels:
         app: {{regproc_camel_dmz_name}}
-        module: reproc
+        module: regproc
         component: service-hazelcast-server
     spec:
       containers:
