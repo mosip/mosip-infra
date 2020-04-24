@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The folders here contain Ansible scripts to run MOSIP on a multi Virtual Machine (VM) setup.  
+The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  
 
 ## Hardware setup 
 
@@ -27,13 +27,10 @@ Console machine is the machine from where you will run all the scripts.  The mac
 * Create a (non-root) user account on console machine.
 * Make `sudo` password-less for the user.
 * Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
-* Login as root with `sudo su` write keys in authorized_keys
-
 ```
 $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
-* Include current user in /etc/sudoers file with no password. 
 * Install Ansible 2.9+
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
