@@ -1,0 +1,4 @@
+regproc_packet_uploader_name: regproc-packet-uploader-stage
+regproc_packet_uploader_version: 1.0.7
+regproc_packet_uploader_image: mosipid/registration-processor-packet-uploader-stage 
+regproc_packet_uploader_container_port: 8087

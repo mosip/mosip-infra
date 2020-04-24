@@ -1,0 +1,155 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: main-ingress
+  namespace: default
+  annotations:
+     kubernetes.io/ingress.class: "nginx"
+     nginx.com/health-checks: "true"
+spec:
+  rules:
+  - http:
+      paths:
+
+      - path: /config
+        backend:
+          serviceName: {{config_server_name}}
+          servicePort: 80
+
+      - path: /v1/authmanager
+        backend:
+          serviceName: {{kernel_auth_name}}
+          servicePort: 80
+
+      - path: /v1/keymanager
+        backend:
+          serviceName: {{kernel_keymanager_name}}
+          servicePort: 80
+
+      - path: /v1/signature
+        backend:
+          serviceName: {{kernel_signature_name}}
+          servicePort: 80
+
+      - path: /v1/auditmanager
+        backend:
+          serviceName: {{kernel_auditmanager_name}}
+          servicePort: 80
+
+      - path: /v1/cryptomanager
+        backend:
+          serviceName: {{kernel_cryptomanager_name}}
+          servicePort: 80
+
+      - path: /v1/masterdata
+        backend:
+          serviceName: {{kernel_masterdata_name}}
+          servicePort: 80
+
+      - path: /v1/applicanttype
+        backend:
+          serviceName: {{kernel_applicanttype_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/login
+        backend:
+          serviceName: {{pre_reg_login_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/applications
+        backend:
+          serviceName: {{pre_reg_demographic_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/documents
+        backend:
+          serviceName: {{pre_reg_document_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/sync
+        backend:
+          serviceName: {{pre_reg_datasync_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/appointment
+        backend:
+          serviceName: {{pre_reg_booking_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/batch
+        backend:
+          serviceName: {{pre_reg_batchjob_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/transliteration
+        backend:
+          serviceName: {{pre_reg_transliteration_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/qrCode
+        backend:
+          serviceName: {{pre_reg_generateqrcode_name}}
+          servicePort: 80
+
+      - path: /preregistration/v1/notification
+        backend:
+          serviceName: {{pre_reg_notification_name}}
+          servicePort: 80
+
+      - path: /pre-registration-ui
+        backend:
+          serviceName: {{pre_reg_ui_name}}
+          servicePort: 80
+
+      - path: /registrationprocessor/v1/uploader
+        backend:
+          serviceName: {{regproc_packet_uploader_name}}
+          servicePort: 80
+
+---
+# We have written a separate ingress for keycloak 'cause it requires
+# a different rewrite rule.  We want keycloak url to be 
+# https://public_server/keycloak/auth, rather than
+# https://public_server/auth
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: default
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /keycloak(/|$)(.*)
+        backend:
+          serviceName: {{keycloak_name}}
+          servicePort: 80
+
+---
+# We have written a separate ingress for keycloak 'cause it requires
+# a different rewrite rule.  We want keycloak url to be 
+# https://public_server/keycloak/auth, rather than
+# https://public_server/auth
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: default
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /keycloak(/|$)(.*)
+        backend:
+          serviceName: {{keycloak_name}}
+          servicePort: 80
