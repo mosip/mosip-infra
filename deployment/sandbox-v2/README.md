@@ -23,15 +23,45 @@ The following VMs are recommended:
 All the above in the same network.
 
 ### Console
-1. Console machine: 1 (2 CPU, 8 GB RAM) 
+Console machine: 1 (2 CPU, 8 GB RAM) 
 
-Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.
+## Console setup
+Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.
+* Change hostname of console machine to `console`. 
+* Create a (non-root) user account on console machine.
+* Make `sudo` password-less for the user.
+* Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
+* Login as root with `sudo su` write keys in authorized_keys
 
-## Installation
-1.  Install Kubernetes with instructions given in `kube/`
-1.  Install MOSIP modules with instructions given in `app/`
+```
+$ ssh-keygen -t rsa
+```
+No passphrase, all defaults.
+* Include current user in /etc/sudoers file with no password. 
+* Install Ansible 2.9+
+```
+$ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+$ sudo yum install ansible 
+```
+* Install git:
+```
+$ sudo yum install -y git
+```
+* Git clone this repo in user home directory.
 
+* Set root user password, say `rootpassword`.
 
+## K8s cluster machines setup
+* Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
+* If you have more nodes in the cluster add them to `hosts.ini`.   
+* Enable root login to all the machines with same password as above `rootpassword`.
 
+## Running Ansible scripts
+```
+$ ansible-playbook -i hosts.ini site.yml
 
+To run individual roles, use tags, e.g
+```
+$ ansible-playbook -i hosts --tags postgres site.yml
+```
 
