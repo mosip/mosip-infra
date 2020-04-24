@@ -38,10 +38,10 @@ $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
 * Include current user in /etc/sudoers file with no password. 
-* Install Ansible
+* Install Ansible 2.9+
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-$ sudo yum install ansible # This will install 2.9 version
+$ sudo yum install ansible 
 ```
 * Install git:
 ```
