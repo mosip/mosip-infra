@@ -5,7 +5,7 @@ metadata:
   name: {{regproc_packet_receiver_name}}
   namespace: default
   labels:
-    module: pre-reg
+    module: regproc
 spec:
   replicas: 1
   selector:
@@ -21,7 +21,8 @@ spec:
     metadata:
       labels:
         app: {{regproc_packet_receiver_name}}
-        module: pre-reg
+        module: regproc
+        component: service-hazelcast-server
     spec:
       containers:
       - name: {{regproc_packet_receiver_name}}
@@ -38,7 +39,12 @@ spec:
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: {{regproc_packet_receiver_container_port}}
+          - name: eventbus-port
+            containerPort: 5723
+          - name: hazelcast-port
+            containerPort: 5701
+          - name: verticle-port
+            containerPort: {{regproc_packet_receiver_container_port}}
         readinessProbe:
           tcpSocket:
             port: {{regproc_packet_receiver_container_port}}  

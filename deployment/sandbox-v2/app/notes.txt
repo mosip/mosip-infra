@@ -229,6 +229,8 @@ mosip.yml
 
 CERTBOT
 Issues with python requests module version.
+
+https://medium.com/@getpagespeed/fix-importerror-pyopenssl-module-missing-required-functionality-e1c514797204
 ==============
 HDFS
 

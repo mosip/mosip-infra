@@ -1,5 +1,5 @@
 - include_vars: # Required for nginx template
-    file: roles/letsencrypt/defaults/main.yml
+    file: ../../letsencrypt/defaults/main.yml
 
 - include_tasks: install_nginx.yml
 - include_tasks: update_conf.yml

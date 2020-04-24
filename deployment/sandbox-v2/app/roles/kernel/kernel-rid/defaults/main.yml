@@ -1,0 +1,4 @@
+kernel_ridgenerator_name: kernel-ridgenerator-service 
+kernel_ridgenerator_version: 1.0.6
+kernel_ridgenerator_image: mosipid/kernel-ridgenerator-service
+kernel_ridgenerator_container_port: 8096

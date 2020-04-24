@@ -43,3 +43,6 @@ postgres_nodeport: 30090  # fixed for connecting from outside the cluster
 # Config server
 config_server_local_storage_path: /mnt/mosip_data/
 config_server_external_url: '{{ingress_base_url}}/config'
+
+# SFTP: used for picking up packets from DMZ
+sftp_user: 'sftpuser'  # This should be same in config files

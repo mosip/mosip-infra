@@ -1,0 +1,4 @@
+kernel_smsnotification_name: kernel-smsnotification-service 
+kernel_smsnotification_version: 1.0.6
+kernel_smsnotification_image: mosipid/kernel-smsnotification-service
+kernel_smsnotification_container_port: 8084

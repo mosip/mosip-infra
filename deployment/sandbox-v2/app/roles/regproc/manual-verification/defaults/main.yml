@@ -1,0 +1,4 @@
+regproc_manual_verification_name: regproc-manual-verification-stage
+regproc_manual_verification_version: 1.0.6
+regproc_manual_verification_image: mosipid/registration-processor-manual-verification-stage
+regproc_manual_verification_container_port: 8084

@@ -1,0 +1,6 @@
+activemq_name: activemq
+activemq_container_port: 61616
+activemq_image: webcenter/activemq
+activemq_version: 5.14.3
+activemq_nodeport: 30616 # Arbitrary. PROP. Should match with property files
+ 

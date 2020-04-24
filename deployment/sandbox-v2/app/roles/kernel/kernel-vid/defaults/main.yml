@@ -1,0 +1,4 @@
+kernel_vidgenerator_name: kernel-vidgenerator-service 
+kernel_vidgenerator_version: 1.0.6
+kernel_vidgenerator_image: mosipid/kernel-vidgenerator-service
+kernel_vidgenerator_container_port: 8099

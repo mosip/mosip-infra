@@ -9,7 +9,7 @@ keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-auth-client', secret: 'abc123'}  
   - {realm_id: 'mosip', client_id: 'mosip-pre-registration-client', secret: 'abc123'}  # TODO: To be removed later after client-realm bugfix.
   - {realm_id: 'preregistration', client_id: 'mosip-pre-registration-client', secret: 'abc123'} 
-  - {realm_id: 'mosip', client_id: 'mosip-reproc-client', secret: 'abc123'} 
+  - {realm_id: 'mosip', client_id: 'mosip-regproc-client', secret: 'abc123'} 
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}

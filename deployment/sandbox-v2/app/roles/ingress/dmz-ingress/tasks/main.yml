@@ -1,0 +1,47 @@
+---
+- include_vars: ../../regproc/packet-receiver/defaults/main.yml 
+- include_vars: ../../regproc/reg-status/defaults/main.yml 
+
+- name: Deploy ingress init 
+  k8s:
+    state: present
+    src: '{{role_path}}/files/k8s_ingress_init.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: 'yes'
+    wait_timeout: 240 
+
+# Deploy ingress rules 
+- name: 'Ingress service - get yml from template'
+  template:
+     src: k8s_dmz_ingress_svc.yml.j2 
+     dest: '{{tmp_dir}}/k8s_dmz_ingress_svc.yml'
+
+- name: Deploy ingress service
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/k8s_dmz_ingress_svc.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: 'yes'
+    wait_timeout: 240 
+
+# Deploy ingress rules 
+- name: Get yml from template 
+  template:
+     src: k8s_dmz_ingress.yml.j2
+     dest: '{{tmp_dir}}/k8s_dmz_ingress.yml'
+
+- name: First delete previous ingress # TODO: For some reason ingress changes are not applied otherwise 
+  k8s:
+    state: absent
+    src: '{{tmp_dir}}/k8s_dmz_ingress.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: 'yes'
+    wait_timeout: 240 
+
+- name: Deploy ingress rules
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/k8s_dmz_ingress.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: 'yes'
+    wait_timeout: 240 

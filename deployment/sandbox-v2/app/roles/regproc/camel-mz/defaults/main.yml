@@ -1,0 +1,4 @@
+regproc_camel_mz_name: regproc-camel-mz-bridge
+regproc_camel_mz_version: 1.0.6
+regproc_camel_mz_image: mosipid/registration-processor-common-camel-bridge 
+regproc_camel_mz_container_port: 8022

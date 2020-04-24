@@ -1,0 +1,4 @@
+regproc_bio_dedupe_name: regproc-bio-dedupe-stage
+regproc_bio_dedupe_version: 1.0.6
+regproc_bio_dedupe_image: mosipid/registration-processor-bio-dedupe-stage 
+regproc_bio_dedupe_container_port: 9096

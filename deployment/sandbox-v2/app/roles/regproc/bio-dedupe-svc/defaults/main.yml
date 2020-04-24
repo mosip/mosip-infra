@@ -1,0 +1,4 @@
+regproc_bio_dedupe_service_name: regproc-bio-dedupe-service
+regproc_bio_dedupe_service_version: 1.0.6
+regproc_bio_dedupe_service_image: mosipid/registration-processor-bio-dedupe-service
+regproc_bio_dedupe_service_container_port: 9097

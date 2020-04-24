@@ -1,0 +1,4 @@
+regproc_quality_checker_name: regproc-quality-checker-stage
+regproc_quality_checker_version: 1.0.6
+regproc_quality_checker_image: mosipid/registration-processor-quality-checker-stage 
+regproc_quality_checker_container_port: 9072

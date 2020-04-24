@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{kernel_uingenerator_name}}
+  namespace: default
+  labels:
+    module: kernel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{kernel_uingenerator_name}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{kernel_uingenerator_name}}
+        module: kernel
+    spec:
+      containers:
+      - name: {{kernel_uingenerator_name}}
+        image: {{kernel_uingenerator_image}}:{{kernel_uingenerator_version}}
+        # NOTE: We have to write the spring variable names explicitly here as
+        #       the Dockerfile for this service does not contain ARG and ENV for
+        #       some reason.  TODO: Correct the Dockerfile
+        env:
+        - name: spring.profiles.active
+          value: qa
+        - name: spring.cloud.config.label
+          value: master
+        - name:  spring.cloud.config.uri
+          value: {{config_server_url}}
+        - name: artifactory_url_env  # Not being used in the service as of now
+          value: {{artifactory_uri}}
+        - name: is_glowroot_env # Not being used as of now. TODO: Remove it
+          value: absent
+        ports:
+        - containerPort: {{kernel_uingenerator_container_port}} 
+        readinessProbe:
+          tcpSocket:
+            port: {{kernel_uingenerator_container_port}}  # All defaults used
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{kernel_uingenerator_name}}
+  namespace: default
+spec:
+  ports:
+  - port: 80 
+    targetPort: {{kernel_uingenerator_container_port}} 
+  selector:
+    app: {{kernel_uingenerator_name}}

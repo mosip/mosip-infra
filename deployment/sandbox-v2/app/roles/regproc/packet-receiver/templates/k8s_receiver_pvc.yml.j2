@@ -6,6 +6,7 @@ metadata:
   name: {{regproc_landing_pvc_name}} 
   labels:
     app: {{regproc_landing_pvc_name}}
+    module: regproc
 spec:
   storageClassName: local-storage
   volumeMode: Filesystem
@@ -24,6 +25,7 @@ metadata:
   name: {{regproc_archival_pvc_name}} 
   labels:
     app: {{regproc_archival_pvc_name}} 
+    module: regproc
 spec:
   storageClassName: local-storage
   volumeMode: Filesystem

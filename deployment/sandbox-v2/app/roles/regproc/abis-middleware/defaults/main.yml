@@ -1,0 +1,4 @@
+regproc_abis_middleware_name: regproc-abis-middleware-stage
+regproc_abis_middleware_version: 1.0.6
+regproc_abis_middleware_image: mosipid/registration-processor-abis-middleware-stage
+regproc_abis_middleware_container_port: 8091

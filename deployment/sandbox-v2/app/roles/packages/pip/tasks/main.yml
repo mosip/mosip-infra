@@ -2,3 +2,4 @@
   yum:
     name: python-pip
     state: present
+  become: yes
