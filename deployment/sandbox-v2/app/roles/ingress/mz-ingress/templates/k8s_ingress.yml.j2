@@ -21,6 +21,16 @@ spec:
           serviceName: {{kernel_auth_name}}
           servicePort: 80
 
+      - path: /v1/keymanager
+        backend:
+          serviceName: {{kernel_keymanager_name}}
+          servicePort: 80
+
+      - path: /v1/signature
+        backend:
+          serviceName: {{kernel_signature_name}}
+          servicePort: 80
+
       - path: /v1/auditmanager
         backend:
           serviceName: {{kernel_auditmanager_name}}
@@ -89,6 +99,35 @@ spec:
       - path: /pre-registration-ui
         backend:
           serviceName: {{pre_reg_ui_name}}
+          servicePort: 80
+
+      - path: /registrationprocessor/v1/uploader
+        backend:
+          serviceName: {{regproc_packet_uploader_name}}
+          servicePort: 80
+
+---
+# We have written a separate ingress for keycloak 'cause it requires
+# a different rewrite rule.  We want keycloak url to be 
+# https://public_server/keycloak/auth, rather than
+# https://public_server/auth
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: keycloak-ingress
+  namespace: default
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /keycloak(/|$)(.*)
+        backend:
+          serviceName: {{keycloak_name}}
           servicePort: 80
 
 ---

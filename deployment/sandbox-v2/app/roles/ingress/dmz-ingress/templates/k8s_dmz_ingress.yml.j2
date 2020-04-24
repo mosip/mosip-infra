@@ -11,12 +11,12 @@ spec:
   - http:
       paths:
 
-      - path: /v1/registrationstatus
+      - path: /registrationprocessor/v1/registrationstatus
         backend:
           serviceName: {{regproc_reg_status_name}}
           servicePort: 80
 
-      - path: /v1/packetreciever
+      - path: /registrationprocessor/v1/packetreceiver
         backend:
           serviceName: {{regproc_packet_receiver_name}}
           servicePort: 80
