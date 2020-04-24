@@ -18,7 +18,7 @@
      - {role: hdfs, tags: [hdfs, infra]} # 
      - {role: clamav, tags: [clamav, infra]} # 
      - {role: activemq, tags: [activemq, infra]} # 
-     - {role: ingress, tags: [ingress, infra]}
+     - {role: ingress/mz-ingress, tags: [mz-ingress, infra]}
      - {role: postgres/postgres-init, tags: [postgres-init, infra]} # Start only after ingress is installed 
      - {role: keycloak/keycloak-init, tags: [keycloak-init, infra]}  
 
