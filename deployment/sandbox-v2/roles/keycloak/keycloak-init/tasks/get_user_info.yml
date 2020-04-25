@@ -1,7 +1,7 @@
 # Returns kc_user_info, given a user name
-- name: 'Get "id" of the user {{kc_user_name}}' 
+- name: 'Get id of the user'
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users?username={{kc_user_name}}'
+    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users?username={{kc_username}}'
     method: GET 
     remote_src: 'no'
     status_code:

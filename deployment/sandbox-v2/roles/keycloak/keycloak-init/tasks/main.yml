@@ -46,5 +46,5 @@
   vars:
     kc_realm_id: '{{item.realm_id}}'   
     kc_role_name: '{{item.role_name}}'
-    kc_user_file: '{{item.user_file}}' 
+    kc_username: '{{item.username}}' 
   with_items: '{{keycloak_mosip_user_role_map}}'
