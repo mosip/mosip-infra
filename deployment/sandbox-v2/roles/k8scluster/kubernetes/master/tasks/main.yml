@@ -20,7 +20,7 @@
 
 - name: Make sure .kube file is present on console
   file:
-    name: "{{lookup('env', 'HOME')}}/.kube"
+    name: "{{ansible_env.HOME}}/.kube"
     state: directory
 
 - name: Copy config file to console machine for kubectl
