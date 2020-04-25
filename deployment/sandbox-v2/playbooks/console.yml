@@ -9,8 +9,7 @@
      # TODO: Add python 3 for test scripts
      - {role: packages/epel, tags: [epel]}
      - {role: packages/pip, tags: [pip]}
-     - {role: packages/urllib3, tags: [urllib3]} #  For certbot
-     - {role: packages/requests, tags: [requests]} # For certbot. 
+     - {role: packages/python3, tags: [python3]}
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
