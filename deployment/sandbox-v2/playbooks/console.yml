@@ -6,9 +6,9 @@
     - {name: 'Create tmp folder', file: {name: '{tmp_dir}}', state: directory}}
     - {name: 'Create logs folder', file: {name: '{logs_dir}}', state: directory}}
   roles:
+     # TODO: Add python 3 for test scripts
      - {role: packages/epel, tags: [epel]}
      - {role: packages/pip, tags: [pip]}
-     #- {role: packages/six, tags: [six]} #  For certbot
      - {role: packages/urllib3, tags: [urllib3]} #  For certbot
      - {role: packages/requests, tags: [requests]} # For certbot. 
      - {role: packages/kubectl, tags: [kubectl]}
