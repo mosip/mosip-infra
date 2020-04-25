@@ -31,10 +31,10 @@ Console machine is the machine from where you will run all the scripts.  The mac
 $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
-* Install Ansible 2.9+
+* Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-$ sudo yum install ansible 
+$ sudo yum install ansible-2.9.6-3.el7.noarch
 ```
 * Install git:
 ```
