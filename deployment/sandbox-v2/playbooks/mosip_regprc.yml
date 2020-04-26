@@ -1,7 +1,7 @@
 # All plays related to registration processor module
 #
 
-- hosts: dmzworker0  # One of the dmz nodes is chosen for persistence
+- hosts: dmzworker0  # One of the dmz nodes is chosen for packet landing and archival
   gather_facts: true
   vars:   
     kube_config: '{{dmz_kube_config}}'  # Deploy all these on dmz cluster
@@ -29,7 +29,7 @@
     - ../roles/config-server/defaults/main.yml 
 
   vars:   
-    kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
   roles:
     - {role: regproc/camel-mz, tags: [camel-mz, regproc]}
     - {role: regproc/packet-uploader, tags: [packet-uploader, regproc]}
