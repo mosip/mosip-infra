@@ -1,0 +1,4 @@
+prereg_login_name: prereg-login-service 
+prereg_login_version: 1.0.7
+prereg_login_image: mosipid/pre-registration-login-service
+prereg_login_container_port: 9090

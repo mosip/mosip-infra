@@ -1,0 +1,4 @@
+prereg_transliteration_name: prereg-transliteration-service 
+prereg_transliteration_version: 1.0.7
+prereg_transliteration_image: mosipid/pre-registration-translitration-service # Note the incorrect spelling in service name!
+prereg_transliteration_container_port: 9098

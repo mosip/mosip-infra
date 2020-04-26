@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  config.json: '{"BASE_URL":"{{prereg_api_host}}",  "PRE_REG_URL" : "/preregistration/v1/"}'
+kind: ConfigMap
+metadata:
+  name: {{prereg_ui_config_name}}
+  namespace: default
+
