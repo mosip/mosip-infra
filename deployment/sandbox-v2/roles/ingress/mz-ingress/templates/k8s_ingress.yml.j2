@@ -53,52 +53,52 @@ spec:
 
       - path: /preregistration/v1/login
         backend:
-          serviceName: {{pre_reg_login_name}}
+          serviceName: {{prereg_login_name}}
           servicePort: 80
 
       - path: /preregistration/v1/applications
         backend:
-          serviceName: {{pre_reg_demographic_name}}
+          serviceName: {{prereg_demographic_name}}
           servicePort: 80
 
       - path: /preregistration/v1/documents
         backend:
-          serviceName: {{pre_reg_document_name}}
+          serviceName: {{prereg_document_name}}
           servicePort: 80
 
       - path: /preregistration/v1/sync
         backend:
-          serviceName: {{pre_reg_datasync_name}}
+          serviceName: {{prereg_datasync_name}}
           servicePort: 80
 
       - path: /preregistration/v1/appointment
         backend:
-          serviceName: {{pre_reg_booking_name}}
+          serviceName: {{prereg_booking_name}}
           servicePort: 80
 
       - path: /preregistration/v1/batch
         backend:
-          serviceName: {{pre_reg_batchjob_name}}
+          serviceName: {{prereg_batchjob_name}}
           servicePort: 80
 
       - path: /preregistration/v1/transliteration
         backend:
-          serviceName: {{pre_reg_transliteration_name}}
+          serviceName: {{prereg_transliteration_name}}
           servicePort: 80
 
       - path: /preregistration/v1/qrCode
         backend:
-          serviceName: {{pre_reg_generateqrcode_name}}
+          serviceName: {{prereg_generateqrcode_name}}
           servicePort: 80
 
       - path: /preregistration/v1/notification
         backend:
-          serviceName: {{pre_reg_notification_name}}
+          serviceName: {{prereg_notification_name}}
           servicePort: 80
 
       - path: /pre-registration-ui
         backend:
-          serviceName: {{pre_reg_ui_name}}
+          serviceName: {{prereg_ui_name}}
           servicePort: 80
 
       - path: /registrationprocessor/v1/uploader

@@ -1,4 +1,0 @@
-pre_reg_notification_name: pre-registration-notification-service 
-pre_reg_notification_version: 1.0.7
-pre_reg_notification_image: mosipid/pre-registration-notification-service
-pre_reg_notification_container_port: 9099

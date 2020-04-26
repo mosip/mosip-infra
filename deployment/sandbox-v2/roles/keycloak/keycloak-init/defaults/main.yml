@@ -1,14 +1,14 @@
 keycloak_mosip_realms:
   - {realm_id: 'master', realm_file: 'realms/realm_master.json'}  # Only to update Master settings
   - {realm_id: 'mosip', realm_file: 'realms/realm_mosip.json'}
-  - {realm_id: 'preregistration', realm_file: 'realms/realm_pre_reg.json'}
+  - {realm_id: 'preregistration', realm_file: 'realms/realm_prereg.json'}
 
 # IMPORTANT: If the client secret is changed below make sure you update the corresponding property in the property files of config-server. 
 keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-admin-client', secret: 'xyz123'}  
   - {realm_id: 'mosip', client_id: 'mosip-auth-client', secret: 'abc123'}  
-  - {realm_id: 'mosip', client_id: 'mosip-pre-registration-client', secret: 'abc123'}  # TODO: To be removed later after client-realm bugfix.
-  - {realm_id: 'preregistration', client_id: 'mosip-pre-registration-client', secret: 'abc123'} 
+  - {realm_id: 'mosip', client_id: 'mosip-prereg-client', secret: 'abc123'}  # TODO: To be removed later after client-realm bugfix.
+  - {realm_id: 'preregistration', client_id: 'mosip-prereg-client', secret: 'abc123'} 
   - {realm_id: 'mosip', client_id: 'mosip-regproc-client', secret: 'abc123'} 
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
@@ -64,12 +64,12 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', username: 'testuser', role_name: 'RESIDENT'}
     # For service account mappings client name must be prefixed with service-account-
-  - {realm_id: 'mosip', username: 'service-account-mosip-pre-registration-client', role_name: 'INDIVIDUAL'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-pre-registration-client', role_name: 'PRE_REGISTRATION_ADMIN'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-pre-registration-client', role_name: 'PREREG'}
-  - {realm_id: 'preregistration', username: 'service-account-mosip-pre-registration-client', role_name: 'INDIVIDUAL'}
-  - {realm_id: 'preregistration', username: 'service-account-mosip-pre-registration-client', role_name: 'PRE_REGISTRATION_ADMIN'}
-  - {realm_id: 'preregistration', username: 'service-account-mosip-pre-registration-client', role_name: 'PREREG'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
+  - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
+  - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
+  - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
   - {realm_id: 'mosip', username: 'service-account-mosip-auth-client', role_name: 'AUTH'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'REGISTRATION_PROCESSOR'}
 
