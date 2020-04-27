@@ -235,3 +235,20 @@ https://medium.com/@getpagespeed/fix-importerror-pyopenssl-module-missing-requir
 HDFS
 
 Currently hdfs port 9000 has been made nodeport and access of the same has been enabled from DMZ cluster as hdfs://mzworker0:30124. This is a bit as dmz should not be accessing it.  Remove it later.
+===
+
+cERTBOT
+
+* sudo yum install python-virtualenv
+* Install python3
+
+============
+Starting services:
+
+If you start all services together some services don't come up properly.  The could be errors like config server didn't respond, or some java null pointer exception.  Restart the services in this case.
+
+==========
+TROUBLESHOOTING:
+1. Check if all endpoints in Ingress are connected.
+1. All services are in ready state
+

@@ -11,9 +11,6 @@
       Authorization: "Bearer {{keycloak_admin_token}}"
   register: keycloak_realm_exists
 
-- debug:
-     msg: 'Realm {{keycloak_realm_id}} exists: {{keycloak_realm_exists.status}}' 
-
 - name: 'Create realm {{keycloak_realm_id}}' 
   uri:
     url: '{{keycloak_url}}/auth/admin/realms'

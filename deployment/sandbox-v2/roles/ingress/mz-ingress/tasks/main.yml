@@ -7,16 +7,16 @@
 - include_vars: ../../kernel/kernel-masterdata/defaults/main.yml 
 - include_vars: ../../kernel/kernel-applicant/defaults/main.yml 
 - include_vars: ../../kernel/kernel-sig/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-batchjob/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-booking/defaults/main.yml 
-- include_vars: ../../../pre-reg/pre-reg-datasync/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-demographic/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-document/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-generateqrcode/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-login/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-notification/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-transliteration/defaults/main.yml 
-- include_vars: ../../pre-reg/pre-reg-ui/defaults/main.yml 
+- include_vars: ../../prereg/prereg-batchjob/defaults/main.yml 
+- include_vars: ../../prereg/prereg-booking/defaults/main.yml 
+- include_vars: ../../../prereg/prereg-datasync/defaults/main.yml 
+- include_vars: ../../prereg/prereg-demographic/defaults/main.yml 
+- include_vars: ../../prereg/prereg-document/defaults/main.yml 
+- include_vars: ../../prereg/prereg-generateqrcode/defaults/main.yml 
+- include_vars: ../../prereg/prereg-login/defaults/main.yml 
+- include_vars: ../../prereg/prereg-notification/defaults/main.yml 
+- include_vars: ../../prereg/prereg-transliteration/defaults/main.yml 
+- include_vars: ../../prereg/prereg-ui/defaults/main.yml 
 - include_vars: ../../regproc/packet-uploader/defaults/main.yml 
 
 - name: Deploy ingress init 

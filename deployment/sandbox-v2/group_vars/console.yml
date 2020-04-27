@@ -6,5 +6,5 @@ logs_dir: '/tmp/'
 # Variables that are shared across plays (otherwise, all variables are in respective
 # roles)
 commons_repo_location: '{{lookup("env",  "HOME")}}/commons'
-pre_reg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'
+prereg_repo_location: '{{lookup("env",  "HOME")}}/pre-registration'
 regproc_repo_location: '{{lookup("env",  "HOME")}}/registration'

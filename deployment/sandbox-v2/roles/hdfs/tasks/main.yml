@@ -1,45 +1,35 @@
 
-# Deploy container 
+# Deploy helm 
+#
 - name: Get yml from template 
   template:
-     src: k8s_hdfs.yml.j2
-     dest: '{{tmp_dir}}/k8s_hdfs.yml'
+     src: helm_hdfs_values.yml.j2
+     dest: '{{tmp_dir}}/helm_hdfs_values.yml'
 
-- name: Deploy on kurbernetes
-  k8s:
-    state: present
-    src: '{{tmp_dir}}/k8s_hdfs.yml'
-    kubeconfig: '{{kube_config}}'
-    wait: 'yes'
-    wait_timeout: '{{docker_wait_time}}'
+- name: Check if hdfs already running
+  command: 'helm list {{hdfs_name}}'
+  register: out
 
-# First get pod name
-- name: Get pod name
-  k8s_info:
-    kind: Pod
-    namespace: default
-    label_selectors:
-      - app = {{hdfs_name}} 
-    kubeconfig: '{{kube_config}}'
-  register: hdfs_pod
+- name: Deploy hdfs through helm
+  command: 'helm install --replace stable/hadoop --values {{tmp_dir}}/helm_hdfs_values.yml --name {{hdfs_name }}' 
+  register: out
+  when: hdfs_name not in out.stdout
 
 - set_fact:
-    hdfs_pod_id: '{{hdfs_pod.resources[0].metadata.name}}'
+    hdfs_pod_id: '{{hdfs_name}}-hadoop-hdfs-nn-0' # Second part hardcoded in Helm  
 
 - name: Wait for HDFS to come out of safe mode
-  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"' 
+  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"'
   register: out 
-  retries: 3 
+  retries: 5 
   delay: 10
   until: "'Safe mode is OFF' in out.stdout"
 
 # Create users  
-
-
 # TODO: Persistence of hdfs
 #
 - include_tasks:
-    file: create_dir.yml  
+    file: create_user.yml  
   vars:
     hdfs_user: '{{item}}'
     hdfs_user_dir: '{{hdfs_user_base_dir}}/{{item}}'

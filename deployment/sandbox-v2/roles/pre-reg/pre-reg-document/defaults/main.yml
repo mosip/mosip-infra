@@ -1,4 +1,0 @@
-pre_reg_document_name: pre-registration-document-service 
-pre_reg_document_version: 1.0.7
-pre_reg_document_image: mosipid/pre-registration-document-service
-pre_reg_document_container_port: 9093

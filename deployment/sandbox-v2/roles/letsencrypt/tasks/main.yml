@@ -1,14 +1,29 @@
-- name: Install certbot 
+# letsencrypt requires latest version of various python modules, hence
+# We will run in a virtual environment of python3
+- name: Install virtualenv
   yum:
-    name: certbot 
+    name: python-virtualenv 
     state: present
   become: yes
 
-- name: Install certbot-nginx
-  yum:
-    name: python2-certbot-nginx
-  become: yes
+- name: Install certbot in python3 virtual environment 
+  pip:
+    name: certbot
+    virtualenv_python: python3
+    virtualenv: '{{ansible_env.HOME}}/.venv-py3'
+    state: present
 
-- name: Create certification
-  command: 'certbot certonly -n  --nginx  -m "{{letsencrypt_email}}" --agree-tos -d "{{letsencrypt_domain_name}}"'
+- name: Install certbot-nginx
+  pip:
+    name: certbot-nginx
+    virtualenv: '{{ansible_env.HOME}}/.venv-py3'
+    state: present
+
+- name: run certbot 
+  command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{letsencrypt_email}}" --agree-tos -d "{{letsencrypt_domain_name}}"'
   become: yes
+  register: out
+
+- debug:
+    msg: '{{out}}'
+

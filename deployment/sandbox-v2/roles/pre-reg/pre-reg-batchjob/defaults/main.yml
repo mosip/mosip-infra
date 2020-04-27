@@ -1,4 +1,0 @@
-pre_reg_batchjob_name: pre-registration-batchjob
-pre_reg_batchjob_version: 1.0.7
-pre_reg_batchjob_image: mosipid/pre-registration-batchjob
-pre_reg_batchjob_container_port: 9097

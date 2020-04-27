@@ -1,4 +1,5 @@
-
+# Tasks here create and populate git repository on a node machine.
+#
 - include_vars:
     file: ../../config-server/defaults/main.yml
 

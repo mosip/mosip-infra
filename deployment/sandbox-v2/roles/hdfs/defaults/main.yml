@@ -1,7 +1,4 @@
-hdfs_name: hdfs
-hdfs_image: sequenceiq/hadoop-docker
-hdfs_version: 2.7.0  # 2.7.1, latest does not get pulled.
-hdfs_nodeport: 30124 # Arbitrary. Should match with property files
+hdfs_name: hadoop 
 # Below users should match with property files
 hdfs_users:  # PROP
   - regprocessor

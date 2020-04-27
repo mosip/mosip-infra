@@ -1,11 +1,10 @@
-
-- name: 'Read id of user from {{kc_user_file}}' 
-  set_fact:
-    kc_user_name: "{{(lookup('file', '{{kc_user_file}}') | from_json).username}}"
+# The tasks here map a role to a user 
+#
 
 # Get user id (needed for API)
-- name: 'Get user info for {{kc_user_name}}'
+- name: 'Get user info for {{kc_username}}'
   include_tasks: get_user_info.yml # Returns kc_user_info
+  
 
 - set_fact:
     kc_user_id: '{{kc_user_info.json[0].id}}'
@@ -17,9 +16,6 @@
 # Get whole role json needed for API
 - name: 'Get id for role {{kc_role_name}}'
   include_tasks: get_role_info.yml # Returns kc_role_info
-
-- debug:
-    msg: '{{kc_role_info}}'
 
 - name: 'Create role mapping {{kc_user_id}} : {{kc_role_name}}'
   uri:
