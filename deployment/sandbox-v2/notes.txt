@@ -246,3 +246,9 @@ cERTBOT
 Starting services:
 
 If you start all services together some services don't come up properly.  The could be errors like config server didn't respond, or some java null pointer exception.  Restart the services in this case.
+
+==========
+TROUBLESHOOTING:
+1. Check if all endpoints in Ingress are connected.
+1. All services are in ready state
+

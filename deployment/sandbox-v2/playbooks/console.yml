@@ -12,5 +12,6 @@
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
+     - {role: packages/helm, tags: [helm]}
      - {role: repos, tags: [repos]}
 
