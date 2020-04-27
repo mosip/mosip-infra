@@ -11,7 +11,6 @@ import hashlib
 import shutil
 import sys
 from test_common import *
-from common import *
 
 ROOT_URL = 'http://mzworker0:30080'  # Ingress
 DMZ_URL = 'http://dmzworker0:30080'
