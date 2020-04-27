@@ -35,6 +35,7 @@
     - {role: regproc/packet-uploader, tags: [packet-uploader, regproc]}
     - {role: regproc/packet-validator, tags: [packet-validator, regproc]}
     - {role: regproc/quality-checker, tags: [quality-checker, regproc]}
+    - {role: regproc/osi-validator, tags: [osi-validator, regproc]}
     - {role: regproc/demo-dedupe, tags: [demo-dedupe, regproc]}
     - {role: regproc/bio-dedupe, tags: [bio-dedupe, regproc]}
     - {role: regproc/bio-dedupe-svc, tags: [bio-dedupe-svc, regproc]}
