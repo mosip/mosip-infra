@@ -1,6 +1,8 @@
 #!/bin/python3.6
 # This scripts generates packet hash and OSI hash. 
 # Usage (example):
+# ./gen_hash.py <path to packet meta info json>
+# E.g.
 # ./gen_hash.py data/packet/unencrypted/packet1/packet_meta_info.json 
 
 import sys
