@@ -8,5 +8,5 @@
 - import_playbook: playbooks/mosip_kernel.yml
 - import_playbook: playbooks/mosip_prereg.yml
 - import_playbook: playbooks/mosip_regproc.yml
-- import_playbook: playbooks/nginx.xml
+- import_playbook: playbooks/nginx.yml
 
