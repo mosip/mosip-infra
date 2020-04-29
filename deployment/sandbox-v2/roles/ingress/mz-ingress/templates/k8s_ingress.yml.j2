@@ -109,32 +109,8 @@ spec:
 ---
 # We have written a separate ingress for keycloak 'cause it requires
 # a different rewrite rule.  We want keycloak url to be 
-# https://public_server/keycloak/auth, rather than
-# https://public_server/auth
-
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: keycloak-ingress
-  namespace: default
-  annotations:
-    ingress.kubernetes.io/class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /keycloak(/|$)(.*)
-        backend:
-          serviceName: {{keycloak_name}}
-          servicePort: 80
-
----
-# We have written a separate ingress for keycloak 'cause it requires
-# a different rewrite rule.  We want keycloak url to be 
-# https://public_server/keycloak/auth, rather than
-# https://public_server/auth
+# https://public_server/keycloak/auth/, rather than
+# https://public_server/auth/.  Not that last slash is important!
 
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress

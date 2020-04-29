@@ -22,7 +22,8 @@ All the above within the same network.
 Console machine: 1 (2 CPU, 8 GB RAM) 
 
 ## Console setup
-Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.
+Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.   The console machine must be accessible from public domain name and port 80 on console machine must be accessible externally.
+
 * Change hostname of console machine to `console`. 
 * Create a (non-root) user account on console machine.
 * Make `sudo` password-less for the user.
@@ -50,6 +51,9 @@ $ sudo yum install -y git
 * Enable root login to all the machines with same password as above `rootpassword`.
 
 ## Running Ansible scripts
+* Change `sandbox_domain_name` in `group_vars/all.yml` to domain name of the console machine.
+
+* Run the following:
 ```
 $ ansible-playbook -i hosts.ini site.yml
 
