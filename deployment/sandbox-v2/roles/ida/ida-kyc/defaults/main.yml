@@ -1,0 +1,5 @@
+---
+ida_kyc_name: authentication-kyc-service
+ida_kyc_version: 1.0.6-SNAPSHOT.52
+ida_kyc_image: mosipid/authentication-kyc-service
+ida_kyc_container_port: 8091

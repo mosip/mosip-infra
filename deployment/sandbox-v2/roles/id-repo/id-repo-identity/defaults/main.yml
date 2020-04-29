@@ -1,0 +1,5 @@
+---
+idrepo_identity_name: id-repository-identity-service
+idrepo_identity_version: 1.0.7
+idrepo_identity_image: mosipid/id-repository-identity-service
+idrepo_identity_container_port: 8090 

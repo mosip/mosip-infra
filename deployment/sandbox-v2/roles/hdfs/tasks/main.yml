@@ -14,6 +14,7 @@
   command: 'helm --kubeconfig {{kube_config}} install --replace stable/hadoop --values {{tmp_dir}}/helm_hdfs_values.yml --name {{hdfs_name }}' 
   register: out
   when: hdfs_name not in out.stdout
+  #wait_timeout: '{{docker_wait_time}}'
 
 - set_fact:
     hdfs_pod_id: '{{hdfs_name}}-hadoop-hdfs-nn-0' # Second part hardcoded in Helm  
@@ -22,7 +23,7 @@
   command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"'
   register: out 
   retries: 10 
-  delay: 10
+  delay: 25
   until: "'Safe mode is OFF' in out.stdout"
 
 # Create users  

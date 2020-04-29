@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ida_kyc_name}}
+  namespace: default
+  labels:
+    module: ida
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ida_kyc_name}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ida_kyc_name}}
+        module: ida
+    spec:
+      containers:
+      - name: {{ida_kyc_name}}
+        image: '{{ida_kyc_image}}:{{ida_kyc_version}}'
+        env:
+        - name: active_profile_env
+          value: qa
+        - name: spring_config_label_env
+          value: master
+        - name: spring_config_url_env
+          value: {{config_server_url}}
+        - name: artifactory_url_env
+          value: '{{artifactory_uri}}'
+        - name: is_glowroot_env
+          value: absent
+        ports:
+        - containerPort: {{ida_kyc_container_port}}
+        readinessProbe:
+          tcpSocket:
+            port: {{ida_kyc_container_port}}  # All defaults used
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ida_kyc_name}}
+  namespace: default
+spec:
+  ports:
+  - port: 80 
+    targetPort: {{ida_kyc_container_port}} 
+  selector:
+    app: {{ida_kyc_name}}

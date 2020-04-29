@@ -1,0 +1,5 @@
+---
+idrepo_vid_name: id-repository-vid-service
+idrepo_vid_version: 1.0.7
+idrepo_vid_image: mosipid/id-repository-vid-service
+idrepo_vid_container_port: 8091

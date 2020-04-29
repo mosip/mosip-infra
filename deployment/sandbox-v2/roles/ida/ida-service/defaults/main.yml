@@ -1,0 +1,5 @@
+---
+ida_service_name: authentication-service
+ida_service_version: 1.0.6-SNAPSHOT.52
+ida_service_image: mosipid/authentication-service
+ida_service_container_port: 8090 

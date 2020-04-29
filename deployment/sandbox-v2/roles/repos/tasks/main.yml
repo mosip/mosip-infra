@@ -19,3 +19,11 @@
     dest: '{{regproc_repo_location}}'
     update: no
     force: no
+
+- name: Check out mosip/id-authentication git repo
+  git:
+    repo: https://github.com/mosip/id-authentication
+    dest: '{{ida_repo_location}}'
+    update: no
+    force: no
+
