@@ -13,6 +13,9 @@
 
     - name: "Run the installer"
       shell: "{{tmp_dir}}/get_helm.sh"
+
+    - name: Init helm
+      shell: "helm init --client-only"
   when: helm_exists.rc > 0
  
 

@@ -9,7 +9,7 @@
 - name: Check out mosip/pre-registration git repo
   git:
     repo: https://github.com/mosip/pre-registration
-    dest: '{{pre_reg_repo_location}}'
+    dest: '{{prereg_repo_location}}'
     update: no
     force: no
 
