@@ -5,7 +5,7 @@
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  
 
 ## Sandbox architecture
-[](docs/sandbox_architecture.png)
+![](docs/sandbox_architecture.png)
 
 ## Hardware setup 
 
