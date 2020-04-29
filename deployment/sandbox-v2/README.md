@@ -4,6 +4,9 @@
 
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  
 
+## Sandbox architecture
+![](https://github.com/pjoshi751/mosip-infra/blob/master/deployment/sandbox-v2/docs/sanbox_architecture.png)
+
 ## Hardware setup 
 
 The following VMs are recommended:
