@@ -3,8 +3,8 @@
 - hosts: console
   gather_facts: true 
   tasks:
-    - {name: 'Create tmp folder', file: {name: '{tmp_dir}}', state: directory}}
-    - {name: 'Create logs folder', file: {name: '{logs_dir}}', state: directory}}
+    - {name: 'Create tmp folder', file: {name: '{{tmp_dir}}', state: directory}}
+    - {name: 'Create logs folder', file: {name: '{{logs_dir}}', state: directory}}
   roles:
      - {role: packages/epel, tags: [epel]}
      - {role: packages/pip, tags: [pip]}

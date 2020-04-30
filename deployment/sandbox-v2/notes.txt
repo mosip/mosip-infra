@@ -252,3 +252,6 @@ TROUBLESHOOTING:
 1. Check if all endpoints in Ingress are connected.
 1. All services are in ready state
 
+==============
+config
+registration proces abis threshold (delete)
