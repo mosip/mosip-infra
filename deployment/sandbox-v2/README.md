@@ -40,7 +40,7 @@ No passphrase, all defaults.
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-$ sudo yum install ansible-2.9.6-3.el7.noarch
+$ sudo yum install ansible-2.9.7-1.el7
 ```
 * Install git:
 ```
