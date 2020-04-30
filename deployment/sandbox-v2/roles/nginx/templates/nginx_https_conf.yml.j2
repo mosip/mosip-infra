@@ -119,7 +119,31 @@ http {
            proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{ingress_base_url}}/v1/authmanager/;
            }
-   
+
+        location /idauthentication/v1/auth/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_pass {{ingress_base_url}}/idauthentication/v1/auth/;
+           }
+
+	location /idauthentication/v1/kyc/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{ingress_base_url}}/idauthentication/v1/kyc/;
+           }
+
+	location /idauthentication/v1/otp/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{ingress_base_url}}/idauthentication/v1/otp/;
+           }
+
         error_page 404 /404.html;
             location = /40x.html {
         }

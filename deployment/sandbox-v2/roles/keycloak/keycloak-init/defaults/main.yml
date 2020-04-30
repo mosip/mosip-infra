@@ -73,4 +73,4 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
   - {realm_id: 'mosip', username: 'service-account-mosip-auth-client', role_name: 'AUTH'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'REGISTRATION_PROCESSOR'}
-
+  - {realm_id: 'mosip', username: 'service-account-mosip-ida-client', role_name: 'ID_AUTHENTICATION'}
