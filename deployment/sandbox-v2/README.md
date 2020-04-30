@@ -58,7 +58,7 @@ $ sudo yum install -y git
 * Run the following:
 ```
 $ ansible-playbook -i hosts.ini site.yml
-
+```
 To run individual roles, use tags, e.g
 ```
 $ ansible-playbook -i hosts --tags postgres site.yml
