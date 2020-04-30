@@ -1,3 +1,4 @@
+---
 - name: "Check if Helm is installed"
   shell: command -v helm >/dev/null 2>&1
   register: helm_exists
@@ -10,12 +11,29 @@
         url: https://raw.githubusercontent.com/helm/helm/master/scripts/get
         dest: "{{tmp_dir}}/get_helm.sh"
         mode: 0755
-
+  
     - name: "Run the installer"
       shell: "{{tmp_dir}}/get_helm.sh"
 
-    - name: Init helm
-      shell: "helm --kubeconfig {{kube_config}} init --client-only"
   when: helm_exists.rc > 0
- 
+
+- name: "Copy yaml file"
+  copy:
+    src: "rbac-config.yml"
+    dest: "{{tmp_dir}}/rbac-config.yml"
+    mode: 0644
+
+- name: "Deploy RBAC configuration"
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/rbac-config.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: yes
+    wait_timeout: '{{docker_wait_time}}'
+
+- name: "Init Helm"
+  shell: "helm init --service-account tiller"
+
+- name: "Update Helm repo"
+  shell: "helm repo update"
 
