@@ -1,0 +1,6 @@
+---
+# defaults file for ida-internal
+ida_internal_name: authentication-internal-service
+ida_internal_version: 1.0.6-SNAPSHOT.52
+ida_internal_image: mosipid/authentication-internal-service
+ida_internal_container_port: 8093 

@@ -1,0 +1,5 @@
+---
+ida_otp_name: authentication-otp-service
+ida_otp_version: 1.0.6-SNAPSHOT.52
+ida_otp_image: mosipid/authentication-otp-service
+ida_otp_container_port: 8092 

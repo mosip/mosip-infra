@@ -10,6 +10,7 @@ keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-prereg-client', secret: 'abc123'}  # TODO: To be removed later after client-realm bugfix.
   - {realm_id: 'preregistration', client_id: 'mosip-prereg-client', secret: 'abc123'} 
   - {realm_id: 'mosip', client_id: 'mosip-regproc-client', secret: 'abc123'} 
+  - {realm_id: 'mosip', client_id: 'mosip-ida-client', secret: 'abc123'}
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}
@@ -72,4 +73,4 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
   - {realm_id: 'mosip', username: 'service-account-mosip-auth-client', role_name: 'AUTH'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'REGISTRATION_PROCESSOR'}
-
+  - {realm_id: 'mosip', username: 'service-account-mosip-ida-client', role_name: 'ID_AUTHENTICATION'}

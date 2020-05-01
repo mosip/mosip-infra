@@ -1,0 +1,14 @@
+# This play installs all the MOSIP related modules on Kubernetes
+# cluster 
+- hosts: console
+  gather_facts: true
+  vars_files:
+    - ../roles/config-server/defaults/main.yml 
+  vars:
+    kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
+    kubeconfig: '{{mz_kube_config}}'  # Used in k8s role. TODO: Make it consistent so that only one variable is needed.
+  roles:
+     - {role: ida/ida-kyc, tags: [ida-kyc, ida]}
+     - {role: ida/ida-internal, tags: [ida-internal, ida]}
+     - {role: ida/ida-otp, tags: [ida-otp, ida]}
+     - {role: ida/ida-service, tags: [ida-service, ida]}
