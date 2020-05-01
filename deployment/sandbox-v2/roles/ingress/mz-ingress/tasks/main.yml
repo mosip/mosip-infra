@@ -18,6 +18,12 @@
 - include_vars: ../../prereg/prereg-transliteration/defaults/main.yml 
 - include_vars: ../../prereg/prereg-ui/defaults/main.yml 
 - include_vars: ../../regproc/packet-uploader/defaults/main.yml 
+- include_vars: ../../ida/ida-kyc/defaults/main.yml
+- include_vars: ../../ida/ida-otp/defaults/main.yml
+- include_vars: ../../ida/ida-internal/defaults/main.yml
+- include_vars: ../../ida/ida-service/defaults/main.yml
+- include_vars: ../../id-repo/id-repo-identity/defaults/main.yml
+- include_vars: ../../id-repo/id-repo-vid/defaults/main.yml
 
 - name: Deploy ingress init 
   k8s:
