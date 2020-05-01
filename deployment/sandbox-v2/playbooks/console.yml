@@ -17,7 +17,7 @@
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
-    - {role: repos, tags: [repos]}
+     - {role: repos, tags: [repos]}
 
 - hosts: console
   gather_facts: true 
