@@ -1,10 +1,15 @@
 # This play install all the tools needed on the console for 
-# further execution of automation
+# further execution of automation. Here we have split tasks and roles into seperate
+# play as tasks only run after roles if they are in the same play (for some reason)
+# and for us sequencing is important.
 - hosts: console
   gather_facts: true 
   tasks:
-    - {name: 'Create tmp folder', file: {name: '{tmp_dir}}', state: directory}}
-    - {name: 'Create logs folder', file: {name: '{logs_dir}}', state: directory}}
+    - {name: 'Create tmp folder', file: {name: '{{tmp_dir}}', state: directory}}
+    - {name: 'Create logs folder', file: {name: '{{logs_dir}}', state: directory}}
+
+- hosts: console
+  gather_facts: true 
   roles:
      - {role: packages/epel, tags: [epel]}
      - {role: packages/pip, tags: [pip]}
@@ -12,6 +17,18 @@
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
-     - {role: packages/helm, tags: [helm]}
-     - {role: repos, tags: [repos]}
+    - {role: repos, tags: [repos]}
 
+- hosts: console
+  gather_facts: true 
+  tasks:
+    - include_role:   
+        name: packages/helm 
+      vars: 
+        kube_config: '{{mz_kube_config}}' 
+      when: groups['mzcluster'] is defined
+    - include_role: 
+        name: packages/helm 
+      vars: 
+        kube_config: '{{dmz_kube_config}}' 
+      when: groups['dmzcluster'] is defined

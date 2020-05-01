@@ -1,8 +1,11 @@
 # Master playbook
 #
+
+- import_playbook: playbooks/cluster.yml -e cluster_name=clusters[0] # MZ
+  when: clusters[0] is defined
+- import_playbook: playbooks/cluster.yml -e cluster_name=clusters[1] # DMZ
+  when: clusters[1] is defined
 - import_playbook: playbooks/console.yml  # Basic setup on console machine
-- import_playbook: playbooks/mzcluster.yml  # MZ cluster setup 
-- import_playbook: playbooks/dmzcluster.yml  # DMZ cluster setup
 - import_playbook: playbooks/mosip_env.yml # MOSIP DB, Keycloak, hdfs etc.
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/mosip_kernel.yml

@@ -47,6 +47,8 @@ $ sudo yum install ansible-2.9.7-1.el7
 $ sudo yum install -y git
 ```
 * Git clone this repo in user home directory.
+* Check `hosts.ini` file. If you are not running Registration Processor (regproc) remove the DMZ cluster hosts and groups from `hosts.ini` otherwise scripts will try to setup DMZ cluster.
+
 
 ## K8s cluster machines setup
 * Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
