@@ -25,7 +25,7 @@ ingress_nodeport_https: 30443
 ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
 
 
-sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
+sandbox_domain_name: console.technoforte.co.in
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node
