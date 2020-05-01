@@ -35,10 +35,12 @@ Console machine is the machine from where you will run all the scripts.  The mac
 $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
+* Copy the public key of console user to all `authorized_keys` of `root` users of all machines, including console such that password-less ssh is possible to all Kubenetes machines (root user) and console (both root and console user).
+
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-$ sudo yum install ansible-2.9.6-3.el7.noarch
+$ sudo yum install ansible-2.9.7-1.el7
 ```
 * Install git:
 ```
@@ -46,12 +48,9 @@ $ sudo yum install -y git
 ```
 * Git clone this repo in user home directory.
 
-* Set root user password, say `rootpassword`.
-
 ## K8s cluster machines setup
 * Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
 * If you have more nodes in the cluster add them to `hosts.ini`.   
-* Enable root login to all the machines with same password as above `rootpassword`.
 
 ## Running Ansible scripts
 * Change `sandbox_domain_name` in `group_vars/all.yml` to domain name of the console machine.
@@ -59,7 +58,7 @@ $ sudo yum install -y git
 * Run the following:
 ```
 $ ansible-playbook -i hosts.ini site.yml
-
+```
 To run individual roles, use tags, e.g
 ```
 $ ansible-playbook -i hosts --tags postgres site.yml
