@@ -1,25 +1,25 @@
 ---
-- hosts: '{{cluster_name}}'
+- hosts: '{{cluster}}'
   become: yes
   gather_facts: yes
   roles:
     - { role: k8scluster/docker, tags: docker }
     - { role: packages/git, tags: git }
 
-- hosts: '{{cluster_name[0]}}'  # Master 
+- hosts: '{{master}}'  # Master 
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/master, tags: master }
     - { role: k8scluster/cni, tags: cni }
 
-- hosts: '{{cluster_name[0][1]}}' # Workers
+- hosts: '{{workers}}' # Workers
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/node, tags: node }
 
-- hosts: '{{cluster_name[0]}}'  # Master 
+- hosts: '{{master}}'  # Master 
   gather_facts: yes
   become: yes
   tasks:
