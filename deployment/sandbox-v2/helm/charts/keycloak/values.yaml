@@ -13,5 +13,3 @@ postgresUser: postgres
 postgresPassword: postgres
 ingress:
    namespace: default # Must be same as in helm ingress-nginx
-   nodePortHttp: 30280
-   nodePortHttps: 30281

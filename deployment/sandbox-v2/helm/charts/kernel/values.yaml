@@ -6,9 +6,7 @@ activeProfileEnv: qa
 springConfigLabel: master
 configServerUrl: http://config-server/config
 ingress:
-   namespace: ingress-nginx
-   nodePortHttp: 30180
-   nodePortHttps: 30181
+   namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 services:
   auth:

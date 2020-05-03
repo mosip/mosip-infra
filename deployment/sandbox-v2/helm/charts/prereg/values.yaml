@@ -5,9 +5,7 @@ activeProfileEnv: qa
 springConfigLabel: master
 configServerUrl: http://config-server/config
 ingress:
-   namespace: ingress-nginx # Must be same as in helm ingress-nginx
-   nodePortHttp: 30080
-   nodePortHttps: 30081
+   namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 services:
   login:
