@@ -8,7 +8,7 @@ To know about MOSIP check out our [Platform Documentation](https://github.com/mo
 ### Contribute
 You can contribute to MOSIP! 
 
-We want to engage constructively with the community.  If you find a **vulnerability** or issue, please file a bug with the respective repository.  We welcome pull requests with fixes too.  Please see the [Contributor Guide](https://github.com/mosip/mosip-docs/wiki/Contributor-Guide) on how to file bugs, contribute code, and more.
+We want to engage constructively with the community.  If you find a **vulnerability** or issue, please file a bug with the respective repository.  We welcome pull requests with fixes too.  Please see the [Contributor Guide](https://github.com/mosip/documentation/blob/master/docs/Contributor-Guide.md) on how to file bugs, contribute code, and more.
 
 ### License
 This project is licensed under the terms of [Mozilla Public License 2.0](https://github.com/mosip/mosip-platform/blob/master/LICENSE)
