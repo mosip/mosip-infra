@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }} 
+        env:
+        - name: KEYCLOAK_USER 
+          value: {{ .Values.keycloakUser }}
+        - name: KEYCLOAK_PASSWORD 
+          value: {{ .Values.keycloakPassword }}
+        - name: DB_VENDOR 
+          value: postgres
+        - name: DB_ADDR
+          value: {{ .Values.postgresHost }} 
+        - name: DB_PORT
+          value: "80" 
+        - name: DB_USER 
+          value: {{ .Values.postgresUser }} 
+        - name: DB_PASSWORD
+          value: {{ .Values.postgresPassword }} 
+        - name: KEYCLOAK_FRONTEND_URL
+          value: "{{ .Values.keycloakExternalUrl }}" 
+        ports:
+        - containerPort: {{ .Values.containerPort }} 
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+

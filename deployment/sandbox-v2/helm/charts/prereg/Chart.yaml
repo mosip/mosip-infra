@@ -3,3 +3,9 @@ appVersion: "1.0.9"
 description: A Helm chart for MOSIP PreReg module 
 name: prereg
 version: 1.0.9 
+
+dependencies:
+- name: ingress-nginx
+  version: 1.0
+  repository: "file://../ingress-ngxinx"
+   
