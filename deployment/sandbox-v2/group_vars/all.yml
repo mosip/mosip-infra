@@ -3,6 +3,8 @@
 # Global variables - accessed by different roles and plays
 #
 
+install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
+
 ansible_python_interpreter: /usr/bin/python2  # Python3 will be best to use with CentOS 8
 
 artifactory_uri: 'http://13.71.87.138:8040'
