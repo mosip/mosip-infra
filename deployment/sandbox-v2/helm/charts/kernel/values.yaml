@@ -16,4 +16,11 @@ services:
     containerPort: 8091
     servicePort: 80
     ingressPath: /v1/authmanager
+  masterdata:
+    serviceName: kernel-masterdata-service 
+    dockerImage: mosipid/kernel-masterdata-service
+    dockerTag: 1.0.7
+    containerPort: 8086
+    servicePort: 80
+    ingressPath: /v1/authmanager
 

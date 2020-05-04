@@ -17,9 +17,69 @@ services:
     ingressPath: /preregistration/v1/login
   batch:
     serviceName: prereg-batchjob-service 
-    dockerImage: mosipid/pre-registration-batchjob-service
+    dockerImage: mosipid/pre-registration-batchjob
     dockerTag: 1.0.7
     containerPort: 9097
     servicePort: 80
     ingressPath: /preregistration/v1/batch
+  document:
+    serviceName: prereg-document-service 
+    dockerImage: mosipid/pre-registration-document-service
+    dockerTag: 1.0.7
+    containerPort: 9093
+    servicePort: 80
+    ingressPath: /preregistration/v1/document
+  transliteration:
+    serviceName: prereg-transliteration-service 
+    dockerImage: mosipid/pre-registration-translitration-service
+    dockerTag: 1.0.7
+    containerPort: 9098
+    servicePort: 80
+    ingressPath: /preregistration/v1/transliteration
+  booking:
+    serviceName: prereg-booking-service 
+    dockerImage: mosipid/pre-registration-booking-service
+    dockerTag: 1.0.7
+    containerPort: 9095
+    servicePort: 80
+    ingressPath: /preregistration/v1/appointment
+  qrcode:
+    serviceName: prereg-qrcode-service 
+    dockerImage: mosipid/pre-registration-generateqrcode-service
+    dockerTag: 1.0.7
+    containerPort: 9091
+    servicePort: 80
+    ingressPath: /preregistration/v1/qrCode
+  datasync:
+    serviceName: prereg-datasync-service 
+    dockerImage: mosipid/pre-registration-datasync-service
+    dockerTag: 1.0.7
+    containerPort: 9094
+    servicePort: 80
+    ingressPath: /preregistration/v1/sync
+  demographic:
+    serviceName: prereg-demographic-service 
+    dockerImage: mosipid/pre-registration-demographic-service
+    dockerTag: 1.0.7
+    containerPort: 9092
+    servicePort: 80
+    ingressPath: /preregistration/v1/applications
+  notification:
+    serviceName: prereg-notification-service 
+    dockerImage: mosipid/pre-registration-notification-service
+    dockerTag: 1.0.7
+    containerPort: 9099
+    servicePort: 80
+    ingressPath: /preregistration/v1/notification
+
+ui:
+  appName: prereg-ui
+  dockerImage: mosipid/pre-registration-ui
+  dockerTag: 1.0.6
+  containerPort: 80
+  servicePort: 80
+  configName: prereg-ui-config # ConfigMap name
+  apiHost: https://test-sandbox.southindia.cloudapp.azure.com/ # URL for external excess.  ANSIBLE filled. 
+
+  ingressPath: /pre-registration-ui
       

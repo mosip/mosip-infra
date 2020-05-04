@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.demographic.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.demographic.servicePort }}
+    targetPort: {{ .Values.services.demographic.containerPort }}
+  selector:
+    app: {{ .Values.services.demographic.serviceName }} 
+

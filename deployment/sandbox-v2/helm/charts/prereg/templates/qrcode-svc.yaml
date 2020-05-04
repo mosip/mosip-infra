@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.qrcode.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.qrcode.servicePort }}
+    targetPort: {{ .Values.services.qrcode.containerPort }}
+  selector:
+    app: {{ .Values.services.qrcode.serviceName }} 
+
