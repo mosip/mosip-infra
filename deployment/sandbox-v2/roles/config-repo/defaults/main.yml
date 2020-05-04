@@ -1,3 +1,4 @@
+# TODO: Var values here must match the ones specified in Helm config-server
 config_repo_node_dir: /mnt/mosip_data/
 config_repo_name: config_repo  # Git repo inside above node_path
 config_repo_node_path: '{{config_repo_node_dir}}/{{config_repo_name}}'
