@@ -17,18 +17,6 @@
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
+     - {role: packages/helm, tags: [helm]}
      - {role: repos, tags: [repos]}
 
-- hosts: console
-  gather_facts: true 
-  tasks:
-    - include_role:   
-        name: packages/helm 
-      vars: 
-        kube_config: '{{mz_kube_config}}' 
-      when: groups['mzcluster'] is defined
-    - include_role: 
-        name: packages/helm 
-      vars: 
-        kube_config: '{{dmz_kube_config}}' 
-      when: groups['dmzcluster'] is defined
