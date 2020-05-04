@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.kyc.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.kyc.servicePort }}
+    targetPort: {{ .Values.services.kyc.containerPort }}
+  selector:
+    app: {{ .Values.services.kyc.serviceName }} 
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: idrepo
+description: A Helm chart for MOSIP ID Repo Module
+type: application
+version: 1.0.9 
+appVersion: 1.0.9
