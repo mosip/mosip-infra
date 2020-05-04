@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.pvName }} 
+  labels:
+    name: {{ .Values.pvName }} 
+spec:
+  capacity:
+    storage: 1Gi 
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
+  storageClassName: {{ .Values.localStorageName }} 
+  local:
+    path: {{ .Values.localStoragePath }} 
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.localStorageHostname }} 
+
