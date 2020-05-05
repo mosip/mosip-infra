@@ -1,0 +1,43 @@
+
+- name: 'Read name of user from {{kc_user_file}}' 
+  set_fact:
+    kc_username: "{{(lookup('file', '{{kc_user_file}}') | from_json).username}}"
+
+- name: 'Get "id" of the user {{kc_username}}' 
+  include_tasks: get_user_info.yml # Returns kc_user_info
+
+- set_fact:
+    kc_user_id: '{{kc_user_info.json[0].id}}'
+  when: (kc_user_info.json | length) > 0
+
+- set_fact:
+    kc_user_id: ''
+  when: (kc_user_info.json | length) == 0  
+
+- name: 'Create user {{kc_user_file}}' 
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users'
+    method: POST
+    src: '{{kc_user_file}}'
+    remote_src: 'no'
+    status_code:
+     - 201
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: kc_user_id == '' 
+
+- name: 'Update User {{kc_username}}' 
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}'
+    method: PUT
+    src: "{{kc_user_file}}"
+    remote_src: "no"
+    status_code:
+     - 204
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: kc_user_id != '' 

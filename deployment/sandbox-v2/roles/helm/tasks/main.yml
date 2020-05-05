@@ -1,0 +1,24 @@
+# Common task to install a Helm release (package) on kubernetes
+# Parameters:
+#   kube_config
+#   install_name
+#   helm_chart
+- name: 'Check if {{install_name}} is already running'
+  command: 'helm --kubeconfig {{kube_config}} list -q'
+  register: out
+
+- debug:
+    msg: '{{install_name}} already running'
+  when: install_name in out.stdout.split()
+
+- name: install chart
+  block:
+  - name: 'Install chart {{install_name}}'
+    command: 'helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}}'
+    when: install_name not in out.stdout.split()
+    register: helm_out 
+  
+  - debug:
+      msg: '{{helm_out.stdout}}'
+
+  when: install_name not in out.stdout.split()

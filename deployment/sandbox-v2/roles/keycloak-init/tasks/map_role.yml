@@ -1,0 +1,32 @@
+# The tasks here map a role to a user 
+#
+
+# Get user id (needed for API)
+- name: 'Get user info for {{kc_username}}'
+  include_tasks: get_user_info.yml # Returns kc_user_info
+  
+
+- set_fact:
+    kc_user_id: '{{kc_user_info.json[0].id}}'
+
+# Construct API url
+- set_fact:
+    kc_role_mapping_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}/role-mappings/realm'
+
+# Get whole role json needed for API
+- name: 'Get id for role {{kc_role_name}}'
+  include_tasks: get_role_info.yml # Returns kc_role_info
+
+- name: 'Create role mapping {{kc_user_id}} : {{kc_role_name}}'
+  uri:
+    url: '{{kc_role_mapping_url}}'
+    method: POST 
+    body: '[{{kc_role_info.json}}]' # API expects a list of roles
+    body_format: json
+    remote_src: 'no'
+    status_code:
+     - 204
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"

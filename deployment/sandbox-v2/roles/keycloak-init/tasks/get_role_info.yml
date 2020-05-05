@@ -1,0 +1,15 @@
+# Get roles of a relam 
+# Returns kc_role_info
+- name: 'Get roles of realm {{kc_realm_id}}'
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/roles/{{kc_role_name}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+     - 404
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: kc_role_info 

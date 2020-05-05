@@ -1,14 +1,19 @@
+## Create git repo on a node
 - hosts: mzworker0
   gather_facts: true
   vars:   
-    kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
+    kube_config: '{{mz_kube_config}}'  
   roles:
     - {role: config-repo, tags: [config-repo, env]}  
 
+# Install config server using helm
 - hosts: console
   gather_facts: true
   vars:   
-    kube_config: '{{mz_kube_config}}'  # Deploy all these on dmz cluster
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/config-server'    
+    install_name: config-server 
   roles:
-    - {role: config-server, tags: [config-server, env]}  
+    - {role: helm, tags: [config-server]} 
+
 

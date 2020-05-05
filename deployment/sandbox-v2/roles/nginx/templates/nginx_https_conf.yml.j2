@@ -86,7 +86,7 @@ http {
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Forwarded-Proto $scheme;
           # Below must match with Kubernetes ingress path for keycloak
-          proxy_pass {{ingress_base_url}}/keycloak/;
+          proxy_pass {{mzingress.base_url}}/keycloak/;
         }
 
         location /preregistration/v1/ {
@@ -94,14 +94,14 @@ http {
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
-           proxy_pass {{ingress_base_url}}/preregistration/v1/;
+           proxy_pass {{mzingress.base_url}}/preregistration/v1/;
            }
         location /pre-registration-ui/ {
            proxy_set_header Host $host;
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
-           proxy_pass {{ingress_base_url}}/pre-registration-ui/;
+           proxy_pass {{mzingress.base_url}}/pre-registration-ui/;
            }
    
         location /v1/masterdata/ {
@@ -109,7 +109,7 @@ http {
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
-           proxy_pass {{ingress_base_url}}/v1/masterdata/;
+           proxy_pass {{mzingress.base_url}}/v1/masterdata/;
            }
    
         location /v1/authmanager/ {
@@ -117,7 +117,7 @@ http {
            proxy_set_header X-Real-IP $remote_addr;
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
-           proxy_pass {{ingress_base_url}}/v1/authmanager/;
+           proxy_pass {{mzingress.base_url}}/v1/authmanager/;
            }
    
         error_page 404 /404.html;

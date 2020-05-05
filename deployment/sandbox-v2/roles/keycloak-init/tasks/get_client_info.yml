@@ -1,0 +1,22 @@
+# Fetch info of a client specified by client_id, not id 
+# Params:
+# Input:
+#   kc_client_id 
+#   keycloak.url
+#   kc_realm_id 
+#   keycloak_admin_token
+# Output:
+#   kc_client_info
+
+- name: 'Get client info for {{kc_client_id}}' 
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: kc_client_info

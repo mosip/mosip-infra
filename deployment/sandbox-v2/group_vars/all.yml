@@ -3,6 +3,9 @@
 # Global variables - accessed by different roles and plays
 #
 
+install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
+charts_root: '{{install_root}}/helm/charts'  # Helm charts root
+
 ansible_python_interpreter: /usr/bin/python2  # Python3 will be best to use with CentOS 8
 
 artifactory_uri: 'http://13.71.87.138:8040'
@@ -20,15 +23,16 @@ mz_kube_config: "{{lookup('env', 'HOME') }}/.kube/mzcluster.config"
 dmz_kube_config: "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
 
 # Ingress is in NodePort configuration. So connect to any node cluster
-ingress_nodeport_http: 30080 
-ingress_nodeport_https: 30443
-ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
+mzingress:
+  nodeport_http: 30080  # TODO: Shoud match with helm
+  nodeport_https: 30443
+  base_url: 'http://{{mz_cluster_any_node}}:30080' # Same as nodeport_http
 
 
-sandbox_domain_name: console.technoforte.co.in
+sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
-mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node
+mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node. TODO: this should match helm
 
 # Registration processor shared variables
 regproc_landing_folder: /mnt/regproc/landing 
@@ -37,8 +41,12 @@ regproc_archival_folder: /mnt/regproc/archival
 regproc_archival_hostname: dmzworker0
 
 # Postgres persistent storage
-postgres_local_storage_path: /mnt/mosip_data/postgres
-postgres_nodeport: 30090  # fixed for connecting from outside the cluster
+postgres:
+  local_storage_path: /mnt/mosip_data/postgres  # TODO: This should match with helm charts
+  server: '{{mz_cluster_any_node}}' # Since postgres runs on node port
+  nodeport: 30090  # fixed for connecting from outside the cluster
+  user: postgres
+  password: postgres
 
 # Config server
 config_server_local_storage_path: /mnt/mosip_data/
@@ -46,3 +54,9 @@ config_server_external_url: '{{ingress_base_url}}/config'
 
 # SFTP: used for picking up packets from DMZ
 sftp_user: 'sftpuser'  # This should be same in config files
+
+# Keycloak
+keycloak:
+  user: admin
+  password: admin
+  url: '{{mzingress.base_url}}/keycloak'

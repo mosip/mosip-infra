@@ -1,0 +1,41 @@
+
+- name: 'Check if realm {{keycloak_realm_id}} exists'
+  uri:
+    url: "{{keycloak.url}}/auth/admin/realms/{{keycloak_realm_id}}"
+    method: GET
+    status_code:
+     - 200
+     - 404
+    headers:
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: keycloak_realm_exists
+
+- name: 'Create realm {{keycloak_realm_id}}' 
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms'
+    method: POST
+    src: '{{keycloak_realm_data_file}}'
+    remote_src: 'no'
+    status_code:
+     - 201
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: "keycloak_realm_exists.status == 404"
+
+- name: 'Update realm {{keycloak_realm_id}} for service keycloak'
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{keycloak_realm_id}}'
+    method: PUT
+    src: "{{keycloak_realm_data_file}}"
+    remote_src: "no"
+    status_code:
+     - 204
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  when: "keycloak_realm_exists.status == 200"
+

@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.name }}
+  namespace: default
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }} 
+    spec:
+      containers:
+      - name: {{ .Values.name }} 
+        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
+        env:
+        - name: POSTGRES_DB
+          value: {{ .Values.defaultDb }}
+        - name: POSTGRES_USER
+          value: {{ .Values.user }}
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.password }} 
+        ports:
+        - containerPort: {{ .Values.containerPort }}
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}
+        volumeMounts:
+        - name: pg-data
+          mountPath: /var/lib/postgresql/data/ # See notes above
+      volumes:
+      - name: pg-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvcName }} 
+

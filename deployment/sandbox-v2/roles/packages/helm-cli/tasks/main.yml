@@ -1,0 +1,17 @@
+---
+- name: "Get Helm installer"
+  unarchive:  
+    src: '{{ helm_download_url }}'
+    dest: '{{ tmp_dir }}'
+    remote_src: yes
+
+- name: "Copy Helm executable"
+  copy:
+    src: '{{ tmp_dir }}/linux-amd64/helm' 
+    dest: /usr/local/bin
+    mode: 0755
+  become: yes
+
+- name: "Update Helm repo"
+  shell: "helm repo update"
+

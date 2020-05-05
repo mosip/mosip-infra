@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }} 
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }} 
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
+        env:
+        - name: env_git_uri 
+          value: {{ .Values.repoUri }}
+        - name: env_version
+          value: {{ .Values.dockerTag }}
+        - name: env_jar_name 
+          value: {{ .Values.jarName }}
+        - name: env_config_folder 
+          value: ""
+        ports:
+        - containerPort: {{ .Values.containerPort }} 
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+        volumeMounts:
+        - name: repo
+          mountPath: {{ .Values.repoMountPath }} 
+      volumes:
+      - name: repo 
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvcName }}
+

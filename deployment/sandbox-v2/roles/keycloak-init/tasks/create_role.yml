@@ -1,0 +1,30 @@
+
+
+- name: 'Get id of client {{kc_client_id}}'
+  include_tasks: get_client_info.yml
+  # Returns kc_client_info
+
+# Url is different for client and realm roles
+- set_fact:
+    keycloak_role_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/roles'
+  when: (kc_client_id | trim)  == ''  # Role inside realm
+
+- set_fact:
+    keycloak_role_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{kc_client_info.json[0].id}}/roles'
+  when: (kc_client_id | trim) != ''  # Role inside client
+
+- name: 'Create role {{kc_role_name}}'
+  uri:
+    url: '{{keycloak_role_url}}'
+    method: POST 
+    body: '{"name": "{{kc_role_name}}"}' 
+    body_format: json
+    remote_src: 'no'
+    status_code:
+     - 201
+     - 409 # Role already exists
+     - 401
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"

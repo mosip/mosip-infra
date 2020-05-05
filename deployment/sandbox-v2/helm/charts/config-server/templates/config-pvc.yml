@@ -1,0 +1,52 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer 
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.pvName }} 
+  labels:
+    name: {{ .Values.pvName }} 
+spec:
+  capacity:
+    storage: {{ .Values.pvSize }} 
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
+  storageClassName: local-storage
+  local:
+    path: {{ .Values.configRepoNodeDir }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.pvHostname }} # The node on which pv_path directory exists
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.pvcName }}
+  labels:
+    app: {{ .Values.pvcName }}
+spec:
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.pvcSize}}
+  selector:
+    matchLabels:
+      name: {{ .Values.pvName }} 
+---

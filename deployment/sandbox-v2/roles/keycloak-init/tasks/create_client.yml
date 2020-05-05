@@ -1,0 +1,20 @@
+---
+- name: 'Create or update client {{kc_client_id}} on Keycloak'
+  local_action:
+    module: keycloak_client
+    auth_client_id: admin-cli
+    auth_keycloak_url: '{{keycloak.url}}/auth'
+    auth_realm: master
+    auth_username: '{{keycloak.user}}'
+    auth_password: '{{keycloak.password}}'
+    client_id: '{{kc_client_id}}'
+    realm: '{{kc_realm_id}}' 
+    secret: '{{kc_client_secret}}'
+    standard_flow_enabled: yes 
+    direct_access_grants_enabled: yes
+    service_accounts_enabled: yes
+    authorization_services_enabled: yes
+    state: present
+
+
+

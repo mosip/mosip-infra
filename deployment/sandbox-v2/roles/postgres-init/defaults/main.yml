@@ -1,0 +1,14 @@
+pg_common_sql_path: '{{commons_repo_location}}/db_scripts' 
+pg_prereg_sql_path: '{{prereg_repo_location}}/db_scripts'
+pg_regproc_sql_path: '{{regproc_repo_location}}/db_scripts'
+pg_ida_sql_path: '{{ida_repo_location}}/db_scripts'
+pg_databases:
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_kernel'}
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_master'}
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_iam'}
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_audit'}
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_idrepo'}
+    - {sql: '{{pg_common_sql_path}}', db_name: 'mosip_idmap'}
+    - {sql: '{{pg_prereg_sql_path}}', db_name: 'mosip_prereg'}
+    - {sql: '{{pg_regproc_sql_path}}', db_name: 'mosip_regprc'}
+    - {sql: '{{pg_ida_sql_path}}', db_name: 'mosip_ida'}

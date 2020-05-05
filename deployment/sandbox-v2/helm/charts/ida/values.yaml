@@ -1,0 +1,39 @@
+namespace: default
+component: ida
+part-of: mosip
+activeProfileEnv: qa
+springConfigLabel: master
+configServerUrl: http://config-server/config
+ingress:
+   namespace: default
+artifactoryUrl: http://13.71.87.138:8040
+services:
+  auth:
+    serviceName: authentication-service
+    dockerImage: mosipid/authentication-service
+    dockerTag: 1.0.6-SNAPSHOT.52
+    containerPort: 8090
+    servicePort: 80
+    ingressPath: /idauthentication/v1/auth
+  internal: 
+    serviceName: authentication-internal-service
+    dockerImage: mosipid/authentication-internal-service
+    dockerTag: 1.0.6-SNAPSHOT.52
+    containerPort: 8093
+    servicePort: 80
+    ingressPath: /idauthentication/v1/internal
+  kyc: 
+    serviceName: authentication-kyc-service
+    dockerImage: mosipid/authentication-kyc-service
+    dockerTag: 1.0.6-SNAPSHOT.52
+    containerPort: 8091
+    servicePort: 80
+    ingressPath: /idauthentication/v1/kyc
+  otp: 
+    serviceName: authentication-otp-service
+    dockerImage: mosipid/authentication-otp-service
+    dockerTag: 1.0.6-SNAPSHOT.52
+    containerPort: 8092
+    servicePort: 80
+    ingressPath: /idauthentication/v1/otp
+      

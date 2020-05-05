@@ -1,0 +1,6 @@
+apiVersion: v2
+name: postgres
+description: A Helm chart for Postgres 
+type: application
+version: 1.0.9
+appVersion: 1.0.9

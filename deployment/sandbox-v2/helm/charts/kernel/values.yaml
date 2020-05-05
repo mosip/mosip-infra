@@ -1,0 +1,26 @@
+
+namespace: default
+component: kernel
+part-of: mosip
+activeProfileEnv: qa
+springConfigLabel: master
+configServerUrl: http://config-server/config
+ingress:
+   namespace: default
+artifactoryUrl: http://13.71.87.138:8040
+services:
+  auth:
+    serviceName: kernel-auth-service 
+    dockerImage: mosipid/kernel-auth-service
+    dockerTag: 1.0.7
+    containerPort: 8091
+    servicePort: 80
+    ingressPath: /v1/authmanager
+  masterdata:
+    serviceName: kernel-masterdata-service 
+    dockerImage: mosipid/kernel-masterdata-service
+    dockerTag: 1.0.7
+    containerPort: 8086
+    servicePort: 80
+    ingressPath: /v1/authmanager
+

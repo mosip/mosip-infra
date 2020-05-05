@@ -1,16 +1,13 @@
 # Tasks here create and populate git repository on a node machine.
 #
-- include_vars:
-    file: ../../config-server/defaults/main.yml
-
 - name: Create git config repo dir 
   file:
     path: '{{config_repo_node_path}}' # Defined in role config-server
     state: directory 
 
-- name: Copy all the properties from console to node 
+- name: Copy properties files to node 
   copy:
-     src: '../../roles/config-server/files/properties/'  
+     src: '../files/properties/'  
      dest: '{{config_repo_node_path}}' 
      force: no
     

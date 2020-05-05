@@ -7,11 +7,14 @@
      dest: '{{tmp_dir}}/helm_hdfs_values.yml'
 
 - name: Check if hdfs already running
-  command: 'helm --kubeconfig {{kube_config}} list {{hdfs_name}}'
+  command: 'helm --kubeconfig {{kube_config}} list -f {{hdfs_name}}'
   register: out
 
+- name: Add helm repo
+  command: 'helm repo add stable https://kubernetes-charts.storage.googleapis.com/'
+
 - name: Deploy hdfs through helm
-  command: 'helm --kubeconfig {{kube_config}} install --replace stable/hadoop --values {{tmp_dir}}/helm_hdfs_values.yml --name {{hdfs_name }}' 
+  command: 'helm --kubeconfig {{kube_config}} install {{hdfs_name }} stable/hadoop --values {{tmp_dir}}/helm_hdfs_values.yml' 
   register: out
   when: hdfs_name not in out.stdout
 

@@ -1,0 +1,13 @@
+# Returns kc_user_info, given a user name
+- name: 'Get id of the user'
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users?username={{kc_username}}'
+    method: GET 
+    remote_src: 'no'
+    status_code:
+     - 200
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+  register: kc_user_info 
