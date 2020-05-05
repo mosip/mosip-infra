@@ -2,13 +2,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Values.ui.appName}}
+  name: {{.Values.services.ui.serviceName}}
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{.Values.ui.appName}}
+      app: {{.Values.services.ui.serviceName}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -18,16 +18,16 @@ spec:
   template:
     metadata:
       labels:
-        app: {{.Values.ui.appName}}
+        app: {{.Values.services.ui.serviceName}}
     spec:
       containers:
-      - name: {{.Values.ui.appName}}
-        image: {{ .Values.ui.dockerImage  }}:{{ .Values.ui.dockerTag }}
+      - name: {{.Values.services.ui.serviceName}}
+        image: {{ .Values.services.ui.dockerImage  }}:{{ .Values.services.ui.dockerTag }}
         ports:
-        - containerPort: {{ .Values.ui.containerPort }} 
+        - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.ui.containerPort }}  # All defaults used
+            port: {{ .Values.services.ui.containerPort }}  # All defaults used
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json
@@ -37,4 +37,4 @@ spec:
       volumes:
         - name: ui-config
           configMap:
-            name: {{ .Values.ui.configName }}
+            name: {{ .Values.services.ui.configName }}

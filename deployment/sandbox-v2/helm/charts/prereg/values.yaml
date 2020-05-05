@@ -71,15 +71,13 @@ services:
     containerPort: 9099
     servicePort: 80
     ingressPath: /preregistration/v1/notification
-
-ui:
-  appName: prereg-ui
-  dockerImage: mosipid/pre-registration-ui
-  dockerTag: 1.0.6
-  containerPort: 80
-  servicePort: 80
-  configName: prereg-ui-config # ConfigMap name
-  apiHost: https://test-sandbox.southindia.cloudapp.azure.com/ # URL for external excess.  ANSIBLE filled. 
-
-  ingressPath: /pre-registration-ui
+  ui:
+    serviceName: prereg-ui
+    dockerImage: mosipid/pre-registration-ui
+    dockerTag: 1.0.6
+    containerPort: 80
+    servicePort: 80
+    configName: prereg-ui-config # ConfigMap name
+    apiHost: https://test-sandbox.southindia.cloudapp.azure.com/ # URL for external excess.  ANSIBLE filled. 
+    ingressPath: /pre-registration-ui
       

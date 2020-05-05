@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.ui.appName }}
+  name: {{ .Values.services.ui.serviceName }}
   namespace: default
 spec:
   ports:
-    - port: {{ .Values.ui.servicePort }} 
+    - port: {{ .Values.services.ui.servicePort }} 
   selector:
-    app: {{ .Values.ui.appName }}
+    app: {{ .Values.services.ui.serviceName }}
