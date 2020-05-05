@@ -4,8 +4,10 @@ dockerImage: jboss/keycloak
 dockerTag: 9.0.0 
 keycloakUser: admin  # Should match mosip.keycloak.admin.user.id in mosip config properites
 keycloakPassword: admin # Should match  mosip.keycloak.admin.secret.key in mosip config properties
-keycloakUrl: https://mzworker0/keycloak # To access Keycloak from outside cluster but within network. Refer ingress file. ANSIBLE  filled.
-keycloakExternalUrl: https://test-sandbox.southindia.cloudapp.azure.com/keycloak/auth # To access keycloak from the Internet. ANSIBLE filled
+keycloakUrl: 'http://mzworker0/keycloak' # To access Keycloak from outside cluster but within network. Refer ingress file. ANSIBLE  filled.
+keycloakDomainName: test-sandbox.southindia.cloudapp.azure.com 
+keycloakExternalUrl: 'https://$keycloakDomainName/keycloak/auth/' # To access keycloak from the Internet. ANSIBLE filled
+keycloakExternalUrl: 'https://test-sandbox.southindia.cloudapp.azure.com/keycloak/auth/' # To access keycloak from the Internet. ANSIBLE filled
 containerPort: 8080
 servicePort: 80
 postgresHost: postgres # Name of postgres host. ANSIBLE filled
