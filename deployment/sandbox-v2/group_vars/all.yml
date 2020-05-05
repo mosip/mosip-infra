@@ -29,7 +29,7 @@ mzingress:
   base_url: 'http://{{mz_cluster_any_node}}:30080' # Same as nodeport_http
 
 
-sandbox_domain_name: console.technoforte.co.in
+sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node. TODO: this should match helm
