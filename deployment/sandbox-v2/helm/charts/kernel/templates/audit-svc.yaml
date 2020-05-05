@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.audit.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.audit.servicePort }}
+    targetPort: {{ .Values.services.audit.containerPort }}
+  selector:
+    app: {{ .Values.services.audit.serviceName }} 
+

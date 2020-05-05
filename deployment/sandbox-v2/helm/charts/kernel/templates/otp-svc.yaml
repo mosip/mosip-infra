@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.otp.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.otp.servicePort }}
+    targetPort: {{ .Values.services.otp.containerPort }}
+  selector:
+    app: {{ .Values.services.otp.serviceName }} 
+

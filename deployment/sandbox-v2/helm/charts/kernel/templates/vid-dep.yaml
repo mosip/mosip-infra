@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.vid.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.vid.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.vid.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.vid.serviceName }} 
+        component: {{ .Values.component }} 
+    spec:
+      containers:
+      - name: {{ .Values.services.vid.serviceName }} 
+        image: {{ .Values.services.vid.dockerImage }}:{{ .Values.services.vid.dockerTag }} 
+        env:
+        - name: spring.profiles.active
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring.cloud.config.label
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring.cloud.config.uri
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        ports:
+        - containerPort: {{ .Values.services.vid.containerPort }}
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.services.vid.containerPort }}

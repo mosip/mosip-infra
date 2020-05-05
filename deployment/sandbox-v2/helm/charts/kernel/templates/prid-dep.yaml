@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.prid.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.prid.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.prid.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.prid.serviceName }} 
+        component: {{ .Values.component }} 
+    spec:
+      containers:
+      - name: {{ .Values.services.prid.serviceName }} 
+        image: {{ .Values.services.prid.dockerImage }}:{{ .Values.services.prid.dockerTag }} 
+        env:
+        # TODO: Correct docker - we have to write variables names explicitly
+        - name: spring.profiles.active
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring.cloud.config.label
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring.cloud.config.uri
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        ports:
+        - containerPort: {{ .Values.services.prid.containerPort }}
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.services.prid.containerPort }}
