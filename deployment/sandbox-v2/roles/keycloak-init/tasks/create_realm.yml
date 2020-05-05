@@ -1,7 +1,7 @@
 
 - name: 'Check if realm {{keycloak_realm_id}} exists'
   uri:
-    url: "{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}"
+    url: "{{keycloak.url}}/auth/admin/realms/{{keycloak_realm_id}}"
     method: GET
     status_code:
      - 200
@@ -13,7 +13,7 @@
 
 - name: 'Create realm {{keycloak_realm_id}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms'
+    url: '{{keycloak.url}}/auth/admin/realms'
     method: POST
     src: '{{keycloak_realm_data_file}}'
     remote_src: 'no'
@@ -27,7 +27,7 @@
 
 - name: 'Update realm {{keycloak_realm_id}} for service keycloak'
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{keycloak_realm_id}}'
+    url: '{{keycloak.url}}/auth/admin/realms/{{keycloak_realm_id}}'
     method: PUT
     src: "{{keycloak_realm_data_file}}"
     remote_src: "no"

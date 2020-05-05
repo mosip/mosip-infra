@@ -11,7 +11,7 @@
 
 # Construct API url
 - set_fact:
-    kc_role_mapping_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}/role-mappings/realm'
+    kc_role_mapping_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}/role-mappings/realm'
 
 # Get whole role json needed for API
 - name: 'Get id for role {{kc_role_name}}'

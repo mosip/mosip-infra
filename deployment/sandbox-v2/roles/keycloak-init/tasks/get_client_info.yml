@@ -2,7 +2,7 @@
 # Params:
 # Input:
 #   kc_client_id 
-#   keycloak_url
+#   keycloak.url
 #   kc_realm_id 
 #   keycloak_admin_token
 # Output:
@@ -10,7 +10,7 @@
 
 - name: 'Get client info for {{kc_client_id}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/clients?clientId={{kc_client_id}}'
     method: GET 
     remote_src: 'no'
     status_code:

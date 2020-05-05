@@ -16,7 +16,7 @@
 
 - name: 'Create user {{kc_user_file}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users'
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users'
     method: POST
     src: '{{kc_user_file}}'
     remote_src: 'no'
@@ -30,7 +30,7 @@
 
 - name: 'Update User {{kc_username}}' 
   uri:
-    url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}'
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/users/{{kc_user_id}}'
     method: PUT
     src: "{{kc_user_file}}"
     remote_src: "no"

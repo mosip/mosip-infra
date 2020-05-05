@@ -6,11 +6,11 @@
 
 # Url is different for client and realm roles
 - set_fact:
-    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/roles'
+    keycloak_role_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/roles'
   when: (kc_client_id | trim)  == ''  # Role inside realm
 
 - set_fact:
-    keycloak_role_url: '{{keycloak_url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{kc_client_info.json[0].id}}/roles'
+    keycloak_role_url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{kc_client_info.json[0].id}}/roles'
   when: (kc_client_id | trim) != ''  # Role inside client
 
 - name: 'Create role {{kc_role_name}}'

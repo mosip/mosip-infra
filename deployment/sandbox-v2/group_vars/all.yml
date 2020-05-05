@@ -23,9 +23,10 @@ mz_kube_config: "{{lookup('env', 'HOME') }}/.kube/mzcluster.config"
 dmz_kube_config: "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
 
 # Ingress is in NodePort configuration. So connect to any node cluster
-ingress_nodeport_http: 30080 
-ingress_nodeport_https: 30443
-ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
+mzingress:
+  nodeport_http: 30080  # TODO: Shoud match with helm
+  nodeport_https: 30443
+  base_url: 'http://{{mz_cluster_any_node}}:30080' # Same as nodeport_http
 
 
 sandbox_domain_name: console.technoforte.co.in
@@ -53,3 +54,9 @@ config_server_external_url: '{{ingress_base_url}}/config'
 
 # SFTP: used for picking up packets from DMZ
 sftp_user: 'sftpuser'  # This should be same in config files
+
+# Keycloak
+keycloak:
+  user: admin
+  password: admin
+  url: '{{mzingress.base_url}}/keycloak'

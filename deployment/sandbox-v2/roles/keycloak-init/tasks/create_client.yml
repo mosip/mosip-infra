@@ -3,10 +3,10 @@
   local_action:
     module: keycloak_client
     auth_client_id: admin-cli
-    auth_keycloak_url: '{{keycloak_url}}/auth'
+    auth_keycloak_url: '{{keycloak.url}}/auth'
     auth_realm: master
-    auth_username: '{{keycloak_user}}'
-    auth_password: '{{keycloak_password}}'
+    auth_username: '{{keycloak.user}}'
+    auth_password: '{{keycloak.password}}'
     client_id: '{{kc_client_id}}'
     realm: '{{kc_realm_id}}' 
     secret: '{{kc_client_secret}}'

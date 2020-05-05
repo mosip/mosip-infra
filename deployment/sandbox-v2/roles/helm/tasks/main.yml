@@ -3,7 +3,7 @@
 #   kube_config
 #   install_name
 #   helm_chart
-- name: Check if already running
+- name: 'Check if {{install_name}} is already running'
   command: 'helm --kubeconfig {{kube_config}} list -q'
   register: out
 

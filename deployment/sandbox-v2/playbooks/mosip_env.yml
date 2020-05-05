@@ -13,11 +13,12 @@
     kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
   roles:
      # Base MOSIP infra
+     - {role: helm, install_name: 'ingress-nginx', helm_chart: '{{charts_root}}/ingress-nginx', tags: [ingress-nginx]}
      - {role: helm, install_name: 'postgres', helm_chart: '{{charts_root}}/postgres', tags: [postgres]}
      - {role: helm, install_name: 'keycloak', helm_chart: '{{charts_root}}/keycloak', tags: [keycloak]}
      - {role: hdfs, tags: [hdfs]} # 
      - {role: clamav, tags: [clamav]} # 
      - {role: activemq, tags: [activemq]} # 
-     - {role: postgres/postgres-init, tags: [postgres-init]} 
-     - {role: keycloak/keycloak-init, tags: [keycloak-init]}  
+     - {role: postgres-init, tags: [postgres-init]} 
+     - {role: keycloak-init, tags: [keycloak-init]}  
 
