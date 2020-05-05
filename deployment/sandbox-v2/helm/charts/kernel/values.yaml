@@ -23,4 +23,102 @@ services:
     containerPort: 8086
     servicePort: 80
     ingressPath: /v1/authmanager
+  applicant:
+    serviceName: kernel-applicanttype-service 
+    dockerImage: mosipid/kernel-applicanttype-service
+    dockerTag: 1.0.6
+    containerPort: 8094
+    servicePort: 80
+    ingressPath: /v1/applicanttype
+  email:
+    serviceName: kernel-emailnotification-service 
+    dockerImage: mosipid/kernel-emailnotification-service
+    dockerTag: 1.0.6
+    containerPort: 8083
+    servicePort: 80
+    ingressPath: ''
+  prid:
+    serviceName: kernel-pridgenerator-service 
+    dockerImage: mosipid/kernel-pridgenerator-service
+    dockerTag: 1.0.6
+    containerPort: 8100
+    servicePort: 80
+    ingressPath: ''
+  sig:
+    serviceName: kernel-signature-service 
+    dockerImage: mosipid/kernel-signature-service
+    dockerTag: 1.0.6
+    containerPort: 8092
+    servicePort: 80
+    ingressPath: /v1/signature
+  sync:
+    serviceName: kernel-syncdata-service 
+    dockerImage: mosipid/kernel-syncdata-service
+    dockerTag: 1.0.6
+    containerPort: 8089
+    servicePort: 80
+    ingressPath: ''
+  uin:
+    serviceName: kernel-uingenerator-service 
+    dockerImage: mosipid/kernel-uingenerator-service
+    dockerTag: 1.0.6
+    containerPort: 8080
+    servicePort: 80
+    ingressPath: ''
+  audit:
+    serviceName: kernel-auditmanager-service 
+    dockerImage: mosipid/kernel-auditmanager-service
+    dockerTag: 1.0.6
+    containerPort: 8081
+    servicePort: 80
+    ingressPath: /v1/auditmanager
+  crypto:
+    serviceName: kernel-cryptomanager-service 
+    dockerImage: mosipid/kernel-cryptomanager-service
+    dockerTag: 1.0.6
+    containerPort: 8087
+    servicePort: 80
+    ingressPath: /v1/cryptomanager
+  key:
+    serviceName: kernel-keymanager-service 
+    dockerImage: mosipid/kernel-keymanager-service
+    dockerTag: 1.0.6
+    containerPort: 8088
+    servicePort: 80
+    ingressPath: /v1/keymanager
+  otp:
+    serviceName: kernel-otpmanager-service 
+    dockerImage: mosipid/kernel-otpmanager-service
+    dockerTag: 1.0.6
+    containerPort: 8085
+    servicePort: 80
+    ingressPath: ''
+  rid:
+    serviceName: kernel-ridgenerator-service 
+    dockerImage: mosipid/kernel-ridgenerator-service
+    dockerTag: 1.0.6
+    containerPort: 8096
+    servicePort: 80
+    ingressPath: '' 
+  sms:
+    serviceName: kernel-smsnotification-service 
+    dockerImage: mosipid/kernel-smsnotification-service
+    dockerTag: 1.0.6
+    containerPort: 8084
+    servicePort: 80
+    ingressPath: ''
+  token:
+    serviceName: kernel-tokenidgenerator-service 
+    dockerImage: mosipid/kernel-tokenidgenerator-service
+    dockerTag: 1.0.6
+    containerPort: 8097
+    servicePort: 80
+    ingressPath: ''
+  vid:
+    serviceName: kernel-vidgenerator-service 
+    dockerImage: mosipid/kernel-vidgenerator-service
+    dockerTag: 1.0.6
+    containerPort: 8099
+    servicePort: 80
+    ingressPath: ''
 
