@@ -4,6 +4,7 @@
 #
 
 install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
+charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 
 ansible_python_interpreter: /usr/bin/python2  # Python3 will be best to use with CentOS 8
 
@@ -30,7 +31,7 @@ ingress_base_url: 'http://{{mz_cluster_any_node}}:{{ingress_nodeport_http}}'
 sandbox_domain_name: console.technoforte.co.in
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
-mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node
+mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node. TODO: this should match helm
 
 # Registration processor shared variables
 regproc_landing_folder: /mnt/regproc/landing 
@@ -39,8 +40,12 @@ regproc_archival_folder: /mnt/regproc/archival
 regproc_archival_hostname: dmzworker0
 
 # Postgres persistent storage
-postgres_local_storage_path: /mnt/mosip_data/postgres
-postgres_nodeport: 30090  # fixed for connecting from outside the cluster
+postgres:
+  local_storage_path: /mnt/mosip_data/postgres  # TODO: This should match with helm charts
+  server: '{{mz_cluster_any_node}}' # Since postgres runs on node port
+  nodeport: 30090  # fixed for connecting from outside the cluster
+  user: postgres
+  password: postgres
 
 # Config server
 config_server_local_storage_path: /mnt/mosip_data/

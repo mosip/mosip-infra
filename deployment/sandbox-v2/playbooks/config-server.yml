@@ -11,9 +11,9 @@
   gather_facts: true
   vars:   
     kube_config: '{{mz_kube_config}}' 
-    helm_chart: '{{install_root}}/helm/charts/config-server'    
+    helm_chart: '{{charts_root}}/config-server'    
     install_name: config-server 
   roles:
-    - {role: helm, tags: [config-server, env]} 
+    - {role: helm, tags: [config-server]} 
 
 
