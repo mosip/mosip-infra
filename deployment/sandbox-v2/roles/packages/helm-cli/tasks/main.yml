@@ -12,6 +12,9 @@
     mode: 0755
   become: yes
 
+- name: Add stable repo
+  command: 'helm repo add stable https://kubernetes-charts.storage.googleapis.com'
+
 - name: "Update Helm repo"
-  shell: "helm repo update"
+  shell: "helm repo update"  # Shell instead of command for getting all the paths
 
