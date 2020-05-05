@@ -1,19 +1,25 @@
 ---
-
-- hosts: dmzcluster
+- hosts: '{{cluster}}'
   gather_facts: no
   become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Are you sure want to delete cluster {{cluster}}? This will ERASE EVERYTHING!. (yes/no) '
+      private: no
   tasks:
     - name: Reset Kubernetes component
       shell: "kubeadm reset --force"
       ignore_errors: True
+      when: sure.lower().strip() == yes
 
     - name: Delete flannel.1 interface
       command: ip link delete flannel.1
       when: network == "flannel" or network == "canal"
       ignore_errors: True
+      when: sure.lower().strip() == yes
 
     - name: Delete cni0 interface
       command: ip link delete cni0
       when: network == "flannel"
       ignore_errors: True
+      when: sure.lower().strip() == yes
