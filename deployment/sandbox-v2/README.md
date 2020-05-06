@@ -12,14 +12,14 @@ The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.
 The following VMs are recommended:
 
 ### Kubernetes node VMs
-1. Kubernetes master:  2 (2 CPU, 8 GB RAM)
+1. Kubernetes master:  m (2 CPU, 8 GB RAM)
 1. Kubernetes workers:  n (4 CPU, 16 GB RAM)
 
-* n = 1 for Pre Reg only
-* n = 4 for Pre Reg + Reg Proc
-* n = 5 for Pre Reg + Reg Proc + IDA
+* m = 1, n = 1 for Pre Reg only
+* m = 2, n = 2 for Pre Reg + Reg Proc
+* m = 2, n = 3 for Pre Reg + Reg Proc + IDA
 
-All the above within the same network.
+All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
 ### Console
 Console machine: 1 (2 CPU, 8 GB RAM) 
@@ -48,7 +48,6 @@ $ sudo yum install -y git
 ```
 * Git clone this repo in user home directory.
 * Check `hosts.ini` file. If you are not running Registration Processor (regproc) remove the DMZ cluster hosts and groups from `hosts.ini` otherwise scripts will try to setup DMZ cluster.
-
 
 ## K8s cluster machines setup
 * Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
