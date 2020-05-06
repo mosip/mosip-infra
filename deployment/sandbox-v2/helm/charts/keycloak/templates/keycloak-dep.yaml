@@ -41,7 +41,7 @@ spec:
         - name: DB_PASSWORD
           value: {{ .Values.postgresPassword }} 
         - name: KEYCLOAK_FRONTEND_URL
-          value: "{{ .Values.keycloakExternalUrl }}" 
+          value: {{ tpl .Values.keycloakExternalUrl . }}  # Template of template! See values.yaml
         ports:
         - containerPort: {{ .Values.containerPort }} 
         readinessProbe:
