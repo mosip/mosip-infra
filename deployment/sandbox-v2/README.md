@@ -30,7 +30,7 @@ Console machine is the machine from where you will run all the scripts.  The mac
 * Change hostname of console machine to `console`. 
 * Create a (non-root) user account on console machine.
 * Make `sudo` password-less for the user.
-* Create ssh keys using `ssh-keygen` and place them in ~/.ssh folder:
+* Create ssh keys using `ssh-keygen` and place them in `~/.ssh` folder:
 ```
 $ ssh-keygen -t rsa
 ```
@@ -60,6 +60,7 @@ $ sudo systemctl disable firewalld
 * Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
 * If you have more nodes in the cluster add them to `hosts.ini`.   
 * Disable `firewalld`:
+```
 $ systemctl stop firewalld 
 $ systemctl disable firewalld 
 ```
