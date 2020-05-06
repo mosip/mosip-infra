@@ -28,6 +28,13 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.services.ui.containerPort }}  # All defaults used
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.services.ui.containerPort }}  # All defaults used
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json

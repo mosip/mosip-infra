@@ -41,5 +41,14 @@ spec:
         ports:
         - containerPort: {{ .Values.services.demographic.containerPort }}
         readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.demographic.containerPort }}
+          httpGet:
+            path: {{ .Values.services.demographic.healthUrl }} 
+            port: {{ .Values.services.demographic.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.demographic.healthUrl }} 
+            port: {{ .Values.services.demographic.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 

@@ -41,5 +41,14 @@ spec:
         ports:
         - containerPort: {{ .Values.services.qrcode.containerPort }}
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: {{ .Values.services.qrcode.healthUrl }}
             port: {{ .Values.services.qrcode.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.qrcode.healthUrl }}
+            port: {{ .Values.services.qrcode.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDely }} 
+          periodSeconds: {{ .Values.probe.periodSeconds }} 
