@@ -4,6 +4,7 @@ part-of: mosip
 activeProfileEnv: qa
 springConfigLabel: master
 configServerUrl: http://config-server/config
+sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
 ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
@@ -78,6 +79,6 @@ services:
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
-    apiHost: https://test-sandbox.southindia.cloudapp.azure.com/ # URL for external excess.  ANSIBLE filled. 
+    apiHost: https://$sandboxDomainName/
     ingressPath: /pre-registration-ui
       

@@ -16,7 +16,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
+      maxUnavailable: 0
       maxSurge: 1 
   template:
     metadata:
@@ -28,11 +28,12 @@ spec:
       - name: {{ .Values.services.uin.serviceName }} 
         image: {{ .Values.services.uin.dockerImage }}:{{ .Values.services.uin.dockerTag }} 
         env:
-        - name: active_profile_env
+        # TODO: Correct docker - we have to write variables names explicitly
+        - name: spring.profiles.active
           value: {{ .Values.activeProfileEnv }} 
-        - name: spring_config_label_env
+        - name: spring.cloud.config.label
           value: {{ .Values.springConfigLabel }} 
-        - name: spring_config_url_env
+        - name: spring.cloud.config.uri
           value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 

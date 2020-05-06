@@ -19,4 +19,5 @@
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: repos, tags: [repos]}
+     - {role: vars-init, tags: [vars-init]}
 

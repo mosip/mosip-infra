@@ -1,3 +1,3 @@
-namespace: ingress-nginx
+namespace: default
 nodePortHttp: 30080
 nodePortHttps: 30443
