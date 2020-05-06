@@ -25,7 +25,7 @@ All the above within the same network. Note that all pods run with replication=1
 Console machine: 1 (2 CPU, 8 GB RAM) 
 
 ## Console setup
-Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.   The console machine must be accessible from public domain name and port 80 on console machine must be accessible externally.
+Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.   The console machine must be accessible from public domain name and port 80 and 443 on console machine must be accessible externally.
 
 * Change hostname of console machine to `console`. 
 * Create a (non-root) user account on console machine.
@@ -35,7 +35,10 @@ Console machine is the machine from where you will run all the scripts.  The mac
 $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
-* Copy the public key of console user to all `authorized_keys` of `root` users of all machines, including console such that password-less ssh is possible to all Kubenetes machines (root user) and console (both root and console user).
+* Copy the public key of console user to all `authorized_keys` of `root` users of all machines, including console such that password-less ssh is possible to all Kubenetes machines (root user) and console (both root and console user). Check if password-less ssh works:
+```
+$ ssh root@<hostname> 
+```
 
 * Install Ansible
 ```
@@ -48,10 +51,18 @@ $ sudo yum install -y git
 ```
 * Git clone this repo in user home directory.
 * Check `hosts.ini` file. If you are not running Registration Processor (regproc) remove the DMZ cluster hosts and groups from `hosts.ini` otherwise scripts will try to setup DMZ cluster.
-
+* Disable `firewalld`:
+```
+$ sudo systemctl stop firewalld 
+$ sudo systemctl disable firewalld 
+```
 ## K8s cluster machines setup
 * Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
 * If you have more nodes in the cluster add them to `hosts.ini`.   
+* Disable `firewalld`:
+$ systemctl stop firewalld 
+$ systemctl disable firewalld 
+```
 
 ## Running Ansible scripts
 * Change `sandbox_domain_name` in `group_vars/all.yml` to domain name of the console machine.
