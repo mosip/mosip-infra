@@ -5,7 +5,6 @@ metadata:
   namespace: {{ .Values.namespace }} 
   labels:
     app: {{ .Values.services.receiver.serviceName }}
-    component: {{ .Values.component }} 
     
 spec:
   replicas: 1
@@ -22,7 +21,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.services.receiver.serviceName }} 
-        component: {{ .Values.component }} 
+        component: service-hazelcast-server
     spec:
       containers:
       - name: {{ .Values.services.receiver.serviceName }} 

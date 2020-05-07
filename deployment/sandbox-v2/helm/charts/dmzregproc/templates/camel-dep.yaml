@@ -5,8 +5,6 @@ metadata:
   namespace: {{ .Values.namespace }} 
   labels:
     app: {{ .Values.services.camel.serviceName }}
-    component: {{ .Values.component }} 
-    
 spec:
   replicas: 1
   selector:
@@ -22,7 +20,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.services.camel.serviceName }} 
-        component: {{ .Values.component }} 
+        component: service-hazelcast-server
     spec:
       containers:
       - name: {{ .Values.services.camel.serviceName }} 
@@ -36,6 +34,8 @@ spec:
           value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
+        - name: zone_env
+          value: dmz
         - name: is_glowroot_env
           value: absent
         ports:
