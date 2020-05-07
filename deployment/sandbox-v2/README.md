@@ -12,8 +12,12 @@ The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.
 The following VMs are recommended:
 
 ### Kubernetes node VMs
-1. Kubernetes master:  m (2 CPU, 8 GB RAM)
-1. Kubernetes workers:  n (4 CPU, 16 GB RAM)
+* Kubernetes master:  
+  * Number of VMs: _m_
+  * Configuration: 2 CPU, 4 GB RAM
+* Kubernetes workers:  
+  * Number of Vms: _n_ 
+  * Configuration: 4 CPU, 16 GB RAM
 
 * m = 1, n = 1 for Pre Reg only
 * m = 2, n = 2 for Pre Reg + Reg Proc
@@ -22,7 +26,7 @@ The following VMs are recommended:
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
 ### Console
-Console machine: 1 (2 CPU, 8 GB RAM) 
+Console machine: 1 (2 CPU, 4 GB RAM) 
 
 ## Console setup
 Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.   The console machine must be accessible from public domain name and port 80 and 443 on console machine must be accessible externally.

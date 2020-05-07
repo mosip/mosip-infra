@@ -41,6 +41,13 @@ spec:
           value: absent
         ports:
         - containerPort: {{ .Values.services.prid.containerPort }}
-        readinessProbe:
+        readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
           tcpSocket:
             port: {{ .Values.services.prid.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.services.prid.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 

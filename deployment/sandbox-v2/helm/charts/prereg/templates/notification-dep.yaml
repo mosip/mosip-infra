@@ -41,5 +41,14 @@ spec:
         ports:
         - containerPort: {{ .Values.services.notification.containerPort }}
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: {{ .Values.services.notification.healthUrl }}
             port: {{ .Values.services.notification.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.notification.healthUrl }}
+            port: {{ .Values.services.notification.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
