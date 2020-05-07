@@ -1,0 +1,19 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.landing.pvcName }}
+  labels:
+    app: {{ .Values.landing.pvcName }}
+spec:
+  storageClassName: {{ .Values.storageClass }}
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.landing.pvcSize}}
+  selector:
+    matchLabels:
+      name: {{ .Values.landing.pvName }} 
+---
