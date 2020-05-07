@@ -3,6 +3,7 @@ name: config-server  # Will be used as service name too
 dockerImage: mosipid/sandbox-config-server
 dockerTag: 1.0.5
 jarName: kernel-config-server # Without .jar. Used locally for Docker
+component: config-server
 repoMountPath: /var/lib/  
 gitRepoName: config_repo
 repoUri: /var/lib/config_repo  # repoMountPath + gitRepoName
@@ -15,4 +16,3 @@ pvSize: 10Mi
 servicePort: 80
 ingressPath: /config
 configRepoNodeDir: /mnt/mosip_data/ # Should match with config-repo path
-
