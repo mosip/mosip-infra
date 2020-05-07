@@ -44,12 +44,12 @@ spec:
           httpGet:
             path: {{ .Values.services.login.healthUrl }} 
             port: {{ .Values.services.login.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           httpGet:
             path: {{ .Values.services.login.healthUrl }} 
             port: {{ .Values.services.login.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
           

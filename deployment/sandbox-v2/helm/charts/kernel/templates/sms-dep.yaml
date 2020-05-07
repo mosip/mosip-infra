@@ -41,5 +41,14 @@ spec:
         ports:
         - containerPort: {{ .Values.services.sms.containerPort }}
         readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.sms.containerPort }}
+          httpGet:
+            path: {{ .Values.services.sms.healthUrl }} 
+            port: {{ .Values.services.sms.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.sms.healthUrl }} 
+            port: {{ .Values.services.sms.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }}

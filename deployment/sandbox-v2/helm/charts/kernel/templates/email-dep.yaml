@@ -41,5 +41,16 @@ spec:
         ports:
         - containerPort: {{ .Values.services.email.containerPort }}
         readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.email.containerPort }}
+          httpGet:
+            path: {{ .Values.services.email.healthUrl }} 
+            port: {{ .Values.services.email.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+          timeoutSeconds: 5  # TODO: Only done for this service as it takes some time for the probe to respond. Do for all.
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.email.healthUrl }} 
+            port: {{ .Values.services.email.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: 5

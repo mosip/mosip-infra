@@ -44,11 +44,11 @@ spec:
           httpGet:
             path: {{ .Values.services.demographic.healthUrl }} 
             port: {{ .Values.services.demographic.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           httpGet:
             path: {{ .Values.services.demographic.healthUrl }} 
             port: {{ .Values.services.demographic.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 

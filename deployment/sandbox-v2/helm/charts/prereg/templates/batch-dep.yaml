@@ -43,10 +43,10 @@ spec:
         readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
           tcpSocket:
             port: {{ .Values.services.batch.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           tcpSocket:
             port: {{ .Values.services.batch.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDely }} 
-          periodSeconds: {{ .Values.probe.periodSeconds }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
