@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.pktserver.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.pktserver.serviceName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.pktserver.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.pktserver.serviceName }} 
+    spec:
+      containers:
+      - name: {{ .Values.services.pktserver.serviceName }} 
+        image: {{ .Values.services.pktserver.dockerImage }}:{{ .Values.services.pktserver.dockerTag }} 
+        ports: 
+        - containerPort: {{ .Values.services.pktserver.ports.containerPort }}
+        #TODO: Put health check
+        volumeMounts:
+        - name: landing-zone
+          mountPath: /home/ftp1/LANDING_ZONE  # Hardcoded in Dockerfile
+      volumes:
+      - name: landing-zone
+        persistentVolumeClaim:
+          claimName: {{ .Values.services.pktserver.pvcName }}
+

@@ -63,4 +63,20 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
+  pktserver:
+    serviceName: regproc-dmz-packet-server
+    dockerImage: mosipdev/registration-processor-dmz-packet-server
+    dockerTag: 1.0.9
+    pvHostName: dmzworker0
+    pvName: pktserver-pv
+    pvSize: 1Gi
+    pvPath: /mnt/regproc/landing  # Same as landing above
+    pvcName: pktserver-pvc
+    pvcSize: 1Gi 
+    ports:
+      containerPort: 8082
+      servicePort: 80
+    ingressPath: '' 
+    healthUrl: ''
       
+
