@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.services.status.serviceName }} 
+  name: {{ .Values.services.pktserver.serviceName }} 
   namespace: {{ .Values.namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.status.ports.servicePort }}
-    targetPort: {{ .Values.services.status.ports.containerPort }}
+  - port: {{ .Values.services.pktserver.ports.servicePort }}
+    targetPort: {{ .Values.services.pktserver.ports.containerPort }}
   selector:
-    app: {{ .Values.services.status.serviceName }} 
+    app: {{ .Values.services.pktserver.serviceName }} 

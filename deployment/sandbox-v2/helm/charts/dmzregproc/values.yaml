@@ -1,5 +1,5 @@
 namespace: default
-component: regproc
+component: mzregproc
 part-of: mosip
 activeProfileEnv: dmz 
 springConfigLabel: master
@@ -41,7 +41,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8081
       servicePort: 80
-    ingressPath: /registrationprocessor/v1/packetreceiver
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
   camel:
     serviceName: regproc-camel-stage
@@ -76,7 +76,7 @@ services:
     ports:
       containerPort: 8082
       servicePort: 80
-    ingressPath: '' 
+    ingressPath: '/registrationprocessor/v1/dmzpacketserver' 
     healthUrl: ''
       
 

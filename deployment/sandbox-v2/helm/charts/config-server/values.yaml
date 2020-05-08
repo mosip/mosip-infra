@@ -9,10 +9,10 @@ gitRepoName: config_repo
 repoUri: /var/lib/config_repo  # repoMountPath + gitRepoName
 containerPort: 51000
 pvName: config-server-local-storage
+pvSize: 10Mi
 pvHostname: mzworker0  
 pvcName: config-repo-pv-claim
 pvcSize: 10Mi # Should not exceed pv size
-pvSize: 10Mi
 servicePort: 80
 ingressPath: /config
 configRepoNodeDir: /mnt/mosip_data/ # Should match with config-repo path
