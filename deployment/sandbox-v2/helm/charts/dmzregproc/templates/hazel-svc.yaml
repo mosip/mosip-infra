@@ -1,0 +1,16 @@
+# This service connects to all pods with following component name
+# i.e. all stages
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: service-hazelcast-server
+spec:
+  selector:
+    component: service-hazelcast-server
+  clusterIP: None
+  ports:
+  - name: hz-port
+    port: 5701
+    protocol: TCP
+
