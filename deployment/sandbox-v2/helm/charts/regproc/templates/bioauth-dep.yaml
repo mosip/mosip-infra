@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.bioauth.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.bioauth.serviceName }}
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.bioauth.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.bioauth.serviceName }} 
+        component: service-hazelcast-server
+    spec:
+      containers:
+      - name: {{ .Values.services.bioauth.serviceName }} 
+        image: {{ .Values.services.bioauth.dockerImage }}:{{ .Values.services.bioauth.dockerTag }} 
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        ports:
+        - name: eventbus-port
+          containerPort: {{ .Values.services.bioauth.ports.eventbusPort }}
+        - name: hazelcast-port
+          containerPort: {{ .Values.services.bioauth.ports.hazelcastPort }}
+        - name: verticle-port
+          containerPort: {{ .Values.services.bioauth.ports.containerPort }}
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.bioauth.healthUrl }} 
+#            port: {{ .Values.services.bioauth.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.bioauth.healthUrl }} 
+            port: {{ .Values.services.bioauth.ports.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 

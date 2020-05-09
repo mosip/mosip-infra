@@ -1,0 +1,6 @@
+apiVersion: v2
+name: regproc
+description: A Helm chart for Registration Processor module that runs on DMZ/Secure zone. 
+type: application
+version: 1.0.9
+appVersion: 1.0.9
