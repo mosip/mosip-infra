@@ -37,7 +37,7 @@ services:
     dockerImage: mosipdev/registration-processor-packet-receiver-stage
     dockerTag: 1.0.9
     ports:
-      eventbusPort: 5723
+      eventbusPort: 5711
       hazelcastPort: 5701
       containerPort: 8081
       servicePort: 80
