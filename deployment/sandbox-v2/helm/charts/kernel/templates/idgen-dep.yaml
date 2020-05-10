@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.vid.serviceName }} 
+  name: {{ .Values.services.idgen.serviceName }} 
   namespace: {{ .Values.namespace }} 
   labels:
-    app: {{ .Values.services.vid.serviceName }}
+    app: {{ .Values.services.idgen.serviceName }}
     component: {{ .Values.component }} 
     
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.services.vid.serviceName }} 
+      app: {{ .Values.services.idgen.serviceName }} 
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -21,32 +21,39 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.services.vid.serviceName }} 
+        app: {{ .Values.services.idgen.serviceName }} 
         component: {{ .Values.component }} 
     spec:
       containers:
-      - name: {{ .Values.services.vid.serviceName }} 
-        image: {{ .Values.services.vid.dockerImage }}:{{ .Values.services.vid.dockerTag }} 
+      - name: {{ .Values.services.idgen.serviceName }} 
+        image: {{ .Values.services.idgen.dockerImage }}:{{ .Values.services.idgen.dockerTag }} 
         env:
-        - name: spring.profiles.active
+        # TODO: Correct docker - we have to write variables names explicitly
+        - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
-        - name: spring.cloud.config.label
+        - name: spring_config_label_env
           value: {{ .Values.springConfigLabel }} 
-        - name: spring.cloud.config.uri
+        - name: spring_config_url_env
           value: {{ .Values.configServerUrl }} 
+#        - name: spring.profiles.active
+#          value: {{ .Values.activeProfileEnv }} 
+#        - name: spring.cloud.config.label
+#          value: {{ .Values.springConfigLabel }} 
+#        - name: spring.cloud.config.uri
+#          value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: absent
         ports:
-        - containerPort: {{ .Values.services.vid.containerPort }}
+        - containerPort: {{ .Values.services.idgen.containerPort }}
         readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
           tcpSocket:
-            port: {{ .Values.services.vid.containerPort }}
+            port: {{ .Values.services.idgen.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           tcpSocket:
-            port: {{ .Values.services.vid.containerPort }}
+            port: {{ .Values.services.idgen.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 

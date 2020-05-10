@@ -53,6 +53,9 @@ postgres:
 config_server_local_storage_path: /mnt/mosip_data/
 config_server_external_url: '{{ingress_base_url}}/config'
 
+# Softhsm storage dir
+softhsm_storage_folder: /mnt/mosip_data/softhsm
+
 # SFTP: used for picking up packets from DMZ
 sftp_user: 'sftpuser'  # This should be same in config files
 

@@ -1,0 +1,12 @@
+# Creates folder on a node for softhsm
+#
+- name: Create softhsm folder
+  file:
+    path: '{{softhsm_storage_folder}}'
+    state: directory 
+
+- name: Copy conf file
+  copy:
+    src: 'softhsm2.conf'
+    dest: '{{softhsm_storage_folder}}' 
+  
