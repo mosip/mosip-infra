@@ -6,6 +6,22 @@
      src: helm_hdfs_values.yml.j2
      dest: '{{tmp_dir}}/helm_hdfs_values.yml'
 
+- name: Get yml from template dn
+  template:
+     src: pv_hdfs_dn.yml.j2
+     dest: '{{tmp_dir}}/pv_hdfs_dn.yml'
+
+- name: Deploy persistent volume for hdfs dn
+  command: 'kubectl  --kubeconfig {{kube_config}} create -f {{tmp_dir}}/pv_hdfs_dn.yml'
+
+- name: Get yml from template nn
+  template:
+     src: pv_hdfs_nn.yml.j2
+     dest: '{{tmp_dir}}/pv_hdfs_nn.yml'
+
+- name: Deploy persistent volume for hdfs nn
+  command: 'kubectl --kubeconfig {{kube_config}} create -f {{tmp_dir}}/pv_hdfs_nn.yml'
+
 - name: Check if hdfs already running
   command: 'helm --kubeconfig {{kube_config}} list -f {{hdfs_name}}'
   register: out

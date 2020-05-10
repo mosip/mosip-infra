@@ -72,13 +72,13 @@ yarn:
 
 persistence:
   nameNode:
-    enabled: false
-    storageClass: "-"
+    enabled: true
+    storageClass: "hdfs-nn-local-storage"
     accessMode: ReadWriteOnce
-    size: 10Gi
+    size: 6Gi
 
   dataNode:
-    enabled: false
-    storageClass: "-"
+    enabled: true
+    storageClass: "hdfs-dn-local-storage"
     accessMode: ReadWriteOnce
-    size: 10Gi
+    size: 6Gi
