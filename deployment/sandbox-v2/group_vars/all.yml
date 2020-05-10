@@ -49,6 +49,10 @@ postgres:
   user: postgres
   password: postgres
 
+# hdfs dn and nn
+hdfs_dn_local_storage_path: /mnt/mosip_data/hdfs/dn
+hdfs_nn_local_storage_path: /mnt/mosip_data/hdfs/nn
+
 # Config server
 config_server_local_storage_path: /mnt/mosip_data/
 config_server_external_url: '{{ingress_base_url}}/config'
