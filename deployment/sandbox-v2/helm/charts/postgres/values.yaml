@@ -10,6 +10,7 @@ localStoragePath: /mnt/mosip_data/postgres  # Assumed that an empty directory is
 localStorageHostname: mzworker0 
 pvcName: postgres-pvc
 pvName: postgres-pv
+pvSize: 1Gi
 dockerImage: postgres
 dockerTag: 12.2
 nodePort: 30090  # We fix a nodeport, as postgres cannot be accessed via Ingress.

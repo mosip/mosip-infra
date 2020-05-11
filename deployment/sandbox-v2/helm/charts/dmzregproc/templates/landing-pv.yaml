@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.landing.pvName }} 
+  labels:
+    name: {{ .Values.landing.pvName }} 
+spec:
+  capacity:
+    storage: {{ .Values.landing.pvSize }} 
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
+  storageClassName: {{ .Values.storageClass }}
+  local:
+    path: {{ .Values.landing.path }}
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - {{ .Values.landing.pvHostName }} # The node on which pv_path directory exists
+---

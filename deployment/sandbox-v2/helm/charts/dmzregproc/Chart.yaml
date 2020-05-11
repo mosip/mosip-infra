@@ -1,0 +1,6 @@
+apiVersion: v2
+name: dmzregproc
+description: A Helm chart for Registration Processor modules in DMZ cluster.
+type: application
+version: 1.0.9
+appVersion: 1.0.9

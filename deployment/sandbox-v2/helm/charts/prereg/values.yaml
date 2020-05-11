@@ -91,6 +91,6 @@ services:
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
-    apiHost: https://$sandboxDomainName/
+    apiHost: https://{{ .Values.sandboxDomainName }}/
     ingressPath: /pre-registration-ui
       

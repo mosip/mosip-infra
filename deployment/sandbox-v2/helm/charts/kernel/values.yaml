@@ -14,130 +14,96 @@ probe:
 services:
   auth:
     serviceName: kernel-auth-service 
-    dockerImage: mosipid/kernel-auth-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/kernel-auth-service
+    dockerTag: 1.0.9
     containerPort: 8091
     servicePort: 80
     ingressPath: /v1/authmanager
     healthUrl: /v1/authmanager/actuator/health
   masterdata:
     serviceName: kernel-masterdata-service 
-    dockerImage: mosipid/kernel-masterdata-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/kernel-masterdata-service
+    dockerTag: 1.0.9
     containerPort: 8086
     servicePort: 80
     ingressPath: /v1/masterdata
     healthUrl: /v1/masterdata/actuator/health
-  applicant:
-    serviceName: kernel-applicanttype-service 
-    dockerImage: mosipid/kernel-applicanttype-service
-    dockerTag: 1.0.6
-    containerPort: 8094
-    servicePort: 80
-    ingressPath: /v1/applicanttype
-    healthUrl: /v1/applicanttype/actuator/health
-  email:
-    serviceName: kernel-emailnotification-service 
-    dockerImage: mosipid/kernel-emailnotification-service
-    dockerTag: 1.0.6
-    containerPort: 8083
+  idgen:
+    serviceName: kernel-idgenerator-service 
+    dockerImage: gsasikumar/kernel-idgenerator-service
+    dockerTag: 1.0.9
+    containerPort: 8080
     servicePort: 80
     ingressPath: ''
-    healthUrl: /v1/emailnotifier/actuator/health
+    healthUrl: /v1/idgenerator/actuator/health
   prid:
     serviceName: kernel-pridgenerator-service 
-    dockerImage: mosipid/kernel-pridgenerator-service
-    dockerTag: 1.0.6
+    dockerImage: gsasikumar/kernel-pridgenerator-service
+    dockerTag: 1.0.9
     containerPort: 8100
     servicePort: 80
     ingressPath: ''
     healthUrl: /v1/pridgenerator/actuator/health
-  sig:
-    serviceName: kernel-signature-service 
-    dockerImage: mosipid/kernel-signature-service
-    dockerTag: 1.0.6
-    containerPort: 8092
-    servicePort: 80
-    ingressPath: /v1/signature
-    healthUrl: /v1/signature/actuator/health
   sync:
     serviceName: kernel-syncdata-service 
-    dockerImage: mosipid/kernel-syncdata-service
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/kernel-syncdata-service
+    dockerTag: 1.0.9
     containerPort: 8089
     servicePort: 80
     ingressPath: ''
     healthUrl: /v1/syncdata/actuator/health
-  uin:
-    serviceName: kernel-uingenerator-service 
-    dockerImage: mosipid/kernel-uingenerator-service
-    dockerTag: 1.0.6
-    containerPort: 8080
-    servicePort: 80
-    ingressPath: ''
-    healthUrl: /v1/uingenerator/actuator/health
   audit:
     serviceName: kernel-auditmanager-service 
-    dockerImage: mosipid/kernel-auditmanager-service
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/kernel-auditmanager-service
+    dockerTag: 1.0.9
     containerPort: 8081
     servicePort: 80
     ingressPath: /v1/auditmanager
     healthUrl: /v1/auditmanager/actuator/health
-  crypto:
-    serviceName: kernel-cryptomanager-service 
-    dockerImage: mosipid/kernel-cryptomanager-service
-    dockerTag: 1.0.6
-    containerPort: 8087
-    servicePort: 80
-    ingressPath: /v1/cryptomanager
-    healthUrl: /v1/cryptomanager/actuator/health
   key:
     serviceName: kernel-keymanager-service 
-    dockerImage: mosipid/kernel-keymanager-service
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/kernel-keymanager-service
+    dockerTag: 1.0.9
     containerPort: 8088
     servicePort: 80
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
+  notifier:
+    serviceName: kernel-notification-service 
+    dockerImage: mosipdev/kernel-notification-service
+    dockerTag: 1.0.9
+    containerPort: 8083
+    servicePort: 80
+    ingressPath: /v1/notifier
+    healthUrl: /v1/notifier/actuator/health
   otp:
     serviceName: kernel-otpmanager-service 
-    dockerImage: mosipid/kernel-otpmanager-service
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/kernel-otpmanager-service
+    dockerTag: 1.0.9
     containerPort: 8085
     servicePort: 80
     ingressPath: ''
     healthUrl: /v1/otpmanager/actuator/health
   rid:
     serviceName: kernel-ridgenerator-service 
-    dockerImage: mosipid/kernel-ridgenerator-service
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/kernel-ridgenerator-service
+    dockerTag: 1.0.9
     containerPort: 8096
     servicePort: 80
     ingressPath: '' 
     healthUrl: /v1/ridgenerator/actuator/health
-  sms:
-    serviceName: kernel-smsnotification-service 
-    dockerImage: mosipid/kernel-smsnotification-service
-    dockerTag: 1.0.6
-    containerPort: 8084
+  softhsm:
+    serviceName: softhsm
+    dockerImage: mosipdev/softhsm
+    dockerTag: v1
+    pvName: softhsm-pv
+    pvSize: 10Mi 
+    localStorageName: softhsm-local-storage  
+    localStorageHostname: mzworker0
+    localStoragePath: /mnt/mosip_data/softhsm
+    pvcName: softhsm-pvc
+    containerPort: 5666
     servicePort: 80
-    ingressPath: ''
-    healthUrl: /v1/smsnotifier/actuator/health
-  token:
-    serviceName: kernel-tokenidgenerator-service 
-    dockerImage: mosipid/kernel-tokenidgenerator-service
-    dockerTag: 1.0.6
-    containerPort: 8097
-    servicePort: 80
-    ingressPath: ''
-    healthUrl: /v1/tokenidgenerator/actuator/health
-  vid:
-    serviceName: kernel-vidgenerator-service 
-    dockerImage: mosipid/kernel-vidgenerator-service
-    dockerTag: 1.0.6
-    containerPort: 8099
-    servicePort: 80
-    ingressPath: ''
-    healthUrl: /v1/vidgenerator/actuator/health
+    ingressPath: '' 
+    healthUrl: ''
 

@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.notifier.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.notifier.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.notifier.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.notifier.serviceName }} 
+        component: {{ .Values.component }} 
+    spec:
+      containers:
+      - name: {{ .Values.services.notifier.serviceName }} 
+        image: {{ .Values.services.notifier.dockerImage }}:{{ .Values.services.notifier.dockerTag }} 
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        ports:
+        - containerPort: {{ .Values.services.notifier.containerPort }}
+#        readinessProbe:  # TODO: Disabled. for some reason not working.
+#          httpGet:
+#            path: {{ .Values.services.notifier.healthUrl }} 
+#            port: {{ .Values.services.notifier.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.notifier.healthUrl }} 
+#            port: {{ .Values.services.notifier.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }}

@@ -1,0 +1,82 @@
+namespace: default
+component: mzregproc
+part-of: mosip
+activeProfileEnv: dmz 
+springConfigLabel: master
+configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
+storageClass: dmz-storage-class  # See sc, pv templates
+
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
+
+ingress:
+   namespace: default
+
+artifactoryUrl: http://13.71.87.138:8040
+
+landing:   # Landing folder where packets land
+  pvName: landing-pv
+  pvSize: 1Gi
+  pvHostName: dmzworker0
+  pvcName: landing-pvc 
+  pvcSize: 1Gi
+  path: /mnt/regproc/landing
+
+archival:   # Packets are archived here in addition to HDFS 
+  pvName: archival-pv
+  pvSize: 10Gi
+  pvHostName: dmzworker0
+  pvcName: archival-pvc 
+  pvcSize: 1Gi
+  path: /mnt/regproc/archival
+
+services:
+  receiver:
+    serviceName: regproc-packet-receiver-stage
+    dockerImage: mosipdev/registration-processor-packet-receiver-stage
+    dockerTag: 1.0.9
+    ports:
+      eventbusPort: 5711
+      hazelcastPort: 5701
+      containerPort: 8081
+      servicePort: 80
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
+  camel:
+    serviceName: regproc-camel-stage
+    dockerImage: mosipdev/registration-processor-common-camel-bridge
+    dockerTag: 1.0.9
+    ports:
+      eventbusPort: 5723
+      hazelcastPort: 5701
+      containerPort: 8022
+      servicePort: 80
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
+  status:
+    serviceName: regproc-registration-status-service
+    dockerImage: mosipdev/registration-processor-registration-status-service
+    dockerTag: 1.0.9
+    ports:
+      containerPort: 8083
+      servicePort: 80
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
+  pktserver:
+    serviceName: regproc-dmz-packet-server
+    dockerImage: mosipdev/registration-processor-dmz-packet-server
+    dockerTag: 1.0.9
+    pvHostName: dmzworker0
+    pvName: pktserver-pv
+    pvSize: 1Gi
+    pvPath: /mnt/regproc/landing  # Same as landing above
+    pvcName: pktserver-pvc
+    pvcSize: 1Gi 
+    ports:
+      containerPort: 8082
+      servicePort: 80
+    ingressPath: '/registrationprocessor/v1/dmzpacketserver' 
+    healthUrl: ''
+      
+

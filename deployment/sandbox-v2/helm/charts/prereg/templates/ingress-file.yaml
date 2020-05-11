@@ -11,9 +11,11 @@ spec:
   - http:
       paths:
       {{- range $index, $service := .Values.services }}
+        {{ if $service.ingressPath }}
       - path: {{ $service.ingressPath }} 
         backend:
           serviceName: {{ $service.serviceName }}
           servicePort: {{ $service.servicePort }} 
+        {{ end }}
       {{- end }}
 
