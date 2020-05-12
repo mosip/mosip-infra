@@ -4,11 +4,11 @@
   roles:
     - {role: softhsm, tags: [softhsm]}
 
-#- hosts: console
-#  gather_facts: true
-#  vars:   
-#    kube_config: '{{mz_kube_config}}' 
-#    helm_chart: '{{charts_root}}/kernel'
-#    install_name: kernel
-#  roles:
-#    - {role: helm, tags: [kernel]} 
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/kernel'
+    install_name: kernel
+  roles:
+    - {role: helm, tags: [kernel]} 

@@ -11,8 +11,8 @@ Add notes:
 * Sequence of order in which stages are brought up does not matter.
 * Services and stages.  Not all stages have service front end.
 
-Stages that are also being used as service:
-1. Packet receiver
+Stages that are also being used as service also:
+1. Packet receiver stage
 1. Manual verification stage
-1. Secure zone notification 
+1. Secure zone notification stage
 

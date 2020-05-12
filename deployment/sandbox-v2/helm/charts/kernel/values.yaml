@@ -97,7 +97,7 @@ services:
     dockerImage: mosipdev/softhsm
     dockerTag: v1
     pvName: softhsm-pv
-    pvSize: 10Mi 
+    pvSize: 20Mi 
     localStorageName: softhsm-local-storage  
     localStorageHostname: mzworker0
     localStoragePath: /mnt/mosip_data/softhsm
