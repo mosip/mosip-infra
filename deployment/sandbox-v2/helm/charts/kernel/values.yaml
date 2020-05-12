@@ -101,6 +101,8 @@ services:
     localStorageName: softhsm-local-storage  
     localStorageHostname: mzworker0
     localStoragePath: /mnt/mosip_data/softhsm
+    confFile: softhsm2.conf
+    mountPath: /softhsm
     pvcName: softhsm-pvc
     containerPort: 5666
     servicePort: 80

@@ -10,3 +10,7 @@
     src: 'softhsm2.conf'
     dest: '{{softhsm_storage_folder}}' 
   
+- name: Create tokens folder
+  file:
+    path: '{{softhsm_storage_folder}}/tokens'
+    state: directory 

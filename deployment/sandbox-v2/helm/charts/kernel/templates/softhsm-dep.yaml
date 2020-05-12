@@ -38,6 +38,9 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: absent
+        - name: SOFTHSM2_CONF
+          value: {{ .Values.services.softhsm.mountPath }}/{{ .Values.services.softhsm.confFile }}
+         
         ports:
         - containerPort: {{ .Values.services.softhsm.containerPort }}
         readinessProbe:  #Since no actuator, we watch tcp port.
@@ -52,7 +55,7 @@ spec:
           periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
         - name: hsm-data
-          mountPath: /softhsm # See notes above
+          mountPath: {{ .Values.services.softhsm.mountPath }} 
       volumes:
       - name: hsm-data
         persistentVolumeClaim:
