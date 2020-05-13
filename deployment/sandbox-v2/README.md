@@ -29,8 +29,12 @@ All the above within the same network. Note that all pods run with replication=1
 Console machine: 1 (2 CPU, 4 GB RAM) 
 
 ## Console setup
-Console machine is the machine from where you will run all the scripts.  The machine needs to be in the same network as all the Kubernetes nodes.  Your Ansible scripts run on the console machine. You may work on this machine as non-root user.   The console machine must be accessible from public domain name and port 80 and 443 on console machine must be accessible externally.
+Console machine is the machine from where you will run all the scripts.  Your Ansible scripts run on the console machine.  You must work on this machine as 'mosipuser' user (not root).   
 
+* Create 'mosipuser' user.
+* Console machine is must be in the same subnet as kuberntes cluster machines.
+* Console machine must be accessible with the puplic domain name.
+* Port 80 and 443 open for external access.
 * Change hostname of console machine to `console`. 
 * Create a (non-root) user account on console machine.
 * Make `sudo` password-less for the user.
