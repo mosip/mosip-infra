@@ -4,7 +4,7 @@
   become: yes
   vars_prompt:
     - name: sure 
-      prompt: 'Are you sure want to delete cluster {{cluster}}? This will ERASE EVERYTHING!. (yes/no) '
+      prompt: 'Are you sure want to delete cluster {{cluster}}? This will ERASE EVERYTHING! (yes/no) '
       private: no
   tasks:
     - name: Reset
