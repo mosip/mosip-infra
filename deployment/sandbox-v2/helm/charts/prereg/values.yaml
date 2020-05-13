@@ -14,72 +14,72 @@ artifactoryUrl: http://13.71.87.138:8040
 services:
   login:
     serviceName: prereg-login-service 
-    dockerImage: mosipid/pre-registration-login-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-login-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9090
     servicePort: 80
     ingressPath: /preregistration/v1/login
     healthUrl: /preregistration/v1/login/actuator/health
   batch:
     serviceName: prereg-batchjob-service 
-    dockerImage: mosipid/pre-registration-batchjob
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-batchjob
+    dockerTag: 1.0.8-SNAPSHOT
     containerPort: 9097
     servicePort: 80
     ingressPath: ""
     #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?  
   document:
     serviceName: prereg-document-service 
-    dockerImage: mosipid/pre-registration-document-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-document-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9093
     servicePort: 80
     ingressPath: /preregistration/v1/documents
     healthUrl: /preregistration/v1/actuator/health # TODO: How come this url does not have 'documents' in it
   transliteration:
     serviceName: prereg-transliteration-service 
-    dockerImage: mosipid/pre-registration-translitration-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-transliteration-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9098
     servicePort: 80
     ingressPath: /preregistration/v1/transliteration
     healthUrl: /preregistration/v1/transliteration/actuator/health
   booking:
     serviceName: prereg-booking-service 
-    dockerImage: mosipid/pre-registration-booking-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-booking-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9095
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
   qrcode:
     serviceName: prereg-qrcode-service 
-    dockerImage: mosipid/pre-registration-generateqrcode-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-generateqrcode-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9091
     servicePort: 80
     ingressPath: /preregistration/v1/qrCode
     healthUrl: /preregistration/v1/qrCode/actuator/health
   datasync:
     serviceName: prereg-datasync-service 
-    dockerImage: mosipid/pre-registration-datasync-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-datasync-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9094
     servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
   demographic:
     serviceName: prereg-demographic-service 
-    dockerImage: mosipid/pre-registration-demographic-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-demographic-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9092
     servicePort: 80
     ingressPath: /preregistration/v1/applications
     healthUrl: /preregistration/v1/actuator/health
   notification:
     serviceName: prereg-notification-service 
-    dockerImage: mosipid/pre-registration-notification-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/pre-registration-notification-service
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 9099
     servicePort: 80
     ingressPath: /preregistration/v1/notification
