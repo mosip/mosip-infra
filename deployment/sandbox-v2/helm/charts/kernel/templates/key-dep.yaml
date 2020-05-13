@@ -39,7 +39,7 @@ spec:
         - name: is_glowroot_env
           value: absent
         - name: PKCS11_PROXY_SOCKET
-          value: tcp://{{ .Values.services.softhsm.serviceName }}:{{ .Values.services.softhsm.servicePort }}
+          value: {{ .Values.services.key.hsmUrl }} 
         ports:
         - containerPort: {{ .Values.services.key.containerPort }}
         readinessProbe:
