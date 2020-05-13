@@ -12,15 +12,26 @@
      dest: '{{tmp_dir}}/pv_hdfs_dn.yml'
 
 - name: Deploy persistent volume for hdfs dn
-  command: 'kubectl  --kubeconfig {{kube_config}} create -f {{tmp_dir}}/pv_hdfs_dn.yml'
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/pv_hdfs_dn.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: yes
+    wait_timeout: '{{docker_wait_time}}'
+
 
 - name: Get yml from template nn
   template:
      src: pv_hdfs_nn.yml.j2
      dest: '{{tmp_dir}}/pv_hdfs_nn.yml'
 
-- name: Deploy persistent volume for hdfs nn
-  command: 'kubectl --kubeconfig {{kube_config}} create -f {{tmp_dir}}/pv_hdfs_nn.yml'
+- name: Deploy persistent volume for hdfs dn
+  k8s:
+    state: present
+    src: '{{tmp_dir}}/pv_hdfs_nn.yml'
+    kubeconfig: '{{kube_config}}'
+    wait: yes
+    wait_timeout: '{{docker_wait_time}}'
 
 - name: Check if hdfs already running
   command: 'helm --kubeconfig {{kube_config}} list -f {{hdfs_name}}'
@@ -41,7 +52,7 @@
   command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_id}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"'
   register: out 
   retries: 10 
-  delay: 10
+  delay: 30
   until: "'Safe mode is OFF' in out.stdout"
 
 # Create users  
