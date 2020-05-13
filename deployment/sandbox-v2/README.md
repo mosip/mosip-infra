@@ -35,18 +35,17 @@ Console machine: 1 (2 CPU, 4 GB RAM)
 Console machine is the machine from where you will run all the scripts.  Your Ansible scripts run on the console machine.  You must work on this machine as 'mosipuser' user (not root).   
 
 * Create 'mosipuser' user.
-* Console machine is must be in the same subnet as kuberntes cluster machines.
-* Console machine must be accessible with the puplic domain name.
-* Port 80 and 443 open for external access.
+* Make `sudo` password-less for this user.
+* Console machine must be in the same subnet as kuberntes cluster machines.
+* Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
+* Port 80 and 443 must be open on the console for external access.
 * Change hostname of console machine to `console`. 
-* Create a (non-root) user account on console machine.
-* Make `sudo` password-less for the user.
 * Create ssh keys using `ssh-keygen` and place them in `~/.ssh` folder:
 ```
 $ ssh-keygen -t rsa
 ```
 No passphrase, all defaults.
-* Copy the public key of console user to all `authorized_keys` of `root` users of all machines, including console such that password-less ssh is possible to all Kubenetes machines (root user) and console (both root and console user). Check if password-less ssh works:
+* Copy the public key of 'mosipuser' to all `authorized_keys` of `root` users of all machines, including console such that password-less ssh is possible to all Kubenetes machines (root user) and console. Check if password-less ssh works:
 ```
 $ ssh root@<hostname> 
 ```
