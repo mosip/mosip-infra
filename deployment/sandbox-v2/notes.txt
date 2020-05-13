@@ -251,7 +251,11 @@ If you start all services together some services don't come up properly.  The co
 TROUBLESHOOTING:
 1. Check if all endpoints in Ingress are connected.
 1. All services are in ready state
-
+1. Certificate can be issued only 5 times, so make a backup if needed.
+1. How to connect to postgres
+1. How to connect to Keycloak
+1. Check if all PV and PVC are available and bound.
 ==============
 config
 registration proces abis threshold (delete)
+====================

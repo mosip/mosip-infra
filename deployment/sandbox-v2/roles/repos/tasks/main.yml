@@ -3,6 +3,7 @@
   git:
     repo: https://github.com/mosip/commons
     dest: '{{commons_repo_location}}'
+    version: '{{commons_repo_tag }}'  
     update: no
     force: no
     
@@ -10,6 +11,7 @@
   git:
     repo: https://github.com/mosip/pre-registration
     dest: '{{prereg_repo_location}}'
+    version: '{{prereg_repo_tag }}'
     update: no
     force: no
 
@@ -17,6 +19,7 @@
   git:
     repo: https://github.com/mosip/registration
     dest: '{{regproc_repo_location}}'
+    version: '{{regproc_repo_tag}}'
     update: no
     force: no
 
@@ -24,5 +27,6 @@
   git:
     repo: https://github.com/mosip/id-authentication
     dest: '{{ida_repo_location}}'
+    version: '{{ida_repo_tag}}'
     update: no
     force: no
