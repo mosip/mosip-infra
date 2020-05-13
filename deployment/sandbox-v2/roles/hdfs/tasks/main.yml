@@ -55,9 +55,6 @@
   delay: 30
   until: "'Safe mode is OFF' in out.stdout"
 
-# Create users  
-# TODO: Persistence of hdfs
-#
 - include_tasks:
     file: create_user.yml  
   vars:
