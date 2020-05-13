@@ -1,17 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.softhsm.serviceName }} 
+  name: {{ .Values.serviceName }} 
   namespace: {{ .Values.namespace }} 
   labels:
-    app: {{ .Values.services.softhsm.serviceName }}
-    component: {{ .Values.component }} 
-    
+    app: {{ .Values.serviceName }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.services.softhsm.serviceName }} 
+      app: {{ .Values.serviceName }} 
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -21,12 +19,11 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.services.softhsm.serviceName }} 
-        component: {{ .Values.component }} 
+        app: {{ .Values.serviceName }} 
     spec:
       containers:
-      - name: {{ .Values.services.softhsm.serviceName }} 
-        image: {{ .Values.services.softhsm.dockerImage }}:{{ .Values.services.softhsm.dockerTag }} 
+      - name: {{ .Values.serviceName }} 
+        image: {{ .Values.docker.image }}:{{ .Values.docker.tag }} 
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -39,24 +36,24 @@ spec:
         - name: is_glowroot_env
           value: absent
         - name: SOFTHSM2_CONF
-          value: {{ .Values.services.softhsm.mountPath }}/{{ .Values.services.softhsm.confFile }}
+          value: {{ .Values.mountPath }}/{{ .Values.confFile }}
          
         ports:
-        - containerPort: {{ .Values.services.softhsm.containerPort }}
+        - containerPort: {{ .Values.ports.containerPort }}
         readinessProbe:  #Since no actuator, we watch tcp port.
           tcpSocket:
-            port: {{ .Values.services.softhsm.containerPort }}
+            port: {{ .Values.ports.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           tcpSocket:
-            port: {{ .Values.services.softhsm.containerPort }}
+            port: {{ .Values.ports.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
-        - name: hsm-data
-          mountPath: {{ .Values.services.softhsm.mountPath }} 
+        - name: softhsm-data
+          mountPath: {{ .Values.mountPath }} 
       volumes:
-      - name: hsm-data
+      - name: softhsm-data
         persistentVolumeClaim:
-          claimName: {{ .Values.services.softhsm.pvcName }} 
+          claimName: {{ .Values.pvc.name }} 

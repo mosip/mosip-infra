@@ -2,6 +2,6 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: {{ .Values.services.softhsm.localStorageName }} 
+  name: {{ .Values.localStorage.name }} 
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer

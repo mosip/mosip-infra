@@ -10,7 +10,9 @@
     src: 'softhsm2.conf'
     dest: '{{softhsm_storage_folder}}' 
   
-- name: Create tokens folder
-  file:
-    path: '{{softhsm_storage_folder}}/tokens'
-    state: directory 
+- name: Copy base tokens
+  copy:
+    src: 'tokens'
+    dest: '{{softhsm_storage_folder}}'
+    force: no
+
