@@ -8,7 +8,7 @@ The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.
 ![](https://github.com/pjoshi751/mosip-infra/blob/master/deployment/sandbox-v2/docs/sanbox_architecture.png)
 
 ## OS
-CentOS 7 on all machines.
+CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
