@@ -3,6 +3,8 @@ This chart contains all the Registration Processor services that run on the MZ (
 * Readiness probe:
 The probe has been disabled for now because the pods looks for hazelcast headless service, which in turn does not connect to the pod because it is still not up!  So this is chicken and egg problem, circular dependency. However, liveness probe has been retained as by that time the pod is up. So if anything fails in bringing up the stage, it will show up when liveliness probe kicks.  Recommended that the state of all stages is checked after the initial time delay set for liveliness probe.
 
+TODO: ABIS middleware probes have been disabled, not working.
+
 * Biometric dedupe has a stage as well as a service.
 
 Add notes:
