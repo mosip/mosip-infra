@@ -7,7 +7,7 @@
   vars:   
     kube_config: '{{dmz_kube_config}}'  # Deploy all these on dmz cluster
   tasks:
-    - {name: 'Create landing folder', file: {name: '{{regproc_landing_folder}}', state: directory}}
+    - {name: 'Create landing folder', file: {name: '{{regproc.landing_folder}}', state: directory}}
 
 # Run DMZ regproc
 - hosts: console

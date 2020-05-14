@@ -23,14 +23,6 @@ landing:   # Landing folder where packets land
   pvcSize: 1Gi
   path: /mnt/regproc/landing
 
-archival:   # Packets are archived here in addition to HDFS 
-  pvName: archival-pv
-  pvSize: 10Gi
-  pvHostName: dmzworker0
-  pvcName: archival-pvc 
-  pvcSize: 1Gi
-  path: /mnt/regproc/archival
-
 services:
   receiver:
     serviceName: regproc-packet-receiver-stage
@@ -69,10 +61,10 @@ services:
     dockerTag: 1.0.9
     pvHostName: dmzworker0
     pvName: pktserver-pv
-    pvSize: 1Gi
+    pvSize: 1Gi  # Same as landing above
     pvPath: /mnt/regproc/landing  # Same as landing above
     pvcName: pktserver-pvc
-    pvcSize: 1Gi 
+    pvcSize: 1Gi  # Same as landing above
     ports:
       containerPort: 8082
       servicePort: 80

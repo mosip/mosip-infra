@@ -1,6 +1,5 @@
 ---
 
-# Deploy Keycloak container 
 - name: Get yml from template 
   template:
      src: k8s_clamav.yml.j2
