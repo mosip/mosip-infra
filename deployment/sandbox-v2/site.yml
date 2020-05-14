@@ -4,10 +4,10 @@
 - {import_playbook: playbooks/cluster.yml, vars: {cluster: mzcluster, master: mzmaster, workers: mzworkers}}
 - {import_playbook: playbooks/cluster.yml, vars: {cluster: dmzcluster, master: dmzmaster, workers: dmzworkers}}
 - import_playbook: playbooks/console.yml  # Basic setup on console machine
+- import_playbook: playbooks/nginx.yml # Setting nginx in advance so that Keycloak etc. can be tested 
 - import_playbook: playbooks/env.yml # MOSIP DB, Keycloak, hdfs etc.
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/prereg.yml
 #- import_playbook: playbooks/regproc.yml
-- import_playbook: playbooks/nginx.yml
 
