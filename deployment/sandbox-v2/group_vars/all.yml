@@ -38,8 +38,6 @@ mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be store
 regproc:
   landing_folder: /mnt/regproc/landing 
   landing_hostname: dmzworker0  # Should be same one used in creating these folders (see regproc.yml) 
-  archival_folder: /mnt/regproc/archival
-  archival_hostname: dmzworker0
 
 # Postgres persistent storage
 postgres:
