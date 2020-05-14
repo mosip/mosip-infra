@@ -44,15 +44,15 @@ spec:
           containerPort: {{ .Values.services.abismid.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abismid.ports.containerPort }}
-#        readinessProbe:
+#        readinessProbe:  # TODO: Disabled as probe is not working.
 #          httpGet:
 #            path: {{ .Values.services.abismid.healthUrl }} 
 #            port: {{ .Values.services.abismid.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.abismid.healthUrl }} 
-            port: {{ .Values.services.abismid.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.abismid.healthUrl }} 
+#            port: {{ .Values.services.abismid.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
