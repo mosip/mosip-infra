@@ -23,8 +23,8 @@ The following VMs are recommended:
   * Configuration: 4 CPU, 16 GB RAM
 
 * m = 1, n = 1 for Pre Reg only
-* m = 2, n = 2 for Pre Reg + Reg Proc
-* m = 2, n = 3 for Pre Reg + Reg Proc + IDA
+* m = 2, n = 3 for Pre Reg + Reg Proc
+* m = 2, n = 4 for Pre Reg + Reg Proc + IDA
 
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
@@ -85,5 +85,18 @@ $ ansible-playbook -i hosts.ini site.yml
 To run individual roles, use tags, e.g
 ```
 $ ansible-playbook -i hosts --tags postgres site.yml
+```
+## Useful tips
+You may add the following short-cuts in `/home/mosipuser/.bashrc`:
+```lias an='ansible-playbook -i hosts.ini'
+alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
+alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
+alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
+alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
+alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+```
+After the adding the above:
+```
+$ source  ~/.bashrc
 ```
 
