@@ -59,12 +59,7 @@ spec:
         volumeMounts:
         - name: landing-zone
           mountPath: {{ .Values.landing.path }}
-        - name: archival-zone
-          mountPath: {{ .Values.archival.path }}
       volumes:
       - name: landing-zone
         persistentVolumeClaim:
           claimName: {{ .Values.landing.pvcName }}
-      - name: archival-zone
-        persistentVolumeClaim:
-          claimName: {{ .Values.archival.pvcName }}
