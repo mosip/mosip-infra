@@ -91,9 +91,9 @@ You may add the following short-cuts in /home/mosipuser/.bashrc:
 ```lias an='ansible-playbook -i hosts.ini'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
-alias sb='cd ~/mosip-infra/deployment/sandbox-v2/'
-alias helm1='helm --kubeconfig /home/mosipuser/.kube/mzcluster.config'
-alias helm2='helm --kubeconfig /home/mosipuser/.kube/dmzcluster.config'
+alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
+alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
+alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
 ```
 After the adding the above:
 ```
