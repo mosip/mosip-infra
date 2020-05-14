@@ -23,8 +23,8 @@ The following VMs are recommended:
   * Configuration: 4 CPU, 16 GB RAM
 
 * m = 1, n = 1 for Pre Reg only
-* m = 2, n = 2 for Pre Reg + Reg Proc
-* m = 2, n = 3 for Pre Reg + Reg Proc + IDA
+* m = 2, n = 3 for Pre Reg + Reg Proc
+* m = 2, n = 4 for Pre Reg + Reg Proc + IDA
 
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
