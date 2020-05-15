@@ -10,15 +10,15 @@ artifactoryUrl: http://13.71.87.138:8040
 services:
   identity:
     serviceName: idrepo-identity-service
-    dockerImage: mosipid/id-repository-identity-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/id-repository-identity-service
+    dockerTag: 1.0.9
     containerPort: 8090
     servicePort: 80
     ingressPath: /idrepository/v1/identity 
   vid: 
     serviceName: idrepo-vid-service
-    dockerImage: mosipid/id-repository-vid-service
-    dockerTag: 1.0.7
+    dockerImage: mosipdev/id-repository-vid-service
+    dockerTag: 1.0.9
     containerPort: 8091
     servicePort: 80
     ingressPath: /idrepository/v1/vid
