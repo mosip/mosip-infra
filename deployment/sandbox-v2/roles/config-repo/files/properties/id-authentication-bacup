@@ -1,20 +1,13 @@
 ##################### Dynamic Properties - this may change for different deployemnts ##############################
-# Database hostname
 mosip.ida.database.hostname=postgres
-# Database port
 mosip.ida.database.port=80
-# Database user
 mosip.ida.database.user=idauser
-# Database password (encrypted)
+# TODO: Use encrypted
 mosip.ida.database.password=Mosip@dev123
 
-# Kernel auth client ID for IDA
 mosip.ida.auth.clientId=mosip-ida-client
-# Kernel auth secret key for IDA
 mosip.ida.auth.secretKey=abc123
-# Kernel auth application ID for IDA
 mosip.ida.auth.appId=ida
-
 
 
 ######################## Spring and Hibernate Configurations ####################
@@ -42,7 +35,6 @@ hibernate.cache.use_structured_entries=false
 hibernate.generate_statistics=false
 spring.datasource.initialization-mode=never
 
-
 application.env.local=false
 
 #TODO Temporary config for actuator. To be removed in production.
@@ -50,9 +42,7 @@ management.endpoint.restart.enabled=true
 
 
 ######################### ID-Authentication Application Configurations ##############
-# Application ID of IDA
 application.id=IDA
-#Application name of IDA
 application.name=ID-Authentication
 
 # Reference ID used for crypto manager in authentication
@@ -63,7 +53,6 @@ internal.reference.id=INTERNAL
 partner.biometric.reference.id=IDA-FIR
 # Reference ID used for crypto manager in internal authentication for biometrics
 internal.biometric.reference.id=INTERNAL
-
 
 # Kernel Symmetric Key decryption bytes count for AAD 
 ida.aad.lastbytes.num=16
@@ -83,22 +72,16 @@ mosip.ida.mapping.json-uri=${spring.cloud.config.uri}/${spring.application.name}
 # IDA Mapping JSON file property source
 ida.mapping.property.source=url:${mosip.ida.mapping.json-uri}
 
+#------- Real BioSDK Integration ------------------------
+ida.fingerprint.provider=ai.tech5.auth.service.T5AuthSDK
+ida.face.provider=ai.tech5.auth.service.T5AuthSDK
+ida.iris.provider=ai.tech5.auth.service.T5AuthSDK
+ida.composite.biometric.provider=ai.tech5.auth.service.T5AuthSDK
 
-
-#-------Real Bio SDK Integration ------------------------
-#ida.fingerprint.provider=ai.tech5.auth.service.T5AuthSDK
-#ida.face.provider=ai.tech5.auth.service.T5AuthSDK
-#ida.iris.provider=ai.tech5.auth.service.T5AuthSDK
-#ida.composite.biometric.provider=ai.tech5.auth.service.T5AuthSDK
-
-#-------Proxy Bio SDK Integration ------------------------
-
+# ------ Proxy BioSDK Integration --------------------
 ida.fingerprint.provider=io.mosip.kernel.bioapi.impl.BioApiImpl
-
 ida.face.provider=io.mosip.kernel.bioapi.impl.BioApiImpl
-
 ida.iris.provider=io.mosip.kernel.bioapi.impl.BioApiImpl
-
 ida.composite.biometric.provider=io.mosip.kernel.bioapi.impl.BioApiImpl
 
 #---------------------------------ID-Authentication Salt Generator---------------------------------------------------#
@@ -110,12 +93,6 @@ mosip.kernel.salt-generator.db.key-alias=javax.persistence.jdbc
 mosip.kernel.salt-generator.schemaName=${javax.persistence.jdbc.schema}
 #----------------------------------------------------------------------------------------------------------#
 
-#--------------------------------TokenId generator---------------------------------------------------#
-mosip.kernel.tokenid.uin.salt=zHuDEAbmbxiUbUShgy6pwUhKh9DE0EZn9kQDKPPKbWscGajMwf
-mosip.kernel.tokenid.partnercode.salt=yS8w5Wb6vhIKdf1msi4LYTJks7mqkbmITk2O63Iq8h0bkRlD0d
-#----------------------------------------------------------------------------------------------------#
-
-
 # *********** REST-services *****************
 # Kernel-Audit
 audit.rest.uri=http://kernel-auditmanager-service/v1/auditmanager/audits
@@ -124,13 +101,11 @@ audit.rest.headers.mediaType=${mosip.ida.request.mediaType}
 #In seconds
 audit.rest.timeout=${mosip.ida.request.timeout.secs}
 
-
 # Kernel OTP Validator
 otp-validate.rest.uri=http://kernel-otpmanager-service/v1/otpmanager/otp/validate
 otp-validate.rest.httpMethod=GET
 otp-validate.rest.headers.mediaType=${mosip.ida.request.mediaType}
 otp-validate.rest.timeout=${mosip.ida.request.timeout.secs}
-
 
 # Kernel OTP Generator
 otp-generate.rest.uri=http://kernel-auth-service/v1/authmanager/authenticate/sendotp
@@ -140,13 +115,13 @@ otp-generate.rest.timeout=${mosip.ida.request.timeout.secs}
 
 
 # Kernel Id Repo Service rest api-GET
-id-repo-service.rest.uri=http://id-repository-identity-service/idrepository/v1/identity/uin/{uin}?type={type}
+id-repo-service.rest.uri=http://idrepo-identity-service/v1/identity/uin/{uin}?type={type}
 id-repo-service.rest.httpMethod=GET
 id-repo-service.rest.headers.mediaType=${mosip.ida.request.mediaType}
 id-repo-service.rest.timeout=${mosip.ida.request.timeout.secs}
 
 # Kernel Id Repo Service Auth rest api-GET
-id-repo-service-auth.rest.uri=http://id-repository-identity-service/idrepository/v1/identity/uin/{uin}
+id-repo-service-auth.rest.uri=http://idrepo-identity-service/idrepository/v1/identity/uin/{uin}
 id-repo-service-auth.rest.httpMethod=GET
 id-repo-service-auth.rest.headers.mediaType=${mosip.ida.request.mediaType}
 id-repo-service-auth.rest.timeout=${mosip.ida.request.timeout.secs}
@@ -158,7 +133,7 @@ mail-notification.rest.headers.mediaType=multipart/form-data
 mail-notification.rest.timeout=${mosip.ida.request.timeout.secs}
 
 # SMS Notification
-sms-notification.rest.uri=http://kernel-smsnotification-service/v1/smsnotifier/sms/send
+sms-notification.rest.uri=${mosip.base.url}/v1/smsnotifier/sms/send
 sms-notification.rest.httpMethod=POST
 sms-notification.rest.headers.mediaType=${mosip.ida.request.mediaType}
 sms-notification.rest.timeout=${mosip.ida.request.timeout.secs}
@@ -200,24 +175,24 @@ userid-rid.rest.headers.mediaType=${mosip.ida.request.mediaType}
 userid-rid.rest.timeout=${mosip.ida.request.timeout.secs}
 
 #RID-UIN-MAPPING#
-rid-uin.rest.uri=http://id-repository-identity-service/idrepository/v1/identity/rid/{rid}?type={type}
+rid-uin.rest.uri=http://idrepo-identity-service/idrepository/v1/identity/rid/{rid}?type={type}
 rid-uin.rest.httpMethod=GET
 rid-uin.rest.headers.mediaType=${mosip.ida.request.mediaType}
 rid-uin.rest.timeout=${mosip.ida.request.timeout.secs}
 
 #RID-UIN-MAPPING WITHOUT TYPE#
-rid-uin-auth.rest.uri=http://id-repository-identity-service/idrepository/v1/identity/rid/{rid}
+rid-uin-auth.rest.uri=http://idrepo-identity-service/idrepository/v1/identity/rid/{rid}
 rid-uin-auth.rest.httpMethod=GET
 rid-uin-auth.rest.headers.mediaType=${mosip.ida.request.mediaType}
 rid-uin-auth.rest.timeout=${mosip.ida.request.timeout.secs}
 #VID-UIN-MAPPING#
-vid-service.vid-uin.rest.uri=http://id-repository-vid-service/idrepository/v1/vid/{vid}
+vid-service.vid-uin.rest.uri=http://idrepo-vid-service/idrepository/v1/vid/{vid}
 vid-service.vid-uin.rest.httpMethod=GET
 vid-service.vid-uin.rest.headers.mediaType=${mosip.ida.request.mediaType}
 vid-service.vid-uin.rest.timeout=${mosip.ida.request.timeout.secs}
 
 #IDREPO-VID-UPDATESTATUS#
-id-repo-service-vidupdate-status.rest.uri=http://id-repository-vid-service/idrepository/v1/vid/{vid}
+id-repo-service-vidupdate-status.rest.uri=http://idrepo-vid-service/idrepository/v1/vid/{vid}
 id-repo-service-vidupdate-status.rest.httpMethod=PATCH
 id-repo-service-vidupdate-status.rest.headers.mediaType=${mosip.ida.request.mediaType}
 id-repo-service-vidupdate-status.rest.timeout=${mosip.ida.request.timeout.secs} 
@@ -234,9 +209,15 @@ id-masterdata-title-service.rest.httpMethod=GET
 id-masterdata-title-service.rest.headers.mediaType=${mosip.ida.request.mediaType}
 id-masterdata-title-service.rest.timeout=${mosip.ida.request.timeout.secs}
 
+# TokeId Generator rest api-GET
+token-id-generator.rest.uri=http://kernel-tokenidgenerator-service/v1/tokenidgenerator/{uin}/{partnercode}
+token-id-generator.rest.httpMethod=GET
+token-id-generator.rest.headers.mediaType=${mosip.ida.request.mediaType}
+token-id-generator.rest.timeout=${mosip.ida.request.timeout.secs}
+
 #Auth token
 auth-token-generator.rest.uri=http://kernel-auth-service/v1/authmanager/authenticate/clientidsecretkey
-auth-token-validator.rest.uri=${mosip.base.url}/v1/authmanager/authorize/validateToken
+auth-token-validator.rest.uri=http://kernel-auth-service/v1/authmanager/authorize/validateToken
 auth-token-generator.rest.clientId=${mosip.ida.auth.clientId}
 auth-token-generator.rest.secretKey=${mosip.ida.auth.secretKey}
 auth-token-generator.rest.appId=${mosip.ida.auth.appId}
@@ -247,11 +228,7 @@ digital-signature-sign-service.rest.httpMethod=POST
 digital-signature-sign-service.rest.headers.mediaType=${mosip.ida.request.mediaType}
 digital-signature-sign-service.rest.timeout=${mosip.ida.request.timeout.secs}
 
-# PMP Partner Service rest api - get
-#id-pmp-service.rest.uri=${mosip.base.url}/partnermanagement/v1/pmpartners/pmpartners/validatePartnerMisp/partnerId/{partnerId}/partnerApiKey/{partner_api_key}/mispLicenseKey/{misp_license_key}
-#id-pmp-service.rest.httpMethod=GET
-#id-pmp-service.rest.headers.mediaType=${mosip.ida.request.mediaType}
-#id-pmp-service.rest.timeout=${mosip.ida.request.timeout.secs}
+
 
 ########################## Functional configurations ################################
 # Default Match Threshold
@@ -433,7 +410,41 @@ request.idtypes.allowed=VID,UIN
 request.idtypes.allowed.internalauth=UIN,USERID,VID
 
 
-# Static IDA-Specific Master Data Content - for fra and ara languages
-master.data.genders=ewogICJpZCI6IG51bGwsCiAgInZlcnNpb24iOiBudWxsLAogICJyZXNwb25zZXRpbWUiOiAiMjAyMC0wNC0wM1QxMTowNjo1My4wMDlaIiwKICAibWV0YWRhdGEiOiBudWxsLAogICJyZXNwb25zZSI6IHsKICAgICJnZW5kZXJUeXBlIjogWwogICAgICB7CiAgICAgICAgImNvZGUiOiAiTUxFIiwKICAgICAgICAiZ2VuZGVyTmFtZSI6ICJNYWxlIiwKICAgICAgICAibGFuZ0NvZGUiOiAiZW5nIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJGTEUiLAogICAgICAgICJnZW5kZXJOYW1lIjogIkZlbWFsZSIsCiAgICAgICAgImxhbmdDb2RlIjogImVuZyIsCiAgICAgICAgImlzQWN0aXZlIjogdHJ1ZQogICAgICB9LAogICAgICB7CiAgICAgICAgImNvZGUiOiAiTUxFIiwKICAgICAgICAiZ2VuZGVyTmFtZSI6ICLYp9mE2LDZg9ixIiwKICAgICAgICAibGFuZ0NvZGUiOiAiYXJhIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNTEUiLAogICAgICAgICJnZW5kZXJOYW1lIjogIk3DomxlIiwKICAgICAgICAibGFuZ0NvZGUiOiAiZnJhIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJGTEUiLAogICAgICAgICJnZW5kZXJOYW1lIjogIkZlbWVsbGUiLAogICAgICAgICJsYW5nQ29kZSI6ICJmcmEiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIkZMRSIsCiAgICAgICAgImdlbmRlck5hbWUiOiAi2KPZhtir2YkiLAogICAgICAgICJsYW5nQ29kZSI6ICJhcmEiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUKICAgICAgfQogICAgXQogIH0sCiAgImVycm9ycyI6IG51bGwKfQ
-maste.data.titles=ewogICJpZCI6IG51bGwsCiAgInZlcnNpb24iOiBudWxsLAogICJyZXNwb25zZXRpbWUiOiAiMjAyMC0wNC0wM1QxMToxMTowNy4zODhaIiwKICAibWV0YWRhdGEiOiBudWxsLAogICJyZXNwb25zZSI6IHsKICAgICJ0aXRsZUxpc3QiOiBbCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNSVIiLAogICAgICAgICJ0aXRsZU5hbWUiOiAiTXIiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIk1hbGUgVGl0bGUiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUsCiAgICAgICAgImxhbmdDb2RlIjogImVuZyIKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIk1SUyIsCiAgICAgICAgInRpdGxlTmFtZSI6ICJNcnMiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIkZlbWFsZSBUaXRsZSIsCiAgICAgICAgImlzQWN0aXZlIjogdHJ1ZSwKICAgICAgICAibGFuZ0NvZGUiOiAiZW5nIgogICAgICB9LAogICAgICB7CiAgICAgICAgImNvZGUiOiAiTUlTIiwKICAgICAgICAidGl0bGVOYW1lIjogIk1pc3MiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIlVubWFycmllZCBGZW1hbGUgVGl0bGUiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUsCiAgICAgICAgImxhbmdDb2RlIjogImVuZyIKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIk1JUiIsCiAgICAgICAgInRpdGxlTmFtZSI6ICLYo9iz2KrYp9iwIiwKICAgICAgICAidGl0bGVEZXNjcmlwdGlvbiI6ICLYp9mE2LnZhtmI2KfZhiDYp9mE2LDZg9mI2LEiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUsCiAgICAgICAgImxhbmdDb2RlIjogImFyYSIKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIk1SUyIsCiAgICAgICAgInRpdGxlTmFtZSI6ICLYs9iqIiwKICAgICAgICAidGl0bGVEZXNjcmlwdGlvbiI6ICLYudmG2YjYp9mGINij2YbYq9mJIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlLAogICAgICAgICJsYW5nQ29kZSI6ICJhcmEiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNSVMiLAogICAgICAgICJ0aXRsZU5hbWUiOiAi2KLZhtiz2KkiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogItin2YTYudmG2YjYp9mGINin2YTYpdmG2KfYqyDYutmK2LEg2KfZhNmF2KrYstmI2KzYp9iqIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlLAogICAgICAgICJsYW5nQ29kZSI6ICJhcmEiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNSVIiLAogICAgICAgICJ0aXRsZU5hbWUiOiAiTW9uc2lldXIiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIlRpdHJlIG1hc2N1bGluIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlLAogICAgICAgICJsYW5nQ29kZSI6ICJmcmEiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNUlMiLAogICAgICAgICJ0aXRsZU5hbWUiOiAiTWFkYW1lIiwKICAgICAgICAidGl0bGVEZXNjcmlwdGlvbiI6ICJUaXRyZSBmw6ltaW5pbiIsCiAgICAgICAgImlzQWN0aXZlIjogdHJ1ZSwKICAgICAgICAibGFuZ0NvZGUiOiAiZnJhIgogICAgICB9LAogICAgICB7CiAgICAgICAgImNvZGUiOiAiTUlTIiwKICAgICAgICAidGl0bGVOYW1lIjogIk1hZGVtb2lzZWxsZSIsCiAgICAgICAgInRpdGxlRGVzY3JpcHRpb24iOiAiVGl0cmUgZGUgZmVtbWUgY8OpbGliYXRhaXJlIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlLAogICAgICAgICJsYW5nQ29kZSI6ICJmcmEiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAiY29kZSI6ICJNQVIiLAogICAgICAgICJ0aXRsZU5hbWUiOiAiTXN0ZXIiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIk1hbGUgQ2hpbGQgVGl0bGUiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUsCiAgICAgICAgImxhbmdDb2RlIjogImVuZyIKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIlRFU1QiLAogICAgICAgICJ0aXRsZU5hbWUiOiAiTWFzdGVyIFRFU1QiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIk1hbGUgVEVTVCBUaXRsZSBVcGRhdGUiLAogICAgICAgICJpc0FjdGl2ZSI6IHRydWUsCiAgICAgICAgImxhbmdDb2RlIjogImVuZyIKICAgICAgfSwKICAgICAgewogICAgICAgICJjb2RlIjogIlRFU1QgT25lIiwKICAgICAgICAidGl0bGVOYW1lIjogIk1hc3RlciBURVNUIE9uZSBVcGRhdGUiLAogICAgICAgICJ0aXRsZURlc2NyaXB0aW9uIjogIk1hbGUgVEVTVCBPbmUgVGl0bGUgVXBkYXRlIiwKICAgICAgICAiaXNBY3RpdmUiOiB0cnVlLAogICAgICAgICJsYW5nQ29kZSI6ICJlbmciCiAgICAgIH0KICAgIF0KICB9LAogICJlcnJvcnMiOiBudWxsCn0
-master.data.ida-templates=ewoJImlkIjogbnVsbCwKCSJ2ZXJzaW9uIjogbnVsbCwKCSJyZXNwb25zZXRpbWUiOiAiMjAyMC0wNC0wM1QxMToxMzowNy45NDhaIiwKCSJtZXRhZGF0YSI6IG51bGwsCgkicmVzcG9uc2UiOiB7CgkJInRlbXBsYXRlcyI6IFt7CgkJCQkiaWQiOiAiMTEwMSIsCgkJCQkibmFtZSI6ICJUZW1wbGF0ZSBmb3IgYXV0aG9yaXphdGlvbiBjb250ZW50IiwKCQkJCSJkZXNjcmlwdGlvbiI6ICJUZW1wbGF0ZSBmb3IgYXV0aG9yaXphdGlvbiBjb250ZW50IiwKCQkJCSJmaWxlRm9ybWF0Q29kZSI6ICJ0eHQiLAoJCQkJIm1vZGVsIjogbnVsbCwKCQkJCSJmaWxlVGV4dCI6ICJEZWFyICRuYW1lXG5Zb3VyIEF1dGhlbnRpY2F0aW9uIG9mIFVJTiAkdWluIHVzaW5nICRhdXRoVHlwZSBvbiAkZGF0ZSBhdCAkdGltZSBIcnMgJHN0YXR1cyBhdCBhIGRldmljZSBkZXBsb3llZCBieSBNT1NJUCBTZXJ2aWNlcyIsCgkJCQkibW9kdWxlSWQiOiAiMTAwMDQiLAoJCQkJIm1vZHVsZU5hbWUiOiAiSUQgQXV0aGVudGljYXRpb24iLAoJCQkJInRlbXBsYXRlVHlwZUNvZGUiOiAiYXV0aC1lbWFpbC1jb250ZW50IiwKCQkJCSJsYW5nQ29kZSI6ICJlbmciLAoJCQkJImlzQWN0aXZlIjogdHJ1ZQoJCQl9LAoJCQl7CgkJCQkiaWQiOiAiMTEwMSIsCgkJCQkibmFtZSI6ICLZgtin2YTYqCDZhNmF2K3YqtmI2Ykg2KfZhNiq2K7ZiNmK2YQiLAoJCQkJImRlc2NyaXB0aW9uIjogItmC2KfZhNioINmE2YXYrdiq2YjZiSDYp9mE2KrYrtmI2YrZhCIsCgkJCQkiZmlsZUZvcm1hdENvZGUiOiAidHh0IiwKCQkJCSJtb2RlbCI6IG51bGwsCgkJCQkiZmlsZVRleHQiOiAi2LnYstmK2LLZiiAkbmFtZSDYjFxu2YXYtdin2K_ZgtipIFVJTiAkdWluINio2KfYs9iq2K7Yr9in2YUgJGF1dGhUeXBlINi52YTZiSAkZGF0ZSDZgdmKICR0aW1lIEhycyAkc3RhdHVzINi52YTZiSDYrNmH2KfYsiDYqtmFINmG2LTYsdmHINio2YjYp9iz2LfYqSBcItiu2K_Zhdin2KogTU9TSVBcIi4iLAoJCQkJIm1vZHVsZUlkIjogIjEwMDA0IiwKCQkJCSJtb2R1bGVOYW1lIjogItmF2LXYp9iv2YLYqSDYp9mE2YfZiNmK2KkiLAoJCQkJInRlbXBsYXRlVHlwZUNvZGUiOiAiYXV0aC1lbWFpbC1jb250ZW50IiwKCQkJCSJsYW5nQ29kZSI6ICJhcmEiLAoJCQkJImlzQWN0aXZlIjogdHJ1ZQoJCQl9LAoJCQl7CgkJCQkiaWQiOiAiMTEwMSIsCgkJCQkibmFtZSI6ICJNb2TDqGxlIGRlIGNvbnRlbnUgZGF1dG9yaXNhdGlvbiIsCgkJCQkiZGVzY3JpcHRpb24iOiAiTW9kw6hsZSBkZSBjb250ZW51IGRhdXRvcmlzYXRpb24iLAoJCQkJImZpbGVGb3JtYXRDb2RlIjogInR4dCIsCgkJCQkibW9kZWwiOiBudWxsLAoJCQkJImZpbGVUZXh0IjogIkNoZXIgJG5hbWUsXG5Wb3RyZSBhdXRoZW50aWZpY2F0aW9uIFVJTiAkdWluIHV0aWxpc2FudCAkYXV0aFR5cGUgbGUgJGRhdGUgw6AgJHRpbWUgSHJzICRzdGF0dXMgc3VyIHVuIHDDqXJpcGjDqXJpcXVlIGTDqXBsb3nDqSBwYXIgXCJNT1NJUCBTZXJ2aWNlc1wiIiwKCQkJCSJtb2R1bGVJZCI6ICIxMDAwNCIsCgkJCQkibW9kdWxlTmFtZSI6ICJBdXRoZW50aWZpY2F0aW9uIElEIiwKCQkJCSJ0ZW1wbGF0ZVR5cGVDb2RlIjogImF1dGgtZW1haWwtY29udGVudCIsCgkJCQkibGFuZ0NvZGUiOiAiZnJhIiwKCQkJCSJpc0FjdGl2ZSI6IHRydWUKCQkJfSwgewoJCQkJImlkIjogIjExMDIiLAoJCQkJIm5hbWUiOiAiVGVtcGxhdGUgZm9yIGF1dGhvcml6YXRpb24gc3ViamVjdCIsCgkJCQkiZGVzY3JpcHRpb24iOiAiVGVtcGxhdGUgZm9yIGF1dGhvcml6YXRpb24gc3ViamVjdCIsCgkJCQkiZmlsZUZvcm1hdENvZGUiOiAidHh0IiwKCQkJCSJtb2RlbCI6IG51bGwsCgkJCQkiZmlsZVRleHQiOiAiVUlOICR1aW4gQXV0aGVudGljYXRpb24gJHN0YXR1cyIsCgkJCQkibW9kdWxlSWQiOiAiMTAwMDQiLAoJCQkJIm1vZHVsZU5hbWUiOiAiSUQgQXV0aGVudGljYXRpb24iLAoJCQkJInRlbXBsYXRlVHlwZUNvZGUiOiAiYXV0aC1lbWFpbC1zdWJqZWN0IiwKCQkJCSJsYW5nQ29kZSI6ICJlbmciLAoJCQkJImlzQWN0aXZlIjogdHJ1ZQoJCQl9LAoJCQl7CgkJCQkiaWQiOiAiMTEwMiIsCgkJCQkibmFtZSI6ICLZgtin2YTYqCDZhNmF2YjYttmI2Lkg2KfZhNiq2K7ZiNmK2YQiLAoJCQkJImRlc2NyaXB0aW9uIjogItmC2KfZhNioINmE2YXZiNi22YjYuSDYp9mE2KrYrtmI2YrZhCIsCgkJCQkiZmlsZUZvcm1hdENvZGUiOiAidHh0IiwKCQkJCSJtb2RlbCI6IG51bGwsCgkJCQkiZmlsZVRleHQiOiAiVUlOICR1aW46INmF2LXYp9iv2YLYqSAkc3RhdHVzIiwKCQkJCSJtb2R1bGVJZCI6ICIxMDAwNCIsCgkJCQkibW9kdWxlTmFtZSI6ICLZhdi12KfYr9mC2Kkg2KfZhNmH2YjZitipIiwKCQkJCSJ0ZW1wbGF0ZVR5cGVDb2RlIjogImF1dGgtZW1haWwtc3ViamVjdCIsCgkJCQkibGFuZ0NvZGUiOiAiYXJhIiwKCQkJCSJpc0FjdGl2ZSI6IHRydWUKCQkJfSwKCQkJewoJCQkJImlkIjogIjExMDIiLAoJCQkJIm5hbWUiOiAiTW9kw6hsZSBwb3VyIHN1amV0IGRhdXRvcmlzYXRpb24iLAoJCQkJImRlc2NyaXB0aW9uIjogIk1vZMOobGUgcG91ciBzdWpldCBkYXV0b3Jpc2F0aW9uIiwKCQkJCSJmaWxlRm9ybWF0Q29kZSI6ICJ0eHQiLAoJCQkJIm1vZGVsIjogbnVsbCwKCQkJCSJmaWxlVGV4dCI6ICJVSU4gJHVpbjogJHN0YXR1cyBkYXV0aGVudGlmaWNhdGlvbiIsCgkJCQkibW9kdWxlSWQiOiAiMTAwMDQiLAoJCQkJIm1vZHVsZU5hbWUiOiAiQXV0aGVudGlmaWNhdGlvbiBJRCIsCgkJCQkidGVtcGxhdGVUeXBlQ29kZSI6ICJhdXRoLWVtYWlsLXN1YmplY3QiLAoJCQkJImxhbmdDb2RlIjogImZyYSIsCgkJCQkiaXNBY3RpdmUiOiB0cnVlCgkJCX0sIHsKCQkJCSJpZCI6ICIxMTAzIiwKCQkJCSJuYW1lIjogIlRlbXBsYXRlIGZvciBhdXRob3JpemF0aW9uIFNNUyIsCgkJCQkiZGVzY3JpcHRpb24iOiAiVGVtcGxhdGUgZm9yIGF1dGhvcml6YXRpb24gU01TIiwKCQkJCSJmaWxlRm9ybWF0Q29kZSI6ICJ0eHQiLAoJCQkJIm1vZGVsIjogbnVsbCwKCQkJCSJmaWxlVGV4dCI6ICJZb3VyIEF1dGhlbnRpY2F0aW9uIG9mIFVJTiAkdWluIHVzaW5nICRhdXRoVHlwZSBvbiAkZGF0ZSBhdCAkdGltZSBIcnMgJHN0YXR1cyBhdCBhIGRldmljZSBkZXBsb3llZCBieSBNT1NJUCBTZXJ2aWNlcy4iLAoJCQkJIm1vZHVsZUlkIjogIjEwMDA0IiwKCQkJCSJtb2R1bGVOYW1lIjogIklEIEF1dGhlbnRpY2F0aW9uIiwKCQkJCSJ0ZW1wbGF0ZVR5cGVDb2RlIjogImF1dGgtc21zIiwKCQkJCSJsYW5nQ29kZSI6ICJlbmciLAoJCQkJImlzQWN0aXZlIjogdHJ1ZQoJCQl9LAoJCQl7CgkJCQkiaWQiOiAiMTEwMyIsCgkJCQkibmFtZSI6ICLZgtin2YTYqCDZhNix2LPYp9mE2Kkg2KfZhNiq2YHZiNmK2LYiLAoJCQkJImRlc2NyaXB0aW9uIjogItmC2KfZhNioINmE2LHYs9in2YTYqSDYp9mE2KrZgdmI2YrYtiIsCgkJCQkiZmlsZUZvcm1hdENvZGUiOiAidHh0IiwKCQkJCSJtb2RlbCI6IG51bGwsCgkJCQkiZmlsZVRleHQiOiAi2YXYtdin2K_Zgtiq2YMg2LnZhNmJIFVJTiAkdWluINio2KfYs9iq2K7Yr9in2YUgJGF1dGhUeXBlINmB2YogJGRhdGUg2YHZiiAkdGltZSBIcnMgJHN0YXR1cyDYudmE2Ykg2KzZh9in2LIg2KrZhSDZhti02LHZhyDYqNmI2KfYs9i32KkgXCLYrtiv2YXYp9iqIE1PU0lQXCIuIiwKCQkJCSJtb2R1bGVJZCI6ICIxMDAwNCIsCgkJCQkibW9kdWxlTmFtZSI6ICLZhdi12KfYr9mC2Kkg2KfZhNmH2YjZitipIiwKCQkJCSJ0ZW1wbGF0ZVR5cGVDb2RlIjogImF1dGgtc21zIiwKCQkJCSJsYW5nQ29kZSI6ICJhcmEiLAoJCQkJImlzQWN0aXZlIjogdHJ1ZQoJCQl9LAoJCQl7CgkJCQkiaWQiOiAiMTEwMyIsCgkJCQkibmFtZSI6ICJNb2TDqGxlIGRlIFNNUyBkYXV0b3Jpc2F0aW9uIiwKCQkJCSJkZXNjcmlwdGlvbiI6ICJNb2TDqGxlIGRlIFNNUyBkYXV0b3Jpc2F0aW9uIiwKCQkJCSJmaWxlRm9ybWF0Q29kZSI6ICJ0eHQiLAoJCQkJIm1vZGVsIjogbnVsbCwKCQkJCSJmaWxlVGV4dCI6ICJWb3RyZSBhdXRoZW50aWZpY2F0aW9uIFVJTiAkdWluIHV0aWxpc2FudCAkYXV0aFR5cGUgbGUgJGRhdGUgw6AgJHRpbWUgSHJzICRzdGF0dXMgc3VyIHVuIHDDqXJpcGjDqXJpcXVlIGTDqXBsb3nDqSBwYXIgXCJNT1NJUCBTZXJ2aWNlc1wiLiIsCgkJCQkibW9kdWxlSWQiOiAiMTAwMDQiLAoJCQkJIm1vZHVsZU5hbWUiOiAiQXV0aGVudGlmaWNhdGlvbiBJRCIsCgkJCQkidGVtcGxhdGVUeXBlQ29kZSI6ICJhdXRoLXNtcyIsCgkJCQkibGFuZ0NvZGUiOiAiZnJhIiwKCQkJCSJpc0FjdGl2ZSI6IHRydWUKCQkJfQoJCV0KCX0sCgkiZXJyb3JzIjogbnVsbAp9
+###################### Mocking Configurations ################################
+#-------Mocking of Partner Id------------
+partner.1873299273={"partnerName":"Sample Partner 1", "policyId":"92834787293","status":"active"}
+partner.1873299274={"partnerName":"Sample Partner 2", "policyId":"92834787294","status":"active"}
+partner.1873299275={"partnerName":"Sample Partner 3", "policyId":"92834787295","status":"active"}
+partner.1873299276={"partnerName":"Sample Partner 4", "policyId":"92834787296","status":"active"}
+partner.1873299300={"partnerName":"Sample Partner 5", "policyId":"92834787293","status":"active"}
+partner.1873299301={"partnerName":"Sample Partner 6", "policyId":"92834787290","status":"active"}
+
+partner.1873299776={"policyId":"9903348702934","status":"active"}
+partner.1873293764={"policyId":"9903348702934","status":"inactive"}
+partner.18248239994={"policyId":"","status":"active"}
+
+#-------Mocking of Policy Id------------
+policy.92834787293={ "policies": { "authPolicies": [ { "authType": "otp-request", "mandatory": false }, { "authType": "otp", "mandatory": false }, { "authType": "demo", "mandatory": false }, { "authType": "kyc", "mandatory": false }, { "authType": "pin", "mandatory": false }, { "authType": "bio", "authSubType": "FINGER", "mandatory": false }, { "authType": "bio", "authSubType": "IRIS", "mandatory": false }, { "authType": "bio", "authSubType": "FACE", "mandatory": false } ], "allowedKycAttributes": [ { "attributeName": "fullName", "required": true }, { "attributeName": "dateOfBirth", "required": true }, { "attributeName": "gender", "required": true }, { "attributeName": "phone", "required": true }, { "attributeName": "email", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true } ] } }
+policy.92834787294={ "policies": { "authPolicies": [{ "authType": "otp-request", "mandatory": false }, { "authType": "otp", "mandatory": true }, { "authType": "demo", "mandatory": false }, { "authType": "kyc", "mandatory": false }, { "authType": "pin", "mandatory": false }, { "authType": "bio", "authSubType": "FINGER", "mandatory": false }, { "authType": "bio", "authSubType": "IRIS", "mandatory": false }, { "authType": "bio", "authSubType": "FACE", "mandatory": false }], "allowedKycAttributes": [{ "attributeName": "fullName", "required": true }, { "attributeName": "dateOfBirth", "required": true }, { "attributeName": "gender", "required": true }, { "attributeName": "phone", "required": true }, { "attributeName": "email", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true }] } }
+policy.92834787295={ "policies": { "authPolicies": [{ "authType": "otp-request", "mandatory": false }, { "authType": "otp", "mandatory": false }, { "authType": "demo", "mandatory": false }, { "authType": "kyc", "mandatory": false }, { "authType": "pin", "mandatory": false }], "allowedKycAttributes": [{ "attributeName": "fullName", "required": true },{ "attributeName": "gender", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true }] } }
+policy.92834787296={ "policies": { "authPolicies": [ { "authType": "kyc", "mandatory": false }, { "authType": "pin", "mandatory": false }, { "authType": "bio", "authSubType": "FINGER", "mandatory": false } ], "allowedKycAttributes": [ { "attributeName": "fullName", "required": true }, { "attributeName": "dateOfBirth", "required": true }, { "attributeName": "gender", "required": true }, { "attributeName": "phone", "required": true }, { "attributeName": "email", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true } ] } }
+policy.9903348702934={ "policies": { "authPolicies": [ { "authType": "otp", "mandatory": false }, { "authType": "pin", "mandatory": false }, { "authType": "bio", "authSubType": "FINGER", "mandatory": true }, { "authType": "bio", "authSubType": "IRIS", "mandatory": false }, { "authType": "bio", "authSubType": "FACE", "mandatory": false } ], "allowedKycAttributes": [ { "attributeName": "UIN", "required": false, "masked": true }, { "attributeName": "fullName", "required": true }, { "attributeName": "dateOfBirth", "required": true }, { "attributeName": "gender", "required": true }, { "attributeName": "phone", "required": true }, { "attributeName": "email", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true } ] } }
+policy.0983222={ "policies": { "authPolicies": [ { "authType": "otp", "mandatory": true }, { "authType": "pin", "mandatory": true }, { "authType": "bio", "authSubType": "FINGER", "mandatory": true }, { "authType": "bio", "authSubType": "IRIS", "mandatory": false }, { "authType": "bio", "authSubType": "FACE", "mandatory": false } ], "allowedKycAttributes": [ { "attributeName": "UIN", "required": false, "masked": true }, { "attributeName": "fullName", "required": true }, { "attributeName": "dateOfBirth", "required": true }, { "attributeName": "gender", "required": true }, { "attributeName": "phone", "required": true }, { "attributeName": "email", "required": true }, { "attributeName": "addressLine1", "required": true }, { "attributeName": "addressLine2", "required": true }, { "attributeName": "addressLine3", "required": true }, { "attributeName": "region", "required": true }, { "attributeName": "province", "required": true }, { "attributeName": "city", "required": true }, { "attributeName": "postalCode", "required": false }, { "attributeName": "photo", "required": true } ] } }
+
+#-------Mocking of License Key and MISP------------
+licenseKey.735899345 ={ "mispId": "5479834598", "expiryDt": "2031-03-07T12:58:41.762Z", "status": "active" }
+licenseKey.629877671 ={ "mispId": "9870862555", "expiryDt": "2031-03-07T12:58:41.762Z", "status": "active" }
+
+licenseKey.635899234={"mispId" :"5479834983","expiryDt":"2031-03-07T12:58:41.762Z","status":"inactive"}
+licenseKey.135898653={"mispId":"5479833455","expiryDt":"2019-03-07T12:58:41.762Z","status":"active"}
+
+#-------Mocking of MISP-Partner Mapping------------
+misp.partner.mapping.5479834598.1873299273=true
+misp.partner.mapping.5479834598.1873299274=true
+misp.partner.mapping.5479834598.1873299275=true
+misp.partner.mapping.5479834598.1873299276=true
+misp.partner.mapping.9870862555.1873299300=false
+misp.partner.mapping.5479834983.1873299273=true
+misp.partner.mapping.5479833455.1873299273=true
+misp.partner.mapping.5479834598.1873299776=true
+misp.partner.mapping.5479834598.1873299301=true

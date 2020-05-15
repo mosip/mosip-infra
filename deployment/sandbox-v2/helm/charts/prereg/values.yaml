@@ -4,7 +4,7 @@ part-of: mosip
 activeProfileEnv: qa
 springConfigLabel: master
 configServerUrl: http://config-server/config
-sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
+sandboxDomainName: mosip-tf.technoforte.co.in
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
