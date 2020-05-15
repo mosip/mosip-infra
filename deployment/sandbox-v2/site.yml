@@ -9,6 +9,6 @@
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/prereg.yml
-- import_playbook: playbooks/regproc.yml
+#- import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
