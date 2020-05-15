@@ -3,8 +3,6 @@
 # Global variables - accessed by different roles and plays
 #
 
-ansible_sudo_pass: mosip
-
 sandbox_domain_name: mosip-tf.technoforte.co.in
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
