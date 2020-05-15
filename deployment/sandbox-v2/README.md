@@ -77,6 +77,10 @@ $ systemctl disable firewalld
 
 ## Running Ansible scripts
 * Change `sandbox_domain_name` in `group_vars/all.yml` to domain name of the console machine.
+* Enter the SMTP email server password/key in `roles/config-repo/files/properties/kernel-qa.properties`:
+```
+spring.mail.password= {{ smptp_key }}
+```
 
 * Run the following:
 ```
