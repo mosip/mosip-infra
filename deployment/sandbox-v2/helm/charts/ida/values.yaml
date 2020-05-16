@@ -12,7 +12,7 @@ probe:
   period: 30 # Seconds
 services:
   auth:
-    serviceName: authentication-service
+    serviceName: ida-auth-service
     dockerImage: mosipdev/authentication-service
     dockerTag: 1.0.7
     containerPort: 8090
@@ -20,7 +20,7 @@ services:
     ingressPath: /idauthentication/v1/auth
     healthUrl: /idauthentication/v1/auth/actuator/health
   internal: 
-    serviceName: authentication-internal-service
+    serviceName: ida-internal-service
     dockerImage: mosipdev/authentication-internal-service
     dockerTag: 1.0.7
     containerPort: 8093
@@ -28,7 +28,7 @@ services:
     ingressPath: /idauthentication/v1/internal
     healthUrl: /idauthentication/v1/internal/actuator/health
   kyc: 
-    serviceName: authentication-kyc-service
+    serviceName: ida-kyc-service
     dockerImage: mosipdev/authentication-kyc-service
     dockerTag: 1.0.7
     containerPort: 8091
@@ -36,7 +36,7 @@ services:
     ingressPath: /idauthentication/v1/kyc
     healthUrl: /idauthentication/v1/kyc/actuator/health
   otp: 
-    serviceName: authentication-otp-service
+    serviceName: ida-otp-service
     dockerImage: mosipdev/authentication-otp-service
     dockerTag: 1.0.7
     containerPort: 8092
