@@ -2,4 +2,3 @@ Softhsm is a simulation of HSM and will not be used in production.  It is an out
 
 The chart here depends on softhsm folder initialied with conf file prior to running this chart.  This is done via Ansible role 'softhsm'.
 
-TODO: Add softhsm in the sandbox logical diagram.

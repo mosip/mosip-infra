@@ -1,0 +1,8 @@
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/admin'
+    install_name: admin
+  roles:
+    - {role: helm, tags: [admin]} 
