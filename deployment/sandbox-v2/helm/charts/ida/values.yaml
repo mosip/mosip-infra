@@ -7,6 +7,9 @@ configServerUrl: http://config-server/config
 ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
 services:
   auth:
     serviceName: authentication-service
@@ -15,6 +18,7 @@ services:
     containerPort: 8090
     servicePort: 80
     ingressPath: /idauthentication/v1/auth
+    healthUrl: /idauthentication/v1/auth/actuator/health
   internal: 
     serviceName: authentication-internal-service
     dockerImage: mosipdev/authentication-internal-service
@@ -22,6 +26,7 @@ services:
     containerPort: 8093
     servicePort: 80
     ingressPath: /idauthentication/v1/internal
+    healthUrl: /idauthentication/v1/internal/actuator/health
   kyc: 
     serviceName: authentication-kyc-service
     dockerImage: mosipdev/authentication-kyc-service
@@ -29,6 +34,7 @@ services:
     containerPort: 8091
     servicePort: 80
     ingressPath: /idauthentication/v1/kyc
+    healthUrl: /idauthentication/v1/kyc/actuator/health
   otp: 
     serviceName: authentication-otp-service
     dockerImage: mosipdev/authentication-otp-service
@@ -36,3 +42,4 @@ services:
     containerPort: 8092
     servicePort: 80
     ingressPath: /idauthentication/v1/otp
+    healthUrl: /idauthentication/v1/otp/actuator/health
