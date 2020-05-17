@@ -9,6 +9,7 @@
 - name: Install certbot in python3 virtual environment 
   pip:
     name: certbot
+    version: '{{certbot_version}}' 
     virtualenv_python: python3
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
@@ -16,11 +17,12 @@
 - name: Install certbot-nginx
   pip:
     name: certbot-nginx
+    version: '{{certbot_nginx_version}}' 
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
 - name: run certbot 
-  command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{letsencrypt_email}}" --agree-tos -d "{{letsencrypt_domain_name}}"'
+  command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.email}}" --agree-tos -d "{{sandbox_domain_name}}"'
   become: yes
   register: out
 
