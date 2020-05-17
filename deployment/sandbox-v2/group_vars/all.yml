@@ -7,8 +7,8 @@ sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 ssl:
+  get_certificate: false  # get a fresh certificate for the domain using Letsencrypt.
   email: info@mosip.io
-  base_dir: '/etc/letsencrypt' # Default we don't change this but use this path in Nginx
   certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
   certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 

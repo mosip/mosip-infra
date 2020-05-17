@@ -67,8 +67,14 @@ $ sudo systemctl stop firewalld
 $ sudo systemctl disable firewalld 
 ```
 ## K8s cluster machines setup
-* Set up kubernetes machines with following hostnames matching names in hosts.ini. (may require reboot of machines)
-* If you have more nodes in the cluster add them to `hosts.ini`.   
+* Change the hostname of machines to hostnames mentioned in `hosts.ini`:
+```
+$ sudo hostnamectl set-hostname <hostname>
+```
+* Make sure each machine is accessible password-less with above hostname.
+```
+$ ssh root@<hostname>
+```
 * Disable `firewalld`:
 ```
 $ systemctl stop firewalld 
@@ -80,6 +86,14 @@ $ systemctl disable firewalld
 * Enter the SMTP email server password/key in `roles/config-repo/files/properties/kernel-qa.properties`:
 ```
 spring.mail.password= {{ smptp_key }}
+```
+* If you already have SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following `group_vars/all.yml` file:
+```
+ssl:
+  get_certificate: false 
+  email: ''
+  certificate: <certificate dir>
+  certificate_key: <private key path> 
 ```
 
 * Run the following:
