@@ -1,0 +1,21 @@
+namespace: default
+component: admin
+part-of: mosip
+activeProfileEnv: qa
+springConfigLabel: master
+configServerUrl: http://config-server/config
+ingress:
+   namespace: default
+artifactoryUrl: http://13.71.87.138:8040
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
+services:
+  admin: 
+    serviceName: admin-service
+    dockerImage: mosipdev/admin-service
+    dockerTag: 1.0.6
+    containerPort: 8098
+    servicePort: 80
+    ingressPath: /v1/admin
+    healthUrl: /v1/admin/actuator/health

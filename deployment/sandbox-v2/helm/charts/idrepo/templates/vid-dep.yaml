@@ -41,5 +41,14 @@ spec:
         ports:
         - containerPort: {{ .Values.services.vid.containerPort }}
         readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.vid.containerPort }}
+          httpGet:
+            path: {{ .Values.services.vid.healthUrl }} 
+            port: {{ .Values.services.vid.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.vid.healthUrl }} 
+            port: {{ .Values.services.vid.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }}
