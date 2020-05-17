@@ -30,3 +30,11 @@
     version: '{{ida_repo_tag}}'
     update: no
     force: no
+
+- name: Check out partner management services repo
+  git:
+    repo: https://github.com/mosip/partner-management-services
+    dest: '{{pms_repo_location}}'
+    version: '{{pms_repo_tag}}'
+    update: no
+    force: no

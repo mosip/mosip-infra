@@ -257,6 +257,9 @@ TROUBLESHOOTING:
 1. Check if all PV and PVC are available and bound.
 1. One of the hdfs nodes nn, or dn not starting: Inconsistency is VERSION of the two - check in the mounted path.  Make them same.
    https://stackoverflow.com/questions/35108445/java-io-ioexception-incompatible-clusterids
+1. Caution - postgres init deletes DBs and re-inializes them.
+1. Keycloak url.  Check if domain name is properly set in Keycloal charts values file.
+1. Access denied:  Role, client, service account roles.
 
 ==============
 config

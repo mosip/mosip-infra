@@ -3,7 +3,7 @@
 # Global variables - accessed by different roles and plays
 #
 
-sandbox_domain_name: mosip-tf.technoforte.co.in
+sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
