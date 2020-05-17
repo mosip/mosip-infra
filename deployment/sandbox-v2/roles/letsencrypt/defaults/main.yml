@@ -1,5 +1,2 @@
-letsencrypt_domain_name: '{{sandbox_domain_name}}'
-letsencrypt_email: '{{info_email_address}}'
-letsencrypt_base_dir: '/etc/letsencrypt' # Default we don't change this but use this path in Nginx
-letsencrypt_ssl_certificate: '{{letsencrypt_base_dir}}/live/{{letsencrypt_domain_name}}/fullchain.pem'
-letsencrypt_ssl_certificate_key: '{{letsencrypt_base_dir}}/live/{{letsencrypt_domain_name}}/privkey.pem'
+certbot_version: 1.3.0
+certbot_nginx_version: 1.3.0
