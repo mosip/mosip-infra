@@ -86,8 +86,8 @@ services:
     healthUrl: /preregistration/v1/notification/actuator/health
   ui:
     serviceName: prereg-ui
-    dockerImage: mosipid/pre-registration-ui
-    dockerTag: 1.0.6
+    dockerImage: mosipdev/pre-registration-ui
+    dockerTag: 1.0.10
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
