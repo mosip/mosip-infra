@@ -12,7 +12,41 @@
         - name: Reset Kubernetes component
           shell: "kubeadm reset --force"
           ignore_errors: True
-    
+        
+        - name: Stop kubelet 
+          systemd:
+            name: kubelet
+            state: stopped
+
+        - name: Stop docker
+          systemd:
+            name: docker
+            state: stopped
+
+        - name: Remove various links 
+          file:
+            path: /var/lib/cni 
+            state: absent
+
+        - name: Remove various links 
+          file:
+            path: /var/lib/kubelet/*
+            state: absent
+
+        - name: Remove various links 
+          file:
+            path: /etc/cni/
+            state: absent
+
+        - name: Remove interfaces
+          command: 'ifconfig cni0 down' 
+
+        - name: Remove interfaces
+          command: 'ifconfig flannel.1 down' 
+
+        - name: Remove interfaces
+          command: 'ifconfig docker0 down' 
+
         - name: Delete flannel.1 interface
           command: ip link delete flannel.1
           when: network == "flannel" or network == "canal"
