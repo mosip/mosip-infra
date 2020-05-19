@@ -7,7 +7,7 @@ sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 sandbox_public_url: 'https://{{sandbox_domain_name}}'
 
 ssl:
-  get_certificate: false  # get a fresh certificate for the domain using Letsencrypt.
+  get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
   email: info@mosip.io
   certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
   certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
