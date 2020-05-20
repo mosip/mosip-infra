@@ -2,17 +2,17 @@
 #
 - name: Create softhsm folder
   file:
-    path: '{{softhsm_storage_folder}}'
+    path: '{{hsm_prop.local_folder}}'
     state: directory 
 
 - name: Copy conf file
   copy:
-    src: 'softhsm2.conf'
-    dest: '{{softhsm_storage_folder}}' 
+    src: '{{hsm_prop.conf_path}}'
+    dest: '{{hsm_prob.local_folder}}' 
   
 - name: Copy base tokens
   copy:
-    src: 'tokens'
+    src: '{{hsm_prop.tokens_path}}' 
     dest: '{{softhsm_storage_folder}}'
     force: no
 

@@ -15,13 +15,14 @@ pv:
   size: 20Mi 
 
 localStorage:  # Folder on node machine
-  name: softhsm-local-storage  
   hostname: mzworker0
   path: /mnt/mosip_data/softhsm
 
 confFile: softhsm2.conf
-mountPath: /softhsm
+mountPath: /softhsm  # path inside docker
 
+sc:
+  name: softhsm-sc
 pvc:
   name: softhsm-pvc
 
