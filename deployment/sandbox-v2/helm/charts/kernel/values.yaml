@@ -50,7 +50,7 @@ services:
     dockerTag: 1.0.9
     containerPort: 8089
     servicePort: 80
-    ingressPath: ''
+    ingressPath: /v1/syncdata 
     healthUrl: /v1/syncdata/actuator/health
   audit:
     serviceName: kernel-auditmanager-service 
