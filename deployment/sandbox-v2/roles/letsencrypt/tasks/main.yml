@@ -22,7 +22,7 @@
     state: present
 
 - name: run certbot 
-  command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.email}}" --agree-tos -d "{{sandbox_domain_name}}"'
+  command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{site.ssl.email}}" --agree-tos -d "{{sandbox_domain_name}}"'
   become: yes
   register: out
 

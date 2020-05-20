@@ -1,4 +1,4 @@
-prereg_api_host: '{{sandbox_public_url}}'  # UI client will connect to this domain for Pre Reg APIs for external access
+prereg_api_host: '{{site.sandbox_public_url}}'  # UI client will connect to this domain for Pre Reg APIs for external access
 prereg_ui_name: prereg-ui
 prereg_ui_version: 1.0.6
 prereg_ui_image: mosipid/pre-registration-ui
