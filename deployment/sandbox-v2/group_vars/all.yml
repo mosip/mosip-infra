@@ -2,16 +2,23 @@
 ---
 # Global variables - accessed by different roles and plays
 #
-
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
-sandbox_public_url: 'https://{{sandbox_domain_name}}'
-
-ssl:
-  get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
-  email: info@mosip.io
-  certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
-  certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
-
+site:
+  sandbox_public_url: 'https://{{sandbox_domain_name}}'
+  ssl:
+    get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
+    email: info@mosip.io
+    certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
+    certificate_key: '/etc/letsencrypt/live/{sandbox_domain_name}}/privkey.pem'
+  captcha:
+    google_recaptcha_site_key: 6LcYufkUAAAAAGLHAJOeS2fuH2edB_yOjmsLVUg-
+    google_recaptcha_secret_key: 6LcYufkUAAAAAG6jC1ZodRTp9aieVBj6XKy-n0LA
+  smtp:
+    email_from: mosiptestuser@gmail.com
+    host: smtp.sendgrid.net
+    username: apikey
+    password: xyz
+   
 install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 

@@ -6,14 +6,14 @@
   roles:
     - {role: config-repo, tags: [config-repo, env]}  
 
-# Install config server using helm
-- hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{mz_kube_config}}' 
-    helm_chart: '{{charts_root}}/config-server'    
-    install_name: config-server 
-  roles:
-    - {role: helm, tags: [config-server]} 
+## Install config server using helm
+#- hosts: console
+#  gather_facts: true
+#  vars:   
+#    kube_config: '{{mz_kube_config}}' 
+#    helm_chart: '{{charts_root}}/config-server'    
+#    install_name: config-server 
+#  roles:
+#    - {role: helm, tags: [config-server]} 
 
 

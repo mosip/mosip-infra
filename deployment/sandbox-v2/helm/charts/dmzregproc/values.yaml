@@ -33,7 +33,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8081
       servicePort: 80
-    ingressPath: '' 
+    ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
   camel:
     serviceName: regproc-camel-stage
@@ -53,7 +53,7 @@ services:
     ports:
       containerPort: 8083
       servicePort: 80
-    ingressPath: '' 
+    ingressPath: /registrationprocessor/v1/registrationstatus/
     healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
   pktserver:
     serviceName: regproc-dmz-packet-server

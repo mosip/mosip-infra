@@ -1,3 +1,7 @@
+# DEPRICATED!  Use sandbox-v2
+--------------
+
+
 # MOSIP Sandbox Deployer
 
 MOSIP Sandbox deployer enables anyone to build and deploy MOSIP on a single machine (with Linux OS). As we use pre-crafted docker images, we can quickly setup MOSIP and use it for demonstration.
