@@ -1,0 +1,36 @@
+namespace: default
+serviceName: softhsm-{{hsm_prop.label}}
+
+activeProfileEnv: qa
+springConfigLabel: master
+configServerUrl: http://config-server/config
+artifactoryUrl: http://13.71.87.138:8040
+
+docker:
+  image: mosipdev/softhsm
+  tag: v1
+
+pv:
+  name: softhsm-{{hsm_prop.label}}-pv
+  size: 20Mi 
+
+localStorage:  # Folder on node machine
+  hostname: {{hsm_prop.node}} 
+  path: /mnt/mosip_data/softhsm/{{hsm_prop.label}}/
+
+confFile: {{hsm_prop.conf_file}}
+mountPath: /softhsm  # path inside docker
+
+sc:
+  name: softhsm-{{hsm_prop.label}}-sc
+pvc:
+  name: softhsm-{{hsm_prop.label}}-pvc
+
+ports:
+  containerPort: 5666
+  servicePort: 80
+
+probe:
+  initialDelay: 15  # Seconds
+  period: 30 # Seconds
+healthUrl: ''
