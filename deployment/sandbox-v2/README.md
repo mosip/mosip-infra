@@ -82,11 +82,17 @@ $ systemctl disable firewalld
 ```
 
 ## Running Ansible scripts
-* Change `sandbox_domain_name` in `group_vars/all.yml` to domain name of the console machine.
-* Enter the SMTP email server password/key in `roles/config-repo/files/properties/kernel-qa.properties`:
-```
-spring.mail.password= {{ smptp_key }}
-```
+* In `groups_vars/all.yml', set the following: 
+  * Change `sandbox_domain_name`  to domain name of the console machine.
+  * Set captcha keys in `site.captcha`
+  * Enter the SMTP email server password/key in `roles/config-repo/files/properties/kernel-qa.properties`:
+    ```
+    smtp:
+      email_from: mosiptestuser@gmail.com
+      host: smtp.sendgrid.net
+      username: apikey
+      password: xyz
+    ```
 * If you already have SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following `group_vars/all.yml` file:
 ```
 ssl:
@@ -106,7 +112,8 @@ $ ansible-playbook -i hosts --tags postgres site.yml
 ```
 ## Useful tips
 You may add the following short-cuts in `/home/mosipuser/.bashrc`:
-```lias an='ansible-playbook -i hosts.ini'
+```
+alias an='ansible-playbook -i hosts.ini'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
 alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
