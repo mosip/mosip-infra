@@ -1,5 +1,6 @@
 # Creates folder on a node for softhsm
-#
+# These tasks are applicable on the node on which
+# folders are located.
 - name: Create softhsm folder
   file:
     path: '{{hsm_prop.local_folder}}'
@@ -15,4 +16,5 @@
     src: '{{hsm_prop.tokens_path}}' 
     dest: '{{softhsm_storage_folder}}'
     force: no
+
 
