@@ -1,4 +1,4 @@
-# DEPRICATED!  Use sandbox-v2.
+# DEPRICATED!  Use sandbox-v2
 --------------
 
 
