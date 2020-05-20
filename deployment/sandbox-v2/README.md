@@ -82,10 +82,10 @@ $ systemctl disable firewalld
 ```
 
 ## Running Ansible scripts
-* In `groups_vars/all.yml', set the following: 
+* In `groups_vars/all.yml`, set the following: 
   * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha`
-  * Enter the SMTP email server password/key in `roles/config-repo/files/properties/kernel-qa.properties`:
+  * Set captcha keys in `site.captcha`.
+  * Set SMTP email settings:
     ```
     smtp:
       email_from: mosiptestuser@gmail.com
