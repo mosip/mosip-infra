@@ -1,3 +1,8 @@
+- import_playbook: softhsm.yml 
+  vars:
+    persistence_node: mzworker0  # Should match group_vars/all.yml
+    hsm_prop: '{{softhsm.ida}}'
+
 - hosts: console
   gather_facts: true
   vars:   

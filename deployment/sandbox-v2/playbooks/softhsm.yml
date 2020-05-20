@@ -1,7 +1,7 @@
 # Playbook expects hsm_prop structure
 #
 # Prepare folders on remote node
-- hosts: mzworker0
+- hosts: '{{persistence_node}}'
   gather_facts: true
   roles:
     - {role: softhsm-prep}
