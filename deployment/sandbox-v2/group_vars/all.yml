@@ -77,9 +77,10 @@ keycloak:
   url: '{{mzingress.base_url}}/keycloak'
 
 softhsm:
-  ida_auth:
-    label: ida-auth  
-    conf_path: '{{install_root}}/roles/softhsm/files/softhsm2.conf'
-    tokens_path: '{{install_root}}/roles/softhsm/files/tokens/' 
+  ida:  # Auth
+    label: ida  
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker0
-    local_folder: /mnt/mosip_data/softhsm/ida_auth 
+    local_folder: /mnt/mosip_data/softhsm/ida/

@@ -1,0 +1,25 @@
+# Playbook expects hsm_prop structure
+#
+# Prepare folders on remote node
+- hosts: mzworker0
+  gather_facts: true
+  roles:
+    - {role: softhsm-prep}
+
+# Convert helm template to helm values 
+- hosts: console
+  tasks:
+    - name: Conver helm template
+      template:
+        src: '{{install_root}}/roles/softhsm-prep/templates/helm_values.yml.j2'
+        dest: '{{tmp_dir}}/softhsm_{{hsm_prop.label}}_helm_values.yml'
+
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/softhsm'
+    install_name: 'softhsm-{{hsm_prop.label}}' 
+    helm_values: '{{tmp_dir}}/softhsm_{{hsm_prop.label}}_helm_values.yml'
+  roles:
+    - {role: helm}
