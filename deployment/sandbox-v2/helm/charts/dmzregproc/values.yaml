@@ -27,7 +27,7 @@ services:
   receiver:
     serviceName: regproc-packet-receiver-stage
     dockerImage: mosipdev/registration-processor-packet-receiver-stage
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10
     ports:
       eventbusPort: 5711
       hazelcastPort: 5701
@@ -38,7 +38,7 @@ services:
   camel:
     serviceName: regproc-camel-stage
     dockerImage: mosipdev/registration-processor-common-camel-bridge
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10
     ports:
       eventbusPort: 5723
       hazelcastPort: 5701
@@ -49,7 +49,7 @@ services:
   status:
     serviceName: regproc-registration-status-service
     dockerImage: mosipdev/registration-processor-registration-status-service
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10
     ports:
       containerPort: 8083
       servicePort: 80
