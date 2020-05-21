@@ -168,6 +168,38 @@ http {
 	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/packetreceiver/;
            }
 
+       	location /partnermanagement/v1/misps/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
+           }
+
+	location /partnermanagement/v1/policies/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/policies/;
+           }
+
+	location /partnermanagement/v1/partners/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/partners/;
+           }
+
+	location /partnermanagement/v1/pmpartners/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/pmpartners/;
+           }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
