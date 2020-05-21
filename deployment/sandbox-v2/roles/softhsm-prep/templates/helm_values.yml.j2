@@ -1,5 +1,5 @@
 namespace: default
-serviceName: softhsm
+serviceName: softhsm-{{hsm_prop.label}}
 
 activeProfileEnv: qa
 springConfigLabel: master
@@ -11,20 +11,20 @@ docker:
   tag: v1
 
 pv:
-  name: softhsm-pv
+  name: softhsm-{{hsm_prop.label}}-pv
   size: 20Mi 
 
 localStorage:  # Folder on node machine
-  hostname: mzworker0
-  path: /mnt/mosip_data/softhsm
+  hostname: {{hsm_prop.node}} 
+  path: /mnt/mosip_data/softhsm/{{hsm_prop.label}}/
 
-confFile: softhsm2.conf
+confFile: {{hsm_prop.conf_file}}
 mountPath: /softhsm  # path inside docker
 
 sc:
-  name: softhsm-sc
+  name: softhsm-{{hsm_prop.label}}-sc
 pvc:
-  name: softhsm-pvc
+  name: softhsm-{{hsm_prop.label}}-pvc
 
 ports:
   containerPort: 5666
