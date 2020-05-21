@@ -40,6 +40,11 @@ mzingress:
   nodeport_https: 30443
   base_url: 'http://{{mz_cluster_any_node}}:30080' # Same as nodeport_http
 
+dmzingress:
+  nodeport_http: 30080  # TODO: Shoud match with helm
+  nodeport_https: 30443
+  base_url: 'http://{{dmz_cluster_any_node}}:30080' # Same as nodeport_http
+
 mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node. TODO: this should match helm
 
 # Registration processor shared variables
