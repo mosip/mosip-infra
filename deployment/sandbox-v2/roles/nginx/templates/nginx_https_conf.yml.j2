@@ -67,8 +67,8 @@ http {
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
 
-        ssl_certificate {{ssl.certificate}}; 
-        ssl_certificate_key {{ssl.certificate_key}}; 
+        ssl_certificate {{site.ssl.certificate}}; 
+        ssl_certificate_key {{site.ssl.certificate_key}}; 
         ssl_session_cache shared:SSL:1m;
         ssl_session_timeout  10m;
         ssl_ciphers HIGH:!aNULL:!MD5;
@@ -111,6 +111,14 @@ http {
            proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/masterdata/;
            }
+
+        location /v1/syncdata/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_pass {{mzingress.base_url}}/v1/syncdata/;
+           }
    
         location /v1/authmanager/ {
            proxy_set_header Host $host;
@@ -142,6 +150,22 @@ http {
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/idauthentication/v1/otp/;
+           }
+
+	location /registrationprocessor/v1/registrationstatus/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/registrationstatus/;
+           }
+
+	location /registrationprocessor/v1/packetreceiver/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/packetreceiver/;
            }
 
         error_page 404 /404.html;
