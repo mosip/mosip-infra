@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.captcha.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.captcha.servicePort }}
+    targetPort: {{ .Values.services.captcha.containerPort }}
+  selector:
+    app: {{ .Values.services.captcha.serviceName }} 
+

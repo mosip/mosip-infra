@@ -84,6 +84,14 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/notification
     healthUrl: /preregistration/v1/notification/actuator/health
+  captcha:
+    serviceName: prereg-captcha-service 
+    dockerImage: mosipdev/pre-registration-captcha-service
+    dockerTag: 1.0.10
+    containerPort: 9089
+    servicePort: 80
+    ingressPath: /preregistration/v1/captcha
+    healthUrl: /preregistration/v1/captcha/actuator/health
   ui:
     serviceName: prereg-ui
     dockerImage: mosipdev/pre-registration-ui
