@@ -11,8 +11,8 @@ site:
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
   captcha:
-    google_recaptcha_site_key: 6LcYufkUAAAAAGLHAJOeS2fuH2edB_yOjmsLVUg-
-    google_recaptcha_secret_key: 6LcYufkUAAAAAG6jC1ZodRTp9aieVBj6XKy-n0LA
+    google_recaptcha_site_key: apikey
+    google_recaptcha_secret_key: secret
   smtp:
     email_from: mosiptestuser@gmail.com
     host: smtp.sendgrid.net
