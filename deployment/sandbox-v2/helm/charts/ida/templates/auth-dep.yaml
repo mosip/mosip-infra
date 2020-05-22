@@ -38,6 +38,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: absent
+        - name: PKCS11_PROXY_SOCKET
+          value: {{ .Values.services.auth.hsmUrl }} 
         ports:
         - containerPort: {{ .Values.services.auth.containerPort }}
         readinessProbe:

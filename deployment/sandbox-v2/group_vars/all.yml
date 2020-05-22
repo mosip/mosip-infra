@@ -11,8 +11,8 @@ site:
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
   captcha:
-    google_recaptcha_site_key: 6LcYufkUAAAAAGLHAJOeS2fuH2edB_yOjmsLVUg-
-    google_recaptcha_secret_key: 6LcYufkUAAAAAG6jC1ZodRTp9aieVBj6XKy-n0LA
+    google_recaptcha_site_key: apikey
+    google_recaptcha_secret_key: secret
   smtp:
     email_from: mosiptestuser@gmail.com
     host: smtp.sendgrid.net
@@ -80,3 +80,33 @@ keycloak:
   user: admin
   password: admin
   url: '{{mzingress.base_url}}/keycloak'
+
+softhsm:
+  ida:  # Auth
+    label: ida  
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
+    node: mzworker0
+    local_folder: /mnt/mosip_data/softhsm/ida/
+  idaotp:  
+    label: idaotp
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
+    node: mzworker1
+    local_folder: /mnt/mosip_data/softhsm/idaotp/
+  idakyc:  
+    label: idakyc
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
+    node: mzworker2
+    local_folder: /mnt/mosip_data/softhsm/idakyc/
+  idainternal:  
+    label: idainternal
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
+    node: mzworker2
+    local_folder: /mnt/mosip_data/softhsm/idainternal/

@@ -17,6 +17,7 @@ services:
     dockerTag: 1.0.7
     containerPort: 8090
     servicePort: 80
+    hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/auth
     healthUrl: /idauthentication/v1/auth/actuator/health
   internal: 
@@ -25,6 +26,7 @@ services:
     dockerTag: 1.0.7
     containerPort: 8093
     servicePort: 80
+    hsmUrl: tcp://softhsm-idainternal:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/internal
     healthUrl: /idauthentication/v1/internal/actuator/health
   kyc: 
@@ -33,6 +35,7 @@ services:
     dockerTag: 1.0.7
     containerPort: 8091
     servicePort: 80
+    hsmUrl: tcp://softhsm-idakyc:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/kyc
     healthUrl: /idauthentication/v1/kyc/actuator/health
   otp: 
@@ -41,5 +44,6 @@ services:
     dockerTag: 1.0.7
     containerPort: 8092
     servicePort: 80
+    hsmUrl: tcp://softhsm-idaotp:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/otp
     healthUrl: /idauthentication/v1/otp/actuator/health

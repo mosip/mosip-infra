@@ -4,6 +4,7 @@ part-of: mosip
 activeProfileEnv: qa
 springConfigLabel: master
 configServerUrl: http://config-server/config
+sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
 ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
@@ -19,3 +20,12 @@ services:
     servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
+  ui:
+    serviceName: admin-ui
+    dockerImage: mosipdev/admin-ui
+    dockerTag: 1.0.10
+    containerPort: 80
+    servicePort: 80
+    configName: amdin-ui-config # ConfigMap name
+    apiHost: https://{{ .Values.sandboxDomainName }}/
+    ingressPath: /admin-ui

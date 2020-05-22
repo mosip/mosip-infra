@@ -11,7 +11,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
-  storageClassName: {{ .Values.localStorage.name }} 
+  storageClassName: {{ .Values.sc.name }} 
   local:
     path: {{ .Values.localStorage.path }} 
   nodeAffinity:

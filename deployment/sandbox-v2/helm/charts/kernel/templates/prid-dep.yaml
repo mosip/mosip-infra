@@ -27,7 +27,6 @@ spec:
       containers:
       - name: {{ .Values.services.prid.serviceName }} 
         image: {{ .Values.services.prid.dockerImage }}:{{ .Values.services.prid.dockerTag }} 
-        imagePullPolicy: Always # TODO: Temporary for debugging.  Remove.
         env:
 #        # TODO: Correct docker - we have to write variables names explicitly
         - name: active_profile_env

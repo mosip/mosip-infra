@@ -8,5 +8,9 @@ vars_mapping:
     target_var: sandboxDomainName
     target_value: '{{sandbox_domain_name}}'  # From group_vars/all.yml
 
+  - target_file: '{{install_root}}/helm/charts/admin/values.yaml'
+    target_var: sandboxDomainName
+    target_value: '{{sandbox_domain_name}}'  # From group_vars/all.yml
+
 
       
