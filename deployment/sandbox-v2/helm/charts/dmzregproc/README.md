@@ -8,3 +8,5 @@ Few points to note:
      <property name="service-dns">service-hazelcast-server.default.svc.cluster.local</property>
  </properties>
 ```
+* Ingress for pktserver is different as rewrite rule is different.  See pktserver-ingress.yaml
+
