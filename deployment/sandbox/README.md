@@ -1,4 +1,6 @@
-# DEPRECATED!  Use sandbox-v2
+# DEPRECATED!  
+
+Use [sandbox-v2](https://github.com/mosip/mosip-infra/tree/master/deployment/sandbox-v2)
 --------------
 
 
