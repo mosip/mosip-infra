@@ -82,6 +82,13 @@ keycloak:
   url: '{{mzingress.base_url}}/keycloak'
 
 softhsm:
+  keymanager:  
+    label: keymanager  
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
+    node: mzworker0
+    local_folder: /mnt/mosip_data/softhsm/keymanager/
   ida:  # Auth
     label: ida  
     conf_file: softhsm2.conf

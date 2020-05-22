@@ -1,20 +1,9 @@
 # This play installs all Kernel services using Helm
 
-# Setup folders 
-- hosts: mzworker0
-  gather_facts: true
-  roles:
-    - {role: softhsm, tags: [softhsm]}
-
-# Run softhsm
-- hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{mz_kube_config}}' 
-    helm_chart: '{{charts_root}}/softhsm'
-    install_name: softhsm
-  roles:
-    - {role: helm, tags: [softhsm]} 
+- import_playbook: softhsm.yml 
+  vars:
+    persistence_node: mzworker0  # Should match group_vars/all.yml
+    hsm_prop: '{{softhsm.keymanager}}'
 
 ## Run all kernel services
 - hosts: console
