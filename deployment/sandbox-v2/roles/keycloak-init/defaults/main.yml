@@ -35,6 +35,9 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', client_id: '', role_name: 'INDIVIDUAL'}  # TODO: later this role should not be needed in mosip realm
+  - {realm_id: 'mosip', client_id: '', role_name: 'PARTNERMANAGER'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'PARTNERS'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'POLICYMANAGER'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'INDIVIDUAL'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'AUTH'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'PRE_REGISTRATION_ADMIN'}
