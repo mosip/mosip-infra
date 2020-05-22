@@ -21,7 +21,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV
   storageClassName: hdfs-nn-local-storage
   local:
-    path: '{{hdfs_nn_local_storage_path}}'
+    path: '/mnt/mosip_data/hdfs/nn'
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -29,5 +29,5 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - '{{mz_persistent_storage_node}}'
+          - 'mzworker0'
 
