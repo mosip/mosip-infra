@@ -68,7 +68,7 @@ services:
     ports:
       containerPort: 8082
       servicePort: 80
-    ingressPath: '/registrationprocessor/v1/dmzpacketserver' 
+    ingressPath: /registrationprocessor/v1/dmzpacketserver/ 
     healthUrl: ''
       
 
