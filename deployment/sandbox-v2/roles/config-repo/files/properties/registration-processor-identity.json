@@ -33,6 +33,9 @@
 		"pob": {
 			"value" : "proofOfDateOfBirth"
 		},
+		"poe": {
+			"value" : "proofOfException"
+		},
 		"individualBiometrics": {
 			"value" : "individualBiometrics"
 		},
@@ -40,16 +43,7 @@
 			"value" : "age"
 		},
 		"address": {
-			"value" : "addressLine1,addressLine2,addressLine3"
-		},
-		"region": {
-			"value" : "region"
-		},
-		"province": {
-			"value" : "province"
-		},
-		"postalCode": {
-			"value" : "postalCode"
+			"value" : "addressLine1,addressLine2,addressLine3,region,province,postalCode"
 		},
 		"phone": {
 			"value" : "phone"
@@ -71,6 +65,9 @@
 		},
 		"parentOrGuardianBiometrics": {
 			"value" : "parentOrGuardianBiometrics"
+		},
+		"uin" : {
+			"value" : "UIN"
 		}
 	}
-}
+}  
