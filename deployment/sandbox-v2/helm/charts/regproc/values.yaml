@@ -7,7 +7,7 @@ configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
 storageClass: dm-storage-class  # See sc, pv templates
 
 probe:
-  initialDelay: 30  # Seconds
+  initialDelay: 60  # Seconds
   period: 30 # Seconds
 
 ingress:
@@ -27,7 +27,7 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
-  notification:
+  notification:  # This is has a service front end for access (notification-svc.yaml)
     serviceName: regproc-securezone-notification-stage
     dockerImage: mosipdev/registration-processor-securezone-notification-stage
     dockerTag: 1.0.10
@@ -111,7 +111,7 @@ services:
     ports:
       containerPort: 9097
       servicePort: 80
-    ingressPath: /registrationprocessor/v1/bio-dedupe/actuator/health
+    ingressPath: /registrationprocessor/v1/bio-dedupe
     healthUrl: /registrationprocessor/v1/bio-dedupe/actuator/health
   bioauth:
     serviceName: regproc-biometric-authentication-stage
@@ -124,7 +124,7 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
-  abis:
+  abishandler:
     serviceName: regproc-abis-handler-stage
     dockerImage: mosipdev/registration-processor-abis-handler-stage
     dockerTag: 1.0.10
@@ -146,6 +146,15 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
+  proxyabis:
+    serviceName: regproc-proxy-abis
+    dockerImage: mosipdev/registration-processor-abis
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 9098
+      servicePort: 80
+    ingressPath: /abis
+    healthUrl: /abis/actuator/health
   manual:
     serviceName: regproc-manual-verification-stage
     dockerImage: mosipdev/registration-processor-manual-verification-stage
@@ -179,6 +188,26 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
+  print:
+    serviceName: regproc-printing-stage
+    dockerImage: mosipdev/registration-processor-printing-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5722
+      hazelcastPort: 5701
+      containerPort: 8099
+      servicePort: 80
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/print-stage/actuator/health
+  printsvc:
+    serviceName: regproc-print-service
+    dockerImage: mosipdev/registration-processor-print-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 9099
+      servicePort: 80
+    ingressPath: ''
+    healthUrl: /registrationprocessor/v1/print/actuator/health
   trans:
     serviceName: regproc-registration-transaction-service
     dockerImage: mosipdev/registration-processor-registration-transaction-service
