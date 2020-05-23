@@ -51,7 +51,7 @@ spec:
 #            port: {{ .Values.services.print.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
+#        livenessProbe:  # TODO: Actuator not working?
 #          httpGet:
 #            path: {{ .Values.services.print.healthUrl }} 
 #            port: {{ .Values.services.print.ports.containerPort }} 
