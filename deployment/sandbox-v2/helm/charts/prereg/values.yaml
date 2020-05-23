@@ -1,7 +1,7 @@
 namespace: default
 component: prereg
 part-of: mosip
-activeProfileEnv: qa
+activeProfileEnv: mz
 springConfigLabel: master
 configServerUrl: http://config-server/config
 sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
@@ -11,6 +11,7 @@ probe:
 ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
+imagePullPolicy: Always 
 services:
   login:
     serviceName: prereg-login-service 

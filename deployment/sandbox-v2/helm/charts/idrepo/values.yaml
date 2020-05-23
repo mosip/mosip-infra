@@ -1,7 +1,7 @@
 namespace: default
 component: idrepo
 part-of: mosip
-activeProfileEnv: qa
+activeProfileEnv: mz 
 springConfigLabel: master
 configServerUrl: http://config-server/config
 ingress:

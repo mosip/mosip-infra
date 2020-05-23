@@ -1,7 +1,7 @@
 namespace: default
 component: regproc
 part-of: mosip
-activeProfileEnv: qa
+activeProfileEnv: mz 
 springConfigLabel: master
 configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
 storageClass: dm-storage-class  # See sc, pv templates
@@ -14,6 +14,8 @@ ingress:
    namespace: default
 
 artifactoryUrl: http://13.71.87.138:8040
+
+imagePullPolicy: Always 
 
 services:
   camel:

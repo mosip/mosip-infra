@@ -24,6 +24,7 @@ spec:
       containers:
       - name: {{ .Values.services.pktserver.serviceName }} 
         image: {{ .Values.services.pktserver.dockerImage }}:{{ .Values.services.pktserver.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports: 
         - containerPort: {{ .Values.services.pktserver.ports.containerPort }}
         #TODO: Put health check
