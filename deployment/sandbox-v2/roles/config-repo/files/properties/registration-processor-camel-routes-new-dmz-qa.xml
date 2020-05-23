@@ -20,7 +20,7 @@
                 <setBody>
                     <simple>${bodyAs(String)}</simple>
                 </setBody>
-                <to uri="https://dev.mosip.io/registrationprocessor/v1/securezone/notification" />
+                <to uri="http://dev.mosip.io/registrationprocessor/v1/securezone/notification" />
             </when>
             <when>
                 <simple>${bodyAs(String)} contains '"internalError":true'</simple>

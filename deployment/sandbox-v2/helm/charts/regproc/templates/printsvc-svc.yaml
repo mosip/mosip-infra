@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.printsvc.serviceName }} 
+  namespace: {{ .Values.namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.printsvc.ports.servicePort }}
+    targetPort: {{ .Values.services.printsvc.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.printsvc.serviceName }} 

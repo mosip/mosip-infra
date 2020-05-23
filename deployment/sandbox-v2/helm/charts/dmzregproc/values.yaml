@@ -1,5 +1,5 @@
 namespace: default
-component: mzregproc
+component: dmzregproc
 part-of: mosip
 activeProfileEnv: dmz 
 springConfigLabel: master
@@ -68,7 +68,7 @@ services:
     ports:
       containerPort: 8082
       servicePort: 80
-    ingressPath: '/registrationprocessor/v1/dmzpacketserver' 
+    ingressPath: ''  # NOTE: Seperate ingress for pktserver due to different rewrite rule.
     healthUrl: ''
       
 

@@ -1,0 +1,21 @@
+# Separate ingress for pktserver as the url rewrite path
+# is different 
+    
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: pktserver-ingress
+  namespace: {{ .Values.ingress.namespace }}
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+      
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /registrationprocessor/v1/dmzpacketserver(/|$)(.*)
+        backend:
+          serviceName: {{ .Values.services.pktserver.serviceName }}
+          servicePort: {{ .Values.services.pktserver.ports.servicePort }}
+
