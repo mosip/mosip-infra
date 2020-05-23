@@ -14,11 +14,11 @@
 #TODO: Repetition here.  Improve the code.
 - import_tasks: templates.yml  # Deployment specific properites are overwritten here
   vars:
-    prop_file: pre-registration-qa.properties
+    prop_file: pre-registration-mz.properties
 
 - import_tasks: templates.yml  # Deployment specific properites are overwritten here
   vars:
-    prop_file: kernel-qa.properties
+    prop_file: kernel-mz.properties
 
 - name: Install git 
   yum:
