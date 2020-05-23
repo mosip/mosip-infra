@@ -44,12 +44,12 @@ spec:
           containerPort: {{ .Values.services.print.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.print.ports.containerPort }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.print.healthUrl }} 
-            port: {{ .Values.services.print.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.print.healthUrl }} 
+#            port: {{ .Values.services.print.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
         livenessProbe:
           httpGet:
             path: {{ .Values.services.print.healthUrl }} 
