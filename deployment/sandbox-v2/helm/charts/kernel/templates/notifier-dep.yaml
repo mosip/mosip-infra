@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.notifier.serviceName }} 
         image: {{ .Values.services.notifier.dockerImage }}:{{ .Values.services.notifier.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
