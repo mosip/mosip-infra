@@ -11,13 +11,13 @@ site:
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
   captcha:
-    google_recaptcha_site_key: apikey
+    google_recaptcha_site_key: sitekey
     google_recaptcha_secret_key: secret
   smtp:
     email_from: mosiptestuser@gmail.com
     host: smtp.sendgrid.net
     username: apikey
-    password: xyz
+    password: password
    
 install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
@@ -65,12 +65,7 @@ postgres:
 hdfs_dn_local_storage_path: /mnt/mosip_data/hdfs/dn
 hdfs_nn_local_storage_path: /mnt/mosip_data/hdfs/nn
 
-# Config server
-config_server_local_storage_path: /mnt/mosip_data/
 config_server_external_url: '{{ingress_base_url}}/config'
-
-# Softhsm storage dir
-softhsm_storage_folder: /mnt/mosip_data/softhsm
 
 # SFTP: used for picking up packets from DMZ
 sftp_user: 'sftpuser'  # This should be same in config files
@@ -81,6 +76,7 @@ keycloak:
   password: admin
   url: '{{mzingress.base_url}}/keycloak'
 
+softhsm_base_path: /mnt/mosip_data/softhsm 
 softhsm:
   keymanager:  
     label: keymanager  
@@ -88,32 +84,32 @@ softhsm:
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker0
-    local_folder: /mnt/mosip_data/softhsm/keymanager/
+    local_folder: '{{softhsm_base_path}}/keymanager/'
   ida:  # Auth
     label: ida  
     conf_file: softhsm2.conf
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker0
-    local_folder: /mnt/mosip_data/softhsm/ida/
+    local_folder: '{{softhsm_base_path}}/ida/'
   idaotp:  
     label: idaotp
     conf_file: softhsm2.conf
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker1
-    local_folder: /mnt/mosip_data/softhsm/idaotp/
+    local_folder: '{{softhsm_base_path}}/idaotp/'
   idakyc:  
     label: idakyc
     conf_file: softhsm2.conf
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker2
-    local_folder: /mnt/mosip_data/softhsm/idakyc/
+    local_folder: '{{softhsm_base_path}}/idakyc/'
   idainternal:  
     label: idainternal
     conf_file: softhsm2.conf
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker2
-    local_folder: /mnt/mosip_data/softhsm/idainternal/
+    local_folder: '{{softhsm_base_path}}/idainternal/'
