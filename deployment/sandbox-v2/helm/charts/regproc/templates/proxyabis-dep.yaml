@@ -24,6 +24,7 @@ spec:
       containers:
       - name: {{ .Values.services.proxyabis.serviceName }} 
         image: {{ .Values.services.proxyabis.dockerImage }}:{{ .Values.services.proxyabis.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

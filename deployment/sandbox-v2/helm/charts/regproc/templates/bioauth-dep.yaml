@@ -26,6 +26,7 @@ spec:
       containers:
       - name: {{ .Values.services.bioauth.serviceName }} 
         image: {{ .Values.services.bioauth.dockerImage }}:{{ .Values.services.bioauth.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

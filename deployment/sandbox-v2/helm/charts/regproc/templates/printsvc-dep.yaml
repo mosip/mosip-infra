@@ -24,6 +24,7 @@ spec:
       containers:
       - name: {{ .Values.services.printsvc.serviceName }} 
         image: {{ .Values.services.printsvc.dockerImage }}:{{ .Values.services.printsvc.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

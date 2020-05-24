@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.captcha.serviceName }} 
         image: {{ .Values.services.captcha.dockerImage }}:{{ .Values.services.captcha.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

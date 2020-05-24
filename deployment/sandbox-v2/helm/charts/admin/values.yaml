@@ -1,7 +1,7 @@
 namespace: default
 component: admin
 part-of: mosip
-activeProfileEnv: qa
+activeProfileEnv: mz 
 springConfigLabel: master
 configServerUrl: http://config-server/config
 sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
