@@ -1,0 +1,14 @@
+# Reset postgres
+- hosts: '{{cluster}}'
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all POSTGRES data including KEYCLOAK? Are you sure?'
+      private: no
+  tasks:
+    - name: Delete all postgres data 
+      file: 
+        path: '{{postgres.local_storage_path}}/'
+        state: absent     
+      when: sure.lower().strip() == 'yes'

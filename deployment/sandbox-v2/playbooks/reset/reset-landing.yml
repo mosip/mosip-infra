@@ -1,0 +1,14 @@
+# Reset landing zone 
+- hosts: '{{cluster}}' 
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE LANDING ZONE? All packets will be lost.  Are you sure?' 
+      private: no
+  tasks:
+   - name: Delete config repo 
+     file: 
+       path: '{{regproc.landing_folder}}/'
+       state: absent     
+     when: sure.lower().strip() == 'yes'
