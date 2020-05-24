@@ -6,7 +6,7 @@ springConfigLabel: master
 configServerUrl: http://config-server/config
 sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
 probe:
-  initialDelay: 30  # Seconds
+  initialDelay: 180  # Seconds
   period: 30 # Seconds
 ingress:
    namespace: default
@@ -96,7 +96,7 @@ services:
   ui:
     serviceName: prereg-ui
     dockerImage: mosipdev/pre-registration-ui
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_PREREG
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name

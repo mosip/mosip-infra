@@ -7,7 +7,7 @@ configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
 storageClass: dm-storage-class  # See sc, pv templates
 
 probe:
-  initialDelay: 60  # Seconds
+  initialDelay: 180  # Seconds
   period: 30 # Seconds
 
 ingress:
@@ -168,6 +168,26 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
+  external:
+    serviceName: regproc-external-stage
+    dockerImage: mosipdev/registration-processor-external-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5736
+      hazelcastPort: 5701
+      containerPort: 8095
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/external 
+    healthUrl: /registrationprocessor/v1/external/acutator/health 
+  eis: 
+    serviceName: regproc-external-integration-service
+    dockerImage: mosipdev/registration-processor-external-integration-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 8201
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/eis
+    healthUrl: /registrationprocessor/v1/eis/actuator/health
   uin:
     serviceName: regproc-uin-generator-stage
     dockerImage: mosipdev/registration-processor-uin-generator-stage
