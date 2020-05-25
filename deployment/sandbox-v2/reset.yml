@@ -1,9 +1,9 @@
 # Reset the clusters 
 # DANGEROUS: Know what you are doing.
 #
-#- {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: mzcluster}}
-#- {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: dmzcluster}}
-#- {import_playbook: playbooks/reset/reset-postgres.yml, vars: {cluster: mzcluster}}
-#- {import_playbook: playbooks/reset/reset-softhsm.yml, vars: {cluster: mzcluster}}
+- {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: mzcluster}}
+- {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: dmzcluster}}
+- {import_playbook: playbooks/reset/reset-postgres.yml, vars: {cluster: mzcluster}}
+- {import_playbook: playbooks/reset/reset-softhsm.yml, vars: {cluster: mzcluster}}
 - {import_playbook: playbooks/reset/reset-config-repo.yml, vars: {cluster: mzcluster}}
 - {import_playbook: playbooks/reset/reset-landing.yml, vars: {cluster: dmzcluster}}
