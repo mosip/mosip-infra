@@ -1,4 +1,0 @@
-kernel_auditmanager_name: kernel-auditmanager-service 
-kernel_auditmanager_version: 1.0.6
-kernel_auditmanager_image: mosipid/kernel-auditmanager-service
-kernel_auditmanager_container_port: 8081

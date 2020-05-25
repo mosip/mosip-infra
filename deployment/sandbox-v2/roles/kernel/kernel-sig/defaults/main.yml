@@ -1,4 +1,0 @@
-kernel_signature_name: kernel-signature-service 
-kernel_signature_version: 1.0.6
-kernel_signature_image: mosipid/kernel-signature-service
-kernel_signature_container_port: 8092

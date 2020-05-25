@@ -1,4 +1,0 @@
-regproc_packet_validator_name: regproc-packet-validator-stage
-regproc_packet_validator_version: 1.0.6
-regproc_packet_validator_image: mosipid/registration-processor-packet-validator-stage 
-regproc_packet_validator_container_port: 8088

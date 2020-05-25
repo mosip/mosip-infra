@@ -1,4 +1,0 @@
-regproc_demo_dedupe_name: regproc-demo-dedupe-stage
-regproc_demo_dedupe_version: 1.0.6
-regproc_demo_dedupe_image: mosipid/registration-processor-demo-dedupe-stage 
-regproc_demo_dedupe_container_port: 8091

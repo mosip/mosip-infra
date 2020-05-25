@@ -1,4 +1,0 @@
-regproc_abis_handler_name: regproc-abis-handler-stage
-regproc_abis_handler_version: 1.0.6
-regproc_abis_handler_image: mosipid/registration-processor-abis-handler-stage
-regproc_abis_handler_container_port: 9071

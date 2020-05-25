@@ -1,4 +1,0 @@
-regproc_osi_validator_name: regproc-osi-validator-stage
-regproc_osi_validator_version: 1.0.6
-regproc_osi_validator_image: mosipid/registration-processor-osi-validator-stage 
-regproc_osi_validator_container_port: 8089

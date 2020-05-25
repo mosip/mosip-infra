@@ -1,4 +1,0 @@
-regproc_msg_sender_name: regproc-message-sender-stage
-regproc_msg_sender_version: 1.0.6
-regproc_msg_sender_image: mosipid/registration-processor-message-sender-stage
-regproc_msg_sender_container_port: 8088

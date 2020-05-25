@@ -1,4 +1,0 @@
-prereg_notification_name: prereg-notification-service 
-prereg_notification_version: 1.0.7
-prereg_notification_image: mosipid/pre-registration-notification-service
-prereg_notification_container_port: 9099

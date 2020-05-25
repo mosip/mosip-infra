@@ -1,4 +1,0 @@
-prereg_generateqrcode_name: prereg-generateqrcode-service 
-prereg_generateqrcode_version: 1.0.7
-prereg_generateqrcode_image: mosipid/pre-registration-generateqrcode-service
-prereg_generateqrcode_container_port: 9091

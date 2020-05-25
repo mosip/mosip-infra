@@ -1,4 +1,0 @@
-regproc_bio_auth_name: regproc-bio-auth-stage
-regproc_bio_auth_version: 1.0.6
-regproc_bio_auth_image: mosipid/registration-processor-biometric-authentication-stage
-regproc_bio_auth_container_port: 8020

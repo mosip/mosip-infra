@@ -1,4 +1,0 @@
-prereg_demographic_name: prereg-demographic-service 
-prereg_demographic_version: 1.0.7
-prereg_demographic_image: mosipid/pre-registration-demographic-service
-prereg_demographic_container_port: 9092

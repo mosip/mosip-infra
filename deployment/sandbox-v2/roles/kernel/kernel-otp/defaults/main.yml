@@ -1,4 +1,0 @@
-kernel_otpmanager_name: kernel-otpmanager-service 
-kernel_otpmanager_version: 1.0.6
-kernel_otpmanager_image: mosipid/kernel-otpmanager-service
-kernel_otpmanager_container_port: 8085
