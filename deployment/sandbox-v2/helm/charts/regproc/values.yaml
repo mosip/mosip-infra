@@ -178,7 +178,7 @@ services:
       containerPort: 8095
       servicePort: 80
     ingressPath: /registrationprocessor/v1/external 
-    healthUrl: /registrationprocessor/v1/external/acutator/health 
+    healthUrl: /registrationprocessor/v1/external/actuator/health 
   eis: 
     serviceName: regproc-external-integration-service
     dockerImage: mosipdev/registration-processor-external-integration-service
