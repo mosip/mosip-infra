@@ -1,4 +1,0 @@
-kernel_uingenerator_name: kernel-uingenerator-service 
-kernel_uingenerator_version: 1.0.6
-kernel_uingenerator_image: mosipid/kernel-uingenerator-service
-kernel_uingenerator_container_port: 8080

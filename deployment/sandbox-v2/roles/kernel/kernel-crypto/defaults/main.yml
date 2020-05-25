@@ -1,4 +1,0 @@
-kernel_cryptomanager_name: kernel-cryptomanager-service 
-kernel_cryptomanager_version: 1.0.6
-kernel_cryptomanager_image: mosipid/kernel-cryptomanager-service
-kernel_cryptomanager_container_port: 8087

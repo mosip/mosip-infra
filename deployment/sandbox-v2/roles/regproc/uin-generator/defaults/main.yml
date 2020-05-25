@@ -1,4 +1,0 @@
-regproc_uin_generator_name: regproc-uin-generator-stage
-regproc_uin_generator_version: 1.0.6
-regproc_uin_generator_image: mosipid/registration-processor-uin-generator-stage
-regproc_uin_generator_container_port: 8099

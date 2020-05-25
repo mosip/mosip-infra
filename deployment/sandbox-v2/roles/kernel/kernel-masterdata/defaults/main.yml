@@ -1,4 +1,0 @@
-kernel_masterdata_name: kernel-masterdata-service 
-kernel_masterdata_version: 1.0.7
-kernel_masterdata_image: mosipid/kernel-masterdata-service
-kernel_masterdata_container_port: 8086

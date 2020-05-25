@@ -1,4 +1,0 @@
-prereg_datasync_name: prereg-datasync-service 
-prereg_datasync_version: 1.0.7
-prereg_datasync_image: mosipid/pre-registration-datasync-service
-prereg_datasync_container_port: 9094

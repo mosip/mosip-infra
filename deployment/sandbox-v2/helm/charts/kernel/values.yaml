@@ -9,8 +9,9 @@ ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 probe:
-  initialDelay: 30  # Seconds
+  initialDelay: 120  # Seconds
   period: 30 # Seconds
+imagePullPolicy: Always
 services:
   auth:
     serviceName: kernel-auth-service 
@@ -30,7 +31,7 @@ services:
     healthUrl: /v1/masterdata/actuator/health
   idgen:
     serviceName: kernel-idgenerator-service 
-    dockerImage: gsasikumar/kernel-idgenerator-service
+    dockerImage: mosipdev/kernel-idgenerator-service
     dockerTag: 1.0.9
     containerPort: 8080
     servicePort: 80
@@ -38,7 +39,7 @@ services:
     healthUrl: /v1/idgenerator/actuator/health
   prid:
     serviceName: kernel-pridgenerator-service 
-    dockerImage: gsasikumar/kernel-pridgenerator-service
+    dockerImage: mosipdev/kernel-pridgenerator-service
     dockerTag: 1.0.9
     containerPort: 8100
     servicePort: 80

@@ -1,4 +1,0 @@
-kernel_tokenidgenerator_name: kernel-tokenidgenerator-service 
-kernel_tokenidgenerator_version: 1.0.6
-kernel_tokenidgenerator_image: mosipid/kernel-tokenidgenerator-service
-kernel_tokenidgenerator_container_port: 8097

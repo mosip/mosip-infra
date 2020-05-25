@@ -1,4 +1,0 @@
-kernel_applicanttype_name: kernel-applicanttype-service 
-kernel_applicanttype_version: 1.0.6
-kernel_applicanttype_image: mosipid/kernel-applicanttype-service
-kernel_applicanttype_container_port: 8094

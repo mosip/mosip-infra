@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.masterdata.serviceName }} 
         image: {{ .Values.services.masterdata.dockerImage }}:{{ .Values.services.masterdata.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
