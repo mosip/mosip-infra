@@ -29,7 +29,6 @@ spec:
         image: {{ .Values.services.idgen.dockerImage }}:{{ .Values.services.idgen.dockerTag }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-#        # TODO: Correct docker - we have to write variables names explicitly
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
         - name: spring_config_label_env
