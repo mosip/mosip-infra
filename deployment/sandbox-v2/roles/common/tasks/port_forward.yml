@@ -1,0 +1,39 @@
+# This tasks forwards a port form console to one of the nodeport on a node in the cluster.
+# This is done to enable postgres, activemq etc accessible externally but without having 
+# to directly open up cluster machines. 
+# Parameters:
+# pf_source_ip:  Console ip
+# pf_source_port: Console port that needs forwarding
+# pf_dest_ip: Node machine ip
+# pf_dest_port: nodeport on node machine of a service
+#
+- name: Enable fowarding
+  shell: 'echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/99-ipforward.conf'
+  become: yes 
+
+- name: Activate
+  command: 'sysctl -p /etc/sysctl.d/99-ipforward.conf'
+  become: yes 
+
+- name: Flush rules
+  iptables:
+    flush: yes
+  become: yes 
+
+- name: Flush rules
+  iptables:
+    table: nat
+    flush: yes
+  become: yes 
+   
+#
+#  For some reason the iptables modules on ansible doesn't work - version issues etc.
+
+- name: Forward rule
+  command: 'iptables -t nat -A PREROUTING -p tcp --dport {{pf_source_port}} -j DNAT --to-destination {{pf_dest_ip}}:{{pf_dest_port}}'
+  become: yes
+
+- name: Reverse rule
+  command: 'iptables -t nat -A POSTROUTING -p tcp -d {{pf_dest_ip}} --dport {{pf_dest_port}} -j SNAT --to-source {{pf_source_ip}}'
+  become: yes
+
