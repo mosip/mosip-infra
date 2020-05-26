@@ -2,6 +2,7 @@
 # further execution of automation. Here we have split tasks and roles into seperate
 # play as tasks only run after roles if they are in the same play (for some reason)
 # and for us sequencing is important.
+
 - hosts: console
   gather_facts: true 
   tasks:
