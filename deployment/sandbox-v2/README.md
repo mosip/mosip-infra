@@ -38,7 +38,7 @@ Console machine is the machine from where you will run all the scripts.  Your An
 * Make `sudo` password-less for this user.
 * Console machine must be in the same subnet as kuberntes cluster machines.
 * Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
-* Port 80 and 443 must be open on the console for external access.
+* Port 80, 443, 30090 (for postgres) must be open on the console for external access.
 * Change hostname of console machine to `console`. 
 * Create ssh keys using `ssh-keygen` and place them in `~/.ssh` folder:
 ```
