@@ -35,7 +35,7 @@ services:
     dockerTag: 1.0.9
     containerPort: 8080
     servicePort: 80
-    ingressPath: ''
+    ingressPath: /v1/idgenerator 
     healthUrl: /v1/idgenerator/actuator/health
   prid:
     serviceName: kernel-pridgenerator-service 

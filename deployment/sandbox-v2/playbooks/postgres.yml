@@ -1,0 +1,32 @@
+# This play installs Postgres and dependent components
+#
+#
+# Install persistence
+- hosts: mzworker0  # One of the mz nodes is chosen for persistence
+  tasks:
+    - {name: 'Create folder', file: {name: '{{postgres.local_storage_path}}', state: directory}}
+
+# Install postgres and initialize it with tables and data
+- hosts: console
+  roles:
+     - {role: helm, install_name: 'postgres', helm_chart: '{{charts_root}}/postgres', kube_config: '{{mz_kube_config}}'}
+     - {role: postgres-init, tags: [postgres-init]} 
+
+
+# Port forwarding for external acesss. Port is forwarded from console to node machine
+# such that postgres can be accessed using psql or any other client from outside the
+# network. We don't want to expose the cluster node and port, hence port forwarding.
+- hosts: all
+  tasks: []  # Just to collect facts of all hosts
+
+- hosts: console
+  tasks:
+    - name: port forwarding  
+      vars:
+        pf_source_ip:   '{{hostvars["console"]["ansible_default_ipv4"]["address"]}}'
+        pf_source_port: '{{postgres.nodeport}}'
+        pf_dest_ip: '{{hostvars["mzworker0"]["ansible_default_ipv4"]["address"]}}'  # Any node of the cluster
+        pf_dest_port: '{{postgres.nodeport}}' 
+      include_tasks: '{{install_root}}/roles/common/tasks/port_forward.yml'
+
+
