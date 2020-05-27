@@ -41,13 +41,13 @@ spec:
           value: absent
         ports:
         - containerPort: {{ .Values.services.idgen.containerPort }}
-        readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
-          tcpSocket:
-            port: {{ .Values.services.idgen.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.services.idgen.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        readinessProbe:  #TODO: Disabled as not sure how long this takes. Enable them carefully.
+#          tcpSocket:
+#            port: {{ .Values.services.idgen.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          tcpSocket:
+#            port: {{ .Values.services.idgen.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
