@@ -26,6 +26,6 @@ services:
     dockerTag: 1.0.10
     containerPort: 80
     servicePort: 80
-    configName: amdin-ui-config # ConfigMap name
+    configName: admin-ui-config # ConfigMap name
     apiHost: https://{{ .Values.sandboxDomainName }}/
     ingressPath: /admin-ui
