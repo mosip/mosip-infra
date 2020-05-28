@@ -15,7 +15,7 @@ regproc_repo_location: '{{lookup("env",  "HOME")}}/registration'
 regproc_repo_tag: master
 
 ida_repo_location: '{{lookup("env",  "HOME")}}/id-authentication'
-ida_repo_tag: master
+ida_repo_tag: 1.0.9
 
 pms_repo_location: '{{lookup("env",  "HOME")}}/partner-management-services'
 pms_repo_tag: master
