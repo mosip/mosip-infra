@@ -260,6 +260,8 @@ TROUBLESHOOTING:
 1. Caution - postgres init deletes DBs and re-inializes them.
 1. Keycloak url.  Check if domain name is properly set in Keycloal charts values file.
 1. Access denied:  Role, client, service account roles.
+1. Delete kswap0 process. 
+1. Deleted some stray processes consuming memory.
 
 ==============
 config
