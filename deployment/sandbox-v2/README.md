@@ -111,7 +111,7 @@ To run individual roles, use tags, e.g
 $ ansible-playbook -i hosts --tags postgres site.yml
 ```
 ## Useful tips
-You may add the following short-cuts in `/home/mosipuser/.bashrc`:
+* You may add the following short-cuts in `/home/mosipuser/.bashrc`:
 ```
 alias an='ansible-playbook -i hosts.ini'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
@@ -123,5 +123,9 @@ alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
 After the adding the above:
 ```
 $ source  ~/.bashrc
+```
+* If you are using `tmux` tool, copy the config file as below:
+```
+$ cp /utils/tmux.conf ~/.tmux.conf
 ```
 
