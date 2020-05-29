@@ -127,6 +127,14 @@ http {
            proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/syncdata/;
            }
+
+        location /v1/idgenerator/ {
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+           proxy_set_header X-Forwarded-Proto $scheme;
+           proxy_pass {{mzingress.base_url}}/v1/idegenator/;
+           }
    
         location /v1/authmanager/ {
            proxy_set_header Host $host;
