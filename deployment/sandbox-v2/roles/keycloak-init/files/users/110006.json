@@ -1,0 +1,19 @@
+{
+    "username": "110006",
+    "enabled": true,
+    "email": "110006@xyz.com",
+    "emailVerified": false,
+    "firstName": "Test110006",
+    "lastName": "Auto110006",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9dVdITE9nK0Z3b0dHYTBhZDNzUEJvT2FNMktCYkhEVk1xLzVWWlNkU3Bnem9ZODNycWdLN3h3PT0="
+    }
+}
+
