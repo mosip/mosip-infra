@@ -61,6 +61,7 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
   - {realm_id: 'mosip', user_file: 'users/ida_testuser.json'}
   - {realm_id: 'mosip', user_file: 'users/test_admin.json'}
   - {realm_id: 'mosip', user_file: 'users/zonal-approver.json'}
+  - {realm_id: 'mosip', user_file: 'users/110014.json'}
 
 keycloak_mosip_user_role_map:  
   # testuser
