@@ -43,7 +43,7 @@ services:
     dockerTag: 1.0.9
     containerPort: 8100
     servicePort: 80
-    ingressPath: ''
+    ingressPath: /v1/pridgenerator
     healthUrl: /v1/pridgenerator/actuator/health
   sync:
     serviceName: kernel-syncdata-service 
@@ -84,7 +84,7 @@ services:
     dockerTag: 1.0.9
     containerPort: 8085
     servicePort: 80
-    ingressPath: ''
+    ingressPath: /v1/otpmanager 
     healthUrl: /v1/otpmanager/actuator/health
   rid:
     serviceName: kernel-ridgenerator-service 
@@ -92,6 +92,6 @@ services:
     dockerTag: 1.0.9
     containerPort: 8096
     servicePort: 80
-    ingressPath: '' 
+    ingressPath: /v1/ridgenerator 
     healthUrl: /v1/ridgenerator/actuator/health
 
