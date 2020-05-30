@@ -51,9 +51,9 @@ spec:
 #            port: {{ .Values.services.bioauth.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.bioauth.healthUrl }} 
-            port: {{ .Values.services.bioauth.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.bioauth.healthUrl }} 
+#            port: {{ .Values.services.bioauth.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
