@@ -128,4 +128,8 @@ $ source  ~/.bashrc
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf
 ```
+* To exchange ssh keys you may try this (warning: its Beta testing!):
+```
+$ ansible-playbook -i hosts.ini --user mosipuser --ask-pass --ask-become-pass playbooks/ssh.yml
+```
 
