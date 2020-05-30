@@ -40,7 +40,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', client_id: '', role_name: 'INDIVIDUAL'}  # TODO: later this role should not be needed in mosip realm
   - {realm_id: 'mosip', client_id: '', role_name: 'PARTNERMANAGER'}
-  - {realm_id: 'mosip', client_id: '', role_name: 'PARTNERS'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'POLICYMANAGER'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'INDIVIDUAL'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'AUTH'}
@@ -62,6 +62,7 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
   - {realm_id: 'mosip', user_file: 'users/test_admin.json'}
   - {realm_id: 'mosip', user_file: 'users/zonal-approver.json'}
   - {realm_id: 'mosip', user_file: 'users/110014.json'}
+  - {realm_id: 'mosip', user_file: 'users/110024.json'}
 
 keycloak_mosip_user_role_map:  
   # testuser
@@ -155,6 +156,10 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110123', role_name: 'REGISTRATION_SUPERVISOR'}
 
   - {realm_id: 'mosip', username: '110124', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'PARTNER'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'MISP'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'POLICYMANAGER'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'PARTNERMANAGER'}
 
   - {realm_id: 'mosip', username: '110125', role_name: 'REGISTRATION_OFFICER'}
 
@@ -175,6 +180,11 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110014', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: '110014', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110014', role_name: 'REGISTRATION_SUPERVISOR'}
+
+  - {realm_id: 'mosip', username: '110024', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: '110024', role_name: 'REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: '110024', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', username: '110024', role_name: 'REGISTRATION_SUPERVISOR'}
 
     # For service account mappings client name must be prefixed with service-account-
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}

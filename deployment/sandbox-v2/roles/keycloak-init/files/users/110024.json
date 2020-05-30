@@ -1,0 +1,20 @@
+{
+    "username": "110024",
+    "enabled": true,
+    "email": "110024@xyz.com",
+    "emailVerified": false,
+    "firstName": "110024",
+    "lastName": "110024",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9dVdITE9nK0Z3b0dHYTBhZDNzUEJvT2FNMktCYkhEVk1xLzVWWlNkU3Bnem9ZODNycWdLN3h3PT0=",
+      "rid": "27841452330002620190527095024"
+    }
+}
+
