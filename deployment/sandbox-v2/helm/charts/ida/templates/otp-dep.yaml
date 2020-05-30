@@ -48,9 +48,9 @@ spec:
             port: {{ .Values.services.otp.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.otp.healthUrl }} 
-            port: {{ .Values.services.otp.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+  #      livenessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.otp.healthUrl }} 
+  #          port: {{ .Values.services.otp.containerPort }} 
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }}
