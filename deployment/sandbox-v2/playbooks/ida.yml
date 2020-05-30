@@ -3,21 +3,6 @@
     persistence_node: mzworker0  # Should match group_vars/all.yml
     hsm_prop: '{{softhsm.ida}}'
 
-- import_playbook: softhsm.yml 
-  vars:
-    persistence_node: mzworker1  # Should match group_vars/all.yml
-    hsm_prop: '{{softhsm.idaotp}}'
-
-- import_playbook: softhsm.yml 
-  vars:
-    persistence_node: mzworker2  # Should match group_vars/all.yml
-    hsm_prop: '{{softhsm.idakyc}}'
-
-- import_playbook: softhsm.yml 
-  vars:
-    persistence_node: mzworker2  # Should match group_vars/all.yml
-    hsm_prop: '{{softhsm.idainternal}}'
-
 - hosts: console
   gather_facts: true
   vars:   
