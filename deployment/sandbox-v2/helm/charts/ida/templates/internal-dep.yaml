@@ -48,9 +48,9 @@ spec:
             port: {{ .Values.services.internal.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.internal.healthUrl }} 
-            port: {{ .Values.services.internal.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.internal.healthUrl }} 
+#            port: {{ .Values.services.internal.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }}
