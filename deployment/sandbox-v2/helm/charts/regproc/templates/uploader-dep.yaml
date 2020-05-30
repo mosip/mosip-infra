@@ -51,9 +51,9 @@ spec:
 #            port: {{ .Values.services.uploader.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.uploader.healthUrl }} 
-            port: {{ .Values.services.uploader.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+ #         httpGet:
+  #          path: {{ .Values.services.uploader.healthUrl }} 
+  #          port: {{ .Values.services.uploader.ports.containerPort }} 
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }} 
