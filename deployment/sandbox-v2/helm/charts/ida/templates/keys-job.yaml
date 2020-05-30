@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
   name: {{ .Values.generators.key.name }} 
   namespace: {{ .Values.namespace }} 
@@ -8,25 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: {{ .Values.generators.key.name }} 
-  minReadySeconds: 10
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
   template:
     metadata:
       labels:
         app: {{ .Values.generators.key.name }} 
         component: {{ .Values.component }} 
     spec:
+      restartPolicy: Never  # This is one time job
       containers:
       - name: {{ .Values.generators.key.name }} 
         image: {{ .Values.generators.key.dockerImage }}:{{ .Values.generators.key.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

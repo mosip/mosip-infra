@@ -10,6 +10,7 @@ artifactoryUrl: http://13.71.87.138:8040
 probe:
   initialDelay: 120  # Seconds
   period: 30 # Seconds
+imagePullPolicy: Always
 services:
   auth:
     serviceName: ida-auth-service
@@ -54,4 +55,12 @@ generators:
     dockerImage: mosipdev/authentication-keys-generator
     dockerTag: 1.0.9
     hsmUrl: tcp://softhsm-ida:80   
+  hashsalt:  
+    name:  ida-hash-salt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+  encryptsalt:  
+    name:  ida-encrypt-salt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
    
