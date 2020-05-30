@@ -46,8 +46,8 @@ spec:
             port: {{ .Values.services.batch.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.services.batch.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+   #     livenessProbe:
+   #       tcpSocket:
+   #         port: {{ .Values.services.batch.containerPort }}
+   #       initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+   #       periodSeconds: {{ .Values.probe.period }} 
