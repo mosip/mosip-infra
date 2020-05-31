@@ -74,6 +74,11 @@ http {
         ssl_ciphers HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers on;
 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
@@ -81,172 +86,115 @@ http {
         }
 
         location /keycloak/ {
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          # Below must match with Kubernetes ingress path for keycloak
           proxy_pass {{mzingress.base_url}}/keycloak/;
         }
 
         location /preregistration/v1/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/preregistration/v1/;
            }
         location /pre-registration-ui/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/pre-registration-ui/;
-           }
+        }
    
         location /v1/masterdata/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/masterdata/;
-           }
+        }
 
         location /v1/keymanager/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/keymanager/;
-           }
+        }
 
         location /v1/syncdata/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/syncdata/;
-           }
+        }
 
         location /v1/idgenerator/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/idegenator/;
-           }
+        }
+
+        location /v1/ridgenerator/ {
+           proxy_pass {{mzingress.base_url}}/v1/ridegenator/;
+        }
+
+        location /v1/pridgenerator/ {
+           proxy_pass {{mzingress.base_url}}/v1/pridegenator/;
+        }
+
+        location /v1/otpmanager/ {
+           proxy_pass {{mzingress.base_url}}/v1/otpmanager/;
+        }
+
+        location /v1/notifier/ {
+           proxy_pass {{mzingress.base_url}}/v1/notifier/;
+        }
    
         location /v1/authmanager/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/authmanager/;
-           }
+        }
 
         location /v1/auditmanager/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/auditmanager/;
-           }
+        }
    
         location /idauthentication/v1/auth/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/idauthentication/v1/auth/;
-           }
+        }
 
 	location /idauthentication/v1/kyc/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/idauthentication/v1/kyc/;
-           }
+        }
 
 	location /idauthentication/v1/otp/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/idauthentication/v1/otp/;
-           }
+        }
+
+	location /idauthentication/v1/internal/ {
+	   proxy_pass {{mzingress.base_url}}/idauthentication/v1/internal/;
+        }
+
+	location /idrepository/v1/identity/ {
+	   proxy_pass {{mzingress.base_url}}/idrepository/v1/identity/;
+        }
+
+	location /idrepository/v1/vid/ {
+	   proxy_pass {{mzingress.base_url}}/idrepository/v1/vid/;
+        }
 
 	location /registrationprocessor/v1/registrationstatus/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/registrationstatus/;
-           }
+        }
 
 	location /registrationprocessor/v1/packetreceiver/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/packetreceiver/;
-           }
+        }
 
        	location /partnermanagement/v1/misps/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
-           }
+        }
 
 	location /partnermanagement/v1/policies/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/policies/;
-           }
+        }
 
 	location /partnermanagement/v1/partners/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/partners/;
-           }
+        }
 
 	location /partnermanagement/v1/pmpartners/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
 	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/pmpartners/;
-           }
+        }
 
         location /v1/admin/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/v1/admin/;
-           }
+        }
 
         location /admin-ui/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/admin-ui/;
-           }
+        }
 
         location /resident/v1/ {
-           proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header X-Forwarded-Proto $scheme;
            proxy_pass {{mzingress.base_url}}/resident/v1/;
-           }
+        }
 
         error_page 404 /404.html;
             location = /40x.html {

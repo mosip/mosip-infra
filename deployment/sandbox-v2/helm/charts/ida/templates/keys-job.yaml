@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.generators.key.name }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.generators.key.name }}
+    component: {{ .Values.component }} 
+    
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.generators.key.name }} 
+        component: {{ .Values.component }} 
+    spec:
+      restartPolicy: Never  # This is one time job
+      containers:
+      - name: {{ .Values.generators.key.name }} 
+        image: {{ .Values.generators.key.dockerImage }}:{{ .Values.generators.key.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        - name: PKCS11_PROXY_SOCKET
+          value: {{ .Values.generators.key.hsmUrl }} 

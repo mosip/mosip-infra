@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.generators.hashsalt.name }} 
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.generators.hashsalt.name }}
+    component: {{ .Values.component }} 
+    
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.generators.hashsalt.name }} 
+        component: {{ .Values.component }} 
+    spec:
+      restartPolicy: Never  # This is one time job
+      containers:
+      - name: {{ .Values.generators.hashsalt.name }} 
+        image: {{ .Values.generators.hashsalt.dockerImage }}:{{ .Values.generators.hashsalt.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: spring_config_name_env
+          value: id-authentication
+        - name: is_glowroot_env
+          value: absent
+        - name: table_name
+          value: javax.persistence.jdbc.uinHashTable

@@ -28,7 +28,7 @@
   command: 'systemctl restart nginx'
   become: yes
 
-- name: allow selinux to conenct to httpd
+- name: allow selinux to connect to httpd
   # Note: otherwise selinux prevents it. TODO: find ansible way of doing this
   command: 'setsebool httpd_can_network_connect on -P'
   become: yes
