@@ -1,0 +1,16 @@
+- hosts: console
+  gather_facts: false
+   
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all REPOS?'
+      private: no
+
+  tasks:
+   - name: Delete all repos 
+     file: 
+       path: '{{item.value.dest}}'
+       state: absent     
+     with_items: '{{repos | dict2items}}'
+     when: sure.lower().strip() == 'yes'
+

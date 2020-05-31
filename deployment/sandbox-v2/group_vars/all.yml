@@ -2,6 +2,9 @@
 ---
 # Global variables - accessed by different roles and plays
 #
+tmp_dir: '/tmp/' 
+logs_dir: '/tmp/'
+
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
@@ -92,3 +95,28 @@ softhsm:
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     node: mzworker0
     local_folder: '{{softhsm_base_path}}/ida/'
+
+
+# Repos that are checked out for db sql scripts
+repos:
+  commons:
+    src: https://github.com/mosip/commons 
+    dest: '{{tmp_dir}}/commons'
+    tag: 1.0.9
+  prereg:
+    src: https://github.com/mosip/pre-registration
+    dest: '{{tmp_dir}}/pre-registration'
+    tag: master
+  regproc:
+    src: https://github.com/mosip/registration
+    dest: '{{tmp_dir}}/registration'
+    tag: master
+  ida:
+    src: https://github.com/mosip/id-authentication
+    dest: '{{tmp_dir}}/id-authentication'
+    tag: 1.0.9
+  pms:
+    src: https://github.com/mosip/partner-management-services
+    dest: '{{tmp_dir}}/partner-management-services'
+    tag: master
+
