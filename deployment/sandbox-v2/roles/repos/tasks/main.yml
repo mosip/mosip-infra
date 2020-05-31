@@ -1,40 +1,13 @@
 # These repositories are checked out from github 
-- name: Check out mosip/commmons git repo
-  git:
-    repo: https://github.com/mosip/commons
-    dest: '{{commons_repo_location}}'
-    version: '{{commons_repo_tag }}'  
-    update: no
-    force: no
-    
-- name: Check out mosip/pre-registration git repo
-  git:
-    repo: https://github.com/mosip/pre-registration
-    dest: '{{prereg_repo_location}}'
-    version: '{{prereg_repo_tag }}'
-    update: no
-    force: no
+#
 
-- name: Check out mosip/registration git repo
+- name: 'Check out git repos'
   git:
-    repo: https://github.com/mosip/registration
-    dest: '{{regproc_repo_location}}'
-    version: '{{regproc_repo_tag}}'
+    repo: '{{item.value.src}}'
+    dest: '{{item.value.dest}}'
+    version: '{{item.value.tag}}'  
     update: no
     force: no
+  with_items: '{{repos | dict2items}}' 
 
-- name: Check out mosip/id-authentication git repo
-  git:
-    repo: https://github.com/mosip/id-authentication
-    dest: '{{ida_repo_location}}'
-    version: '{{ida_repo_tag}}'
-    update: no
-    force: no
 
-- name: Check out partner management services repo
-  git:
-    repo: https://github.com/mosip/partner-management-services
-    dest: '{{pms_repo_location}}'
-    version: '{{pms_repo_tag}}'
-    update: no
-    force: no
