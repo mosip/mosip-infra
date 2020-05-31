@@ -5,7 +5,7 @@
 
 - include: init_db.yml
   vars:
-    pg_db_name: '{{item.db_name}}'
-    pg_sql_path: '{{item.sql}}'
-  with_items: '{{pg_databases}}'
+    pg_db_name: '{{item.key}}'
+    pg_sql_path: '{{item.value.sql_path}}'
+  with_items: '{{databases | dict2items}}'
         

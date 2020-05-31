@@ -97,7 +97,6 @@ softhsm:
     local_folder: '{{softhsm_base_path}}/ida/'
 
 
-# Repos that are checked out for db sql scripts
 repos:
   commons:
     src: https://github.com/mosip/commons 
@@ -119,4 +118,29 @@ repos:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
     tag: master
+
+# DBs 
+#
+databases:
+  mosip_kernel:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_master:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_iam:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_audit:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_idrepo:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_idmap:
+    sql_path: '{{repos.commons.dest}}/db_scripts'
+  mosip_prereg:
+    sql_path: '{{repos.prereg.dest}}/db_scripts'
+  mosip_regprc:
+    sql_path: '{{repos.regproc.dest}}/db_scripts'
+  mosip_ida:
+    sql_path: '{{repos.ida.dest}}/db_scripts'
+  mosip_pmp:
+    sql_path: '{{repos.pms.dest}}/db_scripts'
+
 
