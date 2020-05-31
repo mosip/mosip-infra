@@ -46,12 +46,12 @@ spec:
             port: {{ .Values.services.identity.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.identity.healthUrl }} 
-            port: {{ .Values.services.identity.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+ #       livenessProbe:
+ #         httpGet:
+ #           path: {{ .Values.services.identity.healthUrl }} 
+ #           port: {{ .Values.services.identity.containerPort }} 
+ #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+ #         periodSeconds: {{ .Values.probe.period }}
         readinessProbe:
           tcpSocket:
             port: {{ .Values.services.identity.containerPort }}

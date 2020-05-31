@@ -51,9 +51,9 @@ spec:
 #            port: {{ .Values.services.quality.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.quality.healthUrl }} 
-            port: {{ .Values.services.quality.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.quality.healthUrl }} 
+#            port: {{ .Values.services.quality.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 

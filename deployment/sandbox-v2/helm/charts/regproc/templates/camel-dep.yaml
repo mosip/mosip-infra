@@ -52,9 +52,9 @@ spec:
 #            port: {{ .Values.services.camel.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.camel.healthUrl }} 
-            port: {{ .Values.services.camel.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.camel.healthUrl }} 
+#            port: {{ .Values.services.camel.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
