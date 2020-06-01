@@ -16,6 +16,7 @@ keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-partner-client', secret: 'abc123'} 
   - {realm_id: 'mosip', client_id: 'mosip-policymanager-client', secret: 'abc123'} 
   - {realm_id: 'mosip', client_id: 'mosip-partnermanager-client', secret: 'abc123'} 
+  - {realm_id: 'mosip', client_id: 'mosip-resident-client', secret: 'abc123'} 
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}
