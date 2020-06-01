@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.healthcheck.serviceName }}
+  namespace: {{ .Values.namespace }} 
+  labels:
+    app: {{ .Values.services.healthcheck.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.healthcheck.serviceName }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.healthcheck.serviceName }}
+        component: {{ .Values.component }} 
+    spec:
+      containers:
+      - name: {{ .Values.services.healthcheck.serviceName }}
+        image: {{ .Values.services.healthcheck.dockerImage }}:{{ .Values.services.healthcheck.dockerTag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+  #      env:
+  #      - name: active_profile_env
+  #        value: {{ .Values.activeProfileEnv }}
+  #     - name: spring_config_label_env
+  #        value: {{ .Values.springConfigLabel }}
+  #      - name: spring_config_url_env
+  #        value: {{ .Values.configServerUrl }}
+  #      - name: artifactory_url_env
+  #        value: {{ .Values.artifactoryUrl }}
+  #      - name: is_glowroot_env
+  #        value: absent
+  #      ports:
+  #      - containerPort: {{ .Values.services.healthcheck.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.healthcheck.healthUrl }}
+            port: {{ .Values.services.healthcheck.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+  #      livenessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.document.healthUrl }}
+  #          port: {{ .Values.services.document.containerPort }}
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }} 

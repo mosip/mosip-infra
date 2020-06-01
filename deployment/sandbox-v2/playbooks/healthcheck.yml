@@ -1,0 +1,9 @@
+# This play installs all PreReg services using Helm
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/healthcheck'
+    install_name: healthcheck
+  roles:
+    - {role: helm, tags: [healthcheck]}

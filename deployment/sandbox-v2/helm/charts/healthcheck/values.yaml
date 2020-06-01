@@ -1,0 +1,23 @@
+namespace: default
+component: healthcheck
+part-of: mosip
+activeProfileEnv: mz
+springConfigLabel: master
+configServerUrl: http://config-server/config
+sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
+probe:
+  initialDelay: 180  # Seconds
+  period: 30 # Seconds
+ingress:
+  namespace: default
+artifactoryUrl: http://13.71.87.138:8040
+imagePullPolicy: Always
+services:
+  healthcheck:
+    serviceName: health-check
+    dockerImage: mandeepdhiman90/healthcheck
+    dockerTag: 1.0
+    containerPort: 90900
+    servicePort: 80
+    ingressPath: /healthcheck/v1/report
+    healthUrl: /healthcheck/v1/report/actuator/health
