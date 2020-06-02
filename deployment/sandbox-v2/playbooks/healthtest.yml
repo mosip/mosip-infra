@@ -3,7 +3,7 @@
   gather_facts: true
   vars:   
     kube_config: '{{mz_kube_config}}' 
-    helm_chart: '{{charts_root}}/healthcheck'
-    install_name: healthcheck
+    helm_chart: '{{charts_root}}/healthtest'
+    install_name: healthtest
   roles:
-    - {role: helm, tags: [healthcheck]}
+    - {role: helm, tags: [healthtest]}

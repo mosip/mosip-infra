@@ -21,12 +21,12 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.services.healthcheck.serviceName }}
+        app: {{ .Values.services.healthtest.serviceName }}
         component: {{ .Values.component }} 
     spec:
       containers:
-      - name: {{ .Values.services.healthcheck.serviceName }}
-        image: {{ .Values.services.healthcheck.dockerImage }}:{{ .Values.services.healthcheck.dockerTag }}
+      - name: {{ .Values.services.healthtest.serviceName }}
+        image: {{ .Values.services.healthtest.dockerImage }}:{{ .Values.services.healthtest.dockerTag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
   #      env:
   #      - name: active_profile_env
@@ -39,17 +39,17 @@ spec:
   #        value: {{ .Values.artifactoryUrl }}
   #      - name: is_glowroot_env
   #        value: absent
-  #      ports:
-  #      - containerPort: {{ .Values.services.healthcheck.containerPort }}
+        ports:
+        - containerPort: {{ .Values.services.healthtest.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.healthcheck.healthUrl }}
-            port: {{ .Values.services.healthcheck.containerPort }}
+            path: {{ .Values.services.healthtest.healthUrl }}
+            port: {{ .Values.services.healthtest.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
   #      livenessProbe:
   #        httpGet:
-  #          path: {{ .Values.services.document.healthUrl }}
-  #          port: {{ .Values.services.document.containerPort }}
+  #          path: {{ .Values.services.healthtest.healthUrl }}
+  #          port: {{ .Values.services.healthtest.containerPort }}
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }} 
