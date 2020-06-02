@@ -168,6 +168,11 @@ http {
 	   proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/packetreceiver/;
         }
 
+        location /registrationprocessor/v1/securezone/ {
+           proxy_pass http://dmzworker0:30080/registrationprocessor/v1/securezone/;
+        }
+
+
        	location /partnermanagement/v1/misps/ {
 	   proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
         }
