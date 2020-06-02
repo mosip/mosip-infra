@@ -1,5 +1,5 @@
 namespace: default
-component: healthcheck
+component: healthtest
 part-of: mosip
 activeProfileEnv: mz
 springConfigLabel: master
@@ -14,10 +14,10 @@ artifactoryUrl: http://13.71.87.138:8040
 imagePullPolicy: Always
 services:
   healthcheck:
-    serviceName: health-check
-    dockerImage: mandeepdhiman90/healthcheck
+    serviceName: health-test
+    dockerImage: mandeepdhiman90/healthtest
     dockerTag: 1.0
     containerPort: 90900
     servicePort: 80
-    ingressPath: /healthcheck/v1/report
-    healthUrl: /healthcheck/v1/report/actuator/health
+    #ingressPath: /healthtest/v1/report
+    #healthUrl: /healthtest/v1/report/actuator/health
