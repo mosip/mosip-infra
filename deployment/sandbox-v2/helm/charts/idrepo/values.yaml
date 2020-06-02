@@ -8,8 +8,9 @@ ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 probe:
-  initialDelay: 30  # Seconds
+  initialDelay: 60  # Seconds
   period: 30 # Seconds
+imagePullPolicy: Always
 services:
   identity:
     serviceName: idrepo-identity-service
