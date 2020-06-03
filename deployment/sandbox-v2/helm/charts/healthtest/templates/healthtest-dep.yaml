@@ -41,12 +41,12 @@ spec:
   #        value: absent
         ports:
         - containerPort: {{ .Values.services.healthtest.containerPort }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.healthtest.healthUrl }}
-            port: {{ .Values.services.healthtest.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+  #      readinessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.healthtest.healthUrl }}
+  #          port: {{ .Values.services.healthtest.containerPort }}
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }}
+  #        periodSeconds: {{ .Values.probe.period }}
   #      livenessProbe:
   #        httpGet:
   #          path: {{ .Values.services.healthtest.healthUrl }}
