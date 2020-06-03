@@ -1,23 +1,9 @@
+name: healthtest
 namespace: default
-component: healthtest
-part-of: mosip
-activeProfileEnv: mz
-springConfigLabel: master
-configServerUrl: http://config-server/config
+dockerImage: mandeepdhiman90/healthtest
+dockerTag: 1.0
 sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
-probe:
-  initialDelay: 180  # Seconds
-  period: 30 # Seconds
+containerPort: 9190
+servicePort: 80
 ingress:
-  namespace: default
-artifactoryUrl: http://13.71.87.138:8040
-imagePullPolicy: Always
-services:
-  healthcheck:
-    serviceName: health-test
-    dockerImage: mandeepdhiman90/healthtest
-    dockerTag: 1.0
-    containerPort: 90900
-    servicePort: 80
-    #ingressPath: /healthtest/v1/report
-    #healthUrl: /healthtest/v1/report/actuator/health
+  namespace: default # Must be same as in helm ingress-nginx
