@@ -9,24 +9,16 @@
 # Install postgres and initialize it with tables and data
 - hosts: console
   roles:
-     - {role: helm, install_name: 'postgres', helm_chart: '{{charts_root}}/postgres', kube_config: '{{mz_kube_config}}'}
-     - {role: postgres-init, tags: [postgres-init]} 
-
-
-# Port forwarding for external acesss. Port is forwarded from console to node machine
-# such that postgres can be accessed using psql or any other client from outside the
-# network. We don't want to expose the cluster node and port, hence port forwarding.
-- hosts: all
-  tasks: []  # Just to collect facts of all hosts
+     - {role: helm, install_name: 'postgres', helm_chart: '{{charts_root}}/postgres', kube_config: '{{mz_kube_config}}',  tags: [postgres]}
+  tasks:
+      # Forward local port to postgres service for external cluster access. Postgres service port is 80.
+    - name: access postgres
+      shell: 'kubectl --kubeconfig={{mz_kube_config}} port-forward  --address 0.0.0.0 service/{{postgres.service_name}} {{postgres.local_port}}:80 > /dev/null 2>&1 &' 
+      async: 5  
+      poll: 0
 
 - hosts: console
-  tasks:
-    - name: port forwarding  
-      vars:
-        pf_source_ip:   '{{hostvars["console"]["ansible_default_ipv4"]["address"]}}'
-        pf_source_port: '{{postgres.nodeport}}'
-        pf_dest_ip: '{{hostvars["mzworker0"]["ansible_default_ipv4"]["address"]}}'  # Any node of the cluster
-        pf_dest_port: '{{postgres.nodeport}}' 
-      include_tasks: '{{install_root}}/roles/common/tasks/port_forward.yml'
+  roles:
+     - {role: postgres-init, tags: [postgres-init]} 
 
 
