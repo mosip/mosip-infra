@@ -45,16 +45,6 @@ mkdir -p ~/.ssh
 touch ~/.ssh/authorized_keys
 echo "-------------------- Copying mosipuser key to root --------------------------"
 cat /home/mosipuser/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-#cat /root/.ssh/authorized_keys >> /home/mosipuser/key
-#echo "-----------------------cosole machine ssh key to dmzmaster and worker root account ------------------------- "
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@dmzmaster.southindia.cloudapp.azure.com:/home/mosipuser/
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@dmzworker0.southindia.cloudapp.azure.com:/home/mosipuser/
-
-#echo "-----------------------cosole machine ssh key to mzmaster and workers root account ------------------------- "
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@mzmaster.southindia.cloudapp.azure.com:/home/mosipuser/
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@mzworker0.southindia.cloudapp.azure.com:/home/mosipuser/
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@mzworker1.southindia.cloudapp.azure.com:/home/mosipuser/
-#sshpass -p "Password@123" rsync -avsh /home/mosipuser/key mosipuser@mzworker2.southindia.cloudapp.azure.com:/home/mosipuser/
 
 exit
 EOF
