@@ -28,3 +28,34 @@ services:
     servicePort: 80
     ingressPath: /idrepository/v1/vid
     healthUrl: /idrepository/v1/actuator/health
+
+generators:
+  uinhash:  
+    name:  idrepo-uin-hash-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+    table: mosip.idrepo.identity.db.shard.uinHashTable
+    db_alias: mosip.idrepo.identity.db.shard
+    schema: mosip.idrepo.identity.db.shard.schema  
+  uinencrypt:
+    name:  idrepo-uin-encrypt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+    table: mosip.idrepo.identity.db.shard.uinEncryptTable 
+    db_alias: mosip.idrepo.identity.db.shard 
+    schema_name: mosip.idrepo.identity.db.shard.schema 
+  vidhash:
+    name:  idrepo-vid-hash-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+    table: mosip.idrepo.vid.db.uinHashTable
+    db_alias: mosip.idrepo.vid.db 
+    schema: mosip.idrepo.vid.db.schema
+  videncrypt:
+    name:  idrepo-vid-encrypt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+    table: mosip.idrepo.vid.db.uinEncryptTable 
+    db_alias: mosip.idrepo.vid.db 
+    schema: mosip.idrepo.vid.db.schema 
+
