@@ -8,3 +8,4 @@
 - {import_playbook: playbooks/reset/reset-config-repo.yml, vars: {cluster: mzcluster}}
 - {import_playbook: playbooks/reset/reset-landing.yml, vars: {cluster: dmzcluster}}
 - {import_playbook: playbooks/reset/reset-repos.yml}
+- {import_playbook: playbooks/reset/reset-ports.yml}

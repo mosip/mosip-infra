@@ -1,0 +1,8 @@
+- hosts: console
+  gather_facts: false
+   
+  tasks:
+   - name: Removing all kubectl port forwards 
+     shell:  "ps -aux | grep kubectl | grep port-forward | awk '{print $2}' | xargs kill -9"
+     ignore_errors: yes
+

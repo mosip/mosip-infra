@@ -59,8 +59,9 @@ regproc:
 # Postgres persistent storage
 postgres:
   local_storage_path: /mnt/mosip_data/postgres  # TODO: This should match with helm charts
-  server: '{{mz_cluster_any_node}}' # Since postgres runs on node port
-  nodeport: 30090  # fixed for connecting from outside the cluster
+  service_name: postgres # svc on Kubernetes
+  server: localhost # Since we have port forwarded  
+  local_port: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
 
