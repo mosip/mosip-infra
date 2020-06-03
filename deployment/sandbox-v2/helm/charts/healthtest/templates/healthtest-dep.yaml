@@ -1,55 +1,32 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.healthcheck.serviceName }}
-  namespace: {{ .Values.namespace }} 
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
   labels:
-    app: {{ .Values.services.healthcheck.serviceName }}
-    component: {{ .Values.component }} 
-    
+    app: {{ .Values.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.services.healthcheck.serviceName }}
+      app: {{ .Values.name }}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
   template:
     metadata:
       labels:
-        app: {{ .Values.services.healthtest.serviceName }}
-        component: {{ .Values.component }} 
+        app: {{ .Values.name }}
     spec:
       containers:
-      - name: {{ .Values.services.healthtest.serviceName }}
-        image: {{ .Values.services.healthtest.dockerImage }}:{{ .Values.services.healthtest.dockerTag }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-  #      env:
-  #      - name: active_profile_env
-  #        value: {{ .Values.activeProfileEnv }}
-  #     - name: spring_config_label_env
-  #        value: {{ .Values.springConfigLabel }}
-  #      - name: spring_config_url_env
-  #        value: {{ .Values.configServerUrl }}
-  #      - name: artifactory_url_env
-  #        value: {{ .Values.artifactoryUrl }}
-  #      - name: is_glowroot_env
-  #        value: absent
-        ports:
-        - containerPort: {{ .Values.services.healthtest.containerPort }}
-  #      readinessProbe:
-  #        httpGet:
-  #          path: {{ .Values.services.healthtest.healthUrl }}
-  #          port: {{ .Values.services.healthtest.containerPort }}
-  #        initialDelaySeconds: {{ .Values.probe.initialDelay }}
-  #        periodSeconds: {{ .Values.probe.period }}
-  #      livenessProbe:
-  #        httpGet:
-  #          path: {{ .Values.services.healthtest.healthUrl }}
-  #          port: {{ .Values.services.healthtest.containerPort }}
-  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-  #        periodSeconds: {{ .Values.probe.period }} 
+        - name: {{ .Values.name }}
+          image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.containerPort }}  # All defaults used

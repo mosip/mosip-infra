@@ -1,21 +1,22 @@
+# We have written a separate ingress for keycloak 'cause it requires
+# a different rewrite rule.  We want keycloak url to be
+# https://public_server/keycloak/auth/, rather than
+# https://public_server/auth/.  Not that last slash is important!
+
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Values.component }}-ingress
-  namespace: {{ .Values.ingress.namespace}} 
+  name: healthtest-ingress
+  namespace: {{ .Values.ingress.namespace }}
   annotations:
-     kubernetes.io/ingress.class: "nginx"
-     nginx.com/health-checks: "false"
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
 spec:
   rules:
-  - http:
-      paths:
-      {{- range $index, $service := .Values.services }}
-        {{ if $service.ingressPath }}
-      - path: {{ $service.ingressPath }} 
-        backend:
-          serviceName: {{ $service.serviceName }}
-          servicePort: {{ $service.servicePort }}
-        {{ end }}
-      {{- end }}
-
+    - http:
+        paths:
+          - path: /healthtest(/|$)(.*)
+            backend:
+              serviceName: {{ .Values.name }}
+              servicePort: {{ .Values.servicePort }}
