@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.internal.serviceName }} 
         image: {{ .Values.services.internal.dockerImage }}:{{ .Values.services.internal.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -48,9 +49,9 @@ spec:
             port: {{ .Values.services.internal.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.internal.healthUrl }} 
-            port: {{ .Values.services.internal.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.internal.healthUrl }} 
+#            port: {{ .Values.services.internal.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }}

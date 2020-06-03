@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.kyc.serviceName }} 
         image: {{ .Values.services.kyc.dockerImage }}:{{ .Values.services.kyc.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -48,9 +49,9 @@ spec:
             port: {{ .Values.services.kyc.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.kyc.healthUrl }} 
-            port: {{ .Values.services.kyc.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.kyc.healthUrl }} 
+#            port: {{ .Values.services.kyc.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }}

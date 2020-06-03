@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.otp.serviceName }} 
         image: {{ .Values.services.otp.dockerImage }}:{{ .Values.services.otp.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -48,9 +49,9 @@ spec:
             port: {{ .Values.services.otp.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.otp.healthUrl }} 
-            port: {{ .Values.services.otp.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }}
+  #      livenessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.otp.healthUrl }} 
+  #          port: {{ .Values.services.otp.containerPort }} 
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }}

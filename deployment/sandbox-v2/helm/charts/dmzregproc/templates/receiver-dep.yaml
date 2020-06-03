@@ -51,12 +51,12 @@ spec:
             port: {{ .Values.services.receiver.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.receiver.healthUrl }} 
-            port: {{ .Values.services.receiver.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+ #       livenessProbe:
+ #         httpGet:
+ #           path: {{ .Values.services.receiver.healthUrl }} 
+ #           port: {{ .Values.services.receiver.ports.containerPort }} 
+ #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+ #         periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
         - name: landing-zone
           mountPath: {{ .Values.landing.path }}

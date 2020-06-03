@@ -45,9 +45,9 @@ spec:
             port: {{ .Values.services.biosvc.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.biosvc.healthUrl }} 
-            port: {{ .Values.services.biosvc.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+ #       livenessProbe:
+ #         httpGet:
+ #           path: {{ .Values.services.biosvc.healthUrl }} 
+ #           port: {{ .Values.services.biosvc.ports.containerPort }} 
+ #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+ #         periodSeconds: {{ .Values.probe.period }} 
