@@ -27,7 +27,7 @@ services:
     containerPort: 8091
     servicePort: 80
     ingressPath: /idrepository/v1/vid
-    healthUrl: /idrepository/v1/actuator/health
+    healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
 
 generators:
   uinhash:  

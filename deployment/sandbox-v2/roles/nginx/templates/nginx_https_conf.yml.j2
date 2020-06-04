@@ -66,7 +66,7 @@ http {
 
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
-
+        client_max_body_size 4m; # Biometrics may there in the request.
         ssl_certificate {{site.ssl.certificate}}; 
         ssl_certificate_key {{site.ssl.certificate_key}}; 
         ssl_session_cache shared:SSL:1m;
@@ -79,6 +79,7 @@ http {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
+        
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
