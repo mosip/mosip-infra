@@ -6,20 +6,20 @@
     - { role: k8scluster/docker, tags: docker }
     - { role: packages/git, tags: git }
 
-- hosts: '{{master}}'  # Master 
+- hosts: '{{master}}'  
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/master, tags: master }
     - { role: k8scluster/cni, tags: cni }
 
-- hosts: '{{workers}}' # Workers
+- hosts: '{{workers}}'
   gather_facts: yes
   become: yes
   roles:
     - { role: k8scluster/kubernetes/node, tags: node }
 
-- hosts: '{{master}}'  # Master 
+- hosts: '{{master}}' 
   gather_facts: yes
   become: yes
   tasks:
@@ -37,3 +37,11 @@
       run_once: yes
       tags: healthcheck
 
+
+# Run kube proxy server for dashboard
+- hosts: console
+  tasks:
+    - name: Start kube proxy
+      shell: "kubectl --kubeconfig={{kube_config}} proxy --port --accept-hosts='^.*$'"
+      async: 5  
+      poll: 0

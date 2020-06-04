@@ -28,6 +28,7 @@ network: flannel
 network_interface: ""
 
 enable_dashboard: yes
+dashboard_port: 8002 # Make sure this is different for different clusters
 
 # A list of insecure registries you might need to define
 # insecure_registries: []
