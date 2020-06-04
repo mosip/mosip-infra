@@ -161,9 +161,11 @@ http {
            proxy_pass {{mzingress.base_url}}/idrepository/v1/identity/;
         }
 
-        location /idrepository/v1/vid/ {
-           proxy_pass {{mzingress.base_url}}/idrepository/v1/vid/;
-        }
+        # Note the below is for VID access.        
+        location /idrepository/v1/ {
+           proxy_pass http://mzworker0:30080/idrepository/v1/;                                                                         
+         }
+
 
         location /registrationprocessor/v1/registrationstatus/ {
            proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/registrationstatus/;
