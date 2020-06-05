@@ -66,7 +66,7 @@ http {
 
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
-
+        client_max_body_size 4m; # Biometrics may there in the request.
         ssl_certificate {{site.ssl.certificate}}; 
         ssl_certificate_key {{site.ssl.certificate_key}}; 
         ssl_session_cache shared:SSL:1m;
@@ -79,6 +79,7 @@ http {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
 
+        
         # Load configuration files for the default server block.
         include /etc/nginx/default.d/*.conf;
 
@@ -160,9 +161,11 @@ http {
            proxy_pass {{mzingress.base_url}}/idrepository/v1/identity/;
         }
 
-        location /idrepository/v1/vid/ {
-           proxy_pass {{mzingress.base_url}}/idrepository/v1/vid/;
-        }
+        # Note the below is for VID access.        
+        location /idrepository/v1/ {
+           proxy_pass {{mzingress.base_url}/idrepository/v1/;                                                                         
+         }
+
 
         location /registrationprocessor/v1/registrationstatus/ {
            proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/registrationstatus/;
@@ -173,7 +176,15 @@ http {
         }
 
         location /registrationprocessor/v1/securezone/ {
-           proxy_pass http://dmzworker0:30080/registrationprocessor/v1/securezone/;
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/securezone/;
+        }
+
+	location /registrationprocessor/v1/manualverification/ {
+	   proxy_pass {{mzingress.base_url}/registrationprocessor/v1/manualverification/;
+        }
+
+	location /registrationprocessor/v1/requesthandler/ {
+	   proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/requesthandler/;
         }
 
 

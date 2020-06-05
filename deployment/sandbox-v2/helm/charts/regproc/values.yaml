@@ -26,7 +26,6 @@ services:
       eventbusPort: 5723
       hazelcastPort: 5701
       containerPort: 8022
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
   notification:  # This is has a service front end for access (notification-svc.yaml)
@@ -37,7 +36,7 @@ services:
       eventbusPort: 5712
       hazelcastPort: 5701
       containerPort: 8090
-      servicePort: 80
+      servicePort: 80 
     ingressPath: /registrationprocessor/v1/securezone/
     healthUrl: /registrationprocessor/v1/securezone/actuator/health
   uploader:
@@ -48,7 +47,6 @@ services:
       eventbusPort: 5714
       hazelcastPort: 5701
       containerPort: 8087
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
   quality:
@@ -59,7 +57,6 @@ services:
       eventbusPort: 5727
       hazelcastPort: 5701
       containerPort: 9072
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
   validator:
@@ -70,7 +67,6 @@ services:
       eventbusPort: 5715
       hazelcastPort: 5701
       containerPort: 8088
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
   osi:
@@ -81,7 +77,6 @@ services:
       eventbusPort: 5716
       hazelcastPort: 5701
       containerPort: 8089
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
   demo:
@@ -92,7 +87,6 @@ services:
       eventbusPort: 5717
       hazelcastPort: 5701
       containerPort: 8091
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
   bio:
@@ -103,7 +97,6 @@ services:
       eventbusPort: 5718
       hazelcastPort: 5701
       containerPort: 9096
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
   biosvc:
@@ -123,7 +116,6 @@ services:
       eventbusPort: 5777
       hazelcastPort: 5701
       containerPort: 8020
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
   abishandler:
@@ -134,7 +126,6 @@ services:
       eventbusPort: 5726
       hazelcastPort: 5701
       containerPort: 9071
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
   abismid:
@@ -145,7 +136,6 @@ services:
       eventbusPort: 5888
       hazelcastPort: 5701
       containerPort: 8091
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
   proxyabis:
@@ -166,7 +156,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8084
       servicePort: 80
-    ingressPath: '' 
+    ingressPath: /registrationprocessor/v1/manualverification/
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
   external:
     serviceName: regproc-external-stage
@@ -176,8 +166,7 @@ services:
       eventbusPort: 5736
       hazelcastPort: 5701
       containerPort: 8095
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/external 
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/external/actuator/health 
   eis: 
     serviceName: regproc-external-integration-service
@@ -196,7 +185,6 @@ services:
       eventbusPort: 5719
       hazelcastPort: 5701
       containerPort: 8099
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
   msg:
@@ -207,7 +195,6 @@ services:
       eventbusPort: 5721
       hazelcastPort: 5701
       containerPort: 8088
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
   print:
@@ -218,7 +205,6 @@ services:
       eventbusPort: 5722
       hazelcastPort: 5701
       containerPort: 8099
-      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
   printsvc:
@@ -228,7 +214,7 @@ services:
     ports:
       containerPort: 9099
       servicePort: 80
-    ingressPath: ''
+    ingressPath: /registrationprocessor/v1/print/
     healthUrl: /registrationprocessor/v1/print/actuator/health
   trans:
     serviceName: regproc-registration-transaction-service
@@ -237,5 +223,14 @@ services:
     ports:
       containerPort: 8110
       servicePort: 80
-    ingressPath: '' 
+    ingressPath: /registrationprocessor/v1/registrationtransaction/
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
+  request: 
+    serviceName: regproc-request-handler-service
+    dockerImage: mosipdev/registration-processor-request-handler-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 8082
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/requesthandler/
+    healthUrl: /registrationprocessor/v1/requesthandler/actuator/health
