@@ -1,0 +1,8 @@
+- hosts: console
+  gather_facts: false
+   
+  tasks:
+   - name: Removing kubectl proxy 
+     shell:  "ps -aux | grep kubectl | grep proxy | awk '{print $2}' | xargs kill -9"
+     ignore_errors: yes
+
