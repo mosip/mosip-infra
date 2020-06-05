@@ -12,3 +12,5 @@ pvName: postgres-pv
 pvSize: 1Gi
 dockerImage: postgres
 dockerTag: 12.2
+nodePort: 30090
+maxConnections: 1000 
