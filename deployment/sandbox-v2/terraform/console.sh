@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#need to change this to console machine password to execute all commands before running the terraform script.
 PW=Password@123
 
 echo "------------ Generating the SSH-Key on Console Machine -------------"
