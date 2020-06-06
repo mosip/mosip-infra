@@ -28,6 +28,7 @@ network: flannel
 network_interface: ""
 
 enable_dashboard: yes
+dashboard_port: '{{dmz_dashboard_port}} 
 
 # A list of insecure registries you might need to define
 # insecure_registries: []

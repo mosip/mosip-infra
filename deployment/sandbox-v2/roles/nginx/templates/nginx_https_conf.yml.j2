@@ -187,6 +187,13 @@ http {
 	   proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/requesthandler/;
         }
 
+        location /registrationprocessor/v1/registrationtransaction/ {
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/registrationtransaction/;
+        }
+
+        location /registrationprocessor/v1/print/ {
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/print/;
+        }
 
         location /partnermanagement/v1/misps/ {
            proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
@@ -202,6 +209,14 @@ http {
 
         location /partnermanagement/v1/pmpartners/ {
            proxy_pass {{mzingress.base_url}}/partnermanagement/v1/pmpartners/;
+        }
+
+        location /mz-dashboard/ {
+           proxy_pass  http://localhost:{{mz_dashboard_port}}/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/;
+        }
+
+        location /dmz-dashboard/ {
+           proxy_pass  http://localhost:{{dmz_dashboard_port}}/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/;
         }
 
         location /v1/admin/ {

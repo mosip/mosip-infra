@@ -7,6 +7,7 @@ configServerUrl: http://config-server/config
 ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
+imagePullPolicy: Always
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
