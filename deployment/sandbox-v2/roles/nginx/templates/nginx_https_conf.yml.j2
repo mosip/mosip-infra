@@ -191,6 +191,10 @@ http {
            proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/registrationtransaction/;
         }
 
+        location /registrationprocessor/v1/print/ {
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/print/;
+        }
+
         location /partnermanagement/v1/misps/ {
            proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
         }
