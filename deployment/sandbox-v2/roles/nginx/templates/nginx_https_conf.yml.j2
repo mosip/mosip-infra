@@ -96,7 +96,7 @@ http {
 
         location /preregistration/v1/ {
            proxy_pass {{mzingress.base_url}}/preregistration/v1/;
-         }
+        }
         location /pre-registration-ui/ {
            proxy_pass {{mzingress.base_url}}/pre-registration-ui/;
         }
@@ -163,7 +163,7 @@ http {
 
         # Note the below is for VID access.        
         location /idrepository/v1/ {
-           proxy_pass {{mzingress.base_url}/idrepository/v1/;                                                                         
+           proxy_pass {{mzingress.base_url}}/idrepository/v1/;                                                                         
          }
 
 
@@ -180,7 +180,7 @@ http {
         }
 
 	location /registrationprocessor/v1/manualverification/ {
-	   proxy_pass {{mzingress.base_url}/registrationprocessor/v1/manualverification/;
+	   proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/manualverification/;
         }
 
 	location /registrationprocessor/v1/requesthandler/ {
