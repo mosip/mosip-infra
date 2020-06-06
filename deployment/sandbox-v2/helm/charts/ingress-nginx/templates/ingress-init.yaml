@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/part-of: ingress-nginx
 data: 
   proxy-buffer-size: "32k" # NOTE: Auth header reponse is huge, nginx was giving 502 error otherwise
-  proxy-body-size: 4m  # Biometrics may be there in request body
+  proxy-body-size: 8m  # Biometrics may be there in request body
 
 ---
 kind: ConfigMap
