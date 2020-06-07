@@ -11,6 +11,7 @@ artifactoryUrl: http://13.71.87.138:8040
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
+imagePullPolicy: Always
 services:
   admin: 
     serviceName: admin-service
