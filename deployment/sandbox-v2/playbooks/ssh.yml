@@ -23,7 +23,7 @@
       command: 'systemctl disable firewalld'
       become: yes
       ignore_errors: yes
-- hosts: all
+- hosts: console
   tasks:
     - name: update keys in mosipuser
       authorized_key:
