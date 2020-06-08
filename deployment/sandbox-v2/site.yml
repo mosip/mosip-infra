@@ -11,10 +11,13 @@
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/prereg.yml
-- import_playbook: playbooks/healthtest.yml
 - import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
 - import_playbook: playbooks/admin.yml
 - import_playbook: playbooks/pms.yml
 - import_playbook: playbooks/resident.yml
+- {import_playbook: playbooks/os-hardening_console.yml, vars: {console: console1}}
+- {import_playbook: playbooks/os-hardening_cluster.yml, vars: {cluster: scancluster}}
+- {import_playbook: playbooks/uninstall-scap.yml, vars: {cluster: scancluster}}
+- import_playbook: playbooks/healthtest.yml
