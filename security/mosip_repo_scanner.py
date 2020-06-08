@@ -13,6 +13,6 @@ for line in file:
     name = tag[-1].split(".")
     path = line.strip()
     print("--------------------------- Scanning GitHub Repo:  " +name[0]+ " -----------------------------------")
-    #os.system('trufflehog3 -v --no-entropy --no-history -r '+rulefile+' '+path+' -f html -o ./Reports_`date +%d%b%y`/mosip'+name[0]+'.html')
+ #   os.system('trufflehog3 -v --no-entropy --no-history -r '+rulefile+' '+path+' -f html -o ./Reports_`date +%d%b%y`/mosip'+name[0]+'.html')
 # Closing files
 file.close()
