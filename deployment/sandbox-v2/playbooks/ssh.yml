@@ -23,10 +23,3 @@
       command: 'systemctl disable firewalld'
       become: yes
       ignore_errors: yes
-- hosts: console
-  tasks:
-    - name: update keys in mosipuser
-      authorized_key:
-        user: 'mosipuser'
-        state: present
-        key: '{{lookup("file","/home/mosipuser/.ssh/id_rsa.pub")}}'
