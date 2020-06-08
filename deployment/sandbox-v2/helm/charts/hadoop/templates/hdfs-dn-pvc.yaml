@@ -1,4 +1,4 @@
-{{- if .Values.persistence.dataNode.enabled -}}
+---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -8,17 +8,11 @@ metadata:
     chart: {{ include "hadoop.chart" . }}
     release: {{ .Release.Name }}
     component: hdfs-dn
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.persistence.scName }}
 spec:
   accessModes:
-  - {{ .Values.persistence.dataNode.accessMode | quote }}
+    - {{ .Values.persistence.dataNode.accessMode | quote }}
   resources:
     requests:
-      storage: {{ .Values.persistence.dataNode.size | quote }}
-{{- if .Values.persistence.dataNode.storageClass }}
-{{- if (eq "-" .Values.persistence.dataNode.storageClass) }}
-  storageClassName: ""
-{{- else }}
-  storageClassName: "{{ .Values.persistence.dataNode.storageClass }}"
-{{- end }}
-{{- end }}
-{{- end -}}
+      storage: 1Gi

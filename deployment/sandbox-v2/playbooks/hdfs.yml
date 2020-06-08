@@ -1,16 +1,10 @@
 # Installs HDFS.
-- hosts: mzworker0  # One of the mz nodes is chosen for persistence
-  gather_facts: true
-  vars:
-    kube_config: '{{mz_kube_config}}'
-  tasks:
-    - {name: 'Create folder', file: {name: '{{hdfs_dn_local_storage_path}}', state: directory}}
-    - {name: 'Create folder', file: {name: '{{hdfs_nn_local_storage_path}}', state: directory}}
 
 - hosts: console
   gather_facts: true
   vars:
     kube_config: '{{mz_kube_config}}'  # Deploy all these on mz cluster
   roles:
-     - {role: hdfs, tags: [hdfs]} #
+     - {role: helm, install_name: 'hadoop', helm_chart: '{{charts_root}}/hadoop', tags: [hdfs]}
+     - {role: hdfs-init,  tags: [hdfs-init]}
 
