@@ -1,6 +1,12 @@
 # This play installs Postgres and dependent components
 #
 #
+#
+#-# Create folder on nfs 
+- hosts: console 
+  tasks:
+    - {name: 'Create folder', file: {name: '{{postgres.nfs_path}}', state: directory}, become: yes}
+
 # Install postgres and initialize it with tables and data
 - hosts: console
   roles:

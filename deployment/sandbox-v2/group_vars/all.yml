@@ -62,7 +62,7 @@ regproc:
 
 # Postgres persistent storage
 postgres:
-  local_storage_path: /mnt/mosip_data/postgres  # TODO: This should match with helm charts
+  nfs_path: '{{nfs.folder}}/postgres'  # TODO: This should match with helm charts
   service_name: postgres # svc on Kubernetes
   server: mzworker0 # Nodeport
   local_port: 30090  # fixed for connecting from outside the cluster

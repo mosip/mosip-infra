@@ -3,5 +3,7 @@ kind: StorageClass
 metadata:
   name: nfs-storage
 provisioner: mosip-nfs # or choose another name, must match deployment's env PROVISIONER_NAME'
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
 parameters:
   archiveOnDelete: "false"
