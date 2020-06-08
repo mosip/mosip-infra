@@ -1,11 +1,6 @@
 # This play installs Postgres and dependent components
 #
 #
-# Install persistence
-- hosts: mzworker0  # One of the mz nodes is chosen for persistence
-  tasks:
-    - {name: 'Create folder', file: {name: '{{postgres.local_storage_path}}', state: directory}}
-
 # Install postgres and initialize it with tables and data
 - hosts: console
   roles:
@@ -17,6 +12,7 @@
       async: 5  
       poll: 0
 
+# Separate play to keep sequence
 - hosts: console
   roles:
      - {role: postgres-init, tags: [postgres-init]} 

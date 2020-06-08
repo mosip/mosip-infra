@@ -23,7 +23,7 @@ spec:
       containers:
       - name: {{ .Values.name }} 
         image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
-        args: ["-c", "max_connections={{ .Values.maxConnections }}"
+        args: ["-c", "max_connections={{ .Values.maxConnections }}]
         env:
         - name: POSTGRES_DB
           value: {{ .Values.defaultDb }}

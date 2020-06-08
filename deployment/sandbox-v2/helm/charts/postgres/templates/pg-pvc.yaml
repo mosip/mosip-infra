@@ -2,17 +2,12 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.pvcName }}
-  labels:
-    app: {{ .Values.pvcName }} 
+  name: {{ .Values.pvcName }} 
+  annotations:
+    volume.beta.kubernetes.io/storage-class: {{ .Values.scName }} 
 spec:
-  storageClassName: {{ .Values.localStorageName }}
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
-  selector:
-    matchLabels:
-      name: {{ .Values.pvName }} 
-
+      storage: 1Gi 

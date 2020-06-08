@@ -64,7 +64,7 @@ regproc:
 postgres:
   local_storage_path: /mnt/mosip_data/postgres  # TODO: This should match with helm charts
   service_name: postgres # svc on Kubernetes
-  server: localhost # Since we have port forwarded  
+  server: mzworker0 # Nodeport
   local_port: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
@@ -148,4 +148,5 @@ databases:
   mosip_pmp:
     sql_path: '{{repos.pms.dest}}/db_scripts'
 
-
+nfs:
+  folder: /srv/nfs/mosip

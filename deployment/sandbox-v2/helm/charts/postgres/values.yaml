@@ -1,14 +1,10 @@
-
 name: postgres
 password: postgres
 defaultDb: keycloak # Default DB on Postgres
 user: postgres
 containerPort: 5432
-localStorageName: postgres-local-storage
-localStoragePath: /mnt/mosip_data/postgres  # Assumed that an empty directory is created beforehand
-localStorageHostname: mzworker0  # Must match in playbooks.
 pvcName: postgres-pvc
-pvName: postgres-pv
+scName: nfs-storage # Must match with NFS install name
 pvSize: 1Gi
 dockerImage: postgres
 dockerTag: 12.2
