@@ -37,6 +37,10 @@ dmz_cluster_any_node: '{{groups["dmzworkers"][0]}}'
 mz_kube_config: "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
 dmz_kube_config: "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
 
+# Dashboard ports
+mz_dashboard_port: 8001
+dmz_dashboard_port: 8002
+
 # Ingress is in NodePort configuration. So connect to any node cluster
 mzingress:
   nodeport_http: 30080  # TODO: Shoud match with helm

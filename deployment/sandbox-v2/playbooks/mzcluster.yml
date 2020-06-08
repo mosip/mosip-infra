@@ -1,0 +1,29 @@
+## Playbook to create mz cluster
+- import_playbook: cluster.yml
+  vars:
+    cluster: mzcluster
+    master: mzmaster
+    workers: mzworkers
+
+# Install dashboard
+# # TODO: Code repetition for different clusters. Try to avoid.
+- hosts: console
+  tasks:
+    - name: Deploy kubenetes dashboard in mzcluster 
+      k8s:
+        state: present
+        src: '{{install_root}}/roles/k8scluster/kubernetes/master/files/dashboard.yml' 
+        kubeconfig: '{{ mz_kube_config }}'
+        wait: yes
+        wait_timeout: 30 
+
+    # TODO: Below commands returns -9 code, but does the job. It should return 0 actually.
+    - name: Kill any running proxy
+      shell:  "ps -aux | grep kubectl | grep proxy | grep '{{mz_kube_config}}' |  awk '{print $2}' | xargs kill -9"
+      ignore_errors: yes
+ 
+    - name: Start kube proxy
+      shell: "kubectl --kubeconfig={{mz_kube_config}} proxy --port {{hostvars['mzmaster']['dashboard_port']}} --accept-hosts='^.*$' > /tmp/mz_proxy.log 2>&1 &"
+      async: 5
+      poll: 0
+

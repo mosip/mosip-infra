@@ -66,7 +66,7 @@ http {
 
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
-        client_max_body_size 4m; # Biometrics may there in the request.
+        client_max_body_size 8m; # Biometrics may there in the request.
         ssl_certificate {{site.ssl.certificate}}; 
         ssl_certificate_key {{site.ssl.certificate_key}}; 
         ssl_session_cache shared:SSL:1m;
@@ -96,7 +96,7 @@ http {
 
         location /preregistration/v1/ {
            proxy_pass {{mzingress.base_url}}/preregistration/v1/;
-         }
+        }
         location /pre-registration-ui/ {
            proxy_pass {{mzingress.base_url}}/pre-registration-ui/;
         }
@@ -163,7 +163,7 @@ http {
 
         # Note the below is for VID access.        
         location /idrepository/v1/ {
-           proxy_pass {{mzingress.base_url}/idrepository/v1/;                                                                         
+           proxy_pass {{mzingress.base_url}}/idrepository/v1/;                                                                         
          }
 
 
@@ -180,13 +180,20 @@ http {
         }
 
 	location /registrationprocessor/v1/manualverification/ {
-	   proxy_pass {{mzingress.base_url}/registrationprocessor/v1/manualverification/;
+	   proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/manualverification/;
         }
 
 	location /registrationprocessor/v1/requesthandler/ {
 	   proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/requesthandler/;
         }
 
+        location /registrationprocessor/v1/registrationtransaction/ {
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/registrationtransaction/;
+        }
+
+        location /registrationprocessor/v1/print/ {
+           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/print/;
+        }
 
         location /partnermanagement/v1/misps/ {
            proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
@@ -202,6 +209,14 @@ http {
 
         location /partnermanagement/v1/pmpartners/ {
            proxy_pass {{mzingress.base_url}}/partnermanagement/v1/pmpartners/;
+        }
+
+        location /mz-dashboard/ {
+           proxy_pass  http://localhost:{{mz_dashboard_port}}/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/;
+        }
+
+        location /dmz-dashboard/ {
+           proxy_pass  http://localhost:{{dmz_dashboard_port}}/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/;
         }
 
         location /v1/admin/ {
