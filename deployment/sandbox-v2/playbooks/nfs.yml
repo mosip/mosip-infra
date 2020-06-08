@@ -4,9 +4,10 @@
   roles:
     - {role: packages/nfs-utils}
 
-
 - hosts: nfsserver
   roles:
     - {role: nfs-server}
 
-  
+- hosts: console
+     - {role: helm, install_name: 'nfs-client', helm_chart: '{{charts_root}}/nfs-client', tags: [nfs-client]}
+
