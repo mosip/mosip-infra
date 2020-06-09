@@ -1,14 +1,10 @@
 ## Create git repo on a node
-- hosts: mzworker0
-  gather_facts: true
-  vars:   
-    kube_config: '{{mz_kube_config}}'  
+- hosts: nfsserver
   roles:
-    - {role: config-repo, tags: [config-repo, env]}  
+    - {role: config-repo, tags: [config-repo, env], become: yes}  
 
 ## Install config server using helm
 - hosts: console
-  gather_facts: true
   vars:   
     kube_config: '{{mz_kube_config}}' 
     helm_chart: '{{charts_root}}/config-server'    

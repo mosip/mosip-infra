@@ -1,26 +1,13 @@
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.pvName }} 
-  labels:
-    name: {{ .Values.pvName }} 
+  name: postgress-pv 
 spec:
+  storageClassName: {{ .Values.sc.name }} 
   capacity:
-    storage: {{ .Values.pvSize }} 
-  volumeMode: Filesystem
+    storage: {{ .Values.pv.size }}
   accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain # Only this policy supported for this type of PV 
-  storageClassName: {{ .Values.localStorageName }} 
-  local:
-    path: {{ .Values.localStoragePath }} 
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - {{ .Values.localStorageHostname }} 
-
+    - ReadWriteOnce
+  nfs:
+    server:  {{ .Values.nfs.server }}
+    path: {{ .Values.nfs.path }} 

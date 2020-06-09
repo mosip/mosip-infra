@@ -39,15 +39,15 @@ spec:
           value: {{ .Values.mountPath }}/{{ .Values.confFile }}
          
         ports:
-        - containerPort: {{ .Values.ports.containerPort }}
+        - containerPort: {{ .Values.docker.ports.containerPort }}
         readinessProbe:  #Since no actuator, we watch tcp port.
           tcpSocket:
-            port: {{ .Values.ports.containerPort }}
+            port: {{ .Values.docker.ports.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
  #       livenessProbe:
  #         tcpSocket:
- #           port: {{ .Values.ports.containerPort }}
+ #           port: {{ .Values.docker.ports.containerPort }}
  #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
  #         periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
