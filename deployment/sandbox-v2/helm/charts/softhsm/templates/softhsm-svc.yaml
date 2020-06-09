@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Values.namespace }} 
 spec:
   ports:
-  - port: {{ .Values.ports.servicePort }}
-    targetPort: {{ .Values.ports.containerPort }}
+  - port: {{ .Values.docker.ports.servicePort }}
+    targetPort: {{ .Values.docker.ports.containerPort }}
   selector:
     app: {{ .Values.serviceName }} 
 

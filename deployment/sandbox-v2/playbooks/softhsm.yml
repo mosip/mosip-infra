@@ -1,7 +1,9 @@
 # Playbook expects hsm_prop structure
 #
+
 # Prepare folders on remote node
-- hosts: '{{persistence_node}}'
+- hosts: nfsserver
+  gather_facts: true
   roles:
     - {role: softhsm-prep}
 

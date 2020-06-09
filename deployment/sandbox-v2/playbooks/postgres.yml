@@ -3,7 +3,7 @@
 #
 #
 #-# Create folder on nfs 
-- hosts: console 
+- hosts: nfsserver
   tasks:
     - {name: 'Create folder', file: {name: '{{postgres.nfs_path}}', state: directory}, become: yes}
 
