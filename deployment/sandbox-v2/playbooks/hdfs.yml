@@ -1,5 +1,12 @@
 # Installs HDFS.
 
+# Create folders for persistence on NFS
+- hosts: nfsserver
+  tasks:
+    - {name: 'Create folder', file: {name: '{{hdfs.nfs.nn_path}}', state: directory}, become: yes}
+    - {name: 'Create folder', file: {name: '{{hdfs.nfs.dn_path}}', state: directory}, become: yes}
+
+# Run hadoop and initialize it.
 - hosts: console
   gather_facts: true
   vars:

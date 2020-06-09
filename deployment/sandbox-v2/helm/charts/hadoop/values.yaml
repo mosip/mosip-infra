@@ -71,13 +71,18 @@ yarn:
         cpu: "1000m"
 
 persistence:
-  scName: nfs-storage # Must match with NFS install name
-  nameNode:
+  scName: manual 
+  nameNode: # TODO: Does every instance of nn and dn have its own storage path?
     enabled: true
     accessMode: ReadWriteMany
-    size: "1Gi"
-
+    size: "5Gi"
+    nfs:
+      server: console
+      path:  /srv/nfs/mosip/hdfs/nn  # Must match ANSIBLE
   dataNode:
     enabled: true
     accessMode: ReadWriteMany
-    size: "1Gi"
+    size: "5Gi"
+    nfs:
+      server: console
+      path:  /srv/nfs/mosip/hdfs/dn # Must match ANSIBLE 

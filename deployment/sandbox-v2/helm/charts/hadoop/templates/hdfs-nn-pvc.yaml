@@ -8,9 +8,8 @@ metadata:
     chart: {{ include "hadoop.chart" . }}
     release: {{ .Release.Name }}
     component: hdfs-nn
-  annotations:
-    volume.beta.kubernetes.io/storage-class: {{ .Values.persistence.scName }}
 spec:
+  storageClassName: {{ .Values.persistence.scName }} 
   accessModes:
     - {{ .Values.persistence.nameNode.accessMode | quote }}
   resources:

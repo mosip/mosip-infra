@@ -8,11 +8,10 @@ metadata:
     chart: {{ include "hadoop.chart" . }}
     release: {{ .Release.Name }}
     component: hdfs-dn
-  annotations:
-    volume.beta.kubernetes.io/storage-class: {{ .Values.persistence.scName }}
 spec:
+  storageClassName: {{ .Values.persistence.scName }} 
   accessModes:
     - {{ .Values.persistence.dataNode.accessMode | quote }}
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.persistence.dataNode.size }}
