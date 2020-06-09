@@ -4,7 +4,7 @@ part-of: mosip
 activeProfileEnv: dmz 
 springConfigLabel: master
 configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
-storageClass: dmz-storage-class  # See sc, pv templates
+storageClass:  manual
 
 probe:
   initialDelay: 30  # Seconds
@@ -16,12 +16,16 @@ ingress:
 artifactoryUrl: http://13.71.87.138:8040
 
 landing:   # Landing folder where packets land
-  pvName: landing-pv
-  pvSize: 1Gi
-  pvHostName: dmzworker0
-  pvcName: landing-pvc 
-  pvcSize: 1Gi
-  path: /mnt/regproc/landing
+  pv:
+    name: landing-pv
+    size: 5Gi
+  pvc:
+    name: landing-pvc 
+    size: 5Gi
+  nfs:
+    server: console
+    path:  /srv/nfs/mosip/landing/ # Must match ANSIBLE 
+  mountPath: /mnt/regproc/landing # Internal pod path
 
 imagePullPolicy: Always 
 services:
@@ -60,12 +64,15 @@ services:
     serviceName: regproc-dmz-packet-server
     dockerImage: mosipdev/registration-processor-dmz-packet-server
     dockerTag: 1.0.9
-    pvHostName: dmzworker0
-    pvName: pktserver-pv
-    pvSize: 1Gi  # Same as landing above
-    pvPath: /mnt/regproc/landing  # Same as landing above
-    pvcName: pktserver-pvc
-    pvcSize: 1Gi  # Same as landing above
+    pv:
+      name: pktserver-pv
+      size: 5Gi  # Same as landing above
+    pvc:
+      name: pktserver-pvc
+      size: 5Gi  # Same as landing above
+    nfs:
+      server: console
+      path:  /srv/nfs/mosip/landing/ #  Same as above
     ports:
       containerPort: 8082
       servicePort: 80

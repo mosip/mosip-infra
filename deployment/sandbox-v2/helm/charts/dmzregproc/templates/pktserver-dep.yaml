@@ -34,5 +34,5 @@ spec:
       volumes:
       - name: landing-zone
         persistentVolumeClaim:
-          claimName: {{ .Values.services.pktserver.pvcName }}
+          claimName: {{ .Values.services.pktserver.pvc.name }}
 

@@ -59,8 +59,8 @@ spec:
  #         periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
         - name: landing-zone
-          mountPath: {{ .Values.landing.path }}
+          mountPath: {{ .Values.landing.mountPath }}
       volumes:
       - name: landing-zone
         persistentVolumeClaim:
-          claimName: {{ .Values.landing.pvcName }}
+          claimName: {{ .Values.landing.pvc.name }}
