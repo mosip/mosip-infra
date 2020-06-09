@@ -57,8 +57,7 @@ mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be store
 # Registration processor shared variables
 #
 regproc:
-  landing_folder: /mnt/regproc/landing 
-  landing_hostname: dmzworker0  # Should be same one used in creating these folders (see regproc.yml) 
+  landing_folder: '{{nfs.folder}}/landing'
 
 # Postgres persistent storage
 postgres:
@@ -68,9 +67,6 @@ postgres:
   local_port: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
-
-
-config_server_external_url: '{{ingress_base_url}}/config'
 
 # SFTP: used for picking up packets from DMZ
 sftp_user: 'sftpuser'  # This should be same in config files
@@ -156,4 +152,10 @@ hdfs:
   nfs:
     nn_path: '{{nfs.folder}}/hdfs/nn'  # Must match helm
     dn_path: '{{nfs.folder}}/hdfs/dn'  # Must match helm
+
+config_repo:
+  name: config_repo  # Git repo inside above node_path
+  path: '{{nfs.folder}}/config_repo'
+  search_folder: ''  # If all properites at at the root repo level, then this will be empt
+  storage_size: 10Mi
 
