@@ -17,12 +17,12 @@
     - {role: helm, tags: [dmzregproc]} 
 
 ## Run MZ regproc
-#- hosts: console
-#  gather_facts: true
-#  vars:   
-#    kube_config: '{{mz_kube_config}}' 
-#    helm_chart: '{{charts_root}}/regproc'
-#    install_name: regproc 
-#  roles:
-#    - {role: helm, tags: [regproc]} 
+- hosts: console
+  gather_facts: true
+  vars:   
+    kube_config: '{{mz_kube_config}}' 
+    helm_chart: '{{charts_root}}/regproc'
+    install_name: regproc 
+  roles:
+    - {role: helm, tags: [regproc]} 
  
