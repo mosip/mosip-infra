@@ -8,12 +8,12 @@
     "credentials": [
         {
             "type": "password",
-            "value": "mosip",
+            "value": "Techno@123",
             "temporary": false
         }
     ],
     "attributes": {
-      "userPassword": "e1NTSEEyNTZ9dVdITE9nK0Z3b0dHYTBhZDNzUEJvT2FNMktCYkhEVk1xLzVWWlNkU3Bnem9ZODNycWdLN3h3PT0=",
+      "userPassword": "e1NTSEEyNTZ9SHBGa1pyK0tNajZiNW5XVGo1K21UVnc3N29ZSzVMbjE4ZGttT3hoTzVPWGtVZ1pVVi9uZXJ3PT0=",
       "rid": "27841452330002620190527095024"
     }
 }
