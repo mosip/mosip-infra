@@ -18,9 +18,9 @@ hdfs:
     resources:
       requests:
         memory: "256Mi"
-        cpu: "100m"
+        cpu: "10m"
       limits:
-        memory: "1048Mi"
+        memory: "2048Mi"
         cpu: "1000m"
 
   dataNode:
@@ -31,9 +31,9 @@ hdfs:
     resources:
       requests:
         memory: "256Mi"
-        cpu: "100m"
+        cpu: "10m"
       limits:
-        memory: "1048Mi"
+        memory: "2048Mi"
         cpu: "1000m"
 
   webhdfs:
@@ -46,16 +46,16 @@ yarn:
     resources:
       requests:
         memory: "256Mi"
-        cpu: "100m"
+        cpu: "10m"
       limits:
-        memory: "1048Mi"
+        memory: "2048Mi"
         cpu: "2000m"
 
   nodeManager:
     pdbMinAvailable: 1
 
     # The number of YARN NodeManager instances.
-    replicas: 1 
+    replicas: 2
 
     # Create statefulsets in parallel (K8S 1.7+)
     parallelCreate: false
@@ -64,28 +64,25 @@ yarn:
     # This should be tuned to fit your workload.
     resources:
       requests:
-        memory: "1048Mi"
+        memory: "2048Mi"
         cpu: "1000m"
       limits:
-        memory: "1048Mi"
+        memory: "2048Mi"
         cpu: "1000m"
 
 persistence:
-  storageClass: hdfs-local-storage
-  nameNode:
-    enabled: false
-    storageClass: "hdfs-nn-local-storage"
-    pvName: hdfs-nn-pv 
-    pvcName: hdfs-nn-pvc
-    hostStoragePath: /mnt/mosip_data/hdfs/nn
-    accessMode: ReadWriteOnce
-    size: 6Gi
-
+  scName: manual 
+  nameNode: # TODO: Does every instance of nn and dn have its own storage path?
+    enabled: true
+    accessMode: ReadWriteMany
+    size: "5Gi"
+    nfs:
+      server: console
+      path:  /srv/nfs/mosip/hdfs/nn  # Must match ANSIBLE
   dataNode:
-    enabled: false
-    storageClass: "hdfs-dn-local-storage"
-    hostStoragePath: /mnt/mosip_data/hdfs/dn
-    pvName: hdfs-dn-pv 
-    pvcName: hdfs-dn-pvc
-    accessMode: ReadWriteOnce
-    size: 6Gi
+    enabled: true
+    accessMode: ReadWriteMany
+    size: "5Gi"
+    nfs:
+      server: console
+      path:  /srv/nfs/mosip/hdfs/dn # Must match ANSIBLE 

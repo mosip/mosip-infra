@@ -22,8 +22,8 @@ spec:
     spec:
       containers:
       - name: {{ .Values.name }} 
-        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
-        args: ["-c", "max_connections={{ .Values.maxConnections }}"
+        image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
+        args: ["-c", "max_connections={{ .Values.maxConnections }}"]
         env:
         - name: POSTGRES_DB
           value: {{ .Values.defaultDb }}
@@ -32,15 +32,15 @@ spec:
         - name: POSTGRES_PASSWORD
           value: {{ .Values.password }} 
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: {{ .Values.docker.containerPort }}
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.containerPort }}
+            port: {{ .Values.docker.containerPort }}
         volumeMounts:
         - name: pg-data
           mountPath: /var/lib/postgresql/data/ # See notes above
       volumes:
       - name: pg-data
         persistentVolumeClaim:
-          claimName: {{ .Values.pvcName }} 
+          claimName: {{ .Values.pvc.name }} 
 

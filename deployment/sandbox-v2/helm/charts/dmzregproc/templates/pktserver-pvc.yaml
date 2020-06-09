@@ -2,18 +2,13 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.services.pktserver.pvcName }}
+  name: {{ .Values.services.pktserver.pvc.name }}
   labels:
-    app: {{ .Values.services.pktserver.pvcName }}
+    app: {{ .Values.services.pktserver.pvc.name }}
 spec:
   storageClassName: {{ .Values.storageClass }}
-  volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadOnlyMany
   resources:
     requests:
-      storage: {{ .Values.services.pktserver.pvcSize}}
-  selector:
-    matchLabels:
-      name: {{ .Values.services.pktserver.pvName }}  # We access the same 
----
+      storage: {{ .Values.services.pktserver.pvc.size}}

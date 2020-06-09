@@ -1,0 +1,42 @@
+# Tasks to install NFS server.  It is assumed that firewalld is 
+# disabled
+#
+- name: Add user nfsnobody
+  user:
+    name: nfsnobody 
+
+- name: Create nfs mount folder
+  file:
+    path: '{{nfs.folder}}' 
+    state: directory
+    owner: nfsnobody 
+    group: nfsnobody 
+  become: yes
+
+- name: Install nfs utils
+  yum:
+    name: nfs-utils
+    state: present
+  become: yes
+
+- name: Enable nfs server
+  command: 'systemctl enable nfs-server'
+  become: yes
+
+- name: Start  nfs server
+  command: 'systemctl start nfs-server'
+  become: yes
+
+- name: Update /etc/exports file
+  lineinfile:
+    path: /etc/exports
+    line:  '{{nfs.folder}}       *(rw,sync,no_root_squash,no_all_squash,insecure)'
+  become: yes
+
+- name: exportfs 
+  command: 'exportfs -rav'
+  become: yes
+
+
+ 
+

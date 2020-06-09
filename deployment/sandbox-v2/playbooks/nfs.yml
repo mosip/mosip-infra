@@ -1,0 +1,13 @@
+# Playbook to install NFS Server and prepare all machines
+# for nfs client
+- hosts: all  # nfs-utils needed on all machines
+  roles:
+    - {role: packages/nfs-utils}
+
+- hosts: nfsserver
+  roles:
+    - {role: nfs-server}
+
+- hosts: console # Kubernetes cluster client to access NFS
+     - {role: helm, install_name: 'nfs-client', helm_chart: '{{charts_root}}/nfs-client', tags: [nfs-client]}
+

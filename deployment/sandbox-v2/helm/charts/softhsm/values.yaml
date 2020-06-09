@@ -9,26 +9,25 @@ artifactoryUrl: http://13.71.87.138:8040
 docker:
   image: mosipdev/softhsm
   tag: v1
-
-pv:
-  name: softhsm-pv
-  size: 20Mi 
-
-localStorage:  # Folder on node machine
-  hostname: mzworker0
-  path: /mnt/mosip_data/softhsm
+  ports:
+    containerPort: 5666
+    servicePort: 80
 
 confFile: softhsm2.conf
 mountPath: /softhsm  # path inside docker
 
 sc:
-  name: softhsm-sc
+  name: manual 
+pv:
+  name: softhsm-pv
+  size: 10Mi
 pvc:
   name: softhsm-pvc
+  size: 10Mi
 
-ports:
-  containerPort: 5666
-  servicePort: 80
+nfs: # Must match nfs server defined via Ansible
+  server: console
+  path: /srv/nfs/mosip/softhsm  # The folder must exist
 
 probe:
   initialDelay: 15  # Seconds

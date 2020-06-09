@@ -2,17 +2,11 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.pvcName }}
-  labels:
-    app: {{ .Values.pvcName }} 
+  name: {{ .Values.pvc.name }} 
 spec:
-  storageClassName: {{ .Values.localStorageName }}
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  selector:
-    matchLabels:
-      name: {{ .Values.pvName }} 
-
+      storage: {{ .Values.pvc.size }} 

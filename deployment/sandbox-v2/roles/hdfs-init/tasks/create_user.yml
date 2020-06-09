@@ -1,0 +1,14 @@
+# These tasks create user directories on HDFS and assign them full
+# ownership
+#
+- name: 'Add user {{hdfs_user}}'
+  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_name}} -- /bin/bash -c "id -u {{hdfs_user}} &>/dev/null || useradd {{hdfs_user}}"'
+
+- name: 'Create directory for {{hdfs_user}}'
+  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_name}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfs -mkdir -p {{hdfs_user_dir}}"' 
+
+- name: 'Give permissions to {{hdfs_user}}' 
+  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs_pod_name}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfs -chown -R {{hdfs_user}}:{{hdfs_user}} {{hdfs_user_dir}}"' 
+
+
+

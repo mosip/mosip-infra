@@ -2,13 +2,13 @@
 #
 - name: Create git config repo dir 
   file:
-    path: '{{config_repo_node_path}}' # Defined in role config-server
+    path: '{{config_repo.path}}' # Defined in role config-server
     state: directory 
-
+  
 - name: Copy properties files to node 
   copy:
      src: '../files/properties/'  
-     dest: '{{config_repo_node_path}}' 
+     dest: '{{config_repo.path}}' 
      force: no
 
 #TODO: Repetition here.  Improve the code.
@@ -28,15 +28,15 @@
 - name: Git init
   command: 'git init' 
   args:
-    chdir: '{{config_repo_node_path}}' 
+    chdir: '{{config_repo.path}}' 
 
 - name: Git add
   command: 'git add .' 
   args:
-    chdir: '{{config_repo_node_path}}' 
+    chdir: '{{config_repo.path}}' 
 
 - name: Git add
   command:  'git -c user.email={{lookup("env", "USER")}}@mosip commit -m "Updated"' 
   args:
-    chdir: '{{config_repo_node_path}}' 
+    chdir: '{{config_repo.path}}' 
   ignore_errors: yes
