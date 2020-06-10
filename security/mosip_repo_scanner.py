@@ -1,8 +1,8 @@
 import os
 import sys
 
-#rulefile = sys.argv[1]
-batch = sys.argv[1]
+rulefile = sys.argv[1]
+batch = sys.argv[2]
 file = open(batch, 'r')
 count = 0
 

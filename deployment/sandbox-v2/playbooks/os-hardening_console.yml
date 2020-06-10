@@ -1,5 +1,5 @@
 ---
-- hosts: "{{console}}"
+- hosts: "{{console1}}"
 
   vars:
     oscap_profile: xccdf_org.ssgproject.content_profile_pci-dss
@@ -30,7 +30,6 @@
             --results /tmp/oscap-remediate.xml \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
-            /tmp/oscap.xml
       ignore_errors: yes
 
       always:

@@ -1,7 +1,7 @@
 ---
-- hosts: "{{scancluster}}"
+- hosts: "{{cluster1}}"
   tasks:
-    - name: install openscap scanner
+    - name: un-install openscap scanner
       package:
         name: "{{ item }}"
         state: absent
