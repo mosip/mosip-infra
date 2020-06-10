@@ -33,11 +33,11 @@ All the above within the same network. Note that all pods run with replication=1
 ### All machines
 * Create a user 'mosipuser' with strong password, same on all machines
 * Make `sudo su` passwordless.
-* All machines in Same subnet.
+* All machines in same subnet.
 * All machines accessible using hostnames defined in the inventory file (.ini) that you are using.
 
 ### Console 
-Console machine is the machine from where you will run all the scripts.  Your Ansible scripts run on the console machine.  You must work on this machine as 'mosipuser' user (not root).   
+Console machine is the machine from where you will run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
 * Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
 * Port 80, 443, 30090 (for postgres), 9000 (HDFS) must be open on the console for external access.
 * Install Ansible
@@ -51,10 +51,11 @@ $ sudo yum install -y git
 ```
 * Git clone this repo in user home directory.
 ```
-$ cd
+$ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
+$ cd mosip-infra/deployment/sandbox-v2
 ```
-* Exchage ssh keys with all machines:
+* Exchange ssh keys with all machines. Provide the common machine password.
 ```
 $ ./key.sh <inventory>.ini
 ``` 
