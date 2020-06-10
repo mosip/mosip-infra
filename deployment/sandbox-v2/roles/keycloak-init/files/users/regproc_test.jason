@@ -1,0 +1,19 @@
+{
+    "username": "regproc_test",
+    "enabled": true,
+    "email": "regproc_test@xyz.com",
+    "emailVerified": false,
+    "firstName": "regproc_test",
+    "lastName": "regproc_test",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9aTEwR3JPYlR5Mjh0d09OdDRiRld2blBkOWUySnhDYkdyOEtHS3dETWdMUE9YbmxaOS9EMnFnPT0=",
+      "rid": "27841452330002620190527095023"
+    }
+}
