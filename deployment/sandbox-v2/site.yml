@@ -20,4 +20,4 @@
 - {import_playbook: playbooks/os-hardening_console.yml, vars: {console: console1}}
 - {import_playbook: playbooks/os-hardening_cluster.yml, vars: {cluster: scancluster}}
 - {import_playbook: playbooks/uninstall-scap.yml, vars: {cluster: scancluster}}
-- import_playbook: playbooks/healthtest.yml
+#- import_playbook: playbooks/healthtest.yml

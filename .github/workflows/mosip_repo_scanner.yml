@@ -43,7 +43,7 @@ jobs:
       - name: Create repo list
         run: curl --request GET --url 'https://api.github.com/orgs/mosip/repos?type=public&&sort=full_name' | grep 'clone_url' | grep -o -P '(?<=:\s\").*(?=\")' >> list.txt
 
-      #Download mosip regex
+      #upload mosip list
       #- name: Download msoip regex
       #  run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request GET -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment?name=rules_mosip.yaml'
 

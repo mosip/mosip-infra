@@ -5,6 +5,9 @@
 tmp_dir: '/tmp/' 
 logs_dir: '/tmp/'
 
+reporting_user: 'mosipdocs@gmail.com'
+reporting_user_secret: ''
+
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
