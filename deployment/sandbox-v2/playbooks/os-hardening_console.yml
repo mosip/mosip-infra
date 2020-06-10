@@ -15,14 +15,6 @@
         - scap-security-guide
 
     - block:
-        - name: run openscap
-          command: oscap xccdf eval \
-            --profile {{ oscap_profile }} \
-            --results /tmp/oscap.xml \
-            --report /tmp/oscap-report.html \
-            --fetch-remote-resources \
-            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
-
         - name: remediate openscap
           command: oscap xccdf eval \
             --remediate \
@@ -30,6 +22,14 @@
             --results /tmp/oscap-remediate.xml \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
+
+        - name: run openscap
+          command: oscap xccdf eval \
+            --profile {{ oscap_profile }} \
+            --results /tmp/oscap.xml \
+            --report /tmp/oscap-report.html \
+            --fetch-remote-resources \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
       ignore_errors: yes
 
       always:

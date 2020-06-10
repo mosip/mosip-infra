@@ -1,5 +1,5 @@
 ---
-- hosts: "{{cluster1}}"
+- hosts: "{{ cluster1 }}"
   tasks:
     - name: un-install openscap scanner
       package:
