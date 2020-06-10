@@ -1,5 +1,5 @@
 # Reset landing zone 
-- hosts: '{{cluster}}' 
+- hosts: nfsserver
   gather_facts: no
   become: yes
   vars_prompt:
@@ -7,8 +7,9 @@
       prompt: 'Do you want to ERASE LANDING ZONE? All packets will be lost.  Are you sure?' 
       private: no
   tasks:
-   - name: Delete config repo 
+   - name: Delete landing zone
      file: 
        path: '{{regproc.landing_folder}}/'
        state: absent     
      when: sure.lower().strip() == 'yes'
+     become: yes

@@ -1,5 +1,5 @@
 # Reset config repo
-- hosts: '{{cluster}}' 
+- hosts: nfsserver
   gather_facts: no
   become: yes
   vars_prompt:
@@ -14,6 +14,6 @@
     
         - name: Delete config repo
           file: 
-            path: '{{config_repo_node_path}}/'
+            path: '{{config_repo.path}}/'
             state: absent     
       when: sure.lower().strip() == 'yes'
