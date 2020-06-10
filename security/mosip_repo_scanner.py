@@ -13,7 +13,7 @@ for line in file:
     name = tag[-1].split(".")
     path = line.strip()
     tag2=batch.split("/")
-    bname = tag[-1].split(".")
+    bname = tag2[-1].split(".")
     batchname = bname[0]
     print("--------------------------- Scanning GitHub Repo:  " +name[0]+ " -----------------------------------")
     os.system('trufflehog3 -v --no-entropy --no-history -r '+rulefile+' '+path+' -f html -o ./Reports_`date +%d%b%y`_'+batchname+'/mosip-'+name[0]+'.html')
