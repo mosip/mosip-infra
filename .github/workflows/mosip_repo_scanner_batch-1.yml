@@ -1,0 +1,64 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    strategy:
+      matrix:
+        python-version: [3.6]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: montudor/action-zip@v0.1.0
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip3 install truffleHog3
+
+      # Create List of all repos
+      #- name: Create repo list
+      #  run: curl --request GET --url 'https://api.github.com/orgs/mosip/repos?type=public&&sort=full_name' | grep 'clone_url' | grep -o -P '(?<=:\s\").*(?=\")' >> list.txt
+
+      #Create Report directory for all reports
+      - name: Create directory for reports
+        run: mkdir Reports_`date +%d%b%y`_batch-1
+
+      # Runs scan
+      - name: Run Trufflehog3
+        run: python3 $GITHUB_WORKSPACE/security/mosip_repo_scanner.py $GITHUB_WORKSPACE/security/rules_mosip.yaml $GITHUB_WORKSPACE/security/batch-1.txt
+
+      # Zip complete report directory
+      - name: Zip the reports directory
+        run: zip -r ./Reports_`date +%d%b%y`_batch-1.zip ./Reports_`date +%d%b%y`_batch-1
+
+      #upload report
+      - name: Upload report to confluence
+        run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request POST -F file=@./Reports_`date +%d%b%y`_batch-1.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
+
+      #Delete the reports from deployment server
+      - name: Create directory for reports
+        run: rm -Rf ./*

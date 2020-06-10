@@ -2,8 +2,8 @@ import os
 import sys
 
 rulefile = sys.argv[1]
-
-file = open('list.txt', 'r')
+batch = sys.argv[2]
+file = open(batch, 'r')
 count = 0
 
 # Using for loop

@@ -5,15 +5,15 @@ name: CI
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 
-#on:
-#  schedule:
-#    - cron: '0 */24 * * *'
-
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  schedule:
+    - cron: '0 13 * * *'
+
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -40,28 +40,24 @@ jobs:
           pip3 install truffleHog3
 
       # Create List of all repos
-      - name: Create repo list
-        run: curl --request GET --url 'https://api.github.com/orgs/mosip/repos?type=public&&sort=full_name' | grep 'clone_url' | grep -o -P '(?<=:\s\").*(?=\")' >> list.txt
-
-      #upload mosip list
-      #- name: Download msoip regex
-      #  run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request GET -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment?name=rules_mosip.yaml'
+      #- name: Create repo list
+      #  run: curl --request GET --url 'https://api.github.com/orgs/mosip/repos?type=public&&sort=full_name' | grep 'clone_url' | grep -o -P '(?<=:\s\").*(?=\")' >> list.txt
 
       #Create Report directory for all reports
       - name: Create directory for reports
-        run: mkdir Reports_`date +%d%b%y`
+        run: mkdir Reports_`date +%d%b%y`_batch-2
 
       # Runs scan
       - name: Run Trufflehog3
-        run: python3 $GITHUB_WORKSPACE/security/mosip_repo_scanner.py $GITHUB_WORKSPACE/security/rules_mosip.yaml
+        run: python3 $GITHUB_WORKSPACE/security/mosip_repo_scanner.py $GITHUB_WORKSPACE/security/rules_mosip.yaml $GITHUB_WORKSPACE/security/batch-2.txt
 
       # Zip complete report directory
       - name: Zip the reports directory
-        run: zip -r ./Reports_`date +%d%b%y`.zip ./Reports_`date +%d%b%y`
+        run: zip -r ./Reports_`date +%d%b%y`_batch-2.zip ./Reports_`date +%d%b%y`_batch-2
 
       #upload report
       - name: Upload report to confluence
-        run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request POST -F file=@./Reports_`date +%d%b%y`.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
+        run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request POST -F file=@./Reports_`date +%d%b%y`_batch-2.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
 
       #Delete the reports from deployment server
       - name: Create directory for reports
