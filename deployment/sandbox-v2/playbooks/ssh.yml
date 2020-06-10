@@ -23,3 +23,13 @@
       command: 'systemctl disable firewalld'
       become: yes
       ignore_errors: yes
+
+# Make login into console using mosipuser password-less
+- hosts: console
+  tasks:
+    - name: Update authorized keys
+      authorized_key:
+        user: 'mosipuser'
+        state: present
+        key: '{{lookup("file","/home/mosipuser/.ssh/id_rsa.pub")}}'
+
