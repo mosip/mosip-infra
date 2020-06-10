@@ -130,6 +130,11 @@ $ cp /utils/tmux.conf ~/.tmux.conf
 ```
 * To exchange ssh keys you may try this (warning: its Beta testing!):
 ```
-$ ansible-playbook -i hosts.ini --user mosipuser --ask-pass --ask-become-pass playbooks/ssh.yml
+$ ansible-playbook -i hosts.ini --extra-vars "ansible_user=mosipuser" --ask-pass --ask-become-pass playbooks/ssh.yml
 ```
-
+* To enable hdfs namenode access externally
+  * Open port 9000 for external access
+  * Run
+```
+kc1 port-forward --address 0.0.0.0 service/hadoop-hadoop-hdfs-nn 9000:9000
+```

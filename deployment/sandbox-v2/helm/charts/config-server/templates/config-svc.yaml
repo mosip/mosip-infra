@@ -7,5 +7,5 @@ spec:
   selector:
     app: {{ .Values.name }}
   ports:
-    - port: {{ .Values.servicePort }} 
-      targetPort: {{ .Values.containerPort }}
+    - port: {{ .Values.docker.servicePort }} 
+      targetPort: {{ .Values.docker.containerPort }}

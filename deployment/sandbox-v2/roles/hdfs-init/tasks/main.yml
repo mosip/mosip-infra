@@ -1,0 +1,16 @@
+
+- name: Wait for HDFS to come out of safe mode
+  command: 'kubectl --kubeconfig {{kube_config}} exec -it {{hdfs.namenode_pod_name}} -- /bin/bash -c "/usr/local/hadoop/bin/hdfs dfsadmin -safemode get"'
+  register: out 
+  retries: 10 
+  delay: 30
+  until: "'Safe mode is OFF' in out.stdout"
+
+- include_tasks:
+    file: create_user.yml  
+  vars:
+    hdfs_user: '{{item}}'
+    hdfs_user_dir: '{{hdfs.user_base_dir}}/{{item}}'
+    hdfs_pod_name: '{{hdfs.namenode_pod_name}}'
+  with_items: '{{hdfs.users}}'
+ 

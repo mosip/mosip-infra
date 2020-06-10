@@ -22,10 +22,10 @@ spec:
     spec:
       containers:
       - name: {{ .Values.name }}
-        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }}
+        image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         env:
         - name: env_git_uri 
-          value: {{ .Values.repoUri }}
+          value: {{ .Values.gitrepo.uri }}
         - name: env_version
           value: {{ .Values.dockerTag }}
         - name: env_jar_name 
@@ -33,15 +33,15 @@ spec:
         - name: env_config_folder 
           value: ""
         ports:
-        - containerPort: {{ .Values.containerPort }} 
+        - containerPort: {{ .Values.docker.containerPort }} 
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.containerPort }}  # All defaults used
+            port: {{ .Values.docker.containerPort }}  # All defaults used
         volumeMounts:
         - name: repo
-          mountPath: {{ .Values.repoMountPath }} 
+          mountPath: {{ .Values.gitrepo.mountPath }} 
       volumes:
       - name: repo 
         persistentVolumeClaim:
-          claimName: {{ .Values.pvcName }}
+          claimName: {{ .Values.pvc.name }}
 
