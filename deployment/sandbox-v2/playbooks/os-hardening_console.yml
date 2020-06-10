@@ -31,7 +31,7 @@
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
             /tmp/oscap.xml
-
+      ignore_errors: yes
 
       always:
         - name: Check reports directory.
