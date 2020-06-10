@@ -16,6 +16,6 @@ for line in file:
     bname = batchname[0]
     print (bname)
     print("--------------------------- Scanning GitHub Repo:  " +name[0]+ " -----------------------------------")
-    os.system('trufflehog3 -v --no-entropy --no-history -r '+rulefile+' '+path+' -f html -o ./Reports_`date +%d%b%y`'+bname+'/mosip'+name[0]+'.html')
+    os.system('trufflehog3 -v --no-entropy --no-history -r '+rulefile+' '+path+' -f html -o ./Reports_`date +%d%b%y`_'+bname+'/mosip'+name[0]+'.html')
 # Closing files
 file.close()
