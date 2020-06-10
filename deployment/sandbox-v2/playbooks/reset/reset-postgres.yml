@@ -1,5 +1,5 @@
 # Reset postgres
-- hosts: '{{cluster}}'
+- hosts: nfssserver
   gather_facts: no
   become: yes
   vars_prompt:
@@ -9,6 +9,6 @@
   tasks:
     - name: Delete all postgres data 
       file: 
-        path: '{{postgres.local_storage_path}}/'
+        path: '{{postgres.nfs_path}}/'
         state: absent     
       when: sure.lower().strip() == 'yes'

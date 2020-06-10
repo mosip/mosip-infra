@@ -8,6 +8,4 @@
   roles:
     - {role: nfs-server}
 
-- hosts: console # Kubernetes cluster client to access NFS
-     - {role: helm, install_name: 'nfs-client', helm_chart: '{{charts_root}}/nfs-client', tags: [nfs-client]}
 
