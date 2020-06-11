@@ -65,10 +65,13 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
   - {realm_id: 'mosip', user_file: 'users/110014.json'}
   - {realm_id: 'mosip', user_file: 'users/110024.json'}
   - {realm_id: 'mosip', user_file: 'users/110038.json'}
+  - {realm_id: 'mosip', user_file: 'users/regproc_test.json'}
 
 keycloak_mosip_user_role_map:  
   # testuser
   - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_OFFICER'}
+  
+  - {realm_id: 'mosip', username: 'regproc_test', role_name: 'REGISTRATION_OFFICER'}
 
   - {realm_id: 'mosip', username: '110005', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110005', role_name: 'ID_AUTHENTICATION'}

@@ -28,5 +28,5 @@ services:
     containerPort: 80
     servicePort: 80
     configName: admin-ui-config # ConfigMap name
-    apiHost: https://{{ .Values.sandboxDomainName }}/
+    apiHost: https://{{ .Values.sandboxDomainName }}/v1/
     ingressPath: /admin-ui

@@ -6,7 +6,5 @@ provider "azurerm" {
   }
 
   subscription_id = var.subscription_id
-  #  TENANT_ID    ="${var.TENANT_ID}"
-  #  CLIENT_ID    ="${var.CLIENT_ID}"
-  #  CLIENT_SECRET        ="${var.CLIENT_SECRET}"
+  
 }
