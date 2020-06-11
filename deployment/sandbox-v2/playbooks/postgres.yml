@@ -12,6 +12,12 @@
   roles:
      - {role: helm, install_name: 'postgres', helm_chart: '{{charts_root}}/postgres', kube_config: '{{mz_kube_config}}',  tags: [postgres]}
   tasks:
+    # TODO:  We are waiting here for postgres to settle down. This must be changed to 
+    # a better check later
+    - name: Waiting for postgres to install completely.
+      pause:
+        seconds: 10
+
       # Forward local port to postgres service for external cluster access. Postgres service port is 80.
     - name: access postgres
       shell: 'kubectl --kubeconfig={{mz_kube_config}} port-forward  --address 0.0.0.0 service/{{postgres.service_name}} {{postgres.local_port}}:80 > /dev/null 2>&1 &' 

@@ -66,13 +66,13 @@ spec:
           httpGet:
             path: /node
             port: 8042
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           timeoutSeconds: 2
         livenessProbe:
           httpGet:
             path: /node
             port: 8042
-          initialDelaySeconds: 10
+          initialDelaySeconds: 40
           timeoutSeconds: 2
         env:
         - name: MY_CPU_LIMIT

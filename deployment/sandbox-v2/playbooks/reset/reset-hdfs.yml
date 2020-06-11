@@ -1,0 +1,20 @@
+# Delete hdfs persistence
+- hosts: nfssserver
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all HDFS data? Are you sure?'
+      private: no
+  tasks:
+    - name: Delete namenode data
+      file: 
+        path: '{{hdfs.nn_path}}/'
+        state: absent     
+      when: sure.lower().strip() == 'yes'
+
+    - name: Delete datanode data
+      file: 
+        path: '{{hdfs.dn_path}}/'
+        state: absent     
+      when: sure.lower().strip() == 'yes'
