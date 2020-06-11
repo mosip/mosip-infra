@@ -114,6 +114,10 @@
                 <to uri="vertx:demo-dedupe-bus-in" />
             </when>
             <when>
+               <simple>${bodyAs(String)} contains '"isValid":false' and ${bodyAs(String)} contains '"internalError":false'</simple>
+               <to uri="vertx:message-sender-bus-in" />
+            </when>
+             <when>
                 <simple>${bodyAs(String)} contains '"internalError":true'</simple>
                 <to uri="vertx:retry-bus-in" />
             </when>
