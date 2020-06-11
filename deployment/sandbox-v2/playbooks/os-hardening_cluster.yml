@@ -45,3 +45,4 @@
             --report /tmp/oscap-report-after.html \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
+      ignore_errors: yes
