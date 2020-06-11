@@ -53,13 +53,4 @@
           copy:
             src: /tmp/oscap-report.html
             dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}.html"
-            #remote_src: yes
-
-        - name: Zip Reports
-          archive:
-            path: "{{ install_root }}/{{ sandbox_domain_name }}"
-            dest: "{{ install_root }}/{{ sandbox_domain_name }}.zip"
-            format: zip
-
-        - name: Upload Reports
-          shell: 'curl  args: -u ''{{ reporting_user }}:{{ reporting_user_secret}}'' --request POST -F file=@{{ install_root }}/{{ sandbox_domain_name }}.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
+            remote_src: yes

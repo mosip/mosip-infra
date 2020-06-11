@@ -24,6 +24,43 @@
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
 
         - name: run openscap
+          become: yes
+          become_user: mosipuser
+          command: oscap xccdf eval \
+            --profile {{ oscap_profile }} \
+            --results /tmp/oscap.xml \
+            --report /tmp/oscap-report.html \
+            --fetch-remote-resources \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
+      ignore_errors: yes
+
+- hosts: "{{cluster1}}"
+
+  vars:
+    oscap_profile: xccdf_org.ssgproject.content_profile_standard
+    oscap_policy: ssg-centos7-ds
+
+  tasks:
+    - name: install openscap scanner
+      package:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - openscap-scanner
+        - scap-security-guide
+
+    - block:
+        - name: remediate openscap
+          command: oscap xccdf eval \
+            --remediate \
+            --profile {{ oscap_profile }} \
+            --results /tmp/oscap-remediate.xml \
+            --fetch-remote-resources \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
+
+        - name: run openscap
+          become: yes
+          become_user: mosipuser
           command: oscap xccdf eval \
             --profile {{ oscap_profile }} \
             --results /tmp/oscap.xml \
@@ -33,6 +70,8 @@
       ignore_errors: yes
 
       always:
+      become: yes
+      become_user: mosipuser
         - name: Check reports directory.
           stat:
             path: "{{ install_root }}/{{ sandbox_domain_name }}"
@@ -54,3 +93,12 @@
             src: /tmp/oscap-report.html
             dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}.html"
             #remote_src: yes
+
+        - name: Zip Reports
+          archive:
+            path: "{{ install_root }}/{{ sandbox_domain_name }}"
+            dest: "{{ install_root }}/{{ sandbox_domain_name }}.zip"
+            format: zip
+
+        - name: Upload Reports
+          shell: 'curl  args: -u ''{{ reporting_user }}:{{ reporting_user_secret}}'' --request POST -F file=@{{ install_root }}/{{ sandbox_domain_name }}.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
