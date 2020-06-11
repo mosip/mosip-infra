@@ -4,7 +4,6 @@
   vars:
     oscap_profile: xccdf_org.ssgproject.content_profile_pci-dss
     oscap_policy: ssg-centos7-ds
-    host: {{ inventory_hostname }}
 
   tasks:
     - name: install openscap scanner
@@ -28,7 +27,7 @@
           command: oscap xccdf generate fix \
             --fix-type bash \
             --profile {{ oscap_profile }} \
-            --output /tmp/{{ inventory_hostname }}-remediation-script.sh \
+            --output /tmp/remediation-script.sh \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
 
         - name: online remediation using openscap

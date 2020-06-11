@@ -37,7 +37,7 @@
 
     - name: copy local remediation script
       copy:
-        src: /tmp/{{ inventory_hostname }}-remediation-script.sh
+        src: /tmp/remediation-script.sh
         dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-remediation-script.sh"
       when: host ==  "console"
 
@@ -57,7 +57,7 @@
 
     - name: copy remote remediation script
       copy:
-        src: /tmp/{{ inventory_hostname }}-remediation-script.sh
+        src: /tmp/remediation-script.sh
         dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-remediation-script.sh"
       when: host !=  "console"
 
