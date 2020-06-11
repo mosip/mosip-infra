@@ -24,10 +24,9 @@
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
 
         - name: remediate openscap
-            command: oscap xccdf eval \
-              --remediate \
-              --profile {{ oscap_profile }} \
-              --results /tmp/oscap-remediate.xml \
-              --fetch-remote-resources \
-              /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
-      ignore_errors: yes
+          command: oscap xccdf eval \
+            --remediate \
+            --profile {{ oscap_profile }} \
+            --results /tmp/oscap-remediate.xml \
+            --fetch-remote-resources \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
