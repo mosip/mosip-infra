@@ -2,7 +2,7 @@
 - hosts: "{{cluster1}}"
 
   vars:
-    oscap_profile: xccdf_org.ssgproject.content_profile_standard
+    oscap_profile: xccdf_org.ssgproject.content_profile_pci-dss
     oscap_policy: ssg-centos7-ds
 
   tasks:
@@ -15,14 +15,6 @@
         - scap-security-guide
 
     - block:
-        - name: remediate openscap
-          command: oscap xccdf eval \
-            --remediate \
-            --profile {{ oscap_profile }} \
-            --results /tmp/oscap-remediate.xml \
-            --fetch-remote-resources \
-            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml \
-
         - name: run openscap
           command: oscap xccdf eval \
             --profile {{ oscap_profile }} \
@@ -30,27 +22,12 @@
             --report /tmp/oscap-report.html \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
+
+        - name: remediate openscap
+            command: oscap xccdf eval \
+              --remediate \
+              --profile {{ oscap_profile }} \
+              --results /tmp/oscap-remediate.xml \
+              --fetch-remote-resources \
+              /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
       ignore_errors: yes
-
-      always:
-        - name: Check reports directory.
-          stat:
-            path: "{{ install_root }}/{{ sandbox_domain_name }}"
-          register: oscap_report_folder
-
-        - name: "echo if directory already existed"
-          debug:
-            msg: "Report directory already exist"
-          when: oscap_report_folder.stat.exists
-
-        - name: "Create directory if not exists"
-          file:
-            path: "{{ install_root }}/{{ sandbox_domain_name }}"
-            state: directory
-          when: oscap_report_folder.stat.exists == false
-
-        - name: Download report
-          copy:
-            src: /tmp/oscap-report.html
-            dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}.html"
-            remote_src: yes
