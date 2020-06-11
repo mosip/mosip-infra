@@ -25,6 +25,18 @@ Generally, terraform communicates azure portal to create the resources through A
 
  ![terraform-version](https://user-images.githubusercontent.com/58170816/84352547-2da1fe00-abdb-11ea-8336-8f15e21898e1.png)
 
+7. you just check whether it is 12.26 version. if no, install this.
+
+**sudo curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash**
+
+8. use **tfswitch** command to check the version like below
+
+<img width="369" alt="tfswitch" src="https://user-images.githubusercontent.com/58170816/84379078-e16ab400-ac02-11ea-8b93-7f8ee651d3af.PNG">
+
+9. select the latest one **12.26 version** and enter it will install with the latest one.
+
+<img width="361" alt="tfswitch-install" src="https://user-images.githubusercontent.com/58170816/84379398-5c33cf00-ac03-11ea-8cc2-cbeb12fca3df.PNG">
+
 ### Step 2: Azure CLI installation
 ### 1.	Azure CLI installation for Ubuntu
        
@@ -51,23 +63,31 @@ Generally, terraform communicates azure portal to create the resources through A
  ![terraform-plan](https://user-images.githubusercontent.com/58170816/84352913-d05a7c80-abdb-11ea-8d96-f6b8fe9e97ca.png)
 
 ### Step 3: Azure portal Access
+
 •	We at least should have contributor access.
 •	Using Subscription Id, we can create the resources.
 
 ### OS
+
 **CentOS 7.7** on all machines.
 
 ## Hardware setup
+
 ### The following VMs are recommended:
+
 •	**Kubernetes master:**
+
 o	Number of VMs: 2
 o	Configuration: 4 CPU, 8 GB RAM
+
 •	**Kubernetes workers:**
+
 o	Number of Vms: 4
 o	Configuration: 4 CPU, 16 GB RAM
 
 ### Console
 **Console machine:** 1 (2 CPU, 4 GB RAM)
+
 ### Console setup
 **Console machine** is setup with below steps while creating via terraform.
 The below steps are carried out through Terraform scripts.
@@ -87,17 +107,29 @@ The below steps are carried out through Terraform scripts.
 •	If you want to change the attributes such as **username, password, ssh_key, resource group, location, tags, storage account type, vm size, hostname, domain name label, prefix**, need to change those in **variables.tf** config file.
 
 ### For new port addition:
+
 •	We have to create inbound or outbound rule in **nsg.tf** config file.
+
 ### How to convert **openssh private key** as .ppk:
+
 **Open Putty key generator  Actions  Click on load to load the keys  save the private key as .ppk key.**
+
 ### How to convert .ppk to .pem:
+
 **Step 1 –** First of all, install the putty tools on your Linux system using below command.
+
 **sudo apt-get install putty-tools**
+
 **Step 2 –** Now, convert the ppk file to pem file using **puttygen** command line tool.
+
 **puttygen server1.ppk -O private-openssh -o server1.pem**
+
 **Step 3 –** Change the .pem file permissions. Set the read-only permissions to the owner of the file, remove any permission to group and other. Otherwise ssh will refuse this key for use.
+
 **chmod 400 server1.pem**
+
 **Step 4 –** Finally, connect to your remote Linux server with ssh using this pem key.
+
 **ssh -i server1.pem ubuntu@ipaddress**
 
 
