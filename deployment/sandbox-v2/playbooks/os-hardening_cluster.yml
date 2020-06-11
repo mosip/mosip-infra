@@ -4,6 +4,7 @@
   vars:
     oscap_profile: xccdf_org.ssgproject.content_profile_pci-dss
     oscap_policy: ssg-centos7-ds
+    host: {{ inventory_hostname }}
 
   tasks:
     - name: install openscap scanner
@@ -15,18 +16,33 @@
         - scap-security-guide
 
     - block:
-        - name: run openscap
+        - name: report before remediation
           command: oscap xccdf eval \
             --profile {{ oscap_profile }} \
             --results /tmp/oscap.xml \
-            --report /tmp/oscap-report.html \
+            --report /tmp/oscap-report-before.html \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
 
-        - name: remediate openscap
+        - name: generate remediation script
+          command: oscap xccdf generate fix \
+            --fix-type bash \
+            --profile {{ oscap_profile }} \
+            --output /tmp/{{ inventory_hostname }}-remediation-script.sh \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
+
+        - name: online remediation using openscap
           command: oscap xccdf eval \
             --remediate \
             --profile {{ oscap_profile }} \
             --results /tmp/oscap-remediate.xml \
+            --fetch-remote-resources \
+            /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
+
+        - name: reprt after remediation
+          command: oscap xccdf eval \
+            --profile {{ oscap_profile }} \
+            --results /tmp/oscap.xml \
+            --report /tmp/oscap-report-after.html \
             --fetch-remote-resources \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml

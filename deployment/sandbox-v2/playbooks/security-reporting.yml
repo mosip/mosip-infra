@@ -23,17 +23,42 @@
   vars:
     host: "{{ inventory_hostname }}"
   tasks:
-    - name: Copy local report
+    - name: copy report before remediation
       copy:
-        src: /tmp/oscap-report.html
-        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}.html"
+        src: /tmp/oscap-report-before.html
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-before.html"
       when: host ==  "console"
 
-    - name: Copy remote report
+    - name: copy report after remediation
+      copy:
+        src: /tmp/oscap-report-after.html
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-after.html"
+      when: host ==  "console"
+
+    - name: copy local remediation script
+      copy:
+        src: /tmp/{{ inventory_hostname }}-remediation-script.sh
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-remediation-script.sh"
+      when: host ==  "console"
+
+    - name: copy remote report before remediation
       fetch:
-        src: /tmp/oscap-report.html
-        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}.html"
+        src: /tmp/oscap-report-before.html
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-before.html"
         flat: yes
+      when: host !=  "console"
+
+    - name: copy remote report after remediation
+      fetch:
+        src: /tmp/oscap-report-after.html
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-after.html"
+        flat: yes
+      when: host !=  "console"
+
+    - name: copy remote remediation script
+      copy:
+        src: /tmp/{{ inventory_hostname }}-remediation-script.sh
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-remediation-script.sh"
       when: host !=  "console"
 
 - hosts: "{{console1}}"
