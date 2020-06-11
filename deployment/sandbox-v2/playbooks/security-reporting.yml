@@ -36,6 +36,8 @@
         flat: yes
       when: host !=  "console"
 
+- hosts: "{{console1}}"
+  tasks:
     - name: Zip Reports
       archive:
         path: "{{ install_root }}/{{ sandbox_domain_name }}"
