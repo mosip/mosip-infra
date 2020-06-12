@@ -14,7 +14,8 @@ metadata:
 
 spec:
   rules:
-  - http:
+  - host: {{ .Values.domain }}
+    http:
       paths:
       - path: /keycloak(/|$)(.*)
         backend:

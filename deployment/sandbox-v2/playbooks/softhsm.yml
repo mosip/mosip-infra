@@ -4,22 +4,19 @@
 # Prepare folders on remote node
 - hosts: nfsserver
   gather_facts: true
+  hsm_prop: '{{hsm_prop}}'
   roles:
     - {role: softhsm-prep}
 
 # Convert helm template to helm values 
 - hosts: console
-  tasks:
-    - name: Convert helm template
-      template:
-        src: '{{install_root}}/roles/softhsm-prep/templates/helm_values.yml.j2'
-        dest: '{{tmp_dir}}/softhsm_{{hsm_prop.label}}_helm_values.yml'
-
-- hosts: console
-  vars:   
-    kube_config: '{{clusters.mz.kube_config}}' 
-    helm_chart: '{{charts_root}}/softhsm'
+  vars:
+    kube_config: '{{kube_config}}'
     install_name: 'softhsm-{{hsm_prop.label}}' 
-    helm_values: '{{tmp_dir}}/softhsm_{{hsm_prop.label}}_helm_values.yml'
+    helm_chart: '{{charts_root}}/softhsm'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/softhsm/values.template.j2'
   roles:
-    - {role: helm}
+    - {role:  helm}
+

@@ -78,6 +78,7 @@ postgres:
   nfs_path: '{{nfs.folder}}/postgres'  # TODO: This should match with helm charts
   size: 10Gi
   service_name: postgres # svc on Kubernetes
+  service_port: 80
   server: mzworker0 # Nodeport
   local_port: 30090  # fixed for connecting from outside the cluster
   user: postgres
@@ -91,7 +92,7 @@ sftp_user: 'sftpuser'  # This should be same in config files
 keycloak:
   user: admin
   password: admin
-  url: '{{mzingress.base_url}}/keycloak'
+  url: '{{clusters.mz.ingress.base_url}}/keycloak'
 
 softhsm:
   keymanager:  

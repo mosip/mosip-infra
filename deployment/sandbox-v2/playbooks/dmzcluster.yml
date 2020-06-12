@@ -5,6 +5,18 @@
     master: dmzmaster
     workers: dmzworkers
 
+# Ingress nginx controller
+- hosts: console
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'ingress-nginx'
+    helm_chart: '{{charts_root}}/ingress-nginx'
+    is_template: false
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/ingress-nginx/values.yaml'
+  roles:
+    - {role:  helm, tags: [dmz-ingress]}
+
 # Kubernetes dashboard
 - hosts: console
   vars:

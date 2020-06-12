@@ -1,0 +1,17 @@
+name: keycloak
+namespace: default
+dockerImage: jboss/keycloak
+dockerTag: 9.0.0 
+keycloakUser: {{ keycloak.user }}
+keycloakPassword: {{ keycloak.password }} 
+domain: {{ sandbox_domain_name }}
+keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"  
+containerPort: 8080
+servicePort: 80
+db:
+  host: {{ postgres.service_name }}
+  port: {{ postgres.service_port }} 
+  user: {{ postgres.user }}
+  password: {{ postgres.password }}
+ingress:
+   namespace: default 

@@ -5,6 +5,18 @@
     master: mzmaster
     workers: mzworkers
 
+# Ingress nginx controller
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'ingress-nginx'
+    helm_chart: '{{charts_root}}/ingress-nginx'
+    is_template: false
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/ingress-nginx/values.yaml'
+  roles:
+    - {role:  helm, tags: [mz-ingress]}
+
 # Kubenetes dashboard
 - hosts: console
   vars:
