@@ -4,7 +4,7 @@ part-of: mosip
 activeProfileEnv: mz
 springConfigLabel: master
 configServerUrl: http://config-server/config
-sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
+sandboxDomainName: {{ sandbox_domain_name }}
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
@@ -12,6 +12,7 @@ ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 imagePullPolicy: Always 
+isGlowroot: {{ is_glowroot }}
 services:
   login:
     serviceName: prereg-login-service 
@@ -100,6 +101,6 @@ services:
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
-    apiHost: https://{{ .Values.sandboxDomainName }}/
+    apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui
       

@@ -1,9 +1,11 @@
 # This play installs all PreReg services using Helm
 - hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{clusters.mz.kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'prereg'
     helm_chart: '{{charts_root}}/prereg'
-    install_name: prereg 
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/prereg/values.template.j2'
   roles:
-    - {role: helm, tags: [prereg]} 
+    - {role:  helm}
