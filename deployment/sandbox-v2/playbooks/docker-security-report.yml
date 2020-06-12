@@ -58,4 +58,4 @@
         format: zip
 
     - name: Upload Reports
-      shell: 'curl  args: -u ''{{ reporting_user }}:{{ reporting_user_secret}}'' --request POST -F file=@{{ install_root }}/{{ sandbox_domain_name }}-docker-security.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
+      shell: 'curl  args: -u ''{{ reporting_user }}:{{ reporting_user_secret}}'' --request POST -F file=@{{ install_root }}/{{ sandbox_domain_name }}-docker-security.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/54526088/child/attachment'
