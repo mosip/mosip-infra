@@ -30,6 +30,13 @@
             --output /tmp/remediation-script.sh \
             /usr/share/xml/scap/ssg/content/{{ oscap_policy }}.xml
 
+        - name: Change file ownership, group and permissions
+          file:
+            path: /tmp/remediation-script.sh
+            owner: root
+            group: root
+            mode: '0644'
+
         - name: online remediation using openscap
           command: oscap xccdf eval \
             --remediate \

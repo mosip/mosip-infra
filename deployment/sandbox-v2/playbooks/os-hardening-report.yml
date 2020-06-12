@@ -56,9 +56,10 @@
       when: host !=  "console"
 
     - name: copy remote remediation script
-      copy:
+      fetch:
         src: /tmp/remediation-script.sh
         dest: "{{ install_root }}/{{ sandbox_domain_name }}/{{ inventory_hostname }}-remediation-script.sh"
+        flat: yes
       when: host !=  "console"
 
 - hosts: "{{console1}}"

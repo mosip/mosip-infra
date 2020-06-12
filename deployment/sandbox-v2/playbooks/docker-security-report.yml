@@ -1,0 +1,61 @@
+---
+- hosts: "{{console1}}"
+  become: yes
+  become_user: mosipuser
+  tasks:
+    - name: Check reports directory.
+      stat:
+        path: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security"
+      register: docker_report_folder
+
+    - name: "echo if directory already existed"
+      debug:
+        msg: "Report directory already exist"
+      when: docker_report_folder.stat.exists
+
+    - name: "Create directory if not exists"
+      file:
+        path: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security"
+        state: directory
+      when: docker_report_folder.stat.exists == false
+
+- hosts: "{{cluster1}}"
+  vars:
+    host: "{{ inventory_hostname }}"
+  tasks:
+    - name: copy log from local
+      copy:
+        src: /tmp/docker.log
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security/{{ inventory_hostname }}-docker.log"
+      when: host ==  "console"
+
+    - name: copy json log from local
+      copy:
+        src: /tmp/docker.log.json
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security/{{ inventory_hostname }}-docker.log.json"
+      when: host ==  "console"
+
+    - name: copy log from remote
+      fetch:
+        src: /tmp/docker.log
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security/{{ inventory_hostname }}-docker.log"
+        flat: yes
+      when: host !=  "console"
+
+    - name: copy json log from remote
+      fetch:
+        src: /tmp/docker.log.json
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security/{{ inventory_hostname }}-docker.log.json"
+        flat: yes
+      when: host !=  "console"
+
+- hosts: "{{console1}}"
+  tasks:
+    - name: Zip Reports
+      archive:
+        path: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security"
+        dest: "{{ install_root }}/{{ sandbox_domain_name }}-docker-security.zip"
+        format: zip
+
+    - name: Upload Reports
+      shell: 'curl  args: -u ''{{ reporting_user }}:{{ reporting_user_secret}}'' --request POST -F file=@{{ install_root }}/{{ sandbox_domain_name }}-docker-security.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'

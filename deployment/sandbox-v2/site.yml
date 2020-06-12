@@ -18,7 +18,9 @@
 - import_playbook: playbooks/admin.yml
 - import_playbook: playbooks/pms.yml
 - import_playbook: playbooks/resident.yml
-- {import_playbook: playbooks/os-hardening_cluster.yml, vars: {cluster1: scancluster}}
-- {import_playbook: playbooks/security-reporting.yml, vars: {console1: console1, cluster1: scancluster}}
+- {import_playbook: playbooks/os-hardening-cluster.yml, vars: {cluster1: scancluster}}
+- {import_playbook: playbooks/os-hardening-report.yml, vars: {console1: console1, cluster1: scancluster}}
 - {import_playbook: playbooks/uninstall-scap.yml, vars: {cluster1: scancluster}}
 #- import_playbook: playbooks/healthtest.yml
+- {import_playbook: playbooks/docker-security-cluster.yml, vars: {cluster1: scancluster}}
+- {import_playbook: playbooks/docker-security-report.yml, vars: {console1: console1, cluster1: scancluster}}
