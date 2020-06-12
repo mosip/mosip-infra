@@ -69,7 +69,7 @@ alertmanager:
     storageClass: ""
     nfs:
       server: {{ mon_prop.nfs.server }}
-      path: {{ mon_prop.nfs.prometheus_alert_path }}
+      path: {{ mon_prop.nfs.prometheus.alert_path }}
 
     subPath: ""
   podAnnotations: {}
@@ -272,7 +272,7 @@ server:
     storageClass: ""
     nfs:
       server: {{ mon_prop.nfs.server }}
-      path: {{ mon_prop.nfs.prometheus_server_path }}
+      path: {{ mon_prop.nfs.prometheus.server_path }}
     
 
     ## Prometheus server data Persistent Volume Binding Mode
@@ -590,7 +590,7 @@ pushgateway:
     storageClass: ""
     nfs:
       server: {{ mon_prop.nfs.server }}
-      path: {{ mon_prop.nfs.prometheus_push_path }}
+      path: {{ mon_prop.nfs.prometheus.push_path }}
 
     ## pushgateway data Persistent Volume Binding Mode
     ## If defined, volumeBindingMode: <volumeBindingMode>

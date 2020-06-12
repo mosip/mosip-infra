@@ -1,0 +1,15 @@
+sidecar:
+  datasources:
+    enabled: true
+    label: grafana_datasource
+
+grafana.ini:
+  server:
+    domain: {{sandbox_domain_name}} 
+    root_url: "%(protocol)s://%(domain)s/grafana"
+    serve_from_sub_path: true
+ingress:
+  enabled: true
+  hosts: 
+    - {{sandbox_domain_name}} 
+  path: "/grafana"

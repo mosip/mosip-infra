@@ -43,10 +43,12 @@ clusters:
       namespace: monitoring
       nfs:
         server: '{{nfs.server}}'
-        prometheus_alert_path: '{{nfs.folder}}/mz/monitoring/prometheus/alertmanager'
-        prometheus_push_path: '{{nfs.folder}}/mz/monitoring/prometheus/pushgateway'
-        prometheus_server_path: '{{nfs.folder}}/mz/monitoring/prometheus/pushgateway'
-        grafana_path: '{{nfs.folder}}/mz/monitoring/grafana'
+        prometheus:
+          alert_path: '{{nfs.folder}}/monitoring/mz/prometheus/alertmanager'
+          push_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
+          server_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
+        grafana:
+          path: '{{nfs.folder}}/monitoring/mz/grafana'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     ingress:
@@ -59,10 +61,12 @@ clusters:
       enabled: true
       namespace: monitoring
       nfs:
-        prometheus_alert_path: '{{nfs.folder}}/dmz/monitoring/prometheus/alertmanager'
-        prometheus_push_path: '{{nfs.folder}}/dmz/monitoring/prometheus/pushgateway'
-        prometheus_server_path: '{{nfs.folder}}/dmz/monitoring/prometheus/pushgateway'
-        grafana_path: '{{nfs.folder}}/dmz/monitoring/'
+        prometheus:
+          alert_path: '{{nfs.folder}}/monitoring/dmz/prometheus/alertmanager'
+          push_path: '{{nfs.folder}}/monitoring/dmz/prometheus/pushgateway'
+          server_path: '{{nfs.folder}}/monitoring/dmz/prometheus/pushgateway'
+        grafana:
+          path: '{{nfs.folder}}/monitoring/dmz/grafana'
 
 # Registration processor shared variables
 #

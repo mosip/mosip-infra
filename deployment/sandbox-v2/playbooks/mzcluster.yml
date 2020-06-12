@@ -1,11 +1,11 @@
-## Playbook to create mz cluster
+# MZ cluster
 - import_playbook: cluster.yml
   vars:
     cluster: mzcluster
     master: mzmaster
     workers: mzworkers
 
-# Install dashboard
+# Kubenetes dashboard
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}' 
@@ -14,7 +14,14 @@
   roles:
     - {role: k8scluster/dashboard}
 
-- import_playbook: monitoring.yml
+# Prometheus
+- import_playbook: prometheus.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    mon_prop: '{{clusters.mz.monitoring}}' 
+
+# Grafana
+- import_playbook: grafana.yml
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
     mon_prop: '{{clusters.mz.monitoring}}' 
