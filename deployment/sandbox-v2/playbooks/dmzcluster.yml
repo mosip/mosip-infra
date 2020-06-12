@@ -1,11 +1,11 @@
-## Playbook to create dmz cluster
+# DMZ cluster
 - import_playbook: cluster.yml
   vars:
     cluster: dmzcluster
     master: dmzmaster
     workers: dmzworkers
 
-# Install dashboard
+# Kubernetes dashboard
 - hosts: console
   vars:
     kube_config: '{{clusters.dmz.kube_config}}' 
@@ -14,7 +14,14 @@
   roles:
     - {role: k8scluster/dashboard}
 
-- import_playbook: monitoring.yml
+# Prometheus
+- import_playbook: prometheus.yml
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    mon_prop: '{{clusters.dmz.monitoring}}' 
+
+# Grafana
+- import_playbook: grafana.yml
   vars:
     kube_config: '{{clusters.dmz.kube_config}}'
     mon_prop: '{{clusters.dmz.monitoring}}' 
