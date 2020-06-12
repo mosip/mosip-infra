@@ -303,3 +303,25 @@ spec:
       volumes:
         - name: tmp-volume
           emptyDir: {}
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: kubernetes-dashboard
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ dashboard_ingress_url }}(/|$)(.*)
+        backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 443
+

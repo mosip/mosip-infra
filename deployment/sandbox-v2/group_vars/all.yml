@@ -29,30 +29,23 @@ artifactory_uri: 'http://13.71.87.138:8040'
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
-# Any of the worker nodes of a cluster may be used to access nodeport
-mz_cluster_any_node: '{{groups["mzworkers"][0]}}'
-dmz_cluster_any_node: '{{groups["dmzworkers"][0]}}'
-
-# Config files
-mz_kube_config: "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
-dmz_kube_config: "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
-
-# Dashboard ports
-mz_dashboard_port: 8001
-dmz_dashboard_port: 8002
-
-# Ingress is in NodePort configuration. So connect to any node cluster
-mzingress:
-  nodeport_http: 30080  # TODO: Shoud match with helm
-  nodeport_https: 30443
-  base_url: 'http://{{mz_cluster_any_node}}:30080' # Same as nodeport_http
-
-dmzingress:
-  nodeport_http: 30080  # TODO: Shoud match with helm
-  nodeport_https: 30443
-  base_url: 'http://{{dmz_cluster_any_node}}:30080' # Same as nodeport_http
-
-mz_persistent_storage_node: mzworker0  # All persistent data in MZ will be stored on this node. TODO: this should match helm
+clusters:
+  mz:
+    kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
+    ingress:
+      nodeport_http: 30080  # TODO: Shoud match with helm
+      nodeport_https: 30443
+      base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+    dashboard:
+      url: /mz-dashboard
+  dmz:
+    kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
+    ingress:
+      nodeport_http: 30080  # TODO: Shoud match with helm
+      nodeport_https: 30443
+      base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+    dashboard: 
+      url: /dmz-dashboard
 
 # Registration processor shared variables
 #

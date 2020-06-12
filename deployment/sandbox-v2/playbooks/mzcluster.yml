@@ -6,25 +6,11 @@
     workers: mzworkers
 
 # Install dashboard
-# # TODO: Code repetition for different clusters. Try to avoid.
 - hosts: console
-  tasks:
-    - name: Deploy kubenetes dashboard in mzcluster 
-      command: 'kubectl --kubeconfig={{ mz_kube_config }} apply -f {{install_root}}/roles/k8scluster/kubernetes/master/files/dashboard.yml'
-      register: create_result
-      until: create_result.rc == 0
-      retries: 5
-      delay: 2
-      ignore_errors: true
-
-
-    # TODO: Below commands returns -9 code, but does the job. It should return 0 actually.
-    - name: Kill any running proxy
-      shell:  "ps -aux | grep kubectl | grep proxy | grep '{{mz_kube_config}}' |  awk '{print $2}' | xargs kill -9"
-      ignore_errors: yes
- 
-    - name: Start kube proxy
-      shell: "kubectl --kubeconfig={{mz_kube_config}} proxy --port {{hostvars['mzmaster']['dashboard_port']}} --accept-hosts='^.*$' > /tmp/mz_proxy.log 2>&1 &"
-      async: 5
-      poll: 0
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    cluster_name: 'mz'
+    dashboard_ingress_url: '{{clusters.mz.dashboard.url}}'
+  roles:
+    - {role: k8scluster/dashboard}
 

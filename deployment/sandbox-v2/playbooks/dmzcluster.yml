@@ -6,24 +6,11 @@
     workers: dmzworkers
 
 # Install dashboard
-# # TODO: Code repetition for different clusters. Try to avoid.
 - hosts: console
-  tasks:
-    - name: Deploy kubenetes dashboard in dmzcluster 
-      command: 'kubectl --kubeconfig={{ dmz_kube_config }} apply -f {{install_root}}/roles/k8scluster/kubernetes/master/files/dashboard.yml'
-      register: create_result
-      until: create_result.rc == 0
-      retries: 5
-      delay: 2
-      ignore_errors: true
-
-    # TODO: Below commands returns -9 code, but does the job. It should return 0 actually.
-    - name: Kill any running proxy
-      shell:  "ps -aux | grep kubectl | grep proxy | grep '{{dmz_kube_config}}' |  awk '{print $2}' | xargs kill -9"
-      ignore_errors: yes
- 
-    - name: Start kube proxy
-      shell: "kubectl --kubeconfig={{dmz_kube_config}} proxy --port {{hostvars['dmzmaster']['dashboard_port']}} --accept-hosts='^.*$' > /tmp/dmz_proxy.log 2>&1 &"
-      async: 5
-      poll: 0
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}' 
+    cluster_name: 'dmz'
+    dashboard_ingress_url: '{{clusters.dmz.dashboard.url}}'
+  roles:
+    - {role: k8scluster/dashboard}
 
