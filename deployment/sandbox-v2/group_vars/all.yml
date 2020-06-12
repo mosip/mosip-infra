@@ -38,6 +38,15 @@ clusters:
       base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
+    monitoring:
+      enabled: true
+      namespace: monitoring
+      nfs:
+        server: '{{nfs.server}}'
+        prometheus_alert_path: '{{nfs.folder}}/mz/monitoring/prometheus/alertmanager'
+        prometheus_push_path: '{{nfs.folder}}/mz/monitoring/prometheus/pushgateway'
+        prometheus_server_path: '{{nfs.folder}}/mz/monitoring/prometheus/pushgateway'
+        grafana_path: '{{nfs.folder}}/mz/monitoring/grafana'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     ingress:
@@ -46,6 +55,14 @@ clusters:
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
+    monitoring:
+      enabled: true
+      namespace: monitoring
+      nfs:
+        prometheus_alert_path: '{{nfs.folder}}/dmz/monitoring/prometheus/alertmanager'
+        prometheus_push_path: '{{nfs.folder}}/dmz/monitoring/prometheus/pushgateway'
+        prometheus_server_path: '{{nfs.folder}}/dmz/monitoring/prometheus/pushgateway'
+        grafana_path: '{{nfs.folder}}/dmz/monitoring/'
 
 # Registration processor shared variables
 #
@@ -131,6 +148,7 @@ databases:
     sql_path: '{{repos.pms.dest}}/db_scripts'
 
 nfs:
+  server: console
   folder: /srv/nfs/mosip
 
 
