@@ -1,21 +1,21 @@
 name: postgres
 defaultDb: keycloak # Default DB on Postgres
-user: postgres
-password: postgres
+user: {{ postgres.user }} 
+password: {{ postgres.password }}
 nfs:  # Must match nfs server params defined via Ansible
   server: console
-  path: /srv/nfs/mosip/postgres 
+  path: {{ postgres.nfs_path }}
 pvc:
   name: postgres-pvc
-  size: 1Gi
+  size: {{ postgres.size }}
 pv:
   name: postgres-pv
-  size: 1Gi
+  size: {{ postgres.size }}
 sc: 
   name: ""
 docker:
   image: postgres
   tag: 12.2
   containerPort: 5432
-nodePort: 30090
-maxConnections: 1000 
+nodePort: {{ postgres.local_port }}
+maxConnections: {{ postgres.max_connections }} 
