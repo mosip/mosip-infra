@@ -18,9 +18,10 @@ pvc:
   name: config-server-pvc
   size: 10Mi # Should not exceed pv size
 ingressPath: /config
+domain: {{ sandbox_domain_name }}
 sc:
   name: ""
 
 nfs:
-  server: console
-  path: /srv/nfs/mosip/config_repo # Should match with config_repo path
+  server: {{ nfs.server }}
+  path: {{ config_repo.path }} 
