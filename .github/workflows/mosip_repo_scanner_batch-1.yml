@@ -49,7 +49,7 @@ jobs:
 
       # Runs scan
       - name: Run Trufflehog3
-        run: python3 $GITHUB_WORKSPACE/security/mosip_repo_scanner.py $GITHUB_WORKSPACE/security/rules_mosip.yaml $GITHUB_WORKSPACE/security/batch-1.txt
+        run: python3 $GITHUB_WORKSPACE/security/mosip_repo_scanner.py $GITHUB_WORKSPACE/security/rules_mosip.yaml $GITHUB_WORKSPACE/security/batch-1.txt $GITHUB_WORKSPACE/security/config.yaml
 
       # Zip complete report directory
       - name: Zip the reports directory
