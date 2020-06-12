@@ -219,6 +219,13 @@ http {
            proxy_pass {{dmzingress.base_url}}/{{clusters.dmz.dashboard.url}}/;
         }
 
+        location /mz-grafana/ {
+           proxy_pass  {{mzingress.base_url}}/grafana/;
+        }
+
+        location /dmz-grafana/ {
+           proxy_pass  {{dmzingress.base_url}}/grafana/;
+
         location /v1/admin/ {
            proxy_pass {{mzingress.base_url}}/v1/admin/;
         }
