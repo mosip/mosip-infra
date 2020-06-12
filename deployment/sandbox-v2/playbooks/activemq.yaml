@@ -1,4 +1,4 @@
-# This play installs all the MOSIP environment
+# Activemq installation
 #
 
 - hosts: console
@@ -6,7 +6,6 @@
   vars:
     kube_config: '{{clusters.mz.kube_config}}'  # Deploy all these on mz cluster
   roles:
-     - {role: clamav, tags: [clamav]} # 
      - {role: activemq, tags: [activemq]} # 
 
 

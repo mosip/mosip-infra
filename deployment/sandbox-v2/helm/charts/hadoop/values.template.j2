@@ -75,14 +75,14 @@ persistence:
   nameNode: # TODO: Does every instance of nn and dn have its own storage path?
     enabled: true
     accessMode: ReadWriteMany
-    size: "5Gi"
+    size: {{ hdfs.nfs.nn.size }} 
     nfs:
-      server: console
-      path:  /srv/nfs/mosip/hdfs/nn  # Must match ANSIBLE
+      server: {{ hdfs.nfs.server }}
+      path:  {{ hdfs.nfs.nn.path }} 
   dataNode:
     enabled: true
     accessMode: ReadWriteMany
-    size: "5Gi"
+    size: {{ hdfs.nfs.dn.size }} 
     nfs:
-      server: console
-      path:  /srv/nfs/mosip/hdfs/dn # Must match ANSIBLE 
+      server: {{ hdfs.nfs.server}}
+      path:  {{ hdfs.nfs.dn.path }} 

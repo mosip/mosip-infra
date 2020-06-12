@@ -3,15 +3,20 @@
 # Create folders for persistence on NFS
 - hosts: nfsserver
   tasks:
-    - {name: 'Create folder', file: {name: '{{hdfs.nfs.nn_path}}', state: directory}, become: yes}
-    - {name: 'Create folder', file: {name: '{{hdfs.nfs.dn_path}}', state: directory}, become: yes}
+    - {name: 'Create folder', file: {name: '{{hdfs.nfs.nn.path}}', state: directory}, become: yes}
+    - {name: 'Create folder', file: {name: '{{hdfs.nfs.dn.path}}', state: directory}, become: yes}
 
 # Run hadoop and initialize it.
 - hosts: console
   gather_facts: true
   vars:
-    kube_config: '{{clusters.mz.kube_config}}'  # Deploy all these on mz cluster
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'hadoop'
+    helm_chart: '{{charts_root}}/hadoop'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/hadoop/values.template.j2'
   roles:
-     - {role: helm, install_name: 'hadoop', helm_chart: '{{charts_root}}/hadoop', tags: [hdfs]}
+     - {role:  helm}
      - {role: hdfs-init,  tags: [hdfs-init]}
 
