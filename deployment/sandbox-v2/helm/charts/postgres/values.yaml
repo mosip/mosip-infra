@@ -12,7 +12,7 @@ pv:
   name: postgres-pv
   size: 1Gi
 sc: 
-  name: manual
+  name: ""
 docker:
   image: postgres
   tag: 12.2

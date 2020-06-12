@@ -17,7 +17,7 @@ confFile: softhsm2.conf
 mountPath: /softhsm  # path inside docker
 
 sc:
-  name: manual 
+  name: ""
 pv:
   name: softhsm-pv
   size: 10Mi

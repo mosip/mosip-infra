@@ -1,7 +1,7 @@
 - hosts: console
   gather_facts: true
   vars:   
-    kube_config: '{{mz_kube_config}}' 
+    kube_config: '{{clusters.mz.kube_config}}' 
     helm_chart: '{{charts_root}}/idrepo'
     install_name: idrepo
   roles:

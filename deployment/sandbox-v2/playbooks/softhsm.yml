@@ -17,7 +17,7 @@
 
 - hosts: console
   vars:   
-    kube_config: '{{mz_kube_config}}' 
+    kube_config: '{{clusters.mz.kube_config}}' 
     helm_chart: '{{charts_root}}/softhsm'
     install_name: 'softhsm-{{hsm_prop.label}}' 
     helm_values: '{{tmp_dir}}/softhsm_{{hsm_prop.label}}_helm_values.yml'

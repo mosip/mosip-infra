@@ -19,7 +19,7 @@ pvc:
   size: 10Mi # Should not exceed pv size
 ingressPath: /config
 sc:
-  name: manual
+  name: ""
 
 nfs:
   server: console

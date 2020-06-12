@@ -10,3 +10,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.pvc.size }} 
+  selector:
+    matchLabels:
+      name: {{ .Values.pv.name }} 

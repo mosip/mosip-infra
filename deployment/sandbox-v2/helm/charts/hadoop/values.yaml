@@ -71,7 +71,7 @@ yarn:
         cpu: "1000m"
 
 persistence:
-  scName: manual 
+  scName: ""
   nameNode: # TODO: Does every instance of nn and dn have its own storage path?
     enabled: true
     accessMode: ReadWriteMany
