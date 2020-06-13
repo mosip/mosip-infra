@@ -52,6 +52,7 @@ clusters:
           server_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
         grafana:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
+      grafana_ingress_path: 'mz-grafana'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodePortNode: dmzworker0  # Any node on cluster for nodeport access
@@ -65,12 +66,14 @@ clusters:
       enabled: true
       namespace: monitoring
       nfs:
+        server: '{{nfs.server}}'
         prometheus:
           alert_path: '{{nfs.folder}}/monitoring/dmz/prometheus/alertmanager'
           push_path: '{{nfs.folder}}/monitoring/dmz/prometheus/pushgateway'
-          server_path: '{{nfs.folder}}/monitoring/dmz/prometheus/pushgateway'
+          server_path: '{{nfs.folder}}/monitoring/dmz/prometheus/server'
         grafana:
           path: '{{nfs.folder}}/monitoring/dmz/grafana'
+      grafana_ingress_path: 'dmz-grafana'
 
 # Registration processor shared variables
 #

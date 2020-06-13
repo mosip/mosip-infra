@@ -23,7 +23,6 @@
         state: present
 
 # Install Grafana
-
 # Apply custom config
 - hosts: console
   gather_facts: false
@@ -39,8 +38,8 @@
   vars:
     kube_config: '{{kube_config}}'
     install_name: 'graf'
-    helm_chart: 'stable/grafana'
     is_template: true  
+    helm_chart: 'stable/grafana'
     helm_namespace: '{{ mon_prop.namespace }}'
     helm_values: '{{charts_root}}/grafana/values.template.j2'
   roles:

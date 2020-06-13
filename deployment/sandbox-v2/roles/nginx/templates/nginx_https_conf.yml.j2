@@ -219,12 +219,12 @@ http {
            proxy_pass {{clusters.dmz.ingress.base_url}}/{{clusters.dmz.dashboard.url}}/;
         }
 
-        location /mz-grafana/ {
-           proxy_pass  {{clusters.mz.ingress.base_url}}/grafana/;
+        location /{{clusters.mz.monitoring.grafana_ingress_path}}/ {
+           proxy_pass  {{clusters.mz.ingress.base_url}}/{{clusters.mz.monitoring.grafana_ingress_path}}/;
         }
 
-        location /dmz-grafana/ {
-           proxy_pass  {{clusters.dmz.ingress.base_url}}/grafana/;
+        location /{{clusters.dmz.monitoring.grafana_ingress_path}}/ {
+           proxy_pass  {{clusters.dmz.ingress.base_url}}/{{clusters.dmz.monitoring.grafana_ingress_path}}/;
         }
 
         location /v1/admin/ {
