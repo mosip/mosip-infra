@@ -12,20 +12,17 @@ CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
-The following VMs are recommended:
+The sandbox has been tested on the following configuration:
+
 * Console:
   * Number of VMS: 1
   * Configuration: 4 CPU, 8 GB
 * Kubernetes master:  
-  * Number of VMs: _m_
+  * Number of VMs: 2
   * Configuration: 4 CPU, 8 GB RAM
 * Kubernetes workers:  
-  * Number of Vms: _n_ 
+  * Number of Vms: 10 
   * Configuration: 4 CPU, 16 GB RAM
-
-* m = 1, n = 1 for Pre Reg only
-* m = 2, n = 3 for Pre Reg + Reg Proc
-* m = 2, n = 4 for Pre Reg + Reg Proc + IDA
 
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 

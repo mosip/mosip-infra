@@ -1,0 +1,240 @@
+namespace: default
+component: regproc
+part-of: mosip
+activeProfileEnv: mz 
+springConfigLabel: master
+configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
+storageClass: dm-storage-class  # See sc, pv templates
+
+probe:
+  initialDelay: 180  # Seconds
+  period: 30 # Seconds
+
+ingress:
+   namespace: default
+
+artifactoryUrl: http://13.71.87.138:8040
+
+imagePullPolicy: Always 
+
+domainName: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
+isGlowroot: {{ is_glowroot }} 
+
+services:
+  camel:
+    serviceName: regproc-camel-stage
+    dockerImage: mosipdev/registration-processor-common-camel-bridge
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5723
+      hazelcastPort: 5701
+      containerPort: 8022
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
+  notification:  # This is has a service front end for access (notification-svc.yaml)
+    serviceName: regproc-securezone-notification-stage
+    dockerImage: mosipdev/registration-processor-securezone-notification-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5712
+      hazelcastPort: 5701
+      containerPort: 8090
+      servicePort: 80 
+    ingressPath: /registrationprocessor/v1/securezone/
+    healthUrl: /registrationprocessor/v1/securezone/actuator/health
+  uploader:
+    serviceName: regproc-packet-uploader-stage
+    dockerImage: mosipdev/registration-processor-packet-uploader-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5714
+      hazelcastPort: 5701
+      containerPort: 8087
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/uploader/actuator/health
+  quality:
+    serviceName: regproc-quality-checker-stage
+    dockerImage: mosipdev/registration-processor-quality-checker-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5727
+      hazelcastPort: 5701
+      containerPort: 9072
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
+  validator:
+    serviceName: regproc-packet-validator-stage
+    dockerImage: mosipdev/registration-processor-packet-validator-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5715
+      hazelcastPort: 5701
+      containerPort: 8088
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
+  osi:
+    serviceName: regproc-osi-validator-stage
+    dockerImage: mosipdev/registration-processor-osi-validator-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5716
+      hazelcastPort: 5701
+      containerPort: 8089
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
+  demo:
+    serviceName: regproc-demo-dedupe-stage
+    dockerImage: mosipdev/registration-processor-demo-dedupe-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5717
+      hazelcastPort: 5701
+      containerPort: 8091
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
+  bio:
+    serviceName: regproc-bio-dedupe-stage
+    dockerImage: mosipdev/registration-processor-bio-dedupe-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5718
+      hazelcastPort: 5701
+      containerPort: 9096
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
+  biosvc:
+    serviceName: regproc-bio-dedupe-service
+    dockerImage: mosipdev/registration-processor-bio-dedupe-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 9097
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/bio-dedupe
+    healthUrl: /registrationprocessor/v1/bio-dedupe/actuator/health
+  bioauth:
+    serviceName: regproc-biometric-authentication-stage
+    dockerImage: mosipdev/registration-processor-biometric-authentication-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5777
+      hazelcastPort: 5701
+      containerPort: 8020
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/bioauth/actuator/health
+  abishandler:
+    serviceName: regproc-abis-handler-stage
+    dockerImage: mosipdev/registration-processor-abis-handler-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5726
+      hazelcastPort: 5701
+      containerPort: 9071
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/abishandler/actuator/health
+  abismid:
+    serviceName: regproc-abis-middleware-stage
+    dockerImage: mosipdev/registration-processor-abis-middleware-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5888
+      hazelcastPort: 5701
+      containerPort: 8091
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
+  proxyabis:
+    serviceName: regproc-proxy-abis
+    dockerImage: mosipdev/registration-processor-abis
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 9098
+      servicePort: 80
+    ingressPath: /abis
+    healthUrl: /abis/actuator/health
+  manual:
+    serviceName: regproc-manual-verification-stage
+    dockerImage: mosipdev/registration-processor-manual-verification-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5720
+      hazelcastPort: 5701
+      containerPort: 8084
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/manualverification/
+    healthUrl: /registrationprocessor/v1/manualverification/actuator/health
+  external:
+    serviceName: regproc-external-stage
+    dockerImage: mosipdev/registration-processor-external-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5736
+      hazelcastPort: 5701
+      containerPort: 8095
+    ingressPath: ''
+    healthUrl: /registrationprocessor/v1/external/actuator/health 
+  eis: 
+    serviceName: regproc-external-integration-service
+    dockerImage: mosipdev/registration-processor-external-integration-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 8201
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/eis
+    healthUrl: /registrationprocessor/v1/eis/actuator/health
+  uin:
+    serviceName: regproc-uin-generator-stage
+    dockerImage: mosipdev/registration-processor-uin-generator-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5719
+      hazelcastPort: 5701
+      containerPort: 8099
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
+  msg:
+    serviceName: regproc-message-sender-stage
+    dockerImage: mosipdev/registration-processor-message-sender-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5721
+      hazelcastPort: 5701
+      containerPort: 8088
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
+  print:
+    serviceName: regproc-printing-stage
+    dockerImage: mosipdev/registration-processor-printing-stage
+    dockerTag: 1.0.10
+    ports:
+      eventbusPort: 5722
+      hazelcastPort: 5701
+      containerPort: 8099
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/print-stage/actuator/health
+  printsvc:
+    serviceName: regproc-print-service
+    dockerImage: mosipdev/registration-processor-print-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 9099
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/print/
+    healthUrl: /registrationprocessor/v1/print/actuator/health
+  trans:
+    serviceName: regproc-registration-transaction-service
+    dockerImage: mosipdev/registration-processor-registration-transaction-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 8110
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/registrationtransaction/
+    healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
+  request: 
+    serviceName: regproc-request-handler-service
+    dockerImage: mosipdev/registration-processor-request-handler-service
+    dockerTag: 1.0.10
+    ports:
+      containerPort: 8082
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/requesthandler/
+    healthUrl: /registrationprocessor/v1/requesthandler/actuator/health

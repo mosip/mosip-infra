@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "prometheus.alertmanager.fullname" . }}
+  labels:
+    {{- include "prometheus.alertmanager.labels" . | nindent 4 }}
+    name: {{ template "prometheus.alertmanager.fullname" . }}
+spec:
+  storageClassName: ""
+  capacity:
+    storage: "{{ .Values.alertmanager.persistentVolume.size }}"
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server:  {{ .Values.alertmanager.persistentVolume.nfs.server }}
+    path: {{ .Values.alertmanager.persistentVolume.nfs.path }} 

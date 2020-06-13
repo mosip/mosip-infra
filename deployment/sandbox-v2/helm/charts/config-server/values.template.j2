@@ -1,0 +1,28 @@
+namespace: default
+name: config-server  # Will be used as service name too
+docker:
+  image: mosipid/sandbox-config-server
+  tag: 1.0.5
+  containerPort: 51000
+  servicePort: 80
+jarName: kernel-config-server # Without .jar. Used locally for Docker
+component: config-server
+gitrepo:
+  name: config_repo
+  mountPath: /var/lib/config_repo
+  uri: /var/lib/config_repo  # repoMountPath + gitRepoName
+pv:
+  name: config-server-pv
+  size: 10Mi
+pvc:
+  name: config-server-pvc
+  size: 10Mi # Should not exceed pv size
+ingressPath: /config
+domain: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
+sc:
+  name: ""
+
+nfs:
+  server: {{ nfs.server }}
+  path: {{ config_repo.path }} 

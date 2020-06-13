@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "prometheus.pushgateway.fullname" . }}
+  labels:
+    {{- include "prometheus.pushgateway.labels" . | nindent 4 }}
+    name: {{ template "prometheus.pushgateway.fullname" . }}
+spec:
+  storageClassName: ""
+  capacity:
+    storage: "{{ .Values.pushgateway.persistentVolume.size }}"
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server:  {{ .Values.pushgateway.persistentVolume.nfs.server }}
+    path: {{ .Values.pushgateway.persistentVolume.nfs.path }} 

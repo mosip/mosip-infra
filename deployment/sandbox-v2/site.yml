@@ -7,7 +7,9 @@
 - import_playbook: playbooks/mzcluster.yml
 - import_playbook: playbooks/dmzcluster.yml
 - import_playbook: playbooks/postgres.yml
-- import_playbook: playbooks/env.yml # MOSIP DB, Keycloak
+- import_playbook: playbooks/keycloak.yml
+- import_playbook: playbooks/clamav.yaml
+- import_playbook: playbooks/activemq.yaml
 - import_playbook: playbooks/hdfs.yml
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
