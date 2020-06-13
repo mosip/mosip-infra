@@ -87,155 +87,156 @@ http {
         }
 
         location /keycloak/ {
-          proxy_pass {{mzingress.base_url}}/keycloak/;
+          proxy_pass {{clusters.mz.ingress.base_url}}/keycloak/;
         }
 
         location /config/ {
-          proxy_pass {{mzingress.base_url}}/config/;
+          proxy_pass {{clusters.mz.ingress.base_url}}/config/;
         }
 
         location /preregistration/v1/ {
-           proxy_pass {{mzingress.base_url}}/preregistration/v1/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/preregistration/v1/;
         }
         location /pre-registration-ui/ {
-           proxy_pass {{mzingress.base_url}}/pre-registration-ui/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/pre-registration-ui/;
         }
    
         location /v1/masterdata/ {
-           proxy_pass {{mzingress.base_url}}/v1/masterdata/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/masterdata/;
         }
 
         location /v1/keymanager/ {
-           proxy_pass {{mzingress.base_url}}/v1/keymanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/keymanager/;
         }
 
         location /v1/syncdata/ {
-           proxy_pass {{mzingress.base_url}}/v1/syncdata/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/syncdata/;
         }
 
         location /v1/idgenerator/ {
-           proxy_pass {{mzingress.base_url}}/v1/idgenerator/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/idgenerator/;
         }
 
         location /v1/ridgenerator/ {
-           proxy_pass {{mzingress.base_url}}/v1/ridgenerator/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/ridgenerator/;
         }
 
         location /v1/pridgenerator/ {
-           proxy_pass {{mzingress.base_url}}/v1/pridgenerator/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/pridgenerator/;
         }
 
         location /v1/otpmanager/ {
-           proxy_pass {{mzingress.base_url}}/v1/otpmanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/otpmanager/;
         }
 
         location /v1/notifier/ {
-           proxy_pass {{mzingress.base_url}}/v1/notifier/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/notifier/;
         }
    
         location /v1/authmanager/ {
-           proxy_pass {{mzingress.base_url}}/v1/authmanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/authmanager/;
         }
 
         location /v1/auditmanager/ {
-           proxy_pass {{mzingress.base_url}}/v1/auditmanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/auditmanager/;
         }
    
         location /idauthentication/v1/auth/ {
-           proxy_pass {{mzingress.base_url}}/idauthentication/v1/auth/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/auth/;
         }
 
         location /idauthentication/v1/kyc/ {
-           proxy_pass {{mzingress.base_url}}/idauthentication/v1/kyc/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/kyc/;
         }
 
         location /idauthentication/v1/otp/ {
-           proxy_pass {{mzingress.base_url}}/idauthentication/v1/otp/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/otp/;
         }
 
         location /idauthentication/v1/internal/ {
-           proxy_pass {{mzingress.base_url}}/idauthentication/v1/internal/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/internal/;
         }
 
         location /idrepository/v1/identity/ {
-           proxy_pass {{mzingress.base_url}}/idrepository/v1/identity/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/identity/;
         }
 
         # Note the below is for VID access.        
         location /idrepository/v1/ {
-           proxy_pass {{mzingress.base_url}}/idrepository/v1/;                                                                         
+           proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/;                                                                         
          }
 
 
         location /registrationprocessor/v1/registrationstatus/ {
-           proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/registrationstatus/;
+           proxy_pass {{clusters.dmz.ingress.base_url}}/registrationprocessor/v1/registrationstatus/;
         }
 
         location /registrationprocessor/v1/packetreceiver/ {
-           proxy_pass {{dmzingress.base_url}}/registrationprocessor/v1/packetreceiver/;
+           proxy_pass {{clusters.dmz.ingress.base_url}}/registrationprocessor/v1/packetreceiver/;
         }
 
         location /registrationprocessor/v1/securezone/ {
-           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/securezone/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/securezone/;
         }
 
         location /registrationprocessor/v1/manualverification/ {
-           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/manualverification/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/manualverification/;
         }
 
         location /registrationprocessor/v1/requesthandler/ {
-           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/requesthandler/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/requesthandler/;
         }
 
         location /registrationprocessor/v1/registrationtransaction/ {
-           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/registrationtransaction/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/registrationtransaction/;
         }
 
         location /registrationprocessor/v1/print/ {
-           proxy_pass {{mzingress.base_url}}/registrationprocessor/v1/print/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/print/;
         }
 
         location /partnermanagement/v1/misps/ {
-           proxy_pass {{mzingress.base_url}}/partnermanagement/v1/misps/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/misps/;
         }
 
         location /partnermanagement/v1/policies/ {
-           proxy_pass {{mzingress.base_url}}/partnermanagement/v1/policies/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/policies/;
         }
 
         location /partnermanagement/v1/partners/ {
-           proxy_pass {{mzingress.base_url}}/partnermanagement/v1/partners/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/partners/;
         }
 
         location /partnermanagement/v1/pmpartners/ {
-           proxy_pass {{mzingress.base_url}}/partnermanagement/v1/pmpartners/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/pmpartners/;
         }
 
         location /mz-dashboard/ {
-           proxy_pass {{mzingress.base_url}}/{{clusters.mz.dashboard.url}}/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/{{clusters.mz.dashboard.url}}/;
         }
 
         location /dmz-dashboard/ {
-           proxy_pass {{dmzingress.base_url}}/{{clusters.dmz.dashboard.url}}/;
+           proxy_pass {{clusters.dmz.ingress.base_url}}/{{clusters.dmz.dashboard.url}}/;
         }
 
         location /mz-grafana/ {
-           proxy_pass  {{mzingress.base_url}}/grafana/;
+           proxy_pass  {{clusters.mz.ingress.base_url}}/grafana/;
         }
 
         location /dmz-grafana/ {
-           proxy_pass  {{dmzingress.base_url}}/grafana/;
+           proxy_pass  {{clusters.dmz.ingress.base_url}}/grafana/;
+        }
 
         location /v1/admin/ {
-           proxy_pass {{mzingress.base_url}}/v1/admin/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/admin/;
         }
 
         location /admin-ui/ {
-           proxy_pass {{mzingress.base_url}}/admin-ui/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/admin-ui/;
         }
 
         location /resident/v1/ {
-           proxy_pass {{mzingress.base_url}}/resident/v1/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/resident/v1/;
         }
 
         error_page 404 /404.html;
