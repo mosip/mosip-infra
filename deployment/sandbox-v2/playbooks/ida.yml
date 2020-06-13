@@ -1,8 +1,8 @@
 # Softhsm.
-#- import_playbook: softhsm.yml 
-#  vars:
-#    kube_config: '{{clusters.mz.kube_config}}' 
-#    hsm_prop: '{{softhsm.ida}}'
+- import_playbook: softhsm.yml 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    hsm_prop: '{{softhsm.ida}}'
 
 # IDA
 - hosts: console
