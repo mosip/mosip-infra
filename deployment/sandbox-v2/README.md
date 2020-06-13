@@ -14,7 +14,7 @@ CentOS 7.7 on all machines.
 
 The sandbox has been tested on the following configuration:
 
-| Component| Number of VMs| Configutation| Persistence |
+| Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
 |Console| 1 | 4 CPU, 8 GB RAM | 128 GB SSD |
 |K8s MZ master | 1 | 4 CPU, 8 GB RAM | - |
@@ -79,6 +79,25 @@ ssl:
 * Run the following:
 ```
 $ ansible-playbook -i <inventory>.ini site.yml
+```
+## Dashboards
+The following dashboards are installed with the deployment:
+* Kubernetes dashboard
+```
+https://<domain name>/mz-dashboard/
+https://<domain name>/dmz-dashboard/
+```
+* Keycloak
+```
+https://<domain name>/keycloak/auth/    # Slash at the end is required!
+```
+* Pgadmin (or psql)
+  * host: <domain name>
+  * port: 30090
+* Grafana
+```
+https://<domain name>/mz-grafana/
+https://<domain name>/dmz-grafana/
 ```
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:
