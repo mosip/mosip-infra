@@ -8,6 +8,8 @@ ingress:
    namespace: default
 artifactoryUrl: http://13.71.87.138:8040
 imagePullPolicy: Always
+domainName: {{ sandbox_domain_name }}
+isGlowroot: {{ is_glowroot }} 
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
