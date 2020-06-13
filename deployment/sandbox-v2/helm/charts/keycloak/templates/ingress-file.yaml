@@ -21,3 +21,10 @@ spec:
         backend:
           serviceName: {{ .Values.name }}
           servicePort: {{ .Values.servicePort }} 
+  - host: {{ .Values.internalDomain }}
+    http:
+      paths:
+      - path: /keycloak(/|$)(.*)
+        backend:
+          serviceName: {{ .Values.name }}
+          servicePort: {{ .Values.servicePort }} 

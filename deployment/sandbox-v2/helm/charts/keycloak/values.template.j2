@@ -5,6 +5,7 @@ dockerTag: 9.0.0
 keycloakUser: {{ keycloak.user }}
 keycloakPassword: {{ keycloak.password }} 
 domain: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
 keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"  
 containerPort: 8080
 servicePort: 80
