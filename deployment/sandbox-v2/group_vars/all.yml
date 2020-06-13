@@ -49,7 +49,7 @@ clusters:
         prometheus:
           alert_path: '{{nfs.folder}}/monitoring/mz/prometheus/alertmanager'
           push_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
-          server_path: '{{nfs.folder}}/monitoring/mz/prometheus/pushgateway'
+          server_path: '{{nfs.folder}}/monitoring/mz/prometheus/server'
         grafana:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
       grafana_ingress_path: 'mz-grafana'
