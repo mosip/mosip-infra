@@ -1,2 +1,3 @@
-https://github.com/mosip/mosip-functional-tests.git
-https://github.com/mosip/registration.git
+https://github.com/mosip/pre-registration.git
+https://github.com/mosip/resident-services.git
+https://github.com/mosip/test-orchestrator.git

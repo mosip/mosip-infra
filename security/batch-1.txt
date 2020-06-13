@@ -12,6 +12,3 @@ https://github.com/mosip/mosip-mock-services.git
 https://github.com/mosip/mosip-performance-tests.git
 https://github.com/mosip/mosip-ref-impl.git
 https://github.com/mosip/partner-management-services.git
-https://github.com/mosip/pre-registration.git
-https://github.com/mosip/resident-services.git
-https://github.com/mosip/test-orchestrator.git
