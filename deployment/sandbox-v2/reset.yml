@@ -3,9 +3,11 @@
 #
 - {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: mzcluster}}
 - {import_playbook: playbooks/reset/reset-cluster.yml, vars: {cluster: dmzcluster}}
-- {import_playbook: playbooks/reset/reset-postgres.yml, vars: {cluster: mzcluster}}
-- {import_playbook: playbooks/reset/reset-softhsm.yml, vars: {cluster: mzcluster}}
-- {import_playbook: playbooks/reset/reset-config-repo.yml, vars: {cluster: mzcluster}}
-- {import_playbook: playbooks/reset/reset-landing.yml, vars: {cluster: dmzcluster}}
+- {import_playbook: playbooks/reset/reset-postgres.yml}
+- {import_playbook: playbooks/reset/reset-softhsm.yml}
+- {import_playbook: playbooks/reset/reset-config-repo.yml}
+- {import_playbook: playbooks/reset/reset-landing.yml}
+- {import_playbook: playbooks/reset/reset-hdfs.yml}
 - {import_playbook: playbooks/reset/reset-repos.yml}
 - {import_playbook: playbooks/reset/reset-ports.yml}
+- {import_playbook: playbooks/reset/reset-proxy.yml}
