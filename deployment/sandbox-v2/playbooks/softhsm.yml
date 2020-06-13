@@ -1,5 +1,8 @@
-# Playbook expects hsm_prop structure
-#
+# Playbook to install softhsm
+# Inputs:
+#   hsm_prop structure
+#   kube_config  
+# 
 
 # Prepare folders on remote node
 - hosts: nfsserver
@@ -12,7 +15,7 @@
 # Convert helm template to helm values 
 - hosts: console
   vars:
-    kube_config: '{{clusters.mz.kube_config}}'
+    kube_config: '{{kube_config}}'
     install_name: 'softhsm-{{hsm_prop.label}}' 
     helm_chart: '{{charts_root}}/softhsm'
     is_template: true  

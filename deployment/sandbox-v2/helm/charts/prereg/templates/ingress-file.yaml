@@ -8,7 +8,7 @@ metadata:
      nginx.com/health-checks: "true"
 spec:
   rules:
-  - host: {{ .Values.sandboxDomainName }}
+  - host: {{ .Values.domainName }}
     http:
       paths:
       {{- range $index, $service := .Values.services }}

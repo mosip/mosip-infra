@@ -1,7 +1,7 @@
 ## Create git repo on a node
-#- hosts: nfsserver
-#  roles:
-#    - {role: config-repo, tags: [config-repo, env], become: yes}  
+- hosts: nfsserver
+  roles:
+    - {role: config-repo, tags: [config-repo, env], become: yes}  
 
 ## Install config server using helm
 - hosts: console

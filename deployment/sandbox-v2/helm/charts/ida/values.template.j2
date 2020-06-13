@@ -11,6 +11,8 @@ probe:
   initialDelay: 120  # Seconds
   period: 30 # Seconds
 imagePullPolicy: Always
+domainName: {{ sandbox_domain_name }}
+isGlowroot: {{ is_glowroot }} 
 services:
   auth:
     serviceName: ida-auth-service

@@ -19,6 +19,7 @@ pvc:
   size: 10Mi # Should not exceed pv size
 ingressPath: /config
 domain: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
 sc:
   name: ""
 

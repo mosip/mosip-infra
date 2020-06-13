@@ -34,6 +34,7 @@ docker_wait_time: 600   # Wait for docker to pull and deploy
 clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
+    nodePortNode: mzworker0  # Any node on cluster for nodeport access
     ingress:
       nodeport_http: 30080  # TODO: Shoud match with helm
       nodeport_https: 30443
@@ -53,6 +54,7 @@ clusters:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
+    nodePortNode: dmzworker0  # Any node on cluster for nodeport access
     ingress:
       nodeport_http: 30080  # TODO: Shoud match with helm
       nodeport_https: 30443
@@ -73,7 +75,9 @@ clusters:
 # Registration processor shared variables
 #
 regproc:
-  landing_folder: '{{nfs.folder}}/landing'
+  nfs:
+    server: '{{nfs.server}}'
+    landing_folder: '{{nfs.folder}}/landing'
 
 # Postgres persistent storage
 postgres:

@@ -13,6 +13,7 @@ probe:
   period: 30 # Seconds
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
+domainName: {{ sandbox_domain_name }}
 services:
   auth:
     serviceName: kernel-auth-service 

@@ -1,12 +1,17 @@
-- import_playbook: softhsm.yml 
-  vars:
-    hsm_prop: '{{softhsm.ida}}'
+# Softhsm.
+#- import_playbook: softhsm.yml 
+#  vars:
+#    kube_config: '{{clusters.mz.kube_config}}' 
+#    hsm_prop: '{{softhsm.ida}}'
 
+# IDA
 - hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{clusters.mz.kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'ida'
     helm_chart: '{{charts_root}}/ida'
-    install_name: ida
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/ida/values.template.j2'
   roles:
-    - {role: helm, tags: [ida]} 
+    - {role:  helm}

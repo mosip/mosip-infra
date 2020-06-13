@@ -15,6 +15,9 @@ ingress:
 
 artifactoryUrl: http://13.71.87.138:8040
 
+domainName: {{ sandbox_domain_name }}
+isGlowroot: {{ is_glowroot }} 
+
 landing:   # Landing folder where packets land
   pv:
     name: landing-pv
@@ -23,8 +26,8 @@ landing:   # Landing folder where packets land
     name: landing-pvc 
     size: 5Gi
   nfs:
-    server: console
-    path:  /srv/nfs/mosip/landing/ # Must match ANSIBLE 
+    server: {{ regproc.nfs.server }}
+    path:  {{ regproc.nfs.landing_folder }} 
   mountPath: /mnt/regproc/landing # Internal pod path
 
 imagePullPolicy: Always 
