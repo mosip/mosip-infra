@@ -1,5 +1,5 @@
 # MZ cluster
-#- import_playbook: cluster.yml
+- import_playbook: cluster.yml
   vars:
     cluster: mzcluster
     master: mzmaster
