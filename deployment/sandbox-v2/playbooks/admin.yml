@@ -1,8 +1,10 @@
 - hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{clusters.mz.kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'admin'
     helm_chart: '{{charts_root}}/admin'
-    install_name: admin
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/admin/values.template.j2'
   roles:
-    - {role: helm, tags: [admin]} 
+    - {role:  helm}
