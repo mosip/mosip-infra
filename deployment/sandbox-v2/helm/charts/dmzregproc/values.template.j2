@@ -16,6 +16,7 @@ ingress:
 artifactoryUrl: http://13.71.87.138:8040
 
 domainName: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.dmz.nodePortNode }} 
 isGlowroot: {{ is_glowroot }} 
 
 landing:   # Landing folder where packets land
