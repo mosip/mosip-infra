@@ -25,15 +25,3 @@
     dashboard_ingress_url: '{{clusters.dmz.dashboard.url}}'
   roles:
     - {role: k8scluster/dashboard}
-
-# Prometheus
-- import_playbook: prometheus.yml
-  vars:
-    kube_config: '{{clusters.dmz.kube_config}}'
-    mon_prop: '{{clusters.dmz.monitoring}}' 
-
-# Grafana
-- import_playbook: grafana.yml
-  vars:
-    kube_config: '{{clusters.dmz.kube_config}}'
-    mon_prop: '{{clusters.dmz.monitoring}}' 
