@@ -37,6 +37,18 @@ Generally, terraform communicates azure portal to create the resources through A
 
 <img width="361" alt="tfswitch-install" src="https://user-images.githubusercontent.com/58170816/84379398-5c33cf00-ac03-11ea-8cc2-cbeb12fca3df.PNG">
 
+7. you just check whether it is 12.26 version. if no, install this.
+
+**sudo curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh | bash**
+
+8. use **tfswitch** command to check the version like below
+
+<img width="369" alt="tfswitch" src="https://user-images.githubusercontent.com/58170816/84379078-e16ab400-ac02-11ea-8b93-7f8ee651d3af.PNG">
+
+9. select the latest one **12.26 version** and enter it will install with the latest one.
+
+<img width="361" alt="tfswitch-install" src="https://user-images.githubusercontent.com/58170816/84379398-5c33cf00-ac03-11ea-8cc2-cbeb12fca3df.PNG">
+
 ### Step 2: Azure CLI installation
 ### 1.	Azure CLI installation for Ubuntu
        
@@ -63,10 +75,12 @@ Generally, terraform communicates azure portal to create the resources through A
  ![terraform-plan](https://user-images.githubusercontent.com/58170816/84352913-d05a7c80-abdb-11ea-8d96-f6b8fe9e97ca.png)
 
 ### Step 3: Azure portal Access
+
 •	We at least should have contributor access.
 •	Using Subscription Id, we can create the resources.
 
 ### OS
+
 **CentOS 7.7** on all machines.
 
 ## Hardware setup
