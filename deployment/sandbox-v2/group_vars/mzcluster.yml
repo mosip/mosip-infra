@@ -28,7 +28,6 @@ network: flannel
 network_interface: ""
 
 enable_dashboard: yes
-dashboard_port: '{{mz_dashboard_port}}' 
 
 # A list of insecure registries you might need to define
 # insecure_registries: []
@@ -39,7 +38,7 @@ system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
 # The above config file is transferred to the console machine at below location
-console_kubeadmin_config_path: '{{mz_kube_config}}' 
+console_kubeadmin_config_path: '{{clusters.mz.kube_config}}' 
 kube_addon_dir: /etc/kubernetes/addon
 
 # Additional feature to install

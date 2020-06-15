@@ -38,7 +38,7 @@ spec:
         - name: zone_env
           value: secure 
         - name: is_glowroot_env
-          value: absent
+          value: {{ .Values.isGlowroot }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.camel.ports.eventbusPort }}

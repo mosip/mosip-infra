@@ -4,25 +4,29 @@
 # Prep
 - hosts: nfsserver
   tasks:
-    - {name: 'Create landing folder', file: {name: '{{regproc.landing_folder}}', state: directory}, become: yes}
+    - {name: 'Create landing folder', file: {name: '{{regproc.nfs.landing_folder}}', state: directory}, become: yes}
 
 # Run DMZ regproc
 - hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{dmz_kube_config}}' 
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'dmzregproc'
     helm_chart: '{{charts_root}}/dmzregproc'
-    install_name: dmzregproc
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/dmzregproc/values.template.j2'
   roles:
-    - {role: helm, tags: [dmzregproc]} 
+    - {role:  helm, tags: [dmzregproc]}
 
 ## Run MZ regproc
 - hosts: console
-  gather_facts: true
-  vars:   
-    kube_config: '{{mz_kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'regproc'
     helm_chart: '{{charts_root}}/regproc'
-    install_name: regproc 
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/regproc/values.template.j2'
   roles:
-    - {role: helm, tags: [regproc]} 
+    - {role:  helm, tags: [regproc]}
  

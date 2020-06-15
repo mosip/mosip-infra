@@ -37,7 +37,7 @@ spec:
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
-          value: absent
+          value: {{ .Values.isGlowroot }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.msg.ports.eventbusPort }}
