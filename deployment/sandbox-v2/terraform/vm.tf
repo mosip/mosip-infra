@@ -73,6 +73,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm1" {
   computer_name  = "${var.hostname[1]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
+  disable_password_authentication = false
+  
   os_disk {
     name                 = "${var.hostname[1]}-OsDisk"
     caching              = "ReadWrite"
@@ -93,7 +95,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm1" {
  
 
   tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
@@ -110,7 +112,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm2" {
   computer_name  = "${var.hostname[2]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
-
+  disable_password_authentication = false
+  
   os_disk {
     name                 = "${var.hostname[2]}-OsDisk"
     caching              = "ReadWrite"
@@ -132,7 +135,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm2" {
 
 
   tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
@@ -148,7 +151,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm3" {
   computer_name  = "${var.hostname[6]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
-
+  disable_password_authentication = false
 
 
   os_disk {
@@ -172,7 +175,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm3" {
 
 
   tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
@@ -189,7 +192,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm4" {
   computer_name  = "${var.hostname[3]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
-
+  disable_password_authentication = false
 
   os_disk {
     name                 = "${var.hostname[3]}-OsDisk"
@@ -211,7 +214,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm4" {
  
 
   tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
@@ -228,6 +231,8 @@ resource "azurerm_linux_virtual_machine" "myterraformvm5" {
   computer_name  = "${var.hostname[4]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
+  disable_password_authentication = false
+  
   os_disk {
     name                 = "${var.hostname[4]}-OsDisk"
     caching              = "ReadWrite"
@@ -247,7 +252,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm5" {
   }
  
 tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
@@ -264,7 +269,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm6" {
   computer_name  = "${var.hostname[5]}"
   admin_username = "${var.admin_username}"
   admin_password = "${var.admin_password}"
-
+  disable_password_authentication = false
 
   os_disk {
     name                 = "${var.hostname[5]}-OsDisk"
@@ -287,7 +292,7 @@ resource "azurerm_linux_virtual_machine" "myterraformvm6" {
 
 
   tags = {
-    environment = "testing"
+    environment = "${var.tags}"
   }
 }
 
