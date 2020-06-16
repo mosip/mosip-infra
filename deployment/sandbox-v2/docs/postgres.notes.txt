@@ -1,0 +1,25 @@
+Postgres throws the following error:
+
+Command that fails:
+
+select * from app_audit_log where app_name = 'ID-Authentication' order by log_dtimes desc limit 10
+
+ERROR:  could not resize shared memory segment "/PostgreSQL.145880389" to 1048576 bytes: No space left on device
+SQL state: 53100
+
+https://www.postgresql.org/docs/9.1/kernel-resources.html
+
+The issue is combination of a complex query that prompts postgres to increase the shared memory segment size and number of connections.
+
+Number of connections can be found with 
+select count(*) from pg_stat_activity;   (system catalog table)
+
+Roughly, share memory needed would be 
+size of the above table * memory segement size.   (1048576 above).
+
+Max shm size in a docker is 64 MB and that cannot be altered in Kubernetes. 
+
+workarounds:
+a) Split the audit db into separate DB so that number of connections to the DB will reduce.
+b) Move postgres to an independent docker outside kubernetes cluster with shmem size set to say, 256 MB.  Still need to keep a watch 'cause if max_connections is 1000 and if indeed all are used up than shmem needed will be around 1GB.
+
