@@ -1,0 +1,68 @@
+namespace: default
+component: ida
+part-of: mosip
+activeProfileEnv: mz 
+springConfigLabel: master
+configServerUrl: http://config-server/config
+ingress:
+   namespace: default
+artifactoryUrl: http://13.71.87.138:8040
+probe:
+  initialDelay: 120  # Seconds
+  period: 30 # Seconds
+imagePullPolicy: Always
+domainName: {{ sandbox_domain_name }}
+isGlowroot: {{ is_glowroot }} 
+services:
+  auth:
+    serviceName: ida-auth-service
+    dockerImage: mosipdev/authentication-service
+    dockerTag: 1.0.9
+    containerPort: 8090
+    servicePort: 80
+    hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
+    ingressPath: /idauthentication/v1/auth
+    healthUrl: /idauthentication/v1/auth/actuator/health
+  internal: 
+    serviceName: ida-internal-service
+    dockerImage: mosipdev/authentication-internal-service
+    dockerTag: 1.0.9
+    containerPort: 8093
+    servicePort: 80
+    hsmUrl: tcp://softhsm-ida:80   
+    ingressPath: /idauthentication/v1/internal
+    healthUrl: /idauthentication/v1/internal/actuator/health
+  kyc: 
+    serviceName: ida-kyc-service
+    dockerImage: mosipdev/authentication-kyc-service
+    dockerTag: 1.0.9
+    containerPort: 8091
+    servicePort: 80
+    hsmUrl: tcp://softhsm-ida:80   
+    ingressPath: /idauthentication/v1/kyc
+    healthUrl: /idauthentication/v1/kyc/actuator/health
+  otp: 
+    serviceName: ida-otp-service
+    dockerImage: mosipdev/authentication-otp-service
+    dockerTag: 1.0.9
+    containerPort: 8092
+    servicePort: 80
+    hsmUrl: tcp://softhsm-ida:80   
+    ingressPath: /idauthentication/v1/otp
+    healthUrl: /idauthentication/v1/otp/actuator/health
+
+generators:
+  key:  
+    name:  ida-key-generator 
+    dockerImage: mosipdev/authentication-keys-generator
+    dockerTag: 1.0.9
+    hsmUrl: tcp://softhsm-ida:80   
+  hashsalt:  
+    name:  ida-hash-salt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+  encryptsalt:  
+    name:  ida-encrypt-salt-generator 
+    dockerImage: mosipdev/kernel-salt-generator
+    dockerTag: 1.0.9
+   

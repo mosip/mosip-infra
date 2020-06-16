@@ -1,7 +1,0 @@
-- include_tasks: 
-    file: update_value.yml
-  vars:
-    target_file: '{{item.target_file}}' 
-    target_var: '{{item.target_var}}'
-    target_value: '{{item.target_value}}'
-  with_items: '{{vars_mapping}}'

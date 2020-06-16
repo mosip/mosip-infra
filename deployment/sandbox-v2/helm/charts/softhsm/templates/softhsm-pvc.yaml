@@ -4,9 +4,13 @@ apiVersion: v1
 metadata:
   name: {{ .Values.pvc.name }} 
 spec:
-  storageClassName: manual
+  storageClassName: ""
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.pvc.size }} 
+  selector:
+    matchLabels:
+      name: {{ .Values.pv.name }} 
+   

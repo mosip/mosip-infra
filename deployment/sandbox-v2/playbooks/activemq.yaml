@@ -1,0 +1,11 @@
+# Activemq installation
+#
+
+- hosts: console
+  gather_facts: true
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'  # Deploy all these on mz cluster
+  roles:
+     - {role: activemq, tags: [activemq]} # 
+
+

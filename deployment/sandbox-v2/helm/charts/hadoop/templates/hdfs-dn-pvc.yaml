@@ -15,3 +15,6 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistence.dataNode.size }}
+  selector:
+    matchLabels:
+      name: {{ include "hadoop.fullname" . }}-hdfs-dn

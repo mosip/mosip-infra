@@ -33,15 +33,15 @@ spec:
         - name: DB_VENDOR 
           value: postgres
         - name: DB_ADDR
-          value: {{ .Values.postgresHost }} 
+          value: {{ .Values.db.host }} 
         - name: DB_PORT
-          value: "80" 
+          value: "{{ .Values.db.port }}" 
         - name: DB_USER 
-          value: {{ .Values.postgresUser }} 
+          value: {{ .Values.db.user }} 
         - name: DB_PASSWORD
-          value: {{ .Values.postgresPassword }} 
+          value: {{ .Values.db.password }} 
         - name: KEYCLOAK_FRONTEND_URL
-          value: {{ tpl .Values.keycloakExternalUrl . }}  # Template of template! See values.yaml
+          value: {{ .Values.keycloakExternalUrl }}  
         ports:
         - containerPort: {{ .Values.containerPort }} 
         readinessProbe:

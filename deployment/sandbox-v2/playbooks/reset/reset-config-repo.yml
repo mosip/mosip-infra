@@ -7,13 +7,8 @@
       prompt: 'Do you want to ERASE CONFIG REPO? Are you sure?' 
       private: no
   tasks:
-    - name: Delete config repo  
-      block:
-        - name: Include vars 
-          include_vars: '{{install_root}}/roles/config-repo/defaults/main.yml'
-    
-        - name: Delete config repo
-          file: 
-            path: '{{config_repo.path}}/'
-            state: absent     
+    - name: Delete config repo
+      file: 
+        path: '{{config_repo.path}}/'
+        state: absent     
       when: sure.lower().strip() == 'yes'

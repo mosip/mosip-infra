@@ -9,13 +9,15 @@ metadata:
     release: {{ .Release.Name }}
     component: hdfs-nn
 spec:
+  type: NodePort
   ports:
   - name: dfs
     port: 9000
     protocol: TCP
+    nodePort: 30124  # TODO: remove later
   - name: webhdfs
     port: 50070
-  clusterIP: None
+#  clusterIP: None
   selector:
     app: {{ include "hadoop.name" . }}
     release: {{ .Release.Name }}

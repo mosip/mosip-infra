@@ -1,0 +1,40 @@
+# Playbook to enable monitoring on a cluster.
+# Inputs:  
+#   mon_prop:  Monitor properties as in group_vars/all.yml
+#   kube_config
+- hosts: nfsserver
+  tasks:
+    - name: 'Create NFS folder'
+      file: 
+        name: '{{item.value}}'
+        state: directory
+        mode: '777' 
+      become: yes
+      with_items: '{{ mon_prop.nfs.prometheus | dict2items }}'
+
+
+- hosts: console
+  tasks:
+    - name: Create a k8s namespace
+      k8s:
+        name: '{{ mon_prop.namespace}}'
+        kubeconfig: '{{kube_config}}'
+        api_version: v1
+        kind: Namespace
+        state: present
+
+# Install Prometheus
+- hosts: console
+  vars:
+    kube_config: '{{kube_config}}'
+    install_name: 'prom'
+    helm_chart: '{{charts_root}}/prometheus'
+    is_template: true  
+    helm_namespace: '{{ mon_prop.namespace }}'
+    helm_values: '{{charts_root}}/prometheus/values.template.j2'
+  roles:
+    - {role:  helm}
+    
+
+
+

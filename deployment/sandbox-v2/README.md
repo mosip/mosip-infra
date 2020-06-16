@@ -12,20 +12,15 @@ CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
-The following VMs are recommended:
-* Console:
-  * Number of VMS: 1
-  * Configuration: 4 CPU, 8 GB
-* Kubernetes master:  
-  * Number of VMs: _m_
-  * Configuration: 4 CPU, 8 GB RAM
-* Kubernetes workers:  
-  * Number of Vms: _n_ 
-  * Configuration: 4 CPU, 16 GB RAM
+The sandbox has been tested on the following configuration:
 
-* m = 1, n = 1 for Pre Reg only
-* m = 2, n = 3 for Pre Reg + Reg Proc
-* m = 2, n = 4 for Pre Reg + Reg Proc + IDA
+| Component| Number of VMs| Configuration| Persistence |
+|---|---|---|---|
+|Console| 1 | 4 CPU, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 CPU, 8 GB RAM | - |
+|K8s MZ workers | 9 | 4 CPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 CPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 CPU, 16 GB RAM | - |
 
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
@@ -84,6 +79,25 @@ ssl:
 * Run the following:
 ```
 $ ansible-playbook -i <inventory>.ini site.yml
+```
+## Dashboards
+The following dashboards are installed with the deployment:
+* Kubernetes dashboard
+```
+https://<domain name>/mz-dashboard/
+https://<domain name>/dmz-dashboard/
+```
+* Keycloak
+```
+https://<domain name>/keycloak/auth/    # Slash at the end is required!
+```
+* Pgadmin (or psql)
+  * host: <domain name>
+  * port: 30090
+* Grafana
+```
+https://<domain name>/mz-grafana/
+https://<domain name>/dmz-grafana/
 ```
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:

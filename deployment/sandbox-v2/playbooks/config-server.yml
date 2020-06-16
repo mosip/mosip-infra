@@ -5,11 +5,13 @@
 
 ## Install config server using helm
 - hosts: console
-  vars:   
-    kube_config: '{{mz_kube_config}}' 
-    helm_chart: '{{charts_root}}/config-server'    
-    install_name: config-server 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'config-server'
+    helm_chart: '{{charts_root}}/config-server'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/config-server/values.template.j2'
   roles:
-    - {role: helm, tags: [config-server]} 
-
+    - {role:  helm}
 
