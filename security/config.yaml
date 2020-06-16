@@ -14,7 +14,5 @@ skip_paths:
   - .*.pf
   - .*.jar
 
-max_depth: 10000
 no_entropy: true
 no_history: true
-no_current: true

@@ -7,3 +7,7 @@ https://github.com/mosip/id-authentication.git
 https://github.com/mosip/mds-testing-kit.git
 https://github.com/mosip/mosip-acceptance-tests.git
 https://github.com/mosip/mosip-config.git
+https://github.com/mosip/mosip-infra.git
+https://github.com/mosip/mosip-mock-services.git
+https://github.com/mosip/mosip-performance-tests.git
+https://github.com/mosip/mosip-ref-impl.git
