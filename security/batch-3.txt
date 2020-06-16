@@ -1,3 +1,5 @@
+https://github.com/mosip/mosip-infra.git
+https://github.com/mosip/mosip-mock-services.git
 https://github.com/mosip/mosip-performance-tests.git
 https://github.com/mosip/mosip-ref-impl.git
 https://github.com/mosip/partner-management-services.git

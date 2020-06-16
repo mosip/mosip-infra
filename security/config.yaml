@@ -15,6 +15,6 @@ skip_paths:
   - .*.jar
 
 max_depth: 10000
-no_entropy: false
-no_history: false
+no_entropy: true
+no_history: true
 no_current: true
