@@ -33,6 +33,8 @@ spec:
           value: {{ .Values.password }} 
         ports:
         - containerPort: {{ .Values.docker.containerPort }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
         readinessProbe:
           tcpSocket:
             port: {{ .Values.docker.containerPort }}

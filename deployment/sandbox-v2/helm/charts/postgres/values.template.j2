@@ -13,6 +13,11 @@ pv:
   size: {{ postgres.size }}
 sc: 
   name: ""
+
+resources:
+  requests:
+    memory: 512Mi 
+    cpu: 250m 
 docker:
   image: postgres
   tag: 12.2
