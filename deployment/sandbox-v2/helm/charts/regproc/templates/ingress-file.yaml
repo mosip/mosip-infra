@@ -19,7 +19,7 @@ spec:
           servicePort: {{ $service.ports.servicePort }} 
         {{ end }}
       {{- end }}
-  - host: {{ .internalDomain }}
+  - host: {{ .Values.internalDomain }}
     http:
       paths:
       {{- range $index, $service := .Values.services }}

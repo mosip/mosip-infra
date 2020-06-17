@@ -12,6 +12,7 @@ probe:
   period: 30 # Seconds
 imagePullPolicy: Always
 domainName: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
 isGlowroot: {{ is_glowroot }} 
 services:
   misp: 

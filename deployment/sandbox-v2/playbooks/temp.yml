@@ -1,0 +1,19 @@
+# This play installs Postgres and dependent components
+#
+#
+#  Expects: pg_prop dict
+#-# Create folder on nfs 
+- hosts: console
+  tasks:
+    - include_vars: 
+        file: '{{prop_file}}'
+        name: pg_prop
+    - debug:
+       msg: '{{pg_prop}}'
+
+# Separate play for init to keep sequence of execution
+- hosts: console
+  roles:
+     - {role: postgres-init, when: pg_prop.init_db == true, tags: [postgres-init]}  # Init only if the flag is set
+
+
