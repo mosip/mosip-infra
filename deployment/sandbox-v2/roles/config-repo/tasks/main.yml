@@ -20,6 +20,10 @@
   vars:
     prop_file: kernel-mz.properties
 
+- import_tasks: templates.yml  # Deployment specific properites are overwritten here
+  vars:
+    prop_file: admin-mz.properties
+
 - name: Install git 
   yum:
     name: git

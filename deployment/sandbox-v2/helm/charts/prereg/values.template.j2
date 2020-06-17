@@ -5,6 +5,7 @@ activeProfileEnv: mz
 springConfigLabel: master
 configServerUrl: http://config-server/config
 domainName: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodePortNode }} 
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
