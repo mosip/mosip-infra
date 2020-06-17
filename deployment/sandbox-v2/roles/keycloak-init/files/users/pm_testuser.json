@@ -1,0 +1,18 @@
+{
+    "username": "pm_testuser",
+    "enabled": true,
+    "email": "pm_testuser@xyz.com",
+    "emailVerified": false,
+    "firstName": "pm_testuser",
+    "lastName": "Auto",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9ZDZYWXY3ZExCeXlKNWMxb0tZM3BDSklSYlovK2dEQlRZa2JVaGp0YUpVU1dzTWZNZGtablRBPT0="
+    }
+}
