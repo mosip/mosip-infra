@@ -1,0 +1,14 @@
+name: mosip_audit
+deploy_name: postgres-audit
+namespace: default
+nfs_path: '{{nfs.folder}}/postgres/audit' 
+size: 1Gi 
+server: mzworker0 # Nodeport
+local_port: 30090 # fixed for connecting from outside the cluster
+user: postgres
+password: postgres
+max_connections: 500 
+init_db: false # Reset the db and initialize with scripts below
+script_base: '{{repos.commons.dest}}/db_scripts/'
+script_path: '{{repos.commons.dest}}/db_scripts/mosip_audit/mosip_audit_db_deploy.sh'
+deploy_properties: '{{repos.commons.dest}}/db_scripts/mosip_audit/mosip_audit_deploy.properties'

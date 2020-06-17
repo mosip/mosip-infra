@@ -1,0 +1,13 @@
+- hosts: console
+  tasks:
+    - name: nginx index.html template to yaml
+      template:
+        src: '{{nginx_index.yml.j2}}'
+        dest: '{{tmp_dir}}/nginx_index.html'
+    
+    - name: Copy index file
+      copy:
+        src: '{{tmp_dir}}/nginx_index.html'
+        dest: '/usr/share/nginx/html/index.html'
+      become: yes
+
