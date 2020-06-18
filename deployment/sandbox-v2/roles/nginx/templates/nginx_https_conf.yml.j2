@@ -195,6 +195,10 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/print/;
         }
 
+        location /registrationprocessor/v1/bio-dedupe/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/bio-dedupe/;
+        }
+
         location /partnermanagement/v1/misps/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/misps/;
         }
