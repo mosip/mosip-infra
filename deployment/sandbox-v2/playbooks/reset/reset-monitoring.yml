@@ -1,0 +1,15 @@
+# Delete monitoring  persistence
+- hosts: nfssserver
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all Prometheus and Grafana data? Are you sure?'
+      private: no
+  tasks:
+    - name: Delete all monitoring data
+      file: 
+        path: '{{nfs.folder}}/monitoring'
+        state: absent     
+      when: sure.lower().strip() == 'yes'
+

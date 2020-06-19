@@ -11,3 +11,4 @@
 - {import_playbook: playbooks/reset/reset-repos.yml}
 - {import_playbook: playbooks/reset/reset-ports.yml}
 - {import_playbook: playbooks/reset/reset-proxy.yml}
+- {import_playbook: playbooks/reset/reset-monitoring.yml}

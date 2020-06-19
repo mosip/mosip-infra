@@ -19,6 +19,6 @@
 - import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
-- import_playbook: playbooks/admin.yml
+#- import_playbook: playbooks/admin.yml  # Temporarily disabled. TODO
 - import_playbook: playbooks/pms.yml
 - import_playbook: playbooks/resident.yml
