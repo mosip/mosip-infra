@@ -9,6 +9,6 @@
   tasks:
     - name: Delete config repo
       file: 
-        path: '{{config_repo.path}}/'
+        path: '{{config_repo.path}}'
         state: absent     
       when: sure.lower().strip() == 'yes'
