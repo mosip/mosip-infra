@@ -1,5 +1,5 @@
 # Delete hdfs persistence
-- hosts: nfssserver
+- hosts: nfsserver
   gather_facts: no
   become: yes
   vars_prompt:
