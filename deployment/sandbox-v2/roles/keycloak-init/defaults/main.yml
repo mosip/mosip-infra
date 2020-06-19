@@ -264,4 +264,5 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_OPERATOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_SUPERVISOR'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-resident-client', role_name: 'RESIDENT'}
 
