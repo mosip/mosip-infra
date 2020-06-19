@@ -1,5 +1,5 @@
 # Delete hdfs persistence
-- hosts: nfssserver
+- hosts: nfsserver
   gather_facts: no
   become: yes
   vars_prompt:
@@ -9,12 +9,12 @@
   tasks:
     - name: Delete namenode data
       file: 
-        path: '{{hdfs.nn_path}}/'
+        path: '{{hdfs.nfs.nn.path}}'
         state: absent     
       when: sure.lower().strip() == 'yes'
 
     - name: Delete datanode data
       file: 
-        path: '{{hdfs.dn_path}}/'
+        path: '{{hdfs.nfs.dn.path}}'
         state: absent     
       when: sure.lower().strip() == 'yes'

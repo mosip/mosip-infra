@@ -8,12 +8,12 @@
   tasks:
    - name: Delete all keymanager softhsm data
      file: 
-       path: '{{nfs.folder}}/softhsm/keymanager/'
+       path: '{{softhsm.keymanager.nfs_path}}'
        state: absent     
      when: sure.lower().strip() == 'yes'
 
    - name: Delete all ida softhsm data
      file: 
-       path: '{{nfs.folder}}/softhsm/ida/'
+       path: '{{softhsm.ida.nfs_path}}'
        state: absent     
      when: sure.lower().strip() == 'yes'
