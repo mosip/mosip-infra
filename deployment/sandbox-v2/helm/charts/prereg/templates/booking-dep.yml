@@ -27,6 +27,7 @@ spec:
       containers:
       - name: {{ .Values.services.booking.serviceName }} 
         image: {{ .Values.services.booking.dockerImage }}:{{ .Values.services.booking.dockerTag }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

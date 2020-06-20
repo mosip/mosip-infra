@@ -45,12 +45,12 @@ spec:
           containerPort: {{ .Values.services.receiver.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.receiver.ports.containerPort }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.receiver.healthUrl }} 
-            port: {{ .Values.services.receiver.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.receiver.healthUrl }} 
+#            port: {{ .Values.services.receiver.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
  #       livenessProbe:
  #         httpGet:
  #           path: {{ .Values.services.receiver.healthUrl }} 
