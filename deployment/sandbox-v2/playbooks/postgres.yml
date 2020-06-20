@@ -36,6 +36,7 @@
 # Separate play for init to keep sequence of execution
 - hosts: console
   roles:
+     - {role: repos, tags: [repos]}  # These repos have sql scripts
      - {role: postgres-init, tags: [postgres-init]} 
 
 
