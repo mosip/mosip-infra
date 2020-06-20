@@ -48,6 +48,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'preregistration', client_id: '', role_name: 'AUTH'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'PREREG'}
+  - {realm_id: 'preregistration', client_id: '', role_name: 'REGISTRATION_PROCESSOR'}
 
 keycloak_mosip_users: # Assumption "username.json" exists with same username inside 
   - {realm_id: 'mosip', user_file: 'users/testuser.json'}
@@ -253,6 +254,7 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
