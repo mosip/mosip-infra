@@ -19,4 +19,5 @@
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
+     - {role: packages/policycoreutils-python, tags: [policy]}
 

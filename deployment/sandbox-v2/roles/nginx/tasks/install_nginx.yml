@@ -33,3 +33,12 @@
   command: 'setsebool httpd_can_network_connect on -P'
   become: yes
    
+# For external connection to postgres via nginx
+- name: 'allow nginx to access port {{postgres.nodeport}}'
+  seport:
+    ports: '{{postgres.nodeport}}'
+    proto: tcp
+    setype: http_port_t
+    state: present
+  become: yes
+

@@ -93,7 +93,7 @@ postgres:
   service_name: postgres # svc on Kubernetes
   service_port: 80
   server: mzworker0 # Nodeport
-  local_port: 30090  # fixed for connecting from outside the cluster
+  nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
   max_connections: 1000
