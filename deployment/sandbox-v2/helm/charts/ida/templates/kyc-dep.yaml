@@ -55,3 +55,10 @@ spec:
 #            port: {{ .Values.services.kyc.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }}
+        volumeMounts:
+        - name: softhsm-data
+          mountPath: /softhsm/var/lib/softhsm/
+      volumes:
+      - name: softhsm-data
+        persistentVolumeClaim:
+          claimName: softhsm-ida-pvc
