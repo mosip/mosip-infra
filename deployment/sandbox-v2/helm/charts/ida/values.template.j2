@@ -17,8 +17,8 @@ isGlowroot: {{ is_glowroot }}
 services:
   auth:
     serviceName: ida-auth-service
-    dockerImage: mosipdev/authentication-service
-    dockerTag: 1.0.9
+    dockerImage: mosipdev/authentication-service-softhsm
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 8090
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
@@ -26,8 +26,8 @@ services:
     healthUrl: /idauthentication/v1/auth/actuator/health
   internal: 
     serviceName: ida-internal-service
-    dockerImage: mosipdev/authentication-internal-service
-    dockerTag: 1.0.9
+    dockerImage: mosipdev/authentication-internal-service-softhsm
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 8093
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -35,8 +35,8 @@ services:
     healthUrl: /idauthentication/v1/internal/actuator/health
   kyc: 
     serviceName: ida-kyc-service
-    dockerImage: mosipdev/authentication-kyc-service
-    dockerTag: 1.0.9
+    dockerImage: mosipdev/authentication-kyc-service-softhsm
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 8091
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -44,8 +44,8 @@ services:
     healthUrl: /idauthentication/v1/kyc/actuator/health
   otp: 
     serviceName: ida-otp-service
-    dockerImage: mosipdev/authentication-otp-service
-    dockerTag: 1.0.9
+    dockerImage: mosipdev/authentication-otp-service-softhsm
+    dockerTag: 1.0.9-SNAPSHOT
     containerPort: 8092
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
