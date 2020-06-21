@@ -254,3 +254,11 @@ http {
 
 }
 
+stream {
+    server {
+        listen {{postgres.nodeport}};  # For postgres. Connecting to nodeport
+        proxy_pass {{postgres.server}}:{{postgres.nodeport}};
+    }
+}
+
+

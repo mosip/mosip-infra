@@ -1,3 +1,0 @@
-namespace: default
-nodePortHttp: 30080  # TODO: read from ansible
-nodePortHttps: 30443
