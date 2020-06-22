@@ -25,7 +25,7 @@ services:
   camel:
     serviceName: regproc-camel-stage
     dockerImage: mosipdev/registration-processor-common-camel-bridge
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5723
       hazelcastPort: 5701
@@ -35,7 +35,7 @@ services:
   notification:  # This is has a service front end for access (notification-svc.yaml)
     serviceName: regproc-securezone-notification-stage
     dockerImage: mosipdev/registration-processor-securezone-notification-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5712
       hazelcastPort: 5701
@@ -46,7 +46,7 @@ services:
   uploader:
     serviceName: regproc-packet-uploader-stage
     dockerImage: mosipdev/registration-processor-packet-uploader-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5714
       hazelcastPort: 5701
@@ -56,7 +56,7 @@ services:
   quality:
     serviceName: regproc-quality-checker-stage
     dockerImage: mosipdev/registration-processor-quality-checker-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5727
       hazelcastPort: 5701
@@ -66,7 +66,7 @@ services:
   validator:
     serviceName: regproc-packet-validator-stage
     dockerImage: mosipdev/registration-processor-packet-validator-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5715
       hazelcastPort: 5701
@@ -76,7 +76,7 @@ services:
   osi:
     serviceName: regproc-osi-validator-stage
     dockerImage: mosipdev/registration-processor-osi-validator-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5716
       hazelcastPort: 5701
@@ -86,7 +86,7 @@ services:
   demo:
     serviceName: regproc-demo-dedupe-stage
     dockerImage: mosipdev/registration-processor-demo-dedupe-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5717
       hazelcastPort: 5701
@@ -96,7 +96,7 @@ services:
   bio:
     serviceName: regproc-bio-dedupe-stage
     dockerImage: mosipdev/registration-processor-bio-dedupe-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5718
       hazelcastPort: 5701
@@ -106,7 +106,7 @@ services:
   biosvc:
     serviceName: regproc-bio-dedupe-service
     dockerImage: mosipdev/registration-processor-bio-dedupe-service
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 9097
       servicePort: 80
@@ -115,7 +115,7 @@ services:
   bioauth:
     serviceName: regproc-biometric-authentication-stage
     dockerImage: mosipdev/registration-processor-biometric-authentication-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5777
       hazelcastPort: 5701
@@ -125,7 +125,7 @@ services:
   abishandler:
     serviceName: regproc-abis-handler-stage
     dockerImage: mosipdev/registration-processor-abis-handler-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5726
       hazelcastPort: 5701
@@ -135,7 +135,7 @@ services:
   abismid:
     serviceName: regproc-abis-middleware-stage
     dockerImage: mosipdev/registration-processor-abis-middleware-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5888
       hazelcastPort: 5701
@@ -145,7 +145,7 @@ services:
   proxyabis:
     serviceName: regproc-proxy-abis
     dockerImage: mosipdev/registration-processor-abis
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 9098
       servicePort: 80
@@ -154,7 +154,7 @@ services:
   manual:
     serviceName: regproc-manual-verification-stage
     dockerImage: mosipdev/registration-processor-manual-verification-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5720
       hazelcastPort: 5701
@@ -165,7 +165,7 @@ services:
   external:
     serviceName: regproc-external-stage
     dockerImage: mosipdev/registration-processor-external-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5736
       hazelcastPort: 5701
@@ -175,7 +175,7 @@ services:
   eis: 
     serviceName: regproc-external-integration-service
     dockerImage: mosipdev/registration-processor-external-integration-service
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 8201
       servicePort: 80
@@ -184,7 +184,7 @@ services:
   uin:
     serviceName: regproc-uin-generator-stage
     dockerImage: mosipdev/registration-processor-uin-generator-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5719
       hazelcastPort: 5701
@@ -194,7 +194,7 @@ services:
   msg:
     serviceName: regproc-message-sender-stage
     dockerImage: mosipdev/registration-processor-message-sender-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5721
       hazelcastPort: 5701
@@ -204,7 +204,7 @@ services:
   print:
     serviceName: regproc-printing-stage
     dockerImage: mosipdev/registration-processor-printing-stage
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       eventbusPort: 5722
       hazelcastPort: 5701
@@ -214,7 +214,7 @@ services:
   printsvc:
     serviceName: regproc-print-service
     dockerImage: mosipdev/registration-processor-print-service
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 9099
       servicePort: 80
@@ -223,7 +223,7 @@ services:
   trans:
     serviceName: regproc-registration-transaction-service
     dockerImage: mosipdev/registration-processor-registration-transaction-service
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 8110
       servicePort: 80
@@ -232,7 +232,7 @@ services:
   request: 
     serviceName: regproc-request-handler-service
     dockerImage: mosipdev/registration-processor-request-handler-service
-    dockerTag: 1.0.10
+    dockerTag: 1.0.10_patch
     ports:
       containerPort: 8082
       servicePort: 80
