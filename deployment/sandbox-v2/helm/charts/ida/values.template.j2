@@ -18,7 +18,7 @@ services:
   auth:
     serviceName: ida-auth-service
     dockerImage: mosipdev/authentication-service
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
     containerPort: 8090
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
@@ -27,7 +27,7 @@ services:
   internal: 
     serviceName: ida-internal-service
     dockerImage: mosipdev/authentication-internal-service
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
     containerPort: 8093
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -36,7 +36,7 @@ services:
   kyc: 
     serviceName: ida-kyc-service
     dockerImage: mosipdev/authentication-kyc-service
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
     containerPort: 8091
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -45,7 +45,7 @@ services:
   otp: 
     serviceName: ida-otp-service
     dockerImage: mosipdev/authentication-otp-service
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
     containerPort: 8092
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -56,14 +56,14 @@ generators:
   key:  
     name:  ida-key-generator 
     dockerImage: mosipdev/authentication-keys-generator
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
     hsmUrl: tcp://softhsm-ida:80   
   hashsalt:  
     name:  ida-hash-salt-generator 
     dockerImage: mosipdev/kernel-salt-generator
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
   encryptsalt:  
     name:  ida-encrypt-salt-generator 
     dockerImage: mosipdev/kernel-salt-generator
-    dockerTag: 1.0.9
+    dockerTag: 1.0.10_PATCH
    
