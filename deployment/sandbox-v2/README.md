@@ -29,7 +29,7 @@ All the above within the same network. Note that all pods run with replication=1
 * Create a user 'mosipuser' with strong password, same on all machines
 * Make `sudo su` passwordless.
 * All machines in same subnet.
-* All machines accessible using hostnames defined in the inventory file (.ini) that you are using.
+* All machines accessible using hostnames defined in `hosts.ini`.
 
 ### Console 
 Console machine is the machine from where you will run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
@@ -52,7 +52,7 @@ $ cd mosip-infra/deployment/sandbox-v2
 ```
 * Exchange ssh keys with all machines. Provide the common machine password.
 ```
-$ ./key.sh <inventory>.ini
+$ ./key.sh hosts.ini
 ``` 
 
 ##  Installing MOSIP 
@@ -78,7 +78,7 @@ ssl:
 
 * Run the following:
 ```
-$ ansible-playbook -i <inventory>.ini site.yml
+$ ansible-playbook -i hosts.ini site.yml
 ```
 ## Dashboards
 The following dashboards are installed with the deployment:
@@ -102,7 +102,7 @@ https://<domain name>/dmz-grafana/
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:
 ```
-alias an='ansible-playbook -i <inventory>.ini'
+alias an='ansible-playbook -i hosts.ini'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
 alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
