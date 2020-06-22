@@ -31,7 +31,7 @@ All the above machines are within the same subnet. Note that all pods run with r
 ## VM setup
 ### All machines
 * Create a user 'mosipuser' with strong password, same on all machines.
-* Make `sudo su` passwordless.
+* Make `sudo su` is passwordless.
 * All machines in the same subnet.
 * All machines accessible using hostnames defined in `hosts.ini`.  
 
@@ -62,8 +62,8 @@ $ ./key.sh hosts.ini
 ##  Installing MOSIP 
 * In `groups_vars/all.yml`, set the following: 
   * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha`.
-  * Set SMTP email settings:
+  * Set captcha keys in `site.captcha` (for PreReg).
+  * (Optional) Set SMTP email settings:
     ```
     smtp:
       email_from: mosiptestuser@gmail.com
@@ -71,10 +71,10 @@ $ ./key.sh hosts.ini
       username: apikey
       password: xyz
     ```
-* If you already have SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following `group_vars/all.yml` file:
+* If you already have an SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
-  get_certificate: false 
+  get_certificate: false
   email: ''
   certificate: <certificate dir>
   certificate_key: <private key path> 
