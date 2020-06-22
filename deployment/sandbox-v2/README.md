@@ -125,5 +125,5 @@ $ cp /utils/tmux.conf ~/.tmux.conf
   * Open port 9000 for external access
   * Run
 ```
-kc1 port-forward --address 0.0.0.0 service/hadoop-hadoop-hdfs-nn 9000:9000
+kc1 port-forward --address 0.0.0.0 service/hadoop-hdfs-nn 9000:9000
 ```
