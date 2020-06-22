@@ -2,4 +2,3 @@
   yum:
     name: policycoreutils-python
   become: yes
-~
