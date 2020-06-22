@@ -26,17 +26,17 @@ The sandbox has been tested with following configuration:
 
 \* VPU:  Virtual CPU
 
-All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
+All the above machines are within the same subnet. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
 ## VM setup
 ### All machines
-* Create a user 'mosipuser' with strong password, same on all machines
+* Create a user 'mosipuser' with strong password, same on all machines.
 * Make `sudo su` passwordless.
-* All machines in same subnet.
-* All machines accessible using hostnames defined in `hosts.ini`.
+* All machines in the same subnet.
+* All machines accessible using hostnames defined in `hosts.ini`.  
 
 ### Console 
-Console machine is the machine from where you will run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
+Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
 * Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
 * Port 80, 443, 30090 (for postgres), 9000 (HDFS) must be open on the console for external access.
 * Install Ansible
