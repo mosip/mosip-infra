@@ -1,0 +1,4 @@
+- name: Install policycoreutils-python
+  yum:
+    name: policycoreutils-python
+  become: yes
