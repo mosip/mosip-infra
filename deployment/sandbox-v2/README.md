@@ -14,15 +14,17 @@ CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
-The sandbox has been tested on the following configuration:
+The sandbox has been tested with following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 CPU, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 CPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 CPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 CPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 CPU, 16 GB RAM | - |
+|Console| 1 | 4 VCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 VCPU, 8 GB RAM | - |
+|K8s MZ workers | 9 | 4 VCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
+
+\* VPU:  Virtual CPU
 
 All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
 
