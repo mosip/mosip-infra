@@ -19,19 +19,12 @@
   roles:
     - {role:  helm}
 
-
   tasks:
     # TODO:  We are waiting here for postgres to settle down. This must be changed to 
     # a better check later
     - name: Waiting for postgres to install completely.
       pause:
         seconds: 30 
-
-      # Forward local port to postgres service for external cluster access. Postgres service port is 80.
-    - name: access postgres
-      shell: 'kubectl --kubeconfig={{clusters.mz.kube_config}} port-forward  --address 0.0.0.0 service/{{postgres.service_name}} {{postgres.local_port}}:80 > /dev/null 2>&1 &' 
-      async: 5  
-      poll: 0
 
 # Separate play for init to keep sequence of execution
 - hosts: console

@@ -2,7 +2,9 @@
 
 ## Introduction
 
-The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  
+The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
+
+CAUTION: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
 
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sanbox_architecture.png)
@@ -12,27 +14,29 @@ CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
-The sandbox has been tested on the following configuration:
+The sandbox has been tested with following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 CPU, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 CPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 CPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 CPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 CPU, 16 GB RAM | - |
+|Console| 1 | 4 VCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 VCPU, 8 GB RAM | - |
+|K8s MZ workers | 9 | 4 VCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
 
-All the above within the same network. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs will be higher.
+\* VPU:  Virtual CPU
+
+All the above machines are within the same subnet. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
 ## VM setup
 ### All machines
-* Create a user 'mosipuser' with strong password, same on all machines
-* Make `sudo su` passwordless.
-* All machines in same subnet.
-* All machines accessible using hostnames defined in the inventory file (.ini) that you are using.
+* Create a user 'mosipuser' with strong password, same on all machines.
+* Make `sudo su` is passwordless.
+* All machines in the same subnet.
+* All machines accessible using hostnames defined in `hosts.ini`.  
 
 ### Console 
-Console machine is the machine from where you will run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
+Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
 * Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
 * Port 80, 443, 30090 (for postgres), 9000 (HDFS) must be open on the console for external access.
 * Install Ansible
@@ -52,14 +56,14 @@ $ cd mosip-infra/deployment/sandbox-v2
 ```
 * Exchange ssh keys with all machines. Provide the common machine password.
 ```
-$ ./key.sh <inventory>.ini
+$ ./key.sh hosts.ini
 ``` 
 
 ##  Installing MOSIP 
 * In `groups_vars/all.yml`, set the following: 
   * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha`.
-  * Set SMTP email settings:
+  * Set captcha keys in `site.captcha` (for PreReg).
+  * (Optional) Set SMTP email settings:
     ```
     smtp:
       email_from: mosiptestuser@gmail.com
@@ -67,10 +71,10 @@ $ ./key.sh <inventory>.ini
       username: apikey
       password: xyz
     ```
-* If you already have SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following `group_vars/all.yml` file:
+* If you already have an SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
-  get_certificate: false 
+  get_certificate: false
   email: ''
   certificate: <certificate dir>
   certificate_key: <private key path> 
@@ -78,7 +82,7 @@ ssl:
 
 * Run the following:
 ```
-$ ansible-playbook -i <inventory>.ini site.yml
+$ ansible-playbook -i hosts.ini site.yml
 ```
 ## Dashboards
 The following dashboards are installed with the deployment:
@@ -102,7 +106,7 @@ https://<domain name>/dmz-grafana/
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:
 ```
-alias an='ansible-playbook -i <inventory>.ini'
+alias an='ansible-playbook -i hosts.ini'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
 alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
@@ -121,5 +125,5 @@ $ cp /utils/tmux.conf ~/.tmux.conf
   * Open port 9000 for external access
   * Run
 ```
-kc1 port-forward --address 0.0.0.0 service/hadoop-hadoop-hdfs-nn 9000:9000
+kc1 port-forward --address 0.0.0.0 service/hadoop-hdfs-nn 9000:9000
 ```

@@ -22,5 +22,5 @@ docker:
   image: postgres
   tag: 12.2
   containerPort: 5432
-nodePort: {{ postgres.local_port }}
+nodePort: {{ postgres.nodeport }}
 maxConnections: {{ postgres.max_connections }} 

@@ -36,8 +36,10 @@ clusters:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
     nodePortNode: mzworker0  # Any node on cluster for nodeport access
     ingress:
-      nodeport_http: 30080  # TODO: Shoud match with helm
-      nodeport_https: 30443
+      namespace: default
+      nodeports:
+        http: 30080 
+        https: 30443
       base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
@@ -57,8 +59,10 @@ clusters:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodePortNode: dmzworker0  # Any node on cluster for nodeport access
     ingress:
-      nodeport_http: 30080  # TODO: Shoud match with helm
-      nodeport_https: 30443
+      namespace: default
+      nodeports:
+        http: 30080 
+        https: 30443
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
@@ -89,7 +93,7 @@ postgres:
   service_name: postgres # svc on Kubernetes
   service_port: 80
   server: mzworker0 # Nodeport
-  local_port: 30090  # fixed for connecting from outside the cluster
+  nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
   max_connections: 1000
