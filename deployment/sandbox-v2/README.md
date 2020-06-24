@@ -7,7 +7,7 @@ The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The s
 CAUTION: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
 
 ## Sandbox architecture
-![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sanbox_architecture.png)
+![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
 ## OS
 CentOS 7.7 on all machines.
