@@ -80,7 +80,7 @@ ssl:
   certificate_key: <private key path> 
 ```
 
-* Run the following:
+* Run playbooks:
 ```
 $ ansible-playbook -i hosts.ini site.yml
 ```
