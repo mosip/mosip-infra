@@ -31,9 +31,9 @@ All the above machines are within the same subnet. Note that all pods run with r
 ## VM setup
 ### All machines
 * Create a user 'mosipuser' with strong password, same on all machines.
-* Make `sudo su` is passwordless.
+* Make `sudo su` passwordless.
 * All machines in the same subnet.
-* All machines accessible using hostnames defined in `hosts.ini`.  
+* All machines accessible via hostnames defined in `hosts.ini`.  
 
 ### Console 
 Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
