@@ -4,10 +4,10 @@
 
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
 
-CAUTION: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
+WARNING: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
 
 ## Sandbox architecture
-![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sanbox_architecture.png)
+![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
 ## OS
 CentOS 7.7 on all machines.
@@ -31,9 +31,9 @@ All the above machines are within the same subnet. Note that all pods run with r
 ## VM setup
 ### All machines
 * Create a user 'mosipuser' with strong password, same on all machines.
-* Make `sudo su` is passwordless.
+* Make `sudo su` passwordless.
 * All machines in the same subnet.
-* All machines accessible using hostnames defined in `hosts.ini`.  
+* All machines accessible via hostnames defined in `hosts.ini`.  
 
 ### Console 
 Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
@@ -80,7 +80,7 @@ ssl:
   certificate_key: <private key path> 
 ```
 
-* Run the following:
+* Run playbooks:
 ```
 $ ansible-playbook -i hosts.ini site.yml
 ```
