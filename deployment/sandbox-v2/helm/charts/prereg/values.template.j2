@@ -18,7 +18,7 @@ services:
   login:
     serviceName: prereg-login-service 
     dockerImage: mosipdev/pre-registration-login-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9090
     servicePort: 80
     ingressPath: /preregistration/v1/login
@@ -26,7 +26,7 @@ services:
   batch:
     serviceName: prereg-batchjob-service 
     dockerImage: mosipdev/pre-registration-batchjob
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9097
     servicePort: 80
     ingressPath: ""
@@ -34,7 +34,7 @@ services:
   document:
     serviceName: prereg-document-service 
     dockerImage: mosipdev/pre-registration-document-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9093
     servicePort: 80
     ingressPath: /preregistration/v1/documents
@@ -42,7 +42,7 @@ services:
   transliteration:
     serviceName: prereg-transliteration-service 
     dockerImage: mosipdev/pre-registration-transliteration-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9098
     servicePort: 80
     ingressPath: /preregistration/v1/transliteration
@@ -50,7 +50,7 @@ services:
   booking:
     serviceName: prereg-booking-service 
     dockerImage: mosipdev/pre-registration-booking-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9095
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
@@ -58,7 +58,7 @@ services:
   qrcode:
     serviceName: prereg-qrcode-service 
     dockerImage: mosipdev/pre-registration-generateqrcode-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9091
     servicePort: 80
     ingressPath: /preregistration/v1/qrCode
@@ -66,7 +66,7 @@ services:
   datasync:
     serviceName: prereg-datasync-service 
     dockerImage: mosipdev/pre-registration-datasync-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9094
     servicePort: 80
     ingressPath: /preregistration/v1/sync
@@ -74,7 +74,7 @@ services:
   demographic:
     serviceName: prereg-demographic-service 
     dockerImage: mosipdev/pre-registration-demographic-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9092
     servicePort: 80
     ingressPath: /preregistration/v1/applications
@@ -82,7 +82,7 @@ services:
   notification:
     serviceName: prereg-notification-service 
     dockerImage: mosipdev/pre-registration-notification-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9099
     servicePort: 80
     ingressPath: /preregistration/v1/notification
@@ -90,7 +90,7 @@ services:
   captcha:
     serviceName: prereg-captcha-service 
     dockerImage: mosipdev/pre-registration-captcha-service
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 9089
     servicePort: 80
     ingressPath: /preregistration/v1/captcha
@@ -98,7 +98,7 @@ services:
   ui:
     serviceName: prereg-ui
     dockerImage: mosipdev/pre-registration-ui
-    dockerTag: 1.0.10_PATCH
+    dockerTag: 1.0.10_patch
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
