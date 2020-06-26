@@ -265,7 +265,7 @@
            "validators":[
               {
                  "type":"regex",
-                 "validator":"^[a-zA-Z-\\+]+(\\.[a-zA-Z]+)*@[a-zA-Z-]+(\\.[a-zA-Z]+)*(\\.[a-zA-Z]{2,})$",
+                 "validator":"^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-zA-Z]{2,})$",
                  "arguments":[
 
                  ]
