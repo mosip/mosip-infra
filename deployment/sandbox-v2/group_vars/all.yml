@@ -25,7 +25,7 @@ site:
 install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 
-is_glowroot: absent  # or present
+is_glowroot: absent  # absent or present
 
 artifactory_uri: 'http://13.71.87.138:8040'
 
