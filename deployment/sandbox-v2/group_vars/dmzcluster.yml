@@ -3,7 +3,6 @@
 
 cluster_name: 'dmzcluster'  # Same as in hosts.ini
 cluster_master: 'dmzmaster' # Same as in hosts.ini
-kubemaster_ip: "{{ hostvars[groups[cluster_master][0]]['ansible_default_ipv4'].address | default(groups[cluster_master][0]) }}"
 
 # Kubernetes
 kube_version: v1.18.0
@@ -24,8 +23,10 @@ pod_network_cidr: "10.244.0.0/16"
 network: flannel
 
 # Change this to an appropriate interface, preferably a private network.
-# For example, on DigitalOcean, you would use eth1 as that is the default private network interface.
-network_interface: ""
+# Default is 'eth0'.  
+network_interface: "eth0"
+ansible_interface_param: 'ansible_{{network_interface}}'
+kubemaster_ip: '{{ hostvars[cluster_master][ansible_interface_param].ipv4.address }}'
 
 enable_dashboard: yes
 
