@@ -1,2 +1,0 @@
-﻿id,uin,name,email,mobile,status_code,lang_code,last_login_method,is_active,cr_by,cr_dtimes,eff_dtimes
-testuser1,1234567890,Test User1,xy@xyz.com,1234567890,ACT,eng,PWD,TRUE,superadmin,now(),now()
