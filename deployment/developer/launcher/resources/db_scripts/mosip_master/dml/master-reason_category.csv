@@ -1,7 +1,0 @@
-﻿code,name,descr,lang_code,is_active,cr_by,cr_dtimes
-MNA,Manual Adjudication,Rejection during Manual Adjudication,eng,TRUE,superadmin,now()
-CLR,Client Rejection,Rejection in Registration Client,eng,TRUE,superadmin,now()
-MNA,الفصل اليدوي,رفض خلال الفصل اليدوي,ara,TRUE,superadmin,now()
-CLR,رفض العميل,رفض تسجيل العميل,ara,TRUE,superadmin,now()
-MNA,Manuel arbitrage,Renvoi en cours de sélection manuelle,fra,TRUE,superadmin,now()
-CLR,Rejet de client,Rejet en enregistrement Client,fra,TRUE,superadmin,now()

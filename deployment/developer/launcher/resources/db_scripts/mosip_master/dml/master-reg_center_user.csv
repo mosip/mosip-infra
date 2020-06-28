@@ -1,2 +1,0 @@
-﻿regcntr_id,usr_id,lang_code,is_active,cr_by,cr_dtimes
-10001,testuser1,eng,TRUE,superadmin,now()
