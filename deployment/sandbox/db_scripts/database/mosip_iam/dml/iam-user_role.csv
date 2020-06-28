@@ -1,4 +1,0 @@
-usr_id,role_code,lang_code,is_active,cr_by,cr_dtimes
-pre_reg_client_id,PRE_REGISTRATION,eng,TRUE,Admin,now()
-prereg_batch_user,PRE_REGISTRATION_ADMIN,eng,TRUE,Admin,now()
-preregadmin,PRE_REGISTRATION_ADMIN,eng,TRUE,Admin,now()

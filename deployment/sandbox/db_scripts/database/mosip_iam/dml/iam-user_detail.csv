@@ -1,4 +1,0 @@
-id,name,email,mobile,status_code,lang_code,last_login_method,is_active,cr_by,cr_dtimes
-pre_reg_client_id,pre_reg_client_id,kishan.rathore2@mindtree.com,9663175928,ACT,eng,PWD,TRUE,Admin,now()
-prereg_batch_user,prereg_batch_user,kishan.rathore2@mindtree.com,8239277017,ACT,eng,PWD,TRUE,Admin,now()
-preregadmin,preregadmin,kishan.rathore2@mindtree.com,8239277017,ACT,eng,PWD,TRUE,Admin,now()
