@@ -87,10 +87,11 @@ ssl:
      mosip.kernel.auth.proxy-otp=true
      mosip.kernel.auth.proxy-email=true
      ```
-    Also set the proxy OTP which you want, default it is set to 111111 in mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/kernel-mz.properties:
-     `
-     mosip.kernel.auth.proxy-otp-value=<proxy OTP value>    //length should be 6 digits
-    ```
+    Also set the proxy OTP which you want, by default it is set to 111111 in mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/kernel-mz.properties:
+    Note : OTP length should be 6 digits.
+     ```
+     mosip.kernel.auth.proxy-otp-value=<proxy OTP value>    
+     ```
 
 * Run playbooks:
 ```
