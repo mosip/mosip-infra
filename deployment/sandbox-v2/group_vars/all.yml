@@ -25,7 +25,7 @@ site:
     api: gateway api
     authkey: authkey
     route: route
-    senser: sender
+    sender: sender
     unicode: unicode
    
 user_home: '{{lookup("env", "HOME")}}'
