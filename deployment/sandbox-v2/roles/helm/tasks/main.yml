@@ -7,10 +7,6 @@
 #   helm_values: j2 template or yaml helm file
 #   helm_namespace: default if not specified
 
-- name: Test
-  debug:
-    msg: 'helm = {{ helm_values }}'
-
 - name: Convert values template to values file
   template:
     src: '{{helm_values}}'
