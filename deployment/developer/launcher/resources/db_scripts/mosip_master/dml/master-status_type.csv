@@ -1,4 +1,0 @@
-﻿code,name,descr,lang_code,is_active,cr_by,cr_dtimes
-ADT,Activation Status,Activation Status,eng,TRUE,superadmin,now()
-ADT,Activation status,Activation status,fra,TRUE,superadmin,now()
-ADT,حالة التفعيل أو التشغيل,حالة التفعيل أو التشغيل,ara,TRUE,superadmin,now()

@@ -19,7 +19,7 @@ services:
   auth:
     serviceName: kernel-auth-service 
     dockerImage: mosipdev/kernel-auth-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8091
     servicePort: 80
     ingressPath: /v1/authmanager
@@ -27,7 +27,7 @@ services:
   masterdata:
     serviceName: kernel-masterdata-service 
     dockerImage: mosipdev/kernel-masterdata-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8086
     servicePort: 80
     ingressPath: /v1/masterdata
@@ -35,7 +35,7 @@ services:
   idgen:
     serviceName: kernel-idgenerator-service 
     dockerImage: mosipdev/kernel-idgenerator-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8080
     servicePort: 80
     ingressPath: /v1/idgenerator 
@@ -43,7 +43,7 @@ services:
   prid:
     serviceName: kernel-pridgenerator-service 
     dockerImage: mosipdev/kernel-pridgenerator-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8100
     servicePort: 80
     ingressPath: /v1/pridgenerator
@@ -51,7 +51,7 @@ services:
   sync:
     serviceName: kernel-syncdata-service 
     dockerImage: mosipdev/kernel-syncdata-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8089
     servicePort: 80
     ingressPath: /v1/syncdata 
@@ -59,7 +59,7 @@ services:
   audit:
     serviceName: kernel-auditmanager-service 
     dockerImage: mosipdev/kernel-auditmanager-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8081
     servicePort: 80
     ingressPath: /v1/auditmanager
@@ -67,7 +67,7 @@ services:
   key:
     serviceName: kernel-keymanager-service 
     dockerImage: mosipdev/kernel-keymanager-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8088
     servicePort: 80
     hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
@@ -76,7 +76,7 @@ services:
   notifier:
     serviceName: kernel-notification-service 
     dockerImage: mosipdev/kernel-notification-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8083
     servicePort: 80
     ingressPath: /v1/notifier
@@ -84,7 +84,7 @@ services:
   otp:
     serviceName: kernel-otpmanager-service 
     dockerImage: mosipdev/kernel-otpmanager-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8085
     servicePort: 80
     ingressPath: /v1/otpmanager 
@@ -92,7 +92,7 @@ services:
   rid:
     serviceName: kernel-ridgenerator-service 
     dockerImage: mosipdev/kernel-ridgenerator-service
-    dockerTag: 1.0.9_PATCH
+    dockerTag: 1.0.9
     containerPort: 8096
     servicePort: 80
     ingressPath: /v1/ridgenerator 

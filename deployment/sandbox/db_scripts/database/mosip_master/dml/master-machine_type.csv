@@ -1,4 +1,0 @@
-﻿code,name,descr,lang_code,is_active,cr_by,cr_dtimes
-DKS,Desktop,Desktop Computer,eng,TRUE,superadmin,now()
-DKS,الحاسوب,أجهزة الكمبيوتر المكتبية,ara,TRUE,superadmin,now()
-DKS,Ordinateur,Ordinateurs de bureau,fra,TRUE,superadmin,now()

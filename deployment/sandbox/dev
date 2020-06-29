@@ -1,2 +1,0 @@
-[SandboxVM]
-<yourVMIP> ansible_connection=local

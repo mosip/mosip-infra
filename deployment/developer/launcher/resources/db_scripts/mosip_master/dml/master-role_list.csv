@@ -1,5 +1,0 @@
-﻿code,descr,lang_code,is_active,cr_by,cr_dtimes
-SUPERADMIN,Superadmin,eng,TRUE,superadmin,now()
-REGISTRATION_OFFICER,Registration Officer,eng,TRUE,superadmin,now()
-REGISTRATION_SUPERVISOR,Supervisor,eng,TRUE,superadmin,now()
-REGISTRATION_ADMIN,Registration Admin,eng,TRUE,superadmin,now()

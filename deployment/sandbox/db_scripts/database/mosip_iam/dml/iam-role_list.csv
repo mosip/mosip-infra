@@ -1,3 +1,0 @@
-code,descr,lang_code,is_active,cr_by,cr_dtimes
-PRE_REGISTRATION,person,eng,TRUE,Admin,now()
-PRE_REGISTRATION_ADMIN,person,eng,TRUE,Admin,now()

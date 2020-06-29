@@ -1,9 +1,0 @@
----
-  - hosts: all
-    become: true
-    gather_facts: false
-    tasks:
-      - set_fact: 
-          VMIP: "{{ lookup('ini', 'VMIP type=properties file=../playbooks-properties/all-playbooks.properties') }}"
-      - debug: msg="user is {{ VMIP }}"
-
