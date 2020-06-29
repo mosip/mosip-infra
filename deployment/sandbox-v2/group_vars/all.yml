@@ -21,6 +21,13 @@ site:
     host: smtp.sendgrid.net
     username: apikey
     password: password
+  sms:
+    gateway: gateway name
+    api: gateway api
+    authkey: authkey
+    route: route
+    sender: sender
+    unicode: unicode
    
 user_home: '{{lookup("env", "HOME")}}'
 install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
