@@ -62,7 +62,7 @@ $ ./key.sh hosts.ini
 ##  Installing MOSIP 
 * In `groups_vars/all.yml`, set the following: 
   * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha` (for PreReg).
+  * Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptch admin.
   * (Optional) Set SMTP email settings:
     ```
     smtp:
@@ -71,6 +71,7 @@ $ ./key.sh hosts.ini
       username: apikey
       password: xyz
     ```
+  * Set the authkey for sms otp in `site.msg91`.
 * If you already have an SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
@@ -79,6 +80,17 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
+* (Optional) If you want the proxy OTP to be used in case you dont have msg91.authkey and smtp.password make below property changes.
+    In mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/application-mz.properties make below flag changes:
+     ```
+     mosip.kernel.sms.proxy-sms=true
+     mosip.kernel.auth.proxy-otp=true
+     mosip.kernel.auth.proxy-email=true
+     ```
+    Also set the proxy OTP which you want, default it is set to 111111 in mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/kernel-mz.properties:
+     `
+     mosip.kernel.auth.proxy-otp-value=<proxy OTP value>    //length should be 6 digits
+    ```
 
 * Run playbooks:
 ```
