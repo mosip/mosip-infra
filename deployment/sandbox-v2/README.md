@@ -71,7 +71,16 @@ $ ./key.sh hosts.ini
       username: apikey
       password: xyz
     ```
-  * Set the authkey for sms otp in `site.msg91`.
+  * Set the sms gateway settings in the `site.sms` field:
+    ```
+    sms:
+    gateway: gateway name
+    api: gateway api
+    authkey: authkey
+    route: route
+    sender: sender
+    unicode: unicode
+    ```
 * If you already have an SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
