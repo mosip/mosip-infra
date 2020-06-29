@@ -30,15 +30,16 @@ All the above machines are within the same subnet. Note that all pods run with r
 
 ## VM setup
 ### All machines
-* Create a user 'mosipuser' with strong password, same on all machines.
-* Make `sudo su` passwordless.
-* All machines in the same subnet.
-* All machines accessible via hostnames defined in `hosts.ini`.  
+All machines need to have the folowing:
+* User 'mosipuser' with strong password. Same password on all machines.
+* Password-less `sudo su`.
+* Internet connectivity.
+* Accessible from console via hostnames defined in `hosts.ini`.  
 
 ### Console 
 Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
-* Console machine must be accessible with the public domain name (e.g. sandbox.mycompany.com)
-* Port 80, 443, 30090 (for postgres), 9000 (HDFS) must be open on the console for external access.
+* Console machine must be accessible with public domain name (e.g. sandbox.mycompany.com).
+* Port 80, 443, 30090 (for postgres) must be open on the console for external access.
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -54,7 +55,7 @@ $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
 ```
-* Exchange ssh keys with all machines. Provide the common machine password.
+* Exchange ssh keys with all machines. Provide the password for 'mosipuser'.
 ```
 $ ./key.sh hosts.ini
 ``` 
@@ -89,30 +90,26 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* (Optional) If you want the proxy OTP to be used in case you dont have msg91.authkey and smtp.password make below property changes.
-    In mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/application-mz.properties make below flag changes:
+* (Optional) If you want the proxy OTP to be used in case you dont have access to SMS Service Provider make below property changes.
+    In roles/config-repo/files/properties/application-mz.properties make below flag changes:
      ```
      mosip.kernel.sms.proxy-sms=true
      mosip.kernel.auth.proxy-otp=true
      mosip.kernel.auth.proxy-email=true
      ```
-    Also set the proxy OTP which you want, by default it is set to 111111 in mosip-infra/deployment/sandbox-v2/roles/config-repo/files/properties/kernel-mz.properties:
-    Note : OTP length should be 6 digits.
-     ```
-     mosip.kernel.auth.proxy-otp-value=<proxy OTP value>    
-     ```
+Default OTP is set to `111111`.
 
 * Run playbooks:
 ```
 $ ansible-playbook -i hosts.ini site.yml
 ```
+
 ## Dashboards
 The links to various dashboards are available at 
 ```
-https://<sandbox domain name/index.html
+https://<sandbox domain name>/index.html
 ```
 
-```
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:
 ```
@@ -130,10 +127,4 @@ $ source  ~/.bashrc
 * If you are using `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf
-```
-* To enable hdfs namenode access externally
-  * Open port 9000 for external access
-  * Run
-```
-kc1 port-forward --address 0.0.0.0 service/hadoop-hdfs-nn 9000:9000
 ```
