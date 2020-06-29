@@ -21,6 +21,8 @@ site:
     host: smtp.sendgrid.net
     username: apikey
     password: password
+  msg91:
+    authkey: authkey
    
 user_home: '{{lookup("env", "HOME")}}'
 install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
