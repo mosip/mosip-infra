@@ -22,6 +22,7 @@ site:
     username: apikey
     password: password
   sms:
+    gateway: gateway name
     api: gateway api
     authkey: authkey
     route: route
