@@ -7,10 +7,6 @@
 #   helm_values: j2 template or yaml helm file
 #   helm_namespace: default if not specified
 
-- name: Test
-  debug:
-    msg: 'helm = {{ helm_values }}'
-
 - name: Convert values template to values file
   template:
     src: '{{helm_values}}'
@@ -18,7 +14,7 @@
   when: is_template == true  
   
 - name: 'Check if {{install_name}} is already running'
-  command: 'helm --kubeconfig {{kube_config}} list -n {{helm_namespace}} -q'
+  command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} list -n {{helm_namespace}} -q'
   register: out
 
 - debug:
@@ -28,7 +24,7 @@
 - name: install chart
   block:
   - name: 'Install chart {{install_name}}'
-    command: 'helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --wait --timeout 20m0s'
+    command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --wait --timeout 20m0s'
     when: install_name not in out.stdout.split()
     register: helm_out 
   
