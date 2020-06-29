@@ -22,8 +22,10 @@ site:
     username: apikey
     password: password
    
-install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
+user_home: '{{lookup("env", "HOME")}}'
+install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
+helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 
 is_glowroot: absent  # absent or present
 
