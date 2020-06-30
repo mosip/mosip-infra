@@ -1,4 +1,4 @@
-# MOSIP Multi-VM Sandbox Installer
+# MOSIP Sandbox Installer
 
 ## Introduction
 
