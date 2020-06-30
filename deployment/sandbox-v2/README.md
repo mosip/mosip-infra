@@ -62,10 +62,10 @@ $ ./key.sh hosts.ini
 
 ##  Installing MOSIP 
 ### Site settings
-* In `groups_vars/all.yml`, set the following: 
-  * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptcha Admin.
-  * By default MOSIP will try to obtain fresh SSL certificate from [Letsencrypt](https://letsencrypt.org) for the above domain name. However, If you already have same, place the certificate appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
+In `group_vars/all.yml`, set the following: 
+* Change `sandbox_domain_name`  to domain name of the console machine.
+* Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptcha Admin.
+* By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have same, place the certificate appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
   get_certificate: false
@@ -74,8 +74,8 @@ ssl:
   certificate_key: <private key path> 
 ```
 ### OTP settings
-To receive OTP on email and SMS set the following in `groups_vars/all.yml'.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](###Proxy OTP settings).  
-* Set SMTP email settings:
+To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](### Proxy OTP settings).  
+* Email 
   ```
   smtp:
     email_from: mosiptestuser@gmail.com
@@ -83,15 +83,15 @@ To receive OTP on email and SMS set the following in `groups_vars/all.yml'.  If 
     username: apikey
     password: xyz
   ```
-* Set the sms gateway settings in the `site.sms` field:
+* SMS 
   ```
   sms:
-  gateway: gateway name
-  api: gateway api
-  authkey: authkey
-  route: route
-  sender: sender
-  unicode: unicode
+    gateway: gateway name
+    api: gateway api
+    authkey: authkey
+    route: route
+    sender: sender
+    unicode: unicode
   ```
 ### Proxy OTP settings
 
@@ -101,7 +101,7 @@ To receive OTP on email and SMS set the following in `groups_vars/all.yml'.  If 
   mosip.kernel.auth.proxy-otp=true
   mosip.kernel.auth.proxy-email=true
   ```
-Note that default OTP is set to `111111`.
+Note that the default OTP is set to `111111`.
 
 * Intall all MOSIP modules:
 ```
