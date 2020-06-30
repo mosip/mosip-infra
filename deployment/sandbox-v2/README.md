@@ -4,7 +4,7 @@
 
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
 
-WARNING: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
+**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
 
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
@@ -26,7 +26,7 @@ The sandbox has been tested with the following configuration:
 
 \* VCPU:  Virtual CPU
 
-All the above machines are within the same subnet. All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
+All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
 ## VM setup
 ### All machines
