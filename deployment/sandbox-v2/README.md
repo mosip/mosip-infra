@@ -24,7 +24,7 @@ The sandbox has been tested with the following configuration:
 |K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
 |K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
 
-\* VPU:  Virtual CPU
+\* VCPU:  Virtual CPU
 
 All the above machines are within the same subnet. All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
@@ -65,7 +65,7 @@ $ ./key.sh hosts.ini
 In `group_vars/all.yml`, set the following: 
 * Change `sandbox_domain_name`  to domain name of the console machine.
 * Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptcha Admin.
-* By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have same, place the certificate appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
+* By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
   get_certificate: false
@@ -74,7 +74,7 @@ ssl:
   certificate_key: <private key path> 
 ```
 ### OTP settings
-To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](### Proxy OTP settings).  
+To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
 * Email 
   ```
   smtp:
