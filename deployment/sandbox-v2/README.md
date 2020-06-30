@@ -14,7 +14,7 @@ CentOS 7.7 on all machines.
 
 ## Hardware setup 
 
-The sandbox has been tested with following configuration:
+The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
@@ -26,7 +26,7 @@ The sandbox has been tested with following configuration:
 
 \* VPU:  Virtual CPU
 
-All the above machines are within the same subnet. Note that all pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
+All the above machines are within the same subnet. All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
 ## VM setup
 ### All machines
@@ -37,7 +37,7 @@ All machines need to have the folowing:
 * Accessible from console via hostnames defined in `hosts.ini`.  
 
 ### Console 
-Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not root).   
+Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not 'root').   
 * Console machine must be accessible with public domain name (e.g. sandbox.mycompany.com).
 * Port 80, 443, 30090 (for postgres) must be open on the console for external access.
 * Install Ansible
@@ -45,7 +45,7 @@ Console machine is the machine from where you run Ansible and other the scripts.
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 $ sudo yum install ansible
 ```
-* Install git:
+* Install git
 ```
 $ sudo yum install -y git
 ```
@@ -61,28 +61,11 @@ $ ./key.sh hosts.ini
 ``` 
 
 ##  Installing MOSIP 
+### Site settings
 * In `groups_vars/all.yml`, set the following: 
   * Change `sandbox_domain_name`  to domain name of the console machine.
-  * Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptch admin.
-  * (Optional) Set SMTP email settings:
-    ```
-    smtp:
-      email_from: mosiptestuser@gmail.com
-      host: smtp.sendgrid.net
-      username: apikey
-      password: xyz
-    ```
-  * Set the sms gateway settings in the `site.sms` field:
-    ```
-    sms:
-    gateway: gateway name
-    api: gateway api
-    authkey: authkey
-    route: route
-    sender: sender
-    unicode: unicode
-    ```
-* If you already have an SSL certificate for your domain, place the certificates appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
+  * Set captcha keys in `site.captcha` (for PreReg). Get captcha keys for your domain from Google Recaptcha Admin.
+  * By default MOSIP will try to obtain fresh SSL certificate from [Letsencrypt](https://letsencrypt.org) for the above domain name. However, If you already have same, place the certificate appropriately under `/etc/ssl` (or any directory of choice) and set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
   get_certificate: false
@@ -90,16 +73,37 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* (Optional) If you want the proxy OTP to be used in case you dont have access to SMS Service Provider make below property changes.
-    In roles/config-repo/files/properties/application-mz.properties make below flag changes:
-     ```
-     mosip.kernel.sms.proxy-sms=true
-     mosip.kernel.auth.proxy-otp=true
-     mosip.kernel.auth.proxy-email=true
-     ```
-Default OTP is set to `111111`.
+### OTP settings
+To receive OTP on email and SMS set the following in `groups_vars/all.yml'.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](###Proxy OTP settings).  
+* Set SMTP email settings:
+  ```
+  smtp:
+    email_from: mosiptestuser@gmail.com
+    host: smtp.sendgrid.net
+    username: apikey
+    password: xyz
+  ```
+* Set the sms gateway settings in the `site.sms` field:
+  ```
+  sms:
+  gateway: gateway name
+  api: gateway api
+  authkey: authkey
+  route: route
+  sender: sender
+  unicode: unicode
+  ```
+### Proxy OTP settings
 
-* Run playbooks:
+* To set MOSIP in Proxy OTP mode make the following change in `roles/config-repo/files/properties/application-mz.properties`: 
+  ```
+  mosip.kernel.sms.proxy-sms=true
+  mosip.kernel.auth.proxy-otp=true
+  mosip.kernel.auth.proxy-email=true
+  ```
+Note that default OTP is set to `111111`.
+
+* Intall all MOSIP modules:
 ```
 $ ansible-playbook -i hosts.ini site.yml
 ```
@@ -113,19 +117,19 @@ https://<sandbox domain name>/index.html
 
 ## Useful tips
 * You may add the following short-cuts in `/home/mosipuser/.bashrc`:
-```
-alias an='ansible-playbook -i hosts.ini'
-alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
-alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
-alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
-alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
-alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
-```
+  ```
+  alias an='ansible-playbook -i hosts.ini'
+  alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
+  alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
+  alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
+  alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
+  alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+  ```
 After the adding the above:
-```
-$ source  ~/.bashrc
-```
-* If you are using `tmux` tool, copy the config file as below:
+  ```
+  $ source  ~/.bashrc
+  ```
+* If you use `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf
 ```
