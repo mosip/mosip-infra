@@ -95,7 +95,7 @@ To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If y
   ```
 ### Proxy OTP settings
 
-* To set MOSIP in Proxy OTP mode make the following change in `roles/config-repo/files/properties/application-mz.properties`: 
+* To run MOSIP in Proxy OTP mode set the following in `roles/config-repo/files/properties/application-mz.properties`: 
   ```
   mosip.kernel.sms.proxy-sms=true
   mosip.kernel.auth.proxy-otp=true
