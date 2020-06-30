@@ -3,14 +3,13 @@
    
   vars_prompt:
     - name: sure 
-      prompt: 'Do you want to ERASE all REPOS?'
+      prompt: 'Do you want to ERASE  tmp and log folders. This will erase all repos and other generated data? (yes/no)'
       private: no
 
   tasks:
-   - name: Delete all repos 
+   - name: Delete tmp folder
      file: 
-       path: '{{item.value.dest}}'
+       path: '{{tmp_dir}}'
        state: absent     
-     with_items: '{{repos | dict2items}}'
      when: sure.lower().strip() == 'yes'
 

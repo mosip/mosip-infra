@@ -6,7 +6,7 @@ springConfigLabel: master
 configServerUrl: http://config-server/config
 ingress:
    namespace: default
-artifactoryUrl: http://104.211.246.17:8040
+artifactoryUrl: {{ artifactory_url }} 
 probe:
   initialDelay: 120  # Seconds
   period: 30 # Seconds

@@ -9,5 +9,4 @@
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
     mon_prop: '{{clusters.mz.monitoring}}' 
-  
 
