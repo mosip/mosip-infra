@@ -30,7 +30,7 @@ All pods run with replication=1.  If higher replication is needed, accordingly, 
 
 ## VM setup
 ### All machines
-All machines need to have the folowing:
+All machines need to have the following:
 * User 'mosipuser' with strong password. Same password on all machines.
 * Password-less `sudo su`.
 * Internet connectivity.
