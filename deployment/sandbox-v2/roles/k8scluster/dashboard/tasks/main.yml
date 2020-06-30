@@ -13,4 +13,16 @@
   delay: 2
   ignore_errors: true
 
+- name:  Get dashboard token  
+  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}}' 
+  register: token
+
+- debug:
+    msg: '{{token.stdout}}'
+
+- name: 'Copy the token to {{dashboard_conf.token_file}}' 
+  copy:
+    content: '{{token.stdout}}'
+    dest: '{{dashboard_conf.token_file}}'
+
 

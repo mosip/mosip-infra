@@ -24,5 +24,6 @@
     kube_config: '{{clusters.dmz.kube_config}}' 
     cluster_name: 'dmz'
     dashboard_ingress_url: '{{clusters.dmz.dashboard.url}}'
+    dashboard_token_file: '{{clusters.dmz.dashboard.token_file}}'
   roles:
     - {role: k8scluster/dashboard}
