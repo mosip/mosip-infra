@@ -36,8 +36,6 @@ helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in defa
 
 is_glowroot: absent  # absent or present
 
-artifactory_uri: 'http://13.71.87.138:8040'
-
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
 clusters:
