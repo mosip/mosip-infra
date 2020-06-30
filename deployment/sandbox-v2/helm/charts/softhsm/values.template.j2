@@ -4,7 +4,7 @@ serviceName: softhsm-{{hsm_prop.label}}
 activeProfileEnv: mz 
 springConfigLabel: master
 configServerUrl: http://config-server/config
-artifactoryUrl: http://104.211.246.17:8040
+artifactoryUrl: {{ artifactory_url }} 
 
 docker:
   image: mosipdev/softhsm

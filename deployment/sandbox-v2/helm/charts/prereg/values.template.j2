@@ -11,7 +11,7 @@ probe:
   period: 30 # Seconds
 ingress:
    namespace: default
-artifactoryUrl: http://104.211.246.17:8040
+artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always 
 isGlowroot: {{ is_glowroot }}
 services:
