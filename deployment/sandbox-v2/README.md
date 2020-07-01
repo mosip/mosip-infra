@@ -105,7 +105,7 @@ Note that the default OTP is set to `111111`.
 
 * Intall all MOSIP modules:
 ```
-$ ansible-playbook -i hosts.ini site.yml
+$ ansible-playbook -i hosts.ini site.yml --ask-become-pass
 ```
 
 ## Dashboards
