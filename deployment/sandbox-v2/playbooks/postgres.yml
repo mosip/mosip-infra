@@ -7,6 +7,11 @@
   tasks:
     - {name: 'Create folder', file: {name: '{{postgres.nfs_path}}', state: directory}, become: yes}
 
+- hosts: console
+  gather_facts: no
+  tasks:  # Create logs folder in case no already created
+    - {name: 'Create logs folder {{logs_dir}}', file: {name: '{{logs_dir}}', state: directory}}
+
 # Install postgres 
 - hosts: console
   vars:
