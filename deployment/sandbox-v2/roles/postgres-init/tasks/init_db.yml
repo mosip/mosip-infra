@@ -30,7 +30,7 @@
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^LOG_PATH='
-    line: LOG_PATH={{logs_dir}}
+    line: LOG_PATH={{logs_dir}}/
 
 - name: 'Run {{pg_db_name}} shell script'
   shell: 'bash {{pg_db_name}}_db_deploy.sh {{pg_db_name}}_deploy.properties'
