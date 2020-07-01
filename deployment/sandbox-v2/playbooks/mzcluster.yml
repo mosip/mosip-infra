@@ -23,7 +23,7 @@
   vars:
     kube_config: '{{clusters.mz.kube_config}}' 
     cluster_name: 'mz'
-    dashboard_ingress_url: '{{clusters.mz.dashboard.url}}'
+    dashboard_conf: '{{clusters.mz.dashboard}}'
   roles:
     - {role: k8scluster/dashboard}
 

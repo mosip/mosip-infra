@@ -2,8 +2,13 @@
 ---
 # Global variables - accessed by different roles and plays
 #
-tmp_dir: '/tmp/' 
-logs_dir: '/tmp/'
+tmp_dir: '/tmp/mosip' 
+logs_dir: '{{tmp_dir}}/logs'
+user_home: '{{lookup("env", "HOME")}}'
+install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
+charts_root: '{{install_root}}/helm/charts'  # Helm charts root
+helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
+artifactory_url: http://104.211.246.17:8040
 
 sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
 site:
@@ -21,13 +26,15 @@ site:
     host: smtp.sendgrid.net
     username: apikey
     password: password
+  sms:
+    gateway: gateway name
+    api: gateway api
+    authkey: authkey
+    route: route
+    sender: sender
+    unicode: unicode
    
-install_root: /home/mosipuser/mosip-infra/deployment/sandbox-v2
-charts_root: '{{install_root}}/helm/charts'  # Helm charts root
-
-is_glowroot: absent  # or present
-
-artifactory_uri: 'http://13.71.87.138:8040'
+is_glowroot: absent  # absent or present
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 
@@ -43,6 +50,8 @@ clusters:
       base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
+      token_file: '{{tmp_dir}}/dashboard_mz.token'
+      token_expiry: 86400 # Seconds 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -55,6 +64,7 @@ clusters:
         grafana:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
       grafana_ingress_path: 'mz-grafana'
+      grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodePortNode: dmzworker0  # Any node on cluster for nodeport access
@@ -66,6 +76,8 @@ clusters:
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
+      token_file: '{{tmp_dir}}/dashboard_dmz.token'
+      token_expiry: 86400 # Seconds 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -78,6 +90,7 @@ clusters:
         grafana:
           path: '{{nfs.folder}}/monitoring/dmz/grafana'
       grafana_ingress_path: 'dmz-grafana'
+      grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
 
 # Registration processor shared variables
 #
@@ -97,9 +110,6 @@ postgres:
   user: postgres
   password: postgres
   max_connections: 1000
-
-# SFTP: used for picking up packets from DMZ
-sftp_user: 'sftpuser'  # This should be same in config files
 
 # Keycloak
 keycloak:
@@ -192,6 +202,6 @@ hdfs:
 config_repo:
   name: config_repo  # Git repo inside above node_path
   path: '{{nfs.folder}}/config_repo'
-  search_folder: ''  # If all properites at at the root repo level, then this will be empt
+  search_folder: ''  # If all properites at at the root repo level, then this will be empty
   storage_size: 10Mi
 

@@ -5,16 +5,20 @@
     dest: '{{ tmp_dir }}'
     remote_src: yes
 
+- name: Create helm cli install dir
+  file:
+    path: '{{helm_cli_path}}'
+    state: directory
+    
 - name: "Copy Helm executable"
   copy:
     src: '{{ tmp_dir }}/linux-amd64/helm' 
-    dest: /usr/local/bin
+    dest: '{{helm_cli_path}}' 
     mode: 0755
-  become: yes
 
 - name: Add stable repo
-  command: 'helm repo add stable https://kubernetes-charts.storage.googleapis.com'
+  shell: '{{helm_cli_path}}/helm repo add stable https://kubernetes-charts.storage.googleapis.com'
 
 - name: "Update Helm repo"
-  shell: "helm repo update"  # Shell instead of command for getting all the paths
+  shell: "{{helm_cli_path}}/helm repo update"  # Shell instead of command for getting all the paths
 

@@ -1,4 +1,0 @@
-usr_id,pwd,pwd_expiry_dtimes,status_code,lang_code,is_active,cr_by,cr_dtimes
-pre_reg_client_id,dcc7e4f3e1c9ef72ad54672a7a649bd3b0322a3ac504fd7b52528a5018b61e8d,,ACT,eng,TRUE,Admin,now()
-prereg_batch_user,b1037efeb700de8164e78ed51c3fe99e924eecd5e1046113e3a9cac56a3c8436,,ACT,eng,TRUE,Admin,now()
-preregadmin,eb9c03da6a467ceb0745fb3d3d05c7ef76ac3d625c8d4c29202531818c77463a,,ACT,eng,TRUE,Admin,now()

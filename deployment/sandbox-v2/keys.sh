@@ -1,6 +1,5 @@
 #!/bin/sh
-# Run this scrip to exchanges ssh keys between console and 
-# cluster machines
+# Run this script to exchange ssh keys between console and cluster machines
 # Provide password for 'mosipuser' user. Assumes password is same for all machines
 # Parameter:  inventory file (.ini)
 

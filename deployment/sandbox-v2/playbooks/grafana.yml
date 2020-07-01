@@ -44,7 +44,17 @@
     helm_values: '{{charts_root}}/grafana/values.template.j2'
   roles:
     - {role:  helm}
+  
+  tasks:
+    - name: Get grafana token
+      shell: 'kubectl --kubeconfig {{kube_config}}  get secret --namespace monitoring {{install_name}}-grafana -o jsonpath="{.data.admin-password}"  | base64 --decode ; echo'
+      register: token
+
+    - debug:
+        msg: '{{token.stdout}}'
     
-
-
+    - name: 'Copy token to {{mon_prop.grafana_token_file}}'
+      copy:
+        content: "{{token.stdout}}\n"
+        dest: '{{mon_prop.grafana_token_file}}'
 
