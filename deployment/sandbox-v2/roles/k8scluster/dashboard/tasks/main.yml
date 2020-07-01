@@ -22,7 +22,7 @@
 
 - name: 'Copy the token to {{dashboard_conf.token_file}}' 
   copy:
-    content: '{{token.stdout}}'
+    content: "{{token.stdout}}\n"
     dest: '{{dashboard_conf.token_file}}'
 
 
