@@ -104,6 +104,23 @@ To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If y
   ```
 Note that the default OTP is set to `111111`.
 
+* Before the installation of MOSIP modules make sure your /etc/hosts file in each node contains the dns records of the all nodes where it's accessible by the node-name as below.
+```
+192.168.10.1 console
+192.168.10.2 mzmaster
+192.168.10.3 mzworker0
+192.168.10.4 mzworker1
+192.168.10.5 mzworker2
+192.168.10.6 mzworker3
+192.168.10.7 mzworker4
+192.168.10.8 mzworker5
+192.168.10.9 mzworker6
+192.168.10.10 mzworker7
+192.168.10.11 mzworker8
+192.168.10.12 dmzmaster
+192.168.10.13 dmzworker0
+ ```
+
 * Intall all MOSIP modules:
 ```
 $ ansible-playbook -i hosts.ini site.yml
