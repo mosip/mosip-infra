@@ -35,6 +35,7 @@ All machines need to have the following:
 * Password-less `sudo su`.
 * Internet connectivity.
 * Accessible from console via hostnames defined in `hosts.ini`.  
+* `firewalld` disabled.
 
 ### Console 
 Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not 'root').   
