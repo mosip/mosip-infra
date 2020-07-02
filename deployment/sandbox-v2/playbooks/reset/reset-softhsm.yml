@@ -3,7 +3,7 @@
   become: yes
   vars_prompt:
     - name: sure 
-      prompt: 'Do you want to ERASE all SOFTHSM keys and data? Are you sure?'
+      prompt: 'Do you want to ERASE all SOFTHSM keys and data? Are you sure? (yes/no)'
       private: no
   tasks:
    - name: Delete all keymanager softhsm data

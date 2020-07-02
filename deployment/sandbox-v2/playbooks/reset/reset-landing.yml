@@ -4,7 +4,7 @@
   become: yes
   vars_prompt:
     - name: sure 
-      prompt: 'Do you want to ERASE LANDING ZONE? All packets will be lost.  Are you sure?' 
+      prompt: 'Do you want to ERASE LANDING ZONE? All packets will be lost.  Are you sure? (yes/no)' 
       private: no
   tasks:
    - name: Delete landing zone

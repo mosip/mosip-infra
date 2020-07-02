@@ -4,7 +4,7 @@
   become: yes
   vars_prompt:
     - name: sure 
-      prompt: 'Do you want to ERASE all POSTGRES data including KEYCLOAK? Are you sure?'
+      prompt: 'Do you want to ERASE all POSTGRES data including KEYCLOAK? Are you sure? (yes/no)'
       private: no
   tasks:
     - name: Delete all postgres data 
