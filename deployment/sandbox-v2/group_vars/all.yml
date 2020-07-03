@@ -41,7 +41,8 @@ docker_wait_time: 600   # Wait for docker to pull and deploy
 clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
-    nodePortNode: mzworker0  # Any node on cluster for nodeport access
+    nodeport_node: mzworker0  # Any node on cluster for nodeport access
+    any_node_ip: '10.0.0.10'
     ingress:
       namespace: default
       nodeports:
@@ -67,7 +68,8 @@ clusters:
       grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
-    nodePortNode: dmzworker0  # Any node on cluster for nodeport access
+    nodeport_node: dmzworker0  # Any node on cluster for nodeport access
+    any_node_ip: '10.0.0.6'
     ingress:
       namespace: default
       nodeports:
