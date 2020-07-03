@@ -140,7 +140,7 @@ The links to various dashboards are available at
 ```
 https://<sandbox domain name>/index.html
 ```
-Tokens to login are available at `/tmp/mosip` of the console.
+Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
 ## Useful tips
 * ```
