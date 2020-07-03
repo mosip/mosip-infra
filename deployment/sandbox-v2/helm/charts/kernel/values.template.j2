@@ -17,9 +17,8 @@ domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodePortNode }} 
 services:
   auth:
-    serviceName: kernel-auth-service 
-    dockerImage: mosipdev/kernel-auth-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.auth.keys()[0] }} 
+    dockerImage: {{ versions.services.auth.values()[0] }}
     containerPort: 8091
     servicePort: 80
     ingressPath: /v1/authmanager

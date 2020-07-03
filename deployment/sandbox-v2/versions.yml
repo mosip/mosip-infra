@@ -1,0 +1,5 @@
+versions:
+  services:
+    auth:
+      'kernel-auth-service':  'mosipdev/kernel-auth-service:1.0.9'
+
