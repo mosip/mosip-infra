@@ -142,8 +142,7 @@ https://<sandbox domain name>/index.html
 ```
 Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
-## Useful tips
-* ```
+## Useful tools
 * If you use `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf
