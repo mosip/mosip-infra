@@ -65,7 +65,7 @@ $ ./key.sh hosts.ini
 ### Site settings
 In `group_vars/all.yml`, set the following: 
 * Change `sandbox_domain_name`  to domain name of the console machine.
-* Set captcha keys in `site.captcha` (for PreReg). Get _reCAPTCHA v2_ keys for your domain from Google Recaptcha Admin.
+* Set captcha keys in `site.captcha` (for PreReg). Get _reCAPTCHA v2 "I'm not a robot"_ keys for your domain from Google Recaptcha Admin.
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
