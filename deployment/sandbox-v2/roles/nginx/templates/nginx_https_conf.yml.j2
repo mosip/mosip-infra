@@ -259,6 +259,10 @@ stream {
         listen {{postgres.nodeport}};  # For postgres. Connecting to nodeport
         proxy_pass {{postgres.server}}:{{postgres.nodeport}};
     }
+
+    server {
+        listen {{activemq.nodeport}};  # For activemq. Connecting to nodeport
+        proxy_pass {{clusters.mz.nodePortNode}}:{{activemq.nodeport}};
 }
 
 
