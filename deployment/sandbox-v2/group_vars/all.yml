@@ -109,7 +109,7 @@ postgres:
   size: 10Gi
   service_name: postgres # svc on Kubernetes
   service_port: 80
-  server: '{{clusters.mz.nodePortNode}}'
+  server: '{{clusters.mz.nodeport_node}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres

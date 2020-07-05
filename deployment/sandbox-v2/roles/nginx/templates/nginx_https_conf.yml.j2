@@ -216,11 +216,11 @@ http {
         }
 
         location /mz-dashboard/ { # note: https needed here
-           proxy_pass https://{{clusters.mz.nodePortNode}}:{{clusters.mz.dashboard.nodeport}}/;
+           proxy_pass https://{{clusters.mz.nodeport_node}}:{{clusters.mz.dashboard.nodeport}}/;
         }
 
         location /dmz-dashboard/ { # note: https needed here
-           proxy_pass https://{{clusters.dmz.nodePortNode}}:{{clusters.dmz.dashboard.nodeport}}/;
+           proxy_pass https://{{clusters.dmz.nodeport_node}}:{{clusters.dmz.dashboard.nodeport}}/;
         }
 
         location /{{clusters.mz.monitoring.grafana_ingress_path}}/ {
@@ -262,7 +262,7 @@ stream {
 
     server {
         listen {{activemq.nodeport}};  # For activemq. Connecting to nodeport
-        proxy_pass {{clusters.mz.nodePortNode}}:{{activemq.nodeport}};
+        proxy_pass {{clusters.mz.nodeport_node}}:{{activemq.nodeport}};
     }
 }
 
