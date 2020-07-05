@@ -8,15 +8,7 @@ metadata:
      nginx.com/health-checks: "true"
 spec:
   rules:
-  - host: {{ .Values.domain }}
-    http:
-      paths:
-      - path: /config 
-        backend:
-          serviceName: {{ .Values.name }} 
-          servicePort: 80 
-  - host: {{ .Values.internalDomain }}
-    http:
+  - http:
       paths:
       - path: /config 
         backend:

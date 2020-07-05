@@ -14,7 +14,7 @@ sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
-    get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
+    get_certificate: false  # get a fresh certificate for the domain using Letsencrypt.
     email: info@mosip.io
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
@@ -52,6 +52,7 @@ clusters:
       url: /mz-dashboard
       token_file: '{{tmp_dir}}/dashboard_mz.token'
       token_expiry: 86400 # Seconds 
+      nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -78,6 +79,7 @@ clusters:
       url: /dmz-dashboard
       token_file: '{{tmp_dir}}/dashboard_dmz.token'
       token_expiry: 86400 # Seconds 
+      nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -105,7 +107,7 @@ postgres:
   size: 10Gi
   service_name: postgres # svc on Kubernetes
   service_port: 80
-  server: mzworker0 # Nodeport
+  server: '{{clusters.mz.nodePortNode}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
