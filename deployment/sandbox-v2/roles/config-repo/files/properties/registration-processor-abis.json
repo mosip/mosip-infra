@@ -3,7 +3,7 @@
         "name": "ABIS1",
         "host": "",
         "port": "",
-        "brokerUrl": "tcp://mzworker0:30616",
+        "brokerUrl": "tcp://{{ clusters.mz.nodePortNode }}:{{ activemq.nodeport }}"
         "inboundQueueName": "mosip-to-abis1",
         "outboundQueueName": "abis1-to-mosip",
         "pingInboundQueueName": "",

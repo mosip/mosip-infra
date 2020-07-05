@@ -3,13 +3,13 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: {{activemq_name}}
+  name: {{activemq.name}}
   namespace: default
 spec:
   replicas: 1 
   selector:
     matchLabels:
-      app: {{activemq_name}}
+      app: {{activemq.name}}
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -19,34 +19,34 @@ spec:
   template:
     metadata:
       labels:
-        app: {{activemq_name}}
+        app: {{activemq.name}}
     spec:
       containers:
-      - name: {{activemq_name}}
-        image: {{activemq_image}}:{{activemq_version}} 
+      - name: {{activemq.name}}
+        image: webcenter/activemq:5.14.3
         env:
         - name: ACTIVEMQ_CONFIG_MINMEMORY
           value: "512"
         - name: ACTIVEMQ_CONFIG_MAXMEMORY
           value: "2048"
         ports:
-        - containerPort: {{activemq_container_port}} 
+        - containerPort: {{activemq.container_port}} 
         readinessProbe:
           tcpSocket:
-            port: {{activemq_container_port}}  # All defaults used
+            port: {{activemq.container_port}}  # All defaults used
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{activemq_name}}
+  name: {{activemq.name}}
   namespace: default
 
 spec:
   selector:
-    app: {{activemq_name}}
+    app: {{activemq.name}}
   type: NodePort
   ports:
     - port: 80 
-      targetPort: {{activemq_container_port}} 
-      nodePort: {{activemq_nodeport}} 
+      targetPort: {{activemq.container_port}} 
+      nodePort: {{activemq.nodeport}}  # Defined in group_vars/all.yml
