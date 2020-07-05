@@ -74,7 +74,7 @@ http {
         ssl_ciphers HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers on;
 
-        proxy_set_header Host $host;
+        #proxy_set_header Host $host;  # Commented out as ingress has issues if original domain name passes through
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
@@ -215,12 +215,12 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/pmpartners/;
         }
 
-        location /mz-dashboard/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/{{clusters.mz.dashboard.url}}/;
+        location /mz-dashboard/ { # note: https needed here
+           proxy_pass https://{{clusters.mz.nodeport_node}}:{{clusters.mz.dashboard.nodeport}}/;
         }
 
-        location /dmz-dashboard/ {
-           proxy_pass {{clusters.dmz.ingress.base_url}}/{{clusters.dmz.dashboard.url}}/;
+        location /dmz-dashboard/ { # note: https needed here
+           proxy_pass https://{{clusters.dmz.nodeport_node}}:{{clusters.dmz.dashboard.nodeport}}/;
         }
 
         location /{{clusters.mz.monitoring.grafana_ingress_path}}/ {
@@ -258,6 +258,11 @@ stream {
     server {
         listen {{postgres.nodeport}};  # For postgres. Connecting to nodeport
         proxy_pass {{postgres.server}}:{{postgres.nodeport}};
+    }
+
+    server {
+        listen {{activemq.nodeport}};  # For activemq. Connecting to nodeport
+        proxy_pass {{clusters.mz.nodeport_node}}:{{activemq.nodeport}};
     }
 }
 

@@ -3,7 +3,7 @@ component: dmzregproc
 part-of: mosip
 activeProfileEnv: dmz 
 springConfigLabel: master
-configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
+configServerUrl: http://{{ clusters.mz.any_node_ip}}:{{ clusters.mz.ingress.nodeports.http}}/config  # Config server is on MZ
 storageClass:  manual
 
 probe:
@@ -16,7 +16,7 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.dmz.nodePortNode }} 
+internalDomain: {{ clusters.dmz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 
 landing:   # Landing folder where packets land

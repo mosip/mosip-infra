@@ -1,28 +1,18 @@
 # Tasks here create and populate git repository on a node machine.
 #
-- name: Create git config repo dir 
+  
+- name: Create git config repo dir
   file:
     path: '{{config_repo.path}}' # Defined in role config-server
-    state: directory 
-  
-- name: Copy properties files to node 
-  copy:
-     src: '../files/properties/'  
-     dest: '{{config_repo.path}}' 
-     force: no
+    state: directory
 
-#TODO: Repetition here.  Improve the code.
-- import_tasks: templates.yml  # Deployment specific properites are overwritten here
-  vars:
-    prop_file: pre-registration-mz.properties
-
-- import_tasks: templates.yml  # Deployment specific properites are overwritten here
-  vars:
-    prop_file: kernel-mz.properties
-
-- import_tasks: templates.yml  # Deployment specific properites are overwritten here
-  vars:
-    prop_file: admin-mz.properties
+- name: Copy properties to config repo dir
+  template:
+    src: '{{ item }}'
+    dest: '{{ config_repo.path }}' 
+    force: no # don't overwrite. Copy only if file not present
+  with_fileglob:
+    - '../files/properties/*'
 
 - name: Install git 
   yum:
