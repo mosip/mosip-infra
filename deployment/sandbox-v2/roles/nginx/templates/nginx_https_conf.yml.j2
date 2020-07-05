@@ -263,6 +263,7 @@ stream {
     server {
         listen {{activemq.nodeport}};  # For activemq. Connecting to nodeport
         proxy_pass {{clusters.mz.nodePortNode}}:{{activemq.nodeport}};
+    }
 }
 
 
