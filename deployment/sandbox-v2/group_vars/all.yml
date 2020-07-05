@@ -207,3 +207,7 @@ config_repo:
   search_folder: ''  # If all properites at at the root repo level, then this will be empty
   storage_size: 10Mi
 
+activemq:
+  name: activemq
+  nodeport: 30616  # Arbitrary
+  container_port: 61616 
