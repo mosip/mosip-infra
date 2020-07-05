@@ -8,8 +8,7 @@ metadata:
      nginx.com/health-checks: "true"
 spec:
   rules:
-  - host: {{ .Values.domainName }}
-    http:
+  - http:
       paths:
       {{- range $index, $service := .Values.services }}
       - path: {{ $service.ingressPath }} 
@@ -17,13 +16,3 @@ spec:
           serviceName: {{ $service.serviceName }}
           servicePort: {{ $service.servicePort }} 
       {{- end }}
-  - host: {{ .Values.internalDomain }}
-    http:
-      paths:
-      {{- range $index, $service := .Values.services }}
-      - path: {{ $service.ingressPath }} 
-        backend:
-          serviceName: {{ $service.serviceName }}
-          servicePort: {{ $service.servicePort }} 
-      {{- end }}
-
