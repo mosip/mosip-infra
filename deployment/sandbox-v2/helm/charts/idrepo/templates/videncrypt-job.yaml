@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never  # This is one time job
       containers:
       - name: {{ .Values.generators.videncrypt.name }} 
-        image: {{ .Values.generators.videncrypt.dockerImage }}:{{ .Values.generators.videncrypt.dockerTag }} 
+        image: {{ .Values.generators.videncrypt.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
