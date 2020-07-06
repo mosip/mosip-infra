@@ -16,36 +16,30 @@ internalDomain: {{ clusters.mz.nodeport_node }}
 isGlowroot: {{ is_glowroot }} 
 services:
   auth:
-    serviceName: ida-auth-service
-    dockerImage: mosipdev/authentication-service
-    dockerTag: 1.0.9
-    containerPort: 8090
-    servicePort: 80
+    serviceName: {{ versions.services.ida.auth.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.auth.values()[0] }}
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/auth
     healthUrl: /idauthentication/v1/auth/actuator/health
   internal: 
-    serviceName: ida-internal-service
-    dockerImage: mosipdev/authentication-internal-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.ida.internal.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.internal.values()[0] }}
     containerPort: 8093
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/internal
     healthUrl: /idauthentication/v1/internal/actuator/health
   kyc: 
-    serviceName: ida-kyc-service
-    dockerImage: mosipdev/authentication-kyc-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.ida.kyc.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.kyc.values()[0] }}
     containerPort: 8091
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/kyc
     healthUrl: /idauthentication/v1/kyc/actuator/health
   otp: 
-    serviceName: ida-otp-service
-    dockerImage: mosipdev/authentication-otp-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.ida.otp.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.otp.values()[0] }}
     containerPort: 8092
     servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
@@ -54,16 +48,13 @@ services:
 
 generators:
   key:  
-    name:  ida-key-generator 
-    dockerImage: mosipdev/authentication-keys-generator
-    dockerTag: 1.0.9
+    name: {{ versions.services.ida.key.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.key.values()[0] }}
     hsmUrl: tcp://softhsm-ida:80   
   hashsalt:  
-    name:  ida-hash-salt-generator 
-    dockerImage: mosipdev/kernel-salt-generator
-    dockerTag: 1.0.9
+    name: {{ versions.services.ida.hashsalt.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.hashsalt.values()[0] }}
   encryptsalt:  
-    name:  ida-encrypt-salt-generator 
-    dockerImage: mosipdev/kernel-salt-generator
-    dockerTag: 1.0.9
+    name: {{ versions.services.ida.encryptsalt.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.encryptsalt.values()[0] }}
    

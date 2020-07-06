@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never  # This is one time job
       containers:
       - name: {{ .Values.generators.key.name }} 
-        image: {{ .Values.generators.key.dockerImage }}:{{ .Values.generators.key.dockerTag }} 
+        image: {{ .Values.generators.key.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

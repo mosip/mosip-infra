@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.kyc.serviceName }} 
-        image: {{ .Values.services.kyc.dockerImage }}:{{ .Values.services.kyc.dockerTag }} 
+        image: {{ .Values.services.kyc.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
