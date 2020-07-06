@@ -74,8 +74,18 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
+* Set ip address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
+```
+clusters:
+  mz:
+    any_node_ip: '<mzworker0 ip>'
+
+clusters:
+  dmz:
+    any_node_ip: '<dmzworker0 ip>'
+```
 ### OTP settings
-To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
+To receive (one-time password) OTP over email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
 * Email 
   ```
   smtp:
