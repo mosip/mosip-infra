@@ -14,7 +14,7 @@ sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
-    get_certificate: false  # get a fresh certificate for the domain using Letsencrypt.
+    get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
     email: info@mosip.io
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
@@ -42,7 +42,7 @@ clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
     nodeport_node: mzworker0  # Any node on cluster for nodeport access
-    any_node_ip: '10.0.0.10'
+    any_node_ip: '10.0.0.10' # ip address of above node
     ingress:
       namespace: default
       nodeports:
@@ -70,7 +70,7 @@ clusters:
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: dmzworker0  # Any node on cluster for nodeport access
-    any_node_ip: '10.0.0.6'
+    any_node_ip: '10.0.0.6' # ip adddress of above node
     ingress:
       namespace: default
       nodeports:
