@@ -1,6 +1,7 @@
 # Manifest file containing version of all MOSIP core components.
 versions:
   services:
+
     kernel:
       auth:
         'kernel-auth-service':  'mosipdev/kernel-auth-service:1.0.9'
@@ -22,4 +23,29 @@ versions:
         'kernel-otpmanager-service': 'mosipdev/kernel-otpmanager-service:1.0.9'
       rid:
         'kernel-ridgenerator-service': 'mosipdev/kernel-ridgenerator-service:1.0.9'
+
+    prereg:
+      login:
+        'prereg-login-service': 'mosipdev/pre-registration-login-service:1.0.10'
+      batch:
+        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:1.0.10'
+      document:
+        'prereg-document-service':  'mosipdev/pre-registration-document-service:1.0.10'
+      transliteration:
+        'prereg-transliteration-service': 'mosipdev/pre-registration-transliteration-service:1.0.10'
+      booking:
+        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:1.0.10'
+      qrcode:
+        'prereg-qrcode-service': 'mosipdev/pre-registration-generateqrcode-service:1.0.10'
+      datasync:
+        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:1.0.10'
+      demographic:
+        'prereg-demographic-service':  'mosipdev/pre-registration-demographic-service:1.0.10'
+      notification:
+        'prereg-notification-service': 'mosipdev/pre-registration-notification-service:1.0.10'
+      captcha:
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.0.10'
+      ui:
+        'prereg-ui': 'mosipdev/pre-registration-ui:1.0.10'
+      
 
