@@ -1,0 +1,151 @@
+# Manifest file containing version of all MOSIP core components.
+versions:
+  services:
+
+    kernel:
+      auth:
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.0.9'
+      masterdata:
+        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.0.9'
+      idgen:
+        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.0.9'
+      prid:
+        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.0.9'
+      sync:
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.0.9'
+      audit :
+        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.0.9'
+      key:
+        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.0.9'
+      notifier:
+        'kernel-notification-service': 'mosipid/kernel-notification-service:1.0.9'
+      otp:
+        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.0.9'
+      rid:
+        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.0.9'
+
+    prereg:
+      login:
+        'prereg-login-service': 'mosipid/pre-registration-login-service:1.0.10'
+      batch:
+        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.0.10'
+      document:
+        'prereg-document-service':  'mosipid/pre-registration-document-service:1.0.10'
+      transliteration:
+        'prereg-transliteration-service': 'mosipid/pre-registration-transliteration-service:1.0.10'
+      booking:
+        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.0.10'
+      qrcode:
+        'prereg-qrcode-service': 'mosipid/pre-registration-generateqrcode-service:1.0.10'
+      datasync:
+        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.0.10'
+      demographic:
+        'prereg-demographic-service':  'mosipid/pre-registration-demographic-service:1.0.10'
+      notification:
+        'prereg-notification-service': 'mosipid/pre-registration-notification-service:1.0.10'
+      captcha:
+        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.0.10'
+      ui:
+        'prereg-ui': 'mosipid/pre-registration-ui:1.0.10'
+      
+
+    regproc:
+      camel:
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.0.10'
+      notification: 
+        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.0.10'
+      uploader:
+        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.0.10'
+      quality:
+        'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.0.10'
+      validator:
+        'regproc-packet-validator-stage': 'mosipid/registration-processor-packet-validator-stage:1.0.10'
+      osi:
+        'regproc-osi-validator-stage': 'mosipid/registration-processor-osi-validator-stage:1.0.10'
+      demo:
+        'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.0.10'
+      bio:
+        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.0.10'
+      biosvc:
+        'regproc-bio-dedupe-service': 'mosipid/registration-processor-bio-dedupe-service:1.0.10'
+      bioauth:
+        'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.0.10'
+      abishandler:
+        'regproc-abis-handler-stage': 'mosipid/registration-processor-abis-handler-stage:1.0.10'
+      abismid:
+        'regproc-abis-middleware-stage': 'mosipid/registration-processor-abis-middleware-stage:1.0.10'
+      proxyabis:
+        'regproc-proxy-abis': 'mosipid/registration-processor-abis:1.0.10'
+      manual:
+        'regproc-manual-verification-stage': 'mosipid/registration-processor-manual-verification-stage:1.0.10'
+      external:
+        'regproc-external-stage': 'mosipid/registration-processor-external-stage:1.0.10'
+      eis: 
+        'regproc-external-integration-service': 'mosipid/registration-processor-external-integration-service:1.0.10'
+      uin:
+        'regproc-uin-generator-stage': 'mosipid/registration-processor-uin-generator-stage:1.0.10'
+      msg:
+        'regproc-message-sender-stage': 'mosipid/registration-processor-message-sender-stage:1.0.10'
+      print:
+        'regproc-printing-stage': 'mosipid/registration-processor-printing-stage:1.0.10'
+      printsvc:
+        'regproc-print-service': 'mosipid/registration-processor-print-service:1.0.10'
+      trans:
+        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.0.10'
+      request: 
+        'regproc-request-handler-service': 'mosipid/registration-processor-request-handler-service:1.0.10'
+
+    dmzregproc:  
+      receiver:
+        'regproc-packet-receiver-stage': 'mosipid/registration-processor-packet-receiver-stage:1.0.10'
+      camel:
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.0.10'
+      status:
+        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.0.10'
+      pktserver:
+        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
+        
+    ida:
+      auth:
+        'ida-auth-service': 'mosipid/authentication-service:1.0.9'
+      internal: 
+         'ida-internal-service': 'mosipid/authentication-internal-service:1.0.9'
+      kyc: 
+         'ida-kyc-service': 'mosipid/authentication-kyc-service:1.0.9'
+      otp: 
+         'ida-otp-service': 'mosipid/authentication-otp-service:1.0.9'
+      key:  
+        'ida-key-generator': 'mosipid/authentication-keys-generator:1.0.9'
+      hashsalt:  
+        'ida-hash-salt-generator': 'mosipid/kernel-salt-generator:1.0.9'
+      encryptsalt:  
+         'ida-encrypt-salt-generator': 'mosipid/kernel-salt-generator:1.0.9'
+
+    idrepo:
+      identity:
+        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.0.9'
+      vid: 
+        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.0.9'
+      uinhash:  
+        'idrepo-uin-hash-generator': 'mosipid/kernel-salt-generator:1.0.9'
+      uinencrypt:
+        'idrepo-uin-encrypt-generator' :  'mosipid/kernel-salt-generator:1.0.9'
+      vidhash:
+        'idrepo-vid-hash-generator': 'mosipid/kernel-salt-generator:1.0.9'
+      videncrypt:
+        'idrepo-vid-encrypt-generator': 'mosipid/kernel-salt-generator:1.0.9'
+
+    pms:
+      misp: 
+        'pms-misp-service': 'mosipid/pmp-misp-service:1.0.0'
+      pm:
+        'pms-partner-management-service': 'mosipid/pmp-partner-management-service:1.0.0'
+      partner:
+        'pms-partner-service': 'mosipid/pmp-partner-service:1.0.0'
+      policy:
+        'pms-policy-management-service': 'mosipid/pmp-policy-management-service:1.0.0'
+
+
+    resident: 
+      resident:  
+        'resident-service': 'mosipid/resident-service:1.0.10'

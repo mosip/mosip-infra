@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: {{.Values.services.ui.serviceName}}
-        image: {{ .Values.services.ui.dockerImage  }}:{{ .Values.services.ui.dockerTag }}
+        image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 

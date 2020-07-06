@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.rid.serviceName }} 
-        image: {{ .Values.services.rid.dockerImage }}:{{ .Values.services.rid.dockerTag }} 
+        image: {{ .Values.services.rid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
