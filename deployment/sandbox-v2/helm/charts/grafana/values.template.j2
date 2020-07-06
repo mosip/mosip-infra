@@ -10,6 +10,6 @@ grafana.ini:
  
 ingress:
   enabled: true
-  hosts: 
-    - {{sandbox_domain_name}} 
+  # Explicitly disabling any hosts and default values.yml seems to have default host specified.
+  hosts: []
   path: "/{{mon_prop.grafana_ingress_path}}"

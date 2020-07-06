@@ -14,7 +14,7 @@ probe:
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodePortNode }} 
+internalDomain: {{ clusters.mz.nodeport_node }} 
 services:
   auth:
     serviceName: kernel-auth-service 
