@@ -12,16 +12,7 @@ metadata:
       
 spec:
   rules:
-  - host: {{ .Values.domainName }}
-    http:
-      paths:
-      - path: /registrationprocessor/v1/dmzpacketserver(/|$)(.*)
-        backend:
-          serviceName: {{ .Values.services.pktserver.serviceName }}
-          servicePort: {{ .Values.services.pktserver.ports.servicePort }}
-
-  - host: {{ .Values.internalDomain }}
-    http:
+  - http:
       paths:
       - path: /registrationprocessor/v1/dmzpacketserver(/|$)(.*)
         backend:
