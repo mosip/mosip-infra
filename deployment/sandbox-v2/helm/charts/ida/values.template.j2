@@ -8,7 +8,7 @@ ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
 probe:
-  initialDelay: 120  # Seconds
+  initialDelay: 60  # Seconds
   period: 30 # Seconds
 imagePullPolicy: Always
 domainName: {{ sandbox_domain_name }}
