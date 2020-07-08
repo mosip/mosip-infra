@@ -3,7 +3,7 @@ component: dmzregproc
 part-of: mosip
 activeProfileEnv: dmz 
 springConfigLabel: master
-configServerUrl: http://mzworker0:30080/config  # Config server is on MZ
+configServerUrl: http://{{ clusters.mz.any_node_ip}}:{{ clusters.mz.ingress.nodeports.http}}/config  # Config server is on MZ
 storageClass:  manual
 
 probe:
@@ -16,7 +16,7 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.dmz.nodePortNode }} 
+internalDomain: {{ clusters.dmz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 
 landing:   # Landing folder where packets land
@@ -34,9 +34,8 @@ landing:   # Landing folder where packets land
 imagePullPolicy: Always 
 services:
   receiver:
-    serviceName: regproc-packet-receiver-stage
-    dockerImage: mosipdev/registration-processor-packet-receiver-stage
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.dmzregproc.receiver.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.receiver.values()[0] }}
     ports:
       eventbusPort: 5711
       hazelcastPort: 5701
@@ -45,9 +44,8 @@ services:
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
   camel:
-    serviceName: regproc-camel-stage
-    dockerImage: mosipdev/registration-processor-common-camel-bridge
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.dmzregproc.camel.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.camel.values()[0] }}
     ports:
       eventbusPort: 5723
       hazelcastPort: 5701
@@ -56,18 +54,16 @@ services:
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
   status:
-    serviceName: regproc-registration-status-service
-    dockerImage: mosipdev/registration-processor-registration-status-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.dmzregproc.status.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.status.values()[0] }}
     ports:
       containerPort: 8083
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationstatus/
     healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
   pktserver:
-    serviceName: regproc-dmz-packet-server
-    dockerImage: mosipdev/registration-processor-dmz-packet-server
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.dmzregproc.pktserver.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.pktserver.values()[0] }}
     pv:
       name: pktserver-pv
       size: 5Gi  # Same as landing above
@@ -83,4 +79,3 @@ services:
     ingressPath: ''  # NOTE: Seperate ingress for pktserver due to different rewrite rule.
     healthUrl: ''
       
-

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.idgen.serviceName }} 
-        image: {{ .Values.services.idgen.dockerImage }}:{{ .Values.services.idgen.dockerTag }} 
+        image: {{ .Values.services.idgen.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

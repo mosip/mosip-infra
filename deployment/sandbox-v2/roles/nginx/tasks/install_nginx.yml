@@ -42,3 +42,12 @@
     state: present
   become: yes
 
+# For external connection to activemq via nginx
+- name: 'allow nginx to access activemq port {{activemq.nodeport}}'
+  seport:
+    ports: '{{activemq.nodeport}}'
+    proto: tcp
+    setype: http_port_t
+    state: present
+  become: yes
+

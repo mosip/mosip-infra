@@ -20,7 +20,7 @@
                 <setBody>
                     <simple>${bodyAs(String)}</simple>
                 </setBody>
-                <to uri="http://mzworker0:30080/registrationprocessor/v1/securezone/notification" />`
+                <to uri="http://{{ clusters.mz.any_node_ip }}:30080/registrationprocessor/v1/securezone/notification" />`
             </when>
             <when>
                 <simple>${bodyAs(String)} contains '"internalError":true'</simple>

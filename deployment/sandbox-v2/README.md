@@ -4,13 +4,13 @@
 
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
 
-**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data.  
+_**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._
 
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
 ## OS
-CentOS 7.7 on all machines.
+**CentOS 7.7** on all machines.
 
 ## Hardware setup 
 
@@ -65,7 +65,7 @@ $ ./key.sh hosts.ini
 ### Site settings
 In `group_vars/all.yml`, set the following: 
 * Change `sandbox_domain_name`  to domain name of the console machine.
-* Set captcha keys in `site.captcha` (for PreReg). Get _reCAPTCHA v2_ keys for your domain from Google Recaptcha Admin.
+* Set captcha keys in `site.captcha` (for PreReg). Get _reCAPTCHA v2 "I'm not a robot"_ keys for your domain from Google Recaptcha Admin.
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
@@ -74,8 +74,18 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
+* Set ip address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
+```
+clusters:
+  mz:
+    any_node_ip: '<mzworker0 ip>'
+
+clusters:
+  dmz:
+    any_node_ip: '<dmzworker0 ip>'
+```
 ### OTP settings
-To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
+To receive (one-time password) OTP over email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
 * Email 
   ```
   smtp:
@@ -104,6 +114,7 @@ To receive OTP on email and SMS set the following in `group_vars/all.yml`.  If y
   ```
 Note that the default OTP is set to `111111`.
 
+
 * Before the installation of MOSIP modules make sure your /etc/hosts file in each node contains the dns records of the all nodes where it's accessible by the node-name as below.
 ```
 192.168.10.1 console
@@ -121,9 +132,36 @@ Note that the default OTP is set to `111111`.
 192.168.10.13 dmzworker0
  ```
 
+=======
+### Network interface
+If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
+```
+network_interface: "eth0"
+```
+
+### Shortcut commands
+Add the following shortcuts in `/home/mosipuser/.bashrc`:
+```
+alias an='ansible-playbook -i hosts.ini'
+alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
+alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
+alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
+alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
+alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+```
+After the adding the above:
+```
+  $ source  ~/.bashrc
+``` 
+### Install MOSIP
+
 * Intall all MOSIP modules:
 ```
 $ ansible-playbook -i hosts.ini site.yml
+```
+or with shortcut command
+```
+$ an site.yml
 ```
 
 ## Dashboards
@@ -132,22 +170,9 @@ The links to various dashboards are available at
 ```
 https://<sandbox domain name>/index.html
 ```
-Tokens to login are available at `/tmp/mosip` of the console.
+Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
-## Useful tips
-* You may add the following short-cuts in `/home/mosipuser/.bashrc`:
-  ```
-  alias an='ansible-playbook -i hosts.ini'
-  alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
-  alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
-  alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
-  alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
-  alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
-  ```
-After the adding the above:
-  ```
-  $ source  ~/.bashrc
-  ```
+## Useful tools
 * If you use `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf

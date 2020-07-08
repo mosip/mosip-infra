@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.otp.serviceName }} 
-        image: {{ .Values.services.otp.dockerImage }}:{{ .Values.services.otp.dockerTag }} 
+        image: {{ .Values.services.otp.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

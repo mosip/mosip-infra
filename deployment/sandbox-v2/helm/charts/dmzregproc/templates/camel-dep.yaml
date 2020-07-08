@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.camel.serviceName }} 
-        image: {{ .Values.services.camel.dockerImage }}:{{ .Values.services.camel.dockerTag }} 
+        image: {{ .Values.services.camel.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

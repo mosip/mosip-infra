@@ -14,85 +14,75 @@ probe:
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodePortNode }} 
+internalDomain: {{ clusters.mz.nodeport_node }} 
 services:
   auth:
-    serviceName: kernel-auth-service 
-    dockerImage: mosipdev/kernel-auth-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.auth.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.auth.values()[0] }}
     containerPort: 8091
     servicePort: 80
     ingressPath: /v1/authmanager
     healthUrl: /v1/authmanager/actuator/health
   masterdata:
-    serviceName: kernel-masterdata-service 
-    dockerImage: mosipdev/kernel-masterdata-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.masterdata.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.masterdata.values()[0] }}
     containerPort: 8086
     servicePort: 80
     ingressPath: /v1/masterdata
     healthUrl: /v1/masterdata/actuator/health
   idgen:
-    serviceName: kernel-idgenerator-service 
-    dockerImage: mosipdev/kernel-idgenerator-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.idgen.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.idgen.values()[0] }}
     containerPort: 8080
     servicePort: 80
     ingressPath: /v1/idgenerator 
     healthUrl: /v1/idgenerator/actuator/health
   prid:
-    serviceName: kernel-pridgenerator-service 
-    dockerImage: mosipdev/kernel-pridgenerator-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.prid.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.prid.values()[0] }}
     containerPort: 8100
     servicePort: 80
     ingressPath: /v1/pridgenerator
     healthUrl: /v1/pridgenerator/actuator/health
   sync:
-    serviceName: kernel-syncdata-service 
-    dockerImage: mosipdev/kernel-syncdata-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.sync.values()[0] }}
     containerPort: 8089
     servicePort: 80
     ingressPath: /v1/syncdata 
     healthUrl: /v1/syncdata/actuator/health
   audit:
-    serviceName: kernel-auditmanager-service 
-    dockerImage: mosipdev/kernel-auditmanager-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.audit.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.audit.values()[0] }}
     containerPort: 8081
     servicePort: 80
     ingressPath: /v1/auditmanager
     healthUrl: /v1/auditmanager/actuator/health
   key:
-    serviceName: kernel-keymanager-service 
-    dockerImage: mosipdev/kernel-keymanager-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.key.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.key.values()[0] }}
     containerPort: 8088
     servicePort: 80
     hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
   notifier:
-    serviceName: kernel-notification-service 
-    dockerImage: mosipdev/kernel-notification-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.notifier.values()[0] }}
     containerPort: 8083
     servicePort: 80
     ingressPath: /v1/notifier
     healthUrl: /v1/notifier/actuator/health
   otp:
-    serviceName: kernel-otpmanager-service 
-    dockerImage: mosipdev/kernel-otpmanager-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.otp.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.otp.values()[0] }}
     containerPort: 8085
     servicePort: 80
     ingressPath: /v1/otpmanager 
     healthUrl: /v1/otpmanager/actuator/health
   rid:
-    serviceName: kernel-ridgenerator-service 
-    dockerImage: mosipdev/kernel-ridgenerator-service
-    dockerTag: 1.0.9
+    serviceName: {{ versions.services.kernel.rid.keys()[0] }} 
+    dockerImage: {{ versions.services.kernel.rid.values()[0] }}
     containerPort: 8096
     servicePort: 80
     ingressPath: /v1/ridgenerator 

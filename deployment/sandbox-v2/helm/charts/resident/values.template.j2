@@ -9,15 +9,15 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodePortNode }} 
+internalDomain: {{ clusters.mz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
 services:
   resident: 
-    serviceName: resident-service
-    dockerImage: mosipdev/resident-service
+    serviceName: {{ versions.services.resident.resident.keys()[0] }} 
+    dockerImage: {{ versions.services.resident.resident.values()[0] }}
     dockerTag: 1.0.10
     containerPort: 8099
     servicePort: 80

@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.datasync.serviceName }} 
-        image: {{ .Values.services.datasync.dockerImage }}:{{ .Values.services.datasync.dockerTag }} 
+        image: {{ .Values.services.datasync.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

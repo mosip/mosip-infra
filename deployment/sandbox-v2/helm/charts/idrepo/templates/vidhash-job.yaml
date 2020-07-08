@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never  # This is one time job
       containers:
       - name: {{ .Values.generators.vidhash.name }} 
-        image: {{ .Values.generators.vidhash.dockerImage }}:{{ .Values.generators.vidhash.dockerTag }} 
+        image: {{ .Values.generators.vidhash.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

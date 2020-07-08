@@ -7,6 +7,8 @@
 #   helm_values: j2 template or yaml helm file
 #   helm_namespace: default if not specified
 
+- include_vars: '{{install_root}}/versions.yml' # Needed for resolving various versions.
+
 - name: Convert values template to values file
   template:
     src: '{{helm_values}}'

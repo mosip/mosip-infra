@@ -41,7 +41,8 @@ docker_wait_time: 600   # Wait for docker to pull and deploy
 clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
-    nodePortNode: mzworker0  # Any node on cluster for nodeport access
+    nodeport_node: mzworker0  # Any node on cluster for nodeport access
+    any_node_ip: '10.0.0.10' # ip address of above node
     ingress:
       namespace: default
       nodeports:
@@ -52,6 +53,7 @@ clusters:
       url: /mz-dashboard
       token_file: '{{tmp_dir}}/dashboard_mz.token'
       token_expiry: 86400 # Seconds 
+      nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -67,7 +69,8 @@ clusters:
       grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
-    nodePortNode: dmzworker0  # Any node on cluster for nodeport access
+    nodeport_node: dmzworker0  # Any node on cluster for nodeport access
+    any_node_ip: '10.0.0.6' # ip adddress of above node
     ingress:
       namespace: default
       nodeports:
@@ -78,6 +81,7 @@ clusters:
       url: /dmz-dashboard
       token_file: '{{tmp_dir}}/dashboard_dmz.token'
       token_expiry: 86400 # Seconds 
+      nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
       enabled: true
       namespace: monitoring
@@ -105,7 +109,7 @@ postgres:
   size: 10Gi
   service_name: postgres # svc on Kubernetes
   service_port: 80
-  server: mzworker0 # Nodeport
+  server: '{{clusters.mz.nodeport_node}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
   password: postgres
@@ -205,3 +209,7 @@ config_repo:
   search_folder: ''  # If all properites at at the root repo level, then this will be empty
   storage_size: 10Mi
 
+activemq:
+  name: activemq
+  nodeport: 30616  # Arbitrary
+  container_port: 61616 
