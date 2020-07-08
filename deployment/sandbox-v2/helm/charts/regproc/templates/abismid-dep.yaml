@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.services.abismid.serviceName }} 
-        image: {{ .Values.services.abismid.dockerImage }}:{{ .Values.services.abismid.dockerTag }} 
+        image: {{ .Values.services.abismid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

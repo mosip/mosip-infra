@@ -5,7 +5,7 @@ activeProfileEnv: mz
 springConfigLabel: master
 configServerUrl: http://config-server/config
 domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodePortNode }} 
+internalDomain: {{ clusters.mz.nodeport_node }} 
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
@@ -16,92 +16,81 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }}
 services:
   login:
-    serviceName: prereg-login-service 
-    dockerImage: mosipdev/pre-registration-login-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.login.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.login.values()[0] }}
     containerPort: 9090
     servicePort: 80
     ingressPath: /preregistration/v1/login
     healthUrl: /preregistration/v1/login/actuator/health
   batch:
-    serviceName: prereg-batchjob-service 
-    dockerImage: mosipdev/pre-registration-batchjob
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.batch.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.batch.values()[0] }}
     containerPort: 9097
     servicePort: 80
     ingressPath: ""
     #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?  
   document:
-    serviceName: prereg-document-service 
-    dockerImage: mosipdev/pre-registration-document-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.document.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.document.values()[0] }}
     containerPort: 9093
     servicePort: 80
     ingressPath: /preregistration/v1/documents
     healthUrl: /preregistration/v1/actuator/health # TODO: How come this url does not have 'documents' in it
   transliteration:
-    serviceName: prereg-transliteration-service 
-    dockerImage: mosipdev/pre-registration-transliteration-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.transliteration.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.transliteration.values()[0] }}
     containerPort: 9098
     servicePort: 80
     ingressPath: /preregistration/v1/transliteration
     healthUrl: /preregistration/v1/transliteration/actuator/health
   booking:
-    serviceName: prereg-booking-service 
-    dockerImage: mosipdev/pre-registration-booking-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.booking.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.booking.values()[0] }}
     containerPort: 9095
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
   qrcode:
-    serviceName: prereg-qrcode-service 
-    dockerImage: mosipdev/pre-registration-generateqrcode-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.qrcode.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.qrcode.values()[0] }}
     containerPort: 9091
     servicePort: 80
     ingressPath: /preregistration/v1/qrCode
     healthUrl: /preregistration/v1/qrCode/actuator/health
   datasync:
-    serviceName: prereg-datasync-service 
-    dockerImage: mosipdev/pre-registration-datasync-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.datasync.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.datasync.values()[0] }}
     containerPort: 9094
     servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
   demographic:
-    serviceName: prereg-demographic-service 
-    dockerImage: mosipdev/pre-registration-demographic-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.demographic.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.demographic.values()[0] }}
     containerPort: 9092
     servicePort: 80
     ingressPath: /preregistration/v1/applications
     healthUrl: /preregistration/v1/actuator/health
   notification:
-    serviceName: prereg-notification-service 
-    dockerImage: mosipdev/pre-registration-notification-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.notification.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.notification.values()[0] }}
     containerPort: 9099
     servicePort: 80
     ingressPath: /preregistration/v1/notification
     healthUrl: /preregistration/v1/notification/actuator/health
   captcha:
-    serviceName: prereg-captcha-service 
-    dockerImage: mosipdev/pre-registration-captcha-service
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.captcha.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.captcha.values()[0] }}
     containerPort: 9089
     servicePort: 80
     ingressPath: /preregistration/v1/captcha
     healthUrl: /preregistration/v1/captcha/actuator/health
   ui:
-    serviceName: prereg-ui
-    dockerImage: mosipdev/pre-registration-ui
-    dockerTag: 1.0.10
+    serviceName: {{ versions.services.prereg.ui.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.ui.values()[0] }}
     containerPort: 80
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui
-      
+    

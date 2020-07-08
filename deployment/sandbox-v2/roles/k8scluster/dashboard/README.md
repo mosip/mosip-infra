@@ -1,8 +1,7 @@
 Source: https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0/aio/deploy/recommended.yaml
 
 Following has been added to the above:
-* Custom ingress has been added to the above.
-* Skip login 
+* admin-user service account added for access to dashboard using token
+* Nodeport added to dashboard service.  See: https://mosip.atlassian.net/browse/MOSIP-8035
 
-All resources for dashboard are packed into one file, including ingress. 
-TODO: Consider moving to Helm.
+TODO: Consider using dashboard helm chart

@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never  # This is one time job
       containers:
       - name: {{ .Values.generators.encryptsalt.name }} 
-        image: {{ .Values.generators.encryptsalt.dockerImage }}:{{ .Values.generators.encryptsalt.dockerTag }} 
+        image: {{ .Values.generators.encryptsalt.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env

@@ -37,9 +37,11 @@ metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
 spec:
+  type: NodePort  # Modified here from original.
   ports:
     - port: 443
       targetPort: 8443
+      nodePort: {{ dashboard_conf.nodeport }}
   selector:
     k8s-app: kubernetes-dashboard
 
@@ -303,27 +305,6 @@ spec:
       volumes:
         - name: tmp-volume
           emptyDir: {}
-
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: dashboard-ingress
-  namespace: kubernetes-dashboard
-  annotations:
-    ingress.kubernetes.io/class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-spec:
-  rules:
-  
-  - host: {{sandbox_domain_name}}
-    http:
-      paths:
-      - path: {{ dashboard_conf.url }}(/|$)(.*)
-        backend:
-          serviceName: kubernetes-dashboard
-          servicePort: 443
 
 ---
 apiVersion: v1
