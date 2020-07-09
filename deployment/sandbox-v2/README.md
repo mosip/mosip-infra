@@ -152,6 +152,12 @@ https://<sandbox domain name>/index.html
 ```
 Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
+## Reset
+To install fresh, you may want to reset the clusters and persistence data.  Run the below script for the same.  This is **dangerous!**.  The reset script will tear down the clusters and delete all persistence data.  Provide 'yes/no' responses to the prompts:
+```
+$ an reset.yml
+```
+
 ## Useful tools
 * If you use `tmux` tool, copy the config file as below:
 ```
