@@ -159,13 +159,13 @@ For Grafana you may import chart `1860`.
 [Sanity checks](docs/sanity_checks.md) during and post deployment.
 
 ## Reset
-To install fresh, you may want to reset the clusters and persistence data.  Run the below script for the same.  This is **dangerous!**.  The reset script will tear down the clusters and delete all persistence data.  Provide 'yes/no' responses to the prompts:
+To install fresh, you may want to reset the clusters and persistence data.  Run the below script for the same.  This is **dangerous!**  The reset script will tear down the clusters and delete all persistence data.  Provide 'yes/no' responses to the prompts:
 ```
 $ an reset.yml
 ```
 
 ## Persistence
-All persistence is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
+All persistent data is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
 
 ## Modifying server config
 All services' properties files are available in local git repo located at `/srv/nfs/mosip/config_repo`.  The installer copies the files here one-time from `roles/config-repo/files/properties/` and git checks-in locally.  Any further changes to `group_vars.all` do not reflect in the configs.  To modify properties:

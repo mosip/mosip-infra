@@ -5,13 +5,15 @@
 $ kc1 get pods -A
 $ kc2 get pods -A
 ```
-Some pods that show status '0/1 Complete' are Kubernetes jobs - they will not turn 1/1.
+Some pods that show status `0/1 Complete` are Kubernetes jobs - they will not turn 1/1.
 
 * Note the following namespaces:
 
-All MOSIP modules: default
-Kubernetes dashboard:  kubernetes-dashboard
-Grafana: monitoring
+|Module|Namespace|
+|---|---|
+|MOSIP modules|default|
+|Kubernetes dashboard|kubernetes-dashboard|
+|Grafana|monitoring|
 
 To check pods in a particular namespace. Example:
 ```
@@ -29,7 +31,7 @@ $ kc2 logs -f <pod name> # Running log
 $ helm1 list # All helm installs in mzcluster
 $ helm2 list # All helm installs in dmzcluster
 ```
-* Some services has additional logs.  You may login to the pod to see these logs:
+* Some services have additional logs.  You may login to the pod to see these logs:
 ```
 $ kc1 exec -it <pod name> /bin/sh
 $ cd /home/logs
