@@ -2,7 +2,8 @@ resource "aws_instance" "mzworker0" {
   ami           = "ami-0dd861ee19fd50a16"
   instance_type = "m5a.xlarge"
   key_name = "mosip-aws"
-  security_groups = ["kubeMachines"]
+  security_groups = [aws_security_group.kube.id]
+  subnet_id = tolist(data.aws_subnet_ids.private.ids)[0]
   root_block_device  {
     volume_type = "standard"
     volume_size = 24 
@@ -24,8 +25,8 @@ resource "aws_instance" "mzworker0" {
   }
 
   provisioner "file" {
-    source = "auth.sh"
-    destination = "/tmp/auth.sh"
+    source = "kube_auth.sh"
+    destination = "/tmp/kube_auth.sh"
     connection {
       type     = "ssh"
       user     = "centos"
@@ -36,8 +37,8 @@ resource "aws_instance" "mzworker0" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/auth.sh",
-      "sudo /tmp/auth.sh"
+      "chmod +x /tmp/kube_auth.sh",
+      "sudo /tmp/kube_auth.sh"
     ]
   }
     connection {
