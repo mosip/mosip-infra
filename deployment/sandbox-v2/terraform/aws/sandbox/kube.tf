@@ -12,7 +12,7 @@ resource "aws_instance" "kube" {
   } 
   tags = {
     Name = each.value 
-    type = "kube" 
+    component = "sandbox"
   }
 
   provisioner "file" {

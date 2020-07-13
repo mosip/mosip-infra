@@ -24,6 +24,7 @@ resource "aws_subnet" "private" {
 
 data "aws_subnet_ids" "private" {
   vpc_id = aws_vpc.sandbox.id
+  depends_on = [aws_subnet.private]
 }
 
 resource "aws_internet_gateway" "gw" {

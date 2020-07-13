@@ -5,13 +5,27 @@ resource "aws_route53_zone" "sandbox" {
   } 
 
   tags = {
-    Name = "sandbox"
+    Name = var.sandbox_name 
   }
 }
 
+/* 
+data "aws_instances" "sandbox_instances" {
+  instance_tags = {
+    component = "sandbox"  
+  }
+}
+
+data "aws_instance" "sandbox_instance" {
+  for_each = toset(data.aws_instances.sandbox_instances.ids)
+  instance_id = each.value
+}
+
+*/
+
 resource "aws_route53_record" "console" {
   zone_id = aws_route53_zone.sandbox.zone_id
-  name    = var.console_name
+  name    = aws_instance.console.tags.Name
   type    = "A"
   ttl     = "30"
 
@@ -20,19 +34,8 @@ resource "aws_route53_record" "console" {
   ]
 }
 
-data "aws_instances" "kube_instances" {
-  instance_tags =  {
-    type = "kube"
-  }
-}
-
-data "aws_instance" "kube_instance" {
-  for_each = toset(data.aws_instances.kube_instances.ids)
-  instance_id = each.value
-}
-
 resource "aws_route53_record" "kube" {
-  for_each = data.aws_instance.kube_instance
+  for_each = aws_instance.kube
   zone_id = aws_route53_zone.sandbox.zone_id
   name    = each.value.tags.Name
   type    = "A"
@@ -42,3 +45,4 @@ resource "aws_route53_record" "kube" {
     each.value.private_ip
   ]
 }
+
