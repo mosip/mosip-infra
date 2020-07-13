@@ -11,3 +11,26 @@ variable "private_subnets" {
   default = ["subnet_a"]
 
 }
+
+variable "console_name" {
+  default = "console"
+}
+
+variable "kube_names" {
+   type = list(string)
+   default = [
+     "mzmaster",
+     "mzworker0",
+     "mzworker1",
+     "mzworker2",
+     "mzworker3",
+     "mzworker4",
+     "mzworker5",
+     "mzworker6",
+     "mzworker7",
+     "mzworker8",
+     "dmzmaster",
+     "dmzworker0"
+   ]
+}
+

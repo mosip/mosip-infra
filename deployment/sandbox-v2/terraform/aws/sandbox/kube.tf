@@ -1,4 +1,5 @@
-resource "aws_instance" "mzworker0" {
+resource "aws_instance" "kube" {
+  for_each = toset(var.kube_names) 
   ami           = "ami-0dd861ee19fd50a16"
   instance_type = "m5a.xlarge"
   key_name = "mosip-aws"
@@ -10,7 +11,8 @@ resource "aws_instance" "mzworker0" {
     delete_on_termination = true 
   } 
   tags = {
-    Name = "mzworker0"
+    Name = each.value 
+    type = "kube" 
   }
 
   provisioner "file" {
@@ -48,3 +50,4 @@ resource "aws_instance" "mzworker0" {
       private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
     }
 }
+

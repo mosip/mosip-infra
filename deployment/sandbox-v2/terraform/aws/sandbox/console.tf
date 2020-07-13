@@ -13,7 +13,7 @@ resource "aws_instance" "console" {
   } 
 
   tags = {
-    Name = "console"
+    Name = var.console_name 
   }
 
   provisioner "file" {

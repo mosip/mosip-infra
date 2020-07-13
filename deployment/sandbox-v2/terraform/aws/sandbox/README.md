@@ -14,5 +14,9 @@ $ ssh-keygen -r rsa
 ```
 Change the path of the keys to this directory.
 
+* Obtain an Elastic IP from AWS.
+
+* terraform apply -target aws_route53_record.kube -target aws_route53_record.console
+
 
 

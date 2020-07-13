@@ -11,7 +11,7 @@ resource "aws_route53_zone" "sandbox" {
 
 resource "aws_route53_record" "console" {
   zone_id = aws_route53_zone.sandbox.zone_id
-  name    = "console"
+  name    = var.console_name
   type    = "A"
   ttl     = "30"
 
@@ -20,13 +20,25 @@ resource "aws_route53_record" "console" {
   ]
 }
 
+data "aws_instances" "kube_instances" {
+  instance_tags =  {
+    type = "kube"
+  }
+}
+
+data "aws_instance" "kube_instance" {
+  for_each = toset(data.aws_instances.kube_instances.ids)
+  instance_id = each.value
+}
+
 resource "aws_route53_record" "kube" {
+  for_each = data.aws_instance.kube_instance
   zone_id = aws_route53_zone.sandbox.zone_id
-  name    = "mzworker0"
+  name    = each.value.tags.Name
   type    = "A"
   ttl     = "30"
 
   records = [
-    aws_instance.mzworker0.private_ip
+    each.value.private_ip
   ]
 }
