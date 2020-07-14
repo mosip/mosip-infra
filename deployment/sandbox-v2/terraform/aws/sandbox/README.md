@@ -1,3 +1,4 @@
+* Install latest version of terraform. 
 
 * Set the following environment variables:
 
@@ -12,11 +13,19 @@ export TF_LOG_PATH=tf.log
 ```
 $ ssh-keygen -r rsa
 ```
-Change the path of the keys to this directory.
+Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
 
 * Obtain an Elastic IP from AWS.
 
-* terraform apply -target aws_route53_record.kube -target aws_route53_record.console
+* Obtain a domain name for sanbox, example, `qa-sandbox-mosip.net`.
 
+* Point the domain name to the elastic IP.
+
+* Run terraform:
+```
+$ terraform plan
+$ terraform apply
+```
+* Assign elastic IP (EIP) to console using administration console.
 
 
