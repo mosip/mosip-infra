@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "sandbox" {
-  name = "sb"
+  name = var.hosted_domain_name 
   vpc {
     vpc_id = aws_vpc.sandbox.id
   } 

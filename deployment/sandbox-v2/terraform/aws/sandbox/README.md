@@ -1,7 +1,8 @@
-* Install latest version of terraform. 
+## Install MOSIP Sandbox on AWS using Terraform
 
-* Set the following environment variables:
+1. Install latest version of terraform. 
 
+1. Set the following environment variables:
 ```
 export AWS_ACCESS_KEY_ID=<>
 export AWS_SECRET_ACCESS_KEY=<>
@@ -9,23 +10,26 @@ export TF_LOG=DEBUG
 export TF_LOG_PATH=tf.log  
 ```
 
-* Generate RSA key pairs in current repo:
+1. Copy this folder will all it's contents in another folder, say, `sandbox1`
+
+1. Generate RSA key pairs in current repo:
 ```
 $ ssh-keygen -r rsa
 ```
 Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
 
-* Obtain an Elastic IP from AWS.
+1. Modify the following variables in `variables.tf` as per your setup. 
 
-* Obtain a domain name for sanbox, example, `qa-sandbox-mosip.net`.
+1. Obtain an Elastic IP (EIP) from AWS.
 
-* Point the domain name to the elastic IP.
+1. Obtain a domain name for the sandbox, example, `qa-sandbox-mosip.net`.   
 
-* Run terraform:
+1. Point the domain name to the EIP. 
+
+1. Run terraform:
 ```
 $ terraform plan
 $ terraform apply
 ```
-* Assign elastic IP (EIP) to console using administration console.
-
+1. Assign EIP to `console` using administration console.
 
