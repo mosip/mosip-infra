@@ -10,19 +10,23 @@
     dest: '/etc/nginx/nginx.conf'
   become: yes
 
-- name: Enable firewall for http
-  firewalld:
-    service: http
-    permanent: yes
-    state: enabled
-  become: yes
-
-- name: Enable firewall for https
-  firewalld:
-    service: https
-    permanent: yes
-    state: enabled
-  become: yes 
+# TODO: It's assumed that firewall is disbled, so remove this code
+# if it works well.  Note that CentOS 7.8 does not have firewalld enabled
+# by default
+#
+#- name: Enable firewall for http
+#  firewalld:
+#    service: http
+#    permanent: yes
+#    state: enabled
+#  become: yes
+#
+#- name: Enable firewall for https
+#  firewalld:
+#    service: https
+#    permanent: yes
+#    state: enabled
+#  become: yes 
 
 - name: Restart nginx
   command: 'systemctl restart nginx'
