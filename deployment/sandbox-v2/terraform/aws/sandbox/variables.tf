@@ -34,3 +34,14 @@ variable "kube_names" {
    ]
 }
 
+variable "hosted_domain_name" {
+  default = "sb"
+}
+
+variable "site_domain_name" {
+  default = "mosip.net"
+}
+
+variable "site_subdomain_name" {
+  default = "qa.mosip.net"
+}
