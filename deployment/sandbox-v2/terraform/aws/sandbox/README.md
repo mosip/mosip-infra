@@ -9,12 +9,10 @@
     export TF_LOG=DEBUG
     export TF_LOG_PATH=tf.log  
     ```
-1. Generate RSA key pairs in this folder
+1. Generate RSA key pairs in this folder with default names `id_rsa` and `id_rsa.pub`:
     ```
     $ ssh-keygen -r rsa
     ```
-Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
-
 1. Modify the variables in `variables.tf` as per your setup. 
 
 1. Obtain an Elastic IP (EIP) from AWS.
