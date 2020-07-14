@@ -9,15 +9,13 @@
     export TF_LOG=DEBUG
     export TF_LOG_PATH=tf.log  
     ```
-1. Copy this folder will all it's contents in another folder, say, `sandbox1`
-
-1. Generate RSA key pairs in current repo:
+1. Generate RSA key pairs in this folder
     ```
     $ ssh-keygen -r rsa
     ```
 Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
 
-1. Modify the following variables in `variables.tf` as per your setup. 
+1. Modify the variables in `variables.tf` as per your setup. 
 
 1. Obtain an Elastic IP (EIP) from AWS.
 
@@ -30,5 +28,8 @@ Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
     $ terraform plan
     $ terraform apply
     ```
-1. Assign EIP to `console` using administration console.
+1. Assign EIP to instance `console` using AWS administration console.
+
+1. To create multiple such sandboxes, copy the contents of this folder into another folder, say, `sandbox2`, `cd` to the folder and carry out the above steps. 
+
 
