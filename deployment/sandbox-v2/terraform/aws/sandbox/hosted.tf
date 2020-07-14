@@ -9,20 +9,6 @@ resource "aws_route53_zone" "sandbox" {
   }
 }
 
-/* 
-data "aws_instances" "sandbox_instances" {
-  instance_tags = {
-    component = "sandbox"  
-  }
-}
-
-data "aws_instance" "sandbox_instance" {
-  for_each = toset(data.aws_instances.sandbox_instances.ids)
-  instance_id = each.value
-}
-
-*/
-
 resource "aws_route53_record" "console" {
   zone_id = aws_route53_zone.sandbox.zone_id
   name    = aws_instance.console.tags.Name
