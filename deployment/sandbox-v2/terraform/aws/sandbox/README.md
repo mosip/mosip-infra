@@ -3,19 +3,18 @@
 1. Install latest version of terraform. 
 
 1. Set the following environment variables:
-```
-export AWS_ACCESS_KEY_ID=<>
-export AWS_SECRET_ACCESS_KEY=<>
-export TF_LOG=DEBUG
-export TF_LOG_PATH=tf.log  
-```
-
+    ```
+    export AWS_ACCESS_KEY_ID=<>
+    export AWS_SECRET_ACCESS_KEY=<>
+    export TF_LOG=DEBUG
+    export TF_LOG_PATH=tf.log  
+    ```
 1. Copy this folder will all it's contents in another folder, say, `sandbox1`
 
 1. Generate RSA key pairs in current repo:
-```
-$ ssh-keygen -r rsa
-```
+    ```
+    $ ssh-keygen -r rsa
+    ```
 Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
 
 1. Modify the following variables in `variables.tf` as per your setup. 
@@ -27,9 +26,9 @@ Save the keys to this directory with default names `id_rsa` and `id_rsa.pub`.
 1. Point the domain name to the EIP. 
 
 1. Run terraform:
-```
-$ terraform plan
-$ terraform apply
-```
+    ```
+    $ terraform plan
+    $ terraform apply
+    ```
 1. Assign EIP to `console` using administration console.
 
