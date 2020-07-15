@@ -13,7 +13,7 @@
     ```
     $ ssh-keygen -r rsa
     ```
-1. Modify the variables in `variables.tf` as per your setup. 
+1. Modify `sandbox_name` in `variables.tf` as per your setup.  There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
 1. Obtain a domain name for the sandbox using AWS Route53, example, `mosip.net`.   
 
