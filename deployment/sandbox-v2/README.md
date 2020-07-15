@@ -74,7 +74,7 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* Set ip address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
+* Set **private ip** address of `mzworker0` and `dmzworker0` in `group_vars/all.yml`:
 ```
 clusters:
   mz:
