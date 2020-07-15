@@ -15,10 +15,11 @@
     ```
 1. Modify the variables in `variables.tf` as per your setup. 
 
-1. Obtain a domain name for the sandbox, example, `mosip.net`.   
+1. Obtain a domain name for the sandbox using AWS Route53, example, `mosip.net`.   
 
 1. Run terraform:
     ```
+    $ terraform init # One time
     $ terraform plan
     $ terraform apply
     ```
