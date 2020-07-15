@@ -14,7 +14,7 @@ resource "aws_instance" "console" {
 
   tags = {
     Name = var.console_name 
-    component = "sandbox"
+    component = var.sandbox_name
   }
 
   provisioner "file" {
