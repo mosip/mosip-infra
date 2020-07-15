@@ -22,7 +22,7 @@
     $ terraform plan
     $ terraform apply
     ```
-1. Assign a subdomain like `qa.mosip.net` to point to public IP address ('A') of console machine on AWS Route53 Console.  Use this subdomain as sandbox domain name in Ansible scripts.
+1. Open the "Hosted Zones" console of AWS. Your domain name (e.g. `mosip.net`) should be listed there.  Assign a subdomain like `qa.mosip.net` to point to public IP address ('A') of console machine on AWS Route53 Console.  Use this subdomain as sandbox domain name in Ansible scripts.
 
 1. To create multiple such sandboxes, copy the contents of this folder into another folder, say, `sandbox2`, `cd` to the folder and carry out the above steps. 
 
