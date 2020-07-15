@@ -2,7 +2,7 @@
 - import_playbook: cluster.yml
   vars:
     cluster: dmzcluster
-    master: dmzmaster
+    master: dmzmaster.sb
     workers: dmzworkers
 
 # Ingress nginx controller

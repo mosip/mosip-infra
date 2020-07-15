@@ -71,8 +71,9 @@ services:
       name: pktserver-pvc
       size: 5Gi  # Same as landing above
     nfs:
-      server: console
-      path:  /srv/nfs/mosip/landing/ #  Same as above
+      server: {{ regproc.nfs.server }}
+      path:  {{ regproc.nfs.landing_folder }}
+
     ports:
       containerPort: 8082
       servicePort: 80

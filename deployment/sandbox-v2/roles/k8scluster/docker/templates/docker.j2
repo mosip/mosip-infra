@@ -1,5 +1,5 @@
 INSECURE_REGISTRY=""
-DOCKER_OPTS=""
+DOCKER_OPTS="--exec-opt native.cgroupdriver=systemd"
 {% if ansible_os_family == "RedHat" -%}
 DOCKER_STORAGE_OPTIONS="--storage-driver=overlay"
 {% endif -%}
