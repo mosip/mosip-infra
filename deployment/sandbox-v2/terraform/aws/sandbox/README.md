@@ -15,18 +15,14 @@
     ```
 1. Modify the variables in `variables.tf` as per your setup. 
 
-1. Obtain an Elastic IP (EIP) from AWS.
-
-1. Obtain a domain name for the sandbox, example, `qa-sandbox-mosip.net`.   
-
-1. Point the domain name to the EIP. 
+1. Obtain a domain name for the sandbox, example, `mosip.net`.   
 
 1. Run terraform:
     ```
     $ terraform plan
     $ terraform apply
     ```
-1. Assign EIP to instance `console` using AWS administration console.
+1. Assign a subdomain like `qa.mosip.net` to point to public IP address ('A') of console machine on AWS Route53 Console.  Use this subdomain as sandbox domain name in Ansible scripts.
 
 1. To create multiple such sandboxes, copy the contents of this folder into another folder, say, `sandbox2`, `cd` to the folder and carry out the above steps. 
 

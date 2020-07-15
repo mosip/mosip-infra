@@ -94,6 +94,19 @@ resource "aws_security_group" "kube" {
     ]
   }
 
+  /* TODO: The below port needs to be opened up only for kube master, but
+     since terraform code would get complicated, opening for all, but 
+     restriced only to access within VPC. */
+
+  ingress {
+    from_port   = 6443
+    to_port     = 6443
+    protocol    = "tcp"
+    cidr_blocks = [
+      var.vpc_cidr
+    ]
+  }
+
   /* Allow ping */
   ingress {
     from_port = 8

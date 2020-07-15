@@ -4,7 +4,7 @@ resource "aws_instance" "kube" {
   instance_type = "m5a.xlarge"
   key_name = "mosip-aws"
   vpc_security_group_ids = [aws_security_group.kube.id]
-  subnet_id = tolist(data.aws_subnet_ids.private.ids)[0]
+  //subnet_id = tolist(data.aws_subnet_ids.private.ids)[0] // TODO: Causes replacement of instance everytime.
   root_block_device  {
     volume_type = "standard"
     volume_size = 24 

@@ -6,10 +6,15 @@ variable "region" {
   default = "ap-south-1"
 }
 
-variable "private_subnets" {
-  type = list(string) 
-  default = ["subnet_a"]
+variable "vpc_cidr" {
+  default  = "10.20.0.0/16"
+}
 
+variable "private_subnets" {
+  type = map(string) 
+  default = {
+    "subnet_a" = "10.20.20.0/24"
+  }
 }
 
 variable "console_name" {
