@@ -11,14 +11,9 @@ resource "aws_vpc" "sandbox" {
   }
 }
 
-
 resource "aws_subnet" "private" {
-   for_each = var.private_subnets
    vpc_id = aws_vpc.sandbox.id
-   cidr_block = each.value
-   tags = {
-     Name = each.key
-   } 
+   cidr_block = var.private_subnet
    map_public_ip_on_launch = "true"
 }
 
@@ -42,6 +37,16 @@ resource "aws_default_route_table" "route_table" {
   }
 }
 
+resource "aws_route53_zone" "sandbox" {
+  name = var.hosted_domain_name 
+  vpc {
+    vpc_id = aws_vpc.sandbox.id
+  } 
+
+  tags = {
+    Name = var.sandbox_name 
+  }
+}
 
 
 
