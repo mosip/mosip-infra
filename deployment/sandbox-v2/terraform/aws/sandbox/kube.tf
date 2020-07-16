@@ -2,7 +2,7 @@ resource "aws_instance" "kube" {
   for_each = toset(var.kube_names) 
   ami           = var.install_image 
   instance_type = var.instance_type
-  key_name = var.key_name 
+  key_name = lookup(var.private_key, "name")
   vpc_security_group_ids = [aws_security_group.kube.id]
   subnet_id = aws_subnet.private.id
   root_block_device  {
@@ -22,7 +22,7 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
   }
 
@@ -33,7 +33,7 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
   }
 
@@ -47,7 +47,7 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
 }
 
