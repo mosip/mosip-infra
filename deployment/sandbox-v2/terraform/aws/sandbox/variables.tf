@@ -32,10 +32,6 @@ variable "private_key" {
   } 
 }
 
-variable "local_key_location" {
-
-}
-
 /* Recommended not to change names */
 variable "console_name" {
   default = "console"
