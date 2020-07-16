@@ -10,20 +10,6 @@
     dest: '/etc/nginx/nginx.conf'
   become: yes
 
-- name: Enable firewall for http
-  firewalld:
-    service: http
-    permanent: yes
-    state: enabled
-  become: yes
-
-- name: Enable firewall for https
-  firewalld:
-    service: https
-    permanent: yes
-    state: enabled
-  become: yes 
-
 - name: Restart nginx
   command: 'systemctl restart nginx'
   become: yes

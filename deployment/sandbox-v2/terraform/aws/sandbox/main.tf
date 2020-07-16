@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "sandbox" {
-  cidr_block       = "10.20.0.0/16"
+  cidr_block       = var.vpc_cidr
   instance_tenancy = "default"
   enable_dns_hostnames = true
   tags = {
@@ -11,20 +11,10 @@ resource "aws_vpc" "sandbox" {
   }
 }
 
-
 resource "aws_subnet" "private" {
-   count = length(var.private_subnets)
    vpc_id = aws_vpc.sandbox.id
-   cidr_block = "10.20.${20+count.index}.0/24"
-   tags = {
-     Name = var.private_subnets[count.index]
-   } 
+   cidr_block = var.private_subnet
    map_public_ip_on_launch = "true"
-}
-
-data "aws_subnet_ids" "private" {
-  vpc_id = aws_vpc.sandbox.id
-  depends_on = [aws_subnet.private]
 }
 
 resource "aws_internet_gateway" "gw" {
@@ -47,6 +37,16 @@ resource "aws_default_route_table" "route_table" {
   }
 }
 
+resource "aws_route53_zone" "sandbox" {
+  name = var.hosted_domain_name 
+  vpc {
+    vpc_id = aws_vpc.sandbox.id
+  } 
+
+  tags = {
+    Name = var.sandbox_name 
+  }
+}
 
 
 

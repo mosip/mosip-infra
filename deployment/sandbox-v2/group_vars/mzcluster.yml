@@ -2,7 +2,7 @@
 # ansible_user: root
 
 cluster_name: 'mzcluster'  # Same as in hosts.ini
-cluster_master: 'mzmaster' # Same as in hosts.ini
+cluster_master: 'mzmaster.sb' # Same as in hosts.ini
 
 # Kubernetes
 kube_version: v1.18.0

@@ -1,21 +1,43 @@
 variable "sandbox_name" {
-  default = "sandbox1"
+  default = "qa"
 }
 
 variable "region" {
   default = "ap-south-1"
 }
 
-variable "private_subnets" {
-  type = list(string) 
-  default = ["subnet_a"]
-
+variable "vpc_cidr" {
+  default  = "10.20.0.0/16"
 }
 
+variable "private_subnet" {
+  default = "10.20.20.0/24"
+}
+
+/* CentOS 7.8 image from AWS */
+variable "install_image" {
+  default = "ami-0dd861ee19fd50a16"
+}
+
+/* 4 CPU, 16 GB */
+variable "instance_type" {
+  default = "m5a.xlarge"
+}
+
+variable "private_key" {
+  type = map(string)
+  default = {
+    "name" = "mosip-aws"  // Name as given while creating keys on AWS console 
+    "local_path" = "~/.ssh/mosip-aws.pem" // Location on the machine from where you are running terraform
+  } 
+}
+
+/* Recommended not to change names */
 variable "console_name" {
   default = "console"
 }
 
+/* Recommended not to change names */
 variable "kube_names" {
    type = list(string)
    default = [
@@ -32,5 +54,10 @@ variable "kube_names" {
      "dmzmaster",
      "dmzworker0"
    ]
+}
+
+/* Recommended not to change names */
+variable "hosted_domain_name" {
+  default = "sb"
 }
 

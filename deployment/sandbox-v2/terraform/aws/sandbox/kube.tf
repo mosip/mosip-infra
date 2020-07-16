@@ -1,10 +1,10 @@
 resource "aws_instance" "kube" {
   for_each = toset(var.kube_names) 
-  ami           = "ami-0dd861ee19fd50a16"
-  instance_type = "m5a.xlarge"
-  key_name = "mosip-aws"
-  security_groups = [aws_security_group.kube.id]
-  subnet_id = tolist(data.aws_subnet_ids.private.ids)[0]
+  ami           = var.install_image 
+  instance_type = var.instance_type
+  key_name = lookup(var.private_key, "name")
+  vpc_security_group_ids = [aws_security_group.kube.id]
+  subnet_id = aws_subnet.private.id
   root_block_device  {
     volume_type = "standard"
     volume_size = 24 
@@ -12,7 +12,7 @@ resource "aws_instance" "kube" {
   } 
   tags = {
     Name = each.value 
-    component = "sandbox"
+    component = var.sandbox_name
   }
 
   provisioner "file" {
@@ -22,7 +22,7 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
   }
 
@@ -33,7 +33,7 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
   }
 
@@ -47,7 +47,18 @@ resource "aws_instance" "kube" {
       type     = "ssh"
       user     = "centos"
       host     =  self.public_ip
-      private_key = file("/home/mosipuser/.ssh/mosip-aws.pem")
+      private_key = file(lookup(var.private_key, "local_path"))
     }
 }
 
+resource "aws_route53_record" "kube" {
+  for_each = aws_instance.kube
+  zone_id = aws_route53_zone.sandbox.zone_id
+  name    = each.value.tags.Name
+  type    = "A"
+  ttl     = "30"
+
+  records = [
+    each.value.private_ip
+  ]
+}

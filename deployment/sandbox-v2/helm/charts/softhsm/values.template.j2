@@ -26,7 +26,7 @@ pvc:
   size: 20Mi 
 
 nfs:
-  server: console
+  server: {{ nfs.server }} 
   path: {{hsm_prop.nfs_path}}
 
 probe:
