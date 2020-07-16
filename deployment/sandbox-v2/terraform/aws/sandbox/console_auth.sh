@@ -6,6 +6,8 @@ MUSER=mosipuser
 KEY=id_rsa
 adduser $MUSER 
 mkdir -p /home/$MUSER/.ssh
+chown $MUSER /home/$MUSER/.ssh
+chgrp $MUSER /home/$MUSER/.ssh
 echo "$MUSER ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
 cp /tmp/$KEY* /home/$MUSER/.ssh
 cat /home/$MUSER/.ssh/$KEY.pub >> /home/$MUSER/.ssh/authorized_keys
