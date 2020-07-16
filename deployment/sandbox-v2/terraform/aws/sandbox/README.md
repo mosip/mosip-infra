@@ -11,9 +11,9 @@
     ```
 1. On AWS EC2 console generate a key pair called `mosip-aws`.  Download the private key `mosip-aws.pem` into your local ~/.ssh folder. Make sure the permission of `~/.ssh/mosip-aws.pem` is set to 600.  Spec
 
-1. Generate a new set of RSA key pairs with default names `id_rsa` and `id_rsa.pub` and place them in current folder (from where you are running terraform). These keys are exchanged between sandbox console and cluster machines.
+1. Generate a new set of RSA key pairs with default names `id_rsa` and `id_rsa.pub` and place them in current folder. Do not give any passphrase. These keys are exchanged between sandbox console and cluster machines.
     ```
-    $ ssh-keygen -t rsa
+    $ ssh-keygen -t rsa -f ./id_rsa
     ```
 1. Modify `sandbox_name` in `variables.tf` as per your setup.  There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
