@@ -11,7 +11,7 @@
     ```
 1. On AWS EC2 console generate a key pair called `mosip-aws`.  Download the private key `mosip-aws.pem` into your local ~/.ssh folder. Make sure the permission of `~/.ssh/mosip-aws.pem` is set to 600.  Spec
 
-1. Generate RSA key pairs in this folder with default names `id_rsa` and `id_rsa.pub`:
+1. Generate a new set of RSA key pairs with default names `id_rsa` and `id_rsa.pub` and place them in current folder (from where you are running terraform). These keys are exchanged between sandbox console and cluster machines.
     ```
     $ ssh-keygen -t rsa
     ```
