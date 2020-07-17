@@ -89,7 +89,7 @@ If your cluster machines use network interface other than "eth0", update it in `
 network_interface: "eth0"
 ```
 ### MOSIP configuration
-Configue MOSIP as per [MOSIP Configuration Guide](doc/mosip_configuration_guide.md)
+Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md)
 
 ### Shortcut commands
 Add the following shortcuts in `/home/mosipuser/.bashrc`:
