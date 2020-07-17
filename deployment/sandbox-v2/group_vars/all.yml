@@ -10,7 +10,7 @@ charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://104.211.246.17:8040
 
-sandbox_domain_name: test-sandbox.southindia.cloudapp.azure.com 
+sandbox_domain_name: minibox.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
@@ -18,21 +18,6 @@ site:
     email: info@mosip.io
     certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
     certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
-  captcha:
-    google_recaptcha_site_key: mysitekey
-    google_recaptcha_secret_key: mysecretekey
-  smtp:
-    email_from: mosiptestuser@gmail.com
-    host: smtp.sendgrid.net
-    username: apikey
-    password: password
-  sms:
-    gateway: gateway name
-    api: gateway api
-    authkey: authkey
-    route: route
-    sender: sender
-    unicode: unicode
    
 is_glowroot: absent  # absent or present
 
@@ -42,7 +27,7 @@ clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
     nodeport_node: mzworker0.sb  # Any node on cluster for nodeport access
-    any_node_ip: '10.0.0.10' # ip address of above node
+    any_node_ip: '10.20.20.157' # ip address of above node
     ingress:
       namespace: default
       nodeports:
@@ -52,7 +37,7 @@ clusters:
     dashboard:
       url: /mz-dashboard
       token_file: '{{tmp_dir}}/dashboard_mz.token'
-      token_expiry: 86400 # Seconds 
+      token_expiry: 86400 # Seconds
       nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
       enabled: true
@@ -70,7 +55,7 @@ clusters:
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
-    any_node_ip: '10.0.0.6' # ip adddress of above node
+    any_node_ip: '10.20.20.207' # ip adddress of above node
     ingress:
       namespace: default
       nodeports:
@@ -114,6 +99,12 @@ postgres:
   user: postgres
   password: postgres
   max_connections: 1000
+  node_affinity: 
+    enabled: false # To run postgres on an exclusive node
+    node: 'mzworker2.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    taint:
+      key: "postgres" # Key for applying taint on node
+      value: "only"  
 
 # Keycloak
 keycloak:

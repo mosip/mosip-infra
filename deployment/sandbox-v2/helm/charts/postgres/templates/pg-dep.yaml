@@ -20,6 +20,22 @@ spec:
       labels:
         app: {{ .Values.name }} 
     spec:
+{{ if eq .Values.nodeAffinity.enabled true }}
+      tolerations:
+      - key: {{ .Values.nodeAffinity.taint.key }}
+        operator: "Equal"
+        value: {{ .Values.nodeAffinity.taint.value }}
+        effect: "NoSchedule"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                -  {{ .Values.nodeAffinity.node }}
+{{ end }}
       containers:
       - name: {{ .Values.name }} 
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
