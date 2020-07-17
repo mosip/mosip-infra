@@ -24,3 +24,9 @@ docker:
   containerPort: 5432
 nodePort: {{ postgres.nodeport }}
 maxConnections: {{ postgres.max_connections }} 
+nodeAffinity:
+  enabled: {{ postgres.node_affinity.enabled }}
+  node: {{ postgres.node_affinity.node }}
+  taint:
+    key: {{ postgres.node_affinity.taint.key }}
+    value: {{ postgres.node_affinity.taint.value }}
