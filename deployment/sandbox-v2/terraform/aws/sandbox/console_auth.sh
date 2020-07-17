@@ -1,9 +1,11 @@
 #!/bin/sh
 # This script copies public key to authorized_key file of root
 # Assumes that this script is called with 'sudo'
+# Parameter: hostname
 
 MUSER=mosipuser
 KEY=id_rsa
+hostnamectl set-hostname $1
 adduser $MUSER 
 mkdir -p /home/$MUSER/.ssh
 chown $MUSER /home/$MUSER/.ssh
