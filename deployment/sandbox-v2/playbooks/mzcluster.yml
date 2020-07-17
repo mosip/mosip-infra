@@ -7,7 +7,8 @@
 
 # Apply any taints
 - hosts: console
-  kube_config: '{{clusters.mz.kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
   tasks:
     # Enable taint 
     - name: Postgre taint    
@@ -15,9 +16,9 @@
       when: postgres.node_affinity.enabled == true
     
     # Or disable taint
-    - name: Postgre taint    
-      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}:NoSchedule-'         
-      when: postgres.node_affinity.enabled != true
+#    - name: Postgre taint    
+#      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}:NoSchedule-'         
+#      when: postgres.node_affinity.enabled != true
 
 # Ingress nginx controller
 - hosts: console
