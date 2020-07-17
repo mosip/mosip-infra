@@ -45,6 +45,7 @@ Note that the default OTP is set to `111111`.
 ## Post install configuration
 
 During installation, the properties from `roles/config-repo/files/properties` are copied to a local git repo on the console machine at `/srv/nfs/mosip/config_repo`.  To modify properties after modules are running  
+
     ```
     $ sudo su root  # On console
     $ cd /srv/nfs/mosip/config_repo   
