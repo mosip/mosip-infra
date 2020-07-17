@@ -53,7 +53,7 @@ resource "aws_instance" "console" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/console_auth.sh",
-      "sudo /tmp/console_auth.sh"
+      format("%s %s", "sudo /tmp/console_auth.sh", var.console_name)
     ]
   }
     connection {

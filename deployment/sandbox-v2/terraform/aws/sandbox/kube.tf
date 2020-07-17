@@ -40,7 +40,7 @@ resource "aws_instance" "kube" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/kube_auth.sh",
-      "sudo /tmp/kube_auth.sh"
+      format("%s %s", "sudo /tmp/kube_auth.sh", each.value)
     ]
   }
     connection {
