@@ -140,6 +140,7 @@ All persistent data is available over Network File System (NFS) hosted on the co
 
 ## Modifying server config
 All services' properties files are available in local git repo located at `/srv/nfs/mosip/config_repo`.  The installer copies the files here one-time from `roles/config-repo/files/properties/` and git checks-in locally.  Any further changes to `group_vars.all` do not reflect in the configs.  To modify properties:
+
 ```
 - $ sudo su root  # On console
 - $ cd /srv/nfs/mosip/config_repo   
