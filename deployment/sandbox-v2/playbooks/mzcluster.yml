@@ -7,7 +7,8 @@
 
 # Apply any taints
 - hosts: console
-  kube_config: '{{clusters.mz.kube_config}}' 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
   tasks:
     # Enable taint 
     - name: Postgre taint    
