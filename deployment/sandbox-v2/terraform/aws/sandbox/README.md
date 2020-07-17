@@ -1,5 +1,6 @@
 ## Install MOSIP Sandbox on AWS using Terraform
 
+### Setup
 1. Obtain a domain name for the sandbox using AWS Route53, example, `mosip.net`.  This is required to access sandbox externally.
 
 1. Install latest version of terraform. 
@@ -19,6 +20,7 @@
     ```
 1. Modify `sandbox_name` in `variables.tf` as per your setup.  There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
+### Install
 
 1. Run terraform:
     ```
@@ -28,6 +30,9 @@
     ```
 1. Open the "Hosted Zones" console of AWS. Your domain name (e.g. `mosip.net`) should be listed there.  Assign a subdomain like `qa.mosip.net` to point to public IP address ('A') of console machine on AWS Route53 Console.  Use this subdomain as sandbox domain name in Ansible scripts.
 
+### Multiple sandboxes
 1. To create multiple such sandboxes, copy the contents of this folder into another folder, say, `sandbox2`, `cd` to the folder and carry out the above steps. 
 
+### Useful tips
+* On AWS console, on "instances" page, enable column "component".  You will able to associate instance to the sandbox in case you have multiple boxes running. 
 
