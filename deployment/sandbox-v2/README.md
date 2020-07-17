@@ -65,7 +65,6 @@ $ ./key.sh hosts.ini
 ### Site settings
 In `group_vars/all.yml`, set the following: 
 * Change `sandbox_domain_name`  to domain name of the console machine.
-* Set captcha keys in `site.captcha` (for PreReg). Get _reCAPTCHA v2 "I'm not a robot"_ keys for your domain from Google Recaptcha Admin.
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:
@@ -84,41 +83,13 @@ clusters:
   dmz:
     any_node_ip: '<dmzworker0 ip>'
 ```
-### OTP settings
-To receive (one-time password) OTP over email and SMS set the following in `group_vars/all.yml`.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings).  
-* Email 
-  ```
-  smtp:
-    email_from: mosiptestuser@gmail.com
-    host: smtp.sendgrid.net
-    username: apikey
-    password: xyz
-  ```
-* SMS 
-  ```
-  sms:
-    gateway: gateway name
-    api: gateway api
-    authkey: authkey
-    route: route
-    sender: sender
-    unicode: unicode
-  ```
-### Proxy OTP settings
-
-* To run MOSIP in Proxy OTP mode set the following in `roles/config-repo/files/properties/application-mz.properties`: 
-  ```
-  mosip.kernel.sms.proxy-sms=true
-  mosip.kernel.auth.proxy-otp=true
-  mosip.kernel.auth.proxy-email=true
-  ```
-Note that the default OTP is set to `111111`.
-
 ### Network interface
 If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
 ```
 network_interface: "eth0"
 ```
+### MOSIP configuration
+Configue MOSIP as per [MOSIP Configuration Guide](doc/mosip_configuration_guide.md)
 
 ### Shortcut commands
 Add the following shortcuts in `/home/mosipuser/.bashrc`:
