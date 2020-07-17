@@ -89,7 +89,7 @@ If your cluster machines use network interface other than "eth0", update it in `
 network_interface: "eth0"
 ```
 ### MOSIP configuration
-Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md)
+Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
 
 ### Shortcut commands
 Add the following shortcuts in `/home/mosipuser/.bashrc`:
@@ -101,7 +101,7 @@ alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
 alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
 alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
 ```
-After the adding the above:
+After adding the above:
 ```
   $ source  ~/.bashrc
 ``` 

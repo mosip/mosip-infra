@@ -1,9 +1,11 @@
-## MOSIP Configuration Guide
+# MOSIP Configuration Guide
 
-Configurations for all the modules are specified via property files located in `roles/config-repo/files/properties`.  Modify these files as below.
+## Pre-install configuration
+
+Configurations for all the modules are specified via property files located in `roles/config-repo/files/properties`.  Modify these files as below. Note that the changes here apply only during the inital install of MOSIP. For config changes post install refer to section [Post install configuration](#post-install-configuration).
 
 ### Captcha
-* Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
+* Captcha is needed for Pre-Reg UI only. Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
 * Set captcha:
   * File: `roles/config-repo/files/properties/pre-registration.mz.properties`
   * Properties:
@@ -40,3 +42,13 @@ To run MOSIP in Proxy OTP mode set the following:
     ```
 Note that the default OTP is set to `111111`.
 
+## Post install configuration
+
+During installation, the properties from `roles/config-repo/files/properties` are copied to a local git repo on the console machine at `/srv/nfs/mosip/config_repo`.  To modify properties after modules are running  
+    ```
+    $ sudo su root  # On console
+    $ cd /srv/nfs/mosip/config_repo   
+    - Modify files
+    $ git commit -m "<comment>" files
+    - Restart affected services (pods). You need not restart the config server. The latest checked-in properties will get picked up.
+    ```
