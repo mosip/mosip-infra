@@ -12,7 +12,7 @@
     export TF_LOG=DEBUG
     export TF_LOG_PATH=tf.log  
     ```
-1. On AWS EC2 console generate a key pair called `mosip-aws`.  Download the private key `mosip-aws.pem` into your local ~/.ssh folder. Make sure the permission of `~/.ssh/mosip-aws.pem` is set to 600.  Spec
+1. On AWS EC2 console generate a key pair called `mosip-aws`.  Download the private key `mosip-aws.pem` to your local `~/.ssh` folder. Make sure the permission of `~/.ssh/mosip-aws.pem` is set to 600. 
 
 1. Generate a new set of RSA key pairs with default names `id_rsa` and `id_rsa.pub` and place them in current folder. Do not give any passphrase. These keys are exchanged between sandbox console and cluster machines.
     ```
