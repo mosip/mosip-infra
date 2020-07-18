@@ -1,4 +1,4 @@
-variable "sandbox_name" {
+variable "sandbox_name" { //Change this to your sandbox name.
   default = "qa"
 }
 
@@ -34,30 +34,30 @@ variable "private_key" {
 
 /* Recommended not to change names */
 variable "console_name" {
-  default = "console"
+  default = "console.sb"  // 
 }
 
 /* Recommended not to change names */
 variable "kube_names" {
    type = list(string)
    default = [
-     "mzmaster",
-     "mzworker0",
-     "mzworker1",
-     "mzworker2",
-     "mzworker3",
-     "mzworker4",
-     "mzworker5",
-     "mzworker6",
-     "mzworker7",
-     "mzworker8",
-     "dmzmaster",
-     "dmzworker0"
+     "mzmaster.sb",
+     "mzworker0.sb",
+     "mzworker1.sb",
+     "mzworker2.sb",
+     "mzworker3.sb",
+     "mzworker4.sb",
+     "mzworker5.sb",
+     "mzworker6.sb",
+     "mzworker7.sb",
+     "mzworker8.sb",
+     "dmzmaster.sb",
+     "dmzworker0.sb"
    ]
 }
 
 /* Recommended not to change names */
-variable "hosted_domain_name" {
+variable "hosted_domain_name" {  // Do not change this name - has dependency on Ansible scripts 
   default = "sb"
 }
 
