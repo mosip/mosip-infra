@@ -9,7 +9,15 @@ image:
 hadoopVersion: 2.9.0
 
 # Select antiAffinity as either hard or soft, default is soft
-antiAffinity: "soft"
+antiAffinity: "soft"   
+# This is for taint and toleration to assign hdfs pods to specific node. If only one
+# node is specified, then the above antiAffnity has to be "soft"
+nodeAffinity:
+  enabled: {{ hdfs.node_affinity.enabled }}
+  node: {{ hdfs.node_affinity.node }}
+  taint:
+    key: {{ hdfs.node_affinity.taint.key }}
+    value: {{ hdfs.node_affinity.taint.value }}
 
 hdfs:
   nameNode:
@@ -24,7 +32,7 @@ hdfs:
         cpu: "1000m"
 
   dataNode:
-    replicas: 1
+    replicas: 1 
 
     pdbMinAvailable: 1
 
