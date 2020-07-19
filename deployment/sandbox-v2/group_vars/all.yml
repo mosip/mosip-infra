@@ -194,7 +194,7 @@ hdfs:
       size: '5Gi'
       path: '{{nfs.folder}}/hdfs/dn' 
   node_affinity: 
-    enabled: true # To run all hdfs pods exclusively on a single node.
+    enabled: false # To run all hdfs pods exclusively on a single node.
     node: 'mzworker2.sb' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "hdfs" # Key for applying taint on node
