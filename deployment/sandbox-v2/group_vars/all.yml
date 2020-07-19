@@ -101,7 +101,7 @@ postgres:
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
-    node: 'mzworker2.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: 'mzworker1.sb' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "postgres" # Key for applying taint on node
       value: "only"  
@@ -193,6 +193,12 @@ hdfs:
     dn:
       size: '5Gi'
       path: '{{nfs.folder}}/hdfs/dn' 
+  node_affinity: 
+    enabled: true # To run all hdfs pods exclusively on a single node.
+    node: 'mzworker2.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    taint:
+      key: "hdfs" # Key for applying taint on node
+      value: "only"  
 
 config_repo:
   name: config_repo  # Git repo inside above node_path

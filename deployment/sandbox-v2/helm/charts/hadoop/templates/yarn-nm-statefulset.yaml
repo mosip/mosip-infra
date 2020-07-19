@@ -27,7 +27,24 @@ spec:
         release: {{ .Release.Name }}
         component: yarn-nm
     spec:
+      {{ if eq .Values.nodeAffinity.enabled true }}
+      tolerations:
+      - key: {{ .Values.nodeAffinity.taint.key }}
+        operator: "Equal"
+        value: {{ .Values.nodeAffinity.taint.value }}
+        effect: "NoSchedule"
+      {{ end }}
       affinity:
+        {{ if eq .Values.nodeAffinity.enabled true }}
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                -  {{ .Values.nodeAffinity.node }}
+        {{ end }}
         podAntiAffinity:
         {{- if eq .Values.antiAffinity "hard" }}
           requiredDuringSchedulingIgnoredDuringExecution:
