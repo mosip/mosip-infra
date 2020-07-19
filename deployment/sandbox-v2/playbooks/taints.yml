@@ -1,0 +1,31 @@
+# This playbook apply any taints to nodes.  Taints are needed to 
+# make some pods run exclusively on a node. This playbook must be 
+# called immediately after a cluster is setup.  aints are applied only if they 
+# are enabled
+#
+# Apply any taints
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+  tasks:
+    # Enable postgres taint 
+    - name: Enable postgres taint    
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}={{postgres.node_affinity.taint.value}}:NoSchedule'         
+      when: postgres.node_affinity.enabled == true
+    
+    # Or disable taint
+    - name: Disable postgres taint 
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}:NoSchedule-'         
+      when: postgres.node_affinity.enabled != true
+      ignore_errors: yes
+
+    # Enable hdfs  taint 
+    - name: Enable hdfs taint    
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{hdfs.node_affinity.node}} {{ hdfs.node_affinity.taint.key}}={{hdfs.node_affinity.taint.value}}:NoSchedule'         
+      when: hdfs.node_affinity.enabled == true
+    
+    # Or disable taint
+    - name: Disable hdfs taint    
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{hdfs.node_affinity.node}} {{ hdfs.node_affinity.taint.key}}:NoSchedule-'         
+      when: hdfs.node_affinity.enabled != true
+      ignore_errors: yes
