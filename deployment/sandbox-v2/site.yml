@@ -10,9 +10,9 @@
 - import_playbook: playbooks/dmzmonitoring.yml
 - import_playbook: playbooks/postgres.yml
 - import_playbook: playbooks/keycloak.yml
-- import_playbook: playbooks/mzclamav.yaml  # Each zone has it's own clamav
-- import_playbook: playbooks/dmzclamav.yaml
-- import_playbook: playbooks/activemq.yaml
+- import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav
+- import_playbook: playbooks/dmzclamav.yml
+- import_playbook: playbooks/activemq.yml
 - import_playbook: playbooks/hdfs.yml
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml

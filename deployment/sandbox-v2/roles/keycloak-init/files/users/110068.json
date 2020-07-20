@@ -1,0 +1,19 @@
+{
+    "username": "110068",
+    "enabled": true,
+    "email": "110068@xyz.com",
+    "emailVerified": false,
+    "firstName": "110068",
+    "lastName": "110068",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "Techno@123",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9OVZtS05NeU5JNmlPVkdSMkYvVVk1MWNFeWdZeEZuVzhPMXp6bDVkOGhxQWVUNVRCbDRlYnJ3PT0=",
+      "rid": "27841452330002620190527095024"
+    }
+}
