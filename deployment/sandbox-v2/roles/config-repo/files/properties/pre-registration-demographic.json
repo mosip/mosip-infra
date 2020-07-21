@@ -138,7 +138,6 @@
            },
            "controlType":"dropdown",
            "inputRequired":true,
-           "locationHierarchy": ["region", "province","city","zone"],
            "validators":[
               {
                  "type":"regex",
@@ -160,7 +159,6 @@
            },
            "controlType":"dropdown",
            "inputRequired":true,
-           "locationHierarchy": ["region", "province","city","zone"],
            "validators":[
               {
                  "type":"regex",
@@ -182,7 +180,6 @@
            },
            "controlType":"dropdown",
            "inputRequired":true,
-           "locationHierarchy": ["region", "province","city","zone"],
            "validators":[
               {
                  "type":"regex",
@@ -204,7 +201,6 @@
            },
            "controlType":"dropdown",
            "inputRequired":true,
-           "locationHierarchy": ["region", "province","city","zone"],
            "validators":[
 
            ],
@@ -218,7 +214,7 @@
            "ara":"الكود البريدى",
            "fra":"code postal"
            },
-           "controlType":"textbox",
+           "controlType":"dropdown",
            "inputRequired":true,
            "validators":[
               {
@@ -339,5 +335,6 @@
            ],
            "required":true
         }
-   ]
+   ],
+   "locationHierarchy": ["region", "province","city","zone","postalCode"]
 }
