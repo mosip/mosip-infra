@@ -21,3 +21,15 @@
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: packages/policycoreutils-python, tags: [policy]}
 
+  tasks: 
+    - name: Set read permission to home directory needed for nginx 
+      file:
+        path: '{{lookup("env", "HOME")}}'
+        mode: '755'
+      become: yes
+  
+    - name: Change selinux to permissive mode.
+      selinux:
+        policy: targeted
+        state: permissive
+      become: yes

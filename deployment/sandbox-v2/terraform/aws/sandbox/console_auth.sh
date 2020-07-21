@@ -4,18 +4,21 @@
 # Parameter: hostname
 
 MUSER=mosipuser
+HOME=/home/$MUSER
 KEY=id_rsa
 hostnamectl set-hostname $1
 adduser $MUSER 
-mkdir -p /home/$MUSER/.ssh
-chown $MUSER /home/$MUSER/.ssh
-chgrp $MUSER /home/$MUSER/.ssh
+chmod 755 $HOME # Needed for nginx access to display files
+SSH_DIR=$HOME/.ssh
+mkdir -p $SSH_DIR 
+chown $MUSER $SSH_DIR 
+chgrp $MUSER $SSH_DIR 
 echo "$MUSER ALL=(ALL)  NOPASSWD: ALL" >> /etc/sudoers
-cp /tmp/$KEY* /home/$MUSER/.ssh
-cat /home/$MUSER/.ssh/$KEY.pub >> /home/$MUSER/.ssh/authorized_keys
-chmod 600 /home/$MUSER/.ssh/$KEY
-chown $MUSER /home/$MUSER/.ssh/*
-chgrp $MUSER /home/$MUSER/.ssh/*
+cp /tmp/$KEY* $SSH_DIR 
+cat $SSH_DIR/$KEY.pub >> $SSH_DIR/authorized_keys
+chmod 600 $SSH_DIR/$KEY
+chown $MUSER $SSH_DIR/*
+chgrp $MUSER $SSH_DIR/*
 # Mount EBS volume.
 # CAUTION: the partition name is hardcoded. It may change.
 mkfs -t xfs /dev/nvme1n1

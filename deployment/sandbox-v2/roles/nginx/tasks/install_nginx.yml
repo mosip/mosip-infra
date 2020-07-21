@@ -10,30 +10,9 @@
     dest: '/etc/nginx/nginx.conf'
   become: yes
 
+# It's assumed that selinux is in permissive mode.
 - name: Restart nginx
   command: 'systemctl restart nginx'
   become: yes
 
-- name: allow selinux to connect to httpd
-  # Note: otherwise selinux prevents it. TODO: find ansible way of doing this
-  command: 'setsebool httpd_can_network_connect on -P'
-  become: yes
-   
-# For external connection to postgres via nginx
-- name: 'allow nginx to access port {{postgres.nodeport}}'
-  seport:
-    ports: '{{postgres.nodeport}}'
-    proto: tcp
-    setype: http_port_t
-    state: present
-  become: yes
-
-# For external connection to activemq via nginx
-- name: 'allow nginx to access activemq port {{activemq.nodeport}}'
-  seport:
-    ports: '{{activemq.nodeport}}'
-    proto: tcp
-    setype: http_port_t
-    state: present
-  become: yes
 
