@@ -149,3 +149,9 @@ versions:
     resident: 
       resident:  
         'resident-service': 'mosipid/resident-service:1.0.10'
+    
+    admin:
+      service:
+        'admin-service': 'mosipdev/admin-service:1.0.10'
+      ui:
+        'admin-ui': 'mosipdev/admin-ui:1.0.10'
