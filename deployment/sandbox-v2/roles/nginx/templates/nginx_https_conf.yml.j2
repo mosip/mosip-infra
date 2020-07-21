@@ -30,6 +30,8 @@ http {
     include             /etc/nginx/mime.types;
     default_type        application/octet-stream;
 
+    disable_symlinks off; 
+
     # Load modular configuration files from the /etc/nginx/conf.d directory.
     # See http://nginx.org/en/docs/ngx_core_module.html#include
     # for more information.
