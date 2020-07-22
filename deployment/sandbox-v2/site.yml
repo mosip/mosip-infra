@@ -23,3 +23,4 @@
 - import_playbook: playbooks/idrepo.yml
 - import_playbook: playbooks/pms.yml
 - import_playbook: playbooks/resident.yml
+- import_playbook: playbooks/admin.yml
