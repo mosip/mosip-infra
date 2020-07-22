@@ -10,7 +10,7 @@ _**WARNING**: The sandbox is not intented to be used for serious pilots or produ
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
 
 ## OS
-**CentOS 7.7** on all machines.
+**CentOS 7.8** on all machines.
 
 ## Hardware setup 
 
