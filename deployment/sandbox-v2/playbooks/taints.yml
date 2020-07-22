@@ -1,7 +1,8 @@
 # This playbook apply any taints to nodes.  Taints are needed to 
 # make some pods run exclusively on a node. This playbook must be 
-# called immediately after a cluster is setup.  aints are applied only if they 
-# are enabled
+# called immediately after a cluster is setup.  taints are applied only if they 
+# are enabled. Know what you are doing!  Taints will not let any other pods
+# schedule on the nodes.
 #
 # Apply any taints
 - hosts: console

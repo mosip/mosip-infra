@@ -5,9 +5,6 @@
     master: mzmaster.sb
     workers: mzworkers
 
-# Apply any taints
-- import_playbook: taints.yml
-
 # Ingress nginx controller
 - hosts: console
   vars:
