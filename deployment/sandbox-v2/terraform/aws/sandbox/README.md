@@ -29,7 +29,7 @@
       volume_size = 128
       delete_on_termination = true 
     } 
-```
+    ```
 
 There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
