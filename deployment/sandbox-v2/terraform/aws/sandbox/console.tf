@@ -12,8 +12,8 @@ resource "aws_instance" "console" {
   } 
   ebs_block_device  { /* 300 iops SSD */
     device_name = "/dev/sdf"
-    volume_type = "gp2"
-    #iops = 384  // Only valid for volume_type = io1
+    volume_type = "gp2" // Set "io1" for provisioned SSD
+    /* iops = 384 */  // Only valid for volume_type = io1
     volume_size = 128
     delete_on_termination = true 
   } 
