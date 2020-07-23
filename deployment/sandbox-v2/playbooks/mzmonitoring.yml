@@ -10,3 +10,18 @@
     kube_config: '{{clusters.mz.kube_config}}'
     mon_prop: '{{clusters.mz.monitoring}}' 
 
+# ELK - Elasticsearch
+- import_playbook: elasticsearch.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+
+# ELK - Kibana
+- import_playbook: kibana.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+
+# ELK - Filebeat
+- import_playbook: filebeat.yml
+  vars:
+    mon_prop: '{{clusters.mz.monitoring}}' 
+    kube_config: '{{clusters.mz.kube_config}}'

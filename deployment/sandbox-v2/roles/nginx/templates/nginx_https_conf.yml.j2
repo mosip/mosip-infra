@@ -233,6 +233,10 @@ http {
            proxy_pass  {{clusters.dmz.ingress.base_url}}/{{clusters.dmz.monitoring.grafana_ingress_path}}/;
         }
 
+        location /kibana/ {
+           proxy_pass  {{clusters.mz.ingress.base_url}}/kibana/;
+        }
+
         location /v1/admin/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/admin/;
         }
