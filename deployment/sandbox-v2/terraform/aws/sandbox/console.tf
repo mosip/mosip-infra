@@ -5,9 +5,15 @@ resource "aws_instance" "console" {
   key_name = lookup(var.private_key, "name")
   vpc_security_group_ids = [aws_security_group.console.id]
   subnet_id = aws_subnet.private.id
+  root_block_device  {
+    volume_type = "standard"
+    volume_size = 24
+    delete_on_termination = true 
+  } 
   ebs_block_device  { /* 300 iops SSD */
     device_name = "/dev/sdf"
     volume_type = "gp2"
+    #iops = 384  // Only valid for volume_type = io1
     volume_size = 128
     delete_on_termination = true 
   } 
