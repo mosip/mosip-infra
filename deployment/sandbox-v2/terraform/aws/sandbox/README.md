@@ -18,7 +18,20 @@
     ```
     $ ssh-keygen -t rsa -f ./id_rsa
     ```
-1. Modify `sandbox_name` in `variables.tf` as per your setup.  There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
+1. Modify `sandbox_name` in `variables.tf` as per your setup.  The name here is informational and will be added as tag to the instance.  It is recommended this name matches subdomain name for easy reference (see below).  Example, `sandbox_name` is `staging` and subdomain is `staging.mosip.net`. 
+
+1. If you are doing performance testing and prefer higher IOPS SSD on console, modify `iops` and `volume_type` in `console.tf`. Example:
+    ```
+    ebs_block_device  { 
+      device_name = "/dev/sdf"
+      iops = 3000
+      volume_type = "io1"
+      volume_size = 128
+      delete_on_termination = true 
+    } 
+```
+
+There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
 ### Install
 
