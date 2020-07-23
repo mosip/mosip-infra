@@ -1,0 +1,16 @@
+# Playbook to install ELK component Filebeat 
+# paramters:
+#   mon_prop:  Minotoring properties for the cluster from group_vars/all.yml
+#   kube_config: cluster config.
+#   This component is parameterized as it is also installed on DMZ. Filebeat
+#   on DMZ connects to Elasticsearch on MZ.
+- hosts: console
+  vars:
+    kube_config: '{{kube_config}}'
+    install_name: filebeat
+    helm_chart: '{{charts_root}}/filebeat'
+    is_template: true
+    helm_namespace: default
+    helm_values: '{{charts_root}}/filebeat/values.templates.j2'
+  roles:
+    - {role:  helm}

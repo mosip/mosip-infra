@@ -52,6 +52,8 @@ clusters:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
       grafana_ingress_path: 'mz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
+      elasticsearch:
+        host: 'elasticsearch-master:9200'
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
@@ -80,6 +82,9 @@ clusters:
           path: '{{nfs.folder}}/monitoring/dmz/grafana'
       grafana_ingress_path: 'dmz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
+      elasticsearch:
+        host: 'mzworker0.sb:30080/elasticsearch' # Connect to elasticsearch on MZ
+      
 
 # Registration processor shared variables
 #
