@@ -10,7 +10,7 @@
     install_name: filebeat
     helm_chart: '{{charts_root}}/filebeat'
     is_template: true
-    helm_namespace: default
+    helm_namespace: monitoring
     helm_values: '{{charts_root}}/filebeat/values.templates.j2'
   roles:
     - {role:  helm}
