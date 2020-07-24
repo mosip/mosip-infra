@@ -11,7 +11,7 @@
   tasks:
     # Enable postgres taint 
     - name: Enable postgres taint    
-      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}={{postgres.node_affinity.taint.value}}:NoSchedule'         
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{postgres.node_affinity.node}} {{ postgres.node_affinity.taint.key}}={{postgres.node_affinity.taint.value}}:NoSchedule  --overwrite=true'         
       when: postgres.node_affinity.enabled == true
     
     # Or disable taint
@@ -22,7 +22,7 @@
 
     # Enable hdfs  taint 
     - name: Enable hdfs taint    
-      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{hdfs.node_affinity.node}} {{ hdfs.node_affinity.taint.key}}={{hdfs.node_affinity.taint.value}}:NoSchedule'         
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{hdfs.node_affinity.node}} {{ hdfs.node_affinity.taint.key}}={{hdfs.node_affinity.taint.value}}:NoSchedule --overwrite=true'         
       when: hdfs.node_affinity.enabled == true
     
     # Or disable taint
