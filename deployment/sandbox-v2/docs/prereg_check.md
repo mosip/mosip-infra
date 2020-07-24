@@ -12,10 +12,14 @@ https://<sandbox domain name>>/pre-registration-ui/
 1. Enter the OTP that you received via email/sms  in the selected box, or enter `111111` for Proxy OTP mode.
 
 1. Accept the Terms and Condition and `CONTINUE` after filling the demographic data.
-  1. Select the DOB from the calender.  
-  1. Select any of the Region, Province, City, Zone from the dropdown.
-  1. Enter `14022` for pin code.
-  1. Phone number must not start with 0 and should be of 10 digits.
+
+1. Enter your DOB or age.  
+
+1. Select any of the Region, Province, City, Zone from the dropdown.
+
+1. Select any pin code from the dropdown.
+
+1. Phone number must not start with 0 and should be of 10 digits.
 
 1. `CONTINUE` after uploading mentioned document of given size and type or skip the document upload process. (Recommended: upload any one document for testing purposes.)
 
