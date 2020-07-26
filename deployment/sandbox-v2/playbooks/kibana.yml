@@ -5,7 +5,7 @@
     install_name: kibana
     helm_chart: '{{charts_root}}/kibana'
     is_template: false
-    helm_namespace: default
+    helm_namespace: monitoring
     helm_values: '{{charts_root}}/kibana/values.yaml'
   roles:
     - {role:  helm}
