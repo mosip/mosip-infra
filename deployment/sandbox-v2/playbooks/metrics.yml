@@ -1,0 +1,14 @@
+# Playbook to install kube metrics server. This module enables
+# CPU usage and memory usage display on Kubernetes dashboard.
+# paramters:
+#   kube_config: cluster config.
+- hosts: console
+  vars:
+    kube_config: '{{kube_config}}'
+    install_name: metrics-server
+    helm_chart: '{{charts_root}}/metrics-server'
+    is_template: false
+    helm_namespace: monitoring
+    helm_values: '{{charts_root}}/metrics-server/values.yaml'
+  roles:
+    - {role:  helm}

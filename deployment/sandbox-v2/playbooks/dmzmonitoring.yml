@@ -1,3 +1,8 @@
+# Metrics-server
+- import_playbook: metrics.yml
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+
 # Prometheus
 - import_playbook: prometheus.yml
   vars:
