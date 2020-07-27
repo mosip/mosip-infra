@@ -124,7 +124,7 @@ https://<sandbox domain name>/index.html
 ```
 Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
-For Grafana you may import chart `1860`.
+For Grafana you may import chart `11074`.
 
 ## Sanity checks
 
