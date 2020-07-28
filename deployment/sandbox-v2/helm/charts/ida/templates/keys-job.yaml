@@ -6,6 +6,9 @@ metadata:
   labels:
     app: {{ .Values.generators.key.name }}
     component: {{ .Values.component }} 
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-delete-policy": hook-succeeded
     
 spec:
   template:
