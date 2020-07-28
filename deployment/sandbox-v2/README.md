@@ -139,6 +139,10 @@ $ an reset.yml
 ## Persistence
 All persistent data is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
 
+Note the following:
+* Postgres is initialized and populated only once.  If persistent data is present in `/srv/nfs/mosip/postgres` then postgres is not initialized. You will need to run reset scripts to clear up the folder for a re-initialization.
+* Postgres also contains Keycloak data.  `keycloak-init` does not overwrite any data, but just updates and adds.  If you want to clean up Keycloak data, you will need to clean it up manually or reset entire postgres.
+
 ## Useful tools
 * If you use `tmux` tool, copy the config file as below:
 ```

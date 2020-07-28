@@ -31,10 +31,20 @@
       pause:
         seconds: 30 
 
+# Initialize postgres with data.
 # Separate play for init to keep sequence of execution
+# First check if postgres is already init. If so, don't init it
 - hosts: console
-  roles:
-     - {role: repos, tags: [repos]}  # These repos have sql scripts
-     - {role: postgres-init, tags: [postgres-init]} 
+  gather_facts: false
+  tasks:
+    - name: Check if db already exists. Don't init if it does 
+      import_tasks: '../roles/common/tasks/db_exists.yml'
+      vars:
+        db_name: mosip_kernel  # Just any db. If exists, we will not init
+
+- hosts: console
+  roles:  # Run these roles only if db does not exist
+     - {role: repos, when: db_exists == false, tags: [repos]}  # These repos have sql scripts. 
+     - {role: postgres-init, when: db_exists == false,  tags: [postgres-init]} 
 
 
