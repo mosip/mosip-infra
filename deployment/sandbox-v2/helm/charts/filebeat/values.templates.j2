@@ -19,8 +19,11 @@ filebeatConfig:
     processors:
       - drop_event:
           when:
-            contains: 
-              message: "DEBUG"
+            or:
+              - contains.message: "DEBUG"
+              - contains.message: "<--- Inside filter --->"
+              - contains.message: "/actuator/health"
+          
 
     output.elasticsearch:
       host: '${NODE_NAME}'
