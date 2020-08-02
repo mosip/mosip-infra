@@ -3,20 +3,33 @@
 # such as filebeat.yml
 filebeatConfig:
   filebeat.yml: |
-    filebeat.inputs:
-    - type: container
-      paths:
-        - /var/log/containers/*.log
-      processors:
-      - add_kubernetes_metadata:
-          host: ${NODE_NAME}
-          matchers:
-          - logs_path:
-              logs_path: "/var/log/containers/"
+    filebeat.autodiscover:
+      providers:
+        - type: kubernetes
+          templates:
+            - condition:
+                equals:
+                  kubernetes.namespace: default 
+              config:
+                - type: container
+                  paths:
+                    - /var/log/containers/*-${data.kubernetes.container.id}.log
+                  exclude_lines: ["^\\s+[\\-`('.|_]"]  # drop asciiart lines
+
+    processors:
+      - drop_event:
+          when:
+            contains: 
+              message: "DEBUG"
 
     output.elasticsearch:
       host: '${NODE_NAME}'
       hosts: '${ELASTICSEARCH_HOSTS:{{mon_prop.elasticsearch.host}} }'
+
+    setup.kibana:
+      host: "kibana-kibana:5601"
+
+    setup.dashboards.enabled: true
 
 # Extra environment variables to append to the DaemonSet pod spec.
 # This will be appended to the current 'env:' key. You can use any of the kubernetes env

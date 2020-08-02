@@ -26,6 +26,8 @@
     kube_config: '{{clusters.mz.kube_config}}'
 
 # ELK - Filebeat
+# Filebeat must be installed after Kibana so that readymade available
+# dashboards may be loaded to Kibana
 - import_playbook: filebeat.yml
   vars:
     mon_prop: '{{clusters.mz.monitoring}}' 
