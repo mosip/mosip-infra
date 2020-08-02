@@ -1,0 +1,13 @@
+# Ansible script get container log file sizes of all the nodes.  The script
+# runs 'du -mL /var/log/containers' command on each node.
+- hosts: mzcluster, dmzcluster
+  gather_facts: false
+  tasks:
+    - name: Get container file size
+      shell: 'du -mL /var/log/containers'
+      register: size
+      become: yes
+
+    - debug:
+        msg: ' {{inventory_hostname}}: {{size.stdout.split()[0]}} mb'
+

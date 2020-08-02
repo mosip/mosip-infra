@@ -1,0 +1,24 @@
+# Tasks to check if a postgres db exists.  Sets 'db_exists' variable as true/false.
+# The task needs db_name as input.  Rest are picked from global settings.
+# params: db_name
+# returns: db_exists
+
+- name: Select query to db acme with positional arguments and non-default credentials
+  postgresql_query:
+    db: '{{db_name}}'
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    login_user: '{{postgres.user}}'
+    login_password: '{{postgres.password}}' 
+    query:  SELECT version()
+  register: result
+  failed_when: ' "" in result'
+
+- set_fact:
+    db_exists: false
+
+- set_fact:
+    db_exists: true
+  when: '"query_result" in result'
+
+
