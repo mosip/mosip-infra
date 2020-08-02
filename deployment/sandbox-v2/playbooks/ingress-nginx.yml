@@ -1,0 +1,28 @@
+# Ingress nginx controller
+# Inputs:
+#   kube_config
+#   ingress_nginx_namespace
+
+# Create namespace
+- hosts: console
+  gather_facts: false
+  tasks:
+    - name: Create ingress-nginx  namespace
+      k8s:
+        name: ingress-nginx
+        kubeconfig: '{{kube_config}}'
+        api_version: v1
+        kind: Namespace
+        state: present
+
+- hosts: console
+  vars:
+    kube_config: '{{kube_config}}'
+    install_name: 'ingress-nginx'
+    helm_chart: '{{charts_root}}/ingress-nginx'
+    is_template: true
+    helm_namespace: '{{ingress_nginx_namespace}}'
+    helm_values: '{{charts_root}}/ingress-nginx/values.template.j2'
+    ingress_ports: '{{clusters.mz.ingress.nodeports}}'
+  roles:
+    - {role:  helm, tags: [mz-ingress]}
