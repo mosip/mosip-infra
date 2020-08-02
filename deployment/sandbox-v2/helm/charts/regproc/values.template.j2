@@ -41,6 +41,15 @@ services:
       servicePort: 80 
     ingressPath: /registrationprocessor/v1/securezone/
     healthUrl: /registrationprocessor/v1/securezone/actuator/health
+  reprocess:
+    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.reprocess.values()[0] }}
+    ports:
+      eventbusPort: 5750
+      hazelcastPort: 5701
+      containerPort: 8021
+    ingressPath: '' 
+    healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
   uploader:
     serviceName: {{ versions.services.regproc.uploader.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.uploader.values()[0] }}
