@@ -27,7 +27,7 @@ filebeatConfig:
       hosts: '${ELASTICSEARCH_HOSTS:{{mon_prop.elasticsearch.host}} }'
 
     setup.kibana:
-      host: "kibana-kibana:5601"
+      host: "{{mon_prop.kibana.url}}" 
 
     setup.dashboards.enabled: true
 

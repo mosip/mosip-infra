@@ -71,4 +71,4 @@ spec:
         persistentVolumeClaim:
           claimName: {{ .Values.landing.pvc.name }}
 
-        {{- include "logger.volume" .  | indent 6}}
+      {{- include "logger.volume" .  | indent 6}}
