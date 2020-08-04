@@ -45,6 +45,13 @@ spec:
           containerPort: {{ .Values.services.abismid.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abismid.ports.containerPort }}
+
+        {{- include "logger.mount" .  | indent 8}}
+
+      {{- include "logger.sidecar" .  | indent 6}}
+
+      {{- include "logger.volume" .  | indent 6}}
+
 #        readinessProbe:  # TODO: Disabled as probe is not working.
 #          httpGet:
 #            path: {{ .Values.services.abismid.healthUrl }} 
