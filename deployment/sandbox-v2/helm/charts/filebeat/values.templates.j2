@@ -15,15 +15,12 @@ filebeatConfig:
                   paths:
                     - /var/log/containers/*-${data.kubernetes.container.id}.log
                   exclude_lines: ["^\\s+[\\-`('.|_]"]  # drop asciiart lines
-
+                  include_lines: ['ERROR', '^Caused by:']
     processors:
       - drop_event:
           when:
             or:
-              - contains.message: "DEBUG"
-              - contains.message: "<--- Inside filter --->"
-              - contains.message: "/actuator/health"
-          
+              - regexp.message: "^.*ERROR.*Temporary Store limit is .*, whilst the temporary data directory.*$"
 
     output.elasticsearch:
       host: '${NODE_NAME}'
