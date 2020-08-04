@@ -23,12 +23,17 @@ spec:
     spec:
       containers:
       - name: {{activemq.name}}
-        image: webcenter/activemq:5.14.3
+        #image: webcenter/activemq:5.14.3
+        image: webcenter/activemq:latest
         env:
         - name: ACTIVEMQ_CONFIG_MINMEMORY
           value: "512"
         - name: ACTIVEMQ_CONFIG_MAXMEMORY
           value: "2048"
+        - name: ACTIVEMQ_CONFIG_STOREUSAGE
+          value: "2 gb"
+        - name: ACTIVEMQ_CONFIG_TEMPUSAGE
+          value: "1 gb"
         ports:
         - containerPort: {{activemq.container_port}} 
         readinessProbe:
