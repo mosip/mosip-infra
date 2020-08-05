@@ -41,6 +41,9 @@ spec:
           value: {{ .Values.isGlowroot }}
         ports:
         - containerPort: {{ .Values.services.qrcode.containerPort }}
+
+        {{- include "logger.mount" .  | indent 8}}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.qrcode.healthUrl }}
@@ -53,3 +56,7 @@ spec:
 #            port: {{ .Values.services.qrcode.containerPort }}
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
+#
+      {{- include "logger.sidecar" .  | indent 6}}
+
+      {{- include "logger.volume" .  | indent 6}}
