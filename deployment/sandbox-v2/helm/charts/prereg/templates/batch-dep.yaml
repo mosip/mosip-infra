@@ -41,6 +41,9 @@ spec:
           value: {{ .Values.isGlowroot }}
         ports:
         - containerPort: {{ .Values.services.batch.containerPort }}
+
+        {{- include "logger.mount" .  | indent 8}}
+
         readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
           tcpSocket:
             port: {{ .Values.services.batch.containerPort }}
@@ -51,3 +54,7 @@ spec:
    #         port: {{ .Values.services.batch.containerPort }}
    #       initialDelaySeconds: {{ .Values.probe.initialDelay }} 
    #       periodSeconds: {{ .Values.probe.period }} 
+   #
+      {{- include "logger.sidecar" .  | indent 6}}
+
+      {{- include "logger.volume" .  | indent 6}}
