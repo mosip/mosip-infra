@@ -6,17 +6,10 @@
     workers: dmzworkers
 
 # Ingress nginx controller
-- hosts: console
+- import_playbook: ingress-nginx.yml
   vars:
-    kube_config: '{{clusters.dmz.kube_config}}'
-    install_name: 'ingress-nginx'
-    helm_chart: '{{charts_root}}/ingress-nginx'
-    is_template: true
-    helm_namespace: '{{clusters.dmz.ingress.namespace}}'
-    helm_values: '{{charts_root}}/ingress-nginx/values.template.j2'
-    ingress_ports: '{{clusters.dmz.ingress.nodeports}}'
-  roles:
-    - {role:  helm, tags: [dmz-ingress]}
+    kube_config: '{{clusters.dmz.kube_config}}' 
+    ingress_nginx_namespace: '{{clusters.dmz.ingress.namespace}}'
 
 # Kubernetes dashboard
 - hosts: console
