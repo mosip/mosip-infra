@@ -25,28 +25,28 @@ versions:
         'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.1.1'
 
       prereg:
-      login:
-        'prereg-login-service': 'mosipid/pre-registration-login-service:1.1.1'
-      batch:
-        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.1'
-      document:
-        'prereg-document-service':  'mosipid/pre-registration-document-service:1.1.1'
-      transliteration:
-        'prereg-transliteration-service': 'mosipid/pre-registration-transliteration-service:1.1.1'
-      booking:
-        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.1'
-      qrcode:
-        'prereg-qrcode-service': 'mosipid/pre-registration-generateqrcode-service:1.1.1'
-      datasync:
-        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.1'
-      demographic:
-        'prereg-demographic-service':  'mosipid/pre-registration-demographic-service:1.1.1'
-      notification:
-        'prereg-notification-service': 'mosipid/pre-registration-notification-service:1.1.1'
-      captcha:
-        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.1.1'
-      ui:
-        'prereg-ui': 'mosipid/pre-registration-ui:1.1.1'
+        login:
+          'prereg-login-service': 'mosipid/pre-registration-login-service:1.1.1'
+        batch:
+          'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.1'
+        document:
+          'prereg-document-service':  'mosipid/pre-registration-document-service:1.1.1'
+        transliteration:
+          'prereg-transliteration-service': 'mosipid/pre-registration-transliteration-service:1.1.1'
+        booking:
+          'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.1'
+        qrcode:
+          'prereg-qrcode-service': 'mosipid/pre-registration-generateqrcode-service:1.1.1'
+        datasync:
+          'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.1'
+        demographic:
+          'prereg-demographic-service':  'mosipid/pre-registration-demographic-service:1.1.1'
+        notification:
+          'prereg-notification-service': 'mosipid/pre-registration-notification-service:1.1.1'
+        captcha:
+          'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.1.1'
+        ui:
+          'prereg-ui': 'mosipid/pre-registration-ui:1.1.1'
       
 
     regproc:
