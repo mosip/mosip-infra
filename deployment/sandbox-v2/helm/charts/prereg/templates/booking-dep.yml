@@ -41,6 +41,13 @@ spec:
           value: {{ .Values.isGlowroot }}
         ports:
         - containerPort: {{ .Values.services.booking.containerPort }}
+
+        {{- include "logger.mount" .  | indent 8}}
+
         readinessProbe:
           tcpSocket:
             port: {{ .Values.services.booking.containerPort }}
+
+      {{- include "logger.sidecar" .  | indent 6}}
+
+      {{- include "logger.volume" .  | indent 6}}

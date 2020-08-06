@@ -14,6 +14,9 @@ Some pods that show status `0/1 Complete` are Kubernetes jobs - they will not tu
 |MOSIP modules|default|
 |Kubernetes dashboard|kubernetes-dashboard|
 |Grafana|monitoring|
+|Prometheus|monitoring|
+|Filebeat|monitoring|
+|Ingress Controller|ingress-nginx|
 
 To check pods in a particular namespace. Example:
 ```
