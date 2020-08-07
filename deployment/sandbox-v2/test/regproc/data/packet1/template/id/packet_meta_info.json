@@ -82,10 +82,10 @@
   } ],
   "metaData" : [ {
     "label" : "registrationId",
-    "value" : "{{rid}}""
+    "value" : "{{rid}}"
   }, {
     "label" : "creationDate",
-    "value" : "{{create_date}}
+    "value" : "{{creation_date}}"
   }, {
     "label" : "Registration Client Version Number",
     "value" : "1.0.10-SNAPSHOT"
@@ -94,10 +94,10 @@
     "value" : "New"
   }, {
     "label" : "preRegistrationId",
-    "value" : "{{prereg_id}}
+    "value" : "{{prereg_id}}"
   }, {
     "label" : "machineId",
-    "value" : "{{machine_id}}
+    "value" : "{{machine_id}}"
   }, {
     "label" : "centerId",
     "value" : "{{center_id}}"
@@ -113,7 +113,7 @@
   } ],
   "operationsData" : [ {
     "label" : "officerId",
-    "value" : "{{officer_id}}
+    "value" : "{{officer_id}}"
   }, {
     "label" : "officerBiometricFileName",
     "value" : null
@@ -177,7 +177,7 @@
       "subType" : "Slab",
       "deviceProviderId" : "XYZMetricsId",
       "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{date_time}}
+      "dateTime" : "{{date_time}}"
     }
   }, {
     "deviceCode" : "79847aec-c87c-4692-9ae9-43ba203a3411",
@@ -190,7 +190,7 @@
       "subType" : "Full face",
       "deviceProviderId" : "XYZMetricsId",
       "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{date_time}}
+      "dateTime" : "{{date_time}}"
     }
   } ],
   "capturedNonRegisteredDevices" : null,

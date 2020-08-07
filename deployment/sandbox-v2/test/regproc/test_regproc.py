@@ -5,6 +5,8 @@ import os
 import config as conf
 import datetime as dt
 import shutil
+import glob
+import subprocess
 from common import *
 import  jinja2 as j2
 
@@ -19,8 +21,19 @@ def update_conf(conf, mosip):
     conf.pkt_conf['create_time'] = ts
     conf.pkt_conf['date_time'] = ts
 
-def template_to_packet(conf, template_path, out_dir):
-    loader = j2.FileSystemLoader(os.path.join(conf.template_path, 'id'))
+def template_to_packet(conf, suffix):
+    out_dir = os.path.join(conf.unenc_dir, suffix)
+    
+    os.makedirs(out_dir)  # Assumed parent directory is cleaned up before calling this func
+
+    # First copy all files from templates to out_dir as is, then replace the template files
+    in_dir = os.path.join(conf.template_dir, suffix)
+    files = glob.glob(os.path.join(in_dir, '*'))
+    for f in files:
+        shutil.copy(f, os.path.join(out_dir))
+
+    # Convert all templates and overwrite files in out_dir
+    loader = j2.FileSystemLoader(in_dir)
     env = j2.Environment(loader = loader)
     template_files = loader.list_templates()
     template_files = [f for f in template_files if f.split('.')[-1] == 'json']  # Pick only json files 
@@ -35,8 +48,6 @@ def zip_packets(conf):
    '''
    Returns paths of output zip files
    '''
-   os.system('rm %s/*.zip' % conf.unenc_dir) # Remove any existing zip files
-
    paths = []
    for sub_pkt in conf.sub_pkts:
        base_path = os.path.join(conf.unenc_dir, sub_pkt) 
@@ -46,15 +57,22 @@ def zip_packets(conf):
  
    return paths 
 
-def make_dirs(conf):
-    for suffix in conf.sub_pkts:
-        os.makedirs(os.path.join(conf.unenc_dir, suffix), exist_ok=True)
+def cleanup(conf):
+    if os.path.exists(conf.unenc_dir):
+        shutil.rmtree(conf.unenc_dir)
+
+    if os.path.exists(conf.enc_dir):
+        shutil.rmtree(conf.enc_dir)
 
 def template_to_packets(conf):
     for suffix in conf.sub_pkts:
-        template_to_packet(conf, os.path.join(conf.template_path,  suffix), 
-                           os.path.join(conf.unenc_dir, suffix))
+        template_to_packet(conf, suffix)
   
+def update_hashes(conf):
+    for suffix in conf.sub_pkts:
+       meta_path = os.path.join(os.path.join(conf.unenc_dir, suffix), 'packet_meta_info.json')
+       subprocess.run(['./gen_hash.py %s' % meta_path], shell=True)
+
 def sync_packet(conf, mosip, final_zip, refid): 
     data = open(final_zip, 'rb').read()  # data is in 'bytes'
     phash = sha256_hash(data)
@@ -64,9 +82,16 @@ def sync_packet(conf, mosip, final_zip, refid):
     r = mosip.sync_packet(rid, phash, psize, refid)
     return r
 
+def create_final_zip(conf):
+    # Zip all the encrypted packets into single zip (which is not encrypted)
+    os.system('rm -f %s/*.zip' % conf.pkt_dir) # Remove any existing zip files
+    out_zip = os.path.join(conf.pkt_dir, conf.pkt_conf['rid']) 
+    final_zip = shutil.make_archive(out_zip, 'zip', conf.enc_dir) 
+    return final_zip
+
 def main():
 
-    make_dirs(conf)
+    cleanup(conf)  # Cleanup an existing dirs
 
     refid = conf.pkt_conf['center_id'] + '_' + conf.pkt_conf['machine_id']
     mosip = MosipSession(conf.server, conf.user, conf.password)
@@ -75,24 +100,22 @@ def main():
 
     template_to_packets(conf)
 
+    update_hashes(conf)
+
     zipped_pkts = zip_packets(conf)
 
-    os.system('rm %s/*.zip' % conf.enc_dir) # Remove any existing zip files
+    os.makedirs(conf.enc_dir)
     for zipped_pkt in zipped_pkts:
         mosip.encrypt_packet(zipped_pkt, conf.enc_dir, os.path.basename(zipped_pkt), refid)
 
-    # Zip all the encrypted packets into single zip (which is not encrypted)
-    os.system('rm %s/*.zip' % conf.pkt_dir) # Remove any existing zip files
-    out_zip = os.path.join(conf.pkt_dir, conf.pkt_conf['rid']) 
-    final_zip = shutil.make_archive(out_zip, 'zip', conf.enc_dir) 
+    final_zip = create_final_zip(conf)
 
+    print('\n=== Syncing packet === \n')
     r = sync_packet(conf, mosip, final_zip, refid) 
     print_response(r) 
 
-    exit(0) 
-
-    print('Uploading packet')
-    r = upload_packet(packet_path, token, SERVER)
+    print('\n=== Uploading packet === \n')
+    r = mosip.upload_packet(final_zip)
     print_response(r)
 
 

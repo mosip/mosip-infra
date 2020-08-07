@@ -13,7 +13,7 @@
   } ],
   "city" : [ {
     "language" : "eng",
-    "value" : "{{city}}
+    "value" : "{{city}}"
   }, {
     "language" : "ara",
     "value" : "القنيطرة"
@@ -48,7 +48,7 @@
   } ],
   "zone" : [ {
     "language" : "eng",
-    "value" : "{{zone}},
+    "value" : "{{zone}}"
   }, {
     "language" : "ara",
     "value" : "بن منصور"

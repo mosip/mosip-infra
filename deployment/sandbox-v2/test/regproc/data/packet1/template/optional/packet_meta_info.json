@@ -7,7 +7,7 @@
     "value" : "{{rid}}"
   }, {
     "label" : "creationDate",
-    "value" : "{{create_date}}"
+    "value" : "{{creation_date}}"
   } ],
   "operationsData" : [ ],
   "hashSequence1" : [ {
