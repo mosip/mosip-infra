@@ -1,6 +1,6 @@
 server = 'minibox.mosip.net' 
-user = '110005'
-password = 'mosip'
+user = '110127'
+password = 'Techno@123'
 
 sub_pkts = ['id', 'evidence', 'optional']
 
@@ -20,9 +20,6 @@ pkt_conf = {
 }
     
 pkt_prefix = pkt_conf['rid']
-#pkt_evidence_zip = pkt_prefix + '_evidence.zip'
-#pkt_id_zip = pkt_prefix + '_id.zip'
-#pkt_optional_zip = pkt_prefix + '_optional.zip'
 pkt_dir = 'data/packet1'
 template_dir = pkt_dir + '/template'
 unenc_dir = pkt_dir + '/unencrypted'
