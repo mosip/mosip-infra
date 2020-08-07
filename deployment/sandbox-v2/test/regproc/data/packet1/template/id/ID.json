@@ -1,0 +1,93 @@
+{ "identity" : {
+  "proofOfAddress" : {
+    "value" : "proofOfAddress",
+    "type" : "RNC",
+    "format" : "pdf"
+  },
+  "gender" : [ {
+    "language" : "eng",
+    "value" : "Male"
+  }, {
+    "language" : "ara",
+    "value" : "الذكر"
+  } ],
+  "city" : [ {
+    "language" : "eng",
+    "value" : "{{city}}"
+  }, {
+    "language" : "ara",
+    "value" : "القنيطرة"
+  } ],
+  "postalCode" : "14022",
+  "fullName" : [ {
+    "language" : "eng",
+    "value" : "Jejang"
+  }, {
+    "language" : "ara",
+    "value" : "Jejang"
+  } ],
+  "dateOfBirth" : "2000/07/07",
+  "referenceIdentityNumber" : "54656654546565",
+  "individualBiometrics" : {
+    "format" : "cbeff",
+    "version" : 1.0,
+    "value" : "individualBiometrics_bio_CBEFF"
+  },
+  "proofOfIdentity" : {
+    "value" : "proofOfIdentity",
+    "type" : "CIN",
+    "format" : "pdf"
+  },
+  "IDSchemaVersion" : {{id_schema}},
+  "province" : [ {
+    "language" : "eng",
+    "value" : "{{province}}"
+  }, {
+    "language" : "ara",
+    "value" : "القنيطرة"
+  } ],
+  "zone" : [ {
+    "language" : "eng",
+    "value" : "{{zone}}"
+  }, {
+    "language" : "ara",
+    "value" : "بن منصور"
+  } ],
+  "phone" : "7259791857",
+  "addressLine1" : [ {
+    "language" : "eng",
+    "value" : "HSR Conlony"
+  }, {
+    "language" : "ara",
+    "value" : "هسر كُنلُني"
+  } ],
+  "addressLine2" : [ {
+    "language" : "eng",
+    "value" : "SECTOR-2"
+  }, {
+    "language" : "ara",
+    "value" : "سِكتُر-٢"
+  } ],
+  "residenceStatus" : [ {
+    "language" : "eng",
+    "value" : "Foreigner"
+  }, {
+    "language" : "ara",
+    "value" : "أجنبي"
+  } ],
+  "addressLine3" : [ {
+    "language" : "eng",
+    "value" : "HSRR"
+  }, {
+    "language" : "ara",
+    "value" : "هسرر"
+  } ],
+  "region" : [ {
+    "language" : "eng",
+    "value" : "{{region}}"
+  }, {
+    "language" : "ara",
+    "value" : "جهة الرباط سلا القنيطرة"
+  } ],
+  "email" : "xyz@xyz-tech.com"
+} } 
