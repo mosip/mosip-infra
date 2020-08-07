@@ -15,21 +15,24 @@ Parameters of packet are specified in `config.py`. For standard deployment you n
 
 ## Clearing the DB
 This is optional.  To see your packet clearly, you may want to clear all records of previous packets in `mosip_regprc` tables:
-    ```
-    $ ./cleardb.sh
-    ```
+
+```
+$ ./cleardb.sh
+```
 Provide your postgres password.
 
 ## Upload registration packet
-    ```
-    $ ./test_regproc.py
-    ```
+
+```
+$ ./test_regproc.py
+```
 
 ## Verify
 Verify the transactions as below:
-    ```
-    $ ./checksb.sh
 
-    ```
+```
+$ ./checksb.sh
+
+```
 Provide postgres password.  Note that it may take several seconds for packet to go through all the stages.  You must see a `SUCCESS` for all stages. 
     
