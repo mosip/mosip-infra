@@ -49,6 +49,6 @@ $ an playbooks/regproc.yml
 
 ## Checks after deployment
 
-* [Pre-registration sanity check](prereg_check.md)  
-
+* [Pre-registration check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/prereg/prereg_check.md)
+* [Registration Processor check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/regproc/README.md)
 
