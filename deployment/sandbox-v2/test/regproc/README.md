@@ -31,7 +31,7 @@ $ ./test_regproc.py
 Verify the transactions as below:
 
 ```
-$ ./checksb.sh
+$ ./checkdb.sh
 
 ```
 Provide postgres password.  Note that it may take several seconds for packet to go through all the stages.  You must see a `SUCCESS` for all stages. 
