@@ -4,10 +4,34 @@
   gather_facts: false
   tasks:
     - name: Get container file size
-      shell: 'du -mL /var/log/containers'
+      shell: 'du -bL /var/log/containers/'
       register: size
       become: yes
+      ignore_errors: yes
 
     - debug:
-        msg: ' {{inventory_hostname}}: {{size.stdout.split()[0]}} mb'
+        msg: ' {{inventory_hostname}}:    {{size.stdout.split()[0]}}'
+      ignore_errors: yes
+
+#    - name: Get container file size
+#      shell: 'du -bcL /var/log/containers/*regproc*'
+#      register: size
+#      become: yes
+#      ignore_errors: yes
+#
+#    - debug:
+#        #msg: ' {{inventory_hostname}}:  {{size.stdout.split()[0]}}'
+#        msg: ' {{inventory_hostname}}:  {{size.stdout.split("\n")}}'
+#      ignore_errors: yes
+#
+#    - name: Get container file size
+#      shell: 'du -bcL /var/log/containers/*idrepo*'
+#      register: size
+#      become: yes
+#      ignore_errors: yes
+#
+#    - debug:
+#        #msg: ' {{inventory_hostname}}:  {{size.stdout.split()[0]}}'
+#        msg: ' {{inventory_hostname}}:  {{size.stdout.split("\n")}}'
+#      ignore_errors: yes
 
