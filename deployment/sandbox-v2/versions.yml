@@ -50,7 +50,7 @@ versions:
       
     registration:
       client:
-        'client': 'mosipdev/registration-client:1.0.11'
+        'reg-client': 'mosipdev/registration-client:1.0.11'
 
     regproc:
       camel:
