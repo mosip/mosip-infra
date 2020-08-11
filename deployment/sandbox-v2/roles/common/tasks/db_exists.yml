@@ -3,7 +3,7 @@
 # params: db_name
 # returns: db_exists
 
-- name: Select query to db acme with positional arguments and non-default credentials
+- name: Select query to check if db exists
   postgresql_query:
     db: '{{db_name}}'
     login_host: '{{postgres.server}}'
