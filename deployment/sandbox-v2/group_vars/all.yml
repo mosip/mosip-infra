@@ -138,23 +138,24 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.0.9
+    tag: develop
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: master
+    private: false
+    tag: develop
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: master
+    tag: develop
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.0.9
+    tag: develop
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: master
+    tag: develop
 
 # DBs 
 #
