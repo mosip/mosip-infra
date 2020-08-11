@@ -1,0 +1,40 @@
+namespace: default
+serviceName: reg-client
+
+activeProfileEnv: mz 
+springConfigLabel: master
+configServerUrl: http://config-server/config
+artifactoryUrl: {{ artifactory_url }} 
+imagePullPolicy: Always
+docker:
+  image: {{ versions.services.registration.client.keys()[0] }}
+  tag: {{ versions.services.registration.client.values()[0] }}
+  ports:
+    containerPort: 80
+    servicePort: 80
+
+version: "1.0.11-SNAPSHOT"
+mountPath: "/build_files"  # path inside docker
+crypto_key_env: {{ reg_client.crypto_key }}
+bootpwd: {{ reg_client.bootpwd }}
+tpm: "N"
+certificate: "mosip_cer.cer"
+upgrade_server: "https://phil.mosip.net"
+
+sc:
+  name: ""
+pv:
+  name: registration-pv
+  size: 2Mi
+pvc:
+  name: registration-pvc
+  size: 2Mi 
+
+nfs:
+  server: {{ nfs.server }} 
+  path: {{ reg_client.nfs_path }}
+
+probe:
+  initialDelay: 15  # Seconds
+  period: 30 # Seconds
+healthUrl: ''

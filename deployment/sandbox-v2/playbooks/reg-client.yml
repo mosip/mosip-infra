@@ -1,0 +1,25 @@
+# Playbook to install reg-client docker
+# Inputs:
+#   kube_config  
+# 
+
+# Prepare folders on remote node
+- hosts: nfsserver
+  gather_facts: true
+  vars:
+    reg_prop: '{{reg_client}}'
+  roles:
+    - {role: reg-client-prep}
+
+# Convert helm template to helm values 
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'reg-client' 
+    helm_chart: '{{charts_root}}/reg-client'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/reg-client/values.template.j2'
+  roles:
+    - {role:  helm}
+

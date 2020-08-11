@@ -27,7 +27,7 @@ clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
     nodeport_node: mzworker0.sb  # Any node on cluster for nodeport access
-    any_node_ip: '10.20.20.157' # ip address of above node
+    any_node_ip: '10.20.20.44' # ip address of above node
     ingress:
       namespace: ingress-nginx
       nodeports:
@@ -59,7 +59,7 @@ clusters:
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
-    any_node_ip: '10.20.20.207' # ip adddress of above node
+    any_node_ip: '10.20.20.159' # ip adddress of above node
     ingress:
       namespace: ingress-nginx
       nodeports:
@@ -133,7 +133,13 @@ softhsm:
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     nfs_path: '{{nfs.folder}}/softhsm/ida/'
-
+reg_client:
+  cert_file: mosip_cer.cer
+  nfs_path: '{{nfs.folder}}/reg-client/'
+  cert_path: '{{install_root}}/roles/reg-client-prep/files/'
+  xml_file: '{{install_root}}/roles/reg-client-prep/files/maven-metadata.xml'
+  crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
+  bootpwd: 'bW9zaXAxMjM0NQ=='
 repos:
   commons:
     src: https://github.com/mosip/commons 

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.serviceName }}-ingress
+  namespace: {{ .Values.namespace }}
+  annotations:
+     kubernetes.io/ingress.class: "nginx"
+    # nginx.com/health-checks: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /registration-client
+        backend:
+          serviceName: {{ .Values.serviceName }}
+          servicePort: 80 
+

@@ -249,6 +249,10 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/resident/v1/;
         }
 
+        location /registration-client/ {
+           proxy_pass http://mzworker0.sb:30080/registration-client/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
