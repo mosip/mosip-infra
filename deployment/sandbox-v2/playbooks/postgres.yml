@@ -43,8 +43,10 @@
         db_name: mosip_kernel  # Just any db. If exists, we will not init
 
 - hosts: console
-  roles:  # Run these roles only if db does not exist
-     - {role: repos, when: db_exists == false, tags: [repos]}  # These repos have sql scripts. 
-     - {role: postgres-init, when: db_exists == false,  tags: [postgres-init]} 
+  vars:
+    force_init: false
+  roles:  # Run these roles only if db does not exist or if force_init is set to true
+     - {role: repos, when: (db_exists == false or force_init|bool == true), tags: [repos]}  # These repos have sql scripts. 
+     - {role: postgres-init, when: (db_exists == false or force_init|bool == true),  tags: [postgres-init]} 
 
 
