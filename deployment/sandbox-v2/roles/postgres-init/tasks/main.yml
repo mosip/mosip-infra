@@ -3,6 +3,15 @@
 # test data 
 # TODO: Init should not happen if Postgres has valuable data
 
+# Copy dml files - typically needed to replace default master data with 
+# country's data
+- name: Copy any custom dml files
+  copy:
+    src: '{{item.value.dml}}' 
+    dest: '{{item.value.sql_path}}/{{item.key}}/dml/' 
+  when: item.value.dml is defined
+  loop: '{{databases | dict2items}}'
+
 - include: init_db.yml
   vars:
     pg_db_name: '{{item.key}}'
