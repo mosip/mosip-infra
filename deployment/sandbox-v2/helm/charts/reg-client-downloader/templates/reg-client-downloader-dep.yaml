@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.serviceName }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.serviceName }}
 spec:
@@ -22,8 +22,8 @@ spec:
         app: {{ .Values.serviceName }} 
     spec:
       containers:
-      - name: {{ .Values.docker.image }} 
-        image: {{ .Values.docker.tag }} 
+      - name: {{ .Values.serviceName }} 
+        image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: client_version_env
@@ -39,7 +39,7 @@ spec:
         - name: client_upgrade_server_env
           value: {{ .Values.upgrade_server }}
         - name: healthcheck_url_env
-          value: https://phil.mosip.net/vi/authmanager/actuator/health
+          value: {{ .Values.healthcheck }}
 
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}

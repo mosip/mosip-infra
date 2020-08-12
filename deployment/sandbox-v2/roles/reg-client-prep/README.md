@@ -1,3 +1,2 @@
-The tasks here prepare the necessary directories for softhsm is intallation. 
+The Role is to created a directory in NFS and than copy the necesary metadata.xml and mosip certificate into that dorectory so that it can be used by the reg-client-downloader to create reg-client zip.
 
- Softhsm module is NOT installed here, but is installed by the Kernel Helm charts.  This prep is necessary before we run the Kube scripts.

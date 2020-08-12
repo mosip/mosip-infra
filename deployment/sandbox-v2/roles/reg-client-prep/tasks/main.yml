@@ -1,8 +1,8 @@
 ---
-# Creates folder on a node for softhsm
-# These tasks are applicable on the node on which
-# folders are located.
-- name: Create reg client folder
+# Creates folder in nfs for reg-client to provide metadata.xml and mosip-cer file.
+# These files are further used by reg-client downloader to create the client zip.
+
+- name: Create reg client folder in nfs.
   file:
     path: '{{reg_prop.nfs_path}}'
     state: directory 
@@ -12,6 +12,7 @@
   copy:
     src: '{{reg_prop.cert_path}}/{{reg_prop.cert_file}}'
     dest: '{{reg_prop.nfs_path}}' 
+    force: no
   become: yes
   
 - name: Copy metadata.xml

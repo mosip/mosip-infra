@@ -24,10 +24,11 @@
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/prereg.yml
-- import_playbook: playbooks/reg-client.yml # For downloading reg-client.
 - import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
 - import_playbook: playbooks/pms.yml
 - import_playbook: playbooks/resident.yml
 - import_playbook: playbooks/admin.yml
+# Regclient downloader
+- import_playbook: playbooks/reg-client-downloader.yml
