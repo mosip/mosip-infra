@@ -73,6 +73,7 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
   - {realm_id: 'mosip', user_file: 'users/110022.json'}
   - {realm_id: 'mosip', user_file: 'users/pm_testuser.json'}
   - {realm_id: 'mosip', user_file: 'users/110068.json'}
+  - {realm_id: 'mosip', user_file: 'users/110010.json'}
   
 
 keycloak_mosip_user_role_map:  
@@ -206,6 +207,26 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110122', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: '110122', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', username: '110122', role_name: 'RESIDENT'}
+  
+  - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'ID_AUTHENTICATION'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'DEVICE_PROVIDER'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'SUPERADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'ZONAL_ADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_PROCESSOR'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'ZONAL_APPROVER'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_OPERATOR'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'CENTRAL_APPROVER'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'MISP'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'PREREG'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'CENTRAL_ADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'PRE_REGISTRATION'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'PRE_REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_SUPERVISOR'}
+  - {realm_id: 'mosip', username: '110010', role_name: 'RESIDENT'}
 
   - {realm_id: 'mosip', username: '110123', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110123', role_name: 'REGISTRATION_SUPERVISOR'}
