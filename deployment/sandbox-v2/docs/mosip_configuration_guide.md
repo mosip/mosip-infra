@@ -2,7 +2,7 @@
 
 ## Pre-install configuration
 
-Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository following the same name and structure of `sandbox` folder. The repo may be private. Configure the following parameters in `group_vars.all.yml` as below (example):
+Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository following the same name and structure of `sandbox` folder. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
 ```
 config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config 
