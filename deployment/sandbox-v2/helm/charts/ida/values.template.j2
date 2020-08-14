@@ -3,7 +3,7 @@ component: ida
 part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel: master
-configServerUrl: http://config-server/config
+configServerUrl: {{ config_server.internal_url }}
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 

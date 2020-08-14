@@ -24,15 +24,17 @@ spec:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         env:
-        - name: env_jar_name 
-          value: {{ .Values.jarName }}
-        - name: env_config_folder 
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS 
           value: {{ .Values.searchFolders }}
+        #- name: SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME
+        #  value: pjoshi751 
+        #- name: SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD
+        #  value: mhowNipx29
         {{ if eq .Values.localRepo.enabled true }}
-        - name: env_git_uri 
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.localRepo.mountPath }}
         {{ else }}
-        - name: env_git_uri 
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.gitRepoUri }}
         {{ end }}
         ports:
