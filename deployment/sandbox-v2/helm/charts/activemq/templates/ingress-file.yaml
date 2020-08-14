@@ -13,4 +13,4 @@ spec:
       - path: /activemq(/|$)(.*)
         backend:
           serviceName: {{ .Values.name }}
-          servicePort: 80
+          servicePort: {{ .Values.docker.webPort }}

@@ -11,10 +11,10 @@ spec:
   type: NodePort
   ports:
     - name: api-port
-      port: {{ .Values.docker.containerPort }}
+      port: {{ .Values.docker.servicePort }}
       targetPort: {{ .Values.docker.containerPort }}
       nodePort: {{ .Values.docker.nodeport}}	
 
     - name: web-console-port
-      port: 80
-      targetPort: 8161
+      port: {{ .Values.docker.webPort }}
+      targetPort: {{ .Values.docker.webport }}
