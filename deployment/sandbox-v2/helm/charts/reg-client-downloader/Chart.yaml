@@ -1,0 +1,6 @@
+apiVersion: v2
+name: reg-client-downloader
+description: A Helm chart for installing reg-client-downloader
+type: application
+version: 1.0.11
+appVersion: v1

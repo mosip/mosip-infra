@@ -2,10 +2,13 @@
 #
 
 - hosts: console
-  gather_facts: true
   vars:
-    kube_config: '{{clusters.mz.kube_config}}'  # Deploy all these on mz cluster
+    kube_config: '{{clusters.mz.kube_config}}' 
+    install_name: 'activemq' 
+    helm_chart: '{{charts_root}}/activemq'
+    is_template: true  
+    helm_namespace: default
+    helm_values: '{{charts_root}}/activemq/values.template.j2'
   roles:
-     - {role: activemq, tags: [activemq]} # 
-
+    - {role:  helm}
 
