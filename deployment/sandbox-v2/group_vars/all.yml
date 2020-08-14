@@ -119,6 +119,7 @@ keycloak:
   user: admin
   password: admin
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
+  external_url: '{{ site.sandbox_public_url }}/keycloak'
 
 softhsm:
   keymanager:  
@@ -142,7 +143,6 @@ repos:
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    private: false
     tag: develop
   regproc:
     src: https://github.com/mosip/registration
@@ -210,10 +210,17 @@ hdfs:
       value: "only"  
 
 config_repo:
-  name: config_repo  # Git repo inside above node_path
-  path: '{{nfs.folder}}/config_repo'
-  search_folder: ''  # If all properites at at the root repo level, then this will be empty
-  storage_size: 10Mi
+  # If local_git_repo=true, a copy of git repo at `git_repo_uri` created on console machine and config server points
+  # to the same. Any changes will then have to done on local repo and will not be reflected in parent git repo
+  # then have
+  git_repo_uri: https://github.com/mosip/mosip-config 
+  private: false  # Username and password are promted if private=true
+  search_folders: sandbox # Subdir in repo containing properties
+  local_git_repo:
+    enabled: false
+    path: '{{nfs.folder}}/mosip-config'
+    search_folders: ''  # If all properites at at the root repo level, then this will be empty
+    storage_size: 10Mi
 
 activemq:
   name: activemq

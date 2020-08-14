@@ -1,7 +1,10 @@
-## Create git repo on a node
+## Create git repo on a node 
 - hosts: nfsserver
+  vars:
+    repo_path: '{{config_repo.git_repo_uri}}'
+    repo_dest: '{{config_repo.local_git_repo.path}}'
   roles:
-    - {role: config-repo, tags: [config-repo, env], become: yes}  
+    - {role:  github, when: config_repo.local_git_repo.enabled, become: yes}
 
 ## Install config server using helm
 - hosts: console

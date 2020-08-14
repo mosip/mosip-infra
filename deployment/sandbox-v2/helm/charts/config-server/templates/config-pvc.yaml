@@ -1,15 +1,17 @@
 ---
+{{ if eq .Values.localRepo.enabled true }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.pvc.name }} 
+  name: {{ .Values.localRepo.pvc.name }} 
 spec:
-  storageClassName: {{ .Values.sc.name }} 
+  storageClassName: {{ .Values.localRepo.sc.name }} 
   accessModes:
     - ReadOnlyMany
   resources:
     requests:
-      storage: {{ .Values.pvc.size }} 
+      storage: {{ .Values.localRepo.pvc.size }} 
   selector:
     matchLabels:
-      name: {{ .Values.pv.name }} 
+      name: {{ .Values.localRepo.pv.name }} 
+{{ end }}
