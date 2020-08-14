@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.docker.image }}
+        env:
+        - name: ACTIVEMQ_CONFIG_MINMEMORY
+          value: {{ .Values.docker.minmemory }}
+        - name: ACTIVEMQ_CONFIG_MAXMEMORY
+          value: {{ .Values.docker.maxmemory }}
+        - name: ACTIVEMQ_CONFIG_STOREUSAGE
+          value: {{ .Values.docker.storeusage }}
+        - name: ACTIVEMQ_CONFIG_TEMPUSAGE
+          value: {{ .Values.docker.tempusage }}
+        ports:
+        - containerPort: {{ .Values.docker.containerPort }} 
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used

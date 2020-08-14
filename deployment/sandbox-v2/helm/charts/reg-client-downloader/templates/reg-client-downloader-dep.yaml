@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.serviceName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceName }} 
+    spec:
+      containers:
+      - name: {{ .Values.serviceName }} 
+        image: {{ .Values.docker.image }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: client_version_env
+          value: {{ .Values.version }} 
+        - name: crypto_key_env
+          value: {{ .Values.crypto_key_env }}
+        - name: db_bootpwd_env
+          value: {{ .Values.bootpwd }}
+        - name: tpm_enabled_env
+          value: \"{{ .Values.tpm }}\"
+        - name: client_certificate_env
+          value: {{ .Values.certificate }}
+        - name: client_upgrade_server_env
+          value: {{ .Values.upgrade_server }}
+        - name: healthcheck_url_env
+          value: {{ .Values.healthcheck }}
+
+        ports:
+        - containerPort: {{ .Values.docker.ports.containerPort }}
+        readinessProbe:  #Since no actuator, we watch tcp port.
+          tcpSocket:
+            port: {{ .Values.docker.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+ #       livenessProbe:
+ #         tcpSocket:
+ #           port: {{ .Values.docker.ports.containerPort }}
+ #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+ #         periodSeconds: {{ .Values.probe.period }} 
+        volumeMounts:
+        - name: reg-client-volume
+          mountPath: {{ .Values.mountPath }}
+      volumes:
+      - name: reg-client-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }}
