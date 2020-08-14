@@ -252,6 +252,9 @@ http {
         location /registration-client/ {
            proxy_pass http://dmzworker0.sb:30080/registration-client/;
         }
+        location /activemq/ {
+           proxy_pass http://dmzworker0.sb:30080/activemq/;
+        }
 
         error_page 404 /404.html;
             location = /40x.html {

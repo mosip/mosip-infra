@@ -226,4 +226,4 @@ config_repo:
 activemq:
   name: activemq
   nodeport: 30616  # Arbitrary
-  container_port: 61616 
+  container_port: 61616
