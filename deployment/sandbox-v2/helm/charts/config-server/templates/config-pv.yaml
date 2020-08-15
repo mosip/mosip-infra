@@ -1,15 +1,17 @@
+{{ if eq .Values.localRepo.enabled true }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.pv.name }} 
+  name: {{ .Values.localRepo.pv.name }} 
   labels:
-    name: {{ .Values.pv.name }} 
+    name: {{ .Values.localRepo.pv.name }} 
 spec:
-  storageClassName: {{ .Values.sc.name }} 
+  storageClassName: {{ .Values.localRepo.sc.name }} 
   capacity:
-    storage: {{ .Values.pv.size }}
+    storage: {{ .Values.localRepo.pv.size }}
   accessModes:
     - ReadOnlyMany
   nfs:
-    server:  {{ .Values.nfs.server }}
-    path: {{ .Values.nfs.path }} 
+    server:  {{ .Values.localRepo.nfs.server }}
+    path: {{ .Values.localRepo.nfs.path }} 
+{{ end }}

@@ -13,5 +13,6 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/ida/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}

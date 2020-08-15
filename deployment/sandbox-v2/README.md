@@ -89,23 +89,37 @@ If your cluster machines use network interface other than "eth0", update it in `
 ```
 network_interface: "eth0"
 ```
-### MOSIP configuration
-Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
-
 ### Shortcut commands
 Add the following shortcuts in `/home/mosipuser/.bashrc`:
 ```
-alias an='ansible-playbook -i hosts.ini'
+alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'
+alias av='ansible-vault'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
 alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
 alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
 alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+alias helmn='helm --kubeconfig $HOME/.kube/mzcluster.config -n monitoring'
+alias kcm='kubectl -n monitoring --kubeconfig $HOME/.kube/mzcluster.config'
 ```
 After adding the above:
 ```
   $ source  ~/.bashrc
 ``` 
+### Ansible vault
+All secrets (passwords) used in this automation are stored in Ansible vault file `secrets.yml`.  The default password to access the file is 'foo'.  It is recommended that you change this password with following command:
+```
+$ av rekey secrets.yml
+```
+You may view and edit the contents of `secrets.yml`:
+```
+$ av view secrets.yml
+$ av edit secrets.yml
+```
+
+### MOSIP configuration
+Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
+
 ### Install MOSIP
 * Intall all MOSIP modules:
 ```
@@ -140,7 +154,10 @@ $ an reset.yml
 All persistent data is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
 
 Note the following:
-* Postgres is initialized and populated only once.  If persistent data is present in `/srv/nfs/mosip/postgres` then postgres is not initialized. You will need to run reset scripts to clear up the folder for a re-initialization.
+* Postgres is initialized and populated only once.  If persistent data is present in `/srv/nfs/mosip/postgres` then postgres is not initialized.  To force an init, run the following:
+```
+$ an playbooks/postgres.yml --extra-vars "force_init=true"
+``` 
 * Postgres also contains Keycloak data.  `keycloak-init` does not overwrite any data, but just updates and adds.  If you want to clean up Keycloak data, you will need to clean it up manually or reset entire postgres.
 
 ## Useful tools

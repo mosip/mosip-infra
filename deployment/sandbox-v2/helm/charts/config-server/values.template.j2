@@ -1,28 +1,38 @@
 namespace: default
-name: config-server  # Will be used as service name too
+name: {{ config_server.name }} # Will be used as service name too
 docker:
-  image: mosipid/sandbox-config-server
-  tag: 1.0.5
-  containerPort: 51000
+  image: hyness/spring-cloud-config-server
+  tag: latest
+  containerPort: 8888
   servicePort: 80
 jarName: kernel-config-server # Without .jar. Used locally for Docker
 component: config-server
-gitrepo:
-  name: config_repo
-  mountPath: /var/lib/config_repo
-  uri: /var/lib/config_repo  # repoMountPath + gitRepoName
-pv:
-  name: config-server-pv
-  size: 10Mi
-pvc:
-  name: config-server-pvc
-  size: 10Mi # Should not exceed pv size
+
 ingressPath: /config
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
-sc:
-  name: ""
 
-nfs:
-  server: {{ nfs.server }}
-  path: {{ config_repo.path }} 
+encryptKey: '' # Passed diretly via command line
+
+gitRepo:
+  uri: {{ config_repo.git_repo_uri }}
+  searchFolders: {{ config_repo.search_folders }}
+  private: {{ config_repo.private }} 
+  username: {{ config_repo.username }}    
+  password: '' # Passed directly via command line
+
+localRepo:
+  enabled: {{ config_repo.local_git_repo.enabled }}
+  mountPath: /var/lib/config_repo
+  pv:
+    name: config-server-pv
+    size: 10Mi
+  pvc:
+    name: config-server-pvc
+    size: 10Mi # Should not exceed pv size
+  sc:
+    name: ""
+  nfs:
+    server: {{ nfs.server }}
+    path: {{ config_repo.local_git_repo.path }} 
+

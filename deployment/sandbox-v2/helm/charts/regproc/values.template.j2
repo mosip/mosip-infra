@@ -3,7 +3,7 @@ component: regproc
 part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel: master
-configServerUrl: http://config-server/config
+configServerUrl: {{ config_server.internal_url }}
 storageClass: dm-storage-class  # See sc, pv templates
 
 probe:
