@@ -1,7 +1,7 @@
 # MOSIP Configuration Guide
 
-## Passwords
-All passwords are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
+## Secrets
+All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
 ```
 $ av edit secrets.yml
 ```
