@@ -32,6 +32,7 @@
     is_template: true  
     helm_namespace: '{{ mon_prop.namespace }}'
     helm_values: '{{charts_root}}/prometheus/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
     

@@ -1,16 +1,25 @@
 # MOSIP Configuration Guide
 
-## Pre-install configuration
+## Passwords
+All passwords are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
+```
+$ av edit secrets.yml
+```
 
-Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository following the same name and structure of `sandbox` folder. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
+## Config server
+
+Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository with a folder containing property files. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
 ```
 config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config 
   private: false 
+  username: <your github username>
   search_folders: sandbox 
   local_git_repo:
     enabled: false
 ```
+
+If `private: true` then it expected that you provide your github username above and password in `secrets.yml`.
 
 If `local_git_repo` is enabled, the repo will be cloned to the NFS mounted folder and config server will pull the properties locally. This option is useful when sandbox is secured with no Internet access. You may git check-in any changes locally.  However, note that if you want the changes to reflect in the parent Github repo, you will have to push them manually.  There is no need to restart config-server pod when you make changes in the config repo.
 

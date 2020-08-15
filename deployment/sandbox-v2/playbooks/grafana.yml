@@ -42,6 +42,7 @@
     helm_chart: 'stable/grafana'
     helm_namespace: '{{ mon_prop.namespace }}'
     helm_values: '{{charts_root}}/grafana/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
   

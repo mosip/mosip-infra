@@ -25,17 +25,21 @@ spec:
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         env:
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS 
-          value: {{ .Values.searchFolders }}
-        #- name: SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME
-        #  value: pjoshi751 
-        #- name: SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD
-        #  value: mhowNipx29
+          value: {{ .Values.gitRepo.searchFolders }}
+        - name: ENCRYPT_KEY
+          value: {{ .Values.encryptKey }}
         {{ if eq .Values.localRepo.enabled true }}
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.localRepo.mountPath }}
         {{ else }}
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
-          value: {{ .Values.gitRepoUri }}
+          value: {{ .Values.gitRepo.uri }}
+        {{ if eq .Values.gitRepo.private true }}
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_USERNAME
+          value: {{ .Values.gitRepo.username }} 
+        - name: SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD
+          value: {{ .Values.gitRepo.password }} 
+        {{ end }} 
         {{ end }}
         ports:
         - containerPort: {{ .Values.docker.containerPort }} 

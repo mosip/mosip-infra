@@ -15,6 +15,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/dmzregproc/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm, tags: [dmzregproc]}
 
@@ -27,6 +28,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/regproc/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm, tags: [regproc]}
  

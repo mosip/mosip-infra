@@ -1,9 +1,6 @@
 namespace: default
 name: {{ config_server.name }} # Will be used as service name too
 docker:
-  #image: mosipid/sandbox-config-server
-  #tag: 1.0.5
-  #containerPort: 51000
   image: hyness/spring-cloud-config-server
   tag: latest
   containerPort: 8888
@@ -15,10 +12,14 @@ ingressPath: /config
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 
-gitRepoUri: {{ config_repo.git_repo_uri }}
-searchFolders: {{ config_repo.search_folders }}
+encryptKey: '' # Passed diretly via command line
 
-javOpts: '-Dspring.cloud.config.server.git.username=pjoshi751 -Dspring.cloud.server.git.password=mhowNipx29'
+gitRepo:
+  uri: {{ config_repo.git_repo_uri }}
+  searchFolders: {{ config_repo.search_folders }}
+  private: {{ config_repo.private }} 
+  username: {{ config_repo.username }}    
+  password: '' # Passed directly via command line
 
 localRepo:
   enabled: {{ config_repo.local_git_repo.enabled }}

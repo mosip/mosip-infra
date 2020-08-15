@@ -105,7 +105,6 @@ postgres:
   server: '{{clusters.mz.nodeport_node}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
-  password: postgres
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
@@ -117,7 +116,6 @@ postgres:
 # Keycloak
 keycloak:
   user: admin
-  password: admin
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
   external_url: '{{ site.sandbox_public_url }}/keycloak'
 
@@ -222,7 +220,8 @@ config_repo:
   # to the same. Any changes will then have to done on local repo and will not be reflected in parent git repo
   # then have
   git_repo_uri: https://github.com/mosip/mosip-config
-  private: false  # Username and password are promted if private=true
+  private: false
+  username: pjoshi751 # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false

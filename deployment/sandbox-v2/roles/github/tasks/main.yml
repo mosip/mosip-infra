@@ -1,0 +1,26 @@
+# Main role to checkout git repo - private or public
+#   Inputs:
+#     repo_path: Full path e.g https://github.com/username/reponame
+#     repo_dest: Destination folder
+#     githubuser
+#     githubpassword
+
+- name: 'Create foler {{repo_dest}} if does not exist'
+  file:
+    path: '{{repo_dest}}'
+    state: directory
+
+- debug:
+    msg: 'Cloning {{repo_path}} into {{repo_dest}}'
+
+- set_fact:
+    repo_path: '{{repo_path.split("://")[0]}}://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@{{repo_path.split("://")[1]}}' 
+  when: config_repo.private == true 
+
+- git:
+    repo: '{{repo_path}}'
+    dest: '{{repo_dest}}'
+    update: no 
+    force: no
+  no_log: true
+-

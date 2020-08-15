@@ -5,6 +5,7 @@
 #   helm_chart
 #   template: true  # Convert j2 template to yaml 
 #   helm_values: j2 template or yaml helm file
+#   helm_strings: Key value pairs as per --set-strings option
 #   helm_namespace: default if not specified
 
 - include_vars: '{{install_root}}/versions.yml' # Needed for resolving various versions.
@@ -26,7 +27,7 @@
 - name: install chart
   block:
   - name: 'Install chart {{install_name}}'
-    command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --wait --timeout 20m0s'
+    command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --set-string dummy=value,{{helm_strings}} --wait --timeout 20m0s'
     when: install_name not in out.stdout.split()
     register: helm_out 
   
