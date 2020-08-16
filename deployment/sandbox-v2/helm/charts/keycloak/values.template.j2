@@ -3,7 +3,7 @@ namespace: default
 dockerImage: jboss/keycloak
 dockerTag: 9.0.0 
 keycloakUser: {{ keycloak.user }}
-keycloakPassword: {{ secrets.keycloak.password }} 
+keycloakPassword: {{ secrets.keycloak.su }} 
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"  
@@ -13,6 +13,6 @@ db:
   host: {{ postgres.service_name }}
   port: {{ postgres.service_port }} 
   user: {{ postgres.user }}
-  password: {{ secrets.postgres.password }}
+  password: {{ secrets.postgres.su }}
 ingress:
    namespace: default 

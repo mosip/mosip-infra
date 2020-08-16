@@ -105,6 +105,7 @@ postgres:
   server: '{{clusters.mz.nodeport_node}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
+  default_password: postgres # This is changed later for security reasons.
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
@@ -167,24 +168,34 @@ repos:
 #
 databases:
   mosip_kernel:
+    user: kerneluser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_master:
+    user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_iam:
+    user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_audit:
+    user: audituser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_idrepo:
+    user: idrepouser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_idmap:
+    user: idmapuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_prereg:
+    user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
   mosip_regprc:
+    user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
   mosip_ida:
+    user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
   mosip_pmp:
+    user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
 
 nfs:

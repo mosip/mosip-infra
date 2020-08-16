@@ -18,7 +18,7 @@
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^SU_USER_PWD='
-    line: SU_USER_PWD={{postgres.password}}
+    line: SU_USER_PWD={{postgres.default_password}}
 
 - name: '{{pg_db_name}}: Update basepath in postgres init files' 
   lineinfile:

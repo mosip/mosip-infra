@@ -1,10 +1,24 @@
 ---
 # This script runs all the init SQL queries and populates all tables with
 # test data 
-# TODO: Init should not happen if Postgres has valuable data
+# IMPORTANT: Init only run once.  To run again, delete the init.lock file in 
+# postgres folder
 
 # Copy dml files - typically needed to replace default master data with 
 # country's data
+- name: Check if init lock file exists (ie. init has already been done once)
+  stat:
+    path: '{{postgres_init_lock_file}}'
+  become: yes
+  register: out
+
+- debug:
+    msg: Init has already been done once. Skipping init.
+  when: out.stat.exists
+  
+- meta: end_play  # Exit
+  when: out.stat.exists
+
 - name: Copy any custom dml files
   copy:
     src: '{{item.value.dml}}' 
@@ -18,3 +32,14 @@
     pg_sql_path: '{{item.value.sql_path}}'
   with_items: '{{databases | dict2items}}'
         
+# After successful init, create a lockfile to not init again 
+- name: Create init lock file to not re-init again
+  file:
+    path: '{{postgres_init_lock_file}}'
+    state: touch
+  become: yes
+
+# Update all passwords to the ones in secrets.yml
+- import_tasks: update_passwords.yml
+
+
