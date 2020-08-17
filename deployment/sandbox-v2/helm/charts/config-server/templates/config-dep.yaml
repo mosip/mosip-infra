@@ -28,6 +28,10 @@ spec:
           value: {{ .Values.gitRepo.searchFolders }}
         - name: ENCRYPT_KEY
           value: {{ .Values.encryptKey }}
+        - name: keycloak.external_url
+          value: {{ .Values.additionalParams.keycloakExternalUrl }}
+        - name: site.sandbox_public_url
+          value: {{ .Values.additionalParams.sandboxPublicUrl }}
         {{ if eq .Values.localRepo.enabled true }}
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.localRepo.mountPath }}

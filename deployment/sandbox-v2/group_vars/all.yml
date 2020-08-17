@@ -231,6 +231,7 @@ config_repo:
   # to the same. Any changes will then have to done on local repo and will not be reflected in parent git repo
   # then have
   git_repo_uri: https://github.com/mosip/mosip-config
+  branch: develop
   private: false
   username: pjoshi751 # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties

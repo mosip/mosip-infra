@@ -3,7 +3,7 @@ namespace: default
 dockerImage: jboss/keycloak
 dockerTag: 9.0.0 
 keycloakUser: {{ keycloak.user }}
-keycloakPassword: {{ secrets.keycloak.su }} 
+keycloakPassword: {{ secrets.keycloak.password }} 
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"  

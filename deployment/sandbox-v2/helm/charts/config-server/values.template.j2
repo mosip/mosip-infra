@@ -11,6 +11,9 @@ component: config-server
 ingressPath: /config
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
+additionalParams:  # Required for mosip properties
+  keycloakExternalUrl: {{ keycloak.external_url }}
+  sandboxPublicUrl: {{ site.sandbox_public_url }}
 
 encryptKey: '' # Passed diretly via command line
 
