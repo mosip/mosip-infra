@@ -6,12 +6,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.com/health-checks: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      - path: /config(/|$)(.*)
+      - path: /config
         backend:
           serviceName: {{ .Values.name }} 
           servicePort: 80 

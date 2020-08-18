@@ -2,7 +2,7 @@ namespace: default
 component: pms
 part-of: mosip
 activeProfileEnv: mz 
-springConfigLabel: master
+springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: {{ config_server.internal_url }}
 ingress:
    namespace: default

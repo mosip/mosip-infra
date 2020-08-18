@@ -2,7 +2,7 @@ namespace: default
 component: regproc
 part-of: mosip
 activeProfileEnv: mz 
-springConfigLabel: master
+springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: {{ config_server.internal_url }}
 storageClass: dm-storage-class  # See sc, pv templates
 

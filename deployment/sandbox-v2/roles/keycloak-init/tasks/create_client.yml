@@ -6,7 +6,7 @@
     auth_keycloak_url: '{{keycloak.url}}/auth'
     auth_realm: master
     auth_username: '{{keycloak.user}}'
-    auth_password: '{{keycloak.password}}'
+    auth_password: '{{secrets.keycloak.password}}'
     client_id: '{{kc_client_id}}'
     realm: '{{kc_realm_id}}' 
     secret: '{{kc_client_secret}}'

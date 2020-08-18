@@ -2,7 +2,7 @@ namespace: default
 serviceName: softhsm-{{hsm_prop.label}}
 
 activeProfileEnv: mz 
-springConfigLabel: master
+springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: http://config-server/config
 artifactoryUrl: {{ artifactory_url }} 
 

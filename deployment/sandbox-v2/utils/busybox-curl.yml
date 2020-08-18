@@ -1,0 +1,12 @@
+# Alpine with curl + ssh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-curl
+spec:
+  containers:
+  - name: busybox-curl
+    image: yauritux/busybox-curl:latest 
+    args:
+    - sleep
+    - "1000000"

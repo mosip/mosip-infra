@@ -12,6 +12,7 @@ Configurations for all modules are specified via property files assumed located 
 ```
 config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config 
+  branch: develop
   private: false 
   username: <your github username>
   search_folders: sandbox 

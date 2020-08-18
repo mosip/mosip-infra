@@ -13,6 +13,6 @@ db:
   host: {{ postgres.service_name }}
   port: {{ postgres.service_port }} 
   user: {{ postgres.user }}
-  password: {{ secrets.postgres.password }}
+  password: {{ secrets.postgres.su }}
 ingress:
    namespace: default 
