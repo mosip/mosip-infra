@@ -12,7 +12,7 @@ _**WARNING**: The sandbox is not intented to be used for serious pilots or produ
 ## OS
 **CentOS 7.8** on all machines.
 
-## Hardware setup 
+## Hardware configuration
 
 The sandbox has been tested with the following configuration:
 
@@ -28,7 +28,7 @@ The sandbox has been tested with the following configuration:
 
 All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
-## Vitrual Machine (VM) setup
+## Vitrual Machines (VMs) setup
 
 Before installing MOSIP modules you will have to setup your VMs as below:
 1. Install above mentioned OS on all machines
@@ -76,17 +76,6 @@ ssl:
   email: ''
   certificate: <certificate dir>
   certificate_key: <private key path> 
-```
-* Set **private ip** address of `mzworker0.sb` and `dmzworker0.sb` in `group_vars/all.yml`:
-
-```
-clusters:
-  mz:
-    any_node_ip: '<mzworker0.sb ip>'
-
-clusters:
-  dmz:
-    any_node_ip: '<dmzworker0.sb ip>'
 ```
 ### Network interface
 If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
