@@ -153,46 +153,7 @@
     "label" : "otherFiles",
     "value" : [ "audit" ]
   } ],
-  "capturedRegisteredDevices" : [ {
-    "deviceCode" : "bc808b02-1a7d-4a5d-848f-1aa8590ca6ef",
-    "deviceServiceVersion" : "SB.WIN.001",
-    "digitalId" : {
-      "serialNo" : "9149869",
-      "make" : "EYEWORKS",
-      "model" : "TCP822",
-      "type" : "Iris",
-      "subType" : "Double",
-      "deviceProviderId" : "XYZMetricsId",
-      "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{creation_date}}"
-    }
-  }, {
-    "deviceCode" : "e799e621-6ce5-468e-b442-886430955f5d",
-    "deviceServiceVersion" : "SB.WIN.001",
-    "digitalId" : {
-      "serialNo" : "C8R1CP15256",
-      "make" : "SB",
-      "model" : "FRO900",
-      "type" : "Finger",
-      "subType" : "Slab",
-      "deviceProviderId" : "XYZMetricsId",
-      "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{creation_date}}"
-    }
-  }, {
-    "deviceCode" : "79847aec-c87c-4692-9ae9-43ba203a3411",
-    "deviceServiceVersion" : "SB.WIN.001",
-    "digitalId" : {
-      "serialNo" : "535626446",
-      "make" : "Megatech",
-      "model" : "C815",
-      "type" : "Face",
-      "subType" : "Full face",
-      "deviceProviderId" : "XYZMetricsId",
-      "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{creation_date}}"
-    }
-  } ],
+  "capturedRegisteredDevices" : [],
   "capturedNonRegisteredDevices" : null,
   "checkSum" : [ {
     "label" : "mosip-client.jar",

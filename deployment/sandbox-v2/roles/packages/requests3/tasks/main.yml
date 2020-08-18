@@ -1,0 +1,8 @@
+
+- name: Install requests module for python3 
+  pip:
+    name: requests
+    state: present
+    executable: /bin/pip3
+  become: yes
+
