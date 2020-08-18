@@ -18,29 +18,37 @@ The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 VCPU*, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 VCPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
+|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s MZ workers | 9 | 4 vCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
 
-\* VCPU:  Virtual CPU
+\* vCPU:  Virtual CPU
 
 All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
-## VM setup
-### All machines
-All machines need to have the following:
-* User 'mosipuser' with strong password. Same password on all machines.
-* Password-less `sudo su`.
-* Internet connectivity.
-* Accessible from console via hostnames defined in `hosts.ini`.  
-* `firewalld` disabled.
+## Vitrual Machine (VM) setup
 
-### Console 
-Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not 'root').   
-* Console machine must be accessible with public domain name (e.g. sandbox.mycompany.com).
-* Port 80, 443, 30090 (for postgres) must be open on the console for external access.
+Before installing MOSIP modules you will have to setup your VMs as below:
+1. Install above mentioned OS on all machines
+1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
+1. Enable Intenet connectivity on all machines. 
+1. Disable `firewalld` on all machines. 
+1. Exchange ssh keys between console and k8s cluster machines such that ssh is password-less from console machine:
+```  
+$[mosipuser] ssh root@<any k8s node>
+$[mosipuser] ssh mosipuser@<console>
+```  
+1. Make console machine accessible with a public domain name (e.g. sandbox.mycompany.com).
+1. Open ports 80, 443, 30090 (postgres) on console machine for external access.
+1. DNS: Setup a DNS server (or use cloud provider's DNS) such that console and nodes are accessible via their domain names listed in `hosts.ini`.  It is mportant check whether domain names are resolved from within pods of K8s cluster.  One way to check is after the cluster is up, deploy `utils/busybox.yml` pod, login into the pod and run the command `ping mzworker0.sb`.  DO NOT use `/etc/hosts` for domain name resolution, as name resolution will not happen from within pods if this method is followed.
+
+## Terraform
+All the above may be achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the Terraform scripts in detail before starting to deploy. 
+
+## Software prerequisites
+
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -56,10 +64,6 @@ $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
 ```
-* Exchange ssh keys with all machines. Provide the password for 'mosipuser'.
-```
-$ ./key.sh hosts.ini
-``` 
 
 ##  Installing MOSIP 
 ### Site settings
