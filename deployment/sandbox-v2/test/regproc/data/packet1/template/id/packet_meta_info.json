@@ -164,7 +164,7 @@
       "subType" : "Double",
       "deviceProviderId" : "XYZMetricsId",
       "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{date_time}}"
+      "dateTime" : "{{creation_date}}"
     }
   }, {
     "deviceCode" : "e799e621-6ce5-468e-b442-886430955f5d",
@@ -177,7 +177,7 @@
       "subType" : "Slab",
       "deviceProviderId" : "XYZMetricsId",
       "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{date_time}}"
+      "dateTime" : "{{creation_date}}"
     }
   }, {
     "deviceCode" : "79847aec-c87c-4692-9ae9-43ba203a3411",
@@ -190,7 +190,7 @@
       "subType" : "Full face",
       "deviceProviderId" : "XYZMetricsId",
       "deviceProvider" : "XYZMetrics",
-      "dateTime" : "{{date_time}}"
+      "dateTime" : "{{creation_date}}"
     }
   } ],
   "capturedNonRegisteredDevices" : null,

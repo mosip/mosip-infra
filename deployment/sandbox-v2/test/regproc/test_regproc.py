@@ -18,8 +18,7 @@ def update_conf(conf, mosip):
     conf.pkt_conf['rid'] = rid 
 
     ts = dt.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')
-    conf.pkt_conf['create_time'] = ts
-    conf.pkt_conf['date_time'] = ts
+    conf.pkt_conf['creation_date'] = ts
 
 def template_to_packet(conf, suffix):
     out_dir = os.path.join(conf.unenc_dir, suffix)
