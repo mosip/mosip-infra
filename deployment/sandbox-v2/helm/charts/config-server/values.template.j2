@@ -1,14 +1,11 @@
-namespace: default
 name: {{ config_server.name }} # Will be used as service name too
 docker:
-  image: hyness/spring-cloud-config-server
-  tag: latest
-  containerPort: 8888
+  image: mosipid/sandbox-config-server:1.1.0
+  containerPort: 51000
   servicePort: 80
 jarName: kernel-config-server # Without .jar. Used locally for Docker
 component: config-server
 
-ingressPath: /config
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 additionalParams:  # Required for mosip properties

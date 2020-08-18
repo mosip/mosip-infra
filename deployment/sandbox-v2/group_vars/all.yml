@@ -242,7 +242,8 @@ config_repo:
 
 config_server:
   name: config-server
-  internal_url: http://config-server/
+  internal_url: http://config-server/config
+  ingress_url: http://mzworker0.sb:30080/config
 
 activemq:
   name: activemq
