@@ -1,0 +1,5 @@
+- name: Install psycopg2
+  pip:
+    name: psycopg2
+    state: present
+  become: yes
