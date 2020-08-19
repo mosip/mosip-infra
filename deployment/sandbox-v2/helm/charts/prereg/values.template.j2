@@ -1,9 +1,8 @@
-namespace: default
 component: prereg
 part-of: mosip
 activeProfileEnv: mz
-springConfigLabel: master
-configServerUrl: http://config-server/config
+springConfigLabel: {{ config_repo.branch }} 
+configServerUrl: {{ config_server.internal_url }}
 domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 probe:

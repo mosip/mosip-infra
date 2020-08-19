@@ -4,5 +4,5 @@ data:
 kind: ConfigMap
 metadata:
   name: {{ .Values.services.ui.configName }}
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
 

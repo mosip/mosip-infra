@@ -1,0 +1,1 @@
+postgres_init_lock_file: '{{postgres.nfs_path}}/init.lock'

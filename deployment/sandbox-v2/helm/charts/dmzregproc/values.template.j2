@@ -1,9 +1,8 @@
-namespace: default
 component: dmzregproc
 part-of: mosip
 activeProfileEnv: dmz 
-springConfigLabel: master
-configServerUrl: http://{{ clusters.mz.any_node_ip}}:{{ clusters.mz.ingress.nodeports.http}}/config  # Config server is on MZ
+springConfigLabel: {{ config_repo.branch }} 
+configServerUrl: {{ config_server.ingress_url }}
 storageClass:  manual
 
 probe:

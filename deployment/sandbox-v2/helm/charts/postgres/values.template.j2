@@ -1,7 +1,7 @@
 name: postgres
 defaultDb: keycloak # Default DB on Postgres
 user: {{ postgres.user }} 
-password: {{ postgres.password }}
+password: {{ postgres.default_password }}
 nfs:  # Must match nfs server params defined via Ansible
   server: {{ nfs.server }} 
   path: {{ postgres.nfs_path }}

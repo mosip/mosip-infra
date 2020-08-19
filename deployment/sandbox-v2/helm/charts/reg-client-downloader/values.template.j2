@@ -1,7 +1,7 @@
 serviceName: reg-client-downloader
 
 activeProfileEnv: dmz 
-springConfigLabel: master
+springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: http://config-server/config
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always

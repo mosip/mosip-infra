@@ -1,13 +1,33 @@
 # MOSIP Configuration Guide
 
-## Pre-install configuration
+## Secrets
+All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
+```
+$ av edit secrets.yml
+```
 
-Configurations for all the modules are specified via property files located in `roles/config-repo/files/properties`.  Modify these files as below. Note that the changes here apply only during the inital install of MOSIP. For config changes post install refer to section [Post install configuration](#post-install-configuration).
+## Config server
+
+Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository with a folder containing property files. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
+```
+config_repo:
+  git_repo_uri: https://github.com/mosip/mosip-config 
+  branch: develop
+  private: false 
+  username: <your github username>
+  search_folders: sandbox 
+  local_git_repo:
+    enabled: false
+```
+
+If `private: true` then update your github username as above in `group_vars.all.yml`.  Update your password in `secrets.yml`.
+
+If `local_git_repo` is enabled, the repo will be cloned to the NFS mounted folder and config server will pull the properties locally. This option is useful when sandbox is secured with no Internet access. You may git check-in any changes locally.  However, note that if you want the changes to reflect in the parent Github repo, you will have to push them manually.  There is no need to restart config-server pod when you make changes in the config repo.
 
 ### Captcha
 * Captcha is needed for Pre-Reg UI only. Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
 * Set captcha:
-  * File: `roles/config-repo/files/properties/pre-registration.mz.properties`
+  * File: `pre-registration.mz.properties`
   * Properties:
     ```
     google.recaptcha.site.key=sitekey
@@ -17,11 +37,11 @@ Configurations for all the modules are specified via property files located in `
 ### OTP settings
 To receive (one-time password) OTP over email and SMS set properties as below.  If you do not have access to Email and SMS gateways, you may want to run MOSIP in Proxy OTP mode in which case skip to [Proxy OTP Settings](#proxy-otp-settings). 
 * SMS:
-  * File: `roles/config-repo/files/properties/kernel-mz.properties`
+  * File: `kernel-mz.properties`
   * Properties:  `kernel.sms.*`
 
 * Email:
-  * File: `roles/config-repo/files/properties/kernel-mz.properties`
+  * File: `kernel-mz.properties`
   * Properties:
     ```
     mosip.kernel.notification.email.from=emailfrom
@@ -33,7 +53,7 @@ To receive (one-time password) OTP over email and SMS set properties as below.  
 
 To run MOSIP in Proxy OTP mode set the following:
 * Proxy: 
-  * File: `roles/config-repo/files/properties/application-mz.properties` 
+  * File: `application-mz.properties` 
   * Properites:
     ```
     mosip.kernel.sms.proxy-sms=true
@@ -42,14 +62,6 @@ To run MOSIP in Proxy OTP mode set the following:
     ```
 Note that the default OTP is set to `111111`.
 
-## Post install configuration
+### Country specific customisations
+If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/country_deployment.md)
 
-During installation, the properties from `roles/config-repo/files/properties` are copied to a local git repo on the console machine at `/srv/nfs/mosip/config_repo`.  To modify properties after modules are running:  
-
-    ```
-    $ sudo su root  # On console
-    $ cd /srv/nfs/mosip/config_repo   
-    - Modify files
-    $ git commit -m "<comment>" files
-    - Restart affected services (pods). You need not restart the config server. The latest checked-in properties will get picked up.
-    ```

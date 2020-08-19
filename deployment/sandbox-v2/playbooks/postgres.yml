@@ -21,6 +21,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/postgres/values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
 
@@ -31,22 +32,8 @@
       pause:
         seconds: 30 
 
-# Initialize postgres with data.
-# Separate play for init to keep sequence of execution
-# First check if postgres is already init. If so, don't init it
 - hosts: console
-  gather_facts: false
-  tasks:
-    - name: Check if db already exists. Don't init if it does 
-      import_tasks: '../roles/common/tasks/db_exists.yml'
-      vars:
-        db_name: mosip_kernel  # Just any db. If exists, we will not init
-
-- hosts: console
-  vars:
-    force_init: false
   roles:  # Run these roles only if db does not exist or if force_init is set to true
-     - {role: repos, when: (db_exists == false or force_init|bool == true), tags: [repos]}  # These repos have sql scripts. 
-     - {role: postgres-init, when: (db_exists == false or force_init|bool == true),  tags: [postgres-init]} 
-
+     - {role: repos} 
+     - {role: postgres-init}
 

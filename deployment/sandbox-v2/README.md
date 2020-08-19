@@ -12,35 +12,43 @@ _**WARNING**: The sandbox is not intented to be used for serious pilots or produ
 ## OS
 **CentOS 7.8** on all machines.
 
-## Hardware setup 
+## Hardware configuration
 
 The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 VCPU*, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 VCPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 VCPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 VCPU, 16 GB RAM | - |
+|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s MZ workers | 9 | 4 vCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
 
-\* VCPU:  Virtual CPU
+\* vCPU:  Virtual CPU
 
 All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
 
-## VM setup
-### All machines
-All machines need to have the following:
-* User 'mosipuser' with strong password. Same password on all machines.
-* Password-less `sudo su`.
-* Internet connectivity.
-* Accessible from console via hostnames defined in `hosts.ini`.  
-* `firewalld` disabled.
+## Vitrual Machines (VMs) setup
 
-### Console 
-Console machine is the machine from where you run Ansible and other the scripts.  You must work on this machine as 'mosipuser' user (not 'root').   
-* Console machine must be accessible with public domain name (e.g. sandbox.mycompany.com).
-* Port 80, 443, 30090 (for postgres) must be open on the console for external access.
+Before installing MOSIP modules you will have to set up your VMs as below:
+1. Install above mentioned OS on all machines
+1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
+1. Enable Intenet connectivity on all machines. 
+1. Disable `firewalld` on all machines. 
+1. Exchange ssh keys between console and k8s cluster machines such that ssh is password-less from console machine:
+```  
+$[mosipuser@console.sb] ssh root@<any k8s node>
+$[mosipuser@console.sb] ssh mosipuser@console.sb
+```  
+1. Make console machine accessible with a public domain name (e.g. sandbox.mycompany.com).
+1. Open ports 80, 443, 30090 (postgres) on console machine for external access.
+1. DNS: Setup a DNS server (or use cloud provider's DNS) such that console and nodes are accessible via their domain names listed in `hosts.ini`.  It is important to check if domain names are resolved from within pods of K8s cluster.  One way to check is after the cluster is up, deploy `utils/busybox.yml` pod, login into the pod and run the command `ping mzworker0.sb`.  DO NOT use `/etc/hosts` for domain name resolution, as name resolution will not happen from within pods if this method is followed.
+
+## Terraform
+All the above may be achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the Terraform scripts in detail before starting to deploy. 
+
+## Software prerequisites
+
 * Install Ansible
 ```
 $ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
@@ -56,10 +64,6 @@ $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
 ```
-* Exchange ssh keys with all machines. Provide the password for 'mosipuser'.
-```
-$ ./key.sh hosts.ini
-``` 
 
 ##  Installing MOSIP 
 ### Site settings
@@ -73,39 +77,42 @@ ssl:
   certificate: <certificate dir>
   certificate_key: <private key path> 
 ```
-* Set **private ip** address of `mzworker0.sb` and `dmzworker0.sb` in `group_vars/all.yml`:
-
-```
-clusters:
-  mz:
-    any_node_ip: '<mzworker0.sb ip>'
-
-clusters:
-  dmz:
-    any_node_ip: '<dmzworker0.sb ip>'
-```
 ### Network interface
 If your cluster machines use network interface other than "eth0", update it in `group_vars/mzcluster.yml` and `group_vars/dmzcluster.yml`:
 ```
 network_interface: "eth0"
 ```
-### MOSIP configuration
-Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
-
 ### Shortcut commands
 Add the following shortcuts in `/home/mosipuser/.bashrc`:
 ```
-alias an='ansible-playbook -i hosts.ini'
+alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'
+alias av='ansible-vault'
 alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
 alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
 alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
 alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
 alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+alias helmn='helm --kubeconfig $HOME/.kube/mzcluster.config -n monitoring'
+alias kcm='kubectl -n monitoring --kubeconfig $HOME/.kube/mzcluster.config'
 ```
 After adding the above:
 ```
   $ source  ~/.bashrc
 ``` 
+### Ansible vault
+All secrets (passwords) used in this automation are stored in Ansible vault file `secrets.yml`.  The default password to access the file is 'foo'.  It is recommended that you change this password with following command:
+```
+$ av rekey secrets.yml
+```
+You may view and edit the contents of `secrets.yml`:
+```
+$ av view secrets.yml
+$ av edit secrets.yml
+```
+
+### MOSIP configuration
+Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
+
 ### Install MOSIP
 * Intall all MOSIP modules:
 ```
@@ -140,7 +147,10 @@ $ an reset.yml
 All persistent data is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
 
 Note the following:
-* Postgres is initialized and populated only once.  If persistent data is present in `/srv/nfs/mosip/postgres` then postgres is not initialized. You will need to run reset scripts to clear up the folder for a re-initialization.
+* Postgres is initialized and populated only once.  If persistent data is present in `/srv/nfs/mosip/postgres` then postgres is not initialized.  To force an init, run the following:
+```
+$ an playbooks/postgres.yml --extra-vars "force_init=true"
+``` 
 * Postgres also contains Keycloak data.  `keycloak-init` does not overwrite any data, but just updates and adds.  If you want to clean up Keycloak data, you will need to clean it up manually or reset entire postgres.
 
 ## Useful tools

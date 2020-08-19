@@ -20,6 +20,8 @@
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: packages/policycoreutils-python, tags: [policy]}
+     - {role: packages/requests3}
+     - {role: packages/psycopg2}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 

@@ -23,6 +23,7 @@
     is_template: true
     helm_namespace: '{{ingress_nginx_namespace}}'
     helm_values: '{{charts_root}}/ingress-nginx/values.template.j2'
+    helm_strings: ''
     ingress_ports: '{{clusters.mz.ingress.nodeports}}'
   roles:
     - {role:  helm, tags: [mz-ingress]}

@@ -1,0 +1,23 @@
+# Tasks to change password for a user. It is assumed 
+# that super user password is used to change any password 
+# Inputs:
+#   username: user whos password needs to be changed
+#   new_passwd: new password
+#   su_password: super user password
+
+- debug:
+    msg: 'Updating password for db user {{username}}'
+
+- name: Select query to change password
+  postgresql_query:
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    login_user: '{{postgres.user}}'
+    login_password: '{{su_password}}'
+    query: "ALTER USER {{username}} WITH PASSWORD '{{new_passwd}}'"
+  register: result
+  failed_when: result.changed != true
+  
+
+
+

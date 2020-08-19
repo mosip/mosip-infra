@@ -7,6 +7,7 @@
     is_template: false
     helm_namespace: monitoring
     helm_values: '{{charts_root}}/kibana/values.yaml'
+    helm_strings: ''
   roles:
     - {role:  helm}
 

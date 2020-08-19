@@ -2,10 +2,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Values.generators.uinencrypt.name }} 
-  namespace: {{ .Values.namespace }} 
+  namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.generators.uinencrypt.name }}
     component: {{ .Values.component }} 
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-delete-policy": hook-succeeded
     
 spec:
   template:

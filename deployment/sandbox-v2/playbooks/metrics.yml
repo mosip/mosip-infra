@@ -20,5 +20,6 @@
     is_template: false
     helm_namespace: monitoring
     helm_values: '{{charts_root}}/metrics-server/values.yaml'
+    helm_strings: ''
   roles:
     - {role:  helm}
