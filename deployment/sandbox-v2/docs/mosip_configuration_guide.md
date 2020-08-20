@@ -5,6 +5,8 @@ All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file an
 ```
 $ av edit secrets.yml
 ```
+If you update postgres passwords, then their ciphers will have to be upodated in property files.  See section on Config Server below.
+
 ## Private dockers
 If you are pulling dockers from private registry in Docker Hub, then provide the Docker Hub credentails in `secrets.yml` and set following flag in `group_vars/all.yml`:
 ```
