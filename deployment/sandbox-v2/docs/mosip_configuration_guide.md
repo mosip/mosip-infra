@@ -5,7 +5,7 @@ All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file an
 ```
 $ av edit secrets.yml
 ```
-If you update postgres passwords, then their ciphers will have to be upodated in property files.  See section on Config Server below.
+If you update postgres passwords, then their ciphers will have to be updated in property files.  See section on Config Server below.
 
 ## Private dockers
 If you are pulling dockers from private registry in Docker Hub, then provide the Docker Hub credentails in `secrets.yml` and set following flag in `group_vars/all.yml`:
@@ -18,7 +18,7 @@ Update `versions.yml` with your docker versions.
 
 ## Config server
 
-Configurations for all modules are specified via property files assumed located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository with a folder containing property files. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
+Configurations for all modules are specified via property files located in Github repository. For example, for this sandbox the properties are located at `https://github.com/mosip/mosip-config` within `sandbox` folder. You may have your own repository with a folder containing property files. The repo may be private. Configure the following parameters in `group_vars/all.yml` as below (example):
 ```
 config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config 
