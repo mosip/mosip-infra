@@ -13,6 +13,11 @@ imagePullPolicy: Always
 domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   auth:
     serviceName: {{ versions.services.ida.auth.keys()[0] }} 

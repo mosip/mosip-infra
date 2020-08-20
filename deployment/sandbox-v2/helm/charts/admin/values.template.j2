@@ -3,7 +3,6 @@ part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: {{ config_server.internal_url }}
-sandboxDomainName: test-sandbox.southindia.cloudapp.azure.com
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
@@ -14,6 +13,11 @@ imagePullPolicy: Always
 domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   admin: 
     serviceName: {{ versions.services.admin.service.keys()[0] }}

@@ -22,6 +22,9 @@ site:
 is_glowroot: absent  # absent or present
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
+docker_hub:
+  private: false  # For private dockers set this to true, and set credentials in secrets.yml
+  keyname: dockerhubkey  # Name of kubernetes secret
 
 clusters:
   mz:

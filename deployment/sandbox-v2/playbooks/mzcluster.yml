@@ -20,3 +20,8 @@
   roles:
     - {role: k8scluster/dashboard}
 
+# Load any secrets
+- import_playbook: docker-secrets.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+

@@ -22,6 +22,7 @@ spec:
         app: {{ .Values.services.camel.serviceName }} 
         component: service-hazelcast-server
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.camel.serviceName }} 
         image: {{ .Values.services.camel.dockerImage }}

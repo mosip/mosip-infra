@@ -19,3 +19,8 @@
     dashboard_conf: '{{clusters.dmz.dashboard}}'
   roles:
     - {role: k8scluster/dashboard}
+
+# Load any secrets
+- import_playbook: docker-secrets.yml
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'

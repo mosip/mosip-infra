@@ -21,6 +21,7 @@ spec:
       labels:
         app: {{ .Values.services.proxyabis.serviceName }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.proxyabis.serviceName }} 
         image: {{ .Values.services.proxyabis.dockerImage }}

@@ -23,6 +23,7 @@ spec:
         app: {{ .Values.services.bioauth.serviceName }} 
         component: service-hazelcast-server
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.bioauth.serviceName }} 
         image: {{ .Values.services.bioauth.dockerImage }}

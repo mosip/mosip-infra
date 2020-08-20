@@ -18,6 +18,10 @@ domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.dmz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 landing:   # Landing folder where packets land
   pv:
     name: landing-pv

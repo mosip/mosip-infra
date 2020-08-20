@@ -13,6 +13,11 @@ isGlowroot: {{ is_glowroot }}
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   resident: 
     serviceName: {{ versions.services.resident.resident.keys()[0] }} 

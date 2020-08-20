@@ -3,8 +3,6 @@ part-of: mosip
 activeProfileEnv: mz
 springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: {{ config_server.internal_url }}
-ingress:
-   namespace: default
 artifactoryUrl: {{ artifactory_url }} 
 probe:
   initialDelay: 120  # Seconds
@@ -13,6 +11,11 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 domainName: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   auth:
     serviceName: {{ versions.services.kernel.auth.keys()[0] }} 
