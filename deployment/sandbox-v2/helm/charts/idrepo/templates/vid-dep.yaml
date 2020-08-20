@@ -24,6 +24,7 @@ spec:
         app: {{ .Values.services.vid.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.vid.serviceName }} 
         image: {{ .Values.services.vid.dockerImage }}

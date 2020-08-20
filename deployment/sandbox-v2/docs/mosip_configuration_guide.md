@@ -5,6 +5,14 @@ All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file an
 ```
 $ av edit secrets.yml
 ```
+## Private dockers
+If you are pulling dockers from private registry in Docker Hub, then provide the Docker Hub credentails in `secrets.yml` and set following flag in `group_vars/all.yml`:
+```
+docker_hub:
+  private: true
+```
+
+Update `versions.yml` with your docker versions.
 
 ## Config server
 
@@ -20,7 +28,7 @@ config_repo:
     enabled: false
 ```
 
-If `private: true` then update your github username as above in `group_vars.all.yml`.  Update your password in `secrets.yml`.
+If `private: true` then update your github username as above in `group_vars/all.yml`.  Update your password in `secrets.yml`.
 
 If `local_git_repo` is enabled, the repo will be cloned to the NFS mounted folder and config server will pull the properties locally. This option is useful when sandbox is secured with no Internet access. You may git check-in any changes locally.  However, note that if you want the changes to reflect in the parent Github repo, you will have to push them manually.  There is no need to restart config-server pod when you make changes in the config repo.
 

@@ -24,6 +24,7 @@ spec:
         app: {{ .Values.services.notifier.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.notifier.serviceName }} 
         image: {{ .Values.services.notifier.dockerImage }}

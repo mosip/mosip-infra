@@ -23,6 +23,7 @@ spec:
         app: {{ .Values.services.abismid.serviceName }} 
         component: service-hazelcast-server
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.abismid.serviceName }} 
         image: {{ .Values.services.abismid.dockerImage }}

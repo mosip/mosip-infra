@@ -13,6 +13,11 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always 
 isGlowroot: {{ is_glowroot }}
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   login:
     serviceName: {{ versions.services.prereg.login.keys()[0] }} 
