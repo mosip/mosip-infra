@@ -17,7 +17,8 @@ def update_conf(conf, mosip):
     rid = mosip.get_rid(conf.pkt_conf['center_id'], conf.pkt_conf['machine_id'])
     conf.pkt_conf['rid'] = rid 
 
-    ts = dt.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    # Adding an extra second to ensure that server key creation time is before the packet time
+    ts = (dt.datetime.now() + dt.timedelta(seconds=1)).strftime('%Y-%m-%dT%H:%M:%S.000Z')
     conf.pkt_conf['creation_date'] = ts
 
 def template_to_packet(conf, suffix):
