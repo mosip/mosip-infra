@@ -29,10 +29,12 @@ spec:
           value: {{ .Values.gitRepo.searchFolders }}
         - name: ENCRYPT_KEY
           value: {{ .Values.encryptKey }}
-        - name: KEYCLOAK_EXTERNAL_URL 
-          value: {{ .Values.additionalParams.keycloakExternalUrl }}
-        - name: SANDBOX_PUBLIC_URL
+        - name: SPRING_CLOUD_CONFIG_OVERRIDENONE
+          value: "true"
+        - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SANDBOX_PUBLIC_URL
           value: {{ .Values.additionalParams.sandboxPublicUrl }}
+        - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_EXTERNAL_URL
+          value: {{ .Values.additionalParams.keycloakExternalUrl }}
         {{ if eq .Values.localRepo.enabled true }}
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.localRepo.mountPath }}
