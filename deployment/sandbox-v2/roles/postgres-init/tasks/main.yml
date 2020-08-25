@@ -21,7 +21,7 @@
 
 - name: Copy any custom dml files
   copy:
-    src: '{{item.value.dml}}' 
+    src: '{{item.value.dml}}/' 
     dest: '{{item.value.sql_path}}/{{item.key}}/dml/' 
   when: item.value.dml is defined
   loop: '{{databases | dict2items}}'
@@ -38,8 +38,5 @@
     path: '{{postgres_init_lock_file}}'
     state: touch
   become: yes
-
-# Update all passwords to the ones in secrets.yml
-- import_tasks: update_passwords.yml
 
 

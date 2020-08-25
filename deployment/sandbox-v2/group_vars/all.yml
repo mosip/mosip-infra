@@ -106,7 +106,6 @@ postgres:
   server: '{{clusters.mz.nodeport_node}}'
   nodeport: 30090  # fixed for connecting from outside the cluster
   user: postgres
-  default_password: postgres # This is changed later for security reasons.
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
