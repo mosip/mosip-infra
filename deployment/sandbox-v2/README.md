@@ -130,7 +130,7 @@ The links to various dashboards are available at
 https://<sandbox domain name>/index.html
 ```
 
-Refer to [Dashboards Guide]((https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/dashboards.md)
+Refer to [Dashboards Guide](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/dashboards.md)
 
 ## Sanity checks
 
