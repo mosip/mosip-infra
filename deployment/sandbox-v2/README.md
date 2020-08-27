@@ -129,9 +129,8 @@ The links to various dashboards are available at
 ```
 https://<sandbox domain name>/index.html
 ```
-Tokens/passwords to login into dashboards are available at `/tmp/mosip` of the console.
 
-For Grafana you may import chart `11074`.
+Refer to [Dashboards Guide](docs/dashboards.md)
 
 ## Sanity checks
 
