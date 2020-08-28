@@ -20,7 +20,7 @@ This document contains miscellaneous tips to use various dashboards that are mad
 * Dashboard links:
     * MZ: `https://<sandbox domain name>/dashboard-mz`
     * DMZ: `https://<sandbox domain name>/dashboard-dmz`
-* The tokens for above dashboards are available on the console machine at `/tmp/mosip`.
+* The tokens for above dashboards are available on the console machine at `/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp`
 
 ## Grafana
 * Link:
