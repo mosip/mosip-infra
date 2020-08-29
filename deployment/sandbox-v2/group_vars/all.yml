@@ -114,6 +114,11 @@ postgres:
       key: "postgres" # Key for applying taint on node
       value: "only"  
 
+# minio
+minio:
+  access_key: admin
+  nfs_path: '{{nfs.folder}}/minio'
+
 # Keycloak
 keycloak:
   user: admin
