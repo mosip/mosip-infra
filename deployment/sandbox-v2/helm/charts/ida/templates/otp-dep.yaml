@@ -24,6 +24,7 @@ spec:
         app: {{ .Values.services.otp.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       initContainers:  # TODO: Temporarily added as a workaround. Duplicate key issue. 
       - name: wait-for-auth
         image: ellerbrock/alpine-bash-curl-ssl

@@ -24,6 +24,7 @@ spec:
         app: {{ .Values.services.captcha.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.captcha.serviceName }} 
         image: {{ .Values.services.captcha.dockerImage }}

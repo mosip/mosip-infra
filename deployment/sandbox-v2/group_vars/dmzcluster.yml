@@ -5,7 +5,7 @@ cluster_name: 'dmzcluster'  # Same as in hosts.ini
 cluster_master: 'dmzmaster.sb' # Same as in hosts.ini
 
 # Kubernetes
-kube_version: v1.18.0
+kube_version: v1.19.0
 token: b0f7b8.8d1767876297d85c
 
 # 1.8.x feature: --feature-gates SelfHosting=true

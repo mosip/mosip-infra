@@ -11,7 +11,7 @@ class MosipSession:
         self.server = server
         self.user = user
         self.password = password
-        self.appid = 'REGISTRATION'  # For internal calls  
+        self.appid = 'ROOT'  # For internal calls  
         self.token = self.auth_get_token('regproc', self.user, self.password) 
       
     def auth_get_token(self, appid, username, password):
@@ -121,6 +121,30 @@ class MosipSession:
         rid = r['response']['rid'] 
         return rid
 
+
+    def generate_master_key(self, appid, cname, refid=''): 
+        url = 'https://%s/v1/keymanager/generateMasterKey/CERTIFICATE' % (self.server)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j =  {
+            "id": "mosip.master",
+            "metadata": {},
+            "request": {
+              "applicationId": appid, 
+              "commonName": cname,
+              "country": "IN",
+              "force": False,
+              "location": "BANGALORE",
+              "organization": "IIITB",
+              "organizationUnit": "MOSIP-TECH-CENTER",
+              "referenceId": refid,
+              "state": "KA",
+            },
+            "requesttime": ts,
+            "version": "1.0"
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
 
 def read_token(response):
     cookies = response.headers['Set-Cookie'].split(';')

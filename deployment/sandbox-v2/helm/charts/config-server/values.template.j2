@@ -8,11 +8,12 @@ component: config-server
 
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
+
+encryptKey: '' # Passed diretly via command line
+
 additionalParams:  # Required for mosip properties
   keycloakExternalUrl: {{ keycloak.external_url }}
   sandboxPublicUrl: {{ site.sandbox_public_url }}
-
-encryptKey: '' # Passed diretly via command line
 
 gitRepo:
   uri: {{ config_repo.git_repo_uri }}

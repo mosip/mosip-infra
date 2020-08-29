@@ -23,6 +23,7 @@ spec:
         app: {{ .Values.services.receiver.serviceName }} 
         component: service-hazelcast-server
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.receiver.serviceName }} 
         image: {{ .Values.services.receiver.dockerImage }}

@@ -1,0 +1,32 @@
+#  Some updates to tables that are necessary.  These changes are TEMPORARY.
+#  TODO: Remove them when database incorporates these changes
+
+- name: Alter column to varchar
+  postgresql_query:
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    login_user: '{{postgres.user}}'
+    login_password: '{{secrets.postgres.su}}'
+    query: "ALTER TABLE master.identity_schema ALTER COLUMN id_attr_json TYPE VARCHAR;"
+  register: result
+  failed_when: result.changed != true
+
+- name: Alter column to varchar
+  postgresql_query:
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    login_user: '{{postgres.user}}'
+    login_password: '{{secrets.postgres.su}}'
+    query: "ALTER TABLE master.identity_schema ALTER COLUMN schema_json TYPE VARCHAR;"
+  register: result
+  failed_when: result.changed != true
+
+- name: Alter column to varchar
+  postgresql_query:
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    login_user: '{{postgres.user}}'
+    login_password: '{{secrets.postgres.su}}'
+    query: "ALTER TABLE master.dynamic_field ALTER COLUMN value_json TYPE VARCHAR;"
+  register: result
+  failed_when: result.changed != true

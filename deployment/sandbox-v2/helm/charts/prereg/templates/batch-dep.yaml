@@ -24,6 +24,7 @@ spec:
         app: {{ .Values.services.batch.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.batch.serviceName }} 
         image: {{ .Values.services.batch.dockerImage }}

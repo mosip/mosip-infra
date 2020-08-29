@@ -20,6 +20,7 @@ spec:
       labels:
         app: {{.Values.services.ui.serviceName}}
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}

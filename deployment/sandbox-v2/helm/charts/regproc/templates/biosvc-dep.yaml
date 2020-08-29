@@ -21,6 +21,7 @@ spec:
       labels:
         app: {{ .Values.services.biosvc.serviceName }} 
     spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.biosvc.serviceName }} 
         image: {{ .Values.services.biosvc.dockerImage }}
