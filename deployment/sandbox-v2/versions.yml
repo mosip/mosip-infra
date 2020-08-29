@@ -159,3 +159,7 @@ versions:
         'admin-service': 'mosipdev/admin-service:develop'
       ui:
         'admin-ui': 'mosipdev/admin-ui:develop'
+    
+    packetmanager:
+      service:
+        'packetmanager-service': 'mosipdev/commons-packet-service:develop'

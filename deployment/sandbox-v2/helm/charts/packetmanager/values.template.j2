@@ -1,0 +1,28 @@
+component: packetmanager
+part-of: mosip
+activeProfileEnv: mz 
+springConfigLabel: master 
+configServerUrl: http://config-server/config
+ingress:
+   namespace: default
+artifactoryUrl: {{ artifactory_url }} 
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
+imagePullPolicy: Always
+domainName: {{ sandbox_domain_name }}
+internalDomain: {{ clusters.mz.nodeport_node }} 
+isGlowroot: {{ is_glowroot }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
+services:
+  packet:
+    serviceName: {{ versions.services.packetmanager.service.keys()[0] }}
+    dockerImage: {{ versions.services.packetmanager.service.values()[0] }}
+    containerPort: 8093
+    servicePort: 80
+    ingressPath: /commons/v1/packetmanager
+    healthUrl: /commons/v1/packetmanager/actuator/health

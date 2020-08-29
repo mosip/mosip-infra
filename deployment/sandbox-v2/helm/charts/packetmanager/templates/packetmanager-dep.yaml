@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.packet.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.services.packet.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.services.packet.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.packet.serviceName }} 
+        component: {{ .Values.component }} 
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{ .Values.services.packet.serviceName }} 
+        image: {{ .Values.services.packet.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: http://config-server/config 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: {{ .Values.isGlowroot }} 
+        ports:
+        - containerPort: {{ .Values.services.packet.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.packet.healthUrl }} 
+            port: {{ .Values.services.packet.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+  #      livenessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.packet.healthUrl }} 
+  #          port: {{ .Values.services.packet.containerPort }} 
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }}
