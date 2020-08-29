@@ -2,13 +2,13 @@
 ---
 # Global variables - accessed by different roles and plays
 #
-tmp_dir: '/tmp/mosip' 
-logs_dir: '{{tmp_dir}}/logs'
 user_home: '{{lookup("env", "HOME")}}'
 install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
+tmp_dir: '{{install_root}}/tmp/'
+logs_dir: '{{tmp_dir}}/logs'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
-artifactory_url: http://104.211.246.17:8040
+artifactory_url: http://15.207.222.178
 
 sandbox_domain_name: minibox.mosip.net
 site:
@@ -155,6 +155,10 @@ repos:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
     tag: develop
+  idrepo:
+    src: https://github.com/mosip/id-repository
+    dest: '{{tmp_dir}}/id-repository'
+    tag: develop
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
@@ -181,10 +185,10 @@ databases:
     sql_path: '{{repos.commons.dest}}/db_scripts'
   mosip_idrepo:
     user: idrepouser
-    sql_path: '{{repos.commons.dest}}/db_scripts'
+    sql_path: '{{repos.idrepo.dest}}/db_scripts'
   mosip_idmap:
     user: idmapuser
-    sql_path: '{{repos.commons.dest}}/db_scripts'
+    sql_path: '{{repos.idrepo.dest}}/db_scripts'
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'

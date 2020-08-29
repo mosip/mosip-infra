@@ -38,5 +38,3 @@
     path: '{{postgres_init_lock_file}}'
     state: touch
   become: yes
-
-
