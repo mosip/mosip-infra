@@ -1,0 +1,21 @@
+# Installs Minio Object store 
+
+# Create folders for persistence on NFS
+- hosts: nfsserver
+  tasks:
+    - {name: 'Create folder', file: {name: '{{minio.nfs_path}}', state: directory}, become: yes}
+
+# Run hadoop and initialize it.
+- hosts: console
+  gather_facts: true
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'minio'
+    helm_chart: '{{charts_root}}/minio'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/minio/values.template.j2'
+    helm_strings: 'secretKey={{secrets.minio.secretkey}}'
+  roles:
+     - {role:  helm}
+

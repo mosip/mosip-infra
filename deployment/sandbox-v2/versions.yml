@@ -18,7 +18,9 @@ versions:
       key:
         'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:develop'
       notifier:
-        'kernel-notification-service': 'mosipdev/kernel-notification-service:develop'
+                            
+        #'kernel-notification-service': 'mosipdev/kernel-notification-service:develop'
+        'kernel-notification-service': 'gsasikumar/kernel-notification-service:develop'
       otp:
         'kernel-otpmanager-service': 'mosipdev/kernel-otpmanager-service:develop'
       rid:

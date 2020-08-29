@@ -260,6 +260,10 @@ http {
            proxy_pass http://mzworker0.sb:30080/commons/v1/packetmanager/;
         }
 
+        location /minio/ {
+           proxy_pass http://mzworker0.sb:30080/minio/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
