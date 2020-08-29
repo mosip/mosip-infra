@@ -177,7 +177,6 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml: ./tmp/mosip-phil-ref-impl/db_scripts/mosip_master/dml
   mosip_iam:
     user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
