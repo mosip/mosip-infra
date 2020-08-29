@@ -6,18 +6,12 @@
 # personnel. 
 # Usage: ./init_keys.py <sandbox domain name>  
 # TODO: This is a temporary arrangement.  Move to docker based init.
-import base64
-import os
 import sys
-import datetime as dt
-import shutil
-import glob
 import subprocess
-import  jinja2 as j2
 import traceback
 sys.path.insert(0, '../test/regproc')
 sys.path.insert(0, 'test/regproc')
-from common import *
+from common import MosipSession
 
 def main():
 
@@ -36,7 +30,7 @@ def main():
         mosip.generate_master_key('PRE_REGISTRATION', 'MOSIP-PRE_REGISTRATION') 
         mosip.generate_master_key('REGISTRATION_PROCESSOR', 'MOSIP-REGISTRATION_PROCESSOR') 
         mosip.generate_master_key('ID_REPO', 'MOSIP-ID_REPO') 
-    except:
+    except Exception:
         traceback.print_exc(file=sys.stdout)
         return 1
 
