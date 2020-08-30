@@ -47,9 +47,9 @@ Before installing MOSIP modules you will have to set up your VMs as below:
 1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
 1. Enable Intenet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
-1. Exchange ssh keys between console and k8s cluster machines such that ssh is password-less from console machine:
+1. Exchange ssh keys between console and K8s cluster machines such that ssh is password-less from console machine:
     ```  
-    $[mosipuser@console.sb] ssh root@<any k8s node>
+    $[mosipuser@console.sb] ssh root@<any K8s node>
     $[mosipuser@console.sb] ssh mosipuser@console.sb
     ```  
 1. Make console machine accessible via a public domain name (e.g. sandbox.mycompany.com).
