@@ -27,7 +27,7 @@ The sandbox has been tested with the following configuration:
 
 \* vCPU:  Virtual CPU
 
-All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
+All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed may be higher.
 
 ### Minibox
 It is possible to bring up MOSIP modules with lesser VMs as below.  However, do note that this may not be sufficient for any kind of load or multiple pod replication scenarios:
@@ -48,10 +48,10 @@ Before installing MOSIP modules you will have to set up your VMs as below:
 1. Enable Intenet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
 1. Exchange ssh keys between console and k8s cluster machines such that ssh is password-less from console machine:
-```  
-$[mosipuser@console.sb] ssh root@<any k8s node>
-$[mosipuser@console.sb] ssh mosipuser@console.sb
-```  
+    ```  
+    $[mosipuser@console.sb] ssh root@<any k8s node>
+    $[mosipuser@console.sb] ssh mosipuser@console.sb
+    ```  
 1. Make console machine accessible with a public domain name (e.g. sandbox.mycompany.com).
 1. Open ports 80, 443, 30090 (postgres) on console machine for external access.
 1. DNS: Setup a DNS server (or use cloud provider's DNS) such that console and nodes are accessible via their domain names listed in `hosts.ini`.  It is important to check if domain names are resolved from within pods of K8s cluster.  One way to check is after the cluster is up, deploy `utils/busybox.yml` pod, login into the pod and run the command `ping mzworker0.sb`.  DO NOT use `/etc/hosts` for domain name resolution, as name resolution will not happen from within pods if this method is followed.
