@@ -14,6 +14,7 @@ _**WARNING**: The sandbox is not intented to be used for serious pilots or produ
 
 ## Hardware configuration
 
+### Full sandbox
 The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
@@ -27,6 +28,17 @@ The sandbox has been tested with the following configuration:
 \* vCPU:  Virtual CPU
 
 All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
+
+### Minibox
+It is possible to bring up MOSIP modules with lesser VMs as below.  However, do note that this may not be sufficient for any kind of load or multiple pod replication scenarios:
+
+| Component| Number of VMs| Configuration| Persistence |
+|---|---|---|---|
+|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s MZ workers | 3 | 4 vCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
 
 ## Vitrual Machines (VMs) setup
 
