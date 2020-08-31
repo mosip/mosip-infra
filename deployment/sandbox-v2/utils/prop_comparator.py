@@ -3,6 +3,7 @@
 # different properties
 
 import argparse
+import pprint
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -18,11 +19,16 @@ def read_props(fname):
         line = line.strip()
         if not line.startswith('#') and (line.find('=') != -1): 
             words = line.split('=')
-            props[words[0].strip()] = words[1].strip()
+            key = words[0].strip()
+            value = words[1].strip()
+            if len(value) == 0:
+              value = '[EMPTY]'
+            props[key] = value
 
     return props
 
 def diff_report(fname1, fname2):
+    pp = pprint.PrettyPrinter(indent=0)
     props1 = read_props(fname1)    
     props2 = read_props(fname2)    
     set1 = set(props1.keys())      
@@ -30,21 +36,22 @@ def diff_report(fname1, fname2):
     
     # Find out common properties with different value
     common = set1.intersection(set2)
-    
-    print('DIFFERENT VALUES:')
+    print('DIFFERENT VALUES:\n')
     for k in common:
         v1 = props1[k].strip()
         v2 = props2[k].strip()
         if v1 != v2:
             print(k + ':')    
-            print(v1)
-            print(v2)
+            print('< ' + v1)
+            print('> ' + v2)
             print('')
-    print('NEW properites in %s' % fname1)  
-    print(set1 - set2)
+    print('=======================================================')
+    print('\nNEW PROPERTIES in %s' % fname1)  
+    pp.pprint(set1 - set2)
     print('')
-    print('NEW properites in %s' % fname2)  
-    print(set2 - set1)
+    print('=======================================================')
+    print('\nNEW PROPERITES in %s' % fname2)  
+    pp.pprint(set2 - set1)
     print('')
 
 def main():
