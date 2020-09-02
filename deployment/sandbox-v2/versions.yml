@@ -28,27 +28,27 @@ versions:
 
     prereg:
       login:
-        'prereg-login-service': 'mosipdev/pre-registration-login-service:develop'
+        'prereg-login-service': 'mosipdev/pre-registration-login-service:1.1.1'
       batch:
-        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:develop'
+        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:1.1.1'
       document:
-        'prereg-document-service':  'mosipdev/pre-registration-document-service:develop'
+        'prereg-document-service':  'mosipdev/pre-registration-document-service:1.1.1'
       transliteration:
-        'prereg-transliteration-service': 'mosipdev/pre-registration-transliteration-service:develop'
+        'prereg-transliteration-service': 'mosipdev/pre-registration-transliteration-service:1.1.1'
       booking:
-        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:develop'
+        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:1.1.1'
       qrcode:
-        'prereg-qrcode-service': 'mosipdev/pre-registration-generateqrcode-service:develop'
+        'prereg-qrcode-service': 'mosipdev/pre-registration-generateqrcode-service:1.1.1'
       datasync:
-        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:develop'
+        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:1.1.1'
       demographic:
-        'prereg-demographic-service':  'mosipdev/pre-registration-demographic-service:develop'
+        'prereg-demographic-service':  'mosipdev/pre-registration-demographic-service:1.1.1'
       notification:
-        'prereg-notification-service': 'mosipdev/pre-registration-notification-service:develop'
+        'prereg-notification-service': 'mosipdev/pre-registration-notification-service:1.1.1'
       captcha:
-        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:develop'
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.1'
       ui:
-        'prereg-ui': 'mosipdev/pre-registration-ui:develop'
+        'prereg-ui': 'mosipdev/pre-registration-ui:1.1.1'
       
     registration:
       client:
@@ -143,18 +143,18 @@ versions:
 
     pms:
       misp: 
-        'pms-misp-service': 'mosipdev/pmp-misp-service:develop'
+        'pms-misp-service': 'mosipdev/pmp-misp-service:1.0.1-SNAPSHOT'
       pm:
-        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:develop'
+        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:1.0.1-SNAPSHOT'
       partner:
-        'pms-partner-service': 'mosipdev/pmp-partner-service:develop'
+        'pms-partner-service': 'mosipdev/pmp-partner-service:1.0.1-SNAPSHOT'
       policy:
-        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:develop'
+        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:1.0.1-SNAPSHOT'
 
 
     resident: 
       resident:  
-        'resident-service': 'mosipdev/resident-service:develop'
+        'resident-service': 'mosipdev/resident-service:1.1.1'
     
     admin:
       service:
