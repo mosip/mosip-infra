@@ -18,9 +18,7 @@ versions:
       key:
         'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:develop'
       notifier:
-                            
-        #'kernel-notification-service': 'mosipdev/kernel-notification-service:develop'
-        'kernel-notification-service': 'gsasikumar/kernel-notification-service:develop'
+        'kernel-notification-service': 'mosipdev/kernel-notification-service:develop'
       otp:
         'kernel-otpmanager-service': 'mosipdev/kernel-otpmanager-service:develop'
       rid:
@@ -97,8 +95,6 @@ versions:
         'regproc-print-service': 'mosipdev/registration-processor-print-service:develop'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
-      request: 
-        'regproc-request-handler-service': 'mosipdev/registration-processor-request-handler-service:develop'
       reprocess:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
     dmzregproc:  
