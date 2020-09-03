@@ -128,6 +128,12 @@ versions:
         'idrepo-identity-service': 'mosipdev/id-repository-identity-service:develop'
       vid: 
         'idrepo-vid-service': 'mosipdev/id-repository-vid-service:develop'
+      bioextractor:
+        'bioextractor-service': 'mosipdev/bioextractor-service:develop'
+      credentialreq:
+        'credential-request-generator': 'mosipdev/credential-request-generator:develop'
+      credentialservice:
+        'credential-service': 'mosipdev/credential-service:develop'
       uinhash:  
         'idrepo-uin-hash-generator': 'mosipdev/kernel-salt-generator:develop'
       uinencrypt:

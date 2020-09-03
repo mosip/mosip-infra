@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.credentialservice.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.credentialservice.servicePort }}
+    targetPort: {{ .Values.services.credentialservice.containerPort }}
+  selector:
+    app: {{ .Values.services.credentialservice.serviceName }} 
+
