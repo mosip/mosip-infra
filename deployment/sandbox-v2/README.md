@@ -169,3 +169,7 @@ $ an playbooks/postgres.yml --extra-vars "force_init=true"
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf  # Note the "."
 ```
+* To compare two property files (`*.properties`) use:
+```
+$ ./utils/prop_comparator.py <file1> <file2>
+```
