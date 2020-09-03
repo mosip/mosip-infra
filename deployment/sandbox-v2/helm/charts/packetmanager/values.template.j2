@@ -1,10 +1,8 @@
 component: packetmanager
 part-of: mosip
 activeProfileEnv: mz 
-springConfigLabel: master 
-configServerUrl: http://config-server/config
-ingress:
-   namespace: default
+springConfigLabel:  {{ config_repo.branch }}
+configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 probe:
   initialDelay: 30  # Seconds

@@ -8,7 +8,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/keycloak/values.template.j2'
-    helm_strings: ''
+    helm_strings: 'keycloakPassword={{secrets.keycloak.password}},db.password={{secrets.postgres.su}}'
   roles:
     - {role:  helm, tags: [keycloak]}
 

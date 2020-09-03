@@ -14,6 +14,7 @@ _**WARNING**: The sandbox is not intented to be used for serious pilots or produ
 
 ## Hardware configuration
 
+### Full sandbox
 The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
@@ -26,7 +27,18 @@ The sandbox has been tested with the following configuration:
 
 \* vCPU:  Virtual CPU
 
-All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed will be higher.
+All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed may be higher.
+
+### Minibox
+It is possible to bring up MOSIP modules with lesser VMs as below.  However, do note that this may not be sufficient for any kind of load or multiple pod replication scenarios:
+
+| Component| Number of VMs| Configuration| Persistence |
+|---|---|---|---|
+|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s MZ workers | 3 | 4 vCPU, 16 GB RAM | - |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
 
 ## Vitrual Machines (VMs) setup
 
@@ -35,17 +47,17 @@ Before installing MOSIP modules you will have to set up your VMs as below:
 1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
 1. Enable Intenet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
-1. Exchange ssh keys between console and k8s cluster machines such that ssh is password-less from console machine:
-```  
-$[mosipuser@console.sb] ssh root@<any k8s node>
-$[mosipuser@console.sb] ssh mosipuser@console.sb
-```  
-1. Make console machine accessible with a public domain name (e.g. sandbox.mycompany.com).
+1. Exchange ssh keys between console and K8s cluster machines such that ssh is password-less from console machine:
+    ```  
+    $[mosipuser@console.sb] ssh root@<any K8s node>
+    $[mosipuser@console.sb] ssh mosipuser@console.sb
+    ```  
+1. Make console machine accessible via a public domain name (e.g. sandbox.mycompany.com).
 1. Open ports 80, 443, 30090 (postgres) on console machine for external access.
-1. DNS: Setup a DNS server (or use cloud provider's DNS) such that console and nodes are accessible via their domain names listed in `hosts.ini`.  It is important to check if domain names are resolved from within pods of K8s cluster.  One way to check is after the cluster is up, deploy `utils/busybox.yml` pod, login into the pod and run the command `ping mzworker0.sb`.  DO NOT use `/etc/hosts` for domain name resolution, as name resolution will not happen from within pods if this method is followed.
+1. DNS: Setup a DNS server (or use cloud provider's DNS) such that console and nodes are accessible via their domain names listed in `hosts.ini`.  It is important to check if domain names are resolved from within pods of K8s cluster.  One way to check is after the cluster is up, deploy `utils/busybox.yml` pod, login into the pod and run the command `ping mzworker0.sb`.  DO NOT use `/etc/hosts` for domain name resolution, as name resolution will fail from within pods if this method is followed.
 
 ## Terraform
-All the above may be achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the Terraform scripts in detail before starting to deploy. 
+All the above is achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the scripts in detail before running them. 
 
 ## Software prerequisites
 
@@ -156,4 +168,8 @@ $ an playbooks/postgres.yml --extra-vars "force_init=true"
 * If you use `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf  # Note the "."
+```
+* To compare two property files (`*.properties`) use:
+```
+$ ./utils/prop_comparator.py <file1> <file2>
 ```

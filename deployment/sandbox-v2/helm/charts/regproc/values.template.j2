@@ -220,11 +220,3 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationtransaction/
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
-  request: 
-    serviceName: {{ versions.services.regproc.request.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.request.values()[0] }}
-    ports:
-      containerPort: 8082
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/requesthandler/
-    healthUrl: /registrationprocessor/v1/requesthandler/actuator/health
