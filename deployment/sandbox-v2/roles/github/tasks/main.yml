@@ -2,8 +2,10 @@
 #   Inputs:
 #     repo_path: Full path e.g https://github.com/username/reponame
 #     repo_dest: Destination folder
+#     branch: branch to checkout
 #     githubuser
 #     githubpassword
+#     
 
 - name: 'Create foler {{repo_dest}} if does not exist'
   file:
@@ -21,6 +23,7 @@
     repo: '{{repo_path}}'
     dest: '{{repo_dest}}'
     update: no 
+    version: '{{branch}}'
     force: no
   no_log: true
 -
