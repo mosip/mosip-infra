@@ -57,6 +57,6 @@ Return the appropriate apiVersion for podSecurityPolicy.
 {{- if semverCompare ">=1.10-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "policy/v1beta1" -}}
 {{- else -}}
-{{- print "extensions/v1beta1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- end -}}
 {{- end -}}
