@@ -264,6 +264,18 @@ http {
            proxy_pass http://mzworker0.sb:30080/minio/;
         }
 
+        location /v1/bioextractor/mock/ {
+           proxy_pass http://mzworker0.sb:30080/v1/bioextractor/mock/;
+        }
+
+        location /v1/credentialrequest/{
+           proxy_pass http://mzworker0.sb:30080/v1/credentialrequest/;
+        }
+
+        location /v1/credentialservice/{
+           proxy_pass http://mzworker0.sb:30080/v1/credentialservice/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }

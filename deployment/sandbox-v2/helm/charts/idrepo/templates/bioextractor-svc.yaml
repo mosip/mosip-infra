@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.bioextractor.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.bioextractor.servicePort }}
+    targetPort: {{ .Values.services.bioextractor.containerPort }}
+  selector:
+    app: {{ .Values.services.bioextractor.serviceName }} 
+

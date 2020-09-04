@@ -18,6 +18,8 @@ dockerHub:
   private: {{ docker_hub.private }}  
   keyname: {{ docker_hub.keyname }}
 
+extraction_format: mock
+
 services:
   identity:
     serviceName: {{ versions.services.idrepo.identity.keys()[0] }} 
@@ -34,6 +36,27 @@ services:
     servicePort: 80
     ingressPath: /idrepository/v1/vid
     healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
+  bioextractor:
+    serviceName: {{ versions.services.idrepo.bioextractor.keys()[0] }}
+    dockerImage: {{ versions.services.idrepo.bioextractor.values()[0] }}
+    containerPort: 8100
+    servicePort: 80
+    ingressPath: /v1/bioextractor/mock
+    healthUrl: /v1/bioextractor/mock/actuator/health
+  credentialrequest:
+    serviceName: {{ versions.services.idrepo.credentialreq.keys()[0] }}
+    dockerImage: {{ versions.services.idrepo.credentialreq.values()[0] }}
+    containerPort: 8094
+    servicePort: 80
+    ingressPath: /v1/credentialrequest
+    healthUrl: /v1/credentialrequest/actuator/health
+  credentialservice:
+    serviceName: {{ versions.services.idrepo.credentialservice.keys()[0] }}
+    dockerImage: {{ versions.services.idrepo.credentialservice.values()[0] }}
+    containerPort: 8095
+    servicePort: 80
+    ingressPath: /v1/credentialservice
+    healthUrl: /v1/credentialservice/actuator/health
 
 generators:
   uinhash:  
