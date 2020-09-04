@@ -97,6 +97,8 @@ versions:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
+      datashare:
+        'regproc-data-share-service': 'mosipdev/data-share-service:develop'
     dmzregproc:  
       receiver:
         'regproc-packet-receiver-stage': 'mosipdev/registration-processor-packet-receiver-stage:develop'
@@ -129,11 +131,11 @@ versions:
       vid: 
         'idrepo-vid-service': 'mosipdev/id-repository-vid-service:develop'
       bioextractor:
-        'bioextractor-service': 'mosipdev/bioextractor-service:develop'
+        'idrepo-bioextractor-service': 'mosipdev/bioextractor-service:develop'
       credentialreq:
-        'credential-request-generator': 'mosipdev/credential-request-generator:develop'
+        'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:develop'
       credentialservice:
-        'credential-service': 'mosipdev/credential-service:develop'
+        'idrepo-credential-service': 'mosipdev/credential-service:develop'
       uinhash:  
         'idrepo-uin-hash-generator': 'mosipdev/kernel-salt-generator:develop'
       uinencrypt:

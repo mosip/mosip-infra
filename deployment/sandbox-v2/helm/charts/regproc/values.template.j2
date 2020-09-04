@@ -220,3 +220,11 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationtransaction/
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
+  datashare:
+    serviceName: {{ versions.services.regproc.datashare.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.datashare.values()[0] }}
+    ports:
+      containerPort: 8097
+      servicePort: 80
+    ingressPath: /v1/datashare/
+    healthUrl: /v1/datashare/actuator/health
