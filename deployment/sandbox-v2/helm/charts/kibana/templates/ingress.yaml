@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: kibana-ingress
+  name: kibana
   namespace: {{ .Release.Namespace }} 
   annotations:
     ingress.kubernetes.io/class: nginx
