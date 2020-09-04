@@ -157,7 +157,7 @@ Return the appropriate apiVersion for deployment.
 */}}
 {{- define "prometheus.deployment.apiVersion" -}}
 {{- if semverCompare "<1.9-0" .Capabilities.KubeVersion.GitVersion -}}
-{{- print "extensions/v1beta1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- else if semverCompare "^1.9-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "apps/v1" -}}
 {{- end -}}
@@ -167,7 +167,7 @@ Return the appropriate apiVersion for daemonset.
 */}}
 {{- define "prometheus.daemonset.apiVersion" -}}
 {{- if semverCompare "<1.9-0" .Capabilities.KubeVersion.GitVersion -}}
-{{- print "extensions/v1beta1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- else if semverCompare "^1.9-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "apps/v1" -}}
 {{- end -}}
@@ -177,7 +177,7 @@ Return the appropriate apiVersion for networkpolicy.
 */}}
 {{- define "prometheus.networkPolicy.apiVersion" -}}
 {{- if semverCompare ">=1.4-0, <1.7-0" .Capabilities.KubeVersion.GitVersion -}}
-{{- print "extensions/v1beta1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- else if semverCompare "^1.7-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "networking.k8s.io/v1" -}}
 {{- end -}}
@@ -187,7 +187,7 @@ Return the appropriate apiVersion for podsecuritypolicy.
 */}}
 {{- define "prometheus.podSecurityPolicy.apiVersion" -}}
 {{- if semverCompare ">=1.3-0, <1.10-0" .Capabilities.KubeVersion.GitVersion -}}
-{{- print "extensions/v1beta1" -}}
+{{- print "networking.k8s.io/v1" -}}
 {{- else if semverCompare "^1.10-0" .Capabilities.KubeVersion.GitVersion -}}
 {{- print "policy/v1beta1" -}}
 {{- end -}}
