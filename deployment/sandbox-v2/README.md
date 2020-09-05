@@ -44,6 +44,10 @@ It is possible to bring up MOSIP modules with lesser VMs as below.  However, do 
 Before installing MOSIP modules you will have to set up your VMs as below:
 1. Install above mentioned OS on all machines
 1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
+1. `hosntame` on all machines much match hostnames in `hosts.ini`.  Set the same with
+    ```
+    $ sudo hostnamectl set-hostname <hostname>
+    ```
 1. Enable Intenet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
 1. Exchange ssh keys between console and K8s cluster machines such that ssh is password-less from console machine:
