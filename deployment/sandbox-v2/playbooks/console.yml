@@ -23,6 +23,7 @@
      - {role: packages/policycoreutils-python, tags: [policy]}
      - {role: packages/requests3}
      - {role: packages/psycopg2}
+     - {role: packages/tmux, tags: [tmux]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
