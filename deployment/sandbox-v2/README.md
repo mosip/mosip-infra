@@ -19,15 +19,14 @@ The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
-|K8s MZ workers | 9 | 4 vCPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
+|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD**|
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB|
+|K8s MZ workers | 9 | 4 vCPU, 16 GB RAM | 32 GB |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | 32 GB |
 
-\* vCPU:  Virtual CPU
-
-All pods run with replication=1.  If higher replication is needed, accordingly, the number of VMs needed may be higher.
+\* vCPU:  Virtual CPU  
+\** Console has all the persistent data stored under `/srv/nfs`.  Recommended storage here is SSD or any other high IOPS disk for better performance.
 
 ### Minibox
 It is possible to bring up MOSIP modules with lesser VMs as below.  However, do note that this may not be sufficient for any kind of load or multiple pod replication scenarios:
