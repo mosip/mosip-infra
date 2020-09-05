@@ -34,10 +34,10 @@ It is possible to bring up MOSIP modules with lesser VMs as below.  However, do 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
 |Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD |
-|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | - |
-|K8s MZ workers | 3 | 4 vCPU, 16 GB RAM | - |
-|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | - |
-|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | - |
+|K8s MZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB |
+|K8s MZ workers | 3 | 4 vCPU, 16 GB RAM | 32 GB |
+|K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB |
+|K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | 32 GB |
 
 ## Vitrual Machines (VMs) setup
 
