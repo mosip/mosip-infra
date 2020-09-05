@@ -13,6 +13,7 @@
   gather_facts: true 
   roles:
      - {role: packages/epel, tags: [epel]}
+     - {role: packages/vim, tags: [vim]}
      - {role: packages/pip, tags: [pip]}
      - {role: packages/python3, tags: [python3]} # Needed for letsencrypt and test scripts
      - {role: packages/kubectl, tags: [kubectl]}
