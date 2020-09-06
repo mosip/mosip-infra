@@ -34,6 +34,7 @@
   docker_container:
     name: '{{coredns.name}}'
     state: absent
+  become: yes
 
 - name: Start docker container
   shell: 'docker run -d --name {{coredns.name}} --restart=always --volume={{coredns.path}}:/root/ -p 53:53/udp {{coredns.image}} -conf /root/Corefile'
