@@ -25,24 +25,14 @@ versions:
         'kernel-ridgenerator-service': 'mosipdev/kernel-ridgenerator-service:develop'
 
     prereg:
-      login:
-        'prereg-login-service': 'mosipdev/pre-registration-login-service:1.1.1'
+      application:
+        'prereg-application-service': 'mosipdev/pre-registration-application-service:MOSIP-8545'
       batch:
         'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:1.1.1'
-      document:
-        'prereg-document-service':  'mosipdev/pre-registration-document-service:1.1.1'
-      transliteration:
-        'prereg-transliteration-service': 'mosipdev/pre-registration-transliteration-service:1.1.1'
       booking:
-        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:1.1.1'
-      qrcode:
-        'prereg-qrcode-service': 'mosipdev/pre-registration-generateqrcode-service:1.1.1'
+        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:MOSIP-8545'
       datasync:
         'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:1.1.1'
-      demographic:
-        'prereg-demographic-service':  'mosipdev/pre-registration-demographic-service:1.1.1'
-      notification:
-        'prereg-notification-service': 'mosipdev/pre-registration-notification-service:1.1.1'
       captcha:
         'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.1'
       ui:
