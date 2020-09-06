@@ -19,7 +19,7 @@ The sandbox has been tested with the following configuration:
 
 | Component| Number of VMs| Configuration| Persistence |
 |---|---|---|---|
-|Console| 1 | 4 vCPU*, 8 GB RAM | 128 GB SSD**|
+|Console| 1 | 4 vCPU*, 16 GB RAM | 128 GB SSD**|
 |K8s MZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB|
 |K8s MZ workers | 9 | 4 vCPU, 16 GB RAM | 32 GB |
 |K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB |
