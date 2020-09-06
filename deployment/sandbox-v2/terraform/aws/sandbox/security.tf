@@ -13,6 +13,16 @@ resource "aws_security_group" "console" {
     ]
   } 
 
+  /* Open UDP 53 for DNS */
+  ingress {
+    from_port   = 53
+    to_port     = 53
+    protocol    = "udp" 
+    cidr_blocks = [
+      var.vpc_cidr
+    ]
+  } 
+
   ingress {
     from_port   = 22 
     to_port     = 22 

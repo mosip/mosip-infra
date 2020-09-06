@@ -14,9 +14,9 @@
   roles:
      - {role: packages/epel, tags: [epel]}
      - {role: packages/vim, tags: [vim]}
-     - {role: packages/docker, tags: [docker]}
      - {role: packages/pip, tags: [pip]}
      - {role: packages/python3, tags: [python3]} # Needed for letsencrypt and test scripts
+     - {role: packages/docker, tags: [docker]}
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}

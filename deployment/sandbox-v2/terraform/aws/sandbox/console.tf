@@ -70,13 +70,13 @@ resource "aws_instance" "console" {
     }
 }
 
-resource "aws_route53_record" "console" {
-  zone_id = aws_route53_zone.sandbox.zone_id
-  name    = aws_instance.console.tags.Name
-  type    = "A"
-  ttl     = "30"
-
-  records = [
-    aws_instance.console.private_ip
-  ]
-}
+#resource "aws_route53_record" "console" {
+#  zone_id = aws_route53_zone.sandbox.zone_id
+#  name    = aws_instance.console.tags.Name
+#  type    = "A"
+#  ttl     = "30"
+#
+#  records = [
+#    aws_instance.console.private_ip
+#  ]
+#}

@@ -51,14 +51,14 @@ resource "aws_instance" "kube" {
     }
 }
 
-resource "aws_route53_record" "kube" {
-  for_each = aws_instance.kube
-  zone_id = aws_route53_zone.sandbox.zone_id
-  name    = each.value.tags.Name
-  type    = "A"
-  ttl     = "30"
-
-  records = [
-    each.value.private_ip
-  ]
-}
+#resource "aws_route53_record" "kube" {
+#  for_each = aws_instance.kube
+#  zone_id = aws_route53_zone.sandbox.zone_id
+#  name    = each.value.tags.Name
+#  type    = "A"
+#  ttl     = "30"
+#
+#  records = [
+#    each.value.private_ip
+#  ]
+#}
