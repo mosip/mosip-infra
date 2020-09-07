@@ -19,13 +19,13 @@ dockerHub:
   keyname: {{ docker_hub.keyname }}
 
 services:
-  login:
-    serviceName: {{ versions.services.prereg.login.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.login.values()[0] }}
+  application:
+    serviceName: {{ versions.services.prereg.application.keys()[0] }} 
+    dockerImage: {{ versions.services.prereg.application.values()[0] }}
     containerPort: 9090
     servicePort: 80
-    ingressPath: /preregistration/v1/login
-    healthUrl: /preregistration/v1/login/actuator/health
+    ingressPath: /preregistration/v1
+    healthUrl: /preregistration/v1/actuator/health
   batch:
     serviceName: {{ versions.services.prereg.batch.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.batch.values()[0] }}
@@ -33,20 +33,6 @@ services:
     servicePort: 80
     ingressPath: ""
     #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?  
-  document:
-    serviceName: {{ versions.services.prereg.document.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.document.values()[0] }}
-    containerPort: 9093
-    servicePort: 80
-    ingressPath: /preregistration/v1/documents
-    healthUrl: /preregistration/v1/actuator/health # TODO: How come this url does not have 'documents' in it
-  transliteration:
-    serviceName: {{ versions.services.prereg.transliteration.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.transliteration.values()[0] }}
-    containerPort: 9098
-    servicePort: 80
-    ingressPath: /preregistration/v1/transliteration
-    healthUrl: /preregistration/v1/transliteration/actuator/health
   booking:
     serviceName: {{ versions.services.prereg.booking.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.booking.values()[0] }}
@@ -54,13 +40,6 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
-  qrcode:
-    serviceName: {{ versions.services.prereg.qrcode.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.qrcode.values()[0] }}
-    containerPort: 9091
-    servicePort: 80
-    ingressPath: /preregistration/v1/qrCode
-    healthUrl: /preregistration/v1/qrCode/actuator/health
   datasync:
     serviceName: {{ versions.services.prereg.datasync.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.datasync.values()[0] }}
@@ -68,20 +47,6 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
-  demographic:
-    serviceName: {{ versions.services.prereg.demographic.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.demographic.values()[0] }}
-    containerPort: 9092
-    servicePort: 80
-    ingressPath: /preregistration/v1/applications
-    healthUrl: /preregistration/v1/actuator/health
-  notification:
-    serviceName: {{ versions.services.prereg.notification.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.notification.values()[0] }}
-    containerPort: 9099
-    servicePort: 80
-    ingressPath: /preregistration/v1/notification
-    healthUrl: /preregistration/v1/notification/actuator/health
   captcha:
     serviceName: {{ versions.services.prereg.captcha.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.captcha.values()[0] }}
