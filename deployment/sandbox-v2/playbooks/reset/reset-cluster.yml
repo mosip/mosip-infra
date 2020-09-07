@@ -1,6 +1,7 @@
 ---
 - hosts: '{{cluster}}'
   gather_facts: no
+    vars_files: '{{install_root}}/group_vars/k8s.yml'
   become: yes
   vars_prompt:
     - name: sure 
