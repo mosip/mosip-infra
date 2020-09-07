@@ -1,5 +1,13 @@
 # MOSIP Configuration Guide
 
+## DNS
+By default a private DNS (CoreDNS) is installed on the console machine and all `/etc/resolv.conf` on all machines points to this DNS.  However, you would like to use cloud providers DNS (like Route53 on AWS), disable the private DNS installation by setting the following flag in `group_vars/all.yml`:
+```
+coredns:
+  enabled: false  # Disable to use Cloud provided DNS 
+```
+Make sure your cloud deployment takes care of DNS routing.  For AWS, uncomment the Route53 code in the scripts provided in `terraform/asw/sandbox`
+
 ## Secrets
 All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
 ```

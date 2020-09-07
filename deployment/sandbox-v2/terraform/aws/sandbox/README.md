@@ -1,8 +1,9 @@
 ## Install MOSIP Sandbox on AWS using Terraform
 
-### Setup
+### Domain name 
 1. Obtain a domain name for the sandbox using AWS Route53, example, `mosip.net`.  This is required to access sandbox externally.
 
+### Terraform setup
 1. Install latest version of terraform. 
 
 1. Set the following environment variables:
@@ -12,14 +13,22 @@
     export TF_LOG=DEBUG
     export TF_LOG_PATH=tf.log  
     ```
+### Keys
 1. On AWS EC2 admin console generate a key pair called `mosip-aws`.  Download the private key `mosip-aws.pem` to your local `~/.ssh` folder. Make sure the permission of `~/.ssh/mosip-aws.pem` is set to 600. 
 
 1. Generate a new set of RSA key pairs with default names `id_rsa` and `id_rsa.pub` and place them in current folder. Do not give any passphrase. These keys are exchanged between sandbox console and cluster machines.
     ```
     $ ssh-keygen -t rsa -f ./id_rsa
     ```
+### DNS
+1. If you would like to use the default private DNS installed as part of default sandbox install, then skip this step. To use AWS Route53 DNS for resolving names of all machines uncommment the code in `terraform/aws/sandbox`.
+  
+1. If you would different number of machines in your setup, udpdate `variables.tf`. Make sure the IP addresses assigned match the ones in `hosts.ini` file of Ansible setup.
+  
+### Sandbox name
 1. Modify `sandbox_name` in `variables.tf` as per your setup.  The name here is informational and will be added as tag to the instance.  It is recommended this name matches subdomain name for easy reference (see below).  Example, `sandbox_name` is `staging` and subdomain is `staging.mosip.net`. 
 
+### Performance testing
 1. If you are doing performance testing and prefer higher IOPS SSD on sandbox console, modify `iops` and `volume_type` in `console.tf`. Example:
     ```
     ebs_block_device  { 
@@ -31,6 +40,7 @@
     } 
     ```
 
+### Other variables
 There are other variables, do not modify them unless you have a good understanding of the scripts and their impact on Ansible scripts. 
 
 ### Install
