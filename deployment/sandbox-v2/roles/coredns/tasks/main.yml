@@ -15,13 +15,13 @@
 
 - name: Populate dns db file
   lineinfile:
-     path: '{{coredns.db}}'
-     line:  'sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600'
+    path: '{{coredns.db}}'
+    line:  'sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600'
 
 - name: Populate dns db file
   lineinfile:
-     path: '{{coredns.db}}'
-     line:  '{{item}}    IN    A    {{hostvars[item]["ansible_host"]}}'
+    path: '{{coredns.db}}'
+    line:  '{{item}}    IN    A    {{hostvars[item]["ansible_host"]}}'
   with_inventory_hostnames:
     - all
 
