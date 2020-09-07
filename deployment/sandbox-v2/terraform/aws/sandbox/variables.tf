@@ -42,8 +42,6 @@ variable "console_name" {
 
 /* Recommended not to change names */
 variable "kube_names" {
-
-   variable "kube_names" {
    type = map(string)
 
    default = {
