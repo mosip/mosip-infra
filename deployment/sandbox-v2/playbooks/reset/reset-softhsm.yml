@@ -1,4 +1,4 @@
-- hosts: nfsserver
+- hosts: console
   gather_facts: no
   become: yes
   vars_prompt:

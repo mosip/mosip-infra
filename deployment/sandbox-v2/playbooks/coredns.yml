@@ -1,7 +1,7 @@
 # Playbook to run CoreDNS server on console and configure /etc/resolv.conf
 # on all machines to point to this DNS.
 # Run these only if coredns is enabled.
-- hosts: dnsserver
+- hosts: console
   gather_facts: true
   roles: 
       - {role: coredns, when: coredns.enabled == true} 

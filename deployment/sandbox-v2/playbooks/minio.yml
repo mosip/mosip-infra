@@ -1,7 +1,7 @@
 # Installs Minio Object store 
 
 # Create folders for persistence on NFS
-- hosts: nfsserver
+- hosts: console
   tasks:
     - {name: 'Create folder', file: {name: '{{minio.nfs_path}}', state: directory}, become: yes}
 

@@ -1,5 +1,5 @@
 ## Create git repo on a node 
-- hosts: nfsserver
+- hosts: console
   vars:
     repo_path: '{{config_repo.git_repo_uri}}'
     repo_dest: '{{config_repo.local_git_repo.path}}'

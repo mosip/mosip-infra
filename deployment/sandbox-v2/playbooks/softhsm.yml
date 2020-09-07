@@ -5,7 +5,7 @@
 # 
 
 # Prepare folders on remote node
-- hosts: nfsserver
+- hosts: console
   gather_facts: true
   vars:
     hsm_prop: '{{hsm_prop}}'

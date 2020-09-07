@@ -4,7 +4,7 @@
   roles:
     - {role: packages/nfs-utils}
 
-- hosts: nfsserver
+- hosts: console
   roles:
     - {role: nfs-server}
 
