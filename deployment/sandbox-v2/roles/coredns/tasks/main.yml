@@ -21,7 +21,7 @@
 - name: Populate dns db file
   lineinfile:
     path: '{{coredns.db}}'
-    line:  '{{item}}    IN    A    {{hostvars[item]["ansible_host"]}}'
+    line:  '{{item}}.    IN    A    {{hostvars[item]["ansible_host"]}}'
   with_inventory_hostnames:
     - all
 
