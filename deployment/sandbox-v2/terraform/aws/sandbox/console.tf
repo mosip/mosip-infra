@@ -5,6 +5,7 @@ resource "aws_instance" "console" {
   key_name = lookup(var.private_key, "name")
   vpc_security_group_ids = [aws_security_group.console.id]
   subnet_id = aws_subnet.private.id
+  private_ip = lookup(var.console_name, "private_ip")
   root_block_device  {
     volume_type = "standard"
     volume_size = 24
@@ -19,7 +20,7 @@ resource "aws_instance" "console" {
   } 
 
   tags = {
-    Name = var.console_name 
+    Name = lookup(var.console_name, "name")
     component = var.sandbox_name
   }
 
