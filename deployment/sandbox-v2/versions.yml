@@ -23,6 +23,8 @@ versions:
         'kernel-otpmanager-service': 'mosipdev/kernel-otpmanager-service:develop'
       rid:
         'kernel-ridgenerator-service': 'mosipdev/kernel-ridgenerator-service:develop'
+      keygen:
+        'kernel-keys-generator': 'mosipdev/keys-generator:develop'
 
     prereg:
       application:
