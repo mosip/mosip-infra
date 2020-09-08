@@ -10,7 +10,7 @@ probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
 imagePullPolicy: Always
-domainName: {{ sandbox_domain_name }}
+sitePublicUrl: {{ site.sandbox_public_url }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 
@@ -32,5 +32,5 @@ services:
     containerPort: 80
     servicePort: 80
     configName: admin-ui-config # ConfigMap name
-    apiHost: https://{{ sandbox_domain_name }}/v1/
+    apiHost:{{ site.sandbox_public_url }}/v1/
     ingressPath: /admin-ui
