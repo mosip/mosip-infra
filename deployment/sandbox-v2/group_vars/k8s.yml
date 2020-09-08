@@ -1,11 +1,15 @@
 # Ansible
 # ansible_user: root
-
-cluster_name: 'dmzcluster'  # Same as in hosts.ini
-cluster_master: 'dmzmaster.sb' # Same as in hosts.ini
+#
+# Params that need to be defined in parent playbook including variables in this
+# file
+#   cluster_name: ''  # Any string
+#   cluster_master: ''  # Host name of master machine. e.g: mzmaster.sb
+#   console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'  # e.g
 
 # Kubernetes
 kube_version: v1.19.0
+
 token: b0f7b8.8d1767876297d85c
 
 # 1.8.x feature: --feature-gates SelfHosting=true
@@ -23,7 +27,7 @@ pod_network_cidr: "10.244.0.0/16"
 network: flannel
 
 # Change this to an appropriate interface, preferably a private network.
-# Default is 'eth0'.  
+# Default is 'eth0'.
 network_interface: "eth0"
 ansible_interface_param: 'ansible_{{network_interface}}'
 kubemaster_ip: '{{ hostvars[cluster_master][ansible_interface_param].ipv4.address }}'
@@ -38,8 +42,6 @@ systemd_dir: /lib/systemd/system
 system_env_dir: /etc/sysconfig
 network_dir: /etc/kubernetes/network
 kubeadmin_config: /etc/kubernetes/admin.conf
-# The above config file is transferred to the console machine at below location
-console_kubeadmin_config_path: '{{clusters.dmz.kube_config}}' 
 kube_addon_dir: /etc/kubernetes/addon
 
 # Additional feature to install

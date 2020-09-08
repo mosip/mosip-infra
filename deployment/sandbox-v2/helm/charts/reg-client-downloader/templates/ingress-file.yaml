@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Values.serviceName }}-ingress
+  name: {{ .Values.serviceName }}
   namespace: {{ .Release.Namespace }}
   annotations:
      kubernetes.io/ingress.class: "nginx"

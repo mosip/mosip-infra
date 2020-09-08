@@ -6,7 +6,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: minio-ingress
+  name: minio
   namespace: {{ .Release.Namespace }}
   annotations:
     ingress.kubernetes.io/class: nginx
@@ -14,7 +14,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /minio
+      - path: /minio  # To browser
         backend:
           serviceName: {{ template "minio.fullname" . }}
           servicePort: {{ .Values.service.port }} 

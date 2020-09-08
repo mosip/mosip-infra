@@ -2,7 +2,7 @@
 #
 
 # Prep
-- hosts: nfsserver
+- hosts: console
   tasks:
     - {name: 'Create landing folder', file: {name: '{{regproc.nfs.landing_folder}}', state: directory}, become: yes}
 

@@ -4,6 +4,7 @@
 
 # Console
 - import_playbook: playbooks/console.yml  # Basic setup on console machine
+- import_playbook: playbooks/coredns.yml
 - import_playbook: playbooks/nginx.yml # Setting nginx in advance so that Keycloak etc. can be tested 
 - import_playbook: playbooks/nfs.yml 
 # MZ cluster

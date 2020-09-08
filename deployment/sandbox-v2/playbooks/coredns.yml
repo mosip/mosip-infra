@@ -1,0 +1,18 @@
+# Playbook to run CoreDNS server on console and configure /etc/resolv.conf
+# on all machines to point to this DNS.
+# Run these only if coredns is enabled.
+- hosts: console
+  gather_facts: true
+  roles: 
+      - {role: coredns, when: coredns.enabled == true} 
+
+# Update resolv.conf file on all machines
+- hosts: all
+  gather_facts: false
+  tasks:
+   - name: Replace resolv file
+     template:
+       src: '{{install_root}}/roles/coredns/templates/resolv.conf.j2'
+       dest: /etc/resolv.conf
+     when: coredns.enabled == true
+     become: yes

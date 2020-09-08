@@ -1,0 +1,42 @@
+- name: Delete existing dns file to create fresh
+  file: 
+    path: '{{coredns.db}}'
+    state: absent
+
+- name: Create dns dir if does not exist
+  file: 
+    path: '{{coredns.path}}'
+    state: directory
+
+- name: Create empty dns db file
+  file: 
+    path: '{{coredns.db}}'
+    state: touch
+
+- name: Populate dns db file
+  lineinfile:
+    path: '{{coredns.db}}'
+    line:  'sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600'
+
+- name: Populate dns db file
+  lineinfile:
+    path: '{{coredns.db}}'
+    line:  '{{item}}.    IN    A    {{hostvars[item]["ansible_host"]}}'
+  with_inventory_hostnames:
+    - all
+
+- name: Copy Corefile
+  copy:
+    src: '{{install_root}}/roles/coredns/files/Corefile'
+    dest: '{{coredns.path}}'
+
+- name: Delete running container
+  docker_container:
+    name: '{{coredns.name}}'
+    state: absent
+  become: yes
+
+- name: Start docker container
+  shell: 'docker run -d --name {{coredns.name}} --restart=always --volume={{coredns.path}}:/root/ -p 53:53/udp {{coredns.image}} -conf /root/Corefile'
+  become: yes
+     

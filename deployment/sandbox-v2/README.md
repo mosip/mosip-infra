@@ -64,12 +64,7 @@ All the above is achieved using Terraform scripts available in `terraform/`.  At
 
 ## Software prerequisites
 
-* Install Ansible
-```
-$ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-$ sudo yum install ansible
-```
-* Install git
+* Install `git`:
 ```
 $ sudo yum install -y git
 ```
@@ -79,11 +74,16 @@ $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra/deployment/sandbox-v2
 ```
+* Install Ansible and create shortcuts:
+```
+$ ./preinstall.sh
+$ source ~/.bashrc
+```
 
 ##  Installing MOSIP 
 ### Site settings
-In `group_vars/all.yml`, set the following: 
-* Change `sandbox_domain_name`  to domain name of the console machine.
+* Update `hosts.ini` as per your setup. Make sure the machine names are IP addresses match your setup. 
+* In `group_vars/all.yml` change `sandbox_domain_name`  to domain name of the console machine.
 * By default the installation scripts will try to obtain fresh SSL certificate for the above domain from [Letsencrypt](https://letsencrypt.org). However, If you already have the same then set the following variables in `group_vars/all.yml` file:
 ```
 ssl:

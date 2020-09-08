@@ -5,7 +5,7 @@
 
 
 # Prepare folders on nfs
-- hosts: nfsserver
+- hosts: console
   gather_facts: true
   vars:
     reg_prop: '{{reg_client}}'

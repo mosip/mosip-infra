@@ -1,0 +1,12 @@
+- name: Install tmux
+  yum:
+    name: tmux
+    state: present
+  become: yes
+
+- name: Copy tmux conf to home directory
+  copy: 
+    src: '{{install_root}}/utils/tmux.conf'
+    dest: '{{ansible_env.HOME}}/.tmux.conf'
+
+ 

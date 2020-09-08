@@ -257,7 +257,7 @@ config_repo:
   username: ckm007 # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
-    enabled: false
+    enabled: true
     path: '{{nfs.folder}}/mosip-config'
     storage_size: 10Mi
 
@@ -270,3 +270,12 @@ activemq:
   name: activemq
   nodeport: 30616  # Arbitrary
   container_port: 61616
+
+# Private DNS - typically required for on-prem setups, but we enable it as
+# default for cloud as well.  So we don't have to use cloud DNS.
+coredns:
+  enabled: true  # Disable to use Cloud provided DNS
+  name: coredns
+  path: '{{tmp_dir}}/dns'
+  db: '{{tmp_dir}}/dns/sandbox_dns.db'
+  image: coredns/coredns

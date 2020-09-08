@@ -1,0 +1,15 @@
+- name: Install docker
+  yum:
+    name: docker
+    state: present
+  become: yes
+ 
+- name: Run docker
+  shell: 'systemctl start docker'
+  become: yes
+
+- name: Install docker py
+  pip:
+    name: docker-py
+    state: present
+  become: yes

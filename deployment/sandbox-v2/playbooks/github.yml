@@ -5,7 +5,7 @@
 #   repo_dest: dest folder. 
 #   as_root: yes/no
 - name: Git private repo clone
-  hosts: nfsserver
+  hosts: console
 #  vars_prompt: 
 #    - name: "githubuser" 
 #      prompt: "Enter your github username" 

@@ -1,17 +1,18 @@
 resource "aws_instance" "kube" {
-  for_each = toset(var.kube_names) 
+  for_each = var.kube_names 
   ami           = var.install_image 
   instance_type = var.instance_type
   key_name = lookup(var.private_key, "name")
   vpc_security_group_ids = [aws_security_group.kube.id]
   subnet_id = aws_subnet.private.id
+  private_ip = each.value
   root_block_device  {
     volume_type = "standard"
     volume_size = 24 
     delete_on_termination = true 
   } 
   tags = {
-    Name = each.value 
+    Name = each.key
     component = var.sandbox_name
   }
 
@@ -40,7 +41,7 @@ resource "aws_instance" "kube" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/kube_auth.sh",
-      format("%s %s", "sudo /tmp/kube_auth.sh", each.value)
+      format("%s %s", "sudo /tmp/kube_auth.sh", each.key)
     ]
   }
     connection {
@@ -51,14 +52,14 @@ resource "aws_instance" "kube" {
     }
 }
 
-resource "aws_route53_record" "kube" {
-  for_each = aws_instance.kube
-  zone_id = aws_route53_zone.sandbox.zone_id
-  name    = each.value.tags.Name
-  type    = "A"
-  ttl     = "30"
-
-  records = [
-    each.value.private_ip
-  ]
-}
+#resource "aws_route53_record" "kube" {
+#  for_each = aws_instance.kube
+#  zone_id = aws_route53_zone.sandbox.zone_id
+#  name    = each.value.tags.Name
+#  type    = "A"
+#  ttl     = "30"
+#
+#  records = [
+#    each.value.private_ip
+#  ]
+#}

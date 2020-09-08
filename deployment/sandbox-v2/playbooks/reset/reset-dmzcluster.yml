@@ -1,0 +1,3 @@
+- import_playbook: reset-cluster.yml
+  vars:
+    cluster: dmzmaster dmzworkers

@@ -2,12 +2,14 @@
 - hosts: '{{cluster}}'
   become: yes
   gather_facts: yes
+  vars_files: '{{install_root}}/group_vars/k8s.yml'
   roles:
     - { role: k8scluster/docker, tags: docker }
     - { role: packages/git, tags: git }
 
 - hosts: '{{master}}'  # Master 
   gather_facts: yes
+  vars_files: '{{install_root}}/group_vars/k8s.yml'
   become: yes
   roles:
     - { role: k8scluster/kubernetes/master, tags: master }
@@ -15,12 +17,14 @@
 
 - hosts: '{{workers}}' # Workers
   gather_facts: yes
+  vars_files: '{{install_root}}/group_vars/k8s.yml'
   become: yes
   roles:
     - { role: k8scluster/kubernetes/node, tags: node }
 
 - hosts: '{{master}}'  # Master 
   gather_facts: yes
+  vars_files: '{{install_root}}/group_vars/k8s.yml'
   become: yes
   tasks:
     - name: "MetalLB role"

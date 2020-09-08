@@ -2,7 +2,7 @@
 # Inputs:  
 #   mon_prop:  Monitor properties as in group_vars/all.yml
 #   kube_config
-- hosts: nfsserver
+- hosts: console
   tasks:
     - name: 'Create NFS folder'
       file: 
