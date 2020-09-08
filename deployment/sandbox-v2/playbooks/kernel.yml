@@ -19,14 +19,3 @@
   roles:
     - {role:  helm}
 
-# Init master keys. 
-# This is done using a temporary python script. NOT to be done in this
-# fashion on production.  TODO: move to docker init instead of this script.
-#
-- hosts: console
-  gather_facts: false
-  tasks:
-    - name: Initialize master keys of keymanager
-      shell: './utils/init_keys.py {{sandbox_domain_name}}'
-      args:
-        chdir: '{{install_root}}'

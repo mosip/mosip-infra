@@ -88,4 +88,8 @@ services:
     servicePort: 80
     ingressPath: /v1/ridgenerator 
     healthUrl: /v1/ridgenerator/actuator/health
-
+generators:
+  keygen:
+    name: {{ versions.services.kernel.keygen.keys()[0] }}
+    dockerImage: {{ versions.services.kernel.keygen.values()[0] }}
+    hsmUrl: tcp://softhsm-keymanager:80
