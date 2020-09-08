@@ -27,7 +27,7 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
         env:
         - name: mosipbox_public_url
-          value: {{ .Values.domainName }}
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:
