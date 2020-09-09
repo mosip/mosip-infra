@@ -4,11 +4,11 @@
 - {import_playbook: playbooks/reset/reset-mzcluster.yml}
 - {import_playbook: playbooks/reset/reset-dmzcluster.yml}
 - {import_playbook: playbooks/reset/reset-postgres.yml}
+- {import_playbook: playbooks/reset/reset-minio.yml}
 - {import_playbook: playbooks/reset/reset-softhsm.yml}
 - {import_playbook: playbooks/reset/reset-config-repo.yml}
 - {import_playbook: playbooks/reset/reset-landing.yml}
-- {import_playbook: playbooks/reset/reset-hdfs.yml}
-- {import_playbook: playbooks/reset/reset-repos.yml}
 - {import_playbook: playbooks/reset/reset-ports.yml}
 - {import_playbook: playbooks/reset/reset-proxy.yml}
 - {import_playbook: playbooks/reset/reset-monitoring.yml}
+- {import_playbook: playbooks/reset/reset-repos.yml}

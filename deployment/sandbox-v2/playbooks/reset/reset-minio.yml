@@ -1,0 +1,15 @@
+# Delete Minio persistence
+- hosts: console
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all Object Store (Minio) data? Are you sure? (yes/no)'
+      private: no
+  tasks:
+    - name: Delete Minio NFS folder 
+      file: 
+        path: '{{minio.nfs_path}}'
+        state: absent     
+      when: sure.lower().strip() == 'yes'
+

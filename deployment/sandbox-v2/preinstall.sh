@@ -6,7 +6,7 @@ sudo yum install -y tmux
 sudo yum install -y vim
 cp $HOME/mosip-infra/deployment/sandbox-v2/utils/tmux.conf $HOME/.tmux.conf
 
-echo "alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml" >> $HOME/.bashrc
+echo "alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'" >> $HOME/.bashrc
 echo "alias av='ansible-vault'" >> $HOME/.bashrc
 echo "alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'" >> $HOME/.bashrc
 echo "alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'" >> $HOME/.bashrc

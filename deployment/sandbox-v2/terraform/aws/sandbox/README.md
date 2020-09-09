@@ -23,7 +23,7 @@
 ### DNS
 1. If you would like to use the default private DNS installed as part of default sandbox install, then skip this step. To use AWS Route53 DNS for resolving names of all machines uncommment the code in `terraform/aws/sandbox`.
   
-1. If you would different number of machines in your setup, udpdate `variables.tf`. Make sure the IP addresses assigned match the ones in `hosts.ini` file of Ansible setup.
+1. If you have different number of machines in your setup, udpdate `variables.tf`. Make sure the IP addresses assigned match the ones in `hosts.ini` file of Ansible setup.
   
 ### Sandbox name
 1. Modify `sandbox_name` in `variables.tf` as per your setup.  The name here is informational and will be added as tag to the instance.  It is recommended this name matches subdomain name for easy reference (see below).  Example, `sandbox_name` is `staging` and subdomain is `staging.mosip.net`. 
