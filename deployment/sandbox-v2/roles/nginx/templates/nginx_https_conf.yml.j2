@@ -69,8 +69,8 @@ http {
         proxy_buffers 8 16k;
         proxy_buffer_size 32k;  # This is needed to as responses may be huge
         client_max_body_size 8m; # Biometrics may there in the request.
-        ssl_certificate {{site.ssl.certificate}}; 
-        ssl_certificate_key {{site.ssl.certificate_key}}; 
+        ssl_certificate {{ ssl_certificate }};
+        ssl_certificate_key {{ ssl_certificate_key }};
         ssl_session_cache shared:SSL:1m;
         ssl_session_timeout  10m;
         ssl_ciphers HIGH:!aNULL:!MD5;
