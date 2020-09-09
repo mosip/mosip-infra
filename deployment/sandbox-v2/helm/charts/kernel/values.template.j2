@@ -9,8 +9,6 @@ probe:
   period: 30 # Seconds
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
-domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodeport_node }} 
 
 dockerHub:
   private: {{ docker_hub.private }}  

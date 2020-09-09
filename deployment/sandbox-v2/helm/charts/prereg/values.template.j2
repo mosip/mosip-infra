@@ -3,8 +3,6 @@ part-of: mosip
 activeProfileEnv: mz
 springConfigLabel: {{ config_repo.branch }} 
 configServerUrl: {{ config_server.internal_url }}
-domainName: {{ sandbox_domain_name }}
-internalDomain: {{ clusters.mz.nodeport_node }} 
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
