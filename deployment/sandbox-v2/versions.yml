@@ -42,7 +42,7 @@ versions:
       
     registration:
       client:
-        'reg-client-downloader': 'mosipdev/registration-client:1.0.11'
+        'reg-client-downloader': 'mosipdev/registration-client:develop'
 
     regproc:
       camel:
