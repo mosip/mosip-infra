@@ -1,0 +1,41 @@
+# Tasks here create a self signed certificate for Nginx
+  - name: Create various dirs
+    file:
+      path: '{{ssl.ca.selfsigned.certificate | dirname}}'
+      state: directory 
+    become: yes
+
+  - name: Create various dirs
+    file:
+      path: '{{ssl.ca.selfsigned.certificate_key| dirname}}'
+      mode: '700'
+      state: directory 
+    become: yes
+
+  - name: Create various dirs
+    file:
+      path: '{{ssl.ca.selfsigned.csr | dirname}}'
+      mode: '700'
+      state: directory 
+    become: yes
+
+  - name: Generate private key
+    openssl_privatekey:
+      path: '{{ssl.ca.selfsigned.certificate_key}}' 
+    become: yes
+     
+  - name: Generate an OpenSSL Certificate Signing Request
+    openssl_csr:
+      path: '{{ssl.ca.selfsigned.csr}}' 
+      privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
+      common_name: '{{sandbox_domain_name}}'
+    become: yes
+
+  - name: Generate a Self Signed OpenSSL certificate
+    openssl_certificate:
+      path: '{{ssl.ca.selfsigned.certificate}}'  
+      privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
+      csr_path: '{{ssl.ca.selfsigned.csr}}' 
+      provider: selfsigned
+    become: yes
+

@@ -14,11 +14,24 @@ sandbox_domain_name: minibox.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
-    get_certificate: true  # get a fresh certificate for the domain using Letsencrypt.
-    email: info@mosip.io
-    certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
-    certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
-   
+    ca: 'letsencrypt'   # The ca to be used in this deployment
+
+# Paths of various supported ssl certs
+ssl:
+  ca:  # Certifcation authority
+    selfsigned: 
+      get_certificate: true
+      common_name: '{{ansible_host}}'  # The host on which certs are generated   
+      certificate: '/etc/ssl/certs/nginx-selfsigned.crt'
+      certificate_key: '/etc/ssl/private/nginx-selfsigned.key'
+      csr: '/etc/ssl/csr/nginx-selfsigned.csr'
+    letsencrypt:
+      get_certificate: true  # get a fresh certificate for the domain using Letsencrypt
+      email: info@mosip.io
+      certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
+      certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
+
+    
 is_glowroot: absent  # absent or present
 
 docker_wait_time: 600   # Wait for docker to pull and deploy

@@ -8,6 +8,17 @@ coredns:
 ```
 Make sure your cloud deployment takes care of DNS routing.  For AWS, uncomment the Route53 code in the scripts provided in `terraform/asw/sandbox`
 
+## Sandbox access
+The default sandbox installation requires your to have a public domain name such that this domain name points to console machine. However, if you would like to access sandbox on your internal network (over VPN for example) then set the following in `groups_vars.yml`:
+```
+sandbox_domain_name: '{{inventory_hostname}}'
+site:
+  sandbox_public_url: 'https://{{sandbox_domain_name}}'
+  ssl:
+    ca: 'selfsigned'   # The ca to be used in this deployment
+```
+This is will generate a self-signed certificate and the sandbox access url would be `https://console.sb/` 
+
 ## Secrets
 All secrets are stored in `secrets.yml`.  For a secure sandbox, edit the file and update all passwords.  Defaults may be used for development and testing, but be aware that the sandbox will not be secure with defaults. To edit `secrets.yml`:
 ```

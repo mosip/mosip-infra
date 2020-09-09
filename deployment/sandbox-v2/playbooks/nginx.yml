@@ -2,10 +2,15 @@
 # site.ssl.get_certificate defined in group_vars/all.yml
 - hosts: console
   gather_facts: true
+  vars:
+    ssl_certificate: '{{ssl.ca[site.ssl.ca].certificate}}'
+    ssl_certificate_key: '{{ssl.ca[site.ssl.ca].certificate_key}}'
+    ssl_prop: '{{ssl.ca[site.ssl.ca]}}'
   roles:
     - {role: packages/epel, tags: [epel]}
-    - {role: nginx, when: site.ssl.get_certificate == true, tags: [nginx]} 
-    - {role: letsencrypt, when: site.ssl.get_certificate == true, tags: [letsencrypt]} 
+    - {role: ssl/self-signed}  
+    - {role: nginx, when: ssl_prop.get_certificate == true and site.ssl.ca == 'letsencrypt' }
+    - {role: ssl/letsencrypt, when: ssl_prop.get_certificate == true and site.ssl.ca == 'letsencrypt' }
     - {role: nginx, nginx_conf_template: nginx_https_conf.yml.j2}  # Conf file with ssl
   
 
