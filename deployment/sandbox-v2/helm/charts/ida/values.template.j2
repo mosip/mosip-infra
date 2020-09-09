@@ -53,14 +53,8 @@ services:
     healthUrl: /idauthentication/v1/otp/actuator/health
 
 generators:
-  key:  
-    name: {{ versions.services.ida.key.keys()[0] }} 
-    dockerImage: {{ versions.services.ida.key.values()[0] }}
+  keygen:  
+    name: {{ versions.services.ida.keygen.keys()[0] }} 
+    dockerImage: {{ versions.services.ida.keygen.values()[0] }}
     hsmUrl: tcp://softhsm-ida:80   
-  hashsalt:  
-    name: {{ versions.services.ida.hashsalt.keys()[0] }} 
-    dockerImage: {{ versions.services.ida.hashsalt.values()[0] }}
-  encryptsalt:  
-    name: {{ versions.services.ida.encryptsalt.keys()[0] }} 
-    dockerImage: {{ versions.services.ida.encryptsalt.values()[0] }}
    

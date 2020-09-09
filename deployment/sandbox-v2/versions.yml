@@ -110,12 +110,8 @@ versions:
          'ida-kyc-service': 'mosipdev/authentication-kyc-service:develop'
       otp: 
          'ida-otp-service': 'mosipdev/authentication-otp-service:develop'
-      key:  
-        'ida-key-generator': 'mosipdev/authentication-keys-generator:develop'
-      hashsalt:  
-        'ida-hash-salt-generator': 'mosipdev/kernel-salt-generator:develop'
-      encryptsalt:  
-         'ida-encrypt-salt-generator': 'mosipdev/kernel-salt-generator:develop'
+      keygen:  
+        'ida-key-generator': 'mosipdev/keys-generator:develop'
 
     idrepo:
       identity:
