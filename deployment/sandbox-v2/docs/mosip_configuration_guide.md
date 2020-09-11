@@ -100,5 +100,5 @@ To run MOSIP in Proxy OTP mode set the following:
 Note that the default OTP is set to `111111`.
 
 ### Country specific customisations
-If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/country_deployment.md)
+If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](country_deployment.md)
 
