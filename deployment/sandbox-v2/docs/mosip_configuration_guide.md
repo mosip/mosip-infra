@@ -1,7 +1,7 @@
 # MOSIP Configuration Guide
 
 ## DNS
-By default a private DNS (CoreDNS) is installed on the console machine and all `/etc/resolv.conf` on all machines points to this DNS.  However, you would like to use cloud providers DNS (like Route53 on AWS), disable the private DNS installation by setting the following flag in `group_vars/all.yml`:
+By default a private DNS (CoreDNS) is installed on the console machine and `/etc/resolv.conf` on all machines points to this DNS.  However, you would like to use cloud providers DNS (like Route53 on AWS), disable the private DNS installation by setting the following flag in `group_vars/all.yml`:
 ```
 coredns:
   enabled: false  # Disable to use Cloud provided DNS 
