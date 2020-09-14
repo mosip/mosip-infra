@@ -35,7 +35,7 @@ spec:
         - name: spring_config_label_env
           value: {{ .Values.springConfigLabel }} 
         - name: spring_config_url_env
-          value: http://config-server/config 
+          value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
