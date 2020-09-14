@@ -270,7 +270,7 @@ config_repo:
   username: ckm007 # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
-    enabled: true
+    enabled: false
     path: '{{nfs.folder}}/mosip-config'
     storage_size: 10Mi
 
