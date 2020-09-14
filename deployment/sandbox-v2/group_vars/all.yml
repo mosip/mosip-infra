@@ -261,9 +261,9 @@ hdfs:
       value: "only"  
 
 config_repo:
-  # If local_git_repo=true, a copy of git repo at `git_repo_uri` created on console machine and config server points
-  # to the same. Any changes will then have to done on local repo and will not be reflected in parent git repo
-  # then have
+  # If local_git_repo=true, a copy of git repo at `git_repo_uri` gets created on console machine and 
+  # config server points to the same. Any changes done on local repo and will not  get reflected in 
+  # the parent git repo.
   git_repo_uri: https://github.com/mosip/mosip-config
   branch: develop
   private: false
