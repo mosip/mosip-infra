@@ -260,6 +260,10 @@ http {
            proxy_pass http://mzworker0.sb:30080/commons/v1/packetmanager/;
         }
 
+        location /v1/datashare/ {
+           proxy_pass http://mzworker0.sb:30080/v1/datashare/;
+        }
+
         location /minio/ {
            proxy_pass http://mzworker0.sb:30080/minio/;
         }

@@ -1,0 +1,25 @@
+component: datashare
+part-of: mosip
+activeProfileEnv: mz 
+springConfigLabel:  {{ config_repo.branch }}
+configServerUrl: {{ config_server.internal_url }}
+artifactoryUrl: {{ artifactory_url }} 
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
+imagePullPolicy: Always
+
+isGlowroot: {{ is_glowroot }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
+services:
+  datashare:
+    serviceName: {{ versions.services.datashare.service.keys()[0] }}
+    dockerImage: {{ versions.services.datashare.service.values()[0] }}
+    containerPort: 8097
+    servicePort: 80
+    ingressPath: /v1/datashare
+    healthUrl: /v1/datashare/actuator/health

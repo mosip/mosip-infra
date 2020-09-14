@@ -157,3 +157,7 @@ versions:
     packetmanager:
       service:
         'packetmanager-service': 'mosipdev/commons-packet-service:develop'
+
+    datashare:
+      service:
+        'datashare-service': 'mosipdev/data-share-service:develop'
