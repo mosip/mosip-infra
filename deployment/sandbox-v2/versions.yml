@@ -89,8 +89,7 @@ versions:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
-      datashare:
-        'regproc-data-share-service': 'mosipdev/data-share-service:develop'
+
     dmzregproc:  
       receiver:
         'regproc-packet-receiver-stage': 'mosipdev/registration-processor-packet-receiver-stage:develop'
@@ -157,3 +156,7 @@ versions:
     packetmanager:
       service:
         'packetmanager-service': 'mosipdev/commons-packet-service:develop'
+
+    datashare:
+      service:
+        'datashare-service': 'mosipdev/data-share-service:develop'

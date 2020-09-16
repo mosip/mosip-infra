@@ -1,0 +1,11 @@
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'datashare'
+    helm_chart: '{{charts_root}}/datashare'
+    is_template: true  
+    helm_namespace: default
+    helm_values: '{{charts_root}}/datashare/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
