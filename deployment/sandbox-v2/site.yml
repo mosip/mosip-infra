@@ -4,7 +4,7 @@
 
 # Console
 - import_playbook: playbooks/console.yml  # Basic setup on console machine
-- import_playbook: playbooks/coredns.yml
+#- import_playbook: playbooks/coredns.yml
 - import_playbook: playbooks/nginx.yml # Setting nginx in advance so that Keycloak etc. can be tested 
 - import_playbook: playbooks/nfs.yml 
 # MZ cluster
@@ -15,6 +15,7 @@
 - import_playbook: playbooks/dmzcluster.yml
 - import_playbook: playbooks/dmzmonitoring.yml
 # Non-MOSIP modules
+- import_playbook: playbooks/psp-apply.yml
 - import_playbook: playbooks/postgres.yml
 - import_playbook: playbooks/keycloak.yml
 - import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav
@@ -24,13 +25,13 @@
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
-- import_playbook: playbooks/packetmanager.yml
-- import_playbook: playbooks/prereg.yml
-- import_playbook: playbooks/regproc.yml
-- import_playbook: playbooks/ida.yml
-- import_playbook: playbooks/idrepo.yml
-- import_playbook: playbooks/pms.yml
-- import_playbook: playbooks/resident.yml
-- import_playbook: playbooks/admin.yml
+#- import_playbook: playbooks/packetmanager.yml
+#- import_playbook: playbooks/prereg.yml
+#- import_playbook: playbooks/regproc.yml
+#- import_playbook: playbooks/ida.yml
+#- import_playbook: playbooks/idrepo.yml
+#- import_playbook: playbooks/pms.yml
+#- import_playbook: playbooks/resident.yml
+#- import_playbook: playbooks/admin.yml
 # Regclient downloader
-- import_playbook: playbooks/reg-client-downloader.yml
+#- import_playbook: playbooks/reg-client-downloader.yml

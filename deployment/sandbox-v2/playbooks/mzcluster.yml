@@ -28,3 +28,6 @@
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
 
+#- import_playbook: create-namespace.yml
+#  vars:
+#    kube_config: '{{clusters.mz.kube_config}}'

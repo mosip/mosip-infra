@@ -1,0 +1,13 @@
+#create cluster role for psp
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: psp-reader
+rules:
+  - apiGroups: ["policy"] # "" indicates the core API group
+    resources: ["podsecuritypolicies"]
+    resourceNames: ["mosip-psp"]
+    verbs: ["use"]
+  - apiGroups: [""] # "" indicates the core API group
+    resources: ["pods", "deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]

@@ -27,3 +27,7 @@
 - import_playbook: docker-secrets.yml
   vars:
     kube_config: '{{clusters.dmz.kube_config}}'
+
+#- import_playbook: create-namespace.yml
+#  vars:
+#    kube_config: '{{clusters.dmz.kube_config}}'

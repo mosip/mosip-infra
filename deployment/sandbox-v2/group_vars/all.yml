@@ -10,6 +10,14 @@ charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://15.207.222.178/
 
+#deployment_namespace: deployment
+container_user_id: 20001 #any random number
+container_user_gid: '{{ container_user_id }}' #should be same as user id
+container_work_dir: '/home/'
+pod_user_id: '{{ container_user_id }}' # either give system user id
+pod_user_gid: '{{ container_user_gid }}' #either give system user gid
+psp_service_account: mosip-deployment
+
 sandbox_domain_name: minibox.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'

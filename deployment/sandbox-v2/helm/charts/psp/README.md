@@ -1,0 +1,1 @@
+role and role binding for mosip

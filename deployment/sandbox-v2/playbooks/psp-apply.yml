@@ -1,0 +1,24 @@
+# This play installs all PreReg services using Helm
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'psp'
+    helm_chart: '{{charts_root}}/psp'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/psp/values.yaml'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+
+- hosts: console
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'psp'
+    helm_chart: '{{charts_root}}/psp'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/psp/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
