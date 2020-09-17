@@ -18,7 +18,7 @@ pod_user_id: '{{ container_user_id }}' # either give system user id
 pod_user_gid: '{{ container_user_gid }}' #either give system user gid
 psp_service_account: mosip-deployment
 
-sandbox_domain_name: minibox.mosip.net
+sandbox_domain_name: minibox2.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'
   ssl:
