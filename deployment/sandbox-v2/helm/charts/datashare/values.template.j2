@@ -4,6 +4,12 @@ activeProfileEnv: mz
 springConfigLabel:  {{ config_repo.branch }}
 configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
+containerUserId: {{ container_user_id }}
+containerUserGid: {{ container_user_gid }}
+containerWorkDir: {{ container_work_dir }}
+podUserId: {{ pod_user_id }}
+podUserGid: {{ pod_user_gid }}
+service_account: {{ psp_service_account }}
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
