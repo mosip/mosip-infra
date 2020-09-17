@@ -23,11 +23,21 @@ spec:
         app: {{ .Values.services.bio.serviceName }} 
         component: service-hazelcast-server
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.bio.serviceName }} 
         image: {{ .Values.services.bio.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -47,11 +57,11 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.bio.ports.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
+#        {{- include "logger.mount" .  | indent 8}}
 
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+ #     {{- include "logger.volume" .  | indent 6}}
 
 #        readinessProbe:
 #          httpGet:

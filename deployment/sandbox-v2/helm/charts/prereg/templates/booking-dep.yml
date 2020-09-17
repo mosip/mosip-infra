@@ -24,10 +24,20 @@ spec:
         app: {{ .Values.services.booking.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       containers:
       - name: {{ .Values.services.booking.serviceName }} 
         image: {{ .Values.services.booking.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -42,7 +52,7 @@ spec:
         ports:
         - containerPort: {{ .Values.services.booking.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
+ #       {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           tcpSocket:
@@ -50,4 +60,4 @@ spec:
 
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+#      {{- include "logger.volume" .  | indent 6}}

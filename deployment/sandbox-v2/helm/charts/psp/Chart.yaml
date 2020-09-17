@@ -1,3 +1,4 @@
 description: MOSIP chart for binding psp to all pods and container
 apiVersion: v2
 name: psprole
+version: 1.0

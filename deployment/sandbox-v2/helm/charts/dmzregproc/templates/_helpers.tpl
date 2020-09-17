@@ -1,6 +1,6 @@
 {{/* Mount volume for logs */}}
 {{- define "logger.mount" }}
-- name: applogs 
+- name: applogs
   mountPath: /home/logs
 {{- end }}
 

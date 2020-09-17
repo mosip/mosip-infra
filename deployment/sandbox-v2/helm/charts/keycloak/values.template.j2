@@ -15,3 +15,10 @@ db:
   password: '' # To be passed directly with helm command
 ingress:
    namespace: default 
+
+containerUserId: {{ container_user_id }}
+containerUserGid: {{ container_user_gid }}
+containerWorkDir: {{ container_work_dir }}
+podUserId: {{ pod_user_id }}
+podUserGid: {{ pod_user_gid }}
+service_account: {{ psp_service_account }}

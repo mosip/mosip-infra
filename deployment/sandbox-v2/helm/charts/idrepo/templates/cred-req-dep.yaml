@@ -24,11 +24,21 @@ spec:
         app: {{ .Values.services.credentialrequest.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.credentialrequest.serviceName }} 
         image: {{ .Values.services.credentialrequest.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -43,7 +53,7 @@ spec:
         ports:
         - containerPort: {{ .Values.services.credentialrequest.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
+#        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -60,4 +70,4 @@ spec:
  #
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+#      {{- include "logger.volume" .  | indent 6}}

@@ -20,11 +20,21 @@ spec:
       labels:
         app: {{.Values.services.ui.serviceName}}
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}

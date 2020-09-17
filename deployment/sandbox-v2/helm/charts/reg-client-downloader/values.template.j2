@@ -5,6 +5,12 @@ springConfigLabel: {{ config_repo.branch }}
 configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always
+containerUserId: {{ container_user_id }}
+containerUserGid: {{ container_user_gid }}
+containerWorkDir: {{ container_work_dir }}
+podUserId: {{ pod_user_id }}
+podUserGid: {{ pod_user_gid }}
+service_account: {{ psp_service_account }}
 docker:
   image: {{ versions.services.registration.client.values()[0] }}
   ports:

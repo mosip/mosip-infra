@@ -2,17 +2,17 @@
 {{- define "logger.mount" }}
 volumeMounts:
 - name: applogs 
-  mountPath: /logs
+  mountPath: /home/logs
 {{- end }}
 
 {{/* Template for adding logging sidecar */}}
 {{- define "logger.sidecar" }}
 - name: logger-sidecar
   image: busybox
-  args: [/bin/sh, -c, 'tail -F /logs/idrepo.log']
+  args: [/bin/sh, -c, 'tail -F /home/logs/idrepo.log']
   volumeMounts:
   - name: applogs
-    mountPath: /logs
+    mountPath: /home/logs
 {{- end }}
 
 {{/* Temp volume for logs */}}

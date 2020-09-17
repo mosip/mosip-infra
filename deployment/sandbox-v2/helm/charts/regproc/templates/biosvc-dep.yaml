@@ -21,11 +21,21 @@ spec:
       labels:
         app: {{ .Values.services.biosvc.serviceName }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.biosvc.serviceName }} 
         image: {{ .Values.services.biosvc.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -41,7 +51,7 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.biosvc.ports.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
+#        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -58,5 +68,5 @@ spec:
  #
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+ #     {{- include "logger.volume" .  | indent 6}}
 

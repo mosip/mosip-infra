@@ -21,11 +21,20 @@ spec:
       labels:
         app: {{ .Values.services.proxyabis.serviceName }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.proxyabis.serviceName }} 
         image: {{ .Values.services.proxyabis.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -57,4 +66,4 @@ spec:
  #         periodSeconds: {{ .Values.probe.period }} 
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+#      {{- include "logger.volume" .  | indent 6}}

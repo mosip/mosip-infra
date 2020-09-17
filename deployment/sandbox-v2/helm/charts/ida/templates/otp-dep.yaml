@@ -24,6 +24,11 @@ spec:
         app: {{ .Values.services.otp.serviceName }} 
         component: {{ .Values.component }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       initContainers:  # TODO: Temporarily added as a workaround. Duplicate key issue. 
       - name: wait-for-auth
@@ -33,6 +38,11 @@ spec:
       - name: {{ .Values.services.otp.serviceName }} 
         image: {{ .Values.services.otp.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -49,7 +59,7 @@ spec:
         ports:
         - containerPort: {{ .Values.services.otp.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
+#        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -66,4 +76,4 @@ spec:
   #
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+#      {{- include "logger.volume" .  | indent 6}}

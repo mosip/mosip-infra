@@ -20,10 +20,20 @@ spec:
       labels:
         app: {{ .Values.name }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: Always
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS 
           value: {{ .Values.gitRepo.searchFolders }}

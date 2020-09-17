@@ -23,11 +23,20 @@ spec:
         app: {{ .Values.services.external.serviceName }} 
         component: service-hazelcast-server
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.external.serviceName }} 
         image: {{ .Values.services.external.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -51,7 +60,7 @@ spec:
 
       {{- include "logger.sidecar" .  | indent 6}}
 
-      {{- include "logger.volume" .  | indent 6}}
+#      {{- include "logger.volume" .  | indent 6}}
 #        readinessProbe:
 #          httpGet:
 #            path: {{ .Values.services.bio.healthUrl }} 

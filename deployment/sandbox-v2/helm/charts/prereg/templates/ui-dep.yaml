@@ -20,11 +20,19 @@ spec:
       labels:
         app: {{.Values.services.ui.serviceName}}
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:

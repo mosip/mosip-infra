@@ -23,11 +23,19 @@ spec:
         app: {{ .Values.services.receiver.serviceName }} 
         component: service-hazelcast-server
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.receiver.serviceName }} 
         image: {{ .Values.services.receiver.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

@@ -1,4 +1,11 @@
 name: {{ config_server.name }} # Will be used as service name too
+containerUserId: {{ container_user_id }}
+containerUserGid: {{ container_user_gid }}
+containerWorkDir: {{ container_work_dir }}
+podUserId: {{ pod_user_id }}
+podUserGid: {{ pod_user_gid }}
+service_account: {{ psp_service_account }}
+
 docker:
   image: mosipid/sandbox-config-server:1.1.0
   containerPort: 51000

@@ -21,10 +21,18 @@ spec:
       labels:
         app: {{ .Values.serviceName }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
       containers:
       - name: {{ .Values.serviceName }} 
         image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         env:
         - name: client_version_env
           value: {{ .Values.version }} 

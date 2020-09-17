@@ -21,11 +21,19 @@ spec:
       labels:
         app: {{ .Values.services.pktserver.serviceName }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.pktserver.serviceName }} 
         image: {{ .Values.services.pktserver.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
         ports: 
         - containerPort: {{ .Values.services.pktserver.ports.containerPort }}
         #TODO: Put health check

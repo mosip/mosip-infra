@@ -20,6 +20,11 @@ spec:
       labels:
         app: {{ .Values.name }} 
     spec:
+      serviceAccountName: {{ .Values.service_account }}
+      securityContext:
+        runAsUser: {{ .Values.podUserId }}
+        runAsGroup: {{ .Values.podUserGid }}
+      {{- include "logger.volume" .  | indent 6}}
 {{ if eq .Values.nodeAffinity.enabled true }}
       tolerations:
       - key: {{ .Values.nodeAffinity.taint.key }}
@@ -40,6 +45,11 @@ spec:
       - name: {{ .Values.name }} 
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         args: ["-c", "max_connections={{ .Values.maxConnections }}"]
+        securityContext:
+          runAsUser: {{ .Values.containerUserId }}
+          runAsGroup: {{ .Values.containerUserGid }}
+          allowPrivilegeEscalation: false
+        {{- include "logger.mount" .  | indent 8}}
         env:
         - name: POSTGRES_DB
           value: {{ .Values.defaultDb }}
