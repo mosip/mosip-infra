@@ -34,6 +34,7 @@ filebeatConfig:
     setup.kibana:
       host: "{{mon_prop.kibana.url}}" 
 
+    logging.metrics.enabled: false
     setup.dashboards.enabled: true
 
 # Extra environment variables to append to the DaemonSet pod spec.
