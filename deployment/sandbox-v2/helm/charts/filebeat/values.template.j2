@@ -30,6 +30,8 @@ filebeatConfig:
     output.elasticsearch:
       host: '${NODE_NAME}'
       hosts: '${ELASTICSEARCH_HOSTS:{{mon_prop.elasticsearch.host}} }'
+      indices:
+        - index: "filebeat-test-%{[agent.version]}-%{+yyyy.MM.dd}"
 
     setup.kibana:
       host: "{{mon_prop.kibana.url}}" 
