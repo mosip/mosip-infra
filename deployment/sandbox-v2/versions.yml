@@ -145,7 +145,7 @@ versions:
 
     resident: 
       resident:  
-        'resident-service': 'mosipdev/resident-service:1.1.1'
+        'resident-service': 'mosipdev/resident-service:develop'
     
     admin:
       service:
