@@ -5,6 +5,7 @@ springConfigLabel: {{ config_repo.branch }}
 configServerUrl: {{ config_server.internal_url }}
 storageClass: dm-storage-class  # See sc, pv templates
 
+sitePublicUrl: {{ site.sandbox_public_url }}
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
