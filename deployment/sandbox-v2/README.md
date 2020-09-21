@@ -68,10 +68,12 @@ All the above is achieved using Terraform scripts available in `terraform/`.  At
 ```
 $ sudo yum install -y git
 ```
-* Git clone this repo in user home directory.
+* Git clone this repo in user home directory. Switch to the appropriate branch.  
 ```
 $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
+$ cd mosip-infra
+$ git checkout develop
 $ cd mosip-infra/deployment/sandbox-v2
 ```
 * Install Ansible and create shortcuts:
@@ -168,11 +170,30 @@ $ an playbooks/postgres.yml --extra-vars "force_init=true"
 * Postgres also contains Keycloak data.  `keycloak-init` does not overwrite any data, but just updates and adds.  If you want to clean up Keycloak data, you will need to clean it up manually or reset entire postgres.
 
 ## Useful tools
-* If you use `tmux` tool, copy the config file as below:
+### Shortcut commands
+The following shortcuts are installed with `preinstall.sh`.  These are quite helpful with command line operations.
+```
+alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'
+alias av='ansible-vault'
+alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
+alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
+alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
+alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
+alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
+alias helmm='helm --kubeconfig $HOME/.kube/mzcluster.config -n monitoring'
+alias kcm='kubectl -n monitoring --kubeconfig $HOME/.kube/mzcluster.config'
+```
+After adding the above:
+```
+  $ source  ~/.bashrc
+``` 
+### Tmux
+If you use `tmux` tool, copy the config file as below:
 ```
 $ cp /utils/tmux.conf ~/.tmux.conf  # Note the "."
 ```
-* To compare two property files (`*.properties`) use:
+### Property file comparator
+To compare two property files (`*.properties`) use:
 ```
 $ ./utils/prop_comparator.py <file1> <file2>
 ```
