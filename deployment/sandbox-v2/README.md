@@ -99,23 +99,6 @@ If your cluster machines use network interface other than "eth0", update it in `
 ```
 network_interface: "eth0"
 ```
-### Shortcut commands
-Add the following shortcuts in `/home/mosipuser/.bashrc`:
-```
-alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'
-alias av='ansible-vault'
-alias kc1='kubectl --kubeconfig $HOME/.kube/mzcluster.config'
-alias kc2='kubectl --kubeconfig $HOME/.kube/dmzcluster.config'
-alias sb='cd $HOME/mosip-infra/deployment/sandbox-v2/'
-alias helm1='helm --kubeconfig $HOME/.kube/mzcluster.config'
-alias helm2='helm --kubeconfig $HOME/.kube/dmzcluster.config'
-alias helmn='helm --kubeconfig $HOME/.kube/mzcluster.config -n monitoring'
-alias kcm='kubectl -n monitoring --kubeconfig $HOME/.kube/mzcluster.config'
-```
-After adding the above:
-```
-  $ source  ~/.bashrc
-``` 
 ### Ansible vault
 All secrets (passwords) used in this automation are stored in Ansible vault file `secrets.yml`.  The default password to access the file is 'foo'.  It is recommended that you change this password with following command:
 ```
@@ -133,12 +116,9 @@ Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guid
 ### Install MOSIP
 * Intall all MOSIP modules:
 ```
-$ ansible-playbook -i hosts.ini site.yml
-```
-or with shortcut command
-```
 $ an site.yml
 ```
+Provide the vault password.  Default is 'foo'.
 
 ## Dashboards
 The links to various dashboards are available at 
