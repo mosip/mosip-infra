@@ -42,6 +42,8 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: extraction_format_env
           value: {{ .Values.extraction_format }}
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 
