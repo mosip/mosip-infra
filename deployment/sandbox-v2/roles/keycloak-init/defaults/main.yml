@@ -61,6 +61,10 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'CREDENTIAL_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'FTM_PROVIDER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'PMS_USER'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'DATA_READ'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'DOCUMENT_READ'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'BIOMETRIC_READ'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'METADATA_READ'}
 
 keycloak_mosip_users: # Assumption "username.json" exists with same username inside 
   - {realm_id: 'mosip', user_file: 'users/testuser.json'}
@@ -328,6 +332,10 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'preregistration', username: 'service-account-mosip-prereg-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-auth-client', role_name: 'AUTH'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'REGISTRATION_PROCESSOR'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'DATA_READ'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'DOCUMENT_READ'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'BIOMETRIC_READ'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'METADATA_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-ida-client', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_ADMIN'}
