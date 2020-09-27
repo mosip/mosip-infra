@@ -80,12 +80,10 @@
     "documentOwner" : "Applicant",
     "documentType" : "CIN"
   } ],
+  "creationDate" : "{{creation_date}}", 
   "metaData" : [ {
     "label" : "registrationId",
     "value" : "{{rid}}"
-  }, {
-    "label" : "creationDate",
-    "value" : "{{creation_date}}"
   }, {
     "label" : "Registration Client Version Number",
     "value" : "1.0.10-SNAPSHOT"

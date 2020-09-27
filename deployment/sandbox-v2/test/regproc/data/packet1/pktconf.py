@@ -1,5 +1,5 @@
 pkt_conf = {
-    'id_schema':  '0.1',
+    'id_schema': 0.0,
     'rid': '',
     'creation_date' : '',
     'prereg_id' : '', # Eg. '37029479274360'
