@@ -98,12 +98,13 @@ class MosipSession:
         packet = open(in_path, 'rb').read()
         b64_s = base64.urlsafe_b64encode(packet).decode()  # convert to str
         encrypted_packet = self.encrypt_using_server('REGISTRATION', refid, b64_s)
-    
+
         # First write the encrypted packet
         encrypted_path =  os.path.join(out_dir, packet_name)
         fd = open(encrypted_path, 'wb')
         fd.write(encrypted_packet.encode())  # convert encrypted_packet to type 'bytes' and write
         fd.close()
+        return encrypted_path
 
     def upload_packet(self, packet_file):
         url = 'https://%s/registrationprocessor/v1/packetreceiver/registrationpackets' % self.server
