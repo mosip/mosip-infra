@@ -356,4 +356,3 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-datsha-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-datsha-client', role_name: 'POLICYMANAGER'}
   - {realm_id: 'mosip', username: 'service-account-mosip-admin-client', role_name: 'MASTERDATA_ADMIN'}
- 
