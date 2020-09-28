@@ -4,8 +4,8 @@ INSERT INTO pms.policy_group (id,"name",descr,user_id,is_active,cr_by,cr_dtimes,
 INSERT INTO pms.auth_policy (id,policy_group_id,name,descr,policy_file_id,policy_type,"version",policy_schema,valid_from_date,valid_to_date,is_active,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) VALUES 
 ('96025','470049','DataShare','DataShare','{"shareableAttributes":[{"encrypted":true,"format":null,"attributeName":"fullName"},{"encrypted":true,"format":null,"attributeName":"dateOfBirth"}],"dataSharePolicies":{"typeOfShare":"direct","transactionsAllowed":"2","shareDomain":"minibox.mosip.net","encryptionType":"partnerBased","validForInMinutes":"60"}}','DataShare','1.0','https://schemas.mosip.io/v1/auth-policy','2020-09-22 16:40:53.950','2025-03-21 16:41:36.253',true,'110124','2020-09-22 16:40:53.950','110124','2020-09-22 16:41:36.253',false,NULL) ON CONFLICT DO NOTHING;
 
-INSERT INTO pms.partner_type (code,partner_description,is_active,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) 
-   SELECT 'Auth_Partner','Auth_Partner',true,'system','2020-09-08 02:19:56.000',NULL,NULL,NULL,NULL
+INSERT INTO pms.partner_type (code,partner_description,is_active,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes,is_policy_required)
+   SELECT 'Auth_Partner','Auth_Partner',true,'system','2020-09-08 02:19:56.000',NULL,NULL,NULL,NULL,true
 WHERE 'Auth_Partner'NOT IN (
   SELECT code FROM pms.partner_type where code ='Auth_Partner'
 ) ON CONFLICT DO NOTHING;
