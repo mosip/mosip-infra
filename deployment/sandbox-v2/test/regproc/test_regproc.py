@@ -49,8 +49,8 @@ class App:
         for template_file in template_files:
             template = env.get_template(template_file) 
             out = template.render(self.pktconf) # Pass the conf dictionary
-            fp = open (os.path.join(out_dir, template_file), 'wt')
-            fp.write(out)
+            fp = open (os.path.join(out_dir, template_file), 'wb')
+            fp.write(out.encode())  # For some reason read and write in text mode was throwing exception
             fp.close()
     
     def zip_packets(self):
