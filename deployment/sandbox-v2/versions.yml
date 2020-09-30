@@ -61,8 +61,6 @@ versions:
         'regproc-demo-dedupe-stage': 'mosipdev/registration-processor-demo-dedupe-stage:develop'
       bio:
         'regproc-bio-dedupe-stage': 'mosipdev/registration-processor-bio-dedupe-stage:develop'
-      biosvc:
-        'regproc-bio-dedupe-service': 'mosipdev/registration-processor-bio-dedupe-service:develop'
       bioauth:
         'regproc-biometric-authentication-stage': 'mosipdev/registration-processor-biometric-authentication-stage:develop'
       abishandler:
