@@ -262,6 +262,8 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110124', role_name: 'PARTNERMANAGER'}
   - {realm_id: 'mosip', username: '110124', role_name: 'PARTNER_ADMIN'}
   - {realm_id: 'mosip', username: '110124', role_name: 'PMS_USER'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'DEVICE_PROVIDER'}
+  - {realm_id: 'mosip', username: '110124', role_name: 'FTM_PROVIDER'}
 
   - {realm_id: 'mosip', username: '110118', role_name: 'PARTNER'}
   - {realm_id: 'mosip', username: '110118', role_name: 'MISP'}
@@ -356,3 +358,4 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-datsha-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-datsha-client', role_name: 'POLICYMANAGER'}
   - {realm_id: 'mosip', username: 'service-account-mosip-admin-client', role_name: 'MASTERDATA_ADMIN'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'REGISTRATION_PROCESSOR'}
