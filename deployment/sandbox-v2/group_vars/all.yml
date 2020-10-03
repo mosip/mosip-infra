@@ -294,3 +294,5 @@ coredns:
   image: coredns/coredns
 
 iam_adapter_url: http://15.207.222.178/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
+
+client_version: 1.1.2-SNAPSHOT
