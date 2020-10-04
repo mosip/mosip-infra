@@ -23,6 +23,7 @@ spec:
       containers:
       - name: {{  .Values.name }}
         image: {{ .Values.docker.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.docker.containerPort }}
         readinessProbe:
