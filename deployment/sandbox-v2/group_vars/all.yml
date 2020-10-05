@@ -155,10 +155,11 @@ softhsm:
 reg_client:
   cert_file: mosip_cer.cer
   nfs_path: '{{nfs.folder}}/reg-client/'
-  cert_path: '{{install_root}}/roles/reg-client-prep/files/'
-  xml_file: '{{install_root}}/roles/reg-client-prep/files/maven-metadata.xml'
+  cert_path: '{{install_root}}/roles/reg-client-prep/templates/'
+  xml_file: '{{install_root}}/roles/reg-client-prep/templates/maven-metadata.xml'
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
+  version: 1.1.2-SNAPSHOT
 
 repos:
   commons:
@@ -294,5 +295,3 @@ coredns:
   image: coredns/coredns
 
 iam_adapter_url: http://15.207.222.178/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
-
-client_version: 1.1.2-SNAPSHOT

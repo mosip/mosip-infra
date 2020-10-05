@@ -9,15 +9,13 @@
   become: yes
 
 - name: Copy certificate
-  copy:
-    src: '{{reg_prop.cert_path}}/{{reg_prop.cert_file}}'
-    dest: '{{reg_prop.nfs_path}}' 
-    force: no
+  template:
+    src: '{{reg_client.cert_path}}/{{reg_client.cert_file}}'
+    dest: '{{reg_client.nfs_path}}' 
   become: yes
-  
-- name: Copy metadata.xml
-  copy:
-    src: '{{reg_prop.xml_file}}' 
-    dest: '{{reg_prop.nfs_path}}'
-    force: no
+
+- name: maven_metadata_xml_template to maven-metadata.xml 
+  template:
+    src: '{{reg_client.xml_file}}'
+    dest: '{{reg_client.nfs_path}}'
   become: yes

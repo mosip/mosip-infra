@@ -11,7 +11,7 @@ docker:
     containerPort: 80
     servicePort: 80
 
-version: "{{ client_version }}"
+version: "{{ reg_client.version }}"
 mountPath: "/build_files"  # path inside docker
 crypto_key_env: {{ reg_client.crypto_key }}
 bootpwd: {{ reg_client.bootpwd }}
