@@ -132,13 +132,13 @@ versions:
 
     pms:
       misp: 
-        'pms-misp-service': 'mosipdev/pmp-misp-service:1.0.1-SNAPSHOT'
+        'pms-misp-service': 'mosipdev/pmp-misp-service:1.1.2-SNAPSHOT'
       pm:
-        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:1.0.1-SNAPSHOT'
+        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:1.1.2-SNAPSHOT'
       partner:
-        'pms-partner-service': 'mosipdev/pmp-partner-service:1.0.1-SNAPSHOT'
+        'pms-partner-service': 'mosipdev/pmp-partner-service:1.1.2-SNAPSHOT'
       policy:
-        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:1.0.1-SNAPSHOT'
+        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:1.1.2-SNAPSHOT'
 
 
     resident: 

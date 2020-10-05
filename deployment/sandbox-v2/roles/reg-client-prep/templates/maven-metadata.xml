@@ -3,7 +3,7 @@
 <artifactId>registration-services</artifactId>
 <versioning>
 <versions>
-<version>1.0.11-SNAPSHOT</version>
+<version>{{ reg_client.version }}</version>
 </versions>
 <lastUpdated>20200729125958</lastUpdated>
 </versioning>
