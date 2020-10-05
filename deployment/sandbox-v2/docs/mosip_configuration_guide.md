@@ -8,6 +8,8 @@ coredns:
 ```
 Make sure your cloud deployment takes care of DNS routing.  For AWS, uncomment the Route53 code in the scripts provided in `terraform/aws/sandbox`
 
+The playbook `corends.yml` setups corends and updates `/etc/resolv.conf` file on all machines.  In case a machine has to be rebooted, run the playbook again to restore `/etc/resolv.conf`.
+
 ## Sandbox access
 The default sandbox installation requires you to have a public domain name such that the domain name points to console machine. However, if you would like to access sandbox on your internal network (over VPN for example) then set the following in `group_vars/all.yml`:
 ```
@@ -43,7 +45,7 @@ Configurations for all modules are specified via property files located in Githu
 ```
 config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config 
-  branch: develop
+  branch: 1.1.2
   private: false 
   username: <your github username>
   search_folders: sandbox 
