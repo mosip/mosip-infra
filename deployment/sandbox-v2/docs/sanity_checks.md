@@ -51,4 +51,3 @@ $ an playbooks/regproc.yml
 
 * [Pre-registration check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/prereg/prereg_check.md)
 * [Registration Processor check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/regproc/README.md)
-

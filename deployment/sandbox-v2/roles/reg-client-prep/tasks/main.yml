@@ -19,3 +19,10 @@
     src: '{{reg_client.xml_file}}'
     dest: '{{reg_client.nfs_path}}'
   become: yes
+
+# Note: The zip file below is pointed by nginx for external downloads
+- name: Zip regclient keys and place them in tmp dir
+  archive:
+    path: '{{install_root}}/roles/reg-client-prep/files/regclientkeys/'
+    dest: '{{tmp_dir}}/regclientkeys.zip'
+    format: zip

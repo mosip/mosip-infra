@@ -29,6 +29,13 @@
     state: link
   become: yes
 
+- name: Set symlink to regclient keys zip file
+  file: 
+    src: '{{install_root}}/tmp/regclientkeys.zip'
+    dest: '/usr/share/nginx/html/regclientkeys.zip'
+    state: link
+  become: yes
+
 - name: Restart nginx
   command: 'systemctl restart nginx'
   become: yes
