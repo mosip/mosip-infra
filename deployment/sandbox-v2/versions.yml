@@ -121,14 +121,8 @@ versions:
         'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:1.1.2'
       credentialservice:
         'idrepo-credential-service': 'mosipdev/credential-service:1.1.2'
-      uinhash:  
-        'idrepo-uin-hash-generator': 'mosipdev/kernel-salt-generator:1.1.2'
-      uinencrypt:
-        'idrepo-uin-encrypt-generator' :  'mosipdev/kernel-salt-generator:1.1.2'
-      vidhash:
-        'idrepo-vid-hash-generator': 'mosipdev/kernel-salt-generator:1.1.2'
-      videncrypt:
-        'idrepo-vid-encrypt-generator': 'mosipdev/kernel-salt-generator:1.1.2'
+      salt:  
+        'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:1.1.2'
 
     pms:
       misp: 
@@ -158,3 +152,7 @@ versions:
     datashare:
       service:
         'datashare-service': 'mosipdev/data-share-service:1.1.2'
+
+    print:
+      service:
+        'print-service': 'mosipdev/print:1.1.2'

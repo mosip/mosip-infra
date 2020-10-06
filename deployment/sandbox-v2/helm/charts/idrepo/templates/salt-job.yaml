@@ -1,10 +1,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.generators.uinhash.name }} 
+  name: {{ .Values.generators.salt.name }} 
   namespace: {{ .Release.Namespace }} 
   labels:
-    app: {{ .Values.generators.uinhash.name }}
+    app: {{ .Values.generators.salt.name }}
     component: {{ .Values.component }} 
   annotations:
     "helm.sh/hook": pre-install
@@ -14,13 +14,13 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.generators.uinhash.name }} 
+        app: {{ .Values.generators.salt.name }} 
         component: {{ .Values.component }} 
     spec:
       restartPolicy: Never  # This is one time job
       containers:
-      - name: {{ .Values.generators.uinhash.name }} 
-        image: {{ .Values.generators.uinhash.dockerImage }}
+      - name: {{ .Values.generators.salt.name }} 
+        image: {{ .Values.generators.salt.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
         - name: active_profile_env
@@ -33,9 +33,3 @@ spec:
           value: id-repository
         - name: is_glowroot_env
           value: absent
-        - name: table_name
-          value: {{ .Values.generators.uinhash.table }} 
-        - name: db_alias  
-          value: {{ .Values.generators.uinhash.db_alias }} 
-        - name: schema_name
-          value: {{ .Values.generators.uinhash.schema }} 

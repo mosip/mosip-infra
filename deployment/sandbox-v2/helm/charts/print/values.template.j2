@@ -1,0 +1,25 @@
+component: print
+part-of: mosip
+activeProfileEnv: mz 
+springConfigLabel:  {{ config_repo.branch }}
+configServerUrl: {{ config_server.internal_url }}
+artifactoryUrl: {{ artifactory_url }} 
+probe:
+  initialDelay: 30  # Seconds
+  period: 30 # Seconds
+imagePullPolicy: Always
+
+isGlowroot: {{ is_glowroot }} 
+
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
+services:
+  print:
+    serviceName: {{ versions.services.print.service.keys()[0] }}
+    dockerImage: {{ versions.services.print.service.values()[0] }}
+    containerPort: 8088
+    servicePort: 80
+    ingressPath: /v1/print
+    healthUrl: /v1/print/actuator/health

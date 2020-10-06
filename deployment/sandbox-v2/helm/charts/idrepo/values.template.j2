@@ -59,28 +59,6 @@ services:
     healthUrl: /v1/credentialservice/actuator/health
 
 generators:
-  uinhash:  
-    name: {{ versions.services.idrepo.uinhash.keys()[0] }} 
-    dockerImage: {{ versions.services.idrepo.uinhash.values()[0] }}
-    table: mosip.idrepo.identity.db.shard.uinHashTable
-    db_alias: mosip.idrepo.identity.db.shard
-    schema: mosip.idrepo.identity.db.shard.schema  
-  uinencrypt:
-    name: {{ versions.services.idrepo.uinencrypt.keys()[0] }} 
-    dockerImage: {{ versions.services.idrepo.uinencrypt.values()[0] }}
-    table: mosip.idrepo.identity.db.shard.uinEncryptTable 
-    db_alias: mosip.idrepo.identity.db.shard 
-    schema_name: mosip.idrepo.identity.db.shard.schema 
-  vidhash:
-    name: {{ versions.services.idrepo.vidhash.keys()[0] }} 
-    dockerImage: {{ versions.services.idrepo.vidhash.values()[0] }}
-    table: mosip.idrepo.vid.db.uinHashTable
-    db_alias: mosip.idrepo.vid.db 
-    schema: mosip.idrepo.vid.db.schema
-  videncrypt:
-    name: {{ versions.services.idrepo.videncrypt.keys()[0] }} 
-    dockerImage: {{ versions.services.idrepo.videncrypt.values()[0] }}
-    table: mosip.idrepo.vid.db.uinEncryptTable 
-    db_alias: mosip.idrepo.vid.db 
-    schema: mosip.idrepo.vid.db.schema 
-
+  salt:  
+    name: {{ versions.services.idrepo.salt.keys()[0] }} 
+    dockerImage: {{ versions.services.idrepo.salt.values()[0] }}
