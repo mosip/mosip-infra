@@ -1,5 +1,5 @@
 # Registration Client Install 
-This document provides steps to install Registration Client (RegC) and work with this sandbox.  The RegC runs on Windows. 
+This document provides steps to install Registration Client (RegC) to work with this sandbox.  The RegC runs on Windows. 
 It is assumed that sandbox is successfully installed.
 
 ## Download RegC
@@ -16,6 +16,7 @@ update master.machine_master_h set name='<MACHINE_NAME>' where id=10011;
 where `MACHINE_NAME` is your Windows machine name.  You may get the same from control panel -> system info. 
 
 ## RegC keys
+
 1. Download the default RegC keys from the following url:
 ```
 https://<sandbox domain name>/regclientkeys.zip
