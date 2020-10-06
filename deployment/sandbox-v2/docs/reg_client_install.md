@@ -23,6 +23,6 @@ where `MACHINE_NAME` is your Windows machine name.  You may get the same from co
     ```
 1. Create the following folder on your Windows machines home directory:
     ```
-    c:\Users\<user name>\.mosipkeys\` 
+    c:\Users\<user name>\.mosipkeys\ 
     ```
 1. Unzip the above file and copy the contents of `regclientkeys/mosipkeys/*` into above folder

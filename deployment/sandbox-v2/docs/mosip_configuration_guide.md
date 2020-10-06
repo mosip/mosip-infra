@@ -101,6 +101,9 @@ To run MOSIP in Proxy OTP mode set the following:
     ```
 Note that the default OTP is set to `111111`.
 
+### Registration Client settings
+For setting up MOSIP server to work with registration client refer to [Reg Client Install](reg_client_install.md).
+
 ### Country specific customisations
 If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](country_deployment.md)
 
