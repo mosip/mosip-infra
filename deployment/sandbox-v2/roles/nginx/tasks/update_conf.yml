@@ -31,7 +31,7 @@
 
 - name: Set symlink to regclient keys zip file
   file: 
-    src: '{{install_root}}/roles/reg-client-prep/files/regregclientkeys.zip'
+    src: '{{install_root}}/roles/reg-client-prep/files/regclientkeys.zip'
     dest: '/usr/share/nginx/html/regclientkeys.zip'
     state: link
   become: yes
