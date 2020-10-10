@@ -236,7 +236,7 @@ databases:
 nfs:
   server: console.sb
   folder: /srv/nfs/mosip
-
+  provisioner: nfs-provisioner  # Name
 
 hdfs:
   install_name: hadoop

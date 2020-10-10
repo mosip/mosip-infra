@@ -15,6 +15,7 @@
 - import_playbook: playbooks/dmzcluster.yml
 - import_playbook: playbooks/dmzmonitoring.yml
 # Non-MOSIP modules
+- import_playbook: playbooks/nfs-provisioner.yml
 - import_playbook: playbooks/postgres.yml
 - import_playbook: playbooks/keycloak.yml
 - import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav

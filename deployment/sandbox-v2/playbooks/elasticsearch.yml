@@ -1,4 +1,6 @@
 # Playbook to install ELK component Elasticsearch
+# input: kube_config
+#
 
 # Install Elasticsearch
 - hosts: console
@@ -6,9 +8,9 @@
     kube_config: '{{kube_config}}'
     install_name: elasticsearch 
     helm_chart: '{{charts_root}}/elasticsearch'
-    is_template: false
+    is_template: true
     helm_namespace: monitoring
-    helm_values: '{{charts_root}}/elasticsearch/values.yaml'
+    helm_values: '{{charts_root}}/elasticsearch/values.template.j2'
     helm_strings: ''
   roles:
     - {role:  helm}
