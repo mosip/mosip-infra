@@ -117,8 +117,11 @@ podSecurityPolicy:
       - persistentVolumeClaim
 
 persistence:
-  enabled: false 
+  enabled: true
   annotations: {}
+  name: elasticsearch
+  size: 10G
+  sc: {{nfs.provisioner}} 
 
 extraVolumes: []
   # - name: extras

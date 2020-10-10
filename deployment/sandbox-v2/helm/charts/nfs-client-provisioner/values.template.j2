@@ -11,8 +11,8 @@ image:
   pullPolicy: IfNotPresent
 
 nfs:
-  server: console.sb
-  path: /srv/nfs2
+  server: '{{nfs.server}}'
+  path: '{{nfs.folder}}' 
   mountOptions:
 
 # For creating the StorageClass automatically:
@@ -28,7 +28,7 @@ storageClass:
 
   # Set a StorageClass name
   # Ignored if storageClass.create is false
-  name: nfs-client
+  name: '{{nfs.provisioner}}'
 
   # Allow volume to be expanded dynamically
   allowVolumeExpansion: true
