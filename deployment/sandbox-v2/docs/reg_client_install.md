@@ -5,7 +5,7 @@ It is assumed that sandbox is successfully installed.
 ## Download RegC
 Download RegC using the following url:
 ```
-https://<sandbox domain name>/registration-client/1.2.0-SNAPSHOT/reg-client.zip
+https://<sandbox domain name>/registration-client/1.1.2-SNAPSHOT/reg-client.zip
 ```
 ## Configure Master DB
 Update the following in `mosip_master` table:
