@@ -1,6 +1,6 @@
 ## Checks while deployment is in progress
 
-* All pods should be 'green' on kubernetes dashboard, or if you are on command line, both these commands  must show pods in 1/1 state.
+* All pods should be 'green' on kubernetes dashboard, or if you are on command line, both these commands  must show pods in 1/1 or 2/2 state.
 ```
 $ kc1 get pods -A
 $ kc2 get pods -A
