@@ -34,11 +34,7 @@ $ kc2 logs -f <pod name> # Running log
 $ helm1 list # All helm installs in mzcluster
 $ helm2 list # All helm installs in dmzcluster
 ```
-* Some services have additional logs.  You may login to the pod to see these logs:
-```
-$ kc1 exec -it <pod name> /bin/sh
-$ cd /home/logs
-```
+Some pods have logs available in `logger-sidecar` as well.  These are application logs.  
 
 * To re-run a module, helm delete module and then start with playbook. Example:
 ```
