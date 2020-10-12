@@ -5,6 +5,8 @@ import hashlib
 import base64
 import os
 import shutil
+import secrets
+import re
 
 class MosipSession:
     def __init__(self, server, user, password):
@@ -32,15 +34,21 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def encrypt_using_server(self, appid, refid, data):
+    def encrypt_using_server(self, appid, refid, data, b64_encode=False):
         '''
         Encrypt 'data' using server APIs.
     
         Args:
             data: str (base64 encoded if needed) 
+            b64_encode: Whether to base64 encode the final output
         Returns:
             encrypted data as str 
         '''
+        nonce_len = 12
+        aad_len = 32 
+     
+        nonce = secrets.token_bytes(nonce_len)
+        aad  =  secrets.token_bytes(aad_len)
         url = 'https://%s/v1/keymanager/encrypt' % self.server
         j = {
             "id" : "string",
@@ -50,7 +58,8 @@ class MosipSession:
                 "data": data,
                 "referenceId" : refid,
                 "timeStamp" :  get_timestamp(),
-                "salt" : None
+                "salt" : base64.urlsafe_b64encode(nonce).decode(), # bytes->str
+                "aad" : base64.urlsafe_b64encode(aad).decode()
             },
             "requesttime" : get_timestamp(),
             "version" : "1.0"
@@ -59,7 +68,14 @@ class MosipSession:
         r = requests.post(url, json = j, cookies=cookies)
         r = r.content.decode() # to str 
         r = json.loads(r)
-        return r['response']['data'] 
+        enc = r['response']['data']  # str
+        enc += "=" * ((4 - len(enc) % 4) % 4)  # Provide padding
+        enc = base64.urlsafe_b64decode(enc) # bytes
+        enc = nonce + aad + enc  # bytes.  prepend nonce and aad
+        if b64_encode:
+           enc = base64.urlsafe_b64encode(enc)  #  b64 bytes
+           enc = enc.decode()  # b64 str
+        return enc  
 
     def sync_packet(self, regid, packet_hash, packet_size, refid):
         url = 'https://%s/registrationprocessor/v1/registrationstatus/sync' % self.server
@@ -86,7 +102,7 @@ class MosipSession:
         bytes_s = s.encode()
         b64_s = base64.urlsafe_b64encode(bytes_s).decode()
         appid = 'REGISTRATION'
-        encrypted = self.encrypt_using_server(appid, refid, b64_s)
+        encrypted = self.encrypt_using_server(appid, refid, b64_s, b64_encode=True)
         # encrypted is string
         encrypted = '"' + encrypted + '"'
         r = requests.post(url, data=encrypted, cookies=cookies, headers=headers)
@@ -98,11 +114,11 @@ class MosipSession:
         packet = open(in_path, 'rb').read()
         b64_s = base64.urlsafe_b64encode(packet).decode()  # convert to str
         encrypted_packet = self.encrypt_using_server('REGISTRATION', refid, b64_s)
-
         # First write the encrypted packet
         encrypted_path =  os.path.join(out_dir, packet_name)
         fd = open(encrypted_path, 'wb')
-        fd.write(encrypted_packet.encode())  # convert encrypted_packet to type 'bytes' and write
+        #fd.write(encrypted_packet.encode())  # convert encrypted_packet to type 'bytes' and write
+        fd.write(encrypted_packet)
         fd.close()
         return encrypted_path
 
@@ -234,5 +250,4 @@ def zip_packet(regid, base_path, out_dir):
     out_path = os.path.join(out_dir, regid)
     shutil.make_archive(out_path, 'zip', base_path)
     return out_path + '.zip'
-
 

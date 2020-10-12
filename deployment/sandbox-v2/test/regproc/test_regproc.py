@@ -94,7 +94,8 @@ class App:
     def create_final_zip(self):
         # Zip all the encrypted packets into single zip (which is not encrypted)
         os.system('rm -f %s/*.zip' % self.conf.pkt_dir) # Remove any existing zip files
-        out_zip = os.path.join(self.conf.pkt_dir, self.pktconf['rid']) 
+        #out_zip = os.path.join(self.conf.pkt_dir, self.pktconf['rid']) 
+        out_zip = os.path.join('/tmp', self.pktconf['rid']) 
         final_zip = shutil.make_archive(out_zip, 'zip', self.conf.zip_in_dir) 
         return final_zip
 
@@ -148,19 +149,19 @@ def main():
 
     os.makedirs(app.conf.enc_dir)
     for zipped_pkt in zipped_pkts:
-        #out_path = mosip.encrypt_packet(zipped_pkt, app.conf.enc_dir, os.path.basename(zipped_pkt), refid)
-        shutil.copy(zipped_pkt, conf.enc_dir) 
-        out_path = os.path.join(conf.enc_dir, os.path.basename(zipped_pkt))
+        out_path = mosip.encrypt_packet(zipped_pkt, app.conf.enc_dir, os.path.basename(zipped_pkt), refid)
         app.create_wrapper_json(out_path)
 
-    final_zip = app.create_final_zip()
+    unenc_zip = app.create_final_zip()
 
+    enc_zip = mosip.encrypt_packet(unenc_zip, app.conf.pkt_dir, os.path.basename(unenc_zip), refid)
+ 
     print('\n=== Syncing packet === \n')
-    r = app.sync_packet(mosip, final_zip, refid) 
+    r = app.sync_packet(mosip, enc_zip, refid) 
     print_response(r) 
 
     print('\n=== Uploading packet === \n')
-    r = mosip.upload_packet(final_zip)
+    r = mosip.upload_packet(enc_zip)
     print_response(r)
 
 

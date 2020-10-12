@@ -81,8 +81,6 @@ versions:
         'regproc-message-sender-stage': 'mosipdev/registration-processor-message-sender-stage:1.1.2'
       print:
         'regproc-printing-stage': 'mosipdev/registration-processor-printing-stage:1.1.2'
-      printsvc:
-        'regproc-print-service': 'mosipdev/registration-processor-print-service:1.1.2'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:1.1.2'
       reprocess:

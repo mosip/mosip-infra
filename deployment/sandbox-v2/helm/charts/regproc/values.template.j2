@@ -196,14 +196,6 @@ services:
       containerPort: 8099
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
-  printsvc:
-    serviceName: {{ versions.services.regproc.printsvc.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.printsvc.values()[0] }}
-    ports:
-      containerPort: 9099
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/print/
-    healthUrl: /registrationprocessor/v1/print/actuator/health
   trans:
     serviceName: {{ versions.services.regproc.trans.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.trans.values()[0] }}

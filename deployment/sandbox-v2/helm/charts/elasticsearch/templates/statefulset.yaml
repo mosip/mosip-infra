@@ -304,7 +304,7 @@ spec:
 {{- end }}
         volumeMounts:
           {{- if .Values.persistence.enabled }}
-          - name: "{{ template "elasticsearch.uname" . }}"
+          - name: "es" 
             mountPath: /usr/share/elasticsearch/data
           {{- end }}
 {{ if .Values.keystore }}
@@ -408,7 +408,7 @@ spec:
       {{- end }}
   volumeClaimTemplates:
   - metadata:
-      name: "{{ template "elasticsearch.uname" . }}"
+      name: "es"
     spec:
       accessModes:
       - ReadWriteOnce
