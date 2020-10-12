@@ -8,7 +8,7 @@ Download RegC using the following url:
 https://<sandbox domain name>/registration-client/1.1.2-SNAPSHOT/reg-client.zip
 ```
 ## Configure Master DB
-Update the following in `mosip_master` table:
+Update the following in `mosip_master` database:
 ```
 update master.machine_master set name='<MACHINE_NAME>' where id=10011;
 update master.machine_master_h set name='<MACHINE_NAME>' where id=10011;
