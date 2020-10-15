@@ -154,3 +154,7 @@ versions:
     print:
       service:
         'print-service': 'mosipdev/print:1.1.2'
+
+    websub:
+      service:
+        'websub-service': 'ckm007/websub-service:1.1.2'
