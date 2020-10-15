@@ -10,6 +10,7 @@
     helm_strings: ''
   roles:
     - {role:  helm}
+    - {role:  kibana-init}
 
 
 
