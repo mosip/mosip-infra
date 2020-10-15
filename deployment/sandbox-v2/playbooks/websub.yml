@@ -1,0 +1,16 @@
+# Playbook to install websub
+# Inputs:
+#   kube_config  
+# Convert helm template to helm values 
+- hosts: console
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'websub' 
+    helm_chart: '{{charts_root}}/websub'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/websub/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+

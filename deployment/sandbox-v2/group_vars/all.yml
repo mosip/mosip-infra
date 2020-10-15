@@ -186,6 +186,10 @@ repos:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
     tag: 1.1.2
+  websub:
+    src: https://github.com/mosip/websub
+    dest: '{{tmp_dir}}/websub'
+    tag: 1.1.2
 
 # DBs 
 #
@@ -232,6 +236,9 @@ databases:
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
+  mosip_websub:
+    user: websubuser
+    sql_path: '{{repos.websub.dest}}/db_scripts'
 
 nfs:
   server: console.sb
