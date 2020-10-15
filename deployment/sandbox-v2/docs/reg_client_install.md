@@ -28,4 +28,4 @@ where `MACHINE_NAME` is your Windows machine name.  You may get the same from co
 1. Unzip the above file and copy the contents of `regclientkeys/mosipkeys/*` into above folder
 
 ## Login
-Login as user `110011` with password `mosip` to login the client.  Do the change the password in Keycloak if needed.
+Login as user `110011` with password `mosip` to login into the client.  Do change the password in Keycloak if needed.
