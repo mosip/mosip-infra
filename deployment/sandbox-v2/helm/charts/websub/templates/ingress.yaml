@@ -12,6 +12,6 @@ spec:
       paths:
       - path: /websub
         backend:
-          serviceName: {{ .Values.name }} 
+          serviceName: {{ .Values.services.serviceName }}
           servicePort: 80 
 
