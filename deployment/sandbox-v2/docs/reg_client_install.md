@@ -10,8 +10,8 @@ https://<sandbox domain name>/registration-client/1.1.2-SNAPSHOT/reg-client.zip
 ## Configure Master DB
 Update the following in `mosip_master` database:
 ```
-update master.machine_master set name='<MACHINE_NAME>' where id=10011;
-update master.machine_master_h set name='<MACHINE_NAME>' where id=10011;
+update master.machine_master set name='<MACHINE_NAME>' where id='10011';
+update master.machine_master_h set name='<MACHINE_NAME>' where id='10011';
 ```
 where `MACHINE_NAME` is your Windows machine name.  You may get the same from control panel -> system info. 
 
@@ -26,3 +26,7 @@ where `MACHINE_NAME` is your Windows machine name.  You may get the same from co
     c:\Users\<user name>\.mosipkeys\ 
     ```
 1. Unzip the above file and copy the contents of `regclientkeys/mosipkeys/*` into above folder
+
+## Login
+1. Set Environment Variable `mosip.hostname` to `<sandbox domain name>`.
+1. Login as user `110011` with password `mosip` to login into the client.  Do change the password in Keycloak if needed.
