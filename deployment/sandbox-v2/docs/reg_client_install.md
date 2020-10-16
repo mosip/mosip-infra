@@ -28,5 +28,5 @@ where `MACHINE_NAME` is your Windows machine name.  You may get the same from co
 1. Unzip the above file and copy the contents of `regclientkeys/mosipkeys/*` into above folder
 
 ## Login
-1. Set Environment Variable 'mosip.hostname' to '<sandbox domain name>'
+1. Set Environment Variable `mosip.hostname` to `<sandbox domain name>`.
 1. Login as user `110011` with password `mosip` to login into the client.  Do change the password in Keycloak if needed.
