@@ -1,0 +1,164 @@
+{ "identity" : {
+  "biometrics" : {
+    "applicant" : {
+      "leftEye" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "7a05daa4-a2d7-4c45-a759-bc3cc944eec0"
+      },
+      "rightIndex" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "46ca78f1-3fd8-4bab-8bb3-e89c353c52a7"
+      },
+      "rightLittle" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "a6b972b8-f80f-4609-937a-414b293b7a40"
+      },
+      "leftLittle" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "c4beac25-fd07-4717-b458-8578abd16256"
+      },
+      "leftIndex" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "52ee5e43-9beb-4fb1-afea-f92c0abb093d"
+      },
+      "face" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "83b328aa-7ffa-43df-9554-186085387182"
+      },
+      "rightEye" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "98f72ec6-1989-4440-bf7a-3495b55a3c2a"
+      },
+      "rightThumb" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "07f041fc-0045-484a-bcb1-0618f4e28e41"
+      },
+      "rightRing" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "0e9022f3-733b-44f3-a7bf-5c08f37fd2ac"
+      },
+      "rightMiddle" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "d7415eb7-875a-42d1-8924-95c15647e9a3"
+      },
+      "leftRing" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "917ec6f4-fb64-4c21-9a34-723e53c3f861"
+      },
+      "leftThumb" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "9b9d0f9e-8c55-4f95-ac0c-5caf3341b39a"
+      },
+      "leftMiddle" : {
+        "numRetry" : 1,
+        "forceCaptured" : false,
+        "BIRIndex" : "5eef3463-a565-4aa5-86ef-8932f330d16c"
+      }
+    }
+  },
+  "exceptionBiometrics" : [ ],
+  "documents" : [ {
+    "documentName" : "proofOfAddress",
+    "documentCategory" : "POA",
+    "documentOwner" : "Applicant",
+    "documentType" : "RNC"
+  }, {
+    "documentName" : "proofOfIdentity",
+    "documentCategory" : "POI",
+    "documentOwner" : "Applicant",
+    "documentType" : "CIN"
+  } ],
+  "creationDate" : "{{creation_date}}", 
+  "metaData" : [ {
+    "label" : "registrationId",
+    "value" : "{{rid}}"
+  }, {
+    "label" : "Registration Client Version Number",
+    "value" : "1.0.10-SNAPSHOT"
+  }, {
+    "label" : "registrationType",
+    "value" : "New"
+  }, {
+    "label" : "preRegistrationId",
+    "value" : "{{prereg_id}}"
+  }, {
+    "label" : "machineId",
+    "value" : "{{machine_id}}"
+  }, {
+    "label" : "centerId",
+    "value" : "{{center_id}}"
+  }, {
+    "label" : "dongleId",
+    "value" : "FB5962911685"
+  }, {
+    "label" : "keyIndex",
+    "value" : "49:40:22:0D:2B:CE:93:5D:7D:ED:CD:40:42:D1:10:7F:C7:31:9E:36:FF:22:47:F1:15:D4:A9:76:E8:F1:9D:DC"
+  }, {
+    "label" : "consentOfApplicant",
+    "value" : "Yes"
+  } ],
+  "operationsData" : [ {
+    "label" : "officerId",
+    "value" : "{{officer_id}}"
+  }, {
+    "label" : "officerBiometricFileName",
+    "value" : null
+  }, {
+    "label" : "supervisorId",
+    "value" : null
+  }, {
+    "label" : "supervisorBiometricFileName",
+    "value" : null
+  }, {
+    "label" : "supervisorPassword",
+    "value" : "false"
+  }, {
+    "label" : "officerPassword",
+    "value" : "true"
+  }, {
+    "label" : "supervisorPIN",
+    "value" : null
+  }, {
+    "label" : "officerPIN",
+    "value" : null
+  }, {
+    "label" : "supervisorOTPAuthentication",
+    "value" : "false"
+  }, {
+    "label" : "officerOTPAuthentication",
+    "value" : "false"
+  } ],
+  "hashSequence1" : [ {
+    "label" : "biometricSequence",
+    "value" : [ "individualBiometrics_bio_CBEFF" ]
+  }, {
+    "label" : "demographicSequence",
+    "value" : [ "proofOfAddress", "proofOfIdentity", "ID" ]
+  } ],
+  "hashSequence2" : [ {
+    "label" : "otherFiles",
+    "value" : [ "audit" ]
+  } ],
+  "capturedRegisteredDevices" : [],
+  "capturedNonRegisteredDevices" : null,
+  "checkSum" : [ {
+    "label" : "mosip-client.jar",
+    "value" : "6FD08BDFAA51D73F80748F38670403AD797BA405819395380F634AF0AE5174BE"
+  }, {
+    "label" : "mosip-services.jar",
+    "value" : "5230846965145C0577AF779DC11A6BA557A781DCBCA824F28E1817CA08061EB5"
+  } ],
+  "printingName" : [ ]
+} } 

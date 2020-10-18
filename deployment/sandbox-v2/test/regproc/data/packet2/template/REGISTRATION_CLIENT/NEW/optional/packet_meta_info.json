@@ -1,0 +1,20 @@
+{ "identity" : {
+  "biometrics" : { },
+  "exceptionBiometrics" : [ ],
+  "documents" : [ ],
+  "creationDate" : "{{creation_date}}",
+  "metaData" : [ {
+    "label" : "registrationId",
+    "value" : "{{rid}}"
+  }],
+  "operationsData" : [ ],
+  "hashSequence1" : [ {
+    "label" : "demographicSequence",
+    "value" : [ "ID" ]
+  } ],
+  "hashSequence2" : [ ],
+  "capturedRegisteredDevices" : null,
+  "capturedNonRegisteredDevices" : null,
+  "checkSum" : null,
+  "printingName" : null
+} } 
