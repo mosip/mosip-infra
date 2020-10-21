@@ -7,7 +7,7 @@ storageClass: dm-storage-class  # See sc, pv templates
 
 sitePublicUrl: {{ site.sandbox_public_url }}
 probe:
-  initialDelay: 180  # Seconds
+  initialDelay: 180 # Seconds
   period: 30 # Seconds
 
 ingress:
@@ -34,6 +34,8 @@ services:
       containerPort: 8022
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
+    podconfig: {{ podconfig.regproc.camel | to_yaml }}
+
   notification:  # This is has a service front end for access (notification-svc.yaml)
     serviceName: {{ versions.services.regproc.notification.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.notification.values()[0] }}
@@ -44,6 +46,8 @@ services:
       servicePort: 80 
     ingressPath: /registrationprocessor/v1/securezone/
     healthUrl: /registrationprocessor/v1/securezone/actuator/health
+    podconfig: {{ podconfig.regproc.notification | to_yaml }}
+
   reprocess:
     serviceName: {{ versions.services.regproc.reprocess.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.reprocess.values()[0] }}
@@ -53,6 +57,8 @@ services:
       containerPort: 8021
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
+    podconfig: {{ podconfig.regproc.reprocess | to_yaml }}
+
   uploader:
     serviceName: {{ versions.services.regproc.uploader.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.uploader.values()[0] }}
@@ -62,6 +68,8 @@ services:
       containerPort: 8087
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
+    podconfig: {{ podconfig.regproc.uploader | to_yaml }}
+
   quality:
     serviceName: {{ versions.services.regproc.quality.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.quality.values()[0] }}
@@ -71,6 +79,8 @@ services:
       containerPort: 9072
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
+    podconfig: {{ podconfig.regproc.quality | to_yaml }}
+
   validator:
     serviceName: {{ versions.services.regproc.validator.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.validator.values()[0] }}
@@ -80,6 +90,8 @@ services:
       containerPort: 8088
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
+    podconfig: {{ podconfig.regproc.validator | to_yaml }}
+
   osi:
     serviceName: {{ versions.services.regproc.osi.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.osi.values()[0] }}
@@ -89,6 +101,8 @@ services:
       containerPort: 8089
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
+    podconfig: {{ podconfig.regproc.osi | to_yaml }}
+
   demo:
     serviceName: {{ versions.services.regproc.demo.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.demo.values()[0] }}
@@ -98,6 +112,8 @@ services:
       containerPort: 8091
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
+    podconfig: {{ podconfig.regproc.demo | to_yaml }}
+
   bio:
     serviceName: {{ versions.services.regproc.bio.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.bio.values()[0] }}
@@ -107,6 +123,8 @@ services:
       containerPort: 9096
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
+    podconfig: {{ podconfig.regproc.bio | to_yaml }}
+
   bioauth:
     serviceName: {{ versions.services.regproc.bioauth.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.bioauth.values()[0] }}
@@ -116,6 +134,8 @@ services:
       containerPort: 8020
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
+    podconfig: {{ podconfig.regproc.bioauth | to_yaml }}
+
   abishandler:
     serviceName: {{ versions.services.regproc.abishandler.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.abishandler.values()[0] }}
@@ -125,6 +145,8 @@ services:
       containerPort: 9071
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
+    podconfig: {{ podconfig.regproc.abishandler | to_yaml }}
+
   abismid:
     serviceName: {{ versions.services.regproc.abismid.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.abismid.values()[0] }}
@@ -134,6 +156,8 @@ services:
       containerPort: 8091
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
+    podconfig: {{ podconfig.regproc.abismid | to_yaml }}
+
   proxyabis:
     serviceName: {{ versions.services.regproc.proxyabis.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.proxyabis.values()[0] }}
@@ -142,6 +166,8 @@ services:
       servicePort: 80
     ingressPath: /abis
     healthUrl: /abis/actuator/health
+    podconfig: {{ podconfig.regproc.proxyabis | to_yaml }}
+
   manual:
     serviceName: {{ versions.services.regproc.manual.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.manual.values()[0] }}
@@ -152,6 +178,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/manualverification/
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
+    podconfig: {{ podconfig.regproc.manual | to_yaml }}
+
   external:
     serviceName: {{ versions.services.regproc.external.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.external.values()[0] }}
@@ -161,6 +189,8 @@ services:
       containerPort: 8095
     ingressPath: ''
     healthUrl: /registrationprocessor/v1/external/actuator/health 
+    podconfig: {{ podconfig.regproc.external | to_yaml }}
+
   eis: 
     serviceName: {{ versions.services.regproc.eis.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.eis.values()[0] }}
@@ -169,6 +199,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/eis
     healthUrl: /registrationprocessor/v1/eis/actuator/health
+    podconfig: {{ podconfig.regproc.eis | to_yaml }}
+
   uin:
     serviceName: {{ versions.services.regproc.uin.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.uin.values()[0] }}
@@ -178,6 +210,8 @@ services:
       containerPort: 8099
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
+    podconfig: {{ podconfig.regproc.uin | to_yaml }}
+
   msg:
     serviceName: {{ versions.services.regproc.msg.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.msg.values()[0] }}
@@ -187,6 +221,8 @@ services:
       containerPort: 8088
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
+    podconfig: {{ podconfig.regproc.msg | to_yaml }}
+
   print:
     serviceName: {{ versions.services.regproc.print.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.print.values()[0] }}
@@ -196,6 +232,8 @@ services:
       containerPort: 8099
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
+    podconfig: {{ podconfig.regproc.print | to_yaml }}
+
   trans:
     serviceName: {{ versions.services.regproc.trans.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.trans.values()[0] }}
@@ -204,3 +242,4 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationtransaction/
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
+    podconfig: {{ podconfig.regproc.trans | to_yaml }}

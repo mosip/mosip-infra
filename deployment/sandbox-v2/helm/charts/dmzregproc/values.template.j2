@@ -35,6 +35,7 @@ landing:   # Landing folder where packets land
 
 imagePullPolicy: Always 
 services:
+
   receiver:
     serviceName: {{ versions.services.dmzregproc.receiver.keys()[0] }} 
     dockerImage: {{ versions.services.dmzregproc.receiver.values()[0] }}
@@ -45,6 +46,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
+    podconfig: {{ podconfig.dmzregproc.receiver | to_yaml }}
+
   camel:
     serviceName: {{ versions.services.dmzregproc.camel.keys()[0] }} 
     dockerImage: {{ versions.services.dmzregproc.camel.values()[0] }}
@@ -55,6 +58,8 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
+    podconfig: {{ podconfig.dmzregproc.camel | to_yaml }}
+
   status:
     serviceName: {{ versions.services.dmzregproc.status.keys()[0] }} 
     dockerImage: {{ versions.services.dmzregproc.status.values()[0] }}
@@ -63,6 +68,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationstatus/
     healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
+    podconfig: {{ podconfig.dmzregproc.status | to_yaml }}
+
   pktserver:
     serviceName: {{ versions.services.dmzregproc.pktserver.keys()[0] }} 
     dockerImage: {{ versions.services.dmzregproc.pktserver.values()[0] }}
@@ -81,4 +88,5 @@ services:
       servicePort: 80
     ingressPath: ''  # NOTE: Seperate ingress for pktserver due to different rewrite rule.
     healthUrl: ''
+    podconfig: {{ podconfig.dmzregproc.pktserver | to_yaml }}
       

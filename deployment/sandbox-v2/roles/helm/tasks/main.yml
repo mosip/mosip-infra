@@ -8,7 +8,8 @@
 #   helm_strings: Key value pairs as per --set-strings option
 #   helm_namespace: default if not specified
 
-- include_vars: '{{install_root}}/versions.yml' # Needed for resolving various versions.
+- include_vars: '{{versions_file}}' # Need for resolving various versions
+- include_vars: '{{podconfig_file}}' # Configs of pods of all services
 
 - name: Convert values template to values file
   template:

@@ -107,3 +107,6 @@ For setting up MOSIP server to work with registration client refer to [Reg Clien
 ### Country specific customisations
 If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](country_deployment.md)
 
+## Pod replication
+
+For production set ups you may want to replicate pods more than the default replication factor of 1.  Update `podconfig.yml` for the same.  You may create a separate file for production and point to it from `group_vars/all.yml --> podconfig_file`. 

@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.services.proxyabis.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.proxyabis.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.proxyabis.serviceName }} 
