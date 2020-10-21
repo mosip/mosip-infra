@@ -7,7 +7,7 @@ metadata:
     app: {{ .Values.services.print.serviceName }}
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.print.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.print.serviceName }} 

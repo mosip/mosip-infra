@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.services.camel.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.camel.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.camel.serviceName }} 

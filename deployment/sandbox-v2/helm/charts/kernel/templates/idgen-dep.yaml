@@ -9,6 +9,7 @@ metadata:
     
 spec:
   replicas: 1
+  replicas: {{ .Values.services.idgen.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.idgen.serviceName }} 

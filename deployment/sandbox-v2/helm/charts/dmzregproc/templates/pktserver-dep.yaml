@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.services.pktserver.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.pktserver.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.pktserver.serviceName }} 
