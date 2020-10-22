@@ -1,0 +1,10 @@
+- name: Add abis partner and policy 
+  postgresql_query:
+    login_host: '{{postgres.server}}'
+    port: '{{postgres.nodeport}}'
+    db: mosip_pms
+    login_user: '{{postgres.user}}'
+    login_password: '{{secrets.postgres.su}}'
+    path_to_script: '{{install_root}}/roles/pms-init/files/pms_abis_partner.sql' 
+  register: result
+  failed_when: result.failed == true

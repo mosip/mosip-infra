@@ -2,13 +2,11 @@
   "biometrics" : { },
   "exceptionBiometrics" : [ ],
   "documents" : [ ],
+  "creationDate" : "{{creation_date}}",
   "metaData" : [ {
     "label" : "registrationId",
     "value" : "{{rid}}"
-  }, {
-    "label" : "creationDate",
-    "value" : "{{creation_date}}"
-  } ],
+  }],
   "operationsData" : [ ],
   "hashSequence1" : [ {
     "label" : "demographicSequence",

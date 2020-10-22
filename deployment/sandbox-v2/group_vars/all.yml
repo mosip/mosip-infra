@@ -275,7 +275,7 @@ config_repo:
   git_repo_uri: https://github.com/mosip/mosip-config
   branch: develop
   private: false
-  username: ckm007 # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
+  username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false
@@ -300,3 +300,5 @@ coredns:
   path: '{{tmp_dir}}/dns'
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
   image: coredns/coredns
+
+iam_adapter_url: http://15.207.222.178/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-20200918.164425-65.jar

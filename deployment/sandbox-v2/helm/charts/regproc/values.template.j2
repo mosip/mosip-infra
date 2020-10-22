@@ -11,6 +11,7 @@ podUserId: {{ pod_user_id }}
 podUserGid: {{ pod_user_gid }}
 service_account: {{ psp_service_account }}
 
+sitePublicUrl: {{ site.sandbox_public_url }}
 probe:
   initialDelay: 180  # Seconds
   period: 30 # Seconds
@@ -19,6 +20,7 @@ ingress:
    namespace: default
 
 artifactoryUrl: {{ artifactory_url }} 
+iamAdapterUrl: {{ iam_adapter_url }}
 
 imagePullPolicy: Always 
 
@@ -111,14 +113,6 @@ services:
       containerPort: 9096
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
-  biosvc:
-    serviceName: {{ versions.services.regproc.biosvc.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.biosvc.values()[0] }}
-    ports:
-      containerPort: 9097
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/bio-dedupe
-    healthUrl: /registrationprocessor/v1/bio-dedupe/actuator/health
   bioauth:
     serviceName: {{ versions.services.regproc.bioauth.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.bioauth.values()[0] }}

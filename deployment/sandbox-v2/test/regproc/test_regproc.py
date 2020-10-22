@@ -16,7 +16,7 @@ class App:
     def __init__(self, conf):
         self.conf = conf
         sys.path.insert(0, self.conf.pkt_dir)
-        m = importlib.import_module('pktconf') # Expected to be in the packet
+        m = importlib.import_module('pktconf') # Expected to be in the packet dir
         self.pktconf = m.pkt_conf
     
     def update_conf(self, mosip):
@@ -49,8 +49,8 @@ class App:
         for template_file in template_files:
             template = env.get_template(template_file) 
             out = template.render(self.pktconf) # Pass the conf dictionary
-            fp = open (os.path.join(out_dir, template_file), 'wt')
-            fp.write(out)
+            fp = open (os.path.join(out_dir, template_file), 'wb')
+            fp.write(out.encode())  # For some reason read and write in text mode was throwing exception
             fp.close()
     
     def zip_packets(self):
@@ -95,8 +95,41 @@ class App:
         # Zip all the encrypted packets into single zip (which is not encrypted)
         os.system('rm -f %s/*.zip' % self.conf.pkt_dir) # Remove any existing zip files
         out_zip = os.path.join(self.conf.pkt_dir, self.pktconf['rid']) 
-        final_zip = shutil.make_archive(out_zip, 'zip', self.conf.enc_dir) 
+        final_zip = shutil.make_archive(out_zip, 'zip', self.conf.zip_in_dir) 
         return final_zip
+
+    def create_wrapper_json(self, fpath):
+        '''
+        Creates json for an encrypted subpacket.
+        Inputs:
+          fpath: Path of the encrypted zip file
+        '''
+        filename = os.path.basename(fpath)
+        dirname = os.path.dirname(fpath)
+        packetname = filename.split('.')[0]
+        h = hashlib.sha256()
+        h.update(open(fpath, 'rb').read()) 
+        encrypted_hash = h.digest() # bytes
+        b64_s = base64.urlsafe_b64encode(encrypted_hash).decode()  # convert to str
+        b64_s = b64_s.replace('=', '') # Remove any trailing = chars
+        templ = {     
+            "process":"NEW", 
+            "creationdate": self.pktconf['creation_date'],  
+            "encryptedhash": b64_s,
+            "signature": "",
+            "id": self.pktconf['rid'],
+            "source":"REGISTRATION-CLIENT",
+            "providerversion":"v1.0",
+            "schemaversion":"0.0",
+            "packetname": packetname,
+            "providername":"PacketWriterImpl"
+        } 
+        
+        s = json.dumps(templ)
+        out_path = os.path.join(dirname, packetname + '.json')
+        fp = open(out_path, 'wt')
+        fp.write(s)
+        fp.close()
 
 def main():
 
@@ -109,14 +142,16 @@ def main():
     app.update_conf(mosip)
 
     app.template_to_packets()
-
     app.update_hashes()
 
     zipped_pkts = app.zip_packets()
 
     os.makedirs(app.conf.enc_dir)
     for zipped_pkt in zipped_pkts:
-        mosip.encrypt_packet(zipped_pkt, app.conf.enc_dir, os.path.basename(zipped_pkt), refid)
+        #out_path = mosip.encrypt_packet(zipped_pkt, app.conf.enc_dir, os.path.basename(zipped_pkt), refid)
+        shutil.copy(zipped_pkt, conf.enc_dir) 
+        out_path = os.path.join(conf.enc_dir, os.path.basename(zipped_pkt))
+        app.create_wrapper_json(out_path)
 
     final_zip = app.create_final_zip()
 

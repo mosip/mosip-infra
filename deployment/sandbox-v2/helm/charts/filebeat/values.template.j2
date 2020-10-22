@@ -9,26 +9,34 @@ filebeatConfig:
           templates:
             - condition:
                 equals:
-                  kubernetes.namespace: default 
+                  kubernetes.labels.component: kernel 
               config:
                 - type: container
                   paths:
                     - /var/log/containers/*-${data.kubernetes.container.id}.log
-                  exclude_lines: ["^\\s+[\\-`('.|_]"]  # drop asciiart lines
-                  include_lines: ['ERROR', '^Caused by:']
+                  json:
+                    keys_under_root: true
+                    overwrite_keys: true
     processors:
       - drop_event:
           when:
-            or:
-              - regexp.message: "^.*ERROR.*Temporary Store limit is .*, whilst the temporary data directory.*$"
+            not:
+              has_fields: ["level_value"]
+      - drop_event:
+          when:
+            range:
+              level_value.lt: 20000
 
     output.elasticsearch:
       host: '${NODE_NAME}'
       hosts: '${ELASTICSEARCH_HOSTS:{{mon_prop.elasticsearch.host}} }'
+      indices:
+        - index: "filebeat-test-%{[agent.version]}-%{+yyyy.MM.dd}"
 
     setup.kibana:
       host: "{{mon_prop.kibana.url}}" 
 
+    logging.metrics.enabled: false
     setup.dashboards.enabled: true
 
 # Extra environment variables to append to the DaemonSet pod spec.

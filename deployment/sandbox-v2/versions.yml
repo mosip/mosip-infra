@@ -28,17 +28,17 @@ versions:
 
     prereg:
       application:
-        'prereg-application-service': 'mosipdev/pre-registration-application-service:MOSIP-8545'
+        'prereg-application-service': 'mosipdev/pre-registration-application-service:develop'
       batch:
-        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:1.1.1'
+        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:develop'
       booking:
-        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:MOSIP-8545'
+        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:develop'
       datasync:
-        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:1.1.1'
+        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:develop'
       captcha:
-        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.1'
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:develop'
       ui:
-        'prereg-ui': 'mosipdev/pre-registration-ui:1.1.1'
+        'prereg-ui': 'mosipdev/pre-registration-ui:develop'
       
     registration:
       client:
@@ -61,8 +61,6 @@ versions:
         'regproc-demo-dedupe-stage': 'mosipdev/registration-processor-demo-dedupe-stage:develop'
       bio:
         'regproc-bio-dedupe-stage': 'mosipdev/registration-processor-bio-dedupe-stage:develop'
-      biosvc:
-        'regproc-bio-dedupe-service': 'mosipdev/registration-processor-bio-dedupe-service:develop'
       bioauth:
         'regproc-biometric-authentication-stage': 'mosipdev/registration-processor-biometric-authentication-stage:develop'
       abishandler:
@@ -145,7 +143,7 @@ versions:
 
     resident: 
       resident:  
-        'resident-service': 'mosipdev/resident-service:1.1.1'
+        'resident-service': 'mosipdev/resident-service:develop'
     
     admin:
       service:

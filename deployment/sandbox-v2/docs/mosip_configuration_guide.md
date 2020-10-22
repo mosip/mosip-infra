@@ -9,7 +9,7 @@ coredns:
 Make sure your cloud deployment takes care of DNS routing.  For AWS, uncomment the Route53 code in the scripts provided in `terraform/aws/sandbox`
 
 ## Sandbox access
-The default sandbox installation requires you to have a public domain name such that the domain name points to console machine. However, if you would like to access sandbox on your internal network (over VPN for example) then set the following in `groups_vars.yml`:
+The default sandbox installation requires you to have a public domain name such that the domain name points to console machine. However, if you would like to access sandbox on your internal network (over VPN for example) then set the following in `group_vars/all.yml`:
 ```
 sandbox_domain_name: '{{inventory_hostname}}'
 site:
