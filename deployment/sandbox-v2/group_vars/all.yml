@@ -161,7 +161,7 @@ reg_client:
   xml_file: '{{install_root}}/roles/reg-client-prep/templates/maven-metadata.xml'
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
-  version: 1.1.2-SNAPSHOT
+  version: 1.1.2-rc2
 
 repos:
   commons:
