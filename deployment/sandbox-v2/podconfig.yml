@@ -11,7 +11,7 @@ podconfig:
       sync:
         replicas: 1 
       audit :
-        replicas: 3 
+        replicas: 1 
       key:
         replicas: 1 
       notifier:
