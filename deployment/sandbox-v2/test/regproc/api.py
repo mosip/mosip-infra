@@ -1,20 +1,20 @@
 import datetime as dt
 import requests
 import json
-import hashlib
 import base64
 import os
-import shutil
 import secrets
-import re
+import sys
+sys.path.insert(0, '../')
+from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, password):
+    def __init__(self, server, user, password, appid='regproc'):
         self.server = server
         self.user = user
+        
         self.password = password
-        self.appid = 'ROOT'  # For internal calls  
-        self.token = self.auth_get_token('regproc', self.user, self.password) 
+        self.token = self.auth_get_token(appid, self.user, self.password) 
       
     def auth_get_token(self, appid, username, password):
         url = 'https://%s/v1/authmanager/authenticate/useridPwd' % self.server
@@ -122,6 +122,35 @@ class MosipSession:
         fd.close()
         return encrypted_path
 
+    def decrypt_using_server(self, appid, refid, data):
+        '''
+        Decrypt 'data' using server APIs.
+    
+        Args:
+            data: str (base64 encoded)
+        Returns:
+            decrypt data as str 
+        '''
+        url = 'https://%s/v1/keymanager/decrypt' % self.server
+        j = {
+            "id" : "string",
+            "metadata" : {},
+            "request" : {
+                "applicationId" : appid,
+                "data": data,
+                "referenceId" : refid,
+                "timeStamp" :  get_timestamp(),
+                "salt" : None
+            },
+            "requesttime" : get_timestamp(),
+            "version" : "1.0"
+        }
+        cookies = {'Authorization' : self.token}
+        r = requests.post(url, json = j, cookies=cookies)
+        r = r.content.decode() # to str 
+        r = json.loads(r)
+        return r['response']['data'] 
+
     def upload_packet(self, packet_file):
         url = 'https://%s/registrationprocessor/v1/packetreceiver/registrationpackets' % self.server
         cookies = {'Authorization' : self.token}
@@ -163,91 +192,80 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
-def read_token(response):
-    cookies = response.headers['Set-Cookie'].split(';')
-    for cookie in cookies:
-        key = cookie.split('=')[0]
-        value = cookie.split('=')[1]
-        if key == 'Authorization':
-            return value
+    def update_masterdata_devicetype(self, device_code, device_name, device_description):
+        url = 'https://%s/v1/masterdata/devicetypes' % (self.server)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            "id": "string",
+            "metadata": {},
+            "request": {
+                "code": device_code,
+                "description": device_description,
+                "isActive": 'true',
+                "langCode": "eng",
+                "name": device_name 
+             },
+            "requesttime": ts,
+            "version": "1.0"
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        if r['errors']:
+          if r['errors'][0]['errorCode'] == 'KER-MSD-994':  # Resend with PUT
+              r = requests.put(url, cookies=cookies, json = j)
+              r = response_to_json(r)
+        return r # Sucess
 
-    return None
+    def update_masterdata_device_spec(self, brand, description, type_code, name, spec_id, driver_version, model): 
+        url = 'https://%s/v1/masterdata/devicespecifications' % (self.server)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'id': spec_id,
+            'brand': brand,
+            'description': description,
+            'deviceTypeCode': type_code,
+            'isActive': True,
+            'langCode': 'eng',
+            'minDriverversion': driver_version, 
+            'model': model, 
+            'name': name
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r 
 
-def get_timestamp(days_offset=None):
-    '''
-    Current TS.
-    Format: 2019-02-14T12:40:59.768Z  (UTC)
-    '''
-    delta = dt.timedelta(days=0)
-    if days_offset is not None:
-        delta = dt.timedelta(days=days_offset)
-
-    ts = dt.datetime.utcnow() + delta
-    ms = ts.strftime('%f')[0:2]
-    s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
-    return s
-
-
-def decrypt_using_server(appid, refid, data, token, server):
-    '''
-    Decrypt 'data' using server APIs.
-
-    Args:
-        data: str (base64 encoded)
-    Returns:
-        decrypt data as str 
-    '''
-    url = 'https://%s/v1/keymanager/decrypt' % server
-    j = {
-        "id" : "string",
-        "metadata" : {},
-        "request" : {
-            "applicationId" : appid,
-            "data": data,
-            "referenceId" : refid,
-            "timeStamp" :  get_timestamp(),
-            "salt" : None
-        },
-        "requesttime" : get_timestamp(),
-        "version" : "1.0"
-    }
-    cookies = {'Authorization' : token}
-    r = requests.post(url, json = j, cookies=cookies)
-    r = r.content.decode() # to str 
-    r = json.loads(r)
-    return r['response']['data'] 
-    
-
-
-def sha256_hash(data):
-    '''
-    data assumed as type bytes
-    '''
-    m = hashlib.sha256()
-    m.update(data)
-    h = m.hexdigest().upper()
-    return h
-
-
-def print_response(r):
-    print(r.headers)
-    print(r.links)
-    print(r.encoding)
-    print(r.status_code)
-    print('Size = %s' % len(r.content))
-    print('Response Data = %s' % r.content)
-
-
-def zip_packet(regid, base_path, out_dir):
-    '''
-    Args:
-        regid: Registration id - this will be the name of the packet
-        base_path:  Zip will cd into this dir and archive from here
-        out_dir: Dir in which zip file will be written
-    Returns:
-        path of zipped packet
-    '''
-    out_path = os.path.join(out_dir, regid)
-    shutil.make_archive(out_path, 'zip', base_path)
-    return out_path + '.zip'
+    def add_masterdata_device(self, device_spec, device_id ):
+        url = 'https://%s/v1/masterdata/devices' % (self.server)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            "id": "string",
+            "metadata": {},
+            "request": {
+              "deviceSpecId": "string",
+              "id": "string",
+              "ipAddress": "string",
+              "isActive": true,
+              "langCode": "string",
+              "macAddress": "string",
+              "name": "string",
+              "regCenterId": "string",
+              "serialNum": "string",
+              "validityDateTime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+              "zoneCode": "string"
+            },
+            "requesttime": "2018-12-10T06:12:52.994Z",
+            "version": "string"
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r 
 

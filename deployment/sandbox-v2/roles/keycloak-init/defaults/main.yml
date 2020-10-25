@@ -98,7 +98,44 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
 
 keycloak_mosip_user_role_map:  
   # testuser
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'AUTH'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'AUTH_PARTNER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'BIOMETRIC_READ'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CREATE_SHARE'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CREDENTIAL_ISSUANCE'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CREDENTIAL_PARTNER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CREDENTIAL_REQUEST'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'DATA_READ'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'DOCUMENT_READ'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'INDIVIDUAL'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'FTM_PROVIDER'}
   - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_OFFICER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'ID_AUTHENTICATION'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'DEVICE_PROVIDER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'SUPERADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'ZONAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_PROCESSOR'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'ZONAL_APPROVER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_OPERATOR'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CENTRAL_APPROVER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'CENTRAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'MASTERDATA_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'METADATA_READ'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'MISP'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PREREG'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PRE_REGISTRATION'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PRE_REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'REGISTRATION_SUPERVISOR'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'ONLINE_VERIFICATION_PARTNER'}                             
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PARTNER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PARTNER_ADMIN'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PARTNERMANAGER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'PMS_USER'}
+  - {realm_id: 'mosip', username: 'testuser', role_name: 'POLICYMANAGER'}
   
   - {realm_id: 'mosip', username: 'regproc_test', role_name: 'REGISTRATION_OFFICER'}
 
@@ -119,7 +156,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110118', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110118', role_name: 'CENTRAL_ADMIN'}
   - {realm_id: 'mosip', username: '110118', role_name: 'CENTRAL_APPROVER'}
-  - {realm_id: 'mosip', username: '110118', role_name: 'RESIDENT'}
   - {realm_id: 'mosip', username: '110118', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: '110118', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: '110118', role_name: 'REGISTRATION_OFFICER'}
@@ -148,6 +184,10 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_ISSUANCE'}  
   - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_REQUEST'}
   - {realm_id: 'mosip', username: '110119', role_name: 'CREATE_SHARE'}
+  - {realm_id: 'mosip', username: '110119', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_ISSUANCE'}
+  - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_REQUEST'}
+  - {realm_id: 'mosip', username: '110119', role_name: 'CREATE_SHARE'}
 
   - {realm_id: 'mosip', username: '110127', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110127', role_name: 'ID_AUTHENTICATION'}
@@ -168,10 +208,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110127', role_name: 'REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: '110127', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', username: '110127', role_name: 'RESIDENT'}
-  - {realm_id: 'mosip', username: '110119', role_name: 'RESIDENT'}
-  - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_ISSUANCE'}
-  - {realm_id: 'mosip', username: '110119', role_name: 'CREDENTIAL_REQUEST'}
-  - {realm_id: 'mosip', username: '110119', role_name: 'CREATE_SHARE'}
   
   - {realm_id: 'mosip', username: '110068', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110068', role_name: 'ID_AUTHENTICATION'}
