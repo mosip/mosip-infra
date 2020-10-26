@@ -92,4 +92,24 @@ class KeycloakSession:
         }
         r = requests.get(url, headers=headers)
         return r
+    
+    def get_role(self, realm_id, rolename):
+        url =  'https://%s/keycloak/auth/admin/realms/%s/roles/%s' % (self.server, realm_id, rolename)
+        headers = {
+           'Authorization' : 'Bearer %s' % self.token,
+           'Content-type' : 'application/json',
+           'Accept': 'application/json'
+        }
+        r = requests.get(url, headers=headers)
+        return r
+
+    def map_user_role(self, realm_id, user_id, role_json):
+        url = 'https://%s/keycloak/auth/admin/realms/%s/users/%s/role-mappings/realm' % (self.server, realm_id, user_id)
+        headers = {
+           'Authorization' : 'Bearer %s' % self.token,
+           'Content-type' : 'application/json',
+           'Accept': 'application/json'
+        }
+        r = requests.post(url, headers=headers, json = [role_json])
+        return r
 

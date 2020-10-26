@@ -30,6 +30,17 @@ class App:
                                               row['first_name'], row['last_name'], user_id) 
             elif r.status_code != 201:
                 print_response(r)
+                break 
+
+            # Map role
+            for role in row['roles'].split():
+                print('Mapping role %s to user %s' % (role, row['name']))
+                r = self.keycloak.get_role(row['realm_id'], role)
+                role_json = response_to_json(r) 
+                r = self.keycloak.map_user_role(row['realm_id'], user_id, role_json)
+                if r.status_code != 204:
+                    print_response(r)
+                    break
 
 def main():
 
