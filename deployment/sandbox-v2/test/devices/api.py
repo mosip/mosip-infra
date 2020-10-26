@@ -83,28 +83,28 @@ class MosipSession:
         r = response_to_json(r)
         return r 
 
-    def add_masterdata_device(self, device_spec, device_id ):
+    def add_masterdata_device(self, device_id, name, spec, reg_center, valid_upto, zone): 
         url = 'https://%s/v1/masterdata/devices' % (self.server)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
-            "id": "string",
-            "metadata": {},
-            "request": {
-              "deviceSpecId": "string",
-              "id": "string",
-              "ipAddress": "string",
-              "isActive": true,
-              "langCode": "string",
-              "macAddress": "string",
-              "name": "string",
-              "regCenterId": "string",
-              "serialNum": "string",
-              "validityDateTime": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-              "zoneCode": "string"
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'deviceSpecId': spec, 
+              'id': device_id,
+              'ipAddress': '192.168.0.1', # TODO: Not used?
+              'isActive': True,
+              'langCode': 'eng',
+              'macAddress': 'XX-YY-ZZ-AA-BB', # TODO: Not used?
+              'name': name,
+              'regCenterId': reg_center,
+              'serialNum': '0',
+              'validityDateTime': valid_upto,
+              'zoneCode': zone 
             },
-            "requesttime": "2018-12-10T06:12:52.994Z",
-            "version": "string"
+            'requesttime': '2018-12-10T06:12:52.994Z',
+            'version': 'string'
         }
         r = requests.post(url, cookies=cookies, json = j)
         r = response_to_json(r)

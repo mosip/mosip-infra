@@ -16,7 +16,7 @@ class App:
 
     def update_device_type(self, csv_file):
         print('Updating device type')
-        reader = csv.DictReader(open(CSV_DEVICE_TYPE, 'rt')) 
+        reader = csv.DictReader(open(csv_file, 'rt')) 
         for row in reader:
             r =  self.mosip.update_masterdata_devicetype(row['code'], row['name'], row['description'])
             if r['errors']:
@@ -24,7 +24,7 @@ class App:
     
     def update_device_spec(self, csv_file):
         print('Updating device specification')
-        reader = csv.DictReader(open(CSV_DEVICE_SPEC, 'rt')) 
+        reader = csv.DictReader(open(csv_file, 'rt')) 
         for row in reader:
             r = self.mosip.update_masterdata_device_spec(row['brand'], row['description'], row['type_code'], 
                                                          row['name'], row['spec_id'], row['driver_version'], 
