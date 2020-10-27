@@ -275,7 +275,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo.
   git_repo_uri: https://github.com/mosip/mosip-config
-  branch: 1.1.2
+  version: 1.1.2
   private: false
   username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties

@@ -2,7 +2,7 @@
 #   Inputs:
 #     repo_path: Full path e.g https://github.com/username/reponame
 #     repo_dest: Destination folder
-#     branch: branch to checkout
+#     version: branch or tag to checkout
 #     githubuser
 #     githubpassword
 #     
@@ -23,7 +23,7 @@
     repo: '{{repo_path}}'
     dest: '{{repo_dest}}'
     update: no 
-    version: '{{branch}}'
+    version: '{{config_repo.version}}'
     force: no
   no_log: true
 -
