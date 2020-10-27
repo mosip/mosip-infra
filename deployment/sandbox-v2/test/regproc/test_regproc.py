@@ -9,7 +9,9 @@ import shutil
 import glob
 import subprocess
 import importlib
-from common import *
+from api import *
+sys.path.insert(0, '../')
+from utils import *
 import  jinja2 as j2
 
 class App:

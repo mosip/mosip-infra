@@ -104,8 +104,18 @@ Note that the default OTP is set to `111111`.
 ### Registration Client settings
 For setting up MOSIP server to work with registration client refer to [Reg Client Install](reg_client_install.md).
 
-### Country specific customisations
-If you are installing default sandbox you may skip this step.  If you have country specific configuration refer to [Country Specific Deployment](country_deployment.md)
+### Master data
+
+To update country specific masterdata:
+
+1. Make sure the Master Data `.csv` files are available in a folder, say `my_dml`.
+1. Add the following line in `group_vars/all.yml` -> `databases` -> `mosip_master`
+```
+mosip_master:
+  sql_path: '{{repos.commons.dest}}/db_scripts'
+  dml: 'my_dml/'
+```
+1. The above steps be done *before* running the Ansible install scripts.
 
 ## Pod replication
 
