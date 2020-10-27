@@ -44,12 +44,12 @@ def response_to_json(r):
     return r
 
 def print_response(r):
-    print(r.headers)
-    print(r.links)
-    print(r.encoding)
-    print(r.status_code)
-    print('Size = %s' % len(r.content))
+    print('Status code =  %s' % r.status_code)
+    print('Headers =  %s' % r.headers)
+    print('Links =  %s' % r.links)
+    print('Encoding = %s' % r.encoding)
     print('Response Data = %s' % r.content)
+    print('Size = %s' % len(r.content))
  
 def zip_packet(regid, base_path, out_dir):
     '''

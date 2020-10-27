@@ -1,11 +1,11 @@
 {
-    "id": "f5910e1f-03d3-4fa8-8605-7c77c4826300",
-    "username": "allrolesuser"
-    "email": "allrolesuser@xyz.com",
+    "id": "",
+    "username": "globaladmin"
+    "email": "globaladmin@xyz.com",
     "enabled": true,
     "emailVerified": false,
-    "firstName": "Test",
-    "lastName": "User",
+    "firstName": "Global",
+    "lastName": "Admin",
     "credentials": [
         {
             "type": "password",
