@@ -3,7 +3,7 @@
   vars:
     repo_path: '{{config_repo.git_repo_uri}}'
     repo_dest: '{{config_repo.local_git_repo.path}}'
-    branch: '{{config_repo.branch}}'
+    branch: '{{config_repo.version}}'
     githubuser: '{{config_repo.username}}'
     githubpassword: '{{secrets.config_repo.password}}' # In vault
   roles:

@@ -12,6 +12,7 @@
     secret: '{{kc_client_secret}}'
     standard_flow_enabled: yes 
     direct_access_grants_enabled: yes
+    redirect_uris: ['{{site.sandbox_public_url}}/*']
     service_accounts_enabled: yes
     authorization_services_enabled: yes
     state: present
