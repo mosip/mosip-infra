@@ -7,8 +7,6 @@ https://<sandbox domain name>>/pre-registration-ui/
 
 1. Enter your email or phone no to create an account. 
 
-1. Check the "I'm not a robot" checkbox and click on "Send OTP" button.  You receive a one-time-password (OTP) over email or phone if you have configured your Email and SMS gateways. 
-
 1. Enter the OTP that you received via email/sms  in the selected box, or enter `111111` for Proxy OTP mode.
 
 1. Accept the Terms and Condition and `CONTINUE` after filling the demographic data.
@@ -19,7 +17,7 @@ https://<sandbox domain name>>/pre-registration-ui/
 
 1. Select any pin code from the dropdown.
 
-1. Phone number must not start with 0 and should be of 10 digits.
+1. Phone number should be 10 digits and must not start with 0.
 
 1. `CONTINUE` after uploading mentioned document of given size and type or skip the document upload process. (Recommended: upload any one document for testing purposes.)
 
