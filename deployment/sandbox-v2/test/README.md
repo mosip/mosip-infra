@@ -2,7 +2,7 @@ This directory contains instructions and scripts to conduct sanity checks on dep
 
 * `prereg`:  Instructions to check if prereg is installed fine.
 * `regproc`:  Python script to upload a test packet to registration processor.
-* `devices`:  Python script to onboard and register devices.
+* `regclient`:  Procedure and scripts to configure sandbox to run with reg client.
 
 
 
