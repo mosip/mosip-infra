@@ -40,10 +40,10 @@ versions:
       ui:
         'prereg-ui': 'mosipid/pre-registration-ui:1.1.2'
       
-    registration:
-      client:
+    registration_client:
+      downloader:
         'reg-client-downloader': 'mosipid/registration-client:1.1.2'
-
+      version: 1.1.2
     regproc:
       camel:
         'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.2'
