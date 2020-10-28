@@ -54,6 +54,7 @@
     $ ./update_master_db.sh /home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/partner-management-services/db_scripts/mosip_pms
     ```
   * CAUTION: The above will reset entire DB and load it fresh.  
+  * Some example CSVs are located at `csv/pms`.
 
 ## Device registation
   * Update the following CSVs in Regdevice DML directory.  On sandbox the DMLs are located at `/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/common/db_scripts/mosip_regdevice/dml`.
@@ -67,6 +68,7 @@
     $ ./update_regdevicedb.sh /home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/common/db_scripts/mosip_regdevice
     ```
   * CAUTION: The above will reset entire DB and load it fresh.  
+  * Some example CSVs are located at `csv/regdevice`.
 
 ## Launch Reg Client
 1. Set Environment Variable `mosip.hostname` to `<sandbox domain name>`.
