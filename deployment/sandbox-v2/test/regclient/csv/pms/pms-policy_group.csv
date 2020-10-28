@@ -1,0 +1,2 @@
+﻿id,name,descr,user_id,is_active,cr_by,cr_dtimes
+549850,Device Provider,Device Provider,admin,TRUE,admin,now()

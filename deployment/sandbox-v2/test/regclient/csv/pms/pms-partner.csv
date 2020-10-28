@@ -1,0 +1,2 @@
+﻿id,policy_group_id,name,address,contact_no,email_id,certificate_alias,user_id,partner_type_code,approval_status,is_active,cr_by,cr_dtimes
+Smartx,549850,SmartX ORG,Address,9903445446,info@smartx.io,NULL,admin,Device_Provider,Activated,TRUE,admin,now()
