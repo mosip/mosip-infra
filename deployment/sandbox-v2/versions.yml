@@ -157,4 +157,8 @@ versions:
 
     websub:
       service:
-        'websub-service': 'ckm007/websub-service:1.1.2'
+        'websub-service': 'mosipid/websub-service:1.1.2'
+
+    mock:
+      abis:
+        'mock-abis-service': 'mosipdev/mock-abis:master'

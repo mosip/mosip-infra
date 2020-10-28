@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.mockabis.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.mockabis.servicePort }}
+    targetPort: {{ .Values.services.mockabis.containerPort }}
+  selector:
+    app: {{ .Values.services.mockabis.serviceName }} 
+
