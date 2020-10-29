@@ -64,8 +64,8 @@ $  curl http://mzworker0.sb:30080/config/encrypt -d  <string to be encrypted>
 The above command to config server pod via ingress on MZ.
 
 ### Captcha
-* Captcha is needed for Pre-Reg UI only. Obtain captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
-* Set captcha:
+* If you would like to enable Captcha for Pre-Reg UI, obtain Captcha for the sandbox domain from "Google Recaptcha Admin".  Get _reCAPTCHA v2 "I'm not a robot"_ keys. 
+* Set Captcha:
   * File: `pre-registration.mz.properties`
   * Properties:
     ```
