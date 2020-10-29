@@ -12,6 +12,30 @@
       <a href="https://{{sandbox_domain_name}}/versions.txt" type="text/plain">Docker versions</a>
     </p>
 
+  <h2>MOSIP Modules </h2>
+    <p>
+      <a href="https://{{sandbox_domain_name}}/pre-registration-ui">Pre-Registration</a>
+    </p>
+    <p>
+      <a href="https://{{sandbox_domain_name}}/admin-ui">Admin</a>
+    </p>
+    <p>
+      <a href="https://{{sandbox_domain_name}}/registration-client/{{versions.services.registration_client.version}}/reg-client.zip">Registration Client Zip</a>
+    </p>
+
+  <h2>IAM</h2>
+    <p>
+      <a href="https://{{sandbox_domain_name}}/keycloak/auth/">Keycloak</a>
+    </p>
+
+  <h2>Storage</h2>
+    <p>
+      <b>Postgres</b>: host: {{sandbox_domain_name}}, port: {{postgres.nodeport}} 
+    </p>
+    <p>
+      <a href="https://{{sandbox_domain_name}}/minio/">Minio</a>
+    </p>
+
   <h2>Dasbhoards</h2>
     <p>
       <a href="https://{{sandbox_domain_name}}/mz-dashboard">K8s Dashboard - MZ</a>
@@ -19,10 +43,6 @@
 
     <p>
       <a href="https://{{sandbox_domain_name}}/dmz-dashboard">K8s Dashboard - DMZ</a>
-    </p>
-
-    <p>
-      <a href="https://{{sandbox_domain_name}}/keycloak/auth/">Keycloak</a>
     </p>
 
     <p>
@@ -34,22 +54,9 @@
     </p>
 
     <p>
-      <a href="https://{{sandbox_domain_name}}/activemq/admin/">ActiveMQ</a>
-    </p>
-    
-    <p>
       <a href="https://{{sandbox_domain_name}}/kibana/">Kibana</a>
     </p>
 
-    <p>
-      <a href="https://{{sandbox_domain_name}}/minio/">Minio</a>
-    </p>
-
-  <h2>Postgres</h2>
-    <p>
-      host: {{sandbox_domain_name}}<br>
-      port: 30090
-    </p>
 </body>
 </html>
 

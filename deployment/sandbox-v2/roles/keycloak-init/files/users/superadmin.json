@@ -1,10 +1,10 @@
 {
     "id": "",
-    "username": "globaladmin",
-    "email": "globaladmin@xyz.com",
+    "username": "superadmin",
+    "email": "superadmin@xyz.com",
     "enabled": true,
     "emailVerified": false,
-    "firstName": "Global",
+    "firstName": "Super",
     "lastName": "Admin",
     "credentials": [
         {
