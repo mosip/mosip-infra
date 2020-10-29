@@ -27,7 +27,6 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', client_id: '', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', client_id: '', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', client_id: '', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', client_id: '', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', client_id: '', role_name: 'RESIDENT'}
@@ -70,7 +69,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
 
 keycloak_mosip_users: # Assumption "username.json" exists with same username inside 
   - {realm_id: 'mosip', user_file: 'users/allrolesuser.json'}
-  - {realm_id: 'mosip', user_file: 'users/globaladmin.json'}
+  - {realm_id: 'mosip', user_file: 'users/superadmin.json'}
   - {realm_id: 'mosip', user_file: 'users/110005.json'}
   - {realm_id: 'mosip', user_file: 'users/110006.json'}
   - {realm_id: 'mosip', user_file: 'users/110118.json'}
@@ -113,7 +112,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'RESIDENT'}
@@ -138,7 +136,9 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'PMS_USER'}
   - {realm_id: 'mosip', username: 'allrolesuser', role_name: 'POLICYMANAGER'}
 
-  - {realm_id: 'mosip', username: 'globaladmin', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'superadmin', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'superadmin', role_name: 'MASTERDATA_ADMIN'}
+  - {realm_id: 'mosip', username: 'superadmin', role_name: 'ZONAL_ADMIN'}
   
   - {realm_id: 'mosip', username: 'regproc_test', role_name: 'REGISTRATION_OFFICER'}
 
@@ -168,7 +168,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110119', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110119', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110119', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110119', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110119', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110119', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110119', role_name: 'RESIDENT'}
@@ -195,7 +194,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110127', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110127', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110127', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110127', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110127', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110127', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110127', role_name: 'RESIDENT'}
@@ -215,7 +213,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110068', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110068', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110068', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110068', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110068', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110068', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110068', role_name: 'RESIDENT'}
@@ -237,7 +234,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110038', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110038', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110038', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110038', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110038', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110038', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110038', role_name: 'RESIDENT'}
@@ -257,7 +253,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110122', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110122', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110122', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110122', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110122', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110122', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110122', role_name: 'RESIDENT'}
@@ -277,7 +272,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110010', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110010', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110010', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110010', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110010', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110010', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110010', role_name: 'RESIDENT'}
@@ -339,7 +333,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: '110022', role_name: 'REGISTRATION_OFFICER'}
   - {realm_id: 'mosip', username: '110022', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: '110022', role_name: 'DEVICE_PROVIDER'}
-  - {realm_id: 'mosip', username: '110022', role_name: 'SUPERADMIN'}
   - {realm_id: 'mosip', username: '110022', role_name: 'ZONAL_ADMIN'}
   - {realm_id: 'mosip', username: '110022', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: '110022', role_name: 'RESIDENT'}
