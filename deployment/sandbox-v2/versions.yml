@@ -162,3 +162,7 @@ versions:
     mock:
       abis:
         'mock-abis-service': 'mosipdev/mock-abis:master'
+
+    artifactory:
+      service:
+        'artifactory-service': 'mosipdev/artifactory-server:1.1.2'
