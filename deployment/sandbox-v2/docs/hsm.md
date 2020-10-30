@@ -35,14 +35,15 @@ mosip.kernel.keymanager.softhsm.certificate.organizational-unit=MOSIP
 mosip.kernel.keymanager.softhsm.certificate.organization=IITB
 mosip.kernel.keymanager.softhsm.certificate.country=IN
 ```
+Make sure you restart the services after this change.
 
-WARNING: The password is extremely critical.  Make sure you use a very strong password to encrypt it (using Config Server encryption).  Further, access to Config Server should be very tightly  controlled.
+_WARNING: The password is extremely critical.  Make sure you use a very strong password to encrypt it (using Config Server encryption).  Further, access to Config Server should be very tightly  controlled._
 
 ## Artifactory
 
 In the sandbox, artifactory is installed as a docker and accessed by services.  Replace the `client.zip` in this docker. You may upload the modified docker to your own registry on Docker Hub for subsequent use.
 
-## Point services to HSM
+## HSM URL
 
 HSM is used by Kernel and IDA services. Point the TCP URL of these services to new HSM host and port:
 ```
