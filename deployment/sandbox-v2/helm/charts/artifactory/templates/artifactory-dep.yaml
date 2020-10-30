@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{  .Values.docker.service }}
+  namespace: {{ .Release.Namespace }} 
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.docker.service }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.docker.service }} 
+    spec:
+      containers:
+      - name: {{  .Values.docker.service }}
+        image: {{ .Values.docker.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        ports:
+        - containerPort: {{ .Values.docker.containerPort }}
+        readinessProbe:
+          tcpSocket:
+            port: {{  .Values.docker.containerPort }}
+
