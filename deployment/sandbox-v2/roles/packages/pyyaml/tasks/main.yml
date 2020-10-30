@@ -1,0 +1,6 @@
+- name: Install pyyaml
+  pip:
+    name: pyyaml
+    state: present
+    executable: /bin/pip3
+  become: yes
