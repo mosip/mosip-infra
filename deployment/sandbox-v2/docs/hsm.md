@@ -9,20 +9,20 @@ The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mo
 
 ### `client.zip`
 
-The HSM connects over the network. In order for services to connect to HSM they need `client.zip` which is a bundle of self dependent PKCS11 compliant libraries used to connect to the HSM.  The same is installed by mosip services before the services start. This library must be provided by the HSM vendor.  When dockers start the `client.zip` file is pulled from the artifactory, unzipped and `install.sh` is run. 
+The HSM connects over the network. For services to connect to HSM they need `client.zip` which is a bundle of self dependent PKCS11 compliant libraries.  The same is installed by MOSIP services before the services start. This library must be provided by the HSM vendor.  When dockers start the `client.zip` file is pulled from the artifactory, unzipped and `install.sh` is run. 
 
 This file must fulfil the following:
-* Contain an `install.sh` as mentioned below
+* Contain an `install.sh`
 * Available in the artificatory    
 
 ### `install.sh`
 
 This script must fulfil the following:
-* Have executable permission
+* Has executable permission
 * Sets up all that is needed to connect to HSM
 * Able to run inside dockers that are based on Debian, inherited from OpenJDK dockers.
 * Place HSM client configuration file in `mosip.kernel.keymanager.softhsm.config-path` (see below)
-* Not set any environment variables. If needed, they should be passed while running the mosip service dockers.
+* Not set any environment variables. If needed, they should be passed while running the MOSIP service dockers.
 
 ##  Properties
 
@@ -36,17 +36,19 @@ mosip.kernel.keymanager.softhsm.certificate.organization=IITB
 mosip.kernel.keymanager.softhsm.certificate.country=IN
 ```
 
-WARNING: The password is extremely critical.  Make sure you use a very strong password to encrypt it (using Config Server encryption).  Further, access to Config Server should be extremely tightly  controlled.
+WARNING: The password is extremely critical.  Make sure you use a very strong password to encrypt it (using Config Server encryption).  Further, access to Config Server should be very tightly  controlled.
 
 ## Artifactory
 
-In the sandbox, artifactory is installed as docker and accessed by services.  Replace the `client.zip` in this docker. You may may wish to upload this modified docker to your own registry on Docker Hub for subsequent use.
+In the sandbox, artifactory is installed as a docker and accessed by services.  Replace the `client.zip` in this docker. You may upload the modified docker to your own registry on Docker Hub for subsequent use.
 
 ## Point services to HSM
 
-Kernel and IDA services use HSM. Point the TCP URL in Helm Charts of these services to new HSM host and port:
+HSM is used by Kernel and IDA services. Point the TCP URL of these services to new HSM host and port:
 ```
 hsmUrl: tcp://<hsm host>:<port>  
 ```
+
+The above parameter is available in the Helm Chart of respective service.
 
 

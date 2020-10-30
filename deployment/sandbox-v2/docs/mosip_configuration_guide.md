@@ -1,8 +1,10 @@
 # MOSIP Configuration Guide
 
+The sandbox installs with default configuration.  If you would like configure MOSIP differently refer to the below sections:
+
 * [DNS](dns.md)
-* [Sandbox access]
-* [Secrets][secrets.md]
+* [Sandbox access](access.md)
+* [Secrets](secrets.md)
 * [Private dockers](private_dockers.md)
 * [Config server](config_server.md)
 * [Pre-Reg captcha](prereg_captcha.md)
