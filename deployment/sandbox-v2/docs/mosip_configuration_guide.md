@@ -1,7 +1,7 @@
 # MOSIP Configuration Guide
 
 * [DNS](dns.md)
-* [Sandbox external access]
+* [Sandbox access]
 * [Secrets][secrets.md]
 * [Private dockers](private_dockers.md)
 * [Config server](config_server.md)
