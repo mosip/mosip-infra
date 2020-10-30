@@ -3,7 +3,7 @@
 ### Introduction
 
 The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mosip/mosip-mock-services/blob/master/softhsm/README.md). To connect to a real HSM you need to do the following:
-  1.  Update `client.zip` of HSM in artifactory
+  1.  Update `client.zip` 
   1.  Update MOSIP properties
   1.  Point MOSIP services to HSM
 
@@ -18,8 +18,8 @@ This file must fulfil the following:
 ### `install.sh`
 
 This script must fulfil the following:
-* Has executable permission
-* Sets up all that is needed to connect to HSM
+* Have executable permission
+* Set up all that is needed to connect to HSM
 * Able to run inside dockers that are based on Debian, inherited from OpenJDK dockers.
 * Place HSM client configuration file in `mosip.kernel.keymanager.softhsm.config-path` (see below)
 * Not set any environment variables. If needed, they should be passed while running the MOSIP service dockers.
