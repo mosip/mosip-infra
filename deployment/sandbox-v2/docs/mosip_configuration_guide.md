@@ -1,6 +1,6 @@
 # MOSIP Configuration Guide
 
-The sandbox installs with default configuration.  If you would like configure MOSIP differently refer to the below sections:
+The sandbox installs with default configuration.  If you would like to configure MOSIP differently refer to the below sections:
 
 * [DNS](dns.md)
 * [Sandbox access](access.md)
