@@ -11,6 +11,7 @@ The sandbox installs with default configuration.  If you would like to configure
 * [OTP](otp.md) 
 * [Master data](master_data.md) 
 * [Pod replication](pod.md)
-* [Registration client](../test/regclient/README.md) 
 * [Real HSM](hsm.md)
+* [Pre-Registration Schema](prereg_schema_config.md)
+* [Registration client](../test/regclient/README.md) 
 
