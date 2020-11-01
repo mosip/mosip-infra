@@ -5,12 +5,11 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
      kubernetes.io/ingress.class: "nginx"
-     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      - path: /activemq(/|$)(.*)
+      - path: /activemq/
         backend:
           serviceName: {{ .Values.name }}
           servicePort: {{ .Values.docker.webPort }}
