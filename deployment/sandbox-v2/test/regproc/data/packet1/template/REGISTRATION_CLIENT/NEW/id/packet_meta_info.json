@@ -86,7 +86,7 @@
     "value" : "{{rid}}"
   }, {
     "label" : "Registration Client Version Number",
-    "value" : "1.0.10-SNAPSHOT"
+    "value" : "1.1.2T"
   }, {
     "label" : "registrationType",
     "value" : "New"
