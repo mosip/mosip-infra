@@ -4,6 +4,8 @@ Container used: Modified version of `fogsyio/activemq:5.15.9` saved as `mosipdev
 
 Modification: In `conf/jetty.xml` the admin url has been modified to `/activemq/admin`.
 
+Note that in this docker we cannot easily change the admin password.  Need to figure out a good way to do this, like pass with an env variable.
+
 ---
 Earlier the following container was used that looks more elaborate but we could not modify the default admin webconsole path in it (looks like it creates conf and conf.tmp directory fresh from somewhere):
 
