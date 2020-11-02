@@ -22,9 +22,9 @@
 - import_playbook: playbooks/dmzclamav.yml
 - import_playbook: playbooks/activemq.yml
 - import_playbook: playbooks/minio.yml
+- import_playbook: playbooks/artifactory.yml
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
-- import_playbook: playbooks/artifactory.yml
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/packetmanager.yml
 - import_playbook: playbooks/datashare.yml
