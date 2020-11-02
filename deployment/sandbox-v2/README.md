@@ -39,16 +39,16 @@ It is possible to bring up MOSIP modules with lesser VMs as below.  However, do 
 |K8s DMZ master | 1 | 4 vCPU, 8 GB RAM | 32 GB |
 |K8s DMZ workers | 1 | 4 vCPU, 16 GB RAM | 32 GB |
 
-## Vitrual Machines (VMs) setup
+## Virtual Machines (VMs) setup
 
 Before installing MOSIP modules you will have to set up your VMs as below:
 1. Install above mentioned OS on all machines
 1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
-1. `hosntame` on all machines much match hostnames in `hosts.ini`.  Set the same with
+1. `hostname` on all machines must match hostnames in `hosts.ini`.  Set the same with
     ```
     $ sudo hostnamectl set-hostname <hostname>
     ```
-1. Enable Intenet connectivity on all machines. 
+1. Enable Internet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
 1. Exchange ssh keys between console and K8s cluster machines such that ssh is password-less from console machine:
     ```  
