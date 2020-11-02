@@ -9,7 +9,7 @@ import csv
 
 class App:
     def __init__(self, conf):
-        self.mosip = MosipSession(conf.server, conf.user, conf.password, 'partner')
+        self.mosip = MosipSession(conf.server, conf.pm_user, conf.pm_password, 'partner')
 
     def create_policy_group(self, csv_file):
         reader = csv.DictReader(open(csv_file, 'rt')) 

@@ -50,3 +50,25 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
+    def add_partner(self, name, contact, address, email, partner_id, partner_type, policy_group):
+        url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'address': address,
+            'contactNumber': contact,
+            'emailId': email,
+            'organizationName': name,
+            'partnerId': partner_id,
+            'partnerType': partner_type,
+            'policyGroup': policy_group 
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
