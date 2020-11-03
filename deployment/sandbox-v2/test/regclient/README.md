@@ -70,6 +70,12 @@
   * CAUTION: The above will reset entire DB and load it fresh.  
   * Some example CSVs are located at `csv/regdevice`.
 
+## IDA check
+Disable IDA check in `registration-mz.properties`:
+```
+mosip.registration.onboarduser_ida_auth=N
+```
+
 ## Launch Reg Client
 1. Set Environment Variable `mosip.hostname` to `<sandbox domain name>`.
 1. Login as a user (e.g. `110011`) with password (`mosip`) to login into the client. 
