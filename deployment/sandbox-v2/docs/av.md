@@ -1,6 +1,13 @@
 # Integrating AntiVirus Scanner
 
-Virus scanners may be implemented at various level in MOSIP.  By default, ClamAV is used as antivirus scanner. This is implemented as a part of [Kernel ClamAV project](https://github.com/mosip/commons/tree/master/kernel/kernel-virusscanner-clamav) project. MOSIP uses this project to scan registration packets.
+Virus scanners may be implemented at various level in MOSIP.  By default, ClamAV is used as antivirus scanner. If you would like to integrated your anti-virus (AV), the same can be done as below: 
+
+## Registration client
+It sufficies to run your AV on registration client machine.  Integration with MOSIP in not required.
+
+## Server 
+
+This is implemented as a part of [Kernel ClamAV project](https://github.com/mosip/commons/tree/master/kernel/kernel-virusscanner-clamav) project. MOSIP uses this project to scan registration packets.
 
 You may integrate your anti-virus (AV) in the following ways:
 
