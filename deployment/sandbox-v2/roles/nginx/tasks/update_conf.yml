@@ -1,5 +1,8 @@
 # Tasks to update nginx conf file and restart nginx
 #
+
+- include_vars: '{{versions_file}}' # Need for resolving various versions
+
 - name: nginx conf template {{nginx_conf_template}} to yml 
   template:
     src: '{{nginx_conf_template}}'
@@ -26,6 +29,13 @@
   file: 
     src: '{{install_root}}/versions.yml'
     dest: '/usr/share/nginx/html/versions.txt'
+    state: link
+  become: yes
+
+- name: Set symlink to regclient keys zip file
+  file: 
+    src: '{{install_root}}/roles/reg-client-prep/files/regclientkeys.zip'
+    dest: '/usr/share/nginx/html/regclientkeys.zip'
     state: link
   become: yes
 

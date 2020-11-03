@@ -1,0 +1,16 @@
+name: websub # Will be used as service name too
+services:
+  serviceName: {{ versions.services.websub.service.keys()[0] }}
+  dockerImage: {{ versions.services.websub.service.values()[0] }}
+  servicePort: 80
+component: websub
+
+imagePullPolicy: Always
+
+domain: {{ sandbox_domain_name }}
+
+hub:
+  datasource_url: jdbc:postgresql://{{ sandbox_domain_name }}:30090/mosip_websub 
+  datasource_username: websubuser
+  datasource_password: {{secrets.postgres.dbadmin}}
+  port: 9191

@@ -7,7 +7,7 @@ metadata:
     app: {{ .Values.services.osi.serviceName }}
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.osi.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.osi.serviceName }} 

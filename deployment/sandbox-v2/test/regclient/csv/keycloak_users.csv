@@ -1,0 +1,4 @@
+realm_id,name,pwd,email,first_name,last_name,roles
+mosip,officer1,mosip123,officer1@xyz.com,Jack,Smith,REGISTRATION_OFFICER 
+mosip,super1,mosip123,super1@xyz.com,Kim,Wau,REGISTRATION_SUPERVISOR
+mosip,super2,mosip123,super2@xyz.com,John,Hill,REGISTRATION_OFFICER REGISTRATION_SUPERVISOR

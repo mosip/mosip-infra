@@ -3,3 +3,10 @@
     name: psycopg2-binary
     state: present
   become: yes
+
+- name: Install psycopg2 for python3
+  pip:
+    name: psycopg2-binary
+    state: present
+    executable: /bin/pip3
+  become: yes

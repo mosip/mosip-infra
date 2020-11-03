@@ -1,0 +1,10 @@
+<metadata>
+<groupId>io.mosip.registration</groupId>
+<artifactId>registration-services</artifactId>
+<versioning>
+<versions>
+<version>{{ versions.services.registration_client.version }}</version>
+</versions>
+<lastUpdated>20200729125958</lastUpdated>
+</versioning>
+</metadata>

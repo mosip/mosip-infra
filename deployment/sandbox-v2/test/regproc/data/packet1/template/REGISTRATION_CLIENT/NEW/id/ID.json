@@ -18,16 +18,16 @@
     "language" : "ara",
     "value" : "القنيطرة"
   } ],
-  "postalCode" : "14022",
+  "postalCode" : "{{postal_code}}",
   "fullName" : [ {
     "language" : "eng",
-    "value" : "Jejang"
+    "value" : "{{full_name}}"
   }, {
     "language" : "ara",
     "value" : "Jejang"
   } ],
-  "dateOfBirth" : "2000/07/07",
-  "referenceIdentityNumber" : "54656654546565",
+  "dateOfBirth" : "{{dob}}", 
+  "referenceIdentityNumber" : "{{ref_id_num}}",
   "individualBiometrics" : {
     "format" : "cbeff",
     "version" : 1.0,
@@ -53,31 +53,31 @@
     "language" : "ara",
     "value" : "بن منصور"
   } ],
-  "phone" : "7259791857",
+  "phone" : "{{phone}}",
   "addressLine1" : [ {
     "language" : "eng",
-    "value" : "HSR Conlony"
+    "value" : "{{address_line1}}"
   }, {
     "language" : "ara",
     "value" : "هسر كُنلُني"
   } ],
   "addressLine2" : [ {
     "language" : "eng",
-    "value" : "SECTOR-2"
+    "value" : "{{address_line2}}"
   }, {
     "language" : "ara",
     "value" : "سِكتُر-٢"
   } ],
   "residenceStatus" : [ {
     "language" : "eng",
-    "value" : "Foreigner"
+    "value" : "{{resident_status}}"
   }, {
     "language" : "ara",
     "value" : "أجنبي"
   } ],
   "addressLine3" : [ {
     "language" : "eng",
-    "value" : "HSRR"
+    "value" : "{{address_line3}}"
   }, {
     "language" : "ara",
     "value" : "هسرر"
@@ -89,5 +89,5 @@
     "language" : "ara",
     "value" : "جهة الرباط سلا القنيطرة"
   } ],
-  "email" : "xyz@xyz-tech.com"
+  "email" : "{{email}}"
 } } 

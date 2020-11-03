@@ -8,7 +8,7 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.key.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.key.serviceName }} 
@@ -44,6 +44,8 @@ spec:
           value: {{ .Values.services.key.hsmUrl }} 
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: zip_file_path
+          value: {{ .Values.services.key.hsm_zip_file }}
         ports:
         - containerPort: {{ .Values.services.key.containerPort }}
         readinessProbe:

@@ -8,7 +8,11 @@ tmp_dir: '{{install_root}}/tmp/'
 logs_dir: '{{tmp_dir}}/logs'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
-artifactory_url: http://15.207.222.178/
+artifactory_url: http://artifactory-service/
+versions_file: '{{install_root}}/versions.yml' 
+podconfig_file: '{{install_root}}/podconfig.yml'
+
+hsm_file_path: 'artifactory/libs-release-local/hsm/client.zip'
 
 sandbox_domain_name: minibox.mosip.net
 site:
@@ -155,36 +159,41 @@ softhsm:
 reg_client:
   cert_file: mosip_cer.cer
   nfs_path: '{{nfs.folder}}/reg-client/'
-  cert_path: '{{install_root}}/roles/reg-client-prep/files/'
-  xml_file: '{{install_root}}/roles/reg-client-prep/files/maven-metadata.xml'
+  cert_path: '{{install_root}}/roles/reg-client-prep/templates/'
+  xml_file: '{{install_root}}/roles/reg-client-prep/templates/maven-metadata.xml'
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
+  version: 1.1.2
 
 repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: develop
+    tag: 1.1.2
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: develop
+    tag: 1.1.2
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: develop
+    tag: 1.1.2
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: develop
+    tag: 1.1.2
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: develop
+    tag: 1.1.2
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: develop
+    tag: 1.1.2
+  websub:
+    src: https://github.com/mosip/websub
+    dest: '{{tmp_dir}}/websub'
+    tag: 1.1.2
 
 # DBs 
 #
@@ -231,11 +240,14 @@ databases:
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
+  mosip_websub:
+    user: websubuser
+    sql_path: '{{repos.websub.dest}}/db_scripts'
 
 nfs:
   server: console.sb
   folder: /srv/nfs/mosip
-
+  provisioner: nfs-provisioner  # Name
 
 hdfs:
   install_name: hadoop
@@ -265,7 +277,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo.
   git_repo_uri: https://github.com/mosip/mosip-config
-  branch: develop
+  version: 1.1.2
   private: false
   username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
   search_folders: sandbox # Subdir in repo containing properties

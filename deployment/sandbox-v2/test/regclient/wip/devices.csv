@@ -1,0 +1,2 @@
+device_id,name,spec,reg_center,valid_upto,zone
+xray-1,xray scanner,3c456a64-6825-4ab3-b07b-a6f236506dfd,10001,2020-12-31T11:59:00.000Z,RSK

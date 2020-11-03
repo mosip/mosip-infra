@@ -1,0 +1,20 @@
+{
+    "id": "f5910e1f-03d3-4fa8-8605-7c77c4826300",
+    "username": "allrolesuser",
+    "email": "allrolesuser@xyz.com",
+    "enabled": true,
+    "emailVerified": false,
+    "firstName": "Test",
+    "lastName": "User",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9NXo3aTlwZ3MvdzBSdTJyeGdRcEM3RkFBOXZsTU1hZHRLbG1SSDIyTldxeDB3ZXV2aXgxWGJRPT0="
+    }
+}
+

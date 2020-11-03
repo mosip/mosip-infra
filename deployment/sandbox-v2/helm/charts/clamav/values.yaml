@@ -1,4 +1,0 @@
-name: clamav
-docker:
-  image: mkodockx/docker-clamav:latest
-  containerPort: 3310

@@ -1,12 +1,14 @@
 component: resident
 part-of: mosip
 activeProfileEnv: mz 
-springConfigLabel: {{ config_repo.branch }} 
+springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always
+
+sitePublicUrl: {{ site.sandbox_public_url }}
 
 isGlowroot: {{ is_glowroot }} 
 

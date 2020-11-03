@@ -1,0 +1,76 @@
+podconfig:
+    kernel:
+      auth:
+        replicas: 1 
+      masterdata:
+        replicas: 1 
+      idgen:
+        replicas: 1 
+      prid:
+        replicas: 1 
+      sync:
+        replicas: 1 
+      audit :
+        replicas: 1 
+      key:
+        replicas: 1 
+      notifier:
+        replicas: 1 
+      otp:
+        replicas: 1 
+      rid:
+        replicas: 1 
+      keygen:
+        replicas: 1 
+
+    regproc:
+      camel:
+        replicas: 1 
+      notification: 
+        replicas: 1 
+      uploader:
+        replicas: 1 
+      quality:
+        replicas: 1 
+      validator:
+        replicas: 1 
+      osi:
+        replicas: 1 
+      demo:
+        replicas: 1 
+      bio:
+        replicas: 1 
+      bioauth:
+        replicas: 1 
+      abishandler:
+        replicas: 1 
+      abismid:
+        replicas: 1 
+      proxyabis:
+        replicas: 1 
+      manual:
+        replicas: 1 
+      external:
+        replicas: 1 
+      eis: 
+        replicas: 1 
+      uin:
+        replicas: 1 
+      msg:
+        replicas: 1 
+      print:
+        replicas: 1 
+      trans:
+        replicas: 1 
+      reprocess:
+        replicas: 1 
+
+    dmzregproc:  
+      receiver:
+        replicas: 1 
+      camel:
+        replicas: 1 
+      status:
+        replicas: 1 
+      pktserver:
+        replicas: 1 

@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+     kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /activemq/
+        backend:
+          serviceName: {{ .Values.name }}
+          servicePort: {{ .Values.docker.webPort }}

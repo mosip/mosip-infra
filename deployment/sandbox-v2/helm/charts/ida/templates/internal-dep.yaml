@@ -25,10 +25,6 @@ spec:
         component: {{ .Values.component }} 
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
-      initContainers:  # TODO: Temporarily added as a workaround. Duplicate key issue. 
-      - name: wait-for-auth
-        image: ellerbrock/alpine-bash-curl-ssl
-        command: ['sh', '-c', "while !(curl --connect-timeout 3 -X GET  http://ida-auth-service/idauthentication/v1/auth/actuator/health | grep status);do sleep 3;done"]
       containers:
       - name: {{ .Values.services.internal.serviceName }} 
         image: {{ .Values.services.internal.dockerImage }}
@@ -46,6 +42,8 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.internal.hsmUrl }} 
+        - name: mosipbox_public_url
+          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.internal.containerPort }}
 

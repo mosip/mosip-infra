@@ -1,6 +1,6 @@
 ## Checks while deployment is in progress
 
-* All pods should be 'green' on kubernetes dashboard, or if you are on command line, both these commands  must show pods in 1/1 state.
+* All pods should be 'green' on kubernetes dashboard, or if you are on command line, both these commands  must show pods in 1/1 or 2/2 state.
 ```
 $ kc1 get pods -A
 $ kc2 get pods -A
@@ -34,11 +34,7 @@ $ kc2 logs -f <pod name> # Running log
 $ helm1 list # All helm installs in mzcluster
 $ helm2 list # All helm installs in dmzcluster
 ```
-* Some services have additional logs.  You may login to the pod to see these logs:
-```
-$ kc1 exec -it <pod name> /bin/sh
-$ cd /home/logs
-```
+Some pods have logs available in `logger-sidecar` as well.  These are application logs.  
 
 * To re-run a module, helm delete module and then start with playbook. Example:
 ```
@@ -47,8 +43,8 @@ $ helm2 delete dmzregproc
 $ an playbooks/regproc.yml
 ```
 
-## Checks after deployment
+## Module basic sanity checks
 
-* [Pre-registration check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/prereg/prereg_check.md)
-* [Registration Processor check](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/test/regproc/README.md)
-
+* [Pre-registration](../test/prereg/README.md)
+* [Registration Processor](../test/regproc/README.md)
+* [Registration Client](../test/regclient/README.md)

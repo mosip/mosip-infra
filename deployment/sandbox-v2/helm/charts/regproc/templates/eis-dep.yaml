@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.services.eis.serviceName }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.eis.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.eis.serviceName }} 

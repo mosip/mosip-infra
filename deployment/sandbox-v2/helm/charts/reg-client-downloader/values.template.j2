@@ -1,17 +1,17 @@
 serviceName: reg-client-downloader
 
 activeProfileEnv: dmz 
-springConfigLabel: {{ config_repo.branch }} 
+springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 imagePullPolicy: Always
 docker:
-  image: {{ versions.services.registration.client.values()[0] }}
+  image: {{ versions.services.registration_client.downloader.values()[0] }}
   ports:
     containerPort: 80
     servicePort: 80
 
-version: "1.2.0-SNAPSHOT"
+version: {{ versions.services.registration_client.version }}
 mountPath: "/build_files"  # path inside docker
 crypto_key_env: {{ reg_client.crypto_key }}
 bootpwd: {{ reg_client.bootpwd }}
