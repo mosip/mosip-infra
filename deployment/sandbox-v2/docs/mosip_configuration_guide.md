@@ -12,6 +12,7 @@ The sandbox installs with default configuration.  If you would like to configure
 * [Master data](master_data.md) 
 * [Pod replication](pod.md)
 * [Real HSM](hsm.md)
+* [Anti-Virus Scanner](av.md)
 * [Pre-Registration Schema](prereg_schema_config.md)
 * [Registration client](../test/regclient/README.md) 
 
