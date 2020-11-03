@@ -1,5 +1,9 @@
 Utility to get TPM public keys along with machine name.
 
+## Pre-Requisites
+
+Requires Java 11.
+
 ## Command to build:
 
 mvn clean install
