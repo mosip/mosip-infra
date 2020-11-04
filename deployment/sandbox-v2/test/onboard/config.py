@@ -12,5 +12,6 @@ device_provider_password = 'mosip'
 csv_policy_group = 'csv/policy_group.csv'
 csv_partner = 'csv/partner.csv'
 csv_device = 'csv/device.csv'
+csv_device_approval = 'csv/device_approval.csv'
 
 

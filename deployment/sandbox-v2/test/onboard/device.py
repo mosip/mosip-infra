@@ -19,14 +19,25 @@ class App:
                                              row['for_registration'], row['make'], row['model'], 
                                              row['partner_org_name'], row['partner_id'])
             r = response_to_json(r)
-            if r['errors']:
-                print(r)
+            print(r)
+
+    def approve_device(self, csv_file):
+        '''
+        status: Activate/De-activate 
+        '''
+        reader = csv.DictReader(open(csv_file, 'rt')) 
+        for row in reader:
+            print('Updating status of device %s' % (row['device_id']))
+            r = self.mosip.approve_device(row['device_id'], row['status'], row['for_registration'])
+            r = response_to_json(r)
+            print(r)
 
 def main():
 
     app = App(conf) 
 
     app.add_device(conf.csv_device)
+    app.approve_device(conf.csv_device_approval)
 
 if __name__=="__main__":
     main()
