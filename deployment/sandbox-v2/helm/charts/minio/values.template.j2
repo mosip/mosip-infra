@@ -337,3 +337,10 @@ etcd:
   corednsPathPrefix: ""
   clientCert: ""
   clientCertKey: ""
+
+nodeAffinity:  # Added by mosip
+  enabled: {{ minio.node_affinity.enabled }}
+  node: {{ minio.node_affinity.node }}
+  taint:
+    key: {{ minio.node_affinity.taint.key }}
+    value: {{ minio.node_affinity.taint.value }}
