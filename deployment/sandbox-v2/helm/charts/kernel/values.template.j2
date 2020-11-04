@@ -73,7 +73,7 @@ services:
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
     podconfig: {{ podconfig.kernel.key | to_yaml }}
-    hsm_zip_file: {{ hsm_file_path }}
+    hsmClientZipPath: {{ hsm_client_zip_path }}
   notifier:
     serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.notifier.values()[0] }}
@@ -103,4 +103,4 @@ generators:
     name: {{ versions.services.kernel.keygen.keys()[0] }}
     dockerImage: {{ versions.services.kernel.keygen.values()[0] }}
     hsmUrl: tcp://softhsm-keymanager:80
-    hsm_zip_file: {{ hsm_file_path }}
+    hsmClientZipPath: {{ hsm_client_zip_path }}

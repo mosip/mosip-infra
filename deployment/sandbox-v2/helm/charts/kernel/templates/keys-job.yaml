@@ -38,4 +38,4 @@ spec:
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.generators.keygen.hsmUrl }} 
         - name: zip_file_path
-          value: {{ .Values.generators.keygen.hsm_zip_file }}
+          value: {{ .Values.generators.keygen.hsmClientZipPath }}
