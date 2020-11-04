@@ -8,7 +8,7 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.pm.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.pm.serviceName }} 
