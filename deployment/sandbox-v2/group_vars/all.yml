@@ -12,7 +12,6 @@ artifactory_url: http://artifactory-service/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-hsm_file_path: 'artifactory/libs-release-local/hsm/client.zip'
 
 sandbox_domain_name: minibox.mosip.net
 site:
@@ -142,6 +141,7 @@ keycloak:
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
   external_url: '{{ site.sandbox_public_url }}/keycloak'
 
+hsm_client_zip_path: 'artifactory/libs-release-local/hsm/client.zip' # Replace this with any other HSM's zip.
 softhsm:
   keymanager:  
     label: keymanager  
