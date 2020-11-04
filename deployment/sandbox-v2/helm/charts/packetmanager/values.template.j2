@@ -23,3 +23,4 @@ services:
     servicePort: 80
     ingressPath: /commons/v1/packetmanager
     healthUrl: /commons/v1/packetmanager/actuator/health
+    podconfig: {{ podconfig.packetmanager.service | to_yaml }}

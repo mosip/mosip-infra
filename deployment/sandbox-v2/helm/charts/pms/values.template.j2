@@ -25,6 +25,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/misps
     healthUrl: /partnermanagement/v1/misps/actuator/health
+    podconfig: {{ podconfig.pms.misp | to_yaml }}
+
   pm:
     serviceName: {{ versions.services.pms.pm.keys()[0] }} 
     dockerImage: {{ versions.services.pms.pm.values()[0] }}
@@ -32,6 +34,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/pmpartners
     healthUrl: /partnermanagement/v1/pmpartners/actuator/health
+    podconfig: {{ podconfig.pms.pm | to_yaml }}
+
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }} 
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
@@ -39,6 +43,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/partners
     healthUrl: /partnermanagement/v1/partners/actuator/health
+    podconfig: {{ podconfig.pms.partner | to_yaml }}
+
   policy:
     serviceName: {{ versions.services.pms.policy.keys()[0] }} 
     dockerImage: {{ versions.services.pms.policy.values()[0] }}
@@ -46,3 +52,4 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/policies
     healthUrl: /partnermanagement/v1/policies/actuator/health
+    podconfig: {{ podconfig.pms.policy | to_yaml }}
