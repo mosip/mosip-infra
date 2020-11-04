@@ -10,12 +10,10 @@ By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mo
 1. If reg client downlaoder is already running on your sandbox, delete and restart it as below:
     ```
     $ helm2 delete reg-client-downloader 
-    ``` 
-Wait for all resources to get terminated.
-    ```
+    (Wait for all resources to get terminated)
     $ sb
     $ an playbooks/reg-client-downloader.yml
-    ```
+    ``` 
 1. Download the reg client from `https://<sandbox domain name>/registration-client/1.1.2/reg-client.zip`
 
 
