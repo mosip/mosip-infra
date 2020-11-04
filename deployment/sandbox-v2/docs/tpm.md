@@ -4,10 +4,9 @@ By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mo
 
 1. Update the reg client downloader tpm environment variable:
     ```
-    File: `https://github.com/mosip/mosip-infra/blob/1.1.2/deployment/sandbox-v2/helm/charts/reg-client-downloader/values.template.j2`
+    File: helm/charts/reg-client-downloader/values.template.j2
 
     Change:
-
     tpm: "Y"
     ```
 1. If you have done the above before installing the sandbox, then you may skip to the last step.
