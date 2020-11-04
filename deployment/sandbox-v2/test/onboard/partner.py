@@ -11,7 +11,6 @@ class App:
     def __init__(self, conf):
         self.mosip = MosipSession(conf.server, conf.partner_user, conf.partner_password, 'partner')
 
-    #def add_partner(self, name, contact, address, email, partner_id, partner_type, policy_group):
     def add_partner(self, csv_file):
         reader = csv.DictReader(open(csv_file, 'rt')) 
         for row in reader:

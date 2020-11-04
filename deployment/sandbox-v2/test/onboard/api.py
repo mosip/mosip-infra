@@ -72,3 +72,44 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
+    def add_device_detail(self, device_id, device_type, device_subtype, for_registration, make, model, 
+                          partner_org_name, partner_id):
+        url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j ={
+          "id": "string",
+          "metadata": {},
+          "request": {
+            "id": device_id,
+            "deviceProviderId": partner_id,
+            "deviceTypeCode": device_type,
+            "deviceSubTypeCode": device_subtype, 
+            "isItForRegistrationDevice": for_registration,
+            "make": make,
+            "model": model, 
+            "partnerOrganizationName": partner_org_name
+          },
+          "requesttime": ts,
+          "version": "1.0"
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def approve_device(self, device_id, status, for_registration): # status: Activate/De-activate 
+        url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          "id": "string",
+          "metadata": {},
+          "request": {
+            "approvalStatus": status,
+            "id": device_id,
+            "isItForRegistrationDevice": for_registration
+          },
+          "requesttime": ts,
+          "version": "1.0"
+        }
+        r = requests.patch(url, cookies=cookies, json = j)
+        return r

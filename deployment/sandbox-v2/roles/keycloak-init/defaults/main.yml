@@ -72,6 +72,7 @@ keycloak_mosip_users: # Assumption "username.json" exists with same username ins
   - {realm_id: 'mosip', user_file: 'users/superadmin.json'}
   - {realm_id: 'mosip', user_file: 'users/policymanager.json'}
   - {realm_id: 'mosip', user_file: 'users/partner1.json'}
+  - {realm_id: 'mosip', user_file: 'users/deviceprovider1.json'}
   - {realm_id: 'mosip', user_file: 'users/110005.json'}
   - {realm_id: 'mosip', user_file: 'users/110006.json'}
   - {realm_id: 'mosip', user_file: 'users/110118.json'}
@@ -145,6 +146,8 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'policymanager', role_name: 'POLICYMANAGER'}
 
   - {realm_id: 'mosip', username: 'partner1', role_name: 'PARTNER'}
+
+  - {realm_id: 'mosip', username: 'deviceprovider1', role_name: 'DEVICE_PROVIDER'}
   
   - {realm_id: 'mosip', username: 'regproc_test', role_name: 'REGISTRATION_OFFICER'}
 
