@@ -2,7 +2,9 @@
 
 By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mosip-infra/blob/1.1.2/deployment/sandbox-v2/playbooks/reg-client-downloader.yml) with Trusted Platform Module (TPM) disabled.  To enable TPM such that you use trusted private/public keys of the reg client machines, do the following:
 
-1. Update the reg client downloader tpm environment variable in `https://github.com/mosip/mosip-infra/blob/1.1.2/deployment/sandbox-v2/helm/charts/reg-client-downloader/values.template.j2` as
+1. Update the reg client downloader tpm environment variable:
+    File: `https://github.com/mosip/mosip-infra/blob/1.1.2/deployment/sandbox-v2/helm/charts/reg-client-downloader/values.template.j2`
+    Change:
     ```
     tpm: "Y"
     ```
