@@ -11,7 +11,7 @@ class App:
     def __init__(self, conf):
         self.mosip = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_password, 'partner')
 
-    def add_device(self, csv_file):
+    def add_device_detail(self, csv_file):
         reader = csv.DictReader(open(csv_file, 'rt')) 
         for row in reader:
             print('Adding device %s:%s' % (row['device_type'], row['device_id']))
