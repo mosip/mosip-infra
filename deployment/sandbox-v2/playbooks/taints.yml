@@ -30,3 +30,14 @@
       shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{hdfs.node_affinity.node}} {{ hdfs.node_affinity.taint.key}}:NoSchedule-'         
       when: hdfs.node_affinity.enabled != true
       ignore_errors: yes
+
+    # Enable minio  taint 
+    - name: Enable minio taint    
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{minio.node_affinity.node}} {{ minio.node_affinity.taint.key}}={{minio.node_affinity.taint.value}}:NoSchedule --overwrite=true'         
+      when: minio.node_affinity.enabled == true
+    
+    # Or disable taint
+    - name: Disable minio taint    
+      shell: 'kubectl --kubeconfig {{kube_config}} taint nodes {{minio.node_affinity.node}} {{ minio.node_affinity.taint.key}}:NoSchedule-'         
+      when: minio.node_affinity.enabled != true
+      ignore_errors: yes
