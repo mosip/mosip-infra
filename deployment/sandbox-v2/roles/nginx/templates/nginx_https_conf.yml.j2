@@ -280,8 +280,8 @@ http {
            proxy_pass http://mzworker0.sb:30080/v1/datashare/;
         }
 
-        location /v1/mosip-mock-service/ { 
-           proxy_pass http://mzworker0.sb:30080/v1/mosip-mock-service/;
+        location /v1/mock-abis-service/ { 
+           proxy_pass http://mzworker0.sb:30080/v1/mock-abis-service/;
         }
 
         error_page 404 /404.html;

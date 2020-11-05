@@ -18,3 +18,7 @@ spec:
         backend:
           serviceName: {{ template "minio.fullname" . }}
           servicePort: {{ .Values.service.port }} 
+      - path: /minio-api(/|$)(.*)  # To api's
+        backend:
+          serviceName: {{ template "minio.fullname" . }}
+          servicePort: {{ .Values.service.port }}
