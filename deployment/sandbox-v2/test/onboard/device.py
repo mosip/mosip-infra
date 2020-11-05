@@ -21,7 +21,7 @@ class App:
             r = response_to_json(r)
             print(r)
 
-    def approve_device(self, csv_file):
+    def approve_device_detail(self, csv_file):
         '''
         status: Activate/De-activate 
         '''
@@ -36,8 +36,9 @@ def main():
 
     app = App(conf) 
 
-    app.add_device(conf.csv_device)
-    app.approve_device(conf.csv_device_approval)
+    app.add_device_detail(conf.csv_device)
+    app.approve_device_detail(conf.csv_device_approval)
+    app.add_sbi(conf.csv_sbi)
 
 if __name__=="__main__":
     main()
