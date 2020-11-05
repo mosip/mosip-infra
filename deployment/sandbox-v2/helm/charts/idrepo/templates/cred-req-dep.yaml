@@ -42,6 +42,8 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.services.credentialrequest.containerPort }}
 

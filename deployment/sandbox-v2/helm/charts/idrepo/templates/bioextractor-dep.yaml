@@ -44,6 +44,8 @@ spec:
           value: {{ .Values.extraction_format }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 
