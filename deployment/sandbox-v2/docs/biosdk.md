@@ -12,4 +12,4 @@ This service may run inside the Kubernetes cluster as a pod or hosted outside th
 
 ## Integration with Reg Proc
 
-The above service work for regproc as well. 
+The above service works for regproc as well. 
