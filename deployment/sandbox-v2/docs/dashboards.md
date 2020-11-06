@@ -21,3 +21,8 @@ As part of sandbox installation a default dashboard is installed to view logs of
 
 * Recommended charts:
   * 11074
+
+## Admin
+
+Open MOSIP Admin portal from sandbox home page. Login with `superadmin`, password `mosip`.
+
