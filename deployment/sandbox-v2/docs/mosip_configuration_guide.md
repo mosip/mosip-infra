@@ -15,6 +15,7 @@ The sandbox installs with default configuration.  If you would like to configure
 * [Real HSM](hsm.md)
 * [Anti-Virus Scanner](av.md)
 * [TPM](tpm.md)
+* [BioSDK integration](biosdk.md)
 * [Pre-Registration Schema](prereg_schema_config.md)
 * [Registration client](../test/regclient/README.md) 
 
