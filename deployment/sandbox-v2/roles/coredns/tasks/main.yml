@@ -27,8 +27,8 @@
 
 - name: Backup resolv.conf file
   copy:
-   src: '/etc/resolv.conf'
-   dest: '/etc/resolv.conf.bak'
+    src: '/etc/resolv.conf'
+    dest: '/etc/resolv.conf.bak'
   become: true  
 
 - name: Copy Corefile
