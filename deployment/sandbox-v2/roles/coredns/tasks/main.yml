@@ -25,6 +25,12 @@
   with_inventory_hostnames:
     - all
 
+- name: Backup resolv.conf file
+  copy:
+   src: '/etc/resolv.conf'
+   dest: '/etc/resolv.conf.bak'
+  become: true  
+
 - name: Copy Corefile
   copy:
     src: '{{install_root}}/roles/coredns/files/Corefile'
