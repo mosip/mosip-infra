@@ -23,13 +23,7 @@
     path: '{{coredns.db}}'
     line:  '{{item}}.    IN    A    {{hostvars[item]["ansible_host"]}}'
   with_inventory_hostnames:
-    - all
-
-- name: Backup resolv.conf file
-  copy:
-    src: '/etc/resolv.conf'
-    dest: '/etc/resolv.conf.bak'
-  become: true  
+    - all 
 
 - name: Copy Corefile
   copy:
