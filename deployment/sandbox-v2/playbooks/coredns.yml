@@ -10,6 +10,12 @@
 - hosts: all
   gather_facts: false
   tasks:
+   - name: Backup resolv file
+     copy:
+       src: '/etc/resolv.conf'
+       dest: '/etc/resolv.conf.bak'
+     become: yes
+
    - name: Replace resolv file
      template:
        src: '{{install_root}}/roles/coredns/templates/resolv.conf.j2'
