@@ -67,8 +67,6 @@ versions:
         'regproc-abis-handler-stage': 'mosipdev/registration-processor-abis-handler-stage:1.1.3'
       abismid:
         'regproc-abis-middleware-stage': 'mosipdev/registration-processor-abis-middleware-stage:1.1.3'
-      proxyabis:
-        'regproc-proxy-abis': 'mosipdev/registration-processor-abis:1.1.3'
       manual:
         'regproc-manual-verification-stage': 'mosipdev/registration-processor-manual-verification-stage:1.1.3'
       external:
