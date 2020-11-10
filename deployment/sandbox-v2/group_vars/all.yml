@@ -169,33 +169,32 @@ reg_client:
   xml_file: '{{install_root}}/roles/reg-client-prep/templates/maven-metadata.xml'
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
-  version: 1.1.2
 
 repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.2
+    tag: 1.1.3
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: 1.1.2
+    tag: 1.1.3
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: 1.1.2
+    tag: 1.1.3
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: 1.1.2
+    tag: 1.1.3
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.2
+    tag: 1.1.3
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: 1.1.2
+    tag: 1.1.3
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
