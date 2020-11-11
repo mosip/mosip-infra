@@ -36,4 +36,6 @@ spec:
         - name: is_glowroot_env
           value: absent
         - name: PKCS11_PROXY_SOCKET
-          value: {{ .Values.generators.keygen.hsmUrl }} 
+          value: {{ .Values.generators.keygen.hsmUrl }}
+        - name: zip_file_path
+          value: {{ .Values.generators.keygen.hsmClientZipPath }}
