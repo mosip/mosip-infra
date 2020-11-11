@@ -139,9 +139,9 @@ versions:
     
     admin:
       service:
-        'admin-service': 'mosipid/admin-service:1.1.2'
+        'admin-service': 'mosipdev/admin-service:1.1.3'
       ui:
-        'admin-ui': 'mosipid/admin-ui:1.1.2'
+        'admin-ui': 'mosipdev/admin-ui:1.1.3'
     
     packetmanager:
       service:
