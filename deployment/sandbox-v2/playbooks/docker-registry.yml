@@ -1,0 +1,8 @@
+# Playbook to run a local docker registry.  This is useful when Docker Hub is not accessible esp in
+# secure mode when clusters will not have Internet access. 
+# The registry runs on console.   
+- hosts: console
+  gather_facts: true
+  roles: 
+      - {role: docker-registry, when: local_docker_registry.enabled == true} 
+

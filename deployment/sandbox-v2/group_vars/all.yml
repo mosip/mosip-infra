@@ -40,8 +40,19 @@ is_glowroot: absent  # absent or present
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 docker_hub:
-  private: false  # For private dockers set this to true, and set credentials in secrets.yml
+  private: false  # For private repo on Docker Hub, set this to true, and set credentials in secrets.yml
   keyname: dockerhubkey  # Name of kubernetes secret
+
+local_docker_registry:
+  enabled: false
+  image: 'registry:2'
+  name: 'local-registry'
+  port: 5000
+  
+# List of local docker registries (other than Docker Hub) is needed to make sure http access works when dockers
+# are pulled from k8s cluster.  Used while installing clusters. See k8s/docker role.
+docker_registries:  
+  - '{{groups.console[0]}}:{{local_docker_registry.port}}'   # Docker registry running on console
 
 clusters:
   mz:
@@ -251,7 +262,7 @@ databases:
     sql_path: '{{repos.websub.dest}}/db_scripts'
 
 nfs:
-  server: console.sb
+  server: '{{groups.console[0]}}'
   folder: /srv/nfs/mosip
   provisioner: nfs-provisioner  # Name
 
