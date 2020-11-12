@@ -39,7 +39,7 @@
     kube_config: '{{kube_config}}'
     install_name: 'graf'
     is_template: true  
-    helm_chart: 'stable/grafana'
+    helm_chart: 'grafana/grafana'  # Assumed grafana repo has already been added in Helm
     helm_namespace: '{{ mon_prop.namespace }}'
     helm_values: '{{charts_root}}/grafana/values.template.j2'
     helm_strings: ''
