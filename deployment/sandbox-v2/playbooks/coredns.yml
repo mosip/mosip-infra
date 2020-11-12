@@ -31,5 +31,5 @@
    - name: Append public name server to console resolv.conf
      lineinfile:
        path: /etc/resolv.conf
-       line: 'nameserver: 8.8.8.8'
+       line: 'nameserver 8.8.8.8'
      become: yes
