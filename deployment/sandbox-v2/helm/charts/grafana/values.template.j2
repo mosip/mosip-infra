@@ -13,3 +13,13 @@ ingress:
   # Explicitly disabling any hosts and default values.yml seems to have default host specified.
   hosts: []
   path: "/{{mon_prop.grafana_ingress_path}}"
+
+persistence:
+  type: pvc
+  enabled: true
+  storageClassName: {{nfs.provisioner}} 
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+
+
