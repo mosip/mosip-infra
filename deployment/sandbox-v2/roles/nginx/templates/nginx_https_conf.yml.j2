@@ -284,6 +284,10 @@ http {
            proxy_pass http://mzworker0.sb:30080/v1/mock-abis-service/;
         }
 
+        location /v1/biosdk-service/ {
+           proxy_pass http://mzworker0.sb:30080/v1/biosdk-service/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }

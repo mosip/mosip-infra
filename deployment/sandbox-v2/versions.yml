@@ -90,7 +90,7 @@ versions:
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.3'
       status:
-        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:1.1.3
+        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:1.1.3'
       pktserver:
         'regproc-dmz-packet-server': 'mosipdev/registration-processor-dmz-packet-server:1.0.9'
         
@@ -160,6 +160,10 @@ versions:
     mock:
       abis:
         'mock-abis-service': 'mosipdev/mock-abis:master'
+
+    mockbiosdk:
+      service:
+        'mock-biosdk-service': 'mosipdev/sdk-services:1.1.3'
 
     artifactory:
       service:
