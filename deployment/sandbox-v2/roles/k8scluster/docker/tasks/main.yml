@@ -18,18 +18,6 @@
   when: insecure_registries is defined and insecure_registries | length > 0
   lineinfile: dest={{ system_env_dir }}/docker regexp=^INSECURE_REGISTRY= line=INSECURE_REGISTRY="{% for reg in insecure_registries %}--insecure-registry={{ reg }} {% endfor %}"
 
-# Creating a daemon.json file as the above method does not work for latest version of dockers. TODO: check 
-- name: Create daemon.json
-  when: insecure_registries is defined and insecure_registries | length > 0
-  copy:
-    content: '{ "insecure-registries" :  {{insecure_registries}} }'
-    dest: /etc/docker/daemon.json
-    force: yes
-    group: root
-    owner: root
-    mode: 0644
-  become: yes
-
 - name: Add registry to Docker config
   when: add_registry is defined and add_registry > 0
   lineinfile: dest={{ system_env_dir }}/docker regexp=^ADD_REGISTRY= line=ADD_REGISTRY="{% for reg in add_registry %}--add-registry={{ reg }} {%endfor %}"
