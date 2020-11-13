@@ -11,7 +11,8 @@
     - {role: ssl/self-signed}  
     - {role: nginx, when: ssl_prop.get_certificate == true and site.ssl.ca == 'letsencrypt' }
     - {role: ssl/letsencrypt, when: ssl_prop.get_certificate == true and site.ssl.ca == 'letsencrypt' }
-    - {role: nginx, nginx_conf_template: nginx_https_conf.yml.j2}  # Conf file with ssl
+    - {role: nginx, nginx_conf_template: nginx_https_conf.yml.j2, when: developer_mode == true }  # Conf file with public access files.
+    - {role: nginx, nginx_conf_template: nginx_private_https_conf.yml.j2, when: developer_mode == false }  # Conf file with private access files.
   
 
 
