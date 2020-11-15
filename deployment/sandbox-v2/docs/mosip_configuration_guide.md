@@ -2,6 +2,8 @@
 
 The sandbox installs with default configuration.  If you would like to configure MOSIP differently refer to the below sections:
 
+## Configurations
+
 * [DNS](dns.md)
 * [Local docker registry](local_registry.md)
 * [Private dockers](private_dockers.md)
@@ -13,10 +15,11 @@ The sandbox installs with default configuration.  If you would like to configure
 * [Master data](master_data.md) 
 * [Pod replication](pod.md)
 * [Taints](taints.md)
-* [Real HSM](hsm.md)
-* [Anti-Virus Scanner](av.md)
 * [TPM](tpm.md)
-* [BioSDK integration](biosdk.md)
 * [Pre-Registration Schema](prereg_schema_config.md)
 * [Registration client](../test/regclient/README.md) 
 
+## Integrations
+* [Real HSM](hsm.md)
+* [Anti-Virus Scanner](av.md)
+* [BioSDK](biosdk.md)
