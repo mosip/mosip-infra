@@ -112,7 +112,7 @@ clusters:
       grafana_ingress_path: 'dmz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
       elasticsearch:
-        host: '{{groups.mzworkers[0]:30080/elasticsearch' # Connect to elasticsearch on MZ
+        host: '{{groups.mzworkers[0]}}:30080/elasticsearch' # Connect to elasticsearch on MZ
       kibana: 
         url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ. 
 
