@@ -9,7 +9,7 @@ import csv
 
 class App:
     def __init__(self, conf):
-        self.mosip = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_password, 'partner')
+        self.mosip = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, 'partner')
 
     def add_device_detail(self, csv_file):
         reader = csv.DictReader(open(csv_file, 'rt')) 

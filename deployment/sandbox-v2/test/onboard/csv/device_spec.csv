@@ -1,2 +1,4 @@
-device_id,device_type,device_subtype,for_registration,make,model,partner_org_name,partner_id,
-3456,Face,Full face,true,LogitTech,C615,Smart Face,fp1
+device_type,name,description,device_subtype,for_registration,make,model,min_driver_ver,partner_org_name,partner_id,language
+Face,Face camera,Face spec,Full face,true,LogitTech,C615,1.0,Smart Face,fp1,eng
+Face,Face camera,Face spec,Full face,true,LogitTech,C615,1.0,Smart Face,fp1,ara
+
