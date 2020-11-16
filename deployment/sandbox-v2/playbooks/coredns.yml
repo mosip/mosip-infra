@@ -14,6 +14,7 @@
      copy:
        src: '/etc/resolv.conf'
        dest: '/etc/resolv.conf.bak'
+       force: false
      become: yes
 
    - name: Replace resolv file
@@ -21,4 +22,14 @@
        src: '{{install_root}}/roles/coredns/templates/resolv.conf.j2'
        dest: /etc/resolv.conf
      when: coredns.enabled == true
+     become: yes
+
+## Append 8.8.8.8 to console file 
+- hosts: console
+  gather_facts: false
+  tasks:
+   - name: Append public name server to console resolv.conf
+     lineinfile:
+       path: /etc/resolv.conf
+       line: 'nameserver 8.8.8.8'
      become: yes

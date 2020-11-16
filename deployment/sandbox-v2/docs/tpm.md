@@ -8,15 +8,15 @@ By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mo
 
     Change:
     tpm: "Y"
-    ```
-1. If you have done the above before installing the sandbox, then you may skip to the last step.
-1. If reg client downlaoder is already running on your sandbox, delete and restart it as below:
+    ``
+1. If you have done the above before installing the sandbox, then you may skip this step.  Otherwise, if reg client downlaoder is already running on your sandbox, delete and restart it as below:
     ```
     $ helm2 delete reg-client-downloader 
     (Wait for all resources to get terminated)
     $ sb
     $ an playbooks/reg-client-downloader.yml
     ``` 
-1. Download the reg client from `https://<sandbox domain name>/registration-client/1.1.2/reg-client.zip`
+1. Add name and public key of the reg client machine in DB in `mosip_master/machine_master` and `mosip_master/machine_master` table.  You can get the public key of your machine using [TPM Util](../utils/tpm).
 
+1. Download the reg client from `https://<sandbox domain name>/registration-client/1.1.2/reg-client.zip`
 

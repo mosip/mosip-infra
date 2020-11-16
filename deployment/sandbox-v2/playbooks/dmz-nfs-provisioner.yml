@@ -1,0 +1,16 @@
+# Installs NFS provisioner (client) to allocate space on NFS without
+# having to to explicitly create Persistent Volumes.
+
+- hosts: console
+  gather_facts: true
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: nfs-provisioner
+    helm_chart: '{{charts_root}}/nfs-client-provisioner'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/nfs-client-provisioner/values.template.j2'
+    helm_strings: ''
+  roles:
+     - {role:  helm, vars: {kube_config: '{{clusters.dmz.kube_config}}'}}
+

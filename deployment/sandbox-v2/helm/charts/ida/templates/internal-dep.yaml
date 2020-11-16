@@ -46,6 +46,8 @@ spec:
           value: {{ .Values.sitePublicUrl }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: zip_file_path
+          value: {{ .Values.services.internal.hsmClientZipPath }}
         ports:
         - containerPort: {{ .Values.services.internal.containerPort }}
 

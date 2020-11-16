@@ -20,8 +20,6 @@ podconfig:
       replicas: 1 
     rid:
       replicas: 1 
-    keygen:
-      replicas: 1 
 
   regproc:
     camel:

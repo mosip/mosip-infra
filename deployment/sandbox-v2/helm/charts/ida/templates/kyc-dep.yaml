@@ -41,7 +41,9 @@ spec:
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
-          value: {{ .Values.services.kyc.hsmUrl }} 
+          value: {{ .Values.services.kyc.hsmUrl }}
+        - name: zip_file_path
+          value: {{ .Values.services.kyc.hsmClientZipPath }}
         ports:
         - containerPort: {{ .Values.services.kyc.containerPort }}
 

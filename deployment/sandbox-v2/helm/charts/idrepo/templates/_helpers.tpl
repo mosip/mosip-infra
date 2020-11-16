@@ -9,7 +9,7 @@ volumeMounts:
 {{- define "logger.sidecar" }}
 - name: logger-sidecar
   image: busybox
-  args: [/bin/sh, -c, 'tail -F /logs/idrepo.log']
+  args: [/bin/sh, -c, 'tail -F /logs/id-repo.log']
   volumeMounts:
   - name: applogs
     mountPath: /logs

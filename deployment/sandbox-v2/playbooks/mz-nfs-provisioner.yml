@@ -12,5 +12,5 @@
     helm_values: '{{charts_root}}/nfs-client-provisioner/values.template.j2'
     helm_strings: ''
   roles:
-     - {role:  helm}
+     - {role:  helm, vars: {kube_config: '{{clusters.mz.kube_config}}'}}
 

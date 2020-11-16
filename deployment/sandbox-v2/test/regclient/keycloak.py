@@ -7,6 +7,8 @@ import base64
 import os
 import secrets
 import sys
+import secrets
+import hashlib
 sys.path.insert(0, '../')
 from utils import *
 
@@ -76,7 +78,10 @@ class KeycloakSession:
                     'value': pwd,
                     'temporary': False
                 }
-            ]
+            ],
+            'attributes': {
+              'userPassword': salted_password(pwd)  # Needed for reg client
+            }
         } 
         r = requests.put(url, headers=headers, json = j)
         return r
@@ -116,4 +121,22 @@ class KeycloakSession:
         }
         r = requests.post(url, headers=headers, json = [role_json]) # Keycloak api expects list
         return r
+
+
+def salted_password(pwd):
+    '''
+    Generates a random salt of 8 bytes, appends to original password and generates a SHA256 hash.
+    Appends salt bytes to hashed output and further base64 encodes the final output.
+    '''
+
+    salt = secrets.token_bytes(8) 
+    h = hashlib.sha256()
+    h.update(pwd.encode() + salt)
+    salted_hash = h.digest()  # type bytes
+    salted_hash = salted_hash + salt  # Append salt
+    salted_hash = base64.b64encode(salted_hash)  # type bytes
+    salted_hash = '{SSHA256}'+salted_hash.decode()
+    b64_salted_hash = base64.b64encode(salted_hash.encode()).decode()  # bytes -> str
+    return b64_salted_hash
+
 
