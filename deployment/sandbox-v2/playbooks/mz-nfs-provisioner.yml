@@ -13,5 +13,4 @@
     helm_strings: ''
   roles:
      - {role:  helm, vars: {kube_config: '{{clusters.mz.kube_config}}'}}
-     - {role:  helm, vars: {kube_config: '{{clusters.dmz.kube_config}}'}}
 
