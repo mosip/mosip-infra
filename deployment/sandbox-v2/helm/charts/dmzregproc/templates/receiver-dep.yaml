@@ -5,7 +5,6 @@ metadata:
   namespace: {{ .Release.Namespace }} 
   labels:
     app: {{ .Values.services.receiver.serviceName }}
-    
 spec:
   replicas: {{ .Values.services.receiver.podconfig.replicas }}
   selector:
@@ -22,6 +21,7 @@ spec:
       labels:
         app: {{ .Values.services.receiver.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:

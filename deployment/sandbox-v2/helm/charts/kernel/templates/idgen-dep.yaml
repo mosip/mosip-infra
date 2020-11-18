@@ -24,6 +24,7 @@ spec:
       labels:
         app: {{ .Values.services.idgen.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
