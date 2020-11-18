@@ -5,3 +5,5 @@ curl -X GET http://mzworker0.sb:30080/kibana/api/kibana/dashboards/export?dashbo
 ```
 
 The dahsboard id may be found in the Kibana URL (on the browser) when you open the dashboard.
+
+There are some saved filter queries as well in file `queries.ndjson`.  This file is generated using `export.sh`.

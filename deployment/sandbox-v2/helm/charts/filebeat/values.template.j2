@@ -9,7 +9,7 @@ filebeatConfig:
           templates:
             - condition:
                 equals:
-                  kubernetes.labels.component: kernel 
+                  kubernetes.labels.exportLogs: enabled
               config:
                 - type: container
                   paths:
