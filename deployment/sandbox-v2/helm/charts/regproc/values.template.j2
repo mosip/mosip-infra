@@ -158,16 +158,6 @@ services:
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
     podconfig: {{ podconfig.regproc.abismid | to_yaml }}
 
-  proxyabis:
-    serviceName: {{ versions.services.regproc.proxyabis.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.proxyabis.values()[0] }}
-    ports:
-      containerPort: 9098
-      servicePort: 80
-    ingressPath: /abis
-    healthUrl: /abis/actuator/health
-    podconfig: {{ podconfig.regproc.proxyabis | to_yaml }}
-
   manual:
     serviceName: {{ versions.services.regproc.manual.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.manual.values()[0] }}
