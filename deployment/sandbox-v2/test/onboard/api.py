@@ -148,6 +148,37 @@ class MosipSession:
 
         return r
 
+    def add_device_in_masterdb(self, code, name, description, language, update=False):
+        '''
+        By default, devices are added. If update is true, then put request is sent
+        '''
+        url = 'https://%s/v1/masterdata/devicetypes' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'deviceSpecId': '736',
+            #'id': '',
+            'isActive': true,
+            'langCode': language,
+            'name': 'Face',
+            'regCenterId': '10002',
+            'serialNum': '40749669',
+            'validityDateTime': '2021-10-01T11:24:47.241Z',
+            'zoneCode': 'NTH'
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+
+
+        if update:
+            r = requests.put(url, cookies=cookies, json = j)
+        else:
+            r = requests.post(url, cookies=cookies, json = j)
+
     def approve_device_detail(self, device_id, status, for_registration): # status: Activate/De-activate 
         url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server
         cookies = {'Authorization' : self.token}

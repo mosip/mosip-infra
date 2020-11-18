@@ -4,6 +4,7 @@ import sys
 from api import *
 import config as conf
 import csv
+import argparse
 sys.path.insert(0, '../')
 from utils import *
 
@@ -30,7 +31,6 @@ class App:
                 r = response_to_json(r)
                 print(r)
 
-    #def add_device_type_in_masterdb(self, code, name, description, language):
     def add_device_type_in_masterdb(self, csv_file):
         reader = csv.DictReader(open(csv_file, 'rt')) 
         for row in reader:
@@ -39,13 +39,19 @@ class App:
             r = response_to_json(r)
             print(r)
 
+def parse(): 
+   parser = argparse.ArgumentParser()
+   parser.add_argument('table', help='type|spec|device') 
+   args = parser.parse_args()
+   return args
 
 def main():
-
+    args = parse()
     app = App(conf) 
-
-    #app.add_device_type_in_masterdb(conf.csv_device_type)
-    app.add_device_spec_in_masterdb(conf.csv_device_spec)
+    if args.table == 'type':
+        app.add_device_type_in_masterdb(conf.csv_device_type)
+    if args.table == 'spec': 
+        app.add_device_spec_in_masterdb(conf.csv_device_spec)
 
 if __name__=="__main__":
     main()
