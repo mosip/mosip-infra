@@ -1,0 +1,2 @@
+key_path,passphrase,cert_path,cn,org_name,country,province,locality,valid_days
+certs/dp1/pvt_key.pem,abc,certs/dp1/self_cert.pem,smcam.com,Smart Cameras,IN,Karantaka,Bangalore,365,certs/ca1/selfsigned.pem,certs/ca1/pvt_key.pem,abc

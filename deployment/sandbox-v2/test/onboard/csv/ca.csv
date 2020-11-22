@@ -1,0 +1,3 @@
+key_path,passphrase,cert_path,cn,org_name,country,province,locality,valid_days
+certs/ca1/pvt_key.pem,abc,certs/ca1/self_cert.pem,mosip.org,MOSIP Project,IN,Karantaka,Bangalore,365
+certs/ca2/pvt_key.pem,abc,certs/ca2/self_cert.pem,hello.org,Hello World Project,IN,Karantaka,Bangalore,365

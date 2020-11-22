@@ -33,7 +33,7 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def create_policy_group(self, name, description):
+    def add_policy_group(self, name, description):
         url = 'https://%s/partnermanagement/v1/policies/policies/policyGroup' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -43,6 +43,29 @@ class MosipSession:
             "request": {
                  "name": name,
                  "desc" : description
+             },
+            "requesttime": ts,
+            "version": "1.0"
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def add_policy(self, name, description, policy, policy_group, policy_type):
+        '''
+        policies: dict with policies structure
+        '''
+        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            "id": "string",
+            "metadata": {},
+            "request": {
+                 "name": name,
+                 "desc" : description,
+                 "policies": policy,
+                 'policyGroupName': policy_group,
+                 'policyType': policy_type
              },
             "requesttime": ts,
             "version": "1.0"
@@ -71,6 +94,15 @@ class MosipSession:
         }
         r = requests.post(url, cookies=cookies, json = j)
         return r
+
+    def public_policy(self, policy_group_id, policy_id):
+       # /policies/publishPolicy/policyGroupId/{policyGroupId}/policyId/{policyId}
+        url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
+        cookies = {'Authorization' : self.token}
+        r = requests.post(url, cookies=cookies)
+        return r
+
+     
 
     def add_device_detail(self, device_id, device_type, device_subtype, for_registration, make, model, 
                           partner_org_name, partner_id):
@@ -148,36 +180,40 @@ class MosipSession:
 
         return r
 
-    def add_device_in_masterdb(self, code, name, description, language, update=False):
+    def add_device_in_masterdb(self, device_id, spec_id, name, serial_num, reg_center, valid_till, language, zone,
+                               update=False):
         '''
         By default, devices are added. If update is true, then put request is sent
         '''
-        url = 'https://%s/v1/masterdata/devicetypes' % self.server
+        url = 'https://%s/v1/masterdata/devices' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
           'id': 'string',
           'metadata': {},
           'request': {
-            'deviceSpecId': '736',
-            #'id': '',
-            'isActive': true,
+            'id': device_id,
+            'name': name,
+            'deviceSpecId': spec_id,
+            'ipAddress': '', # Unused
+            'isActive': True, 
             'langCode': language,
-            'name': 'Face',
-            'regCenterId': '10002',
-            'serialNum': '40749669',
-            'validityDateTime': '2021-10-01T11:24:47.241Z',
-            'zoneCode': 'NTH'
+            'macAddress': '',  # Unused 
+            'regCenterId': reg_center,
+            'serialNum': serial_num,
+            'validityDateTime': valid_till, # format'2021-10-01T11:24:47.241Z'
+            'zoneCode': zone
           },
           'requesttime': ts,
           'version': '1.0'
         }
 
-
         if update:
             r = requests.put(url, cookies=cookies, json = j)
         else:
             r = requests.post(url, cookies=cookies, json = j)
+
+        return r
 
     def approve_device_detail(self, device_id, status, for_registration): # status: Activate/De-activate 
         url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server
