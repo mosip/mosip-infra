@@ -58,21 +58,51 @@ class MosipSession:
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
-            "id": "string",
-            "metadata": {},
-            "request": {
-                 "name": name,
-                 "desc" : description,
-                 "policies": policy,
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                 'name': name,
+                 'desc' : description,
+                 'policies': policy,
                  'policyGroupName': policy_group,
                  'policyType': policy_type
              },
-            "requesttime": ts,
-            "version": "1.0"
+            'requesttime': ts,
+            'version': '1.0'
         }
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
+    def update_policy(self, name, description, policy, policy_group, policy_type, policy_id):
+        '''
+        policies: dict with policies structure
+        policy_id: str
+        '''
+        url = 'https://%s/partnermanagement/v1/policies/policies/%s' % (self.server, policy_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                 'name': name,
+                 'desc' : description,
+                 'policies': policy,
+                 'policyGroupName': policy_group,
+                 'policyType': policy_type
+             },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.put(url, cookies=cookies, json = j)
+        return r
+
+    def get_policies(self):
+        cookies = {'Authorization' : self.token}
+        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        r = requests.get(url, cookies=cookies)
+        return r
+        
     def add_partner(self, name, contact, address, email, partner_id, partner_type, policy_group):
         url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
         cookies = {'Authorization' : self.token}

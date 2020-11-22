@@ -40,6 +40,22 @@ def add_policy(csv_file):
         r = session.add_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'])
         r = response_to_json(r)
         print(r)
+        if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
+            print('Updating policy "%s"' % row['name'])
+            r = session.get_policies() 
+            r = response_to_json(r)
+            policies =  r['response']
+            policy_id = None
+            for policy in policies:
+                if policy['policyName'] == row['name']:
+                    policy_id = policy['policyId']
+            if policy_id is None:
+                print('Policy id for policy "%s" could not be found, skipping..' % row['name'])
+                continue
+            r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'],
+                                     policy_id)
+            r = response_to_json(r)
+            print(r) 
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
