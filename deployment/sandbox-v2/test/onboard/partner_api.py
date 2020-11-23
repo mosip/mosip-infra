@@ -154,9 +154,28 @@ class MosipSession:
             'version': '1.0'
         } 
 
-        print(j)
         r = requests.patch(url, cookies=cookies, json = j)
 
+        return r
+
+    def approve_partner_policy(self, api_request_id, status):
+        '''
+        status: Approved/
+        '''
+        url = 'https://%s/partnermanagement/v1/pmpartners/pmpartners/PartnerAPIKeyRequests/%s' % (self.server,
+                                                                                                 api_request_id) 
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'status': status 
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.patch(url, cookies=cookies, json = j)
         return r
 
     def upload_ca_certificate(self, cert_data, partner_domain):

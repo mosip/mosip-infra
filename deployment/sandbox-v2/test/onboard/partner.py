@@ -100,21 +100,25 @@ def upload_partner_certs(csv_file):
     for row in reader:
         print('Uplading partner certificate for "%s"' % row['org_name'])
         cert_data = open(row['cert_path'], 'rt').read()
-        #def upload_partner_certificate(self, cert_data, org_name, partner_domain, partner_id, partner_type):
         r = session.upload_partner_certificate(cert_data, row['org_name'], row['partner_domain'], row['partner_id'],
                                                row['partner_type'])
-
         r = response_to_json(r)
         print(r)
         
-#def map_partner_policy( partner_id, policy_name, description):
 def map_partner_policy(csv_file):
-    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         print('Sending partner-policy mapping request for %s-%s' % (row['partner_id'], row['policy_name']))
-        r = session.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
+        r = session1.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
+        r = response_to_json(r)
         print(r)
+        api_request_id = r['response']['apiRequestId']
+
+        # Approve the same
+        print('Approving request for %s-%s' % (row['partner_id'], row['policy_name']))
+        r =  session2.approve_partner_policy(api_request_id, 'Approved')
         r = response_to_json(r)
         print(r)
 
