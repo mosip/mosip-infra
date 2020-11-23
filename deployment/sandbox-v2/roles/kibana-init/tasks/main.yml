@@ -11,3 +11,9 @@
       Content-Type: "application/json"
       kbn-xsrf: "true"
 
+# Using curl here directly as this version of ansible does not support form-multipart
+- name: load sample saved queries
+  shell: 'curl -X POST {{clusters.mz.ingress.base_url}}/kibana/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@{{install_root}}/roles/kibana-init/files/queries.ndjson'
+  args:
+    warn: no 
+

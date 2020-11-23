@@ -15,8 +15,8 @@
      - {role: packages/vim, tags: [vim]}
      - {role: packages/pip, tags: [pip]}
      - {role: packages/python3, tags: [python3]} # Needed for letsencrypt and test scripts
-     - {role: packages/jinja2, tags: [jinja2]} # Needed for letsencrypt and test scripts
-     - {role: packages/pyyaml, tags: [pyyaml]} # Needed for letsencrypt and test scripts
+     - {role: packages/jinja2, tags: [jinja2]}
+     - {role: packages/pyyaml, tags: [pyyaml]}
      - {role: packages/docker, tags: [docker]}
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
