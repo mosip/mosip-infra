@@ -1,3 +1,4 @@
 name,description,policy_file,policy_group,policy_type
 policy1,Policy One,policies/policy1.json,face_provider,Auth
+policy2,Policy One,policies/policy1.json,auth_providers,Auth
 

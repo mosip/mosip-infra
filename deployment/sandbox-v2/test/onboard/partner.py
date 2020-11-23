@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from api import *
+from partner_api import *
 import csv
 import json
 import config as conf
@@ -52,24 +52,25 @@ def add_policy(csv_file):
         r = session.add_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'])
         r = response_to_json(r)
         print(r)
-        if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
-            print('Updating policy "%s"' % row['name'])
-            r = session.get_policies() 
-            r = response_to_json(r)
-            policies =  r['response']
-            policy_id = None
-            for policy in policies:
-                if policy['policyName'] == row['name']:
-                    policy_id = policy['policyId']
-            if policy_id is None:
-                print('Policy id for policy "%s" could not be found, skipping..' % row['name'])
-                continue
-            r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'],
-                                     policy_id)
-            r = response_to_json(r)
-            print(r) 
-        else:
+        if len(r['errors']) == 0:  
             policy_id = r['response']['id']
+        else:
+            if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
+                print('Updating policy "%s"' % row['name'])
+                r = session.get_policies() 
+                r = response_to_json(r)
+                policies =  r['response']
+                policy_id = None
+                for policy in policies:
+                    if policy['policyName'] == row['name']:
+                        policy_id = policy['policyId']
+                if policy_id is None:
+                    print('Policy id for policy "%s" could not be found, skipping..' % row['name'])
+                    continue
+                r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'],
+                                         policy_id)
+                r = response_to_json(r)
+                print(r) 
         
         # publish policy 
         print('Getting policy group id for policy group "%s"' % row['policy_group'])
@@ -106,9 +107,20 @@ def upload_partner_certs(csv_file):
         r = response_to_json(r)
         print(r)
         
+#def map_partner_policy( partner_id, policy_name, description):
+def map_partner_policy(csv_file):
+    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        print('Sending partner-policy mapping request for %s-%s' % (row['partner_id'], row['policy_name']))
+        r = session.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
+        print(r)
+        r = response_to_json(r)
+        print(r)
+
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|partner|policy|certs') 
+   parser.add_argument('action', help='policy_group|policy|partner|certs|partner_policy') 
    args = parser.parse_args()
    return args
 
@@ -123,8 +135,13 @@ def main():
     if args.action == 'partner':
         add_partner(conf.csv_partner)
     if args.action == 'certs':
-        #upload_ca_certs(conf.csv_partner_ca_certs) 
+        upload_ca_certs(conf.csv_partner_ca_certs) 
+        # TODO: make sure you've called key_alias.py before calling below api
         upload_partner_certs(conf.csv_partner_certs)
+    if args.action == 'partner_policy':    
+        map_partner_policy(conf.csv_partner_policy_map)
+        
+ 
 
 if __name__=="__main__":
     main()
