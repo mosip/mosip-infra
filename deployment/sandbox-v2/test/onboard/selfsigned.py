@@ -2,6 +2,7 @@
 
 import os
 import csv
+import argparse
 import datetime as dt
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -16,15 +17,18 @@ class Credentials:
         self.pvt_key_path = None
         self.passphrase = None 
         self.cert_path = None
-        self.cn = None
+        self.is_ca = None # Is the subject a CA.
+        self.cn = None # Common Name
         self.org_name = None
         self.country = None
         self.province = None
         self.locality = None
         self.valid_days = None
-        self.is_ca = False  # Is Certificate Authority
+        self.ca_cert_path = None  
+        self.ca_pvt_key_path = None
+        self.ca_passphrase = None
 
-def pvt_key(key_path, passphrase):
+def gen_pvt_key(key_path, passphrase):
     key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     fd = open(key_path, 'wb')
     fd.write(key.private_bytes(encoding=serialization.Encoding.PEM,
@@ -32,101 +36,69 @@ def pvt_key(key_path, passphrase):
                                encryption_algorithm=serialization.BestAvailableEncryption(passphrase.encode())))
     fd.close()
 
-def create_self_signed_cert(cred):
-    '''
-    cred:  Credentials structure (class)
-    '''
-    private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), 
-                                                     password=cred.passphrase.encode())
-    subject = issuer = x509.Name([
+def create_cert(cred):
+
+    subject = x509.Name([
         x509.NameAttribute(NameOID.COUNTRY_NAME, u'%s' % cred.country),
         x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, u'%s' % cred.province),
         x509.NameAttribute(NameOID.LOCALITY_NAME, u'%s' % cred.locality),
         x509.NameAttribute(NameOID.ORGANIZATION_NAME, u'%s' % cred.org_name),
         x509.NameAttribute(NameOID.COMMON_NAME, u'%s' % cred.cn),
     ])
+     
+    subject_private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), 
+                                                        password=cred.passphrase.encode())
+    if len(cred.ca_pvt_key_path) == 0: # Self signed
+        signing_private_key = subject_private_key
+        issuer = subject
+    else: # Signed by CA
+        signing_private_key = serialization.load_pem_private_key(open(cred.ca_pvt_key_path, 'rb').read(), 
+                                                          password=cred.ca_passphrase.encode())
+        ca_cert = x509.load_pem_x509_certificate(open(cred.ca_cert_path, 'rb').read())
+        issuer = ca_cert.issuer 
+
     builder = x509.CertificateBuilder()
     builder = builder.subject_name(subject)
     builder = builder.issuer_name(issuer)
     builder = builder.not_valid_before(dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=1))
     builder = builder.not_valid_after(dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=cred.valid_days))
     builder = builder.serial_number(x509.random_serial_number())
-    builder = builder.public_key(private_key.public_key())
+    builder = builder.public_key(subject_private_key.public_key())
     builder = builder.add_extension(x509.BasicConstraints(ca=cred.is_ca, path_length=None), critical=True)
-    builder = builder.add_extension(x509.SubjectKeyIdentifier.from_public_key(private_key.public_key()), 
+    builder = builder.add_extension(x509.SubjectKeyIdentifier.from_public_key(subject_private_key.public_key()), 
                                     critical=False)
-    builder = builder.sign(private_key, hashes.SHA256())
+    builder = builder.sign(signing_private_key, hashes.SHA256())
     fd = open(cred.cert_path, 'wb')
     fd.write(builder.public_bytes(serialization.Encoding.PEM))
     fd.close()
 
-def root_signed_cert(out_path, cn, org_name, country, province, locality, valid_days, self_cred, root_cred):
-    '''
-    self_cred: Credentials strucutre of subject (whos certificate is being created)  
-    root_cred:  Credentials strucutre for root certificate (see Class definition above)
-    valid_days: Number of valid days from now 
-    '''
-    # First load root cert and keys
-    root_private_key = serialization.load_pem_private_key(open(root_cred.pvt_key_path, 'rb').read(), 
-                                                          password=root_cred.passphrase.encode())
-    fd = open(root_cred.cert_path, 'rb')
-    root_cert = x509.load_pem_x509_certificate(fd.read())
-    fd.close()
-
-    self_private_key = serialization.load_pem_private_key(open(self_cred.pvt_key_path, 'rb').read(), 
-                                                          password=self_cred.passphrase.encode())
-
-
-     
-    subject = x509.Name([
-        x509.NameAttribute(NameOID.COUNTRY_NAME, u'%s' % country),
-        x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, u'%s' % province),
-        x509.NameAttribute(NameOID.LOCALITY_NAME, u'%s' % locality),
-        x509.NameAttribute(NameOID.ORGANIZATION_NAME, u'%s' % org_name),
-        x509.NameAttribute(NameOID.COMMON_NAME, u'%s' % cn),
-    ])
-    builder = x509.CertificateBuilder()
-    builder = builder.subject_name(subject)
-    builder = builder.issuer_name(root_cert.issuer)
-    builder = builder.not_valid_before(dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=1))
-    builder = builder.not_valid_after(dt.datetime.now(dt.timezone.utc) + dt.timedelta(days=valid_days))
-    builder = builder.serial_number(x509.random_serial_number())
-    builder = builder.public_key(self_private_key.public_key())
-    builder = builder.add_extension(x509.BasicConstraints(ca=cred.is_ca, path_length=None), critical=True)
-    builder = builder.add_extension(x509.SubjectKeyIdentifier.from_public_key(self_private_key.public_key()), 
-                                    critical=False)
-    builder = builder.sign(root_private_key, hashes.SHA256())
-    fd = open(self_cred.cert_path, 'wb')
-    fd.write(builder.public_bytes(serialization.Encoding.PEM))
-    fd.close()
-
-def create_ca_cert(csv_file):
+def create_certs(csv_file): #CSV row
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        print('Creating self signed CA certificate for "%s"' % row['cn'])
-        ca_cred = Credentials() 
-        ca_cred.pvt_key_path = row['key_path']
-        ca_cred.passphrase = row['passphrase']
-        ca_cred.cert_path = row['cert_path']
-        ca_cred.cn = row['cn']
-        ca_cred.org_name = row['org_name']
-        ca_cred.country = row['country']
-        ca_cred.province = row['province']
-        ca_cred.locality = row['locality']
-        ca_cred.valid_days = int(row['valid_days']) 
-        ca_cred.is_ca = True  # Is Certificate Authority
-        os.makedirs(os.path.dirname(ca_cred.pvt_key_path), exist_ok=True)
-        os.makedirs(os.path.dirname(ca_cred.cert_path), exist_ok=True)
-        pvt_key(ca_cred.pvt_key_path, ca_cred.passphrase)
-        create_self_signed_cert(ca_cred)
-
+        print('Creating certificate for "%s"' % row['cn'])
+        cred = Credentials() 
+        cred.pvt_key_path = row['key_path']
+        cred.passphrase = row['passphrase']
+        cred.cert_path = row['cert_path']
+        cred.is_ca = True if row['is_ca'] == 'true' else False
+        cred.cn = row['cn']
+        cred.org_name = row['org_name']
+        cred.country = row['country']
+        cred.province = row['province']
+        cred.locality = row['locality']
+        cred.valid_days = int(row['valid_days']) 
+        cred.ca_cert_path = row['ca_cert_path']
+        cred.ca_pvt_key_path = row['ca_pvt_key_path']
+        cred.ca_passphrase = row['ca_passphrase']
+    
+        os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
+        os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
+        gen_pvt_key(cred.pvt_key_path, cred.passphrase)
+        create_cert(cred)
+  
 def main():
-    create_ca_cert(conf.csv_ca)
 
-        #self_signed_cert(row['cert_path'], row['cn'], row['org_name'], row['country'], row['province'], row['locality'],
-        #           int(row['valid_days']), row['key_path'], row['passphrase']) 
-        #root_signed_cert(row['cert_path'], row['cn'], row['org_name'], row['country'], row['province'], row['locality'],
-        #           int(row['valid_days']), 'certs/ca1/self_cert.pem', 'certs/ca1/pvt_key.pem', 'abc') 
+    create_certs(conf.csv_certs)
 
 if __name__=="__main__":
     main()

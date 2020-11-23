@@ -26,5 +26,4 @@ csv_device_approval = 'csv/device_approval.csv'
 csv_device_masterdb = 'csv/device_masterdb.csv'
 csv_sbi = 'csv/sbi.csv'
 csv_sbi_approval = 'csv/sbi_approval.csv'
-csv_ca = 'csv/ca.csv'  # Certificate Authorities
-csv_dp = 'csv/dp.csv'  # Device providers
+csv_certs = 'csv/certs.csv' 

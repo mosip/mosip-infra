@@ -30,6 +30,18 @@ def add_policy_group(csv_file):
         r = response_to_json(r)
         print(r)
 
+def get_policy_group_id(policy_group_name):
+        session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+        r = session.get_policy_groups() 
+        r = response_to_json(r)
+        policy_groups = r['response']
+        pg_id = None
+        for pg in policy_groups:
+             if pg['policyGroup']['name'] == policy_group_name:
+                 pg_id = pg['policyGroup']['id']
+                 break 
+        return pg_id
+
 def add_policy(csv_file):
     session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
@@ -56,7 +68,21 @@ def add_policy(csv_file):
                                      policy_id)
             r = response_to_json(r)
             print(r) 
+        else:
+            policy_id = r['response']['id']
+        
+        # publish policy 
+        print('Getting policy group id for policy group "%s"' % row['policy_group'])
+        pg_id = get_policy_group_id(row['policy_group'])
+        if pg_id is None:
+            print('Could not find id for policy group "%s"' % (row['policy_group']))
+            continue
+        print('Publishing policy "%s"' % row['name'])
+        r = session.publish_policy(pg_id, policy_id)
+        r = response_to_json(r) 
+        print(r)
 
+        
 def args_parse(): 
    parser = argparse.ArgumentParser()
    parser.add_argument('action', help='policy_group|partner|policy') 

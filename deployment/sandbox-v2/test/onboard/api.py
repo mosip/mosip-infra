@@ -50,6 +50,12 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
+    def get_policy_groups(self):
+        cookies = {'Authorization' : self.token}
+        url = 'https://%s/partnermanagement/v1/policies/policies/policyGroups' % self.server
+        r = requests.get(url, cookies=cookies)
+        return r
+
     def add_policy(self, name, description, policy, policy_group, policy_type):
         '''
         policies: dict with policies structure
@@ -125,9 +131,9 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
-    def public_policy(self, policy_group_id, policy_id):
-       # /policies/publishPolicy/policyGroupId/{policyGroupId}/policyId/{policyId}
-        url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
+    def publish_policy(self, policy_group_id, policy_id):
+        url = 'https://%s/partnermanagement/v1/policies/policies/publishPolicy/policyGroupId/%s/policyId/%s' % (
+              self.server, policy_group_id, policy_id)
         cookies = {'Authorization' : self.token}
         r = requests.post(url, cookies=cookies)
         return r
