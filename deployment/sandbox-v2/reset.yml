@@ -11,5 +11,7 @@
 - {import_playbook: playbooks/reset/reset-ports.yml}
 - {import_playbook: playbooks/reset/reset-proxy.yml}
 - {import_playbook: playbooks/reset/reset-monitoring.yml}
+- {import_playbook: playbooks/reset/reset-dockers.yml}
 - {import_playbook: playbooks/reset/reset-repos.yml}
 - {import_playbook: playbooks/reset/reset-docker-registry.yml}
+- {import_playbook: playbooks/reset/reset-nginx.yml}
