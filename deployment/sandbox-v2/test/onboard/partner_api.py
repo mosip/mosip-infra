@@ -254,3 +254,46 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
         
+    def create_misp(self, org_name, address, contact, email):
+        url = 'https://%s/partnermanagement/v1/misps/misps' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'organizationName': org_name,
+              'address': address,
+              'contactNumber': contact, 
+              'emailId': email
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def get_misps(self):
+        url = 'https://%s/partnermanagement/v1/misps/misps' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        r = requests.get(url, cookies=cookies)
+        return r
+
+    def approve_misp(self, misp_id, status):
+        url = 'https://%s/partnermanagement/v1/misps/misps/%s/status' % (self.server, misp_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'mispId': misp_id,
+              'mispStatus': status
+            },
+            'requesttime': ts,
+            'version': '1.0'
+          }
+        r = requests.patch(url, cookies=cookies, json = j)
+        return r
+   
