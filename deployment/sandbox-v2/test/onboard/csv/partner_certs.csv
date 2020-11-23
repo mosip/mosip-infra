@@ -1,0 +1,2 @@
+cert_path,org_name,partner_domain,partner_id,partner_type
+certs/dp1/cert.pem,Smart Cameras,AUTH,sp1,Device_Provider

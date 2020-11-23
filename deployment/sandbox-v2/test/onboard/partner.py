@@ -82,10 +82,33 @@ def add_policy(csv_file):
         r = response_to_json(r) 
         print(r)
 
+def upload_ca_certs(csv_file):
+    session = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
+    
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        print('Uploading CA certificate "%s"' % row['ca_cert_path'])
+        cert_data = open(row['ca_cert_path'], 'rt').read()
+        r = session.upload_ca_certificate(cert_data, row['partner_domain'])
+        r = response_to_json(r)
+        print(r)
+
+def upload_partner_certs(csv_file):
+    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        print('Uplading partner certificate for "%s"' % row['org_name'])
+        cert_data = open(row['cert_path'], 'rt').read()
+        #def upload_partner_certificate(self, cert_data, org_name, partner_domain, partner_id, partner_type):
+        r = session.upload_partner_certificate(cert_data, row['org_name'], row['partner_domain'], row['partner_id'],
+                                               row['partner_type'])
+
+        r = response_to_json(r)
+        print(r)
         
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|partner|policy') 
+   parser.add_argument('action', help='policy_group|partner|policy|certs') 
    args = parser.parse_args()
    return args
 
@@ -99,6 +122,9 @@ def main():
         add_policy(conf.csv_policy)
     if args.action == 'partner':
         add_partner(conf.csv_partner)
+    if args.action == 'certs':
+        #upload_ca_certs(conf.csv_partner_ca_certs) 
+        upload_partner_certs(conf.csv_partner_certs)
 
 if __name__=="__main__":
     main()

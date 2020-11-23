@@ -138,7 +138,52 @@ class MosipSession:
         r = requests.post(url, cookies=cookies)
         return r
 
-     
+    def upload_ca_certificate(self, cert_data, partner_domain):
+        '''
+        cert_data: str
+        '''
+        url = 'https://%s/partnermanagement/v1/partners/partners/uploadCACertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'certificateData': cert_data,
+            'partnerDomain': partner_domain
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        } 
+
+        r = requests.post(url, cookies=cookies, json = j)
+
+        return r
+
+    def upload_partner_certificate(self, cert_data, org_name, partner_domain, partner_id, partner_type):
+        '''
+        cert_data: str
+        '''
+        url = 'https://%s/partnermanagement/v1/partners/partners/uploadPartnerCertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'certificateData': cert_data,
+                'organizationName': org_name,
+                'partnerDomain': partner_domain,
+                'partnerId': partner_id,
+                'partnerType': partner_type
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        } 
+
+        r = requests.post(url, cookies=cookies, json = j)
+
+        return r
 
     def add_device_detail(self, device_id, device_type, device_subtype, for_registration, make, model, 
                           partner_org_name, partner_id):
@@ -312,3 +357,32 @@ class MosipSession:
         r = requests.patch(url, cookies=cookies, json = j)
         return r
 
+    def add_pms_key_alias(self):
+        '''
+        TODO: Key alias must be populated while launching the kernel as one of init jobs. Since that's
+        missing at the moment, we are using this api.  
+        '''
+        url = 'https://%s/v1/keymanager/generateMasterKey/CSR' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'applicationId': 'PMS',
+            'commonName': 'MOSIP-PMS',
+            'country': 'IN',
+            'force': False,
+            'location': 'BANGALORE',
+            'organization': 'IIITB',
+            'organizationUnit': 'MOSIP-TECH-CENTER',
+            'referenceId': '',
+            'state': 'KA'
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+        

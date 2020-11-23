@@ -14,8 +14,11 @@ device_provider_pwd = 'mosip'
 superadmin_user = 'superadmin'
 superadmin_pwd = 'mosip'
 
-partner_manager_user = 'partnermanager' # with PARTNERMANAGER role
+partner_manager_user = 'partnermanager1' # with PARTNERMANAGER role
 partner_manager_pwd = 'mosip'
+
+keymaker_user = 'keymaker'
+keymaker_pwd = 'mosip'
 
 csv_policy_group = 'csv/policy_group.csv'
 csv_partner = 'csv/partner.csv'
@@ -27,3 +30,5 @@ csv_device_masterdb = 'csv/device_masterdb.csv'
 csv_sbi = 'csv/sbi.csv'
 csv_sbi_approval = 'csv/sbi_approval.csv'
 csv_certs = 'csv/certs.csv' 
+csv_partner_ca_certs = 'csv/partner_ca_certs.csv'
+csv_partner_certs = 'csv/partner_certs.csv'
