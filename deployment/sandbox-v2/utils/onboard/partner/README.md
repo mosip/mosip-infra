@@ -1,8 +1,6 @@
 # Partner onboarding
 
 ## Onboarding steps
-Partner onboarding steps:
-
 1. Add policy group
 1. Add policy 
 1. Add partner
@@ -23,5 +21,5 @@ $ ./partner.py <action>
 ```
 For actions see help. The actions here map to steps above:
 ```
-$ ./parner.py --help
+$ ./partner.py --help
 ```
