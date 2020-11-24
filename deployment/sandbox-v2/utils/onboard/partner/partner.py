@@ -42,6 +42,17 @@ def get_policy_group_id(policy_group_name):
                  break 
         return pg_id
 
+def get_policy_id(policy_name):
+    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+    r = session.get_policies() 
+    r = response_to_json(r)
+    policies =  r['response']
+    policy_id = None
+    for policy in policies:
+        if policy['policyName'] == policy_name:
+            policy_id = policy['policyId']
+    return policy_id
+
 def add_policy(csv_file):
     session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
@@ -57,20 +68,16 @@ def add_policy(csv_file):
         else:
             if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
                 myprint('Updating policy "%s"' % row['name'])
-                r = session.get_policies() 
-                r = response_to_json(r)
-                policies =  r['response']
-                policy_id = None
-                for policy in policies:
-                    if policy['policyName'] == row['name']:
-                        policy_id = policy['policyId']
+                policy_id = get_policy_id(row['name'])
                 if policy_id is None:
                     myprint('Policy id for policy "%s" could not be found, skipping..' % row['name'])
                     continue
-                r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'],
-                                         policy_id)
+                r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], 
+                                          row['policy_type'], policy_id)
                 r = response_to_json(r)
                 myprint(r) 
+            else:
+                continue  # Can't do much
         
         # publish policy 
         myprint('Getting policy group id for policy group "%s"' % row['policy_group'])
@@ -153,7 +160,7 @@ def create_misp(csv_file):
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|policy|partner|certs|partner_policy|misp') 
+   parser.add_argument('action', help='policy_group|policy|partner|upload_certs|partner_policy|misp') 
    args = parser.parse_args()
    return args
 
@@ -167,7 +174,7 @@ def main():
         add_policy(conf.csv_policy)
     if args.action == 'partner':
         add_partner(conf.csv_partner)
-    if args.action == 'certs':
+    if args.action == 'upload_certs':
         upload_ca_certs(conf.csv_partner_ca_certs) 
         # TODO: make sure you've called key_alias.py before calling below api
         upload_partner_certs(conf.csv_partner_certs)
