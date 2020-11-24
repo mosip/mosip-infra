@@ -21,8 +21,7 @@
 1.  Run the script as below:
     ```
     $ ./partner.py <action>
-    ```
-For actions see help. The actions here map to steps above:  
+    For actions see help. The actions here map to steps above:  
     ```
     $ ./partner.py --help
     ```
