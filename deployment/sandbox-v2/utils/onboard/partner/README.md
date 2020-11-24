@@ -22,6 +22,5 @@
     ```
     $ ./partner.py <action>
     For actions see help. The actions here map to steps above:  
-    ```
     $ ./partner.py --help
     ```
