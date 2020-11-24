@@ -6,7 +6,7 @@
 import sys
 sys.path.insert(0, '../')
 from utils import *
-from keycloak import *
+from keycloak_api import *
 import config as conf
 import csv
 
