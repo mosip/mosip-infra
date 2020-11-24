@@ -32,7 +32,7 @@
     ```
 
 ## Various attributes
-* **partnerType**: Partner types are prepopulated as in `partner_type` table of `mosip_pms` db and must not be altered.
+* **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
 
