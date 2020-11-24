@@ -11,12 +11,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.bioauth.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.bioauth.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.bioauth.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.bioauth.podconfig.maxSurge }}
   template:
     metadata:
       labels:

@@ -11,12 +11,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.osi.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.osi.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.osi.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.osi.podconfig.maxSurge }}
   template:
     metadata:
       labels:

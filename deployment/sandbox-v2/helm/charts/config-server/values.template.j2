@@ -37,3 +37,6 @@ localRepo:
     server: {{ nfs.server }}
     path: {{ config_repo.local_git_repo.path }} 
 
+services:
+  config_server:
+    podconfig: {{ podconfig.config_server.service | to_yaml }}
