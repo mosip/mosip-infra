@@ -1,0 +1,2 @@
+ca_cert_path,partner_domain
+certs/ca1/cert.pem,AUTH
