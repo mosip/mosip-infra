@@ -5,16 +5,16 @@ metadata:
   name: {{ .Values.name }}
   namespace: default
 spec:
-  replicas: 1 
+  replicas: {{ .Values.services.postgres.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.name }}
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.postgres.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.postgres.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.postgres.podconfig.maxSurge }}
   template:
     metadata:
       labels:

@@ -5,16 +5,16 @@ metadata:
   name: {{  .Values.docker.service }}
   namespace: {{ .Release.Namespace }} 
 spec:
-  replicas: 1 
+  replicas: {{ .Values.services.artifactory.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.docker.service }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.artifactory.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.artifactory.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.artifactory.podconfig.maxSurge }}
   template:
     metadata:
       labels:

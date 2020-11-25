@@ -11,12 +11,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.abismid.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.abismid.podconfig.minReadySeconds }} 
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.abismid.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.abismid.podconfig.maxSurge }}
   template:
     metadata:
       labels:

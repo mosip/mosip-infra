@@ -8,16 +8,16 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.application.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.application.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.application.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.application.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.application.podconfig.maxSurge }}
   template:
     metadata:
       labels:

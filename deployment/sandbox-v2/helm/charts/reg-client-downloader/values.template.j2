@@ -37,3 +37,7 @@ probe:
   initialDelay: 15  # Seconds
   period: 30 # Seconds
 healthUrl: ''
+
+services:
+  reg_client_downloader:
+    podconfig: {{ podconfig.reg_client_downloader.service | to_yaml }}
