@@ -164,7 +164,7 @@ def create_misp(csv_file):
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|policy|partner|upload_certs|partner_policy|misp') 
+   parser.add_argument('action', help='policy_group|policy|partner|upload_certs|partner_policy|misp|all') 
    args = parser.parse_args()
    return args
 
@@ -172,22 +172,19 @@ def main():
 
     args = args_parse()
 
-    if args.action == 'policy_group':
+    if args.action == 'policy_group' or args.action == 'all':
         add_policy_group(conf.csv_policy_group)
-    if args.action == 'policy':
+    if args.action == 'policy' or args.action == 'all':
         add_policy(conf.csv_policy)
-    if args.action == 'partner':
+    if args.action == 'partner' or args.action == 'all':
         add_partner(conf.csv_partner)
-    if args.action == 'upload_certs':
+    if args.action == 'upload_certs' or args.action == 'all':
         upload_ca_certs(conf.csv_partner_ca_certs) 
-        # TODO: make sure you've called key_alias.py before calling below api
-        upload_partner_certs(conf.csv_partner_certs)
-    if args.action == 'partner_policy':    
+        upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
+    if args.action == 'partner_policy' or args.action == 'all':   
         map_partner_policy(conf.csv_partner_policy_map)
-    if args.action == 'misp':
+    if args.action == 'misp'or args.action == 'all':
         create_misp(conf.csv_misp)
-        
- 
 
 if __name__=="__main__":
     main()
