@@ -12,7 +12,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.sync.serviceName }} 
-  minReadySeconds: replicas: {{ .Values.services.sync.podconfig.minReadySeconds }}
+  minReadySeconds: {{ .Values.services.sync.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
