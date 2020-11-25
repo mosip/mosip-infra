@@ -1,0 +1,37 @@
+{
+	"shareableAttributes": [{
+		"encrypted": true,
+		"attributeName": "fullName"
+	}, {
+		"encrypted": true,
+		"attributeName": "dateOfBirth"
+	}, {
+		"encrypted": true,
+		"attributeName": "email"
+	}, {
+		"encrypted": true,
+		"attributeName": "phone"
+	}, {
+		"encrypted": true,
+		"attributeName": "bloodType"
+	}, {
+		"encrypted": true,
+		"format": "mock",
+		"attributeName": "face"
+	}, {
+		"encrypted": true,
+		"format": "mock",
+		"attributeName": "finger"
+	}, {
+		"encrypted": true,
+		"format": "mock",
+		"attributeName": "iris"
+	}],
+	"dataSharePolicies": {
+		"typeOfShare": "datashare",
+		"transactionsAllowed": "2",
+		"shareDomain": "datashare-service",
+		"encryptionType": "partnerBased",
+		"validForInMinutes": "60"
+	}
+}
