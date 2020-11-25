@@ -1,3 +1,4 @@
 cert_path,org_name,partner_domain,partner_id,partner_type
 certs/dp1/cert.pem,Smart Cameras,AUTH,sp1,Device_Provider
 certs/ap1/cert.pem,Great Auth Provider,AUTH,ap1,Auth_Provider
+certs/mpartner-default-auth/cert.pem,Great Data Provider,AUTH,mpartner-default-auth,Online_Verification_Partner
