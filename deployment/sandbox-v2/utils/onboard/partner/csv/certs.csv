@@ -2,3 +2,4 @@ key_path,passphrase,cert_path,is_ca,cn,org_name,country,province,locality,valid_
 certs/ca1/pvt_key.pem,abc,certs/ca1/cert.pem,true,mosip.org,MOSIP Project,IN,Karantaka,Bangalore,365,,,,
 certs/dp1/pvt_key.pem,abc,certs/dp1/cert.pem,false,smcam.com,Smart Cameras,IN,Karantaka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
 certs/ap1/pvt_key.pem,abc,certs/ap1/cert.pem,false,ap1.com,Great Auth Provider,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
+certs/mpartner-default-auth/pvt_key.pem,abc,certs/mpartner-default-auth/cert.pem,false,mpartner-default-auth.com,Great Data Provider,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
