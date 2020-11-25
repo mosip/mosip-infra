@@ -4,6 +4,7 @@ import json
 import hashlib
 import os
 import shutil
+import pprint
 
 def read_token(response):
     cookies = response.headers['Set-Cookie'].split(';')
@@ -16,7 +17,8 @@ def read_token(response):
     return None
 
 def myprint(msg):
-    print('==== %s' % msg)
+    print('=============')
+    pprint.pprint(msg)
 
 def get_timestamp(days_offset=None):
     '''
