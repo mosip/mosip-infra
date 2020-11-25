@@ -56,13 +56,13 @@ docker_registries:
 clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
-    nodeport_node: mzworker0.sb  # Any node on cluster for nodeport access
+    nodeport_node: '{{groups.mzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
       nodeports:
         http: 30080 
         https: 30443
-      base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+      base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
       token_file: '{{tmp_dir}}/dashboard_mz.token'
@@ -87,7 +87,7 @@ clusters:
         url: http://kibana-kibana:5601 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
-    nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
+    nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
       nodeports:
@@ -113,9 +113,9 @@ clusters:
       grafana_ingress_path: 'dmz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
       elasticsearch:
-        host: 'mzworker0.sb:30080/elasticsearch' # Connect to elasticsearch on MZ
+        host: '{{groups.mzworkers[0]}}:30080/elasticsearch' # Connect to elasticsearch on MZ
       kibana: 
-        url: http://mzworker0.sb:30601  # Kibana runs on this nodeport on MZ. 
+        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ. 
 
 # Registration processor shared variables
 #
@@ -136,7 +136,7 @@ postgres:
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
-    node: 'mzworker0.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[0]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "postgres" # Key for applying taint on node
       value: "only"  
@@ -147,7 +147,7 @@ minio:
   nfs_path: '{{nfs.folder}}/minio'
   node_affinity: 
     enabled: false # To run minio on an exclusive node
-    node: 'mzworker1.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[1]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "minio" # Key for applying taint on node
       value: "only"  
@@ -283,7 +283,7 @@ hdfs:
       path: '{{nfs.folder}}/hdfs/dn' 
   node_affinity: 
     enabled: false # To run all hdfs pods exclusively on a single node.
-    node: 'mzworker1.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[1]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "hdfs" # Key for applying taint on node
       value: "only"  
@@ -305,7 +305,7 @@ config_repo:
 config_server:
   name: config-server
   internal_url: http://config-server/config
-  ingress_url: http://mzworker0.sb:30080/config
+  ingress_url: '{{clusters.mz.ingress.base_url}}/config'
 
 activemq:
   name: activemq
@@ -321,5 +321,6 @@ coredns:
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
   image: coredns/coredns
 
-iam_adapter_url: http://15.207.222.178/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
+iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/

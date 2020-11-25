@@ -9,13 +9,13 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, password, appid='admin'):
+    def __init__(self, server, user, pwd, appid='admin'):
         self.server = server
         self.user = user
-        self.password = password
-        self.token = self.auth_get_token(appid, self.user, self.password) 
+        self.pwd = pwd
+        self.token = self.auth_get_token(appid, self.user, self.pwd) 
       
-    def auth_get_token(self, appid, username, password):
+    def auth_get_token(self, appid, username, pwd):
         url = 'https://%s/v1/authmanager/authenticate/useridPwd' % self.server
         ts = get_timestamp()
         j = {
@@ -26,7 +26,7 @@ class MosipSession:
                 "request": {
                     "appId" : appid,
                     "userName": username,
-                    "password": password
+                    "password": pwd
             }
         }
         r = requests.post(url, json = j)
@@ -95,6 +95,89 @@ class MosipSession:
         }
         r = requests.post(url, cookies=cookies, json = j)
         return r
+
+    def add_device_spec_in_masterdb(self, device_id, name, description, device_type, brand, model, min_driver_ver,
+                                    language):
+        url = 'https://%s/v1/masterdata/devicespecifications' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'id': device_id,
+            'name': name,
+            'description': description,
+            'deviceTypeCode': device_type,
+            'brand': brand,
+            'model': model,
+            'isActive': "true",
+            'langCode': language,
+            'minDriverversion': min_driver_ver
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def add_device_type_in_masterdb(self, code, name, description, language, update=False):
+        '''
+        By default, devices are added. If update is true, then put request is sent
+        '''
+        url = 'https://%s/v1/masterdata/devicetypes' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'code': code,
+            'description': description,
+            'isActive': "true",
+            'langCode': language,
+            'name': name
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+        if update:
+            r = requests.put(url, cookies=cookies, json = j)
+        else:
+            r = requests.post(url, cookies=cookies, json = j)
+
+        return r
+
+    def add_device_in_masterdb(self, code, name, description, language, update=False):
+        '''
+        By default, devices are added. If update is true, then put request is sent
+        '''
+        url = 'https://%s/v1/masterdata/devicetypes' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'deviceSpecId': '736',
+            #'id': '',
+            'isActive': true,
+            'langCode': language,
+            'name': 'Face',
+            'regCenterId': '10002',
+            'serialNum': '40749669',
+            'validityDateTime': '2021-10-01T11:24:47.241Z',
+            'zoneCode': 'NTH'
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+
+
+        if update:
+            r = requests.put(url, cookies=cookies, json = j)
+        else:
+            r = requests.post(url, cookies=cookies, json = j)
 
     def approve_device_detail(self, device_id, status, for_registration): # status: Activate/De-activate 
         url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server

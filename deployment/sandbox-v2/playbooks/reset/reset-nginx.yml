@@ -1,0 +1,16 @@
+# Delete Minio persistence
+- hosts: console
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to uninstall nginx ? Are you sure? (yes/no)'
+      private: no
+  tasks:
+    - name: Uninstall nginx
+      yum:
+        name: nginx
+        state: absent
+      become: yes
+      when: sure.lower().strip() == 'yes'
+

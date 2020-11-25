@@ -1,0 +1,17 @@
+# Delete Minio persistence
+- hosts: console
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to remove Coredns ? Are you sure? (yes/no)'
+      private: no
+  tasks:
+    - name: Delete running container
+      docker_container:
+        name: '{{coredns.name}}'
+        state: absent
+      become: yes
+      when: sure.lower().strip() == 'yes'
+
+

@@ -1,0 +1,9 @@
+Reg client generates public / private keys:
+1) If TPM is enabled while installing reg client downloader docker, these keys are generated inside TPM. If the keys
+already exist in TPM, same keys are used, new keys are not generated.
+
+2) If TPM is not enabled, reg client generates public / private keys and stores them in .mosipuser folder. This is
+just a simulation.
+
+
+We need a utlity to generated public/private keys in TPM and pull the public key out. This public key will be manually inserted in the machine_master table.

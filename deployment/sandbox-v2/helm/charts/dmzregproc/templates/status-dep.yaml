@@ -20,6 +20,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.services.status.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
