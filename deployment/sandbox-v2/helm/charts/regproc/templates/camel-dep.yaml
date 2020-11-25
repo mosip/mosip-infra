@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.camel.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.camel.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.camel.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.camel.podconfig.maxSurge }}
   template:
     metadata:
       labels:
