@@ -107,11 +107,16 @@ def upload_partner_certs(csv_file):
     for row in reader:
         myprint('Uplading partner certificate for "%s"' % row['org_name'])
         cert_data = open(row['cert_path'], 'rt').read()
-        r = session.upload_partner_certificate(cert_data, row['org_name'], row['partner_domain'], row['partner_id'],
-                                               row['partner_type'])
+        r = session.upload_partner_certificate(cert_data, row['org_name'], row['partner_domain'], 
+                                               row['partner_id'], row['partner_type'])
         r = response_to_json(r)
         myprint(r)
-        
+        mosip_signed_cert_path = os.path.join(os.path.dirname(row['cert_path']), 'mosip_signed_cert.pem')
+        if r['errors'] is None:
+            mosip_signed_cert = r['response']['signedCertificateData']
+            open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
+            myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
+
 def map_partner_policy(csv_file):
     session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
     session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
@@ -129,7 +134,6 @@ def map_partner_policy(csv_file):
         r = response_to_json(r)
         myprint(r)
 
-#def create_misp(self, org_name, address, contact, email):
 def create_misp(csv_file):
     session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
@@ -153,7 +157,7 @@ def create_misp(csv_file):
             else:
                continue # Can't do much but to myprint error 
         # Approving 
-        myprint('Approving MSIP "%s"' % row['org_name'])
+        myprint('Approving MISP "%s"' % row['org_name'])
         r = session.approve_misp(misp_id, 'approved')
         r = response_to_json(r) 
         myprint(r)
