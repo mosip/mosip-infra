@@ -16,15 +16,12 @@
 		"attributeName": "bloodType"
 	}, {
 		"encrypted": true,
-		"format": "mock",
 		"attributeName": "face"
 	}, {
 		"encrypted": true,
-		"format": "mock",
 		"attributeName": "finger"
 	}, {
 		"encrypted": true,
-		"format": "mock",
 		"attributeName": "iris"
 	}],
 	"dataSharePolicies": {
