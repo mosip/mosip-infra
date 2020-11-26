@@ -60,7 +60,7 @@ def add_policy(csv_file):
         myprint('Adding policy "%s"' % row['name'])
         json_str = open(row['policy_file'], 'rt').read() 
         policy = json.loads(json_str)  
-        r = session.add_policy(row['id'],row['name'], row['description'], policy, row['policy_group'], row['policy_type'])
+        r = session.add_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'])
         r = response_to_json(r)
         myprint(r)
         if len(r['errors']) == 0:  
