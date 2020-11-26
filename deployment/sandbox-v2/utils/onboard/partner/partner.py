@@ -122,7 +122,7 @@ def map_partner_policy(csv_file):
     session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        myprint('Sending partner-policy mapping request for %s-%s' % (row['partner_id'], row['policy_name']))
+        myprint('Sending partner-policy mapping request for (%s,%s)' % (row['partner_id'], row['policy_name']))
         r = session1.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
         r = response_to_json(r)
         myprint(r)

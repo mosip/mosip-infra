@@ -3,4 +3,4 @@ sp1,Smart Printers,955679999,Bangalore,sp@xyz.com,Device_Provider,printer_provid
 dp1,Smart DP Printers,955679989,Bangalore,dp1@xyz.com,Device_Provider,printer_provider
 fp1,Smart Face,955679989,Bangalore,fp1@xyz.com,Device_Provider,face_provider
 ap1,Auth Provider One,8567555575,Manila,ap1@xyz.com,Auth_Partner,auth_providers
-mpartner,mpartner-default-auth,955679989,hyderabad,part@xyz.com,Online_Verification_Partner,data_share_policy_group
+mpartner-default-auth,Mpartner Default Auth,955679989,hyderabad,partauth0@xyz.com,Online_Verification_Partner,data_share_policy_group
