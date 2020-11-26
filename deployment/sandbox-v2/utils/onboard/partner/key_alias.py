@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from api import *
+from partner_api import *
 import csv
 import json
 import config as conf
