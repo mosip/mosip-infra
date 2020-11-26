@@ -73,3 +73,26 @@ class MosipSession:
         r = requests.put(url, cookies=cookies, json = j)
         return r
 
+    def add_machine_spec(self, machine_id, name, type_code,  brand, model, description, language, min_driver_ver):
+        url = 'https://%s/v1/masterdata/machinespecifications' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'id': machine_id, 
+                'name': name,
+                'machineTypeCode': type_code,
+                'brand': brand,
+                'model': model,
+                'description': description,
+                'isActive': True,
+                'langCode': language,
+                'minDriverversion': min_driver_ver,
+            },
+            'requesttime': ts,
+            'version': '1.0'
+          }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r

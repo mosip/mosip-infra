@@ -6,3 +6,4 @@ superadmin_user = 'superadmin' # With GLOBAL_ADMIN, MASTERDATA_ADMIN, ZONAL_ADMI
 superadmin_pwd =  'mosip'
 
 csv_machine_type = 'csv/machine_type.csv'
+csv_machine_spec = 'csv/machine_spec.csv'
