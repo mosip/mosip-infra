@@ -1,3 +1,4 @@
 partner_id,policy_name,description
 ap1,policy2,Just to test
-mpartner-default-auth,mpolicy-default-auth,data share 
+mpartner-default-auth,mpolicy-default-auth,data share
+mpartner-default-abis,mpolicy-default-abis,abis policy

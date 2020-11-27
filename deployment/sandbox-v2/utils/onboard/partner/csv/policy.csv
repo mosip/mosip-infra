@@ -4,3 +4,4 @@ policy2,policy2,Policy Two,policies/policy1.json,auth_providers,Auth
 mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/datasharepolicy.json,data_share_policy_group,DataShare
 policy3,policy3,Policy Three,policies/policy1.json,auth_providers,Auth
 policy4,policy4,Policy Four,policies/policy1.json,auth_providers,Auth
+mpolicy-default-abis,mpolicy-default-abis,mpolicy-default-abis,policies/abispolicy.json,abis_policy_group,Auth_Partner
