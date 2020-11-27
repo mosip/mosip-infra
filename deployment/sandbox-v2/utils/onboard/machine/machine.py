@@ -25,7 +25,6 @@ def add_machine_type(csv_file):
                 r = response_to_json(r)
                 myprint(r)
 
-#def add_machine_spec(self, machine_id, name, type_code,  brand, model, description, language, min_driver_ver)
 def add_machine_spec(csv_file):
     session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
     reader = csv.DictReader(open(csv_file, 'rt')) 
@@ -45,10 +44,39 @@ def add_machine_spec(csv_file):
             else:
                 spec_id = 'any'
                 
- 
+def get_machine_spec_id(spec_name, language):
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    r = session.get_machine_specs()
+    r = response_to_json(r)
+    spec_id = None
+    if r['errors'] is None:
+        for spec in r['response']['data']: 
+            if spec['name'] == spec_name and spec['langCode'] == language:
+                spec_id = spec['id']  
+                break
+    return spec_id
+
+#    def add_machine(self, machine_id, name, spec_id, public_key, reg_center_id, serial_num, sign_pub_key, validity,
+#                    zone, language):
+def add_machine(csv_file):
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        myprint('Adding machine (%s,%s)' % (row['name'], row['language']))
+        spec_id = get_machine_spec_id(row['spec_name'], row['language'])
+        if spec_id is None:
+            myprint('ABORTING: spec id for (%s,%s) not found' % (row['name'], row['language']))
+            break
+        pub_key = open(row['pub_key_path'], 'rt').read().strip()
+        sign_pub_key = open(row['sign_pub_key_path'], 'rt').read().strip()
+        r = session.add_machine(row['machine_id'], row['name'], spec_id, pub_key, row['reg_center_id'], 
+                                row['serial_num'], sign_pub_key, row['validity'], row['zone'], row['language'])
+        r = response_to_json(r)
+        myprint(r)
+
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='type|spec|all')
+   parser.add_argument('action', help='type|spec|machine|all')
    args = parser.parse_args()
    return args
 
@@ -61,6 +89,8 @@ def main():
         add_machine_type(conf.csv_machine_type)
     if args.action == 'spec' or args.action == 'all':
         add_machine_spec(conf.csv_machine_spec)
+    if args.action == 'machine' or args.action == 'all':
+        add_machine(conf.csv_machine)
 
 if __name__=="__main__":
     main()
