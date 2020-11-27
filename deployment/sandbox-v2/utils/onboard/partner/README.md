@@ -31,10 +31,14 @@
     $ ./partner.py --help
     ```
 
+## CSVs
+* `partner.csv`:  Max length of `id` is 36 chars. Note that user with same `id` is automatically created in Keycloak.
+
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
 * **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.
+
 
 

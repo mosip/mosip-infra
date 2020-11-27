@@ -56,7 +56,7 @@ class MosipSession:
         r = requests.get(url, cookies=cookies)
         return r
 
-    def add_policy(self, name, description, policy, policy_group, policy_type):
+    def add_policy(self, policy_id, name, description, policy, policy_group, policy_type):
         '''
         policies: dict with policies structure
         '''
@@ -67,6 +67,7 @@ class MosipSession:
             'id': 'string',
             'metadata': {},
             'request': {
+                 'policyId' : policy_id,
                  'name': name,
                  'desc' : description,
                  'policies': policy,
