@@ -139,6 +139,15 @@ class MosipSession:
         r = requests.post(url, cookies=cookies)
         return r
 
+    def get_partner_api_key_requests(self, partner_id, policy_name, description):
+        url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
+                                                                                              partner_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        r = requests.get(url, cookies=cookies)
+        r = response_to_json(r)
+        return r
+
     def add_partner_api_key_requests(self, partner_id, policy_name, description):
         url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
                                                                                               partner_id)
@@ -156,7 +165,7 @@ class MosipSession:
         } 
 
         r = requests.patch(url, cookies=cookies, json = j)
-
+        r = response_to_json(r)
         return r
 
     def approve_partner_policy(self, api_request_id, status):
@@ -177,6 +186,7 @@ class MosipSession:
             'version': '1.0'
         }
         r = requests.patch(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def upload_ca_certificate(self, cert_data, partner_domain):
