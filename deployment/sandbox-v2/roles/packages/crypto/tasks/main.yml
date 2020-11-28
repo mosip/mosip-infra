@@ -1,0 +1,8 @@
+
+- name: Install python3 cryptography
+  pip:
+    name: cryptography
+    state: present
+    executable: /bin/pip3
+  become: yes
+
