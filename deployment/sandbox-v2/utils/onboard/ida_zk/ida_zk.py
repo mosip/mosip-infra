@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from zk_api import *
+from ida_zk_api import *
 import csv
 import json
 import config as conf
@@ -33,7 +33,7 @@ def main():
 
     init_logger('./out.log')
     r = fetch_and_upload_cert()
-    return r
+    sys.exit(r)
 
 if __name__=="__main__":
     main()
