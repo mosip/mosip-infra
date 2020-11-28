@@ -16,3 +16,11 @@
     helm_strings: ''
   roles:
     - {role:  helm}
+
+# Upload ZK certificate
+- hosts: console
+  tasks:
+    - name: Upload ida cred service certificate to keymanager
+      shell:
+        cmd: './ida_zk.py'
+        chdir: '{{install_root}}/utils/onboard/ida_zk'
