@@ -16,7 +16,7 @@ class MosipSession:
         self.token = self.auth_get_token(appid, self.user, self.pwd) 
       
     def auth_get_token(self, appid, client_id, pwd):
-        url = 'https://%s/v1/authmanager/authenticate/clientidsecretkey' % self.server
+        url = '%s/v1/authmanager/authenticate/clientidsecretkey' % self.server
         ts = get_timestamp()
         j = {
             'id': 'string',
@@ -35,7 +35,7 @@ class MosipSession:
         return token
 
     def get_ida_internal_cert(self):
-        url = 'https://%s/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE' % \
+        url = '%s/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE' % \
                self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -44,7 +44,7 @@ class MosipSession:
         return r
 
     def upload_other_domain_cert(self, cert):
-        url = 'https://%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
+        url = '%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp() 
         j = {

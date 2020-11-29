@@ -5,6 +5,7 @@ import argparse
 from ida_zk_api import *
 import csv
 import json
+import traceback
 import config as conf
 sys.path.insert(0, '../')
 from utils import *
@@ -26,13 +27,19 @@ def fetch_and_upload_cert():
     if r['errors'] is not None:
         myprint('ABORTING')
         return 1 
-
     return 0
 
 def main():
 
     init_logger('./out.log')
-    r = fetch_and_upload_cert()
+    try:
+        r = fetch_and_upload_cert()
+    except:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        formatted_lines = traceback.format_exc()
+        myprint(formatted_lines)
+        sys.exit(1)
+
     sys.exit(r)
 
 if __name__=="__main__":
