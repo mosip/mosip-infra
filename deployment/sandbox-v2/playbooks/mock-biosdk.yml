@@ -1,0 +1,16 @@
+# Playbook to install sdk-service
+# Inputs:
+#   kube_config  
+# Convert helm template to helm values 
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'mock-biosdk' 
+    helm_chart: '{{charts_root}}/mock-biosdk'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/mock-biosdk/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+
