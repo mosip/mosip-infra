@@ -1,9 +1,4 @@
-import datetime as dt
 import requests
-import json
-import base64
-import os
-import secrets
 import sys
 sys.path.insert(0, '../')
 from utils import *
@@ -38,7 +33,6 @@ class MosipSession:
         url = '%s/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE' % \
                self.server
         cookies = {'Authorization' : self.token}
-        ts = get_timestamp()
         r = requests.get(url, cookies=cookies)
         r = response_to_json(r)
         return r

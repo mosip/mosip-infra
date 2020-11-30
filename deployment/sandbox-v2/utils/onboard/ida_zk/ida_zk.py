@@ -1,10 +1,7 @@
 #!/bin/python3
 
 import sys
-import argparse
 from ida_zk_api import *
-import csv
-import json
 import traceback
 import config as conf
 sys.path.insert(0, '../')
@@ -35,7 +32,6 @@ def main():
     try:
         r = fetch_and_upload_cert()
     except:
-        exc_type, exc_value, exc_traceback = sys.exc_info()
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)
         sys.exit(1)
