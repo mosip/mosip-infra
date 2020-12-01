@@ -4,6 +4,7 @@
 This sandbox is for development purposes.  While developing, we generally provide full access to sandbox and run with minimal resources.  However, in production there are many aspects that need to be taken care. This guide highlights some of the production related changes that need to be implemented while going produduction. 
 
 ## External API access
+Only allowed APIs given external access.
 
 ## Protection of secrets
 
@@ -29,11 +30,14 @@ K8s cluster roles, policies and access
 
 ## Rolling updates
 
+## Pod replication
+
 ## Firewalls 
 * Between mz and dmz
 * Between nginx and dmz
 
 ## Persistence
+
 
 
  
