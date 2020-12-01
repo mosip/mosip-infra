@@ -17,6 +17,13 @@
   roles:
     - {role:  helm}
 
+  tasks:
+    # TODO:  We are waiting here for ida to settle down. This must be changed to
+    # a better check later
+    - name: Waiting for ida to install completely.
+      pause:
+        seconds: 20 
+
 # Upload ZK certificate
 - hosts: console
   tasks:
