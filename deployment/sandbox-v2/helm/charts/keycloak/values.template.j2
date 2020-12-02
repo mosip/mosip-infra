@@ -14,4 +14,8 @@ db:
   user: {{ postgres.user }}
   password: '' # To be passed directly with helm command
 ingress:
-   namespace: default 
+   namespace: default
+
+services:
+  keycloak:
+    podconfig: {{ podconfig.keycloak.service | to_yaml }} 

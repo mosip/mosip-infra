@@ -28,6 +28,8 @@ services:
     servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
+    podconfig: {{ podconfig.admin.service | to_yaml }} 
+
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}

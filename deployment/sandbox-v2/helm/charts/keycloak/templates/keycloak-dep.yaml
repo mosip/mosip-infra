@@ -7,16 +7,16 @@ metadata:
   labels:
     app: {{ .Values.name }}
 spec:
-  replicas: 1 
+  replicas: {{ .Values.services.keycloak.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.name }}
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.keycloak.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.keycloak.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.keycloak.podconfig.maxSurge }}
   template:
     metadata:
       labels:

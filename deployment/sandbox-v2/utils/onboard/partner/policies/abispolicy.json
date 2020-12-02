@@ -1,0 +1,18 @@
+{
+	"shareableAttributes": [{
+		"encrypted": false,
+		"format": null,
+		"attributeName": "fullName"
+	}, {
+		"encrypted": false,
+		"format": null,
+		"attributeName": "dateOfBirth"
+	}],
+	"dataSharePolicies": {
+		"typeOfShare": "direct",
+		"transactionsAllowed": "2",
+		"shareDomain": "minibox.mosip.net",
+		"encryptionType": "none",
+		"validForInMinutes": "60"
+	}
+}

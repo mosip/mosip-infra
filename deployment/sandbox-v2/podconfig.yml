@@ -1,114 +1,431 @@
 podconfig:
   kernel:
     auth:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+ 
     masterdata:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     idgen:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+ 
     prid:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+
     sync:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     audit :
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     key:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     notifier:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     otp:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     rid:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
 
   regproc:
     camel:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     notification: 
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     uploader:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     quality:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     validator:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     osi:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     demo:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     bio:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     bioauth:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     abishandler:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     abismid:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     proxyabis:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     manual:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     external:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     eis: 
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     uin:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     msg:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     print:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     trans:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     reprocess:
       replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
 
   dmzregproc:  
     receiver:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 1
+      maxSurge: 1 
+
     camel:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 1
+      maxSurge: 1 
+
     status:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 1
+      maxSurge: 1 
+
     pktserver:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 1
+      maxSurge: 1 
+
+  prereg:
+    application:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+
+    batch:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+  
+    booking:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 1
+      maxSurge: 1
+ 
+    datasync:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+
+    captcha:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+
+    ui:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1  
 
   ida:
     auth:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     internal: 
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     kyc: 
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+
     otp: 
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
 
   idrepo:
     identity:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     vid: 
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     bioextractor:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     credentialreq:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1 
+
     credentialservice:
-      replicas: 1 
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
 
   pms:
     misp: 
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     pm:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
     partner:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+ 
     policy:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
 
   packetmanager:
     service:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+  
+  resident:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+  
+  activemq:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
 
+  admin:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  artifactory:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+  
+  clamav:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  config_server:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+  
   datashare:
     service:
-      replicas: 1 
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  docker_service:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  keycloak:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  mockabis:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  postgres:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  print:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  reg_client_downloader:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+
+  websub:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+

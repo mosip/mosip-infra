@@ -51,7 +51,10 @@ class KeycloakSession:
                     'value': pwd,
                     'temporary': False
                 }
-            ]
+            ],
+            'attributes': {
+              'userPassword': salted_password(pwd)  # Needed for reg client
+            }
         } 
         r = requests.post(url, headers=headers, json = j)
         return r

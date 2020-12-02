@@ -22,3 +22,4 @@ services:
     servicePort: 80
     ingressPath: /v1/mock-abis-service
     healthUrl: /v1/mock-abis-service/actuator/health
+    podconfig: {{ podconfig.mockabis.service | to_yaml }}
