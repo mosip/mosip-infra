@@ -7,5 +7,7 @@ partner_manager_user = 'partnermanager1' # with PARTNERMANAGER role
 partner_manager_pwd = 'mosip'
 
 csv_device_detail = 'csv/device_detail.csv'
-csv_device_approve = 'csv/device_approve.csv'
+csv_device_approve = 'csv/device_detail_approve.csv'
 csv_sbi = 'csv/sbi.csv'
+csv_device_data = 'csv/device_data.csv'
+csv_digital_id = 'csv/digital_id.csv'

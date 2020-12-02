@@ -122,3 +122,23 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
+    def register_device(self, device_data):
+        '''
+        device_data: base64 encoded device data
+        '''
+        url = '%s/partnermanagement/v1/partners/registereddevices' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'deviceData': device_data
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r
+          
