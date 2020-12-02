@@ -30,3 +30,7 @@ nodeAffinity:
   taint:
     key: {{ postgres.node_affinity.taint.key }}
     value: {{ postgres.node_affinity.taint.value }}
+
+services:
+  postgres:
+    podconfig: {{ podconfig.postgres.service | to_yaml }}

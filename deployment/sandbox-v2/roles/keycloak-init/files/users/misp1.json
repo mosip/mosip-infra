@@ -1,11 +1,11 @@
 {
     "id": "",
-    "username": "policymanager",
-    "email": "policymanager@xyz.com",
+    "username": "misp1",
+    "email": "misp1@xyz.com",
     "enabled": true,
     "emailVerified": false,
-    "firstName": "Policy",
-    "lastName": "Manager",
+    "firstName": "MISP",
+    "lastName": "One",
     "credentials": [
         {
             "type": "password",

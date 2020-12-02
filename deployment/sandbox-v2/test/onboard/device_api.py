@@ -33,7 +33,7 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def create_policy_group(self, name, description):
+    def add_policy_group(self, name, description):
         url = 'https://%s/partnermanagement/v1/policies/policies/policyGroup' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -50,6 +50,65 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         return r
 
+    def get_policy_groups(self):
+        cookies = {'Authorization' : self.token}
+        url = 'https://%s/partnermanagement/v1/policies/policies/policyGroups' % self.server
+        r = requests.get(url, cookies=cookies)
+        return r
+
+    def add_policy(self, name, description, policy, policy_group, policy_type):
+        '''
+        policies: dict with policies structure
+        '''
+        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                 'name': name,
+                 'desc' : description,
+                 'policies': policy,
+                 'policyGroupName': policy_group,
+                 'policyType': policy_type
+             },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def update_policy(self, name, description, policy, policy_group, policy_type, policy_id):
+        '''
+        policies: dict with policies structure
+        policy_id: str
+        '''
+        url = 'https://%s/partnermanagement/v1/policies/policies/%s' % (self.server, policy_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                 'name': name,
+                 'desc' : description,
+                 'policies': policy,
+                 'policyGroupName': policy_group,
+                 'policyType': policy_type
+             },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.put(url, cookies=cookies, json = j)
+        return r
+
+    def get_policies(self):
+        cookies = {'Authorization' : self.token}
+        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        r = requests.get(url, cookies=cookies)
+        return r
+        
     def add_partner(self, name, contact, address, email, partner_id, partner_type, policy_group):
         url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
         cookies = {'Authorization' : self.token}
@@ -70,6 +129,60 @@ class MosipSession:
           'version': '1.0'
         }
         r = requests.post(url, cookies=cookies, json = j)
+        return r
+
+    def publish_policy(self, policy_group_id, policy_id):
+        url = 'https://%s/partnermanagement/v1/policies/policies/publishPolicy/policyGroupId/%s/policyId/%s' % (
+              self.server, policy_group_id, policy_id)
+        cookies = {'Authorization' : self.token}
+        r = requests.post(url, cookies=cookies)
+        return r
+
+    def upload_ca_certificate(self, cert_data, partner_domain):
+        '''
+        cert_data: str
+        '''
+        url = 'https://%s/partnermanagement/v1/partners/partners/uploadCACertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'certificateData': cert_data,
+            'partnerDomain': partner_domain
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        } 
+
+        r = requests.post(url, cookies=cookies, json = j)
+
+        return r
+
+    def upload_partner_certificate(self, cert_data, org_name, partner_domain, partner_id, partner_type):
+        '''
+        cert_data: str
+        '''
+        url = 'https://%s/partnermanagement/v1/partners/partners/uploadPartnerCertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'certificateData': cert_data,
+                'organizationName': org_name,
+                'partnerDomain': partner_domain,
+                'partnerId': partner_id,
+                'partnerType': partner_type
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        } 
+
+        r = requests.post(url, cookies=cookies, json = j)
+
         return r
 
     def add_device_detail(self, device_id, device_type, device_subtype, for_registration, make, model, 
@@ -148,36 +261,40 @@ class MosipSession:
 
         return r
 
-    def add_device_in_masterdb(self, code, name, description, language, update=False):
+    def add_device_in_masterdb(self, device_id, spec_id, name, serial_num, reg_center, valid_till, language, zone,
+                               update=False):
         '''
         By default, devices are added. If update is true, then put request is sent
         '''
-        url = 'https://%s/v1/masterdata/devicetypes' % self.server
+        url = 'https://%s/v1/masterdata/devices' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
           'id': 'string',
           'metadata': {},
           'request': {
-            'deviceSpecId': '736',
-            #'id': '',
-            'isActive': true,
+            'id': device_id,
+            'name': name,
+            'deviceSpecId': spec_id,
+            'ipAddress': '', # Unused
+            'isActive': True, 
             'langCode': language,
-            'name': 'Face',
-            'regCenterId': '10002',
-            'serialNum': '40749669',
-            'validityDateTime': '2021-10-01T11:24:47.241Z',
-            'zoneCode': 'NTH'
+            'macAddress': '',  # Unused 
+            'regCenterId': reg_center,
+            'serialNum': serial_num,
+            'validityDateTime': valid_till, # format'2021-10-01T11:24:47.241Z'
+            'zoneCode': zone
           },
           'requesttime': ts,
           'version': '1.0'
         }
 
-
         if update:
             r = requests.put(url, cookies=cookies, json = j)
         else:
             r = requests.post(url, cookies=cookies, json = j)
+
+        return r
 
     def approve_device_detail(self, device_id, status, for_registration): # status: Activate/De-activate 
         url = 'https://%s/partnermanagement/v1/partners/devicedetail' % self.server
@@ -240,3 +357,32 @@ class MosipSession:
         r = requests.patch(url, cookies=cookies, json = j)
         return r
 
+    def add_pms_key_alias(self):
+        '''
+        TODO: Key alias must be populated while launching the kernel as one of init jobs. Since that's
+        missing at the moment, we are using this api.  
+        '''
+        url = 'https://%s/v1/keymanager/generateMasterKey/CSR' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'applicationId': 'PMS',
+            'commonName': 'MOSIP-PMS',
+            'country': 'IN',
+            'force': False,
+            'location': 'BANGALORE',
+            'organization': 'IIITB',
+            'organizationUnit': 'MOSIP-TECH-CENTER',
+            'referenceId': '',
+            'state': 'KA'
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+
+        r = requests.post(url, cookies=cookies, json = j)
+        return r
+        

@@ -31,3 +31,4 @@ services:
     servicePort: 80
     ingressPath: /resident/v1
     healthUrl: /resident/v1/actuator/health
+    podconfig: {{ podconfig.resident.service | to_yaml }}
