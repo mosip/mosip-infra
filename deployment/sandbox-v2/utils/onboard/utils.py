@@ -6,6 +6,7 @@ import os
 import shutil
 import pprint
 import logging
+import traceback
 
 def read_token(response):
     cookies = response.headers['Set-Cookie'].split(';')
@@ -45,8 +46,13 @@ def sha256_hash(data):
     return h
 
 def response_to_json(r):
-    r = r.content.decode() # to str 
-    r = json.loads(r)
+    try:
+        myprint('Response: <%d>' % r.status_code)
+        r = r.content.decode() # to str 
+        r = json.loads(r)
+    except:
+        r = traceback.format_exc()
+
     return r
 
 def print_response(r):
