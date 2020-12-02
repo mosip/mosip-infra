@@ -79,7 +79,7 @@ class MosipSession:
 
     def add_sbi(self, device_detail_id, sw_hash, sw_create_date, sw_expiry_date, sw_version, 
                 for_registration):
-        url = 'https://%s/partnermanagement/v1/partners/securebiometricinterface' % self.server
+        url = '%s/partnermanagement/v1/partners/securebiometricinterface' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -97,13 +97,14 @@ class MosipSession:
           "version": "string"
         }
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def approve_sbi(self, sbi_id, status, for_registration): 
         '''
         status: Activate/De-activate
         '''
-        url = 'https://%s/partnermanagement/v1/partners/securebiometricinterface' % self.server
+        url = '%s/partnermanagement/v1/partners/securebiometricinterface' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -118,5 +119,6 @@ class MosipSession:
           "version": "string"
         }
         r = requests.patch(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
