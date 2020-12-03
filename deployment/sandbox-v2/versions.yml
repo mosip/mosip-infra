@@ -162,6 +162,8 @@ versions:
     mock:
       abis:
         'mock-abis-service': 'mosipdev/mock-abis:master'
+      biosdk: 
+        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
 
     artifactory:
       service:
