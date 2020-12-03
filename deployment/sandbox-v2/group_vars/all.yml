@@ -33,7 +33,7 @@ ssl:
       certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
       certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 
-developer_mode: true
+developer_mode: true  # false if limited APIs are exposed externally.
     
 is_glowroot: absent  # absent or present
 
