@@ -11,7 +11,7 @@ The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mo
 
 The HSM connects over the network. For services to connect to HSM they need `client.zip` which is a bundle of self dependent PKCS11 compliant libraries.  The same is installed by MOSIP services before the services start. This library must be provided by the HSM vendor.  When dockers start the `client.zip` file is pulled from the artifactory, unzipped and `install.sh` is run. 
 
-This file must fulfil the following:
+The zip must fulfil the following:
 * Contain an `install.sh`
 * Available in the artificatory    
 
