@@ -124,18 +124,9 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/pmpartners/;
         }
 
-        location /v1/admin/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/v1/admin/;
-        }
-
-        location /admin-ui/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/admin-ui/;
-        }
-
         location /resident/v1/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/resident/v1/;
         }
-
 
         location /commons/v1/packetmanager/ {
            proxy_pass http://mzworker0.sb:30080/commons/v1/packetmanager/;
