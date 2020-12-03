@@ -3,7 +3,7 @@
 ### Introduction
 
 The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mosip/mosip-mock-services/blob/master/softhsm/README.md). To connect to a real HSM you need to do the following:
-  1.  Update `client.zip` 
+  1.  Create `client.zip` 
   1.  Update MOSIP properties
   1.  Point MOSIP services to HSM
 
