@@ -36,5 +36,6 @@ $ ./test_regproc.py
     $ ./checkdb.sh
     Provide postgres password.  Note that it may take several seconds for packet to go through all the stages.  You must see a `SUCCESS` for all stages. 
     ```
+1. UIN should have got generated.
 1. The latest transaction must be seen in  `credential_transaction` table of `mosip_credential` DB.
-1. Further, `identity_cache` table of `mosip_ida` db should have fresh entries corresponding to the timestamp of UIN generated.
+1. Further, `identity_cache` table of `mosip_ida` db should have fresh entries corresponding to the timestamp of UIN generated. 

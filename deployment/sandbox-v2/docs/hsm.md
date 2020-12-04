@@ -3,7 +3,7 @@
 ### Introduction
 
 The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mosip/mosip-mock-services/blob/master/softhsm/README.md). To connect to a real HSM you need to do the following:
-  1.  Update `client.zip` 
+  1.  Create `client.zip` 
   1.  Update MOSIP properties
   1.  Point MOSIP services to HSM
 
@@ -11,7 +11,7 @@ The default sandbox uses simulator of HSM called [SoftHSM](https://github.com/mo
 
 The HSM connects over the network. For services to connect to HSM they need `client.zip` which is a bundle of self dependent PKCS11 compliant libraries.  The same is installed by MOSIP services before the services start. This library must be provided by the HSM vendor.  When dockers start the `client.zip` file is pulled from the artifactory, unzipped and `install.sh` is run. 
 
-This file must fulfil the following:
+The zip must fulfil the following:
 * Contain an `install.sh`
 * Available in the artificatory    
 

@@ -6,6 +6,8 @@ configServerUrl: {{ config_server.ingress_url }}
 storageClass:  manual
 exportLogs: enabled  # Let filebeat export the logs
 
+sitePublicUrl: {{ site.sandbox_public_url }}
+
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds

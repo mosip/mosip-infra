@@ -25,6 +25,9 @@ spec:
         component: {{ .Values.component }} 
         exportLogs: {{ .Values.exportLogs }}
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{ .Values.services.admin.serviceName }} 
@@ -41,8 +44,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.admin.containerPort }}
         readinessProbe:
