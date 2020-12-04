@@ -26,9 +26,6 @@ spec:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
-        env:
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:

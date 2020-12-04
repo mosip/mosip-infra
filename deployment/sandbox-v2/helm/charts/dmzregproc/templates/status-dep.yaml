@@ -40,8 +40,6 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.status.ports.containerPort }}
