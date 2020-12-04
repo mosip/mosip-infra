@@ -14,7 +14,8 @@ podconfig_file: '{{install_root}}/podconfig.yml'
 
 sandbox_domain_name: minibox.mosip.net
 site:
-  sandbox_public_url: 'https://{{sandbox_domain_name}}'
+  sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
+  sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
 
@@ -51,7 +52,7 @@ local_docker_registry:
 # List of local docker registries (other than Docker Hub) is needed to make sure http access works when dockers
 # are pulled from k8s cluster.  Used while installing clusters. See k8s/docker role.
 docker_registries:  
-  - '{{groups.console[0]}}:{{local_docker_registry.port}}'   # Docker registry running on console
+  - '{{inventory_hostname}}:{{local_docker_registry.port}}'   # Docker registry running on console
 
 clusters:
   mz:
@@ -262,7 +263,7 @@ databases:
     sql_path: '{{repos.websub.dest}}/db_scripts'
 
 nfs:
-  server: '{{groups.console[0]}}'
+  server: '{{inventory_hostname}}'
   folder: /srv/nfs/mosip
   provisioner: nfs-provisioner  # Name
 

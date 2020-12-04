@@ -4,10 +4,11 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='ida'):
+    def __init__(self, server, user, pwd, appid='ida', ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
+        self.ssl_verify = ssl_verify
         self.token = self.auth_get_token(appid, self.user, self.pwd) 
       
     def auth_get_token(self, appid, client_id, pwd):
@@ -25,7 +26,7 @@ class MosipSession:
             'version': '1.0'
         }
 
-        r = requests.post(url, json = j)
+        r = requests.post(url, json = j, verify=self.ssl_verify)
         token = read_token(r)
         return token
 
@@ -33,7 +34,7 @@ class MosipSession:
         url = '%s/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE' % \
                self.server
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -52,6 +53,6 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r 
