@@ -32,7 +32,7 @@ def get_timestamp(days_offset=None):
         delta = dt.timedelta(days=days_offset)
 
     ts = dt.datetime.utcnow() + delta
-    ms = ts.strftime('%f')[0:2]
+    ms = ts.strftime('%f')[0:3]
     s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
     return s
 
