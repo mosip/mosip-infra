@@ -1,4 +1,3 @@
-#server = 'cellbox.mosip.net' 
 server = 'minibox.mosip.net' 
 user = '110127'
 password = 'Techno@123'

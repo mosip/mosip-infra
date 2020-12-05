@@ -43,8 +43,6 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.internal.hsmUrl }} 
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         - name: zip_file_path

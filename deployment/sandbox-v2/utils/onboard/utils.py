@@ -6,6 +6,7 @@ import os
 import shutil
 import pprint
 import logging
+import traceback
 
 def read_token(response):
     cookies = response.headers['Set-Cookie'].split(';')
@@ -31,7 +32,7 @@ def get_timestamp(days_offset=None):
         delta = dt.timedelta(days=days_offset)
 
     ts = dt.datetime.utcnow() + delta
-    ms = ts.strftime('%f')[0:2]
+    ms = ts.strftime('%f')[0:3]
     s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
     return s
 
@@ -45,8 +46,13 @@ def sha256_hash(data):
     return h
 
 def response_to_json(r):
-    r = r.content.decode() # to str 
-    r = json.loads(r)
+    try:
+        myprint('Response: <%d>' % r.status_code)
+        r = r.content.decode() # to str 
+        r = json.loads(r)
+    except:
+        r = traceback.format_exc()
+
     return r
 
 def print_response(r):

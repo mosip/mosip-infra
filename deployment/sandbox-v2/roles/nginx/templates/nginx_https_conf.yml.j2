@@ -250,42 +250,41 @@ http {
         }
 
         location /registration-client/ {
-           proxy_pass http://dmzworker0.sb:30080/registration-client/;
+           proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
         location /activemq/ {
-           proxy_pass http://mzworker0.sb:30080/activemq/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/activemq/;
         }
 
         location /commons/v1/packetmanager/ {
-           proxy_pass http://mzworker0.sb:30080/commons/v1/packetmanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/commons/v1/packetmanager/;
         }
 
         location /minio/ {
-           proxy_pass http://mzworker0.sb:30080/minio/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/minio/;
         }
 
         location /v1/bioextractor/mock/ {
-           proxy_pass http://mzworker0.sb:30080/v1/bioextractor/mock/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/bioextractor/mock/;
         }
 
         location /v1/credentialrequest/{
-           proxy_pass http://mzworker0.sb:30080/v1/credentialrequest/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/credentialrequest/;
         }
 
         location /v1/credentialservice/{
-           proxy_pass http://mzworker0.sb:30080/v1/credentialservice/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/credentialservice/;
         }
 
         location /v1/datashare/ {
-           proxy_pass http://mzworker0.sb:30080/v1/datashare/;
-        }
-
-        location /v1/mock-abis-service/ { 
-           proxy_pass http://mzworker0.sb:30080/v1/mock-abis-service/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/datashare/;
         }
 
         location /v1/biosdk-service/ {
-           proxy_pass http://mzworker0.sb:30080/v1/biosdk-service/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/biosdk-service/;
+
+        location /v1/mosip-mock-service/ { 
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/mosip-mock-service/;
         }
 
         error_page 404 /404.html;

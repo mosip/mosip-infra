@@ -25,6 +25,12 @@
   with_inventory_hostnames:
     - all
 
+- name: Populate aliases dns db file
+  lineinfile:
+    path: '{{coredns.db}}'
+    line: '{{item.value.alias}}.   IN   CNAME {{ item.value.node.split(".")[0:-1] | join("") }}' # Remove the TLD suffix
+  loop: "{{lookup('dict', coredns.aliases)}}"
+
 - name: Copy Corefile
   copy:
     src: '{{install_root}}/roles/coredns/files/Corefile'
