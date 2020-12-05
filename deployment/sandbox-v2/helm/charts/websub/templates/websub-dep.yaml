@@ -5,16 +5,16 @@ metadata:
   name: {{ .Values.services.serviceName }}
   namespace: {{ .Release.Namespace }} 
 spec:
-  replicas: {{ .Values.services.websub.podconfig.replicas }}  
+  replicas: {{ .Values.services.podconfig.replicas }}  
   selector:
     matchLabels:
       app: {{ .Values.services.serviceName }}
-  minReadySeconds: {{ .Values.services.websub.podconfig.minReadySeconds }}
+  minReadySeconds: {{ .Values.services.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.websub.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.websub.podconfig.maxSurge }}
+      maxUnavailable: {{ .Values.services.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.podconfig.maxSurge }}
   template:
     metadata:
       labels:

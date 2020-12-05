@@ -163,14 +163,6 @@ versions:
       biosdk: 
         'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
 
-    mockbiosdk:
-      service:
-        'mock-biosdk-service': 'mosipdev/sdk-services:1.1.3'
-
     artifactory:
       service:
         'artifactory-service': 'mosipdev/artifactory-server:1.1.3'
-
-    mockbiosdk:
-      service:
-        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
