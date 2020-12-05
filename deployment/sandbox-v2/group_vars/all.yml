@@ -16,6 +16,7 @@ sandbox_domain_name: minibox.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
   sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
+  sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
 
@@ -63,6 +64,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
+      node_alias: 'mzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
       base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
@@ -94,6 +96,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
+      node_alias: 'dmzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
@@ -316,12 +319,21 @@ activemq:
 
 # Private DNS - typically required for on-prem setups, but we enable it as
 # default for cloud as well.  So we don't have to use cloud DNS.
+
 coredns:
   enabled: true  # Disable to use Cloud provided DNS
   name: coredns
   path: '{{tmp_dir}}/dns'
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
   image: coredns/coredns
+  aliases: # This is to give fixed name to ingress on mz and dmz, so that we don't have to change the names in installs.
+     mzingress:
+         alias: '{{clusters.mz.ingress.node_alias}}'  
+         node: '{{groups.mzworkers[0]}}'  # Any node on cluster since ingress runs on nodeport
+     dmzingress:
+         alias: '{{clusters.dmz.ingress.node_alias}}'  
+         node: '{{groups.dmzworkers[0]}}'  
+ 
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
 iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0/kernel-auth-adapter-1.2.0-20200918.164425-65.jar'
