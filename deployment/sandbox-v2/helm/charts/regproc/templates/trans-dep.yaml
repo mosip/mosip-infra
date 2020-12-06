@@ -44,8 +44,6 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.trans.ports.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
-
         readinessProbe:
           httpGet:
             path: {{ .Values.services.trans.healthUrl }} 
@@ -59,6 +57,3 @@ spec:
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
 #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
