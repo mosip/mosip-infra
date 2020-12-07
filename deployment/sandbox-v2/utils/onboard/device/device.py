@@ -62,8 +62,8 @@ def add_device_detail(csv_file):
     session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        myprint('Adding device detail for  %s' % row['device_id'])
-        r = session.add_device_detail(row['device_id'], row['type'], row['subtype'], row['for_registration'], 
+        myprint('Adding device detail for  %s' % row['device_detail_id'])
+        r = session.add_device_detail(row['device_detail_id'], row['type'], row['subtype'], row['for_registration'], 
                                      row['make'], row['model'], row['partner_org_name'], row['partner_id'])
         myprint(r)
 
@@ -71,8 +71,8 @@ def approve_device_detail(csv_file): # status: Activate/De-activate
     session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        myprint('Approving device %s' % row['device_id'])
-        r = session.approve_device_detail(row['device_id'], row['status'], row['for_registration'])
+        myprint('Approving device %s' % row['device_detail_id'])
+        r = session.approve_device_detail(row['device_detail_id'], row['status'], row['for_registration'])
         myprint(r)
 
 def add_sbi(csv_file):
