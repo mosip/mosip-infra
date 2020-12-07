@@ -15,7 +15,7 @@ version: {{ versions.services.registration_client.version }}
 mountPath: "/build_files"  # path inside docker
 crypto_key_env: {{ reg_client.crypto_key }}
 bootpwd: {{ reg_client.bootpwd }}
-tpm: "N"
+tpm: "Y"
 certificate: "mosip_cer.cer"
 upgrade_server: {{ site.sandbox_public_url }}
 healthcheck: "{{ site.sandbox_public_url }}/vi/authmanager/actuator/health"
