@@ -14,9 +14,9 @@ def upload_and_publish_idschema(csv_file):
     session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        fp = open(row['schema_file'], 'rt')
+        fp = open(row['ui_spec_file'], 'rt')
         j = json.load(fp)
-        r = session.upload_idschema(j, row['version'], row['title'], row['description'])
+        r = session.upload_idschema(j, row['title'], row['description'])
         myprint(r)
         if r['errors'] is None:
             schema_id = r['response']['id']

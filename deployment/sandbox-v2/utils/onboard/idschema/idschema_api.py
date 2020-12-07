@@ -29,7 +29,7 @@ class MosipSession:
         token = read_token(r)
         return token
       
-    def upload_idschema(self, schema, version, title, description):
+    def upload_idschema(self, ui_spec, title, description):
         '''
         schema: as python type - dict, or list, but not is json string
       
@@ -42,8 +42,8 @@ class MosipSession:
             'id': 'string',
             'metadata': {},
             'request': {
-               'schema': schema,
-               'schemaVersion' : version, 
+               'schema': ui_spec,
+               'schemaVersion' : '',  # Unused
                'title': title,
                'description': description,
                'effectiveFrom': ts
