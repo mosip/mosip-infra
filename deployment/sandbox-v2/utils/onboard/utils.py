@@ -22,14 +22,14 @@ def myprint(msg):
     logging.info('=============')
     logging.info(pprint.pformat(msg))
 
-def get_timestamp(days_offset=None):
+def get_timestamp(seconds_offset=None):
     '''
     Current TS.
     Format: 2019-02-14T12:40:59.768Z  (UTC)
     '''
     delta = dt.timedelta(days=0)
-    if days_offset is not None:
-        delta = dt.timedelta(days=days_offset)
+    if seconds_offset is not None:
+        delta = dt.timedelta(seconds=seconds_offset)
 
     ts = dt.datetime.utcnow() + delta
     ms = ts.strftime('%f')[0:3]
