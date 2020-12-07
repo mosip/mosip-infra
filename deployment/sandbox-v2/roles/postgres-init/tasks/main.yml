@@ -19,18 +19,18 @@
 - meta: end_play  # Exit
   when: out.stat.exists
 
-- name: Copy any custom dml files
-  copy:
-    src: '{{item.value.dml}}/' 
-    dest: '{{item.value.sql_path}}/{{item.key}}/dml/' 
-  when: item.value.dml is defined
-  loop: '{{databases | dict2items}}'
-
-- include: init_db.yml
+- include: init_ddl.yml
   vars:
     pg_db_name: '{{item.key}}'
     pg_sql_path: '{{item.value.sql_path}}'
   with_items: '{{databases | dict2items}}'
+
+- include: init_dml.yml
+  vars:
+    pg_db_name: '{{item.key}}'
+    pg_sql_path: '{{item.value.dml_path}}'
+  when: item.value.dml_path is defined
+  loop: '{{databases | dict2items}}'
         
 # After successful init, create a lockfile to not init again 
 - name: Create init lock file to not re-init again
