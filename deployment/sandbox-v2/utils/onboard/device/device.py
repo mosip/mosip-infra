@@ -125,7 +125,7 @@ def main():
     if args.action == 'sbi' or args.action == 'all':
         add_sbi(conf.csv_sbi)
     if args.action == 'register' or args.action == 'all':
-        register_device(conf.csv_device_data)
+        register_device(conf.csv_device)
 
 if __name__=="__main__":
     main()
