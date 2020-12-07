@@ -141,5 +141,31 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         r = response_to_json(r)
         return r
-          
+
+    def add_device_to_masterdb(self, name, serial_num, spec_id, reg_center, zone, validity, language):
+        url = '%s/v1/masterdata/devices' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j =  {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'name': name,
+              'deviceSpecId': spec_id,
+              'id': '', # Auto generated
+              'ipAddress': '192.168.100.1', # Unused
+              'isActive': True,
+              'langCode': language,
+              'macAddress': 'XYZ', # Unused
+              'regCenterId': reg_center,
+              'serialNum': serial_num, 
+              'validityDateTime': validity, # format:  'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'',
+              'zoneCode': zone
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r
 

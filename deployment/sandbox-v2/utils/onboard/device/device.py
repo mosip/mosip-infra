@@ -31,8 +31,8 @@ def get_digital_id(index):
             j = json.dumps(digital_id)
             b64_j = base64.b64encode(j.encode()) # bytes
             b64_j = b64_j.decode() # str 
-            return b64_j
-    return None
+            return digital_id, b64_j
+    return None,None
 
 def create_device_info(digital_id, row):  # row in csv file
     ts = get_timestamp()
@@ -95,17 +95,26 @@ def add_sbi(csv_file):
             myprint(r)
 
 def register_device(csv_file):
-    session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
+    session1 = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
+    session2 = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-       digital_id = get_digital_id(row['digital_id_index'])     
+       myprint('Registerig device %s' % row['device_id'])
+       digital_id, digital_id_b64 = get_digital_id(row['digital_id_index'])     
        if digital_id is None:
            myprint('ERROR: Digitial id for index = %s not found' % row['digital_id_index'])
            continue
-       device_info =  create_device_info(digital_id, row)
+       device_info =  create_device_info(digital_id_b64, row)
        device_data =  create_device_data(row['device_id'], row['purpose'], device_info, row['ft_provider_id'])
-       r = session.register_device(device_data)
+       r = session1.register_device(device_data)
        myprint(r)
+      
+       myprint('Add device to master db')
+
+       r = session2.add_device_to_masterdb(row['device_id'], digital_id['serialNo'], row['device_detail_id'], 
+                                           row['reg_center'], row['zone'], row['expiry'], conf.primary_lang)
+       myprint(r)
+        
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
