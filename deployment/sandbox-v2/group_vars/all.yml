@@ -214,6 +214,10 @@ repos:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
     tag: 1.1.2
+  ref_impl:
+    src: https://github.com/mosip/mosip-ref-impl
+    dest: '{{tmp_dir}}/mosip-ref-impl'
+    tag: 1.1.3
 
 # DBs 
 #
@@ -224,6 +228,7 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_iam:
     user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -233,12 +238,15 @@ databases:
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_credential:
     user: credentialuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
@@ -251,15 +259,18 @@ databases:
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
