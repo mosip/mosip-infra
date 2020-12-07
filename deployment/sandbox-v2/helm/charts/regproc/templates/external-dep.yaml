@@ -48,11 +48,6 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.external.ports.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
-
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
 #        readinessProbe:
 #          httpGet:
 #            path: {{ .Values.services.bio.healthUrl }} 
