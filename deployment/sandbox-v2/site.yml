@@ -22,6 +22,7 @@
 - import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav
 - import_playbook: playbooks/dmzclamav.yml
 - import_playbook: playbooks/activemq.yml
+- import_playbook: playbooks/mock-biosdk.yml
 - import_playbook: playbooks/minio.yml
 - import_playbook: playbooks/artifactory.yml
 # MOSIP modules

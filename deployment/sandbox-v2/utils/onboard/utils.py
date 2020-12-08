@@ -5,6 +5,8 @@ import hashlib
 import os
 import shutil
 import pprint
+import logging
+import traceback
 
 def read_token(response):
     cookies = response.headers['Set-Cookie'].split(';')
@@ -17,8 +19,8 @@ def read_token(response):
     return None
 
 def myprint(msg):
-    print('=============')
-    pprint.pprint(msg)
+    logging.info('=============')
+    logging.info(pprint.pformat(msg))
 
 def get_timestamp(days_offset=None):
     '''
@@ -30,7 +32,7 @@ def get_timestamp(days_offset=None):
         delta = dt.timedelta(days=days_offset)
 
     ts = dt.datetime.utcnow() + delta
-    ms = ts.strftime('%f')[0:2]
+    ms = ts.strftime('%f')[0:3]
     s = ts.strftime('%Y-%m-%dT%H:%M:%S') + '.%sZ' % ms
     return s
 
@@ -44,8 +46,13 @@ def sha256_hash(data):
     return h
 
 def response_to_json(r):
-    r = r.content.decode() # to str 
-    r = json.loads(r)
+    try:
+        myprint('Response: <%d>' % r.status_code)
+        r = r.content.decode() # to str 
+        r = json.loads(r)
+    except:
+        r = traceback.format_exc()
+
     return r
 
 def print_response(r):
@@ -68,3 +75,10 @@ def zip_packet(regid, base_path, out_dir):
     out_path = os.path.join(out_dir, regid)
     shutil.make_archive(out_path, 'zip', base_path)
     return out_path + '.zip'
+
+def init_logger(log_file):
+   logging.basicConfig(filename=log_file, filemode='w', level=logging.INFO)
+   root_logger = logging.getLogger()
+   console_handler = logging.StreamHandler()
+   root_logger.addHandler(console_handler)
+    

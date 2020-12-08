@@ -29,12 +29,8 @@ spec:
           value: {{ .Values.gitRepo.searchFolders }}
         - name: ENCRYPT_KEY
           value: {{ .Values.encryptKey }}
-        #- name: SPRING_CLOUD_CONFIG_OVERRIDENONE
-        #  value: "true"
-        #- name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SANDBOX_PUBLIC_URL
-        #  value: {{ .Values.additionalParams.sandboxPublicUrl }}
-        #- name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_EXTERNAL_URL
-        #  value: {{ .Values.additionalParams.keycloakExternalUrl }}
+        - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIPBOX_PUBLIC_URL  # Sets mosip.public.url
+          value: {{  .Values.sandboxPublicUrl }}
         {{ if eq .Values.localRepo.enabled true }}
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_URI
           value: {{ .Values.localRepo.mountPath }}

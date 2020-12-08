@@ -1,0 +1,11 @@
+name: biosdk # Will be used as service name too
+services:
+  serviceName: {{ versions.services.mockbiosdk.service.keys()[0] }}
+  dockerImage: {{ versions.services.mockbiosdk.service.values()[0] }}
+  servicePort: 80
+  containerPort: 9099
+component: biosdk
+
+imagePullPolicy: Always
+
+biosdklib: io.mosip.mock.sdk.impl.SampleSDK

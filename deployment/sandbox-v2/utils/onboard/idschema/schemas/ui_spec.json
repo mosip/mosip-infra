@@ -1,0 +1,836 @@
+[
+  {
+    "id": "IDSchemaVersion",
+    "description": "ID Schema Version",
+    "label": {
+      "primary": "IDSchemaVersion"
+    },
+    "type": "number",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": null,
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "none",
+    "inputRequired": false,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "IdSchemaVersion",
+    "contactType": null,
+    "group": null,
+    "required": true
+  },
+  {
+    "id": "UIN",
+    "description": "UIN",
+    "label": {
+      "primary": "UIN"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "none",
+    "inputRequired": false,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "UIN",
+    "contactType": null,
+    "group": null,
+    "required": false
+  },
+  {
+    "id": "fullName",
+    "description": "Full Name",
+    "label": {
+      "primary": "Full Name",
+      "secondary": "الاسم الكامل"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{3,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "name",
+    "contactType": null,
+    "group": "FullName",
+    "required": true
+  },
+  {
+    "id": "dateOfBirth",
+    "description": "dateOfBirth",
+    "label": {
+      "primary": "DOB",
+      "secondary": "دوب"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "ageDate",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(1869|18[7-9][0-9]|19[0-9][0-9]|20[0-9][0-9])/([0][1-9]|1[0-2])/([0][1-9]|[1-2][0-9]|3[01])$",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "identity.isNew || (identity.isUpdate && (identity.updatableFieldGroups contains 'GuardianDetails' || identity.updatableFieldGroups contains 'DateOfBirth'))"
+      }
+    ],
+    "subType": "dateOfBirth",
+    "contactType": null,
+    "group": "DateOfBirth",
+    "required": true
+  },
+  {
+    "id": "gender",
+    "description": "gender",
+    "label": {
+      "primary": "Gender",
+      "secondary": "جنس"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Gender",
+    "contactType": null,
+    "group": "Gender",
+    "required": true
+  },
+  {
+    "id": "addressLine1",
+    "description": "addressLine1",
+    "label": {
+      "primary": "AddressLine1",
+      "secondary": "العنوان السطر 1"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{0,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "addressLine1",
+    "contactType": "Postal",
+    "group": "Address",
+    "required": true
+  },
+  {
+    "id": "addressLine2",
+    "description": "addressLine2",
+    "label": {
+      "primary": "AddressLine2",
+      "secondary": "سطر العنوان 2"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{3,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "addressLine2",
+    "contactType": "Postal",
+    "group": "Address",
+    "required": true
+  },
+  {
+    "id": "addressLine3",
+    "description": "addressLine3",
+    "label": {
+      "primary": "AddressLine3",
+      "secondary": "العنوانالخط 3"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{3,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "addressLine3",
+    "contactType": "Postal",
+    "group": "Address",
+    "required": true
+  },
+  {
+    "id": "residenceStatus",
+    "description": "residenceStatus",
+    "label": {
+      "primary": "Residence Status",
+      "secondary": "حالة الإقامة"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "kyc",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "residenceStatus",
+    "contactType": null,
+    "group": "ResidenceStatus",
+    "required": false
+  },
+  {
+    "id": "referenceIdentityNumber",
+    "description": "referenceIdentityNumber",
+    "label": {
+      "primary": "Reference Identity Number",
+      "secondary": "حالة الإقامة"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "kyc",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^([0-9]{10,30})$",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "none",
+    "contactType": null,
+    "group": "ReferenceIdentityNumber",
+    "required": false
+  },
+  {
+    "id": "region",
+    "description": "region",
+    "label": {
+      "primary": "Region",
+      "secondary": "منطقة"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{0,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Region",
+    "contactType": "Postal",
+    "group": "Location",
+    "required": true
+  },
+  {
+    "id": "province",
+    "description": "province",
+    "label": {
+      "primary": "Province",
+      "secondary": "المحافظة"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{0,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Province",
+    "contactType": "Postal",
+    "group": "Location",
+    "required": true
+  },
+  {
+    "id": "city",
+    "description": "city",
+    "label": {
+      "primary": "City",
+      "secondary": "مدينة"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^(?=.{0,50}$).*",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "City",
+    "contactType": "Postal",
+    "group": "Location",
+    "required": true
+  },
+  {
+    "id": "zone",
+    "description": "zone",
+    "label": {
+      "primary": "Zone",
+      "secondary": "منطقة"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Zone",
+    "contactType": null,
+    "group": "Location",
+    "required": true
+  },
+  {
+    "id": "postalCode",
+    "description": "postalCode",
+    "label": {
+      "primary": "Postal Code",
+      "secondary": "الكود البريدى"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "dropdown",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^[(?i)A-Z0-9]{5}$|^NA$",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Postal Code",
+    "contactType": "Postal",
+    "group": "Location",
+    "required": true
+  },
+  {
+    "id": "phone",
+    "description": "phone",
+    "label": {
+      "primary": "Phone",
+      "secondary": "هاتف"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^[+]*([0-9]{1})([0-9]{9})$",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Phone",
+    "contactType": "email",
+    "group": "Phone",
+    "required": true
+  },
+  {
+    "id": "email",
+    "description": "email",
+    "label": {
+      "primary": "Email",
+      "secondary": "البريد الإلكتروني"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [
+      {
+        "type": "regex",
+        "validator": "^[A-Za-z0-9_\\-]+(\\.[A-Za-z0-9_]+)*@[A-Za-z0-9_-]+(\\.[A-Za-z0-9_]+)*(\\.[a-zA-Z]{2,})$",
+        "arguments": []
+      }
+    ],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "Email",
+    "contactType": "email",
+    "group": "Email",
+    "required": true
+  },
+  {
+    "id": "parentOrGuardianName",
+    "description": "parentOrGuardianName",
+    "label": {
+      "primary": "Parent Name",
+      "secondary": "اسم الوالدين"
+    },
+    "type": "simpleType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "evidence",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "( identity.isNew && identity.isChild ) || ( identity.isUpdate && identity.isChild )"
+      }
+    ],
+    "subType": "parentOrGuardianName",
+    "contactType": null,
+    "group": "GuardianDetails",
+    "required": false
+  },
+  {
+    "id": "parentOrGuardianRID",
+    "description": "parentOrGuardianRID",
+    "label": {
+      "primary": "Parent RID",
+      "secondary": "الوالد RID"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "evidence",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "( identity.isChild && (identity.parentOrGuardianUIN == nil || identity.parentOrGuardianUIN == empty) )"
+      }
+    ],
+    "subType": "RID",
+    "contactType": null,
+    "group": "GuardianDetails",
+    "required": false
+  },
+  {
+    "id": "parentOrGuardianUIN",
+    "description": "parentOrGuardianUIN",
+    "label": {
+      "primary": "Parent UIN",
+      "secondary": "الأصل UIN"
+    },
+    "type": "string",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "textbox",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "evidence",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "( identity.isChild && (identity.parentOrGuardianRID == nil || identity.parentOrGuardianRID == empty) )"
+      }
+    ],
+    "subType": "UIN",
+    "contactType": null,
+    "group": "GuardianDetails",
+    "required": false
+  },
+  {
+    "id": "proofOfAddress",
+    "description": "proofOfAddress",
+    "label": {
+      "primary": "Address Proof",
+      "secondary": "إثبات العنوان"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "identity.isNew || ( identity.isUpdate && (identity.updatableFields contains 'addressLine1' || identity.updatableFields contains 'addressLine2' || identity.updatableFields contains 'addressLine3'))"
+      }
+    ],
+    "subType": "POA",
+    "contactType": null,
+    "group": "Documents",
+    "required": false
+  },
+  {
+    "id": "proofOfIdentity",
+    "description": "proofOfIdentity",
+    "label": {
+      "primary": "Identity Proof",
+      "secondary": "إثبات الهوية"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "identity.isNew || ( identity.isUpdate && identity.updatableFields contains 'fullName')"
+      }
+    ],
+    "subType": "POI",
+    "contactType": null,
+    "group": "Documents",
+    "required": true
+  },
+  {
+    "id": "proofOfRelationship",
+    "description": "proofOfRelationship",
+    "label": {
+      "primary": "Relationship Proof",
+      "secondary": "إثبات العلاقة"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "( identity.isNew && identity.isChild ) || ( identity.isUpdate && (identity.updatableFieldGroups contains 'GuardianDetails' || identity.isChild))"
+      }
+    ],
+    "subType": "POR",
+    "contactType": null,
+    "group": "Documents",
+    "required": false
+  },
+  {
+    "id": "proofOfDateOfBirth",
+    "description": "proofOfDateOfBirth",
+    "label": {
+      "primary": "DOB Proof",
+      "secondary": "دليل DOB"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "identity.isUpdate && identity.updatableFields contains 'dateOfBirth'"
+      }
+    ],
+    "subType": "POB",
+    "contactType": null,
+    "group": "Documents",
+    "required": false
+  },
+  {
+    "id": "proofOfException",
+    "description": "proofOfException",
+    "label": {
+      "primary": "Exception Proof",
+      "secondary": "إثبات الاستثناء"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "evidence",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "POE",
+    "contactType": null,
+    "group": "Documents",
+    "required": false
+  },
+  {
+    "id": "proofOfException-1",
+    "description": "proofOfException",
+    "label": {
+      "primary": "Exception Proof",
+      "secondary": "إثبات الاستثناء 2"
+    },
+    "type": "documentType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "fileupload",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "evidence",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": null,
+    "requiredOn": [],
+    "subType": "POE",
+    "contactType": null,
+    "group": "Documents",
+    "required": false
+  },
+  {
+    "id": "individualBiometrics",
+    "description": "",
+    "label": {
+      "primary": "Applicant Biometrics",
+      "secondary": "القياسات الحيوية الفردية"
+    },
+    "type": "biometricsType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "biometrics",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": [
+      "leftEye",
+      "rightEye",
+      "rightIndex",
+      "rightLittle",
+      "rightRing",
+      "rightMiddle",
+      "leftIndex",
+      "leftLittle",
+      "leftRing",
+      "leftMiddle",
+      "leftThumb",
+      "rightThumb",
+      "face"
+    ],
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "(identity.isNew || identity.isLost || ( identity.isUpdate && identity.updatableFieldGroups contains 'Biometrics'))"
+      }
+    ],
+    "subType": "applicant",
+    "contactType": null,
+    "group": "Biometrics",
+    "required": true
+  },
+  {
+    "id": "individualAuthBiometrics",
+    "description": "Used to hold biometrics only for authentication",
+    "label": {
+      "primary": "Authentication Biometrics",
+      "secondary": "القياسات الحيوية الفردية"
+    },
+    "type": "biometricsType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "biometrics",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": [
+      "leftEye",
+      "rightEye",
+      "rightIndex",
+      "rightLittle",
+      "rightRing",
+      "rightMiddle",
+      "leftIndex",
+      "leftLittle",
+      "leftRing",
+      "leftMiddle",
+      "leftThumb",
+      "rightThumb",
+      "face"
+    ],
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "!identity.isChild && identity.isUpdate && !(identity.updatableFieldGroups contains 'Biometrics' || identity.updatableFieldGroups contains 'GuardianDetails')"
+      }
+    ],
+    "subType": "applicant-auth",
+    "contactType": null,
+    "group": null,
+    "required": false
+  },
+  {
+    "id": "parentOrGuardianBiometrics",
+    "description": "",
+    "label": {
+      "primary": "Guardian Biometrics",
+      "secondary": "القياسات الحيوية للوالدين"
+    },
+    "type": "biometricsType",
+    "minimum": 0,
+    "maximum": 0,
+    "controlType": "biometrics",
+    "fieldType": "default",
+    "format": "none",
+    "fieldCategory": "pvt",
+    "inputRequired": true,
+    "validators": [],
+    "bioAttributes": [
+      "leftEye",
+      "rightEye",
+      "rightIndex",
+      "rightLittle",
+      "rightRing",
+      "rightMiddle",
+      "leftIndex",
+      "leftLittle",
+      "leftRing",
+      "leftMiddle",
+      "leftThumb",
+      "rightThumb",
+      "face"
+    ],
+    "requiredOn": [
+      {
+        "engine": "MVEL",
+        "expr": "(identity.isChild && identity.isNew) || (identity.isUpdate && identity.updatableFieldGroups contains 'GuardianDetails')"
+      }
+    ],
+    "subType": "introducer",
+    "contactType": null,
+    "group": "Biometrics",
+    "required": false
+  }
+]

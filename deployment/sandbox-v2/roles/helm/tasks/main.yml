@@ -28,7 +28,7 @@
 - name: install chart
   block:
   - name: 'Install chart {{install_name}}'
-    command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --set-string dummy=value,{{helm_strings}} --wait --timeout 20m0s'
+    command: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} install {{install_name}} {{helm_chart}} -f {{helm_values | dirname}}/values.yaml -n {{helm_namespace}} --create-namespace --set-string dummy=value,{{helm_strings}} --wait --timeout 20m0s'
     when: install_name not in out.stdout.split()
     register: helm_out 
   

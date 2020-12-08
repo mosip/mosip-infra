@@ -12,27 +12,12 @@
       become: yes
       with_items: '{{ mon_prop.nfs.grafana | dict2items }}'
 
-- hosts: console
-  tasks:
-    - name: Create a k8s namespace
-      k8s:
-        name: '{{ mon_prop.namespace}}'
-        kubeconfig: '{{kube_config}}'
-        api_version: v1
-        kind: Namespace
-        state: present
-
 # Install Grafana
 # Apply custom config
 - hosts: console
-  gather_facts: false
-  tasks: 
-    - name: Apply grafana custom config
-      k8s:
-        src: '{{charts_root}}/grafana/config.yaml'
-        kubeconfig: '{{kube_config}}'
-        namespace: '{{ mon_prop.namespace }}'
-        state: present
+  tasks:
+  - name: 'Create monitoring namespace'
+    command: 'kubectl --kubeconfig {{kube_config}} -n {{mon_prop.namespace}}  apply -f {{charts_root}}/grafana/config.yaml'
 
 - hosts: console
   vars:

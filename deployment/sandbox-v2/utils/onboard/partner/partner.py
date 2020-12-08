@@ -60,7 +60,8 @@ def add_policy(csv_file):
         myprint('Adding policy "%s"' % row['name'])
         json_str = open(row['policy_file'], 'rt').read() 
         policy = json.loads(json_str)  
-        r = session.add_policy(row['name'], row['description'], policy, row['policy_group'], row['policy_type'])
+        r = session.add_policy(row['policy_id'],row['name'], row['description'], policy, row['policy_group'], 
+                               row['policy_type'])
         r = response_to_json(r)
         myprint(r)
         if len(r['errors']) == 0:  
@@ -122,17 +123,24 @@ def map_partner_policy(csv_file):
     session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        myprint('Sending partner-policy mapping request for %s-%s' % (row['partner_id'], row['policy_name']))
-        r = session1.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
-        r = response_to_json(r)
+        myprint('Getting policies for a partner "%s" to check if this is a duplicate entry' % row['partner_id']) 
+        r = session1.get_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
         myprint(r)
-        api_request_id = r['response']['apiRequestId']
-
-        # Approve the same
-        myprint('Approving request for %s-%s' % (row['partner_id'], row['policy_name']))
-        r =  session2.approve_partner_policy(api_request_id, 'Approved')
-        r = response_to_json(r)
-        myprint(r)
+        if r['errors'] is not None:
+            if r['errors']['errorCode'] == 'PMS_PRT_005':  # Partner does not exist, add only then
+                myprint('Sending partner-policy mapping request for (PARTNER: %s, POLICY: %s)' % (row['partner_id'], 
+                         row['policy_name']))
+                r = session1.add_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
+                myprint(r)
+                api_request_id = r['response']['apiRequestId']
+        
+                # Approve
+                myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (row['partner_id'], row['policy_name']))
+                r =  session2.approve_partner_policy(api_request_id, 'Approved')
+                myprint(r)
+        else:
+            myprint('ERROR: Skipping..')
+            continue
 
 def create_misp(csv_file):
     session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner')
@@ -169,6 +177,8 @@ def args_parse():
    return args
 
 def main():
+
+    init_logger('./out.log')
 
     args = args_parse()
 

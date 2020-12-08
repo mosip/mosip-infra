@@ -3,3 +3,4 @@ certs/ca1/pvt_key.pem,abc,certs/ca1/cert.pem,true,mosip.org,MOSIP Project,IN,Kar
 certs/dp1/pvt_key.pem,abc,certs/dp1/cert.pem,false,smcam.com,Smart Cameras,IN,Karantaka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
 certs/ap1/pvt_key.pem,abc,certs/ap1/cert.pem,false,ap1.com,Great Auth Provider,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
 certs/mpartner-default-auth/pvt_key.pem,abc,certs/mpartner-default-auth/cert.pem,false,mpartner-default-auth.com,Mpartner Default Auth,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc
+certs/mpartner-default-abis/pvt_key.pem,abc,certs/mpartner-default-abis/cert.pem,false,mpartner-default-abis.com,Mpartner Default Abis,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem,abc

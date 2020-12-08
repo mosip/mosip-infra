@@ -56,7 +56,7 @@ class MosipSession:
         r = requests.get(url, cookies=cookies)
         return r
 
-    def add_policy(self, name, description, policy, policy_group, policy_type):
+    def add_policy(self, policy_id, name, description, policy, policy_group, policy_type):
         '''
         policies: dict with policies structure
         '''
@@ -67,6 +67,7 @@ class MosipSession:
             'id': 'string',
             'metadata': {},
             'request': {
+                 'policyId' : policy_id,
                  'name': name,
                  'desc' : description,
                  'policies': policy,
@@ -138,6 +139,14 @@ class MosipSession:
         r = requests.post(url, cookies=cookies)
         return r
 
+    def get_partner_api_key_requests(self, partner_id, policy_name, description):
+        url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
+                                                                                              partner_id)
+        cookies = {'Authorization' : self.token}
+        r = requests.get(url, cookies=cookies)
+        r = response_to_json(r)
+        return r
+
     def add_partner_api_key_requests(self, partner_id, policy_name, description):
         url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
                                                                                               partner_id)
@@ -155,7 +164,7 @@ class MosipSession:
         } 
 
         r = requests.patch(url, cookies=cookies, json = j)
-
+        r = response_to_json(r)
         return r
 
     def approve_partner_policy(self, api_request_id, status):
@@ -176,6 +185,7 @@ class MosipSession:
             'version': '1.0'
         }
         r = requests.patch(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def upload_ca_certificate(self, cert_data, partner_domain):

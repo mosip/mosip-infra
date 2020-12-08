@@ -6,6 +6,8 @@ configServerUrl: {{ config_server.ingress_url }}
 storageClass:  manual
 exportLogs: enabled  # Let filebeat export the logs
 
+sitePublicUrl: {{ site.sandbox_public_url }}
+
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
@@ -14,7 +16,7 @@ ingress:
    namespace: default
 
 artifactoryUrl: {{ artifactory_url }} 
-iamAdapterUrl: {{ iam_adapter_url }}
+iamAdapterUrl: {{ iam_adapter_ext_url }}
 
 isGlowroot: {{ is_glowroot }} 
 

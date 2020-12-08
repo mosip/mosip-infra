@@ -4,3 +4,4 @@ laptop_provider2,Laptop provider
 face_provider,Face camera provider
 auth_providers,Group of Auth providers
 data_share_policy_group,data_share_policy_group
+abis_policy_group,abis_policy_group

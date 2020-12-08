@@ -9,4 +9,3 @@
     helm_strings: ''
   roles:
     - {role:  helm}
-    - {role:  pms-init}

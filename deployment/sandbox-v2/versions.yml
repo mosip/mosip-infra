@@ -130,8 +130,8 @@ versions:
       partner:
         'pms-partner-service': 'mosipid/pmp-partner-service:1.1.2'
       policy:
-        'pms-policy-management-service': 'mosipid/pmp-policy-management-service:1.1.2'
-
+        #'pms-policy-management-service': 'mosipid/pmp-policy-management-service:1.1.2'
+        'pms-policy-management-service': 'ckm007/pmp-policy-management-service:1.1.2'   # has api fix TODO. revert
 
     resident: 
       resident:  
@@ -145,7 +145,7 @@ versions:
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipdev/commons-packet-service:develop'
+        'packetmanager-service': 'mosipid/commons-packet-service:1.1.2'
 
     datashare:
       service:
@@ -162,7 +162,13 @@ versions:
     mock:
       abis:
         'mock-abis-service': 'mosipdev/mock-abis:master'
+      biosdk: 
+        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
 
     artifactory:
       service:
         'artifactory-service': 'mosipdev/artifactory-server:1.1.2'
+
+    mockbiosdk:
+      service:
+        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'

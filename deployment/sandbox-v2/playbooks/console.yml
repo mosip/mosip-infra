@@ -25,6 +25,7 @@
      - {role: packages/policycoreutils-python, tags: [policy]}
      - {role: packages/requests3}
      - {role: packages/psycopg2}
+     - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
 
