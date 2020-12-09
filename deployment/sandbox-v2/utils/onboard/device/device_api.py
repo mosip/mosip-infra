@@ -33,7 +33,7 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def add_device_detail(self, device_id, device_type, device_subtype, for_registration, make, model, 
+    def add_device_detail(self, device_detail_id, device_type, device_subtype, for_registration, make, model, 
                           partner_org_name, partner_id):
         url = '%s/partnermanagement/v1/partners/devicedetail' % self.server
         cookies = {'Authorization' : self.token}
@@ -42,7 +42,7 @@ class MosipSession:
           "id": "string",
           "metadata": {},
           "request": {
-            "id": device_id,
+            "id": device_detail_id,
             "deviceProviderId": partner_id,
             "deviceTypeCode": device_type,
             "deviceSubTypeCode": device_subtype, 
@@ -58,7 +58,7 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
-    def approve_device_detail(self, device_id, status, for_registration): # status: Activate/De-activate 
+    def approve_device_detail(self, device_detail_id, status, for_registration): # status: Activate/De-activate 
         url = '%s/partnermanagement/v1/partners/devicedetail' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -67,7 +67,7 @@ class MosipSession:
           "metadata": {},
           "request": {
             "approvalStatus": status,
-            "id": device_id,
+            "id": device_detail_id,
             "isItForRegistrationDevice": for_registration
           },
           "requesttime": ts,
@@ -141,4 +141,31 @@ class MosipSession:
         r = requests.post(url, cookies=cookies, json = j)
         r = response_to_json(r)
         return r
-          
+
+    def add_device_to_masterdb(self, name, serial_num, spec_id, reg_center, zone, validity, language):
+        url = '%s/v1/masterdata/devices' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j =  {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'name': name,
+              'deviceSpecId': spec_id,
+              'id': '', # Auto generated
+              'ipAddress': '192.168.100.1', # Unused
+              'isActive': True,
+              'langCode': language,
+              'macAddress': 'XYZ', # Unused
+              'regCenterId': reg_center,
+              'serialNum': serial_num, 
+              'validityDateTime': validity, # format:  'yyyy-MM-dd'T'HH:mm:ss.SSS'Z'',
+              'zoneCode': zone
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r
+
