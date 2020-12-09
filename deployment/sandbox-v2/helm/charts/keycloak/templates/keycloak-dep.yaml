@@ -32,6 +32,8 @@ spec:
           value: {{ .Values.keycloakPassword }}
         - name: DB_VENDOR 
           value: postgres
+        - name: DB_DATABASE
+          value: {{ .Values.db.name }} 
         - name: DB_ADDR
           value: {{ .Values.db.host }} 
         - name: DB_PORT

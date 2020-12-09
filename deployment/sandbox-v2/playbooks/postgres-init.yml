@@ -1,0 +1,9 @@
+# This playbook initializes db.
+#
+#
+
+- hosts: console
+  roles:  # Run these roles only if db does not exist or if force_init is set to true
+     - {role: repos} 
+     - {role: postgres-init}
+
