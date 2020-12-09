@@ -28,7 +28,7 @@
     openssl_csr:
       path: '{{ssl.ca.selfsigned.csr}}' 
       privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
-      common_name: '{{sandbox_domain_name}}'
+      common_name: '{{ssl.ca.selfsigned.common_name}}'
     become: yes
 
   - name: Generate a Self Signed OpenSSL certificate
