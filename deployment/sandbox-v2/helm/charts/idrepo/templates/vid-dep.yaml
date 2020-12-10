@@ -41,6 +41,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: mosip_biosdk_service
+          value: {{ .Values.biosdkServiceUrl }} 
         ports:
         - containerPort: {{ .Values.services.vid.containerPort }}
 
