@@ -26,6 +26,8 @@
 - import_playbook: playbooks/minio.yml
 - import_playbook: playbooks/artifactory.yml
 - import_playbook: playbooks/mock-biosdk.yml
+- import_playbook: playbooks/mzkafka.yml  # Each zone has it's own kafka
+- import_playbook: playbooks/dmzkafka.yml
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
