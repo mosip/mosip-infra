@@ -96,8 +96,8 @@ clusters:
       offsets_topic_replication_factor: 3
       transaction_state_log_replication_factor: 3
       num_partitions: 250
-      replica_count: 3
-      zookeeper_replica_count: 3
+      replica_count: 5
+      zookeeper_replica_count: 5
       zookeeper_size: 2Gi 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
@@ -139,8 +139,8 @@ clusters:
       offsets_topic_replication_factor: 3
       transaction_state_log_replication_factor: 3
       num_partitions: 250
-      replica_count: 3
-      zookeeper_replica_count: 3
+      replica_count: 5
+      zookeeper_replica_count: 5
       zookeeper_size: 2Gi 
 
 # Registration processor shared variables
