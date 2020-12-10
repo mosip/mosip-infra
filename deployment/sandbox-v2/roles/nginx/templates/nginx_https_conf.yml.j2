@@ -298,7 +298,7 @@ http {
 stream {
     server {
         listen {{postgres.port}};  
-        proxy_pass {{postgres.server}}:{{postgres.port}};
+        proxy_pass {{postgres.host}}:{{postgres.port}};
     }
 
     server {

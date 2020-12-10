@@ -16,7 +16,7 @@
 - name: Populate dns db file
   lineinfile:
     path: '{{coredns.db}}'
-    line:  'sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600'
+    line:  '{{site.sandbox_internal_tld}}.    IN  SOA dns.{{site.sandbox_internal_tld}}. admin.{{site.sandbox_internal_tld}}. 2015082541 7200 3600 315360000 3600'
 
 - name: Populate dns db file
   lineinfile:
@@ -32,9 +32,9 @@
   loop: "{{lookup('dict', coredns.aliases)}}"
 
 - name: Copy Corefile
-  copy:
-    src: '{{install_root}}/roles/coredns/files/Corefile'
-    dest: '{{coredns.path}}'
+  template:
+    src: Corefile.j2
+    dest: '{{coredns.path}}/Corefile'
 
 - name: Delete running container
   shell: 'docker rm -f {{coredns.name}}'

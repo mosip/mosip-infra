@@ -45,6 +45,8 @@ spec:
           value: {{ .Values.services.otp.hsmUrl }}
         - name: zip_file_path
           value: {{ .Values.services.otp.hsmClientZipPath }}
+        - name: mosip_biosdk_service
+          value: {{ .Values.biosdkServiceUrl }} 
         ports:
         - containerPort: {{ .Values.services.otp.containerPort }}
 
