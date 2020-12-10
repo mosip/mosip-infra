@@ -19,6 +19,9 @@
 - name: Add stable repo
   shell: '{{helm_cli_path}}/helm repo add stable https://kubernetes-charts.storage.googleapis.com'
 
+- name: Add grafana repo
+  shell: '{{helm_cli_path}}/helm repo add grafana https://grafana.github.io/helm-charts'
+
 - name: "Update Helm repo"
   shell: "{{helm_cli_path}}/helm repo update"  # Shell instead of command for getting all the paths
 

@@ -10,17 +10,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.camel.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.camel.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.camel.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.camel.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.camel.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -47,8 +48,6 @@ spec:
           containerPort: {{ .Values.services.camel.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.camel.ports.containerPort }}
-        volumeMounts:
-        {{- include "logger.mount" .  | indent 8}}
 
 #        readinessProbe:
 #          httpGet:
@@ -62,8 +61,3 @@ spec:
  #           port: {{ .Values.services.camel.ports.containerPort }} 
  #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
  #         periodSeconds: {{ .Values.probe.period }} 
- #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      volumes:
-      {{- include "logger.volume" .  | indent 6}}

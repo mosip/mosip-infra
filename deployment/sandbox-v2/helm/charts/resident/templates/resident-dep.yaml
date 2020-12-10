@@ -8,21 +8,22 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.resident.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.resident.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.resident.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.resident.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.resident.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.resident.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -40,8 +41,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.resident.containerPort }}
         readinessProbe:

@@ -1,11 +1,23 @@
-- name: Install docker
+- name: Add Docker yum repository
+  yum_repository:
+    name: Docker
+    description: Docker Repository
+    file: docker
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+  become: yes
+
+- name: Install docker engine (RHEL/CentOS)
   yum:
-    name: docker
+    name: docker-ce-*
+    update_cache: true
     state: present
   become: yes
- 
+
 - name: Run docker
-  shell: 'systemctl start docker'
+  shell: 'systemctl restart docker'
   become: yes
 
 - name: Install docker py

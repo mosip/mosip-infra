@@ -1,4 +1,15 @@
 
+# Create Keycloak DB in postgres
+- hosts: console
+  tasks:
+    - name: Create db
+      postgresql_db:
+        name: '{{keycloak.db.name}}'
+        login_host: '{{keycloak.db.host}}'
+        login_user: '{{keycloak.db.user}}' 
+        login_password: '{{keycloak.db.password}}'
+        port: '{{keycloak.db.port}}' 
+
 # Install keycloak
 - hosts: console
   vars:
@@ -8,7 +19,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/keycloak/values.template.j2'
-    helm_strings: 'keycloakPassword={{secrets.keycloak.password}},db.password={{secrets.postgres.su}}'
+    helm_strings: 'keycloakPassword={{keycloak.password}},db.password={{keycloak.db.password}}'
   roles:
     - {role:  helm, tags: [keycloak]}
 

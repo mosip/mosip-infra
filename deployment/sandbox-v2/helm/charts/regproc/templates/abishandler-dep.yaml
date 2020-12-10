@@ -11,17 +11,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.abishandler.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.abishandler.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.abishandler.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.abishandler.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.abishandler.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -39,8 +40,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.abishandler.ports.eventbusPort }}
@@ -48,12 +47,6 @@ spec:
           containerPort: {{ .Values.services.abishandler.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abishandler.ports.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
-
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
 
 #        readinessProbe:  # TODO: Uncomment this or put a actuator health url
 #          httpGet:

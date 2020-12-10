@@ -3,6 +3,8 @@ part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
+exportLogs: enabled  # Let filebeat export the logs
+
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
@@ -11,6 +13,7 @@ probe:
   period: 30 # Seconds
 imagePullPolicy: Always
 sitePublicUrl: {{ site.sandbox_public_url }}
+iamAdapterUrl: {{ iam_adapter_url }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 isGlowroot: {{ is_glowroot }} 
 
@@ -26,6 +29,8 @@ services:
     servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
+    podconfig: {{ podconfig.admin.service | to_yaml }} 
+
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}

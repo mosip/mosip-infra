@@ -8,16 +8,16 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.mockabis.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.mockabis.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.mockabis.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.mockabis.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.mockabis.podconfig.maxSurge }}
   template:
     metadata:
       labels:

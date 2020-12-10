@@ -12,17 +12,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.masterdata.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.masterdata.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.masterdata.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.masterdata.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.masterdata.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:

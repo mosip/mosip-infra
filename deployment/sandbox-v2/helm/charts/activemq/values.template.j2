@@ -9,3 +9,6 @@ docker:
   tempusage: 1 gb
   webPort: 8161
   servicePort: 80
+services:
+  activemq:
+    podconfig: {{ podconfig.activemq.service | to_yaml }}

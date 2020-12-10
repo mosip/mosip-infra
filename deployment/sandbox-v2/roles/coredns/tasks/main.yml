@@ -25,17 +25,22 @@
   with_inventory_hostnames:
     - all
 
+- name: Populate aliases dns db file
+  lineinfile:
+    path: '{{coredns.db}}'
+    line: '{{item.value.alias}}.   IN   CNAME {{ item.value.node.split(".")[0:-1] | join("") }}' # Remove the TLD suffix
+  loop: "{{lookup('dict', coredns.aliases)}}"
+
 - name: Copy Corefile
   copy:
     src: '{{install_root}}/roles/coredns/files/Corefile'
     dest: '{{coredns.path}}'
 
 - name: Delete running container
-  docker_container:
-    name: '{{coredns.name}}'
-    state: absent
+  shell: 'docker rm -f {{coredns.name}}'
   become: yes
-
+  ignore_errors: yes
+     
 - name: Start docker container
   shell: 'docker run -d --name {{coredns.name}} --restart=always --volume={{coredns.path}}:/root/ -p 53:53/udp {{coredns.image}} -conf /root/Corefile'
   become: yes

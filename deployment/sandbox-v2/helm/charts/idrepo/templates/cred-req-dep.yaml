@@ -12,17 +12,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.credentialrequest.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.credentialrequest.podconfig.minReadySeconds }} 
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.credentialrequest.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.credentialrequest.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.credentialrequest.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -40,8 +41,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         ports:

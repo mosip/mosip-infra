@@ -12,17 +12,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.internal.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.internal.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.internal.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.internal.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.internal.serviceName }} 
         component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -42,10 +43,10 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.internal.hsmUrl }} 
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: zip_file_path
+          value: {{ .Values.services.internal.hsmClientZipPath }}
         ports:
         - containerPort: {{ .Values.services.internal.containerPort }}
 

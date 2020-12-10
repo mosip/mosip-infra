@@ -1,0 +1,20 @@
+{
+    "id": "",
+    "username": "keymaker",
+    "email": "keymaker@xyz.com",
+    "enabled": true,
+    "emailVerified": false,
+    "firstName": "Key",
+    "lastName": "Maker",
+    "credentials": [
+        {
+            "type": "password",
+            "value": "mosip",
+            "temporary": false
+        }
+    ],
+    "attributes": {
+      "userPassword": "e1NTSEEyNTZ9NXo3aTlwZ3MvdzBSdTJyeGdRcEM3RkFBOXZsTU1hZHRLbG1SSDIyTldxeDB3ZXV2aXgxWGJRPT0="
+    }
+}
+

@@ -3,16 +3,6 @@
 # paramters:
 #   kube_config: cluster config.
 - hosts: console
-  tasks:
-    - name: Create a k8s namespace
-      k8s:
-        name: monitoring
-        kubeconfig: '{{kube_config}}'
-        api_version: v1
-        kind: Namespace
-        state: present
-
-- hosts: console
   vars:
     kube_config: '{{kube_config}}'
     install_name: metrics-server

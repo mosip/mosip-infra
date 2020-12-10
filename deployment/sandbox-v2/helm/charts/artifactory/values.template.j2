@@ -4,3 +4,7 @@ docker:
   image: {{ versions.services.artifactory.service.values()[0] }}
   containerPort: 80
 imagePullPolicy: Always
+
+services:
+  artifactory:
+    podconfig: {{ podconfig.artifactory.service | to_yaml }}

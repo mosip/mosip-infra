@@ -9,11 +9,12 @@
 - import_playbook: playbooks/nfs.yml 
 # MZ cluster
 - import_playbook: playbooks/mzcluster.yml
-- import_playbook: playbooks/nfs-provisioner.yml
+- import_playbook: playbooks/mz-nfs-provisioner.yml
 - import_playbook: playbooks/mzmonitoring.yml
 - import_playbook: playbooks/taints.yml # At this point we apply any taints for MOSIP pods. 
 # DMZ cluster
 - import_playbook: playbooks/dmzcluster.yml
+- import_playbook: playbooks/dmz-nfs-provisioner.yml
 - import_playbook: playbooks/dmzmonitoring.yml
 # Non-MOSIP modules
 - import_playbook: playbooks/postgres.yml
@@ -21,14 +22,17 @@
 - import_playbook: playbooks/mzclamav.yml  # Each zone has it's own clamav
 - import_playbook: playbooks/dmzclamav.yml
 - import_playbook: playbooks/activemq.yml
+- import_playbook: playbooks/mock-biosdk.yml
 - import_playbook: playbooks/minio.yml
 - import_playbook: playbooks/artifactory.yml
+- import_playbook: playbooks/mock-biosdk.yml
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
 - import_playbook: playbooks/packetmanager.yml
 - import_playbook: playbooks/datashare.yml
 - import_playbook: playbooks/prereg.yml
+- import_playbook: playbooks/websub.yml
 - import_playbook: playbooks/regproc.yml
 - import_playbook: playbooks/ida.yml
 - import_playbook: playbooks/idrepo.yml
@@ -36,6 +40,6 @@
 - import_playbook: playbooks/resident.yml
 - import_playbook: playbooks/admin.yml
 - import_playbook: playbooks/print.yml
-#- import_playbook: playbooks/mockabis.yml
+- import_playbook: playbooks/mockabis.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml

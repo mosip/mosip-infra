@@ -1,0 +1,7 @@
+name,description
+printer_provider2,Printer Provider 2
+laptop_provider2,Laptop provider
+face_provider,Face camera provider
+auth_providers,Group of Auth providers
+data_share_policy_group,data_share_policy_group
+abis_policy_group,abis_policy_group
