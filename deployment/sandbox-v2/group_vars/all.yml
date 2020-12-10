@@ -88,6 +88,17 @@ clusters:
         host: 'elasticsearch-master:9200'
       kibana: 
         url: http://kibana-kibana:5601 
+    kafka:
+      nfs_path: '{{nfs.folder}}/mz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 3
+      zookeeper_replica_count: 3
+      zookeeper_size: 2Gi 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
@@ -119,7 +130,18 @@ clusters:
       elasticsearch:
         host: '{{groups.mzworkers[0]}}:30080/elasticsearch' # Connect to elasticsearch on MZ
       kibana: 
-        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ. 
+        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ.
+    kafka:
+      nfs_path: '{{nfs.folder}}/dmz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 3
+      zookeeper_replica_count: 3
+      zookeeper_size: 2Gi 
 
 # Registration processor shared variables
 #
@@ -362,5 +384,6 @@ coredns:
  
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
-iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
+#The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
+iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/

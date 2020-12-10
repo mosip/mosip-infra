@@ -1,0 +1,20 @@
+# Playbook to enable kafka
+#
+#-# Create folder on nfs 
+- hosts: console
+  tasks:
+    - {name: 'Create folder', file: {name: '{{clusters.mz.kafka.nfs_path}}', state: directory}, become: yes}
+
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'kafka'
+    is_template: true  
+    helm_chart: 'bitnami/kafka'  # Assumed bitnami repo has already been added in Helm
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/kafka/values.template.j2'
+    helm_strings: ''
+    kafka_prop: '{{clusters.mz.kafka}}'
+  roles:
+    - {role:  helm}
+
