@@ -6,13 +6,13 @@
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_SERVERIP='
-    line: DB_SERVERIP={{postgres.server}}
+    line: DB_SERVERIP={{postgres.host}}
    
 - name: '{{pg_db_name}}: Update port in postgres init files'
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_PORT='
-    line: DB_PORT={{postgres.nodeport}}  # Defined in all.yml
+    line: DB_PORT={{postgres.port}}  # Defined in all.yml
 
 - name: '{{pg_db_name}}: Update basepath in postgres init files' 
   lineinfile:
@@ -36,7 +36,7 @@
 - name: 'Run {{pg_db_name}} shell script'
   shell: 'bash {{pg_db_name}}_db_deploy.sh {{pg_db_name}}_deploy.properties'
   environment:
-    SU_USER_PWD: '{{secrets.postgres.su}}'
+    SU_USER_PWD: '{{postgres.password}}'
     SYSADMIN_PWD: '{{secrets.postgres.sysadmin}}'
     DBADMIN_PWD: '{{secrets.postgres.dbadmin}}'
     APPADMIN_PWD: '{{secrets.postgres.appadmin}}'

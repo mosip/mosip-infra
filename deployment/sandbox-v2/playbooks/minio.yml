@@ -15,7 +15,7 @@
     is_template: true  
     helm_namespace: 'default'
     helm_values: '{{charts_root}}/minio/values.template.j2'
-    helm_strings: 'secretKey={{secrets.minio.secretkey}}'
+    helm_strings: 'secretKey={{minio.secret_key}}'
   roles:
      - {role:  helm}
 
