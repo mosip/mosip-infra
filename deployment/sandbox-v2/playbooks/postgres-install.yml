@@ -1,0 +1,34 @@
+# This play installs Postgres and dependent components
+#
+#
+#
+#-# Create folder on nfs 
+- hosts: console
+  tasks:
+    - {name: 'Create folder', file: {name: '{{postgres.nfs_path}}', state: directory}, become: yes}
+
+- hosts: console
+  gather_facts: no
+  tasks:  # Create logs folder in case no already created
+    - {name: 'Create logs folder {{logs_dir}}', file: {name: '{{logs_dir}}', state: directory}}
+
+# Install postgres 
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'postgres'
+    helm_chart: '{{charts_root}}/postgres'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/postgres/values.template.j2'
+    helm_strings: 'password={{ postgres.password }}'
+  roles:
+    - {role:  helm}
+
+  tasks:
+    # TODO:  We are waiting here for postgres to settle down. This must be changed to 
+    # a better check later
+    - name: Waiting for postgres to install completely.
+      pause:
+        seconds: 30 
+

@@ -1,5 +1,5 @@
-name: postgres
-defaultDb: keycloak # Default DB on Postgres
+name: {{ postgres.internal_host }}
+port: {{ postgres.internal_port }}
 user: {{ postgres.user }} 
 password: '' # To be passed directly with helm command
 nfs:  # Must match nfs server params defined via Ansible
@@ -22,7 +22,7 @@ docker:
   image: postgres
   tag: 12.2
   containerPort: 5432
-nodePort: {{ postgres.nodeport }}
+nodePort: {{ postgres.port }}
 maxConnections: {{ postgres.max_connections }} 
 nodeAffinity:
   enabled: {{ postgres.node_affinity.enabled }}

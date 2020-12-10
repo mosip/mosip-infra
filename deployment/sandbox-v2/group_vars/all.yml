@@ -130,13 +130,19 @@ regproc:
 
 # Postgres persistent storage
 postgres:
+  external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
+                   # you already have postgres running on a separate system.
+  # Change host here if external: true
+  host: '{{clusters.mz.nodeport_node}}'  # Any node since standard sandbox runs postgres as pod on nodeport
+  port: 30090 # hardcoded node port for postgres  
+  user: postgres 
+  password: '{{secrets.postgres.su}}'
+
+  # All below configs applicable only when external: false 
+  internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
+  internal_port: 80  # Port of the service
   nfs_path: '{{nfs.folder}}/postgres'  
   size: 10Gi
-  service_name: postgres # svc on Kubernetes
-  service_port: 80
-  server: '{{clusters.mz.nodeport_node}}'
-  nodeport: 30090  # fixed for connecting from outside the cluster
-  user: postgres
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
@@ -148,6 +154,7 @@ postgres:
 # minio
 minio:
   access_key: admin
+  secret_key: '{{secrets.minio.secretkey}}'
   nfs_path: '{{nfs.folder}}/minio'
   node_affinity: 
     enabled: false # To run minio on an exclusive node
@@ -159,9 +166,16 @@ minio:
 # Keycloak
 keycloak:
   user: admin
+  password: '{{secrets.keycloak.password}}'
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
   external_url: '{{ site.sandbox_public_url }}/keycloak'
-
+  db:  # Assumed postgres 
+    name: 'keycloak'  
+    host: '{{postgres.host}}'  
+    port: '{{postgres.port}}' 
+    user: '{{postgres.user}}'
+    password: '{{secrets.postgres.su}}' 
+ 
 hsm_client_zip_path: 'artifactory/libs-release-local/hsm/client.zip' # Replace this with any other HSM's zip.
 softhsm:
   keymanager:  
@@ -311,6 +325,7 @@ config_repo:
   version: 1.1.3
   private: false
   username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
+  password: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false
@@ -321,6 +336,7 @@ config_server:
   name: config-server
   internal_url: http://config-server/config
   ingress_url: '{{clusters.mz.ingress.base_url}}/config'
+  encrypt_key: '{{secrets.config_server.encrypt_key}}'
 
 activemq:
   name: activemq

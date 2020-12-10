@@ -9,10 +9,11 @@ keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"
 containerPort: 8080
 servicePort: 80
 db:
-  host: {{ postgres.service_name }}
-  port: {{ postgres.service_port }} 
-  user: {{ postgres.user }}
-  password: '' # To be passed directly with helm command
+  name: {{ keycloak.db.name }}
+  host: {{ keycloak.db.host }}
+  port: {{ keycloak.db.port }}
+  user: {{ keycloak.db.user }}
+  password: ''  # Passed from helm directly 
 ingress:
    namespace: default
 
