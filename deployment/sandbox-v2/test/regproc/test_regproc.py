@@ -29,7 +29,7 @@ class App:
         self.pktconf['rid'] = rid 
     
         # Adding an extra second to ensure that server key creation time is before the packet time
-        ts = (dt.datetime.now() + dt.timedelta(seconds=1)).strftime('%Y-%m-%dT%H:%M:%S.000Z')
+        ts = (dt.datetime.utcnow() + dt.timedelta(seconds=1)).strftime('%Y-%m-%dT%H:%M:%S.000Z')
         self.pktconf['creation_date'] = ts
     
     def template_to_packet(self, suffix):
