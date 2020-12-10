@@ -17,6 +17,7 @@ site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
   sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
   sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
+  ingress_tld: 'ingress'  # Fixed. Don't change this!
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
 
@@ -64,7 +65,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
-      node_alias: 'mzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
+      node_alias: "{{'mz.' + site.ingress_tld}}" # Hardcoded, mapped to one of the nodes below in coredns config
       base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
@@ -96,7 +97,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
-      node_alias: 'dmzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
+      node_alias: "{{'dmz.' + site.ingress_tld}}" # Hardcoded, mapped to one of the nodes below in coredns config
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
@@ -341,14 +342,15 @@ coredns:
   name: coredns
   path: '{{tmp_dir}}/dns'
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
+  ingress_db: '{{tmp_dir}}/dns/ingress_dns.db' # Separate fixed, hardcoded file for ingress
   image: coredns/coredns
   aliases: # This is to give fixed name to ingress on mz and dmz, so that we don't have to change the names in installs.
      mzingress:
          alias: '{{clusters.mz.ingress.node_alias}}'  
-         node: '{{groups.mzworkers[0]}}'  # Any node on cluster since ingress runs on nodeport
+         node: '{{hostvars[groups.mzworkers[0]]["ansible_host"]}}' # IP of any worker node
      dmzingress:
          alias: '{{clusters.dmz.ingress.node_alias}}'  
-         node: '{{groups.dmzworkers[0]}}'  
+         node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
