@@ -19,15 +19,13 @@ spec:
     metadata:
       labels:
         app: {{.Values.services.ui.serviceName}}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
-        env:
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:

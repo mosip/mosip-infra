@@ -1,0 +1,10 @@
+# Forefully delete existing running local docker respository
+- hosts: console
+  vars_prompt:
+    - name: sure
+      prompt: 'Do you want to ERASE local docker registry? All local dockers will be deleted. (yes/no)'
+      private: no
+  roles: 
+    - {role: docker-registry, when: sure.lower().strip() == 'yes', vars: {local_docker_registry_state: absent}}
+
+

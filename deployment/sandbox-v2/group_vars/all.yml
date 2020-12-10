@@ -12,10 +12,11 @@ artifactory_url: http://artifactory-service/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-
 sandbox_domain_name: minibox.mosip.net
 site:
-  sandbox_public_url: 'https://{{sandbox_domain_name}}'
+  sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
+  sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
+  sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
 
@@ -34,24 +35,37 @@ ssl:
       certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
       certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 
+developer_mode: true  # false if limited APIs are exposed externally.
     
 is_glowroot: absent  # absent or present
 
 docker_wait_time: 600   # Wait for docker to pull and deploy
 docker_hub:
-  private: false  # For private dockers set this to true, and set credentials in secrets.yml
+  private: false  # For private repo on Docker Hub, set this to true, and set credentials in secrets.yml
   keyname: dockerhubkey  # Name of kubernetes secret
+
+local_docker_registry:
+  enabled: false
+  image: 'registry:2'
+  name: 'local-registry'
+  port: 5000
+  
+# List of local docker registries (other than Docker Hub) is needed to make sure http access works when dockers
+# are pulled from k8s cluster.  Used while installing clusters. See k8s/docker role.
+docker_registries:  
+  - '{{inventory_hostname}}:{{local_docker_registry.port}}'   # Docker registry running on console
 
 clusters:
   mz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/mzcluster.config" 
-    nodeport_node: mzworker0.sb  # Any node on cluster for nodeport access
+    nodeport_node: '{{groups.mzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
       nodeports:
         http: 30080 
         https: 30443
-      base_url: 'http://{{groups["mzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
+      node_alias: 'mzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
+      base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
       token_file: '{{tmp_dir}}/dashboard_mz.token'
@@ -74,14 +88,26 @@ clusters:
         host: 'elasticsearch-master:9200'
       kibana: 
         url: http://kibana-kibana:5601 
+    kafka:
+      nfs_path: '{{nfs.folder}}/mz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 5
+      zookeeper_replica_count: 5
+      zookeeper_size: 2Gi 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
-    nodeport_node: dmzworker0.sb  # Any node on cluster for nodeport access
+    nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
     ingress:
       namespace: ingress-nginx
       nodeports:
         http: 30080 
         https: 30443
+      node_alias: 'dmzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
@@ -102,9 +128,20 @@ clusters:
       grafana_ingress_path: 'dmz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_dmz.token'
       elasticsearch:
-        host: 'mzworker0.sb:30080/elasticsearch' # Connect to elasticsearch on MZ
+        host: '{{groups.mzworkers[0]}}:30080/elasticsearch' # Connect to elasticsearch on MZ
       kibana: 
-        url: http://mzworker0.sb:30601  # Kibana runs on this nodeport on MZ. 
+        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ.
+    kafka:
+      nfs_path: '{{nfs.folder}}/dmz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 5
+      zookeeper_replica_count: 5
+      zookeeper_size: 2Gi 
 
 # Registration processor shared variables
 #
@@ -115,17 +152,23 @@ regproc:
 
 # Postgres persistent storage
 postgres:
+  external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
+                   # you already have postgres running on a separate system.
+  # Change host here if external: true
+  host: '{{clusters.mz.nodeport_node}}'  # Any node since standard sandbox runs postgres as pod on nodeport
+  port: 30090 # hardcoded node port for postgres  
+  user: postgres 
+  password: '{{secrets.postgres.su}}'
+
+  # All below configs applicable only when external: false 
+  internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
+  internal_port: 80  # Port of the service
   nfs_path: '{{nfs.folder}}/postgres'  
   size: 10Gi
-  service_name: postgres # svc on Kubernetes
-  service_port: 80
-  server: '{{clusters.mz.nodeport_node}}'
-  nodeport: 30090  # fixed for connecting from outside the cluster
-  user: postgres
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
-    node: 'mzworker0.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[0]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "postgres" # Key for applying taint on node
       value: "only"  
@@ -133,10 +176,11 @@ postgres:
 # minio
 minio:
   access_key: admin
+  secret_key: '{{secrets.minio.secretkey}}'
   nfs_path: '{{nfs.folder}}/minio'
   node_affinity: 
     enabled: false # To run minio on an exclusive node
-    node: 'mzworker1.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[1]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "minio" # Key for applying taint on node
       value: "only"  
@@ -144,9 +188,16 @@ minio:
 # Keycloak
 keycloak:
   user: admin
+  password: '{{secrets.keycloak.password}}'
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
   external_url: '{{ site.sandbox_public_url }}/keycloak'
-
+  db:  # Assumed postgres 
+    name: 'keycloak'  
+    host: '{{postgres.host}}'  
+    port: '{{postgres.port}}' 
+    user: '{{postgres.user}}'
+    password: '{{secrets.postgres.su}}' 
+ 
 hsm_client_zip_path: 'artifactory/libs-release-local/hsm/client.zip' # Replace this with any other HSM's zip.
 softhsm:
   keymanager:  
@@ -169,37 +220,40 @@ reg_client:
   xml_file: '{{install_root}}/roles/reg-client-prep/templates/maven-metadata.xml'
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
-  version: 1.1.2
 
 repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.2
+    tag: 1.1.3
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: 1.1.2
+    tag: 1.1.3
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: 1.1.2
+    tag: 1.1.3
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: 1.1.2
+    tag: 1.1.3
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.2
+    tag: 1.1.3
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: 1.1.2
+    tag: 1.1.3
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
     tag: 1.1.2
+  ref_impl:
+    src: https://github.com/mosip/mosip-ref-impl
+    dest: '{{tmp_dir}}/mosip-ref-impl'
+    tag: 1.1.3
 
 # DBs 
 #
@@ -210,6 +264,7 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_iam:
     user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -219,12 +274,15 @@ databases:
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_credential:
     user: credentialuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
@@ -237,21 +295,24 @@ databases:
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
 
 nfs:
-  server: console.sb
+  server: '{{inventory_hostname}}'
   folder: /srv/nfs/mosip
   provisioner: nfs-provisioner  # Name
 
@@ -273,7 +334,7 @@ hdfs:
       path: '{{nfs.folder}}/hdfs/dn' 
   node_affinity: 
     enabled: false # To run all hdfs pods exclusively on a single node.
-    node: 'mzworker1.sb' # Hostname. Run only on this node, and nothing else should run on this node
+    node: '{{groups.mzworkers[1]}}' # Hostname. Run only on this node, and nothing else should run on this node
     taint:
       key: "hdfs" # Key for applying taint on node
       value: "only"  
@@ -283,9 +344,10 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo.
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: develop
+  version: 1.1.3
   private: false
   username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
+  password: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false
@@ -295,7 +357,8 @@ config_repo:
 config_server:
   name: config-server
   internal_url: http://config-server/config
-  ingress_url: http://mzworker0.sb:30080/config
+  ingress_url: '{{clusters.mz.ingress.base_url}}/config'
+  encrypt_key: '{{secrets.config_server.encrypt_key}}'
 
 activemq:
   name: activemq
@@ -304,12 +367,23 @@ activemq:
 
 # Private DNS - typically required for on-prem setups, but we enable it as
 # default for cloud as well.  So we don't have to use cloud DNS.
+
 coredns:
   enabled: true  # Disable to use Cloud provided DNS
   name: coredns
   path: '{{tmp_dir}}/dns'
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
   image: coredns/coredns
+  aliases: # This is to give fixed name to ingress on mz and dmz, so that we don't have to change the names in installs.
+     mzingress:
+         alias: '{{clusters.mz.ingress.node_alias}}'  
+         node: '{{groups.mzworkers[0]}}'  # Any node on cluster since ingress runs on nodeport
+     dmzingress:
+         alias: '{{clusters.dmz.ingress.node_alias}}'  
+         node: '{{groups.dmzworkers[0]}}'  
+ 
 
-iam_adapter_url: http://15.207.222.178/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
+iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+#The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
+iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/

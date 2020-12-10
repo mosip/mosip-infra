@@ -11,17 +11,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.abismid.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.abismid.podconfig.minReadySeconds }} 
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.abismid.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.abismid.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.abismid.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -39,8 +40,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.abismid.ports.eventbusPort }}
@@ -48,12 +47,6 @@ spec:
           containerPort: {{ .Values.services.abismid.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abismid.ports.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
-
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
 
 #        readinessProbe:  # TODO: Disabled as probe is not working.
 #          httpGet:

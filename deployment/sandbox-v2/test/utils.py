@@ -15,6 +15,9 @@ def read_token(response):
 
     return None
 
+def myprint(msg):
+    print('==== %s' % msg)
+
 def get_timestamp(days_offset=None):
     '''
     Current TS.

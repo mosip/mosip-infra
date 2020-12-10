@@ -5,16 +5,16 @@ metadata:
   name: {{ .Values.name }}
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: 1 
+  replicas: {{ .Values.services.activemq.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.name }}
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.activemq.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.activemq.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.activemq.podconfig.maxSurge }}
   template:
     metadata:
       labels:

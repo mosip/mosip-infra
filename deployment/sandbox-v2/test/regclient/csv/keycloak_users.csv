@@ -1,4 +1,8 @@
 realm_id,name,pwd,email,first_name,last_name,roles
-mosip,officer1,mosip123,officer1@xyz.com,Jack,Smith,REGISTRATION_OFFICER 
+mosip,policymanager1,mosip,policymanager1@xyz.com,Policy,Manager,POLICYMANAGER
 mosip,super1,mosip123,super1@xyz.com,Kim,Wau,REGISTRATION_SUPERVISOR
 mosip,super2,mosip123,super2@xyz.com,John,Hill,REGISTRATION_OFFICER REGISTRATION_SUPERVISOR
+mosip,jack,hello123,jack@xyz.com,Jack,Smith,REGISTRATION_OFFICER REGISTRATION_SUPERVISOR
+mosip,partnermanager1,mosip,partnermanager1@xyz.com,Parnter,Manager One,PARTNERMANAGER
+mosip,keymaker,mosip,keymaker@xyz.com,Key,Maker,KEY_MAKER
+mosip,misp1,mosip,misp1@xyz.com,Misp,One,MISP

@@ -11,17 +11,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.bioauth.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.bioauth.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.bioauth.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.bioauth.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.bioauth.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -39,8 +40,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.bioauth.ports.eventbusPort }}
@@ -48,12 +47,6 @@ spec:
           containerPort: {{ .Values.services.bioauth.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.bioauth.ports.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
-
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
 
 #        readinessProbe:
 #          httpGet:

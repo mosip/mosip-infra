@@ -5,20 +5,21 @@ metadata:
   name: {{.Values.services.ui.serviceName}}
   namespace: default
 spec:
-  replicas: 1
+  replicas: {{ .Values.services.ui.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{.Values.services.ui.serviceName}}
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.ui.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.ui.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.ui.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{.Values.services.ui.serviceName}}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:

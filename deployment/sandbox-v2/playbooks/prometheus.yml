@@ -12,17 +12,6 @@
       become: yes
       with_items: '{{ mon_prop.nfs.prometheus | dict2items }}'
 
-
-- hosts: console
-  tasks:
-    - name: Create a k8s namespace
-      k8s:
-        name: '{{ mon_prop.namespace}}'
-        kubeconfig: '{{kube_config}}'
-        api_version: v1
-        kind: Namespace
-        state: present
-
 # Install Prometheus
 - hosts: console
   vars:

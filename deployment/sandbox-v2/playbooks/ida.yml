@@ -16,3 +16,18 @@
     helm_strings: ''
   roles:
     - {role:  helm}
+
+  tasks:
+    # TODO:  We are waiting here for ida to settle down. This must be changed to
+    # a better check later
+    - name: Waiting for ida to install completely.
+      pause:
+        seconds: 20 
+
+# Upload ZK certificate
+- hosts: console
+  tasks:
+    - name: Upload ida cred service certificate to keymanager
+      shell:
+        cmd: './ida_zk.py --server {{site.sandbox_internal_url}} --disable_ssl_verify'
+        chdir: '{{install_root}}/utils/onboard/ida_zk'

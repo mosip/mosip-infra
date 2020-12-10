@@ -10,16 +10,17 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.trans.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.trans.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.trans.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.trans.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.trans.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -37,15 +38,11 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.trans.ports.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -60,6 +57,3 @@ spec:
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
 #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}

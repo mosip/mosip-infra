@@ -11,17 +11,18 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.services.validator.serviceName }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.validator.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.validator.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.validator.podconfig.maxSurge }}
   template:
     metadata:
       labels:
         app: {{ .Values.services.validator.serviceName }} 
         component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
@@ -39,8 +40,6 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
-        - name: mosipbox_public_url
-          value: {{ .Values.sitePublicUrl }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.validator.ports.eventbusPort }}
@@ -48,12 +47,6 @@ spec:
           containerPort: {{ .Values.services.validator.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.validator.ports.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
-
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}
 
 #        readinessProbe:
 #          httpGet:

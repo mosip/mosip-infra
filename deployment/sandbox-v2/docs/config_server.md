@@ -12,7 +12,11 @@ config_repo:
     enabled: false
 ```
 
-If `private: true` then update your Github username as above in `group_vars/all.yml`.  Update your password in `secrets.yml`.
+If `private: true` then update your Github username as above in `group_vars/all.yml`.  Update your password in `secrets.yml`:
+```
+config_repo:
+    password: <YOUR GITHUB PASSWORD>
+```
 
 If `local_git_repo` is enabled, the repo will be cloned to the NFS mounted folder and config server will pull the properties locally. This option is useful when sandbox is secured with no Internet access. You may git check-in any changes locally.  However, note that if you want the changes to reflect in the parent Github repo, you will have to push them manually.  There is no need to restart config-server pod when you make changes in the config repo.
   

@@ -1,0 +1,45 @@
+# This sequence of tasks runs the required sqls and loads DB with test data
+- debug:
+    msg: 'Initialize {{pg_db_name}} db'
+
+- name: '{{pg_db_name}}: Update ip address in postgres init files'
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '^DB_SERVERIP='
+    line: DB_SERVERIP={{postgres.host}}
+   
+- name: '{{pg_db_name}}: Update port in postgres init files'
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '^DB_PORT='
+    line: DB_PORT={{postgres.port}}  # Defined in all.yml
+
+- name: '{{pg_db_name}}: Update basepath in postgres init files' 
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '^BASEPATH='
+    line: BASEPATH={{pg_sql_path}}
+
+- name: '{{pg_db_name}}: Update log path in postgres init files' 
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '^LOG_PATH='
+    line: LOG_PATH={{logs_dir}}/
+
+- name: Delete all passwords from property files so that they can be read from env variables
+  lineinfile:
+    path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
+    regexp: '_PWD'
+    state: absent
+
+# Pass all passwords via env variables instead of reading from file for privacy.
+- name: 'Run {{pg_db_name}} shell script'
+  shell: 'bash {{pg_db_name}}_db_deploy.sh {{pg_db_name}}_deploy.properties'
+  environment:
+    SU_USER_PWD: '{{postgres.password}}'
+    SYSADMIN_PWD: '{{secrets.postgres.sysadmin}}'
+    DBADMIN_PWD: '{{secrets.postgres.dbadmin}}'
+    APPADMIN_PWD: '{{secrets.postgres.appadmin}}'
+    DBUSER_PWD: '{{secrets.postgres.dbuser}}'
+  args:
+    chdir: '{{pg_sql_path}}/{{pg_db_name}}'

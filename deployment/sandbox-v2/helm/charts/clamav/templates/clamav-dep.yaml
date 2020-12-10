@@ -5,16 +5,16 @@ metadata:
   name: {{  .Values.name }}
   namespace: {{ .Release.Namespace }} 
 spec:
-  replicas: 1 
+  replicas: {{ .Values.services.clamav.podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.name }} 
-  minReadySeconds: 10
+  minReadySeconds: {{ .Values.services.clamav.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1 
+      maxUnavailable: {{ .Values.services.clamav.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.clamav.podconfig.maxSurge }} 
   template:
     metadata:
       labels:
