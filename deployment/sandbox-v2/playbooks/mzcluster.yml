@@ -2,10 +2,10 @@
 - import_playbook: cluster.yml
   vars:
     cluster: mzmaster mzworkers
-    master: mzmaster.sb
+    master: mzmaster # group in hosts.ini
     workers: mzworkers
     cluster_name: mzcluster  # Any string
-    cluster_master: mzmaster.sb  # Host name of master machine. e.g: mzmaster.sb
+    cluster_master: '{{groups.mzmaster[0]}}'  # Host name of master machine. e.g: mzmaster.sb
     console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'
 
 # Ingress nginx controller
