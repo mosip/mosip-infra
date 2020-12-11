@@ -41,8 +41,6 @@ spec:
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         args: ["-c", "max_connections={{ .Values.maxConnections }}"]
         env:
-        - name: POSTGRES_DB
-          value: {{ .Values.defaultDb }}
         - name: POSTGRES_USER
           value: {{ .Values.user }}
         - name: POSTGRES_PASSWORD

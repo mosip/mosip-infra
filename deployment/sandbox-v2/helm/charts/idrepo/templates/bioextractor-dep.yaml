@@ -43,6 +43,8 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: extraction_format_env
           value: {{ .Values.extraction_format }}
+        - name: mosip_biosdk_service
+          value: {{ .Values.biosdkServiceUrl }} 
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 

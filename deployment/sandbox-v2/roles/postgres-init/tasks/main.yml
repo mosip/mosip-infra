@@ -6,18 +6,23 @@
 
 # Copy dml files - typically needed to replace default master data with 
 # country's data
-- name: Check if init lock file exists (ie. init has already been done once)
-  stat:
-    path: '{{postgres_init_lock_file}}'
-  become: yes
-  register: out
+#
 
-- debug:
-    msg: Init has already been done once. Skipping init.
-  when: out.stat.exists
+- name: Chekc if postgres has already been initialized
+  block:  # This block only applies to internal postgres which is part of cluster
+  - name: Check if init lock file exists (ie. init has already been done once)
+    stat:
+      path: '{{postgres_init_lock_file}}'
+    become: yes
+    register: out
   
-- meta: end_play  # Exit
-  when: out.stat.exists
+  - debug:
+      msg: Init has already been done once. Skipping init.
+    when: out.stat.exists
+    
+  - meta: end_play  # Exit
+    when: out.stat.exists
+  when: postgres.external == false 
 
 - name: Copy any custom dml files
   copy:
@@ -32,9 +37,10 @@
     pg_sql_path: '{{item.value.sql_path}}'
   with_items: '{{databases | dict2items}}'
         
-# After successful init, create a lockfile to not init again 
+# After successful init, create a lockfile to not init again. Applicable only for internal DB.
 - name: Create init lock file to not re-init again
   file:
     path: '{{postgres_init_lock_file}}'
     state: touch
   become: yes
+  when: postgres.external == false 

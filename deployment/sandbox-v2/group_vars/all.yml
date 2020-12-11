@@ -17,6 +17,7 @@ site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
   sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
   sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
+  ingress_tld: 'ingress'  # Fixed. Don't change this!
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
 
@@ -64,7 +65,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
-      node_alias: 'mzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
+      node_alias: "{{'mz.' + site.ingress_tld}}" # Hardcoded, mapped to one of the nodes below in coredns config
       base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
@@ -96,7 +97,7 @@ clusters:
       nodeports:
         http: 30080 
         https: 30443
-      node_alias: 'dmzingress.{{site.sandbox_internal_tld}}' # This is mapped to below node in coredns
+      node_alias: "{{'dmz.' + site.ingress_tld}}" # Hardcoded, mapped to one of the nodes below in coredns config
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
@@ -130,13 +131,19 @@ regproc:
 
 # Postgres persistent storage
 postgres:
+  external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
+                   # you already have postgres running on a separate system.
+  # Change host here if external: true
+  host: '{{clusters.mz.nodeport_node}}'  # Any node since standard sandbox runs postgres as pod on nodeport
+  port: 30090 # hardcoded node port for postgres  
+  user: postgres 
+  password: '{{secrets.postgres.su}}'
+
+  # All below configs applicable only when external: false 
+  internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
+  internal_port: 80  # Port of the service
   nfs_path: '{{nfs.folder}}/postgres'  
   size: 10Gi
-  service_name: postgres # svc on Kubernetes
-  service_port: 80
-  server: '{{clusters.mz.nodeport_node}}'
-  nodeport: 30090  # fixed for connecting from outside the cluster
-  user: postgres
   max_connections: 1000
   node_affinity: 
     enabled: false # To run postgres on an exclusive node
@@ -148,6 +155,7 @@ postgres:
 # minio
 minio:
   access_key: admin
+  secret_key: '{{secrets.minio.secretkey}}'
   nfs_path: '{{nfs.folder}}/minio'
   node_affinity: 
     enabled: false # To run minio on an exclusive node
@@ -159,9 +167,16 @@ minio:
 # Keycloak
 keycloak:
   user: admin
+  password: '{{secrets.keycloak.password}}'
   url: '{{clusters.mz.ingress.base_url}}/keycloak'
   external_url: '{{ site.sandbox_public_url }}/keycloak'
-
+  db:  # Assumed postgres 
+    name: 'keycloak'  
+    host: '{{postgres.host}}'  
+    port: '{{postgres.port}}' 
+    user: '{{postgres.user}}'
+    password: '{{secrets.postgres.su}}' 
+ 
 hsm_client_zip_path: 'artifactory/libs-release-local/hsm/client.zip' # Replace this with any other HSM's zip.
 softhsm:
   keymanager:  
@@ -301,6 +316,7 @@ config_repo:
   version: 1.1.2
   private: false
   username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
+  password: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false
@@ -311,6 +327,7 @@ config_server:
   name: config-server
   internal_url: http://config-server/config
   ingress_url: '{{clusters.mz.ingress.base_url}}/config'
+  encrypt_key: '{{secrets.config_server.encrypt_key}}'
 
 activemq:
   name: activemq
@@ -325,15 +342,20 @@ coredns:
   name: coredns
   path: '{{tmp_dir}}/dns'
   db: '{{tmp_dir}}/dns/sandbox_dns.db'
+  ingress_db: '{{tmp_dir}}/dns/ingress_dns.db' # Separate fixed, hardcoded file for ingress
   image: coredns/coredns
   aliases: # This is to give fixed name to ingress on mz and dmz, so that we don't have to change the names in installs.
      mzingress:
          alias: '{{clusters.mz.ingress.node_alias}}'  
-         node: '{{groups.mzworkers[0]}}'  # Any node on cluster since ingress runs on nodeport
+         node: '{{hostvars[groups.mzworkers[0]]["ansible_host"]}}' # IP of any worker node
      dmzingress:
          alias: '{{clusters.dmz.ingress.node_alias}}'  
-         node: '{{groups.dmzworkers[0]}}'  
+         node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0/kernel-auth-adapter-1.2.0-20200918.164425-65.jar
 iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0/kernel-auth-adapter-1.2.0-20200918.164425-65.jar'
+
+biosdk_service_url: http://13.233.66.241/biosdk-service
+
+
