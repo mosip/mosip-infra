@@ -288,6 +288,10 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/mosip-mock-service/;
         }
 
+        location /v1/print/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/print/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
@@ -302,7 +306,7 @@ http {
 stream {
     server {
         listen {{postgres.port}};  
-        proxy_pass {{postgres.server}}:{{postgres.port}};
+        proxy_pass {{postgres.host}}:{{postgres.port}};
     }
 
     server {
