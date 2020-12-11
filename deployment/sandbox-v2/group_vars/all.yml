@@ -12,7 +12,7 @@ artifactory_url: http://artifactory-service/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox2.mosip.net
+sandbox_domain_name: minibox.mosip.net
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
   sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
