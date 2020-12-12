@@ -30,15 +30,15 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def get_ida_internal_cert(self):
-        url = '%s/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE' % \
-               self.server
+    def get_ida_internal_cert(self, app_id, ref_id):
+        url = '%s/idauthentication/v1/internal/getCertificate?applicationId=%s&referenceId=%s' % \
+               (self.server, app_id, ref_id)
         cookies = {'Authorization' : self.token}
         r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
-    def upload_other_domain_cert(self, cert):
+    def upload_other_domain_cert(self, cert, app_id, ref_id):
         url = '%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp() 
@@ -46,9 +46,9 @@ class MosipSession:
             'id': 'string',
             'metadata': {},
             'request': {
-                'applicationId': 'IDA',
                 'certificateData': cert,
-                'referenceId': 'PUBLIC_KEY'
+                'applicationId': app_id, 
+                'referenceId': ref_id
             },
             'requesttime': ts,
             'version': '1.0'
