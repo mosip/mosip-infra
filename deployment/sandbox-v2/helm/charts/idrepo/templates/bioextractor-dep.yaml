@@ -45,8 +45,6 @@ spec:
           value: {{ .Values.extraction_format }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
-        - name: mosip_biosdk_service
-          value: {{ .Values.biosdkServiceUrl }}
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 
