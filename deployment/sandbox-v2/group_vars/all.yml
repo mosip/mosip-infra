@@ -26,7 +26,7 @@ ssl:
   ca:  # Certifcation authority
     selfsigned: 
       get_certificate: true
-      common_name: '{{ansible_host}}'  # The host on which certs are generated   
+      common_name: '{{inventory_hostname}}'  # The host on which certs are generated   
       certificate: '/etc/ssl/certs/nginx-selfsigned.crt'
       certificate_key: '/etc/ssl/private/nginx-selfsigned.key'
       csr: '/etc/ssl/csr/nginx-selfsigned.csr'
