@@ -7,4 +7,4 @@ site:
   ssl:
     ca: 'selfsigned'   # The ca to be used in this deployment
 ```
-This is will generate a self-signed certificate and the sandbox access url would be `https://console.sb/` 
+This is will generate a self-signed certificate and the sandbox access url would be `https://<inventory hostname>/` 
