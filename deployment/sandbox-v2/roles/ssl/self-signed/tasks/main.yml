@@ -37,5 +37,6 @@
       privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
       csr_path: '{{ssl.ca.selfsigned.csr}}' 
       provider: selfsigned
+      force: true
     become: yes
 
