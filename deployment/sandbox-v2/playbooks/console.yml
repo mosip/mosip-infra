@@ -41,3 +41,11 @@
         policy: targeted
         state: permissive
       become: yes
+
+# Install some useful utils on all machines
+- hosts: all
+  gather_facts: false
+  roles:
+     - {role: packages/vim, tags: [vim]}
+     - {role: packages/telnet, tags: [telnet]}
+     - {role: packages/bind-utils, tags: [bind-utils]}
