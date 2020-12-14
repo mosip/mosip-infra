@@ -1,4 +1,6 @@
-server = 'minibox.mosip.net' 
+server = 'https://minibox.mosip.net' 
+ssl_verify=True
+
 primary_lang = 'eng'
 secondary_lang = 'ara'  # Should match mosip configuration
 
@@ -18,8 +20,9 @@ misp_user = 'misp1'  # with MISP role
 misp_pwd = 'mosip'
 
 csv_policy_group = 'csv/policy_group.csv'
-csv_partner = 'csv/partner.csv'
 csv_policy = 'csv/policy.csv'
+csv_extractor = 'csv/extractor.csv'
+csv_partner = 'csv/partner.csv'
 csv_certs = 'csv/certs.csv' 
 csv_partner_ca_certs = 'csv/partner_ca_certs.csv'
 csv_partner_certs = 'csv/partner_certs.csv'

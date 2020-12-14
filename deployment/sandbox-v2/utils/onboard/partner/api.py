@@ -9,14 +9,15 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='admin'):
+    def __init__(self, server, user, pwd, appid='admin', ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
+        self.ssl_verify = ssl_verify
         self.token = self.auth_get_token(appid, self.user, self.pwd) 
       
     def auth_get_token(self, appid, username, pwd):
-        url = 'https://%s/v1/authmanager/authenticate/useridPwd' % self.server
+        url = '%s/v1/authmanager/authenticate/useridPwd' % self.server
         ts = get_timestamp()
         j = {
             "id": "mosip.io.userId.pwd",
@@ -34,7 +35,7 @@ class MosipSession:
         return token
 
     def add_policy_group(self, name, description):
-        url = 'https://%s/partnermanagement/v1/policies/policies/policyGroup' % self.server
+        url = '%s/partnermanagement/v1/policies/policies/policyGroup' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -48,19 +49,21 @@ class MosipSession:
             "version": "1.0"
         }
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def get_policy_groups(self):
         cookies = {'Authorization' : self.token}
-        url = 'https://%s/partnermanagement/v1/policies/policies/policyGroups' % self.server
+        url = '%s/partnermanagement/v1/policies/policies/policyGroups' % self.server
         r = requests.get(url, cookies=cookies)
+        r = response_to_json(r)
         return r
 
     def add_policy(self, policy_id, name, description, policy, policy_group, policy_type):
         '''
         policies: dict with policies structure
         '''
-        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        url = '%s/partnermanagement/v1/policies/policies' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -79,6 +82,7 @@ class MosipSession:
             'version': '1.0'
         }
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def update_policy(self, name, description, policy, policy_group, policy_type, policy_id):
@@ -86,7 +90,7 @@ class MosipSession:
         policies: dict with policies structure
         policy_id: str
         '''
-        url = 'https://%s/partnermanagement/v1/policies/policies/%s' % (self.server, policy_id)
+        url = '%s/partnermanagement/v1/policies/policies/%s' % (self.server, policy_id)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -104,16 +108,18 @@ class MosipSession:
             'version': '1.0'
         }
         r = requests.put(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def get_policies(self):
         cookies = {'Authorization' : self.token}
-        url = 'https://%s/partnermanagement/v1/policies/policies' % self.server
+        url = '%s/partnermanagement/v1/policies/policies' % self.server
         r = requests.get(url, cookies=cookies)
+        r = response_to_json(r)
         return r
         
     def add_partner(self, name, contact, address, email, partner_id, partner_type, policy_group):
-        url = 'https://%s/partnermanagement/v1/partners/partners' % self.server
+        url = '%s/partnermanagement/v1/partners/partners' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -132,17 +138,19 @@ class MosipSession:
           'version': '1.0'
         }
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def publish_policy(self, policy_group_id, policy_id):
-        url = 'https://%s/partnermanagement/v1/policies/policies/publishPolicy/policyGroupId/%s/policyId/%s' % (
+        url = '%s/partnermanagement/v1/policies/policies/publishPolicy/policyGroupId/%s/policyId/%s' % (
               self.server, policy_group_id, policy_id)
         cookies = {'Authorization' : self.token}
         r = requests.post(url, cookies=cookies)
+        r = response_to_json(r)
         return r
 
     def get_partner_api_key_requests(self, partner_id, policy_name, description):
-        url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
+        url = '%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
                                                                                               partner_id)
         cookies = {'Authorization' : self.token}
         r = requests.get(url, cookies=cookies)
@@ -150,7 +158,7 @@ class MosipSession:
         return r
 
     def add_partner_api_key_requests(self, partner_id, policy_name, description):
-        url = 'https://%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
+        url = '%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
                                                                                               partner_id)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -173,7 +181,7 @@ class MosipSession:
         '''
         status: Approved/
         '''
-        url = 'https://%s/partnermanagement/v1/pmpartners/pmpartners/PartnerAPIKeyRequests/%s' % (self.server,
+        url = '%s/partnermanagement/v1/pmpartners/pmpartners/PartnerAPIKeyRequests/%s' % (self.server,
                                                                                                  api_request_id) 
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -194,7 +202,7 @@ class MosipSession:
         '''
         cert_data: str
         '''
-        url = 'https://%s/partnermanagement/v1/partners/partners/uploadCACertificate' % self.server
+        url = '%s/partnermanagement/v1/partners/partners/uploadCACertificate' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -209,6 +217,7 @@ class MosipSession:
         } 
 
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
 
         return r
 
@@ -216,7 +225,7 @@ class MosipSession:
         '''
         cert_data: str
         '''
-        url = 'https://%s/partnermanagement/v1/partners/partners/uploadPartnerCertificate' % self.server
+        url = '%s/partnermanagement/v1/partners/partners/uploadPartnerCertificate' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -234,6 +243,7 @@ class MosipSession:
         } 
 
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
 
         return r
 
@@ -242,7 +252,7 @@ class MosipSession:
         TODO: Key alias must be populated while launching the kernel as one of init jobs. Since that's
         missing at the moment, we are using this api.  
         '''
-        url = 'https://%s/v1/keymanager/generateMasterKey/CSR' % self.server
+        url = '%s/v1/keymanager/generateMasterKey/CSR' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -264,10 +274,11 @@ class MosipSession:
         }
 
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
         
     def create_misp(self, org_name, address, contact, email):
-        url = 'https://%s/partnermanagement/v1/misps/misps' % self.server
+        url = '%s/partnermanagement/v1/misps/misps' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -283,17 +294,19 @@ class MosipSession:
             'version': '1.0'
         }
         r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
 
     def get_misps(self):
-        url = 'https://%s/partnermanagement/v1/misps/misps' % self.server
+        url = '%s/partnermanagement/v1/misps/misps' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         r = requests.get(url, cookies=cookies)
+        r = response_to_json(r)
         return r
 
     def approve_misp(self, misp_id, status):
-        url = 'https://%s/partnermanagement/v1/misps/misps/%s/status' % (self.server, misp_id)
+        url = '%s/partnermanagement/v1/misps/misps/%s/status' % (self.server, misp_id)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -307,5 +320,30 @@ class MosipSession:
             'version': '1.0'
           }
         r = requests.patch(url, cookies=cookies, json = j)
+        r = response_to_json(r)
         return r
    
+    def add_extractor(self, partner_id, policy_id, attribute, biometric, provider, version):
+        url = '%s/partnermanagement/v1/partners/partners/partnerId/%s/policyId/%s' % (self.server, partner_id, 
+                                                                                      policy_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'extractors': [{
+                     'attributeName': attribute,
+                     'biometric': biometric,
+                      'extractor': {
+                          'provider': provider,
+                          'version': version
+                      }
+                }]
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j)
+        r = response_to_json(r)
+        return r

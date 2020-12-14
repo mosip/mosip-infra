@@ -1,4 +1,13 @@
 {
+    "dataSharePolicies": {
+        "typeOfShare": "Data Share",
+        "validForInMinutes": "30",
+        "transactionsAllowed": "2",
+        "encryptionType": "none",
+        "shareDomain": "datashare-service",
+        "source": "Packet Manager"
+    }
+
     "shareableAttributes": [{
         "attributeName": "biometrics",
         "group": "CBEFF",
@@ -8,27 +17,14 @@
                 "type": "Iris"
             }]
         }, {
-            "attribute": "CNIE\/verification\/biometrics",
+            "attribute": "registration-client\/NEW\/individualBiometrics",
             "filter": [{
                 "type": "Finger"
             }]
-        }, {
-            "attribute": "CNIE\/verification\/biometrics",
-            "filter": [{
-                "type": "Face"
-            }]
         }],
-        "encrypted": true,
-        "format": "extraction"
-    }],
-    "dataSharePolicies": {
-        "typeOfShare": "Data Share",
-        "validForInMinutes": "30",
-        "transactionsAllowed": "2",
-        "encryptionType": "none",
-        "shareDomain": "datashare-service",
-        "source": "Packet Manager"
-    }
+        "encrypted": true
+	}
+    ] 
 }
 
 
