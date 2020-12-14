@@ -1,0 +1,6 @@
+realm_id,name,pwd,email,first_name,last_name,rid,roles
+mosip,policymanager1,mosip,policymanager1@xyz.com,Policy,Manager,10002100740000520201213112500,POLICYMANAGER
+mosip,jack,hello123,jack@xyz.com,Jack,Smith,,REGISTRATION_OFFICER REGISTRATION_SUPERVISOR
+mosip,partnermanager1,mosip,partnermanager1@xyz.com,Parnter,Manager One,,PARTNERMANAGER
+mosip,keymaker,mosip,keymaker@xyz.com,Key,Maker,,KEY_MAKER
+mosip,misp1,mosip,misp1@xyz.com,Misp,One,,MISP

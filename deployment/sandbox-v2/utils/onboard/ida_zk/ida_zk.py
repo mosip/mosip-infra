@@ -47,7 +47,7 @@ def main():
 
     try:
         r = fetch_and_upload_cert('IDA', 'CRED_SERVICE', 'IDA', 'PUBLIC_KEY')
-        r = fetch_and_upload_cert('IDA', 'mpartner-default-auth', 'REGISTRATION', 'mpartner-default-auth')
+        r = fetch_and_upload_cert('IDA', 'mpartner-default-auth', 'DATASHARE', 'mpartner-default-auth')
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)

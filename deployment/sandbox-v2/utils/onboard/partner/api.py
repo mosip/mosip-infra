@@ -72,7 +72,8 @@ class MosipSession:
                  'desc' : description,
                  'policies': policy,
                  'policyGroupName': policy_group,
-                 'policyType': policy_type
+                 'policyType': policy_type,
+                 'version': 1
              },
             'requesttime': ts,
             'version': '1.0'
@@ -96,7 +97,8 @@ class MosipSession:
                  'desc' : description,
                  'policies': policy,
                  'policyGroupName': policy_group,
-                 'policyType': policy_type
+                 'policyType': policy_type,
+                 'version': 1
              },
             'requesttime': ts,
             'version': '1.0'
