@@ -14,33 +14,14 @@
   ignore_errors: true
 
 - name: Create view-only dashboard
-  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{install_root}}/roles/k8scluster/dashboard/templates/view-dashboard.yaml'
+  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{install_root}}/roles/k8scluster/dashboard/files/view-dashboard.yaml'
   register: create_result_view
   until: create_result_view.rc == 0
   retries: 5
   delay: 2
   ignore_errors: true
 
-- name:  Get dashboard token
-  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} admin-user {{install_root}}/utils/mz_dashboard_admin.token' 
-  register: token_admin
-
-- name:  Get dashboard token
-  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} view-user {{install_root}}/utils/mz_dashboard_view.token'
-  register: token_view
-
-- debug:
-    msg: '{{token_admin.stdout}}'
-
-- debug:
-    msg: '{{token_view.stdout}}'
-
-- name: 'Copy the token to {{dashboard_conf.token_file}}'
-  copy:
-    content: "{{token_admin.stdout}}\n"
-    dest: '{{dashboard_conf.token_file}}'
-
-- name: 'Copy the token to {{dashboard_conf.token_file}}'
-  copy:
-    content: "{{token_view.stdout}}\n"
-    dest: '{{dashboard_conf.token_file}}'
+- name: Create temp_dir/ for tokens
+  file:
+    path: '{{install_root}}/temp_dir'
+    state: directory  

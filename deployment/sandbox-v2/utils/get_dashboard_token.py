@@ -1,6 +1,7 @@
 #!/bin/python3
 # Usage: (Example)
-# $ ./get_dashboard_token.py admin-user /home/mosipuser/.kube/mzcluster.config mz_dashboard_admin.token
+# $ ./get_dashboard_token.py ~/.kube/mzcluster.config admin-user ./temp_dir/mz_dashboard_admin.token
+# $ ./get_dashboard_token.py ~/.kube/mzcluster.config view-user ./temp_dir/mz_dashboard_view.token
 
 import subprocess
 import sys
@@ -21,9 +22,8 @@ def get_dashboard_token(service_account, kubeconfig):
 
 def args_parse():
     parser = argparse.ArgumentParser()
-    required = parser.add_argument_group('required arguments')
-    required.add_argument('kubeconfig', type=str, help='Path to kubectl config file')
-    required.add_argument('service_account', type=str, help='admin-user|view-user')
+    parser.add_argument('kubeconfig', type=str, help='Path to kubectl config file')
+    parser.add_argument('service_account', type=str, help='admin-user|view-user')
     parser.add_argument('outfile', type=str, help='Token output file path')
     args = parser.parse_args()
     return args, parser
