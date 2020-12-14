@@ -2,7 +2,7 @@
 
 import sys
 import argparse
-from partner_api import *
+from api import *
 import csv
 import json
 import config as conf
@@ -126,7 +126,7 @@ def map_partner_policy(csv_file):
         myprint('Getting policies for a partner "%s" to check if this is a duplicate entry' % row['partner_id']) 
         r = session1.get_partner_api_key_requests(row['partner_id'], row['policy_name'], row['description'])
         myprint(r)
-        if r['errors'] is not None:
+        if r['errors'] is not None:  
             if r['errors']['errorCode'] == 'PMS_PRT_005':  # Partner does not exist, add only then
                 myprint('Sending partner-policy mapping request for (PARTNER: %s, POLICY: %s)' % (row['partner_id'], 
                          row['policy_name']))
@@ -139,8 +139,14 @@ def map_partner_policy(csv_file):
                 r =  session2.approve_partner_policy(api_request_id, 'Approved')
                 myprint(r)
         else:
-            myprint('ERROR: Skipping..')
-            continue
+            if r['response'][0]['apiKeyRequestStatus'] == 'In-Progress':
+                api_request_id = r['response'][0]['apiKeyReqID']
+                myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (row['partner_id'], row['policy_name']))
+                r =  session2.approve_partner_policy(api_request_id, 'Approved')
+                myprint(r)
+            else:
+                myprint('ERROR: Skipping..')
+                continue
 
 def create_misp(csv_file):
     session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner')
@@ -178,9 +184,9 @@ def args_parse():
 
 def main():
 
-    init_logger('./out.log')
-
     args = args_parse()
+
+    init_logger('./out.log')
 
     if args.action == 'policy_group' or args.action == 'all':
         add_policy_group(conf.csv_policy_group)
