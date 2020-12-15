@@ -10,7 +10,7 @@ sys.path.insert(0, '../')
 from utils import *
 
 def add_partner(csv_file,):
-    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding partner %s' % row['name'])
@@ -19,7 +19,7 @@ def add_partner(csv_file,):
         myprint(r)
 
 def add_policy_group(csv_file):
-    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner', ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding policy group %s' % row['name'])
@@ -30,7 +30,7 @@ def add_policy_group(csv_file):
                 continue
 
 def get_policy_group_id(policy_group_name):
-        session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+        session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner', ssl_verify=conf.ssl_verify)
         r = session.get_policy_groups() 
         policy_groups = r['response']
         pg_id = None
@@ -41,7 +41,7 @@ def get_policy_group_id(policy_group_name):
         return pg_id
 
 def get_policy_id(policy_name):
-    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner', ssl_verify=conf.ssl_verify)
     r = session.get_policies() 
     policies =  r['response']
     policy_id = None
@@ -51,7 +51,7 @@ def get_policy_id(policy_name):
     return policy_id
 
 def add_policy(csv_file):
-    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
+    session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner', ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding policy "%s"' % row['name'])
@@ -86,8 +86,8 @@ def add_policy(csv_file):
         myprint(r)
 
 def upload_ca_certs(csv_file):
-    session = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
-    
+    session = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner', 
+                           ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Uploading CA certificate "%s"' % row['ca_cert_path'])
@@ -96,7 +96,7 @@ def upload_ca_certs(csv_file):
         myprint(r)
 
 def upload_partner_certs(csv_file):
-    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
+    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Uplading partner certificate for "%s"' % row['org_name'])
@@ -111,8 +111,9 @@ def upload_partner_certs(csv_file):
             myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
 
 def map_partner_policy(csv_file):
-    session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner')
-    session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner')
+    session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
+    session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner', 
+                            ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Getting policies for a partner "%s" to check if this is a duplicate entry' % row['partner_id']) 
@@ -141,7 +142,7 @@ def map_partner_policy(csv_file):
                 continue
 
 def create_misp(csv_file):
-    session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner')
+    session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner', ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Creating MISP "%s"' % row['org_name'])
