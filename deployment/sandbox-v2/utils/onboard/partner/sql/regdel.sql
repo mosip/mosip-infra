@@ -1,3 +1,4 @@
+delete from partner_policy_bioextract;
 delete from partner_policy;
 delete from auth_policy;
 delete from auth_policy_h;

@@ -24,9 +24,10 @@ def add_policy_group(csv_file):
     for row in reader:
         myprint('Adding policy group %s' % row['name'])
         r = session.add_policy_group(row['name'], row['description'])
-        if r.status_code == 200: 
-            continue
         myprint(r)
+        if len(r['errors']) > 0:  
+            if r['errors'][0]['errorCode'] == 'PMS_POL_014': # Policy group already exists
+                continue
 
 def get_policy_group_id(policy_group_name):
         session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
@@ -194,21 +195,19 @@ def main():
     try:
         if args.action == 'policy_group' or args.action == 'all':
             add_policy_group(conf.csv_policy_group)
-        elif args.action == 'policy' or args.action == 'all':
+        if args.action == 'policy' or args.action == 'all':
             add_policy(conf.csv_policy)
-        elif args.action == 'extractor' or args.action == 'all':
+        if args.action == 'extractor' or args.action == 'all':
             add_extractor(conf.csv_extractor)
-        elif args.action == 'partner' or args.action == 'all':
+        if args.action == 'partner' or args.action == 'all':
             add_partner(conf.csv_partner)
-        elif args.action == 'upload_certs' or args.action == 'all':
+        if args.action == 'upload_certs' or args.action == 'all':
             upload_ca_certs(conf.csv_partner_ca_certs) 
             upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
-        elif args.action == 'partner_policy' or args.action == 'all':   
+        if args.action == 'partner_policy' or args.action == 'all':   
             map_partner_policy(conf.csv_partner_policy_map)
-        elif args.action == 'misp'or args.action == 'all':
+        if args.action == 'misp'or args.action == 'all':
             create_misp(conf.csv_misp)
-        else:
-            parser.print_help()
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)
