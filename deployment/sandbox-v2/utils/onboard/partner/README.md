@@ -13,7 +13,7 @@
 1. Make sure you run `./preinstall.sh`  for Python dependencies.
 1. Point to your sandbox in `config.py`:
     ```
-    server='<your sandbox doman>'
+    server='https://<your sandbox domain>'
     ```
 1. Make sure users and corresponding roles are updated in Keycloak.  Refer to `config.py` for users and roles. Default sandbox installation automatically adds these users in Keycloak.
 1. Populate the CSVs in `csv` folder.  

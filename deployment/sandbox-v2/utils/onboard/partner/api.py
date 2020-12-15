@@ -30,7 +30,7 @@ class MosipSession:
                     "password": pwd
             }
         }
-        r = requests.post(url, json = j)
+        r = requests.post(url, json = j, verify=self.ssl_verify)
         token = read_token(r)
         return token
 
@@ -48,14 +48,14 @@ class MosipSession:
             "requesttime": ts,
             "version": "1.0"
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
     def get_policy_groups(self):
         cookies = {'Authorization' : self.token}
         url = '%s/partnermanagement/v1/policies/policies/policyGroups' % self.server
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -81,7 +81,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -107,14 +107,14 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.put(url, cookies=cookies, json = j)
+        r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
     def get_policies(self):
         cookies = {'Authorization' : self.token}
         url = '%s/partnermanagement/v1/policies/policies' % self.server
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
         
@@ -137,7 +137,7 @@ class MosipSession:
           'requesttime': ts,
           'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -145,7 +145,7 @@ class MosipSession:
         url = '%s/partnermanagement/v1/policies/policies/publishPolicy/policyGroupId/%s/policyId/%s' % (
               self.server, policy_group_id, policy_id)
         cookies = {'Authorization' : self.token}
-        r = requests.post(url, cookies=cookies)
+        r = requests.post(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -153,7 +153,7 @@ class MosipSession:
         url = '%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
                                                                                               partner_id)
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -173,7 +173,7 @@ class MosipSession:
             'version': '1.0'
         } 
 
-        r = requests.patch(url, cookies=cookies, json = j)
+        r = requests.patch(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -194,7 +194,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.patch(url, cookies=cookies, json = j)
+        r = requests.patch(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -216,7 +216,7 @@ class MosipSession:
           'version': '1.0'
         } 
 
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
 
         return r
@@ -273,7 +273,7 @@ class MosipSession:
           'version': '1.0'
         }
 
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
         
@@ -293,7 +293,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -301,7 +301,7 @@ class MosipSession:
         url = '%s/partnermanagement/v1/misps/misps' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -319,7 +319,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = requests.patch(url, cookies=cookies, json = j)
+        r = requests.patch(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
    
@@ -344,6 +344,6 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
