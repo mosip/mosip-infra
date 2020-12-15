@@ -16,7 +16,6 @@ def add_partner(csv_file,):
         myprint('Adding partner %s' % row['name'])
         r = session.add_partner(row['name'], row['contact'], row['address'], row['email'], row['id'], 
                                     row['type'], row['policy_group'])
-        r = response_to_json(r)
         myprint(r)
 
 def add_policy_group(csv_file):
@@ -27,13 +26,11 @@ def add_policy_group(csv_file):
         r = session.add_policy_group(row['name'], row['description'])
         if r.status_code == 200: 
             continue
-        r = response_to_json(r)
         myprint(r)
 
 def get_policy_group_id(policy_group_name):
         session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
         r = session.get_policy_groups() 
-        r = response_to_json(r)
         policy_groups = r['response']
         pg_id = None
         for pg in policy_groups:
@@ -45,7 +42,6 @@ def get_policy_group_id(policy_group_name):
 def get_policy_id(policy_name):
     session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner')
     r = session.get_policies() 
-    r = response_to_json(r)
     policies =  r['response']
     policy_id = None
     for policy in policies:
@@ -62,7 +58,6 @@ def add_policy(csv_file):
         policy = json.loads(json_str)  
         r = session.add_policy(row['policy_id'],row['name'], row['description'], policy, row['policy_group'], 
                                row['policy_type'])
-        r = response_to_json(r)
         myprint(r)
         if len(r['errors']) == 0:  
             policy_id = r['response']['id']
@@ -75,7 +70,6 @@ def add_policy(csv_file):
                     continue
                 r = session.update_policy(row['name'], row['description'], policy, row['policy_group'], 
                                           row['policy_type'], policy_id)
-                r = response_to_json(r)
                 myprint(r) 
             else:
                 continue  # Can't do much
@@ -88,7 +82,6 @@ def add_policy(csv_file):
             continue
         myprint('Publishing policy "%s"' % row['name'])
         r = session.publish_policy(pg_id, policy_id)
-        r = response_to_json(r) 
         myprint(r)
 
 def upload_ca_certs(csv_file):
@@ -99,7 +92,6 @@ def upload_ca_certs(csv_file):
         myprint('Uploading CA certificate "%s"' % row['ca_cert_path'])
         cert_data = open(row['ca_cert_path'], 'rt').read()
         r = session.upload_ca_certificate(cert_data, row['partner_domain'])
-        r = response_to_json(r)
         myprint(r)
 
 def upload_partner_certs(csv_file):
@@ -110,7 +102,6 @@ def upload_partner_certs(csv_file):
         cert_data = open(row['cert_path'], 'rt').read()
         r = session.upload_partner_certificate(cert_data, row['org_name'], row['partner_domain'], 
                                                row['partner_id'], row['partner_type'])
-        r = response_to_json(r)
         myprint(r)
         mosip_signed_cert_path = os.path.join(os.path.dirname(row['cert_path']), 'mosip_signed_cert.pem')
         if r['errors'] is None:
@@ -154,7 +145,6 @@ def create_misp(csv_file):
     for row in reader:
         myprint('Creating MISP "%s"' % row['org_name'])
         r = session.create_misp(row['org_name'], row['address'], row['contact'], row['email'])
-        r = response_to_json(r)
         myprint(r)
         if len(r['errors']) == 0:   # No error
             misp_id = r['response']['mispID']
@@ -162,7 +152,6 @@ def create_misp(csv_file):
             myprint('Get misp id for "%s"' % row['org_name'])
             if r['errors'][0]['errorCode'] == 'PMS_MSP_003':  # Already exists 
                 r = session.get_misps() 
-                r = response_to_json(r)
                 misps = r['response'] 
                 for misp in misps:
                     myprint(misp)
@@ -173,34 +162,59 @@ def create_misp(csv_file):
         # Approving 
         myprint('Approving MISP "%s"' % row['org_name'])
         r = session.approve_misp(misp_id, 'approved')
-        r = response_to_json(r) 
+        myprint(r)
+
+def add_extractor(csv_file):
+    session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, ssl_verify=conf.ssl_verify)
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        myprint('Adding extractor for %s -- %s' % (row['partner_id'], row['policy_id']))
+        r = session.add_extractor(row['partner_id'], row['policy_id'], row['attribute'], row['biometric'], 
+                                  row['provider'], row['version'])
         myprint(r)
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|policy|partner|upload_certs|partner_policy|misp|all') 
+   parser.add_argument('action', help='policy_group|policy|extractor|partner|upload_certs|partner_policy|misp|all') 
+   parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
+   parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
-   return args
+   return args, parser
 
 def main():
+    args, parser =  args_parse() 
 
-    args = args_parse()
+    if args.server:
+        conf.server = args.server   # Overide
+
+    if args.disable_ssl_verify:
+        conf.ssl_verify = False
 
     init_logger('./out.log')
+    try:
+        if args.action == 'policy_group' or args.action == 'all':
+            add_policy_group(conf.csv_policy_group)
+        elif args.action == 'policy' or args.action == 'all':
+            add_policy(conf.csv_policy)
+        elif args.action == 'extractor' or args.action == 'all':
+            add_extractor(conf.csv_extractor)
+        elif args.action == 'partner' or args.action == 'all':
+            add_partner(conf.csv_partner)
+        elif args.action == 'upload_certs' or args.action == 'all':
+            upload_ca_certs(conf.csv_partner_ca_certs) 
+            upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
+        elif args.action == 'partner_policy' or args.action == 'all':   
+            map_partner_policy(conf.csv_partner_policy_map)
+        elif args.action == 'misp'or args.action == 'all':
+            create_misp(conf.csv_misp)
+        else:
+            parser.print_help()
+    except:
+        formatted_lines = traceback.format_exc()
+        myprint(formatted_lines)
+        sys.exit(1)
 
-    if args.action == 'policy_group' or args.action == 'all':
-        add_policy_group(conf.csv_policy_group)
-    if args.action == 'policy' or args.action == 'all':
-        add_policy(conf.csv_policy)
-    if args.action == 'partner' or args.action == 'all':
-        add_partner(conf.csv_partner)
-    if args.action == 'upload_certs' or args.action == 'all':
-        upload_ca_certs(conf.csv_partner_ca_certs) 
-        upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
-    if args.action == 'partner_policy' or args.action == 'all':   
-        map_partner_policy(conf.csv_partner_policy_map)
-    if args.action == 'misp'or args.action == 'all':
-        create_misp(conf.csv_misp)
+    return sys.exit(0)
 
 if __name__=="__main__":
     main()
