@@ -1,0 +1,6 @@
+- name: Install telnet
+  yum:
+    name: telnet
+    state: present
+  become: yes
+ 
