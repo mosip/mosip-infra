@@ -140,7 +140,7 @@ def main():
     app.cleanup()
 
     refid = app.pktconf['center_id'] + '_' + app.pktconf['machine_id']
-    mosip = MosipSession(app.conf.server, app.conf.user, app.conf.password)
+    mosip = MosipSession(app.conf.server, app.conf.user, app.conf.password, ssl_verify=conf.ssl_verify)
 
     app.update_conf(mosip)
 
