@@ -6,7 +6,7 @@
         "encryptionType": "none",
         "shareDomain": "datashare-service",
         "source": "Packet Manager"
-    }
+    },
 
     "shareableAttributes": [{
         "attributeName": "biometrics",
