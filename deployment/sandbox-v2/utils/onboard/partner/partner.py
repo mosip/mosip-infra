@@ -179,10 +179,11 @@ def args_parse():
    parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
-   return args
+   return args, parser
 
 def main():
-    args =  args_parse() 
+    args, parser =  args_parse() 
+
     if args.server:
         conf.server = args.server   # Overide
 
@@ -193,19 +194,21 @@ def main():
     try:
         if args.action == 'policy_group' or args.action == 'all':
             add_policy_group(conf.csv_policy_group)
-        if args.action == 'policy' or args.action == 'all':
+        elif args.action == 'policy' or args.action == 'all':
             add_policy(conf.csv_policy)
-        if args.action == 'extractor' or args.action == 'all':
+        elif args.action == 'extractor' or args.action == 'all':
             add_extractor(conf.csv_extractor)
-        if args.action == 'partner' or args.action == 'all':
+        elif args.action == 'partner' or args.action == 'all':
             add_partner(conf.csv_partner)
-        if args.action == 'upload_certs' or args.action == 'all':
+        elif args.action == 'upload_certs' or args.action == 'all':
             upload_ca_certs(conf.csv_partner_ca_certs) 
             upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
-        if args.action == 'partner_policy' or args.action == 'all':   
+        elif args.action == 'partner_policy' or args.action == 'all':   
             map_partner_policy(conf.csv_partner_policy_map)
-        if args.action == 'misp'or args.action == 'all':
+        elif args.action == 'misp'or args.action == 'all':
             create_misp(conf.csv_misp)
+        else:
+            parser.print_help()
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)
