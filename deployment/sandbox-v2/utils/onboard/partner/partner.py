@@ -198,10 +198,10 @@ def main():
             add_policy_group(conf.csv_policy_group)
         if args.action == 'policy' or args.action == 'all':
             add_policy(conf.csv_policy)
-        if args.action == 'extractor' or args.action == 'all':
-            add_extractor(conf.csv_extractor)
         if args.action == 'partner' or args.action == 'all':
             add_partner(conf.csv_partner)
+        if args.action == 'extractor' or args.action == 'all':
+            add_extractor(conf.csv_extractor)
         if args.action == 'upload_certs' or args.action == 'all':
             upload_ca_certs(conf.csv_partner_ca_certs) 
             upload_partner_certs(conf.csv_partner_certs) #TODO: make sure  key_alias.py is called below api
