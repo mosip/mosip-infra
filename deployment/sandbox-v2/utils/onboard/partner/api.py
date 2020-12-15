@@ -242,7 +242,7 @@ class MosipSession:
             'version': '1.0'
         } 
 
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
 
         return r
