@@ -1,9 +1,20 @@
 # This playbook initializes db.
 #
 #
+- hosts: console
+  tasks:
+    - name: Clone all git repos
+      vars: 
+        repo_path: '{{item.value.src}}'
+        repo_dest: '{{item.value.dest}}' 
+        version: '{{item.value.tag}}' 
+        githubuser: '{{item.value.githubuser}}' 
+        githubpassword: '{{item.value.githubpassword}}'
+      include_role:  
+        name: github 
+      loop: '{{repos | dict2items }}' 
 
 - hosts: console
   roles:  # Run these roles only if db does not exist or if force_init is set to true
-     - {role: repos} 
      - {role: postgres-init}
 
