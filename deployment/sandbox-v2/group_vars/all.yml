@@ -205,34 +205,50 @@ repos:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
     tag: 1.1.2
+    githubuser: ''
+    githubpassword: ''
   ref_impl:
     src: https://github.com/mosip/mosip-ref-impl
     dest: '{{tmp_dir}}/mosip-ref-impl'
     tag: 1.1.3
+    githubuser: ''
+    githubpassword: ''
 
 # DBs 
 #
@@ -321,12 +337,12 @@ hdfs:
 config_repo:
   # If local_git_repo=true, a copy of git repo at `git_repo_uri` gets created on console machine and 
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
-  # the parent git repo.
+  # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
   version: 1.1.3
-  private: false
-  username: githubusername # Applicable only if private=true. Password is expected to be in vaulted secrets.yml 
-  password: '{{secrets.config_repo.password}}'
+  private: false #  true if repo is private
+  gitusername: '' # if private==true set username here and password in secrets as below
+  gitpassword: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
     enabled: false
