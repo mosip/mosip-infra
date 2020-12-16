@@ -28,6 +28,7 @@
      - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
+     - {role: packages/pexpect, tags: [pexpect]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
