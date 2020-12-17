@@ -11,6 +11,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
 import config as conf
+from api import *
 
 class Credentials:
     def __init__(self):
@@ -95,10 +96,34 @@ def create_certs(csv_file): #CSV row
         os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
         gen_pvt_key(cred.pvt_key_path, cred.passphrase)
         create_cert(cred)
+
+def get_internal_cert(csv_file):
+    '''
+    Currently only implemented to fetch certs from IDA. Add respective sessions here if certs have to be 
+    pulled out from kernel module.
+    '''
+    session = MosipSession(conf.server, conf.ida_client_id, conf.ida_client_pwd, ssl_verify=conf.ssl_verify, 
+                           client_token=True)
+    reader = csv.DictReader(open(csv_file, 'rt')) 
+    for row in reader:
+        if row['module'] != 'ida':
+            continue
+        myprint('Getting certificate from %s:%s' % (row['app_id'], row['ref_id']))
+        r = session.get_ida_internal_cert(row['app_id'], row['ref_id'])
+        myprint(r)
+        if len(r['errors']) != 0:
+            myprint('ABORTING')
+            return 1 
+        cert = r['response']['certificate']
+        os.makedirs(os.path.dirname(row['cert_path']), exist_ok=True)
+        fd = open(row['cert_path'], 'wb')
+        fd.write(cert.encode())
+        fd.close()
   
 def main():
 
     create_certs(conf.csv_certs)
+    get_internal_cert(conf.csv_internal_certs)
 
 if __name__=="__main__":
     main()

@@ -1,2 +1,4 @@
 ca_cert_path,partner_domain
 certs/ca1/cert.pem,AUTH
+certs/ida_root_ca/cert.pem,AUTH
+certs/ida_ca/cert.pem,AUTH
