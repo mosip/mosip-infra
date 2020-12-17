@@ -12,7 +12,7 @@
     responses:
       Username: '{{githubuser}}'
       Password: '{{githubpassword}}'
-  register: return_val
-  failed_when: "'already exists and is not an empty directory' not in return_val.stdout"
+    timeout: 600
+  ignore_errors: yes
   no_log: true
 
