@@ -1,3 +1,3 @@
 cert_path,org_name,partner_domain,partner_id,partner_type
-certs/mpartner-default-auth/cert.pem,Mpartner Default Auth,AUTH,mpartner-default-auth,Online_Verification_Partner
+certs/mpartner-default-auth/cert.pem,IITB,AUTH,mpartner-default-auth,Online_Verification_Partner
 certs/mpartner-default-abis/cert.pem,Mpartner Default Abis,AUTH,mpartner-default-abis,Auth_Partner
