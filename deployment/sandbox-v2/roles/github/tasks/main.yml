@@ -14,5 +14,5 @@
       Password: '{{githubpassword}}'
   register: return_val
   failed_when: "'already exists and is not an empty directory' not in return_val.stdout"
-  no_log: false
+  no_log: true
 

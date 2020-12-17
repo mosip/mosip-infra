@@ -54,7 +54,8 @@ class KeycloakSession:
                 }
             ],
             'attributes': {
-              'rid': rid
+              'rid': rid,
+              'userPassword': salted_password(pwd)  # Needed for reg client
             }
         } 
         r = requests.post(url, headers=headers, json = j, verify=self.ssl_verify)
@@ -84,7 +85,8 @@ class KeycloakSession:
                 }
             ],
             'attributes': {
-                'rid': rid
+                'rid': rid,
+                'userPassword': salted_password(pwd)  # Needed for reg client
             }
         } 
         r = requests.put(url, headers=headers, json = j, verify=self.ssl_verify)
