@@ -403,6 +403,7 @@ coredns:
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
-iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_regproc_url: 'http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://13.233.66.241/biosdk-service
