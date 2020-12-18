@@ -1,18 +1,30 @@
 {
-	"shareableAttributes": [{
-		"encrypted": false,
-		"format": null,
-		"attributeName": "fullName"
-	}, {
-		"encrypted": false,
-		"format": null,
-		"attributeName": "dateOfBirth"
-	}],
-	"dataSharePolicies": {
-		"typeOfShare": "direct",
-		"transactionsAllowed": "2",
-		"shareDomain": "minibox.mosip.net",
-		"encryptionType": "none",
-		"validForInMinutes": "60"
+    "dataSharePolicies": {
+        "typeOfShare": "Data Share",
+        "validForInMinutes": "30",
+        "transactionsAllowed": "2",
+        "encryptionType": "none",
+        "shareDomain": "datashare-service",
+        "source": "Packet Manager"
+    },
+
+    "shareableAttributes": [{
+        "attributeName": "biometrics",
+        "group": "CBEFF",
+        "source": [{
+            "attribute": "registration-client\/NEW\/individualBiometrics",
+            "filter": [{
+                "type": "Iris"
+            }]
+        }, {
+            "attribute": "registration-client\/NEW\/individualBiometrics",
+            "filter": [{
+                "type": "Finger"
+            }]
+        }],
+        "encrypted": true
 	}
+    ] 
 }
+
+

@@ -1,4 +1,5 @@
-server = 'minibox.mosip.net' 
+server = 'https://minibox.mosip.net' 
+ssl_verify=True
 user = '110127'
 password = 'Techno@123'
 

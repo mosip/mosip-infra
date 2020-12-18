@@ -9,15 +9,15 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, password, appid='regproc'):
+    def __init__(self, server, user, password, appid='regproc', ssl_verify=True):
         self.server = server
         self.user = user
-        
         self.password = password
+        self.ssl_verify = ssl_verify
         self.token = self.auth_get_token(appid, self.user, self.password) 
       
     def auth_get_token(self, appid, username, password):
-        url = 'https://%s/v1/authmanager/authenticate/useridPwd' % self.server
+        url = '%s/v1/authmanager/authenticate/useridPwd' % self.server
         ts = get_timestamp()
         j = {
             "id": "mosip.io.userId.pwd",
@@ -30,7 +30,7 @@ class MosipSession:
                     "password": password
             }
         }
-        r = requests.post(url, json = j)
+        r = requests.post(url, json = j, verify=self.ssl_verify)
         token = read_token(r)
         return token
 
@@ -49,7 +49,7 @@ class MosipSession:
      
         nonce = secrets.token_bytes(nonce_len)
         aad  =  secrets.token_bytes(aad_len)
-        url = 'https://%s/v1/keymanager/encrypt' % self.server
+        url = '%s/v1/keymanager/encrypt' % self.server
         j = {
             "id" : "string",
             "metadata" : {},
@@ -65,7 +65,7 @@ class MosipSession:
             "version" : "1.0"
         }
         cookies = {'Authorization' : self.token}
-        r = requests.post(url, json = j, cookies=cookies)
+        r = requests.post(url, json = j, cookies=cookies, verify=self.ssl_verify)
         r = r.content.decode() # to str 
         r = json.loads(r)
         enc = r['response']['data']  # str
@@ -78,7 +78,7 @@ class MosipSession:
         return enc  
 
     def sync_packet(self, regid, packet_hash, packet_size, refid):
-        url = 'https://%s/registrationprocessor/v1/registrationstatus/sync' % self.server
+        url = '%s/registrationprocessor/v1/registrationstatus/sync' % self.server
         cookies = {'Authorization' : self.token}
         headers = {'Center-Machine-RefId' : refid,
                    'timestamp' : get_timestamp(),
@@ -105,7 +105,7 @@ class MosipSession:
         encrypted = self.encrypt_using_server(appid, refid, b64_s, b64_encode=True)
         # encrypted is string
         encrypted = '"' + encrypted + '"'
-        r = requests.post(url, data=encrypted, cookies=cookies, headers=headers)
+        r = requests.post(url, data=encrypted, cookies=cookies, headers=headers, verify=self.ssl_verify)
         return r 
 
     # in_path: full path of the unencrypted file
@@ -131,7 +131,7 @@ class MosipSession:
         Returns:
             decrypt data as str 
         '''
-        url = 'https://%s/v1/keymanager/decrypt' % self.server
+        url = '%s/v1/keymanager/decrypt' % self.server
         j = {
             "id" : "string",
             "metadata" : {},
@@ -146,22 +146,22 @@ class MosipSession:
             "version" : "1.0"
         }
         cookies = {'Authorization' : self.token}
-        r = requests.post(url, json = j, cookies=cookies)
+        r = requests.post(url, json = j, cookies=cookies, verify=self.ssl_verify)
         r = r.content.decode() # to str 
         r = json.loads(r)
         return r['response']['data'] 
 
     def upload_packet(self, packet_file):
-        url = 'https://%s/registrationprocessor/v1/packetreceiver/registrationpackets' % self.server
+        url = '%s/registrationprocessor/v1/packetreceiver/registrationpackets' % self.server
         cookies = {'Authorization' : self.token}
         files = {packet_file : open(packet_file, 'rb')}
-        r = requests.post(url, files=files, cookies=cookies)
+        r = requests.post(url, files=files, cookies=cookies, verify=self.ssl_verify)
         return r
 
     def get_rid(self, center_id, machine_id):
-        url = 'https://%s/v1/ridgenerator/generate/rid/%s/%s' % (self.server, center_id, machine_id)
+        url = '%s/v1/ridgenerator/generate/rid/%s/%s' % (self.server, center_id, machine_id)
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = r.content.decode() # to str 
         r = json.loads(r)
         rid = r['response']['rid'] 
@@ -169,7 +169,7 @@ class MosipSession:
 
 
     def generate_master_key(self, appid, cname, refid=''): 
-        url = 'https://%s/v1/keymanager/generateMasterKey/CERTIFICATE' % (self.server)
+        url = '%s/v1/keymanager/generateMasterKey/CERTIFICATE' % (self.server)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j =  {
@@ -189,11 +189,11 @@ class MosipSession:
             "requesttime": ts,
             "version": "1.0"
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         return r
 
     def update_masterdata_devicetype(self, device_code, device_name, device_description):
-        url = 'https://%s/v1/masterdata/devicetypes' % (self.server)
+        url = '%s/v1/masterdata/devicetypes' % (self.server)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -209,16 +209,16 @@ class MosipSession:
             "requesttime": ts,
             "version": "1.0"
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         if r['errors']:
           if r['errors'][0]['errorCode'] == 'KER-MSD-994':  # Resend with PUT
-              r = requests.put(url, cookies=cookies, json = j)
+              r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
               r = response_to_json(r)
         return r # Sucess
 
     def update_masterdata_device_spec(self, brand, description, type_code, name, spec_id, driver_version, model): 
-        url = 'https://%s/v1/masterdata/devicespecifications' % (self.server)
+        url = '%s/v1/masterdata/devicespecifications' % (self.server)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -238,12 +238,12 @@ class MosipSession:
           'requesttime': ts,
           'version': '1.0'
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r 
 
     def add_masterdata_device(self, device_spec, device_id ):
-        url = 'https://%s/v1/masterdata/devices' % (self.server)
+        url = '%s/v1/masterdata/devices' % (self.server)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -265,7 +265,7 @@ class MosipSession:
             "requesttime": "2018-12-10T06:12:52.994Z",
             "version": "string"
         }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r 
 

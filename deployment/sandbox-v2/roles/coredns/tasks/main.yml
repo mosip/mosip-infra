@@ -13,10 +13,15 @@
     path: '{{coredns.db}}'
     state: touch
 
+- name: Create empty ingress dns db file
+  file: 
+    path: '{{coredns.ingress_db}}'
+    state: touch
+
 - name: Populate dns db file
   lineinfile:
     path: '{{coredns.db}}'
-    line:  'sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600'
+    line:  '{{site.sandbox_internal_tld}}.    IN  SOA dns.{{site.sandbox_internal_tld}}. admin.{{site.sandbox_internal_tld}}. 2015082541 7200 3600 315360000 3600'
 
 - name: Populate dns db file
   lineinfile:
@@ -25,16 +30,21 @@
   with_inventory_hostnames:
     - all
 
+- name: Populate alias dns db file
+  lineinfile:
+    path: '{{coredns.ingress_db}}'
+    line:  '{{site.ingress_tld}}.    IN  SOA dns.{{site.ingress_tld}}. admin.{{site.ingress_tld}}. 2015082541 7200 3600 315360000 3600'
+
 - name: Populate aliases dns db file
   lineinfile:
-    path: '{{coredns.db}}'
-    line: '{{item.value.alias}}.   IN   CNAME {{ item.value.node.split(".")[0:-1] | join("") }}' # Remove the TLD suffix
+    path: '{{coredns.ingress_db}}'
+    line: '{{item.value.alias}}.   IN   A {{ item.value.node }}' # Remove the TLD suffix
   loop: "{{lookup('dict', coredns.aliases)}}"
 
 - name: Copy Corefile
-  copy:
-    src: '{{install_root}}/roles/coredns/files/Corefile'
-    dest: '{{coredns.path}}'
+  template:
+    src: Corefile.j2
+    dest: '{{coredns.path}}/Corefile'
 
 - name: Delete running container
   shell: 'docker rm -f {{coredns.name}}'

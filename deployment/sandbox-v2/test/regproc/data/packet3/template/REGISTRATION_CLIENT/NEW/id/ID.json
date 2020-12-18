@@ -1,0 +1,93 @@
+{ "identity" : {
+  "proofOfAddress" : {
+    "value" : "proofOfAddress",
+    "type" : "RNC",
+    "format" : "pdf"
+  },
+  "gender" : [ {
+    "language" : "eng",
+    "value" : "Male"
+  }, {
+    "language" : "ara",
+    "value" : "الذكر"
+  } ],
+  "city" : [ {
+    "language" : "eng",
+    "value" : "{{city}}"
+  }, {
+    "language" : "ara",
+    "value" : "القنيطرة"
+  } ],
+  "postalCode" : "{{postal_code}}",
+  "fullName" : [ {
+    "language" : "eng",
+    "value" : "{{full_name}}"
+  }, {
+    "language" : "ara",
+    "value" : "Jejang"
+  } ],
+  "dateOfBirth" : "{{dob}}", 
+  "referenceIdentityNumber" : "{{ref_id_num}}",
+  "individualBiometrics" : {
+    "format" : "cbeff",
+    "version" : 1.0,
+    "value" : "individualBiometrics_bio_CBEFF"
+  },
+  "proofOfIdentity" : {
+    "value" : "proofOfIdentity",
+    "type" : "CIN",
+    "format" : "pdf"
+  },
+  "IDSchemaVersion" : {{id_schema}},
+  "province" : [ {
+    "language" : "eng",
+    "value" : "{{province}}"
+  }, {
+    "language" : "ara",
+    "value" : "القنيطرة"
+  } ],
+  "zone" : [ {
+    "language" : "eng",
+    "value" : "{{zone}}"
+  }, {
+    "language" : "ara",
+    "value" : "بن منصور"
+  } ],
+  "phone" : "{{phone}}",
+  "addressLine1" : [ {
+    "language" : "eng",
+    "value" : "{{address_line1}}"
+  }, {
+    "language" : "ara",
+    "value" : "هسر كُنلُني"
+  } ],
+  "addressLine2" : [ {
+    "language" : "eng",
+    "value" : "{{address_line2}}"
+  }, {
+    "language" : "ara",
+    "value" : "سِكتُر-٢"
+  } ],
+  "residenceStatus" : [ {
+    "language" : "eng",
+    "value" : "{{resident_status}}"
+  }, {
+    "language" : "ara",
+    "value" : "أجنبي"
+  } ],
+  "addressLine3" : [ {
+    "language" : "eng",
+    "value" : "{{address_line3}}"
+  }, {
+    "language" : "ara",
+    "value" : "هسرر"
+  } ],
+  "region" : [ {
+    "language" : "eng",
+    "value" : "{{region}}"
+  }, {
+    "language" : "ara",
+    "value" : "جهة الرباط سلا القنيطرة"
+  } ],
+  "email" : "{{email}}"
+} } 

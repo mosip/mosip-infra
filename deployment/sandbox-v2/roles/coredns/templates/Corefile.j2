@@ -1,0 +1,19 @@
+.:53 {
+    forward . 8.8.8.8 9.9.9.9
+    log
+    errors
+}
+
+{{site.sandbox_internal_tld}}:53 {
+    file /root/sandbox_dns.db
+    log
+    errors
+}
+
+{{site.ingress_tld}}:53 {
+    file /root/ingress_dns.db
+    log
+    errors
+}
+
+

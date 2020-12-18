@@ -47,8 +47,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: zip_file_path
           value: {{ .Values.services.internal.hsmClientZipPath }}
-        - name: mosip_biosdk_service
-          value: {{ .Values.biosdkServiceUrl }}
+#        - name: mosip_biosdk_service
+#          value: {{ .Values.biosdkServiceUrl }}
         ports:
         - containerPort: {{ .Values.services.internal.containerPort }}
 

@@ -1,7 +1,3 @@
 policy_id,name,description,policy_file,policy_group,policy_type
-policy1,policy1,Policy One,policies/policy1.json,face_provider,Auth
-policy2,policy2,Policy Two,policies/policy1.json,auth_providers,Auth
-mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/datasharepolicy.json,data_share_policy_group,DataShare
-policy3,policy3,Policy Three,policies/policy1.json,auth_providers,Auth
-policy4,policy4,Policy Four,policies/policy1.json,auth_providers,Auth
+mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/authshare.json,auth_module_policy_group,Datashare
 mpolicy-default-abis,mpolicy-default-abis,mpolicy-default-abis,policies/abispolicy.json,abis_policy_group,DataShare

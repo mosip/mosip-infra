@@ -8,6 +8,7 @@
   when: reset_cluster is succeeded
   shell: |
     kubeadm init --service-cidr {{ service_cidr }} \
+                 --ignore-preflight-errors all \
                  --kubernetes-version {{ kube_version }} \
                  --pod-network-cidr {{ pod_network_cidr }} \
                  --token {{ token }} \

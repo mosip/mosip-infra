@@ -1,17 +1,17 @@
 #!/bin/python3
 
 import sys
-from ida_zk_api import *
+from api import *
 import traceback
 import argparse
 import config as conf
 sys.path.insert(0, '../')
 from utils import *
 
-def fetch_and_upload_cert():
+def fetch_and_upload_cert(from_app_id, from_ref_id, to_app_id, to_ref_id):
     session = MosipSession(conf.server, conf.client_id, conf.client_pwd, ssl_verify=conf.ssl_verify)
-    myprint('Getting certificate from IDA:CRED_SERVICE')
-    r = session.get_ida_internal_cert()
+    myprint('Getting certificate from %s:%s' % (from_app_id, from_ref_id))
+    r = session.get_ida_internal_cert(from_app_id, from_ref_id)
     myprint(r)
     if len(r['errors']) != 0:
         myprint('ABORTING')
@@ -19,8 +19,8 @@ def fetch_and_upload_cert():
     cert = r['response']['certificate']
 
     # Upload
-    myprint('Uploading cert to keymanager')
-    r = session.upload_other_domain_cert(cert)
+    myprint('Uploading cert to keymanager %s:%s' % (to_app_id, to_ref_id))
+    r = session.upload_other_domain_cert(cert, to_app_id, to_ref_id)
     myprint(r)
     if r['errors'] is not None:
         myprint('ABORTING')
@@ -46,7 +46,7 @@ def main():
         conf.ssl_verify = False
 
     try:
-        r = fetch_and_upload_cert()
+        r = fetch_and_upload_cert('IDA', 'CRED_SERVICE', 'IDA', 'PUBLIC_KEY')
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)
