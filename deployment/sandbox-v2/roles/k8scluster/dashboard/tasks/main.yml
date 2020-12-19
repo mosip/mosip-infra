@@ -21,7 +21,8 @@
   delay: 2
   ignore_errors: true
 
-- name: Create temp_dir/ for tokens
-  file:
-    path: '{{install_root}}/temp_dir'
-    state: directory  
+- name:  Get admin-dashboard token  
+  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} admin-user {{tmp_dir}}/mz_dashboard_admin.token'
+
+- name: Get view-only dashboard token
+  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} view-user {{tmp_dir}}/mz_dashboard_view.token' 
