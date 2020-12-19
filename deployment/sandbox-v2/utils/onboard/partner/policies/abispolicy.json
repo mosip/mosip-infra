@@ -22,7 +22,7 @@
                 "type": "Finger"
             }]
         }],
-        "encrypted": true
+        "encrypted": "false"
 	}
     ] 
 }
