@@ -9,12 +9,12 @@ IDA has to be onboarded as partner. Execute the partner onboarding scripts [here
 
 ## Packet creation
 
-Parameters of packet are specified in `config.py`. For standard deployment you need to modify only `server` as given below. 
+Refer to notes in `config.py` and `data/packet*/ptkconf.py` for various parameters of a packet.  Parameters here must match records in Master DB.
 
-1. `server`:  This must point to your sandbox domain 
-1. `user` and `password` must be available in Keycloak. The user must have all roles assigned. 
-1. `prereg_id`: If specified regproc will connect to prepreg to fetch details of this id. By default this is null.
-1.  Rest of the parameters must match your master data records.  
+Following example packets are provided.  All these are for new registration.
+1. `packet1`: Individual 1 biometrics, no operator biometrics.
+1. `packet2`: Individual 2 biometrics different from above, no operator biometrics
+1. `packet2`: Indiviual 2 biometrics with operator biometrics of Individual 1. 
 
 ## Clearing the DB
 This is optional.  To see your packet clearly, you may want to clear all records of previous packets in `mosip_regprc` tables:

@@ -1,14 +1,7 @@
-server = 'https://minibox.mosip.net' 
-ssl_verify=True
-user = '110127'
+server = 'https://minibox.mosip.net'   #  Or internal access via ingress http://mz.ingress:30080/..
+ssl_verify=True  # Set to False if self signed certificate or HTTP
+user = '110127'  # Admin user for all roles to access the APIs
 password = 'Techno@123'
-
-sub_pkts = ['id', 'evidence', 'optional']
-
-pkt_dir = 'data/packet1'
-template_dir = pkt_dir + '/template/REGISTRATION_CLIENT/NEW'
-unenc_dir = pkt_dir + '/unencrypted/REGISTRATION_CLIENT/NEW'
-enc_dir = pkt_dir + '/encrypted/REGISTRATION_CLIENT/NEW'
-zip_in_dir = pkt_dir + '/encrypted/'   # Dir from where zip needs to be created
+pkt_dir = 'data/packet3'  # Which packet to pick
 
 
