@@ -161,6 +161,11 @@ def main():
     print('\n=== Syncing packet === \n')
     r = app.sync_packet(mosip, enc_zip, refid) 
     print_response(r) 
+    r = response_to_json(r)
+    rid = r['response'][0]['registrationId']
+    fp = open('rid.out', 'a')
+    fp.write('%s\n' % rid) 
+    fp.close()
 
     print('\n=== Uploading packet === \n')
     r = mosip.upload_packet(enc_zip)

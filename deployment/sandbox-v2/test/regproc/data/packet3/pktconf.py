@@ -3,9 +3,9 @@ pkt_conf = {
     'rid': '',
     'creation_date' : '',
     'prereg_id' : '', # Eg. '37029479274360'
-    'machine_id': '10074',
-    'center_id': '10002',
-    'officer_id': '110119',
+    'machine_id': '10014',
+    'center_id': '10012',
+    'officer_id': '110014',
     'city': 'Kenitra',
     'province': 'Kenitra',
     'zone': 'Ben Mansour',
