@@ -14,9 +14,15 @@ sys.path.insert(0, '../')
 from utils import *
 import  jinja2 as j2
 
+TEMPLATE_DIR = conf.pkt_dir + '/template/REGISTRATION_CLIENT/NEW'
+UNENC_DIR = conf.pkt_dir + '/unencrypted/REGISTRATION_CLIENT/NEW'
+ENC_DIR = conf.pkt_dir + '/encrypted/REGISTRATION_CLIENT/NEW'
+ZIP_IN_DIR = conf.pkt_dir + '/encrypted/'   # Dir from where zip needs to be created
+
 class App:
     def __init__(self, conf):
         self.conf = conf
+        self.sub_pkts = ['id', 'evidence', 'optional']  
         sys.path.insert(0, self.conf.pkt_dir)
         m = importlib.import_module('pktconf') # Expected to be in the packet dir
         self.pktconf = m.pkt_conf
@@ -33,12 +39,12 @@ class App:
         self.pktconf['creation_date'] = ts
     
     def template_to_packet(self, suffix):
-        out_dir = os.path.join(self.conf.unenc_dir, suffix)
+        out_dir = os.path.join(UNENC_DIR, suffix)
         
         os.makedirs(out_dir)  # Assumed parent directory is cleaned up before calling this func
     
         # First copy all files from templates to out_dir as is, then replace the template files
-        in_dir = os.path.join(self.conf.template_dir, suffix)
+        in_dir = os.path.join(TEMPLATE_DIR, suffix)
         files = glob.glob(os.path.join(in_dir, '*'))
         for f in files:
             shutil.copy(f, os.path.join(out_dir))
@@ -60,28 +66,28 @@ class App:
        Returns paths of output zip files
        '''
        paths = []
-       for sub_pkt in self.conf.sub_pkts:
-           base_path = os.path.join(self.conf.unenc_dir, sub_pkt) 
-           out_zip = os.path.join(self.conf.unenc_dir, self.pktconf['rid'] + '_' + sub_pkt)
+       for sub_pkt in self.sub_pkts:
+           base_path = os.path.join(UNENC_DIR, sub_pkt) 
+           out_zip = os.path.join(UNENC_DIR, self.pktconf['rid'] + '_' + sub_pkt)
            r = shutil.make_archive(out_zip, 'zip', base_path)
            paths.append(out_zip + '.zip')
      
        return paths 
     
     def cleanup(self):
-        if os.path.exists(self.conf.unenc_dir):
-            shutil.rmtree(self.conf.unenc_dir)
+        if os.path.exists(UNENC_DIR):
+            shutil.rmtree(UNENC_DIR)
     
-        if os.path.exists(self.conf.enc_dir):
-            shutil.rmtree(self.conf.enc_dir)
+        if os.path.exists(ENC_DIR):
+            shutil.rmtree(ENC_DIR)
     
     def template_to_packets(self):
-        for suffix in self.conf.sub_pkts:
+        for suffix in self.sub_pkts:
             self.template_to_packet(suffix)
       
     def update_hashes(self):
-        for suffix in self.conf.sub_pkts:
-           meta_path = os.path.join(os.path.join(self.conf.unenc_dir, suffix), 'packet_meta_info.json')
+        for suffix in self.sub_pkts:
+           meta_path = os.path.join(os.path.join(UNENC_DIR, suffix), 'packet_meta_info.json')
            subprocess.run(['./gen_hash.py %s' % meta_path], shell=True)
     
     def sync_packet(self, mosip, final_zip, refid): 
@@ -98,7 +104,7 @@ class App:
         os.system('rm -f %s/*.zip' % self.conf.pkt_dir) # Remove any existing zip files
         #out_zip = os.path.join(self.conf.pkt_dir, self.pktconf['rid']) 
         out_zip = os.path.join('/tmp', self.pktconf['rid']) 
-        final_zip = shutil.make_archive(out_zip, 'zip', self.conf.zip_in_dir) 
+        final_zip = shutil.make_archive(out_zip, 'zip', ZIP_IN_DIR)
         return final_zip
 
     def create_wrapper_json(self, fpath):
@@ -149,9 +155,9 @@ def main():
 
     zipped_pkts = app.zip_packets()
 
-    os.makedirs(app.conf.enc_dir)
+    os.makedirs(ENC_DIR)
     for zipped_pkt in zipped_pkts:
-        out_path = mosip.encrypt_packet(zipped_pkt, app.conf.enc_dir, os.path.basename(zipped_pkt), refid)
+        out_path = mosip.encrypt_packet(zipped_pkt, ENC_DIR, os.path.basename(zipped_pkt), refid)
         app.create_wrapper_json(out_path)
 
     unenc_zip = app.create_final_zip()
