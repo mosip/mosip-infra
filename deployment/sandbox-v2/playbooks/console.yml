@@ -28,6 +28,7 @@
      - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
+     - {role: packages/pexpect, tags: [pexpect]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
@@ -41,3 +42,24 @@
         policy: targeted
         state: permissive
       become: yes
+
+# Install some useful utils on all machines
+- hosts: all
+  gather_facts: true
+  roles:
+     - {role: packages/vim, tags: [vim]}
+     #- {role: packages/telnet, tags: [telnet]}
+     - {role: packages/bind-utils, tags: [bind-utils]}  
+
+# Change datetime of all machines to UTC
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  tasks:
+    - command: "date '+%Y-%m-%d %H:%M:%S'"
+      register: date_utc
+      environment:
+        TZ: UTC
+  
+    - debug:
+        msg:
+          - "{{ date_utc.stdout }}"

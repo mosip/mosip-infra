@@ -3,9 +3,9 @@
   vars:
     repo_path: '{{config_repo.git_repo_uri}}'
     repo_dest: '{{config_repo.local_git_repo.path}}'
-    branch: '{{config_repo.version}}'
-    githubuser: '{{config_repo.username}}'
-    githubpassword: '{{config_repo.password}}' 
+    version: '{{config_repo.version}}'
+    githubuser: '{{config_repo.gitusername}}'
+    githubpassword: '{{config_repo.gitpassword}}' 
   roles:
     - {role:  github, when: config_repo.local_git_repo.enabled, become: yes}
 
@@ -17,7 +17,7 @@
     helm_chart: '{{charts_root}}/config-server'
     is_template: true  
     helm_namespace: 'default'
-    helm_strings: "encryptKey={{config_server.encrypt_key}},gitRepo.password={{config_repo.password}}"
+    helm_strings: "encryptKey={{config_server.encrypt_key}},gitRepo.password={{config_repo.gitpassword}}"
     helm_values: '{{charts_root}}/config-server/values.template.j2'
   roles:
     - {role:  helm}

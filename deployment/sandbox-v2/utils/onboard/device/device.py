@@ -44,7 +44,10 @@ def create_device_info(digital_id, row):  # row in csv file
         'deviceExpiry': row['expiry'],
         'timeStamp': ts
     }
-    return device_info
+    j = json.dumps(device_info)
+    b64_j = base64.b64encode(j.encode()) # bytes
+    b64_j = b64_j.decode() # str 
+    return b64_j
 
 def create_device_data(device_id, purpose, device_info, ft_provider_id):
     device_data = {

@@ -5,25 +5,14 @@
 #     version: branch or tag to checkout
 #     githubuser
 #     githubpassword
-#     
 
-- name: 'Create foler {{repo_dest}} if does not exist'
-  file:
-    path: '{{repo_dest}}'
-    state: directory
-
-- debug:
-    msg: 'Cloning {{repo_path}} into {{repo_dest}}'
-
-- set_fact:
-    repo_path: '{{repo_path.split("://")[0]}}://{{ githubuser | urlencode }}:{{ githubpassword | urlencode }}@{{repo_path.split("://")[1]}}' 
-  when: config_repo.private == true 
-
-- git:
-    repo: '{{repo_path}}'
-    dest: '{{repo_dest}}'
-    update: no 
-    version: '{{config_repo.version}}'
-    force: no
+- name: git checkout 
+  expect: 
+    command: 'git clone -b {{version}} -q {{repo_path}} {{repo_dest}}'
+    responses:
+      Username: '{{githubuser}}'
+      Password: '{{githubpassword}}'
+    timeout: 600
+  ignore_errors: yes
   no_log: true
--
+
