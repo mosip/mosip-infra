@@ -5,6 +5,10 @@ docker:
   containerPort: 80
 imagePullPolicy: Always
 
+dockerHub:
+  private: {{ docker_hub.private }}  
+  keyname: {{ docker_hub.keyname }}
+
 services:
   artifactory:
     podconfig: {{ podconfig.artifactory.service | to_yaml }}
