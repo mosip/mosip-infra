@@ -1,7 +1,7 @@
 {
     "dataSharePolicies": {
         "typeOfShare": "Data Share",
-        "validForInMinutes": "30",
+        "validForInMinutes": "2880",
         "transactionsAllowed": "2",
         "encryptionType": "none",
         "shareDomain": "datashare-service",
@@ -22,7 +22,7 @@
                 "type": "Finger"
             }]
         }],
-        "encrypted": "false"
+        "encrypted": false
 	}
     ] 
 }
