@@ -29,6 +29,7 @@
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
      - {role: packages/pexpect, tags: [pexpect]}
+     - {role: packages/jq, tags: [jq]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
