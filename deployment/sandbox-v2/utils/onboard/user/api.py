@@ -107,7 +107,56 @@ class KeycloakSession:
         r = response_to_json(r) 
         user_id = r[0]['id']
         return user_id
-    
+
+    def create_client(self, realm_id, client_id, name, secret, base_url):
+        url =  '%s/keycloak/auth/admin/realms/%s/clients' % (self.server, realm_id)
+        headers = {
+           'Authorization' : 'Bearer %s' % self.token,
+           'Content-type' : 'application/json',
+           'Accept': 'application/json'
+        }
+        j = {
+            'clientId': client_id,
+            'name': name,
+            'protocol': 'openid-connect',
+            'rootUrl': base_url
+        }
+        r  = requests.post(url, headers=headers, json = j, verify=self.ssl_verify)
+        return r        
+
+    def update_client(self, realm_id, client_id, name, secret, base_url, client_id_info):
+        url =  '%s/keycloak/auth/admin/realms/%s/clients/%s' % (self.server, realm_id, client_id_info)
+        
+        headers = {
+           'Authorization' : 'Bearer %s' % self.token,
+           'Content-type' : 'application/json',
+           'Accept': 'application/json'
+        }
+        j = {
+            'clientId': client_id,
+            'name': name,
+            'protocol': 'openid-connect',
+            'rootUrl': base_url
+        }
+        r = requests.put(url, headers=headers, json = j, verify=self.ssl_verify)
+        return r
+     
+    def get_client(self, realm_id, client_id):  # Get client by clientId
+        '''
+        Returns secret client id.
+        '''
+        url =  '%s/keycloak/auth/admin/realms/%s/clients?clientId=%s' % (self.server, realm_id, client_id)
+
+        headers = {
+           'Authorization' : 'Bearer %s' % self.token,
+           'Content-type' : 'application/json',
+           'Accept': 'application/json'
+        }
+        r = requests.get(url, headers=headers, verify=self.ssl_verify)
+        r = response_to_json(r)
+        client_id_info = r[0]['id']
+        return client_id_info    
+
     def get_role(self, realm_id, rolename):
         url =  '%s/keycloak/auth/admin/realms/%s/roles/%s' % (self.server, realm_id, rolename)
         headers = {
