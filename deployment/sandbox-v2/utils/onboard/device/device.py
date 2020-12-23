@@ -62,7 +62,7 @@ def create_device_data(device_id, purpose, device_info, ft_provider_id):
     return b64_j
 
 def add_device_detail(csv_file):
-    session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
+    session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding device detail for  %s' % row['device_detail_id'])
@@ -71,7 +71,7 @@ def add_device_detail(csv_file):
         myprint(r)
 
 def approve_device_detail(csv_file): # status: Activate/De-activate 
-    session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
+    session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Approving device %s' % row['device_detail_id'])
@@ -83,8 +83,8 @@ def add_sbi(csv_file):
     Add sbi and approve.  Here were have added approval in this function itself, 'casue we need to pull the
     corresponding sbi id which is auto generated.
     '''
-    session1 = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
-    session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd)
+    session1 = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
+    session2 = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding SBI for  %s' % row['device_detail_id'])
@@ -98,8 +98,8 @@ def add_sbi(csv_file):
             myprint(r)
 
 def register_device(csv_file):
-    session1 = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd)
-    session2 = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session1 = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
+    session2 = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
        myprint('Registerig device %s' % row['device_id'])
