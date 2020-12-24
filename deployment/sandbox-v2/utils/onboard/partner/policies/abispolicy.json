@@ -1,7 +1,7 @@
 {
     "dataSharePolicies": {
         "typeOfShare": "Data Share",
-        "validForInMinutes": "2880",
+        "validForInMinutes": "30",
         "transactionsAllowed": "2",
         "encryptionType": "none",
         "shareDomain": "datashare-service",
