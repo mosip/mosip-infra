@@ -1,0 +1,28 @@
+# Delete monitoring  persistence
+- hosts: console
+  gather_facts: no
+  become: yes
+  vars_prompt:
+    - name: sure 
+      prompt: 'Do you want to ERASE all Kafka data? Are you sure? (yes/no)'
+      private: no
+  tasks:
+  - name: Delete kafka folders
+    block:
+      - name: Find all Kafka folders 
+        find:
+          paths: '{{nfs.folder}}' 
+          patterns: 'default-data-kafka*'
+          file_type: directory
+        register: dirs_to_be_deleted
+
+#      - debug:
+#          msg: '{{dirs_to_be_deleted.files}}'
+    
+      - name: Delete all kafka related folders
+        file:
+          path: "{{ item.path }}"
+          state: absent
+        with_items: "{{ dirs_to_be_deleted.files }}"
+    when: sure.lower().strip() == 'yes'
+
