@@ -97,6 +97,8 @@ def upload_ca_certs(csv_file):
 
 def upload_partner_certs(csv_file):
     session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
+    session2 = MosipSession(conf.server, conf.client_id, conf.client_pwd, ssl_verify=conf.ssl_verify, 
+                            client_token=True)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Uplading partner certificate for "%s"' % row['org_name'])
@@ -109,6 +111,11 @@ def upload_partner_certs(csv_file):
             mosip_signed_cert = r['response']['signedCertificateData']
             open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
             myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
+
+        if len(row['app_id']) > 0:  # If app_id is defined.  TODO: Remove this later 
+            myprint('Upload the same cert directly into key alias')
+            r = session2.upload_other_domain_cert(cert_data, row['app_id'], row['partner_id'])
+            myprint(r)
 
 def map_partner_policy(csv_file):
     session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)

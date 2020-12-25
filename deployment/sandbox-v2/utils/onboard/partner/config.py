@@ -4,6 +4,9 @@ ssl_verify=True
 primary_lang = 'eng'
 secondary_lang = 'ara'  # Should match mosip configuration
 
+client_id = 'mosip-ida-client'
+client_pwd =  'abc123'
+
 policym_user = 'policymanager1' # With POLICYMANAGER role 
 policym_pwd =  'mosip'
 
@@ -26,7 +29,7 @@ csv_policy_group = 'csv/policy_group.csv'
 csv_policy = 'csv/policy.csv'
 csv_extractor = 'csv/extractor.csv'
 csv_partner = 'csv/partner.csv'
-csv_certs = 'csv/certs.csv' 
+csv_certs = 'csv/generate_certs.csv' 
 csv_internal_certs = 'csv/internal_certs.csv'
 csv_partner_ca_certs = 'csv/partner_ca_certs.csv'
 csv_partner_certs = 'csv/partner_certs.csv'
