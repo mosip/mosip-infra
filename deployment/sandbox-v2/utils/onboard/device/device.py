@@ -76,8 +76,9 @@ def add_device_detail(csv_file):
         myprint(r)
 
         myprint('Adding device detail (spec) in master db')
-        r =  db.insert_spec_in_masterdb_sql(row['device_detail_id'])
-        myprint(r)
+        db.insert_spec_in_masterdb_sql(row['device_detail_id'])
+                
+    db.close()
 
 def approve_device_detail(csv_file): # status: Activate/De-activate 
     session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
