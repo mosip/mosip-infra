@@ -170,3 +170,29 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
+    def add_device_spec_to_masterdb(self, spec_id):
+        url = '%s/v1/masterdata/devicespecifications' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j =  {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+              'id': spec_id,
+              'name': 'xyz',
+              'description': 'xyz',
+              'brand': 'xyz',
+              'model': 'xyz',
+              'deviceTypeCode': 'FRS',
+              'isActive': True,
+              'langCode': 'eng',
+              'minDriverversion': '1.0',
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+        r = response_to_json(r)
+        return r
+

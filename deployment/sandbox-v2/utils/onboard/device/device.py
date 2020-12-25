@@ -2,12 +2,12 @@
 
 import sys
 import argparse
-from device_api import *
 import csv
 import config as conf
 import base64
+from api import *
+from db import *
 sys.path.insert(0, '../')
-
 from utils import *
 
 def get_digital_id(index):
@@ -62,12 +62,21 @@ def create_device_data(device_id, purpose, device_info, ft_provider_id):
     return b64_j
 
 def add_device_detail(csv_file):
+    '''
+    device_detail == spec
+    '''
     session = MosipSession(conf.server, conf.device_provider_user, conf.device_provider_pwd, ssl_verify=conf.ssl_verify)
+    db = DB(conf.db_user, conf.db_pwd, conf.db_host, conf.db_port, 'mosip_master') 
+
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
         myprint('Adding device detail for  %s' % row['device_detail_id'])
         r = session.add_device_detail(row['device_detail_id'], row['type'], row['subtype'], row['for_registration'], 
                                      row['make'], row['model'], row['partner_org_name'], row['partner_id'])
+        myprint(r)
+
+        myprint('Adding device detail (spec) in master db')
+        r =  db.insert_spec_in_masterdb_sql(row['device_detail_id'])
         myprint(r)
 
 def approve_device_detail(csv_file): # status: Activate/De-activate 
@@ -116,12 +125,13 @@ def register_device(csv_file):
 
        r = session2.add_device_to_masterdb(row['device_id'], digital_id['serialNo'], row['device_detail_id'], 
                                            row['reg_center'], row['zone'], row['expiry'], conf.primary_lang)
+  
        myprint(r)
         
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='add|approve|sbi|register|all')
+   parser.add_argument('action', help='spec|approve|sbi|register|all')
    args = parser.parse_args()
    return args
 
@@ -130,7 +140,7 @@ def main():
     init_logger('./out.log')
     args = args_parse()
 
-    if args.action == 'add' or args.action == 'all':
+    if args.action == 'spec' or args.action == 'all':
         add_device_detail(conf.csv_device_detail)
     if args.action == 'approve' or args.action == 'all':
         approve_device_detail(conf.csv_device_approve)
