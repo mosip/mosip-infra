@@ -1,7 +1,12 @@
 server = 'https://minibox.mosip.net' 
-
+ssl_verify=True
 primary_lang = 'eng'
 secondary_lang = 'ara'  # Should match mosip configuration
+
+db_user = 'postgres'
+db_pwd = 'mosip123'
+db_host = 'mzworker0.sb'  
+db_port = '30090'
 
 device_provider_user = 'deviceprovider1' # with DEVICE_PROVIDER role
 device_provider_pwd = 'mosip'

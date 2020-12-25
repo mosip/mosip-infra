@@ -1,3 +1,3 @@
 policy_id,name,description,policy_file,policy_group,policy_type
-mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/authshare.json,auth_module_policy_group,Datashare
-mpolicy-default-abis,mpolicy-default-abis,mpolicy-default-abis,policies/abispolicy.json,abis_policy_group,DataShare
+mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/authshare.json,auth_module,Datashare
+ mpolicy-default-abis,mpolicy-default-abis,mpolicy-default-abis,policies/abispolicy.json,abis_providers,DataShare
