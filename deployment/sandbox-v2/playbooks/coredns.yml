@@ -24,6 +24,21 @@
      when: coredns.enabled == true
      become: yes
 
+   - name: Create ifcfg-eth0 file
+     file:
+       path: /etc/sysconfig/network-scripts/ifcfg-eth0
+       state: touch
+     become: yes
+
+- hosts: all:!console
+  gather_facts: false
+  tasks:
+   - name: Allow only CoreDNS to be used by all the machines except console
+     lineinfile:
+       path: /etc/sysconfig/network-scripts/ifcfg-eth0
+       line: 'DNS1={{ hostvars[groups.console[0]].ansible_host }}'
+     become: yes
+
 ## Append 8.8.8.8 to console file 
 - hosts: console
   gather_facts: false
@@ -32,4 +47,22 @@
      lineinfile:
        path: /etc/resolv.conf
        line: 'nameserver 8.8.8.8'
+     become: yes
+   
+   - name: Create dhclient.conf file
+     file:
+       path: /etc/dhcp/dhclient.conf 
+       state: touch
+     become: yes
+
+   - name: Append dhclient.conf for two nameservers
+     lineinfile:
+       path: /etc/dhcp/dhclient.conf
+       line: 'supersede domain-name-servers {{ hostvars[groups.console[0]].ansible_host }}, 8.8.8.8;'
+     become: yes
+
+   - name: Allow both the DNS nameservers to be used
+     lineinfile:
+       path: /etc/sysconfig/network-scripts/ifcfg-eth0
+       line: 'PEERDNS=yes'
      become: yes
