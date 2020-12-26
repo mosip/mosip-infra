@@ -11,9 +11,9 @@ As part of sandbox installation a default dashboard is installed to view logs of
 
 ## Kubernetes dashboard
 * Dashboard links:
-    * MZ: `https://<sandbox domain name>/dashboard-mz`
-    * DMZ: `https://<sandbox domain name>/dashboard-dmz`
-* The tokens for above dashboards are available on the console machine at `/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp`
+    * MZ: `https://<sandbox domain name>/mz-dashboard`
+    * DMZ: `https://<sandbox domain name>/dmz-dashboard`
+* The tokens for above dashboards are available on the console machine at `/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp`.  Two tokens are generated for each dashboard - admin and view-only.  The view-only has restricted privileges.
 
 ## Grafana
 * Link:
