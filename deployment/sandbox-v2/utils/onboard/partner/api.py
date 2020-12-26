@@ -269,6 +269,25 @@ class MosipSession:
 
         return r
 
+    def upload_other_domain_cert(self, cert, app_id, ref_id):
+        url = '%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp() 
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'certificateData': cert,
+                'applicationId': app_id, 
+                'referenceId': ref_id
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+        r = response_to_json(r)
+        return r 
+
     def add_pms_key_alias(self):
         '''
         TODO: Key alias must be populated while launching the kernel as one of init jobs. Since that's

@@ -16,7 +16,6 @@ from api import *
 class Credentials:
     def __init__(self):
         self.pvt_key_path = None
-        self.passphrase = None 
         self.cert_path = None
         self.is_ca = None # Is the subject a CA.
         self.cn = None # Common Name
@@ -27,14 +26,13 @@ class Credentials:
         self.valid_days = None
         self.ca_cert_path = None  
         self.ca_pvt_key_path = None
-        self.ca_passphrase = None
 
-def gen_pvt_key(key_path, passphrase):
+def gen_pvt_key(key_path):
     key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     fd = open(key_path, 'wb')
     fd.write(key.private_bytes(encoding=serialization.Encoding.PEM,
                                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                               encryption_algorithm=serialization.BestAvailableEncryption(passphrase.encode())))
+                               encryption_algorithm=serialization.NoEncryption()))
     fd.close()
 
 def create_cert(cred):
@@ -47,14 +45,12 @@ def create_cert(cred):
         x509.NameAttribute(NameOID.COMMON_NAME, u'%s' % cred.cn),
     ])
      
-    subject_private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), 
-                                                        password=cred.passphrase.encode())
+    subject_private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), password=None)
     if len(cred.ca_pvt_key_path) == 0: # Self signed
         signing_private_key = subject_private_key
         issuer = subject
     else: # Signed by CA
-        signing_private_key = serialization.load_pem_private_key(open(cred.ca_pvt_key_path, 'rb').read(), 
-                                                          password=cred.ca_passphrase.encode())
+        signing_private_key = serialization.load_pem_private_key(open(cred.ca_pvt_key_path, 'rb').read(), password=None) 
         ca_cert = x509.load_pem_x509_certificate(open(cred.ca_cert_path, 'rb').read())
         issuer = ca_cert.issuer 
 
@@ -79,7 +75,6 @@ def create_certs(csv_file): #CSV row
         print('Creating certificate for "%s"' % row['cn'])
         cred = Credentials() 
         cred.pvt_key_path = row['key_path']
-        cred.passphrase = row['passphrase']
         cred.cert_path = row['cert_path']
         cred.is_ca = True if row['is_ca'] == 'true' else False
         cred.cn = row['cn']
@@ -90,11 +85,10 @@ def create_certs(csv_file): #CSV row
         cred.valid_days = int(row['valid_days']) 
         cred.ca_cert_path = row['ca_cert_path']
         cred.ca_pvt_key_path = row['ca_pvt_key_path']
-        cred.ca_passphrase = row['ca_passphrase']
     
         os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
         os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
-        gen_pvt_key(cred.pvt_key_path, cred.passphrase)
+        gen_pvt_key(cred.pvt_key_path)
         create_cert(cred)
 
 def get_internal_cert(csv_file):
