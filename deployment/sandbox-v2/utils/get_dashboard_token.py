@@ -37,6 +37,7 @@ def main():
         token = get_dashboard_token(args.service_account, args.kubeconfig)
         fp = open(args.outfile, 'wt')
         fp.write(token)
+        fp.write('\n')
         fp.close()
     except:
         formatted_lines = traceback.format_exc()
