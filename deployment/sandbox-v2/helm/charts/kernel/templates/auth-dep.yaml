@@ -43,6 +43,8 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: container_user
+          value: {{ .Values.cont_user }}
         ports:
         - containerPort: {{ .Values.services.auth.containerPort }}
         readinessProbe:

@@ -31,5 +31,13 @@ spec:
           value: {{ .Values.hub.datasource_username }}
         - name: hub_datasource_password_env
           value: {{ .Values.hub.datasource_password }}
+        - name: hub_retry_count_env
+          value: {{ .Values.hub.retry_count | quote}}
+        - name: hub_retry_interval_env
+          value: {{ .Values.hub.retry_interval | quote}}
+        - name: hub_retry_backoff_factor_env
+          value: {{ .Values.hub.retry_backofffactor | quote }}
+        - name: hub_retry_max_wait_interval_env
+          value: {{ .Values.hub.retry_maxwaitinterval | quote}}
         ports:
         - containerPort: {{ .Values.hub.port }} 
