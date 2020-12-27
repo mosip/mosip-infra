@@ -96,7 +96,7 @@ clusters:
       default_replication_factor: 3
       offsets_topic_replication_factor: 3
       transaction_state_log_replication_factor: 3
-      num_partitions: 250
+      num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
       zookeeper_size: 2Gi 
@@ -139,7 +139,7 @@ clusters:
       default_replication_factor: 3
       offsets_topic_replication_factor: 3
       transaction_state_log_replication_factor: 3
-      num_partitions: 250
+      num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
       zookeeper_size: 2Gi 
