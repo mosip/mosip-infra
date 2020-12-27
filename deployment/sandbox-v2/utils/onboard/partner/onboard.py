@@ -5,7 +5,6 @@ import argparse
 from api import *
 import csv
 import json
-import glob
 import config as conf
 sys.path.insert(0, '../')
 from utils import *

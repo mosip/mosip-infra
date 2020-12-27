@@ -6,6 +6,7 @@ import os
 import shutil
 import pprint
 import logging
+import glob
 import traceback
 
 def read_token(response):
