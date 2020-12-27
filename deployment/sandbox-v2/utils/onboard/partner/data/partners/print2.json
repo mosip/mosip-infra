@@ -8,7 +8,6 @@
     "partner_type": "Credential_Partner",
     "policy_group": "print",
     "app_id" : "",
-    "generate_cert" : true,
     "cert_source" : "generated",
     "cert_overwrite" : false,
     "cert": {
