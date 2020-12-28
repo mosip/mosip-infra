@@ -8,7 +8,6 @@
   "partner_type": "Online_Verification_Partner",
   "policy_group": "auth_module", 
   "app_id" : "IDA",
-  "generate_cert" : false,
   "cert_source" : "internal",
   "cert_overwrite" : false,
   "cert": {

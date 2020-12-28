@@ -3,9 +3,7 @@
 import sys
 import argparse
 from api import *
-import csv
 import json
-import glob
 import config as conf
 sys.path.insert(0, '../')
 from utils import *
@@ -101,7 +99,6 @@ def upload_ca_certs(files):
 
 def upload_partner_certs(files):
     session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
-    session2 = MosipSession(conf.server, conf.client_id, conf.client_pwd, ssl_verify=conf.ssl_verify, 
                             client_token=True)
     for f in files:
         j  = json.load(open(f, 'rt'))

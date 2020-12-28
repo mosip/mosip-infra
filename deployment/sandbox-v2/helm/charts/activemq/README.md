@@ -1,3 +1,5 @@
+As of 28-Dec-2020: Reverted back to https://hub.docker.com/r/webcenter/activemq as stability of below docker was a issue.  For admin dashboard the url is https://<sandbox domain name>/admin.   We will make /activemq/admin later. TOOD.
+----
 This chart is there for installing the activemq in the mz cluster and enabling its web console to be accessed from outside.
 
 Container used: Modified version of `fogsyio/activemq:5.15.9` saved as `mosipdev/activemq:5.15.9`
