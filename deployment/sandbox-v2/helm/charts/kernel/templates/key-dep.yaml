@@ -47,6 +47,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: zip_file_path
           value: {{ .Values.services.key.hsmClientZipPath }}
+        - name: container_user
+          value: {{ .Values.cont_user }}
         ports:
         - containerPort: {{ .Values.services.key.containerPort }}
         readinessProbe:

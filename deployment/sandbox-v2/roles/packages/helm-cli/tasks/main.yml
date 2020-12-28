@@ -17,7 +17,7 @@
     mode: 0755
 
 - name: Add stable repo
-  shell: '{{helm_cli_path}}/helm repo add stable https://kubernetes-charts.storage.googleapis.com'
+  shell: '{{helm_cli_path}}/helm repo add stable https://charts.helm.sh/stable'
 
 - name: Add grafana repo
   shell: '{{helm_cli_path}}/helm repo add grafana https://grafana.github.io/helm-charts'

@@ -29,6 +29,7 @@
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
      - {role: packages/pexpect, tags: [pexpect]}
+     - {role: packages/jq, tags: [jq]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
@@ -48,7 +49,7 @@
   gather_facts: true
   roles:
      - {role: packages/vim, tags: [vim]}
-     #- {role: packages/telnet, tags: [telnet]}
+     - {role: packages/telnet, tags: [telnet]}
      - {role: packages/bind-utils, tags: [bind-utils]}  
 
 # Change datetime of all machines to UTC
@@ -60,6 +61,8 @@
       environment:
         TZ: UTC
   
-    - debug:
-        msg:
-          - "{{ date_utc.stdout }}"
+    - name: Change selinux to permissive mode.  
+      selinux:
+        policy: targeted
+        state: permissive
+      become: yes
