@@ -1,11 +1,12 @@
 #!/bin/python3
 
 import sys
-from api import *
 import traceback
 import argparse
 import csv
 import config as conf
+from api import *
+from db import *
 sys.path.insert(0, '../')
 from utils import *
 
@@ -13,13 +14,13 @@ def create_users_in_keycloak(csv_file):
     session = KeycloakSession(conf.server, conf.keycloak_admin, conf.keycloak_pwd, conf.ssl_verify)
     reader = csv.DictReader(open(csv_file, 'rt')) 
     for row in reader:
-        myprint('Keycloak: Creating user "%s"' % row['name'])
-        r =  session.create_user(row['realm_id'], row['name'], row['pwd'], row['email'], row['first_name'], 
+        myprint('Keycloak: Creating user "%s"' % row['user_id'])
+        r =  session.create_user(row['realm_id'], row['user_id'], row['pwd'], row['email'], row['first_name'], 
                                  row['last_name'], row['rid']) 
         if r.status_code == 409:  # User already exits, then update
             myprint('Keycloak: User "%s" already exists. Updating.' % row['name'])
-            user_id = session.get_user(row['realm_id'], row['name'])  # Get user by username
-            r =  session.update_user(row['realm_id'], row['name'], row['pwd'], row['email'], row['first_name'], 
+            user_id = session.get_user(row['realm_id'], row['user_id']) 
+            r =  session.update_user(row['realm_id'], row['user_id'], row['pwd'], row['email'], row['first_name'], 
                                      row['last_name'], user_id, row['rid']) 
         elif r.status_code != 201:
             myprint_response(r)
@@ -27,8 +28,8 @@ def create_users_in_keycloak(csv_file):
 
         # Map role
         for role in row['roles'].split():
-            myprint('Keycloak: Mapping role %s to user "%s"' % (role, row['name']))
-            user_id = session.get_user(row['realm_id'], row['name'])  # Get user by username
+            myprint('Keycloak: Mapping role %s to user "%s"' % (role, row['user_id']))
+            user_id = session.get_user(row['realm_id'], row['user_id'])  
             r = session.get_role(row['realm_id'], role)
             role_json = response_to_json(r) 
             r = session.map_user_role(row['realm_id'], user_id, role_json)
@@ -47,10 +48,19 @@ def create_clients_in_keycloak(csv_file):
             myprint('Keycloak: Client "%s" already exists. Updating.' % row['client_id'])
             client_id_info = session.get_client(row['realm_id'], row['client_id']) # Get client info id by client_id
             s=session.update_client(row['realm_id'], row['client_id'], row['name'], row['secret'],row['base_url'], client_id_info)
-        
         elif s.status_code != 201:
             myprint_response(s)
             break
+
+def add_user_to_masterdb(csv_file):
+    db = DB(conf.db_user, conf.db_pwd, conf.db_host, conf.db_port, 'mosip_master') 
+    reader = csv.DictReader(open(csv_file, 'rt'))
+    for row in reader:
+        myprint('Adding user %s in masterdb' % row['user_id'])
+        db.insert_user_in_masterdb_sql(row['user_id'], row['first_name'] + ' ' + row['last_name'], row['regcntr_id'])
+        myprint('Adding user-zone mapping for  %s in masterdb' % row['user_id'])
+        db.insert_zone_user_map_in_masterdb_sql(row['user_id'], row['zone_id'])
+    db.close()
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
@@ -74,6 +84,8 @@ def main():
         if args.action == 'keycloak' or args.action == 'all':
             r = create_users_in_keycloak(conf.csv_users)
             s = create_clients_in_keycloak(conf.csv_clients)
+        if args.action == 'masterdb' or args.action == 'all':
+            add_user_to_masterdb(conf.csv_users)
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)

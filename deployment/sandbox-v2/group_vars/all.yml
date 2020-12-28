@@ -69,7 +69,6 @@ clusters:
       base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
-      token_file: '{{tmp_dir}}/dashboard_mz.token'
       token_expiry: 86400 # Seconds
       nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
@@ -112,7 +111,6 @@ clusters:
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
-      token_file: '{{tmp_dir}}/dashboard_dmz.token'
       token_expiry: 86400 # Seconds 
       nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
