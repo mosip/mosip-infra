@@ -54,3 +54,7 @@
 * Multiple policies can be within policy group.
 * Partner - policy group mapping is 1-1. 
 * Wthin a policy group, partner can select multiple policies.
+* To generate p12 keystore for private key and certificate needed for print service, use this command:
+```
+$ openssl pkcs12 -export -in dummy.pem -inkey privkey.pem -out keystore.p12 [-name alias]
+```
