@@ -16,6 +16,11 @@
     state: present
   become: yes
 
+- name: Autostart service docker after reboot
+  service:
+    name: docker
+    enabled: true
+
 - name: Run docker
   shell: 'systemctl restart docker'
   become: yes

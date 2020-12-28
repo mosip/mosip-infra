@@ -171,9 +171,8 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
-    def get_partner_api_key_requests(self, partner_id, policy_name, description):
-        url = '%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
-                                                                                              partner_id)
+    def get_partner_api_key_requests(self, partner_id):
+        url = '%s/partnermanagement/v1/partners/partners/%s/partnerAPIKeyRequests' % (self.server, partner_id)
         cookies = {'Authorization' : self.token}
         r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
@@ -268,6 +267,25 @@ class MosipSession:
         r = response_to_json(r)
 
         return r
+
+    def upload_other_domain_cert(self, cert, app_id, ref_id):
+        url = '%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp() 
+        j = {
+            'id': 'string',
+            'metadata': {},
+            'request': {
+                'certificateData': cert,
+                'applicationId': app_id, 
+                'referenceId': ref_id
+            },
+            'requesttime': ts,
+            'version': '1.0'
+        }
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+        r = response_to_json(r)
+        return r 
 
     def add_pms_key_alias(self):
         '''

@@ -1,7 +1,7 @@
 #!/bin/python3
 # Usage: (Example)
-# $ ./get_dashboard_token.py ~/.kube/mzcluster.config admin-user ./temp_dir/mz_dashboard_admin.token
-# $ ./get_dashboard_token.py ~/.kube/mzcluster.config view-user ./temp_dir/mz_dashboard_view.token
+# $ ./get_dashboard_token.py ~/.kube/mzcluster.config admin-user ./tmp/mz_dashboard_admin.token
+# $ ./get_dashboard_token.py ~/.kube/mzcluster.config view-user ./tmp/mz_dashboard_view.token
 
 import subprocess
 import sys
@@ -37,6 +37,7 @@ def main():
         token = get_dashboard_token(args.service_account, args.kubeconfig)
         fp = open(args.outfile, 'wt')
         fp.write(token)
+        fp.write('\n')
         fp.close()
     except:
         formatted_lines = traceback.format_exc()

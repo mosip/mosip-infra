@@ -82,13 +82,3 @@ def init_logger(log_file):
    console_handler = logging.StreamHandler()
    root_logger.addHandler(console_handler)
     
-def path_to_files(path):
-   '''
-   Given a path determine if its a directory in which case return all files in the dir. 
-   '''
-   if os.path.isdir(path):
-      files = glob.glob(os.path.join(path, '*'))
-   else:
-      files = [path]
-   
-   return files
