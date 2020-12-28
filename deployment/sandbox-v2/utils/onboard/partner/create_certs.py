@@ -16,7 +16,6 @@ from api import *
 class Credentials:
     def __init__(self):
         self.pvt_key_path = None
-        self.passphrase = None 
         self.cert_path = None
         self.is_ca = None # Is the subject a CA.
         self.cn = None # Common Name
@@ -27,14 +26,13 @@ class Credentials:
         self.valid_days = None
         self.ca_cert_path = None  
         self.ca_pvt_key_path = None
-        self.ca_passphrase = None
 
-def gen_pvt_key(key_path, passphrase):
+def gen_pvt_key(key_path):
     key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
     fd = open(key_path, 'wb')
     fd.write(key.private_bytes(encoding=serialization.Encoding.PEM,
                                format=serialization.PrivateFormat.TraditionalOpenSSL,
-                               encryption_algorithm=serialization.BestAvailableEncryption(passphrase.encode())))
+                               encryption_algorithm=serialization.NoEncryption()))
     fd.close()
 
 def create_cert(cred):
@@ -47,14 +45,12 @@ def create_cert(cred):
         x509.NameAttribute(NameOID.COMMON_NAME, u'%s' % cred.cn),
     ])
      
-    subject_private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), 
-                                                        password=cred.passphrase.encode())
+    subject_private_key = serialization.load_pem_private_key(open(cred.pvt_key_path, 'rb').read(), password=None)
     if len(cred.ca_pvt_key_path) == 0: # Self signed
         signing_private_key = subject_private_key
         issuer = subject
     else: # Signed by CA
-        signing_private_key = serialization.load_pem_private_key(open(cred.ca_pvt_key_path, 'rb').read(), 
-                                                          password=cred.ca_passphrase.encode())
+        signing_private_key = serialization.load_pem_private_key(open(cred.ca_pvt_key_path, 'rb').read(), password=None) 
         ca_cert = x509.load_pem_x509_certificate(open(cred.ca_cert_path, 'rb').read())
         issuer = ca_cert.issuer 
 
@@ -73,57 +69,80 @@ def create_cert(cred):
     fd.write(builder.public_bytes(serialization.Encoding.PEM))
     fd.close()
 
-def create_certs(csv_file): #CSV row
-    reader = csv.DictReader(open(csv_file, 'rt')) 
-    for row in reader:
-        print('Creating certificate for "%s"' % row['cn'])
-        cred = Credentials() 
-        cred.pvt_key_path = row['key_path']
-        cred.passphrase = row['passphrase']
-        cred.cert_path = row['cert_path']
-        cred.is_ca = True if row['is_ca'] == 'true' else False
-        cred.cn = row['cn']
-        cred.org_name = row['org_name']
-        cred.country = row['country']
-        cred.province = row['province']
-        cred.locality = row['locality']
-        cred.valid_days = int(row['valid_days']) 
-        cred.ca_cert_path = row['ca_cert_path']
-        cred.ca_pvt_key_path = row['ca_pvt_key_path']
-        cred.ca_passphrase = row['ca_passphrase']
-    
-        os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
-        os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
-        gen_pvt_key(cred.pvt_key_path, cred.passphrase)
-        create_cert(cred)
+def create_certs(files):
+    for f in files:
+        j = json.load(open(f, 'rt'))
+        if j['cert_source'] == 'generated':
+            print('Creating certificate for "%s"' % j['cert']['cn'])
+            cert = j['cert']
+            cred = Credentials() 
+            cred.pvt_key_path = cert['key_path']
+            cred.cert_path = cert['cert_path']
+            cred.is_ca = cert['is_ca']
+            cred.cn = cert['cn']
+            cred.org_name = j['name'] # Partner name
+            cred.country = cert['country']
+            cred.province = cert['province']
+            cred.locality = cert['locality']
+            cred.valid_days = cert['valid_days'] 
+            cred.ca_cert_path = cert['ca_cert_path']
+            cred.ca_pvt_key_path = cert['ca_pvt_key_path']
+        
+            os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
+            os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
+            gen_pvt_key(cred.pvt_key_path)
+            create_cert(cred)
 
-def get_internal_cert(csv_file):
+def get_internal_cert(files):
     '''
-    Currently only implemented to fetch certs from IDA. Add respective sessions here if certs have to be 
-    pulled out from kernel module.
+    Fetch certificates already generated within mosip system. 
     '''
     session = MosipSession(conf.server, conf.ida_client_id, conf.ida_client_pwd, ssl_verify=conf.ssl_verify, 
                            client_token=True)
-    reader = csv.DictReader(open(csv_file, 'rt')) 
-    for row in reader:
-        if row['module'] != 'ida':
-            continue
-        myprint('Getting certificate from %s:%s' % (row['app_id'], row['ref_id']))
-        r = session.get_ida_internal_cert(row['app_id'], row['ref_id'])
-        myprint(r)
-        if len(r['errors']) != 0:
-            myprint('ABORTING')
-            return 1 
-        cert = r['response']['certificate']
-        os.makedirs(os.path.dirname(row['cert_path']), exist_ok=True)
-        fd = open(row['cert_path'], 'wb')
-        fd.write(cert.encode())
-        fd.close()
-  
-def main():
+    for f in files:
+        j  = json.load(open(f, 'rt'))
+        if j['cert_source'] == 'internal':
+            ref_id = j['id']
+            app_id = j['app_id']
+            myprint('Getting certificate from %s:%s' % (app_id, ref_id))
+            if  app_id != 'IDA':  # We only have IDA pull certificate API as of now
+               continue
+            r = session.get_ida_internal_cert(app_id, ref_id)
+            myprint(r)
+            if len(r['errors']) != 0:
+                myprint('ABORTING')
+                return 1 
+            cert = r['response']['certificate']
+            cert_path = j['cert']['cert_path']
+            os.makedirs(os.path.dirname(cert_path), exist_ok=True)
+            if os.path.exists(cert_path) ==  True and j['cert_overwrite'] == False:  # skip
+                continue
+            fd = open(cert_path, 'wb')
+            fd.write(cert.encode())
+            fd.close()
 
-    create_certs(conf.csv_certs)
-    get_internal_cert(conf.csv_internal_certs)
+def args_parse(): 
+   parser = argparse.ArgumentParser()
+   parser.add_argument('path', help='directory or file containing partner json')
+   parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
+   parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
+   args = parser.parse_args()
+   return args, parser
+
+def main():
+    args, parser =  args_parse() 
+
+    if args.server:
+        conf.server = args.server   # Overide
+
+    if args.disable_ssl_verify:
+        conf.ssl_verify = False
+    files = path_to_files(args.path)
+
+    init_logger('./out.log')
+
+    create_certs(files)
+    get_internal_cert(files)
 
 if __name__=="__main__":
     main()

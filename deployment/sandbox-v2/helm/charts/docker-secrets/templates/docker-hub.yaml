@@ -7,21 +7,3 @@ data:
   .dockerconfigjson: {{ .Values.dockerConfigJson }}
 type: kubernetes.io/dockerconfigjson
 
-spec:
-  replicas: {{ .Values.services.docker-secrets.podconfig.replicas }}
-  selector:
-    matchLabels:
-      app: {{ .Values.services.docker-hub.serviceName }} 
-  minReadySeconds: {{ .Values.services.docker-secrets.podconfig.minReadySeconds }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: {{ .Values.services.docker-secrets.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.docker-secrets.podconfig.maxSurge }}
-  template:
-    metadata:
-      labels:
-        app: {{ .Values.services.docker-secrets.serviceName }} 
-        component: {{ .Values.component }} 
-        exportLogs: {{ .Values.exportLogs }}
-

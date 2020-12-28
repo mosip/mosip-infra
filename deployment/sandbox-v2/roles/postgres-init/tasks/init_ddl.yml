@@ -2,25 +2,25 @@
 - debug:
     msg: 'Initialize {{pg_db_name}} db'
 
-- name: '{{pg_db_name}}: Update ip address in postgres init files'
+- name: '{{pg_db_name}}: Update ip address in postgres ddl init files'
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_SERVERIP='
     line: DB_SERVERIP={{postgres.host}}
    
-- name: '{{pg_db_name}}: Update port in postgres init files'
+- name: '{{pg_db_name}}: Update port in postgres ddl init files'
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^DB_PORT='
     line: DB_PORT={{postgres.port}}  # Defined in all.yml
 
-- name: '{{pg_db_name}}: Update basepath in postgres init files' 
+- name: '{{pg_db_name}}: Update basepath in postgres ddl init files' 
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^BASEPATH='
     line: BASEPATH={{pg_sql_path}}
 
-- name: '{{pg_db_name}}: Update log path in postgres init files' 
+- name: '{{pg_db_name}}: Update log path in postgres ddl init files' 
   lineinfile:
     path: '{{pg_sql_path}}/{{pg_db_name}}/{{pg_db_name}}_deploy.properties'
     regexp: '^LOG_PATH='

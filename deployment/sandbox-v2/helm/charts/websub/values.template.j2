@@ -12,7 +12,11 @@ imagePullPolicy: Always
 domain: {{ sandbox_domain_name }}
 
 hub:
-  datasource_url: jdbc:postgresql://{{ sandbox_domain_name }}:30090/mosip_websub 
+  datasource_url: jdbc:postgresql://{{ postgres.host }}:{{ postgres.port }}/mosip_websub 
   datasource_username: websubuser
   datasource_password: {{secrets.postgres.dbadmin}}
+  retry_count: 7
+  retry_interval: 1000
+  retry_backofffactor: 2.0
+  retry_maxwaitinterval: 65000
   port: 9191

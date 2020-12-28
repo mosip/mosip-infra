@@ -69,7 +69,6 @@ clusters:
       base_url: 'http://{{groups.mzworkers[0]}}:30080' # Any node since ingress runs on nodeport
     dashboard:
       url: /mz-dashboard
-      token_file: '{{tmp_dir}}/dashboard_mz.token'
       token_expiry: 86400 # Seconds
       nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
@@ -89,6 +88,17 @@ clusters:
         host: 'elasticsearch-master:9200'
       kibana: 
         url: http://kibana-kibana:5601 
+    kafka:
+      nfs_path: '{{nfs.folder}}/mz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 5
+      zookeeper_replica_count: 5
+      zookeeper_size: 2Gi 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
@@ -101,7 +111,6 @@ clusters:
       base_url: 'http://{{groups["dmzworkers"][0]}}:30080' # Any node since ingress runs on nodeport
     dashboard: 
       url: /dmz-dashboard
-      token_file: '{{tmp_dir}}/dashboard_dmz.token'
       token_expiry: 86400 # Seconds 
       nodeport: 30081  # Dashboard runs on nodeport 
     monitoring:
@@ -120,7 +129,18 @@ clusters:
       elasticsearch:
         host: '{{groups.mzworkers[0]}}:30080/elasticsearch' # Connect to elasticsearch on MZ
       kibana: 
-        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ. 
+        url: 'http://{{groups.mzworkers[0]}}:30601'  # Kibana runs on this nodeport on MZ.
+    kafka:
+      nfs_path: '{{nfs.folder}}/dmz/kafka'  
+      size: 8Gi 
+      log_retention_bytes: _1073741824
+      default_replication_factor: 3
+      offsets_topic_replication_factor: 3
+      transaction_state_log_replication_factor: 3
+      num_partitions: 250
+      replica_count: 5
+      zookeeper_replica_count: 5
+      zookeeper_size: 2Gi 
 
 # Registration processor shared variables
 #
@@ -204,49 +224,49 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
-    tag: 1.1.2
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
   ref_impl:
     src: https://github.com/mosip/mosip-ref-impl
     dest: '{{tmp_dir}}/mosip-ref-impl'
-    tag: 1.1.3
+    tag: 1.1.4
     githubuser: ''
     githubpassword: ''
 
@@ -339,7 +359,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: 1.1.3
+  version: 1.1.4
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
@@ -380,6 +400,11 @@ coredns:
  
 
 iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
-iam_adapter_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
+#The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
+iam_adapter_regproc_url: 'http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://13.233.66.241/biosdk-service
+
+# user for every service inside the container
+container_user: mosip

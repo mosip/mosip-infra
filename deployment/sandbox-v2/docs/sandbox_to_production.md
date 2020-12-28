@@ -32,6 +32,9 @@ K8s cluster roles, policies and access
 
 ## Pod replication
 
+## Policies
+* Review the expirty time of ABIS and other partner policies where data is shared.
+
 ## Firewalls 
 * Between mz and dmz
 * Between nginx and dmz
