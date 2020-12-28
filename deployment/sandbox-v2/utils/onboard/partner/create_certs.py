@@ -1,7 +1,6 @@
 #!/bin/python3
 
 import os
-import csv
 import argparse
 import datetime as dt
 from cryptography.hazmat.primitives import serialization
