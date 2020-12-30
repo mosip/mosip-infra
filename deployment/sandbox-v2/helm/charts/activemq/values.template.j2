@@ -12,3 +12,18 @@ docker:
 services:
   activemq:
     podconfig: {{ podconfig.activemq.service | to_yaml }}
+
+sc:
+  name: ""
+pv:
+  name: activemq
+  size: 500Mi  
+pvc:
+  name: activemq
+  size: 500Mi 
+
+mountPath: /data/activemq  # path inside docker
+
+nfs:
+  server: {{ nfs.server }} 
+  path: {{ activemq.nfs_path }}

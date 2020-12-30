@@ -37,3 +37,10 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.docker.containerPort }}  # All defaults used
+        volumeMounts:
+        - name: q-data
+          mountPath: {{ .Values.mountPath }} 
+      volumes:
+      - name: q-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }} 

@@ -357,7 +357,8 @@ activemq:
   name: activemq
   nodeport: 30616  # Arbitrary
   container_port: 61616
-
+  nfs_path: '{{nfs.folder}}/activemq/'
+  
 # Private DNS - typically required for on-prem setups, but we enable it as
 # default for cloud as well.  So we don't have to use cloud DNS.
 
