@@ -2,6 +2,10 @@
 #
 
 - hosts: console
+  tasks:
+    - {name: 'Create persistence folder', file: {name: '{{activemq.nfs_path}}', state: directory}, become: yes}
+
+- hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}' 
     install_name: 'activemq' 
