@@ -49,7 +49,7 @@ spec:
 #          value: {{ .Values.biosdkServiceUrl }}
         ports:
         - containerPort: {{ .Values.services.otp.containerPort }}
-
+        volumeMounts:
         {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
@@ -67,4 +67,5 @@ spec:
   #
       {{- include "logger.sidecar" .  | indent 6}}
 
+      volumes: 
       {{- include "logger.volume" .  | indent 6}}
