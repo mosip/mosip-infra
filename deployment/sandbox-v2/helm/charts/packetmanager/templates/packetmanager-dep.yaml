@@ -41,6 +41,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.services.packet.containerPort }}
 
