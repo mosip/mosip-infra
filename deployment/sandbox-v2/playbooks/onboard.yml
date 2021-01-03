@@ -1,0 +1,1 @@
+- import_playbook: onboard/partner.yml
