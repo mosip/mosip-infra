@@ -42,11 +42,11 @@
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
 * **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.
-* **app_id**: `DATSHARE/CREDENTIAL_SERVICE`. Based on mosip apps that will access this token.
 * **app_id**: App Id from where certificate has to be pulled. Generally IDA.
 * **cert_source**: `internal/generated/provided`. Cert may be already inside mosip, or has been provided external or needs to be generated.
 * **overwrite**: Applicable with `cert_source==generated`. Whether to regenerate.
 * **cert.country**: 2 Character country code
+* **org_name**: Must match partner name.
 
 ## Notes
 * While adding a partner the same automatically gets added in Keycloak as well.

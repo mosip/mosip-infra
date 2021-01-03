@@ -86,31 +86,56 @@ def add_policy(files):
             r = session.publish_policy(pg_id, policy_id)
             myprint(r)
 
-def upload_ca_certs(files):
+def upload_ca_cert(path, partner_domain):
     session = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner', 
                            ssl_verify=conf.ssl_verify)
-    for f in files:
-        j  = json.load(open(f, 'rt'))
-        ca_cert_path = j['cert']['ca_cert_path']
-        myprint('Uploading CA certificate "%s"' % ca_cert_path)
-        cert_data = open(ca_cert_path, 'rt').read()
-        r = session.upload_ca_certificate(cert_data, j['partner_domain'])
-        myprint(r)
+    myprint('Uploading CA certificate "%s"' % path)
+    cert_data = open(path, 'rt').read()
+    r = session.upload_ca_certificate(cert_data, partner_domain)
+    myprint(r)
 
-def upload_partner_certs(files):
+def upload_partner_cert(path, partner_name, partner_id, partner_domain, partner_type):
     session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify,
-                           client_token=True)
-    for f in files:
-        j  = json.load(open(f, 'rt'))
-        myprint('Uplading partner certificate for "%s"' % j['name'])
-        cert_data = open(j['cert']['cert_path'], 'rt').read()
-        r = session.upload_partner_certificate(cert_data, j['name'], j['partner_domain'], j['id'], j['partner_type'])
-        myprint(r)
-        mosip_signed_cert_path = os.path.join(os.path.dirname(j['cert']['cert_path']), 'mosip_signed_cert.pem')
-        if r['errors'] is None:
-            mosip_signed_cert = r['response']['signedCertificateData']
-            open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
-            myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
+                           client_token=False)
+    myprint('Uplading partner certificate "%s"' % path)
+    cert_data = open(path, 'rt').read()
+    r = session.upload_partner_certificate(cert_data, partner_name, partner_domain, partner_id, partner_type)
+    myprint(r)
+    mosip_signed_cert_path = os.path.join(os.path.dirname(path), 'mosip_signed_cert.pem')
+    if r['errors'] is None:
+        mosip_signed_cert = r['response']['signedCertificateData']
+        open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
+        myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
+
+def order_certs(cert_jsons):
+    '''
+    Order the input cert files based on which ones need to be created first based on interdepedencies.
+    '''
+    first, second, third = [], [], []
+    for f in cert_jsons:
+        j = json.load(open(f, 'rt'))
+        ca_path = j['ca_cert'].strip()
+        if j['is_ca'] and ca_path: # root cert
+            first.append(f)
+        elif j['is_ca'] and not ca_path: # dependent root cert
+            second.append(f)
+        else:
+            third.append(f)
+    ordered = first + second + third
+    return ordered
+
+def upload_certs(partner_jsons):
+    for f in partner_jsons: 
+        j = json.load(open(f, 'rt'))
+        certs = j['certs']
+        certs = order_certs(certs)
+        for cert in certs: 
+            c = json.load(open(cert, 'rt'))
+            cert_path = c['cert_path']
+            if c['is_ca']:
+                upload_ca_cert(cert_path, j['partner_domain'])
+            else:
+                upload_partner_cert(cert_path, j['name'], j['id'], j['partner_domain'], j['partner_type'])
 
 def map_partner_policy(files):
     session1 = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
@@ -185,7 +210,7 @@ def add_extractor(files):
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('action', help='policy_group|policy|extractor|partner|upload_certs|partner_policy|misp|all. For policy specify partner json (not a policy json) ') 
+   parser.add_argument('action', help='policy_group|policy|extractor|partner|upload_certs|partner_policy|misp. For policy specify partner json (not a policy json) ') 
    parser.add_argument('path', help='directory or file containing input data json')
    parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
@@ -203,22 +228,23 @@ def main():
 
     files = path_to_files(args.path)
 
-    init_logger('./out.log')
+    init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
+    init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
+
     try:
-        if args.action == 'policy_group' or args.action == 'all':
+        if args.action == 'policy_group':  # policy_group jsons
             add_policy_group(files)
-        if args.action == 'policy' or args.action == 'all':
+        if args.action == 'policy':  # partner json
             add_policy(files)
-        if args.action == 'partner' or args.action == 'all':
+        if args.action == 'partner':  # partner json
             add_partner(files)
-        if args.action == 'extractor' or args.action == 'all':
-            add_extractor(files)
-        if args.action == 'upload_certs' or args.action == 'all':
-            upload_ca_certs(files)
-            upload_partner_certs(files) #TODO: make sure  key_alias.py is called below api
-        if args.action == 'partner_policy' or args.action == 'all':   
+        if args.action == 'extractor':
+            add_extractor(files) # partner jsons
+        if args.action == 'upload_certs':
+            upload_certs(files) # partner jsons
+        if args.action == 'partner_policy':
             map_partner_policy(files)
-        if args.action == 'misp'or args.action == 'all':
+        if args.action == 'misp': # misp jsons
             create_misp(files)
     except:
         formatted_lines = traceback.format_exc()

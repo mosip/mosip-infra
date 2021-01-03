@@ -1,4 +1,0 @@
-partner_id,policy_id,attribute,biometric,provider,version
-mpartner-default-auth,mpolicy-default-auth,individualBiometrics,Finger,mock,1.1
-mpartner-default-print,mpolicy-default-euin,individualBiometrics,Finger,mock,1.1
-

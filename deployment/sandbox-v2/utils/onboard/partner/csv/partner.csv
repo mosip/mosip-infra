@@ -1,5 +1,0 @@
-id,name,contact,address,email,type,policy_group
-mpartner-default-auth,Mpartner Default Auth,955679989,hyderabad,partauth0@xyz.com,Online_Verification_Partner,auth_module
-mpartner-default-abis,Mpartner Default Abis,955679989,Bangalore,abis@xyz.com,ABIS_Partner,abis_providers
-dp,Device Provider 1,9887667456,Manila,dp1@xyz.com,Device_Provider,,
-mpartner-default-print,Mpartner Default Print,9553559938,Chennai,pp@xy.com,Credential_Partner,print
