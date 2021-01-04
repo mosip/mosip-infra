@@ -30,6 +30,7 @@
     For actions see help. The actions here map to steps above:
     $ ./partner.py --help
     ```
+1. The steps are illustrated in [onboard playbook](../../../playbooks/onboard/partner.yml)
 
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
