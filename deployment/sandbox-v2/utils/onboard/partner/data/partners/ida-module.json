@@ -6,7 +6,6 @@
   "email" : "def@yz.com", 
   "partner_domain": "AUTH",
   "partner_type": "Online_Verification_Partner",
-  "policy_group": "auth_module", 
   "certs": [
       "data/certs/internal/ida_mpartner.json", 
       "data/certs/internal/ida_root.json", 
@@ -14,10 +13,7 @@
   ], 
   "policies" : [ 
     {
-       "policy_id" : "mpolicy-default-auth",
        "policy_file": "data/policies/authshare.json",
-       "name" : "Default Auth policy",
-       "description" : "Default policy for the IDA module",
        "extractors" : []
     }
   ] 

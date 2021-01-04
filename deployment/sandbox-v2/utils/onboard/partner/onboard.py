@@ -8,13 +8,26 @@ import config as conf
 sys.path.insert(0, '../')
 from utils import *
 
+def get_partner_policy_group(partner_dict):
+    '''
+    A partner can belong to one policy_group.  Here, we are picking up policy_group from policies
+    defined for the partner.  If there are multiple policies for the partner then it is assumed
+    that all the policies belong to the same group.  So any one of the policy_group is picked.
+    '''
+    policy_group = ''
+    if len(partner_dict['policies']) > 0:
+        policy = partner_dict['policies'][0] 
+        j = json.load(open(policy['policy_file'], 'rt'))
+        policy_group = j['policy_group'] 
+
 def add_partner(files):
     session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
     for f in files:
         j = json.load(open(f, 'rt')) 
         myprint('Adding partner %s' % j['name'])
+        policy_group = get_partner_policy_group(j)
         r = session.add_partner(j['name'], j['contact'], j['address'], j['email'], j['id'], j['partner_type'], 
-                                j['policy_group'])
+                                policy_group)
         myprint(r)
 
 def add_policy_group(files):
@@ -53,38 +66,33 @@ def add_policy(files):
     session = MosipSession(conf.server, conf.policym_user, conf.policym_pwd, 'partner', ssl_verify=conf.ssl_verify)
     for f in files:
         j  = json.load(open(f, 'rt'))
-        policies = j['policies']
-        policy_group =  j['policy_group']
-        for policy in policies:
-            myprint('Adding policy "%s"' % policy['name'])
-            policy_file = json.load(open(policy['policy_file'], 'rt'))
-            r = session.add_policy(policy['policy_id'], policy['name'], policy['description'], 
-                                   policy_file['policy_def'], policy_group, policy_file['policy_type'])
-            myprint(r)
-            if len(r['errors']) == 0:  
-                policy_id = r['response']['id']
+        myprint('Adding policy "%s"' % j['name'])
+        r = session.add_policy(j['id'], j['name'], j['description'], j['def'], j['policy_group'], j['type'])
+        myprint(r)
+        if len(r['errors']) == 0:  
+            policy_id = r['response']['id']
+        else:
+            if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
+                myprint('Updating policy "%s"' % j['name'])
+                policy_id = get_policy_id(j['name'])
+                if policy_id is None:
+                    myprint('Policy id for policy "%s" could not be found, skipping..' % j['name'])
+                    continue
+                r = session.update_policy(j['name'], j['description'], j['def'], j['policy_group'], j['type'], 
+                                          policy_id)
+                myprint(r) 
             else:
-                if r['errors'][0]['errorCode'] == 'PMS_POL_009':  # Policy exists
-                    myprint('Updating policy "%s"' % policy['name'])
-                    policy_id = get_policy_id(policy['name'])
-                    if policy_id is None:
-                        myprint('Policy id for policy "%s" could not be found, skipping..' % policy['name'])
-                        continue
-                    r = session.update_policy(policy['name'], policy['description'], policy_file['policy_def'], 
-                                              policy_group, policy_file['policy_type'], policy_id)
-                    myprint(r) 
-                else:
-                    continue  # Can't do much
-            
-            # publish policy 
-            myprint('Getting policy group id for policy group "%s"' % policy_group)
-            pg_id = get_policy_group_id(policy_group)
-            if pg_id is None:
-                myprint('Could not find id for policy group "%s"' % (policy_group))
-                continue
-            myprint('Publishing policy "%s"' % policy['name'])
-            r = session.publish_policy(pg_id, policy_id)
-            myprint(r)
+                continue  # Can't do much
+        
+        # publish policy 
+        myprint('Getting policy group id for policy group "%s"' % j['policy_group'])
+        pg_id = get_policy_group_id(j['policy_group'])
+        if pg_id is None:
+            myprint('Could not find id for policy group "%s"' % (j['policy_group']))
+            continue
+        myprint('Publishing policy "%s"' % j['name'])
+        r = session.publish_policy(pg_id, policy_id)
+        myprint(r)
 
 def upload_ca_cert(path, partner_domain):
     session = MosipSession(conf.server, conf.partner_manager_user, conf.partner_manager_pwd, 'partner', 
@@ -166,9 +174,6 @@ def map_partner_policy(files):
                     myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (j['id'], policy['name']))
                     r =  session2.approve_partner_policy(api_request_id, 'Approved')
                     myprint(r)
-                else:
-                    myprint('ERROR: Skipping..')
-                    continue
 
 def create_misp(files):
     session = MosipSession(conf.server, conf.misp_user, conf.misp_pwd, 'partner', ssl_verify=conf.ssl_verify)
@@ -234,9 +239,9 @@ def main():
     try:
         if args.action == 'policy_group':  # policy_group jsons
             add_policy_group(files)
-        if args.action == 'policy':  # partner json
+        if args.action == 'policy':  # policy jsons
             add_policy(files)
-        if args.action == 'partner':  # partner json
+        if args.action == 'partner':  # partner jsons
             add_partner(files)
         if args.action == 'extractor':
             add_extractor(files) # partner jsons
