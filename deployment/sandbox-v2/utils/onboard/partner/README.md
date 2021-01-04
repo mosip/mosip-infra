@@ -16,27 +16,20 @@
     server='https://<your sandbox domain>'
     ```
 1. Make sure users and corresponding roles are updated in Keycloak.  Refer to `config.py` for users and roles. Default sandbox installation automatically adds these users in Keycloak.
-1. Populate the CSVs in `csv` folder.  
+1. Populate the JSONs in `data` folder.  
 1. Update/add any policies in `policies` folder.  The schema for policies are given here:
     * [Auth policy schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/auth-policy-schema.json)
     * [Data share schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/data-share-policy-schema.json)
 1. Create CA and partner certificates:
     ```
-    $ ./create_certs.py
+    $ ./create_certs.py data/certs
     ```
 1.  Run the script as below:
     ```
     $ ./partner.py <action>
-    For actions see help. The actions here map to steps above:  
+    For actions see help. The actions here map to steps above:
     $ ./partner.py --help
     ```
-
-## CSVs
-* `partner.csv`:  Max length of `id` is 36 chars. Note that user with same `id` is automatically created in Keycloak.  The partner id of IDA must match to the one given in `id-authentication-mz.properties` `ida-auth-partner-id=mpartner-default-auth` property.
-* `certs.csv`:  These are certs to be generated using `create_certs.py`.  This is just a simulation.  In actual practice these certs will be provided by the respective partners.
-* `partner_ca_certs.csv`:  All the root certificates of CAs that are used to partners. 
-* `partner_certs.csv`:  All the certificates of partners that are signed by root CA.
-* `internal_certs.csv`: Certificates that pulled out from MOSIP system. These certs are automatically generated during the sandbox setup.  Their reference may be found in `key_alias` table of `mosip_kernel` and `mosip_ida` DBs.
 
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
