@@ -2,32 +2,19 @@
   "id" : "mpartner-default-auth",
   "name" : "Default Auth Partner", 
   "contact": "57664345", 
-  "address": "",
+  "address": "Bangalore",
   "email" : "def@yz.com", 
   "partner_domain": "AUTH",
   "partner_type": "Online_Verification_Partner",
-  "policy_group": "auth_module", 
-  "app_id" : "IDA",
-  "cert_source" : "internal",
-  "cert_overwrite" : false,
-  "cert": {
-    "key_path" :  "",
-    "cert_path" : "certs/mpartner-default-auth/cert.pem",
-    "is_ca" : "",
-    "cn" : "",
-    "country": "",
-    "province" : "",
-    "locality" : "" ,
-    "valid_days": 365,
-    "ca_cert_path": "",
-    "ca_pvt_key_path": ""
-   },
-   "policies" : [ 
-     {
-       "policy_id" : "mpolicy-default-auth",
+  "certs": [
+      "data/certs/internal/ida_mpartner.json", 
+      "data/certs/internal/ida_root.json", 
+      "data/certs/internal/ida.json" 
+  ], 
+  "policies" : [ 
+    {
        "policy_file": "data/policies/authshare.json",
-       "name" : "Default Auth policy",
-       "description" : "Default policy for the IDA module"
-     }
-   ] 
+       "extractors" : []
+    }
+  ] 
 }

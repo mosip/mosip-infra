@@ -1,4 +1,0 @@
-policy_id,name,description,policy_file,policy_group,policy_type
-mpolicy-default-auth,mpolicy-default-auth,mpolicy-default-auth,policies/authshare.json,auth_module,DataShare
-mpolicy-default-abis,mpolicy-default-abis,mpolicy-default-abis,policies/abispolicy.json,abis_providers,DataShare
-mpolicy-default-euin,Print policy,Policy to print card,policies/print.json,print,DataShare

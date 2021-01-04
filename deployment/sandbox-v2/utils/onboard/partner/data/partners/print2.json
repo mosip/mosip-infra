@@ -6,32 +6,17 @@
     "email" : "print2@yz.com", 
     "partner_domain": "AUTH",
     "partner_type": "Credential_Partner",
-    "policy_group": "print",
-    "app_id" : "",
-    "cert_source" : "generated",
-    "cert_overwrite" : false,
-    "cert": {
-        "key_path" :  "certs/msp/pvt_key.pem",
-        "cert_path" : "certs/msp/cert.pem",
-        "is_ca" : false,
-        "cn" : "msp-printers.com",
-        "country": "IN",
-        "province" : "TN",
-        "locality" : "Chennai" ,
-        "valid_days": 365,
-        "ca_cert_path": "certs/ca1/cert.pem",
-        "ca_pvt_key_path": "certs/ca1/pvt_key.pem"
-     },
-     "policies" : [{
-         "policy_id" : "print",
-         "policy_file": "data/policies/print.json",
-         "name" : "MSP Print Policy",
-         "description" : "MSP print policy with only photo as biometrics",
-         "extractors": [{
-             "attribute": "individualBiometrics",
-             "biometric": "Finger",
-             "provider": "mock",
-             "version": "1.1"
-         }]
-     }] 
+    "certs": [
+        "data/certs/generated/print2.json", 
+        "data/certs/generated/ca1.json"
+    ], 
+    "policies" : [{
+        "policy_file": "data/policies/print.json",
+        "extractors": [{
+            "attribute": "individualBiometrics",
+            "biometric": "Finger",
+            "provider": "mock",
+            "version": "1.1"
+        }]
+    }] 
 }

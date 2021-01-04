@@ -37,23 +37,26 @@
 * `partner_ca_certs.csv`:  All the root certificates of CAs that are used to partners. 
 * `partner_certs.csv`:  All the certificates of partners that are signed by root CA.
 * `internal_certs.csv`: Certificates that pulled out from MOSIP system. These certs are automatically generated during the sandbox setup.  Their reference may be found in `key_alias` table of `mosip_kernel` and `mosip_ida` DBs.
+
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
 * **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.
-* **app_id**: `DATSHARE/CREDENTIAL_SERVICE`. Based on mosip apps that will access this token.
 * **app_id**: App Id from where certificate has to be pulled. Generally IDA.
 * **cert_source**: `internal/generated/provided`. Cert may be already inside mosip, or has been provided external or needs to be generated.
 * **overwrite**: Applicable with `cert_source==generated`. Whether to regenerate.
 * **cert.country**: 2 Character country code
+* **org_name**: Must match partner name.
+
+## Policy group
+* Multiple policies can be within policy group.
+* Partner - policy group mapping is 1-1. 
+* Within a policy group, partner can select multiple policies.
 
 ## Notes
 * While adding a partner the same automatically gets added in Keycloak as well.
 * IDA module is also like a partner to mosip system.  For biometric auth in Registration Processor, IDA Internal service is used.  In this case IDA has to be onboarded as `Online_Verification_Partner` with datashare policy.
-* Multiple policies can be within policy group.
-* Partner - policy group mapping is 1-1. 
-* Wthin a policy group, partner can select multiple policies.
 * To generate p12 keystore for private key and certificate needed for print service, use this command:
 ```
 $ openssl pkcs12 -export -in dummy.pem -inkey privkey.pem -out keystore.p12 [-name alias]

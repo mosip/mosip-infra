@@ -69,28 +69,39 @@ def create_cert(cred):
     fd.close()
 
 def create_certs(files):
+    files = order_certs(files)  # CAs first 
     for f in files:
         j = json.load(open(f, 'rt'))
-        if j['cert_source'] == 'generated':
-            print('Creating certificate for "%s"' % j['cert']['cn'])
-            cert = j['cert']
-            cred = Credentials() 
-            cred.pvt_key_path = cert['key_path']
-            cred.cert_path = cert['cert_path']
-            cred.is_ca = cert['is_ca']
-            cred.cn = cert['cn']
-            cred.org_name = j['name'] # Partner name
-            cred.country = cert['country']
-            cred.province = cert['province']
-            cred.locality = cert['locality']
-            cred.valid_days = cert['valid_days'] 
-            cred.ca_cert_path = cert['ca_cert_path']
-            cred.ca_pvt_key_path = cert['ca_pvt_key_path']
+        cert_path = j['cert_path']
+        if os.path.exists(cert_path) ==  True and j['overwrite'] == False:  # skip
+            continue
+        print('Creating certificate for "%s"' % j['cn'])
         
-            os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
-            os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
-            gen_pvt_key(cred.pvt_key_path)
-            create_cert(cred)
+        # Get CA details
+        ca_cert_path = '' # Init
+        ca_pvt_key_path = ''
+        if len(j['ca_cert'].strip()) > 0: # if ca specified
+            ca = json.load(open(j['ca_cert'], 'rt'))
+            ca_cert_path = ca['cert_path']
+            ca_pvt_key_path = ca['key_path']
+             
+        cred = Credentials() 
+        cred.pvt_key_path = j['key_path']
+        cred.cert_path = j['cert_path']
+        cred.is_ca = j['is_ca']
+        cred.cn = j['cn']
+        cred.org_name = j['org_name'] # Must match partner name
+        cred.country = j['country']
+        cred.province = j['province']
+        cred.locality = j['locality']
+        cred.valid_days = j['valid_days'] 
+        cred.ca_cert_path = ca_cert_path
+        cred.ca_pvt_key_path = ca_pvt_key_path
+    
+        os.makedirs(os.path.dirname(cred.pvt_key_path), exist_ok=True)
+        os.makedirs(os.path.dirname(cred.cert_path), exist_ok=True)
+        gen_pvt_key(cred.pvt_key_path)
+        create_cert(cred)
 
 def get_internal_cert(files):
     '''
@@ -100,29 +111,48 @@ def get_internal_cert(files):
                            client_token=True)
     for f in files:
         j  = json.load(open(f, 'rt'))
-        if j['cert_source'] == 'internal':
-            ref_id = j['id']
-            app_id = j['app_id']
-            myprint('Getting certificate from %s:%s' % (app_id, ref_id))
-            if  app_id != 'IDA':  # We only have IDA pull certificate API as of now
-               continue
-            r = session.get_ida_internal_cert(app_id, ref_id)
-            myprint(r)
-            if len(r['errors']) != 0:
-                myprint('ABORTING')
-                return 1 
-            cert = r['response']['certificate']
-            cert_path = j['cert']['cert_path']
-            os.makedirs(os.path.dirname(cert_path), exist_ok=True)
-            if os.path.exists(cert_path) ==  True and j['cert_overwrite'] == False:  # skip
-                continue
-            fd = open(cert_path, 'wb')
-            fd.write(cert.encode())
-            fd.close()
+        if j['module'] != 'ida':  # We only have IDA pull certificate API as of now
+           continue
+        ref_id = j['ref_id']
+        app_id = j['app_id']
+        myprint('Getting certificate from %s:%s' % (app_id, ref_id))
+        r = session.get_ida_internal_cert(app_id, ref_id)
+        myprint(r)
+        if len(r['errors']) != 0:
+            myprint('ABORTING')
+            return 1 
+        cert = r['response']['certificate']
+        cert_path = j['cert_path']
+        os.makedirs(os.path.dirname(cert_path), exist_ok=True)
+        fd = open(cert_path, 'wb')
+        fd.write(cert.encode())
+        fd.close()
+
+def order_certs(files):
+    '''
+    Order the input cert files based on which ones need to be created first based on interdepedencies.
+    '''
+    first, second, third = [], [], []
+    for f in files:
+        j = json.load(open(f, 'rt'))
+        ca_path = j['ca_cert'].strip()
+        if j['is_ca'] and ca_path: # root cert
+            first.append(f)
+        elif j['is_ca'] and not ca_path: # dependent root cert
+            second.append(f)
+        else:
+            third.append(f)
+    ordered = first + second + third
+    return ordered
+   
+def get_file_type(f):
+    j = json.load(open(f, 'rt'))
+    return j['type']
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('path', help='directory or file containing partner json')
+
+   parser.add_argument('path', help='directory or file containing cert specification json')
    parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
@@ -136,12 +166,17 @@ def main():
 
     if args.disable_ssl_verify:
         conf.ssl_verify = False
+
     files = path_to_files(args.path)
 
-    init_logger('./out.log')
+    init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
+    init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
 
-    create_certs(files)
-    get_internal_cert(files)
+    generated_files = [f for f in files if get_file_type(f) == 'generated']
+    internal_files = [f for f in files if get_file_type(f) == 'internal']
+
+    create_certs(generated_files)
+    get_internal_cert(internal_files)
 
 if __name__=="__main__":
     main()

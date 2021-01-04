@@ -19,9 +19,19 @@ def read_token(response):
 
     return None
 
-def myprint(msg):
-    logging.info('=============')
-    logging.info(pprint.pformat(msg))
+def myprint(msg, name='full', name2='last'):
+    '''
+    name: Logger name. 
+    name2: Optional name of second logger
+    '''
+    log1 = logging.getLogger(name)
+    log1.info('=============')
+    log1.info(pprint.pformat(msg))
+
+    if name2 is not None:  # Same info repeated here
+        log2 = logging.getLogger(name2)
+        log2.info('=============')
+        log2.info(pprint.pformat(msg))
 
 def get_timestamp(seconds_offset=None):
     '''
@@ -77,18 +87,26 @@ def zip_packet(regid, base_path, out_dir):
     shutil.make_archive(out_path, 'zip', base_path)
     return out_path + '.zip'
 
-def init_logger(log_file):
-   logging.basicConfig(filename=log_file, filemode='w', level=logging.INFO)
-   root_logger = logging.getLogger()
-   console_handler = logging.StreamHandler()
-   root_logger.addHandler(console_handler)
+def init_logger(logger_name, mode, log_file, level=logging.INFO, stdout=True):
+    l = logging.getLogger(logger_name)
+    formatter = logging.Formatter('%(message)s')
+    fileHandler = logging.FileHandler(log_file, mode=mode)
+    fileHandler.setFormatter(formatter)
+    streamHandler = logging.StreamHandler()
+    streamHandler.setFormatter(formatter)
+   
+    l.setLevel(level)
+    l.addHandler(fileHandler)
+    if stdout:
+        l.addHandler(streamHandler) 
     
 def path_to_files(path):
    '''
    Given a path determine if its a directory in which case return all files in the dir. 
    '''
    if os.path.isdir(path):
-      files = glob.glob(os.path.join(path, '*'))
+      files = glob.glob(os.path.join(path, '**'), recursive=True)
+      files = [f for f in files if not os.path.isdir(f)]  # Remove directories
    else:
       files = [path]
    
