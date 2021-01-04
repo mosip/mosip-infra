@@ -19,6 +19,7 @@ def get_partner_policy_group(partner_dict):
         policy = partner_dict['policies'][0] 
         j = json.load(open(policy['policy_file'], 'rt'))
         policy_group = j['policy_group'] 
+    return policy_group
 
 def add_partner(files):
     session = MosipSession(conf.server, conf.partner_user, conf.partner_pwd, 'partner', ssl_verify=conf.ssl_verify)
@@ -155,23 +156,24 @@ def map_partner_policy(files):
         for policy in policies:
             myprint('Getting policies for a partner "%s" to check if this is a duplicate entry' % j['id']) 
             r = session1.get_partner_api_key_requests(j['id'])
+            p = json.load(open(policy['policy_file'], 'rt'))
             myprint(r)
             if r['errors'] is not None:  
                 if r['errors']['errorCode'] == 'PMS_PRT_005':  # Partner does not exist, add only then
                     myprint('Sending partner-policy mapping request for (PARTNER: %s, POLICY: %s)' % (j['id'], 
-                              policy['name']))
-                    r = session1.add_partner_api_key_requests(j['id'], policy['name'], policy['description'])
+                              j['name']))
+                    r = session1.add_partner_api_key_requests(j['id'], p['name'], p['description'])
                     myprint(r)
                     api_request_id = r['response']['apiRequestId']
             
                     # Approve
-                    myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (j['id'], policy['name']))
+                    myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (j['id'], p['name']))
                     r =  session2.approve_partner_policy(api_request_id, 'Approved')
                     myprint(r)
             else:
                 if r['response'][0]['apiKeyRequestStatus'] == 'In-Progress':
                     api_request_id = r['response'][0]['apiKeyReqID']
-                    myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (j['id'], policy['name']))
+                    myprint('Approving request for (PARTNER: %s, POLICY: %s)' % (j['id'], p['name']))
                     r =  session2.approve_partner_policy(api_request_id, 'Approved')
                     myprint(r)
 
