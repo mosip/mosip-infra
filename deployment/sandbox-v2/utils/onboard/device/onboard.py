@@ -149,13 +149,14 @@ def main():
 
     files = path_to_files(args.path)
 
-    init_logger('./out.log')
+    init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
+    init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
 
-    if args.action == 'spec' or args.action == 'all':
-        add_device_spec(files)
-    if args.action == 'sbi' or args.action == 'all':
-        add_sbi(files)
-    if args.action == 'register' or args.action == 'all':
+    if args.action == 'spec':
+        add_device_spec(files)  # spec json
+    if args.action == 'sbi':
+        add_sbi(files)  # spec json
+    if args.action == 'register':  # device json
         register_device(files)
 
 if __name__=="__main__":

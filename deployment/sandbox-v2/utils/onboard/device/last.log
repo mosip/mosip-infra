@@ -1,0 +1,33 @@
+[2021-01-05 01:48:35,624]: 'Registerig device 12345'
+[2021-01-05 01:48:35,740]: 'Response: <200>'
+[2021-01-05 01:48:35,740]: {'errors': {'errorCode': 'PMS_AUT_015',
+            'message': 'Serial no and Device detail already exist'},
+ 'id': 'mosip.partnermanagement',
+ 'metadata': None,
+ 'response': None,
+ 'responsetime': '2021-01-05T01:48:35.734Z',
+ 'version': '1.0'}
+[2021-01-05 01:48:35,740]: 'Add device to master db'
+[2021-01-05 01:48:35,919]: 'Response: <200>'
+[2021-01-05 01:48:35,920]: {'errors': None,
+ 'id': 'string',
+ 'metadata': None,
+ 'response': {'createdBy': 'superadmin',
+              'createdDateTime': '2021-01-05T01:48:35.857Z',
+              'deletedDateTime': None,
+              'deviceSpecId': '3456',
+              'id': '1ec08c68-e9ca-45d0-a113-a793f487f90b',
+              'ipAddress': '192.168.100.1',
+              'isActive': False,
+              'isDeleted': None,
+              'langCode': 'eng',
+              'macAddress': 'XYZ',
+              'name': '12345',
+              'regCenterId': '10001',
+              'serialNum': '43857323',
+              'updatedBy': None,
+              'updatedDateTime': None,
+              'validityDateTime': '2022-12-16T09:06:38.161Z',
+              'zoneCode': 'NTH'},
+ 'responsetime': '2021-01-05T01:48:35.783Z',
+ 'version': '1.0'}
