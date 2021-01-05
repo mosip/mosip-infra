@@ -1,7 +1,7 @@
 # Device onboarding
 
 ## Process
-1. Onboard device partner assigned in `config.py` using [partner onboarding scripts](../partner/)
+1. Onboard device partner assigned in `data/spec/*.json` using [partner onboarding scripts](../partner/). For Device Provider it suffices to add just add partner without any policies and certificates. (TODO: confirm this claim!)
 1. Onboard `superadmin` user using [user onboarding scripts](../user/)
 1. Make sure partner manager assigned in `config.py` is available in Keycloak.
 1. Add device spec

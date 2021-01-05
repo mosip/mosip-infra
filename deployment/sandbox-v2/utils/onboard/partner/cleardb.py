@@ -34,6 +34,5 @@ print('')
 tables = [
     'ca_cert_store',
     'partner_cert_store',
-    'key_store'
 ]
 delete_tables('mosip_keymgr', tables)
