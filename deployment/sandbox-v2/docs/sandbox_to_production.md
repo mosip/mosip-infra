@@ -41,6 +41,9 @@ K8s cluster roles, policies and access
 
 ## Persistence
 
+## Keycloak
+* Review token timeouts and other expiries.
+
 ## Reprocessor
 Reprocessor frequency
 
