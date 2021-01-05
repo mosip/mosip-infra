@@ -79,7 +79,8 @@ def main():
     if args.disable_ssl_verify:
         conf.ssl_verify = False
 
-    init_logger('./out.log')
+    init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
+    init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
 
     try:
         if args.action == 'keycloak' or args.action == 'all':
