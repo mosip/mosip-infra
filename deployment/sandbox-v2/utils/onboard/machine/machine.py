@@ -82,7 +82,9 @@ def args_parse():
 
 def main():
 
-    init_logger('./out.log')
+    init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
+    init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
+
     args = args_parse()
 
     if args.action == 'type' or args.action == 'all':
