@@ -43,6 +43,9 @@
 * **cert.country**: 2 Character country code
 * **org_name**: Must match partner name.
 
+## Certs
+For internal certs the partner name must match the oranization name given in the cert.
+
 ## Policy group
 * Multiple policies can be within policy group.
 * Partner - policy group mapping is 1-1. 
