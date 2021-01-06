@@ -143,7 +143,7 @@ versions:
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipid/commons-packet-service:1.1.3'
+        'packetmanager-service': 'mosipdev/commons-packet-service:1.1.4'
 
     datashare:
       service:
