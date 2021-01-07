@@ -18,7 +18,7 @@ def create_users_in_keycloak(csv_file):
         r =  session.create_user(row['realm_id'], row['user_id'], row['pwd'], row['email'], row['first_name'], 
                                  row['last_name'], row['rid']) 
         if r.status_code == 409:  # User already exits, then update
-            myprint('Keycloak: User "%s" already exists. Updating.' % row['name'])
+            myprint('Keycloak: User "%s" already exists. Updating.' % row['first_name'])
             user_id = session.get_user(row['realm_id'], row['user_id']) 
             r =  session.update_user(row['realm_id'], row['user_id'], row['pwd'], row['email'], row['first_name'], 
                                      row['last_name'], user_id, row['rid']) 
