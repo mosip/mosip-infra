@@ -34,5 +34,7 @@
   
   - debug:
       msg: '{{helm_out.stdout}}'
+    when: install_name not in out.stdout.split()
 
-  when: install_name not in out.stdout.split()
+  - name: 'Save {{install_name}} to {{charts_dir}}'
+    shell: '{{helm_cli_path}}/helm --kubeconfig {{kube_config}} -n {{helm_namespace}} install {{install_name}} {{helm_chart}}/ --dry-run --debug > {{charts_dir}}/{{install_name}}.yaml' 
