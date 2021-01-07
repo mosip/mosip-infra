@@ -13,7 +13,7 @@
     is_template: true  
     helm_namespace: default
     helm_values: '{{charts_root}}/activemq/values.template.j2'
-    helm_strings: ''
+    helm_strings: 'adminPassword={{activemq.admin_password}}'
   roles:
     - {role:  helm}
 

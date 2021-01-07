@@ -13,6 +13,8 @@ services:
   activemq:
     podconfig: {{ podconfig.activemq.service | to_yaml }}
 
+adminPassword: '' # Defined diretly in helm command 
+
 sc:
   name: ""
 pv:
