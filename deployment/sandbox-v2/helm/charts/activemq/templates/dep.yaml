@@ -32,6 +32,10 @@ spec:
           value: {{ .Values.docker.storeusage }}
         - name: ACTIVEMQ_CONFIG_TEMPUSAGE
           value: {{ .Values.docker.tempusage }}
+        - name: ACTIVEMQ_ADMIN_LOGIN
+          value: admin
+        - name: ACTIVEMQ_ADMIN_PASSWORD
+          value: {{ .Values.adminPassword }} 
         ports:
         - containerPort: {{ .Values.docker.containerPort }} 
         readinessProbe:
