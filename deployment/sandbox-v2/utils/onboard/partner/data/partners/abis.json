@@ -1,0 +1,17 @@
+{
+    "id" : "mpartner-default-abis",
+    "name" : "Default ABIS Partner", 
+    "contact": "574674345", 
+    "address": "Bangalore",
+    "email" : "abis@xyz.com", 
+    "partner_domain": "AUTH",
+    "partner_type": "ABIS_Partner",
+    "certs": [
+        "data/certs/generated/abis.json", 
+        "data/certs/generated/ca1.json"
+    ], 
+    "policies" : [{
+        "policy_file": "data/policies/abispolicy.json",
+        "extractors": []
+    }] 
+}
