@@ -8,7 +8,7 @@
 # country's data
 #
 
-- name: Chekc if postgres has already been initialized
+- name: Check if postgres has already been initialized
   block:  # This block only applies to internal postgres which is part of cluster
   - name: Check if init lock file exists (ie. init has already been done once)
     stat:

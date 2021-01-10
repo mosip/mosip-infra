@@ -8,6 +8,7 @@
   tasks:
     - {name: 'Create tmp folder {{tmp_dir}}', file: {name: '{{tmp_dir}}', state: directory}}
     - {name: 'Create logs folder {{logs_dir}}', file: {name: '{{logs_dir}}', state: directory}}
+    - {name: 'Create tmp yaml folder {{tmp_yamls}}', file: {name: '{{tmp_yamls}}', state: directory}}
 
 - hosts: console
   gather_facts: true 
@@ -51,6 +52,7 @@
      - {role: packages/vim, tags: [vim]}
      - {role: packages/telnet, tags: [telnet]}
      - {role: packages/bind-utils, tags: [bind-utils]}  
+     - {role: packages/net-tools, tags: [net-tools]}
 
 # Change datetime of all machines to UTC
   vars:
