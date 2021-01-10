@@ -52,6 +52,7 @@
      - {role: packages/vim, tags: [vim]}
      - {role: packages/telnet, tags: [telnet]}
      - {role: packages/bind-utils, tags: [bind-utils]}  
+     - {role: packages/net-tools, tags: [net-tools]}
 
 # Change datetime of all machines to UTC
   vars:
