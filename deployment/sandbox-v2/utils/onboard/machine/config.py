@@ -1,9 +1,7 @@
-server = 'minibox.mosip.net' 
+server = 'https://minibox.mosip.net' 
+ssl_verify=True
 primary_lang = 'eng'
+secondary_lang = 'ara'
 
 superadmin_user = 'superadmin' # With GLOBAL_ADMIN, MASTERDATA_ADMIN, ZONAL_ADMIN
 superadmin_pwd =  'mosip'
-
-csv_machine_type = 'csv/machine_type.csv'
-csv_machine_spec = 'csv/machine_spec.csv'
-csv_machine = 'csv/machine.csv'
