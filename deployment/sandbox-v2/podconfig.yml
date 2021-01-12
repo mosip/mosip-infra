@@ -431,4 +431,4 @@ podconfig:
 
   ingress:
     nginx:
-      replicas: 2
+      replicas: 1 
