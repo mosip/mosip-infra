@@ -1,2 +1,3 @@
 nodePortHttp: {{ingress_ports.http}} 
 nodePortHttps: {{ingress_ports.https}} 
+podconfig: {{ podconfig.ingress.nginx | to_yaml }}

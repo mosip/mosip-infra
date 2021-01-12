@@ -87,7 +87,7 @@ def zip_packet(regid, base_path, out_dir):
 
 def init_logger(logger_name, mode, log_file, level=logging.INFO, stdout=True):
     l = logging.getLogger(logger_name)
-    formatter = logging.Formatter('[%(asctime)s]: %(message)s')
+    formatter = logging.Formatter('\n[%(asctime)s]\n%(message)s')
     fileHandler = logging.FileHandler(log_file, mode=mode)
     fileHandler.setFormatter(formatter)
     streamHandler = logging.StreamHandler()
