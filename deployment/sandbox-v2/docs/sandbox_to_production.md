@@ -17,6 +17,10 @@ For local access of all docker images
 
 ## TPM 
 
+## Reg client settings
+* Max upload document size
+* Max packets remaining to upload
+
 ## Console machine access
 * User creation
 * K8s access
