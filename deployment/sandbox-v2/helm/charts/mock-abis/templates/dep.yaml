@@ -41,8 +41,6 @@ spec:
         ports:
         - containerPort: {{ .Values.services.mockabis.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
-
         readinessProbe:
           httpGet:
             path: {{ .Values.services.mockabis.healthUrl }} 
@@ -56,6 +54,3 @@ spec:
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }}
   #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}

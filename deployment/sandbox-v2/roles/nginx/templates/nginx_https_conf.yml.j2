@@ -285,10 +285,6 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/biosdk-service/;
         }
 
-        location /v1/mosip-mock-service/ { 
-           proxy_pass {{clusters.mz.ingress.base_url}}/v1/mosip-mock-service/;
-        }
-
         location /v1/print/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/print/;
         }

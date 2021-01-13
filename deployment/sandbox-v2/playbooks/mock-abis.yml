@@ -1,11 +1,11 @@
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
-    install_name: 'mockabis'
-    helm_chart: '{{charts_root}}/mockabis'
+    install_name: 'mock-abis'
+    helm_chart: '{{charts_root}}/mock-abis'
     is_template: true  
     helm_namespace: default
-    helm_values: '{{charts_root}}/mockabis/values.template.j2'
+    helm_values: '{{charts_root}}/mock-abis/values.template.j2'
     helm_strings: ''
   roles:
     - {role:  helm}
