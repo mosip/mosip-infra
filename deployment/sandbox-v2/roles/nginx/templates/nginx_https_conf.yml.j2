@@ -254,7 +254,7 @@ http {
         }
         # This is actually Activemq url. TODO: Change it to /activemq/admin
         location /admin/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/amdin/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/admin/;
         }
 
         location /commons/v1/packetmanager/ {
