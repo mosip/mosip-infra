@@ -51,6 +51,9 @@ K8s cluster roles, policies and access
 ## Config properties
 * Update batch job timing to suit the local time.  
 
+## Reg proc stages
+* Remove unused stages in reg proc (for example External Stage if not being used).
+
 ## Reprocessor
 Reprocessor frequency
 
