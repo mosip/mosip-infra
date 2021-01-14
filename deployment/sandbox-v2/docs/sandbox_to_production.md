@@ -57,3 +57,5 @@ Reprocessor frequency
 * If activemq is restarted then ABIS service may need a restart to connect to the Q again.
 * If idschema / ui schema is changed in the DB, then idrepo must be restarted. 
 
+
+## BioSDK service setup 
