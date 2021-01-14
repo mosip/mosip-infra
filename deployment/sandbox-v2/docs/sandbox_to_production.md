@@ -48,6 +48,9 @@ K8s cluster roles, policies and access
 ## Keycloak
 * Review token timeouts and other expiries.
 
+## Config properties
+* Update batch job timing to suit the local time.  
+
 ## Reprocessor
 Reprocessor frequency
 
