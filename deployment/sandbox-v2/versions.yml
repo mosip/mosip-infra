@@ -159,7 +159,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis-service': 'mosipid/mock-abis:master'
+        'mock-abis': 'mosipid/mock-abis:master'
 #      biosdk: 
 #        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
 
