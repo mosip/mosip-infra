@@ -1,4 +1,4 @@
-component: mockabis
+component: mock-abis
 part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel:  {{ config_repo.version }}
@@ -20,6 +20,6 @@ services:
     dockerImage: {{ versions.services.mock.abis.values()[0] }}
     containerPort: 8081
     servicePort: 80
-    ingressPath: /v1/mock-abis-service
+    ingressPath: /v1/mock-abis
     healthUrl: /v1/mock-abis-service/actuator/health
     podconfig: {{ podconfig.mockabis.service | to_yaml }}
