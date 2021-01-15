@@ -34,7 +34,9 @@ K8s cluster roles, policies and access
 
 ## Rolling updates
 
-## Pod replication
+## Kubernetes Pod config
+* Replication
+* CPU/Memory allocation
 
 ## Policies
 * Review the expiry time of ABIS and other partner policies where data is shared.
