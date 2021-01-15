@@ -61,6 +61,9 @@ Reprocessor frequency
 
 ## Email/SMS gateway
 
+## Activemq
+* Memory settings
+
 ## On field operations/troublehshooting
 * If activemq is restarted then ABIS service may need a restart to connect to the Q again.
 * If idschema / ui schema is changed in the DB, then idrepo must be restarted. 
