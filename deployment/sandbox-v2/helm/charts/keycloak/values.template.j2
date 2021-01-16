@@ -7,6 +7,7 @@ domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 keycloakExternalUrl: "https://{{ sandbox_domain_name }}/keycloak/auth/"  
 containerPort: 8080
+exportLogs: enabled  # Let filebeat export the logs
 servicePort: 80
 db:
   name: {{ keycloak.db.name }}

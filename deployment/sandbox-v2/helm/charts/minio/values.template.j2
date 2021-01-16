@@ -344,3 +344,5 @@ nodeAffinity:  # Added by mosip
   taint:
     key: {{ minio.node_affinity.taint.key }}
     value: {{ minio.node_affinity.taint.value }}
+
+exportLogs: enabled  # Let filebeat export the logs

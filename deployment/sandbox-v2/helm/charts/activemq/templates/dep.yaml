@@ -19,18 +19,20 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-        - name: ACTIVEMQ_CONFIG_MINMEMORY
+        - name: ACTIVEMQ_MIN_MEMORY
           value: {{ .Values.docker.minmemory }}
-        - name: ACTIVEMQ_CONFIG_MAXMEMORY
+        - name: ACTIVEMQ_MAX_MEMORY
           value: {{ .Values.docker.maxmemory }}
-        - name: ACTIVEMQ_CONFIG_STOREUSAGE
+        - name: ACTIVEMQ_STORAGE_USAGE 
           value: {{ .Values.docker.storeusage }}
-        - name: ACTIVEMQ_CONFIG_TEMPUSAGE
+        - name: ACTIVEMQ_TEMP_USAGE
           value: {{ .Values.docker.tempusage }}
         - name: ACTIVEMQ_ADMIN_LOGIN
           value: admin

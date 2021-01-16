@@ -34,7 +34,9 @@ K8s cluster roles, policies and access
 
 ## Rolling updates
 
-## Pod replication
+## Kubernetes Pod config
+* Replication
+* CPU/Memory allocation
 
 ## Policies
 * Review the expiry time of ABIS and other partner policies where data is shared.
@@ -58,6 +60,9 @@ K8s cluster roles, policies and access
 Reprocessor frequency
 
 ## Email/SMS gateway
+
+## Activemq
+* Memory settings
 
 ## On field operations/troublehshooting
 * If activemq is restarted then ABIS service may need a restart to connect to the Q again.

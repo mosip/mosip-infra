@@ -1,3 +1,43 @@
-{"attributes":{"description":"","filters":[{"$state":{"store":"appState"},"meta":{"alias":null,"disabled":false,"index":"filebeat-*","key":"level","negate":false,"params":{"query":"ERROR"},"type":"phrase"},"query":{"match_phrase":{"level":"ERROR"}}},{"$state":{"store":"appState"},"meta":{"alias":null,"disabled":false,"index":"filebeat-*","key":"message","negate":true,"params":{"query":"Temporary Store limit is 51200 mb, whilst the temporary data directory: /activemq-data/localhost/tmp_storage only has "},"type":"phrase"},"query":{"match_phrase":{"message":"Temporary Store limit is 51200 mb, whilst the temporary data directory: /activemq-data/localhost/tmp_storage only has "}}}],"query":{"language":"kuery","query":""},"title":"ERRORIgnoreActiveMQ"},"id":"ERRORIgnoreActiveMQ","references":[],"type":"query","updated_at":"2020-11-18T12:00:17.258Z","version":"WzQ5MDMsMV0="}
-{"attributes":{"description":"level=ERROR","filters":[{"$state":{"store":"appState"},"meta":{"alias":null,"disabled":false,"index":"filebeat-*","key":"level","negate":false,"params":{"query":"ERROR"},"type":"phrase"},"query":{"match_phrase":{"level":"ERROR"}}}],"query":{"language":"kuery","query":""},"title":"OnlyERROR"},"id":"OnlyERROR","references":[],"type":"query","updated_at":"2020-11-18T06:50:49.088Z","version":"WzQ2MTAsMV0="}
-{"exportedCount":2,"missingRefCount":0,"missingReferences":[]}
+{
+  "attributes": {
+    "description": "level=ERROR",
+    "filters": [
+      {
+        "$state": {
+          "store": "appState"
+        },
+        "meta": {
+          "alias": null,
+          "disabled": false,
+          "index": "filebeat-*",
+          "key": "level",
+          "negate": false,
+          "params": {
+            "query": "ERROR"
+          },
+          "type": "phrase"
+        },
+        "query": {
+          "match_phrase": {
+            "level": "ERROR"
+          }
+        }
+      }
+    ],
+    "query": {
+      "language": "kuery",
+      "query": ""
+    },
+    "title": "OnlyERROR"
+  },
+  "id": "OnlyERROR",
+  "references": [],
+  "type": "query",
+  "updated_at": "2020-11-18T06:50:49.088Z",
+  "version": "WzQ2MTAsMV0="
+}
+{
+  "exportedCount": 1,
+  "missingRefCount": 0,
+  "missingReferences": []
+}

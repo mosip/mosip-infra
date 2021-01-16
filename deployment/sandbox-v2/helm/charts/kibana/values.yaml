@@ -146,3 +146,5 @@ lifecycle: {}
 
 # Deprecated - use only with versions < 6.6
 elasticsearchURL: "" # "http://elasticsearch-master:9200"
+
+exportLogs: enabled  # Let filebeat export the logs

@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
 {{ if eq .Values.nodeAffinity.enabled true }}
       tolerations:

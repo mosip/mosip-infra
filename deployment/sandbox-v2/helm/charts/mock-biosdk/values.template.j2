@@ -6,6 +6,8 @@ services:
   containerPort: 9099
 component: biosdk
 
+exportLogs: enabled  # Let filebeat export the logs
+
 imagePullPolicy: Always
 
 biosdklib: io.mosip.mock.sdk.impl.SampleSDK

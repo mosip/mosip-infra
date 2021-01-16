@@ -16,8 +16,8 @@ isGlowroot: {{ is_glowroot }}
 exportLogs: enabled  # Let filebeat export the logs
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   application:

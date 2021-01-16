@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.services.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{ .Values.services.serviceName }}

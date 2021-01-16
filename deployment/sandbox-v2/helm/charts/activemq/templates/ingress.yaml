@@ -9,7 +9,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /admin
+      - path: /activemq/admin
         backend:
           serviceName: {{ .Values.name }}
           servicePort: {{ .Values.docker.webPort }}

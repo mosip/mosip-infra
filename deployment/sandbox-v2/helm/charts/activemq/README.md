@@ -1,18 +1,29 @@
-As of 28-Dec-2020: Reverted back to https://hub.docker.com/r/webcenter/activemq as stability of below docker was a issue.  For admin dashboard the url is https://<sandbox domain name>/admin.   We will make /activemq/admin later. TOOD.
-----
-This chart is there for installing the activemq in the mz cluster and enabling its web console to be accessed from outside.
+## Source
+The chart used here is a modification of
+webcenter/activemq:latest  on Docker Hub. 
 
-Container used: Modified version of `fogsyio/activemq:5.15.9` saved as `mosipdev/activemq:5.15.9`
+## Documentation bug
 
-Modification: In `conf/jetty.xml` the admin url has been modified to `/activemq/admin`.
+The parameters mentioned in documentation is incorret.  Here are some params from the code inside `/opt/activemq`:
 
-Note that in this docker we cannot easily change the admin password.  Need to figure out a good way to do this, like pass with an env variable.
+```
+  # We set the main parameters
+        self.do_setting_activemq_main(os.getenv('ACTIVEMQ_NAME', 'localhost'),
+                                            os.getenv('ACTIVEMQ_PENDING_MESSAGE_LIMIT', '1000'),
+                                            os.getenv('ACTIVEMQ_STORAGE_USAGE', '100 gb'),
+                                            os.getenv('ACTIVEMQ_TEMP_USAGE', '50 gb'),
+                                            os.getenv('ACTIVEMQ_MAX_CONNECTION', '1000'),
+                                            os.getenv('ACTIVEMQ_FRAME_SIZE', '104857600'),
+                                            os.getenv('ACTIVEMQ_STATIC_TOPICS'), os.getenv('ACTIVEMQ_STATIC_QUEUES'),
+                                            os.getenv('ACTIVEMQ_ENABLED_SCHEDULER', 'true'),
+                                            os.getenv('ACTIVEMQ_ENABLED_AUTH', 'false'))
 
----
-Earlier the following container was used that looks more elaborate but we could not modify the default admin webconsole path in it (looks like it creates conf and conf.tmp directory fresh from somewhere):
+        # We setting wrapper
+        self.do_setting_activemq_wrapper(os.getenv('ACTIVEMQ_MIN_MEMORY', '128'),
+                                               os.getenv('ACTIVEMQ_MAX_MEMORY', '1024'))
+```
 
-ActiveMQ config xml has parameters for temp memory usage, but these parameters are not getting set with the docker environment variables mentioned here:
+## Modification
+The following was modified in original docker:
+In `/app/entrypoint/Init.py` a statement was added to modify `/opt/activemq/conf.tmp/jetty.xml` webconsole `contextPath` to `activemq/admin`.  This makes the console accessible with `<sandbox domain name>/activemq/admin` rather than `<sandbox domain name>/admin`.
 
-https://hub.docker.com/r/webcenter/activemq
-
-I did not see any code inside the docker that actually reads these environment variables and modifies the config XML. For now we will perhaps disable the ERROR messages generated because of lack of storage memeory on node. Check filebeat config, where such filters are added.

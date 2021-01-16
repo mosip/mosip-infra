@@ -16,6 +16,12 @@
     state: present
   become: yes
 
+- name: Copy daemon.json to /etc/docker
+  template: 
+    src: daemon.json.j2 
+    dest: /etc/docker/daemon.json
+  become: yes
+
 - name: Autostart service docker after reboot
   service:
     name: docker

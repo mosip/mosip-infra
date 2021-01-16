@@ -27,6 +27,7 @@ spec:
     {{- end }}
       labels:
         {{- include "prometheus.pushgateway.labels" . | nindent 8 }}
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       serviceAccountName: {{ template "prometheus.serviceAccountName.pushgateway" . }}
       {{- if .Values.pushgateway.extraInitContainers }}
