@@ -5,6 +5,8 @@ springConfigLabel: {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}`
 artifactoryUrl: {{ artifactory_url }} 
 
+exportLogs: enabled  # Let filebeat export the logs
+
 docker:
   image: mosipdev/softhsm
   tag: v1

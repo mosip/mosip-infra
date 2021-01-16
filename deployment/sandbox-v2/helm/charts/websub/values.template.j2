@@ -5,6 +5,8 @@ services:
   servicePort: 80
   podconfig: {{ podconfig.websub.service | to_yaml }}
 
+exportLogs: enabled  # Let filebeat export the logs
+
 component: websub
 
 imagePullPolicy: Always

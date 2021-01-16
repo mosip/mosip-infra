@@ -37,7 +37,7 @@ enable_dashboard: yes
 # A list of insecure registries you might need to define
 # insecure_registries: []
 k8s_registries: ['gcr.io']  
-insecure_registries: '{{k8s_registries +  docker_registries}}'  # Additionl registries from group_vars/all.yml
+insecure_registries: '{{k8s_registries +  docker.registries}}'  # Additionl registries from group_vars/all.yml
 
 systemd_dir: /lib/systemd/system
 system_env_dir: /etc/sysconfig

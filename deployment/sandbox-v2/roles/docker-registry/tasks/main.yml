@@ -1,8 +1,8 @@
 - name: Local docker registry
   docker_container:
-    name: '{{local_docker_registry.name}}'
-    image: '{{local_docker_registry.image}}'
-    state: '{{local_docker_registry_state}}'
+    name: '{{docker.local_registry.name}}'
+    image: '{{docker.local_registry.image}}'
+    state: '{{docker.local_registry_state}}'
     ports:
-      - "{{local_docker_registry.port}}:{{local_docker_registry.port}}"
+      - "{{docker.local_registry.port}}:{{docker.local_registry.port}}"
   become: yes 
