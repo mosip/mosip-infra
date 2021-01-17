@@ -56,8 +56,8 @@ docker:
   registries:  
     - '{{inventory_hostname}}:5000'   # Docker registry running on console. Port should be same as above
   log_roll:
-      max_size: "100m"  # See https://docs.docker.com/config/containers/logging/configure/
-      max_files: 5  # Max number of rolling files
+      max_size: "50m"  # See https://docs.docker.com/config/containers/logging/configure/
+      max_files: 3  # Max number of rolling files
 
 clusters:
   mz:
