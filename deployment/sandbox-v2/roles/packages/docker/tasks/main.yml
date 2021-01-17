@@ -16,12 +16,6 @@
     state: present
   become: yes
 
-- name: Copy daemon.json to /etc/docker
-  template: 
-    src: daemon.json.j2 
-    dest: /etc/docker/daemon.json
-  become: yes
-
 - name: Autostart service docker after reboot
   service:
     name: docker
@@ -30,6 +24,12 @@
 
 - name: Run docker
   shell: 'systemctl restart docker'
+  become: yes
+
+- name: Copy daemon.json to /etc/docker
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
   become: yes
 
 - name: Install docker py
