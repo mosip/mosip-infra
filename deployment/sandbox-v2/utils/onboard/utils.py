@@ -56,7 +56,7 @@ def sha256_hash(data):
 
 def response_to_json(r):
     try:
-        myprint('Response: <%d>' % r.status_code)
+        #myprint('Response: <%d>' % r.status_code)
         r = r.content.decode() # to str 
         r = json.loads(r)
     except:

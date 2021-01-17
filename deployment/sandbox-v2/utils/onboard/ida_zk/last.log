@@ -1,0 +1,58 @@
+
+[2021-01-16 15:51:15,185]
+'Getting certificate from IDA:CRED_SERVICE'
+
+[2021-01-16 15:51:15,311]
+'Response: <200>'
+
+[2021-01-16 15:51:15,313]
+{'errors': [],
+ 'id': None,
+ 'metadata': None,
+ 'response': {'certSignRequest': None,
+              'certificate': '-----BEGIN CERTIFICATE-----\n'
+                             'MIIDlTCCAn2gAwIBAgIIO6DXgHO/t1kwDQYJKoZIhvcNAQELBQAwbTELMAkGA1UE\n'
+                             'BhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\n'
+                             'BElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRIwEAYDVQQDDAlNT1NJ\n'
+                             'UC1JREEwHhcNMjEwMTAzMTM1MTI3WhcNMjMwMTAzMTM1MTI3WjB0MQswCQYDVQQG\n'
+                             'EwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UECgwE\n'
+                             'SUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxGTAXBgNVBAMMEElEQS1D\n'
+                             'UkVEX1NFUlZJQ0UwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDbGnmZ\n'
+                             'pXi/YT8jfDlZPXDA6OhAilfqtU2M0WflY8fCpYsCxFrIzyiMeYrhhPXUh85eI3NW\n'
+                             'uv3mrQe+OJZ4cE5LLxrTbsrQE7ZDqcXHMplpQ+nS63F5U6GX9QQvVm/LrfS1ncdo\n'
+                             'iAMvJJcKxNWkdM+Wjk4SFPXiPmYrDypa1b4diDgk5D/N5+vpSxJtMK3tpUdV8VpC\n'
+                             'kwsqaJM/YsKs9oMr+xYR+S66ljgD08MLZXqM/pOaE3OyHLripwwvvcpDU8VwZxmH\n'
+                             'EmHsi7ZtdVcBRQ24z7K0jUStHpSYfxlw85tN4YIcYdJZrlZ03riNR4aHYwkW/fSN\n'
+                             'eTorL3trIYf6/PQtAgMBAAGjMjAwMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYE\n'
+                             'FCO8mTYGEk2RQqIJmA8d0kMEti3HMA0GCSqGSIb3DQEBCwUAA4IBAQCxyeWSLS00\n'
+                             'Vp3KuY3956UfaxAT8+ORhdBhVjuWVHUVlLdPSH7gCx01HSGxNC+2seBcac4pwKnL\n'
+                             'WeAA9n2wyv1y5Y1RTMi8kNY2va/Lcrgt7Y7vMkoMj5T4piwtqmeJTrmQEAKH6k9S\n'
+                             'n1zR+1Uesb/5k1y1vKvYu17p1CVG7LZUy16oVYcWz6lsfo3nPqW1eHk10l7v6EM9\n'
+                             'eG5515mujhly0ZJM1IW0Up3NMlSfklZkwtvPouhMEQgzAX+3Dno8DwABON/OF8HQ\n'
+                             'NzGe5oyfOHScbbMgqPVvToGBqH0AZP+hvPuly8wZ3KpfJagSto1cjuytzHSQJmRG\n'
+                             'CzhDhiGeSvhl\n'
+                             '-----END CERTIFICATE-----\n',
+              'expiryAt': '2023-01-03T13:51:27.000Z',
+              'issuedAt': '2021-01-03T13:51:27.000Z',
+              'timestamp': '2021-01-16T15:51:15.237Z'},
+ 'responsetime': '2021-01-16T15:51:15.235Z',
+ 'version': None}
+
+[2021-01-16 15:51:15,313]
+'Uploading cert to keymanager IDA:PUBLIC_KEY'
+
+[2021-01-16 15:51:15,376]
+'Response: <200>'
+
+[2021-01-16 15:51:15,376]
+{'errors': [{'errorCode': 'KER-KMS-015',
+             'message': 'Upload of certificate will not be allowed to update '
+                        'other domain certificate.'}],
+ 'id': 'string',
+ 'metadata': None,
+ 'response': None,
+ 'responsetime': '2021-01-16T15:51:15.373Z',
+ 'version': '1.0'}
+
+[2021-01-16 15:51:15,377]
+'ABORTING'
