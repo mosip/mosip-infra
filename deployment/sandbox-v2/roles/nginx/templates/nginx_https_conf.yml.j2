@@ -252,9 +252,9 @@ http {
         location /registration-client/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
-        # This is actually Activemq url. TODO: Change it to /activemq/admin
-        location /admin/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/admin/;
+
+        location /activemq/admin/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/activemq/admin/;
         }
 
         location /commons/v1/packetmanager/ {
