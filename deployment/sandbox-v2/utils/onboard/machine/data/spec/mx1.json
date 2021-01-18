@@ -3,7 +3,7 @@
     "languages": ["eng", "ara"],
     "name": ["mx1", "mx1"],
     "brand": ["Dell", "Dell"],
-    "model": ["Vostro", "Vostro"],
+    "model": ["Vostro2", "Vostro2"],
     "description": ["Nice machine", "Nice machine"],
-    "min_driver_ver": "3.45"
+    "min_driver_ver": "3.60"
 }
