@@ -33,7 +33,7 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def add_machine_type(self, code, name, description, language):
+    def add_type(self, code, name, description, language):
         url = '%s/v1/masterdata/machinetypes' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -75,7 +75,7 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
-    def add_machine_spec(self, machine_id, name, type_code,  brand, model, description, language, min_driver_ver):
+    def add_spec(self, machine_id, name, type_code,  brand, model, description, language, min_driver_ver):
         url = '%s/v1/masterdata/machinespecifications' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -126,7 +126,7 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
-    def get_machine_specs(self):
+    def get_specs(self):
         url = '%s/v1/masterdata/machinespecifications/all' % self.server
         cookies = {'Authorization' : self.token}
         r = requests.get(url, cookies=cookies)
