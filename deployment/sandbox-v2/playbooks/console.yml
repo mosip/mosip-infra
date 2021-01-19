@@ -31,6 +31,7 @@
      - {role: packages/bind-utils, tags: [bind-utils]}
      - {role: packages/pexpect, tags: [pexpect]}
      - {role: packages/jq, tags: [jq]}
+     - {role: packages/netaddr, tags: [netaddr]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 

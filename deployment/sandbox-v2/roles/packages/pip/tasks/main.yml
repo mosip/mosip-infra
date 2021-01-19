@@ -4,3 +4,9 @@
     state: latest
   become: yes
 
+- name: pip self-update
+  pip:
+    name: pip
+    state: latest
+  become: yes
+ 
