@@ -1,7 +1,9 @@
 {
     "id" : "12345",
+    "name": "fp23",
     "sub_id": "1",
     "serial_num": "43857323",
+    "languages" : ["eng", "ara"],
     "spec_file": "./data/spec/3456.json",
     "certification": "L0",
     "firmware": "SB.WIN.001",

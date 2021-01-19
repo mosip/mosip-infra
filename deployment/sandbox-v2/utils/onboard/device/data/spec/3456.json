@@ -1,7 +1,9 @@
 {
     "id" : "3456",
+    "name": "fs1",  
     "type": "Finger",
     "sub_type": "Single", 
+    "languages": ["eng", "ara"],
     "for_registration": true,
     "make": "Sharp",
     "model": "H8-455",
