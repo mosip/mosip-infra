@@ -2,7 +2,7 @@
 
 Scripts here onboard machines for registrations.  The machines are typically laptops/desktops that would run the MOSIP registration client app.  These machines need to be onboarded on to the system with name, TPM public keys, registration center, zone etc. 
 
-## Onboarding steps
+## Process
 Define
 1. Machine types
 1. Machine specs
