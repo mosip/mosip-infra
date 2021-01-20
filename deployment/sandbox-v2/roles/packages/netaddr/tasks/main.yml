@@ -1,0 +1,5 @@
+- name: Install python netaddr
+  pip:
+    name: netaddr
+    state: present
+  become: yes

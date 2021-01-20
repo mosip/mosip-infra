@@ -24,11 +24,23 @@
       path: '{{ssl.ca.selfsigned.certificate_key}}' 
     become: yes
      
+  - set_fact:
+      selfsigned_ip: ''
+
+  - name: Check if host name is ip address
+    set_fact:
+      selfsigned_ip: 'IP:{{ssl.ca.selfsigned.common_name}}'
+    when: (ssl.ca.selfsigned.common_name | ipaddr) != false
+
+  - debug:
+       msg: 'Adding alt name: "{{selfsigned_ip}}" to self signed certificate'
+
   - name: Generate an OpenSSL Certificate Signing Request
     openssl_csr:
       path: '{{ssl.ca.selfsigned.csr}}' 
       privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
       common_name: '{{ssl.ca.selfsigned.common_name}}'
+      subject_alt_name: '{{selfsigned_ip}}'
     become: yes
 
   - name: Generate a Self Signed OpenSSL certificate
