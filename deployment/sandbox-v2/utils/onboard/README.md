@@ -1,7 +1,7 @@
 # Onboarding
 
 ## Introduction
-Scripts here onboard partners, devices, using APIs. The inputs are specified via CSV or JSON files.  
+Scripts here onboard users, partners, machines, devices using APIs. The inputs are specified via JSON files.  
 
 A typical onboading sequence is a follows:
 1. [User](./user/README.md)
