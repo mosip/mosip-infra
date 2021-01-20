@@ -41,6 +41,7 @@
       privatekey_path: '{{ssl.ca.selfsigned.certificate_key}}' 
       common_name: '{{ssl.ca.selfsigned.common_name}}'
       subject_alt_name: '{{selfsigned_ip}}'
+      force: yes
     become: yes
 
   - name: Generate a Self Signed OpenSSL certificate
