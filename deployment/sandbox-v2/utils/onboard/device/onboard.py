@@ -147,7 +147,7 @@ def add_spec(files):
         exists, spec_id = spec_exists_in_masterdb(j['name'], session2)
         if exists:
             myprint('Updating device detail (spec) in master db')
-            for language in j['language']:
+            for language in j['languages']:
                 myprint('Updating device spec in master db for (%s,%s)' % (j['name'], language))
                 r = session2.update_spec_in_masterdb(spec_id, j['name'], language)
         else:

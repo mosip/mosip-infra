@@ -1,8 +1,8 @@
 {
-    "id" : "12345",
-    "name": "fp23",
+    "id" : "13345",
+    "name": "test3",
     "sub_id": "1",
-    "serial_num": "43857323",
+    "serial_num": "test12345",
     "languages" : ["eng", "ara"],
     "spec_file": "./data/spec/3456.json",
     "certification": "L0",
@@ -10,6 +10,6 @@
     "datetime": "2020-10-09T08:48:31.158Z",
     "expiry": "2022-12-16T09:06:38.161Z", 
     "ft_provider_id": "",
-    "reg_center": "10001",
+    "reg_center": "10002",
     "zone": "NTH"
 }
