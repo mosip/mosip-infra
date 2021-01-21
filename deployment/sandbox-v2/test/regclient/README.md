@@ -3,7 +3,7 @@
 ## Download Reg Client
   * Download zip file from:
     ```
-    https://<sandbox domain name>/registration-client/1.1.2/reg-client.zip
+    https://<sandbox domain name>/registration-client/1.1.3/reg-client.zip
     ```
   * Unzip the file and launch reg client by running `run.bat`.
   * Reg client will generate public/private keys in the following folder 
