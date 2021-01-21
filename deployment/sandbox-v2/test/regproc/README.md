@@ -24,7 +24,7 @@ $ ./cleardb.sh
 ```
 Provide your postgres password.
 
-DANGEROUS: Be sure that you want to delete the db!
+DANGEROUS: Be sure that you want to clear the db!  Delete this script if you are in production setup.
 
 ## Upload registration packet
 
