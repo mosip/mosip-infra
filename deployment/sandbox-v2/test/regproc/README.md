@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* The scripts here require `python3` that must have got installed during the standard deployment setup.
+The scripts here require `python3` that must have got installed during the standard deployment setup.
 
 ## Auth partner onboarding
 IDA has to be onboarded as partner. Execute the partner onboarding scripts [here](../../utils/onboard/partner/). 
@@ -23,6 +23,8 @@ This is optional.  To see your packet clearly, you may want to clear all records
 $ ./cleardb.sh
 ```
 Provide your postgres password.
+
+DANGEROUS: Be sure that you want to delete the db!
 
 ## Upload registration packet
 
