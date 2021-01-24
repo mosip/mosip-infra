@@ -1,0 +1,15 @@
+{
+    "realm_id": "mosip",  
+    "username": "testuser",
+    "pwd": "mosip", 
+    "email": "testuser@xyx.com",
+    "first_name" : "Test",
+    "last_name" : "User5",
+    "rid": "", 
+    "regcntr_id": "10001", 
+    "zone_id": "MOR", 
+    "roles" : [
+        "REGISTRATION_OFFICER",
+        "REGISTRATION_SUPERVISOR"
+    ]
+}

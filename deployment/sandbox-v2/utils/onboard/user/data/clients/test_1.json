@@ -1,0 +1,7 @@
+{
+    "realm_id": "mosip",
+    "client_id": "test_1",
+    "name": "Test Client 1",
+    "secret": "abc",
+    "base_url": "https://test_1.xyz.com" 
+}
