@@ -1,9 +1,6 @@
 server = 'https://minibox.mosip.net' 
 ssl_verify=True
 
-primary_lang = 'eng'
-secondary_lang = 'ara'  # Should match mosip configuration
-
 client_id = 'mosip-ida-client'
 client_pwd =  'abc123'
 

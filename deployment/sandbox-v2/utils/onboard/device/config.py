@@ -1,6 +1,5 @@
 server = 'https://minibox.mosip.net' 
 ssl_verify=True
-primary_lang = 'eng'
 
 db_user = 'postgres'
 db_pwd = 'mosip123'
