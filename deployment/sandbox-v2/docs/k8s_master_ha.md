@@ -17,10 +17,10 @@ We will be using stacked-etcd cluster due to the reason of less complexity and s
 
 ## Abbreviations
 
-- Loadbalancer.sb: LB
-- mzmaster.sb : m0
-- mzmaster1.sb : m1
-- mzmaster2.sb : m2
+- LB: Loadbalancer.sb
+- m0: mzmaster.sb 
+- m1: mzmaster1.sb
+- m2: mzmaster2.sb
 
 ## Procedure
 
