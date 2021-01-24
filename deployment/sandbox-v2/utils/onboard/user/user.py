@@ -85,7 +85,7 @@ def main():
     try:
         if args.action == 'keycloak' or args.action == 'all':
             r = create_users_in_keycloak(conf.csv_users)
-            s = create_clients_in_keycloak(conf.csv_clients)
+#           s = create_clients_in_keycloak(conf.csv_clients)
         if args.action == 'masterdb' or args.action == 'all':
             add_user_to_masterdb(conf.csv_users)
     except:
