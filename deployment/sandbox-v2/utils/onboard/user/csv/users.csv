@@ -1,3 +1,0 @@
-realm_id,user_id,pwd,email,first_name,last_name,rid,regcntr_id,zone_id,roles
-mosip,superadmin,mosip,superadmin@yx.com,Super,Admin,,10001,MOR,GLOBAL_ADMIN MASTERDATA_ADMIN ZONAL_ADMIN
-

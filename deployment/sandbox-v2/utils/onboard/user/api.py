@@ -63,7 +63,6 @@ class KeycloakSession:
 
     def update_user(self, realm_id, name, pwd, email, first_name, last_name, user_id, rid): 
         url =  '%s/keycloak/auth/admin/realms/%s/users/%s' % (self.server, realm_id, user_id)
-
         headers = {
            'Authorization' : 'Bearer %s' % self.token,
            'Content-type' : 'application/json',
@@ -97,7 +96,6 @@ class KeycloakSession:
         Returns user id.
         '''
         url =  '%s/keycloak/auth/admin/realms/%s/users?username=%s' % (self.server, realm_id, name)
-
         headers = {
            'Authorization' : 'Bearer %s' % self.token,
            'Content-type' : 'application/json',
@@ -105,8 +103,7 @@ class KeycloakSession:
         }
         r = requests.get(url, headers=headers, verify=self.ssl_verify)
         r = response_to_json(r) 
-        user_id = r[0]['id']
-        return user_id
+        return r 
 
     def create_client(self, realm_id, client_id, name, secret, base_url):
         url =  '%s/keycloak/auth/admin/realms/%s/clients' % (self.server, realm_id)
@@ -165,6 +162,7 @@ class KeycloakSession:
            'Accept': 'application/json'
         }
         r = requests.get(url, headers=headers, verify=self.ssl_verify)
+        r = response_to_json(r)
         return r
 
     def map_user_role(self, realm_id, user_id, role_json):
