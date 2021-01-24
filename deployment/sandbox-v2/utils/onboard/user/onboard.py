@@ -102,8 +102,8 @@ def main():
 
     try:
         if args.action == 'keycloak':
-#           r = create_users_in_keycloak(files)
-           s = create_clients_in_keycloak(files)
+           r = create_users_in_keycloak(files)
+#           s = create_clients_in_keycloak(files)
         if args.action == 'masterdb':
             add_user_to_masterdb(files)
     except:
