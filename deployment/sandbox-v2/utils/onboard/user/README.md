@@ -1,4 +1,4 @@
-# User and Client onboarding
+# User Onboarding
 
 ## Function
 The scripts here add usersto Keycloak and MasterDB.  The users typically are registration officers and supervisors, and admin.  
