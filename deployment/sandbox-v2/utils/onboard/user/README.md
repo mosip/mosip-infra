@@ -9,7 +9,7 @@ The scripts here add usersto Keycloak and MasterDB.  The users typically are reg
 1. Add user to MasterDB
 
 ## JSON
-See example JSONs for user.  In column `role` specify roles separated by space.
+See example JSONs in `data/` folder.
 
 ## Config
 1. Set the `server` url in `config.py`
