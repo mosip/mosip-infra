@@ -20,8 +20,10 @@ Ensure the following:
 
 1. Print partner created and certs uploaded.
 
-1. The private and certificate of print partner is converted to p12 keystore format.
-
+1. The private and certificate of print partner is converted to p12 keystore format.  You may use the following command:
+    ```
+    $ openssl pkcs12 -export -out key.p12 -in cert.pem -inkey pvt_key.pem -passout pass: -nokeys
+    ```
 1. This p12 key is used in your print service (you will need to compile your code).
 
 1. Your print service reads the relevant (expected) fields from received credentials.
