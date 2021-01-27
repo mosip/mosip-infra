@@ -58,6 +58,7 @@ Before installing MOSIP modules you will have to set up your VMs as below:
 1. Make console machine accessible via a public domain name (e.g. sandbox.mycompany.com).  This step may be skipped if you do not plan to access the sandbox externally. 
 1. Make sure datetime on all machines is in UTC.
 1. Open ports 80, 443, 30090 (postgres), 30616 (activemq), 53 (coredns) on console machine for external access.
+1. Make sure UDP ports are not blcoked by your firewall(s).
 
 ## Terraform
 All the above is achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the scripts in detail before running them. 
