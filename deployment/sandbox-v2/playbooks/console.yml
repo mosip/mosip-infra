@@ -3,6 +3,14 @@
 # play as tasks only run after roles if they are in the same play (for some reason)
 # and for us sequencing is important.
 
+- hosts: all
+  tags: wait
+  gather_facts: no
+  tasks:
+    - name: Attempt to reach all configured hosts, failures means the host is not reachable
+      wait_for_connection: 
+        timeout: 30
+
 - hosts: console
   gather_facts: true 
   tasks:
