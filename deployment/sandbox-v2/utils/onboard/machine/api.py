@@ -9,10 +9,11 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='admin'):
+    def __init__(self, server, user, pwd, appid='admin', ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
+        self.ssl_verify = ssl_verify 
         self.token = self.auth_get_token(appid, self.user, self.pwd) 
       
     def auth_get_token(self, appid, username, pwd):
@@ -29,7 +30,7 @@ class MosipSession:
                     "password": pwd
             }
         }
-        r = requests.post(url, json = j)
+        r = requests.post(url, json = j, verify=self.ssl_verify)
         token = read_token(r)
         return token
 
@@ -50,7 +51,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         } 
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -71,7 +72,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         } 
-        r = requests.put(url, cookies=cookies, json = j)
+        r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -96,7 +97,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -122,21 +123,21 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = requests.put(url, cookies=cookies, json = j)
+        r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
     def get_specs(self):
         url = '%s/v1/masterdata/machinespecifications/all' % self.server
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
     def get_machines(self):
         url = '%s/v1/masterdata/machines' % self.server
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies)
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -166,7 +167,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = requests.post(url, cookies=cookies, json = j)
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -196,7 +197,7 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = requests.put(url, cookies=cookies, json = j)
+        r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
