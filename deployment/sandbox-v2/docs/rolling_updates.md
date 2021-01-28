@@ -1,10 +1,10 @@
-# Rolling Updates:
+# Rolling Updates
 
-## Introduction:
+## Introduction
 
 To update the version of an image or rollback to previous working version, there is a rolling update strategy implemented across all modules to provide this feature without any downtime of the service at client end.  
 
-### Update an image
+## Update an image
 
   - Check the current version of image in pod using ``` $ kc1 get pods <pod-name> ```, the **image** field in description contains the image name with current version.  
   - To update the image of application to next version, use the **set image** command as per mentioned below:  
@@ -17,7 +17,7 @@ To update the version of an image or rollback to previous working version, there
 	```  
     (deployment name: test_version_update, container name: test, image: nginx, new version- 1.18.0)
 
-### Verify an update
+## Verify an update
 
   - To verify the updated image of application, use the "status" command as per mentioned below:  
 	```
@@ -28,7 +28,7 @@ To update the version of an image or rollback to previous working version, there
 	$ kc1 rollout status deployments/test_version_update
 	```
 
-### Rollback an update
+## Rollback an update
 
   - Check the status of deployment using ```$ kc1 get deployments/<dep-name>``` to check number of pods running.  
   - List the pods using ```$ kc1 get pods```, if any pod has status of "ImagePullBackOff", then version of image must be rolled back to previous version.  
