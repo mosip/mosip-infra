@@ -1,6 +1,10 @@
 {
-  "policy_type" : "DataShare",
-  "policy_def": { 
+  "id" : "mpolicy-default-auth",
+  "type" : "DataShare",
+  "name" : "Default Auth Policy",
+  "description" : "Default policy for the IDA module",
+  "policy_group": "auth_module", 
+  "def": { 
     "shareableAttributes": [
       {
         "attributeName": "fullName",

@@ -1,5 +1,5 @@
 
-server = 'https://10.10.20.220' 
+server = 'https://minibox.mosip.net' 
 ssl_verify=False
 
 abis_user = 'mosip-abis-client'

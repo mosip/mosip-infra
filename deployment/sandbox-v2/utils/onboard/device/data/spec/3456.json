@@ -1,0 +1,18 @@
+{
+    "id" : "3456",
+    "name": "fs1",  
+    "type": "Finger",
+    "sub_type": "Single", 
+    "languages": ["eng", "ara"],
+    "for_registration": true,
+    "make": "Sharp",
+    "model": "H8-455",
+    "partner_id" : "dp",
+    "partner_name": "Smart DP Printers",
+    "sbi": {
+        "hash" : "rytjs5",
+        "create_date": "2020-12-01T08:56:40.588Z",
+        "expiry": "2021-10-01T08:56:40.588Z",
+        "version": "1.0"  
+    }
+}

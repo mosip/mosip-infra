@@ -1,4 +1,0 @@
-partner_id,policy_name,description
-mpartner-default-auth,mpolicy-default-auth,Default auth as partner
-mpartner-default-abis,mpolicy-default-abis,Default abis as partner
-mpartner-default-print,Print policy,Default print 

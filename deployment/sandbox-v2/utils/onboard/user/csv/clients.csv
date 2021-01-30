@@ -1,5 +1,0 @@
-realm_id,client_id,name,secret,base_url
-mosip,test_1,abc,test_1,https://test_1.xyz.com
-mosip,test_2,def,test_2,https://test_2.xyz.com
-mosip,test_3,ghi,test_3,https://test_3.xyz.com
-

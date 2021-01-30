@@ -1,4 +1,0 @@
-module,app_id,ref_id,cert_path
-ida,ROOT,,certs/ida_root_ca/cert.pem
-ida,IDA,,certs/ida_ca/cert.pem
-ida,IDA,mpartner-default-auth,certs/mpartner-default-auth/cert.pem

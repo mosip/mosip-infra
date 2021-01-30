@@ -5,4 +5,5 @@
   when: postgres.external == false
 
 - import_playbook: postgres-init.yml
+  when: postgres.init == true
 

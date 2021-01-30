@@ -2,6 +2,7 @@
 
 sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum install -y ansible
+ansible-galaxy collection install ansible.netcommon
 sudo yum install -y tmux 
 sudo yum install -y vim
 cp $HOME/mosip-infra/deployment/sandbox-v2/utils/tmux.conf $HOME/.tmux.conf

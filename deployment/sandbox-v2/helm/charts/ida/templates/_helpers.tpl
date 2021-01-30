@@ -1,6 +1,5 @@
 {{/* Mount volume for logs */}}
 {{- define "logger.mount" }}
-volumeMounts:
 - name: applogs 
   mountPath: /logs
 {{- end }}
@@ -17,7 +16,6 @@ volumeMounts:
 
 {{/* Temp volume for logs */}}
 {{- define "logger.volume" }}
-volumes:
 - name: applogs
   emptyDir: {}
 {{- end }}

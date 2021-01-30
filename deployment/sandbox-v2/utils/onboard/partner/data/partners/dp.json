@@ -1,0 +1,11 @@
+{
+    "id" : "dp",
+    "name" : "Device Provider", 
+    "contact": "574674335", 
+    "address": "Manila",
+    "email" : "dp@yz.com", 
+    "partner_domain": "DEVICE",
+    "partner_type": "Device_Provider",
+    "certs": [], 
+    "policies" : []
+}

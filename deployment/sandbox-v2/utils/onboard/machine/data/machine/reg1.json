@@ -1,0 +1,11 @@
+{
+    "languages": ["eng", "ara"],
+    "name": ["Reg Machine 1", "Reg Machine 1"], 
+    "spec_name": ["mx1", "mx1"],
+    "serial_num": "343000", 
+    "reg_center_id": "10001",
+    "zone_id": "NTH",
+    "pub_key_path": "keys/mainmac/pub.key",
+    "sign_pub_key_path": "keys/mainmac/sign_pub.key",
+    "validity": "2022-11-27T01:18:46.611Z"
+}

@@ -108,3 +108,5 @@ podDisruptionBudget:
   enabled: false
   minAvailable:
   maxUnavailable:
+
+exportLogs: enabled  # Let filebeat export the logs

@@ -6,6 +6,7 @@ user_home: '{{lookup("env", "HOME")}}'
 install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
 tmp_dir: '{{install_root}}/tmp/'
 logs_dir: '{{tmp_dir}}/logs'
+tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://artifactory-service/
@@ -13,9 +14,10 @@ versions_file: '{{install_root}}/versions.yml'
 podconfig_file: '{{install_root}}/podconfig.yml'
 
 sandbox_domain_name: minibox.mosip.net
+internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
-  sandbox_internal_url: 'https://{{inventory_hostname}}'  # Pointing to nginx which runs on console
+  sandbox_internal_url: 'https://{{internal_domain_name}}'  # Pointing to nginx which runs on console
   sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
   ingress_tld: 'ingress'  # Fixed. Don't change this!
   ssl:
@@ -26,7 +28,7 @@ ssl:
   ca:  # Certifcation authority
     selfsigned: 
       get_certificate: true
-      common_name: '{{inventory_hostname}}'  # The host on which certs are generated   
+      common_name: '{{internal_domain_name}}'  # The host on which certs are generated   
       certificate: '/etc/ssl/certs/nginx-selfsigned.crt'
       certificate_key: '/etc/ssl/private/nginx-selfsigned.key'
       csr: '/etc/ssl/csr/nginx-selfsigned.csr'
@@ -40,21 +42,22 @@ developer_mode: true  # false if limited APIs are exposed externally.
     
 is_glowroot: absent  # absent or present
 
-docker_wait_time: 600   # Wait for docker to pull and deploy
-docker_hub:
-  private: false  # For private repo on Docker Hub, set this to true, and set credentials in secrets.yml
-  keyname: dockerhubkey  # Name of kubernetes secret
-
-local_docker_registry:
-  enabled: false
-  image: 'registry:2'
-  name: 'local-registry'
-  port: 5000
-  
-# List of local docker registries (other than Docker Hub) is needed to make sure http access works when dockers
-# are pulled from k8s cluster.  Used while installing clusters. See k8s/docker role.
-docker_registries:  
-  - '{{inventory_hostname}}:{{local_docker_registry.port}}'   # Docker registry running on console
+docker:
+  hub:
+    private: false  # For private repo on Docker Hub, set this to true, and set credentials in secrets.yml
+    keyname: dockerhubkey  # Name of kubernetes secret
+  local_registry: 
+    enabled: false
+    image: 'registry:2'
+    name: 'local-registry'
+    port: 5000
+  # List of local docker registries (other than Docker Hub) is needed to make sure http access works when dockers
+  # are pulled to k8s cluster.  Used while installing clusters. See k8s/docker role.
+  registries:  
+    - '{{inventory_hostname}}:5000'   # Docker registry running on console. Port should be same as above
+  log_roll:
+      max_size: "50m"  # See https://docs.docker.com/config/containers/logging/configure/
+      max_files: 3  # Max number of rolling files
 
 clusters:
   mz:
@@ -154,10 +157,11 @@ postgres:
   external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
                    # you already have postgres running on a separate system.
   # Change host here if external: true
-  host: '{{clusters.mz.nodeport_node}}'  # Any node since standard sandbox runs postgres as pod on nodeport
+  host: '{{clusters.mz.nodeport_node}}'  # Host name of any node since standard sandbox runs postgres as pod on nodeport
   port: 30090 # hardcoded node port for postgres  
   user: postgres 
   password: '{{secrets.postgres.su}}'
+  init: true  # Initialize db. Set it to false in production after initializing once.
 
   # All below configs applicable only when external: false 
   internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
@@ -379,7 +383,9 @@ activemq:
   name: activemq
   nodeport: 30616  # Arbitrary
   container_port: 61616
-
+  nfs_path: '{{nfs.folder}}/activemq/'
+  admin_password: '{{secrets.activemq.admin}}'
+  
 # Private DNS - typically required for on-prem setups, but we enable it as
 # default for cloud as well.  So we don't have to use cloud DNS.
 

@@ -1,2 +1,2 @@
-certs/
-out.log
+*.log
+/certs/
