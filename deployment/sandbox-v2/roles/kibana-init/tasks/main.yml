@@ -1,19 +1,7 @@
-# Load a sample dashboard into Kibana
-
-# Note: /kibana much match with what is provided as ingress url in Kibana helm chart
-- name: Load a sample dashboard to kibana
-  uri:
-    url: '{{clusters.mz.ingress.base_url}}/kibana/api/kibana/dashboards/import'
-    method: POST
-    body: "{{ lookup('file','{{install_root}}/roles/kibana-init/files/mosip_kibana_dashboard.json') }}"
-    body_format: json
-    headers:
-      Content-Type: "application/json"
-      kbn-xsrf: "true"
-
-# Using curl here directly as this version of ansible does not support form-multipart
-- name: load sample saved queries
-  shell: 'curl -X POST {{clusters.mz.ingress.base_url}}/kibana/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@{{install_root}}/roles/kibana-init/files/queries.ndjson'
+- name: load dashboards
+  shell: 'curl -X POST {{clusters.mz.ingress.base_url}}/kibana/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@{{item}}'
   args:
     warn: no 
+  with_fileglob: '../files/dashboards/*'
+
 
