@@ -30,7 +30,6 @@
   - name: Check if host name is ip address
     set_fact:
       selfsigned_ip: 'IP:{{ssl.ca.selfsigned.common_name}}'
-    when: (ssl.ca.selfsigned.common_name | ipaddr) != false
 
   - debug:
        msg: 'Adding alt name: "{{selfsigned_ip}}" to self signed certificate'
