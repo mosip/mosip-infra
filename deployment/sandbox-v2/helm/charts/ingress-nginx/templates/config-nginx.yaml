@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+data: 
+  proxy-buffer-size: "32k" # NOTE: Auth header reponse is huge, nginx was giving 502 error otherwise
+  proxy-body-size: 8m  # Biometrics may be there in request body

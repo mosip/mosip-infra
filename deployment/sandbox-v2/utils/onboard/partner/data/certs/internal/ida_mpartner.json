@@ -1,0 +1,9 @@
+{
+    "type": "internal",
+    "module": "ida",
+    "app_id": "IDA",
+    "ref_id": "mpartner-default-auth",
+    "is_ca" : false,
+    "cert_path": "certs/mpartner-default-auth/cert.pem",
+    "ca_cert" : ""
+}

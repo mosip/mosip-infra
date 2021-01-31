@@ -17,6 +17,10 @@ For local access of all docker images
 
 ## TPM 
 
+## Reg client settings
+* Max upload document size
+* Max packets remaining to upload
+
 ## Console machine access
 * User creation
 * K8s access
@@ -29,11 +33,14 @@ K8s cluster roles, policies and access
 ## Nginx between abis and activemq
 
 ## Rolling updates
+[Rolling updates](rolling_updates.md)
 
-## Pod replication
+## Kubernetes Pod config
+* Replication
+* CPU/Memory allocation
 
 ## Policies
-* Review the expirty time of ABIS and other partner policies where data is shared.
+* Review the expiry time of ABIS and other partner policies where data is shared.
 
 ## Firewalls 
 * Between mz and dmz
@@ -41,8 +48,26 @@ K8s cluster roles, policies and access
 
 ## Persistence
 
+## Keycloak
+* Review token timeouts and other expiries.
+
+## Config properties
+* Update batch job timing to suit the local time.  
+
+## Reg proc stages
+* Remove unused stages in reg proc (for example External Stage if not being used).
+
+## Reprocessor
+Reprocessor frequency
+
 ## Email/SMS gateway
 
+## Activemq
+* Memory settings
 
- 
+## On field operations/troublehshooting
+* If activemq is restarted then ABIS service may need a restart to connect to the Q again.
+* If idschema / ui schema is changed in the DB, then idrepo must be restarted. 
 
+
+## BioSDK service setup 

@@ -1,0 +1,23 @@
+# Playbook to tar zip all container logs in /var/log/containers of all nodes
+# and fetch them to console in /tmp/
+#
+- hosts: [mzmaster, mzworkers, dmzmaster, dmzworkers]
+  vars:
+    bak_dir: /tmp/logbak
+  tasks:
+     - name: Create logbak dir
+       file:
+         name: '{{bak_dir}}' 
+         state: directory
+ 
+     - name: tar zip
+       shell: 'tar -zhcf /tmp/{{inventory_hostname}}-logs.bak  /var/log/containers'
+       become: yes
+       ignore_errors: true
+
+     - name: move the files
+       fetch:
+          src: '/tmp/{{inventory_hostname}}-logs.bak'
+          dest: '{{bak_dir}}/'
+       
+ 

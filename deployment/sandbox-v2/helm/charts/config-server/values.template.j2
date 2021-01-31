@@ -9,6 +9,8 @@ component: config-server
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 
+exportLogs: enabled  # Let filebeat export the logs
+
 encryptKey: '' # Passed diretly via command line
 
 sandboxPublicUrl: {{ site.sandbox_public_url }}

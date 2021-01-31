@@ -16,3 +16,8 @@ class DB:
         except psycopg2.errors.UniqueViolation:
             pass
         self.conn.commit()
+
+    def get_devices(self):
+        cur = self.conn.cursor()
+        cur.execute("select * from device_master;")
+        return cur.fetchall()   

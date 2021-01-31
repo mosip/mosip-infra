@@ -1,0 +1,9 @@
+{
+    "type_code": "DKS",
+    "languages": ["eng", "ara"],
+    "name": ["mx1", "mx1"],
+    "brand": ["Dell", "Dell"],
+    "model": ["Vostro2", "Vostro2"],
+    "description": ["Nice machine", "Nice machine"],
+    "min_driver_ver": "3.60"
+}

@@ -429,3 +429,6 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
 
+  ingress:
+    nginx:
+      replicas: 1 

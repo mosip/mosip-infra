@@ -1,0 +1,14 @@
+{
+    "overwrite": true,
+    "type": "generated",
+    "key_path":  "certs/msp/pvt_key.pem",
+    "cert_path": "certs/msp/cert.pem",
+    "is_ca": false,
+    "cn": "msp-printers.com",
+    "org_name": "MSP Print Partner", 
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "data/certs/generated/ca1.json"
+}

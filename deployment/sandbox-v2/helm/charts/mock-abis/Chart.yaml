@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mock-abis
+description: A Helm chart MOSIP mock-abis 
+type: application
+version: 1.1.3
+appVersion: 1.1.3

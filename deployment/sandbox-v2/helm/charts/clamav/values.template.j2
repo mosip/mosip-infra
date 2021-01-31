@@ -7,3 +7,7 @@ imagePullPolicy: IfNotPresent
 services:
   clamav:
     podconfig: {{ podconfig.clamav.service | to_yaml }}
+
+exportLogs: enabled  # Let filebeat export the logs
+
+
