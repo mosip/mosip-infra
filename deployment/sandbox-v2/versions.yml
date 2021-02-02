@@ -165,4 +165,4 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipdev/artifactory-server:1.1.3'
+        'artifactory-service': 'mosipdev/artifactory-server:1.1.4'
