@@ -29,6 +29,8 @@ spec:
       - name: {{ .Values.services.abishandler.serviceName }} 
         image: {{ .Values.services.abishandler.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.abishandler.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

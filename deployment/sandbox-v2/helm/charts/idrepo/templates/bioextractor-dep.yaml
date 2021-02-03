@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.bioextractor.serviceName }} 
         image: {{ .Values.services.bioextractor.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.bioextractor.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

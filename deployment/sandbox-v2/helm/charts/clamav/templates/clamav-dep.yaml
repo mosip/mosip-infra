@@ -25,6 +25,8 @@ spec:
       - name: {{  .Values.name }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.clamav.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         ports:
         - containerPort: {{ .Values.docker.containerPort }}
         readinessProbe:

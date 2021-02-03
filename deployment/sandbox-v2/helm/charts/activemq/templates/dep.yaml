@@ -25,6 +25,8 @@ spec:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.activemq.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: ACTIVEMQ_MIN_MEMORY
           value: {{ .Values.docker.minmemory }}

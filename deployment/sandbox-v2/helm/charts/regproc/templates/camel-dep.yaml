@@ -28,6 +28,8 @@ spec:
       - name: {{ .Values.services.camel.serviceName }} 
         image: {{ .Values.services.camel.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.camel.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

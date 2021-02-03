@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.internal.serviceName }} 
         image: {{ .Values.services.internal.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.internal.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -47,8 +49,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: zip_file_path
           value: {{ .Values.services.internal.hsmClientZipPath }}
-#        - name: mosip_biosdk_service
-#          value: {{ .Values.biosdkServiceUrl }}
+        - name: mosip_biosdk_service
+          value: {{ .Values.biosdkServiceUrl }}
         ports:
         - containerPort: {{ .Values.services.internal.containerPort }}
         volumeMounts:

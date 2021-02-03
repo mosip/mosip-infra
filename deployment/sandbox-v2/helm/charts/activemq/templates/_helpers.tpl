@@ -1,21 +1,3 @@
-{{/* Template for impagepull secrets */}}
-{{- define "dockerHubSecret" }}
-{{ if .Values.dockerHub.private }}
-imagePullSecrets:
-- name: {{ .Values.dockerHub.keyname }}
-{{ end }}
-{{- end }}
-
-{{- define "resources" }}
-resources:
-  limits:
-    cpu: "1000m"
-      memory: 100Mi
-    requests:
-      cpu: "100m"
-      memory: 32Mi
-{{- end }}
-
 {{/* Template for resources */}}
 {{- define "resourcesDefinition" }}
 {{- if .res }}
