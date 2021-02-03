@@ -26,4 +26,5 @@ services:
     servicePort: 80
     ingressPath: /v1/datashare
     healthUrl: /v1/datashare/actuator/health
-    podconfig: {{ podconfig.datashare.service | to_yaml }}
+    podconfig:
+      {{ podconfig.datashare.service | to_nice_yaml(indent=6) | indent(6) }}

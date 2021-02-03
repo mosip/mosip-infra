@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.mockabis.serviceName }} 
         image: {{ .Values.services.mockabis.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.mockabis.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

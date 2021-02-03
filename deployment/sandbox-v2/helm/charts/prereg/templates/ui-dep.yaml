@@ -26,6 +26,8 @@ spec:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.ui.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:

@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.credentialservice.serviceName }} 
         image: {{ .Values.services.credentialservice.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.credentialservice.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
