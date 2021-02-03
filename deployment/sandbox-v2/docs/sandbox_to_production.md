@@ -33,6 +33,7 @@ K8s cluster roles, policies and access
 ## Nginx between abis and activemq
 
 ## Rolling updates
+[Rolling updates](rolling_updates.md)
 
 ## Kubernetes Pod config
 * Replication

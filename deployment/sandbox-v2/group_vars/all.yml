@@ -135,7 +135,7 @@ postgres:
   external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
                    # you already have postgres running on a separate system.
   # Change host here if external: true
-  host: '{{clusters.mz.nodeport_node}}'  # Any node since standard sandbox runs postgres as pod on nodeport
+  host: '{{clusters.mz.nodeport_node}}'  # Host name of any node since standard sandbox runs postgres as pod on nodeport
   port: 30090 # hardcoded node port for postgres  
   user: postgres 
   password: '{{secrets.postgres.su}}'

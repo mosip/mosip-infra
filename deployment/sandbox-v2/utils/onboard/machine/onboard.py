@@ -42,7 +42,7 @@ def machine_exists(name, language):
     return exists
  
 def add_type(files):
-    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     for f in files:
         j  = json.load(open(f, 'rb'), encoding='utf-8')
         for i,l in enumerate(j['languages']):
@@ -61,7 +61,7 @@ def add_type(files):
            
 
 def add_spec(files):
-    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     for f in files:
         j  = json.load(open(f, 'rt'))
         for i,language in enumerate(j['languages']):
@@ -86,7 +86,7 @@ def get_spec_id(spec_name):
     '''
     Only spec name given here. If spec exists for any language, the id shall be returned
     '''
-    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     r = session.get_specs()
     spec_id = None
     if r['errors'] is None:
@@ -97,7 +97,7 @@ def get_spec_id(spec_name):
     return spec_id
 
 def spec_exists(spec_name, language):
-    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     r = session.get_specs()
     spec_id = None
     exists = False
@@ -110,7 +110,7 @@ def spec_exists(spec_name, language):
     return exists, spec_id
 
 def add_machine(files):
-    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd)
+    session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     for f in files:
         j  = json.load(open(f, 'rt'))
         pub_key = open(j['pub_key_path'], 'rt').read().strip()
