@@ -16,7 +16,7 @@ By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mo
     $ sb
     $ an playbooks/reg-client-downloader.yml
     ``` 
-1. Add name and public key of the reg client machine in DB in `mosip_master/machine_master` and `mosip_master/machine_master` table.  You can get the public key of your machine using [TPM Util](../utils/tpm/key_extractor).
+1. Add name and public key of the reg client machine in DB in `mosip_master/machine_master` and `mosip_master/machine_master` table.  You can get the public key of your machine using [TPM Utility](../utils/tpm/key_extractor).
 
 1. Download the reg client from `https://<sandbox domain name>/registration-client/1.1.3/reg-client.zip`
 
