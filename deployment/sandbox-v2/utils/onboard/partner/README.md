@@ -56,5 +56,6 @@ For internal certs the partner name must match the oranization name given in the
 * IDA module is also like a partner to mosip system.  For biometric auth in Registration Processor, IDA Internal service is used.  In this case IDA has to be onboarded as `Online_Verification_Partner` with datashare policy.
 * To generate p12 keystore for private key and certificate needed for print service, use this command:
 ```
-$ openssl pkcs12 -export -out key.p12 -in cert.pem -inkey pvt_key.pem -passout pass: -nokeys
+$ openssl pkcs12 -export -inkey pvt_key.pem  -in cert.pem  -out key.p12
 ```
+* The password and p12 key file must be specified in your print service.
