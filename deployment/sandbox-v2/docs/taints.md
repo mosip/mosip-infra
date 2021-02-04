@@ -20,7 +20,7 @@ postgres:
       key: "postgres" # Key for applying taint on node
       value: "only"  
 ```
-Here `node` is the machine on which you would like to exclusively run the module.
+Here `node` is the machine on which you would like to run the module exclusively.
 
 Make sure the above setting is done **before** you install the sandbox.
 
