@@ -8,7 +8,7 @@ By default, sandbox installs [Reg Client Downloader](https://github.com/mosip/mo
 
     Change:
     tpm: "Y"
-    ``
+    ```
 1. If you have done the above before installing the sandbox, then you may skip this step.  Otherwise, if reg client downlaoder is already running on your sandbox, delete and restart it as below:
     ```
     $ helm2 delete reg-client-downloader 
