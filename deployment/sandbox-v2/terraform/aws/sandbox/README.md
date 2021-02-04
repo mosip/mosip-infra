@@ -1,4 +1,4 @@
-## Install MOSIP Sandbox on AWS using Terraform
+## Provisioning of AWS resources for MOSIP Sandbox using Terraform
 
 ### Domain name 
 1. Obtain a domain name for the sandbox using AWS Route53, example, `mosip.net`.  This is required to access sandbox externally.
