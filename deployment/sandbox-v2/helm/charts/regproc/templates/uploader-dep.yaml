@@ -29,6 +29,8 @@ spec:
       - name: {{ .Values.services.uploader.serviceName }} 
         image: {{ .Values.services.uploader.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.uploader.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

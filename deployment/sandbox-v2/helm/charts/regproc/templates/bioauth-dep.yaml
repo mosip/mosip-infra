@@ -29,6 +29,8 @@ spec:
       - name: {{ .Values.services.bioauth.serviceName }} 
         image: {{ .Values.services.bioauth.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.bioauth.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

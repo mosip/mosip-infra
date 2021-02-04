@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.datasync.serviceName }} 
         image: {{ .Values.services.datasync.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.datasync.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

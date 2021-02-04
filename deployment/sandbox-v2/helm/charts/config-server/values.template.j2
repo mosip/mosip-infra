@@ -39,4 +39,6 @@ localRepo:
 
 services:
   config_server:
-    podconfig: {{ podconfig.config_server.service | to_yaml }}
+    podconfig:
+      {{ podconfig.config_server.service | to_nice_yaml(indent=6) | indent(6) }}
+

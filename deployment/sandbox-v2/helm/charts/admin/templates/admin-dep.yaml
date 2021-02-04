@@ -33,6 +33,8 @@ spec:
       - name: {{ .Values.services.admin.serviceName }} 
         image: {{ .Values.services.admin.dockerImage }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
+        {{ $resources := .Values.services.admin.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

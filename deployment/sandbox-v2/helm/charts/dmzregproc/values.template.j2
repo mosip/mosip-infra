@@ -49,7 +49,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
-    podconfig: {{ podconfig.dmzregproc.receiver | to_yaml }}
+    podconfig:
+      {{ podconfig.dmzregproc.receiver | to_nice_yaml(indent=6) | indent(6) }}
 
   camel:
     serviceName: {{ versions.services.dmzregproc.camel.keys()[0] }} 
@@ -61,7 +62,8 @@ services:
       servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
-    podconfig: {{ podconfig.dmzregproc.camel | to_yaml }}
+    podconfig:
+      {{ podconfig.dmzregproc.camel | to_nice_yaml(indent=6) | indent(6) }}
 
   status:
     serviceName: {{ versions.services.dmzregproc.status.keys()[0] }} 
@@ -71,7 +73,8 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/registrationstatus/
     healthUrl: /registrationprocessor/v1/registrationstatus/actuator/health
-    podconfig: {{ podconfig.dmzregproc.status | to_yaml }}
+    podconfig:
+      {{ podconfig.dmzregproc.status | to_nice_yaml(indent=6) | indent(6) }}
 
   pktserver:
     serviceName: {{ versions.services.dmzregproc.pktserver.keys()[0] }} 
@@ -91,5 +94,6 @@ services:
       servicePort: 80
     ingressPath: ''  # NOTE: Seperate ingress for pktserver due to different rewrite rule.
     healthUrl: ''
-    podconfig: {{ podconfig.dmzregproc.pktserver | to_yaml }}
+    podconfig:
+      {{ podconfig.dmzregproc.pktserver | to_nice_yaml(indent=6) | indent(6) }}
       

@@ -35,4 +35,5 @@ nodeAffinity:
 
 services:
   postgres:
-    podconfig: {{ podconfig.postgres.service | to_yaml }}
+    podconfig:
+      {{ podconfig.postgres.service | to_nice_yaml(indent=6) | indent(6) }}

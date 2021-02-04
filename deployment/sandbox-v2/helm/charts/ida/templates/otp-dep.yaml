@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.otp.serviceName }} 
         image: {{ .Values.services.otp.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.otp.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
