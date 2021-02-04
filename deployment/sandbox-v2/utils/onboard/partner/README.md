@@ -58,4 +58,3 @@ For internal certs the partner name must match the oranization name given in the
 ```
 $ openssl pkcs12 -export -inkey pvt_key.pem  -in cert.pem  -out key.p12
 ```
-* The password and p12 key file must be specified in your print service.
