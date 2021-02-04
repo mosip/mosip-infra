@@ -29,6 +29,8 @@ spec:
       - name: {{ .Values.services.abismid.serviceName }} 
         image: {{ .Values.services.abismid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.abismid.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

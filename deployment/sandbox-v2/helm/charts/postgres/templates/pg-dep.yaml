@@ -41,6 +41,8 @@ spec:
       - name: {{ .Values.name }} 
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         args: ["-c", "max_connections={{ .Values.maxConnections }}"]
+        {{ $resources := .Values.services.postgres.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: POSTGRES_USER
           value: {{ .Values.user }}

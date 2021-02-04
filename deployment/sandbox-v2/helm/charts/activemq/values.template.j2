@@ -11,7 +11,8 @@ docker:
   servicePort: 80
 services:
   activemq:
-    podconfig: {{ podconfig.activemq.service | to_yaml }}
+    podconfig:
+      {{ podconfig.activemq.service | to_nice_yaml(indent=6) | indent(6) }}
 
 adminPassword: '' # Defined diretly in helm command 
 

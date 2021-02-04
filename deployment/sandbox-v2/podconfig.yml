@@ -127,12 +127,6 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
 
-    proxyabis:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-
     manual:
       replicas: 1 
       maxSurge: 1
@@ -226,12 +220,6 @@ podconfig:
       maxSurge: 1
  
     datasync:
-      replicas: 1
-      minReadySeconds: 10
-      maxUnavailable: 0
-      maxSurge: 1
-
-    captcha:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
@@ -400,6 +388,13 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 400m
+          memory: 700Mi 
 
   postgres:
     service:

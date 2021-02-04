@@ -27,6 +27,8 @@ spec:
       - name: {{ .Values.services.pktserver.serviceName }} 
         image: {{ .Values.services.pktserver.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.pktserver.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         ports: 
         - containerPort: {{ .Values.services.pktserver.ports.containerPort }}
         #TODO: Put health check
