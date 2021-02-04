@@ -1,7 +1,7 @@
 # Integration with external print service
 
 ## Introduction
-MOSIP provides a [reference implementation] of print service that intefaces with the mosip system.  
+MOSIP provides a [reference implementation](https://github.com/mosip/print) of print service that intefaces with the mosip system.  
 
 ## Print process flow
 
