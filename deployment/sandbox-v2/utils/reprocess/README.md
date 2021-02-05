@@ -3,7 +3,7 @@
 ## Context
 Registration Processor provides Reprocessor stage that processes failed packets at a schedule specified by a cron job. However, if you need to process packets manually then you may use the script provided here.
 
-## Prequisites
+## Prerequisites
 Install required packets using
 ```
 $ ./preinstall.sh
