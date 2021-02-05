@@ -87,6 +87,10 @@ clusters:
           path: '{{nfs.folder}}/monitoring/mz/grafana'
       grafana_ingress_path: 'mz-grafana'
       grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
+      grafana:
+        alerts:
+          channel: prometheus_alerts
+          url: https://hooks.slack.com/services/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
       elasticsearch:
         host: 'elasticsearch-master:9200'
       kibana: 
