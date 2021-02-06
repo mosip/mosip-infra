@@ -1,10 +1,10 @@
 # Reproces packet
 
 ## Context
-Registration Processor provides Reprocessor stage that processes failed packets at schedule specified by a cron job. However, if you need to process a packet manually then you may use the script provided here.
+Registration Processor provides Reprocessor stage that processes failed packets at a schedule specified by a cron job. However, if you need to process packets manually then you may use the script provided here.
 
-## Prequisites
-Install required packets using
+## Prerequisites
+Install required packages using
 ```
 $ ./preinstall.sh
 ```
