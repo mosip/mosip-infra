@@ -24,7 +24,7 @@
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: packages/policycoreutils-python, tags: [policy]}
-     - {role: packages/requests3}
+     - {role: packages/requests3, tags: [requests3]}
      - {role: packages/psycopg2}
      - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
@@ -32,6 +32,7 @@
      - {role: packages/pexpect, tags: [pexpect]}
      - {role: packages/jq, tags: [jq]}
      - {role: packages/netaddr, tags: [netaddr]}
+     - {role: packages/ansible-vault, tags: [ansible-vault]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
