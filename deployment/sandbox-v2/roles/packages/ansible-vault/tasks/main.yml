@@ -1,0 +1,7 @@
+- name: Install ansible-vault module for python3 
+  pip:
+    name: ansible-vault
+    state: present
+    executable: /bin/pip3
+  become: yes
+
