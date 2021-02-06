@@ -17,7 +17,7 @@
     mode: 0755
 
 - name: Add stable repo
-  shell: '{{helm_cli_path}}/helm repo add stable https://kubernetes-charts.storage.googleapis.com'
+  shell: '{{helm_cli_path}}/helm repo add stable https://charts.helm.sh/stable'
 
 - name: "Update Helm repo"
   shell: "{{helm_cli_path}}/helm repo update"  # Shell instead of command for getting all the paths
