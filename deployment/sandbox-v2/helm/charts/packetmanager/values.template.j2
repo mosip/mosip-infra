@@ -6,6 +6,7 @@ configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 iamAdapterUrl: {{ iam_adapter_url }}
 exportLogs: enabled  # Let filebeat export the logs
+cache_provider: {{ cache_provider_url }}
 
 probe:
   initialDelay: 30  # Seconds
