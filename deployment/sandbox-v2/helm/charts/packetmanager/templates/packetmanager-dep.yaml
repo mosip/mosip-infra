@@ -45,6 +45,9 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: cache_provider_url_env
+          value: {{ .Values.cache_provider }}
+
         ports:
         - containerPort: {{ .Values.services.packet.containerPort }}
 
