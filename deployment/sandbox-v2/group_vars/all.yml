@@ -161,7 +161,7 @@ postgres:
   port: 30090 # hardcoded node port for postgres  
   user: postgres 
   password: '{{secrets.postgres.su}}'
-  init: true  # Initialize db. Set it to false in production after initializing once.
+  init: false  # Initialize db. Set it to false in production after initializing once.
 
   # All below configs applicable only when external: false 
   internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
@@ -411,6 +411,7 @@ iam_adapter_regproc_url: 'http://artifactory-service/artifactory/libs-snapshot-l
 iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://13.233.66.241/biosdk-service
+cache_provider_url: http://artifactory-service/artifactory/libs-release-local/cache/cache-provider.jar
 
 # user for every service inside the container
 container_user: mosip

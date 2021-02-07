@@ -1,6 +1,6 @@
 # Taints
 
-Kubernetes provides *taints* feature to run a pod exclusively on a node. This is particularly useful during performance testing where you would like to allocate non-mosip components on separate nodes. 
+Kubernetes provides *taints* feature to run a pod exclusively on a node. This is particularly useful during performance testing where you would like to allocate non-mosip components to separate nodes. 
 
 By default, taints are not applied in the sandbox.  Provision to enable taints has been provided for the following modules:
 
@@ -20,7 +20,7 @@ postgres:
       key: "postgres" # Key for applying taint on node
       value: "only"  
 ```
-Here `node` is the machine on which you would like to exclusively run the module.
+Here `node` is the machine on which you would like to run the module exclusively.
 
 Make sure the above setting is done **before** you install the sandbox.
 

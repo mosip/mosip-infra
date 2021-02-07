@@ -132,7 +132,7 @@ def add_spec(files):
                                       j['model'], j['partner_name'], j['partner_id'])
         if r['errors'] is not None: 
             if r['errors']['errorCode'] ==  'PMS_AUT_003':  # Device exists
-                myprint('Device exists. Updating device spec for  %s' % j['id'])
+                myprint('Device spec exists. Updating device spec for  %s' % j['id'])
                 r = session.update_device_detail(j['id'], j['type'], j['sub_type'], j['for_registration'], 
                                               j['make'], j['model'], j['partner_name'], j['partner_id'])
             

@@ -25,4 +25,5 @@ If you have modified default passwords in `secrets.yml`, generate the ciphers of
 $  curl http://mzworker0.sb:30080/config/encrypt -d  <string to be encrypted>
 ```
 The above command connects to config server pod on MZ cluster via ingress.
+You may also use script [here](../utils/secrets) to encrypt all secrets at once.
 
