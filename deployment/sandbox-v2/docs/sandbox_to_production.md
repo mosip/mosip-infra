@@ -65,6 +65,7 @@ Reprocessor frequency
 
 ## Activemq
 * Memory settings
+* High availability configuration
 
 ## On field operations/troublehshooting
 * If activemq is restarted then ABIS service may need a restart to connect to the Q again.
