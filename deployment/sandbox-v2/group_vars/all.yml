@@ -89,7 +89,9 @@ clusters:
       grafana_token_file: '{{tmp_dir}}/grafana_mz.token'
       grafana:
         alerts:
+          # channel name of slack for sending alerts, example:
           channel: prometheus_alerts
+          #webhook url of the same slack channel, example:
           url: https://hooks.slack.com/services/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
       elasticsearch:
         host: 'elasticsearch-master:9200'
