@@ -3,10 +3,10 @@
 - name: Create dashboard yml from template
   template:
     src:  dashboard.yml.j2
-    dest: '{{tmp_dir}}/{{cluster_name}}_dashboard_admin.yml'
+    dest: '{{tmp_yamls}}/dashboard_admin_{{cluster_name}}.yml'
 
 - name: 'Create {{cluster_name}} admin dashboard'
-  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{tmp_dir}}/{{cluster_name}}_dashboard_admin.yml'
+  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{tmp_yamls}}/dashboard_admin_{{cluster_name}}.yml'
   register: create_result_admin
   until: create_result_admin.rc == 0
   retries: 5
@@ -16,10 +16,10 @@
 - name: Create view-only dashboard from files
   copy:
     src: '{{install_root}}/roles/k8scluster/dashboard/files/view-dashboard.yaml'
-    dest: '{{tmp_dir}}/{{cluster_name}}_dashboard_view.yml'
+    dest: '{{tmp_yamls}}/dashboard_view_{{cluster_name}}.yml'
 
 - name: 'Create {{cluster_name}} view-only dashboard'
-  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{tmp_dir}}/{{cluster_name}}_dashboard_view.yml'
+  command: 'kubectl --kubeconfig={{kube_config}} apply -f {{tmp_yamls}}/dashboard_view_{{cluster_name}}.yml'
   register: create_result_view
   until: create_result_view.rc == 0
   retries: 5
@@ -27,7 +27,7 @@
   ignore_errors: true
 
 - name:  Get admin-dashboard token  
-  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} admin-user {{tmp_dir}}/{{cluster_name}}_dashboard_admin.token'
+  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} admin-user {{tmp_dir}}/dashboard_admin_{{cluster_name}}.token'
 
 - name: Get view-only dashboard token
-  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} view-user {{tmp_dir}}/{{cluster_name}}_dashboard_view.token'
+  shell: '{{install_root}}/utils/get_dashboard_token.py {{kube_config}} view-user {{tmp_dir}}/dashboard_view_{{cluster_name}}.token'

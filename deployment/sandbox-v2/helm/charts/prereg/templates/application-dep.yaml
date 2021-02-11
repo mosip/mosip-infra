@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.application.serviceName }} 
         image: {{ .Values.services.application.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.application.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -48,8 +50,6 @@ spec:
         ports:
         - containerPort: {{ .Values.services.application.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
-
         readinessProbe:
           httpGet:
             path: {{ .Values.services.application.healthUrl }} 
@@ -62,7 +62,3 @@ spec:
   #          port: {{ .Values.services.application.containerPort }} 
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }} 
-          
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}

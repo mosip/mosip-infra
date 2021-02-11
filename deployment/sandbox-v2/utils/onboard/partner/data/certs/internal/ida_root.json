@@ -1,0 +1,9 @@
+{
+    "type": "internal",
+    "module": "ida",
+    "app_id": "ROOT",
+    "ref_id": "",
+    "is_ca": true,
+    "cert_path": "certs/ida_root_ca/cert.pem",
+    "ca_cert" : ""
+}

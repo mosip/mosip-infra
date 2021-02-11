@@ -18,8 +18,8 @@ internalDomain: {{ clusters.mz.nodeport_node }}
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   admin: 
@@ -29,7 +29,8 @@ services:
     servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
-    podconfig: {{ podconfig.admin.service | to_yaml }} 
+    podconfig:
+      {{ podconfig.admin.service | to_nice_yaml(indent=6) | indent(6) }}
 
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}

@@ -1,4 +1,10 @@
 {
+  "id" : "mpolicy-default-abis",
+  "name" : "Default ABIS Partner",
+  "description" : "Mosip Abis Policy ",
+  "type" : "DataShare",
+  "policy_group": "abis_providers",
+  "def":{
     "dataSharePolicies": {
         "typeOfShare": "Data Share",
         "validForInMinutes": "30",
@@ -23,8 +29,7 @@
             }]
         }],
         "encrypted": false
-	}
-    ] 
-}
-
-
+        }
+    ]
+   }
+}  

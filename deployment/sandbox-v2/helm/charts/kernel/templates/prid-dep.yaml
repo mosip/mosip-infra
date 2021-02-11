@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.prid.serviceName }} 
         image: {{ .Values.services.prid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.prid.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
 #        # TODO: Correct docker - we have to write variables names explicitly
         - name: active_profile_env

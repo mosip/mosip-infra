@@ -2,8 +2,10 @@
 
 sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum install -y ansible
+ansible-galaxy collection install ansible.netcommon
 sudo yum install -y tmux 
 sudo yum install -y vim
+sudo yum install -y nano
 cp $HOME/mosip-infra/deployment/sandbox-v2/utils/tmux.conf $HOME/.tmux.conf
 
 echo "alias an='ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml'" >> $HOME/.bashrc

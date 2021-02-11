@@ -18,6 +18,7 @@ spec:
     metadata:
       labels:
         app: {{ template "metrics-server.name" . }}
+        exportLogs: {{ .Values.exportLogs }}
         release: {{ .Release.Name }}
         {{- if .Values.podLabels }}
 {{ toYaml .Values.podLabels | indent 8 }}

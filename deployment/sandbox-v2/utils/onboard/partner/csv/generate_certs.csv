@@ -1,4 +1,0 @@
-key_path,cert_path,is_ca,cn,org_name,country,province,locality,valid_days,ca_cert_path,ca_pvt_key_path
-certs/ca1/pvt_key.pem,certs/ca1/cert.pem,true,mosip.org,MOSIP Project,IN,Karantaka,Bangalore,365,,,,
-certs/mpartner-default-abis/pvt_key.pem,certs/mpartner-default-abis/cert.pem,false,mpartner-default-abis.com,Mpartner Default Abis,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem
-certs/mpartner-default-print/pvt_key.pem,certs/mpartner-default-print/cert.pem,false,mpartner-default-print.com,Mpartner Default Print,IN,Karnataka,Bangalore,365,certs/ca1/cert.pem,certs/ca1/pvt_key.pem

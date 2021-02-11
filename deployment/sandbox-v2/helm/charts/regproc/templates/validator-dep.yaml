@@ -29,6 +29,8 @@ spec:
       - name: {{ .Values.services.validator.serviceName }} 
         image: {{ .Values.services.validator.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.validator.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 

@@ -1,0 +1,33 @@
+# Onboard partners
+- hosts: console
+  tasks:
+    - name:  Create all certs
+      shell:
+        cmd: './create_certs.py  data/certs/ --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+
+    - name:  Upload policy groups 
+      shell:
+        cmd: './onboard.py policy_group data/policy_groups/ --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+
+    - name:  Upload policies
+      shell:
+        cmd: './onboard.py policy data/policies/ --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+
+    - name:  Add partners
+      shell:
+        cmd: './onboard.py partner data/partners/  --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+
+    - name:  Upload certs
+      shell:
+        cmd: './onboard.py upload_certs data/partners/ --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+
+    - name:  Map partner to policy 
+      shell:
+        cmd: './onboard.py partner_policy data/partners/ --server {{server}} {{options}}'
+        chdir: '{{install_root}}/utils/onboard/partner'
+

@@ -16,8 +16,8 @@ isGlowroot: {{ is_glowroot }}
 exportLogs: enabled  # Let filebeat export the logs
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   application:
@@ -27,7 +27,8 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1
     healthUrl: /preregistration/v1/actuator/health
-    podconfig: {{ podconfig.prereg.application | to_yaml }}
+    podconfig:
+      {{ podconfig.prereg.application | to_nice_yaml(indent=6) | indent(6) }}
   batch:
     serviceName: {{ versions.services.prereg.batch.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.batch.values()[0] }}
@@ -35,7 +36,8 @@ services:
     servicePort: 80
     ingressPath: ""
     #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?
-    podconfig: {{ podconfig.prereg.batch | to_yaml }}
+    podconfig:
+      {{ podconfig.prereg.batch | to_nice_yaml(indent=6) | indent(6) }}
   booking:
     serviceName: {{ versions.services.prereg.booking.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.booking.values()[0] }}
@@ -43,7 +45,8 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
-    podconfig: {{ podconfig.prereg.booking | to_yaml }}
+    podconfig:
+      {{ podconfig.prereg.booking | to_nice_yaml(indent=6) | indent(6) }}
   datasync:
     serviceName: {{ versions.services.prereg.datasync.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.datasync.values()[0] }}
@@ -51,15 +54,8 @@ services:
     servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
-    podconfig: {{ podconfig.prereg.datasync | to_yaml }}
-  captcha:
-    serviceName: {{ versions.services.prereg.captcha.keys()[0] }} 
-    dockerImage: {{ versions.services.prereg.captcha.values()[0] }}
-    containerPort: 9089
-    servicePort: 80
-    ingressPath: /preregistration/v1/captcha
-    healthUrl: /preregistration/v1/captcha/actuator/health
-    podconfig: {{ podconfig.prereg.captcha | to_yaml }}
+    podconfig:
+      {{ podconfig.prereg.datasync | to_nice_yaml(indent=6) | indent(6) }}
   ui:
     serviceName: {{ versions.services.prereg.ui.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.ui.values()[0] }}
@@ -68,5 +64,6 @@ services:
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui
-    podconfig: {{ podconfig.prereg.ui | to_yaml }}
+    podconfig:
+      {{ podconfig.prereg.ui | to_nice_yaml(indent=6) | indent(6) }}
     

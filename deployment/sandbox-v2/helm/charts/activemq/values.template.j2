@@ -1,14 +1,36 @@
 name: activemq
 docker:
-  image: mosipdev/activemq:5.15.9
+  image:  mosipdev/activemq:1.1.3
   containerPort: 61616
   nodeport: 30616
   min-memory: 512
   max-memory: 2048
-  storeusage: 2 gb
-  tempusage: 1 gb
+  storeusage: 16 gb
+  tempusage: 8 gb
   webPort: 8161
   servicePort: 80
 services:
   activemq:
-    podconfig: {{ podconfig.activemq.service | to_yaml }}
+    podconfig:
+      {{ podconfig.activemq.service | to_nice_yaml(indent=6) | indent(6) }}
+
+adminPassword: '' # Defined diretly in helm command 
+
+imagePullPolicy: Always 
+
+exportLogs: enabled  # Let filebeat export the logs
+
+sc:
+  name: ""
+pv:
+  name: activemq
+  size: 500Mi  
+pvc:
+  name: activemq
+  size: 500Mi 
+
+mountPath: /data/activemq  # path inside docker
+
+nfs:
+  server: {{ nfs.server }} 
+  path: {{ activemq.nfs_path }}

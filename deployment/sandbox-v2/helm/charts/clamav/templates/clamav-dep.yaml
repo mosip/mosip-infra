@@ -19,11 +19,14 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{  .Values.name }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.clamav.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         ports:
         - containerPort: {{ .Values.docker.containerPort }}
         readinessProbe:

@@ -15,8 +15,8 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   datashare:
@@ -26,4 +26,5 @@ services:
     servicePort: 80
     ingressPath: /v1/datashare
     healthUrl: /v1/datashare/actuator/health
-    podconfig: {{ podconfig.datashare.service | to_yaml }}
+    podconfig:
+      {{ podconfig.datashare.service | to_nice_yaml(indent=6) | indent(6) }}

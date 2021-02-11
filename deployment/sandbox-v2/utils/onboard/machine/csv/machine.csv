@@ -1,4 +1,0 @@
-machine_id,name,spec_name,serial_num,reg_center_id,zone,pub_key_path,sign_pub_key_path,validity,language
-10001,S540-14IWL,MX1,4564556,10001,NTH,keys/mainmac/pub.key,keys/mainmac/sign_pub.key,2022-11-27T01:18:46.611Z,eng
-10001,S540-14IWL,MX1,4564556,10001,NTH,keys/mainmac/pub.key,keys/mainmac/sign_pub.key,2022-11-27T01:18:46.611Z,ara
-

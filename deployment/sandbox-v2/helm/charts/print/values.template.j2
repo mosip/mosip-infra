@@ -10,11 +10,13 @@ probe:
   period: 30 # Seconds
 imagePullPolicy: Always
 
+exportLogs: enabled  # Let filebeat export the logs
+
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   print:
@@ -24,4 +26,5 @@ services:
     servicePort: 80
     ingressPath: /v1/print
     healthUrl: /v1/print/actuator/health
-    podconfig: {{ podconfig.print.service | to_yaml }}
+    podconfig:
+      {{ podconfig.print.service | to_nice_yaml(indent=6) | indent(6) }}

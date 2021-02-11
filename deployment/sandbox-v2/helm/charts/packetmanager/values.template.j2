@@ -6,6 +6,7 @@ configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 iamAdapterUrl: {{ iam_adapter_url }}
 exportLogs: enabled  # Let filebeat export the logs
+cache_provider: {{ cache_provider_url }}
 
 probe:
   initialDelay: 30  # Seconds
@@ -15,8 +16,8 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   packet:
@@ -26,4 +27,5 @@ services:
     servicePort: 80
     ingressPath: /commons/v1/packetmanager
     healthUrl: /commons/v1/packetmanager/actuator/health
-    podconfig: {{ podconfig.packetmanager.service | to_yaml }}
+    podconfig:
+      {{ podconfig.packetmanager.service | to_nice_yaml(indent=6) | indent(6) }}
