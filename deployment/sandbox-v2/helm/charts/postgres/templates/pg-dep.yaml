@@ -19,6 +19,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
 {{ if eq .Values.nodeAffinity.enabled true }}
       tolerations:
@@ -40,6 +41,8 @@ spec:
       - name: {{ .Values.name }} 
         image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
         args: ["-c", "max_connections={{ .Values.maxConnections }}"]
+        {{ $resources := .Values.services.postgres.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: POSTGRES_USER
           value: {{ .Values.user }}

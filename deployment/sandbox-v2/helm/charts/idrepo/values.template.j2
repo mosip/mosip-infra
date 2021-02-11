@@ -4,7 +4,6 @@ activeProfileEnv: mz
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 exportLogs: enabled  # Let filebeat export the logs
-biosdkServiceUrl: {{ biosdk_service_url }}
 
 ingress:
    namespace: default
@@ -12,6 +11,7 @@ artifactoryUrl: {{ artifactory_url }}
 sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
 biosdkServiceUrl: {{ biosdk_service_url }}
+
 probe:
   initialDelay: 60  # Seconds
   period: 30 # Seconds
@@ -20,8 +20,8 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 extraction_format: mock
 
@@ -34,7 +34,8 @@ services:
     servicePort: 80
     ingressPath: /idrepository/v1/identity 
     healthUrl: /idrepository/v1/identity/actuator/health
-    podconfig: {{ podconfig.idrepo.identity | to_yaml }}
+    podconfig:
+      {{ podconfig.idrepo.identity| to_nice_yaml(indent=6) | indent(6) }}
 
   vid: 
     serviceName: {{ versions.services.idrepo.vid.keys()[0] }} 
@@ -43,7 +44,8 @@ services:
     servicePort: 80
     ingressPath: /idrepository/v1/vid
     healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
-    podconfig: {{ podconfig.idrepo.vid | to_yaml }}
+    podconfig:
+      {{ podconfig.idrepo.vid | to_nice_yaml(indent=6) | indent(6) }}
 
   bioextractor:
     serviceName: {{ versions.services.idrepo.bioextractor.keys()[0] }}
@@ -52,7 +54,8 @@ services:
     servicePort: 80
     ingressPath: /v1/bioextractor/mock
     healthUrl: /v1/bioextractor/mock/actuator/health
-    podconfig: {{ podconfig.idrepo.bioextractor | to_yaml }}
+    podconfig:
+      {{ podconfig.idrepo.bioextractor | to_nice_yaml(indent=6) | indent(6) }}
 
   credentialrequest:
     serviceName: {{ versions.services.idrepo.credentialreq.keys()[0] }}
@@ -61,7 +64,8 @@ services:
     servicePort: 80
     ingressPath: /v1/credentialrequest
     healthUrl: /v1/credentialrequest/actuator/health
-    podconfig: {{ podconfig.idrepo.credentialreq | to_yaml }}
+    podconfig:
+      {{ podconfig.idrepo.credentialreq | to_nice_yaml(indent=6) | indent(6) }}
 
   credentialservice:
     serviceName: {{ versions.services.idrepo.credentialservice.keys()[0] }}
@@ -70,7 +74,8 @@ services:
     servicePort: 80
     ingressPath: /v1/credentialservice
     healthUrl: /v1/credentialservice/actuator/health
-    podconfig: {{ podconfig.idrepo.credentialservice | to_yaml }}
+    podconfig:
+      {{ podconfig.idrepo.credentialservice | to_nice_yaml(indent=6) | indent(6) }}
 
 generators:
   salt:  

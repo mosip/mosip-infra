@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.bioextractor.serviceName }} 
         image: {{ .Values.services.bioextractor.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.bioextractor.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -50,7 +52,6 @@ spec:
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 
-        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -65,6 +66,3 @@ spec:
  #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
  #         periodSeconds: {{ .Values.probe.period }}
  #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}

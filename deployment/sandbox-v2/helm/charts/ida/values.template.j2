@@ -20,8 +20,8 @@ sitePublicUrl: {{ site.sandbox_public_url }}
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   auth:
@@ -32,8 +32,9 @@ services:
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/auth
     healthUrl: /idauthentication/v1/auth/actuator/health
-    podconfig: {{ podconfig.ida.auth | to_yaml }}
     hsmClientZipPath: {{ hsm_client_zip_path }}
+    podconfig:
+      {{ podconfig.ida.auth | to_nice_yaml(indent=6) | indent(6) }}
 
   internal: 
     serviceName: {{ versions.services.ida.internal.keys()[0] }} 
@@ -43,8 +44,9 @@ services:
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/internal
     healthUrl: /idauthentication/v1/internal/actuator/health
-    podconfig: {{ podconfig.ida.internal | to_yaml }}
     hsmClientZipPath: {{ hsm_client_zip_path }}
+    podconfig:
+      {{ podconfig.ida.internal | to_nice_yaml(indent=6) | indent(6) }}
 
   kyc: 
     serviceName: {{ versions.services.ida.kyc.keys()[0] }} 
@@ -54,8 +56,9 @@ services:
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/kyc
     healthUrl: /idauthentication/v1/kyc/actuator/health
-    podconfig: {{ podconfig.ida.kyc | to_yaml }}
     hsmClientZipPath: {{ hsm_client_zip_path }}
+    podconfig:
+      {{ podconfig.ida.kyc | to_nice_yaml(indent=6) | indent(6) }}
 
   otp: 
     serviceName: {{ versions.services.ida.otp.keys()[0] }} 
@@ -65,8 +68,9 @@ services:
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/otp
     healthUrl: /idauthentication/v1/otp/actuator/health
-    podconfig: {{ podconfig.ida.kyc | to_yaml }}
     hsmClientZipPath: {{ hsm_client_zip_path }}
+    podconfig:
+      {{ podconfig.ida.otp | to_nice_yaml(indent=6) | indent(6) }}
 
 generators:
   keygen:  

@@ -1,0 +1,4 @@
+- import_playbook: onboard/partner.yml
+  vars:
+     server: '{{site.sandbox_internal_url}}'
+     options: '--disable_ssl_verify'

@@ -19,11 +19,14 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: Always
+        {{ $resources := .Values.services.config_server.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: SPRING_CLOUD_CONFIG_SERVER_GIT_SEARCHPATHS 
           value: {{ .Values.gitRepo.searchFolders }}

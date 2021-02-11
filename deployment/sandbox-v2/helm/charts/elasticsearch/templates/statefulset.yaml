@@ -30,6 +30,7 @@ spec:
         release: {{ .Release.Name | quote }}
         chart: "{{ .Chart.Name }}"
         app: "{{ template "elasticsearch.uname" . }}"
+        exportLogs: {{ .Values.exportLogs }}
         {{- range $key, $value := .Values.labels }}
         {{ $key }}: {{ $value | quote }}
         {{- end }}

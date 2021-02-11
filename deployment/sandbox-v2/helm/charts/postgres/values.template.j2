@@ -14,6 +14,8 @@ pv:
 sc: 
   name: ""
 
+exportLogs: enabled  # Let filebeat export the logs
+
 resources:
   requests:
     memory: 512Mi 
@@ -33,4 +35,5 @@ nodeAffinity:
 
 services:
   postgres:
-    podconfig: {{ podconfig.postgres.service | to_yaml }}
+    podconfig:
+      {{ podconfig.postgres.service | to_nice_yaml(indent=6) | indent(6) }}

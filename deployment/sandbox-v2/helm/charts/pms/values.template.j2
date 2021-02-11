@@ -18,8 +18,8 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   misp: 
@@ -29,7 +29,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/misps
     healthUrl: /partnermanagement/v1/misps/actuator/health
-    podconfig: {{ podconfig.pms.misp | to_yaml }}
+    podconfig:
+      {{ podconfig.pms.misp | to_nice_yaml(indent=6) | indent(6) }}
 
   pm:
     serviceName: {{ versions.services.pms.pm.keys()[0] }} 
@@ -38,7 +39,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/pmpartners
     healthUrl: /partnermanagement/v1/pmpartners/actuator/health
-    podconfig: {{ podconfig.pms.pm | to_yaml }}
+    podconfig:
+      {{ podconfig.pms.pm | to_nice_yaml(indent=6) | indent(6) }}
 
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }} 
@@ -47,7 +49,8 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/partners
     healthUrl: /partnermanagement/v1/partners/actuator/health
-    podconfig: {{ podconfig.pms.partner | to_yaml }}
+    podconfig:
+      {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
 
   policy:
     serviceName: {{ versions.services.pms.policy.keys()[0] }} 
@@ -56,4 +59,5 @@ services:
     servicePort: 80
     ingressPath: /partnermanagement/v1/policies
     healthUrl: /partnermanagement/v1/policies/actuator/health
-    podconfig: {{ podconfig.pms.policy | to_yaml }}
+    podconfig:
+      {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

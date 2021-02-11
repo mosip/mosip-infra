@@ -15,8 +15,8 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
 dockerHub:
-  private: {{ docker_hub.private }}  
-  keyname: {{ docker_hub.keyname }}
+  private: {{ docker.hub.private }}  
+  keyname: {{ docker.hub.keyname }}
 
 services:
   auth:
@@ -26,7 +26,9 @@ services:
     servicePort: 80
     ingressPath: /v1/authmanager
     healthUrl: /v1/authmanager/actuator/health
-    podconfig: {{ podconfig.kernel.auth | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.auth | to_nice_yaml(indent=6) | indent(6) }}
+
   masterdata:
     serviceName: {{ versions.services.kernel.masterdata.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.masterdata.values()[0] }}
@@ -34,7 +36,9 @@ services:
     servicePort: 80
     ingressPath: /v1/masterdata
     healthUrl: /v1/masterdata/actuator/health
-    podconfig: {{ podconfig.kernel.masterdata | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.masterdata | to_nice_yaml(indent=6) | indent(6) }}
+
   idgen:
     serviceName: {{ versions.services.kernel.idgen.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.idgen.values()[0] }}
@@ -42,7 +46,9 @@ services:
     servicePort: 80
     ingressPath: /v1/idgenerator 
     healthUrl: /v1/idgenerator/actuator/health
-    podconfig: {{ podconfig.kernel.idgen | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.idgen | to_nice_yaml(indent=6) | indent(6) }}
+
   prid:
     serviceName: {{ versions.services.kernel.prid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.prid.values()[0] }}
@@ -50,7 +56,9 @@ services:
     servicePort: 80
     ingressPath: /v1/pridgenerator
     healthUrl: /v1/pridgenerator/actuator/health
-    podconfig: {{ podconfig.kernel.prid | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.prid | to_nice_yaml(indent=6) | indent(6) }}
+
   sync:
     serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.sync.values()[0] }}
@@ -58,7 +66,9 @@ services:
     servicePort: 80
     ingressPath: /v1/syncdata 
     healthUrl: /v1/syncdata/actuator/health
-    podconfig: {{ podconfig.kernel.sync | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.sync | to_nice_yaml(indent=6) | indent(6) }}
+
   audit:
     serviceName: {{ versions.services.kernel.audit.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.audit.values()[0] }}
@@ -66,7 +76,9 @@ services:
     servicePort: 80
     ingressPath: /v1/auditmanager
     healthUrl: /v1/auditmanager/actuator/health
-    podconfig: {{ podconfig.kernel.audit | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.audit | to_nice_yaml(indent=6) | indent(6) }}
+
   key:
     serviceName: {{ versions.services.kernel.key.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.key.values()[0] }}
@@ -75,8 +87,10 @@ services:
     hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
-    podconfig: {{ podconfig.kernel.key | to_yaml }}
     hsmClientZipPath: {{ hsm_client_zip_path }}
+    podconfig:
+      {{ podconfig.kernel.key | to_nice_yaml(indent=6) | indent(6) }}
+
   notifier:
     serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.notifier.values()[0] }}
@@ -84,7 +98,9 @@ services:
     servicePort: 80
     ingressPath: /v1/notifier
     healthUrl: /v1/notifier/actuator/health
-    podconfig: {{ podconfig.kernel.notifier | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.notifier | to_nice_yaml(indent=6) | indent(6) }}
+
   otp:
     serviceName: {{ versions.services.kernel.otp.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.otp.values()[0] }}
@@ -92,7 +108,9 @@ services:
     servicePort: 80
     ingressPath: /v1/otpmanager 
     healthUrl: /v1/otpmanager/actuator/health
-    podconfig: {{ podconfig.kernel.otp | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.otp | to_nice_yaml(indent=6) | indent(6) }}
+
   rid:
     serviceName: {{ versions.services.kernel.rid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.rid.values()[0] }}
@@ -100,7 +118,9 @@ services:
     servicePort: 80
     ingressPath: /v1/ridgenerator 
     healthUrl: /v1/ridgenerator/actuator/health
-    podconfig: {{ podconfig.kernel.rid | to_yaml }}
+    podconfig:
+      {{ podconfig.kernel.rid | to_nice_yaml(indent=6) | indent(6) }}
+
 generators:
   keygen:
     name: {{ versions.services.kernel.keygen.keys()[0] }}

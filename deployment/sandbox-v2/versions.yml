@@ -43,7 +43,8 @@ versions:
     registration_client:
       downloader:
         'reg-client-downloader': 'mosipdev/registration-client:develop'
-      version: develop-SNAPSHOT
+      version: 1.2.0-SNAPSHOT
+
     regproc:
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
@@ -159,7 +160,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis-service': 'mosipdev/mock-abis:master'
+        'mock-abis': 'mosipdev/mock-abis:master'
 #      biosdk: 
 #        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
 

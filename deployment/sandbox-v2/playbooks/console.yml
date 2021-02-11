@@ -16,6 +16,7 @@
   tasks:
     - {name: 'Create tmp folder {{tmp_dir}}', file: {name: '{{tmp_dir}}', state: directory}}
     - {name: 'Create logs folder {{logs_dir}}', file: {name: '{{logs_dir}}', state: directory}}
+    - {name: 'Create tmp yaml folder {{tmp_yamls}}', file: {name: '{{tmp_yamls}}', state: directory}}
 
 - hosts: console
   gather_facts: true 
@@ -31,13 +32,15 @@
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: packages/policycoreutils-python, tags: [policy]}
-     - {role: packages/requests3}
+     - {role: packages/requests3, tags: [requests3]}
      - {role: packages/psycopg2}
      - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
      - {role: packages/pexpect, tags: [pexpect]}
      - {role: packages/jq, tags: [jq]}
+     - {role: packages/netaddr, tags: [netaddr]}
+     - {role: packages/ansible-vault, tags: [ansible-vault]}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
@@ -59,6 +62,7 @@
      - {role: packages/vim, tags: [vim]}
      - {role: packages/telnet, tags: [telnet]}
      - {role: packages/bind-utils, tags: [bind-utils]}  
+     - {role: packages/net-tools, tags: [net-tools]}
 
 # Change datetime of all machines to UTC
   vars:

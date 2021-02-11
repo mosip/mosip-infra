@@ -9,6 +9,8 @@ component: config-server
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
 
+exportLogs: enabled  # Let filebeat export the logs
+
 encryptKey: '' # Passed diretly via command line
 
 sandboxPublicUrl: {{ site.sandbox_public_url }}
@@ -37,4 +39,6 @@ localRepo:
 
 services:
   config_server:
-    podconfig: {{ podconfig.config_server.service | to_yaml }}
+    podconfig:
+      {{ podconfig.config_server.service | to_nice_yaml(indent=6) | indent(6) }}
+

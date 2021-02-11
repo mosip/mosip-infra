@@ -1,4 +1,0 @@
-cert_path,org_name,partner_domain,partner_id,partner_type,app_id
-certs/mpartner-default-auth/cert.pem,IITB,AUTH,mpartner-default-auth,Online_Verification_Partner,,
-certs/mpartner-default-abis/cert.pem,Mpartner Default Abis,AUTH,mpartner-default-abis,Auth_Partner,,
-certs/mpartner-default-print/cert.pem,Mpartner Default Print,AUTH,mpartner-default-print,Credential_Partner,CREDENTIAL_SERVICE

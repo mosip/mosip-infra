@@ -19,11 +19,14 @@ spec:
     metadata:
       labels:
         app: {{ .Values.services.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
       - name: {{ .Values.services.serviceName }}
         image: {{ .Values.services.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: hub_datasource_url_env
           value: {{ .Values.hub.datasource_url }}

@@ -1,0 +1,54 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.services.activemq.podconfig.replicas }} 
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  minReadySeconds: {{ .Values.services.activemq.podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.services.activemq.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.activemq.podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.docker.image }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.activemq.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        env:
+        - name: ACTIVEMQ_MIN_MEMORY
+          value: {{ .Values.docker.minmemory }}
+        - name: ACTIVEMQ_MAX_MEMORY
+          value: {{ .Values.docker.maxmemory }}
+        - name: ACTIVEMQ_STORAGE_USAGE 
+          value: {{ .Values.docker.storeusage }}
+        - name: ACTIVEMQ_TEMP_USAGE
+          value: {{ .Values.docker.tempusage }}
+        - name: ACTIVEMQ_ADMIN_LOGIN
+          value: admin
+        - name: ACTIVEMQ_ADMIN_PASSWORD
+          value: {{ .Values.adminPassword }} 
+        ports:
+        - containerPort: {{ .Values.docker.containerPort }} 
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+        volumeMounts:
+        - name: q-data
+          mountPath: {{ .Values.mountPath }} 
+      volumes:
+      - name: q-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }} 

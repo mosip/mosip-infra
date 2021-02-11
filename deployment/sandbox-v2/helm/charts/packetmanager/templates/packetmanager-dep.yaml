@@ -30,6 +30,8 @@ spec:
       - name: {{ .Values.services.packet.serviceName }} 
         image: {{ .Values.services.packet.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.packet.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -43,10 +45,11 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: cache_provider_url_env
+          value: {{ .Values.cache_provider }}
+
         ports:
         - containerPort: {{ .Values.services.packet.containerPort }}
-
-        {{- include "logger.mount" .  | indent 8}}
 
         readinessProbe:
           httpGet:
@@ -60,7 +63,3 @@ spec:
   #          port: {{ .Values.services.packet.containerPort }} 
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }}
-  #
-      {{- include "logger.sidecar" .  | indent 6}}
-
-      {{- include "logger.volume" .  | indent 6}}

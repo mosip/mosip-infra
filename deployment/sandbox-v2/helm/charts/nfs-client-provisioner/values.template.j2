@@ -10,6 +10,8 @@ image:
   tag: v3.1.0-k8s1.11
   pullPolicy: IfNotPresent
 
+exportLogs: enabled  # Let filebeat export the logs
+
 nfs:
   server: '{{nfs.server}}'
   path: '{{nfs.folder}}' 
