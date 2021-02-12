@@ -145,7 +145,7 @@ postgres:
   port: 30090 # hardcoded node port for postgres  
   user: postgres 
   password: '{{secrets.postgres.su}}'
-  init: false  # Initialize db. Set it to false in production after initializing once.
+  init: true  # Initialize db. Set it to false in production after initializing once.
 
   # All below configs applicable only when external: false 
   internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
