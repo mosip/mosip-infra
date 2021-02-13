@@ -22,6 +22,10 @@
     enabled: true
   become: yes
 
+- name: Run docker
+  shell: 'systemctl restart docker'
+  become: yes
+
 - name: Copy daemon.json to /etc/docker
   template:
     src: daemon.json.j2
