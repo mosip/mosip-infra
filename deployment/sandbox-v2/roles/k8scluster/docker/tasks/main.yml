@@ -22,6 +22,10 @@
   when: add_registry is defined and add_registry > 0
   lineinfile: dest={{ system_env_dir }}/docker regexp=^ADD_REGISTRY= line=ADD_REGISTRY="{% for reg in add_registry %}--add-registry={{ reg }} {%endfor %}"
 
+- name: Run docker
+  shell: 'systemctl restart docker'
+  become: yes
+
 - name: Copy daemon.json to /etc/docker
   template: src=daemon.json.j2 dest=/etc/docker/daemon.json
 
