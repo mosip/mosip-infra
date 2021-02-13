@@ -5,6 +5,8 @@
     name: python-virtualenv 
     state: present
   become: yes
+- name: Upgrade pip to latest
+  command: '{{ansible_env.HOME}}/.venv-py3/bin/pip install --upgrade pip'
 
 - name: Install certbot in python3 virtual environment 
   pip:
@@ -20,6 +22,14 @@
     version: '{{certbot_nginx_version}}' 
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
+
+#- name: Create python3 virtual environment
+#  command:
+#    cmd: 'virtualenv {{ansible_env.HOME}}/.venv-py3'
+#    creates: "{{ansible_env.HOME}}/.venv-py3/bin/pip"
+#
+#- name: Upgrade pip to latest
+#  command: '{{ansible_env.HOME}}/.venv-py3/bin/pip install --upgrade pip'
 
 - name: run certbot 
   command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d "{{sandbox_domain_name}}"'
