@@ -586,31 +586,66 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
  
     pm:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
 
     partner:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
  
     policy:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
 
   packetmanager:
     service:
-      replicas: 1
+      replicas: 3 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 4000Mi
+        limits:
+          cpu: 500m
+          memory: 4000Mi
   
   resident:
     service:
@@ -656,10 +691,17 @@ podconfig:
   
   datashare:
     service:
-      replicas: 1
+      replicas: 2 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
   docker_service:
     service:
