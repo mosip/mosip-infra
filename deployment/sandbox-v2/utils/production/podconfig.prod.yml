@@ -516,34 +516,69 @@ podconfig:
 
   idrepo:
     identity:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
     vid: 
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     bioextractor:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
     credentialreq:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 1000m
+          memory: 2000Mi
 
     credentialservice:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
   pms:
     misp: 
