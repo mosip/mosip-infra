@@ -60,7 +60,7 @@ versions:
       demo:
         'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.1.3'
       bio:
-        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.3'
+        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.4'
       bioauth:
         'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.1.3'
       abishandler:
@@ -147,7 +147,7 @@ versions:
 
     datashare:
       service:
-        'datashare-service': 'mosipid/data-share-service:1.1.3'
+        'datashare-service': 'mosipid/data-share-service:1.1.4'
 
     print:
       service:
