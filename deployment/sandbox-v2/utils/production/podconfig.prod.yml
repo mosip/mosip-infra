@@ -370,55 +370,109 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     camel:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     status:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     pktserver:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
   prereg:
     application:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      requests:
+        cpu: 200m
+        memory: 4000Mi
+      limits:
+        cpu: 1000m
+        memory: 4000Mi
 
     batch:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      requests:
+        cpu: 200m
+        memory: 40Mi
+      limits:
+        cpu: 500m
+        memory: 40Mi
   
     booking:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
  
     datasync:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     ui:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1  
+      requests:
+        cpu: 200m
+        memory: 300Mi
+      limits:
+        cpu: 500m
+        memory: 300Mi
 
   ida:
     auth:
@@ -428,10 +482,16 @@ podconfig:
       maxSurge: 1 
 
     internal: 
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     kyc: 
       replicas: 1
