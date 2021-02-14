@@ -41,6 +41,8 @@ spec:
           value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
         ports:
