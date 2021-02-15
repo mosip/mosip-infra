@@ -74,4 +74,11 @@ Ingress runs as a daemonset on all nodes.
 
 1. TODO: if ingress runs as nodeport, and if one worker is down, how does external nginx switch to another?
 
-
+1. Set up rancher server for [external TLS termination](https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/chart-options/#external-tls-termination).  Mention public domain name of your cluster node machine:
+```
+helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=<node public domain name> --set tls=external
+```
+Then access the rancher UI on your browser with
+```
+http://<node public domain name>
+```
