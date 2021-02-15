@@ -6,6 +6,11 @@
     state: present
   become: yes
 
+- name: Create python3 virtual environment
+  command:
+    cmd: virtualenv {{ansible_env.HOME}}/.venv-py3 -p python3
+    creates: "{{ansible_env.HOME}}/.venv-py3/bin/pip"
+
 - name: Upgrade pip to latest
   command: '{{ansible_env.HOME}}/.venv-py3/bin/pip install --upgrade pip'
 
