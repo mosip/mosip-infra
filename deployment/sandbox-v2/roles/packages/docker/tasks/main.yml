@@ -14,6 +14,7 @@
     name: docker-ce-*
     update_cache: true
     state: present
+
   become: yes
 
 - name: Autostart service docker after reboot
@@ -30,6 +31,10 @@
   template:
     src: daemon.json.j2
     dest: /etc/docker/daemon.json
+  become: yes
+
+- name: Restart docker for daemon.json changes
+  shell: 'systemctl restart docker'
   become: yes
 
 - name: Install docker py
