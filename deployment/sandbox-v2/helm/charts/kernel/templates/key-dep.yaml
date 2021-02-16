@@ -8,16 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: {{ .Values.services.key.podconfig.replicas }}
+  {{ $podconfig := .Values.services.key.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.key.serviceName }} 
-  minReadySeconds: {{ .Values.services.key.podconfig.minReadySeconds }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.key.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.key.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -30,8 +31,7 @@ spec:
       - name: {{ .Values.services.key.serviceName }} 
         image: {{ .Values.services.key.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.key.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: zip_file_path
           value: {{ .Values.services.key.hsmClientZipPath }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.key.containerPort }}
         readinessProbe:
