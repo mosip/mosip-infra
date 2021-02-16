@@ -270,24 +270,28 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     internal: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     kyc: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      java_opts: "-Xms500M -Xmx500M"
 
     otp: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
   idrepo:
     identity:
@@ -295,30 +299,35 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     vid: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     bioextractor:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     credentialreq:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      java_opts: "-Xms500M -Xmx500M"
 
     credentialservice:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      java_opts: "-Xms500M -Xmx500M"
 
   pms:
     misp: 
@@ -326,24 +335,28 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
  
     pm:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
 
     partner:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
  
     policy:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
 
   packetmanager:
     service:
@@ -351,6 +364,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
   
   resident:
     service:
@@ -358,6 +372,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
   
   activemq:
     service:
@@ -372,6 +387,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
 
   artifactory:
     service:
@@ -400,6 +416,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
 
   docker_service:
     service:

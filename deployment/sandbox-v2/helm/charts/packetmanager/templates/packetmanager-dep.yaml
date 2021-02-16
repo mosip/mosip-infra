@@ -8,16 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: {{ .Values.services.packet.podconfig.replicas }}
+  {{ $podconfig := .Values.services.packet.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.packet.serviceName }} 
-  minReadySeconds: {{ .Values.services.packet.podconfig.minReadySeconds }}
+      app: {{ .Values.services.packet.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.packet.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.packet.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -30,8 +31,7 @@ spec:
       - name: {{ .Values.services.packet.serviceName }} 
         image: {{ .Values.services.packet.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.packet.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -47,7 +47,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: cache_provider_url_env
           value: {{ .Values.cache_provider }}
-
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.packet.containerPort }}
 
