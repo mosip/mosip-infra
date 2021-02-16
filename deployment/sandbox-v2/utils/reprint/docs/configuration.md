@@ -19,7 +19,7 @@ rps_debug='y'
 # Credentials for generating authentication token for accessing APIs
 rps_app_id="resident"
 rps_client_id = "mpartner-default-print"
-rps_secret_key = "abc123"
+rps_secret_key = ""
 
 # Credentials for database connection
 rps_db_host = 'qa3.mosip.net'
