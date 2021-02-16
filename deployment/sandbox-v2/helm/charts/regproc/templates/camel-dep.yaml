@@ -6,16 +6,17 @@ metadata:
   labels:
     app: {{ .Values.services.camel.serviceName }}
 spec:
-  replicas: {{ .Values.services.camel.podconfig.replicas }}
+  {{ $podconfig := .Values.services.camel.podconfig }} 
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.camel.serviceName }} 
-  minReadySeconds: {{ .Values.services.camel.podconfig.minReadySeconds }}
+      app: {{ .Values.services.camel.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.camel.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.camel.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -28,8 +29,7 @@ spec:
       - name: {{ .Values.services.camel.serviceName }} 
         image: {{ .Values.services.camel.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.camel.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -43,6 +43,8 @@ spec:
           value: secure 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.camel.ports.eventbusPort }}
