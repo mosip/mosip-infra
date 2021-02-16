@@ -5,16 +5,17 @@ metadata:
   name: {{.Values.services.ui.serviceName}}
   namespace: default
 spec:
-  replicas: {{ .Values.services.ui.podconfig.replicas }}
+  {{ $podconfig := .Values.services.ui.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{.Values.services.ui.serviceName}}
-  minReadySeconds: {{ .Values.services.ui.podconfig.minReadySeconds }}
+      app: {{ .Values.services.ui.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.ui.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.ui.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -26,8 +27,10 @@ spec:
       - name: {{.Values.services.ui.serviceName}}
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.ui.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
+        env:
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.ui.containerPort }} 
         readinessProbe:
