@@ -24,6 +24,6 @@ rps_secret_key = "abc123"
 # Credentials for database connection
 rps_db_host = 'qa3.mosip.net'
 rps_db_port = '30090'
-rps_db_user = 'postgres'
-rps_db_pass = 'mosip123'
+rps_db_user = ''
+rps_db_pass = ''
 ```
