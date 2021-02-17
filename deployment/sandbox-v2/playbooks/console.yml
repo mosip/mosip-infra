@@ -28,6 +28,7 @@
      - {role: packages/pexpect, tags: [pexpect]}
      - {role: packages/jq, tags: [jq]}
      - {role: packages/netaddr, tags: [netaddr]}
+     - {role: packages/psycopg2}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
