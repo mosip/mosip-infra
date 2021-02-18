@@ -40,7 +40,17 @@ class MosipSession:
         token = readToken(r)
         return token
 
-    def credentialRequest(self, vid):
+    def getUin(self, vid):
+        myPrint("Get uin from vid api called")
+        url = '%s/idrepository/v1/identity/idvid/%s' % (self.server, vid)
+        cookies = {'Authorization': self.token}
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
+        resp = self.parseResponse(r)
+        if conf.debug:
+            myPrint("Response: "+dictToJson(resp))
+        return resp
+
+    def credentialRequest(self, vidInfo):
         myPrint("addApplication api called")
         url = '%s/v1/credentialrequest/requestgenerator' % self.server
         cookies = {'Authorization': self.token}
@@ -48,11 +58,14 @@ class MosipSession:
         j = {
             "id": "mosip.credentialrequest",
             "request": {
-                "additionalData": {},
+                "additionalData": {
+                    'center_id': vidInfo['center_id'],
+                    'timestamp': vidInfo['timestamp']
+                },
                 "credentialType": conf.credential_type,
                 "encrypt": False,
                 "encryptionKey": "",
-                "id": vid,
+                "id": vidInfo['vid'],
                 "issuer": conf.partner_id,
                 "recepiant": "",
                 "sharableAttributes": [],

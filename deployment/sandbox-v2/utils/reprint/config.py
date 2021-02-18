@@ -7,9 +7,15 @@ partner_id = os.getenv("rps_partner_id")
 ssl_verify = True if os.getenv("rps_ssl_verify") == 'y' else False
 debug = True if os.getenv("rps_debug") == 'y' else False
 
-app_id = os.getenv("rps_app_id")
-client_id = os.getenv("rps_client_id")
-secret_key = os.getenv("rps_secret_key")
+ida_app_id = os.getenv("rps_ida_app_id")
+ida_client_id = os.getenv("rps_ida_client_id")
+ida_secret_key = os.getenv("rps_ida_secret_key")
+
+regproc_app_id = os.getenv("rps_regproc_app_id")
+regproc_client_id = os.getenv("rps_regproc_client_id")
+regproc_secret_key = os.getenv("rps_regproc_secret_key")
+
+idrepo_modulo = int(os.getenv("rps_idrepo_modulo"))
 
 # Database
 db_host = os.getenv("rps_db_host")

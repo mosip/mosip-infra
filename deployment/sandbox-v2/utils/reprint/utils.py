@@ -21,6 +21,7 @@ def readToken(response):
 
     return None
 
+
 def myPrint(msg, head=None):
     if msg is None:
         return
@@ -180,3 +181,9 @@ def match(reg, st):
     regex = r".*(%s).*" % re.escape(reg)
     m = re.match(regex, st, re.DOTALL)
     return True if m else False
+
+
+def ridToCenterTimestamp(rid):
+    center_id = rid[:5]
+    timestamp = rid[-14:-10] + '-' + rid[-10:-8] + '-' + rid[-8:-6] + ' ' + rid[-6:-4] + ':' + rid[-4:-2] + ':' + rid[-2:]
+    return center_id, timestamp

@@ -16,10 +16,17 @@ rps_ssl_verify='y'
 # Debug flag, if its 'y', then the script will generate additional logs
 rps_debug='y'
 
-# Credentials for generating authentication token for accessing APIs
-rps_app_id="resident"
-rps_client_id = "mpartner-default-print"
-rps_secret_key = ""
+# Credentials for generating authentication token for credential request services
+rps_ida_app_id="ida"
+rps_ida_client_id = ""
+rps_ida_secret_key = ""
+
+# Credentials for generating authentication token for getting additional info using VID
+rps_regproc_app_id="regproc"
+rps_regproc_client_id = ""
+rps_regproc_secret_key = ""
+
+rps_idrepo_modulo="1000"
 
 # Credentials for database connection
 rps_db_host = 'qa3.mosip.net'
