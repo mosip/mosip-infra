@@ -24,5 +24,6 @@ generatedDataFolderPath = os.path.abspath(
 
 # result paths
 vidListPath = os.path.join(generatedDataFolderPath, 'vidList.json')
+credentialPreparedDataPath = os.path.join(generatedDataFolderPath, 'credentialPreparedData.json')
 runResult = os.path.join(generatedDataFolderPath, 'runResult.json')
 vidRequestId = os.path.join(generatedDataFolderPath, 'vidRequestId.json')
