@@ -50,27 +50,14 @@ class MosipSession:
             myPrint("Response: "+dictToJson(resp))
         return resp
 
-    def credentialRequest(self, vidInfo):
+    def credentialRequest(self, request):
         myPrint("addApplication api called")
         url = '%s/v1/credentialrequest/requestgenerator' % self.server
         cookies = {'Authorization': self.token}
         ts = getTimestamp()
         j = {
             "id": "mosip.credentialrequest",
-            "request": {
-                "additionalData": {
-                    'center_id': vidInfo['center_id'],
-                    'timestamp': vidInfo['timestamp']
-                },
-                "credentialType": conf.credential_type,
-                "encrypt": False,
-                "encryptionKey": "",
-                "id": vidInfo['vid'],
-                "issuer": conf.partner_id,
-                "recepiant": "",
-                "sharableAttributes": [],
-                "user": "re_print_script"
-            },
+            "request": request,
             "requesttime": ts,
             "version": "1.0"
         }

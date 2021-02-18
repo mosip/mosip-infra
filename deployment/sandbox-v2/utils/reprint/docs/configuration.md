@@ -28,6 +28,10 @@ rps_regproc_secret_key = ""
 
 rps_idrepo_modulo="1000"
 
+# Script will check whether the same request for credential issue has been sent or not within {rps_time_filter_in_seconds} seconds
+# If script finds same request in db where time < now - {rps_time_filter_in_seconds} seconds, then script will not fire credential issuance
+rps_time_filter_in_seconds="1000"
+
 # Credentials for database connection
 rps_db_host = 'qa3.mosip.net'
 rps_db_port = '30090'

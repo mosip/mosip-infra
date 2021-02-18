@@ -1,6 +1,6 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
-
+import config as conf
 
 class DatabaseSession:
     def __init__(self, host, port, user, pwd):
@@ -12,6 +12,8 @@ class DatabaseSession:
         self.idmap_conn.autocommit = True
         self.idrepo_conn = self.createConnection(host, port, user, pwd, 'mosip_idrepo')
         self.idrepo_conn.autocommit = True
+        self.cred_conn = self.createConnection(host, port, user, pwd, 'mosip_credential')
+        self.cred_conn.autocommit = True
 
     @staticmethod
     def createConnection(host, port, user, pwd, db):
@@ -44,6 +46,14 @@ class DatabaseSession:
         """, [hash])
         return cur.fetchone()
 
+    def checkRequestInCredentialTransaction(self, req):
+        cur = self.cred_conn.cursor(cursor_factory=RealDictCursor)
+        cur.execute("""
+        select id from credential_transaction where request=%s and cr_dtimes > now() - INTERVAL '%s seconds';
+        """, [req, conf.time_filter_in_seconds])
+        return cur.fetchone()
+
     def closeAll(self):
         self.idrepo_conn.close()
         self.idmap_conn.close()
+        self.cred_conn.close()

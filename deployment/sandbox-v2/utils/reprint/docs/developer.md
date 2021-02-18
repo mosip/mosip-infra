@@ -17,7 +17,7 @@ Input: generatedData/vidList.json
 Output: generatedData/credentialPreparedData.json
 
 ### Re-print request
-Execute the creadential request for each VID
+Execute the credential request for each VID
 
 _Command: python3 main.py reprint_
 

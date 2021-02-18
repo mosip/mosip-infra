@@ -1,5 +1,6 @@
 import argparse
 import hashlib
+import json
 import sys
 import traceback
 
@@ -14,7 +15,7 @@ load_dotenv(dotenv_path=envPath)
 
 from api import MosipSession
 from db import DatabaseSession
-from utils import initLogger, myPrint, writeJsonFile, getJsonFile, ridToCenterTimestamp
+from utils import initLogger, myPrint, writeJsonFile, getJsonFile, ridToCenterTimestamp, getTimeInSec, timeDiff
 import config as conf
 
 
@@ -27,10 +28,11 @@ def args_parse():
 
 def main():
     args, parser = args_parse()
-
     initLogger(logPath)
+    start_time = getTimeInSec()
     db = DatabaseSession(conf.db_host, conf.db_port, conf.db_user, conf.db_pass)
     try:
+        prev_time = start_time
         if args.action == 'get_vids' or args.action == 'all':
             myPrint("Action: get_vids", 1)
             vids = []
@@ -38,14 +40,15 @@ def main():
             for vid_dict in vid_dicts:
                 vids.append(vid_dict['vid'])
             writeJsonFile(vidListPath, vids)
-
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action get_vids: " + prstr, 11)
         if args.action == 'fetch_info' or args.action == 'all':
             output = []
-            myPrint("Action: get uin by vid", 1)
+            myPrint("Action: fetch_info", 1)
             ms = MosipSession(conf.server, conf.regproc_client_id, conf.regproc_secret_key, conf.regproc_app_id)
             vids = getJsonFile(vidListPath)
             for vid in vids:
-                myPrint("Operating on VID "+vid)
+                myPrint("Operating on VID "+vid, 3)
                 res = ms.getUin(vid)
                 uin = res['identity']['UIN']
                 if conf.debug:
@@ -81,6 +84,8 @@ def main():
                 else:
                     raise RuntimeError("salt not found for for modulo: " + str(modulo))
             writeJsonFile(credentialPreparedDataPath, output)
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action fetch_info: " + prstr, 11)
 
         if args.action == 'reprint' or args.action == 'all':
             myPrint("Action: reprint", 1)
@@ -88,19 +93,44 @@ def main():
             vids = getJsonFile(credentialPreparedDataPath)
             ms = MosipSession(conf.server, conf.ida_client_id, conf.ida_secret_key, conf.ida_app_id)
             for vidInfo in vids:
-                resp = ms.credentialRequest(vidInfo)
-                output.append(resp)
+                myPrint("VID: "+vidInfo['vid'], 3)
+                data = {
+                    "id": vidInfo['vid'],
+                    "credentialType": conf.credential_type,
+                    "issuer": conf.partner_id,
+                    "recepiant": "",
+                    "user": "re_print_script",
+                    "encrypt": False,
+                    "encryptionKey": "",
+                    "sharableAttributes": [],
+                    "additionalData": {
+                        'centerId': vidInfo['center_id'],
+                        'creationDate': vidInfo['timestamp'],
+                        'registrationId': vidInfo['rid']
+                    }
+                }
+                json_data = json.dumps(data, separators=(',', ':'))
+                myPrint(json_data)
+                if db.checkRequestInCredentialTransaction(json_data) is None:
+                    resp = ms.credentialRequest(data)
+                    output.append(resp)
+                else:
+                    myPrint("Skipping credential request", 11)
             writeJsonFile(vidRequestId, output)
             myPrint('Input VIDs: ' +  str(len(vids)), 12)
             myPrint('Output RequestIds: ' + str(len(output)), 12)
-
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action reprint: " + prstr, 11)
         db.closeAll()
     except:
         db.closeAll()
+        prev_time, prstr = timeDiff(start_time)
+        myPrint("Total time taken by the script: " + prstr, 11)
         formatted_lines = traceback.format_exc()
         myPrint(formatted_lines, 13)
         sys.exit(1)
-
+    prev_time, prstr = timeDiff(start_time)
+    myPrint("Total time taken by the script: " + prstr, 11)
     return sys.exit(0)
 
 

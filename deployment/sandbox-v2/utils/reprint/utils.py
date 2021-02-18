@@ -185,5 +185,25 @@ def match(reg, st):
 
 def ridToCenterTimestamp(rid):
     center_id = rid[:5]
-    timestamp = rid[-14:-10] + '-' + rid[-10:-8] + '-' + rid[-8:-6] + ' ' + rid[-6:-4] + ':' + rid[-4:-2] + ':' + rid[-2:]
+    timestamp = rid[-14:-10] + '-' + rid[-10:-8] + '-' + rid[-8:-6] + 'T' + rid[-6:-4] + ':' + rid[-4:-2] + ':' + rid[
+                                                                                                                  -2:] + ".000Z"
     return center_id, timestamp
+
+
+def getTimeInSec():
+    return round(time.time() * 1000)
+
+
+def timeDiff(prev_millis):
+    curr_millis = getTimeInSec()
+    diff = curr_millis - prev_millis
+    seconds, milliseconds = divmod(diff, 1000)
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    return curr_millis, pPrint(hours) + " hours, " + pPrint(minutes) + " minutes, " + pPrint(
+        seconds + milliseconds / 1000) + " seconds"
+
+
+def pPrint(s):
+    return s if isinstance(s, str) else pprint.pformat(s)

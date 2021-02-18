@@ -16,6 +16,7 @@ regproc_client_id = os.getenv("rps_regproc_client_id")
 regproc_secret_key = os.getenv("rps_regproc_secret_key")
 
 idrepo_modulo = int(os.getenv("rps_idrepo_modulo"))
+time_filter_in_seconds = int(os.getenv("rps_time_filter_in_seconds"))
 
 # Database
 db_host = os.getenv("rps_db_host")
