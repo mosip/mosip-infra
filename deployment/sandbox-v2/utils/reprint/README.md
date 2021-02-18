@@ -6,9 +6,8 @@
 * MOSIP deployment on a VM
 
 ## How to setup & run
-* Go to v1 folder
+* Create a .env inside reprint folder and copy the contents of .env.example file to .env file. Update the properties according. For more info, check [configuration parameters](./docs/configuration.md)
 * Download dependencies: `pip3 install -r requirements.txt`
-* Update [configuration parameters](./docs/configuration.md)
 * Run script: `python3 main.py all`
 
 ## How to customize
