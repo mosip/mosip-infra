@@ -1,4 +1,4 @@
-# Configuration (config.py)
+# Configuration (.env)
 
 ```text
 # Mosip host
