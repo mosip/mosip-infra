@@ -7,16 +7,17 @@ metadata:
     app: {{ .Values.services.manual.serviceName }}
     
 spec:
-  replicas: {{ .Values.services.manual.podconfig.replicas }}
+  {{ $podconfig := .Values.services.manual.podconfig }} 
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.manual.serviceName }} 
-  minReadySeconds: {{ .Values.services.manual.podconfig.minReadySeconds }}
+      app: {{ .Values.services.manual.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.manual.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.manual.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -29,8 +30,7 @@ spec:
       - name: {{ .Values.services.manual.serviceName }} 
         image: {{ .Values.services.manual.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.manual.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -42,6 +42,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.manual.ports.eventbusPort }}

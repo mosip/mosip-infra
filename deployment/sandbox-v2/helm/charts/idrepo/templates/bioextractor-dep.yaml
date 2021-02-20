@@ -8,16 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: {{ .Values.services.bioextractor.podconfig.replicas }}
+  {{ $podconfig := .Values.services.bioextractor.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.bioextractor.serviceName }} 
-  minReadySeconds: {{ .Values.services.bioextractor.podconfig.minReadySeconds }}
+      app: {{ .Values.services.bioextractor.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.bioextractor.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.bioextractor.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -30,8 +31,7 @@ spec:
       - name: {{ .Values.services.bioextractor.serviceName }} 
         image: {{ .Values.services.bioextractor.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.bioextractor.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: mosip_biosdk_service
           value: {{ .Values.biosdkServiceUrl }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.bioextractor.containerPort }}
 
