@@ -26,9 +26,9 @@
     ```
 1.  Run the script as below:
     ```
-    $ ./partner.py <action>
+    $ ./onboard.py <action>
     For actions see help. The actions here map to steps above:
-    $ ./partner.py --help
+    $ ./onboard.py --help
     ```
 1. The steps are illustrated in [onboard playbook](../../../playbooks/onboard/partner.yml)
 

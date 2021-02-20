@@ -36,3 +36,7 @@
     state: started
     enabled: yes
   register: started_docker
+
+- name: Restart docker for daemon.json changes
+  shell: 'systemctl restart docker'
+  become: yes
