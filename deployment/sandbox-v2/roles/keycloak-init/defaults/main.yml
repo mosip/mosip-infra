@@ -23,6 +23,7 @@ keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-datsha-client', secret: 'abc123'}
   - {realm_id: 'mosip', client_id: 'mosip-abis-client', secret: 'abc123'}
   - {realm_id: 'mosip', client_id: 'mosip-creser-idpass-client', secret: 'abc123'}
+  - {realm_id: 'mosip', client_id: 'mosip-pms-client', secret: 'abc123'}
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}
@@ -423,3 +424,4 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'METADATA_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'CREATE_SHARE'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'CREDENTIAL_REQUEST'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-pms-client', role_name: 'PARTNER_ADMIN'}
