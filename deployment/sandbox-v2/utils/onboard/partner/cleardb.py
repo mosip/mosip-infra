@@ -4,7 +4,7 @@
 from db import *
 
 PG_USER = 'postgres'
-PG_PWD = 'mosip123'
+PG_PWD = ''
 PG_HOST = 'mzworker0.sb'
 PG_PORT = 30090 
 

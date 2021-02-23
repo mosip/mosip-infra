@@ -8,6 +8,10 @@ Install required packages using
 ```
 $ ./preinstall.sh
 ```
+## Config
+1. Set the `server` url in `config.py`
+1. If the url has HTTPS and server SSL certificate is self-signed then set `ssl_verify=False`.
+1. Set all environment variables.
 
 ## Run
 The script takes Registration Ids (RIDs) as input. Provide RID directly as argument or via a file. Example:
