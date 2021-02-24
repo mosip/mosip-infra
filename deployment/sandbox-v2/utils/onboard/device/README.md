@@ -14,7 +14,7 @@ NOTE: Device type and sub type are  somewhat "hardcoded" - so don't change them.
 ## config.py
 1. Set the `server` url in `config.py`
 1. If the url has HTTPS and server SSL certificate is self-signed then set `ssl_verify=False`.
-1. Set `postgres` parameters.
+1. Set `postgres` parameters as environmet variables.
 
 ### Device spec
 * **id**: Unique id
