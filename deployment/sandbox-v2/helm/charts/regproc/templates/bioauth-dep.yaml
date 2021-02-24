@@ -7,16 +7,17 @@ metadata:
     app: {{ .Values.services.bioauth.serviceName }}
     
 spec:
-  replicas: {{ .Values.services.bioauth.podconfig.replicas }}
+  {{ $podconfig := .Values.services.bioauth.podconfig }} 
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.bioauth.serviceName }} 
-  minReadySeconds: {{ .Values.services.bioauth.podconfig.minReadySeconds }}
+      app: {{ .Values.services.bioauth.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.bioauth.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.bioauth.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -29,8 +30,7 @@ spec:
       - name: {{ .Values.services.bioauth.serviceName }} 
         image: {{ .Values.services.bioauth.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.bioauth.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -42,6 +42,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.bioauth.ports.eventbusPort }}

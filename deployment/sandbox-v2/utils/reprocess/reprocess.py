@@ -4,11 +4,13 @@ import sys
 import traceback
 import argparse
 import csv
+import time
 import config as conf
 from api import *
+from db import *
 from utils import *
 
-def reprocess_packets(rids):
+def reprocess_packets(rids, delay):
     '''
     rids:  List of rids
     '''
@@ -16,6 +18,7 @@ def reprocess_packets(rids):
     for rid in rids:
         r = session.notify_securezone(rid)
         myprint(r)
+        time.sleep(delay)
 
 def read_rids(filename):
     '''
@@ -25,12 +28,19 @@ def read_rids(filename):
     rids = [r.strip() for r in rids]  # Strip newline char
     rids = [r for r in rids if len(r) != 0]  # Filter empty lines
     return rids
+
+def fetch_rids_from_db(query):
+    db = DB(conf.db_user, conf.db_pwd, conf.db_host, conf.db_port, 'mosip_regprc') 
+    rids = db.get_rids(query)
+    rids = [r[0] for r in rids] 
+    return rids
    
 def args_parse(): 
    parser = argparse.ArgumentParser()
    group = parser.add_mutually_exclusive_group(required=True)
    group.add_argument('--rid', type=str,  help='RID to be processed')
    group.add_argument('--file', type=str,  help='File containing newline seperated list of RIDs')
+   group.add_argument('--db', action='store_true',  help='Query db and get RIDs')
    parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
@@ -51,11 +61,13 @@ def main():
        rids = [args.rid]
     elif args.file:
       rids = read_rids(args.file)
+    elif args.db:
+      rids = fetch_rids_from_db(conf.query)
     else:    
        parser.print_usage()
        
     try:
-       reprocess_packets(rids) 
+       reprocess_packets(rids, conf.delay) 
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)

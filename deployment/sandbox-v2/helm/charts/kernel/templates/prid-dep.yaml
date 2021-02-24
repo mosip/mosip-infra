@@ -8,16 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: {{ .Values.services.prid.podconfig.replicas }}
+  {{ $podconfig := .Values.services.prid.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.services.prid.serviceName }} 
-  minReadySeconds: {{ .Values.services.prid.podconfig.minReadySeconds }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: {{ .Values.services.prid.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.prid.podconfig.maxSurge }}
+    rollingUpdate: 
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -30,8 +31,7 @@ spec:
       - name: {{ .Values.services.prid.serviceName }} 
         image: {{ .Values.services.prid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.prid.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
 #        # TODO: Correct docker - we have to write variables names explicitly
         - name: active_profile_env
@@ -44,6 +44,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.prid.containerPort }}
         readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
