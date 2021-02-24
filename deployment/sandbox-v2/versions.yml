@@ -93,7 +93,7 @@ versions:
       status:
         'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:develop'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipdev/registration-processor-dmz-packet-server:1.0.9'
+        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
         
     ida:
       auth:
@@ -131,7 +131,6 @@ versions:
       policy:
         'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:develop'
 
-
     resident: 
       resident:  
         'resident-service': 'mosipdev/resident-service:develop'
@@ -156,14 +155,14 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipdev/websub-service:develop'
+        'websub-service': 'mosipid/websub-service:1.1.4'
 
     mock:
       abis:
-        'mock-abis': 'mosipdev/mock-abis:master'
+        'mock-abis': 'mosipid/mock-abis:1.1.4'
 #      biosdk: 
-#        'mock-biosdk-service': 'ankitvaishnav/sdk-services:latest'
+#        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
     artifactory:
       service:
-        'artifactory-service': 'mosipdev/artifactory-server:1.1.4'
+        'artifactory-service': 'mosipid/artifactory-server:develop'

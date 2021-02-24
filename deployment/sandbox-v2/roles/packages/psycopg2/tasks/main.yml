@@ -8,5 +8,5 @@
   pip:
     name: psycopg2-binary
     state: present
-    executable: /bin/pip3
+    executable: /bin/pip2
   become: yes

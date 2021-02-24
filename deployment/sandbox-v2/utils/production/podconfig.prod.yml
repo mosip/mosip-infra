@@ -370,55 +370,118 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     camel:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     status:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     pktserver:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
   prereg:
     application:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 4000Mi
+        limits:
+          cpu: 1000m
+          memory: 4000Mi
 
     batch:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 40Mi
+        limits:
+          cpu: 500m
+          memory: 40Mi
   
     booking:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
  
     datasync:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     ui:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1  
+      resources:
+        requests:
+          cpu: 200m
+          memory: 300Mi
+        limits:
+          cpu: 500m
+          memory: 300Mi
 
   ida:
     auth:
@@ -428,10 +491,16 @@ podconfig:
       maxSurge: 1 
 
     internal: 
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      requests:
+        cpu: 200m
+        memory: 1000Mi
+      limits:
+        cpu: 500m
+        memory: 1000Mi
 
     kyc: 
       replicas: 1
@@ -447,34 +516,69 @@ podconfig:
 
   idrepo:
     identity:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
     vid: 
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
     bioextractor:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
     credentialreq:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 1000m
+          memory: 2000Mi
 
     credentialservice:
-      replicas: 1
+      replicas: 2 
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
+      resources:
+        requests:
+          cpu: 200m
+          memory: 2000Mi
+        limits:
+          cpu: 500m
+          memory: 2000Mi
 
   pms:
     misp: 
@@ -482,31 +586,66 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
  
     pm:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
 
     partner:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
  
     policy:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 500Mi
+        limits:
+          cpu: 300m
+          memory: 500Mi
 
   packetmanager:
     service:
-      replicas: 1
+      replicas: 3 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 4000Mi
+        limits:
+          cpu: 500m
+          memory: 4000Mi
   
   resident:
     service:
@@ -552,10 +691,17 @@ podconfig:
   
   datashare:
     service:
-      replicas: 1
+      replicas: 2 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1000Mi
+        limits:
+          cpu: 500m
+          memory: 1000Mi
 
   docker_service:
     service:

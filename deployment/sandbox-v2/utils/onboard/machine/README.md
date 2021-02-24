@@ -23,7 +23,7 @@ Master DB records any text info associated with machines as sepearate rows for e
 ## Config
 1. Set the `server` url in `config.py`
 1. If the url has HTTPS and server SSL certificate is self-signed then set `ssl_verify=False`.
-1. Set postgres parameters.
+1. Set postgres parameters as envrionment variables.
 
 ## Run
 ```

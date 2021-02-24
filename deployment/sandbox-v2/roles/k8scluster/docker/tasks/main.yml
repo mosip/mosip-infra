@@ -23,7 +23,8 @@
   lineinfile: dest={{ system_env_dir }}/docker regexp=^ADD_REGISTRY= line=ADD_REGISTRY="{% for reg in add_registry %}--add-registry={{ reg }} {%endfor %}"
 
 - name: Run docker
-  command: 'systemctl restart docker'
+  shell: 'systemctl restart docker'
+  become: yes
 
 - name: Copy daemon.json to /etc/docker
   template: src=daemon.json.j2 dest=/etc/docker/daemon.json
@@ -35,3 +36,7 @@
     state: started
     enabled: yes
   register: started_docker
+
+- name: Restart docker for daemon.json changes
+  shell: 'systemctl restart docker'
+  become: yes

@@ -8,16 +8,17 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
-  replicas: {{ .Values.services.vid.podconfig.replicas }}
+  {{ $podconfig := .Values.services.vid.podconfig }}
+  replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.vid.serviceName }} 
-  minReadySeconds: {{ .Values.services.vid.podconfig.minReadySeconds }}
+      app: {{ .Values.services.vid.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.vid.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.vid.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -30,8 +31,7 @@ spec:
       - name: {{ .Values.services.vid.serviceName }} 
         image: {{ .Values.services.vid.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.vid.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -45,6 +45,8 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.vid.containerPort }}
 

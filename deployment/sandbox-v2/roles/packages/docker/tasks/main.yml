@@ -14,6 +14,7 @@
     name: docker-ce-*
     update_cache: true
     state: present
+
   become: yes
 
 - name: Autostart service docker after reboot

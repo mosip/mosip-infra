@@ -24,8 +24,6 @@
      - {role: packages/vim, tags: [vim]}
      - {role: packages/pip, tags: [pip]}
      - {role: packages/python3, tags: [python3]} # Needed for letsencrypt and test scripts
-     - {role: packages/jinja2, tags: [jinja2]}
-     - {role: packages/pyyaml, tags: [pyyaml]}
      - {role: packages/docker, tags: [docker]}
      - {role: packages/kubectl, tags: [kubectl]}
      - {role: packages/psql, tags: [psql]}
@@ -33,14 +31,12 @@
      - {role: packages/helm-cli, tags: [helm-cli]}
      - {role: packages/policycoreutils-python, tags: [policy]}
      - {role: packages/requests3, tags: [requests3]}
-     - {role: packages/psycopg2}
-     - {role: packages/crypto, tags: [crypto]}
      - {role: packages/tmux, tags: [tmux]}
      - {role: packages/bind-utils, tags: [bind-utils]}
      - {role: packages/pexpect, tags: [pexpect]}
      - {role: packages/jq, tags: [jq]}
      - {role: packages/netaddr, tags: [netaddr]}
-     - {role: packages/ansible-vault, tags: [ansible-vault]}
+     - {role: packages/psycopg2}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
