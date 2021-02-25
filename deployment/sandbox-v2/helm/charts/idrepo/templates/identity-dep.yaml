@@ -12,7 +12,7 @@ spec:
   replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.credentialservice.serviceName }}
+      app: {{ .Values.services.identity.serviceName }}
   minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
