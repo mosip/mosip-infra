@@ -122,17 +122,9 @@ versions:
         'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:develop'
 
     pms:
-      misp: 
-        'pms-misp-service': 'mosipdev/pmp-misp-service:develop'
-      pm:
-        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:develop'
       partner:
-        'pms-partner-service': 'mosipdev/pmp-partner-service:develop'
-      policy:
-        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:develop'
-      partner1:
         'pms-partner-manager-service': 'mosipdev/partner-management-service:develop'
-      policy1:
+      policy:
         'pms-policy-manager-service': 'mosipdev/policy-management-service:develop'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
