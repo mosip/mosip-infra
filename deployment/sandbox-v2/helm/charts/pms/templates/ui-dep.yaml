@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.services.ui.serviceName}}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.services.ui.serviceName}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{.Values.services.ui.serviceName}}
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{.Values.services.ui.serviceName}}
+        image: {{ .Values.services.ui.dockerImage  }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }} 
+        ports:
+        - containerPort: {{ .Values.services.ui.containerPort }} 
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.services.ui.containerPort }}  # All defaults used
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.services.ui.containerPort }}  # All defaults used
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
