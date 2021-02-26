@@ -61,3 +61,31 @@ services:
     healthUrl: /partnermanagement/v1/policies/actuator/health
     podconfig:
       {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}
+
+  partner1:
+    serviceName: {{ versions.services.pms.partner1.keys()[0] }}
+    dockerImage: {{ versions.services.pms.partner1.values()[0] }}
+    containerPort: 9109
+    servicePort: 80
+    ingressPath: /v1/partnermanager
+    healthUrl: /v1/partnermanager/actuator/health
+    podconfig:
+      {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
+
+  policy1:
+    serviceName: {{ versions.services.pms.policy1.keys()[0] }}
+    dockerImage: {{ versions.services.pms.policy1.values()[0] }}
+    containerPort: 9107
+    servicePort: 80
+    ingressPath: /v1/policymanager
+    healthUrl: /v1/policymanager/actuator/health
+    podconfig:
+      {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
+
+  ui:
+    serviceName: {{ versions.services.pms.ui.keys()[0] }}
+    dockerImage: {{ versions.services.pms.ui.values()[0] }}
+    containerPort: 80
+    servicePort: 80
+    apiHost: {{ site.sandbox_public_url }}/v1/
+    ingressPath: /pmp-ui
