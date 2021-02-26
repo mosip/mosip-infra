@@ -47,6 +47,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: cache_provider_url_env
           value: {{ .Values.cache_provider }}
+        - name: cache_config_url_env
+          value: {{ .Values.cacheConfigUrl }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:

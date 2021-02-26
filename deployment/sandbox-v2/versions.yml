@@ -169,4 +169,4 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:develop'
+        'artifactory-service': 'mosipdev/artifactory-server:develop'
