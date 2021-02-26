@@ -112,8 +112,6 @@ versions:
         'idrepo-identity-service': 'mosipdev/id-repository-identity-service:develop'
       vid: 
         'idrepo-vid-service': 'mosipdev/id-repository-vid-service:develop'
-      bioextractor:
-        'idrepo-bioextractor-service': 'mosipdev/bioextractor-service:develop'
       credentialreq:
         'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:develop'
       credentialservice:
