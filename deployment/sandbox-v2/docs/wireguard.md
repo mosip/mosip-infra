@@ -89,8 +89,15 @@ Client OS may be different from CentOS 7, so whichever OS is it, you may install
 		AllowedIPs = 0.0.0.0/0
 		PersistentKeepalive = 21
 	```
-4. Start wireguard on client:
-	``` $ sudo wg-quick up wg0-client```
+**Note**:
+ - Endpoint is optional here. It'll be updated automatically at the time of handshake.
+ - Allowed IPs with value ```0.0.0.0/0``` will route all the traffic through the wireguard interface and will disable SSH if client is a VM.
+ - Allowed IPs may be replaced with alternate address available as follows:  
+      - If client is inside subnet of server: internal IP of server may be used.
+      - If client is outside subnet in some other network: external IP of server may be used. 
+
+4. Start wireguard on client : ``` $ sudo wg-quick up wg0-client```
+
 ### Note:
 - To stop WireGuard on server: 
 	``` $ sudo wg-quick down  wg0```
