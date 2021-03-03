@@ -1,7 +1,8 @@
 
+#install specific cryptography version since >3.4 releases have rust dependency that throws an error.
 - name: Install python3 cryptography
   pip:
-    name: cryptography
+    name: cryptography==3.3.2
     state: present
     executable: /bin/pip3
   become: yes
