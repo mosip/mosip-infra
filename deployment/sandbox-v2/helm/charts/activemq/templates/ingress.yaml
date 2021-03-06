@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.name }}
@@ -10,6 +10,9 @@ spec:
   - http:
       paths:
       - path: /activemq/admin
+        pathType: ImplementationSpecific
         backend:
-          serviceName: {{ .Values.name }}
-          servicePort: {{ .Values.docker.webPort }}
+          service:
+            name: {{ .Values.name }}
+            port: 
+              number: {{ .Values.docker.webPort }}
