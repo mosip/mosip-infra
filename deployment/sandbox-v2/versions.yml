@@ -46,44 +46,7 @@ versions:
       version: 1.2.0-SNAPSHOT
 
     regproc:
-      camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.5'
-      notification: 
-        'regproc-securezone-notification-stage': 'mosipdev/registration-processor-securezone-notification-stage:1.1.5'
-      uploader:
-        'regproc-packet-uploader-stage': 'mosipdev/registration-processor-packet-uploader-stage:1.1.5'
-      quality:
-        'regproc-quality-checker-stage': 'mosipdev/registration-processor-quality-checker-stage:1.1.5'
-      validator:
-        'regproc-packet-validator-stage': 'mosipdev/registration-processor-packet-validator-stage:1.1.5'
-      osi:
-        'regproc-osi-validator-stage': 'mosipdev/registration-processor-osi-validator-stage:1.1.5'
-      demo:
-        'regproc-demo-dedupe-stage': 'mosipdev/registration-processor-demo-dedupe-stage:1.1.5'
-      bio:
-        'regproc-bio-dedupe-stage': 'mosipdev/registration-processor-bio-dedupe-stage:1.1.5'
-      bioauth:
-        'regproc-biometric-authentication-stage': 'mosipdev/registration-processor-biometric-authentication-stage:1.1.5'
-      abishandler:
-        'regproc-abis-handler-stage': 'mosipdev/registration-processor-abis-handler-stage:1.1.5'
-      abismid:
-        'regproc-abis-middleware-stage': 'mosipdev/registration-processor-abis-middleware-stage:1.1.5'
-      manual:
-        'regproc-manual-verification-stage': 'mosipdev/registration-processor-manual-verification-stage:1.1.5'
-      external:
-        'regproc-external-stage': 'mosipdev/registration-processor-external-stage:1.1.5'
-      eis: 
-        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:1.1.5'
-      uin:
-        'regproc-uin-generator-stage': 'mosipdev/registration-processor-uin-generator-stage:1.1.5'
-      msg:
-        'regproc-message-sender-stage': 'mosipdev/registration-processor-message-sender-stage:1.1.5'
-      print:
-        'regproc-printing-stage': 'mosipdev/registration-processor-printing-stage:1.1.5'
-      trans:
-        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:1.1.5'
-      reprocess:
-        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:1.1.5'
+      vertex: 'mosip-vertex-executor:1.1.5'
 
     dmzregproc:  
       receiver:
