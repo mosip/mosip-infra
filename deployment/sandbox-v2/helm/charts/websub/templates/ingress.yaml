@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.component }}
@@ -11,7 +11,10 @@ spec:
   - http:
       paths:
       - path: /websub
+        pathType: ImplementationSpecific
         backend:
-          serviceName: {{ .Values.services.serviceName }}
-          servicePort: 80 
+          service:
+            name: {{ .Values.services.serviceName }}
+            port: 
+              number: 80 
 
