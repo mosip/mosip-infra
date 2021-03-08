@@ -3,12 +3,12 @@
 ## AWS
 * Install nginx ingress as
 ```
-$ kubectl create namespace nginx-ingress
-$ helm -n nginx-ingress install nginx-ingress bitnami/nginx-ingress-controller -f values.yaml
+$ kubectl create namespace ingress-nginx
+$ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
 ```
 * AWS will assign a Loadbalancer that can be seen as:
 ```
-$ kubectl -n nginx-ingress get svc
+$ kubectl -n ingress-nginx get svc
 ```
 * TLS termination is supposed to be on Loadbalancer.  So all our traffic coming to ingress controller shall be HTTP.
 * Note that we are not using ingress controller provided by AWS, but installing nginx ingress controller] as above.  Good discussion [here](https://itnext.io/kubernetes-ingress-controllers-how-to-choose-the-right-one-part-1-41d3554978d2). See also [this](https://blog.getambassador.io/configuring-kubernetes-ingress-on-aws-dont-make-these-mistakes-1a602e430e0a)  
