@@ -1,0 +1,13 @@
+global:
+  storageClass: gp2-retain
+ingress:
+  enabled: true
+  hostname: api.minibox.mosip.net
+  annotations: {}
+service:
+  type: ClusterIP
+
+proxyAddressForwarding: true
+
+auth:
+  adminPassword: bitnami
