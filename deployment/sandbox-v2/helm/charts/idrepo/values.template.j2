@@ -47,16 +47,6 @@ services:
     podconfig:
       {{ podconfig.idrepo.vid | to_nice_yaml(indent=6) | indent(6) }}
 
-  bioextractor:
-    serviceName: {{ versions.services.idrepo.bioextractor.keys()[0] }}
-    dockerImage: {{ versions.services.idrepo.bioextractor.values()[0] }}
-    containerPort: 8100
-    servicePort: 80
-    ingressPath: /v1/bioextractor/mock
-    healthUrl: /v1/bioextractor/mock/actuator/health
-    podconfig:
-      {{ podconfig.idrepo.bioextractor | to_nice_yaml(indent=6) | indent(6) }}
-
   credentialrequest:
     serviceName: {{ versions.services.idrepo.credentialreq.keys()[0] }}
     dockerImage: {{ versions.services.idrepo.credentialreq.values()[0] }}

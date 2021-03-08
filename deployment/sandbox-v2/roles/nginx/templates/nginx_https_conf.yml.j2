@@ -217,6 +217,18 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/pmpartners/;
         }
 
+        location /pmp-ui/ {
+          proxy_pass http://mzworker0.sb:30080/pmp-ui/;
+        }
+
+        location /v1/policymanager/ {
+          proxy_pass http://mzworker0.sb:30080/v1/policymanager/;
+        }
+
+        location /v1/partnermanager/ {
+           proxy_pass http://mzworker0.sb:30080/v1/partnermanager/;
+        }
+
         location /mz-dashboard/ { # note: https needed here
            proxy_pass https://{{clusters.mz.nodeport_node}}:{{clusters.mz.dashboard.nodeport}}/;
         }

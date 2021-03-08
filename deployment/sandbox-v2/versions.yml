@@ -112,8 +112,6 @@ versions:
         'idrepo-identity-service': 'mosipdev/id-repository-identity-service:develop'
       vid: 
         'idrepo-vid-service': 'mosipdev/id-repository-vid-service:develop'
-      bioextractor:
-        'idrepo-bioextractor-service': 'mosipdev/bioextractor-service:develop'
       credentialreq:
         'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:develop'
       credentialservice:
@@ -130,6 +128,12 @@ versions:
         'pms-partner-service': 'mosipdev/pmp-partner-service:develop'
       policy:
         'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:develop'
+      partner1:
+        'pms-partner-manager-service': 'mosipdev/partner-management-service:develop'
+      policy1:
+        'pms-policy-manager-service': 'mosipdev/policy-management-service:develop'
+      ui:
+        'pms-ui': 'mosipdev/pmp-ui:develop'
 
     resident: 
       resident:  
@@ -165,4 +169,4 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:develop'
+        'artifactory-service': 'mosipdev/artifactory-server:develop'

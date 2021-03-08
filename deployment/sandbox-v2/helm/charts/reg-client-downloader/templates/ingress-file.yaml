@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.serviceName }}
@@ -11,7 +11,10 @@ spec:
   - http:
       paths:
       - path: /registration-client
+        pathType: ImplementationSpecific
         backend:
-          serviceName: {{ .Values.serviceName }}
-          servicePort: 80 
+          service:
+            name: {{ .Values.serviceName }}
+            port: 
+              number: 80 
 

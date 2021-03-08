@@ -313,13 +313,6 @@ podconfig:
       maxSurge: 1 
       java_opts: "-Xms500M -Xmx500M"
 
-    bioextractor:
-      replicas: 1
-      minReadySeconds: 10
-      maxUnavailable: 0
-      maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
-
     credentialreq:
       replicas: 1
       minReadySeconds: 10
