@@ -1,13 +1,14 @@
 global:
-  storageClass: gp2-retain
+  storageClass: gp2  # Use gp2-retain for retaining storage 
+
 ingress:
   enabled: true
-  hostname: api.minibox.mosip.net
-  annotations: {}
+  hostname: iam.mosip.net  # Change this as per your domain name
+
 service:
   type: ClusterIP
 
 proxyAddressForwarding: true
 
 auth:
-  adminPassword: bitnami
+  adminPassword: bitnami # Change this  
