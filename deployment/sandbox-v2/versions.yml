@@ -125,7 +125,7 @@ versions:
       policy:
         'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5'
       ui:
-        'pms-ui': 'mosipdev/pmp-ui:1.1.5'
+        'pms-ui': 'mosipdev/pmp-ui:develop'
 
     resident: 
       resident:  
