@@ -43,7 +43,7 @@ versions:
     registration_client:
       downloader:
         'reg-client-downloader': 'mosipdev/registration-client:1.1.5'
-      version: 1.2.0-SNAPSHOT
+      version: 1.1.5-SNAPSHOT
 
     regproc:
       camel:
@@ -125,7 +125,7 @@ versions:
       policy:
         'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5'
       ui:
-        'pms-ui': 'mosipdev/pmp-ui:1.1.5'
+        'pms-ui': 'mosipdev/pmp-ui:develop'
 
     resident: 
       resident:  

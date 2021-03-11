@@ -328,6 +328,7 @@ databases:
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
+    dml_path: '{{repos.ref_impl.dest}}/data-dml'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
