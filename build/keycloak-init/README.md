@@ -6,7 +6,11 @@ After Keycloak is installed, it needs to be populated with base data that is nee
 
 ## Prerequisites
 * Keycloak server must be running and available via a url like `https://iam.xyz.net/auth/`.
-* Updated `input` file
+* Updated `input.yaml` file
+* Install `pyyaml`
+```
+$ sudo pip3 install pyyaml
+```
 
 ## Script
 * Help

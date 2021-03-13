@@ -1,12 +1,11 @@
 #!/usr/local/bin/python3
-# Usage: python pykey.py <server URL>
-# Example:
-# python pykey.py https://iam.mosip.net/auth/
+# Script to initialize values in Keycloak
 
 import sys
 import ast
 import argparse
 import json
+import yaml
 import traceback
 from keycloak import KeycloakAdmin
 from keycloak.exceptions import KeycloakGetError
@@ -52,10 +51,10 @@ class KeycloakSession:
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com/auth/.  Note slash is important')  
+   parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com/auth/.  Note: slash is important')  
    parser.add_argument('user', type=str, help='Admin user')
    parser.add_argument('password', type=str, help='Admin password')
-   parser.add_argument('input_file', type=str, help='File containing input for roles and clients')
+   parser.add_argument('input_yaml', type=str, help='File containing input for roles and clients in YAML format')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
    return args
@@ -66,23 +65,24 @@ def main():
     server_url = args.server_url 
     user = args.user
     password = args.password
-    input_file = args.input_file
+    input_yaml = args.input_yaml
 
     ssl_verify = True
     if args.disable_ssl_verify:
         ssl_verify = False
 
-    realm_dict = ast.literal_eval(open(input_file, 'rt').read())
+    fp = open(input_yaml, 'rt')
+    values = yaml.load(fp, Loader=yaml.FullLoader)
     try:
         print('Create realms')
         ks = KeycloakSession('master', server_url, user, password, ssl_verify)
-        for realm in realm_dict:
+        for realm in values:
             r = ks.create_realm(realm)  # {realm : [role]}
 
-        for realm in realm_dict:
+        for realm in values:
             ks = KeycloakSession('master', server_url, user, password, ssl_verify)
             print('Create roles for realm %s' % realm) 
-            roles = realm_dict[realm]['roles']
+            roles = values[realm]['roles']
             for role in roles:
                 r = ks.create_role(realm, role)
     except:
