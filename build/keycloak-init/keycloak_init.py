@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 # Usage: python pykey.py <server URL>
 # Example:
 # python pykey.py https://iam.mosip.net/auth/
@@ -72,17 +72,17 @@ def main():
     if args.disable_ssl_verify:
         ssl_verify = False
 
-    realm_roles_dict = ast.literal_eval(open(input_file, 'rt').read())
+    realm_dict = ast.literal_eval(open(input_file, 'rt').read())
     try:
         print('Create realms')
         ks = KeycloakSession('master', server_url, user, password, ssl_verify)
-        for realm in realm_roles_dict:
+        for realm in realm_dict:
             r = ks.create_realm(realm)  # {realm : [role]}
 
-        for realm in realm_roles_dict:
+        for realm in realm_dict:
             ks = KeycloakSession('master', server_url, user, password, ssl_verify)
             print('Create roles for realm %s' % realm) 
-            roles = realm_roles_dict[realm]
+            roles = realm_dict[realm]['roles']
             for role in roles:
                 r = ks.create_role(realm, role)
     except:
