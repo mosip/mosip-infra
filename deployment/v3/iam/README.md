@@ -1,7 +1,7 @@
 # Keycloak
 
 * Make sure ingress controller is running with service type as LoadBalancer
-* There is a external domain name like 'iam.mosip.net' that is forwarded to the LoadBalancer
+* There is an external domain name like 'iam.mosip.net' that is forwarded to the LoadBalancer
 * Change postgres PV policy to `Retain` if you would like to persist keycloak data. This can be achived by setting 'gp2-retain' storage class defined in `sc.yaml`.
 * Update `values.yaml` appropriately
 * Run
