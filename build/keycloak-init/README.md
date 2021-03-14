@@ -31,6 +31,10 @@ $ docker push <your docker registry >/keycloak-init:<tag>
 ## Run
 Refer to helm chart for details on environment variables to be passed to run the docker
 
-
+## Helm
+* Update
+```
+$ help dependency update
+```
 
 
