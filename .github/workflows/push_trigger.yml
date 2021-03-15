@@ -12,7 +12,7 @@ jobs:
     env: 
       NAMESPACE: ${{ secrets. dev_namespace_docker_hub }}
       SERVICE_NAME: keycloak-init
-      SERVICE_LOCATION: keycloak-init
+      SERVICE_LOCATION: build/keycloak-init
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
