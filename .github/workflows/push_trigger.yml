@@ -3,7 +3,7 @@ name: Maven Package upon a push
 on:
   push:
     branches:
-      - MOSIP-12492
+      - develop
   
 jobs:
 
