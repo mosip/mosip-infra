@@ -4,7 +4,7 @@ webcenter/activemq:latest  on Docker Hub.
 
 ## Documentation bug
 
-The parameters mentioned in documentation is incorret.  Here are some params from the code inside `/opt/activemq`:
+The parameters mentioned are documentation is incorret.  Here are some params from the code inside `/opt/activemq`:
 
 ```
   # We set the main parameters
