@@ -6,6 +6,11 @@ RUN pip3 install xlrd
 WORKDIR /home/mosip/repos/db_scripts
 COPY ./repos/commons/db_scripts .
 COPY ./repos/pre-registration/db_scripts .
+COPY ./repos/registration/db_scripts .
+COPY ./repos/id-repository/db_scripts .
+COPY ./repos/id-authentication/db_scripts .
+COPY ./repos/partner-management-services/db_scripts .
+COPY ./repos/websub/db_scripts .
 ENV MOSIP_DB_NAME=
 ENV DB_SERVERIP=
 ENV DB_PORT=5432
