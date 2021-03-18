@@ -46,11 +46,22 @@ versions:
       version: 1.2.0-SNAPSHOT
 
     regproc:
-      vertex: 'mosip-vertex-executor:1.1.5'
+      preprocstagegroup:
+        'regproc-preproc-stage-group': 'mosipid/pre-processor-stage-group:1.1.5'
+      coreprocstagegroup:
+        'regproc-preproc-stage-group': 'mosipid/core-processor-stage-group:1.1.5'
+      postprocstagegroup:
+        'regproc-preproc-stage-group': 'mosipid/post-processor-stage-group:1.1.5'
+      camel:
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.5'
+      eis: 
+        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:1.1.5'
+      trans:
+        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:1.1.5'
 
     dmzregproc:  
-      receiver:
-        'regproc-packet-receiver-stage': 'mosipdev/registration-processor-packet-receiver-stage:1.1.5'
+      initstagegroup:
+        'regproc-init-stage-group': 'mosipid/init-stage-group:1.1.5'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.5'
       status:

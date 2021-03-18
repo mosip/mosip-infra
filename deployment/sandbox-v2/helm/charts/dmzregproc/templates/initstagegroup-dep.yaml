@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.receiver.serviceName }} 
+  name: {{ .Values.services.initstagegroup.serviceName }} 
   namespace: {{ .Release.Namespace }} 
   labels:
-    app: {{ .Values.services.receiver.serviceName }}
+    app: {{ .Values.services.initstagegroup.serviceName }}
 spec:
-  {{ $podconfig := .Values.services.receiver.podconfig }}
+  {{ $podconfig := .Values.services.initstagegroup.podconfig }}
   replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.receiver.serviceName }}
+      app: {{ .Values.services.initstagegroup.serviceName }}
   minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
@@ -20,14 +20,14 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.services.receiver.serviceName }} 
+        app: {{ .Values.services.initstagegroup.serviceName }} 
         component: service-hazelcast-server
         exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
-      - name: {{ .Values.services.receiver.serviceName }} 
-        image: {{ .Values.services.receiver.dockerImage }}
+      - name: {{ .Values.services.initstagegroup.serviceName }} 
+        image: {{ .Values.services.initstagegroup.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
@@ -44,23 +44,23 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: eventbus-port
-          containerPort: {{ .Values.services.receiver.ports.eventbusPort }}
         - name: hazelcast-port
-          containerPort: {{ .Values.services.receiver.ports.hazelcastPort }}
-        - name: verticle-port
+          containerPort: {{ .Values.services.initstagegroup.ports.hazelcastPort }}
+        - name: receiver-eventbus-port
+          containerPort: {{ .Values.services.receiver.ports.eventbusPort }}
+        - name: receiver-verticle-port
           containerPort: {{ .Values.services.receiver.ports.containerPort }}
 
 #        readinessProbe:
 #          httpGet:
-#            path: {{ .Values.services.receiver.healthUrl }} 
-#            port: {{ .Values.services.receiver.ports.containerPort }} 
+#            path: {{ .Values.services.initstagegroup.healthUrl }} 
+#            port: {{ .Values.services.initstagegroup.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
  #       livenessProbe:
  #         httpGet:
- #           path: {{ .Values.services.receiver.healthUrl }} 
- #           port: {{ .Values.services.receiver.ports.containerPort }} 
+ #           path: {{ .Values.services.initstagegroup.healthUrl }} 
+ #           port: {{ .Values.services.initstagegroup.ports.containerPort }} 
  #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
  #         periodSeconds: {{ .Values.probe.period }} 
         volumeMounts:
