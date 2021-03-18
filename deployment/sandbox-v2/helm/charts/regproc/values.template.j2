@@ -58,7 +58,12 @@ services:
       eventbusPort: 5750
       hazelcastPort: 5701
       containerPort: 8021
-    ingressPath: '' 
+      eventUpdateEventBusPort: 5751
+      eventUpdateServerPort: 8024
+      workflowActionEventBusPort: 5752
+      workflowActionServerPort: 8023
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/reprocessor/ 
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
     podconfig:
       {{ podconfig.regproc.reprocess | to_nice_yaml(indent=6) | indent(6) }}

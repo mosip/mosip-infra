@@ -181,6 +181,10 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/securezone/;
         }
 
+        location /registrationprocessor/v1/reprocessor/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/reprocessor/;
+        }
+
         location /registrationprocessor/v1/manualverification/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/manualverification/;
         }

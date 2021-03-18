@@ -51,6 +51,15 @@ spec:
           containerPort: {{ .Values.services.reprocess.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.reprocess.ports.containerPort }}
+        - name: eventupdate-ebp
+          containerPort: {{ .Values.services.reprocess.ports.eventUpdateEventBusPort }}
+        - name: eventupdate-sp
+          containerPort: {{ .Values.services.reprocess.ports.eventUpdateServerPort }}
+        - name: workflowapi-ebp
+          containerPort: {{ .Values.services.reprocess.ports.workflowActionEventBusPort }}
+        - name: workflowapi-sp
+          containerPort: {{ .Values.services.reprocess.ports.workflowActionServerPort }}
+
 
 #        readinessProbe:
 #          httpGet:
