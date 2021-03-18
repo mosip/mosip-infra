@@ -77,113 +77,29 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
-    notification: 
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
 
-    uploader:
+    preprocstagegroup:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
  
-    quality:
+    coreprocstagegroup:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
  
-    validator:
+    postprocstagegroup:
       replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
- 
-    osi:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    demo:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    bio:
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    bioauth:
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    abishandler:
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    abismid:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    manual:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    external:
-      replicas: 1 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     eis: 
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    uin:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    msg:
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
-    print:
       replicas: 1 
       maxSurge: 1
       maxUnavailable: 0
@@ -212,7 +128,7 @@ podconfig:
       java_opts: "-Xms500M -Xmx500M"
 
   dmzregproc:  
-    receiver:
+    initstagegroup:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1

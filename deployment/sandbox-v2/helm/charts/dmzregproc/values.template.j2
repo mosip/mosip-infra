@@ -39,9 +39,20 @@ landing:   # Landing folder where packets land
 imagePullPolicy: Always 
 services:
 
+  initstagegroup:
+    serviceName: {{ versions.services.dmzregproc.initstagegroup.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.initstagegroup.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/packetreceiver/
+    healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
+    podconfig:
+      {{ podconfig.dmzregproc.initstagegroup | to_nice_yaml(indent=6) | indent(6) }}
+
   receiver:
-    serviceName: {{ versions.services.dmzregproc.receiver.keys()[0] }} 
-    dockerImage: {{ versions.services.dmzregproc.receiver.values()[0] }}
+    serviceName: {{ versions.services.dmzregproc.initstagegroup.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.initstagegroup.values()[0] }}
     ports:
       eventbusPort: 5711
       hazelcastPort: 5701
@@ -49,8 +60,6 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
-    podconfig:
-      {{ podconfig.dmzregproc.receiver | to_nice_yaml(indent=6) | indent(6) }}
 
   camel:
     serviceName: {{ versions.services.dmzregproc.camel.keys()[0] }} 
