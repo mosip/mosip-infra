@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.reprocess.serviceName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+  - port: {{ .Values.services.reprocess.ports.servicePort }}
+    targetPort: {{ .Values.services.reprocess.ports.workflowActionServerPort }}
+  selector:
+    app: {{ .Values.services.reprocess.serviceName }}
