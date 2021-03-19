@@ -20,7 +20,7 @@ import config as conf
 
 def args_parse():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', help='get_vids|fetch_info|reprint|all')
+    parser.add_argument('action', help='get_buckets|find_packets|migrate|all')
     args = parser.parse_args()
     return args, parser
 
@@ -42,11 +42,11 @@ def main():
             FindPackets().run()
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action find_packets: " + prstr, 11)
-        if args.action == 'copy_packets' or args.action == 'all':
-            myPrint("Action: copy_packets", 1)
+        if args.action == 'migrate' or args.action == 'all':
+            myPrint("Action: migrate", 1)
             Migration().run()
             prev_time, prstr = timeDiff(prev_time)
-            myPrint("Time taken by Action copy_packets: " + prstr, 11)
+            myPrint("Time taken by Action migrate: " + prstr, 11)
     except:
         prev_time, prstr = timeDiff(start_time)
         myPrint("Total time taken by the script: " + prstr, 11)
