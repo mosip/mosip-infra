@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.uin.serviceName }} 
+  name: {{ .Values.services.postprocstagegroup.serviceName }} 
   namespace: {{ .Release.Namespace }} 
   labels:
-    app: {{ .Values.services.uin.serviceName }}
+    app: {{ .Values.services.postprocstagegroup.serviceName }}
     
 spec:
-  {{ $podconfig := .Values.services.uin.podconfig }} 
+  {{ $podconfig := .Values.services.postprocstagegroup.podconfig }} 
   replicas: {{ $podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.uin.serviceName }}
+      app: {{ .Values.services.postprocstagegroup.serviceName }}
   minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
@@ -21,14 +21,14 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.services.uin.serviceName }} 
+        app: {{ .Values.services.postprocstagegroup.serviceName }} 
         component: service-hazelcast-server
         exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
-      - name: {{ .Values.services.uin.serviceName }} 
-        image: {{ .Values.services.uin.dockerImage }}
+      - name: {{ .Values.services.postprocstagegroup.serviceName }} 
+        image: {{ .Values.services.postprocstagegroup.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
@@ -45,22 +45,26 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: eventbus-port
-          containerPort: {{ .Values.services.uin.ports.eventbusPort }}
         - name: hazelcast-port
-          containerPort: {{ .Values.services.uin.ports.hazelcastPort }}
-        - name: verticle-port
-          containerPort: {{ .Values.services.uin.ports.containerPort }}
+          containerPort: {{ .Values.services.postprocstagegroup.ports.hazelcastPort }}
+        - name: msg-eventbus-port
+          containerPort: {{ .Values.services.msg.ports.eventbusPort }}
+        - name: msg-verticle-port
+          containerPort: {{ .Values.services.msg.ports.containerPort }}
+        - name: print-eventbus-port
+          containerPort: {{ .Values.services.print.ports.eventbusPort }}
+        - name: print-verticle-port
+          containerPort: {{ .Values.services.print.ports.containerPort }}
 
-#        readinessProbe:
+#        readinessProbe:  # TODO: Uncomment this or put a actuator health url
 #          httpGet:
-#            path: {{ .Values.services.uin.healthUrl }} 
-#            port: {{ .Values.services.uin.ports.containerPort }} 
+#            path: {{ .Values.services.abishandler.healthUrl }} 
+#            port: {{ .Values.services.abishandler.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
 #        livenessProbe:
 #          httpGet:
-#            path: {{ .Values.services.uin.healthUrl }} 
-#            port: {{ .Values.services.uin.ports.containerPort }} 
+#            path: {{ .Values.services.abishandler.healthUrl }} 
+#            port: {{ .Values.services.abishandler.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
