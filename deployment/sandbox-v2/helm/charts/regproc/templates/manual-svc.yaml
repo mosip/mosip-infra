@@ -8,4 +8,4 @@ spec:
   - port: {{ .Values.services.manual.ports.servicePort }}
     targetPort: {{ .Values.services.manual.ports.containerPort }}
   selector:
-    app: {{ .Values.services.manual.serviceName }} 
+    app: {{ .Values.services.coreprocstagegroup.serviceName }} 

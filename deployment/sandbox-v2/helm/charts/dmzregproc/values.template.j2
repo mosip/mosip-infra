@@ -51,8 +51,8 @@ services:
       {{ podconfig.dmzregproc.initstagegroup | to_nice_yaml(indent=6) | indent(6) }}
 
   receiver:
-    serviceName: {{ versions.services.dmzregproc.receiver.keys()[0] }} 
-    dockerImage: {{ versions.services.dmzregproc.receiver.values()[0] }}
+    serviceName: regproc-packet-receiver-stage
+    dockerImage: {{ versions.services.dmzregproc.initstagegroup.values()[0] }}
     ports:
       eventbusPort: 5711
       hazelcastPort: 5701
