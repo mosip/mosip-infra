@@ -8,4 +8,4 @@ spec:
   - port: {{ .Values.services.receiver.ports.servicePort }}
     targetPort: {{ .Values.services.receiver.ports.containerPort }}
   selector:
-    app: {{ .Values.services.receiver.serviceName }} 
+    app: {{ .Values.services.initstagegroup.serviceName }} 
