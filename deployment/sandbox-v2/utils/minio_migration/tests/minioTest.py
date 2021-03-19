@@ -42,3 +42,7 @@ class MyTestCase(unittest.TestCase):
                 "RESIDENT/RES_UPDATE/10001100010002420210223073024_evidence"
             )
         )
+
+    def test_deleteBucket(self):
+        m = MinioWrapper()
+        m.deleteBucket()

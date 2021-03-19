@@ -1,5 +1,6 @@
 from minio import Minio, S3Error
 from minio.commonconfig import ComposeSource, CopySource
+from minio.deleteobjects import DeleteObject
 from minio.error import InvalidResponseError, MinioException
 from minio.datatypes import Bucket, Object
 import config as conf
@@ -101,3 +102,14 @@ class MinioWrapper:
 
     def putObject(self, bucket_name, object_name):
         return
+
+    def deleteBucket(self):
+        bucket_name = "my-test-bucket"
+        object_names = self.listObjects(bucket_name, True)
+        removed_objects = []
+        for obj_name in object_names:
+            removed_objects.append(DeleteObject(obj_name))
+        errors = self.client.remove_objects(bucket_name, removed_objects)
+        for error in errors:
+            myPrint(error, 11)
+        self.client.remove_bucket(bucket_name)
