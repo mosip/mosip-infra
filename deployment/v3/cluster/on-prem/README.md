@@ -3,6 +3,7 @@
 ## Rancher k8s cluster
 ### Cluster
 * Set up VMs with Rancher OS
+* Install Wireguard as given [below](## Wireguard)
 * Create K8s cluster for MOSIP modules at least 5 worker nodes using Rancher's `rke` utility.
 * Use default Canal networking model
 * Keep the Pod Security Policies disabled.
