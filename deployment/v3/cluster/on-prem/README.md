@@ -4,7 +4,7 @@
 ### Cluster
 * Set up VMs with Rancher OS
 * Create K8s cluster for MOSIP modules at least 5 worker nodes using Rancher's `rke` utility.
-* Use Calico networking model
+* Use default Canal networking model
 * Keep the Pod Security Policies disabled.
 
 ### Persistence
