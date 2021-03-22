@@ -84,6 +84,8 @@ versions:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
+      notificationService: 
+        'regproc-notification-service': 'mosipdev/registration-processor-notification-service:develop'
 
     dmzregproc:  
       receiver:

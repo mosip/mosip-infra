@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.notificationService.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.notificationService.ports.servicePort }}
+    targetPort: {{ .Values.services.notificationService.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.notificationService.serviceName }} 
