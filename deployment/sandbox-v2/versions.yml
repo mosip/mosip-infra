@@ -47,57 +47,21 @@ versions:
 
     regproc:
       preprocstagegroup:
-        'regproc-preproc-stage-group': 'mosipdev/pre-processor-stage-group:develop'
+        'regproc-preproc-stage-group': 'mosipdev/pre-processor-stage-group:MOSIP-12124'
       coreprocstagegroup:
-        'regproc-preproc-stage-group': 'mosipdev/core-processor-stage-group:develop'
+        'regproc-coreproc-stage-group': 'mosipdev/core-processor-stage-group:MOSIP-12124'
       postprocstagegroup:
-        'regproc-preproc-stage-group': 'mosipdev/post-processor-stage-group:develop'
+        'regproc-postproc-stage-group': 'mosipdev/post-processor-stage-group:MOSIP-12124'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
-      notification: 
-        'regproc-securezone-notification-stage': 'mosipdev/pre-processor-stage-group:develop'
-      uploader:
-        'regproc-packet-uploader-stage': 'mosipdev/pre-processor-stage-group:develop'
-      quality:
-        'regproc-quality-checker-stage': 'mosipdev/pre-processor-stage-group:develop'
-      validator:
-        'regproc-packet-validator-stage': 'mosipdev/pre-processor-stage-group:develop'
-      classifier:
-        'regproc-packet-classifier-stage': 'mosipdev/pre-processor-stage-group:develop'
-      osi:
-        'regproc-osi-validator-stage': 'mosipdev/pre-processor-stage-group:develop'
-      demo:
-        'regproc-demo-dedupe-stage': 'mosipdev/core-processor-stage-group:develop'
-      bio:
-        'regproc-bio-dedupe-stage': 'mosipdev/core-processor-stage-group:develop'
-      bioauth:
-        'regproc-biometric-authentication-stage': 'mosipdev/core-processor-stage-group:develop'
-      abishandler:
-        'regproc-abis-handler-stage': 'mosipdev/core-processor-stage-group:develop'
-      abismid:
-        'regproc-abis-middleware-stage': 'mosipdev/core-processor-stage-group:develop'
-      manual:
-        'regproc-manual-verification-stage': 'mosipdev/core-processor-stage-group:develop'
-      external:
-        'regproc-external-stage': 'mosipdev/pre-processor-stage-group:develop'
       eis: 
         'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
-      uin:
-        'regproc-uin-generator-stage': 'mosipdev/core-processor-stage-group:develop'
-      msg:
-        'regproc-message-sender-stage': 'mosipdev/post-processor-stage-group:develop'
-      print:
-        'regproc-printing-stage': 'mosipdev/post-processor-stage-group:develop'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
-      reprocess:
-        'regproc-reprocessor-stage': 'mosipdev/core-processor-stage-group:develop'
 
     dmzregproc:  
       initstagegroup:
-        'regproc-init-stage-group': 'mosipdev/init-stage-group:develop'
-      receiver:
-        'regproc-packet-receiver-stage': 'mosipdev/init-stage-group:develop'
+        'regproc-init-stage-group': 'mosipdev/init-stage-group:MOSIP-12124'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       status:

@@ -8,4 +8,4 @@ spec:
   - port: {{ .Values.services.notification.ports.servicePort }}
     targetPort: {{ .Values.services.notification.ports.containerPort }}
   selector:
-    app: {{ .Values.services.notification.serviceName }} 
+    app: {{ .Values.services.preprocstagegroup.serviceName }} 
