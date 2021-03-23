@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.hotlist.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.services.hotlist.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: {{ .Values.services.hotlist.podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.hotlist.serviceName }} 
+  minReadySeconds: {{ .Values.services.hotlist.podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.services.hotlist.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.hotlist.podconfig.maxSurge }} 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.hotlist.serviceName }} 
+        component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{ .Values.services.hotlist.serviceName }} 
+        image: {{ .Values.services.hotlist.dockerImage }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }} 
+        {{ $resources := .Values.services.hotlist.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: {{ .Values.isGlowroot }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
+        ports:
+        - containerPort: {{ .Values.services.hotlist.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.hotlist.healthUrl }} 
+            port: {{ .Values.services.hotlist.containerPort }} 
+          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.hotlist.healthUrl }} 
+#            port: {{ .Values.services.hotlist.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }}
