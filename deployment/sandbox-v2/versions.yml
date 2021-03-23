@@ -146,6 +146,8 @@ versions:
         'admin-service': 'mosipdev/admin-service:develop'
       ui:
         'admin-ui': 'mosipdev/admin-ui:develop'
+      hotlist:
+        'admin-hotlist-service': 'mosipdev/hotlist-service:develop'
     
     packetmanager:
       service:

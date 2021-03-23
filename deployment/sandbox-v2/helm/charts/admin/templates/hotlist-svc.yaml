@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.hotlist.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.hotlist.servicePort }}
+    targetPort: {{ .Values.services.hotlist.containerPort }}
+  selector:
+    app: {{ .Values.services.hotlist.serviceName }} 
+
