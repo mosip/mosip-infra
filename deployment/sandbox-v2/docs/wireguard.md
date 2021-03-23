@@ -33,12 +33,11 @@ A signed module is available as built-in to CentOS's kernel-plus. Run these sequ
 	The configuration file should be over-written with below set of lines:
 	```
 	[Interface]
-	Address = 10.100.100.1/24
+	Address = 10.100.100.1/32
 	SaveConfig = true
 	PrivateKey = <private-key-of-server>
 	ListenPort = 51820
 	PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-
 	PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 
 	[Peer]
@@ -85,9 +84,9 @@ Client OS may be different from CentOS 7, so whichever OS is it, you may install
 		
 		[Peer]
 		PublicKey = <public-key-of-server>
-		Endpoint = <private-ip-of-server>:51820
-		AllowedIPs = 0.0.0.0/0
-		PersistentKeepalive = 21
+		Endpoint = <public-ip-of-server>:51820
+		AllowedIPs = 10.0.0.0/8
+		PersistentKeepalive = 15
 	```
 4. Start wireguard on client:
 	``` $ sudo wg-quick up wg0-client```
