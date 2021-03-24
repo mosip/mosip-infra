@@ -30,7 +30,7 @@ $ docker push <your docker registry >/keycloak-init:<tag>
 ```
 ## Run
 ```
-docker run -it  -v /Users/myhome/config/:/opt/mosip/input -e KEYCLOAK_ADMIN_USER=user -e KEYCLOAK_ADMIN_PASSWORD=<password> -e KEYCLOAK_SERVER_URL=https://iam.xyz.net/auth/  pjmosip/keycloak-init:develop
+docker run -it  -v /Users/myhome/config/:/opt/mosip/input -e KEYCLOAK_ADMIN_USER=user -e KEYCLOAK_ADMIN_PASSWORD=<password> -e KEYCLOAK_SERVER_URL=https://iam.xyz.net/auth/  mosipdev/keycloak-init:develop
 ```
 
 
