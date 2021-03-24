@@ -40,3 +40,13 @@ services:
     configName: admin-ui-config # ConfigMap name
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /admin-ui
+
+  hotlist:
+    serviceName: {{ versions.services.admin.hotlist.keys()[0] }}
+    dockerImage: {{ versions.services.admin.hotlist.values()[0] }}
+    containerPort: 8095
+    servicePort: 80
+    ingressPath: /v1/hotlist
+    healthUrl: /v1/hotlist/actuator/health
+    podconfig:
+      {{ podconfig.admin.hotlist | to_nice_yaml(indent=6) | indent(6) }}

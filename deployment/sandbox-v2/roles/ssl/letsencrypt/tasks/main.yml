@@ -14,17 +14,21 @@
 - name: Upgrade pip to latest
   command: '{{ansible_env.HOME}}/.venv-py3/bin/pip install --upgrade pip'
 
+#install specific cryptography version since >3.4 releases have rust dependency that throws an error.
 - name: Install certbot in python3 virtual environment 
   pip:
-    name: certbot
-    version: '{{certbot_version}}' 
+    name: 
+      - cryptography==3.3.2
+      - 'certbot=={{certbot_version}}'
     virtualenv_python: python3
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
 - name: Install certbot-nginx
   pip:
-    name: certbot-nginx
+    name: 
+      - cryptography==3.3.2
+      - 'certbot-nginx=={{certbot_nginx_version}}'
     version: '{{certbot_nginx_version}}' 
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present

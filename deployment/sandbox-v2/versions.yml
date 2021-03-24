@@ -84,6 +84,8 @@ versions:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
+      notificationService: 
+        'regproc-notification-service': 'mosipdev/registration-processor-notification-service:develop'
 
     dmzregproc:  
       receiver:
@@ -144,6 +146,8 @@ versions:
         'admin-service': 'mosipdev/admin-service:develop'
       ui:
         'admin-ui': 'mosipdev/admin-ui:develop'
+      hotlist:
+        'admin-hotlist-service': 'mosipdev/hotlist-service:develop'
     
     packetmanager:
       service:
