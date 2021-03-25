@@ -45,39 +45,39 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: hazelcast-port
+        - name: hazelcast
           containerPort: {{ .Values.services.coreprocstagegroup.ports.hazelcastPort }}
-        - name: abishandler-eventbus-port
+        - name: abishandler-eb
           containerPort: {{ .Values.services.abishandler.ports.eventbusPort }}
-        - name: abishandler-verticle-port
+        - name: abishandler-vt
           containerPort: {{ .Values.services.abishandler.ports.containerPort }}
-        - name: abismid-eventbus-port
+        - name: abismid-eb
           containerPort: {{ .Values.services.abismid.ports.eventbusPort }}
-        - name: abismid-verticle-port
+        - name: abismid-vt
           containerPort: {{ .Values.services.abismid.ports.containerPort }}
-        - name: bio-eventbus-port
+        - name: bio-eb
           containerPort: {{ .Values.services.bio.ports.eventbusPort }}
-        - name: bio-verticle-port
+        - name: bio-vt
           containerPort: {{ .Values.services.bio.ports.containerPort }}
-        - name: bioauth-eventbus-port
+        - name: bioauth-eb
           containerPort: {{ .Values.services.bioauth.ports.eventbusPort }}
-        - name: bioauth-verticle-port
+        - name: bioauth-vt
           containerPort: {{ .Values.services.bioauth.ports.containerPort }}
-        - name: demo-eventbus-port
+        - name: demp-eb
           containerPort: {{ .Values.services.demo.ports.eventbusPort }}
-        - name: demo-verticle-port
+        - name: demo-vt
           containerPort: {{ .Values.services.demo.ports.containerPort }}
-        - name: manual-eventbus-port
+        - name: manual-eb
           containerPort: {{ .Values.services.manual.ports.eventbusPort }}
-        - name: manual-verticle-port
+        - name: manual-vt
           containerPort: {{ .Values.services.manual.ports.containerPort }}
-        - name: reprocess-eventbus-port
+        - name: reprocess-eb
           containerPort: {{ .Values.services.reprocess.ports.eventbusPort }}
-        - name: reprocess-verticle-port
+        - name: reprocess-vt
           containerPort: {{ .Values.services.reprocess.ports.containerPort }}
-        - name: uin-eventbus-port
+        - name: uin-eb
           containerPort: {{ .Values.services.uin.ports.eventbusPort }}
-        - name: uin-verticle-port
+        - name: uin-vt
           containerPort: {{ .Values.services.uin.ports.containerPort }}
 
 #        readinessProbe:  # TODO: Uncomment this or put a actuator health url

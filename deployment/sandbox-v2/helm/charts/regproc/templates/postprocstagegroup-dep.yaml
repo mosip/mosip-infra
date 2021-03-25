@@ -45,15 +45,15 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: hazelcast-port
+        - name: hazelcast
           containerPort: {{ .Values.services.postprocstagegroup.ports.hazelcastPort }}
-        - name: msg-eventbus-port
+        - name: msgeventbus
           containerPort: {{ .Values.services.msg.ports.eventbusPort }}
-        - name: msg-verticle-port
+        - name: msgverticle
           containerPort: {{ .Values.services.msg.ports.containerPort }}
-        - name: print-eventbus-port
+        - name: printeventbus
           containerPort: {{ .Values.services.print.ports.eventbusPort }}
-        - name: print-verticle-port
+        - name: printverticle
           containerPort: {{ .Values.services.print.ports.containerPort }}
 
 #        readinessProbe:  # TODO: Uncomment this or put a actuator health url
