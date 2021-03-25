@@ -1,0 +1,18 @@
+controller:
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+      service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  config:
+    use-proxy-protocol: "true"
+
+  globalConfiguration:
+    ## Creates the GlobalConfiguration custom resource. Requires controller.enableCustomResources.
+    create: true
+    ## We may need to expose postgres externally, hence this config. 
+    spec: 
+       listeners:
+       - name: postgres
+         port: 5432
+         protocol: TCP
