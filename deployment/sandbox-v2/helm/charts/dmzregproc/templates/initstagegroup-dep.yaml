@@ -44,11 +44,11 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: hazelcast-port
+        - name: hazelcast
           containerPort: {{ .Values.services.initstagegroup.ports.hazelcastPort }}
-        - name: receiver-eventbus-port
+        - name: receiver-eb
           containerPort: {{ .Values.services.receiver.ports.eventbusPort }}
-        - name: receiver-verticle-port
+        - name: receiver-vt
           containerPort: {{ .Values.services.receiver.ports.containerPort }}
 
 #        readinessProbe:

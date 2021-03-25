@@ -45,35 +45,35 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - name: hazelcast-port
+        - name: hazelcast
           containerPort: {{ .Values.services.preprocstagegroup.ports.hazelcastPort }}
-        - name: external-eventbus-port
+        - name: ext-eventbus
           containerPort: {{ .Values.services.external.ports.eventbusPort }}
-        - name: external-verticle-port
+        - name: ext-verticle
           containerPort: {{ .Values.services.external.ports.containerPort }}
-        - name: osi-eventbus-port
+        - name: osi-eventbus
           containerPort: {{ .Values.services.osi.ports.eventbusPort }}
-        - name: osi-verticle-port
+        - name: osi-verticle
           containerPort: {{ .Values.services.osi.ports.containerPort }}
-        - name: classifier-eventbus-port
+        - name: clfsr-eventbus
           containerPort: {{ .Values.services.classifier.ports.eventbusPort }}
-        - name: classifier-verticle-port
+        - name: clfsr-verticle
           containerPort: {{ .Values.services.classifier.ports.containerPort }}
-        - name: uploader-eventbus-port
+        - name: upd-eventbus
           containerPort: {{ .Values.services.uploader.ports.eventbusPort }}
-        - name: uploader-verticle-port
+        - name: upd-verticle
           containerPort: {{ .Values.services.uploader.ports.containerPort }}
-        - name: validator-eventbus-port
+        - name: vld-eventbus
           containerPort: {{ .Values.services.validator.ports.eventbusPort }}
-        - name: validator-verticle-port
+        - name: vld-verticle
           containerPort: {{ .Values.services.validator.ports.containerPort }}
-        - name: quality-eventbus-port
+        - name: qt-eventbus
           containerPort: {{ .Values.services.quality.ports.eventbusPort }}
-        - name: quality-verticle-port
+        - name: qt-verticle
           containerPort: {{ .Values.services.quality.ports.containerPort }}
-        - name: notification-eventbus-port
+        - name: not-eventbus
           containerPort: {{ .Values.services.notification.ports.eventbusPort }}
-        - name: notification-verticle-port
+        - name: not-verticle
           containerPort: {{ .Values.services.notification.ports.containerPort }}
 
 #        readinessProbe:  # TODO: Uncomment this or put a actuator health url

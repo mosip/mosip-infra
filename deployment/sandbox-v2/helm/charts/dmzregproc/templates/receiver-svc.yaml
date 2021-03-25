@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.services.receiver.serviceName }} 
+  name: {{ .Values.services.initstagegroup.serviceName }} 
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
