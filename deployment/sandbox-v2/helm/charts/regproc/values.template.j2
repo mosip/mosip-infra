@@ -33,6 +33,7 @@ services:
       eventbusPort: 5723
       hazelcastPort: 5701
       containerPort: 8022
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
     podconfig:
@@ -83,6 +84,7 @@ services:
       eventbusPort: 5724
       hazelcastPort: 5701
       containerPort: 8092
+      servicePort: 80
     ingressPath: /registrationprocessor/v1/packetclassifier/
     healthUrl: /registrationprocessor/v1/packetclassifier/actuator/health
 
@@ -93,6 +95,7 @@ services:
       eventbusPort: 5750
       hazelcastPort: 5701
       containerPort: 8021
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
 
@@ -103,6 +106,7 @@ services:
       eventbusPort: 5714
       hazelcastPort: 5701
       containerPort: 8087
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
 
@@ -113,6 +117,7 @@ services:
       eventbusPort: 5727
       hazelcastPort: 5701
       containerPort: 9072
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
 
@@ -123,6 +128,7 @@ services:
       eventbusPort: 5715
       hazelcastPort: 5701
       containerPort: 8088
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
 
@@ -133,6 +139,7 @@ services:
       eventbusPort: 5716
       hazelcastPort: 5701
       containerPort: 8089
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
 
@@ -143,6 +150,7 @@ services:
       eventbusPort: 5717
       hazelcastPort: 5701
       containerPort: 8091
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
 
@@ -153,6 +161,7 @@ services:
       eventbusPort: 5718
       hazelcastPort: 5701
       containerPort: 9096
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
 
@@ -163,6 +172,7 @@ services:
       eventbusPort: 5777
       hazelcastPort: 5701
       containerPort: 8020
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
 
@@ -173,6 +183,7 @@ services:
       eventbusPort: 5726
       hazelcastPort: 5701
       containerPort: 9071
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
 
@@ -183,6 +194,7 @@ services:
       eventbusPort: 5888
       hazelcastPort: 5701
       containerPort: 8091
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
 
@@ -204,6 +216,7 @@ services:
       eventbusPort: 5736
       hazelcastPort: 5701
       containerPort: 8095
+      servicePort: 80
     ingressPath: ''
     healthUrl: /registrationprocessor/v1/external/actuator/health 
 
@@ -225,6 +238,7 @@ services:
       eventbusPort: 5719
       hazelcastPort: 5701
       containerPort: 8099
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
 
@@ -235,6 +249,7 @@ services:
       eventbusPort: 5721
       hazelcastPort: 5701
       containerPort: 8088
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
 
@@ -245,6 +260,7 @@ services:
       eventbusPort: 5722
       hazelcastPort: 5701
       containerPort: 8099
+      servicePort: 80
     ingressPath: '' 
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
 
