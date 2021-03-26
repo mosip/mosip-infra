@@ -42,5 +42,6 @@
 - import_playbook: playbooks/admin.yml
 - import_playbook: playbooks/print.yml
 - import_playbook: playbooks/mock-abis.yml
+- import_playbook: playbooks/mock-mv.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
