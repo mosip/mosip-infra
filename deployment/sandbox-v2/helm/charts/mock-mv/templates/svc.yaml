@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.mockmv.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.mockmv.servicePort }}
+    targetPort: {{ .Values.services.mockmv.containerPort }}
+  selector:
+    app: {{ .Values.services.mockmv.serviceName }} 
+
