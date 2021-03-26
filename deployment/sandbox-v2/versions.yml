@@ -155,7 +155,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.4'
+        'mock-abis': 'mosipdev/mock-abis:1.1.5'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
