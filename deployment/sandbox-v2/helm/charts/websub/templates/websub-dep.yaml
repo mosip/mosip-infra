@@ -42,5 +42,7 @@ spec:
           value: {{ .Values.hub.retry_backofffactor | quote }}
         - name: hub_retry_max_wait_interval_env
           value: {{ .Values.hub.retry_maxwaitinterval | quote}}
+        - name: hub_restart_republish_time_offset_env
+          value: {{ .Values.hub.republish_time }}
         ports:
         - containerPort: {{ .Values.hub.port }} 
