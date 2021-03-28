@@ -1,0 +1,9 @@
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  hostname: iam.mosip.net
+
+proxyAddressForwarding: true
+
