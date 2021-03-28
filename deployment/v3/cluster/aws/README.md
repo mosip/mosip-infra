@@ -45,3 +45,9 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 ### Domain name
 * Point your domain name to LB's public DNS/IP. 
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
+
+## Notes
+Current ingress controller has a work around described [here](https://github.com/nginxinc/kubernetes-ingress/issues/1250).  The config map implements the work around.  We have added another snipped to makes sure port 443 is forwarded to upstream server as X-FORWARDED-PORT.  Note that this will **not work** if original request is `http` and not `https`.  
+```
+proxy_set_header X-Forwarded-Port {{if $server.RedirectToHTTPS}}443{{end}}; 
+```
