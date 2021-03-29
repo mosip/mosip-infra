@@ -74,7 +74,7 @@ $ sudo yum install -y git
 $ cd ~/
 $ git clone https://github.com/mosip/mosip-infra
 $ cd mosip-infra
-$ git checkout 1.1.2
+$ git checkout 1.1.5
 $ cd mosip-infra/deployment/sandbox-v2
 ```
 * Install Ansible and create shortcuts:
