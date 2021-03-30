@@ -1,6 +1,6 @@
 # Keycloak
 ## Introduction
-An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/MOSIP project would suffice keeping in mind ease of user management. 
+An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/MOSIP project would suffice considering ease of user management.
 
 Here we provide installation procedure of Keycloak which is the default supported IAM with MOSIP.
 
