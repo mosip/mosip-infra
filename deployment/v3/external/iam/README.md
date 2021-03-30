@@ -22,7 +22,7 @@ $ ./install.sh
 * If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
 * For users in keycloak assign roles - cluster and project roles.  Under `default` project add all the namespaces. Then,, for a specific user you can provide Read-Only role (under projects).
 
-# Keycloak Init
+## Keycloak Init
 To populate base data for MOSIP:
 * Add mosip helm repo for Keycloak 
 ```
