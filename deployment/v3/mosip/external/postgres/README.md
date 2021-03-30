@@ -20,10 +20,10 @@ On AWS:
 Follow Postgres installation procedure of your choice. Make sure high availability, replication and other reliability factors are taken care.
 
 ## In-cluster
+Follow instructions given [here](cluster/README.md)
 
-
-## DB groupings
-
+## Recommended DB groupings
+In production, rather than running all DBs on a single Postgres server it is recommended you have multiple servers with following DBs running on them:
 1. Audit: mosip_audit
 1. PMS: mosip_pms, mosip_authdevice, mosip_regdevice
 1. IDA: mosip_ida
