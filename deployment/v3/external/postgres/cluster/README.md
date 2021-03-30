@@ -18,10 +18,7 @@ $ ./get_pwd.sh
 ```
 
 ## Ingress
-To access postgres from outside cluster make sure ingress controller is running as mentioned above. Further, enable port 5432 in ingress service as below:
-```
-$ kubectl -n ingress-nginx patch svc ingress-nginx-nginx-ingress --patch "$(cat ingress_svc_patch.yaml)"
-```
+It is assumed that while deploying ingress controller you have enabled service port 5432 and the same is seen on the load balancer.
 
 ## Test
 * Make sure docker is running from machine you are testing.
