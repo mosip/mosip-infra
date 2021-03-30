@@ -1,6 +1,6 @@
 # Keycloak
 ## Introduction
-An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/project would suffice keeping in mind ease of user management.  A country may choose to deploy one instance of IAM for all MOSIP installations.
+An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/MOSIP project would suffice keeping in mind ease of user management. 
 
 Here we provide installation procedure of Keycloak which is the default supported IAM with MOSIP.
 
@@ -13,7 +13,7 @@ Here we provide installation procedure of Keycloak which is the default supporte
 ```
 $ ./install.sh
 ```
-* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to.
+* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to. CAUTION: all persistent data will get rased if you delete PV.
 * If you use `gp2-retain` storage class then even after deleting PVC, PV, the storage will remain intact on AWS. If you wish to delete the same, go to AWS Console --> Volumes and delete the volume.
 * The chart above installs Postgres by default. 
 
@@ -22,7 +22,7 @@ $ ./install.sh
 * If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
 * For users in keycloak assign roles - cluster and project roles.  Under `default` project add all the namespaces. Then,, for a specific user you can provide Read-Only role (under projects).
 
-# Keycloak Init
+## Keycloak Init
 To populate base data for MOSIP:
 * Add mosip helm repo for Keycloak 
 ```
