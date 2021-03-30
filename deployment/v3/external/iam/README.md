@@ -13,7 +13,7 @@ Here we provide installation procedure of Keycloak which is the default supporte
 ```
 $ ./install.sh
 ```
-* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to.
+* While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to. CAUTION: all persistent data will get rased if you delete PV.
 * If you use `gp2-retain` storage class then even after deleting PVC, PV, the storage will remain intact on AWS. If you wish to delete the same, go to AWS Console --> Volumes and delete the volume.
 * The chart above installs Postgres by default. 
 
