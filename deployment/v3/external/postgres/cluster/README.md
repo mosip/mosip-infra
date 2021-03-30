@@ -1,7 +1,7 @@
 # Postgres installation on Kubernetes cluster
 
 ## Dependency
-If you would like to expose postgres access from outside cluster, run ingress controller as given [here](../../../../cluster/on-prem/README.md)
+If you would like to expose postgres access from outside cluster, run ingress controller as given [here](../../../cluster/on-prem/README.md)
 
 ## Helm charts 
 * Create `postgres` namespace:

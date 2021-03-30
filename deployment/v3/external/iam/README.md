@@ -1,4 +1,8 @@
 # Keycloak
+## Introduction
+An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/project would suffice keeping in mind ease of user management.  A country may choose to deploy one instance of IAM for all MOSIP installations.
+
+Here we provide installation procedure of Keycloak which is the default supported IAM with MOSIP.
 
 ## Install
 * Make sure ingress controller is running with service type as LoadBalancer

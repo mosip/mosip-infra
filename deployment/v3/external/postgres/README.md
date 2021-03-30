@@ -14,7 +14,6 @@ While production deployments will either use (1) or (2) for non-production deplo
 On AWS:
 * Provision a Postgres RDS instance on AWS depending on scale of deployment
 * CAUTION: Do check the costs of RDS before deploying.
-* For non-production env you may want to install Postgres yourself as given [here](../on-prem/README.)
 
 ## Native
 Follow Postgres installation procedure of your choice. Make sure high availability, replication and other reliability factors are taken care.
