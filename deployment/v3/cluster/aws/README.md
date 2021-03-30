@@ -20,6 +20,11 @@ $ helm repo update
 $ kubectl create namespace ingress-nginx
 $ helm -n ingress-nginx install ingress-nginx nginx-stable/nginx-ingress -f ingress_values.yaml
 ```
+* If you would like to have load balancer on internal ip (rather than internet-facing) set this in `ingress_values.yaml`:
+```
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+```
+
 ### Posgtres external access
 * Apply the nginx transport server.  This is required only if postgres is insalled within the cluster and requires external access. 
 ```
