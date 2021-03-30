@@ -1,7 +1,7 @@
 # Postgres
 
 ## Introduction
-Postgress may be integrated in MOSIP in the following ways:
+Postgress may be integrated with MOSIP in the following ways:
 1. Cloud: Postgres service provided by Cloud Provider, like RDS on AWS.
 1. Native: Postgres setup on dedicated VMs (outside of MOSIP cluster)
 1. In-cluster: Postgres running inside MOSIP Kubernetes cluster. Typically, for development purposes.   
