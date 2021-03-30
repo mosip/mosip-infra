@@ -4,9 +4,19 @@ controller:
       service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
       service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
       service.beta.kubernetes.io/aws-load-balancer-type: nlb
-      #service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+      # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+
     httpsPort:
       targetPort: 80 # TLS termination at LB, so traffic forwarded to 443 must go to 80
+
+    ## Below ports are to enable postgres access from outside cluster. Comment out if you don't intend 
+    ## to install postgres inside cluster
+    customPorts:
+       - name: postgres
+         port: 5432
+         protocol: TCP
+         targetPort: 5432
+
   config:
     use-proxy-protocol: "true"
 

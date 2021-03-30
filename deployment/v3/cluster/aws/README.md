@@ -47,6 +47,8 @@ $ kubectl -n ingress-nginx get svc
 
 The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed, it does not work on Cloud). 
 
+NOTE: if you make any change in the ingress service, you will have to delete it completely and re-install.  'Hot' changes may not reflect in LB. This will also give a new load balancer ip.
+
 ### Domain name
 * Point your domain name to LB's public DNS/IP. 
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
