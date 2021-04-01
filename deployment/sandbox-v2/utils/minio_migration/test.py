@@ -35,6 +35,12 @@ def main():
             myPrint(m.bucketExists("my-test-bucket"))
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action check_conn: " + prstr, 11)
+        if args.action == 'remove_bucket' or args.action == 'all':
+            myPrint("Action: remove_bucket test", 1)
+            m = MinioWrapper()
+            myPrint(m.deleteBucket("my-test-bucket"))
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action remove_bucket: " + prstr, 11)
     except:
         prev_time, prstr = timeDiff(start_time)
         myPrint("Total time taken by the script: " + prstr, 11)
