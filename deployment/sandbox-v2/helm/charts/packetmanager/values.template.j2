@@ -24,7 +24,9 @@ services:
   packet:
     serviceName: {{ versions.services.packetmanager.service.keys()[0] }}
     dockerImage: {{ versions.services.packetmanager.service.values()[0] }}
-    containerPort: 8093
+    ports:
+      containerPort: 8093
+      hazelcastPort: 5701
     servicePort: 80
     ingressPath: /commons/v1/packetmanager
     healthUrl: /commons/v1/packetmanager/actuator/health

@@ -1,0 +1,14 @@
+# This service connects to all pods with following component name
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: packetmanager-hazelcast-service
+spec:
+  selector:
+    component: packetmanager
+  clusterIP: None
+  ports:
+  - name: hz-port
+    port: 5701
+    protocol: TCP
