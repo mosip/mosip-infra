@@ -6,7 +6,7 @@ import uuid as uuid
 from minioWrapper import MinioWrapper
 import config as conf
 from paths import packetListPath, statPath
-from utils import getJsonFile, myPrint, chunkIt, appendFile
+from utils import getJsonFile, myPrint, chunkIt, writeFile
 
 
 class Migration:
@@ -54,7 +54,7 @@ def runner(packet_names_chunk):
     coui = 1
     for packet_name in packet_names_chunk:
         migrate(m, packet_name)
-        appendFile(file_path, str(coui) + " out of " + str(len(packet_names_chunk)) + "\n")
+        writeFile(file_path, str(coui) + " out of " + str(len(packet_names_chunk)) + "\n")
         coui = coui + 1
 
 
