@@ -48,7 +48,7 @@ class Migration:
 
 
 def runner(packet_names_chunk):
-    uid = uuid.uuid4()
+    uid = str(uuid.uuid4())
     file_path = os.path.join(statPath, uid+".log")
     m = MinioWrapper()
     i = 1
