@@ -105,8 +105,10 @@ class MinioWrapper:
 
     def deleteBucket(self):
         bucket_name = "my-test-bucket"
+        myPrint("Fetching object list")
         object_names = self.listObjects(bucket_name, True)
         removed_objects = []
+        myPrint("Total objects " + str(len(object_names)))
         for obj_name in object_names:
             removed_objects.append(DeleteObject(obj_name))
         errors = self.client.remove_objects(bucket_name, removed_objects)
