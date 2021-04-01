@@ -125,8 +125,8 @@ def writeJsonFile(path, data):
         json.dump(data, f, indent=2)
 
 
-def appendFile(path, data):
-    with open(path, "a") as myfile:
+def writeFile(path, data):
+    with open(path, "w") as myfile:
         myfile.write(data)
 
 
