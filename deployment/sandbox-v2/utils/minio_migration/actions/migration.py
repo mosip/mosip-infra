@@ -1,14 +1,18 @@
+import os
 from multiprocessing import Pool
+
+import uuid as uuid
 
 from minioWrapper import MinioWrapper
 import config as conf
-from paths import packetListPath
-from utils import getJsonFile, myPrint, chunkIt
+from paths import packetListPath, statPath
+from utils import getJsonFile, myPrint, chunkIt, appendFile
 
 
 class Migration:
     def __init__(self):
         self.m = MinioWrapper()
+        self.clean()
         return
 
     def run(self):
@@ -36,11 +40,22 @@ class Migration:
                 obj
             )
 
+    def clean(self):
+        myPrint("Cleaning stat folder ", 3)
+        for item in os.listdir(statPath):
+            if item.endswith(".log"):
+                os.remove(os.path.join(statPath, item))
+
 
 def runner(packet_names_chunk):
+    uid = uuid.uuid4()
+    file_path = os.path.join(statPath, uid+".log")
     m = MinioWrapper()
+    i = 1
     for packet_name in packet_names_chunk:
         migrate(m, packet_name)
+        appendFile(file_path, str(i) + " out of " + str(len(packet_names_chunk)))
+        i = i + 1
 
 
 def migrate(minio_client, packet_name):

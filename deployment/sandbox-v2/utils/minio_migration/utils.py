@@ -125,6 +125,11 @@ def writeJsonFile(path, data):
         json.dump(data, f, indent=2)
 
 
+def appendFile(path, data):
+    with open(path, "a") as myfile:
+        myfile.write(data)
+
+
 def dictToJson(data):
     return json.dumps(data)
 

@@ -18,6 +18,10 @@ logPath = os.path.abspath(
     os.path.join(rootPath, 'out.log')
 )
 
+statPath = os.path.abspath(
+    os.path.join(rootPath, 'stats')
+)
+
 generatedDataFolderPath = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), './', 'generatedData')
 )
