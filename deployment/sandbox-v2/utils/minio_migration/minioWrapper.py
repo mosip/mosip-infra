@@ -105,7 +105,9 @@ class MinioWrapper:
 
     def deleteBucket(self):
         bucket_name = "my-test-bucket"
-        myPrint("Fetching object list")
+        myPrint("Fetching objects level 1 list")
+        myPrint("Total objects level 1 " + str(len(self.listObjects(bucket_name, False))))
+        myPrint("Fetching object recursive list")
         object_names = self.listObjects(bucket_name, True)
         removed_objects = []
         myPrint("Total objects " + str(len(object_names)))
