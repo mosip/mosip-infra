@@ -28,7 +28,7 @@ ENV APP_ROLE_FILENAME=role_dbuser.sql
 ENV DB_CREATION_FILENAME=db.sql
 ENV ACCESS_GRANT_FILENAME=grants.sql
 ENV DDL_FILENAME=ddl.sql
-ENV DML_FLAG=1
+ENV DML_FLAG=
 ENV DML_FILENAME=dml.sql
 WORKDIR /home/mosip/repos/db_scripts/
 CMD cd $MOSIP_DB_NAME;bash deploy.sh 
