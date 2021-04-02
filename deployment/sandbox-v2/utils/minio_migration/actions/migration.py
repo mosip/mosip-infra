@@ -1,3 +1,4 @@
+import hashlib
 import os
 from multiprocessing import Pool
 
@@ -6,7 +7,7 @@ import uuid as uuid
 from minioWrapper import MinioWrapper
 import config as conf
 from paths import packetListPath, statPath
-from utils import getJsonFile, myPrint, chunkIt, writeFile
+from utils import getJsonFile, myPrint, chunkIt, writeFile, getLastPath
 
 
 class Migration:
@@ -19,6 +20,8 @@ class Migration:
         self.m.createBucket(conf.new_bucket_name)
         packet_names = getJsonFile(packetListPath)
         myPrint("Total " + str(len(packet_names)) + " packets found", 12)
+        if conf.records is not None:
+            packet_names = packet_names[0:conf.records]
         packet_names_chunks = chunkIt(packet_names, conf.threads)
         i = 0
         for packet_names_chunk in packet_names_chunks:
@@ -45,6 +48,29 @@ class Migration:
         for item in os.listdir(statPath):
             if item.endswith(".log"):
                 os.remove(os.path.join(statPath, item))
+
+    def checkHash(self, packet_name):
+        myPrint("Migrating " + packet_name, 3)
+        bucketObjects = self.m.listObjects(packet_name, True)
+        newBucketObjects = self.m.listObjects(conf.new_bucket_name, True, "/"+packet_name)
+        for obj in bucketObjects:
+            for new_obj in newBucketObjects:
+                if getLastPath(obj) == getLastPath(new_obj):
+                    o1 = self.m.getObject(packet_name, obj)
+                    o2 = self.m.getObject(conf.new_bucket_name, new_obj)
+                    h1 = getHash(o1)
+                    myPrint("Hash of "+obj+": "+h1)
+                    h2 = getHash(o2)
+                    myPrint("Hash of " + new_obj + ": " + h2)
+                    if h1 == h2:
+                        myPrint("Hashes match")
+                    else:
+                        myPrint("Hashes not match")
+                        raise RuntimeError("Hashes not match")
+
+
+def getHash(p):
+    return hashlib.sha256(p).hexdigest()
 
 
 def runner(packet_names_chunk):
