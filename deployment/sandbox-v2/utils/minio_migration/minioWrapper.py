@@ -1,3 +1,7 @@
+from datetime import timedelta
+
+import certifi
+import urllib3
 from minio import Minio, S3Error
 from minio.commonconfig import ComposeSource, CopySource
 from minio.deleteobjects import DeleteObject
@@ -15,6 +19,7 @@ class MinioWrapper:
         self.client = self.createConnection()
 
     def createConnection(self):
+        timeout = timedelta(minutes=15).seconds
         if conf.region is not None:
             return Minio(
                 conf.minio_endpoint,
@@ -27,7 +32,18 @@ class MinioWrapper:
                 conf.minio_endpoint,
                 access_key=conf.access_key,
                 secret_key=conf.secret_key,
-                secure=False
+                secure=False,
+                http_client=urllib3.PoolManager(
+                    timeout=urllib3.util.Timeout(connect=timeout, read=timeout),
+                    maxsize=50,
+                    cert_reqs='CERT_REQUIRED',
+                    ca_certs=certifi.where(),
+                    retries=urllib3.Retry(
+                        total=2,
+                        backoff_factor=0.2,
+                        status_forcelist=[500, 502, 503, 504]
+                    )
+                )
             )
 
     def listBucketNames(self):
