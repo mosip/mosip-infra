@@ -59,10 +59,14 @@ class MinioWrapper:
             myPrint(e)
             return False
 
-    def listObjects(self, bucket_name, recursive=False):
+    def listObjects(self, bucket_name, recursive=False, prefix=None):
         object_names = []
         try:
-            for obj in self.client.list_objects(bucket_name, recursive=recursive):
+            if prefix is not None:
+                objects = self.client.list_objects(bucket_name, prefix=prefix, recursive=recursive)
+            else:
+                objects = self.client.list_objects(bucket_name, recursive=recursive)
+            for obj in objects:
                 object_names.append(obj.object_name)
             return object_names
         except InvalidResponseError as e:
@@ -73,8 +77,7 @@ class MinioWrapper:
         response = None
         try:
             response = self.client.get_object(bucket_name, object_name)
-            myPrint(response.read())
-            data = response.status
+            data = response.read()
         finally:
             response.close()
             response.release_conn()

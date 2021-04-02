@@ -2,7 +2,7 @@ import argparse
 import sys
 import traceback
 
-from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath
+from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath, hashCheckPacketsPacket
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -11,7 +11,9 @@ load_dotenv(verbose=True)
 
 load_dotenv(dotenv_path=envPath)
 from minioWrapper import MinioWrapper
-from utils import initLogger, myPrint, getTimeInSec, timeDiff
+from actions.migration import Migration
+
+from utils import initLogger, myPrint, getTimeInSec, timeDiff, getJsonFile
 import config as conf
 
 
@@ -41,6 +43,14 @@ def main():
             myPrint(m.deleteBucket())
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action remove_bucket: " + prstr, 11)
+        if args.action == 'check_hash' or args.action == 'all':
+            myPrint("Action: check_hash test", 1)
+            packet_names = getJsonFile(hashCheckPacketsPacket)
+            for packet in packet_names:
+                myPrint("Packet name: "+packet, 2)
+                Migration().checkHash(packet)
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action check_hash: " + prstr, 11)
     except:
         prev_time, prstr = timeDiff(start_time)
         myPrint("Total time taken by the script: " + prstr, 11)

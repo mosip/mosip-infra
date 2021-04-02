@@ -33,3 +33,4 @@ ignoredBucketListPath = os.path.join(generatedDataFolderPath, 'ignoredBucketList
 credentialPreparedDataPath = os.path.join(generatedDataFolderPath, 'credentialPreparedData.json')
 runResult = os.path.join(generatedDataFolderPath, 'runResult.json')
 vidRequestId = os.path.join(generatedDataFolderPath, 'vidRequestId.json')
+hashCheckPacketsPacket = os.path.abspath(os.path.join(generatedDataFolderPath, 'checkHash.json'))

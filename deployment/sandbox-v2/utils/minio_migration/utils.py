@@ -227,3 +227,7 @@ def chunkIt(seq, num):
         out.append(seq[int(last):int(last + avg)])
         last += avg
     return out
+
+
+def getLastPath(p):
+    return os.path.basename(os.path.normpath(p))
