@@ -44,7 +44,7 @@ class KeycloakSession:
 
     def create_role(self, realm, role):
         print('Creating role %s for realm %s'  % (role, realm))
-        self.keycloak_admin.realm_name = realm  # work around
+        self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
         self.keycloak_admin.create_realm_role({'name' : role, 'clientRole' : False}, skip_exists=True)
         self.keycloak_admin.realm_name = 'master' # restore
         return 0
