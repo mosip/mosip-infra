@@ -25,7 +25,7 @@ $ ./keycloak_init.py https://iam.xyz.net/auth/ user userpassword input
 # Docker
 ## Create
 ```
-$ docker build -t <your docker registry >/keycloak-init:<tag>
+$ docker build -t <your docker registry >/keycloak-init:<tag> .
 $ docker push <your docker registry >/keycloak-init:<tag>
 ```
 ## Run
