@@ -2,7 +2,7 @@ import argparse
 import sys
 import traceback
 
-from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath
+from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath, migratedPackets
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -16,7 +16,7 @@ from actions.get_buckets import GetBuckets
 from actions.migration import Migration
 from minioWrapper import MinioWrapper
 
-from utils import initLogger, myPrint, getTimeInSec, timeDiff
+from utils import initLogger, myPrint, getTimeInSec, timeDiff, writeJsonFile
 import config as conf
 
 
@@ -52,7 +52,12 @@ def main():
         if args.action == 'get_records' or args.action == 'all':
             myPrint("Action: get_records", 1)
             m = MinioWrapper()
-            myPrint("Total objects level 1 " + str(len(m.listObjects(conf.new_bucket_name, False))))
+            objs = m.listObjects(conf.new_bucket_name, False)
+            new_objs = []
+            for ob in objs:
+                new_objs.append(ob.replace("/", ""))
+            writeJsonFile(migratedPackets, new_objs)
+            myPrint("Total objects level 1 " + str(len(new_objs)))
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action get_records: " + prstr, 11)
     except:

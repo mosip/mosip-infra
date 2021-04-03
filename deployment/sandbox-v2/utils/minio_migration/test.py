@@ -2,7 +2,8 @@ import argparse
 import sys
 import traceback
 
-from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath, hashCheckPacketsPacket
+from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath, hashCheckPacketsPacket, \
+    migratedPackets
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -51,6 +52,19 @@ def main():
                 Migration().checkHash(packet)
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action check_hash: " + prstr, 11)
+        if args.action == 'check_records' or args.action == 'all':
+            myPrint("Action: check_records", 1)
+            total_buckets = getJsonFile(bucketListPath)
+            total_packets = getJsonFile(packetListPath)
+            total_ignored = getJsonFile(ignoredBucketListPath)
+            total_migrated = getJsonFile(migratedPackets)
+            myPrint("total_buckets: "+str(len(total_buckets)))
+            myPrint("total_packets: " + str(len(total_packets)))
+            myPrint("total_ignored: " + str(len(total_ignored)))
+            myPrint("total_migrated: " + str(len(total_migrated)))
+            myPrint(list(set(total_packets) - set(total_migrated)))
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action check_records: " + prstr, 11)
     except:
         prev_time, prstr = timeDiff(start_time)
         myPrint("Total time taken by the script: " + prstr, 11)

@@ -34,3 +34,4 @@ credentialPreparedDataPath = os.path.join(generatedDataFolderPath, 'credentialPr
 runResult = os.path.join(generatedDataFolderPath, 'runResult.json')
 vidRequestId = os.path.join(generatedDataFolderPath, 'vidRequestId.json')
 hashCheckPacketsPacket = os.path.abspath(os.path.join(generatedDataFolderPath, 'checkHash.json'))
+migratedPackets = os.path.abspath(os.path.join(generatedDataFolderPath, 'migratedPackets.json'))
