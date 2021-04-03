@@ -26,7 +26,7 @@ $ helm -n ingress-nginx install ingress-nginx nginx-stable/nginx-ingress -f ingr
 ```
 
 ### Posgtres external access
-* Apply the nginx transport server.  This is required only if postgres is insalled within the cluster and requires external access. 
+* Apply the nginx transport server.  This is required only if postgres is installed within the cluster and requires external access. 
 ```
 $ kubectl apply -f transportserver.yaml
 ```
@@ -45,13 +45,17 @@ $ kubectl -n ingress-nginx get svc
   * You should see one of your instances pointing to LB. Select the instance.
   * Scroll down to edit Attributes.  Enable "Proxy Protocol v2".
 
-The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed, it does not work on Cloud). 
+The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed on LB).
 
 NOTE: if you make any change in the ingress service, you will have to delete it completely and re-install.  'Hot' changes may not reflect in LB. This will also give a new load balancer ip.
 
 ### Domain name
 * Point your domain name to LB's public DNS/IP. 
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
+* Update the domain name in `global_configmap.yaml` and run
+```
+$ kubectl apply -f global_configmap.yaml
+```
 
 ## Notes
 Current ingress controller has a work around described [here](https://github.com/nginxinc/kubernetes-ingress/issues/1250).  The config map implements the work around.  We have added another snipped to makes sure port 443 is forwarded to upstream server as X-FORWARDED-PORT.  Note that this will **not work** if original request is `http` and not `https`.  
