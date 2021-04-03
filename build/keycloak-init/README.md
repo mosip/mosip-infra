@@ -19,7 +19,7 @@ $ python3 keycloak_init.py --help
 ```
 * Run (example):
 ```
-$ ./keycloak_init.py https://iam.xyz.net/auth/ user userpassword input
+$ python3 keycloak_init.py https://iam.xyz.net/auth/ user userpassword input.yaml
 ```
 
 # Docker

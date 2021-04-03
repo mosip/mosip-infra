@@ -49,6 +49,23 @@ class KeycloakSession:
         self.keycloak_admin.realm_name = 'master' # restore
         return 0
 
+    def create_client(self, realm, client, secret):
+        self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
+        payload = {
+          "clientId" : client,
+          "secret" : secret
+        }
+        try:
+            self.keycloak_admin.create_client(payload, skip_exists=False)  # If exists, update. So don't skip
+        except KeycloakGetError as e:
+            if e.response_code == 409:
+                print('Exists, updating %s' % client)
+                self.keycloak_admin.update_client(client, payload)
+        except:
+            self.keycloak_admin.realm_name = 'master' # restore
+            raise
+        self.keycloak_admin.realm_name = 'master' # restore
+
 def args_parse(): 
    parser = argparse.ArgumentParser()
    parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com/auth/.  Note: slash is important')  
@@ -85,6 +102,11 @@ def main():
             roles = values[realm]['roles']
             for role in roles:
                 r = ks.create_role(realm, role)
+
+            clients = values[realm]['clients']
+            for client in clients:
+              r = ks.create_client(realm, client['name'], client['secret'])  
+
     except:
         formatted_lines = traceback.format_exc()
         print(formatted_lines)

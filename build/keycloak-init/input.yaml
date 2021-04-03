@@ -33,6 +33,9 @@ mosip:  # realm
    - REGISTRATION_SUPERVISOR
    - RESIDENT
    - ZONAL_ADMIN
+  clients:
+   - name: default-client
+     secret: anysecret 
 
 preregistration:  # realm
   roles: 
@@ -41,3 +44,4 @@ preregistration:  # realm
     - PREREG
     - PRE_REGISTRATION_ADMIN
     - REGISTRATION_PROCESSOR
+  clients: []
