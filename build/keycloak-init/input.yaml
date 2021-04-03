@@ -35,7 +35,7 @@ mosip:  # realm
    - ZONAL_ADMIN
   clients:
    - name: default-client
-     secret: anysecret 
+     secret: ""
 
 preregistration:  # realm
   roles: 

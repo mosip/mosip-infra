@@ -4,6 +4,7 @@
 import sys
 import ast
 import argparse
+import secrets
 import json
 import yaml
 import traceback
@@ -50,6 +51,9 @@ class KeycloakSession:
         return 0
 
     def create_client(self, realm, client, secret):
+        if len(secret.strip()) == 0:   # No secret specified, generate a random one
+            secret = secrets.token_urlsafe(16) 
+
         self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
         payload = {
           "clientId" : client,
@@ -60,7 +64,8 @@ class KeycloakSession:
         except KeycloakGetError as e:
             if e.response_code == 409:
                 print('Exists, updating %s' % client)
-                self.keycloak_admin.update_client(client, payload)
+                client_id = self.keycloak_admin.get_client_id(client)
+                self.keycloak_admin.update_client(client_id, payload)
         except:
             self.keycloak_admin.realm_name = 'master' # restore
             raise
@@ -105,7 +110,7 @@ def main():
 
             clients = values[realm]['clients']
             for client in clients:
-              r = ks.create_client(realm, client['name'], client['secret'])  
+                r = ks.create_client(realm, client['name'], client['secret'])  
 
     except:
         formatted_lines = traceback.format_exc()
