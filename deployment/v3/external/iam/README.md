@@ -17,11 +17,18 @@ $ ./install.sh
 * If you use `gp2-retain` storage class then even after deleting PVC, PV, the storage will remain intact on AWS. If you wish to delete the same, go to AWS Console --> Volumes and delete the volume.
 * The chart above installs Postgres by default. 
 
-## Rancher integration
-
-* If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
-* For users in keycloak assign roles - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
-
+## Configmap and secret
+In case you have not installed Keycloak by above method, and have already and instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
+```
+keycloak:
+  admin:
+    userName:
+      existingConfigMap: keycloak-env-vars
+      key: KEYCLOAK_ADMIN_USER
+    secret:
+      existingSecret: keycloak
+      key: admin-password
+```
 ## Secret change
 In case you change admin password directly from console, then update the secret as well:
 ```
@@ -31,6 +38,11 @@ You may get the current admin password:
 ```
 $ ./get_pwd.sh
 ```
+## Rancher integration
+
+* If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
+* For users in keycloak assign roles - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
+
 ## Keycloak Init
 To populate base data of MOSIP:
 * Add mosip helm repo for Keycloak 
