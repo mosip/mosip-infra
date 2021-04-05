@@ -21,6 +21,9 @@ $ ./install.sh
 In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
 ```
 keycloak:
+  host:
+    existingConfigMap: keycloak-host
+    key: keycloak-host-url
   admin:
     userName:
       existingConfigMap: keycloak-env-vars
@@ -29,6 +32,8 @@ keycloak:
       existingSecret: keycloak
       key: admin-password
 ```
+You may use `host_configmap.yaml` given here to add host url.
+
 ## Secret change
 In case you change admin password directly from console, then update the secret as well:
 ```
