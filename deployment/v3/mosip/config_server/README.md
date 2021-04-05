@@ -12,6 +12,13 @@ $ kubectl create ns config-server
 ```
 $ ./copy_secrets.sh
 ```
+TODO: copy secrets does not update.  Enhance it.
+* Copy other config maps
+```
+$ ./copy_cm.sh
+```
+TODO: copy secrets does not update.  Enhance it.
+
 * Review values are update appropriately. `mosipApiHost` is required.  You may create your local `values.yaml`.
 
 * Install 
