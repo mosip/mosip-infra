@@ -266,7 +266,7 @@ services:
 
   uin:
     serviceName: regproc-uin-generator-stage
-    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
     ports:
       eventbusPort: 5719
       hazelcastPort: 5701
@@ -288,7 +288,7 @@ services:
 
   print:
     serviceName: regproc-printing-stage
-    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
     ports:
       eventbusPort: 5722
       hazelcastPort: 5701
