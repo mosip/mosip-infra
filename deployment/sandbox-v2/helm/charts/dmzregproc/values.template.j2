@@ -39,20 +39,20 @@ landing:   # Landing folder where packets land
 imagePullPolicy: Always 
 services:
 
-  initstagegroup:
-    serviceName: {{ versions.services.dmzregproc.initstagegroup.keys()[0] }} 
-    dockerImage: {{ versions.services.dmzregproc.initstagegroup.values()[0] }}
+  group1:
+    serviceName: {{ versions.services.dmzregproc.group1.keys()[0] }} 
+    dockerImage: {{ versions.services.dmzregproc.group1.values()[0] }}
     ports:
       hazelcastPort: 5701
       servicePort: 80
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
     podconfig:
-      {{ podconfig.dmzregproc.initstagegroup | to_nice_yaml(indent=6) | indent(6) }}
+      {{ podconfig.dmzregproc.group1 | to_nice_yaml(indent=6) | indent(6) }}
 
   receiver:
     serviceName: regproc-packet-receiver-stage
-    dockerImage: {{ versions.services.dmzregproc.initstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.dmzregproc.group1.values()[0] }}
     ports:
       eventbusPort: 5711
       hazelcastPort: 5701
