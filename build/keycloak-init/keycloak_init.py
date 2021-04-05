@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 # Script to initialize values in Keycloak
 
+import os
 import sys
 import ast
 import argparse
@@ -51,9 +52,6 @@ class KeycloakSession:
         return 0
 
     def create_client(self, realm, client, secret):
-        if len(secret.strip()) == 0:   # No secret specified, generate a random one
-            secret = secrets.token_urlsafe(16) 
-
         self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
         payload = {
           "clientId" : client,
@@ -102,15 +100,19 @@ def main():
             r = ks.create_realm(realm)  # {realm : [role]}
 
         for realm in values:
-            ks = KeycloakSession('master', server_url, user, password, ssl_verify)
             print('Create roles for realm %s' % realm) 
             roles = values[realm]['roles']
             for role in roles:
                 r = ks.create_role(realm, role)
 
+            # Expect secrets passed via env variables. 
             clients = values[realm]['clients']
             for client in clients:
-                r = ks.create_client(realm, client['name'], client['secret'])  
+                secret_env_name = '%s-%s-secret' % (realm, client)
+                secret = os.environ.get(secret_env_name) 
+                if secret is None:  # Env variable not found
+                    secret = secrets.token_urlsafe(16)
+                r = ks.create_client(realm, client, secret) 
 
     except:
         formatted_lines = traceback.format_exc()

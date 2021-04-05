@@ -1,3 +1,8 @@
+## Secrets are passed in the docker via env variables. This is needed to make sure Kubernetes secrets
+## are available for use.  The convention followed here is as follows:
+## <realm name>-<client-name>-secret.
+## A corresponding env variable of this name must be available. Otherwise, there would be mismatch of passwords
+## in Keycloak versus Kubernetes secrets.
 mosip:  # realm
   roles:  
    - ABIS_PARTNER
@@ -34,8 +39,7 @@ mosip:  # realm
    - RESIDENT
    - ZONAL_ADMIN
   clients:
-   - name: default-client
-     secret: ""
+   - default-client
 
 preregistration:  # realm
   roles: 
