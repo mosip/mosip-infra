@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-host
+  namespace: keycloak
+data:
+  keycloak-host-url: https://iam.mosip.net/auth/
+
