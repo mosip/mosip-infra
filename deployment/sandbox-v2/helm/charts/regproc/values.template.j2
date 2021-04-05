@@ -39,36 +39,63 @@ services:
     podconfig:
       {{ podconfig.regproc.camel | to_nice_yaml(indent=6) | indent(6) }}
 
-  preprocstagegroup:  
-    serviceName: {{ versions.services.regproc.preprocstagegroup.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+  group2:  
+    serviceName: {{ versions.services.regproc.group2.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       hazelcastPort: 5701
       servicePort: 80
     podconfig:
-      {{ podconfig.regproc.preprocstagegroup | to_nice_yaml(indent=6) | indent(6) }}
+      {{ podconfig.regproc.group2 | to_nice_yaml(indent=6) | indent(6) }}
 
-  coreprocstagegroup:  
-    serviceName: {{ versions.services.regproc.coreprocstagegroup.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+  group3:  
+    serviceName: {{ versions.services.regproc.group3.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       hazelcastPort: 5701
       servicePort: 80
     podconfig:
-      {{ podconfig.regproc.coreprocstagegroup | to_nice_yaml(indent=6) | indent(6) }}
+      {{ podconfig.regproc.group3 | to_nice_yaml(indent=6) | indent(6) }}
 
-  postprocstagegroup:  
-    serviceName: {{ versions.services.regproc.postprocstagegroup.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.postprocstagegroup.values()[0] }}
+  group4:  
+    serviceName: {{ versions.services.regproc.group4.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       hazelcastPort: 5701
       servicePort: 80
     podconfig:
-      {{ podconfig.regproc.postprocstagegroup | to_nice_yaml(indent=6) | indent(6) }}
+      {{ podconfig.regproc.group4 | to_nice_yaml(indent=6) | indent(6) }}
+
+  group5:  
+    serviceName: {{ versions.services.regproc.group5.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+    podconfig:
+      {{ podconfig.regproc.group5 | to_nice_yaml(indent=6) | indent(6) }}
+
+  group7:  
+    serviceName: {{ versions.services.regproc.group7.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+    podconfig:
+      {{ podconfig.regproc.group7 | to_nice_yaml(indent=6) | indent(6) }}
+
+  group6:  
+    serviceName: {{ versions.services.regproc.group6.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+    podconfig:
+      {{ podconfig.regproc.group6 | to_nice_yaml(indent=6) | indent(6) }}
 
   notification:  # This is has a service front end for access (notification-svc.yaml)
     serviceName: regproc-securezone-notification-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5712
       hazelcastPort: 5701
@@ -79,7 +106,7 @@ services:
 
   classifier:  
     serviceName: regproc-packet-classifier-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
     ports:
       eventbusPort: 5724
       hazelcastPort: 5701
@@ -89,8 +116,8 @@ services:
     healthUrl: /registrationprocessor/v1/packetclassifier/actuator/health
 
   reprocess:
-    serviceName: regproc-reprocessor-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }} 
+    dockerImage: {{ versions.services.regproc.reprocess.values()[0] }}
     ports:
       eventbusPort: 5750
       hazelcastPort: 5701
@@ -102,10 +129,12 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/reprocessor/ 
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
+    podconfig:
+      {{ podconfig.regproc.reprocess | to_nice_yaml(indent=6) | indent(6) }}
 
   uploader:
     serviceName: regproc-packet-uploader-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
     ports:
       eventbusPort: 5714
       hazelcastPort: 5701
@@ -116,7 +145,7 @@ services:
 
   quality:
     serviceName: regproc-quality-checker-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5727
       hazelcastPort: 5701
@@ -127,7 +156,7 @@ services:
 
   validator:
     serviceName: regproc-packet-validator-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
     ports:
       eventbusPort: 5715
       hazelcastPort: 5701
@@ -138,7 +167,7 @@ services:
 
   osi:
     serviceName: regproc-osi-validator-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
     ports:
       eventbusPort: 5716
       hazelcastPort: 5701
@@ -149,7 +178,7 @@ services:
 
   demo:
     serviceName: regproc-demo-dedupe-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5717
       hazelcastPort: 5701
@@ -160,7 +189,7 @@ services:
 
   bio:
     serviceName: regproc-bio-dedupe-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5718
       hazelcastPort: 5701
@@ -171,7 +200,7 @@ services:
 
   bioauth:
     serviceName: regproc-biometric-authentication-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5777
       hazelcastPort: 5701
@@ -182,7 +211,7 @@ services:
 
   abishandler:
     serviceName: regproc-abis-handler-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5726
       hazelcastPort: 5701
@@ -193,7 +222,7 @@ services:
 
   abismid:
     serviceName: regproc-abis-middleware-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5888
       hazelcastPort: 5701
@@ -204,7 +233,7 @@ services:
 
   manual:
     serviceName: regproc-manual-verification-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5720
       hazelcastPort: 5701
@@ -215,7 +244,7 @@ services:
 
   external:
     serviceName: regproc-external-stage
-    dockerImage: {{ versions.services.regproc.preprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5736
       hazelcastPort: 5701
@@ -237,7 +266,7 @@ services:
 
   uin:
     serviceName: regproc-uin-generator-stage
-    dockerImage: {{ versions.services.regproc.coreprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5719
       hazelcastPort: 5701
@@ -248,7 +277,7 @@ services:
 
   msg:
     serviceName: regproc-message-sender-stage
-    dockerImage: {{ versions.services.regproc.postprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5721
       hazelcastPort: 5701
@@ -259,7 +288,7 @@ services:
 
   print:
     serviceName: regproc-printing-stage
-    dockerImage: {{ versions.services.regproc.postprocstagegroup.values()[0] }}
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5722
       hazelcastPort: 5701
