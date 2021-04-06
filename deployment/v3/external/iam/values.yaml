@@ -6,6 +6,8 @@ auth.adminUser: admin
 ingress:
   enabled: true
   hostname: iam.mosip.net
+  annotations:
+    ingress.kubernetes.io/class: nginx
 
 proxyAddressForwarding: true
 
