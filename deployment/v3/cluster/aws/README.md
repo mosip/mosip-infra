@@ -62,8 +62,3 @@ NOTE: if you make any change in the ingress service, you will have to delete it 
 $ kubectl apply -f global_configmap.yaml
 ```
 
-## Notes
-Current ingress controller has a work around described [here](https://github.com/nginxinc/kubernetes-ingress/issues/1250).  The config map implements the work around.  We have added another snipped to makes sure port 443 is forwarded to upstream server as X-FORWARDED-PORT.  Note that this will **not work** if original request is `http` and not `https`.  
-```
-proxy_set_header X-Forwarded-Port {{if $server.RedirectToHTTPS}}443{{end}}; 
-```

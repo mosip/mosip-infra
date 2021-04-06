@@ -1,7 +1,9 @@
 #!/bin/sh
 eksctl create cluster \
---name IAMCluster \
---nodegroup-name workder-nodes \
---nodes 1 \
+--name MOSIPCluster \
+--nodegroup-name mosip-worker-nodes \
+--nodes 2 \
+--instance-types=m5a.xlarge \
 --ssh-access \
---ssh-public-key rancher
+--ssh-public-key rancher \
+--managed
