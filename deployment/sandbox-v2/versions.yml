@@ -151,7 +151,7 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipid/websub-service:1.1.4'
+        'websub-service': 'ckm007/websub-service:1.1.5'
 
     mock:
       abis:
