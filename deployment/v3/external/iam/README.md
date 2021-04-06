@@ -18,7 +18,11 @@ $ ./install.sh
 * The chart above installs Postgres by default. 
 
 ## Configmap and secret
-In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
+* Update `host_configmap.yaml` with your Keycloak host url and run
+```
+$ kubectl apply -f host_configmap.yaml
+```
+* In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
 ```
 keycloak:
   host:

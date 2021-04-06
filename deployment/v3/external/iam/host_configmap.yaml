@@ -4,5 +4,5 @@ metadata:
   name: keycloak-host
   namespace: keycloak
 data:
-  keycloak-host-url: https://iam.xyz.net/
+  keycloak-host-url: https://iam.mosip.net/auth/
 
