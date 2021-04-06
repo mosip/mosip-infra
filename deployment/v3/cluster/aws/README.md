@@ -1,7 +1,11 @@
 # MOSIP cluster on Amazon EKS
 
 ## Create
-* Run `create.sh` script to create a cluster.
+* If you already have `~/.kube/config` file created for another cluster, rename it.
+* Install `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+* Install `kubectl`
+* Set AWS credentials in `~/.aws/` folder (refer AWS documentation)
+* Review cluster params in `create.sh`, then run the script.
 
 ## Persistence
 ### AWS
@@ -15,10 +19,10 @@ Ingress is not installed by default on EKS.  Note that we are not using ingress 
 ### Install
 * Install nginx ingress as per instructions given [here](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/#). Specifically, 
 ```
-$ helm repo add nginx-stable https://helm.nginx.com/stable
-$ helm repo update
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
 $ kubectl create namespace ingress-nginx
-$ helm -n ingress-nginx install ingress-nginx nginx-stable/nginx-ingress -f ingress_values.yaml
+$ helm -n ingress-nginx install ingress-nginx ingress-nginx/nginx-ingress -f ingress_values.yaml
 ```
 * If you would like to have load balancer on internal ip (rather than internet-facing) set this in `ingress_values.yaml`:
 ```
@@ -40,6 +44,7 @@ $ kubectl -n ingress-nginx get svc
 * Obtain AWS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html) 
 * Add the certificates and 443 access to the LB listener.
   * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.
+* Forward TLS->443 listner traffic to target group that corresponds to lisner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
 * Set proxy protocol in LB targets. Without setting this your Keycloak will return "http://.." URLs instead of "https:// .."
   * Go to AWS "Target Groups" tabs
   * You should see one of your instances pointing to LB. Select the instance.

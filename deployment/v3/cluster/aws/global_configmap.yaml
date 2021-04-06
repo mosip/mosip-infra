@@ -4,5 +4,5 @@ metadata:
   name: global
   namespace: default
 data:
-  mosip-api-host: api.sandbox.mosip.net
+  mosip-api-host: api.sandbox.xyz.net
 
