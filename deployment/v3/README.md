@@ -4,9 +4,11 @@
 
 ## Cloud versus on-prem
 
-## Rancher Server
+## K8s Cluster
 
 ## IAM 
+
+## Rancher Server
 
 ## External components
 
