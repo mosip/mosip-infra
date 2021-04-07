@@ -1,3 +1,7 @@
+from datetime import timedelta
+
+import certifi
+import urllib3
 from minio import Minio, S3Error
 from minio.commonconfig import ComposeSource, CopySource
 from minio.deleteobjects import DeleteObject
@@ -15,6 +19,7 @@ class MinioWrapper:
         self.client = self.createConnection()
 
     def createConnection(self):
+        timeout = timedelta(minutes=15).seconds
         if conf.region is not None:
             return Minio(
                 conf.minio_endpoint,
@@ -27,7 +32,18 @@ class MinioWrapper:
                 conf.minio_endpoint,
                 access_key=conf.access_key,
                 secret_key=conf.secret_key,
-                secure=False
+                secure=False,
+                http_client=urllib3.PoolManager(
+                    timeout=urllib3.util.Timeout(connect=timeout, read=timeout),
+                    maxsize=50,
+                    cert_reqs='CERT_REQUIRED',
+                    ca_certs=certifi.where(),
+                    retries=urllib3.Retry(
+                        total=2,
+                        backoff_factor=0.2,
+                        status_forcelist=[500, 502, 503, 504]
+                    )
+                )
             )
 
     def listBucketNames(self):
@@ -59,10 +75,14 @@ class MinioWrapper:
             myPrint(e)
             return False
 
-    def listObjects(self, bucket_name, recursive=False):
+    def listObjects(self, bucket_name, recursive=False, prefix=None):
         object_names = []
         try:
-            for obj in self.client.list_objects(bucket_name, recursive=recursive):
+            if prefix is not None:
+                objects = self.client.list_objects(bucket_name, prefix=prefix, recursive=recursive)
+            else:
+                objects = self.client.list_objects(bucket_name, recursive=recursive)
+            for obj in objects:
                 object_names.append(obj.object_name)
             return object_names
         except InvalidResponseError as e:
@@ -73,8 +93,7 @@ class MinioWrapper:
         response = None
         try:
             response = self.client.get_object(bucket_name, object_name)
-            myPrint(response.read())
-            data = response.status
+            data = response.read()
         finally:
             response.close()
             response.release_conn()
@@ -105,8 +124,12 @@ class MinioWrapper:
 
     def deleteBucket(self):
         bucket_name = "my-test-bucket"
+        myPrint("Fetching objects level 1 list")
+        myPrint("Total objects level 1 " + str(len(self.listObjects(bucket_name, False))))
+        myPrint("Fetching object recursive list")
         object_names = self.listObjects(bucket_name, True)
         removed_objects = []
+        myPrint("Total objects " + str(len(object_names)))
         for obj_name in object_names:
             removed_objects.append(DeleteObject(obj_name))
         errors = self.client.remove_objects(bucket_name, removed_objects)

@@ -125,6 +125,11 @@ def writeJsonFile(path, data):
         json.dump(data, f, indent=2)
 
 
+def writeFile(path, data):
+    with open(path, "w") as myfile:
+        myfile.write(data)
+
+
 def dictToJson(data):
     return json.dumps(data)
 
@@ -222,3 +227,7 @@ def chunkIt(seq, num):
         out.append(seq[int(last):int(last + avg)])
         last += avg
     return out
+
+
+def getLastPath(p):
+    return os.path.basename(os.path.normpath(p))

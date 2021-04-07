@@ -18,6 +18,10 @@ logPath = os.path.abspath(
     os.path.join(rootPath, 'out.log')
 )
 
+statPath = os.path.abspath(
+    os.path.join(rootPath, 'stats')
+)
+
 generatedDataFolderPath = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), './', 'generatedData')
 )
@@ -29,3 +33,5 @@ ignoredBucketListPath = os.path.join(generatedDataFolderPath, 'ignoredBucketList
 credentialPreparedDataPath = os.path.join(generatedDataFolderPath, 'credentialPreparedData.json')
 runResult = os.path.join(generatedDataFolderPath, 'runResult.json')
 vidRequestId = os.path.join(generatedDataFolderPath, 'vidRequestId.json')
+hashCheckPacketsPacket = os.path.abspath(os.path.join(generatedDataFolderPath, 'checkHash.json'))
+migratedPackets = os.path.abspath(os.path.join(generatedDataFolderPath, 'migratedPackets.json'))

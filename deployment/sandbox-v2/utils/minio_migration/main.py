@@ -2,7 +2,7 @@ import argparse
 import sys
 import traceback
 
-from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath
+from paths import envPath, logPath, bucketListPath, packetListPath, ignoredBucketListPath, migratedPackets
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -14,7 +14,9 @@ load_dotenv(dotenv_path=envPath)
 from actions.find_packets import FindPackets
 from actions.get_buckets import GetBuckets
 from actions.migration import Migration
-from utils import initLogger, myPrint, getTimeInSec, timeDiff
+from minioWrapper import MinioWrapper
+
+from utils import initLogger, myPrint, getTimeInSec, timeDiff, writeJsonFile
 import config as conf
 
 
@@ -47,6 +49,17 @@ def main():
             Migration().run()
             prev_time, prstr = timeDiff(prev_time)
             myPrint("Time taken by Action migrate: " + prstr, 11)
+        if args.action == 'get_records' or args.action == 'all':
+            myPrint("Action: get_records", 1)
+            m = MinioWrapper()
+            objs = m.listObjects(conf.new_bucket_name, False)
+            new_objs = []
+            for ob in objs:
+                new_objs.append(ob.replace("/", ""))
+            writeJsonFile(migratedPackets, new_objs)
+            myPrint("Total objects level 1 " + str(len(new_objs)))
+            prev_time, prstr = timeDiff(prev_time)
+            myPrint("Time taken by Action get_records: " + prstr, 11)
     except:
         prev_time, prstr = timeDiff(start_time)
         myPrint("Total time taken by the script: " + prstr, 11)
