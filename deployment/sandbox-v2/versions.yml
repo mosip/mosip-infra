@@ -46,18 +46,28 @@ versions:
       version: 1.2.0-SNAPSHOT
 
     regproc:
-      preprocstagegroup:
-        'regproc-preproc-stage-group': 'mosipdev/pre-processor-stage-group:MOSIP-12124'
-      coreprocstagegroup:
-        'regproc-coreproc-stage-group': 'mosipdev/core-processor-stage-group:MOSIP-12124'
-      postprocstagegroup:
-        'regproc-postproc-stage-group': 'mosipdev/post-processor-stage-group:MOSIP-12124'
+      group1:
+        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
+      group2:
+        'regproc-group-2': 'mosipdev/group-2:MOSIP-12124'
+      group3:
+        'regproc-group-3': 'mosipdev/group-3:MOSIP-12124'
+      group4:
+        'regproc-group-4': 'mosipdev/group-4:MOSIP-12124'
+      group5:
+        'regproc-group-5': 'mosipdev/group-5:MOSIP-12124'
+      group6:
+        'regproc-group-6': 'mosipdev/group-6:MOSIP-12124'
+      group7:
+        'regproc-group-7': 'mosipdev/group-7:MOSIP-12124'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       eis: 
         'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
+      reprocess:
+        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
 
     dmzregproc:  
       initstagegroup:
