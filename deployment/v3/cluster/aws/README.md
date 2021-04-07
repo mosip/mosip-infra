@@ -6,6 +6,7 @@
 * Install `kubectl`
 * Set AWS credentials in `~/.aws/` folder (refer AWS documentation)
 * Review cluster params in `create.sh`, then run the script.
+* Note that it takes around 30 minutes to create (or delete a cluster).
 
 ## Persistence
 ### AWS
