@@ -70,8 +70,8 @@ versions:
         'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
 
     dmzregproc:  
-      initstagegroup:
-        'regproc-init-stage-group': 'mosipdev/init-stage-group:MOSIP-12124'
+      group1:
+        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       status:
