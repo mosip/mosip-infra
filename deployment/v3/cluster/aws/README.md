@@ -18,12 +18,12 @@
 Ingress is not installed by default on EKS.  Note that we are not using ingress controller provided by AWS, but install our own controller.  Good discussion [here](https://itnext.io/kubernetes-ingress-controllers-how-to-choose-the-right-one-part-1-41d3554978d2). See also [this](https://blog.getambassador.io/configuring-kubernetes-ingress-on-aws-dont-make-these-mistakes-1a602e430e0a)  
 
 ### Install
-* Install nginx ingress as per instructions given [here](https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/#). Specifically, 
+* Install nginx ingress as per instructions given [here](https://kubernetes.github.io/ingress-nginx/deploy/#using-helm). Specifically, 
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
 $ kubectl create namespace ingress-nginx
-$ helm -n ingress-nginx install ingress-nginx ingress-nginx/nginx-ingress -f ingress_values.yaml
+$ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f ingress_values.yaml
 ```
 * If you would like to have load balancer on internal ip (rather than internet-facing) set this in `ingress_values.yaml`:
 ```
@@ -31,10 +31,16 @@ $ helm -n ingress-nginx install ingress-nginx ingress-nginx/nginx-ingress -f ing
 ```
 
 ### Posgtres external access
-* Apply the nginx transport server.  This is required only if postgres is installed within the cluster and requires external access. 
+* If you have installed postgres inside the cluster, the same may be accessed from outside if you have enabled port 5432 TCP listner on LB and set the following configuration in `ingress_values.yaml`:
 ```
-$ kubectl apply -f transportserver.yaml
+tcp: 
+  5432: "postgres/postgresql:5432"
 ```
+* To enable access later in case you didn't do it while creating ingress apply the following configmap and restart nginx ingress controller pod:
+```
+kubectl apply -f tcp_configmap.yaml
+```
+
 ### Network Load Balancer
 * AWS will assign a Network Load Balancer (Layer 4) that can be seen as:
 ```
@@ -62,4 +68,5 @@ NOTE: if you make any change in the ingress service, you will have to delete it 
 ```
 $ kubectl apply -f global_configmap.yaml
 ```
-
+## Log rotation
+The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 

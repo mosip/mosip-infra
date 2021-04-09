@@ -16,5 +16,6 @@ controller:
 defaultBackend:
   enabled: "true"
 
-tcp: {}
+## Only for postgres installation inside the cluster and external access is required. Disable otherwise.
+tcp: 
   5432: "postgres/postgresql:5432"
