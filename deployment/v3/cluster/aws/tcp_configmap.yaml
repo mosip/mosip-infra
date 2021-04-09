@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ingress-nginx-tcp
+  namespace: ingress-nginx
+data:
+  5432: "postgres/postgres-postgresql:5432"
