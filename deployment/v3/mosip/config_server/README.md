@@ -19,7 +19,7 @@ $ ./copy_cm.sh
 ```
 TODO: copy secrets does not update.  Enhance it.
 
-* Review values are update appropriately. `mosipApiHost` is required.  You may create your local `values.yaml`.
+* Review values are updated appropriately. `mosipApiHost` is required.  You may create your local `values.yaml`.
 
 * Install 
 ```
