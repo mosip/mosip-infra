@@ -7,6 +7,7 @@
 * Set AWS credentials in `~/.aws/` folder (refer AWS documentation)
 * Review cluster params in `create.sh`, then run the script.
 * Note that it takes around 30 minutes to create (or delete a cluster).
+* After creating cluster make a copy of `config` with a suitable name in `~/.kube/` folder, eg. `iam_config`, `mosip_config`.
 
 ## Persistence
 ### AWS
