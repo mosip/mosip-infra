@@ -11,8 +11,11 @@
 
 ## Persistence
 ### AWS
-* Default storage class is `gp2`.  
-* To persist define another storage class with `Retain` policy.
+* Default storage class is `gp2` which by is in "Delete" mode.  After helm is deleted, PV also gets deleted.  
+* To retain define a storage class `gp2-retain` by running `sc.yaml`. This will retain the PV. You will have to delete the storage from AWS console.  See some more details on persistence [here](../../docs/persistence.md).
+```
+$ kubectl apply -f sc.yaml
+```
 * If the PV gets deleted (say cluster was retarted), then you will have to define a PV connecting to this instance of storage (you will need volume ID etc). TODO: how to do this?
 
 ## Ingress and load balancer (LB)
