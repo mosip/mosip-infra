@@ -25,7 +25,7 @@ TODO: copy secrets does not update.  Enhance it.
 ```
 $ helm repo add mosip https://mosip.github.io/mosip-helm
 $ helm repo update 
-$ helm -n config-server install config-server config-server  -f <your_updated_values_file>
+$ helm -n config-server install config-server mosip/config-server  -f <your_updated_values_file>
 ```
 
 
