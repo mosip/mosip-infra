@@ -139,6 +139,8 @@ To install fresh, you may want to reset the clusters and persistence data.  Run 
 ```
 $ an reset.yml
 ```
+## Migration
+In case of Migration follow the steps mentioned in the [MIGRATION DOCS](docs/migration.md).
 
 ## Persistence
 All persistent data is available over Network File System (NFS) hosted on the console at location `/srv/nfs/mosip`.  All pods write into this location for any persistent data.  You may backup this folder if needed.
