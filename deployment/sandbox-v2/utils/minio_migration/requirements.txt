@@ -1,0 +1,5 @@
+certifi==2020.12.5
+minio==7.0.2
+python-dotenv==0.15.0
+urllib3==1.26.4
+uuid==1.30
