@@ -20,6 +20,17 @@
       msg: Init has already been done once. Skipping init.
     when: out.stat.exists
     
+- include: init_release.yml
+  vars:
+    pg_db_name: '{{item.key}}'
+    pg_release_sql_path: '{{item.value.release_path}}'
+    release_version: '{{postgres.upgrade.version}}'
+    release_type: '{{postgres.upgrade.type}}'
+  when: (out.stat.exists and item.value.release_path is defined)
+  loop: '{{databases | dict2items}}'
+
+- name: halting init if already done
+  block:
   - meta: end_play  # Exit
     when: out.stat.exists
   when: postgres.external == false 

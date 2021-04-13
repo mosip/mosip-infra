@@ -168,6 +168,10 @@ postgres:
   user: postgres 
   password: '{{secrets.postgres.su}}'
   init: true  # Initialize db. Set it to false in production after initializing once.
+  upgrade:
+    set: true  # accepts true or false value as per need.
+    version: 1.1.5 # version gto which upgrade is needed.
+    type: release
 
   # All below configs applicable only when external: false 
   internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
@@ -281,61 +285,76 @@ repos:
     githubpassword: ''
 
 # DBs 
-#
+# Please uncomment the release_path key in each of the database section if there is change in the DB in specific version
 databases:
   mosip_kernel:
     user: kerneluser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_iam:
     user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_audit:
     user: audituser
     sql_path: '{{repos.commons.dest}}/db_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_credential:
     user: credentialuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
+#    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
   mosip_idrepo:
     user: idrepouser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
+#    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
   mosip_idmap:
     user: idmapuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
+#    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.prereg.dest}}/db_release_scripts'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.regproc.dest}}/db_release_scripts'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
+#    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
+    release_path: '{{repos.websub.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
