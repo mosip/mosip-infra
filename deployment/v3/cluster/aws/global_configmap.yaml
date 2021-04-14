@@ -1,8 +1,11 @@
+## The data here is  of generic interest to modules in different namespaces hence this is marked as global.
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: global
   namespace: default
 data:
-  mosip-api-host: api.sandbox.xyz.net
+  mosip-api-host: api.sandbox.mosip.net
+  mosip-api-host-url: https://api.sandbox.mosip.net
+  is-glowroot: "false"
 
