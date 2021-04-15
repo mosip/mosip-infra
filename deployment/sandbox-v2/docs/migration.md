@@ -23,15 +23,15 @@ Below are the steps which are needed to be followed for migrating to the require
 * DB Rlease Changes
 	- Execute the DB release scripts for ``` mosip_master, mosip_websub ```
 	- Steps to execute is given in respective DB section in Modular repositories. ``` eg. for mosip_master, mosip_websub check Commons ```
-        - OR
+         OR
         - Execute the ``` postgres-init.yml ``` playbook after updating the upgrade section in ``` all.yml ```. 
 
 * Nginx changes
-        - 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
-        - minio nodeport exposing over console VM
-        - Pms module new api's
-        - Command to redeploy using playbooks from ```sb``` folder is 
-        - ```an playbooks/nginx.yml```
+	- 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
+	- minio nodeport exposing over console VM
+	- Pms module new api's
+	- Command to redeploy using playbooks from ```sb``` folder is 
+	- ```an playbooks/nginx.yml```
 
 * Deploying Latest Mosip Modules
 	- Uninstall all the mosip modules from mz and dmz clusters 
