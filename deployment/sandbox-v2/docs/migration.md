@@ -4,7 +4,7 @@
 Below are the steps which are needed to be followed for migrating to the required version 1.1.5
 
 * Infra Changes
-	- Rebase/Merge the open source Infra repo 1.1.5 branch into the required existing version branch of forked repo.
+	- Update the open source Infra repo 1.1.5 branch into the required existing version branch of forked repo.
 	- update/crosscheck the secrets.yml in the current branch and resolve all the conflicts.
 	- Add keys-job.yaml from kernel, ida, idrepo into .helmignore.
 	- UPDATE ```config_repo``` section all.yml with details pointing to the latest existing branch.
@@ -27,11 +27,18 @@ Below are the steps which are needed to be followed for migrating to the require
         - Execute the ``` postgres-init.yml ``` playbook after updating the upgrade section in ``` all.yml ```. 
 
 * Nginx changes
-	- 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
-	- minio nodeport exposing over console VM
-	- Pms module new api's
-	- Command to redeploy using playbooks from ```sb``` folder is 
-	- ```an playbooks/nginx.yml```
+        - 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
+        - minio nodeport exposing over console VM
+        - Pms module new api's
+        - Command to redeploy using playbooks from ```sb``` folder is
+        - ```an playbooks/nginx.yml```
+
+* Minio Migration for moving all the packets to one bucket taken as part of build 1.1.4.3 and above.
+	- Remove the minio service running in the MZ cluster using command ```helm1 delete minio```.
+	- Redeploy the minio service in the MZ cluster with ansible command ```an playbooks/minio.yml``` from ```sb``` folder.
+	- Open port 32000 on the console so that the minio service can be accessed over nodeport for tcp connection on this port.
+	- Please check if above mentioned nginx changes are already done before performing this minio migration.
+	- Follow the instruction as given in ```Readme.md``` in the minio migraton section in utils of infra ```utils/minio_migration```.
 
 * Deploying Latest Mosip Modules
 	- Uninstall all the mosip modules from mz and dmz clusters 
