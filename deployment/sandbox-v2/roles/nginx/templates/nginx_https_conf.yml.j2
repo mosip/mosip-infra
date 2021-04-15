@@ -201,22 +201,6 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/bio-dedupe/;
         }
 
-        location /partnermanagement/v1/misps/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/misps/;
-        }
-
-        location /partnermanagement/v1/policies/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/policies/;
-        }
-
-        location /partnermanagement/v1/partners/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/partners/;
-        }
-
-        location /partnermanagement/v1/pmpartners/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/partnermanagement/v1/pmpartners/;
-        }
-
         location /pmp-ui/ {
           proxy_pass http://mzworker0.sb:30080/pmp-ui/;
         }
