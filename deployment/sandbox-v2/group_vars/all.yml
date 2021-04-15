@@ -191,6 +191,7 @@ minio:
   access_key: admin
   secret_key: '{{secrets.minio.secretkey}}'
   nfs_path: '{{nfs.folder}}/minio'
+  nodeport: 32000
   node_affinity: 
     enabled: false # To run minio on an exclusive node
     node: '{{groups.mzworkers[1]}}' # Hostname. Run only on this node, and nothing else should run on this node
