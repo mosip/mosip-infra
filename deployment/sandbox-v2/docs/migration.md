@@ -27,10 +27,10 @@ Below are the steps which are needed to be followed for migrating to the require
         - Execute the ``` postgres-init.yml ``` playbook after updating the upgrade section in ``` all.yml ```. 
 
 * Nginx changes
-        - 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```
+        - 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
           ```
-            - minio nodeport exposing over console VM
-            - Pms module new api's
+             minio nodeport exposing over console VM
+             Pms module new api's
           ```
         - Command to redeploy using playbooks from ```sb``` folder is 
             - ```an playbooks/nginx.yml```
