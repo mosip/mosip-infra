@@ -121,6 +121,9 @@ $ an site.yml
 ```
 Provide the vault password.  Default is 'foo'.
 
+### Certificate Exchange 
+* The steps for the abis certificate exchange is mentoned in the [abiscert.md](docs/abiscert.md)
+
 ## Dashboards
 The links to various dashboards are available at 
 
