@@ -18,7 +18,7 @@
 	  "version": "string"
 	}
 	```
-  * 2. Upload CA certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/partnermanagement/v1/partners/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST``` Partner_Service_Controller --> /partners/certificate/ca/upload --> with below request
+  * 2. Upload CA certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST``` Partner_Service_Controller --> /partners/certificate/ca/upload --> with below request
 	```
 	{
 	  "id": "string",
@@ -31,7 +31,7 @@
 	  "version": "string"
 	}
 	```
-  * 3. Upload Partner certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/partnermanagement/v1/partners/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
+  * 3. Upload Partner certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
 	```
 	{
 	  "id": "string",
