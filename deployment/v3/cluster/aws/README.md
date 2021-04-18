@@ -33,6 +33,7 @@ $ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f ing
 ```
       service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
+Internal LB is needed when you would have a front-end landing server running wireguard which will connect to the internal LB thereby avoid public access to your installation.  See section on [wireguard](## Wireguard)
 
 ### Posgtres external access
 * If you have installed postgres inside the cluster, the same may be accessed from outside if you have enabled port 5432 TCP listner on LB and set the following configuration in `ingress_values.yaml`:
@@ -72,5 +73,11 @@ NOTE: if you make any change in the ingress service, you will have to delete it 
 ```
 $ kubectl apply -f global_configmap.yaml
 ```
+## Wireguard bastion host
+If you do not want public access to your installation, you may set up a bastion host running Wireguard as shown below:
+![](../../docs/images/wireguard_landing.jpg)
+
+Follow the procedure given [here](../../docs/wireguard.md)
+
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
