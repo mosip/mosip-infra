@@ -5,3 +5,4 @@ This folder contains installation procedures for all components that are not par
 ## External components
 * [Postgres](postgres/README.md)
 * [IAM (Keycloak)](iam/README.md)
+* [HSM](hsm/README.md)
