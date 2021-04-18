@@ -20,20 +20,36 @@
       msg: Init has already been done once. Skipping init.
     when: out.stat.exists
     
+- name: Delete existing upgrade.db file to create fresh
+  file:
+    path: '{{postgres.upgrade.info_file}}'
+    state: absent
+  when: postgres.upgrade.set == true
+
+- name: Create empty upgrade db info file
+  file:
+    path: '{{postgres.upgrade.info_file}}'
+    state: touch
+
 - include: init_release.yml
   vars:
     pg_db_name: '{{item.key}}'
     pg_release_sql_path: '{{item.value.release_path}}'
     release_version: '{{postgres.upgrade.version}}'
     release_type: '{{postgres.upgrade.type}}'
-  when: (out.stat.exists and item.value.release_path is defined)
+  when: 
+    - out.stat.exists
+    - postgres.upgrade.set == true
+    - item.value.release_path is defined
+#    - postgres.external == false
   loop: '{{databases | dict2items}}'
 
 - name: halting init if already done
   block:
   - meta: end_play  # Exit
-    when: out.stat.exists
-  when: postgres.external == false 
+    when: 
+    - out.stat.exists
+    - postgres.external == false
 
 - include: init_ddl.yml
   vars:
