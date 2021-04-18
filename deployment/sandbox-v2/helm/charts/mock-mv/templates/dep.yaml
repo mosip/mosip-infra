@@ -44,12 +44,12 @@ spec:
         ports:
         - containerPort: {{ .Values.services.mockmv.containerPort }}
 
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.mockmv.healthUrl }} 
-            port: {{ .Values.services.mockmv.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.mockmv.healthUrl }} 
+#            port: {{ .Values.services.mockmv.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
   #      livenessProbe:
   #        httpGet:
   #          path: {{ .Values.services.mockmv.healthUrl }} 

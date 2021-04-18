@@ -46,7 +46,7 @@
 	  "requesttime": "",
 	  "version": "string"
 	}
-
+	```
 # Troubleshooting
 
 - Please check if the domain name is correctly replaced.
