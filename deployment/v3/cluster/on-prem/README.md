@@ -60,5 +60,5 @@ AllowedIPs = 172.16.4.3
 ```
 The `Address` and `AllowedIPs` are the Wireguard network address (arbitrarily chosen, but should not clash with any other network).
 * Use Canal networking model for Rancher RKE cluster install. 
-* Give `internal_address: ` in `cluster.yml` as Wireguard address.
+* Give `internal_address: <wireguard address>` in `cluster.yml`.
 
