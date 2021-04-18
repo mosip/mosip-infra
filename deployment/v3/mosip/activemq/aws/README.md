@@ -23,4 +23,4 @@ To access web console from outside cluster define a domain name like "activemq.s
 ABIS must connect to internal LB address over port 61616.
 
 ## CLI
-Activemq command line utility may be downloaded from [here](https://github.com/vromero/activemq-artemis-helm).  Note that since Activemq port 61616 is not accessible externally, you must the same from a machine that has access to internal load balancer. 
+Activemq command line utility may be downloaded from [here](https://activemq.apache.org/components/artemis/download/).  Note that since Activemq port 61616 is not accessible externally, you must the same from a machine that has access to internal load balancer. 
