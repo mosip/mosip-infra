@@ -1,13 +1,13 @@
-<mxfile host="app.diagrams.net" modified="2021-04-18T06:42:33.196Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36" etag="NoYUaOHNmJEcDTnrmFeZ" version="14.6.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-18T08:42:28.388Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36" etag="79NVFEeKgl-P9YwdoQ7W" version="14.6.1" type="github">
   <diagram id="4sl1_foFDUdXR3agchwQ" name="Page-1">
-    <mxGraphModel dx="1298" dy="834" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="865" dy="556" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="UmiwN4struJqizfxHamz-14" value="MOSIP Cluster" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="870" y="200" width="200" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="UmiwN4struJqizfxHamz-15" value="Internal Load Balancer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="UmiwN4struJqizfxHamz-15" value="Cloud Internal Load Balancer" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="640" y="250" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UmiwN4struJqizfxHamz-16" value="Wireguard Landing Sevrver" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
