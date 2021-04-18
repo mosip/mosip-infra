@@ -55,7 +55,7 @@
         ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth```
 
 
-  * . Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
+  * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
 	```
 	{
 	  "id": "string",
@@ -71,6 +71,21 @@
 	  "version": "string"
 	}
 
+  * 8. Upload the response signinng certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: https://minbox.mosip.net/v1/keymanager/swagger-ui.html#/keymanager/uploadCertificateUsingPOST```  keymanager --> /uploadCertificate with below request
+	```
+	{
+	  "id": "string",
+	  "metadata": {},
+	  "request": {
+	    "applicationId": "PARTNER",
+	    "certificateData": "certficate data fom the responce of step 7",
+	    "referenceId": "mpartner-dafault-auth"
+	  },
+	  "requesttime": "2018-12-10T06:12:52.994Z",
+	  "version": "string"
+	}
+	```
+
 # Troubleshooting
 
 - Please check if the domain name is correctly replaced.
@@ -80,5 +95,9 @@
 	swagger 2:- pms services.
 	swagger 3:- pms services.
 	get certificate request :- ida services.
+- In case you gett error in certifacte upload for either of ROOT, IDA, mpartner-default-auth reponse as ```certificate data already exist``` pls ignore as the certifcate exchange is done once.
 - As of now this is WIP on this document. 
 - For other descrepencies raise a github issue.
+- Below is the example of how to get the get the certificate data from the response.
+        ```
+        {"id":null,"version":null,"responsetime":"2021-04-18T10:03:20.606Z","metadata":null,"response":{"certificate":"`-----BEGIN CERTIFICATE-----\nMIIDkDCCAnigAwIBAgII$        highlighted data in the above response is the example certificate data required.
