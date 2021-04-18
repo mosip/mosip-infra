@@ -41,14 +41,15 @@
     - out.stat.exists
     - postgres.upgrade.set == true
     - item.value.release_path is defined
-    - postgres.external == false
+#    - postgres.external == false
   loop: '{{databases | dict2items}}'
 
 - name: halting init if already done
   block:
   - meta: end_play  # Exit
-    when: out.stat.exists
-  when: postgres.external == false 
+    when: 
+    - out.stat.exists
+    - postgres.external == false
 
 - include: init_ddl.yml
   vars:

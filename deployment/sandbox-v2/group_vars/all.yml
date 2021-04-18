@@ -160,7 +160,7 @@ regproc:
 
 # Postgres persistent storage
 postgres:
-  external: false  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
+  external: true  # Postgres installed outside cluster, and not installed using these scripts. Set to true if
                    # you already have postgres running on a separate system.
   # Change host here if external: true
   host: '{{clusters.mz.nodeport_node}}'  # Host name of any node since standard sandbox runs postgres as pod on nodeport
@@ -171,7 +171,8 @@ postgres:
   upgrade:
     set: false  # accepts true or false value as per need.
     version: 1.1.5 # version gto which upgrade is needed.
-    type: release
+    type: release #should have two values release or revoke as per need.
+    info_file: '{{tmp_dir}}/upgrade.db'
 
   # All below configs applicable only when external: false 
   internal_host: postgres # Service name of postgres k8s service. Not applicable if external=true
@@ -304,7 +305,7 @@ databases:
   mosip_audit:
     user: audituser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -336,7 +337,7 @@ databases:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.prereg.dest}}/db_release_scripts'
+#    release_path: '{{repos.prereg.dest}}/db_release_scripts'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
@@ -351,7 +352,7 @@ databases:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.pms.dest}}/db_release_scripts'
+#    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
