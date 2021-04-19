@@ -71,7 +71,7 @@
 	  "version": "string"
 	}
 
-  * 8. Upload the response signinng certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: https://minbox.mosip.net/v1/keymanager/swagger-ui.html#/keymanager/uploadCertificateUsingPOST```  keymanager --> /uploadCertificate with below request
+  * 8. Upload the response signinng certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/keymanager/uploadCertificateUsingPOST`  keymanager --> /uploadCertificate with below request
 	```
 	{
 	  "id": "string",
@@ -102,4 +102,4 @@
         ```
 	{"id":null,"version":null,"responsetime":"2021-04-18T10:03:20.606Z","metadata":null,"response":{"certificate":"~~~-----BEGIN CERTIFICATE-----\nMIIDkDCCAnigAwIBAgIIzui2vr6fKUMwDQYJKoZIhvcNAQELBQAwbjELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRMwEQYDVQQDDApNT1NJ\nUC1ST09UMB4XDTIwMTIxNTE1NDcxOVoXDTI1MTIxNTE1NDcxOVowbjELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRMwEQYDVQQDDApNT1NJ\nUC1ST09UMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0IG5QpRMA1dZ\n2FRitMuNlzOCr+qsEZnFGdUH6npYMgNPSw7kJAHpo2CAo4WBNAgz6i1fASSqb8EZ\nXmxnKC9qW31zf8xmnwJNDMFIYctZTp1ZVG7yox+HeI4u//XymAGEg0U/bJ9FVpYr\n6TIbFIO7HzbB12qEwEmvniWKILqzf7qY6F+62GrJyFIwdpWkmlDMUdU4L9V3R10S\nwrNOTDkbHnLb34uwtBpaMHmYgOasaOXxCNcEzdOf56w6RTJmSla9TJgeXn0hikF1\ntxlHkv3Bw2T4y7eVL7NZeMhKkJJW0J4+hWm6nWzRG3Su31HoUIph1GFhrVrq/84B\nlOqHvpDIcwIDAQABozIwMDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBS+Kdh1\nX3eiq7UDZ3jBJwoKzFjLaDANBgkqhkiG9w0BAQsFAAOCAQEASzHHVt79eqzzYKLi\ncquGoS31Flq+EKrUdm5zLIYQx9lolVmRveJEqE85x02dGu8MMWjsshQvnzbG0PET\nR5kED5tVRSYx1W/Da5uE7EzQpiYeKsakmSArnslB0kFB+8UGb3KlmCUrQC0C4Ufo\ngbl2zEj9slLgjHKYbvGlki3Sz0oFAdEjuBdbWOrOaMQMUu7OZjMl/scyMBAR0U5J\nURVAGbEniMrw7a1z3LynVerc1qDAbuX1l4njUnit+JbB9B7QPbTEKjce1/pdyvUc\n9SbJpoznaFTRNFyq1iI98hsk+Iu9AImohiCV2DsvVULzACVQXhdApbVZBqjHAHbn\nkQcdtw==\n-----END CERTIFICATE-----\n~~~","certSignRequest":null,"issuedAt":"2020-12-15T15:47:19.000Z","expiryAt":"2025-12-15T15:47:19.000Z","timestamp":"2021-04-18T10:03:20.606Z"},"errors":[]}
 	``` 
-	highlighted data in the above response is the example certificate data required.
+	highlighted data between three tildas - ~~~ ~~~ in the above response is the example certificate data required.
