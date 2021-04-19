@@ -50,6 +50,7 @@ $ ./get_pwd.sh
 ## Rancher integration
 
 * If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
+* IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user before you try to authentical with Rancher. 
 * For users in keycloak assign roles rancher - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
 
 ## Keycloak Init
