@@ -1,0 +1,1021 @@
+{
+	"info": {
+		"_postman_id": "682d2eb8-db95-46d2-8623-8727b11d3bf2",
+		"name": "cert",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"appId\": \"ida\",\r\n    \"clientId\": \"mosip-ida-client\",\r\n    \"secretKey\": \"abc123\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/authmanager/authenticate/clientidsecretkey",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"authmanager",
+						"authenticate",
+						"clientidsecretkey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ABIS CA cert",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDTjCCAjagAwIBAgIEYFrxXTANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\\nDTIxMDMyNDA3NTkyNVoXDTIyMDMyNDA3NTkyNVowaTELMAkGA1UEBhMCSU4xEjAQ\\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\\ncGFydG5lci1kZWZhdWx0LWFiaXMxEjAQBgNVBAMMCWFiaXMtcm9vdDCCASIwDQYJ\\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBANkwlDzNZTBi1fBF4GU4qFAJ3S+Ca0Kf\\ngfvg93rQlZ5LBTnZFwAxpCZtGHYb7vkqM9e7adYGC48EPWI0A+48QmF3Z6vSBXg9\\nKckINa/vFCTEYrctMHS8CcBjWBf9agJq4+wWqNu8sYHD9pOzDf1uMbQJTI5VvgGx\\nv890pZrXdIrR4MPTLB0rkl2sVOqbG7bts0Eqh8TO86126CDzoDrtBCj3RBP/j/dg\\nBmz7LWFkG6/by+mXzdZcS46v7P/Q366WrDbMCCtjKIRAA0HQD3vdKT0V03Eiw/EU\\nVxVh9sdbkO5h/T8VWI7ghEjr4PpJXPYWRbVlt6uPDpbX+yEiOWG/SsMCAwEAATAN\\nBgkqhkiG9w0BAQsFAAOCAQEAEj42FlN8LnNPv3iWttydxm9kEJemyJdw8nPLCC4y\\nxigXrcxPgNcoJiDBXLIAwhTmPK1hdn/BndAeUsX8mauuzf4V7Ydw1a999s8Vsj8S\\nOLa8voXAE2sjdYZm0cYID0y/ak3+ZrKqCXP6bcmPOLz2plnGJB7TUQ+d8gZXsLA6\\nCoopaJOlNM4jPNbX/k30vfFmyrXm2++5stErrSOix25J79DGdmJH896/pmGmB60/\\nXGnpyESrVTbhTE+cx0gDHdq5T47qHcXM6CVuH/uYNy5iLCaBRzVQ043gFj3ioym1\\nnZ60dsvdG8nEENBu9SzN3Mn24pz0BQ99Qn5ymsQwYAEeDQ==\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ABIS partner cert",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDWjCCAkKgAwIBAgIEYFrz6DANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\\nDTIxMDMyNDA4MTAxNloXDTIyMDMyNDA4MTAxNlowdTELMAkGA1UEBhMCSU4xEjAQ\\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\\ncGFydG5lci1kZWZhdWx0LWFiaXMxHjAcBgNVBAMMFW1wYXJ0bmVyLWRlZmF1bHQt\\nYWJpczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKuA8CuDIRQCUCl9\\nyVh/dGOb/CiMnbcL/lsLq+VeYo51yyycj5kH2wuTlnXRZAOJklCvhAIJP68q799S\\nW+aMr+pOLm4rCgMfPD30UVdcmza+dPfl7A3/YZ5UjALOqjVMmwcUxmh1k5yL9QRo\\n1LNLCGkwd0hfgT35Y9sC0CDxD3aOesaz0oP9dkGETpcv8nMW4VxWHvOekup1gqAi\\nEn1VBat6qVGjwBNKAVkq75Q8P477DyT+t9NRs9IW68ZQXvR+VQvofDNDk8PshXVQ\\nMjesEgQHs7bIhTb6hAmGJsQM97yBAA6+EEGGqvLTZDDXjTAtdNZpjml0jaaMnURl\\nzF+qh08CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjdfHjKlrt7mV0MomYO7KkuCc\\naCscPAN74UZaCMRE5pXixeQVctsWE/KI7KdmJwZWqZvQrb/AX4VwZu5A1zcDNOJ6\\nB7UaDePCMBXRPcyUAAWWwr0AtV0JkEei3d2TbqiPXqlCM1fvvkKQqGZxa61CvSdN\\nz2XmY9W09gbAgkMx3svv6MHpZlJuWY8OZVr0ID1hW+ajEoCf5Adv2Iwuogg/Hs9D\\nlhhvYg4GzU/qWE9vFYO52UqtVPfrzQZTPBQE5Hrg0a32HBOwL3vu0ms2gf1lEt23\\nEf/8TZA5kT/0bMYlB6heGjIKEC90tEv645jbkgJoCI+GgazTTe9wYHXmgz9oPw==\\n-----END CERTIFICATE-----\\n\",\r\n    \"organizationName\": \"mpartner-default-abis\",\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"mpartner-default-abis\",\r\n    \"partnerType\": \"ABIS_Partner\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Root Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('rootcert', response.certificate);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=ROOT",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"idauthentication",
+						"v1",
+						"internal",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "ROOT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Root certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDlDCCAnygAwIBAgIIVfZCaN5rIBcwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwNDA5MDc1OTEwWhcNMjYwNDA5MDc1OTEwWjBwMQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJo64NBK\\nJFtNn+RqWNeIXd7lpikfTsZ1k16qCEC0VQmqIY16YRMlEchq2p2MlHNK6ZpFqxG9\\nlKJtiyucasGcvApDbvnSTqm97EOCl0Q8lEGRZZ53LlRHDnmiusScw8HmNnR2MKUT\\naEhHsraszT02QWz9e/atlH+AqHs3cEADPnazzxcqbDdm6KEoTDSRptxjHJMaFDj/\\naAVB/+VF9GHljI60IQ/+ver4/53popiKVDwih+0Ge2t2Nq34TclHNnCIWZ16mxV4\\nBrwepF6/U3XQQXXEdlXaEonbxkjcTPbfdiO+eziWvobH3/jRl1/U+7pEeWWmlQ4f\\nwn5K/pxXIBCsWRUCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\\nu8biRh+FnsbBHpHPykisXktsZGYwDQYJKoZIhvcNAQELBQADggEBAIiQRZplL3BD\\nJfNO3XkFCuEz9TntBW6nJ7KwcCceOiAiTD4JrNraMBNqrRTtSzzgS9FEVvO1eCpm\\nae88S9/rdIwovb6eGc/LURhitxyR96CEH3gXfz96dybAwwbxK5EaqrhQuMx/XDSR\\nRecb1x/VTo/Q6pdkMRvuuY2h+gNHMddGcuioIOB/gJdaxU3tINO8qwSXG1l+JY5w\\nXk2QGZ/bOWtGIzs69nic76w0MTUKe3G3eHWo3UVz/c9bTytd6rO44WUEdBQImnq7\\nM9eKNKkNrKhhHRwTGDR/5gViRMGOtyAxoYZ/wE6j1i0anGMKfEeK1uJRp2WtacgR\\nvsSe8OBQotg=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET IDA certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('IDAcert', response.certificate);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"idauthentication",
+						"v1",
+						"internal",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "IDA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  IDA Certificate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDmjCCAoKgAwIBAgIIA17TImV87/kwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwMzMwMDkwODEwWhcNMjQwMzI5MDkwODEwWjB2MQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEgMB4GA1UECwwXTU9TSVAtVEVDSC1DRU5URVIgKElEQSkxFTATBgNV\\nBAMMDHd3dy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\\nAK4rZtyneueoQK+jkdsBqx0KaylItt3jykFktNIG8gDoM4+R7jKq6k+Te425htLo\\nvAbcY52WpfWfVL0tbQYr6EtWEvt0UYNKqImtBm9ptf6SV+5mxfNM6j+Ax0tiHWt6\\nOQOxxBaivH/8Kpm+WHeL2XsuvEw2EVoiKBkVz8MA2JBD4EwIm2qjgod18Tr+WGkS\\nAntY1Qkzu1q4+Kc1r5O8ikVQFFas+gJhbvn5NIUpnoCSbQue6HnW06oyRtTsFVj0\\n5Kgi8yGAWCCsXL7/KIJyYBSuyrWKJSfUaURPkvz05HQREDyQFjBgYsVEvc6egGaT\\nuc+BVOlG8DJi947r1SlJhoECAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNV\\nHQ4EFgQUL/wyDoAY/XcgAveFB1E2yvmJ6bUwDQYJKoZIhvcNAQELBQADggEBADeX\\ngvH+SK8tCeK6Pry5CWAfTacHXQBqSdKSpKcvn4bodd78IB8NW4l7OJOSvUP66wcg\\nSIKDkFlkahOYmV5Q1B4Xrkbhk6ePVQRjEcAPZ8YlwAeeaFgXcL7qA79NnsjoqSNt\\nxuwcJYWkPgMqj9gmdNFhUJByUseIfbmlM0p2Xf156OrNxzzkU/t5FN3EG+bPMPme\\nQk0IbTmJoigS/+mzSfiBKFwxXTdbxs+MpR7WyNAouqAJcz8f+5A6MvvN5mmTf0oH\\njIhRae2c7JpEqH/9SnSQ/HA500Bfc2ew2mOyccpt7eId/RhkePBPbVz5Rv0/6Qob\\nRoArHDn54+g/J6O66G0=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Mpartner default certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('mpdefaultauthcert', response.certificate);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"idauthentication",
+						"v1",
+						"internal",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "IDA"
+						},
+						{
+							"key": "referenceId",
+							"value": "mpartner-default-auth"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Mpartner-Deafult-AuthCertificate  certificate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDrjCCApagAwIBAgIINqPiGuz+HUkwDQYJKoZIhvcNAQELBQAwdjELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChJREEpMRUwEwYDVQQD\\nDAx3d3cubW9zaXAuaW8wHhcNMjEwNDA5MDc1OTE0WhcNMjMwNDA5MDc1OTE0WjCB\\ngzELMAkGA1UEBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUx\\nDTALBgNVBAoMBElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChJREEp\\nMSIwIAYDVQQDDBlJREEtbXBhcnRuZXItZGVmYXVsdC1hdXRoMIIBIjANBgkqhkiG\\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnZgQzOxf7DqQKlYgDaT1W4A2yyXchgcukUMF\\nSaDkFpp1+5khGgHscPkLbjX47Vzi875YVcMO1fhmWDZrtCy8jhWZLZYldFyUMBrG\\nXyEOesOE3H7cDxFzhXPViZLwfFz/LbT0hZ6SbE2K/kYJEpwnpXAKQy7XuFqgilZu\\nS93jEn7/UiClcViCpzgp9G7mhPUO6t3M1PkUq+8yeGb2/gDcBm0mRc0VyJ8LbaeE\\nXlc2q5vCQ4fiogUr+UOQ9/FSOFy72j5MFOgVWeprksTKjOBn5rg89+drASfOaZjw\\njl3iH21WTUnQxyl2vqKjNa4Ox2uDw7BccQ1zhUrQZpg1ACi/gwIDAQABozIwMDAP\\nBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSP0n30jfTL1/Qkzule6xbrXpWj3jAN\\nBgkqhkiG9w0BAQsFAAOCAQEAnqnAL4BjT48cWMjA/z66ayiGvWVurJPaeHoIBL50\\nbaqxHqKF2qnwndRydy33BZlVuW0KURvg8xbzwc4PYLtvXXlos7X3P6ZImpyDnRlr\\nSnGrleirQmBpZweyMAZp4fMS2DIw3LkOmtBrF47eaBCvl/3UFxmi1gviu8dA7Uvd\\nxq8PxJSeEPeRlJx0z7IIjE2wgxSqr6qOAn5qrdgW3+T6Z7VxHHkW19g91wlS9nVi\\nPw/2JV8FGd9FclDUL0Xs6cwb3mYIfXyI5W0tLYAZEhPXRjMLe8J7+1fG7BcbgEqd\\n46srhlIqcsWOktmkROAgrFh3v+4EdEKIe+TvMk/QgflX3A==\\n-----END CERTIFICATE-----\\n\",\r\n    \"organizationName\": \"IITB\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"mpartner-default-auth\",\r\n    \"partnerType\": \"Online_Verification_Partner\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST mpart def auth to KEYmanager",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"applicationId\": \"IDA\",\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDrjCCApagAwIBAgIInfKQzgTrPskwDQYJKoZIhvcNAQELBQAwdjELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChQTVMpMRUwEwYDVQQD\\nDAx3d3cubW9zaXAuaW8wHhcNMjEwNDA5MDc1OTE0WhcNMjMwNDA5MDc1OTE0WjCB\\ngzELMAkGA1UEBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUx\\nDTALBgNVBAoMBElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChJREEp\\nMSIwIAYDVQQDDBlJREEtbXBhcnRuZXItZGVmYXVsdC1hdXRoMIIBIjANBgkqhkiG\\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnZgQzOxf7DqQKlYgDaT1W4A2yyXchgcukUMF\\nSaDkFpp1+5khGgHscPkLbjX47Vzi875YVcMO1fhmWDZrtCy8jhWZLZYldFyUMBrG\\nXyEOesOE3H7cDxFzhXPViZLwfFz/LbT0hZ6SbE2K/kYJEpwnpXAKQy7XuFqgilZu\\nS93jEn7/UiClcViCpzgp9G7mhPUO6t3M1PkUq+8yeGb2/gDcBm0mRc0VyJ8LbaeE\\nXlc2q5vCQ4fiogUr+UOQ9/FSOFy72j5MFOgVWeprksTKjOBn5rg89+drASfOaZjw\\njl3iH21WTUnQxyl2vqKjNa4Ox2uDw7BccQ1zhUrQZpg1ACi/gwIDAQABozIwMDAP\\nBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSP0n30jfTL1/Qkzule6xbrXpWj3jAN\\nBgkqhkiG9w0BAQsFAAOCAQEAVOXZTIVztqkbza6IzOy0jyRMur0y9GeIZy+Foiqz\\naEmeOZpP7aR+r5T5l4dcsXaKbKnqN6kJz3LQVNLstHPr7jsmsPmvzFS1neFwuOaO\\nTH1Y3Wg3eaUDATB0nlMIRmu8E4xWvoP7ga7Ox+9bTcTIVopo6T4OuDcNMkTON/al\\nB0DiZp1l/GfJ3Ifx1N0K2vDcxvslYsJk4zpWycr97jG/yT6UMFzcVn9EkFHUkSK7\\nqKP+k9Y2VBYo0yj7nSbwGHpQIbmZDZHmNP7VQ+mVqjs9Pz6YH5IViR8NTGJ2cdz8\\n40r0qSVMHfgg2xIrY9ccrT6xaAw5bYc2yvBb/arg+XIl9g==\\n-----END CERTIFICATE-----\\n\",\r\n    \"referenceId\": \"mpartner-default-auth\",\r\n    \"organizationName\": \"IITB\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/keymanager/uploadOtherDomainCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"keymanager",
+						"uploadOtherDomainCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Root Certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('rootcert', response.certificate);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/keymanager/getCertificate?applicationId=ROOT",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"keymanager",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "ROOT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Root certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDlDCCAnygAwIBAgIIMy0+AFhWE40wDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwNDA5MDc0NDQ0WhcNMjYwNDA5MDc0NDQ0WjBwMQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJwjR1BH\\njDqypdqu0v1dwW61A/5E9NSsY8rrisYcpZeVS8a0OumD8Pi6AaXq6c6YimvqWRD+\\nSKezy6NK2ErR0Ntlm62hxkMrNFI2N0Dne5CQ3sYbYR5gfmIeO1TUZ1r3lHQAQfsf\\nDIPwKPm6E5pW6Apox4CPJORgOUb9t+aVz2RWDCtC9FhmT4eYhMgHkUcMQnQ3VLi6\\n8gYVHeDfeZuT+nIpMgIU0oWAbOYbCnKlxXdZT9QI/MWoXhGnXXust4hfzuS4cCZn\\nFqt4fG/RK+PAj2tMx2r5tV6ARFPTng3rx0EHjGiIiKN9VaKpZnf7uW2qA7OIjPDF\\nb2iuaFhM6FSkrJ8CAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\\nifG5xWCTAo83FMvZdzn2S4PSq68wDQYJKoZIhvcNAQELBQADggEBAGjjhOtqEN3K\\naC3IsW8NXgRgjDaJ8fsHHJH05lUIE0lNACoiHKbvlUZOa5nJavwIzm5vs7sz79MF\\n7xpcESr8dROHFcm1awEZR5CVuLKLGnR9QpdrGpzGVKXc0z/Ixs83jq6yaJsPx9XD\\n+jNJUPuhwSQvnpjoS3zm2EHbwC+5SY9wsxwEdXav+rScdmlIfa76do4x0ciK4zSe\\nQGy08GQdW4HQcLRN8qtNWabpgw34nNHSOBK6IHZoint8fJeru4z7ekttdK3ZxAwb\\n1kJ1FnSb4OIOXdltI7SyUHsQCyjFeVnF60nUziUti+5rd7Ex9sKW1HpQxfEAyPr2\\nf4ugsTMrqaw=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET resident certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('residentcert', response.certificate);})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/keymanager/getCertificate?applicationId=RESIDENT",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"keymanager",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "RESIDENT"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Resident  certificate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDnzCCAoegAwIBAgIIX6t6DvdwqzkwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwNDA5MDc0NTI0WhcNMjQwNDA4MDc0NTI0WjB7MQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjElMCMGA1UECwwcTU9TSVAtVEVDSC1DRU5URVIgKFJFU0lERU5UKTEV\\nMBMGA1UEAwwMd3d3Lm1vc2lwLmlvMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB\\nCgKCAQEAngsYaKbtpGgNuaG7/Wxs9xqhbW7LhUxR+HNtvFeXBM3ooh4a2Q6qithe\\npMgPdo4KY82JmZZQQ2E5mx1TDiNr+AFiEvLTRiaAKNMFKST3q+mwEVCF8uZiPO2m\\n6MegQTe/1gvCTO+TvSXDKJtpAXuKQUcrvc6I4CUBchZ2ccKF/GN8MRthaeBDlHyl\\nPisTuJ1uDdxRvmtS43osaLoPlsL61fJnlQxXvWRpDyIU9mQnurSnNppklySGFYpt\\nc2AUNM0FH1byRlVL9vbL7P1/XIt54xcbD4RAAIdUhz+iVT3lpxJy3WzBFgpWbCIo\\nmAzpgCEByS+YjRMZpuJ7jowA5aM01QIDAQABozIwMDAPBgNVHRMBAf8EBTADAQH/\\nMB0GA1UdDgQWBBTtkjyu/WVYa/6usoAWcn9aTecptzANBgkqhkiG9w0BAQsFAAOC\\nAQEAWMNrZaIAY6KzJItiDVhDoSHDlzdZE1qgkSHxn1QAiJRN2hAy2Pcs6EkRGKdH\\nPwyVS6HI0tz8isMYBqx7fAuasOqbNNhHzcJkemSVu4BZM6F3SHm/iqGHfEMmtvO8\\nnb62RdQW0iHzykspH4haG6kTCyf2v4xBOheEO6HgWjyqREi6dU70hhsefU7KFPLt\\nfkZ+efsE6gHso4hHLaBgL2HfhBfWRH3Tv2I13xoPt/du7wMPdYXMRXus2MZvd3aU\\nuK/Ks5OZ0xclNrtSrLK1q9GQcC5xT3TdeWxMFgP0lIKbGmFAhNU8ORSJ3nNx4BTM\\nmukCFmVu335b9NL879cg3/7aaw==\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Mpartner default resident cert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Got Certificate',function(){\r",
+							"    const {response} =pm.response.json();\r",
+							"    pm.environment.set('mpdefaultresidentcert', response.certificate);})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/keymanager/getCertificate?applicationId=RESIDENT&referenceId=mpartner-default-resident",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"keymanager",
+						"getCertificate"
+					],
+					"query": [
+						{
+							"key": "applicationId",
+							"value": "RESIDENT"
+						},
+						{
+							"key": "referenceId",
+							"value": "mpartner-default-resident"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST mpart-def-res to KEYmanager",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"applicationId\": \"RESIDENT\",\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDvDCCAqSgAwIBAgIIO33OX+rRJzUwDQYJKoZIhvcNAQELBQAwdjELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChQTVMpMRUwEwYDVQQD\\nDAx3d3cubW9zaXAuaW8wHhcNMjEwNDA5MDc0NTI1WhcNMjMwNDA5MDc0NTI1WjCB\\nkTELMAkGA1UEBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUx\\nDTALBgNVBAoMBElJVEIxJTAjBgNVBAsMHE1PU0lQLVRFQ0gtQ0VOVEVSIChSRVNJ\\nREVOVCkxKzApBgNVBAMMIlJFU0lERU5ULW1wYXJ0bmVyLWRlZmF1bHQtcmVzaWRl\\nbnQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCydbOT8PNrScG6gXE/\\n02dQolgPOdlpy+As3T0OzvfbFLONdwv0ugCQwwLRMEw0dt2FsXULHSm8X1a5By2p\\nb07+PQWqvMXAcbPLp/kkjH5euGABnUi1uOmwkSzjgqZwRiMi95gFFI38Blj+TBQ8\\nE2FxA0ZgHQbupJOZb/Jf/jdWkdHma4qC6rLX1x1NLDHpjyVGyA04ugMCv+axAAMs\\ncHgG4JUh0g+GaObv7S2mDpRxsKmcaHES+UX8t6kFDoYNEyWy31DPXLSWGOoADg07\\nLqEUIM46DJ6S+x8Ov3Q7hwmW79S6b4kXcu9K654KP6YYZUgfMrA0JwDcFobLbacv\\nyX7VAgMBAAGjMjAwMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFFI0OXVtJ1r2\\nz+DaKg6YtI5VljVOMA0GCSqGSIb3DQEBCwUAA4IBAQB2kux0yoOBtSvN6bitxYOE\\n5mvDDxZiTaEF3ydw0lSnBVTt2XBnsrPxlrLfwE8aCIb/Mgb/Z8jNg1G31xdl0D/e\\nh8gDgNLTiz9kmxSgUXNabjZZNoOmHAhQag2d/XRc6O6ym22ZvhW0T9MpmoXLt3nK\\nxCc/7YAAsJGRRuNUtO9QNWWR7zmiTIIk0FUjA1AQKMKYIH6hKktXsvl5cPPsBjA1\\n2WNt321k32zbrCwDsyKtcoKG6qoGBgUpWq13m12MTUvSHZQehR1ClofcwT9wnq/7\\nUbDDE8t4+zxypVSkkUFyhpLCjxGd9WHGJb5a1GnZ+hpB/gHwOvUXV+vkY3020v8B\\n-----END CERTIFICATE-----\\n\",\r\n    \"referenceId\": \"mpartner-default-resident\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/keymanager/uploadCertificate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"keymanager",
+						"uploadCertificate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST mpartner default resident cert",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDwTCCAqmgAwIBAgIIeeKoxYOWNHswDQYJKoZIhvcNAQELBQAwezELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxJTAjBgNVBAsMHE1PU0lQLVRFQ0gtQ0VOVEVSIChSRVNJREVOVCkxFTAT\\nBgNVBAMMDHd3dy5tb3NpcC5pbzAeFw0yMTA0MDkwNzQ1MjVaFw0yMzA0MDkwNzQ1\\nMjVaMIGRMQswCQYDVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdB\\nTE9SRTENMAsGA1UECgwESUlUQjElMCMGA1UECwwcTU9TSVAtVEVDSC1DRU5URVIg\\nKFJFU0lERU5UKTErMCkGA1UEAwwiUkVTSURFTlQtbXBhcnRuZXItZGVmYXVsdC1y\\nZXNpZGVudDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJ1s5Pw82tJ\\nwbqBcT/TZ1CiWA852WnL4CzdPQ7O99sUs413C/S6AJDDAtEwTDR23YWxdQsdKbxf\\nVrkHLalvTv49Baq8xcBxs8un+SSMfl64YAGdSLW46bCRLOOCpnBGIyL3mAUUjfwG\\nWP5MFDwTYXEDRmAdBu6kk5lv8l/+N1aR0eZrioLqstfXHU0sMemPJUbIDTi6AwK/\\n5rEAAyxweAbglSHSD4Zo5u/tLaYOlHGwqZxocRL5Rfy3qQUOhg0TJbLfUM9ctJYY\\n6gAODTsuoRQgzjoMnpL7Hw6/dDuHCZbv1LpviRdy70rrngo/phhlSB8ysDQnANwW\\nhsttpy/JftUCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUUjQ5\\ndW0nWvbP4NoqDpi0jlWWNU4wDQYJKoZIhvcNAQELBQADggEBAEezzUsFGU9G5gmZ\\nImVHivnfQiAadIIaTmSPk0/Emyrh208yR/FgKm0gzcu9imgCkF6sZqQr13YuZGZV\\nLj6Ie2LUdnYvh9xKKWlVoHlwXXfo7BZh4Y56mGWwRt3oxKdOP0BBP9qoxgNiulyL\\nMiffBMQO/KImBKX2hlzZtocw8w7ttY0egDUmTf7r1+sY7sneiIx0ZebNweNY+79i\\nYZV/XLfMM1kdVZ3DIwW/xKXwKSBKMF1w51fjWEX2XD0w0uwn4Ih8UzY2MdrwXmbS\\n3iJb2u28qB8KMvw9O/mA/YQ1eeHLpxnM1JXOongu4JlOvdjNJg4OMSbjedEJabKJ\\nZoNiw+w=\\n-----END CERTIFICATE-----\\n\",\r\n    \"organizationName\": \"IITB\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"mpartner-default-resident\",\r\n    \"partnerType\": \"Credential_Partner\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST print   CA certificate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDFTCCAf2gAwIBAgIESXfzlDANBgkqhkiG9w0BAQsFADA7MQswCQYDVQQGEwJJ\\nTjELMAkGA1UECBMCS0ExDTALBgNVBAoTBFRlc3QxEDAOBgNVBAMTB1JPT1QtQ0Ew\\nHhcNMjAxMjE4MTM1NDM0WhcNMjMxMjE4MTM1NDM0WjA7MQswCQYDVQQGEwJJTjEL\\nMAkGA1UECBMCS0ExDTALBgNVBAoTBFRlc3QxEDAOBgNVBAMTB1JPT1QtQ0EwggEi\\nMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC8gwrXv+9PXyY4P4+6Kr2i5EYE\\nycrqoBz0UrZYT+mIUl1JF7CFddujpy8ejF78RbgjZoCqcxmi31Abj6Sj6MPRlMXI\\nXVWzE6DQPK2xHn+3it8es+QAHt2Z4zDJSICm2DI9qCQa95iTl/WbrQK4nHYeiSx3\\nBOQuf05pNSiPcrBqP+xwxcPkNVIl0eRbs0Lnd37qWh9ZBIy3N4tJduneJGRwW1qs\\nYvTTUxPBIlCBraqLq7o9uxMr9+kOv1wxesV8ZGOS3KFa4CQxOHywJ1secnMnca0e\\ntQQcmSzckG+8QqKQQNbfFSRYkRkfOM4aHRDozmMMTdI0TA9eELZxFMXiTkjlAgMB\\nAAGjITAfMB0GA1UdDgQWBBSKXY7NPI6uL5BhbICYl4wWQUdEOTANBgkqhkiG9w0B\\nAQsFAAOCAQEAbk+qM7X1G0SRH/bHEu0Yntx2Lae+iYyrCLEHOgJ+ygQ4u/FzGjQQ\\nJWGWZtqpehE0sN/CBB/xfz3FDAJdj7iNYD3H0fNRNywpQWQt1EzKkwJFxgJ16P7l\\nq9DzZpz1EuFZC/eqbkFhQSqbRrBnLVzYgAc9RZnaqRS5TSF/J+Qj+uUYbcGeWBRN\\nPVcPwM7Nx0sQLHosPYZt7YTytr2P9NVZgBGLre+aNECWeRh3hBIBZ52qSVDq/1Df\\nW9sqNLTel9i0l5eNC9AuIf8TwSqGUUTkHqLI4lk5KoUfei15DDOPLOESqplYYezb\\nY6Ujm9OwNYFSDuS2IMTAIxzheHt/XJnxMw==\\n-----END CERTIFICATE-----\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  print partner certificate.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDPTCCAiWgAwIBAgIEBiaW/DANBgkqhkiG9w0BAQsFADA7MQswCQYDVQQGEwJJ\\nTjELMAkGA1UECBMCS0ExDTALBgNVBAoTBFRlc3QxEDAOBgNVBAMTB1JPT1QtQ0Ew\\nHhcNMjAxMjE4MTM1NjQwWhcNMjExMjE4MTM1NjQwWjBCMQswCQYDVQQGEwJJTjEL\\nMAkGA1UECBMCS0ExDTALBgNVBAoTBFRlc3QxFzAVBgNVBAMTDlNpZ25lZC1QYXJ0\\nbmVyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAstCVDizWIlcXj4EQ\\nhFfoE3jd3MaDNjHXA5MC4PpwHuHnDl9EGrAKEXL2j7tdOQBBMu6VBLSDTnG2jInT\\ne33Ou/yNLQX6/47FXZnRmPQ7ZqUL4ETp+bSBah9spQVQ9Uh7jxfWBeq9pA1xHrLh\\nkDm0JCIYKQxqupnZZFdl4M7QmhKtpMct5KkwU5a4J+6an0uSX+ZdGr0lB/mtKEyh\\n2wJlJG7THKMCbrODLH3Fhw+1Gz0e9qYF+tvM7T8tQGAUzeXc7Mr/+vE1RsC3IzQf\\nwbjO19b2GLYEHLXNKbYYr3c9H+/GaaWJArMDmp+MNG8M0J/JPlxhsUi5mD/y4fFP\\n4VWEsQIDAQABo0IwQDAdBgNVHQ4EFgQUQuT6c0WImkDDnQHTK0gx3DRjvBswHwYD\\nVR0jBBgwFoAUil2OzTyOri+QYWyAmJeMFkFHRDkwDQYJKoZIhvcNAQELBQADggEB\\nAAyLGiqdH6gTXgjDbngmdNbNuusTeflVaqdWtteIBgXvn01aigK/9eQqAGsQH6SO\\nICae+GCmTTAWF5wkZbecPSravndzMNNtCVbhq32+liQHkNIzZCsc0Ous+Ifr+zOE\\nJ1nc/3/Wrx5q2OH7A0IvE/wIBi1KHLxcDdkXL6E27TUiXvT3tgITtpVKq5UPcpag\\nHnf80AVZ/6CA+kbTxgsXg+0ScVCy1lCuw25HdMhEr4MS3vGEPfv5yttLz7ImNY1L\\nMIAyRu4DzDctAebecNOVIL6Jp3o4MCl458p/kVqKluGMW3A9c0+iim1wlmwhWTin\\nptNsenIRS+hBPLYHJZ6sz4I=\\n-----END CERTIFICATE-----\",\r\n    \"organizationName\": \"Test\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"mpartner-default-print\",\r\n    \"partnerType\": \"Credential_Partner\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Uploadin MDS certificates-device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": \"string\",\r\n\t\"metadata\": {},\r\n\t\"request\": {\r\n\t\t\"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDPzCCAiegAwIBAgIEYCFEgjANBgkqhkiG9w0BAQsFADBSMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMQ4wDAYDVQQKDAVNb3NpcDEOMAwGA1UECwwF\\nTW9zaXAxDzANBgNVBAMMBlJvb3RDQTAeFw0yMTAyMDgxNDAyNDJaFw0zMTAyMDgx\\nNDAyNDJaMFIxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRha2ExDjAMBgNV\\nBAoMBU1vc2lwMQ4wDAYDVQQLDAVNb3NpcDEPMA0GA1UEAwwGUm9vdENBMIIBIjAN\\nBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz9kaCs4Yrh2mMFx/wGV42Tn7vM9d\\nt2au3JOWu/fbeaNk8/TgNEA1GrVerqagcRDDo+6jBDbX7XO9iRHX1wmIcVkH7osa\\ncMKGfYzZbvkWjGFRCam10xLGyczSeDiIIj+H3eLXzTP0iZBcVyw40EMLWk7BHld+\\neFY1XS+EDPIv6snjIxWDEd+wND1tOvWgPsS7mYy8Mn9QRYZXH9KW8/nW0bf/Z74U\\nd89PtXl3WSSrrRZSQofGDwM5RPOEzrYcurZowwWLWmgAmvcsATxhOAiKe6e6tvbD\\nyXTC8+9CRv22zGTcasI5QOYzGaj6wMKr9h2WgAY1LJFBIkEjf1ykWGlTbQIDAQAB\\nox0wGzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjANBgkqhkiG9w0BAQsFAAOC\\nAQEAzWge0dKje1/opIyiho0e6p6a/M/UD05bNLg7XD6uMqJAT9C1YTwq77OD0nrc\\nZpMQoQ4zCFEbGoPvHWzW0Isc7Y3F40YI8bQdmEQtJuiqsCUQ8XW3b4YDTH6VM5go\\n+VZgoRucIRBwCAss1tMrxjT3lMWwuyA9DaOkryRW/m9QmlLoTWLQabi/pO+FS+oy\\nWYYxJOzvqC3xUTYHi+DzlLSWR08NE7gdHrD4aAHYLPIyzgVuToztB7PYmbuOnKmS\\nM9sHlKqgpN7/AgvTOFOEX5mi5BcPGKagryTfipwLVyWaQBDCcVNkAtoLTYPCTEAj\\nUhONf7GpbeehitYjHQoknr21EA==\\n-----END CERTIFICATE-----\",\r\n\t\t\"partnerDomain\": \"Device\"\r\n\t},\r\n\t\"requesttime\": \"2021-02-04T10:03:17.406Z\",\r\n\t\"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload MDS certificate -FTM",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": \"string\",\r\n\t\"metadata\": {},\r\n\t\"request\": {\r\n\t\t\"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDPzCCAiegAwIBAgIEYCFEgjANBgkqhkiG9w0BAQsFADBSMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMQ4wDAYDVQQKDAVNb3NpcDEOMAwGA1UECwwF\\nTW9zaXAxDzANBgNVBAMMBlJvb3RDQTAeFw0yMTAyMDgxNDAyNDJaFw0zMTAyMDgx\\nNDAyNDJaMFIxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRha2ExDjAMBgNV\\nBAoMBU1vc2lwMQ4wDAYDVQQLDAVNb3NpcDEPMA0GA1UEAwwGUm9vdENBMIIBIjAN\\nBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz9kaCs4Yrh2mMFx/wGV42Tn7vM9d\\nt2au3JOWu/fbeaNk8/TgNEA1GrVerqagcRDDo+6jBDbX7XO9iRHX1wmIcVkH7osa\\ncMKGfYzZbvkWjGFRCam10xLGyczSeDiIIj+H3eLXzTP0iZBcVyw40EMLWk7BHld+\\neFY1XS+EDPIv6snjIxWDEd+wND1tOvWgPsS7mYy8Mn9QRYZXH9KW8/nW0bf/Z74U\\nd89PtXl3WSSrrRZSQofGDwM5RPOEzrYcurZowwWLWmgAmvcsATxhOAiKe6e6tvbD\\nyXTC8+9CRv22zGTcasI5QOYzGaj6wMKr9h2WgAY1LJFBIkEjf1ykWGlTbQIDAQAB\\nox0wGzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjANBgkqhkiG9w0BAQsFAAOC\\nAQEAzWge0dKje1/opIyiho0e6p6a/M/UD05bNLg7XD6uMqJAT9C1YTwq77OD0nrc\\nZpMQoQ4zCFEbGoPvHWzW0Isc7Y3F40YI8bQdmEQtJuiqsCUQ8XW3b4YDTH6VM5go\\n+VZgoRucIRBwCAss1tMrxjT3lMWwuyA9DaOkryRW/m9QmlLoTWLQabi/pO+FS+oy\\nWYYxJOzvqC3xUTYHi+DzlLSWR08NE7gdHrD4aAHYLPIyzgVuToztB7PYmbuOnKmS\\nM9sHlKqgpN7/AgvTOFOEX5mi5BcPGKagryTfipwLVyWaQBDCcVNkAtoLTYPCTEAj\\nUhONf7GpbeehitYjHQoknr21EA==\\n-----END CERTIFICATE-----\",\r\n\t\t\"partnerDomain\": \"FTM\"\r\n\t},\r\n\t\"requesttime\": \"2021-02-04T10:03:17.406Z\",\r\n\t\"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  IDA device Certificate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDmjCCAoKgAwIBAgIIA17TImV87/kwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwMzMwMDkwODEwWhcNMjQwMzI5MDkwODEwWjB2MQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEgMB4GA1UECwwXTU9TSVAtVEVDSC1DRU5URVIgKElEQSkxFTATBgNV\\nBAMMDHd3dy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\\nAK4rZtyneueoQK+jkdsBqx0KaylItt3jykFktNIG8gDoM4+R7jKq6k+Te425htLo\\nvAbcY52WpfWfVL0tbQYr6EtWEvt0UYNKqImtBm9ptf6SV+5mxfNM6j+Ax0tiHWt6\\nOQOxxBaivH/8Kpm+WHeL2XsuvEw2EVoiKBkVz8MA2JBD4EwIm2qjgod18Tr+WGkS\\nAntY1Qkzu1q4+Kc1r5O8ikVQFFas+gJhbvn5NIUpnoCSbQue6HnW06oyRtTsFVj0\\n5Kgi8yGAWCCsXL7/KIJyYBSuyrWKJSfUaURPkvz05HQREDyQFjBgYsVEvc6egGaT\\nuc+BVOlG8DJi947r1SlJhoECAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNV\\nHQ4EFgQUL/wyDoAY/XcgAveFB1E2yvmJ6bUwDQYJKoZIhvcNAQELBQADggEBADeX\\ngvH+SK8tCeK6Pry5CWAfTacHXQBqSdKSpKcvn4bodd78IB8NW4l7OJOSvUP66wcg\\nSIKDkFlkahOYmV5Q1B4Xrkbhk6ePVQRjEcAPZ8YlwAeeaFgXcL7qA79NnsjoqSNt\\nxuwcJYWkPgMqj9gmdNFhUJByUseIfbmlM0p2Xf156OrNxzzkU/t5FN3EG+bPMPme\\nQk0IbTmJoigS/+mzSfiBKFwxXTdbxs+MpR7WyNAouqAJcz8f+5A6MvvN5mmTf0oH\\njIhRae2c7JpEqH/9SnSQ/HA500Bfc2ew2mOyccpt7eId/RhkePBPbVz5Rv0/6Qob\\nRoArHDn54+g/J6O66G0=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"Device\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  IDA FTM Certificate",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"postman.setGlobalVariable('timenow', (new Date()).toISOString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDmjCCAoKgAwIBAgIIA17TImV87/kwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwMzMwMDkwODEwWhcNMjQwMzI5MDkwODEwWjB2MQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEgMB4GA1UECwwXTU9TSVAtVEVDSC1DRU5URVIgKElEQSkxFTATBgNV\\nBAMMDHd3dy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\\nAK4rZtyneueoQK+jkdsBqx0KaylItt3jykFktNIG8gDoM4+R7jKq6k+Te425htLo\\nvAbcY52WpfWfVL0tbQYr6EtWEvt0UYNKqImtBm9ptf6SV+5mxfNM6j+Ax0tiHWt6\\nOQOxxBaivH/8Kpm+WHeL2XsuvEw2EVoiKBkVz8MA2JBD4EwIm2qjgod18Tr+WGkS\\nAntY1Qkzu1q4+Kc1r5O8ikVQFFas+gJhbvn5NIUpnoCSbQue6HnW06oyRtTsFVj0\\n5Kgi8yGAWCCsXL7/KIJyYBSuyrWKJSfUaURPkvz05HQREDyQFjBgYsVEvc6egGaT\\nuc+BVOlG8DJi947r1SlJhoECAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNV\\nHQ4EFgQUL/wyDoAY/XcgAveFB1E2yvmJ6bUwDQYJKoZIhvcNAQELBQADggEBADeX\\ngvH+SK8tCeK6Pry5CWAfTacHXQBqSdKSpKcvn4bodd78IB8NW4l7OJOSvUP66wcg\\nSIKDkFlkahOYmV5Q1B4Xrkbhk6ePVQRjEcAPZ8YlwAeeaFgXcL7qA79NnsjoqSNt\\nxuwcJYWkPgMqj9gmdNFhUJByUseIfbmlM0p2Xf156OrNxzzkU/t5FN3EG+bPMPme\\nQk0IbTmJoigS/+mzSfiBKFwxXTdbxs+MpR7WyNAouqAJcz8f+5A6MvvN5mmTf0oH\\njIhRae2c7JpEqH/9SnSQ/HA500Bfc2ew2mOyccpt7eId/RhkePBPbVz5Rv0/6Qob\\nRoArHDn54+g/J6O66G0=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"FTM\"\r\n  },\r\n  \"requesttime\": \"{{timenow}}\",\r\n  \"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  Root FTM certificate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDlDCCAnygAwIBAgIIo659X+CxDHAwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\\nbW9zaXAuaW8wHhcNMjEwMzMwMDkwODA5WhcNMjYwMzMwMDkwODA5WjBwMQswCQYD\\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOLSTAjk\\nAmhuuIE+82phtqjsS+wUbWGaKfYU5M3F5svgZ7iXfofN2CCQHN6AGM+rbqOBbvfQ\\nKHBYf9HFUUtIOtBrNptGIqVuFDkEWhP4lZ70P/AI2Swp92Lwj7KeLeQM5KSKGz0x\\nwSXeIgFUcigNcaz6cHWoYPfAsHlNldy/zd0I+Md/0TEVLU3FlJq64dDptBTwiviA\\nSuOXSxcjbPLKTXtJL7kkP2y8fZXYIN+op7pOlt92KtygU+Gqd1VgJY/6kR5T2JTM\\nQ8jNTRqLv2f8Ij+DpPWehIYcfW/5j0V2XAw11PXo0baRBu0ZMf7RjEcoWIBD4pMK\\nN2ZcSWas5IJhae0CAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\\nknqJY2fbo/P22FNHciaJkZAeDWYwDQYJKoZIhvcNAQELBQADggEBAFBHmB/5D2zA\\ni0/D8vAysFhKCN7LoPH+7gXXJ1ZP7wcA0RtO9jaz2fvwxJRbOVfmkEelSUfHkJOp\\nUuVzJFmCWjdadpI63JPsYdWleiaqaePOI8yZrdoBVNhRFCpFDmLe9VLrzPGafRuk\\naz6R7F7dLPlU3aqR1XWEi0IAVzeHIsssdmjzXWZiWWYGa5VmpvXqSSd1PS0ndjjC\\nW2Mtz8CEDiruOJejOXFGbewyEv8fVumtV6J7qQpvi1YrWOuE4lZkcrE+z43VXKgj\\nri2swgUKh3De/6s6WFDgAbgZFB0MhyCMu7YjLmrA45MwdG7lDgyE7T0llfKI8nGp\\nuuy7+5dGgqE=\\n-----END CERTIFICATE-----\\n\",\r\n    \"partnerDomain\": \"FTM\"\r\n  },\r\n  \"requesttime\": \"\",\r\n  \"version\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST  Root device certificate.",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": \"string\",\r\n\t\"metadata\": {},\r\n\t\"request\": {\r\n\t\t\"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDPzCCAiegAwIBAgIEYCFEgjANBgkqhkiG9w0BAQsFADBSMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMQ4wDAYDVQQKDAVNb3NpcDEOMAwGA1UECwwF\\nTW9zaXAxDzANBgNVBAMMBlJvb3RDQTAeFw0yMTAyMDgxNDAyNDJaFw0zMTAyMDgx\\nNDAyNDJaMFIxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRha2ExDjAMBgNV\\nBAoMBU1vc2lwMQ4wDAYDVQQLDAVNb3NpcDEPMA0GA1UEAwwGUm9vdENBMIIBIjAN\\nBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz9kaCs4Yrh2mMFx/wGV42Tn7vM9d\\nt2au3JOWu/fbeaNk8/TgNEA1GrVerqagcRDDo+6jBDbX7XO9iRHX1wmIcVkH7osa\\ncMKGfYzZbvkWjGFRCam10xLGyczSeDiIIj+H3eLXzTP0iZBcVyw40EMLWk7BHld+\\neFY1XS+EDPIv6snjIxWDEd+wND1tOvWgPsS7mYy8Mn9QRYZXH9KW8/nW0bf/Z74U\\nd89PtXl3WSSrrRZSQofGDwM5RPOEzrYcurZowwWLWmgAmvcsATxhOAiKe6e6tvbD\\nyXTC8+9CRv22zGTcasI5QOYzGaj6wMKr9h2WgAY1LJFBIkEjf1ykWGlTbQIDAQAB\\nox0wGzAMBgNVHRMEBTADAQH/MAsGA1UdDwQEAwIBBjANBgkqhkiG9w0BAQsFAAOC\\nAQEAzWge0dKje1/opIyiho0e6p6a/M/UD05bNLg7XD6uMqJAT9C1YTwq77OD0nrc\\nZpMQoQ4zCFEbGoPvHWzW0Isc7Y3F40YI8bQdmEQtJuiqsCUQ8XW3b4YDTH6VM5go\\n+VZgoRucIRBwCAss1tMrxjT3lMWwuyA9DaOkryRW/m9QmlLoTWLQabi/pO+FS+oy\\nWYYxJOzvqC3xUTYHi+DzlLSWR08NE7gdHrD4aAHYLPIyzgVuToztB7PYmbuOnKmS\\nM9sHlKqgpN7/AgvTOFOEX5mi5BcPGKagryTfipwLVyWaQBDCcVNkAtoLTYPCTEAj\\nUhONf7GpbeehitYjHQoknr21EA==\\n-----END CERTIFICATE-----\",\r\n\t\t\"partnerDomain\": \"Device\"\r\n\t},\r\n\t\"requesttime\": \"2021-02-04T10:03:17.406Z\",\r\n\t\"version\": \"string\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"partnermanager",
+						"partners",
+						"certificate",
+						"ca",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
