@@ -17,7 +17,7 @@
 * High Availability for all components
 
 ### IAM (Keycloak)
-We recommend a single IAM for organization or project to avoid managing multiple entries of the same user.  The IAM may be shared accross multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAUTH 2.0 compliant IAM should work well with MOSIP.
+We recommend a single Identity & Access Management (IAM) for an organization or a project to avoid managing multiple entries of the same user.  The IAM may be shared across multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAuth 2.0 compliant IAM should work well with MOSIP.
 
 ### Network load balancer
 We have chosen cloud's Network Load Balancer (Layer 4) as we have Layser 7 application load balancing done by Nginx Ingress running in the cluster.
@@ -47,7 +47,7 @@ There are certain differences between cloud and on-prem deployments.  Few of the
 |Inter-node Wireguard network|Not compatible|Works well|
 
 ## Installation
-Following sequence is recommended:
+Following install sequence is recommended:
 * [K8s cluster](cluster/README.md)
 * [IAM (Keycloak)](external/iam/README.md)
 * [Rancher](rancher/README.md) 
