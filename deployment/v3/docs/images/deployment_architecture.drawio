@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-19T07:48:25.229Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36" etag="QLzcJyVgoLF6cJT7ihCe" version="14.6.1" type="github">
+<mxfile host="app.diagrams.net" modified="2021-04-19T07:51:51.666Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36" etag="CSEpoqZ09maH0DyUaJ9F" version="14.6.1" type="github">
   <diagram id="C6SMAHJB6ap2hFzo_Ulz" name="Page-1">
     <mxGraphModel dx="1135" dy="691" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
@@ -28,8 +28,8 @@
         <mxCell id="5ZmH1evjWhEYVLYZDHqn-38" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=pod" vertex="1" parent="5ZmH1evjWhEYVLYZDHqn-47">
           <mxGeometry x="200" y="37" width="30" height="33" as="geometry" />
         </mxCell>
-        <mxCell id="5ZmH1evjWhEYVLYZDHqn-48" value="MOSIP Modules" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="5ZmH1evjWhEYVLYZDHqn-47">
-          <mxGeometry x="155" y="80" width="40" height="20" as="geometry" />
+        <mxCell id="5ZmH1evjWhEYVLYZDHqn-48" value="MOSIP Core&lt;br&gt;&amp;nbsp;Modules" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="5ZmH1evjWhEYVLYZDHqn-47">
+          <mxGeometry x="130" y="80" width="90" height="20" as="geometry" />
         </mxCell>
         <mxCell id="5ZmH1evjWhEYVLYZDHqn-5" value="I&lt;br&gt;N&lt;br&gt;G&lt;br&gt;R&lt;br&gt;E&lt;br&gt;S&lt;br&gt;S&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="5ZmH1evjWhEYVLYZDHqn-47">
           <mxGeometry x="30" y="91" width="40" height="130" as="geometry" />
@@ -159,7 +159,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="5ZmH1evjWhEYVLYZDHqn-103" value="MOSIP API" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="380" y="310" width="40" height="20" as="geometry" />
+          <mxGeometry x="140" y="340" width="40" height="20" as="geometry" />
         </mxCell>
         <mxCell id="5ZmH1evjWhEYVLYZDHqn-104" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="5ZmH1evjWhEYVLYZDHqn-39">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
