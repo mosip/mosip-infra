@@ -122,7 +122,14 @@ $ an site.yml
 Provide the vault password.  Default is 'foo'.
 
 ### Certificate Exchange
+Below are the necessary certificate exchange in Mosip.
 * The steps for the abis certificate exchange is mentoned in the [abiscert.md](docs/abiscert.md)
+* The steps for the ida certificate exchange is mentoned there in [idacert.md](docs/idacert.md)
+* The steps for the resident certificate exchange is mentoned there in [residentcert.md](docs/residentcert.md)
+* The steps for the print certificate exchange is mentoned there in [printcert.md](docs/printcert.md)
+* The steps for the MDS device and FTM certificate exchange is mentoned there in [MDSdevicecert.md](docs/MDSdevicecert.md)
+
+- Also we have a complete postman collection containing all the api's as mentioned abive we just need to update the Domain name an dfollow the instructions in the above docs. The collection is stored in [utils](utils/postman_collection/cert)
 
 ## Dashboards
 The links to various dashboards are available at 
