@@ -17,10 +17,10 @@
 * High Availability for all components
 
 ### IAM (Keycloak)
-We recommend a single Identity & Access Management (IAM) for an organization or a project to avoid managing multiple entries of the same user.  The IAM may be shared across multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAuth 2.0 compliant IAM should work well with MOSIP.
+We recommend a single Identity & Access Management (IAM) for an organization or a project to avoid managing multiple entries for the same user.  The IAM may be shared across multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAuth 2.0 compliant IAM should work well with MOSIP.
 
 ### Network load balancer
-We have chosen cloud's Network Load Balancer (Layer 4) as we have Layser 7 application load balancing done by Nginx Ingress running in the cluster.
+We have chosen cloud's Network Load Balancer (Layer 4) over Application Load Balancer (Layer 7) as we have application load balancing done by Nginx Ingress running inside the cluster.
 
 ### TLS termination
 HTTS connections are terminated at load balancer on Cloud and Nginx on on-prem setup. Termination at LB level makes it possible to inspect packets before sending to cluster.
