@@ -6,15 +6,14 @@
 ## Features
 * Single Kubernetes cluster MOSIP installation.
 * Single organisation-wide IAM system. Here, we install Keycloak.
-* Cluster administered using Rancher. 
-* Rancher uses IAM for Role Based Access Control (RBAC).
-* Both Rancher and IAM may be run in High Avaibility (HA) mode.
-* MOSIP API load balancer (LB) may be public facing (external) or internal if behind Wireguard bastion host. 
+* Cluster administration using Rancher. 
+* Rancher-IAM-cluster integration for Role Based Access Control (RBAC).
+* Option to access MOSIP cluster over private network using Wireguard.
 * Accces to all MOSIP modules via Ingress. 
-* Activemq LB is internal for ABIS to connect to queues. 
+* Internal LB for ActiveMQ - ABIS connection. 
 * All cluster deployments via Helm charts.
-* External components may be run inside cluster for development and testing.
-* High Availability for all components
+* Option to run external components inside cluster for development and testing.
+* High Availability option for all components including Rancher and IAM.
 
 ### IAM (Keycloak)
 We recommend a single Identity & Access Management (IAM) for an organization or a project to avoid managing multiple entries for the same user.  The IAM may be shared across multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAuth 2.0 compliant IAM should work well with MOSIP.
@@ -26,7 +25,7 @@ We have chosen cloud's Network Load Balancer (Layer 4) over Application Load Bal
 HTTS connections are terminated at load balancer on Cloud and Nginx on on-prem setup. Termination at LB level makes it possible to inspect packets before sending to cluster.
 
 ### Wireguard
-Wireguard may be installed on all nodes of Kubernetes cluster to secure inter-node commmunication.  However, note that Wireguard will typically not run on cloud infrastructures.
+Wireguard may be installed on all nodes of Kubernetes cluster to secure inter-node commmunication.  However, note that Wireguard typically does not run on cloud infrastructures.
 
 Further, for private access to MOSIP APIs, a Wireguard bastion host may be installed.  This acts like a VPN tunnel to reach MOSIP server.
 
