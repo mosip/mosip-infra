@@ -1,6 +1,6 @@
 # Components external to core MOSIP
 
-This folder contains installation procedures for all components that are not part of core mosip offering - they need to be installed separately and integrated.  Mosip has provided reference/mock implementations of some of these components that may be used for development and testing.  Some components may run in the cluster itself, or outside depending on choice of deployment. 
+This folder contains installation procedures for all components that are not part of core mosip offering - they need to be installed separately and integrated.  Mosip has provided reference/mock implementations of some of these components that may be used for development and testing.  Some components may run inside the cluster itself, or outside depending on choice of deployment. 
 
 ## External components
 * [Postgres](postgres/README.md)
