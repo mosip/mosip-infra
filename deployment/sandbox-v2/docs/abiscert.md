@@ -10,8 +10,8 @@
 	  "id": "string",
 	  "metadata": {},
 	  "request": {
-	    "appId": "regproc",
-	    "clientId": "mosip-regproc-client",
+	    "appId": "ida",
+	    "clientId": "mosip-ida-client",
 	    "secretKey": "abc123"
 	  },
 	  "requesttime": "2018-12-10T06:12:52.994Z",
