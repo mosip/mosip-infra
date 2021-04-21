@@ -71,7 +71,7 @@ NOTE: if you make any change in the ingress service, you will have to delete it 
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
 * Update the domain name in `global_configmap.yaml` and run
 ```
-$ kubectl apply -f global_configmap.yaml
+$ kubectl apply -f ../global_configmap.yaml
 ```
 ## Wireguard bastion host
 If you do not want public access to your installation, you may set up a bastion host running Wireguard as shown below:
