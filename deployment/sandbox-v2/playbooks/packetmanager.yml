@@ -4,7 +4,7 @@
     install_name: 'packetmanager'
     helm_chart: '{{charts_root}}/packetmanager'
     is_template: true  
-    helm_namespace: 'default'
+    helm_namespace: 'packetmanager'
     helm_values: '{{charts_root}}/packetmanager/values.template.j2'
     helm_strings: ''
   roles:

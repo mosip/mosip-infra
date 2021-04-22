@@ -7,7 +7,9 @@ artifactoryUrl: {{ artifactory_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
 exportLogs: enabled  # Let filebeat export the logs
 cache_provider: {{ cache_provider_url }}
-cacheConfigUrl: {{site.sandbox_public_url}}/config/*/mz/1.1.5/hazelcast_cache.xml
+cacheConfigUrl: {{site.sandbox_public_url}}/config/*/mz/{{ config_repo.version }}/hazelcast_cache.xml
+clusterRole: packetmanager-cluster-role
+serviceAccount: packetmanager
 
 probe:
   initialDelay: 30  # Seconds
