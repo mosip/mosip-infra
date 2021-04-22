@@ -30,7 +30,7 @@ Wireguard may be installed on all nodes of Kubernetes cluster to secure inter-no
 Further, for private access to MOSIP APIs, a Wireguard bastion host may be installed.  This acts like a VPN tunnel to reach MOSIP server.
 
 ### High availability
-All components installed here High Availibity (HA) option.
+All components installed here have High Availibity (HA) option.
 * IAM:  Keycloak may be run on a separate k8s cluster thereby providing HA. 
 * Rancher: Similar to IAM, Rancher server may also be run on a separate k8s cluster. 
 * Activeq: Master-slave configuration of ActiveMQ installed.
