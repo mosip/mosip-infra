@@ -13,6 +13,10 @@ $ helm repo add mosip https://mosip.github.io/mosip-helm
 $ helm repo update
 $ helm -n activemq install activemq mosip/activemq-artemis -f values.yaml
 ```
+* After successful install  update activeqm host that is assigned by the load balancer
+```
+$ ./cm_patch.sh
+```
 ## Web console
 To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain ppoints to the cluster external LB. 
 * Console url: `https://<activemq domain name>`.  
@@ -23,4 +27,4 @@ To access web console from outside cluster define a domain name like "activemq.s
 ABIS must connect to internal LB address over port 61616.
 
 ## CLI
-Activemq command line utility may be downloaded from [here](https://activemq.apache.org/components/artemis/download/).  Note that since Activemq port 61616 is not accessible externally, you must the same from a machine that has access to internal load balancer. 
+Activemq command line utility may be downloaded from [here](https://activemq.apache.org/components/artemis/download/).  Note that since Activemq port 61616 is not accessible externally, you must run the same from a machine that has access to internal load balancer. 
