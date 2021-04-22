@@ -9,7 +9,7 @@ logs_dir: '{{tmp_dir}}/logs'
 tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
-artifactory_url: http://artifactory-service/
+artifactory_url: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
@@ -403,7 +403,7 @@ config_repo:
 
 config_server:
   name: config-server
-  internal_url: http://config-server/config
+  internal_url: http://config-server.default:80/config
   ingress_url: '{{clusters.mz.ingress.base_url}}/config'
   encrypt_key: '{{secrets.config_server.encrypt_key}}'
 
@@ -433,13 +433,13 @@ coredns:
          node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
-iam_adapter_url: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_url: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
-iam_adapter_regproc_url: 'http://artifactory-service/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_regproc_url: 'http://artifactory-service.default:80/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
-runtimeDepUrlpath: http://artifactory-service/artifactory/libs-release-local/io/mosip/kernel/
+runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://13.233.66.241/biosdk-service
-cache_provider_url: http://artifactory-service/artifactory/libs-release-local/cache/cache-provider.jar
+cache_provider_url: http://artifactory-service.default:80/artifactory/libs-release-local/cache/cache-provider.jar
 
 # user for every service inside the container
 container_user: mosip
