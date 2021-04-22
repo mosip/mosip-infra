@@ -5,3 +5,4 @@ Install in the following sequence:
 * [Config server](config_server/README.md)
 * [Artifactory](artifactory/README.md)
 * [Keymanager](keymanager/README.md)
+* [Mock ABIS](mock-abis/README.md)
