@@ -33,7 +33,7 @@ $ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f ing
 ```
       service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 ```
-Internal LB is needed when you would have a front-end landing server running wireguard which will connect to the internal LB thereby avoid public access to your installation.  See section on [wireguard](## Wireguard)
+Internal LB is needed when you would have a front-end landing server running wireguard which will connect to the internal LB thereby avoid public access to your installation.  See section on [wireguard](## Wireguard bastion host)
 
 ### Posgtres external access
 * If you have installed postgres inside the cluster, the same may be accessed from outside if you have enabled port 5432 TCP listner on LB and set the following configuration in `ingress_values.yaml`:
