@@ -53,7 +53,7 @@ $ kubectl -n ingress-nginx get svc
 ```
 * TLS termination is supposed to be on LB.  So all our traffic coming to ingress controller shall be HTTP.
 * Note that we are not using ingress controller provided by AWS, but installing nginx ingress controller] as above.  Good discussion [here](https://itnext.io/kubernetes-ingress-controllers-how-to-choose-the-right-one-part-1-41d3554978d2). See also [this](https://blog.getambassador.io/configuring-kubernetes-ingress-on-aws-dont-make-these-mistakes-1a602e430e0a)  
-* Obtain AWS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html) 
+* Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html) 
 * Add the certificates and 443 access to the LB listener.
   * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.
 * Forward TLS->443 listner traffic to target group that corresponds to lisner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
