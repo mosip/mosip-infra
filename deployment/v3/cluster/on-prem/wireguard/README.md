@@ -14,32 +14,32 @@ The instructions given here are for Ubuntu.  You may modified them accordingly f
 
 ## Install
 1. Create `hosts.ini` file using `hosts.ini.sample` as example. 
-  * `wg_address` is arbitrary as long as it does not clash with any other addresses.
-  * `[control]` is your admin machine from where you are running these scripts. 
+    * `wg_address` is arbitrary as long as it does not clash with any other addresses.
+    * `[control]` is your admin machine from where you are running these scripts. 
 1. Install Wireguard on all nodes:
-```
-$ ansible-playbook -i hosts.ini install.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini install.yaml
+    ```
 1. Setup wireguard mesh configuration file for each node and copy the same to `/etc/wireguard/wg0.conf` of respective node. 
-```
-$ ansible-playbook -i hosts.ini setup.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini setup.yaml
+    ```
 1. Bring up wireguard on all nodes
-```
-$ ansible-playbook -i hosts.ini up.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini up.yaml
+    ```
 ## Adding or updating peers
 If you have need to add a new peer or change any parameter of existing peer, run the following sequence:
 1. Shutdown wireguard
-```
-$ ansible-playbook -i hosts.ini setup.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini setup.yaml
+    ```
 1. Make the required changes in `hosts.ini` 
 1. Run setup again
-```
-$ ansible-playbook -i hosts.ini setup.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini setup.yaml
+    ```
 1. Bring up wireguard.
-```
-$ ansible-playbook -i hosts.ini up.yaml
-```
+    ```
+    $ ansible-playbook -i hosts.ini up.yaml
+    ```
