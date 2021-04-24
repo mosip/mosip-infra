@@ -1,12 +1,12 @@
 # Wireguard Mesh
 
 ## Introduction
-Internode communication may be secured by running Wireguard on all nodes in a mesh configuration (as opposed to typical cclient-server configuration).  Here, all the peers are connected to each other as a Wireguard mesh.  Wireguard needs to be installed *before* you install your on-prem kubernetes cluster.
+Internode communication may be secured by running Wireguard on all nodes in a mesh configuration (as opposed to typical client-server configuration).  Here, all the peers are connected to each other in a Wireguard mesh.  Wireguard needs to be installed *before* you install your on-prem kubernetes cluster.
 
-The instructions here are given for Ubuntu.  You may modified them accordingly for your OS distribution.
+The instructions given here are for Ubuntu.  You may modified them accordingly for your OS distribution.
 
 ## Prerequisites
-1. You have a admin/control machine from where you run your scripts.
+1. You have an admin/control machine from where you run your scripts.
 1. Virtual machines (nodes) are provisioned and accessible from admin machine.
 1. The `ssh` private keys required to access nodes are available in your `~/.ssh/` folder.
 1. Ansible is installed as given [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-ansible-on-ubuntu)
@@ -15,7 +15,7 @@ The instructions here are given for Ubuntu.  You may modified them accordingly f
 ## Install
 1. Create `hosts.ini` file using `hosts.ini.sample` as example. 
   * `wg_address` is arbitrary as long as it does not clash with any other addresses.
-  * `[control]` is your machine from where you are running these scripts. 
+  * `[control]` is your admin machine from where you are running these scripts. 
 1. Install Wireguard on all nodes:
 ```
 $ ansible-playbook -i hosts.ini install.yaml
