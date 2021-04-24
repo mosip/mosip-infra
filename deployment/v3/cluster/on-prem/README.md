@@ -2,10 +2,11 @@
 
 ## Rancher k8s cluster
 ### Cluster
-* Set up VMs with Rancher OS
-* Install Wireguard as given [below](## Wireguard)
+* Set up VMs.
+* Install Wireguard as given [here](wireguard/README.md)
 * Create K8s cluster for MOSIP modules at least 5 worker nodes using Rancher's `rke` utility.
-* Use default Canal networking model
+* Use default Canal networking model (if you are using Wireguard)
+* Give `internal_address: <wireguard address>` in `cluster.yml`.
 * Keep the Pod Security Policies disabled.
 
 ### Persistence
@@ -37,28 +38,5 @@ $ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f val
 * Install cert-manager for Letsencrypt:
 https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-with-cert-manager-on-digitalocean-kubernetes
 
-## Wireguard
-To protect the inter node communication in a cluster, you may install  Wireguard on each machine before installing the cluster.
-
-* Install machines as given in this [article](https://vitobotta.com/2019/07/17/kubernetes-wireguard-vpn-rancheros/)
-* Each `wg0.conf` would look something like this. This is an example of 3 node cluster:
-```
-[Interface]
-Address = 172.16.4.1
-PrivateKey = <private key>
-ListenPort = 51820
-
-[Peer]
-PublicKey = <public key>
-Endpoint = 10.6.1.10:51820
-AllowedIPs = 172.16.4.2
-
-[Peer]
-PublicKey = <public key>
-Endpoint = 10.6.1.11:51820
-AllowedIPs = 172.16.4.3
-```
-The `Address` and `AllowedIPs` are the Wireguard network address (arbitrarily chosen, but should not clash with any other network).
 * Use Canal networking model for Rancher RKE cluster install. 
-* Give `internal_address: <wireguard address>` in `cluster.yml`.
 
