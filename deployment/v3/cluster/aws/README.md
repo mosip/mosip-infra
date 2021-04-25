@@ -1,6 +1,6 @@
 # MOSIP cluster on Amazon EKS
 
-## Create
+## Create using eksctl
 * If you already have `~/.kube/config` file created for another cluster, rename it.
 * Install `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * Install `kubectl`
@@ -8,6 +8,9 @@
 * Review cluster params in `create.sh`, then run the script.
 * Note that it takes around 30 minutes to create (or delete a cluster).
 * After creating cluster make a copy of `config` with a suitable name in `~/.kube/` folder, eg. `iam_config`, `mosip_config`.
+
+## Create using Rancher
+You can also create cluster on Cloud using the Rancher console.  Refer to Rancher documentation.
 
 ## Persistence
 ### AWS
@@ -81,3 +84,10 @@ Follow the procedure given [here](../../docs/wireguard.md)
 
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
+
+## Cluster management
+Import cluster into Rancher and assign access rights users in IAM (Keycloak)
+
+## Monitoring
+Enable Prometheus in Rancher (via Rancher Apps). 
+
