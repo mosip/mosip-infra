@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.external.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.services.external.serviceName }}
+    
+spec:
+  {{ $podconfig := .Values.services.external.podconfig }} 
+  replicas: {{ $podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.external.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.external.serviceName }} 
+        component: service-hazelcast-server
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{ .Values.services.external.serviceName }} 
+        image: {{ .Values.services.external.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: {{ .Values.isGlowroot }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
+        ports:
+        - name: eventbus-port
+          containerPort: {{ .Values.services.external.ports.eventbusPort }}
+        - name: hazelcast-port
+          containerPort: {{ .Values.services.external.ports.hazelcastPort }}
+        - name: verticle-port
+          containerPort: {{ .Values.services.external.ports.containerPort }}
+
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.bio.healthUrl }} 
+#            port: {{ .Values.services.bio.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
+#        livenessProbe: 
+#          httpGet:
+#            path: {{ .Values.services.external.healthUrl }} 
+#            port: {{ .Values.services.external.ports.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
