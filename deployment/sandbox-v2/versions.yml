@@ -6,7 +6,7 @@ versions:
       auth:
         'kernel-auth-service':  'mosipdev/kernel-auth-service:develop'
       masterdata:
-        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:develop'
+        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:1.1.5'
       idgen:
         'kernel-idgenerator-service': 'mosipdev/kernel-idgenerator-service:develop'
       prid:
@@ -47,35 +47,35 @@ versions:
 
     regproc:
       group1:
-        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:MOSIP-12124-2'
       group2:
-        'regproc-group-2': 'mosipdev/group-2:MOSIP-12124'
+        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:MOSIP-12124-2'
       group3:
-        'regproc-group-3': 'mosipdev/group-3:MOSIP-12124'
+        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:MOSIP-12124-2'
       group4:
-        'regproc-group-4': 'mosipdev/group-4:MOSIP-12124'
+        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:MOSIP-12124-2'
       group5:
-        'regproc-group-5': 'mosipdev/group-5:MOSIP-12124'
+        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:MOSIP-12124-2'
       group6:
-        'regproc-group-6': 'mosipdev/group-6:MOSIP-12124'
+        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:MOSIP-12124-2'
       group7:
-        'regproc-group-7': 'mosipdev/group-7:MOSIP-12124'
+        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:MOSIP-12124-2'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:MOSIP-12124-2'
       eis: 
-        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
+        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:MOSIP-12124-2'
       trans:
-        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
+        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:MOSIP-12124-2'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
+        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:MOSIP-12124-2'
 
     dmzregproc:  
       group1:
-        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:MOSIP-12124-2'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:MOSIP-12124-2'
       status:
-        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:develop'
+        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:MOSIP-12124-2'
       pktserver:
         'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
         
@@ -123,7 +123,7 @@ versions:
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipdev/commons-packet-service:develop'
+        'packetmanager-service': 'mosipdev/commons-packet-service:1.1.5'
 
     datashare:
       service:
@@ -139,7 +139,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.4'
+        'mock-abis': 'mosipdev/mock-abis:1.1.5'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
