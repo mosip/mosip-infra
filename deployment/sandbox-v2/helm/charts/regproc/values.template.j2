@@ -1,7 +1,7 @@
 component: regproc
 part-of: mosip
-activeProfileEnv: mz 
-springConfigLabel: {{ config_repo.version }} 
+activeProfileEnv: mz
+springConfigLabel: {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 storageClass: dm-storage-class  # See sc, pv templates
 exportLogs: enabled  # Let filebeat export the logs
@@ -14,45 +14,121 @@ probe:
 ingress:
    namespace: default
 
-artifactoryUrl: {{ artifactory_url }} 
+artifactoryUrl: {{ artifactory_url }}
 iamAdapterUrl: {{ iam_adapter_regproc_url }}
 
-imagePullPolicy: Always 
+imagePullPolicy: Always
 
-isGlowroot: {{ is_glowroot }} 
+isGlowroot: {{ is_glowroot }}
 
 dockerHub:
-  private: {{ docker.hub.private }}  
+  private: {{ docker.hub.private }}
   keyname: {{ docker.hub.keyname }}
 
 services:
   camel:
-    serviceName: {{ versions.services.regproc.camel.keys()[0] }} 
+    serviceName: {{ versions.services.regproc.camel.keys()[0] }}
     dockerImage: {{ versions.services.regproc.camel.values()[0] }}
     ports:
       eventbusPort: 5723
       hazelcastPort: 5701
       containerPort: 8022
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
     podconfig:
       {{ podconfig.regproc.camel | to_nice_yaml(indent=6) | indent(6) }}
+  
+  group2:
+    serviceName: {{ versions.services.regproc.group2.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 8090
+    podconfig:
+      {{ podconfig.regproc.group2 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/securezone/actuator/health
+
+  group3:
+    serviceName: {{ versions.services.regproc.group3.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 9071
+    podconfig:
+      {{ podconfig.regproc.group3 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/abishandler/actuator/health
+
+  group4:
+    serviceName: {{ versions.services.regproc.group4.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 8091
+    podconfig:
+      {{ podconfig.regproc.group4 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
+
+  group5:
+    serviceName: {{ versions.services.regproc.group5.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 8089
+    podconfig:
+      {{ podconfig.regproc.group5 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
+
+  group7:
+    serviceName: {{ versions.services.regproc.group7.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 8099
+    podconfig:
+      {{ podconfig.regproc.group7 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
+
+  group6:
+    serviceName: {{ versions.services.regproc.group6.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
+    ports:
+      hazelcastPort: 5701
+      servicePort: 80
+      containerPort: 8087
+    podconfig:
+      {{ podconfig.regproc.group6 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/uploader/actuator/health
 
   notification:  # This is has a service front end for access (notification-svc.yaml)
-    serviceName: {{ versions.services.regproc.notification.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.notification.values()[0] }}
+    serviceName: regproc-securezone-notification-stage
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5712
       hazelcastPort: 5701
       containerPort: 8090
-      servicePort: 80 
+      servicePort: 80
     ingressPath: /registrationprocessor/v1/securezone/
-    healthUrl: /registrationprocessor/v1/securezone/actuator/health
-    podconfig:
-      {{ podconfig.regproc.notification | to_nice_yaml(indent=6) | indent(6) }}
+     healthUrl: /registrationprocessor/v1/securezone/actuator/health
+
+  classifier:
+    serviceName: regproc-packet-classifier-stage
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
+    ports:
+      eventbusPort: 5724
+      hazelcastPort: 5701
+      containerPort: 8092
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/packetclassifier/
+    healthUrl: /registrationprocessor/v1/packetclassifier/actuator/health
 
   reprocess:
-    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }} 
+    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }}
     dockerImage: {{ versions.services.regproc.reprocess.values()[0] }}
     ports:
       eventbusPort: 5750
@@ -63,122 +139,113 @@ services:
       workflowActionEventBusPort: 5752
       workflowActionServerPort: 8023
       servicePort: 80
-    ingressPath: /registrationprocessor/v1/reprocessor/ 
+    ingressPath: /registrationprocessor/v1/reprocessor/
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
     podconfig:
       {{ podconfig.regproc.reprocess | to_nice_yaml(indent=6) | indent(6) }}
 
   uploader:
-    serviceName: {{ versions.services.regproc.uploader.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.uploader.values()[0] }}
+    serviceName: regproc-packet-uploader-stage
+    dockerImage: {{ versions.services.regproc.group6.values()[0] }}
     ports:
       eventbusPort: 5714
       hazelcastPort: 5701
       containerPort: 8087
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
-    podconfig:
-      {{ podconfig.regproc.uploader | to_nice_yaml(indent=6) | indent(6) }}
 
   quality:
-    serviceName: {{ versions.services.regproc.quality.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.quality.values()[0] }}
+    serviceName: regproc-quality-checker-stage
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5727
       hazelcastPort: 5701
       containerPort: 9072
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
-    podconfig:
-      {{ podconfig.regproc.quality | to_nice_yaml(indent=6) | indent(6) }}
 
   validator:
-    serviceName: {{ versions.services.regproc.validator.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.validator.values()[0] }}
+    serviceName: regproc-packet-validator-stage
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
     ports:
       eventbusPort: 5715
       hazelcastPort: 5701
       containerPort: 8088
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
-    podconfig:
-      {{ podconfig.regproc.validator | to_nice_yaml(indent=6) | indent(6) }}
 
   osi:
-    serviceName: {{ versions.services.regproc.osi.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.osi.values()[0] }}
+    serviceName: regproc-osi-validator-stage
+    dockerImage: {{ versions.services.regproc.group5.values()[0] }}
     ports:
       eventbusPort: 5716
       hazelcastPort: 5701
       containerPort: 8089
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
-    podconfig:
-      {{ podconfig.regproc.osi | to_nice_yaml(indent=6) | indent(6) }}
 
   demo:
-    serviceName: {{ versions.services.regproc.demo.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.demo.values()[0] }}
+    serviceName: regproc-demo-dedupe-stage
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5717
       hazelcastPort: 5701
       containerPort: 8091
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
-    podconfig:
-      {{ podconfig.regproc.demo | to_nice_yaml(indent=6) | indent(6) }}
 
   bio:
-    serviceName: {{ versions.services.regproc.bio.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.bio.values()[0] }}
+    serviceName: regproc-bio-dedupe-stage
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5718
       hazelcastPort: 5701
       containerPort: 9096
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
-    podconfig:
-      {{ podconfig.regproc.bio | to_nice_yaml(indent=6) | indent(6) }}
 
   bioauth:
-    serviceName: {{ versions.services.regproc.bioauth.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.bioauth.values()[0] }}
+    serviceName: regproc-biometric-authentication-stage
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5777
       hazelcastPort: 5701
       containerPort: 8020
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
-    podconfig:
-      {{ podconfig.regproc.bioauth | to_nice_yaml(indent=6) | indent(6) }}
 
   abishandler:
-    serviceName: {{ versions.services.regproc.abishandler.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.abishandler.values()[0] }}
+    serviceName: regproc-abis-handler-stage
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5726
       hazelcastPort: 5701
       containerPort: 9071
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
-    podconfig:
-      {{ podconfig.regproc.abishandler | to_nice_yaml(indent=6) | indent(6) }}
 
   abismid:
-    serviceName: {{ versions.services.regproc.abismid.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.abismid.values()[0] }}
+    serviceName: regproc-abis-middleware-stage
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5888
       hazelcastPort: 5701
       containerPort: 8091
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
-    podconfig:
-      {{ podconfig.regproc.abismid | to_nice_yaml(indent=6) | indent(6) }}
 
   manual:
-    serviceName: {{ versions.services.regproc.manual.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.manual.values()[0] }}
+    serviceName: regproc-manual-verification-stage
+    dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       eventbusPort: 5720
       hazelcastPort: 5701
@@ -186,23 +253,20 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/manualverification/
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
-    podconfig:
-      {{ podconfig.regproc.manual | to_nice_yaml(indent=6) | indent(6) }}
 
   external:
-    serviceName: {{ versions.services.regproc.external.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.external.values()[0] }}
+    serviceName: regproc-external-stage
+    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       eventbusPort: 5736
       hazelcastPort: 5701
       containerPort: 8095
+      servicePort: 80
     ingressPath: ''
-    healthUrl: /registrationprocessor/v1/external/actuator/health 
-    podconfig:
-      {{ podconfig.regproc.external | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/external/actuator/health
 
-  eis: 
-    serviceName: {{ versions.services.regproc.eis.keys()[0] }} 
+  eis:
+    serviceName: {{ versions.services.regproc.eis.keys()[0] }}
     dockerImage: {{ versions.services.regproc.eis.values()[0] }}
     ports:
       containerPort: 8201
@@ -213,43 +277,40 @@ services:
       {{ podconfig.regproc.eis | to_nice_yaml(indent=6) | indent(6) }}
 
   uin:
-    serviceName: {{ versions.services.regproc.uin.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.uin.values()[0] }}
+    serviceName: regproc-uin-generator-stage
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
     ports:
       eventbusPort: 5719
       hazelcastPort: 5701
       containerPort: 8099
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
-    podconfig:
-      {{ podconfig.regproc.uin | to_nice_yaml(indent=6) | indent(6) }}
 
   msg:
-    serviceName: {{ versions.services.regproc.msg.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.msg.values()[0] }}
+    serviceName: regproc-message-sender-stage
+    dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       eventbusPort: 5721
       hazelcastPort: 5701
       containerPort: 8088
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
-    podconfig:
-      {{ podconfig.regproc.msg | to_nice_yaml(indent=6) | indent(6) }}
 
   print:
-    serviceName: {{ versions.services.regproc.print.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.print.values()[0] }}
+    serviceName: regproc-printing-stage
+    dockerImage: {{ versions.services.regproc.group7.values()[0] }}
     ports:
       eventbusPort: 5722
       hazelcastPort: 5701
       containerPort: 8099
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: ''
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
-    podconfig:
-      {{ podconfig.regproc.print | to_nice_yaml(indent=6) | indent(6) }}
 
   trans:
-    serviceName: {{ versions.services.regproc.trans.keys()[0] }} 
+    serviceName: {{ versions.services.regproc.trans.keys()[0] }}
     dockerImage: {{ versions.services.regproc.trans.values()[0] }}
     ports:
       containerPort: 8110
@@ -258,14 +319,3 @@ services:
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
     podconfig:
       {{ podconfig.regproc.trans | to_nice_yaml(indent=6) | indent(6) }}
-
-  notificationService:  # This is has a service front end for access (notification-service-svc.yaml)
-    serviceName: {{ versions.services.regproc.notificationService.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.notificationService.values()[0] }}
-    ports:
-      containerPort: 8088
-      servicePort: 80 
-    ingressPath: /registrationprocessor/v1/notification/
-    healthUrl: /registrationprocessor/v1/notification/actuator/health
-    podconfig:
-      {{ podconfig.regproc.notificationService | to_nice_yaml(indent=6) | indent(6) }}
