@@ -6,7 +6,7 @@ versions:
       auth:
         'kernel-auth-service':  'mosipdev/kernel-auth-service:develop'
       masterdata:
-        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:1.1.5'
+        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:develop'
       idgen:
         'kernel-idgenerator-service': 'mosipdev/kernel-idgenerator-service:develop'
       prid:
@@ -47,35 +47,35 @@ versions:
 
     regproc:
       group1:
-        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:MOSIP-12124-2'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
       group2:
-        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:MOSIP-12124-2'
+        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:develop'
       group3:
-        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:MOSIP-12124-2'
+        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:develop'
       group4:
-        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:MOSIP-12124-2'
+        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:develop'
       group5:
-        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:MOSIP-12124-2'
+        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:develop'
       group6:
-        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:MOSIP-12124-2'
+        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:develop'
       group7:
-        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:MOSIP-12124-2'
+        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:develop'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:MOSIP-12124-2'
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       eis: 
-        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:MOSIP-12124-2'
+        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
       trans:
-        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:MOSIP-12124-2'
+        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:MOSIP-12124-2'
+        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
 
     dmzregproc:  
       group1:
-        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:MOSIP-12124-2'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:MOSIP-12124-2'
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       status:
-        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:MOSIP-12124-2'
+        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:develop'
       pktserver:
         'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
         
@@ -125,7 +125,7 @@ versions:
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipdev/commons-packet-service:1.1.5'
+        'packetmanager-service': 'mosipdev/commons-packet-service:develop'
 
     datashare:
       service:
@@ -141,7 +141,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipdev/mock-abis:1.1.5'
+        'mock-abis': 'mosipdev/mock-abis:develop'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
