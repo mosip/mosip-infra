@@ -29,3 +29,6 @@ http://elasticsearch-master.logging:9200
 ## View logs
 * In Kibana console add Index Pattern "fluentd" under Stack Management. 
 * View logs in Home->Analytics->Discover.
+
+## Troubleshooting
+* Json under field `log` not parsed.  This could be due to json values not containing "quotes" for strings. For MOSIP modules check log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/v3/application-default.properties) property `server.tomcat.accesslog.pattern`.
