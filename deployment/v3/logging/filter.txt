@@ -1,0 +1,12 @@
+- record_modifier:
+    replaces:
+      - expression: /"/
+        key: log
+        replace: \\"
+- parser:
+    key_name: log
+    parse:
+      type: json
+    replace_invalid_sequence: true
+    reserve_data: true
+
