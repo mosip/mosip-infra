@@ -155,6 +155,13 @@ podconfig:
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
+    notificationService: 
+      replicas: 1 
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
+
   dmzregproc:  
     group1:
       replicas: 1
