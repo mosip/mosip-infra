@@ -47,19 +47,19 @@ versions:
 
     regproc:
       group1:
-        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
       group2:
-        'regproc-group-2': 'mosipdev/group-2:MOSIP-12124'
+        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:develop'
       group3:
-        'regproc-group-3': 'mosipdev/group-3:MOSIP-12124'
+        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:develop'
       group4:
-        'regproc-group-4': 'mosipdev/group-4:MOSIP-12124'
+        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:develop'
       group5:
-        'regproc-group-5': 'mosipdev/group-5:MOSIP-12124'
+        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:develop'
       group6:
-        'regproc-group-6': 'mosipdev/group-6:MOSIP-12124'
+        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:develop'
       group7:
-        'regproc-group-7': 'mosipdev/group-7:MOSIP-12124'
+        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:develop'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       eis: 
@@ -71,7 +71,7 @@ versions:
 
     dmzregproc:  
       group1:
-        'regproc-group-1': 'mosipdev/group-1:MOSIP-12124'
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       status:
@@ -139,7 +139,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.4'
+        'mock-abis': 'mosipdev/mock-abis:develop'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
