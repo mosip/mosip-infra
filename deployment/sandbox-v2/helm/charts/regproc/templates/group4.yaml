@@ -56,15 +56,15 @@ spec:
         - name: demo-vt
           containerPort: {{ .Values.services.demo.ports.containerPort }}
 
-#        readinessProbe:  # TODO: Uncomment this or put a actuator health url
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:  # TODO: Uncomment this or put a actuator health url
+          httpGet:
+            path: {{ .Values.services.group4.healthUrl }}
+            port: {{ .Values.services.group4.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.group4.healthUrl }}
+            port: {{ .Values.services.group4.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
