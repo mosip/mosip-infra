@@ -27,6 +27,7 @@ http://elasticsearch-master.logging:9200
 * TODO: Issues: Elasticsearch and Kibana logs are not getting recorded.  Further, setting up Cluster Flow for pods specified by pod labes doesn't seem to work.  Needs investigation.
 
 ## View logs
+* Open Kibana console `https://<kibana host name>//` (`hostname` in `kibana_values.yaml`)
 * In Kibana console add Index Pattern "fluentd" under Stack Management. 
 * View logs in Home->Analytics->Discover.
 
