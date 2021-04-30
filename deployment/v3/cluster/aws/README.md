@@ -48,6 +48,7 @@ tcp:
 ```
 kubectl apply -f tcp_configmap.yaml
 ```
+* TODO: After enabling tcp port continuous messages are printed in nginx controller log. Need to figure out a way of stopping them.
 
 ### Network Load Balancer
 * AWS will assign a Network Load Balancer (Layer 4) that can be seen as:
