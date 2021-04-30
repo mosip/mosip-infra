@@ -307,7 +307,7 @@ services:
     healthUrl: /registrationprocessor/v1/registrationtransaction/actuator/health
     podconfig:
       {{ podconfig.regproc.trans | to_nice_yaml(indent=6) | indent(6) }}
-      
+
   notificationService:  # This is has a service front end for access (notification-service-svc.yaml)
     serviceName: {{ versions.services.regproc.notificationService.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.notificationService.values()[0] }}
