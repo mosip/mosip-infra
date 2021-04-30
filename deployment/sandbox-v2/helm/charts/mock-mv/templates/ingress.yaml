@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.component }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+     kubernetes.io/ingress.class: "nginx"
+     nginx.com/health-checks: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      {{- range $index, $service := .Values.services }}
+        {{ if $service.ingressPath }}
+      - path: {{ $service.ingressPath }} 
+        backend:
+          serviceName: {{ $service.serviceName }}
+          servicePort: {{ $service.servicePort }} 
+        {{ end }}
+      {{- end }}
+

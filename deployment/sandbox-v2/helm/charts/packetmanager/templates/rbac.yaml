@@ -1,0 +1,42 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{.Values.clusterRole}}
+rules:
+  - apiGroups:
+      - "*"
+    resources:
+      - endpoints
+      - pods
+      - nodes
+      - services
+    verbs:
+      - get
+      - list
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{.Values.serviceAccount}}
+  labels:
+    k8s-app: {{.Values.services.packet.serviceName}}
+  namespace: {{.Release.Namespace}}
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: '{{.Values.clusterRole}}-binding'
+  labels:
+    k8s-app: {{.Values.services.packet.serviceName}}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{.Values.clusterRole}}
+subjects:
+  - kind: ServiceAccount
+    name: {{.Values.serviceAccount}}
+    namespace: {{.Release.Namespace}}

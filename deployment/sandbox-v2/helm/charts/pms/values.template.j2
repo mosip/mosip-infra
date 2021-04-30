@@ -22,49 +22,9 @@ dockerHub:
   keyname: {{ docker.hub.keyname }}
 
 services:
-  misp: 
-    serviceName: {{ versions.services.pms.misp.keys()[0] }} 
-    dockerImage: {{ versions.services.pms.misp.values()[0] }}
-    containerPort: 9100
-    servicePort: 80
-    ingressPath: /partnermanagement/v1/misps
-    healthUrl: /partnermanagement/v1/misps/actuator/health
-    podconfig:
-      {{ podconfig.pms.misp | to_nice_yaml(indent=6) | indent(6) }}
-
-  pm:
-    serviceName: {{ versions.services.pms.pm.keys()[0] }} 
-    dockerImage: {{ versions.services.pms.pm.values()[0] }}
-    containerPort: 9102
-    servicePort: 80
-    ingressPath: /partnermanagement/v1/pmpartners
-    healthUrl: /partnermanagement/v1/pmpartners/actuator/health
-    podconfig:
-      {{ podconfig.pms.pm | to_nice_yaml(indent=6) | indent(6) }}
-
   partner:
-    serviceName: {{ versions.services.pms.partner.keys()[0] }} 
+    serviceName: {{ versions.services.pms.partner.keys()[0] }}
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
-    containerPort: 9103
-    servicePort: 80
-    ingressPath: /partnermanagement/v1/partners
-    healthUrl: /partnermanagement/v1/partners/actuator/health
-    podconfig:
-      {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
-
-  policy:
-    serviceName: {{ versions.services.pms.policy.keys()[0] }} 
-    dockerImage: {{ versions.services.pms.policy.values()[0] }}
-    containerPort: 9101
-    servicePort: 80
-    ingressPath: /partnermanagement/v1/policies
-    healthUrl: /partnermanagement/v1/policies/actuator/health
-    podconfig:
-      {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}
-
-  partner1:
-    serviceName: {{ versions.services.pms.partner1.keys()[0] }}
-    dockerImage: {{ versions.services.pms.partner1.values()[0] }}
     containerPort: 9109
     servicePort: 80
     ingressPath: /v1/partnermanager
@@ -72,9 +32,9 @@ services:
     podconfig:
       {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
 
-  policy1:
-    serviceName: {{ versions.services.pms.policy1.keys()[0] }}
-    dockerImage: {{ versions.services.pms.policy1.values()[0] }}
+  policy:
+    serviceName: {{ versions.services.pms.policy.keys()[0] }}
+    dockerImage: {{ versions.services.pms.policy.values()[0] }}
     containerPort: 9107
     servicePort: 80
     ingressPath: /v1/policymanager

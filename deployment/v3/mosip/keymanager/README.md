@@ -13,6 +13,5 @@ $ ./copy_cm.sh
 ```
 $ helm repo add mosip https://mosip.github.io/mosip-helm
 $ helm repo update
-$ helm dep update
 $ helm -n keymanager install keymanager mosip/keymanager 
 ```
