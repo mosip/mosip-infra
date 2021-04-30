@@ -1,7 +1,7 @@
 component: regproc
 part-of: mosip
-activeProfileEnv: mz
-springConfigLabel: {{ config_repo.version }}
+activeProfileEnv: mz 
+springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 storageClass: dm-storage-class  # See sc, pv templates
 exportLogs: enabled  # Let filebeat export the logs
@@ -14,27 +14,27 @@ probe:
 ingress:
    namespace: default
 
-artifactoryUrl: {{ artifactory_url }}
+artifactoryUrl: {{ artifactory_url }} 
 iamAdapterUrl: {{ iam_adapter_regproc_url }}
 
-imagePullPolicy: Always
+imagePullPolicy: Always 
 
 isGlowroot: {{ is_glowroot }}
 
 dockerHub:
-  private: {{ docker.hub.private }}
+  private: {{ docker.hub.private }} 
   keyname: {{ docker.hub.keyname }}
 
 services:
   camel:
-    serviceName: {{ versions.services.regproc.camel.keys()[0] }}
+    serviceName: {{ versions.services.regproc.camel.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.camel.values()[0] }}
     ports:
       eventbusPort: 5723
       hazelcastPort: 5701
       containerPort: 8022
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
     podconfig:
       {{ podconfig.regproc.camel | to_nice_yaml(indent=6) | indent(6) }}
@@ -100,11 +100,11 @@ services:
       eventbusPort: 5712
       hazelcastPort: 5701
       containerPort: 8090
-      servicePort: 80
+      servicePort: 80 
     ingressPath: /registrationprocessor/v1/securezone/
     healthUrl: /registrationprocessor/v1/securezone/actuator/health
 
-  classifier:
+  classifier: 
     serviceName: regproc-packet-classifier-stage
     dockerImage: {{ versions.services.regproc.group6.values()[0] }}
     ports:
@@ -116,7 +116,7 @@ services:
     healthUrl: /registrationprocessor/v1/packetclassifier/actuator/health
 
   reprocess:
-    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }}
+    serviceName: {{ versions.services.regproc.reprocess.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.reprocess.values()[0] }}
     ports:
       eventbusPort: 5750
@@ -127,7 +127,7 @@ services:
       workflowActionEventBusPort: 5752
       workflowActionServerPort: 8023
       servicePort: 80
-    ingressPath: /registrationprocessor/v1/reprocessor/
+    ingressPath: /registrationprocessor/v1/reprocessor/ 
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
     podconfig:
       {{ podconfig.regproc.reprocess | to_nice_yaml(indent=6) | indent(6) }}
@@ -140,7 +140,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8087
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
 
   quality:
@@ -151,7 +151,7 @@ services:
       hazelcastPort: 5701
       containerPort: 9072
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
 
   validator:
@@ -162,7 +162,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8088
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
 
   osi:
@@ -173,7 +173,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8089
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
 
   demo:
@@ -184,7 +184,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8091
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
 
   bio:
@@ -195,7 +195,7 @@ services:
       hazelcastPort: 5701
       containerPort: 9096
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
 
   bioauth:
@@ -206,7 +206,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8020
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
 
   abishandler:
@@ -217,7 +217,7 @@ services:
       hazelcastPort: 5701
       containerPort: 9071
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
 
   abismid:
@@ -228,7 +228,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8091
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
 
   manual:
@@ -251,9 +251,9 @@ services:
       containerPort: 8095
       servicePort: 80
     ingressPath: ''
-    healthUrl: /registrationprocessor/v1/external/actuator/health
+    healthUrl: /registrationprocessor/v1/external/actuator/health 
 
-  eis:
+  eis: 
     serviceName: {{ versions.services.regproc.eis.keys()[0] }}
     dockerImage: {{ versions.services.regproc.eis.values()[0] }}
     ports:
@@ -272,7 +272,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8099
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
 
   msg:
@@ -283,7 +283,7 @@ services:
       hazelcastPort: 5701
       containerPort: 8088
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
 
   print:
@@ -294,11 +294,11 @@ services:
       hazelcastPort: 5701
       containerPort: 8099
       servicePort: 80
-    ingressPath: ''
+    ingressPath: '' 
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
 
   trans:
-    serviceName: {{ versions.services.regproc.trans.keys()[0] }}
+    serviceName: {{ versions.services.regproc.trans.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.trans.values()[0] }}
     ports:
       containerPort: 8110
