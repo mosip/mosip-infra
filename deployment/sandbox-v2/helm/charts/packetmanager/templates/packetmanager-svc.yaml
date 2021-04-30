@@ -6,7 +6,7 @@ metadata:
 spec:
   ports:
   - port: {{ .Values.services.packet.servicePort }}
-    targetPort: {{ .Values.services.packet.containerPort }}
+    targetPort: {{ .Values.services.packet.ports.containerPort }}
   selector:
     app: {{ .Values.services.packet.serviceName }} 
 

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.mockmv.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.services.mockmv.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  replicas: {{ .Values.services.mockmv.podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.mockmv.serviceName }} 
+  minReadySeconds: {{ .Values.services.mockmv.podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.services.mockmv.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.mockmv.podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.mockmv.serviceName }} 
+        component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{ .Values.services.mockmv.serviceName }} 
+        image: {{ .Values.services.mockmv.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{ $resources := .Values.services.mockmv.podconfig.resources }}
+        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: is_glowroot_env
+          value: {{ .Values.isGlowroot }} 
+        ports:
+        - containerPort: {{ .Values.services.mockmv.containerPort }}
+
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.mockmv.healthUrl }} 
+#            port: {{ .Values.services.mockmv.containerPort }} 
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+#          periodSeconds: {{ .Values.probe.period }} 
+  #      livenessProbe:
+  #        httpGet:
+  #          path: {{ .Values.services.mockmv.healthUrl }} 
+  #          port: {{ .Values.services.mockmv.containerPort }} 
+  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
+  #        periodSeconds: {{ .Values.probe.period }}
+  #
