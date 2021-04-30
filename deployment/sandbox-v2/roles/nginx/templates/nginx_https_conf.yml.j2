@@ -226,15 +226,15 @@ http {
         }
 
         location /pmp-ui/ {
-          proxy_pass http://mzworker0.sb:30080/pmp-ui/;
+          proxy_pass {{clusters.mz.ingress.base_url}}/pmp-ui/;
         }
 
         location /v1/policymanager/ {
-          proxy_pass http://mzworker0.sb:30080/v1/policymanager/;
+          proxy_pass {{clusters.mz.ingress.base_url}}/v1/policymanager/;
         }
 
         location /v1/partnermanager/ {
-           proxy_pass http://mzworker0.sb:30080/v1/partnermanager/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/partnermanager/;
         }
 
         location /mz-dashboard/ { # note: https needed here
@@ -334,6 +334,9 @@ stream {
         listen {{activemq.nodeport}};  # For activemq. Connecting to nodeport
         proxy_pass {{clusters.mz.nodeport_node}}:{{activemq.nodeport}};
     }
+    server {
+        listen {{minio.nodeport}};  # For minio. Connecting to nodeport
+        proxy_pass {{clusters.mz.nodeport_node}}:{{minio.nodeport}};
+    }
+
 }
-
-

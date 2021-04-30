@@ -46,40 +46,24 @@ versions:
       version: 1.2.0-SNAPSHOT
 
     regproc:
+      group1:
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
+      group2:
+        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:develop'
+      group3:
+        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:develop'
+      group4:
+        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:develop'
+      group5:
+        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:develop'
+      group6:
+        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:develop'
+      group7:
+        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:develop'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
-      notification: 
-        'regproc-securezone-notification-stage': 'mosipdev/registration-processor-securezone-notification-stage:develop'
-      uploader:
-        'regproc-packet-uploader-stage': 'mosipdev/registration-processor-packet-uploader-stage:develop'
-      quality:
-        'regproc-quality-checker-stage': 'mosipdev/registration-processor-quality-checker-stage:develop'
-      validator:
-        'regproc-packet-validator-stage': 'mosipdev/registration-processor-packet-validator-stage:develop'
-      osi:
-        'regproc-osi-validator-stage': 'mosipdev/registration-processor-osi-validator-stage:develop'
-      demo:
-        'regproc-demo-dedupe-stage': 'mosipdev/registration-processor-demo-dedupe-stage:develop'
-      bio:
-        'regproc-bio-dedupe-stage': 'mosipdev/registration-processor-bio-dedupe-stage:develop'
-      bioauth:
-        'regproc-biometric-authentication-stage': 'mosipdev/registration-processor-biometric-authentication-stage:develop'
-      abishandler:
-        'regproc-abis-handler-stage': 'mosipdev/registration-processor-abis-handler-stage:develop'
-      abismid:
-        'regproc-abis-middleware-stage': 'mosipdev/registration-processor-abis-middleware-stage:develop'
-      manual:
-        'regproc-manual-verification-stage': 'mosipdev/registration-processor-manual-verification-stage:develop'
-      external:
-        'regproc-external-stage': 'mosipdev/registration-processor-external-stage:develop'
       eis: 
         'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
-      uin:
-        'regproc-uin-generator-stage': 'mosipdev/registration-processor-uin-generator-stage:develop'
-      msg:
-        'regproc-message-sender-stage': 'mosipdev/registration-processor-message-sender-stage:develop'
-      print:
-        'regproc-printing-stage': 'mosipdev/registration-processor-printing-stage:develop'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
@@ -88,8 +72,8 @@ versions:
         'regproc-notification-service': 'mosipdev/registration-processor-notification-service:develop'
 
     dmzregproc:  
-      receiver:
-        'regproc-packet-receiver-stage': 'mosipdev/registration-processor-packet-receiver-stage:develop'
+      group1:
+        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
       status:
@@ -122,17 +106,9 @@ versions:
         'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:develop'
 
     pms:
-      misp: 
-        'pms-misp-service': 'mosipdev/pmp-misp-service:develop'
-      pm:
-        'pms-partner-management-service': 'mosipdev/pmp-partner-management-service:develop'
       partner:
-        'pms-partner-service': 'mosipdev/pmp-partner-service:develop'
-      policy:
-        'pms-policy-management-service': 'mosipdev/pmp-policy-management-service:develop'
-      partner1:
         'pms-partner-manager-service': 'mosipdev/partner-management-service:develop'
-      policy1:
+      policy:
         'pms-policy-manager-service': 'mosipdev/policy-management-service:develop'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
@@ -163,14 +139,16 @@ versions:
 
     websub:
       service:
-        'websub-service': 'ckm007/websub-service:1.1.5'
+        'websub-service': 'mosipid/websub-service:1.1.5'
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.4'
+        'mock-abis': 'mosipid/mock-abis:1.1.5'
+      mv:
+        'mock-mv': 'mosipid/mock-mv:1.1.5'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
     artifactory:
       service:
-        'artifactory-service': 'mosipdev/artifactory-server:develop'
+        'artifactory-service': 'mosipid/artifactory-server:1.1.5'

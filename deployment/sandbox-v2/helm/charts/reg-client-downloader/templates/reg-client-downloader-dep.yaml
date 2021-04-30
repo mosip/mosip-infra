@@ -27,6 +27,8 @@ spec:
         image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }}
         - name: client_version_env
           value: {{ .Values.version }} 
         - name: crypto_key_env

@@ -3,7 +3,7 @@ serviceName: reg-client-downloader
 activeProfileEnv: dmz 
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
-artifactoryUrl: {{ artifactory_url }} 
+artifactoryUrl: http://mz.ingress:30080
 imagePullPolicy: Always
 docker:
   image: {{ versions.services.registration_client.downloader.values()[0] }}
