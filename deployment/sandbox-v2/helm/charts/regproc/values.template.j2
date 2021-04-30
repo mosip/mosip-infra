@@ -39,8 +39,8 @@ services:
     podconfig:
       {{ podconfig.regproc.camel | to_nice_yaml(indent=6) | indent(6) }}
 
-  group2:
-    serviceName: {{ versions.services.regproc.group2.keys()[0] }}
+  group2:  
+    serviceName: {{ versions.services.regproc.group2.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group2.values()[0] }}
     ports:
       hazelcastPort: 5701
@@ -50,8 +50,8 @@ services:
       {{ podconfig.regproc.group2 | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /registrationprocessor/v1/securezone/actuator/health
 
-  group3:
-    serviceName: {{ versions.services.regproc.group3.keys()[0] }}
+  group3:  
+    serviceName: {{ versions.services.regproc.group3.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group3.values()[0] }}
     ports:
       hazelcastPort: 5701
@@ -61,8 +61,8 @@ services:
       {{ podconfig.regproc.group3 | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
 
-  group4:
-    serviceName: {{ versions.services.regproc.group4.keys()[0] }}
+  group4:  
+    serviceName: {{ versions.services.regproc.group4.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group4.values()[0] }}
     ports:
       hazelcastPort: 5701
@@ -72,8 +72,8 @@ services:
       {{ podconfig.regproc.group4 | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
 
-  group5:
-    serviceName: {{ versions.services.regproc.group5.keys()[0] }}
+  group5:  
+    serviceName: {{ versions.services.regproc.group5.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group5.values()[0] }}
     ports:
       hazelcastPort: 5701
@@ -83,8 +83,8 @@ services:
       {{ podconfig.regproc.group5 | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
 
-  group7:
-    serviceName: {{ versions.services.regproc.group7.keys()[0] }}
+  group7:  
+    serviceName: {{ versions.services.regproc.group7.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group7.values()[0] }}
     ports:
       hazelcastPort: 5701
@@ -94,8 +94,8 @@ services:
       {{ podconfig.regproc.group7 | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
 
-  group6:
-    serviceName: {{ versions.services.regproc.group6.keys()[0] }}
+  group6:  
+    serviceName: {{ versions.services.regproc.group6.keys()[0] }} 
     dockerImage: {{ versions.services.regproc.group6.values()[0] }}
     ports:
       hazelcastPort: 5701
