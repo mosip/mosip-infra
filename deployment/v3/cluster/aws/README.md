@@ -76,6 +76,14 @@ NOTE: if you make any change in the ingress service, you will have to delete it 
 ```
 $ kubectl apply -f ../global_configmap.yaml
 ```
+## Metrics server
+Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernets Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
+```
+$ helm -n default install metrics-server bitnami/metrics-server 
+$ helm -n default upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
+``` 
+We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
+
 ## Wireguard bastion host
 If you do not want public access to your installation, you may set up a bastion host running Wireguard as shown below:
 ![](../../docs/images/wireguard_landing.jpg)
@@ -88,6 +96,12 @@ The default log max log file size set on EKS cluster is 10MB with max number of 
 ## Cluster management
 Import cluster into Rancher and assign access rights users in IAM (Keycloak)
 
-## Monitoring
-Enable Prometheus in Rancher (via Rancher Apps). 
+## Increase/delete nodes
+In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
 
+## Troubleshooting
+* **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.
+* **Unable to delete pod**: This could be due to the above issue.  Force delete.  Example:
+```
+kc -n logging delete pod --grace-period=0 --force elasticsearch-master-1
+```
