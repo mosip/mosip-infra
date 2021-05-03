@@ -26,9 +26,7 @@
 
 - name: Install certbot-nginx
   pip:
-    name: 
-      - cryptography==3.3.2
-      - 'certbot-nginx=={{certbot_nginx_version}}'
+    name: certbot-nginx
     version: '{{certbot_nginx_version}}' 
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
