@@ -139,16 +139,16 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipid/websub-service:1.1.5'
+        'websub-service': 'mosipid/websub-service:develop'
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.5'
+        'mock-abis': 'mosipdev/mock-abis:develop'
       mv:
-        'mock-mv': 'mosipid/mock-mv:1.1.5'
+        'mock-mv': 'mosipdev/mock-mv:develop'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:1.1.5'
+        'artifactory-service': 'mosipdev/artifactory-server:develop'
