@@ -62,8 +62,6 @@ versions:
         'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:develop'
       camel:
         'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
-      eis: 
-        'regproc-external-integration-service': 'mosipdev/registration-processor-external-integration-service:develop'
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:

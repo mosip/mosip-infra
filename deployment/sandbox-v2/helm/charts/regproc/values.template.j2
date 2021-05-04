@@ -254,28 +254,6 @@ services:
     ingressPath: /registrationprocessor/v1/manualverification/
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
 
-  external:
-    serviceName: regproc-external-stage
-    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
-    ports:
-      eventbusPort: 5736
-      hazelcastPort: 5701
-      containerPort: 8095
-      servicePort: 80
-    ingressPath: ''
-    healthUrl: /registrationprocessor/v1/external/actuator/health 
-
-  eis:  
-    serviceName: {{ versions.services.regproc.eis.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.eis.values()[0] }}
-    ports:
-      containerPort: 8201
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/eis
-    healthUrl: /registrationprocessor/v1/eis/actuator/health
-    podconfig:
-      {{ podconfig.regproc.eis | to_nice_yaml(indent=6) | indent(6) }}
-
   uin:
     serviceName: regproc-uin-generator-stage
     dockerImage: {{ versions.services.regproc.group7.values()[0] }}

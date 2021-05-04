@@ -127,13 +127,6 @@ podconfig:
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
-    eis: 
-      replicas: 1 
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
     reprocess:
       replicas: 1 
       maxSurge: 1
