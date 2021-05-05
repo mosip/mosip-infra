@@ -4,25 +4,25 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5'
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.1'
       masterdata:
         'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.5'
       idgen:
-        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5'
+        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.1'
       prid:
-        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5'
+        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.1'
       sync:
         'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5'
       audit :
-        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5'
+        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.1'
       key:
-        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.1.5'
+        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.1.5.1'
       notifier:
-        'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5'
+        'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5.1'
       otp:
-        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.1.5'
+        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.1.5.1'
       rid:
-        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.1.5'
+        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.1.5.1'
       keygen:
         'kernel-keys-generator': 'mosipid/keys-generator:1.1.5'
 
@@ -42,8 +42,8 @@ versions:
       
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipid/registration-client:1.1.5'
-      version: 1.1.5
+        'reg-client-downloader': 'mosipid/registration-client:1.1.5.1'
+      version: 1.1.5.1
 
     regproc:
       camel:
@@ -97,13 +97,13 @@ versions:
         
     ida:
       auth:
-        'ida-auth-service': 'mosipid/authentication-service:1.1.5'
+        'ida-auth-service': 'mosipid/authentication-service:1.1.5.1'
       internal: 
-         'ida-internal-service': 'mosipid/authentication-internal-service:1.1.5'
+         'ida-internal-service': 'mosipid/authentication-internal-service:1.1.5.1'
       kyc: 
-         'ida-kyc-service': 'mosipid/authentication-kyc-service:1.1.5'
+         'ida-kyc-service': 'mosipid/authentication-kyc-service:1.1.5.1'
       otp: 
-         'ida-otp-service': 'mosipid/authentication-otp-service:1.1.5'
+         'ida-otp-service': 'mosipid/authentication-otp-service:1.1.5.1'
       keygen:  
         'ida-key-generator': 'mosipid/keys-generator:1.1.5'
 
@@ -121,9 +121,9 @@ versions:
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5'
+        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.1'
       policy:
-        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5'
+        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.1'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
 
