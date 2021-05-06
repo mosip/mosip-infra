@@ -4,136 +4,136 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipdev/kernel-auth-service:develop'
+        'kernel-auth-service':  'mosipqa/kernel-auth-service:develop'
       masterdata:
-        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:develop'
+        'kernel-masterdata-service': 'mosipqa/kernel-masterdata-service:develop'
       idgen:
-        'kernel-idgenerator-service': 'mosipdev/kernel-idgenerator-service:develop'
+        'kernel-idgenerator-service': 'mosipqa/kernel-idgenerator-service:develop'
       prid:
-        'kernel-pridgenerator-service': 'mosipdev/kernel-pridgenerator-service:develop'
+        'kernel-pridgenerator-service': 'mosipqa/kernel-pridgenerator-service:develop'
       sync:
-        'kernel-syncdata-service': 'mosipdev/kernel-syncdata-service:develop'
+        'kernel-syncdata-service': 'mosipqa/kernel-syncdata-service:develop'
       audit :
-        'kernel-auditmanager-service': 'mosipdev/kernel-auditmanager-service:develop'
+        'kernel-auditmanager-service': 'mosipqa/kernel-auditmanager-service:develop'
       key:
-        'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:develop'
+        'kernel-keymanager-service': 'mosipqa/kernel-keymanager-service:develop'
       notifier:
-        'kernel-notification-service': 'mosipdev/kernel-notification-service:develop'
+        'kernel-notification-service': 'mosipqa/kernel-notification-service:develop'
       otp:
-        'kernel-otpmanager-service': 'mosipdev/kernel-otpmanager-service:develop'
+        'kernel-otpmanager-service': 'mosipqa/kernel-otpmanager-service:develop'
       rid:
-        'kernel-ridgenerator-service': 'mosipdev/kernel-ridgenerator-service:develop'
+        'kernel-ridgenerator-service': 'mosipqa/kernel-ridgenerator-service:develop'
       keygen:
-        'kernel-keys-generator': 'mosipdev/keys-generator:develop'
+        'kernel-keys-generator': 'mosipqa/keys-generator:develop'
 
     prereg:
       application:
-        'prereg-application-service': 'mosipdev/pre-registration-application-service:develop'
+        'prereg-application-service': 'mosipqa/pre-registration-application-service:develop'
       batch:
-        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:develop'
+        'prereg-batchjob-service': 'mosipqa/pre-registration-batchjob:develop'
       booking:
-        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:develop'
+        'prereg-booking-service': 'mosipqa/pre-registration-booking-service:develop'
       datasync:
-        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:develop'
+        'prereg-datasync-service': 'mosipqa/pre-registration-datasync-service:develop'
       captcha:
-        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:develop'
+        'prereg-captcha-service': 'mosipqa/pre-registration-captcha-service:develop'
       ui:
-        'prereg-ui': 'mosipdev/pre-registration-ui:develop'
+        'prereg-ui': 'mosipqa/pre-registration-ui:develop'
       
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipdev/registration-client:develop'
+        'reg-client-downloader': 'mosipqa/registration-client:develop'
       version: 1.2.0-SNAPSHOT
 
     regproc:
       group1:
-        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
+        'regproc-stage-group-1': 'mosipqa/registration-processor-stage-group-1:develop'
       group2:
-        'regproc-stage-group-2': 'mosipdev/registration-processor-stage-group-2:develop'
+        'regproc-stage-group-2': 'mosipqa/registration-processor-stage-group-2:develop'
       group3:
-        'regproc-stage-group-3': 'mosipdev/registration-processor-stage-group-3:develop'
+        'regproc-stage-group-3': 'mosipqa/registration-processor-stage-group-3:develop'
       group4:
-        'regproc-stage-group-4': 'mosipdev/registration-processor-stage-group-4:develop'
+        'regproc-stage-group-4': 'mosipqa/registration-processor-stage-group-4:develop'
       group5:
-        'regproc-stage-group-5': 'mosipdev/registration-processor-stage-group-5:develop'
+        'regproc-stage-group-5': 'mosipqa/registration-processor-stage-group-5:develop'
       group6:
-        'regproc-stage-group-6': 'mosipdev/registration-processor-stage-group-6:develop'
+        'regproc-stage-group-6': 'mosipqa/registration-processor-stage-group-6:develop'
       group7:
-        'regproc-stage-group-7': 'mosipdev/registration-processor-stage-group-7:develop'
+        'regproc-stage-group-7': 'mosipqa/registration-processor-stage-group-7:develop'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
+        'regproc-camel-stage': 'mosipqa/registration-processor-common-camel-bridge:develop'
       trans:
-        'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
+        'regproc-registration-transaction-service': 'mosipqa/registration-processor-registration-transaction-service:develop'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipdev/registration-processor-reprocessor-stage:develop'
+        'regproc-reprocessor-stage': 'mosipqa/registration-processor-reprocessor-stage:develop'
       notificationService: 
-        'regproc-notification-service': 'mosipdev/registration-processor-notification-service:develop'
+        'regproc-notification-service': 'mosipqa/registration-processor-notification-service:develop'
 
     dmzregproc:  
       group1:
-        'regproc-stage-group-1': 'mosipdev/registration-processor-stage-group-1:develop'
+        'regproc-stage-group-1': 'mosipqa/registration-processor-stage-group-1:develop'
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:develop'
+        'regproc-camel-stage': 'mosipqa/registration-processor-common-camel-bridge:develop'
       status:
-        'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:develop'
+        'regproc-registration-status-service': 'mosipqa/registration-processor-registration-status-service:develop'
       pktserver:
         'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
         
     ida:
       auth:
-        'ida-auth-service': 'mosipdev/authentication-service:develop'
+        'ida-auth-service': 'mosipqa/authentication-service:develop'
       internal: 
-         'ida-internal-service': 'mosipdev/authentication-internal-service:develop'
+         'ida-internal-service': 'mosipqa/authentication-internal-service:develop'
       kyc: 
-         'ida-kyc-service': 'mosipdev/authentication-kyc-service:develop'
+         'ida-kyc-service': 'mosipqa/authentication-kyc-service:develop'
       otp: 
-         'ida-otp-service': 'mosipdev/authentication-otp-service:develop'
+         'ida-otp-service': 'mosipqa/authentication-otp-service:develop'
       keygen:  
-        'ida-key-generator': 'mosipdev/keys-generator:develop'
+        'ida-key-generator': 'mosipqa/keys-generator:develop'
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipdev/id-repository-identity-service:develop'
+        'idrepo-identity-service': 'mosipqa/id-repository-identity-service:develop'
       vid: 
-        'idrepo-vid-service': 'mosipdev/id-repository-vid-service:develop'
+        'idrepo-vid-service': 'mosipqa/id-repository-vid-service:develop'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:develop'
+        'idrepo-credential-request-generator': 'mosipqa/credential-request-generator:develop'
       credentialservice:
-        'idrepo-credential-service': 'mosipdev/credential-service:develop'
+        'idrepo-credential-service': 'mosipqa/credential-service:develop'
       salt:  
-        'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:develop'
+        'idrepo-salt-generator': 'mosipqa/id-repository-salt-generator:develop'
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipdev/partner-management-service:develop'
+        'pms-partner-manager-service': 'mosipqa/partner-management-service:develop'
       policy:
-        'pms-policy-manager-service': 'mosipdev/policy-management-service:develop'
+        'pms-policy-manager-service': 'mosipqa/policy-management-service:develop'
       ui:
-        'pms-ui': 'mosipdev/pmp-ui:develop'
+        'pms-ui': 'mosipqa/pmp-ui:develop'
 
     resident: 
       resident:  
-        'resident-service': 'mosipdev/resident-service:develop'
+        'resident-service': 'mosipqa/resident-service:develop'
     
     admin:
       service:
-        'admin-service': 'mosipdev/admin-service:develop'
+        'admin-service': 'mosipqa/admin-service:develop'
       ui:
-        'admin-ui': 'mosipdev/admin-ui:develop'
+        'admin-ui': 'mosipqa/admin-ui:develop'
       hotlist:
-        'admin-hotlist-service': 'mosipdev/hotlist-service:develop'
+        'admin-hotlist-service': 'mosipqa/hotlist-service:develop'
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipdev/commons-packet-service:develop'
+        'packetmanager-service': 'mosipqa/commons-packet-service:develop'
 
     datashare:
       service:
-        'datashare-service': 'mosipdev/data-share-service:develop'
+        'datashare-service': 'mosipqa/data-share-service:develop'
 
     print:
       service:
-        'print-service': 'mosipdev/print:develop'
+        'print-service': 'mosipqa/print:develop'
 
     websub:
       service:
@@ -141,12 +141,12 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipdev/mock-abis:develop'
+        'mock-abis': 'mosipqa/mock-abis:develop'
       mv:
-        'mock-mv': 'mosipdev/mock-mv:develop'
+        'mock-mv': 'mosipqa/mock-mv:develop'
 #      biosdk: 
 #        'mock-biosdk-service': 'mosipid/sdk-services:latest'
 
     artifactory:
       service:
-        'artifactory-service': 'mosipdev/artifactory-server:develop'
+        'artifactory-service': 'mosipqa/artifactory-server:develop'
