@@ -77,7 +77,7 @@ versions:
       status:
         'regproc-registration-status-service': 'mosipqa/registration-processor-registration-status-service:develop'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
+        'regproc-dmz-packet-server': 'mosipqa/registration-processor-dmz-packet-server:1.0.9'
         
     ida:
       auth:
@@ -137,15 +137,15 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipid/websub-service:develop'
+        'websub-service': 'mosipqa/websub-service:develop'
 
     mock:
       abis:
-        'mock-abis': 'mosipqa/mock-abis:develop'
+        'mock-abis': 'mosipqa/mock-abis:1.1.5.1'
       mv:
-        'mock-mv': 'mosipqa/mock-mv:develop'
+        'mock-mv': 'mosipqa/mock-mv:1.1.5.1'
 #      biosdk: 
-#        'mock-biosdk-service': 'mosipid/sdk-services:latest'
+#        'mock-biosdk-service': 'mosipqa/sdk-services:latest'
 
     artifactory:
       service:
