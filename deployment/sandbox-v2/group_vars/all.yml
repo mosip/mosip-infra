@@ -285,6 +285,12 @@ repos:
     tag: develop
     githubuser: ''
     githubpassword: ''
+  hotlist:
+    src: https://github.com/mosip/admin-services
+    dest: '{{tmp_dir}}/admin-services'
+    tag: develop
+    githubuser: ''
+    githubpassword: ''
 
 # DBs 
 # Please uncomment the release_path key in each of the database section if there is change in the DB in specific version
@@ -356,6 +362,10 @@ databases:
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
+    release_path: '{{repos.websub.dest}}/db_release_scripts'
+  mosip_hotlist:
+    user: hotlistuser
+    sql_path: '{{repos.hotlist.dest}}/db_scripts'
     release_path: '{{repos.websub.dest}}/db_release_scripts'
 
 nfs:
