@@ -59,7 +59,10 @@ spec:
           containerPort: {{ .Values.services.reprocess.ports.workflowActionEventBusPort }}
         - name: workflowapi-sp
           containerPort: {{ .Values.services.reprocess.ports.workflowActionServerPort }}
-
+        - name: workflowsearchapi-ebp
+          containerPort: {{ .Values.services.reprocess.ports.workflowSearchEventBusPort }}
+        - name: workflowsearchapi-sp
+          containerPort: {{ .Values.services.reprocess.ports.workflowSearchServerPort }}
 
 #        readinessProbe:
 #          httpGet:
