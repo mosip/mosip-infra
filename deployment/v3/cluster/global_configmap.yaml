@@ -5,6 +5,6 @@ metadata:
   name: global
   namespace: default
 data:
-  mosip-api-host-url: https://api.sandbox.mosip.net
+  mosip-api-host-url: https://api.sandbox.xyz.net
   is_glowroot_env: absent
 
