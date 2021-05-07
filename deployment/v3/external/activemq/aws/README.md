@@ -18,7 +18,7 @@ $ helm -n activemq install activemq mosip/activemq-artemis -f values.yaml
 $ ./cm_patch.sh
 ```
 ## Web console
-To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain ppoints to the cluster external LB. 
+To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain points to the cluster external LB. 
 * Console url: `https://<activemq domain name>`.  
 * Default username: `artemis` 
 * Password:  Run `get_pwd.sh` 
