@@ -1,6 +1,6 @@
 # httpbin
 
-This a utility docker that returns the http headers received inside the cluster.  May be used  for generall debugging of connections.  
+This utility docker returns http headers received inside the cluster.  You may use it for general debugging - to check ingress, headers etc. 
 
 Install:
 ```
