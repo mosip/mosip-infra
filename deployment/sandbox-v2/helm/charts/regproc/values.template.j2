@@ -45,8 +45,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8090
     podconfig:
       {{ podconfig.regproc.group2 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/securezone/actuator/health
 
   group3:  
     serviceName: {{ versions.services.regproc.group3.keys()[0] }} 
@@ -54,8 +56,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 9071
     podconfig:
       {{ podconfig.regproc.group3 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/abishandler/actuator/health
 
   group4:  
     serviceName: {{ versions.services.regproc.group4.keys()[0] }} 
@@ -63,8 +67,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8091
     podconfig:
       {{ podconfig.regproc.group4 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
 
   group5:  
     serviceName: {{ versions.services.regproc.group5.keys()[0] }} 
@@ -72,8 +78,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8089
     podconfig:
       {{ podconfig.regproc.group5 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
 
   group7:  
     serviceName: {{ versions.services.regproc.group7.keys()[0] }} 
@@ -81,8 +89,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8099
     podconfig:
       {{ podconfig.regproc.group7 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
 
   group6:  
     serviceName: {{ versions.services.regproc.group6.keys()[0] }} 
@@ -90,8 +100,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8087
     podconfig:
       {{ podconfig.regproc.group6 | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /registrationprocessor/v1/uploader/actuator/health
 
   notification:  # This is has a service front end for access (notification-svc.yaml)
     serviceName: regproc-securezone-notification-stage
@@ -241,28 +253,6 @@ services:
       servicePort: 80
     ingressPath: /registrationprocessor/v1/manualverification/
     healthUrl: /registrationprocessor/v1/manualverification/actuator/health
-
-  external:
-    serviceName: regproc-external-stage
-    dockerImage: {{ versions.services.regproc.group2.values()[0] }}
-    ports:
-      eventbusPort: 5736
-      hazelcastPort: 5701
-      containerPort: 8095
-      servicePort: 80
-    ingressPath: ''
-    healthUrl: /registrationprocessor/v1/external/actuator/health 
-
-  eis:  
-    serviceName: {{ versions.services.regproc.eis.keys()[0] }} 
-    dockerImage: {{ versions.services.regproc.eis.values()[0] }}
-    ports:
-      containerPort: 8201
-      servicePort: 80
-    ingressPath: /registrationprocessor/v1/eis
-    healthUrl: /registrationprocessor/v1/eis/actuator/health
-    podconfig:
-      {{ podconfig.regproc.eis | to_nice_yaml(indent=6) | indent(6) }}
 
   uin:
     serviceName: regproc-uin-generator-stage

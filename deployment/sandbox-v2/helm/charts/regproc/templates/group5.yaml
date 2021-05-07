@@ -56,15 +56,15 @@ spec:
         - name: vld-verticle
           containerPort: {{ .Values.services.validator.ports.containerPort }}
 
-#        readinessProbe:  # TODO: Uncomment this or put a actuator health url
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:  # TODO: Uncomment this or put a actuator health url
+          httpGet:
+            path: {{ .Values.services.group5.healthUrl }}
+            port: {{ .Values.services.group5.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.group5.healthUrl }}
+            port: {{ .Values.services.group5.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
