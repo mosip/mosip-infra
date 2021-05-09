@@ -1,0 +1,14 @@
+# Alpine with curl + ssh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox-log
+  labels:
+    name: busybox-log
+spec:
+  containers:
+  - name: busybox-log
+    image: yauritux/busybox-curl:latest 
+    command: ['sh', '-c', 'while true; do echo "Hello World"; sleep 5; done']
+
+
