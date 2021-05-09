@@ -26,7 +26,14 @@ It is assumed that while deploying ingress controller you have enabled service p
 ```
 $ docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U postgres -p 5432
 ```
+## Initialize DB
+Run init postgres helm chart to create necessary DB, users, roles etc:
+```
+$ helm repo update mosip
+$ helm -n postgres install mosip/postgres-init
+```
+Be aware of version of helm chart corresponding to mosip version.
 
 ## Troubleshooting
-* If you face login issues even when the password entered is correct, it could be due to previous PVC, and PV.  Delete tthem, but exercise caution as this will delete all persistent data.
+* If you face login issues even when the password entered is correct, it could be due to previous PVC, and PV.  Delete them, but exercise caution as this will delete all persistent data.
 
