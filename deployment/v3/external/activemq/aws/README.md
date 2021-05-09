@@ -6,7 +6,7 @@ Activemq Artemis is insalled using helm chart that has been slightly modified fr
 For web console, enable access via MOSIP external facing LB via ingress.  See ingress settings in `values.yaml`
 
 ## Install
-* Update `values.yaml`.  Make sure `ingress.hostName` is defined (see section below). 
+* Update `values.yaml`.  Make sure `ingress.hostname` is defined (see section below). 
 * Install
 ```
 $ helm repo add mosip https://mosip.github.io/mosip-helm
@@ -18,7 +18,7 @@ $ helm -n activemq install activemq mosip/activemq-artemis -f values.yaml
 $ ./cm_patch.sh
 ```
 ## Web console
-To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain ppoints to the cluster external LB. 
+To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain points to the cluster external LB. 
 * Console url: `https://<activemq domain name>`.  
 * Default username: `artemis` 
 * Password:  Run `get_pwd.sh` 
