@@ -1,6 +1,7 @@
 # Keymanager
 
 ## Install
+NOTE: Keymanager runs in a separate namespace from other kernel modules (for security, access restrictions)
 * Create `keymanager` namespace
 ```
 $ kubectl create namespace keymanager
