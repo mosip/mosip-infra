@@ -27,3 +27,7 @@ drop role keymgruser;
 drop role masteruser;
 drop role pmsuser;
 drop role sysadmin;
+drop role prereguser
+drop role regdeviceuser
+drop role regprcuser
+drop role websubuser
