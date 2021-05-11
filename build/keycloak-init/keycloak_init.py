@@ -52,7 +52,7 @@ class KeycloakSession:
         return 0
 
     def create_client(self, realm, client, secret):
-        self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
+        self.keycloak_admin.realm_name = realm  # work around because otherwise client was getting created in master
         payload = {
           "clientId" : client,
           "secret" : secret
@@ -108,9 +108,11 @@ def main():
             # Expect secrets passed via env variables. 
             clients = values[realm]['clients']
             for client in clients:
-                secret_env_name = '%s-%s-secret' % (realm, client)
+                secret_env_name = '%s_%s_secret' % (realm, client)
+                secret_env_name = secret_env_name.replace('-', '_') # Compatible with environment variables
                 secret = os.environ.get(secret_env_name) 
                 if secret is None:  # Env variable not found
+                    print('Secret environment variable %s not found, generating' % secret_env_name)
                     secret = secrets.token_urlsafe(16)
                 r = ks.create_client(realm, client, secret) 
 
