@@ -48,4 +48,5 @@ preregistration:  # realm
     - PREREG
     - PRE_REGISTRATION_ADMIN
     - REGISTRATION_PROCESSOR
-  clients: []
+  clients: 
+    - mosip-prereg-client
