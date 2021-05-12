@@ -37,7 +37,7 @@ from .urls_patterns import URL_ADMIN_SERVER_INFO, URL_ADMIN_CLIENT_AUTHZ_RESOURC
     URL_ADMIN_USER_CLIENT_ROLES_COMPOSITE, URL_ADMIN_USER_GROUP, URL_ADMIN_REALM_ROLES, URL_ADMIN_GROUP_CHILD, \
     URL_ADMIN_USER_CONSENTS, URL_ADMIN_SEND_VERIFY_EMAIL, URL_ADMIN_CLIENT, URL_ADMIN_USER, URL_ADMIN_CLIENT_ROLE, \
     URL_ADMIN_USER_GROUPS, URL_ADMIN_CLIENTS, URL_ADMIN_FLOWS_EXECUTIONS, URL_ADMIN_GROUPS, URL_ADMIN_USER_CLIENT_ROLES, \
-    URL_ADMIN_REALMS, URL_ADMIN_USERS_COUNT, URL_ADMIN_FLOWS, URL_ADMIN_GROUP, URL_ADMIN_CLIENT_AUTHZ_SETTINGS, \
+    URL_ADMIN_REALMS, URL_ADMIN_REALM, URL_ADMIN_USERS_COUNT, URL_ADMIN_FLOWS, URL_ADMIN_GROUP, URL_ADMIN_CLIENT_AUTHZ_SETTINGS, \
     URL_ADMIN_GROUP_MEMBERS, URL_ADMIN_USER_STORAGE, URL_ADMIN_GROUP_PERMISSIONS, URL_ADMIN_IDPS, \
     URL_ADMIN_USER_CLIENT_ROLES_AVAILABLE, URL_ADMIN_USERS, URL_ADMIN_CLIENT_SCOPES, \
     URL_ADMIN_CLIENT_SCOPES_ADD_MAPPER, URL_ADMIN_CLIENT_SCOPE, URL_ADMIN_CLIENT_SECRETS, \
@@ -267,6 +267,21 @@ class KeycloakAdmin:
                                  data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_code=201, skip_exists=skip_exists)
 
+    def update_realm(self, realm_name, payload):
+        """
+        Update a realm. This wil only update top level attributes and will ignore any user,
+        role, or client information in the payload.
+        RealmRepresentation:
+        https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_realmrepresentation
+        :param realm_name: Realm name (not the realm id)
+        :param payload: RealmRepresentation
+        :return: Http response
+        """
+
+        params_path = {"realm-name": realm_name}
+        data_raw = self.raw_put(URL_ADMIN_REALM.format(**params_path),
+                                data=json.dumps(payload))
+        return raise_error_from_response(data_raw, KeycloakGetError, expected_code=204)
 
     def get_users(self, query=None):
         """
@@ -355,7 +370,7 @@ class KeycloakAdmin:
         users = self.get_users(query={"search": username})
         return next((user["id"] for user in users if user["username"] == username), None)
 
-    def get_user(self, user_id):
+    def get_user_by_id(self, user_id):
         """
         Get representation of the user
 
@@ -368,6 +383,16 @@ class KeycloakAdmin:
         params_path = {"realm-name": self.realm_name, "id": user_id}
         data_raw = self.raw_get(URL_ADMIN_USER.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError)
+
+    def get_user_by_name(self, username):
+        """
+        Get user representation given username
+
+        :return: user reresentation
+        """
+        params_path = {"realm-name": self.realm_name}
+        URL = URL_ADMIN_USERS + '?username=%s' % username
+        return self.__fetch_all(URL.format(**params_path))
 
     def get_user_groups(self, user_id, query=None):
         """
@@ -1092,6 +1117,18 @@ class KeycloakAdmin:
         data_raw = self.raw_post(URL_ADMIN_CLIENTS.format(**params_path),
                                  data=json.dumps(payload))
         return raise_error_from_response(data_raw, KeycloakGetError, expected_code=201, skip_exists=skip_exists)
+
+    def update_client(self, client_id, payload):
+        """
+        Update a client
+        :param client_id: Client id
+        :param payload: ClientRepresentation
+        :return: Http response
+        """
+        params_path = {"realm-name": self.realm_name, "id": client_id}
+        data_raw = self.raw_put(URL_ADMIN_CLIENT.format(**params_path),
+                                           data=json.dumps(payload))
+        return raise_error_from_response(data_raw, KeycloakGetError, expected_code=204)
 
     def delete_client(self, client_id):
         """

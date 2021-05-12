@@ -89,6 +89,7 @@ URL_ADMIN_REALM_ROLE = "admin/realms/{realm-name}/roles/{role-name}"
 URL_ADMIN_LIST_OF_USERS_WITH_CLIENT_ROLE = "admin/realms/{realm-name}/clients/{id}/roles/{role-name}/users"
 URL_ADMIN_LIST_OF_USERS_WITH_ROLE = "admin/realms/{realm-name}/roles/{role-name}/users"
 URL_ADMIN_REALMS = "admin/realms"
+URL_ADMIN_REALM = "admin/realms/{realm-name}"
 URL_ADMIN_IDPS = "admin/realms/{realm-name}/identity-provider/instances"
 
 URL_ADMIN_FLOWS = "admin/realms/{realm-name}/authentication/flows"
