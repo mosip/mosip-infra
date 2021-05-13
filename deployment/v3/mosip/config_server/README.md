@@ -17,13 +17,11 @@ TODO: copy secrets does not update.  Enhance it.
 ```
 $ ./copy_cm.sh
 ```
-* Review values are updated appropriately. `mosipApiHost` is required.  You may create your local `values.yaml`.
-
 * Install 
 ```
 $ helm repo add mosip https://mosip.github.io/mosip-helm
 $ helm repo update 
-$ helm -n config-server install config-server mosip/config-server  -f <your_updated_values_file>
+$ helm -n config-server install config-server mosip/config-server 
 ```
 
 
