@@ -144,8 +144,8 @@ versions:
         'mock-abis': 'mosipqa/mock-abis:1.1.5.1'
       mv:
         'mock-mv': 'mosipqa/mock-mv:1.1.5.1'
-      biosdk: 
-        'mock-biosdk-service': 'mosipdev/biosdk-server:develop'
+#      biosdk: 
+#        'mock-biosdk-service': 'mosipdev/biosdk-server:develop'
 
     artifactory:
       service:
