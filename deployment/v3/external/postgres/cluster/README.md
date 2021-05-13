@@ -30,7 +30,7 @@ $ docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U p
 Run init postgres helm chart to create necessary DB, users, roles etc:
 ```
 $ helm repo update mosip
-$ helm -n postgres install mosip/postgres-init
+$ helm -n postgres install postgres-init mosip/postgres-init
 ```
 Be aware of version of helm chart corresponding to mosip version.
 
