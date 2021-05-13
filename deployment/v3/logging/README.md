@@ -23,8 +23,8 @@ $ helm -n logging install mykibana bitnami/kibana -f kibana_values.yaml
 ```
 http://elasticsearch-master.logging:9200
 ```
-* Set ClusterFlow Filter to with `filter.txt`.  Note that any json object received in `log` field will be parsed into individual fields and indexed.  If you don't want to keep the original log message (to save storage, for e.g.) set `reserved_data: false`.
-* TODO: Issues: Elasticsearch and Kibana logs are not getting recorded.  Further, setting up Cluster Flow for pods specified by pod labes doesn't seem to work.  Needs investigation.
+* Set ClusterFlow Filter with `filter.txt`.  Note that with this filter any json object received in `log` field will be parsed into individual fields and indexed.  If you don't want to keep the original log message (to save storage, for e.g.) set `reserved_data: false`.
+* TODO: Issues: Elasticsearch and Kibana pod logs are not getting recorded.  Further, setting up Cluster Flow for pods specified by pod labes doesn't seem to work.  Needs investigation.
 
 ## View logs
 * Open Kibana console `https://<kibana host name>//` (`hostname` in `kibana_values.yaml`)
@@ -32,4 +32,5 @@ http://elasticsearch-master.logging:9200
 * View logs in Home->Analytics->Discover.
 
 ## Troubleshooting
-* Json under field `log` not parsed.  This could be due to json values not containing "quotes" for strings. For MOSIP modules check log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/v3/application-default.properties) property `server.tomcat.accesslog.pattern`.
+* If MOSIP logs are not seen, check if all fields here have quotes (except numbers):
+Log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/v3/application-default.properties) property `server.tomcat.accesslog.pattern`.

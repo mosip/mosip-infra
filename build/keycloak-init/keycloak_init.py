@@ -10,8 +10,7 @@ import json
 import yaml
 import traceback
 from keycloak import KeycloakAdmin
-from keycloak.exceptions import KeycloakGetError
-from keycloak.exceptions import raise_error_from_response, KeycloakGetError
+from keycloak.exceptions import raise_error_from_response, KeycloakError
 from keycloak.connection import  ConnectionManager
 
 class KeycloakSession:
@@ -35,7 +34,7 @@ class KeycloakSession:
         }
         try:
             self.keycloak_admin.create_realm(payload, skip_exists=False)
-        except KeycloakGetError as e:
+        except KeycloakError as e:
             if e.response_code == 409:
                 print('Exists, updating %s' % realm)
                 self.keycloak_admin.update_realm(realm, payload)
@@ -51,15 +50,22 @@ class KeycloakSession:
         self.keycloak_admin.realm_name = 'master' # restore
         return 0
 
-    def create_client(self, realm, client, secret):
-        self.keycloak_admin.realm_name = realm  # work around because otherwise role was getting created in master
+    # sa_roles: service account roles
+    def create_client(self, realm, client, secret, sa_roles=None): 
+        self.keycloak_admin.realm_name = realm  # work around because otherwise client was getting created in master
         payload = {
           "clientId" : client,
-          "secret" : secret
+          "secret" : secret,
+          "standardFlowEnabled": True,
+          "serviceAccountsEnabled": True,
+          "directAccessGrantsEnabled": True,
+          "redirectUris": [self.keycloak_admin.server_url],
+          "authorizationServicesEnabled": True
         }
         try:
+            print('Creating client %s' % client)
             self.keycloak_admin.create_client(payload, skip_exists=False)  # If exists, update. So don't skip
-        except KeycloakGetError as e:
+        except KeycloakError as e:
             if e.response_code == 409:
                 print('Exists, updating %s' % client)
                 client_id = self.keycloak_admin.get_client_id(client)
@@ -67,8 +73,26 @@ class KeycloakSession:
         except:
             self.keycloak_admin.realm_name = 'master' # restore
             raise
-        self.keycloak_admin.realm_name = 'master' # restore
 
+        if len(sa_roles) == 0:  # Skip the below step
+            self.keycloak_admin.realm_name = 'master' # restore
+            return
+        # Assign service account roles. Use default username that's created when service account is enabled
+        # for a client.
+        username =  'service-account-'  + client
+        try:
+            roles = [] # Get full role reprentation of all roles 
+            for role in sa_roles:
+                role_rep = self.keycloak_admin.get_realm_role(role)
+                roles.append(role_rep)
+            user_id = self.keycloak_admin.get_user_by_name(username)
+            self.keycloak_admin.assign_realm_user_role(user_id[0]['id'], roles)
+        except:
+            self.keycloak_admin.realm_name = 'master' # restore
+            raise
+        
+        self.keycloak_admin.realm_name = 'master' # restore
+       
 def args_parse(): 
    parser = argparse.ArgumentParser()
    parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com/auth/.  Note: slash is important')  
@@ -93,6 +117,8 @@ def main():
 
     fp = open(input_yaml, 'rt')
     values = yaml.load(fp, Loader=yaml.FullLoader)
+
+    server_url = server_url + '/auth/' # Full url to access api 
     try:
         print('Create realms')
         ks = KeycloakSession('master', server_url, user, password, ssl_verify)
@@ -108,11 +134,13 @@ def main():
             # Expect secrets passed via env variables. 
             clients = values[realm]['clients']
             for client in clients:
-                secret_env_name = '%s-%s-secret' % (realm, client)
+                secret_env_name = '%s_%s_secret' % (realm, client['name'])
+                secret_env_name = secret_env_name.replace('-', '_') # Compatible with environment variables
                 secret = os.environ.get(secret_env_name) 
                 if secret is None:  # Env variable not found
+                    print('Secret environment variable %s not found, generating' % secret_env_name)
                     secret = secrets.token_urlsafe(16)
-                r = ks.create_client(realm, client, secret) 
+                r = ks.create_client(realm, client['name'], secret, client['saroles'])
 
     except:
         formatted_lines = traceback.format_exc()

@@ -39,7 +39,14 @@ mosip:  # realm
    - RESIDENT
    - ZONAL_ADMIN
   clients:
-   - default-client
+    - name: default-client
+      saroles:
+        - REGISTRATION_ADMIN
+        - ZONAL_ADMIN
+    - name: mosip-xyz-client
+      saroles:
+        - REGISTRATION_ADMIN
+        - REGISTRATION_OFFICER
 
 preregistration:  # realm
   roles: 
@@ -48,4 +55,9 @@ preregistration:  # realm
     - PREREG
     - PRE_REGISTRATION_ADMIN
     - REGISTRATION_PROCESSOR
-  clients: []
+  clients: 
+    - name: mosip-prereg-client
+      saroles:
+        - PRE_REGISTRATION_ADMIN
+    - name: mosip-new-client
+      saroles: []
