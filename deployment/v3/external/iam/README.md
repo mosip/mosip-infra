@@ -50,8 +50,27 @@ $ ./get_pwd.sh
 ## Rancher integration
 
 * If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
-* IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user before you try to authenticate with Rancher. 
+* IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user of Keycloak before you try to authenticate with Rancher. 
+* In Keyclok add another Mapper for the rancher client (in Master realm) with following fields:
+  * Protocol: saml
+  * Name: username
+  * Mapper Type: User Property
+  * Property: username 
+  * Friendly Name: username
+  * SAML Attribute Name: username
+  * SAML Attribute NameFormat: Basic
+
+* Specify the following mappings in Rancher's Authentication Keycloak form:
+  * Display Name Field: givenName
+  * User Name Field: email
+  * UID Field: username
+  * Entity ID Field: https://<your rancher domain>/v1-saml/keycloak/saml/metadata
+  * Rancher API Host: https://<your rancher domain>
+  * Groups Field: member
 * For users in keycloak assign roles rancher - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
+* Add a member to cluster/project:
+  * Give member name exactly as `username` in Keyclaok
+  * Assign appropriate role like Cluster Owner, Cluster Viewer etc.
 
 ## Keycloak Init
 To populate base data of MOSIP:
