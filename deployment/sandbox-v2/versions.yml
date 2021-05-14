@@ -145,7 +145,7 @@ versions:
       mv:
         'mock-mv': 'mosipqa/mock-mv:1.1.5.1'
 #      biosdk: 
-#        'mock-biosdk-service': 'mosipqa/sdk-services:latest'
+#        'mock-biosdk-service': 'mosipdev/biosdk-server:develop'
 
     artifactory:
       service:
