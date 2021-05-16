@@ -72,6 +72,9 @@ $ ./get_pwd.sh
   * Give member name exactly as `username` in Keyclaok
   * Assign appropriate role like Cluster Owner, Cluster Viewer etc.
 
+## Keycloak docker version
+TODO: The keycloak docker version in `values.yaml` is an older version as the version 12.04 (latest bitnami) was crashing for `userinfo` request for client (like mosip-prereg-client). Watch latest bitnami release and upgrade 13+ version when available.
+
 ## Keycloak Init
 To populate base data of MOSIP:
 * Add mosip helm repo for Keycloak 

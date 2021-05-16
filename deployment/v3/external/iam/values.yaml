@@ -1,7 +1,11 @@
+image:
+  repository: bitnami/keycloak
+  tag: 11.0.2-debian-10-r12
 service:
   type: ClusterIP
 
-auth.adminUser: admin
+auth:
+  adminUser: admin
 
 ingress:
   enabled: true
