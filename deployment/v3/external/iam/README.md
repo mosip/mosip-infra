@@ -80,7 +80,7 @@ $ helm repo add mosip https://mosip.github.io/mosip-helm
 ```
 * Run Keycloak init job
 ```
-$ helm install keycloak-init mosip/keycloak-init --set keycloak.admin.user=<username> --set keycloak.admin.password=<password> --set keycloak.serverUrl=<url>
+$ helm install keycloak-init mosip/keycloak-init
 ```
 Server URL is of the form `https://iam.xyz.net/auth/`.  The `/auth/` (with slash) is important.
 
