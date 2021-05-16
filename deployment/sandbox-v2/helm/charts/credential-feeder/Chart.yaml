@@ -1,0 +1,5 @@
+apiVersion: batch/v1
+appVersion: "1.2.0"
+description: A Helm chart for MOSIP Credential feeder job 
+name: credential-feeder
+version: 1.2.0

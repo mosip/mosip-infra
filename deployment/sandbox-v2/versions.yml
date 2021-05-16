@@ -102,6 +102,8 @@ versions:
         'idrepo-credential-service': 'mosipqa/credential-service:develop'
       salt:  
         'idrepo-salt-generator': 'mosipqa/id-repository-salt-generator:develop'
+      feeder:
+        'idrepo-credential-feeder': 'mosipdev/id-repository-credentials-feeder:develop'
 
     pms:
       partner:
