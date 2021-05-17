@@ -1,4 +1,4 @@
-# Wireguard
+# Wireguard Bastion Host
 
 ## Server install
 * Install Wireguard on your server (could be a landing/jump server) using Docker as given [here](https://hub.docker.com/r/linuxserver/wireguard).
