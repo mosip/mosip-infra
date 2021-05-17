@@ -44,5 +44,12 @@ spec:
           value: {{ .Values.hub.retry_maxwaitinterval | quote}}
         - name: hub_restart_republish_time_offset_env
           value: {{ .Values.hub.republish_time }}
+        - name: hub_auth_base_url_env
+          value: {{ .Values.hub.hub_auth_base_url }}
+        - name: hub_auth_validate_token_url_env
+          value: {{ .Values.hub.hub_auth_validate_token_url }}
+        - name: hub_auth_filter_disable
+          value: {{ .Values.hub.hub_auth_filter_disable }}
+
         ports:
         - containerPort: {{ .Values.hub.port }} 
