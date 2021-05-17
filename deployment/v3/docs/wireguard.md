@@ -14,7 +14,7 @@
 ## Wiregard on bastion host
 If you would like to restrict public access to your deployment/sandbox/cluster, add a bastion server as follows:
 ![](images/wireguard_landing.jpg)
-* Create a cloud VM instance in the same VPC (Virtual Private Cloud) as your load balancer (LB).  The VM need not be of high capacity as this server is only a Wireguard end point.
+* Create a cloud VM instance in the same VPC (Virtual Private Cloud) as your bastion host.  The VM need not be of high capacity as this server is only a Wireguard end point.
 * Make sure LB is not public facing; it has an internal domain name (with possibly multiple IPs)
 * Point your cluster external access to LB internal domain name.  On AWS this has to be set on Route 53. Example:
 ```
