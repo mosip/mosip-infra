@@ -20,6 +20,6 @@ If you would like to restrict public access to your deployment/sandbox/cluster, 
 ```
 api.mosip.xyz.net  -->  Internal LB domain name
 ```  
-* Set the a end point of Wireguard client to this bastion host.
-* Set `AllowedIPs` on Wireguard client to point to all IP addresses interna LB.
+* Set the end point of Wireguard client to this bastion host.
+* Set `AllowedIPs` on Wireguard client to point to all IP addresses of internal LB.
 * Now you should be able to access `https://api.mosip.xyz.net` via the Wireguard tunnel.
