@@ -4,41 +4,41 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.1'
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.2'
       masterdata:
-        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.5'
+        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.5.2'
       idgen:
-        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.1'
+        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.2'
       prid:
-        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.1'
+        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.2'
       sync:
-        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.2'
       audit :
-        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.1'
+        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.2'
       key:
-        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.1.5.1'
+        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.1.5.2'
       notifier:
-        'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5.1'
+        'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5.2'
       otp:
-        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.1.5.1'
+        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.1.5.2'
       rid:
-        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.1.5.1'
+        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.1.5.2'
       keygen:
-        'kernel-keys-generator': 'mosipid/keys-generator:1.1.5'
+        'kernel-keys-generator': 'mosipid/keys-generator:1.1.5.2'
 
     prereg:
       application:
-        'prereg-application-service': 'mosipid/pre-registration-application-service:1.1.5'
+        'prereg-application-service': 'mosipid/pre-registration-application-service:1.1.5.2'
       batch:
-        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.5'
+        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.5.2'
       booking:
-        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.5'
+        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.5.2'
       datasync:
-        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5'
+        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5.2'
       captcha:
-        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.1.5'
+        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.1.5.2'
       ui:
-        'prereg-ui': 'mosipid/pre-registration-ui:1.1.5'
+        'prereg-ui': 'mosipid/pre-registration-ui:1.1.5.2'
       
     registration_client:
       downloader:
@@ -109,21 +109,21 @@ versions:
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.1.5'
+        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.1.5.2'
       vid: 
-        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.1.5'
+        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.1.5.2'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.1.5'
+        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.1.5.2'
       credentialservice:
-        'idrepo-credential-service': 'mosipid/credential-service:1.1.5'
+        'idrepo-credential-service': 'mosipid/credential-service:1.1.5.2'
       salt:  
-        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5'
+        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5.2'
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.1'
+        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.2'
       policy:
-        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.1'
+        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.2'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
 
@@ -133,25 +133,25 @@ versions:
     
     admin:
       service:
-        'admin-service': 'mosipid/admin-service:1.1.5'
+        'admin-service': 'mosipid/admin-service:1.1.5.2'
       ui:
         'admin-ui': 'mosipid/admin-ui:1.1.5'
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipid/commons-packet-service:1.1.5'
+        'packetmanager-service': 'mosipid/commons-packet-service:1.1.5.2'
 
     datashare:
       service:
-        'datashare-service': 'mosipid/data-share-service:1.1.5'
+        'datashare-service': 'mosipid/data-share-service:1.1.5.2'
 
     print:
       service:
-        'print-service': 'mosipid/print:1.1.5'
+        'print-service': 'mosipid/print:1.1.5.2'
 
     websub:
       service:
-        'websub-service': 'mosipid/websub-service:1.1.5'
+        'websub-service': 'mosipid/websub-service:1.1.5.1'
 
     mock:
       abis:
