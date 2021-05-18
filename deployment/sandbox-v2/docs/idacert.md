@@ -62,7 +62,7 @@
 	  "metadata": {},
 	  "request": {
 	    "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDWjCCAkKgAwIBAgIEYFrz6DANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\nDTIxMDMyNDA4MTAxNloXDTIyMDMyNDA4MTAxNlowdTELMAkGA1UEBhMCSU4xEjAQ\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\ncGFydG5lci1kZWZhdWx0LWFiaXMxHjAcBgNVBAMMFW1wYXJ0bmVyLWRlZmF1bHQt\nYWJpczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKuA8CuDIRQCUCl9\nyVh/dGOb/CiMnbcL/lsLq+VeYo51yyycj5kH2wuTlnXRZAOJklCvhAIJP68q799S\nW+aMr+pOLm4rCgMfPD30UVdcmza+dPfl7A3/YZ5UjALOqjVMmwcUxmh1k5yL9QRo\n1LNLCGkwd0hfgT35Y9sC0CDxD3aOesaz0oP9dkGETpcv8nMW4VxWHvOekup1gqAi\nEn1VBat6qVGjwBNKAVkq75Q8P477DyT+t9NRs9IW68ZQXvR+VQvofDNDk8PshXVQ\nMjesEgQHs7bIhTb6hAmGJsQM97yBAA6+EEGGqvLTZDDXjTAtdNZpjml0jaaMnURl\nzF+qh08CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjdfHjKlrt7mV0MomYO7KkuCc\naCscPAN74UZaCMRE5pXixeQVctsWE/KI7KdmJwZWqZvQrb/AX4VwZu5A1zcDNOJ6\nB7UaDePCMBXRPcyUAAWWwr0AtV0JkEei3d2TbqiPXqlCM1fvvkKQqGZxa61CvSdN\nz2XmY9W09gbAgkMx3svv6MHpZlJuWY8OZVr0ID1hW+ajEoCf5Adv2Iwuogg/Hs9D\nlhhvYg4GzU/qWE9vFYO52UqtVPfrzQZTPBQE5Hrg0a32HBOwL3vu0ms2gf1lEt23\nEf/8TZA5kT/0bMYlB6heGjIKEC90tEv645jbkgJoCI+GgazTTe9wYHXmgz9oPw==\n-----END CERTIFICATE-----\n",
-	   "partnerDomain": "Auth",
+	   "partnerDomain": "AUTH",
 	    "partnerId": "mpartner-default-auth"
 	    },
 	  "requesttime": "",
@@ -82,7 +82,7 @@
 	  "request": {
 	    "applicationId": "IDA",
 	    "certificateData": "certficate data fom the responce of step 7",
-	    "referenceId": "mpartner-dafault-auth"
+	    "referenceId": "mpartner-default-auth"
 	  },
 	  "requesttime": "2018-12-10T06:12:52.994Z",
 	  "version": "string"

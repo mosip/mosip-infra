@@ -73,7 +73,7 @@
 	  "id": "string",
 	  "metadata": {},
 	  "request": {
-	    "applicationId": "PARTNER",
+	    "applicationId": "RESIDENT",
 	    "certificateData": "certficate data fom the responce of step 7",
 	    "referenceId": "mpartner-dafault-resident"
 	  },
