@@ -4,7 +4,7 @@ The biosdk library is used in reg client, reg proc and ida.  The guide here prov
 
 ## Integration with IDA 
 
-For IDA, biosdk is expected to be available as an HTTP service.  This service is then called by ID Authentication module.  Refer to the [reference implementation](https://github.com/mosip/mosip-ref-impl/tree/develop) create such a service.  Here `biosdk-service` contains code for the service while `/biosdk-client` contains code for the client that is integrated with IDA that connects to this service.  This service may run inside the Kubernetes cluster as a pod or hosted outside the cluster.
+For IDA, biosdk is expected to be available as an HTTP service.  This service is then called by ID Authentication module.  Refer to the [reference implementation](https://github.com/mosip/mosip-ref-impl/tree/develop) to create such a service.  Here `biosdk-service` contains code for the service while `/biosdk-client` contains code for the client that is integrated with IDA that connects to this service.  This service may run inside the Kubernetes cluster as a pod or hosted outside the cluster.
 
 The client code needs to be compiled into a `biosdk.zip` and copied to the Artifactory. Currently, it is available here: `/artifactory/libs-release-local/biosdk/mock/0.9/biosdk.zip` for mock. IDA dockers download this zip and install during docker startup.
 
