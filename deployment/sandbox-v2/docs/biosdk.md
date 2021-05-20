@@ -16,6 +16,7 @@ The above service works for regproc as well.
 Real SDK intagration
 
 As of now in sandbox installation we are using mock-biosdk-service .. but in country implementation we need to get the real biosdk service up and running in two possible ways:
+	
 	* Passing the real sdk jar to the existing biosdk service running in the cluster using below mentioned environment variable:
 		`biosdk_zip_url  -- path of the sdk jar to download`
 		`biosdk_bioapi_impl  -- classpath to be included in service`
