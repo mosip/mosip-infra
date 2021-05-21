@@ -1,0 +1,4 @@
+## CAUTION: Domain name to acess Admin UI must be secure/internal/over vpn.   
+## Slash is important!
+admin:
+  hostUrl: https://your-internal-domain-name/v1/
