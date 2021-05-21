@@ -1,4 +1,5 @@
 -- Drop all DBs and roles
+-- If session are active and db cannot be dropped use terminate_sessions.sql
 -- CAUTION Dangerous!  Only for development and testing
 drop database mosip_master;
 drop database mosip_audit;
