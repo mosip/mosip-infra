@@ -15,9 +15,9 @@
     dest: '{{reg_client.nfs_path}}' 
   become: yes
 
-- name: maven_metadata_xml_template to maven-metadata.xml 
+- name: copy logback.xml 
   template:
-    src: '{{reg_client.xml_file}}'
+    src: '{{reg_client.logback_xml}}'
     dest: '{{reg_client.nfs_path}}'
   become: yes
 

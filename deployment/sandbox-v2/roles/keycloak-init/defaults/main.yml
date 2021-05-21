@@ -405,6 +405,7 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_OPERATOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_SUPERVISOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-resident-client', role_name: 'RESIDENT'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-resident-client', role_name: 'partner_admin'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-client', role_name: 'CREDENTIAL_ISSUANCE'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-client', role_name: 'POLICYMANAGER'}
