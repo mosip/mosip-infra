@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.validator.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.validator.ports.servicePort }}
+    targetPort: {{ .Values.services.validator.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.validator.serviceName }} 

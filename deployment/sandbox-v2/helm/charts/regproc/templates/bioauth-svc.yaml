@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.bioauth.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.bioauth.ports.servicePort }}
+    targetPort: {{ .Values.services.bioauth.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.bioauth.serviceName }} 
