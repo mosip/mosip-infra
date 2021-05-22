@@ -27,6 +27,8 @@ spec:
         exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
+      serviceAccountName: {{.Values.serviceAccount}}
+      automountServiceAccountToken: true
       containers:
       - name: {{ .Values.services.packet.serviceName }} 
         image: {{ .Values.services.packet.dockerImage }}
