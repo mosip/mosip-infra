@@ -33,7 +33,8 @@ services:
       eventbusPort: 5723
       hazelcastPort: 5701
       containerPort: 8022
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/abishandler/
     healthUrl: /registrationprocessor/v1/camelbridge/actuator/health
     podconfig:
       {{ podconfig.regproc.camel | to_nice_yaml(indent=6) | indent(6) }}
@@ -58,7 +59,8 @@ services:
       eventbusPort: 5750
       hazelcastPort: 5701
       containerPort: 8021
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/reprocessor/
     healthUrl: /registrationprocessor/v1/reprocessor/actuator/health
     podconfig:
       {{ podconfig.regproc.reprocess | to_nice_yaml(indent=6) | indent(6) }}
@@ -70,7 +72,8 @@ services:
       eventbusPort: 5714
       hazelcastPort: 5701
       containerPort: 8087
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/uploader/
     healthUrl: /registrationprocessor/v1/uploader/actuator/health
     podconfig:
       {{ podconfig.regproc.uploader | to_nice_yaml(indent=6) | indent(6) }}
@@ -82,7 +85,8 @@ services:
       eventbusPort: 5727
       hazelcastPort: 5701
       containerPort: 9072
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/qualitychecker/
     healthUrl: /registrationprocessor/v1/qualitychecker/actuator/health
     podconfig:
       {{ podconfig.regproc.quality | to_nice_yaml(indent=6) | indent(6) }}
@@ -94,7 +98,8 @@ services:
       eventbusPort: 5715
       hazelcastPort: 5701
       containerPort: 8088
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/packetvalidator/
     healthUrl: /registrationprocessor/v1/packetvalidator/actuator/health
     podconfig:
       {{ podconfig.regproc.validator | to_nice_yaml(indent=6) | indent(6) }}
@@ -106,7 +111,8 @@ services:
       eventbusPort: 5716
       hazelcastPort: 5701
       containerPort: 8089
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/osivalidator/
     healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
     podconfig:
       {{ podconfig.regproc.osi | to_nice_yaml(indent=6) | indent(6) }}
@@ -118,7 +124,8 @@ services:
       eventbusPort: 5717
       hazelcastPort: 5701
       containerPort: 8091
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/demodedupe/
     healthUrl: /registrationprocessor/v1/demodedupe/actuator/health
     podconfig:
       {{ podconfig.regproc.demo | to_nice_yaml(indent=6) | indent(6) }}
@@ -130,7 +137,8 @@ services:
       eventbusPort: 5718
       hazelcastPort: 5701
       containerPort: 9096
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/biodedupe/
     healthUrl: /registrationprocessor/v1/biodedupe/actuator/health
     podconfig:
       {{ podconfig.regproc.bio | to_nice_yaml(indent=6) | indent(6) }}
@@ -142,7 +150,8 @@ services:
       eventbusPort: 5777
       hazelcastPort: 5701
       containerPort: 8020
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/bioauth/
     healthUrl: /registrationprocessor/v1/bioauth/actuator/health
     podconfig:
       {{ podconfig.regproc.bioauth | to_nice_yaml(indent=6) | indent(6) }}
@@ -154,7 +163,8 @@ services:
       eventbusPort: 5726
       hazelcastPort: 5701
       containerPort: 9071
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/abishandler/
     healthUrl: /registrationprocessor/v1/abishandler/actuator/health
     podconfig:
       {{ podconfig.regproc.abishandler | to_nice_yaml(indent=6) | indent(6) }}
@@ -166,7 +176,8 @@ services:
       eventbusPort: 5888
       hazelcastPort: 5701
       containerPort: 8091
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/abismiddleware/
     healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
     podconfig:
       {{ podconfig.regproc.abismid | to_nice_yaml(indent=6) | indent(6) }}
@@ -191,7 +202,8 @@ services:
       eventbusPort: 5736
       hazelcastPort: 5701
       containerPort: 8095
-    ingressPath: ''
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/external/
     healthUrl: /registrationprocessor/v1/external/actuator/health 
     podconfig:
       {{ podconfig.regproc.external | to_nice_yaml(indent=6) | indent(6) }}
@@ -214,7 +226,8 @@ services:
       eventbusPort: 5719
       hazelcastPort: 5701
       containerPort: 8099
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/uin-generator/
     healthUrl: /registrationprocessor/v1/uin-generator/actuator/health
     podconfig:
       {{ podconfig.regproc.uin | to_nice_yaml(indent=6) | indent(6) }}
@@ -226,7 +239,8 @@ services:
       eventbusPort: 5721
       hazelcastPort: 5701
       containerPort: 8088
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/sender-stage/
     healthUrl: /registrationprocessor/v1/sender-stage/actuator/health
     podconfig:
       {{ podconfig.regproc.msg | to_nice_yaml(indent=6) | indent(6) }}
@@ -238,7 +252,8 @@ services:
       eventbusPort: 5722
       hazelcastPort: 5701
       containerPort: 8099
-    ingressPath: '' 
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/print-stage/
     healthUrl: /registrationprocessor/v1/print-stage/actuator/health
     podconfig:
       {{ podconfig.regproc.print | to_nice_yaml(indent=6) | indent(6) }}

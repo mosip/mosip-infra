@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.osi.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.osi.ports.servicePort }}
+    targetPort: {{ .Values.services.osi.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.osi.serviceName }} 
