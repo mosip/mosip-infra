@@ -6,13 +6,13 @@ versions:
       auth:
         'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.4'
       masterdata:
-        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.4'
+        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.4.1'
       idgen:
         'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.4'
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.4'
       sync:
-        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.4'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.4.1'
       audit :
         'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.4'
       key:
@@ -48,9 +48,9 @@ versions:
       camel:
         'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.4'
       notification: 
-        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.4'
+        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.4.2'
       uploader:
-        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.4'
+        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.4.3'
       quality:
         'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.1.4'
       validator:
@@ -82,7 +82,7 @@ versions:
       trans:
         'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.1.4'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.4'
+        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.4.2'
 
     dmzregproc:  
       receiver:
@@ -108,17 +108,17 @@ versions:
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.1.4'
+        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.1.4.1'
       vid: 
-        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.1.4'
+        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.1.4.1'
       bioextractor:
-        'idrepo-bioextractor-service': 'mosipid/bioextractor-service:1.1.4'
+        'idrepo-bioextractor-service': 'mosipid/bioextractor-service:1.1.4.1'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.1.4'
+        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.1.4.1'
       credentialservice:
-        'idrepo-credential-service': 'mosipid/credential-service:1.1.4'
+        'idrepo-credential-service': 'mosipid/credential-service:1.1.4.1'
       salt:  
-        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.4'
+        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.4.1'
 
     pms:
       misp: 
@@ -143,7 +143,7 @@ versions:
     
     packetmanager:
       service:
-        'packetmanager-service': 'mosipid/commons-packet-service:1.1.4'
+        'packetmanager-service': 'mosipid/commons-packet-service:1.1.4.3'
 
     datashare:
       service:
