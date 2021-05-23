@@ -1,0 +1,15 @@
+id,name,brand,model,machineTypeCode,minDriverversion,description,langCode,isActive
+123,Vostro,Dell,3568,DKS,1.455,To take enrollments,eng,TRUE
+124,Vostro,Dell,3569,DKS,2.455,To take enrollments,eng,TRUE
+125,Vostro,Dell,3570,DKS,3.455,To take enrollments,eng,TRUE
+126,Vostro,Dell,3571,DKS,4.455,To take enrollments,eng,TRUE
+127,Vostro,Dell,3572,DKS,5.455,To take enrollments,eng,TRUE
+128,Vostro,Dell,3573,DKS,6.455,To take enrollments,eng,TRUE
+129,Vostro,Dell,3574,DKS,7.455,To take enrollments,eng,TRUE
+130,Vostro,Dell,3575,DKS,8.455,To take enrollments,eng,TRUE
+131,Vostro,Dell,3576,DKS,9.455,To take enrollments,eng,TRUE
+132,Vostro,Dell,3577,DKS,10.455,To take enrollments,eng,TRUE
+133,Vostro,Dell,3578,DKS,11.455,To take enrollments,eng,TRUE
+134,Vostro,Dell,3579,DKS,12.455,To take enrollments,eng,TRUE
+135,Vostro,Dell,3580,DKS,13.455,To take enrollments,eng,TRUE
+136,Vostro,Dell,3581,DKS,14.455,To take enrollments,eng,TRUE

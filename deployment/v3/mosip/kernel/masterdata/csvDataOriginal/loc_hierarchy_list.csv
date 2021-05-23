@@ -1,0 +1,6 @@
+hierarchyLevel,hierarchyLevelName,langCode,isActive
+1,Country,eng,TRUE
+2,State,eng,TRUE
+3,District,eng,TRUE
+4,City,eng,TRUE
+5,Postal Code,eng,TRUE

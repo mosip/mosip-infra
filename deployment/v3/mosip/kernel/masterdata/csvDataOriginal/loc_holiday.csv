@@ -1,0 +1,2 @@
+id,locationCode,holidayDate,holidayName,holidayDesc,langCode,isActive
+123456,KTA,2021-12-04,test,National Holiday,eng,TRUE

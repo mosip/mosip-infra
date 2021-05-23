@@ -1,0 +1,3 @@
+id,name,brand,model,deviceTypeCode,"    minDriverversion
+",descr,langCode,isActive
+323,ewwv,Greenbit,DactyScan84c,FRS,string,To capture eng,eng,TRUE
