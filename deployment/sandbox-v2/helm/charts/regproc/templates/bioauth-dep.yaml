@@ -20,6 +20,10 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.bioauth.annotation }}
+        prometheus.io/port: {{ .Values.services.bioauth.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.bioauth.serviceName }} 
         component: service-hazelcast-server

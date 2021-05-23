@@ -19,6 +19,10 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.camel.annotation }}
+        prometheus.io/port: {{ .Values.services.camel.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.camel.serviceName }} 
         component: service-hazelcast-server
