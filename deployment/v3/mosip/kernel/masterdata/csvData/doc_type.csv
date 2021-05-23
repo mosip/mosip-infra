@@ -1,0 +1,4 @@
+code,name,description,langCode,isActive
+TC001,PPP,Preuve didentité,fra,TRUE
+TC002,PPP,Proof of Idendity,eng,TRUE
+TC003,PPP,إثبات الهوية,ara,TRUE

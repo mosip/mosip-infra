@@ -1,0 +1,2 @@
+id,name,centerTypeCode,addressLine1,addressLine2,addressLine3,latitude,longitude,locationCode,contactPhone,contactPerson,numberOfKiosks,workingHours,perKioskProcessTime,centerStartTime,centerEndTime,lunchStartTime,lunchEndTime,timeZone,holidayLocationCode,zoneCode,langCode,isActive
+123456,Insert2,REG,Lane1,Lane2,Lane3,4.52117,-6.453275,14022,8130538887,Tester1,3,08:00:00,00:15:00,09:00:00,17:00:00,13:00:00,14:00:00,(GTM+01:00) CENTRAL EUROPEAN TIME,KTA,RBT,eng,TRUE

@@ -1,0 +1,8 @@
+code,name,description,biometricTypeCode,langCode,isActive
+AB,FOOT,Print ofFOOT,FTT,eng,TRUE
+TM,الابهام,طباعة الإبهام الأيسر والأيمن,FNR,ara,TRUE
+RH,لوح الحق,طباعة من اليمين لوح,FNR,ara,TRUE
+LH,لوح اليسار,طباعة بلاطة اليسار,FNR,ara,TRUE
+LI,غادر القزحية,طباعة القزحية اليسرى,IRS,ara,TRUE
+RI,الحق ايريس,طباعة القزحية اليمنى,IRS,ara,TRUE
+TM,Les pouces,Empreinte des pouces gauche et droit,FNR,fra,TRUE

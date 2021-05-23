@@ -1,0 +1,2 @@
+registrationCenterID,holidayDate,holidayName,holidayReason,langCode,isActive
+10001,2021-01-01,Emergency Holiday,urgent,eng,TRUE
