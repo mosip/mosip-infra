@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: postgres-postgresql
+spec:
+  hosts:
+    - "*"
+  gateways:
+  - istio-system/internal
+  tcp:
+  - match:
+    - port: 5432
+    route:
+    - destination:
+        host: postgres-postgresql
+        port:
+          number: 5432
+    
+

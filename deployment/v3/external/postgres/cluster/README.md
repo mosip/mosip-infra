@@ -10,7 +10,7 @@ $ kubectl create ns postgres
 ```
 * Install following chart. See documentation of the chart for various options
 ```
-helm -n postgres install postgres bitnami/postgresql --set replication.enabled=true
+helm -n postgres install postgres bitnami/postgresql
 ```
 * A random password will get assigned for `postgres` user if you have not specified a password.  The password may be obtained using following script:
 ```
@@ -18,8 +18,13 @@ $ ./get_pwd.sh
 ```
 
 ## Ingress
-It is assumed that while deploying ingress controller you have enabled service port 5432 and the same is seen on the load balancer.
+To enable postgres access over secure internal channel (with wireguard front end bastion host) it is assumed that istio ingress controller has port 5432 opened up. See [gateway](../../../cluster/aws/istio/gateway-internal.yaml).
 
+Update `hosts` in `gateway.yaml` and run
+```
+$ kubectl -n postgres apply -f istio/gateway.yaml
+$ kubectl -n postgres apply -f istio/virtualservice.yaml
+```
 ## Test
 * Make sure docker is running from machine you are testing.
 * Connect to postgres:
