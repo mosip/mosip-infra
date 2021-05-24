@@ -92,6 +92,32 @@ class KeycloakSession:
             raise
         
         self.keycloak_admin.realm_name = 'master' # restore
+
+    def create_user(self, realm, uname, email, fname, lname, password, temp_flag):
+        self.keycloak_admin.realm_name = realm
+        payload = {
+          "username" : uname,
+          "email" : email,
+          "firstName" : fname,
+          "lastName" : lname,
+        }
+        try:
+            print('Creating user %s' % uname)
+            self.keycloak_admin.create_user(payload, skip_exists=False) # If exists, update. So don't skip
+            user_id = self.keycloak_admin.get_user_id(uname)
+            self.keycloak_admin.set_user_password(user_id, password, temporary=temp_flag)
+        except KeycloakError as e:
+            if e.response_code == 409:
+                print('Exists, updating %s' % uname)
+                user_id = self.keycloak_admin.get_user_id(uname)
+                self.keycloak_admin.update_user(user_id, payload)
+        except:
+            self.keycloak_admin.realm_name = 'master' # restore
+            raise
+
+        self.keycloak_admin.realm_name = 'master' # restore
+
+
        
 def args_parse(): 
    parser = argparse.ArgumentParser()
@@ -141,6 +167,10 @@ def main():
                     print('Secret environment variable %s not found, generating' % secret_env_name)
                     secret = secrets.token_urlsafe(16)
                 r = ks.create_client(realm, client['name'], secret, client['saroles'])
+            
+            users = values[realm]['users']
+            for user in users:
+                r = ks.create_user(realm, user['username'], user['email'], user['firstName'], user['lastName'], user['password'], user['temporary'])
 
     except:
         formatted_lines = traceback.format_exc()
