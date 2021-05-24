@@ -1,0 +1,4 @@
+code,name,description,langCode,isActive
+ABC,ABC,ABC,fra,TRUE
+ABC,ABC,ABC,eng,FALSE
+ABC,TEST,rverver,eng,FALSE

@@ -6,7 +6,7 @@ Activemq Artemis is insalled using helm chart that has been slightly modified fr
 For web console, enable access via MOSIP external facing LB via ingress.  See ingress settings in `values.yaml`
 
 ## Install
-* Update `values.yaml`.  Make sure `ingress.hostname` is defined (see section below). 
+* Update `values.yaml`.  Make sure `ingress.hostname` is defined (see section below).
 * Install
 ```
 $ helm repo add mosip https://mosip.github.io/mosip-helm
@@ -17,14 +17,32 @@ $ helm -n activemq install activemq mosip/activemq-artemis -f values.yaml
 ```
 $ ./cm_patch.sh
 ```
-## Web console
-To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain points to the cluster external LB. 
-* Console url: `https://<activemq domain name>`.  
-* Default username: `artemis` 
-* Password:  Run `get_pwd.sh` 
 
-## ABIS connection to broker 
+### Installation with Istio
+
+* Use the same steps as above to add the helm repo.
+* Use values like this (Check the end of the original values.yaml for `istioinjection` section):
+  ```
+  istioinjection:
+    enabled: false
+    hostname: activemq.xyz.net
+    selector:
+      istio: ingressgateway
+  ```
+  * These values change the istio virtual service and gateway files of activemq.
+  * Change `istioinjection.enabled=true`.
+  * Change the hostname: `istioinjection.hostname=activemq.so.and.so`
+  * (Optional) Change the `istioinjection.selector.istio` selector field, in case, activemq is to be exposed on a different loadbalancer or different istio-ingressgateway.
+* Also 61616 port is exposed in this gateway (so that other services, like abis, cli, etc, can use). But it wont work until the port 61616 is exposed in the istio-ingressgateway. Check out this document on how to do that [mosip-infra/deployment/v3/docs/istio-ingressgateway-changing-ports](https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/docs/istio-ingressgateway-changing-ports.md)
+
+## Web console
+To access web console from outside cluster define a domain name like "activemq.sandbox.xyz.net". Make sure this domain points to the cluster external LB.
+* Console url: `https://<activemq domain name>`.  
+* Default username: `artemis`
+* Password:  Run `get_pwd.sh`
+
+## ABIS connection to broker
 ABIS must connect to internal LB address over port 61616.
 
 ## CLI
-Activemq command line utility may be downloaded from [here](https://activemq.apache.org/components/artemis/download/).  Note that since Activemq port 61616 is not accessible externally, you must run the same from a machine that has access to internal load balancer. 
+Activemq command line utility may be downloaded from [here](https://activemq.apache.org/components/artemis/download/).  Note that since Activemq port 61616 is not accessible externally, you must run the same from a machine that has access to internal load balancer.

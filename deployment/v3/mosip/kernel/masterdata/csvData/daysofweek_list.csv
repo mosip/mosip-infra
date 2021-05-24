@@ -1,0 +1,4 @@
+code,name,day_seq,is_global_working,lang_code,is_active
+108,ABC,8,TRUE,eng,TRUE
+108,الاحد,8,FALSE,ara,TRUE
+108,ABC,8,FALSE,fra,TRUE

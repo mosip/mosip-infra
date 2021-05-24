@@ -1,0 +1,57 @@
+# Level 1
+app_detail
+authentication_method
+biometric_type
+blacklisted_words
+device_type
+doc_category
+doc_type
+gender
+id_type
+language
+machine_type
+module_detail
+process_list
+reason_category
+reg_center_type
+role_list
+status_type
+template_file_format
+template_type
+title
+individual_type
+zone
+daysofweek_list
+loc_hierarchy_list
+identity_schema
+sync_job_def
+dynamic_field
+# Level 2
+location
+app_authentication_method
+app_role_priority
+biometric_attribute
+device_spec
+loc_holiday
+machine_spec
+reason_list
+registration_center
+screen_detail
+status_list
+template
+applicant_valid_document
+valid_document
+# Level 3
+device_master
+machine_master
+screen_authorization
+user_detail
+reg_working_nonworking
+reg_exceptional_holiday
+zone_user
+# Level 4
+device_master_h
+machine_master_h
+registration_center_h
+user_detail_h
+zone_user_h

@@ -1,0 +1,4 @@
+id,name,macAddress,serialNum,ipAddress,validityDateTime,deviceSpecId,zoneCode,regCenterId,langCode,isActive
+3013,DeviceUploadTest,54-BF-64-4C-91-6B,222222,127.0.0.3,2022-11-17T09:50:23.637Z,736,KTA,10001,eng,TRUE
+3013,DeviceUploadTest,54-BF-64-4C-91-6B,222222,127.0.0.4,2022-11-17T09:50:23.637Z,736,KTA,10001,ara,TRUE
+3013,DeviceUploadTest,54-BF-64-4C-91-6B,222222,127.0.0.5,2022-11-17T09:50:23.637Z,736,KTA,10001,fra,TRUE
