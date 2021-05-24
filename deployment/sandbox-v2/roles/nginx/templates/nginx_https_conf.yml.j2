@@ -168,6 +168,49 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/;                                                                         
          }
 
+        location /registrationprocessor/v1/sender-stage/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/sender-stage/;
+        }
+
+        location /registrationprocessor/v1/abishandler/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/abishandler/;
+        }
+
+        location /registrationprocessor/v1/abismiddleware/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/abismiddleware/;
+        }
+
+        location /registrationprocessor/v1/bioauth/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/bioauth/;
+        }
+        location /registrationprocessor/v1/demodedupe/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/demodedupe/;
+        }
+
+        location /registrationprocessor/v1/uin-generator/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/uin-generator/;
+        }
+
+        location /registrationprocessor/v1/osivalidator/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/osivalidator/;
+        }
+
+        location /registrationprocessor/v1/uploader/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/uploader/;
+        }
+
+        location /registrationprocessor/v1/packetvalidator/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/packetvalidator/;
+        }
+
+        location /registrationprocessor/v1/qualitychecker/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/qualitychecker/;
+        }
+
+        location /registrationprocessor/v1/camelbridge/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/registrationprocessor/v1/camelbridge/;
+        }
+
 
         location /registrationprocessor/v1/registrationstatus/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registrationprocessor/v1/registrationstatus/;
