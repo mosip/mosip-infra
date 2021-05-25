@@ -6,13 +6,13 @@ versions:
       auth:
         'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.3'
       masterdata:
-        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.5.3'
+        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.1.5.2'
       idgen:
         'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.3'
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.3'
       sync:
-        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.3'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.2'
       audit :
         'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.3'
       key:
