@@ -74,13 +74,13 @@
        partner_service_controller->getpartnercertificate
       try it out the above request with partner id as :- `mpartner-default-auth`
 
-  * 9. Upload the response signing certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/keymanager/uploadCertificateUsingPOST`  keymanager --> /uploadCertificate with below request
+  * 9. Upload the response signing certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: `https://minibox.mosip.net/v1/keymanager/swagger-ui.html#/keymanager/uploadOtherDomainCertificateUsingPOST`  keymanager --> /uploadotherdomainCertificate with below request
 	```
 	{
 	  "id": "string",
 	  "metadata": {},
 	  "request": {
-	    "applicationId": "IDA",
+	    "applicationId": "PARTNER",
 	    "certificateData": "certficate data fom the responce of step 7",
 	    "referenceId": "mpartner-default-auth"
 	  },
