@@ -47,6 +47,15 @@ mosip:  # realm
       saroles:
         - REGISTRATION_ADMIN
         - REGISTRATION_OFFICER
+  users: # list of users
+    - username: test_user
+      email: test_user@xyz.com
+      firstName: Nikki
+      lastName: Jonnes
+      password: abcde
+      requiredAction: 
+        - updatePassword
+      temporary: True
 
 preregistration:  # realm
   roles: 
@@ -61,3 +70,4 @@ preregistration:  # realm
         - PRE_REGISTRATION_ADMIN
     - name: mosip-new-client
       saroles: []
+  users: []
