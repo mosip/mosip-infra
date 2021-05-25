@@ -35,7 +35,7 @@ services:
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}
-    containerPort: 80
+    containerPort: 8080
     servicePort: 80
     configName: admin-ui-config # ConfigMap name
     apiHost: {{ site.sandbox_public_url }}/v1/

@@ -9,5 +9,5 @@ spec:
   selector:
     app: {{ .Values.docker.service }}
   ports:
-    - port: 80 
-      targetPort: {{ .Values.docker.containerPort }}
+    - port: {{ .Values.services.artifactory.servicePort }}
+      targetPort: {{ .Values.services.artifactory.containerPort }}

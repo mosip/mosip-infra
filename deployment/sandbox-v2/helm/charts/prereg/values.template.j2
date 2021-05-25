@@ -59,7 +59,7 @@ services:
   ui:
     serviceName: {{ versions.services.prereg.ui.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.ui.values()[0] }}
-    containerPort: 80
+    containerPort: 8080
     servicePort: 80
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/

@@ -45,7 +45,7 @@ services:
   ui:
     serviceName: {{ versions.services.pms.ui.keys()[0] }}
     dockerImage: {{ versions.services.pms.ui.values()[0] }}
-    containerPort: 80
+    containerPort: 8080
     servicePort: 80
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /pmp-ui
