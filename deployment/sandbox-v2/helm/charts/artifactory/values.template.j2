@@ -2,7 +2,6 @@ name: artifactory-service
 docker:
   service: {{ versions.services.artifactory.service.keys()[0] }}
   image: {{ versions.services.artifactory.service.values()[0] }}
-  containerPort: 80
 imagePullPolicy: Always
 
 dockerHub:
@@ -12,5 +11,6 @@ dockerHub:
 services:
   artifactory:
     podconfig: {{ podconfig.artifactory.service | to_yaml }}
-
+    containerPort: 8080
+    servicePort: 80
 exportLogs: enabled  # Let filebeat export the logs
