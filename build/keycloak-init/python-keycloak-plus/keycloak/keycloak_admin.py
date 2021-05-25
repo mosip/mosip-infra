@@ -305,27 +305,22 @@ class KeycloakAdmin:
         data_raw = self.raw_get(URL_ADMIN_IDPS.format(**params_path))
         return raise_error_from_response(data_raw, KeycloakGetError)
 
-    def create_user(self, payload):
+    def create_user(self, payload, skip_exists=False):
         """
         Create a new user Username must be unique
 
         UserRepresentation
         http://www.keycloak.org/docs-api/3.3/rest-api/index.html#_userrepresentation
 
+        :param skip_exists: Skip if user already exist.
         :param payload: UserRepresentation
 
         :return: UserRepresentation
         """
         params_path = {"realm-name": self.realm_name}
-
-        exists = self.get_user_id(username=payload['username'])
-
-        if exists is not None:
-            return str(exists)
-
         data_raw = self.raw_post(URL_ADMIN_USERS.format(**params_path),
                                  data=json.dumps(payload))
-        return raise_error_from_response(data_raw, KeycloakGetError, expected_code=201)
+        return raise_error_from_response(data_raw, KeycloakGetError, expected_code=201,skip_exists=skip_exists)
 
     def users_count(self):
         """
