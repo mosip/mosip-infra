@@ -33,16 +33,16 @@ spec:
 
         ports:
         - containerPort: {{ .Values.services.containerPort }} 
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.reprocess.healthUrl }}
-            port: {{ .Values.services.reprocess.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
-          periodSeconds: {{ .Values.probe.period }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.reprocess.healthUrl }}
-            port: {{ .Values.services.reprocess.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
-          periodSeconds: {{ .Values.probe.period }}
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.reprocess.healthUrl }}
+#            port: {{ .Values.services.reprocess.ports.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+#          periodSeconds: {{ .Values.probe.period }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.reprocess.healthUrl }}
+#            port: {{ .Values.services.reprocess.ports.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+#          periodSeconds: {{ .Values.probe.period }}
 

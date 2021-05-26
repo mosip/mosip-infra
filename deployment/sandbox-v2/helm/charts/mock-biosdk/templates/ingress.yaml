@@ -10,8 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /biosdk-service
+      - path: {{ .Values.services.ingress }}
         backend:
           serviceName: {{ .Values.services.serviceName }}
-          servicePort: 80 
-
+          servicePort: {{ .Values.services.servicePort }}
