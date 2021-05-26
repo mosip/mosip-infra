@@ -26,23 +26,10 @@ spec:
         image: {{ .Values.services.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-        - name: biosdk_zip_url
+        - name: biosdk_zip_file_path
           value: {{ .Values.biosdklibzip }}
         - name: biosdk_bioapi_impl
           value: {{ .Values.biosdklib }}
 
         ports:
         - containerPort: {{ .Values.services.containerPort }} 
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.reprocess.healthUrl }}
-#            port: {{ .Values.services.reprocess.ports.containerPort }}
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
-#          periodSeconds: {{ .Values.probe.period }}
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.reprocess.healthUrl }}
-#            port: {{ .Values.services.reprocess.ports.containerPort }}
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
-#          periodSeconds: {{ .Values.probe.period }}
-
