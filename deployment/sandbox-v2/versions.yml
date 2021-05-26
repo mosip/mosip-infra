@@ -163,4 +163,5 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:1.1.5'
+        'artifactory-service': 'mosipdev/artifactory-server:1.1.5_biosdk'
+
