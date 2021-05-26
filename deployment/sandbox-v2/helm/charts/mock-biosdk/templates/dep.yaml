@@ -1,0 +1,48 @@
+---
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: {{ .Values.services.serviceName }}
+  namespace: {{ .Release.Namespace }} 
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: {{ .Values.services.serviceName }}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      containers:
+      - name: {{ .Values.services.serviceName }}
+        image: {{ .Values.services.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: mosip.sdk.biosdk.lib
+          value: {{ .Values.biosdklib }}
+        ports:
+        - containerPort: {{ .Values.services.containerPort }} 
+<<<<<<< HEAD:deployment/sandbox-v2/helm/charts/mock-biosdk/templates/mock-biosdk-dep.yaml
+=======
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.reprocess.healthUrl }}
+#            port: {{ .Values.services.reprocess.ports.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+#          periodSeconds: {{ .Values.probe.period }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.reprocess.healthUrl }}
+#            port: {{ .Values.services.reprocess.ports.containerPort }}
+#          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+#          periodSeconds: {{ .Values.probe.period }}
+
+>>>>>>> c833ce6... [MOSIP-14222] changes for running biosdk service inside k8 cluster:deployment/sandbox-v2/helm/charts/mock-biosdk/templates/dep.yaml

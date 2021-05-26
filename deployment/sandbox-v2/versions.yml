@@ -158,8 +158,8 @@ versions:
         'mock-abis': 'mosipid/mock-abis:1.1.5'
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
-#      biosdk: 
-#        'mock-biosdk-service': 'mosipid/sdk-services:latest'
+      biosdk: 
+        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
 
     artifactory:
       service:

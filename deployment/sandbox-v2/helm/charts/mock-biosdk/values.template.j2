@@ -2,6 +2,7 @@ name: biosdk # Will be used as service name too
 services:
   serviceName: {{ versions.services.mock.biosdk.keys()[0] }}
   dockerImage: {{ versions.services.mock.biosdk.values()[0] }}
+  ingress: /biosdk-service
   servicePort: 80
   containerPort: 9099
 component: biosdk
