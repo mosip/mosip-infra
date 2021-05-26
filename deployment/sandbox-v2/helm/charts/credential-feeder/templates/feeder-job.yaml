@@ -36,5 +36,5 @@ spec:
         - name: olv_partner_ids_env
           value: "mpartner-default-auth"
         - name: skip_existing_cred_requests_for_partner_env
-          value: "'true'"
+          value: "true"
 
