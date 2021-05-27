@@ -42,13 +42,10 @@ class MosipSession:
             'id': 'bulkUpload.in.Bulk',
             'metadata': {},
             'category': category,
-            #'files': 'file1',
-            # 'files': open(file_name,'rb'),
             'operation': operation,
             'tableName': table_name,
             'requesttime': ts,
             'version': '1.0',
         }
-        # headers = {'Content-type': 'multipart/form-data'}
-        r = requests.post(url, cookies=cookies, data=j, files=files, verify=self.ssl_verify)#, headers=headers)
+        r = requests.post(url, cookies=cookies, data=j, files=files, verify=self.ssl_verify)
         return r
