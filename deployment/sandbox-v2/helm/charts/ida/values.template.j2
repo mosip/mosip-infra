@@ -35,6 +35,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.auth | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idauthentication/v1/auth/actuator/prometheus
 
   internal: 
     serviceName: {{ versions.services.ida.internal.keys()[0] }} 
@@ -47,6 +48,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.internal | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idauthentication/v1/internal/actuator/prometheus
 
   kyc: 
     serviceName: {{ versions.services.ida.kyc.keys()[0] }} 
@@ -59,6 +61,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.kyc | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idauthentication/v1/kyc/actuator/prometheus
 
   otp: 
     serviceName: {{ versions.services.ida.otp.keys()[0] }} 
@@ -71,6 +74,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.otp | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idauthentication/v1/otp/actuator/prometheus
 
 generators:
   keygen:  
