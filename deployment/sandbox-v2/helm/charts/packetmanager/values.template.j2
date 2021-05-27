@@ -32,3 +32,4 @@ services:
     healthUrl: /commons/v1/packetmanager/actuator/health
     podconfig:
       {{ podconfig.packetmanager.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /commons/v1/packetmanager/actuator/prometheus
