@@ -1,0 +1,23 @@
+# This file contains table required for only Pre-Reg purposes
+# 1
+language
+loc_hierarchy_list
+zone
+gender
+module_detail
+reg_center_type
+daysofweek_list
+doc_category
+doc_type
+template_file_format
+template_type
+# 2
+location
+template
+valid_document
+# 3
+loc_holiday
+registration_center
+# 4
+reg_working_nonworking
+reg_exceptional_holiday
