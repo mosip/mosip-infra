@@ -34,6 +34,7 @@ services:
     healthUrl: /v1/authmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.auth | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/authmanager/actuator/prometheus
 
   masterdata:
     serviceName: {{ versions.services.kernel.masterdata.keys()[0] }} 
@@ -45,6 +46,7 @@ services:
     healthUrl: /v1/masterdata/actuator/health
     podconfig:
       {{ podconfig.kernel.masterdata | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/masterdata/actuator/prometheus
 
   idgen:
     serviceName: {{ versions.services.kernel.idgen.keys()[0] }} 
@@ -56,6 +58,7 @@ services:
     healthUrl: /v1/idgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.idgen | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/idgenerator/actuator/prometheus
 
   prid:
     serviceName: {{ versions.services.kernel.prid.keys()[0] }} 
@@ -67,6 +70,7 @@ services:
     healthUrl: /v1/pridgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.prid | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/pridgenerator/actuator/prometheus
 
   sync:
     serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
@@ -78,6 +82,7 @@ services:
     healthUrl: /v1/syncdata/actuator/health
     podconfig:
       {{ podconfig.kernel.sync | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/syncdata/actuator/prometheus
 
   audit:
     serviceName: {{ versions.services.kernel.audit.keys()[0] }} 
@@ -89,6 +94,7 @@ services:
     healthUrl: /v1/auditmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.audit | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/auditmanager/actuator/prometheus
 
   key:
     serviceName: {{ versions.services.kernel.key.keys()[0] }} 
@@ -102,6 +108,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.kernel.key | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/keymanager/actuator/prometheus
 
   notifier:
     serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
@@ -113,6 +120,7 @@ services:
     healthUrl: /v1/notifier/actuator/health
     podconfig:
       {{ podconfig.kernel.notifier | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/notifier/actuator/prometheus
 
   otp:
     serviceName: {{ versions.services.kernel.otp.keys()[0] }} 
@@ -124,6 +132,7 @@ services:
     healthUrl: /v1/otpmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.otp | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/otpmanager/actuator/prometheus
 
   rid:
     serviceName: {{ versions.services.kernel.rid.keys()[0] }} 
@@ -135,6 +144,7 @@ services:
     healthUrl: /v1/ridgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.rid | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/ridgenerator/actuator/prometheus
 
 generators:
   keygen:
