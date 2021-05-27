@@ -26,3 +26,4 @@ services:
     healthUrl: /v1/mock-abis-service/actuator/health
     podconfig:
       {{ podconfig.mockabis.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/mock-abis/actuator/prometheus
