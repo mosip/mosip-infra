@@ -27,6 +27,7 @@ dockerHub:
   keyname: {{ docker.hub.keyname }}
 
 services:
+
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }}
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
@@ -37,6 +38,7 @@ services:
     healthUrl: /v1/partnermanager/actuator/health
     podconfig:
       {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /partnermanagement/v1/partner/actuator/prometheus
 
   policy:
     serviceName: {{ versions.services.pms.policy.keys()[0] }}
@@ -48,6 +50,7 @@ services:
     healthUrl: /v1/policymanager/actuator/health
     podconfig:
       {{ podconfig.pms.partner | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /partnermanagement/v1/policies/actuator/prometheus
 
   ui:
     serviceName: {{ versions.services.pms.ui.keys()[0] }}
@@ -58,3 +61,4 @@ services:
     apiHost: {{ site.sandbox_public_url }}
     configName: pmp-ui-config
     ingressPath: /pmp-ui
+      {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

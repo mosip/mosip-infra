@@ -31,3 +31,4 @@ services:
     healthUrl: /v1/datashare/actuator/health
     podconfig:
       {{ podconfig.datashare.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/datashare/actuator/prometheus

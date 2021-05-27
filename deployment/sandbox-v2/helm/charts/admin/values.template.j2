@@ -37,6 +37,7 @@ services:
     healthUrl: /v1/admin/actuator/health
     podconfig:
       {{ podconfig.admin.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/admin/actuator/prometheus
 
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}

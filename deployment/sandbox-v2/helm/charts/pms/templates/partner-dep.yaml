@@ -22,6 +22,10 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.partner.annotation }}
+        prometheus.io/port: {{ .Values.services.partner.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.partner.serviceName }} 
         component: {{ .Values.component }} 

@@ -20,6 +20,10 @@ spec:
       maxSurge: {{ .Values.services.mockabis.podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.mockabis.annotation }}
+        prometheus.io/port: {{ .Values.services.mockabis.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.mockabis.serviceName }} 
         component: {{ .Values.component }} 
