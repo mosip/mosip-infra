@@ -6,4 +6,6 @@ helm -n istio-system install istiod $ISTIO_BASE/manifests/charts/istio-control/i
 helm -n istio-system install istio-ingress $ISTIO_BASE/manifests/charts/gateways/istio-ingress -f override.yaml --wait
 kubectl apply -f proxy-protocol.yaml
 kubectl apply -f fowarded.yaml
+echo "Block swagger external access"
+kubectl apply -f authpolicies/swagger.yaml
 
