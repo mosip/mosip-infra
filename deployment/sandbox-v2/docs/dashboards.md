@@ -22,6 +22,7 @@ As part of sandbox installation a default dashboard is installed to view logs of
 * Recommended charts:
   * 11074 (for node level stats)
   * 4784 (for container level stats)
+  * 14430 (for container level spring boot endpoint stats)
 
 ## Admin
 
