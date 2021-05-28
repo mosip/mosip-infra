@@ -37,6 +37,8 @@ versions:
         'prereg-datasync-service': 'mosipqa/pre-registration-datasync-service:develop'
       captcha:
         'prereg-captcha-service': 'mosipqa/pre-registration-captcha-service:develop'
+      captcha:
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:develop'
       ui:
         'prereg-ui': 'mosipqa/pre-registration-ui:develop'
       
