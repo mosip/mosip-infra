@@ -38,3 +38,4 @@ services:
     healthUrl: /resident/v1/actuator/health
     podconfig: 
       {{ podconfig.resident.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /resident/v1/actuator/prometheus

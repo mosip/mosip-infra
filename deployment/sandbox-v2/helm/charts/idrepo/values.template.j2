@@ -41,6 +41,7 @@ services:
     healthUrl: /idrepository/v1/identity/actuator/health
     podconfig:
       {{ podconfig.idrepo.identity| to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idrepository/v1/identity/actuator/prometheus
 
   vid: 
     serviceName: {{ versions.services.idrepo.vid.keys()[0] }} 
@@ -52,6 +53,7 @@ services:
     healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
     podconfig:
       {{ podconfig.idrepo.vid | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /idrepository/v1/vid/actuator/prometheus
 
   credentialrequest:
     serviceName: {{ versions.services.idrepo.credentialreq.keys()[0] }}
@@ -63,6 +65,7 @@ services:
     healthUrl: /v1/credentialrequest/actuator/health
     podconfig:
       {{ podconfig.idrepo.credentialreq | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/credentialrequest/actuator/promatheus
 
   credentialservice:
     serviceName: {{ versions.services.idrepo.credentialservice.keys()[0] }}
@@ -74,6 +77,7 @@ services:
     healthUrl: /v1/credentialservice/actuator/health
     podconfig:
       {{ podconfig.idrepo.credentialservice | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/credentialservice/actuator/prometheus
 
 generators:
   salt:  
