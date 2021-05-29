@@ -1,7 +1,7 @@
 # MOSIP Deployment V3
 
 ## High level architecture
-![](docs/images/deployment_architecture.jpg)
+![](docs/images/deployment_architecture.png)
 
 ## Features
 * Single Kubernetes cluster MOSIP installation.
