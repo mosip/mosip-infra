@@ -63,6 +63,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'BIOMETRIC_READ'}
   - {realm_id: 'mosip', client_id: '', role_name: 'METADATA_READ'}
   - {realm_id: 'mosip', client_id: '', role_name: 'KEY_MAKER'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'PMS_ADMIN'}
 # Partner types' roles
   - {realm_id: 'mosip', client_id: '', role_name: 'AUTH_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'DEVICE_PROVIDER'}
@@ -419,6 +420,9 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-datsha-client', role_name: 'POLICYMANAGER'}
   - {realm_id: 'mosip', username: 'service-account-mosip-admin-client', role_name: 'MASTERDATA_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'REGISTRATION_PROCESSOR'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'CREATE_SHARE'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'PMS_USER'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'PMS_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'DATA_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'DOCUMENT_READ'}
