@@ -1,0 +1,5 @@
+lang_code,code,name,is_active
+eng,FR,Foreigner,True
+eng,NFR,Non-Foreigner,True
+fra,FR,Étranger,True
+fra,NFR,Non-étranger,True

@@ -1,0 +1,43 @@
+lang_code,code,name,hierarchy_level,hierarchy_level_name,hierarchy_path,parent_zone_code,is_active
+eng,MOR,MyCountry,0,Country,MOR,,True
+fra,MOR,Maroc,0,Pays,MOR,,True
+eng,NTH,North,1,Direction,MOR/NTH,MOR,True
+fra,NTH,Nord,1,Direction,MOR/NTH,MOR,True
+eng,RSK,RabatSaleKenitra,2,Region,MOR/NTH/RSK,NTH,True
+fra,RSK,Rabat-Salé-Kénitra,2,Région,MOR/NTH/RSK,NTH,True
+eng,RBT,Rabat,3,Province,MOR/NTH/RSK/RBT,RSK,True
+fra,RBT,Rabat,3,Province,MOR/NTH/RSK/RBT,RSK,True
+eng,KTA,Kenitra,3,Province,MOR/NTH/RSK/KTA,RSK,True
+fra,KTA,Kénitra,3,Province,MOR/NTH/RSK/KTA,RSK,True
+eng,SAL,Salé ,3,Province,MOR/NTH/RSK/SAL,RSK,True
+fra,SAL,Sala,3,Province,MOR/NTH/RSK/SAL,RSK,True
+eng,CST,Casablanca-Settat,2,Region,MOR/NTH/CST,NTH,True
+fra,CST,Casablanca-Settat,2,Région,MOR/NTH/CST,NTH,True
+eng,BSN,Benslimane,3,Province,MOR/NTH/CST/BSN,CST,True
+fra,BSN,Benslimane,3,Province,MOR/NTH/CST/BSN,CST,True
+eng,CSB,Casablanca,3,Province,MOR/NTH/CST/CSB,CST,True
+fra,CSB,Casablanca,3,Province,MOR/NTH/CST/CSB,CST,True
+eng,STT,Settat,3,Province,MOR/NTH/CST/STT,CST,True
+fra,STT,Settat,3,Province,MOR/NTH/CST/STT,CST,True
+eng,ORT,Oriental,2,Region,MOR/NTH/ORT,NTH,True
+fra,ORT,Oriental,2,Région,MOR/NTH/ORT,NTH,True
+eng,NDR,Nador,3,Province,MOR/NTH/ORT/NDR,ORT,True
+fra,NDR,Nador,3,Province,MOR/NTH/ORT/NDR,ORT,True
+eng,BRK,Berkane,3,Province,MOR/NTH/ORT/BRK,ORT,True
+fra,BRK,Berkane,3,Province,MOR/NTH/ORT/BRK,ORT,True
+eng,JRD,Jerada ,3,Province,MOR/NTH/ORT/JRD,ORT,True
+fra,JRD,Jerada ,3,Province,MOR/NTH/ORT/JRD,ORT,True
+eng,STH,South,1,Direction,MOR/STH,MOR,True
+fra,STH,Sud,1,Direction,MOR/STH,MOR,True
+eng,MRS,Marrakesh-Safi,2,Region,MOR/STH/MRS,STH,True
+fra,MRS,Marrakesh-Safi,2,Région,MOR/STH/MRS,STH,True
+eng,SAF,Safi ,3,Province,MOR/STH/MRS/SAF,MRS,True
+fra,SAF,Safi ,3,Province,MOR/STH/MRS/SAF,MRS,True
+eng,YSF,Youssoufia ,3,Province,MOR/STH/MRS/YSF,MRS,True
+fra,YSF,Youssoufia ,3,Province,MOR/STH/MRS/YSF,MRS,True
+eng,SOS,Souss-Massa,2,Region,MOR/STH/SOS,STH,True
+fra,SOS,Sus-Massa,2,Région,MOR/STH/SOS,STH,True
+eng,TTA,Tata ,3,Province,MOR/STH/SOS/TTA,SOS,True
+fra,TTA,Tata ,3,Province,MOR/STH/SOS/TTA,SOS,True
+eng,TZT,Tiznit,3,Province,MOR/STH/SOS/TZT,SOS,True
+fra,TZT,Tiznit,3,Province,MOR/STH/SOS/TZT,SOS,True

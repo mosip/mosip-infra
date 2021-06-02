@@ -1,0 +1,11 @@
+lang_code,code,name,descr,is_active
+eng,FRS,Finger Print Scanner,For scanning fingerprints,True
+fra,FRS,Scanner dempreintes digitales,Scannez les empreintes digitales,True
+eng,IRS,Iris Scanner,For scanning Iris,True
+fra,IRS,Scanner dIris,Pour scanner liris,True
+eng,CMR,Camera,For capturing photo,True
+fra,CMR,Caméra,Pour capturer une photo,True
+eng,SCN,Document Scanner,For scanning documents,True
+fra,SCN,Scanner de documents,Pour numériser des documents,True
+eng,PRT,Printer,For printing Documents,True
+fra,PRT,Imprimante,Pour imprimer des documents,True
