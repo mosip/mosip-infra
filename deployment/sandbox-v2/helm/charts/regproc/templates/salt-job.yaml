@@ -30,11 +30,11 @@ spec:
         - name: spring_config_url_env
           value: {{ .Values.configServerUrl }} 
         - name: salt_gen_table_name_env
-          value: {{ .Values.job.table }}
+          value: {{ .Values.job.salt.table }}
         - name: salt_gen_schema_name_env
-          value: {{ .Values.job.schema }}
+          value: {{ .Values.job.salt.schema }}
         - name: salt_gen_db_alias_env
-          value: {{ .Values.job.alias }}
+          value: {{ .Values.job.salt.alias }}
         - name: spring_config_name_env
-          value: {{ .Values.job.configName }}
+          value: {{ .Values.job.salt.configName }}
 
