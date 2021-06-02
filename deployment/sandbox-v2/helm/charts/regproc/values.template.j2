@@ -310,3 +310,13 @@ services:
     healthUrl: /registrationprocessor/v1/notification/actuator/health
     podconfig:
       {{ podconfig.regproc.notificationService | to_nice_yaml(indent=6) | indent(6) }}
+
+job:
+  salt:
+    serviceName: {{ versions.services.regproc.salt.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.salt.values()[0] }}
+    table: rid_encrypt_salt
+    schema: regproc
+    alias: mosip.regproc.db
+    configName: registration-processor
+

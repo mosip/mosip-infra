@@ -70,6 +70,9 @@ versions:
         'regproc-reprocessor-stage': 'mosipqa/registration-processor-reprocessor-stage:develop'
       notificationService: 
         'regproc-notification-service': 'mosipqa/registration-processor-notification-service:develop'
+      salt:
+        'regproc-salt-generator': 'mosipdev/kernel-salt-generator:develop'
+
 
     dmzregproc:  
       group1:

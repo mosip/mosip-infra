@@ -60,7 +60,7 @@ $ kubectl -n ingress-nginx get svc
 * Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html) 
 * Add the certificates and 443 access to the LB listener.
   * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.
-* Forward TLS->443 listner traffic to target group that corresponds to lisner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
+* Forward TLS->443 listner traffic to target group that corresponds to listner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
 * Set proxy protocol in LB targets. Without setting this your Keycloak will return "http://.." URLs instead of "https:// .."
   * Go to AWS "Target Groups" tabs
   * You should see one of your instances pointing to LB. Select the instance.
