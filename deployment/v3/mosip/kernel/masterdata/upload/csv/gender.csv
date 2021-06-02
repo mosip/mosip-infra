@@ -1,0 +1,7 @@
+lang_code,code,name,is_active
+eng,MLE,Male,True
+eng,FLE,Female,True
+eng,OTH,Others,False
+fra,MLE,Mâle,True
+fra,FLE,Femelle,True
+fra,OTH,Dautres,False

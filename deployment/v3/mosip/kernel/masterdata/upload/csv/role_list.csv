@@ -1,0 +1,5 @@
+lang_code,code,descr,is_active
+eng,SUPERADMIN,Superadmin,True
+eng,REGISTRATION_OFFICER,Registration Officer,True
+eng,REGISTRATION_SUPERVISOR,Supervisor,True
+eng,REGISTRATION_ADMIN,Registration Admin,True

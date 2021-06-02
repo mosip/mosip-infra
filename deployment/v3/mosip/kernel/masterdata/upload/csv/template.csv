@@ -1,0 +1,1566 @@
+lang_code,id,name,descr,file_format_code,model,file_txt,module_id,module_name,template_typ_code,is_active
+eng,1101,Template for authorization content,Template for authorization content,txt,,"Dear $name
+Your Authentication of $idvidType $idvid using $authType on $date at $time Hrs $status at a device deployed by MOSIP Services",10004,ID Authentication,auth-email-content,True
+eng,1102,Template for authorization subject,Template for authorization subject,txt,,$idvidType $idvid Authentication $status,10004,ID Authentication,auth-email-subject,True
+eng,1103,Template for authorization SMS,Template for authorization SMS,txt,,Your Authentication of $idvidType $idvid using $authType on $date at $time Hrs $status at a device deployed by MOSIP Services.,10004,ID Authentication,auth-sms,True
+fra,1101,Modèle de contenu dautorisation,Modèle de contenu dautorisation,txt,velocity,"Cher $name,
+Votre authentification $idvidType $idvid utilisant $authType le $date à $time Hrs $status sur un périphérique déployé par ""MOSIP Services""",10004,Authentification ID,auth-email-content,True
+fra,1102,Modèle pour sujet dautorisation,Modèle pour sujet dautorisation,txt,velocity,$idvidType $idvid: $status dauthentification,10004,Authentification ID,auth-email-subject,True
+fra,1103,Modèle de SMS dautorisation,Modèle de SMS dautorisation,txt,velocity,"Votre authentification $idvidType $idvid utilisant $authType le $date à $time Hrs $status sur un périphérique déployé par ""MOSIP Services"".",10004,Authentification ID,auth-sms,True
+eng,1107,Template for duplicate UIN Email,Template for duplicate UIN Email,txt,velocity,"Dear $!name_eng,
+
+Your request for UIN for Registration ID: $!RID has failed because a duplicate UIN has been found against your details. Please visit your nearest Registration office or visit https://mosip.io/grievances
+
+Thank You",10003,Registration Processor,RPR_DUP_UIN_EMAIL,True
+eng,1108,Template for duplicate UIN SMS,Template for duplicate UIN SMS,txt,velocity,"Dear $!name_eng,
+
+Your request for UIN for Registration ID: $!RID has failed because a duplicate UIN has been found against your details. Please visit your nearest Registration office or visit https://mosip.io/grievances",10003,Registration Processor,RPR_DUP_UIN_SMS,True
+eng,1109,Template for Technical Issue Email,Template for Technical Issue Email,txt,velocity,"Dear $!name_eng,
+
+Your request for UIN for Registration ID: $!RID has failed because of a technical issue. Please visit your nearest Registration office or visit https://mosip.io/grievances
+
+Thank You",10003,Registration Processor,RPR_TEC_ISSUE_EMAIL,True
+eng,1110,Template for Technical Issue SMS,Template for Technical Issue SMS,txt,velocity,"Dear $!name_eng,
+
+Your request for UIN for Registration ID: $!RID has failed because of a technical issue. Please visit your nearest Registration office or visit https://mosip.io/grievances",10003,Registration Processor,RPR_TEC_ISSUE_SMS,True
+eng,1111,Template for UIN generation Email,Template for UIN generation Email,txt,velocity,"Dear $name_eng,
+
+Your UIN for Registration ID: $!RID has been successfully generated and will reach soon at your postal address.
+
+Thank You",10003,Registration Processor,RPR_UIN_GEN_EMAIL,True
+eng,1112,Template for UIN generation SMS,Template for UIN generation SMS,txt,velocity,"Dear $name_eng,
+
+Your UIN for Registration ID: $!RID has been successfully generated and will reach soon at your postal address.",10003,Registration Processor,RPR_UIN_GEN_SMS,True
+eng,1113,Template for update details Email,Template for update details Email,txt,velocity,"Dear $!name_eng,
+
+Your UIN details for the Registration ID: $!RID have been updated and a physical copy of your UIN card will reach you soon at your postal address.
+
+Thank You",10003,Registration Processor,RPR_UIN_UPD_EMAIL,True
+eng,1114,Template for update Details SMS,Template for update Details SMS,txt,velocity,"Dear $!name_eng,
+
+Your UIN details for the Registration ID: $!RID have been updated and a physical copy of your UIN card will reach you soon at your postal address.",10003,Registration Processor,RPR_UIN_UPD_SMS,True
+fra,1107,Modèle de courrier didentité en double,Modèle de courrier didentité en double,txt,velocity,"Cher $!name_fra,
+
+Votre demande d'UIN pour l'ID d'enregistrement: $!RID a échoué car un duplicata d'UIN a été trouvé par rapport à vos informations. Veuillez vous rendre au bureau d’enregistrement le plus proche ou sur https://mosip.io/grievances
+
+Merci",10003,Processeur dinscription,RPR_DUP_UIN_EMAIL,True
+fra,1108,Modèle de message didentité en double,Modèle de message didentité en double,txt,velocity,"Cher $!name_fra,
+
+Votre demande d'UIN pour l'ID d'enregistrement: $!RID a échoué car un duplicata d'UIN a été trouvé par rapport à vos informations. Veuillez vous rendre au bureau d’enregistrement le plus proche ou sur https://mosip.io/grievances",10003,Processeur dinscription,RPR_DUP_UIN_SMS,True
+fra,1109,Modèle pour courrier électronique de problème technique,Modèle pour courrier électronique de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre demande d'UIN pour l'ID d'enregistrement: $!RID a échoué en raison d'un problème technique. Veuillez vous rendre au bureau d’enregistrement le plus proche ou sur https://mosip.io/grievances
+
+Merci",10003,Processeur dinscription,RPR_TEC_ISSUE_EMAIL,True
+fra,1110,Modèle de message de problème technique,Modèle de message de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre demande d'UIN pour l'ID d'enregistrement: $!RID a échoué en raison d'un problème technique. Veuillez vous rendre au bureau d’enregistrement le plus proche ou sur https://mosip.io/grievances",10003,Processeur dinscription,RPR_TEC_ISSUE_SMS,True
+fra,1111,Modèle de courrier électronique de génération didentité,Modèle de courrier électronique de génération didentité,txt,velocity,"Cher $!name_fra,
+
+Votre UIN pour ID d’enregistrement: $!RID a été généré avec succès et vous parviendra sous peu à votre adresse postale.
+
+Merci",10003,Processeur dinscription,RPR_UIN_GEN_EMAIL,True
+fra,1112,Modèle de message de génération didentité,Modèle de message de génération didentité,txt,velocity,"Cher $!name_fra,
+
+Votre UIN pour ID d’enregistrement: $!RID a été généré avec succès et vous parviendra sous peu à votre adresse postale.",10003,Processeur dinscription,RPR_UIN_GEN_SMS,True
+fra,1113,Modèle pour les détails de la mise à jour Email,Modèle pour les détails de la mise à jour Email,txt,velocity,"Cher $!name_fra,
+
+Les détails de votre UIN correspondant à l’ID d’enregistrement: $!RID ont été mis à jour. Une copie physique de votre UIN vous parviendra sous peu à votre adresse postale.
+
+Merci",10003,Processeur dinscription,RPR_UIN_UPD_EMAIL,True
+fra,1114,Modèle pour la mise à jour Détails Message,Modèle pour la mise à jour Détails Message,txt,velocity,"Cher $!name_fra,
+
+Les détails de votre UIN correspondant à l’ID d’enregistrement: $!RID ont été mis à jour. Une copie physique de votre UIN vous parviendra sous peu à votre adresse postale.",10003,Processeur dinscription,RPR_UIN_UPD_SMS,True
+eng,1115,Template for new registration Email Content,Template for new registration Email Content,txt,velocity,"Dear $name, 
+Thank you for registering with the digital identity platform. Your registration id is $RegistrationID. If there are any corrections to be made in your details, please contact the Registration centre within the next 4 days.",10002,Registration Client,NewReg-email-content-template,True
+eng,1116,Template for new registration Email Subject,Template for new registration Email Subject,txt,velocity,Registration confirmation,10002,Registration Client,NewReg-email-subject-template,True
+eng,1117,Template for new registration SMS,Template for new registration SMS,txt,velocity,"Dear $name,
+Thank you for registering with the digital identity platform. Your registration id is $RegistrationID. If there are any corrections to be made in your details, please contact the Registration centre within the next 4 days. ",10002,Registration Client,NewReg-sms-template,True
+eng,1118,Template for OTP generation Email Content,Template for OTP generation Email Content,txt,velocity,"Dear $name, 
+OTP for username $username is $otp and is valid for $validTime minutes (Generated on $date at $time hrs).",10002,Registration Client,OTP-email-content-template,True
+eng,1119,Template for OTP generation Email Subject,Template for OTP generation Email Subject,txt,velocity,One time password from digital identify platfor,10002,Registration Client,OTP-email-subject-template,True
+eng,1120,Template for OTP SMS,Template for OTP SMS,txt,velocity,"Dear $name, 
+OTP for username $username is $otp and is valid for $validTime minutes (Generated on $date at $time hrs).",10002,Registration Client,OTP-sms-template,True
+eng,1121,Template for update registration Email Content,Template for update registration Email Content,txt,velocity,"Dear $name, 
+Thank you for updating your details with the digital identity platform. Your registration id is $RegistrationID. If there are any corrections to be made in your details, please contact the Registration centre within the next 4 days.",10002,Registration Client,Update-email-content-template,True
+eng,1122,Template for update registration Email Subject,Template for update registration Email Subject,txt,velocity,Registration update confirmation,10002,Registration Client,Update-email-subject-template,True
+eng,1123,Template for update registration SMS,Template for update registration SMS,txt,velocity,"Dear $name, 
+Thank you for updating your details with the digital identity platform. Your registration id is $RegistrationID. If there are any corrections to be made in your details, please contact the Registration centre within the next 4 days.",10002,Registration Client,Update-sms-template,True
+fra,1115,Modèle pour nouvelle inscription Email Content,Modèle pour nouvelle inscription Email Content,txt,velocity,"Cher $name,
+Merci de vous être inscrit sur la plateforme d'identité numérique. Votre identifiant d'enregistrement est $RegistrationID. Si des corrections doivent être apportées à vos données, veuillez contacter le centre d’inscription dans les 4 prochains jours.",10002,Client dinscription,NewReg-email-content-template,True
+fra,1116,Modèle pour nouvelle inscription Objet de le-mail,Modèle pour nouvelle inscription Objet de le-mail,txt,velocity,Confirmation d'enregistrement,10002,Client dinscription,NewReg-email-subject-template,True
+fra,1117,Modèle de nouvelle inscription SMS,Modèle de nouvelle inscription SMS,txt,velocity,"Cher $name,
+Merci de vous être inscrit sur la plateforme d'identité numérique. Votre identifiant d'enregistrement est $RegistrationID. Si des corrections doivent être apportées à vos données, veuillez contacter le centre d’inscription dans les 4 prochains jours.",10002,Client dinscription,NewReg-sms-template,True
+fra,1118,Modèle de contenu de courrier électronique de génération dOTP,Modèle de contenu de courrier électronique de génération dOTP,txt,velocity,"Cher $name,
+OTP pour le nom d'utilisateur $username est $otp et est valide pour $validTime minutes (Généré le $date à $heure hrs).",10002,Client dinscription,OTP-email-content-template,True
+fra,1119,Modèle pour le sujet de-mail de génération dOTP,Modèle pour le sujet de-mail de génération dOTP,txt,velocity,Mot de passe unique de la plateforme d'identification numérique,10002,Client dinscription,OTP-email-subject-template,True
+fra,1120,Modèle pour SMS OTP,Modèle pour SMS OTP,txt,velocity,"Cher $name,
+OTP pour le nom d'utilisateur $username est $otp et est valide pour $validTime minutes (Généré le $date à $heure hrs).",10002,Client dinscription,OTP-sms-template,True
+fra,1121,Modèle pour lenregistrement de la mise à jour,Modèle pour lenregistrement de la mise à jour,txt,velocity,"Cher $name,
+Merci de mettre à jour vos coordonnées avec la plateforme d’identité numérique. Votre identifiant d'enregistrement est $RegistrationID. Si des corrections doivent être apportées à vos données, veuillez contacter le centre d’inscription dans les 4 prochains jours.",10002,Client dinscription,Update-email-content-template,True
+fra,1122,Modèle denregistrement de mise à jour Objet de le-mail,Modèle denregistrement de mise à jour Objet de le-mail,txt,velocity,Confirmation de la mise à jour de l'inscription,10002,Client dinscription,Update-email-subject-template,True
+fra,1123,Modèle pour SMS denregistrement de mise à jour,Modèle pour SMS denregistrement de mise à jour,txt,velocity,"Merci de mettre à jour vos coordonnées avec la plateforme d’identité numérique. Votre identifiant d'enregistrement est $RegistrationID. Si des corrections doivent être apportées à vos données, veuillez contacter le centre d’inscription dans les 4 prochains jours.",10002,Client dinscription,Update-sms-template,True
+eng,1124,Template for Email Acknowledgement,Template for Email Acknowledgement,txt,velocity,"Dear $name,
+Your Pre-Registration for UIN is Completed Successfully
+on $Date at $Time. Your ID is #$PRID.
+Appointment is scheduled for $Appointmentdate at $Appointmenttime.
+you will also receive the details on your registered Mobile Number",10001,Pre-Registration,Email-Acknowledgement,True
+eng,1125,Template for Onscreen Acknowledgment,Template for Onscreen Acknowledgment,txt,velocity,"1. Guideline 1
+2. Guideline 2
+3. Guideline 3
+4. Guideline 4
+5. Guideline 5
+6. Guideline 6
+7. Guideline 7
+8. Guideline 8
+9. Guideline 9
+10. Guideline 10
+",10001,Pre-Registration,Onscreen-Acknowledgement,True
+eng,1126,Template for OTP Email Content,Template for OTP Email Content,txt,velocity,"Dear $name,
+TP for Pre-Registration  $PRID is $otp and is valid for $validTime minutes. (Generated on $date at $time Hrs)",10001,Pre-Registration,otp-email-content-template,True
+eng,1127,Template for OTP Email Subject,Template for OTP Email Subject,txt,velocity,Pre-Registration $PRID: OTP Request,10001,Pre-Registration,otp-email-subject-template,True
+eng,1128,Template for OTP SMS,Template for OTP SMS,txt,velocity,OTP for Pre-Registration  $PRID is $otp and is valid for $validTime minutes. (Generated on $date at $time Hrs),10001,Pre-Registration,otp-sms-template,True
+eng,1129,Template for SMS Acknowledgement,Template for SMS Acknowledgement,txt,velocity,"Your Pre-Registration for UIN is Completed Successfully
+on $Date at $Time. Your ID is #$PRID.
+Appointment is scheduled for $Appointmentdate at $Appointmenttime.
+you will also receive the details on your registered email address",10001,Pre-Registration,SMS-Acknowledgement,True
+fra,1124,Template for email confirmation,Template for email confirmation,txt,velocity,"Cher $name, 
+votre pré-inscription à l'UIN est terminée avec succès sur $Date à $Time. Votre ID est # $PRID.
+Le rendez-vous est prévu pour $Appointmentdate à $Appointmenttime.
+vous recevrez également les détails sur votre numéro de mobile enregistré",10001,Pré-inscription,Email-Acknowledgement,True
+fra,1125,On-screen recognition template,On-screen recognition template,txt,velocity,"1. Ligne directrice 1
+2. Ligne directrice 2
+3. Ligne directrice 3
+4. Ligne directrice 4
+5. Ligne directrice 5
+6. Ligne directrice 6
+7. Ligne directrice 7
+8. Ligne directrice 8
+9. Ligne directrice 9
+10. Ligne directrice 10",10001,Pré-inscription,Onscreen-Acknowledgement,True
+fra,1126,OTP Email Content Template,OTP Email Content Template,txt,velocity,"Cher $name, 
+OTP pour Pre-Registration $PRID est $otp et est valide pour $validTime minutes. (Généré le $date à $time Hrs)",10001,Pré-inscription,otp-email-content-template,True
+fra,1127,Template for OTP email subject,Template for OTP email subject,txt,velocity,Pre-Registration $PRID: Requête OTP,10001,Pré-inscription,otp-email-subject-template,True
+fra,1128,Template for OTP SMS,Template for OTP SMS,txt,velocity,OTP pour Pre-Registration $PRID est $otp et est valide pour $validTime minutes. (Généré le $date à $time Hrs),10001,Pré-inscription,otp-sms-template,True
+fra,1129,Template for SMS Acknowledgment,Template for SMS Acknowledgment,txt,velocity,"Votre pré-inscription pour UIN est terminée avec succès sur $Date à $Time. 
+Votre ID est # $PRID.
+Le rendez-vous est prévu pour $Appointmentdate à $Appointmenttime.
+vous recevrez également les détails sur votre adresse email enregistrée",10001,Pré-inscription,SMS-Acknowledgement,True
+eng,1130,Template for email subject of Acknowledgement,Template for email subject of Acknowledgement,txt,velocity,Pre-Registration $PRID: Acknowledgement ,10001,Pre-Registration,Acknowledgement-email-subject,True
+fra,1130,Modèle pour le sujet d'email d'accusé de réception,Modèle pour le sujet d'email d'accusé de réception,txt,velocity,Pré-inscription $PRID: accusé de réception ,10001,Pré-inscription,Acknowledgement-email-subject,True
+eng,1131,UIN card template,UIN card template,html,velocity,"<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=""utf-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1"">
+	<title>UIN Card</title>
+<style>
+.main-table {
+	margin-left: 60px;;
+	width: 600px;
+	height: 350px;
+	border: 1px solid black;
+}
+.cir {
+	display: inline-block;
+	border-radius: 60px;
+	box-shadow: 0px 0px 2px #000000;
+	padding: 0.5em 0.6em;
+}
+.name-head-color {
+	color: black;
+}
+.head-title {
+	margin-left: -85px;
+}
+.bar-code-padding {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.top-buffer {
+	margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+<table class=""main-table"">
+<tr>
+<td>&nbsp;
+<div class=""cir""><font size=""1"">Logo</font></div>
+</td>
+<td><label class=""name-head-color""><font size=""5""class="" head-title""> &nbsp;&nbsp; Kingdom of MyCountry &nbsp;&nbsp;&nbsp; </font>
+</label></td>
+<td rowspan=""4"">
+<div>
+<div style=""border: solid black 1px; height: 150px; width: 120px;"">
+<img src = $!ApplicantPhoto style=""width: 120px; height: 150px"">
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>UIN&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!UIN </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Name&nbsp;:&nbsp;</b></label> 
+<span class=""name-color""> $!fullName_eng</span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>اسم&nbsp;:&nbsp;</b></label> 
+<span>$!fullName_ara</span>
+</div>
+</td>
+</tr>
+
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>DOB/تاريخ&nbsp;:&nbsp;</b></label>
+<span>$!dateOfBirth</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""2"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Gender&nbsp;:&nbsp;</b></label> <span>$!gender_eng</span>
+&nbsp;&nbsp; <label class=""name-head-color""><b>جنس&nbsp;:&nbsp;</b></label>
+<span>$!gender_ara</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""3"">
+<div class=""row"" style=""margin-right: 0px; margin-left: -10px;"">
+<div class=""col-md-2 top-buffer"">
+<div class=""block top-buffer"">
+<table>
+<tr>
+<td><label class=""name-head-color""><b>Address&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_eng, $!addressLine2_eng,
+		$!addressLine3_eng, $!region_eng, $!province_eng, $!city_eng,
+		$!postalCode </span></td>
+</tr>
+<tr>
+<td><label class=""name-head-color""><b>عنوان&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_ara, $!addressLine2_ara,
+		$!addressLine3_ara, $!region_ara, $!province_ara, $!city_ara,
+		$!postalCode </span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div>&nbsp;</div>
+<table class=""main-table"" style=""height: 300px"">
+<tr>
+<td>
+<div style=""margin-left: 10px; margin-right: 10px; border: solid black 1px; height: 250px; width: 250px;"">
+<div class=""col-md-6"">
+<div class=""bar-code-padding""></div>
+<img src=$!QrCode style=""width: 250px; height: 250px; margin-top: -20px"">
+</div>
+</div>
+</td>
+<td>
+<div class=""name-head-color col-md-6"">
+<br> For any issues please contact us at<br>
+<br> Registration Proccessor,Hanging Gardens,Global Village
+Tech Park, Mysore Rd,RVCE,Bengaluru, Karnataka 560059<br>
+<br> لأية مشاكل يرجى الاتصال بنا على <br>التسجيل المعالج،
+الحدائق المعلقة ، القرية العالمية Tech Park, Mysore Rd,RVCE 560059
+بنغالورو، كارناتاكا <br>
+<br>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>",10003,Registration Processor,RPR_UIN_CARD_TEMPLATE,True
+fra,1131,Modèle de carte UIN,Modèle de carte UIN,html,velocity,"<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=""utf-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1"">
+	<title>UIN Card</title>
+<style>
+.main-table {
+	margin-left: 60px;;
+	width: 600px;
+	height: 350px;
+	border: 1px solid black;
+}
+.cir {
+	display: inline-block;
+	border-radius: 60px;
+	box-shadow: 0px 0px 2px #000000;
+	padding: 0.5em 0.6em;
+}
+.name-head-color {
+	color: black;
+}
+.head-title {
+	margin-left: -85px;
+}
+.bar-code-padding {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.top-buffer {
+	margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+<table class=""main-table"">
+<tr>
+<td>&nbsp;
+<div class=""cir""><font size=""1"">Logo</font></div>
+</td>
+<td><label class=""name-head-color""><font size=""5""class="" head-title""> &nbsp;&nbsp; Kingdom of MyCountry &nbsp;&nbsp;&nbsp; </font>
+</label></td>
+<td rowspan=""4"">
+<div>
+<div style=""border: solid black 1px; height: 150px; width: 120px;"">
+<img src = $!ApplicantPhoto style=""width: 120px; height: 150px"">
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>UIN&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!UIN </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Prénom&nbsp;:&nbsp;</b></label> 
+<span class=""name-color""> $!fullName_fra</span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>اسم&nbsp;:&nbsp;</b></label> 
+<span>$!fullName_ara</span>
+</div>
+</td>
+</tr>
+
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Rendez-vous amoureux/تاريخ&nbsp;:&nbsp;</b></label>
+<span>$!dateOfBirth</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""2"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Le sexe&nbsp;:&nbsp;</b></label> <span>$!gender_fra</span>
+&nbsp;&nbsp; <label class=""name-head-color""><b>جنس&nbsp;:&nbsp;</b></label>
+<span>$!gender_ara</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""3"">
+<div class=""row"" style=""margin-right: 0px; margin-left: -10px;"">
+<div class=""col-md-2 top-buffer"">
+<div class=""block top-buffer"">
+<table>
+<tr>
+<td><label class=""name-head-color""><b>Adresse&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_fra, $!addressLine2_fra,
+		$!addressLine3_fra, $!region_fra, $!province_fra, $!city_fra,
+		$!postalCode </span></td>
+</tr>
+<tr>
+<td><label class=""name-head-color""><b>عنوان&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_ara, $!addressLine2_ara,
+		$!addressLine3_ara, $!region_ara, $!province_ara, $!city_ara,
+		$!postalCode </span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div>&nbsp;</div>
+<table class=""main-table"" style=""height: 300px"">
+<tr>
+<td>
+<div style=""margin-left: 10px; margin-right: 10px; border: solid black 1px; height: 250px; width: 250px;"">
+<div class=""col-md-6"">
+<div class=""bar-code-padding""></div>
+<img src=$!QrCode style=""width: 250px; height: 250px; margin-top: -20px"">
+</div>
+</div>
+</td>
+<td>
+<div class=""name-head-color col-md-6"">
+<br> Pour toute question s'il vous plaît contactez-nous au<br>
+<br> Inscription Processor, Hanging Gardens, Global Village
+Parc technologique, Mysore Rd, RVCE, Bangalore, Karnataka 560059<br>
+<br> لأية مشاكل يرجى الاتصال بنا على <br>التسجيل المعالج،
+الحدائق المعلقة ، القرية العالمية Tech Park, Mysore Rd,RVCE 560059
+بنغالورو، كارناتاكا <br>
+<br>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>",10003,Processeur dinscription,RPR_UIN_CARD_TEMPLATE,True
+eng,1132,Template for UIN Deactivation SMS,Template for UIN Deactivation SMS,txt,velocity,"Dear $!name_eng,
+
+Your UIN has been de-activated. 
+If you have any conserns please visit the nearest Registration Center.",10003,Registration Processor,RPR_UIN_DEAC_SMS,True
+fra,1132,Modèle pour courrier électronique de problème technique,Modèle pour courrier électronique de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre UIN a été désactivé.
+Si vous avez des intérêts, veuillez vous rendre au centre d’enregistrement le plus proche.",10003,Processeur dinscription,RPR_UIN_DEAC_SMS,True
+eng,1133,Template for UIN Deactivation Email,Template for UIN Deactivation Email,txt,velocity,"Dear $!name_eng,
+
+Your UIN has been de-activated. 
+If you have any conserns please visit the nearest Registration Center.
+
+Thank You",10003,Registration Processor,RPR_UIN_DEAC_EMAIL,True
+fra,1133,Modèle pour courrier électronique de problème technique,Modèle pour courrier électronique de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre UIN a été désactivé.
+Si vous avez des intérêts, veuillez vous rendre au centre d’enregistrement le plus proche.
+
+Merci",10003,Processeur dinscription,RPR_UIN_DEAC_EMAIL,True
+eng,1134,Template for UIN Reactivate SMS,Template for UIN Reactivate SMS,txt,velocity,"Dear $!name_eng,
+
+Your UIN has been re-activated. 
+If you have any conserns please visit the nearest Registration Center.",10003,Registration Processor,RPR_UIN_REAC_SMS,True
+fra,1134,Modèle pour courrier électronique de problème technique,Modèle pour courrier électronique de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre UIN a été réactivé.
+Si vous avez des intérêts, veuillez vous rendre au centre d’enregistrement le plus proche.",10003,Processeur dinscription,RPR_UIN_REAC_SMS,True
+eng,1135,Template for UIN Reactivate Email,Template for UIN Reactivate Email,txt,velocity,"Dear $!name_eng,
+
+Your UIN has been re-activated. 
+If you have any conserns please visit the nearest Registration Center.
+
+Thank You",10003,Registration Processor,RPR_UIN_REAC_EMAIL,True
+fra,1135,Modèle pour courrier électronique de problème technique,Modèle pour courrier électronique de problème technique,txt,velocity,"Cher $!name_fra,
+
+Votre UIN a été réactivé.
+Si vous avez des intérêts, veuillez vous rendre au centre d’enregistrement le plus proche.
+
+Merci",10003,Processeur dinscription,RPR_UIN_REAC_EMAIL,True
+eng,1136,Acknowledgement SMS Template,Registration Acknowledgement Template,txt,velocity,"Dear ${FULLNAME},
+Thank you for registering with Digital Identity platform . Your registration id is """"${RID}"""". The demographic details are as follows:
+1. Date: ${Date}
+2. Full Name: ${FULLNAME}
+3. Date of Birth: ${DOB}
+4. Gender: ${GENDER}
+5. Address Line 1: ${ADDRESSLINE1}
+6. Address Line 2: ${ADDRESSLINE2}
+7. Address Line 3: ${ADDRESSLINE3}
+8. Region: ${REGION}
+9. City: ${CITY}
+10. Province: ${PROVINCE}
+11. Postal Code: ${POSTALCODE}
+12. Mobile Number: ${PHONE}
+13. Email: ${EMAIL}",10005,Registration,reg-sms-notification,True
+fra,1136,Modèle SMS de reconnaissance,Modèle de confirmation dinscription,txt,velocity,"Cher ${FULLNAME},
+Merci de vous être inscrit sur la plateforme d'identité numérique. Votre identifiant d'enregistrement est """" ${RID} """". Les détails démographiques sont les suivants:
+1. Date : ${Date}
+2. Nom complet: ${FULLNAME}
+3. Date de naissance: ${DOB}
+4. Sexe: ${GENDER}
+5. Adresse ligne 1: ${ADDRESSLINE1}
+6. Adresse Ligne 2: ${ADDRESSLINE2}
+7. Adresse ligne 3: ${ADDRESSLINE3}
+8. Région: ${REGION}
+9. Ville: ${CITY}
+10. Province: ${PROVINCE}
+11. Code postal: ${POSTALCODE}
+12. Numéro de mobile: ${PHONE}
+13. Email: ${EMAIL}",10005,Inscription,reg-sms-notification,True
+eng,1137,Acknowledgement Email Template,Registration Acknowledgement Template,txt,velocity,"Dear ${FULLNAME},
+Thank you for registering with Digital Identity platform . Your registration id is """"${RID}"""". The demographic details are as follows:
+1. Date: ${Date}
+2. Full Name: ${FULLNAME}
+3. Date of Birth: ${DOB}
+4. Gender: ${GENDER}
+5. Address Line 1: ${ADDRESSLINE1}
+6. Address Line 2: ${ADDRESSLINE2}
+7. Address Line 3: ${ADDRESSLINE3}
+8. Region: ${REGION}
+9. City: ${CITY}
+10. Province: ${PROVINCE}
+11. Postal Code: ${POSTALCODE}
+12. Mobile Number: ${PHONE}
+13. Email: ${EMAIL}",10005,Registration,reg-email-notification,True
+fra,1137,Modèle de courrier électronique daccusé de réception,Modèle de confirmation d inscription,txt,velocity,"Cher ${FULLNAME},
+Merci de vous être inscrit sur la plateforme d'identité numérique. Votre identifiant d'enregistrement est """" ${RID} """". Les détails démographiques sont les suivants:
+1. Date : ${Date}
+2. Nom complet: ${FULLNAME}
+3. Date de naissance: ${DOB}
+4. Sexe: ${GENDER}
+5. Adresse ligne 1: ${ADDRESSLINE1}
+6. Adresse Ligne 2: ${ADDRESSLINE2}
+7. Adresse ligne 3: ${ADDRESSLINE3}
+8. Région: ${REGION}
+9. Ville: ${CITY}
+10. Province: ${PROVINCE}
+11. Code postal: ${POSTALCODE}
+12. Numéro de mobile: ${PHONE}
+13. Email: ${EMAIL}",10005,Inscription,reg-email-notification,True
+eng ,preregistration,otp service,OTP Send Service,txt,velocity,Please find the OTP $otp,10001,Pre-Registration,otp-sms-template,True
+eng ,ida,otp service,OTP Send Service,txt,velocity,Please find the OTP $otp,10002,login,otp-sms-template,True
+eng ,registrationprocessor,otp service,OTP Send Service,txt,velocity,Please find the OTP $!otp,10003,login,otp-sms-template,True
+eng ,registrationclient,otp service,OTP Send Service,txt,velocity,Please find the OTP $otp,10004,ID Authentication,otp-sms-template,True
+eng,1142,auth otp service,auth otp service for sending otp,txt,velocity,Please find the otp $otp,10001,Pre-Registration,auth-otp-sms-template,True
+fra,1142,auth otp service,auth otp service for sending otp,txt,velocity,Please find the otp $otp,10001,Pré-inscription,auth-otp-sms-template,True
+eng,1143,auth otp email service subject,auth otp email service subject,txt,velocity,Otp message,10001,Pre-Registration,auth-otp-email-subject-template,True
+fra,1143,auth otp email service subject,auth otp email service subject,txt,velocity,Otp message,10001,Pré-inscription,auth-otp-email-subject-template,True
+eng,1144,auth otp email service subject,auth otp email service subject,txt,velocity,Please find the otp $otp,10001,Pre-Registration,auth-otp-email-content-template,True
+fra,1144,auth otp email service subject,auth otp email service subject,txt,velocity,Please find the otp $otp,10001,Pré-inscription,auth-otp-email-content-template,True
+fra,1145,Service d'authentification OTP,auth otp service for sending otp,txt,velocity,Sil vous plaît trouver le otp $otp,10002,Client dinscription,auth-otp-sms-template,True
+eng,1145,auth otp service,auth otp service for sending otp,txt,velocity,Please find the otp $otp,10002,Registration Client,auth-otp-sms-template,True
+fra,1146,auth otp email service subject,auth otp email service subject,txt,velocity,Message Otp,10002,Client dinscription,auth-otp-email-subject-template,True
+eng,1146,auth otp email service subject,auth otp email service subject,txt,velocity,Otp message,10002,Registration Client,auth-otp-email-subject-template,True
+eng,1147,auth otp email service subject,auth otp email service subject,txt,velocity,Please find the otp $otp,10002,Registration Client,auth-otp-email-content-template,True
+fra,1147,auth otp email service subject,auth otp email service subject,txt,velocity,Sil vous plaît trouver le otp $otp,10002,Client dinscription,auth-otp-email-content-template,True
+fra,1148,auth otp service,auth otp service for sending otp,txt,velocity,Sil vous plaît trouver le otp $otp,10004,Authentification ID,auth-otp-sms-template,True
+eng,1148,auth otp service,auth otp service for sending otp,txt,velocity,Please find the otp $otp,10004,ID Authentication,auth-otp-sms-template,True
+fra,1149,auth otp email service subject,auth otp email service subject,txt,velocity,Message Otp,10004,Authentification ID,auth-otp-email-subject-template,True
+eng,1149,auth otp email service subject,auth otp email service subject,txt,velocity,Otp message,10004,ID Authentication,auth-otp-email-subject-template,True
+eng,1150,auth otp email service subject,auth otp email service subject,txt,velocity,Please find the otp $otp,10004,ID Authentication,auth-otp-email-content-template,True
+fra,1150,auth otp email service subject,auth otp email service subject,txt,velocity,Sil vous plaît trouver le otp $otp,10004,Authentification ID,auth-otp-email-content-template,True
+eng,1151,Template for Email Content,Template for Email Content,txt,velocity,"Dear $name
+OTP for $idvidType  $idvid is $otp and is valid for $validTime minutes. (Generated on $date at $time Hrs)",10004,ID Authentication,ida-auth-otp-email-content-template,True
+fra,1151,Modèle de contenu de courrier électronique,Modèle de contenu de courrier électronique,txt,velocity,"Cher $name,
+OTP pour $idvidType $idvid est $otp et est valide pour $validTime minutes. (Généré le $date à $time Hrs)",10004,Authentification ID,ida-auth-otp-email-content-template,True
+eng,1152,Template for Email Subject,Template for Email Subject,txt,velocity,$idvidType $idvid: OTP Request,10004,ID Authentication,ida-auth-otp-email-subject-template,True
+fra,1152,Modèle pour sujet demail,Modèle pour sujet demail,txt,velocity,$idvidType $idvid: Requête OTP,10004,Authentification ID,ida-auth-otp-email-subject-template,True
+eng,1153,Template for OTP in SMS ,Template for OTP in SMS ,txt,velocity,OTP for $idvidType  $idvid is $otp and is valid for $validTime minutes. (Generated on $date at $time Hrs),10004,ID Authentication,ida-auth-otp-sms-template,True
+fra,1153,Modèle pour OTP dans SMS,Modèle pour OTP dans SMS,txt,velocity,OTP pour $idvidType $idvid est $otp et est valide pour $validTime minutes. (Généré le $date à $time Hrs),10004,Authentification ID,ida-auth-otp-sms-template,True
+eng ,1154,Consent,Consent,txt,velocity,"I understand that the data collected about me during pre-registration by the said authority includes my -  
+•                     Name
+•                     Date of birth
+•                     Gender
+•                     Address
+•                     Contact details
+•                     Documents
+I also understand that this information will be stored and processed for the purpose of verifying my identity in order to access various services, or to comply with a legal obligation. I give my consent for the collection of this data for this purpose.",10001,Pre-Registration,consent,True
+fra,1154,Consentement,Consentement,txt,velocity,"Je comprends que les données recueillies à mon sujet lors de la pré-enregistrèrent par ladite autorité comprennent mon -
+•                     nom
+•                     Date de naissance
+•                     genre
+•                     adresse
+•                     coordonnées
+•                     Documents
+Je comprends également que ces informations seront stockées et traitées dans le but de vérifier mon identité afin d'accéder à divers services, ou de se conformer à une obligation légale. Je donne mon consentement pour la collecte de ces données à cette fin.",10001,Pré-inscription,consent,True
+eng,1155,Acknowledgement Email Template,Registration Acknowledgement Template,txt,velocity,"Dear ${ResidentName}, Thank you for updating your details with Digital Identity platform. Your registration id is ""${RID}"".",10005,Registration,updateUIN-email-notification,True
+fra,1155,Modèle d'email de reconnaissance,Modèle de confirmation d'inscription,txt,velocity,"Dear ${ResidentName}, Merci de mettre à jour vos coordonnées avec la plateforme d’identité numérique. Votre identifiant d'inscription est ""${RID}"".",10005,Inscription,updateUIN-email-notification,True
+eng,1156,Acknowledgement SMS Template,Registration Acknowledgement Template,txt,velocity,"Dear ${ResidentName}, Thank you for updating your details with Digital Identity platform. Your registration id is ""${RID}"".",10005,Registration,updateUIN-sms-notification,True
+fra,1156,Modèle de SMS de reconnaissance,Modèle de confirmation d'inscription,txt,velocity,"Dear ${ResidentName}, Merci de mettre à jour vos coordonnées avec la plateforme d’identité numérique. Votre identifiant d'inscription est ""${RID}"".",10005,Inscription,updateUIN-sms-notification,True
+eng,1157,Acknowledgement Email Template,Registration Acknowledgement Template,txt,velocity,"Dear user, Thank you for your request to retrieve your lost UIN. Your registration id for this request is  ""${RID}"".",10005,Registration,lostUIN-email-notification,True
+fra,1157,Modèle d'email de reconnaissance,Modèle de confirmation d'inscription,txt,velocity,"Cher utilisateur, Merci pour votre demande de récupération de votre UIN perdu. Votre identifiant d'enregistrement pour cette demande est  ""${RID}"".",10005,Inscription,lostUIN-email-notification,True
+eng,1158,Acknowledgement SMS Template,Registration Acknowledgement Template,txt,velocity,"Dear user, Thank you for your request to retrieve your lost UIN. Your registration id for this request is  ""${RID}"".",10005,Registration,lostUIN-sms-notification,True
+fra,1158,Modèle de SMS de reconnaissance,Modèle de confirmation d'inscription,txt,velocity,"Cher utilisateur, Merci pour votre demande de récupération de votre UIN perdu. Votre identifiant d'enregistrement pour cette demande est  ""${RID}"".",10005,Inscription,lostUIN-sms-notification,True
+eng,1159,Template for Cancel Appointment,Template for Cancel Appointment,txt,velocity,"Dear $name,
+
+Your appointment for pre-registration id, $PRID and appointment date and time, $Appointmentdate $Appointmenttime has been canceled due to a government emergency/holiday. Please re-book another slot for Registration.
+
+Thanks",10001,Pre-Registration,cancel-appointment,True
+fra,1159,Modèle pour annuler un rendez-vous,Modèle pour annuler un rendez-vous,txt,velocity,"Cher $name,
+
+Votre rendez-vous pour l'ID de pré-inscription, $PRID et la date et l'heure du rendez-vous, $Appointmentdate $Appointmenttime a été annulé en raison d'une urgence / d'un jour férié pour les autorités. Veuillez réserver à nouveau un autre créneau pour l'enregistrement.
+
+Merci",10001,Pré-inscription,cancel-appointment,True
+eng,1160,Lost UIN Notification SMS,Lost UIN Notification SMS,txt,velocity,"Dear $name_eng,
+
+Your UIN is Found. You will receive your UIN Card soon at your Postal Address.",10003,Registration Processor,RPR_LOST_UIN_SMS,True
+fra,1160,SMS de notification UIN perdu,SMS de notification UIN perdu,txt,velocity,"Cher $!name_fr+F180a,
+
+Votre UIN est trouvé. Vous recevrez bientôt votre carte UIN à votre adresse postale.",10003,Processeur dinscription,RPR_LOST_UIN_SMS,True
+eng,1161,Lost UIN Notification Email,Lost UIN Notification Email,txt,velocity,"Dear $name_eng,
+
+Your UIN is Found. You will receive your UIN Card soon at your Postal Address.
+
+Thank You",10003,Registration Processor,RPR_LOST_UIN_EMAIL,True
+fra,1161,Email de notification UIN perdu,Email de notification UIN perdu,txt,velocity,"Cher $!name_fra,
+
+Votre UIN est trouvé. Vous recevrez bientôt votre carte UIN à votre adresse postale.
+
+Merci",10003,Processeur dinscription,RPR_LOST_UIN_EMAIL,True
+eng,1162,Masked UIN card template,Masked UIN card template,txt,velocity,"<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=""utf-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1"">
+	<title>Masked UIN Card</title>
+<style>
+.main-table {
+	margin-left: 60px;;
+	width: 600px;
+	height: 350px;
+	border: 1px solid black;
+}
+.cir {
+	display: inline-block;
+	border-radius: 60px;
+	box-shadow: 0px 0px 2px #000000;
+	padding: 0.5em 0.6em;
+}
+.name-head-color {
+	color: black;
+}
+.head-title {
+	margin-left: -85px;
+}
+
+.bar-code-padding {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.top-buffer {
+	margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+<table class=""main-table"">
+<tr>
+<td>&nbsp;
+<div class=""cir"">
+<font size=""1"">Logo</font>
+</div>
+</td>
+<td><label class=""name-head-color""> <font size=""5"" class="" head-title""> &nbsp;&nbsp; Kingdom of MyCountry&nbsp;&nbsp;&nbsp; </font>
+</label></td>
+<td rowspan=""4"">
+<div>
+<div style=""border: solid black 1px; height: 150px; width: 120px;"">
+<img src = $!ApplicantPhoto style=""width: 120px; height: 150px"">
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>UIN&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!UIN </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>VID&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!VID </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Name&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!fullName_eng</span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>اسم&nbsp;:&nbsp;</b></label> <span> $!fullName_ara</span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Date/تاريخ&nbsp;:&nbsp;</b></label>
+<span>$!dateOfBirth</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""2"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Gender&nbsp;:&nbsp;</b></label> <span>$!gender_eng</span>
+&nbsp;&nbsp; <label class=""name-head-color""><b>جنس&nbsp;:&nbsp;</b></label>
+<span>$!gender_ara</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""3"">
+<div class=""row"" style=""margin-right: 0px; margin-left: -10px;"">
+<div class=""col-md-2 top-buffer"">
+<div class=""block top-buffer"">
+<table>
+<tr>
+<td><label class=""name-head-color""><b>Address&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_eng, $!addressLine2_eng,
+$!addressLine3_eng, $!region_eng, $!province_eng, $!city_eng,
+$!postalCode </span></td>
+</tr>
+<tr>
+<td><label class=""name-head-color""><b>عنوان&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_ara, $!addressLine2_ara, $!addressLine3_ara, $!region_ara, $!province_ara, $!city_ara, $!postalCode </span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div>&nbsp;</div>
+<table class=""main-table"" style=""height: 300px"">
+<tr>
+<td>
+<div style=""margin-left: 10px; margin-right: 10px; border: solid black 1px; height: 250px; width: 250px;"">
+<div class=""col-md-6"">
+<div class=""bar-code-padding""></div>
+<img src=$!QrCode style=""width: 250px; height: 250px; margin-top: -20px"">
+</div>
+</div>
+</td>
+<td>
+<div class=""name-head-color col-md-6"">
+<br> For any issues please contact us at<br>
+<br> Registration Proccessor,Hanging Gardens,Global Village
+Tech Park, Mysore Rd,RVCE,Bengaluru, Karnataka 560059<br>
+<br> لأية مشاكل يرجى الاتصال بنا على <br>التسجيل المعالج،
+الحدائق المعلقة ، القرية العالمية Tech Park, Mysore Rd,RVCE 560059
+بنغالورو، كارناتاكا <br>
+<br>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>",10003,Registration Processor,RPR_MASKED_UIN_CARD_TEMPLATE,True
+fra,1162,Modèle de carte Masked UIN,Modèle de carte Masked UIN,txt,velocity,"<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=""utf-8"">
+	<meta name=""viewport"" content=""width=device-width, initial-scale=1"">
+	<title>Masked UIN Card</title>
+<style>
+.main-table {
+	margin-left: 60px;;
+	width: 600px;
+	height: 350px;
+	border: 1px solid black;
+}
+.cir {
+	display: inline-block;
+	border-radius: 60px;
+	box-shadow: 0px 0px 2px #000000;
+	padding: 0.5em 0.6em;
+}
+.name-head-color {
+	color: black;
+}
+.head-title {
+	margin-left: -85px;
+}
+.bar-code-padding {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.top-buffer {
+	margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+<table class=""main-table"">
+<tr>
+<td>&nbsp;
+<div class=""cir""><font size=""1"">Logo</font></div>
+</td>
+<td><label class=""name-head-color""><font size=""5""class="" head-title""> &nbsp;&nbsp; Kingdom of MyCountry &nbsp;&nbsp;&nbsp; </font>
+</label></td>
+<td rowspan=""4"">
+<div>
+<div style=""border: solid black 1px; height: 150px; width: 120px;"">
+<img src = $!ApplicantPhoto style=""width: 120px; height: 150px"">
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>UIN&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!UIN </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>VID&nbsp;:&nbsp;</b></label> <span class=""name-color""> $!VID </span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Prénom&nbsp;:&nbsp;</b></label> 
+<span class=""name-color""> $!fullName_fra</span>
+</div>
+</td>
+</tr>
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>اسم&nbsp;:&nbsp;</b></label> 
+<span>$!fullName_ara</span>
+</div>
+</td>
+</tr>
+
+<tr>
+<td rowspan=""1"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Rendez-vous amoureux/تاريخ&nbsp;:&nbsp;</b></label>
+<span>$!dateOfBirth</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""2"">
+<div class=""block top-buffer"">
+<label class=""name-head-color""><b>Le sexe&nbsp;:&nbsp;</b></label> <span>$!gender_eng</span>
+&nbsp;&nbsp; <label class=""name-head-color""><b>جنس&nbsp;:&nbsp;</b></label>
+<span>$!gender_ara</span>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan=""3"">
+<div class=""row"" style=""margin-right: 0px; margin-left: -10px;"">
+<div class=""col-md-2 top-buffer"">
+<div class=""block top-buffer"">
+<table>
+<tr>
+<td><label class=""name-head-color""><b>Adresse&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_eng, $!addressLine2_eng,
+		$!addressLine3_eng, $!region_eng, $!province_eng, $!city_eng,
+		$!postalCode </span></td>
+</tr>
+<tr>
+<td><label class=""name-head-color""><b>عنوان&nbsp;:&nbsp;</b></label>
+</td>
+<td><span>$!addressLine1_ara, $!addressLine2_ara,
+		$!addressLine3_ara, $!region_ara, $!province_ara, $!city_ara,
+		$!postalCode </span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div>&nbsp;</div>
+<table class=""main-table"" style=""height: 300px"">
+<tr>
+<td>
+<div style=""margin-left: 10px; margin-right: 10px; border: solid black 1px; height: 250px; width: 250px;"">
+<div class=""col-md-6"">
+<div class=""bar-code-padding""></div>
+<img src=$!QrCode style=""width: 250px; height: 250px; margin-top: -20px"">
+</div>
+</div>
+</td>
+<td>
+<div class=""name-head-color col-md-6"">
+<br> Pour toute question s'il vous plaît contactez-nous au<br>
+<br> Inscription Processor, Hanging Gardens, Global Village
+Parc technologique, Mysore Rd, RVCE, Bangalore, Karnataka 560059<br>
+<br> لأية مشاكل يرجى الاتصال بنا على <br>التسجيل المعالج،
+الحدائق المعلقة ، القرية العالمية Tech Park, Mysore Rd,RVCE 560059
+بنغالورو، كارناتاكا <br>
+<br>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>",10003,Processeur dinscription,RPR_MASKED_UIN_CARD_TEMPLATE,True
+eng,1163,Authentication History Request Success Email,Authentication History Request Success Email,txt,velocity,"Hi $fullName_eng,
+
+Your Request for Authentication History has been processed successfully.
+
+Thank You!",10006,Resident Services,RS_AUTH_HIST_SUCCESS_EMAIL,True
+fra,1163,E-mail de réussite de la demande d'historique d'authentification,E-mail de réussite de la demande d'historique d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande d'historique d'authentification a été traitée avec succès.
+
+Merci!",10006,Resident Services,RS_AUTH_HIST_SUCCESS_EMAIL,True
+eng,1164,Authentication History Request Success SMS,Authentication History Request Success SMS,txt,velocity,"Hi $fullName_eng,
+
+Your Request for Authentication History has been processed successfully.
+
+Thank You!",10006,Resident Services,RS_AUTH_HIST_SUCCESS_SMS,True
+fra,1164,Historique de l'authentification des services résidents SMS de transcation,SMS de réussite de la demande d'historique d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande d'historique d'authentification a été traitée avec succès.
+
+Merci!",10006,Resident Services,RS_AUTH_HIST_SUCCESS_SMS,True
+eng,1165,Authentication History Request Success EMAIL Subject,Authentication History Request Success EMAIL Subject,txt,velocity,Authentication History Request Success,10006,Resident Services,RS_AUTH_HIST_SUCCESS_EMAIL_SUB,True
+fra,1165,Succès EMAIL de la demande d'historique d'authentification,Succès EMAIL de la demande d'historique d'authentification,txt,velocity,Demande d'historique d'authentification,10006,Resident Services,RS_AUTH_HIST_SUCCESS_EMAIL_SUB,True
+eng,1166,Successful Download of e-UIN Email,Successful Download of e-UIN Email,txt,velocity,"Hi $fullName_eng,
+
+Congratulations your request is processed. The request for downloading your e-UIN is Successful.
+
+Thank You!",10006,Resident Services,RS_DOW_UIN_SUCCESS_EMAIL,True
+fra,1166,Téléchargement réussi du courriel e-UIN,Téléchargement réussi du courriel e-UIN,txt,velocity,"Bonjour $fullName_fra,
+
+Félicitations, votre demande est traitée. La demande de téléchargement de votre e-UIN a abouti.
+
+Merci!",10006,Resident Services,RS_DOW_UIN_SUCCESS_EMAIL,True
+eng,1167,Successful Download of e-UIN Email Subject,Download e-UIN Status Email Subject,txt,velocity,Download e-UIN is Successful,10006,Resident Services,RS_DOW_UIN_SUCCESS_EMAIL_SUB,True
+fra,1167,Téléchargement réussi de l'objet de l'e-UIN,Téléchargement réussi de l'objet de l'e-UIN,txt,velocity,Télécharger e-UIN est réussi,10006,Resident Services,RS_DOW_UIN_SUCCESS_EMAIL_SUB,True
+eng,1168,Successful Download of e-UIN SMS,Successful Download of e-UIN SMS,txt,velocity,"Hi $fullName_eng,
+
+Congratulations your request is processed. The request for downloading your e-UIN is Successful.
+
+Thank You!",10006,Resident Services,RS_DOW_UIN_SUCCESS_SMS,True
+fra,1168,Téléchargement réussi de l'e-UIN SMS,Téléchargement réussi de l'e-UIN SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Félicitations, votre demande est traitée. La demande de téléchargement de votre e-UIN a abouti.
+
+Merci!",10006,Resident Services,RS_DOW_UIN_SUCCESS_SMS,True
+eng,1169,Successful Locking of Auth Types Email,Successful Locking of Auth Types Email,txt,velocity,"Hi $fullName_eng,
+
+Your requested AUTH type(s) have been locked successfully.
+
+Thank You!",10006,Resident Services,RS_LOCK_AUTH_SUCCESS_EMAIL,True
+fra,1169,Verrouillage réussi des e-mails des types d'authentification,Verrouillage réussi des e-mails des types d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Le ou les types AUTH que vous avez demandés ont été verrouillés avec succès.
+
+Merci!",10006,Resident Services,RS_LOCK_AUTH_SUCCESS_EMAIL,True
+eng,1170,Successful Locking of Auth Types Email Subject,Successful Locking of Auth Types Email Subject,txt,velocity,Successfully Locked the AUTH Type(s),10006,Resident Services,RS_LOCK_AUTH_SUCCESS_EMAIL_SUB,True
+fra,1170,Succès du verrouillage des types d'authentification,Succès du verrouillage des types d'authentification,txt,velocity,Le ou les types AUTH ont été verrouillés avec succès,10006,Resident Services,RS_LOCK_AUTH_SUCCESS_EMAIL_SUB,True
+eng,1171,Successful Locking of Auth Types SMS,Successful Locking of Auth Types SMS,txt,velocity,"Hi $fullName_eng,
+
+Your requested AUTH type(s) have been locked successfully.
+
+Thank You!",10006,Resident Services,RS_LOCK_AUTH_SUCCESS_SMS,True
+fra,1171,Verrouillage réussi des types d'authentification SMS,Verrouillage réussi des types d'authentification SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Le ou les types AUTH que vous avez demandés ont été verrouillés avec succès.
+
+Merci!",10006,Resident Services,RS_LOCK_AUTH_SUCCESS_SMS,True
+eng,1172,Successful Unlocking of Auth Types Email,Successful Unlocking of Auth Types Email,txt,velocity,"Hi $fullName_eng,
+
+Your requested AUTH type(s) have been unlocked successfully.
+
+Thank You!",10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_EMAIL,True
+fra,1172,Déverrouillage réussi des types d'authentification,Déverrouillage réussi des types d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Le ou les types AUTH demandés ont été déverrouillés avec succès.
+
+Merci!",10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_EMAIL,True
+eng,1173,Successful Unlocking of Auth Types Email Subject,Successful Unlocking of Auth Types Email Subject,txt,velocity,Successfully Unlocked the AUTH Type(s),10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_EMAIL_SUB,True
+fra,1173,Déverrouillage réussi des types d'authentification Objet de l'e-mail,Déverrouillage réussi des types d'authentification Objet de l'e-mail,txt,velocity,Déverrouillé avec succès le (s) type (s) AUTH,10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_EMAIL_SUB,True
+eng,1174,Successful Unlocking of Auth Types SMS,Successful Unlocking of Auth Types SMS,txt,velocity,"Hi $fullName_eng,
+
+Your requested AUTH type(s) have been unlocked successfully.
+
+Thank You!",10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_SMS,True
+fra,1174,Déverrouillage réussi des types d'authentification SMS,Déverrouillage réussi des types d'authentification SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Le ou les types AUTH demandés ont été déverrouillés avec succès.
+
+Merci!",10006,Resident Services,RS_UNLOCK_AUTH_SUCCESS_SMS,True
+eng,1175,VID Generation Success Email,VID Generation Success Email,txt,velocity,"Hi $fullName_eng,
+
+Your VID for your UIN has been successfully generated. Your VID number is $VID.
+
+Thank You!",10006,Resident Services,RS_VIN_GEN_SUCCESS_EMAIL,True
+fra,1175,E-mail de réussite de la génération VID,E-mail de réussite de la génération VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre VID pour votre UIN a été généré avec succès. Votre numéro VID est $VID.
+
+Merci!",10006,Resident Services,RS_VIN_GEN_SUCCESS_EMAIL,True
+eng,1176,VID Generation Success Email Subject,VID Generation Success Email Subject,txt,velocity,Successful Generation of VID,10006,Resident Services,RS_VIN_GEN_SUCCESS_EMAIL_SUB,True
+fra,1176,Sujet de l'e-mail de réussite de la génération VID,Sujet de l'e-mail de réussite de la génération VID,txt,velocity,Génération réussie de VID,10006,Resident Services,RS_VIN_GEN_SUCCESS_EMAIL_SUB,True
+eng,1177,VID Generation Success SMS,VID Generation Success SMS,txt,velocity,"Hi $fullName_eng,
+
+Your VID for your UIN has been successfully generated. Your VID number is $VID.
+
+Thank You!",10006,Resident Services,RS_VIN_GEN_SUCCESS_SMS,True
+fra,1177,SMS de réussite de génération VID,SMS de réussite de génération VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre VID pour votre UIN a été généré avec succès. Votre numéro VID est $VID.
+
+Merci!",10006,Resident Services,RS_VIN_GEN_SUCCESS_SMS,True
+eng,1178,VID Revocation Success Email,VID Revocation Success Email,txt,velocity,"Hi $fullName_eng,
+
+Your $VID has been successfully revoked.
+
+Thank You!",10006,Resident Services,RS_VIN_REV_SUCCESS_EMAIL,True
+fra,1178,E-mail de réussite de la révocation de VID,E-mail de réussite de la révocation de VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre $VID a bien été révoqué.
+
+Merci!",10006,Resident Services,RS_VIN_REV_SUCCESS_EMAIL,True
+eng,1179,VID Revocation Success Email Subject,VID Revocation Success Email Subject,txt,velocity,Successful Revocation of VID,10006,Resident Services,RS_VIN_REV_SUCCESS_EMAIL_SUB,True
+fra,1179,Sujet de l'e-mail de réussite de la révocation de VID,Sujet de l'e-mail de réussite de la révocation de VID,txt,velocity,Révocation réussie de VID,10006,Resident Services,RS_VIN_REV_SUCCESS_EMAIL_SUB,True
+eng,1180,VID Revocation Success SMS,VID Revocation Success SMS,txt,velocity,"Hi $fullName_eng,
+
+Your $VID has been successfully revoked.
+
+Thank You!",10006,Resident Services,RS_VIN_REV_SUCCESS_SMS,True
+fra,1180,SMS de succès de révocation VID,SMS de succès de révocation VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre $VID a bien été révoqué.
+
+Merci!",10006,Resident Services,RS_VIN_REV_SUCCESS_SMS,True
+eng,1181,Reprint Request Success Email,Reprint Request Success Email,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""Reprint Of UIN"" has been successfully placed. Your RID (Req Number) is $RID.
+
+Thank You!",10006,Resident Services,RS_UIN_RPR_SUCCESS_EMAIL,True
+fra,1181,Réimpression de l'e-mail de réussite de la demande,Réimpression de l'e-mail de réussite de la demande,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de ""Réimpression d'UIN"" a été placée avec succès. Votre RID (numéro de demande) est $RID.
+
+Merci!",10006,Resident Services,RS_UIN_RPR_SUCCESS_EMAIL,True
+eng,1182,Reprint Request Success Email Subject,Reprint Request Success Email Subject,txt,velocity,Reprint Request Successful,10006,Resident Services,RS_UIN_RPR_SUCCESS_EMAIL_SUB,True
+fra,1182,Sujet de l'e-mail de demande de réimpression réussie,Sujet de l'e-mail de demande de réimpression réussie,txt,velocity,Réimpression de la demande réussie,10006,Resident Services,RS_UIN_RPR_SUCCESS_EMAIL_SUB,True
+eng,1183,Reprint Request Success SMS,Reprint Request Success SMS,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""Reprint Of UIN"" has been successfully placed. Your RID (Req Number) is $RID.
+
+Thank You!",10006,Resident Services,RS_UIN_RPR_SUCCESS_SMS,True
+fra,1183,Réimpression SMS de réussite de la demande,Réimpression SMS de réussite de la demande,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de ""Réimpression d'UIN"" a été placée avec succès. Votre RID (numéro de demande) est $RID.
+
+Merci!",10006,Resident Services,RS_UIN_RPR_SUCCESS_SMS,True
+eng,1184,Authentication History Request Failure Email,Authentication History Request Failure Email,txt,velocity,"Hi $fullName_eng,
+
+Your Request to fetch your Authentication History details has failed.
+
+Thank You!",10006,Resident Services,RS_AUTH_HIST_FAILURE_EMAIL,True
+fra,1184,E-mail d'échec de la demande d'historique d'authentification,E-mail d'échec de la demande d'historique d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de récupération des détails de votre historique d'authentification a échoué.
+
+Merci!",10006,Resident Services,RS_AUTH_HIST_FAILURE_EMAIL,True
+eng,1185,Authentication History Request Failure Email Subject,Authentication History Request Failure Email Subject,txt,velocity,Authentication History Request Failure,10006,Resident Services,RS_AUTH_HIST_FAILURE_EMAIL_SUB,True
+fra,1185,Objet de l'e-mail d'échec de la demande d'historique d'authentification,Objet de l'e-mail d'échec de la demande d'historique d'authentification,txt,velocity,Échec de la demande d'historique d'authentification,10006,Resident Services,RS_AUTH_HIST_FAILURE_EMAIL_SUB,True
+eng,1186,Authentication History Request Failure SMS,Authentication History Request Failure SMS,txt,velocity,"Hi $fullName_eng,
+
+Your Request for Authentication History has failed.
+
+Thank You!",10006,Resident Services,RS_AUTH_HIST_FAILURE_SMS,True
+fra,1186,SMS d'échec de la demande d'historique d'authentification,SMS d'échec de la demande d'historique d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de récupération des détails de votre historique d'authentification a échoué.
+
+Merci!",10006,Resident Services,RS_AUTH_HIST_FAILURE_SMS,True
+eng,1187,Download e-UIN Failure Email,Download e-UIN Failure Email,txt,velocity,"Hi $fullName_eng,
+
+Your request for downloading your e-UIN has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_DOW_UIN_FAILURE_EMAIL,True
+fra,1187,Télécharger l'e-mail d'échec e-UIN,Télécharger l'e-mail d'échec e-UIN,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de téléchargement de votre e-UIN a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_DOW_UIN_FAILURE_EMAIL,True
+eng,1188,Download e-UIN Failure Email Subject,Download e-UIN Failure Email Subject,txt,velocity,Download e-UIN Failure,10006,Resident Services,RS_DOW_UIN_FAILURE_EMAIL_SUB,True
+fra,1188,Télécharger le sujet de l'e-mail d'échec e-UIN,Télécharger le sujet de l'e-mail d'échec e-UIN,txt,velocity,Échec du téléchargement de l'e-UIN,10006,Resident Services,RS_DOW_UIN_FAILURE_EMAIL_SUB,True
+eng,1189,Download e-UIN Failure SMS,Download e-UIN Failure SMS,txt,velocity,"Hi $fullName_eng,
+
+Your request for downloading your e-UIN has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_DOW_UIN_FAILURE_SMS,True
+fra,1189,Télécharger le SMS d'échec e-UIN,Télécharger le SMS d'échec e-UIN,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de téléchargement de votre e-UIN a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_DOW_UIN_FAILURE_SMS,True
+eng,1190,Failure in Locking of Auth Types Email,Failure in Locking of Auth Types Email,txt,velocity,"Hi $fullName_eng,
+
+Your requested for Locking AUTH type(s) has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_LOCK_AUTH_FAILURE_EMAIL,True
+fra,1190,Échec du verrouillage des e-mails des types d'authentification,Échec du verrouillage des e-mails des types d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre ou vos types de verrouillage AUTH demandés ont échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_LOCK_AUTH_FAILURE_EMAIL,True
+eng,1191,Failure in Locking of Auth Types Email Subject,Failure in Locking of Auth Types Email Subject,txt,velocity,Locking of AUTH Type(s) Failed,10006,Resident Services,RS_LOCK_AUTH_FAILURE_EMAIL_SUB,True
+fra,1191,Échec du verrouillage des types d'authentification Objet de l'e-mail,Échec du verrouillage des types d'authentification Objet de l'e-mail,txt,velocity,Échec du verrouillage du ou des types AUTH,10006,Resident Services,RS_LOCK_AUTH_FAILURE_EMAIL_SUB,True
+eng,1192,Failure in Locking of Auth Types SMS,Failure in Locking of Auth Types SMS,txt,velocity,"Hi $fullName_eng,
+
+Your requested for Locking AUTH type(s) has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_LOCK_AUTH_FAILURE_SMS,True
+fra,1192,Échec du verrouillage des types d'authentification SMS,Échec du verrouillage des types d'authentification SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Votre ou vos types de verrouillage AUTH demandés ont échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_LOCK_AUTH_FAILURE_SMS,True
+eng,1193,Reprint Request Failure Email,Reprint Request Failure Email,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""Reprint of UIN Card"" has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UIN_RPR_FAILURE_EMAIL,True
+fra,1193,E-mail d'échec de la demande de réimpression,E-mail d'échec de la demande de réimpression,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de «réimpression de la carte UIN» a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UIN_RPR_FAILURE_EMAIL,True
+eng,1194,Reprint Request Failure Email Subject,Reprint Request Failure Email Subject,txt,velocity,Reprint Request Failure,10006,Resident Services,RS_UIN_RPR_FAILURE_EMAIL_SUB,True
+fra,1194,Échec de la demande de réimpression Objet de l'e-mail,Échec de la demande de réimpression Objet de l'e-mail,txt,velocity,Échec de la demande de réimpression,10006,Resident Services,RS_UIN_RPR_FAILURE_EMAIL_SUB,True
+eng,1195,Reprint Request Failure SMS,Reprint Request Failure SMS,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""Reprint of UIN Card"" has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UIN_RPR_FAILURE_SMS,True
+fra,1195,SMS d'échec de la demande de réimpression,SMS d'échec de la demande de réimpression,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de «réimpression de la carte UIN» a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UIN_RPR_FAILURE_SMS,True
+eng,1196,Failure in Unlocking of Auth Types Email,Failure in Unlocking of Auth Types Email,txt,velocity,"Hi $fullName_eng,
+
+Your requested for unlocking AUTH type(s) has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_EMAIL,True
+fra,1196,Échec du déverrouillage de la messagerie électronique des types d'authentification,Échec du déverrouillage de la messagerie électronique des types d'authentification,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de déverrouillage de type (s) AUTH a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_EMAIL,True
+eng,1197,Failure in Unlocking of Auth Types Email Subject,Failure in Unlocking of Auth Types Email Subject,txt,velocity,Unlocking of AUTH Type(s) Failed,10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_EMAIL_SUB,True
+fra,1197,Échec du déverrouillage du sujet de l'e-mail des types d'authentification,Échec du déverrouillage du sujet de l'e-mail des types d'authentification,txt,velocity,Le déverrouillage du ou des types AUTH a échoué,10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_EMAIL_SUB,True
+eng,1198,Failure in Unlocking of Auth Types SMS,Failure in Unlocking of Auth Types SMS,txt,velocity,"Hi $fullName_eng,
+
+Your requested for unlocking AUTH type(s) has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_SMS,True
+fra,1198,Échec de déverrouillage des types d'authentification SMS,Échec de déverrouillage des types d'authentification SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de déverrouillage de type (s) AUTH a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UNLOCK_AUTH_FAILURE_SMS,True
+eng,1199,VID Generation Failure Email,VID Generation Failure Email,txt,velocity,"Hi $fullName_eng,
+
+VID generation for your UIN failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_VIN_GEN_FAILURE_EMAIL,True
+fra,1199,E-mail d'échec de génération de VID,E-mail d'échec de génération de VID,txt,velocity,"Bonjour $fullName_fra,
+
+La génération de VID pour votre UIN a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_VIN_GEN_FAILURE_EMAIL,True
+eng,1200,VID Generation Failure Email Subject,VID Generation Failure Email Subject,txt,velocity,VID Generation Failure,10006,Resident Services,RS_VIN_GEN_FAILURE_EMAIL_SUB,True
+fra,1200,Objet de l'e-mail d'échec de génération de VID,Objet de l'e-mail d'échec de génération de VID,txt,velocity,Échec de génération de VID,10006,Resident Services,RS_VIN_GEN_FAILURE_EMAIL_SUB,True
+eng,1201,VID Generation Failure SMS,VID Generation Failure SMS,txt,velocity,"Hi $fullName_eng,
+
+VID generation for your UIN failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_VIN_GEN_FAILURE_SMS,True
+fra,1201,SMS d'échec de génération de VID,SMS d'échec de génération de VID,txt,velocity,"Bonjour $fullName_fra,
+
+La génération de VID pour votre UIN a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_VIN_GEN_FAILURE_SMS,True
+eng,1202,VID Revocation Failure Email,VID Revocation Failure Email,txt,velocity,"Hi $fullName_eng,
+
+Your $VID revokation has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_VIN_REV_FAILURE_EMAIL,True
+fra,1202,E-mail d'échec de révocation de VID,E-mail d'échec de révocation de VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre révocation de $VID a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_VIN_REV_FAILURE_EMAIL,True
+eng,1203,VID Revocation Failure Email Subject,VID Revocation Failure Email Subject,txt,velocity,VID Revokation Failure,10006,Resident Services,RS_VIN_REV_FAILURE_EMAIL_SUB,True
+fra,1203,Objet de l'e-mail d'échec de la révocation du VID,Objet de l'e-mail d'échec de la révocation du VID,txt,velocity,Échec de révocation de VID,10006,Resident Services,RS_VIN_REV_FAILURE_EMAIL_SUB,True
+eng,1204,VID Revocation Failure SMS,VID Revocation Failure SMS,txt,velocity,"Hi $fullName_eng,
+
+Your $VID revokation has failed. Please try again later.
+
+Thank You!",10006,Resident Services,RS_VIN_REV_FAILURE_SMS,True
+fra,1204,SMS d'échec de révocation de VID,SMS d'échec de révocation de VID,txt,velocity,"Bonjour $fullName_fra,
+
+Votre révocation de $VID a échoué. Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_VIN_REV_FAILURE_SMS,True
+eng,1205,UIN Update Request Placed Successfully Email,UIN Update Request Placed Successfully Email,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""UIN Update"" has been successfully placed. Your RID (Req Number) is $RID for tracking.
+
+Thank You!",10006,Resident Services,RS_UIN_UPDATE_SUCCESS_EMAIL,True
+fra,1205,E-mail de demande de mise à jour UIN placé avec succès,E-mail de demande de mise à jour UIN placé avec succès,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de «mise à jour UIN» a été envoyée avec succès. Votre RID (numéro de demande) est $RID pour le suivi.
+
+Merci!",10006,Resident Services,RS_UIN_UPDATE_SUCCESS_EMAIL,True
+eng,1206,UIN Update Request Placed Successfully Email Subject,UIN Update Request Placed Successfully Email Subject,txt,velocity,UIN Update Request Placed Successfully,10006,Resident Services,RS_UIN_UPDATE_SUCCESS_EMAIL_SUB,True
+fra,1206,Sujet de la demande de mise à jour UIN placé avec succès,Sujet de la demande de mise à jour UIN placé avec succès,txt,velocity,Demande de mise à jour UIN placée avec succès,10006,Resident Services,RS_UIN_UPDATE_SUCCESS_EMAIL_SUB,True
+eng,1207,UIN Update Request Placed Successfully SMS,UIN Update Request Placed Successfully SMS,txt,velocity,"Hi $fullName_eng,
+
+Your request for ""UIN Update"" has been successfully placed. Your RID (Req Number) is $RID for tracking.
+
+Thank You!",10006,Resident Services,RS_UIN_UPDATE_SUCCESS_SMS,True
+fra,1207,Demande de mise à jour UIN placée avec succès SMS,Demande de mise à jour UIN placée avec succès SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Votre demande de «mise à jour UIN» a été envoyée avec succès. Votre RID (numéro de demande) est $RID pour le suivi.
+
+Merci!",10006,Resident Services,RS_UIN_UPDATE_SUCCESS_SMS,True
+eng,1208,UIN Update Request Failed Email,UIN Update Request Failed Email,txt,velocity,"Hi $fullName_eng,
+
+We were unable to process your ""UIN Update"" request. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UIN_UPDATE_FAILURE_EMAIL,True
+fra,1208,E-mail d'échec de la demande de mise à jour UIN,E-mail d'échec de la demande de mise à jour UIN,txt,velocity,"Bonjour $fullName_fra,
+
+Nous n'avons pas pu traiter votre demande de «mise à jour UIN». Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UIN_UPDATE_FAILURE_EMAIL,True
+eng,1209,UIN Update Request Failed Email Subject,UIN Update Request Failed Email Subject,txt,velocity,UIN Update Request Failed,10006,Resident Services,RS_UIN_UPDATE_FAILURE_EMAIL_SUB,True
+fra,1209,Échec de la demande de mise à jour de l'UIN,Échec de la demande de mise à jour de l'UIN,txt,velocity,Échec de la demande de mise à jour UIN,10006,Resident Services,RS_UIN_UPDATE_FAILURE_EMAIL_SUB,True
+eng,1210,UIN Update Request Failed SMS,UIN Update Request Failed SMS,txt,velocity,"Hi $fullName_eng,
+
+We were unable to process your ""UIN Update"" request. Please try again later.
+
+Thank You!",10006,Resident Services,RS_UIN_UPDATE_FAILURE_SMS,True
+fra,1210,Echec de la demande de mise à jour UIN SMS,Echec de la demande de mise à jour UIN SMS,txt,velocity,"Bonjour $fullName_fra,
+
+Nous n'avons pas pu traiter votre demande de «mise à jour UIN». Veuillez réessayer plus tard.
+
+Merci!",10006,Resident Services,RS_UIN_UPDATE_FAILURE_SMS,True
+eng,1211,Registration Packet Validation Success Email,Registration Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for registration against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_RPV_SUC_EMAIL,True
+fra,1211,Registration Packet Validation Success Email,Registration Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande d'inscription contre le RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_RPV_SUC_EMAIL,True
+eng,1212,Registration Packet Validation Success SMS,Registration Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for registration against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_RPV_SUC_SMS,True
+fra,1212,Registration Packet Validation Success SMS,Registration Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande d'inscription contre le RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_RPV_SUC_SMS,True
+eng,1213,Update Packet Validation Success Email,Update Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for updating your details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_UPV_SUC_EMAIL,True
+fra,1213,Update Packet Validation Success Email,Update Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de mise à jour de vos coordonnées par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_UPV_SUC_EMAIL,True
+eng,1214,Update Packet Validation Success SMS,Update Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for updating your details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_UPV_SUC_SMS,True
+fra,1214,Update Packet Validation Success SMS,Update Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de mise à jour de vos coordonnées par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_UPV_SUC_SMS,True
+eng,1215,Lost Packet Validation Success Email,Lost Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for finding your UIN details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_LPV_SUC_EMAIL,True
+fra,1215,Lost Packet Validation Success Email,Lost Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de recherche des détails de votre UIN par rapport au RID: $RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_LPV_SUC_EMAIL,True
+eng,1216,Lost Packet Validation Success SMS,Lost Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for finding your UIN details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_LPV_SUC_SMS,True
+fra,1216,Lost Packet Validation Success SMS,Lost Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de recherche des détails de votre UIN par rapport au RID: $RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_LPV_SUC_SMS,True
+eng,1217,Resident Update Packet Validation Success Email,Resident Update Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for updating your details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_RUPV_SUC_EMAIL,True
+fra,1217,Resident Update Packet Validation Success Email,Resident Update Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de mise à jour de vos coordonnées par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_RUPV_SUC_EMAIL,True
+eng,1218,Resident Update Packet Validation Success SMS,Resident Update Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for updating your details against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_RUPV_SUC_SMS,True
+fra,1218,Resident Update Packet Validation Success SMS,Resident Update Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de mise à jour de vos coordonnées par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_RUPV_SUC_SMS,True
+eng,1219,Re-print Packet Validation Success Email,Re-print Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for re-printing your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_PPV_SUC_EMAIL,True
+fra,1219,Re-print Packet Validation Success Email,Re-print Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de réimpression de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_PPV_SUC_EMAIL,True
+eng,1220,Re-print Packet Validation Success SMS,Re-print Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for re-printing your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_PPV_SUC_SMS,True
+fra,1220,Re-print Packet Validation Success SMS,Re-print Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de réimpression de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_PPV_SUC_SMS,True
+eng,1221,Activate Packet Validation Success Email,Activate Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for activating your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_APV_SUC_EMAIL,True
+fra,1221,Activate Packet Validation Success Email,Activate Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande d'activation de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_APV_SUC_EMAIL,True
+eng,1222,Activate Packet Validation Success SMS,Activate Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for activating your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_APV_SUC_SMS,True
+fra,1222,Activate Packet Validation Success SMS,Activate Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande d'activation de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_APV_SUC_SMS,True
+eng,1223,De-activate Packet Validation Success Email,De-activate Packet Validation Success Email,txt,velocity,"Hi $!name_eng,
+
+We have received your request for de-activating your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_DPV_SUC_EMAIL,True
+fra,1223,De-activate Packet Validation Success Email,De-activate Packet Validation Success Email,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de désactivation de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_DPV_SUC_EMAIL,True
+eng,1224,De-activate Packet Validation Success SMS,De-activate Packet Validation Success SMS,txt,velocity,"Hi $!name_eng,
+
+We have received your request for de-activating your UIN against the RID: $!RID. 
+This request is under processing.
+
+Thank You",10003,Registration Processor,RPR_DPV_SUC_SMS,True
+fra,1224,De-activate Packet Validation Success SMS,De-activate Packet Validation Success SMS,txt,velocity,"Bonjour $!name_fra,
+
+Nous avons reçu votre demande de désactivation de votre UIN par rapport au RID: $!RID.
+Cette demande est en cours de traitement.
+
+Merci",10003,Registration Processor,RPR_DPV_SUC_SMS,True
+eng,1225,Registration Packet Validation Success Email Sub,Registration Packet Validation Success Email Sub,txt,velocity,Registration Confirmation,10003,Registration Processor,RPR_RPV_SUC_EMAIL_SUB,True
+fra,1225,Registration Packet Validation Success Email Sub,Registration Packet Validation Success Email Sub,txt,velocity,confirmation d'enregistrement,10003,Registration Processor,RPR_RPV_SUC_EMAIL_SUB,True
+eng,1226,Update Packet Validation Success Email Sub,Update Packet Validation Success Email Sub,txt,velocity,Update Request Confirmation,10003,Registration Processor,RPR_UPV_SUC_EMAIL_SUB,True
+fra,1226,Update Packet Validation Success Email Sub,Update Packet Validation Success Email Sub,txt,velocity,Confirmation de la demande de mise à jour,10003,Registration Processor,RPR_UPV_SUC_EMAIL_SUB,True
+eng,1227,Lost Packet Validation Success Email Sub,Lost Packet Validation Success Email Sub,txt,velocity,Lost Request Confirmation,10003,Registration Processor,RPR_LPV_SUC_EMAIL_SUB,True
+fra,1227,Lost Packet Validation Success Email Sub,Lost Packet Validation Success Email Sub,txt,velocity,Confirmation de demande perdue,10003,Registration Processor,RPR_LPV_SUC_EMAIL_SUB,True
+eng,1228,Re-print Packet Validation Success Email Sub,Re-print Packet Validation Success Email Sub,txt,velocity,Re-print Request Confirmation,10003,Registration Processor,RPR_PPV_SUC_EMAIL_SUB,True
+fra,1228,Re-print Packet Validation Success Email Sub,Re-print Packet Validation Success Email Sub,txt,velocity,Confirmation de la demande de réimpression,10003,Registration Processor,RPR_PPV_SUC_EMAIL_SUB,True
+eng,1229,Resident Update Packet Validation Success Email Sub,Resident Update Packet Validation Success Email Sub,txt,velocity,Update Request Confirmation,10003,Registration Processor,RPR_RUPV_SUC_EMAIL_SUB,True
+fra,1229,Resident Update Packet Validation Success Email Sub,Resident Update Packet Validation Success Email Sub,txt,velocity,Confirmation de la demande de mise à jour,10003,Registration Processor,RPR_RUPV_SUC_EMAIL_SUB,True
+eng,1230,Activate Packet Validation Success Email Sub,Activate Packet Validation Success Email Sub,txt,velocity,Activation Request Confirmation,10003,Registration Processor,RPR_APV_SUC_EMAIL_SUB,True
+fra,1230,Activate Packet Validation Success Email Sub,Activate Packet Validation Success Email Sub,txt,velocity,Confirmation de la demande d'activation,10003,Registration Processor,RPR_APV_SUC_EMAIL_SUB,True
+eng,1231,De-activate Packet Validation Success Email Sub,De-activate Packet Validation Success Email Sub,txt,velocity,Deactivation Request Confirmation,10003,Registration Processor,RPR_DPV_SUC_EMAIL_SUB,True
+fra,1231,De-activate Packet Validation Success Email Sub,De-activate Packet Validation Success Email Sub,txt,velocity,Confirmation de la demande de désactivation,10003,Registration Processor,RPR_DPV_SUC_EMAIL_SUB,True
+eng,1232,Credential Issuance Success SMS,Credential Issuance Success SMS,txt,velocity,"Hi $!fullName,
+
+We have received a request for $!credentialName from $!partnerName. The request id for the same is $!RID and your encryption key is $!encryptionKey.
+
+This request is under processing.
+
+Thank You",10006,Resident Services,RS_CRE_REQ_SUCCESS_SMS,True
+fra,1232,Credential Issuance Success SMS,Credential Issuance Success SMS,txt,velocity,"Bonjour $!fullName,
+
+Nous avons reçu une demande de $!credentialName de $!partnerName. L'identifiant de la demande est $!RID et votre clé de chiffrement est $!encryptionKey.
+
+Cette demande est en cours de traitement.
+
+Merci",10006,Resident Services,RS_CRE_REQ_SUCCESS_SMS,True
+eng,1233,Credential Issuance Success EMAIL,Credential Issuance Success EMAIL,txt,velocity,"Hi $!fullName,
+
+We have received a request for $!credentialName from $!partnerName. The request id for the same is $!RID and your encryption key is $!encryptionKey.
+
+This request is under processing.
+
+Thank You",10006,Resident Services,RS_CRE_REQ_SUCCESS_EMAIL,True
+fra,1233,Credential Issuance Success EMAIL,Credential Issuance Success EMAIL,txt,velocity,"Bonjour $!fullName,
+
+Nous avons reçu une demande de $!credentialName de $!partnerName. L'identifiant de la demande est $!RID et votre clé de chiffrement est $!encryptionKey.
+
+Cette demande est en cours de traitement.
+
+Merci",10006,Resident Services,RS_CRE_REQ_SUCCESS_EMAIL,True
+eng,1234,Credential Issuance Success EMAIL Subject,Credential Issuance Success EMAIL Subject,txt,velocity,Credential Issuance Confirmation,10006,Resident Services,RS_CRE_REQ_SUCCESS_EMAIL_SUB,True
+fra,1234,Credential Issuance Success EMAIL Subject,Credential Issuance Success EMAIL Subject,txt,velocity,Confirmation de la délivrance des informations d'identification,10006,Resident Services,RS_CRE_REQ_SUCCESS_EMAIL_SUB,True
+eng,1235,Credential Issuance Status Check SMS,Credential Issuance Status Check SMS,txt,velocity,"Hi $!fullName,
+
+The status of your request to issue credentials against request ID $!RID is $!status.
+
+Thank You",10006,Resident Services,RS_CRE_STATUS_SMS,True
+fra,1235,Credential Issuance Status Check SMS,Credential Issuance Status Check SMS,txt,velocity,"Bonjour $!fullName,
+
+L'état de votre demande d'émission d'informations d'identification par rapport à l'ID de demande $!RID est $! status.
+
+Merci",10006,Resident Services,RS_CRE_STATUS_SMS,True
+eng,1236,Credential Issuance Status Check EMAIL,Credential Issuance Status Check EMAIL,txt,velocity,"Hi $!fullName,
+
+The status of your request to issue credentials against request ID $!RID is $!status.
+
+Thank You",10006,Resident Services,RS_CRE_STATUS_EMAIL,True
+fra,1236,Credential Issuance Status Check EMAIL,Credential Issuance Status Check EMAIL,txt,velocity,"Bonjour $!fullName,
+
+L'état de votre demande d'émission d'informations d'identification par rapport à l'ID de demande $!RID est $! status.
+
+Merci",10006,Resident Services,RS_CRE_STATUS_EMAIL,True
+eng,1237,Credential Issuance Status Check EMAIL Subject,Credential Issuance Status Check EMAIL Subject,txt,velocity,Credential Issuance Status,10006,Resident Services,RS_CRE_STATUS_EMAIL_SUB,True
+fra,1237,Credential Issuance Status Check EMAIL Subject,Credential Issuance Status Check EMAIL Subject,txt,velocity,État de délivrance des informations d'identification,10006,Resident Services,RS_CRE_STATUS_EMAIL_SUB,True
+eng,1238,Credential Request Cancel Success SMS,Credential Request Cancel Success SMS,txt,velocity,"Hi $!fullName,
+
+Your credential request with request id $!RID has been successfully cancelled.
+
+Thank You",10006,Resident Services,RS_CRE_CANCEL_SUCCESS_SMS,True
+fra,1238,Credential Request Cancel Success SMS,Credential Request Cancel Success SMS,txt,velocity,"Salut $!fullName,
+
+Votre demande d'informations d'identification avec l'ID de demande $!RID a été annulée avec succès.
+
+Merci",10006,Resident Services,RS_CRE_CANCEL_SUCCESS_SMS,True
+eng,1239,Credential Request Cancel Success EMAIL,Credential Request Cancel Success EMAIL,txt,velocity,"Hi $!fullName,
+
+Your credential request with request id $RID has been successfully cancelled.
+
+Thank You",10006,Resident Services,RS_CRE_CANCEL_SUCCESS_EMAIL,True
+fra,1239,Credential Request Cancel Success EMAIL,Credential Request Cancel Success EMAIL,txt,velocity,"Salut $!fullName,
+
+Votre demande d'informations d'identification avec l'ID de demande $!RID a été annulée avec succès.
+
+Merci",10006,Resident Services,RS_CRE_CANCEL_SUCCESS_EMAIL,True
+eng,1240,Credential Request Cancel Success EMAIL Subject,Credential Request Cancel Success EMAIL Subject,txt,velocity,Credential Request is cancelled successfully,10006,Resident Services,RS_CRE_CANCEL_SUCCESS_EMAIL_SUB,True
+fra,1240,Credential Request Cancel Success EMAIL Subject,Credential Request Cancel Success EMAIL Subject,txt,velocity,La demande d'informations d'identification est annulée avec succès,10006,Resident Services,RS_CRE_CANCEL_SUCCESS_EMAIL_SUB,True
+eng,1241,Credential Issuance Failure SMS,Credential Issuance Failure SMS,txt,velocity,"Hi $!fullName,
+
+We have received a request for $!credentialName from $!partnerName. The request id for the same is $!RID. 
+The request could not be processed. Please try again later.
+
+Thank You",10006,Resident Services,RS_CRE_REQ_FAILURE_SMS,True
+fra,1241,Credential Issuance Failure SMS,Credential Issuance Failure SMS,txt,velocity,"Bonjour $!fullName,
+
+Nous avons reçu une demande de $!credentialName de $!partnerName. L'identifiant de demande pour le même est $!RID.
+La demande n'a pas pu être traitée. Veuillez réessayer plus tard.
+
+Merci",10006,Resident Services,RS_CRE_REQ_FAILURE_SMS,True
+eng,1242,Credential Issuance Failure EMAIL,Credential Issuance Failure EMAIL,txt,velocity,"Hi $!fullName,
+
+We have received a request for $!credentialName from $!partnerName. The request id for the same is $!RID. 
+The request could not be processed. Please try again later.
+
+Thank You",10006,Resident Services,RS_CRE_REQ_FAILURE_EMAIL,True
+fra,1242,Credential Issuance Failure EMAIL,Credential Issuance Failure EMAIL,txt,velocity,"Bonjour $!fullName,
+
+Nous avons reçu une demande de $!credentialName de $!partnerName. L'identifiant de demande pour le même est $!RID.
+La demande n'a pas pu être traitée. Veuillez réessayer plus tard.
+
+Merci",10006,Resident Services,RS_CRE_REQ_FAILURE_EMAIL,True
+eng,1243,Credential Issuance Failure EMAIL Subject,Credential Issuance Failure EMAIL Subject,txt,velocity,Credential Issuance Failed,10006,Resident Services,RS_CRE_REQ_FAILURE_EMAIL_SUB,True
+fra,1243,Credential Issuance Failure EMAIL Subject,Credential Issuance Failure EMAIL Subject,txt,velocity,Échec de l'émission des informations d'identification,10006,Resident Services,RS_CRE_REQ_FAILURE_EMAIL_SUB,True
+eng,1250,Registration Acknowledgement Template,Acknowledgement generated after registration,txt,velocity,"<!DOCTYPE html><html><head><style>body{font-family:""Roboto"";}table, .head{font-size:13px;}.demoDiv{width: 85%;float: left;}.photoDiv{width: 15%;float:right;}.form{display:inline-block;}.section{align:center;padding:30px;width:800px;margin:auto;}.headings{color:#808080;font-size:11px;}p{display:inline;}.dataTable{word-wrap:break-word;table-layout:fixed;width:70%;}.headerTable{width:90%;}.uinHeaderTable{width:100%;}h5{display:inline;position:absolute;}.iris{top:-15px;left:152px;}.irisWithoutException{top:-15px;left:114px;}.tableWithoutException{width:50%;text-align:center;table-layout:fixed;margin:0 auto;}.biometricsTable{width:100%;text-align:center;table-layout:fixed;}.biometrics{position:relative;}.leftLittle{top:15px;left:11px;display:inline;position:absolute;}.leftRing{top:3px;left:23px;}.leftMiddle{top:-7px;left:37px;}.leftIndex{top:3px;left:54px;}.rightIndex{top:3px;left:26px;}.rightMiddle{top:-7px;left:39px;}.rightRing{top:3px;left:55px;}.rightLittle{top:15px;left:68px;}.leftThumb{top:-4px;left:24px;}.rightThumb{top:-4px;left:54px;}.parentStyle{top:-15px;left:152px;}.parentIris1{top:-15px;left:212px;}.parentIris2{top:-15px;left:214px;}li span{color:black;font-size:12px;} li{color:lightgrey}button{float:right;font-size:12px;border:none;background-color:transparent;outline:none;}button:active{background-color:black;color:white;}.modify{float:right;}.bottom{vertical-align:bottom;}.consent-block{font-size:13px;border-radius: 8px;margin-top: 10px;margin-bottom: 10px;border: 2px solid #E88E3F;padding-top: -50px;padding:10px;}.consent-text{margin-left: 7px;margin-bottom: 4px;}input[type=""radio""] {display: none;} input[type=""radio""] + label:before { content: """"; display: inline-block; width: 15px; height: 15px; padding: 3px; margin-right: 5px; background-clip: content-box; border: 1px solid grey; background-color: #fff; border-radius: 50%;}input[type=""radio""]:checked + label:before { background-color: #FF4081; border-color:#FF4081;}*,*:before,*:after { box-sizing: border-box;}.consent-block label { display: inline-flex; align-items: center;}.demoDiv>table{width:100%}.demoDiv>table>tbody>tr>th{color:#808080;font-size:10px; width:25%; text-align: left;padding: 2px}.demoDiv>table>tbody>tr>td{width:25%; text-align: left;padding: 2px}</style><script>function changeColour(element) { var div = document.getElementById(""radioId""); if(element.value == ""yes""){div.style = ""border: 2px solid #68A933"";} if(element.value == ""no""){div.style = ""border: 2px solid #FF0000"";}} document.onreadystatechange = function () {if(document.readyState === ""complete""){var body = document.getElementsByTagName(""body"")[0]; body.addEventListener(""dragstart"", function(event) {event.preventDefault();}); body.addEventListener(""selectstart"", function(event) {event.preventDefault();});}}</script></head> <body> <div class=section> <div class=form> <table class=headerTable> <tr> #if ( !$isPreview && $QRCodeSource ) <td class=bottom> <img src=${QRCodeSource} width=85 height=85/> </td> #end <td class=bottom><p class=headings>${RIDPrimLabel} #if( $secLangPresent ) /${RIDSecLabel} #end</p><br/>${RID}</td> #if ( $UIN ) <td class=bottom><p class=headings>${UINPrimLabel} #if( $secLangPresent ) /${UINSecLabel} #end</p><br/>${UIN}</td> #end #if ( $isPreview && $PreRegID ) <td class=bottom><p class=headings>${PreRegIDPrimLabel} #if( $secLangPresent ) /${PreRegIDSecLabel} #end</p><br/>${PreRegID}</td> #end <td class=bottom><p class=headings>${DatePrimLabel} #if( $secLangPresent ) /${DateSecLabel} #end</p><br/>${Date}</td> </tr> </table> <br/>#if ( $name ) <table class=headerTable> <tr><td><p class=headings>${NamePrimLabel} #if( $secLangPresent ) /${NameSecLabel} #end</p><br/>${NamePrimValue} #if( $secLangPresent ) /${NameSecValue} #end</td></tr> </table> #end <br/> <hr/> <p class=head><b>${DemographicInfo} #if( $secLangPresent ) /${DemographicInfoSecondary} #end</b></p> #if ( $isPreview ) <div class=modify> <img src=${ModifyImageSource} border=0 width=15 height=15/><button id=modifyDemographicInfo>Modify</button> </div> #end <hr/><div class=demoDiv><table> <tr> #if( $demographics.get(""fullName"") ) <th>$demographics.get(""fullName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""fullName"") ) <td>$demographics.get(""fullName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <th>$demographics.get(""dateOfBirth"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""dateOfBirth"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <td>$demographics.get(""dateOfBirth"").get(""primaryValue"")</td> #end </tr><tr> #if( $demographics.get(""gender"") ) <th>$demographics.get(""gender"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""gender"") ) <td>$demographics.get(""gender"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""phone"") ) <th>$demographics.get(""phone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""phone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""email"") ) <th>$demographics.get(""email"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""email"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""phone"") ) <td>$demographics.get(""phone"").get(""primaryValue"")</td> #end #if( $demographics.get(""email"") ) <td>$demographics.get(""email"").get(""primaryValue"")</td> #end </tr></table><table> #if( $demographics.get(""addressLine1"") ) <hr/><h1 class=""headings"">Address</h1> #end <tr> #if( $demographics.get(""addressLine1"") ) <th>$demographics.get(""addressLine1"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine2"") ) <th>$demographics.get(""addressLine2"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine3"") ) <th>$demographics.get(""addressLine3"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""addressLine1"") ) <td>$demographics.get(""addressLine1"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine2"") ) <td>$demographics.get(""addressLine2"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine3"") ) <td>$demographics.get(""addressLine3"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""region"") ) <th>$demographics.get(""region"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""province"") ) <th>$demographics.get(""province"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""city"") ) <th>$demographics.get(""city"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""region"") ) <td>$demographics.get(""region"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""province"") ) <td>$demographics.get(""province"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""city"") ) <td>$demographics.get(""city"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""zone"") ) <th>$demographics.get(""zone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""postalCode"") ) <th>$demographics.get(""postalCode"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""postalCode"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""zone"") ) <td>$demographics.get(""zone"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""postalCode"") ) <td>$demographics.get(""postalCode"").get(""primaryValue"")</td> #end </tr><tr>#if( $demographics.get(""modeOfClaim"") ) <th>$demographics.get(""modeOfClaim"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryLabel"") #end</th> #end</tr><tr> #if( $demographics.get(""modeOfClaim"") ) <td>$demographics.get(""modeOfClaim"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryValue"") #end</td> #end</tr></table> #if( $demographics.get(""parentOrGuardianName"") ) <hr/> <table> <h1 class=""headings"">Gaurdian Details</h1><tr><th>$demographics.get(""parentOrGuardianName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryLabel"") #end </th> #if( $demographics.get(""parentOrGuardianRID"") ) <th>$demographics.get(""parentOrGuardianRID"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianRID"").get(""secondaryLabel"") #end</th>	#end #if( $demographics.get(""parentOrGuardianUIN"") ) <th>$demographics.get(""parentOrGuardianUIN"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianUIN"").get(""secondaryLabel"") #end</th> #end </tr><tr><td>$demographics.get(""parentOrGuardianName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryValue"") #end</td> #if( $demographics.get(""parentOrGuardianRID"") ) <td>$demographics.get(""parentOrGuardianRID"").get(""primaryValue"")</td> #end #if( $demographics.get(""parentOrGuardianUIN"") ) <td>$demographics.get(""parentOrGuardianUIN"").get(""primaryValue"")</td> #end </tr></table> #end </div>#if ( $ApplicantImageSource ) <div class=""photoDiv""> <table> <tr> <td> <p>${PhotoPrim} #if( $secLangPresent ) /${PhotoSec} #end</p> </td> </tr> <tr> <td><img src=${ApplicantImageSource} border=0 width=100 height=100/></td> </tr> </table> </div> #end <div style=""width: 100%; height: 50%; clear:both""></div> <br/> <br/> <hr/> <p class=head><b>${DocumentsPrimLabel} #if( $secLangPresent ) /${DocumentsSecLabel} #end</b></p> #if($isPreview) <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyDocuments>Modify</button> </div> #end <hr/> <table class=dataTable> #foreach( $key in $documents.keySet() ) <tr> <td> <p class=headings>$documents.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$documents.get($key).get(""secondaryLabel"") #end</p> <br/><p> $documents.get($key).get(""value"")</p> </td> </tr> #end </table> <br/> <hr/> <p class=head><b>${BiometricsPrimLabel} #if( $secLangPresent ) /${BiometricsSecLabel} #end</b></p> #if($isPreview) <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyBiometrics>Modify</button> </div> #end <hr/> #foreach( $key in $biometrics.keySet() ) <table> <tr> <td>$biometrics.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$biometrics.get($key).get(""secondaryLabel"") #end<br/> <p class=headings>Fingers ( $biometrics.get($key).get(""FingerCount"") ),Iris ( $biometrics.get($key).get(""IrisCount"") ),Face ( $biometrics.get($key).get(""FaceCount"") )<br/></p> <br/> </td> </tr> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> <p class=headings>${LeftEyePrimLabel} #if( $secLangPresent ) /${LeftEyeSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> <p class=headings>${RightEyePrimLabel} #if( $secLangPresent ) /${RightEyeSecLabel} #end</p> </td> #end</tr><tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> #if( !$isPreview ) <div class=biometrics> <h5 class=parentIris1>$biometrics.get($key).get(""LeftEye"")</h5> <img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> </div> #end #if( $isPreview && $biometrics.get($key).get(""CapturedLeftEye"") )<img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td>#if( !$isPreview ) <div class=biometrics> <h5 class=parentIris1>$biometrics.get($key).get(""RightEye"")</h5> <img src=$biometrics.get($key).get(""CapturedRightEye"") border=0 width=85 height=80/> </div> #end </td> #end </tr> </table> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td> <p class=headings>${LeftPalmPrimLabel} #if( $secLangPresent ) /${LeftPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td> <p class=headings>${RightPalmPrimLabel} #if( $secLangPresent ) /${RightPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td> <p class=headings>${ThumbsPrimLabel} #if( $secLangPresent ) /${ThumbsSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=leftLittle>$biometrics.get($key).get(""leftLittle"")</h5> <h5 class=leftRing>$biometrics.get($key).get(""leftRing"")</h5> <h5 class=leftMiddle>$biometrics.get($key).get(""leftMiddle"")</h5> <h5 class=leftIndex>$biometrics.get($key).get(""leftIndex"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedLeftSlap"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=rightIndex>$biometrics.get($key).get(""rightIndex"")</h5> <h5 class=rightMiddle>$biometrics.get($key).get(""rightMiddle"")</h5> <h5 class=rightRing>$biometrics.get($key).get(""rightRing"")</h5> <h5 class=rightLittle>$biometrics.get($key).get(""rightLittle"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedRightSlap"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=leftThumb>$biometrics.get($key).get(""leftThumb"")</h5> <h5 class=rightThumb>$biometrics.get($key).get(""rightThumb"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedThumbs"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end </tr> </table> <br/> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <p class=headings>${FacePrimLabel} #if( $secLangPresent ) /${FaceSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <p class=headings>${ExceptionPhotoPrimLabel} #if( $secLangPresent ) /${ExceptionPhotoSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td><img src=$biometrics.get($key).get(""FaceImageSource"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <img src=${ExceptionImageSource} border=0 width=85 height=80/> </td> #end </tr> </table> </table> #end <br/> <div> <table class=dataTable> <tr> <td> <p class=headings>${RONamePrimLabel} #if( $secLangPresent ) /${RONameSecLabel} #end</p><br/>${ROName}<br/>${RONameSec}<br/> </td> <td> <p class=headings>${RegCenterPrimLabel} #if( $secLangPresent ) /${RegCenterSecLabel} #end</p><br/>${RegCenter}<br/>${RegCenterSec}<br/> </td> </tr> </table> <hr/> <br/> </div><div><p>${ImportantGuidelines}</p> <ul> #foreach( $line in $Guidelines ) <li><span>${line}</span></li> #end </ul></div></div></div></body></html>",10003,Registration Client,reg-ack-template-part,True
+fra,1252,Modèle d'accusé de réception d'inscription,Acknowledgement generated after registration,txt,velocity,"<!DOCTYPE html><html><head><style>body{font-family:""Roboto"";}table, .head{font-size:13px;}.demoDiv{width: 85%;float: left;}.photoDiv{width: 15%;float:right;}.form{display:inline-block;}.section{align:center;padding:30px;width:800px;margin:auto;}.headings{color:#808080;font-size:11px;}p{display:inline;}.dataTable{word-wrap:break-word;table-layout:fixed;width:70%;}.headerTable{width:90%;}.uinHeaderTable{width:100%;}h5{display:inline;position:absolute;}.iris{top:-15px;left:152px;}.irisWithoutException{top:-15px;left:114px;}.tableWithoutException{width:50%;text-align:center;table-layout:fixed;margin:0 auto;}.biometricsTable{width:100%;text-align:center;table-layout:fixed;}.biometrics{position:relative;}.leftLittle{top:15px;left:11px;display:inline;position:absolute;}.leftRing{top:3px;left:23px;}.leftMiddle{top:-7px;left:37px;}.leftIndex{top:3px;left:54px;}.rightIndex{top:3px;left:26px;}.rightMiddle{top:-7px;left:39px;}.rightRing{top:3px;left:55px;}.rightLittle{top:15px;left:68px;}.leftThumb{top:-4px;left:24px;}.rightThumb{top:-4px;left:54px;}.parentStyle{top:-15px;left:152px;}.parentIris1{top:-15px;left:212px;}.parentIris2{top:-15px;left:214px;}li span{color:black;font-size:12px;} li{color:lightgrey}button{float:right;font-size:12px;border:none;background-color:transparent;outline:none;}button:active{background-color:black;color:white;}.modify{float:right;}.bottom{vertical-align:bottom;}.consent-block{font-size:13px;border-radius: 8px;margin-top: 10px;margin-bottom: 10px;border: 2px solid #E88E3F;padding-top: -50px;padding:10px;}.consent-text{margin-left: 7px;margin-bottom: 4px;}input[type=""radio""] {display: none;} input[type=""radio""] + label:before { content: """"; display: inline-block; width: 15px; height: 15px; padding: 3px; margin-right: 5px; background-clip: content-box; border: 1px solid grey; background-color: #fff; border-radius: 50%;}input[type=""radio""]:checked + label:before { background-color: #FF4081; border-color:#FF4081;}*,*:before,*:after { box-sizing: border-box;}.consent-block label { display: inline-flex; align-items: center;}.demoDiv>table{width:100%}.demoDiv>table>tbody>tr>th{color:#808080;font-size:10px; width:25%; text-align: left;padding: 2px}.demoDiv>table>tbody>tr>td{width:25%; text-align: left;padding: 2px}</style><script>function changeColour(element) { var div = document.getElementById(""radioId""); if(element.value == ""yes""){div.style = ""border: 2px solid #68A933"";} if(element.value == ""no""){div.style = ""border: 2px solid #FF0000"";}} document.onreadystatechange = function () {if(document.readyState === ""complete""){var body = document.getElementsByTagName(""body"")[0]; body.addEventListener(""dragstart"", function(event) {event.preventDefault();}); body.addEventListener(""selectstart"", function(event) {event.preventDefault();});}}</script></head> <body> <div class=section> <div class=form> <table class=headerTable> <tr> #if ( !$isPreview && $QRCodeSource ) <td class=bottom> <img src=${QRCodeSource} width=85 height=85/> </td> #end <td class=bottom><p class=headings>${RIDPrimLabel} #if( $secLangPresent ) /${RIDSecLabel} #end</p><br/>${RID}</td> #if ( $UIN ) <td class=bottom><p class=headings>${UINPrimLabel} #if( $secLangPresent ) /${UINSecLabel} #end</p><br/>${UIN}</td> #end #if ( $isPreview && $PreRegID ) <td class=bottom><p class=headings>${PreRegIDPrimLabel} #if( $secLangPresent ) /${PreRegIDSecLabel} #end</p><br/>${PreRegID}</td> #end <td class=bottom><p class=headings>${DatePrimLabel} #if( $secLangPresent ) /${DateSecLabel} #end</p><br/>${Date}</td> </tr> </table> <br/>#if ( $name ) <table class=headerTable> <tr><td><p class=headings>${NamePrimLabel} #if( $secLangPresent ) /${NameSecLabel} #end</p><br/>${NamePrimValue} #if( $secLangPresent ) /${NameSecValue} #end</td></tr> </table> #end <br/> <hr/> <p class=head><b>${DemographicInfo} #if( $secLangPresent ) /${DemographicInfoSecondary} #end</b></p> #if ( $isPreview ) <div class=modify> <img src=${ModifyImageSource} border=0 width=15 height=15/><button id=modifyDemographicInfo>Modify</button> </div> #end <hr/><div class=demoDiv><table> <tr> #if( $demographics.get(""fullName"") ) <th>$demographics.get(""fullName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""fullName"") ) <td>$demographics.get(""fullName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <th>$demographics.get(""dateOfBirth"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""dateOfBirth"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <td>$demographics.get(""dateOfBirth"").get(""primaryValue"")</td> #end </tr><tr> #if( $demographics.get(""gender"") ) <th>$demographics.get(""gender"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""gender"") ) <td>$demographics.get(""gender"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""phone"") ) <th>$demographics.get(""phone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""phone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""email"") ) <th>$demographics.get(""email"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""email"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""phone"") ) <td>$demographics.get(""phone"").get(""primaryValue"")</td> #end #if( $demographics.get(""email"") ) <td>$demographics.get(""email"").get(""primaryValue"")</td> #end </tr></table><table> #if( $demographics.get(""addressLine1"") ) <hr/><h1 class=""headings"">Address</h1> #end <tr> #if( $demographics.get(""addressLine1"") ) <th>$demographics.get(""addressLine1"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine2"") ) <th>$demographics.get(""addressLine2"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine3"") ) <th>$demographics.get(""addressLine3"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""addressLine1"") ) <td>$demographics.get(""addressLine1"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine2"") ) <td>$demographics.get(""addressLine2"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine3"") ) <td>$demographics.get(""addressLine3"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""region"") ) <th>$demographics.get(""region"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""province"") ) <th>$demographics.get(""province"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""city"") ) <th>$demographics.get(""city"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""region"") ) <td>$demographics.get(""region"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""province"") ) <td>$demographics.get(""province"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""city"") ) <td>$demographics.get(""city"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""zone"") ) <th>$demographics.get(""zone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""postalCode"") ) <th>$demographics.get(""postalCode"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""postalCode"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""zone"") ) <td>$demographics.get(""zone"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""postalCode"") ) <td>$demographics.get(""postalCode"").get(""primaryValue"")</td> #end </tr><tr>#if( $demographics.get(""modeOfClaim"") ) <th>$demographics.get(""modeOfClaim"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryLabel"") #end</th> #end</tr><tr> #if( $demographics.get(""modeOfClaim"") ) <td>$demographics.get(""modeOfClaim"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryValue"") #end</td> #end</tr></table> #if( $demographics.get(""parentOrGuardianName"") ) <hr/> <table> <h1 class=""headings"">Gaurdian Details</h1><tr><th>$demographics.get(""parentOrGuardianName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryLabel"") #end </th> #if( $demographics.get(""parentOrGuardianRID"") ) <th>$demographics.get(""parentOrGuardianRID"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianRID"").get(""secondaryLabel"") #end</th>	#end #if( $demographics.get(""parentOrGuardianUIN"") ) <th>$demographics.get(""parentOrGuardianUIN"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianUIN"").get(""secondaryLabel"") #end</th> #end </tr><tr><td>$demographics.get(""parentOrGuardianName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryValue"") #end</td> #if( $demographics.get(""parentOrGuardianRID"") ) <td>$demographics.get(""parentOrGuardianRID"").get(""primaryValue"")</td> #end #if( $demographics.get(""parentOrGuardianUIN"") ) <td>$demographics.get(""parentOrGuardianUIN"").get(""primaryValue"")</td> #end </tr></table> #end </div>#if ( $ApplicantImageSource ) <div class=""photoDiv""> <table> <tr> <td> <p>${PhotoPrim} #if( $secLangPresent ) /${PhotoSec} #end</p> </td> </tr> <tr> <td><img src=${ApplicantImageSource} border=0 width=100 height=100/></td> </tr> </table> </div> #end <div style=""width: 100%; height: 50%; clear:both""></div> <br/> <br/> <hr/> <p class=head><b>${DocumentsPrimLabel} #if( $secLangPresent ) /${DocumentsSecLabel} #end</b></p> #if($isPreview) <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyDocuments>Modify</button> </div> #end <hr/> <table class=dataTable> #foreach( $key in $documents.keySet() ) <tr> <td> <p class=headings>$documents.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$documents.get($key).get(""secondaryLabel"") #end</p> <br/><p> $documents.get($key).get(""value"")</p> </td> </tr> #end </table> <br/> <hr/> <p class=head><b>${BiometricsPrimLabel} #if( $secLangPresent ) /${BiometricsSecLabel} #end</b></p> #if($isPreview) <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyBiometrics>Modify</button> </div> #end <hr/> #foreach( $key in $biometrics.keySet() ) <table> <tr> <td>$biometrics.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$biometrics.get($key).get(""secondaryLabel"") #end<br/> <p class=headings>Fingers ( $biometrics.get($key).get(""FingerCount"") ),Iris ( $biometrics.get($key).get(""IrisCount"") ),Face ( $biometrics.get($key).get(""FaceCount"") )<br/></p> <br/> </td> </tr> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> <p class=headings>${LeftEyePrimLabel} #if( $secLangPresent ) /${LeftEyeSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> <p class=headings>${RightEyePrimLabel} #if( $secLangPresent ) /${RightEyeSecLabel} #end</p> </td> #end</tr><tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> #if( !$isPreview ) <div class=biometrics> <h5 class=parentIris1>$biometrics.get($key).get(""LeftEye"")</h5> <img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> </div> #end #if( $isPreview && $biometrics.get($key).get(""CapturedLeftEye"") )<img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td>#if( !$isPreview ) <div class=biometrics> <h5 class=parentIris1>$biometrics.get($key).get(""RightEye"")</h5> <img src=$biometrics.get($key).get(""CapturedRightEye"") border=0 width=85 height=80/> </div> #end </td> #end </tr> </table> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td> <p class=headings>${LeftPalmPrimLabel} #if( $secLangPresent ) /${LeftPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td> <p class=headings>${RightPalmPrimLabel} #if( $secLangPresent ) /${RightPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td> <p class=headings>${ThumbsPrimLabel} #if( $secLangPresent ) /${ThumbsSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=leftLittle>$biometrics.get($key).get(""leftLittle"")</h5> <h5 class=leftRing>$biometrics.get($key).get(""leftRing"")</h5> <h5 class=leftMiddle>$biometrics.get($key).get(""leftMiddle"")</h5> <h5 class=leftIndex>$biometrics.get($key).get(""leftIndex"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedLeftSlap"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=rightIndex>$biometrics.get($key).get(""rightIndex"")</h5> <h5 class=rightMiddle>$biometrics.get($key).get(""rightMiddle"")</h5> <h5 class=rightRing>$biometrics.get($key).get(""rightRing"")</h5> <h5 class=rightLittle>$biometrics.get($key).get(""rightLittle"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedRightSlap"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td style=text-align:-webkit-center> #if( !$isPreview ) <table> <tr> <td> <div class=biometrics> <h5 class=leftThumb>$biometrics.get($key).get(""leftThumb"")</h5> <h5 class=rightThumb>$biometrics.get($key).get(""rightThumb"")</h5> </div> </td></tr> <tr> <td><img src=$biometrics.get($key).get(""CapturedThumbs"") border=0 width=85 height=80/></td> </tr> </table> #end </td> #end </tr> </table> <br/> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <p class=headings>${FacePrimLabel} #if( $secLangPresent ) /${FaceSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <p class=headings>${ExceptionPhotoPrimLabel} #if( $secLangPresent ) /${ExceptionPhotoSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td><img src=$biometrics.get($key).get(""FaceImageSource"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <img src=${ExceptionImageSource} border=0 width=85 height=80/> </td> #end </tr> </table> </table> #end <br/> <div> <table class=dataTable> <tr> <td> <p class=headings>${RONamePrimLabel} #if( $secLangPresent ) /${RONameSecLabel} #end</p><br/>${ROName}<br/>${RONameSec}<br/> </td> <td> <p class=headings>${RegCenterPrimLabel} #if( $secLangPresent ) /${RegCenterSecLabel} #end</p><br/>${RegCenter}<br/>${RegCenterSec}<br/> </td> </tr> </table> <hr/> <br/> </div><div><p>${ImportantGuidelines}</p> <ul> #foreach( $line in $Guidelines ) <li><span>${line}</span></li> #end </ul></div></div></div></body></html>",10003,Registration Client,reg-ack-template-part,True
+eng,1253,Registration Preview Template,Preview generated after registration,txt,velocity,"<!DOCTYPE html><html><head><style>body{font-family:""Roboto"";}table, .head{font-size:13px;}.demoDiv{width: 85%;float: left;}.photoDiv{width: 15%;float:right;}.form{display:inline-block;}.section{align:center;padding:30px;width:800px;margin:auto;}.headings{color:#808080;font-size:11px;}p{display:inline;}.dataTable{word-wrap:break-word;table-layout:fixed;width:70%;}.headerTable{width:90%;}.uinHeaderTable{width:100%;}h5{display:inline;position:absolute;}.iris{top:-15px;left:152px;}.irisWithoutException{top:-15px;left:114px;}.tableWithoutException{width:50%;text-align:center;table-layout:fixed;margin:0 auto;}.biometricsTable{width:100%;text-align:center;table-layout:fixed;}.biometrics{position:relative;}.leftLittle{top:15px;left:11px;display:inline;position:absolute;}.leftRing{top:3px;left:23px;}.leftMiddle{top:-7px;left:37px;}.leftIndex{top:3px;left:54px;}.rightIndex{top:3px;left:26px;}.rightMiddle{top:-7px;left:39px;}.rightRing{top:3px;left:55px;}.rightLittle{top:15px;left:68px;}.leftThumb{top:-4px;left:24px;}.rightThumb{top:-4px;left:54px;}.parentStyle{top:-15px;left:152px;}.parentIris1{top:-15px;left:212px;}.parentIris2{top:-15px;left:214px;}li span{color:black;font-size:12px;} li{color:lightgrey}button{float:right;font-size:12px;border:none;background-color:transparent;outline:none;}button:active{background-color:black;color:white;}.modify{float:right;}.bottom{vertical-align:bottom;}.consent-block{font-size:13px;border-radius: 8px;margin-top: 10px;margin-bottom: 10px;border: 2px solid #E88E3F;padding-top: -50px;padding:10px;}.consent-text{margin-left: 7px;margin-bottom: 4px;}input[type=""radio""] {display: none;} input[type=""radio""] + label:before { content: """"; display: inline-block; width: 15px; height: 15px; padding: 3px; margin-right: 5px; background-clip: content-box; border: 1px solid grey; background-color: #fff; border-radius: 50%;}input[type=""radio""]:checked + label:before { background-color: #FF4081; border-color:#FF4081;}*,*:before,*:after { box-sizing: border-box;}.consent-block label { display: inline-flex; align-items: center;}.demoDiv>table{width:100%}.demoDiv>table>tbody>tr>th{color:#808080;font-size:10px; width:25%; text-align: left;padding: 2px}.demoDiv>table>tbody>tr>td{width:25%; text-align: left;padding: 2px}</style><script>function changeColour(element) { var div = document.getElementById(""radioId""); if(element.value == ""yes""){div.style = ""border: 2px solid #68A933"";} if(element.value == ""no""){div.style = ""border: 2px solid #FF0000"";}} document.onreadystatechange = function () {if(document.readyState === ""complete""){var body = document.getElementsByTagName(""body"")[0]; body.addEventListener(""dragstart"", function(event) {event.preventDefault();}); body.addEventListener(""selectstart"", function(event) {event.preventDefault();});}}</script></head> <body> <div class=section> <div class=form> <table class=headerTable> <tr> <td class=bottom><p class=headings>${RIDPrimLabel} #if( $secLangPresent ) /${RIDSecLabel} #end</p><br/>${RID}</td> #if ( $UIN ) <td class=bottom><p class=headings>${UINPrimLabel} #if( $secLangPresent ) /${UINSecLabel} #end</p><br/>${UIN}</td> #end #if ( $PreRegID ) <td class=bottom><p class=headings>${PreRegIDPrimLabel} #if( $secLangPresent ) /${PreRegIDSecLabel} #end</p><br/>${PreRegID}</td> #end <td class=bottom><p class=headings>${DatePrimLabel} #if( $secLangPresent ) /${DateSecLabel} #end</p><br/>${Date}</td> </tr> </table> <br/> #if ( $name ) <table class=headerTable> <tr><td><p class=headings>${NamePrimLabel} #if( $secLangPresent ) /${NameSecLabel} #end</p><br/>${NamePrimValue} #if( $secLangPresent ) /${NameSecValue} #end</td></tr> </table> #end <br/> <hr/> <p class=head><b>${DemographicInfo} #if( $secLangPresent ) /${DemographicInfoSecondary} #end</b></p> <div class=modify> <img src=${ModifyImageSource} border=0 width=15 height=15/><button id=modifyDemographicInfo>Modify</button> </div> <hr/><div class=""demoDiv""><table> <tr> #if( $demographics.get(""fullName"") ) <th>$demographics.get(""fullName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""fullName"") ) <td>$demographics.get(""fullName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryValue"") #end</td> #end </tr><tr> 	#if( $demographics.get(""dateOfBirth"") ) <th>$demographics.get(""dateOfBirth"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""dateOfBirth"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <td>$demographics.get(""dateOfBirth"").get(""primaryValue"")</td> #end </tr><tr> #if( $demographics.get(""gender"") ) <th>$demographics.get(""gender"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryLabel"") #end</th> #end </tr><tr> 		#if( $demographics.get(""gender"") ) <td>$demographics.get(""gender"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""phone"") ) <th>$demographics.get(""phone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""phone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""email"") ) <th>$demographics.get(""email"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""email"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""phone"") ) <td>$demographics.get(""phone"").get(""primaryValue"")</td> #end #if( $demographics.get(""email"") ) <td>$demographics.get(""email"").get(""primaryValue"")</td> #end </tr></table><table> #if( $demographics.get(""addressLine1"") ) <hr/><h1 class=""headings"">Address</h1> #end <tr> #if( $demographics.get(""addressLine1"") ) <th>$demographics.get(""addressLine1"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine2"") ) <th>$demographics.get(""addressLine2"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine3"") ) <th>$demographics.get(""addressLine3"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""addressLine1"") ) <td>$demographics.get(""addressLine1"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryValue"") #end</td> #end 		#if( $demographics.get(""addressLine2"") ) <td>$demographics.get(""addressLine2"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine3"") ) <td>$demographics.get(""addressLine3"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryValue"") #end</td> #end	</tr></table><table><tr> #if( $demographics.get(""region"") ) <th>$demographics.get(""region"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""province"") ) <th>$demographics.get(""province"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""city"") ) <th>$demographics.get(""city"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""region"") ) <td>$demographics.get(""region"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""province"") ) <td>$demographics.get(""province"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""city"") ) <td>$demographics.get(""city"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""zone"") ) <th>$demographics.get(""zone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""postalCode"") ) <th>$demographics.get(""postalCode"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""postalCode"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""zone"") ) <td>$demographics.get(""zone"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""postalCode"") ) <td>$demographics.get(""postalCode"").get(""primaryValue"")</td> #end </tr><tr>#if( $demographics.get(""modeOfClaim"") ) <th>$demographics.get(""modeOfClaim"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryLabel"") #end</th> #end</tr><tr> #if( $demographics.get(""modeOfClaim"") ) <td>$demographics.get(""modeOfClaim"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryValue"") #end</td> #end</tr></table> #if( $demographics.get(""parentOrGuardianName"") ) <hr/> <table> <h1 class=""headings"">Gaurdian Details</h1><tr><th>$demographics.get(""parentOrGuardianName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryLabel"") #end </th> #if( $demographics.get(""parentOrGuardianRID"") ) <th>$demographics.get(""parentOrGuardianRID"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianRID"").get(""secondaryLabel"") #end</th>	#end #if( $demographics.get(""parentOrGuardianUIN"") ) <th>$demographics.get(""parentOrGuardianUIN"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianUIN"").get(""secondaryLabel"") #end</th> #end </tr><tr><td>$demographics.get(""parentOrGuardianName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryValue"") #end</td> #if( $demographics.get(""parentOrGuardianRID"") ) <td>$demographics.get(""parentOrGuardianRID"").get(""primaryValue"")</td> #end #if( $demographics.get(""parentOrGuardianUIN"") ) <td>$demographics.get(""parentOrGuardianUIN"").get(""primaryValue"")</td> #end </tr></table> #end </div> #if ( $ApplicantImageSource ) <div class=""photoDiv""> <table> <tr> <td> <p>${PhotoPrim} #if( $secLangPresent ) /${PhotoSec} #end</p> </td> </tr> <tr> <td><img src=${ApplicantImageSource} border=0 width=100 height=100/></td> </tr> </table> </div> #end <div style=""width: 100%; height: 50%; clear:both""></div> <br> <br/> <hr/> <p class=head><b>${DocumentsPrimLabel} #if( $secLangPresent ) /${DocumentsSecLabel} #end</b></p> <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyDocuments>Modify</button> </div> <hr/> <table class=dataTable> #foreach( $key in $documents.keySet() ) <tr> <td> <p class=headings>$documents.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$documents.get($key).get(""secondaryLabel"") #end</p> <br/> <p> $documents.get($key).get(""value"")</p> </td> </tr> #end </table> <br/> <hr/> <p class=head><b>${BiometricsPrimLabel} #if( $secLangPresent ) /${BiometricsSecLabel} #end</b></p> <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyBiometrics>Modify</button> </div> <hr/> #foreach( $key in $biometrics.keySet() ) <table> <tr> <td> $biometrics.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$biometrics.get($key).get(""secondaryLabel"") #end<br/> <p class=headings>Fingers ( $biometrics.get($key).get(""FingerCount"") ),Iris ( $biometrics.get($key).get(""IrisCount"") ),Face ( $biometrics.get($key).get(""FaceCount"") )<br/></p> <br/> </td> </tr><table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td><p class=headings>${LeftEyePrimLabel} #if( $secLangPresent ) /${LeftEyeSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> <p class=headings>${RightEyePrimLabel} #if( $secLangPresent ) /${RightEyeSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> #if( $biometrics.get($key).get(""CapturedRightEye"") ) <img src=$biometrics.get($key).get(""CapturedRightEye"") border=0 width=85 height=80/> #end </td> #end </tr> </table> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td> <p class=headings>${LeftPalmPrimLabel} #if( $secLangPresent ) /${LeftPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td> <p class=headings>${RightPalmPrimLabel} #if( $secLangPresent ) /${RightPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td> <p class=headings>${ThumbsPrimLabel} #if( $secLangPresent ) /${ThumbsSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedLeftSlap"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedRightSlap"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedThumbs"") border=0 width=85 height=80/> </td> #end </tr> </table> <br/> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <p class=headings>${FacePrimLabel} #if( $secLangPresent ) /${FaceSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <p class=headings>${ExceptionPhotoPrimLabel} #if( $secLangPresent ) /${ExceptionPhotoSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <img src=$biometrics.get($key).get(""FaceImageSource"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <img src=${ExceptionImageSource} border=0 width=85 height=80/> </td> #end </tr> </table> </table> #end <br/> <div> <p class=head><b>${Consent}</b></p> <div class=consent-block id=radioId><div class=consent-text>${ConsentData}</div> <input type=radio name=consent id=consent-yes value=yes ${SelectedYes} onchange=changeColour(this)> <label for=consent-yes>${Yes}</label> &nbsp;&nbsp;&nbsp; <input type=radio name=consent id=consent-no value=no ${SelectedNo} onchange=changeColour(this)> <label for=consent-no>${No}</label> </div> </div> </div> </body> </html>",10003,Registration Client,reg-preview-template-part,True
+fra,1255,Modèle d'aperçu d'inscription,Preview generated after registration,txt,velocity,"<!DOCTYPE html><html><head><style>body{font-family:""Roboto"";}table, .head{font-size:13px;}.demoDiv{width: 85%;float: left;}.photoDiv{width: 15%;float:right;}.form{display:inline-block;}.section{align:center;padding:30px;width:800px;margin:auto;}.headings{color:#808080;font-size:11px;}p{display:inline;}.dataTable{word-wrap:break-word;table-layout:fixed;width:70%;}.headerTable{width:90%;}.uinHeaderTable{width:100%;}h5{display:inline;position:absolute;}.iris{top:-15px;left:152px;}.irisWithoutException{top:-15px;left:114px;}.tableWithoutException{width:50%;text-align:center;table-layout:fixed;margin:0 auto;}.biometricsTable{width:100%;text-align:center;table-layout:fixed;}.biometrics{position:relative;}.leftLittle{top:15px;left:11px;display:inline;position:absolute;}.leftRing{top:3px;left:23px;}.leftMiddle{top:-7px;left:37px;}.leftIndex{top:3px;left:54px;}.rightIndex{top:3px;left:26px;}.rightMiddle{top:-7px;left:39px;}.rightRing{top:3px;left:55px;}.rightLittle{top:15px;left:68px;}.leftThumb{top:-4px;left:24px;}.rightThumb{top:-4px;left:54px;}.parentStyle{top:-15px;left:152px;}.parentIris1{top:-15px;left:212px;}.parentIris2{top:-15px;left:214px;}li span{color:black;font-size:12px;} li{color:lightgrey}button{float:right;font-size:12px;border:none;background-color:transparent;outline:none;}button:active{background-color:black;color:white;}.modify{float:right;}.bottom{vertical-align:bottom;}.consent-block{font-size:13px;border-radius: 8px;margin-top: 10px;margin-bottom: 10px;border: 2px solid #E88E3F;padding-top: -50px;padding:10px;}.consent-text{margin-left: 7px;margin-bottom: 4px;}input[type=""radio""] {display: none;} input[type=""radio""] + label:before { content: """"; display: inline-block; width: 15px; height: 15px; padding: 3px; margin-right: 5px; background-clip: content-box; border: 1px solid grey; background-color: #fff; border-radius: 50%;}input[type=""radio""]:checked + label:before { background-color: #FF4081; border-color:#FF4081;}*,*:before,*:after { box-sizing: border-box;}.consent-block label { display: inline-flex; align-items: center;}.demoDiv>table{width:100%}.demoDiv>table>tbody>tr>th{color:#808080;font-size:10px; width:25%; text-align: left;padding: 2px}.demoDiv>table>tbody>tr>td{width:25%; text-align: left;padding: 2px}</style><script>function changeColour(element) { var div = document.getElementById(""radioId""); if(element.value == ""yes""){div.style = ""border: 2px solid #68A933"";} if(element.value == ""no""){div.style = ""border: 2px solid #FF0000"";}} document.onreadystatechange = function () {if(document.readyState === ""complete""){var body = document.getElementsByTagName(""body"")[0]; body.addEventListener(""dragstart"", function(event) {event.preventDefault();}); body.addEventListener(""selectstart"", function(event) {event.preventDefault();});}}</script></head> <body> <div class=section> <div class=form> <table class=headerTable> <tr> <td class=bottom><p class=headings>${RIDPrimLabel} #if( $secLangPresent ) /${RIDSecLabel} #end</p><br/>${RID}</td> #if ( $UIN ) <td class=bottom><p class=headings>${UINPrimLabel} #if( $secLangPresent ) /${UINSecLabel} #end</p><br/>${UIN}</td> #end #if ( $PreRegID ) <td class=bottom><p class=headings>${PreRegIDPrimLabel} #if( $secLangPresent ) /${PreRegIDSecLabel} #end</p><br/>${PreRegID}</td> #end <td class=bottom><p class=headings>${DatePrimLabel} #if( $secLangPresent ) /${DateSecLabel} #end</p><br/>${Date}</td> </tr> </table> <br/> #if ( $name ) <table class=headerTable> <tr><td><p class=headings>${NamePrimLabel} #if( $secLangPresent ) /${NameSecLabel} #end</p><br/>${NamePrimValue} #if( $secLangPresent ) /${NameSecValue} #end</td></tr> </table> #end <br/> <hr/> <p class=head><b>${DemographicInfo} #if( $secLangPresent ) /${DemographicInfoSecondary} #end</b></p> <div class=modify> <img src=${ModifyImageSource} border=0 width=15 height=15/><button id=modifyDemographicInfo>Modify</button> </div> <hr/><div class=""demoDiv""><table> <tr> #if( $demographics.get(""fullName"") ) <th>$demographics.get(""fullName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""fullName"") ) <td>$demographics.get(""fullName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""fullName"").get(""secondaryValue"") #end</td> #end </tr><tr> 	#if( $demographics.get(""dateOfBirth"") ) <th>$demographics.get(""dateOfBirth"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""dateOfBirth"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""dateOfBirth"") ) <td>$demographics.get(""dateOfBirth"").get(""primaryValue"")</td> #end </tr><tr> #if( $demographics.get(""gender"") ) <th>$demographics.get(""gender"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryLabel"") #end</th> #end </tr><tr> 		#if( $demographics.get(""gender"") ) <td>$demographics.get(""gender"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""gender"").get(""secondaryValue"") #end</td> #end </tr><tr> #if( $demographics.get(""phone"") ) <th>$demographics.get(""phone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""phone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""email"") ) <th>$demographics.get(""email"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""email"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""phone"") ) <td>$demographics.get(""phone"").get(""primaryValue"")</td> #end #if( $demographics.get(""email"") ) <td>$demographics.get(""email"").get(""primaryValue"")</td> #end </tr></table><table> #if( $demographics.get(""addressLine1"") ) <hr/><h1 class=""headings"">Address</h1> #end <tr> #if( $demographics.get(""addressLine1"") ) <th>$demographics.get(""addressLine1"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine2"") ) <th>$demographics.get(""addressLine2"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""addressLine3"") ) <th>$demographics.get(""addressLine3"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""addressLine1"") ) <td>$demographics.get(""addressLine1"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine1"").get(""secondaryValue"") #end</td> #end 		#if( $demographics.get(""addressLine2"") ) <td>$demographics.get(""addressLine2"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine2"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""addressLine3"") ) <td>$demographics.get(""addressLine3"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""addressLine3"").get(""secondaryValue"") #end</td> #end	</tr></table><table><tr> #if( $demographics.get(""region"") ) <th>$demographics.get(""region"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""province"") ) <th>$demographics.get(""province"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""city"") ) <th>$demographics.get(""city"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""region"") ) <td>$demographics.get(""region"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""region"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""province"") ) <td>$demographics.get(""province"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""province"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""city"") ) <td>$demographics.get(""city"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""city"").get(""secondaryValue"") #end</td> #end </tr></table><table><tr> #if( $demographics.get(""zone"") ) <th>$demographics.get(""zone"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryLabel"") #end</th> #end #if( $demographics.get(""postalCode"") ) <th>$demographics.get(""postalCode"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""postalCode"").get(""secondaryLabel"") #end</th> #end </tr><tr> #if( $demographics.get(""zone"") ) <td>$demographics.get(""zone"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""zone"").get(""secondaryValue"") #end</td> #end #if( $demographics.get(""postalCode"") ) <td>$demographics.get(""postalCode"").get(""primaryValue"")</td> #end </tr><tr>#if( $demographics.get(""modeOfClaim"") ) <th>$demographics.get(""modeOfClaim"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryLabel"") #end</th> #end</tr><tr> #if( $demographics.get(""modeOfClaim"") ) <td>$demographics.get(""modeOfClaim"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""modeOfClaim"").get(""secondaryValue"") #end</td> #end</tr></table> #if( $demographics.get(""parentOrGuardianName"") ) <hr/> <table> <h1 class=""headings"">Gaurdian Details</h1><tr><th>$demographics.get(""parentOrGuardianName"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryLabel"") #end </th> #if( $demographics.get(""parentOrGuardianRID"") ) <th>$demographics.get(""parentOrGuardianRID"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianRID"").get(""secondaryLabel"") #end</th>	#end #if( $demographics.get(""parentOrGuardianUIN"") ) <th>$demographics.get(""parentOrGuardianUIN"").get(""primaryLabel"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianUIN"").get(""secondaryLabel"") #end</th> #end </tr><tr><td>$demographics.get(""parentOrGuardianName"").get(""primaryValue"") #if( $secLangPresent ) /$demographics.get(""parentOrGuardianName"").get(""secondaryValue"") #end</td> #if( $demographics.get(""parentOrGuardianRID"") ) <td>$demographics.get(""parentOrGuardianRID"").get(""primaryValue"")</td> #end #if( $demographics.get(""parentOrGuardianUIN"") ) <td>$demographics.get(""parentOrGuardianUIN"").get(""primaryValue"")</td> #end </tr></table> #end </div> #if ( $ApplicantImageSource ) <div class=""photoDiv""> <table> <tr> <td> <p>${PhotoPrim} #if( $secLangPresent ) /${PhotoSec} #end</p> </td> </tr> <tr> <td><img src=${ApplicantImageSource} border=0 width=100 height=100/></td> </tr> </table> </div> #end <div style=""width: 100%; height: 50%; clear:both""></div> <br> <br/> <hr/> <p class=head><b>${DocumentsPrimLabel} #if( $secLangPresent ) /${DocumentsSecLabel} #end</b></p> <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyDocuments>Modify</button> </div> <hr/> <table class=dataTable> #foreach( $key in $documents.keySet() ) <tr> <td> <p class=headings>$documents.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$documents.get($key).get(""secondaryLabel"") #end</p> <br/> <p> $documents.get($key).get(""value"")</p> </td> </tr> #end </table> <br/> <hr/> <p class=head><b>${BiometricsPrimLabel} #if( $secLangPresent ) /${BiometricsSecLabel} #end</b></p> <div class=modify> <img src=$ModifyImageSource border=0 width=15 height=15/><button id=modifyBiometrics>Modify</button> </div> <hr/> #foreach( $key in $biometrics.keySet() ) <table> <tr> <td> $biometrics.get($key).get(""primaryLabel"") #if( $secLangPresent ) /$biometrics.get($key).get(""secondaryLabel"") #end<br/> <p class=headings>Fingers ( $biometrics.get($key).get(""FingerCount"") ),Iris ( $biometrics.get($key).get(""IrisCount"") ),Face ( $biometrics.get($key).get(""FaceCount"") )<br/></p> <br/> </td> </tr><table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td><p class=headings>${LeftEyePrimLabel} #if( $secLangPresent ) /${LeftEyeSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> <p class=headings>${RightEyePrimLabel} #if( $secLangPresent ) /${RightEyeSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <td> #if( $biometrics.get($key).get(""CapturedLeftEye"") ) <img src=$biometrics.get($key).get(""CapturedLeftEye"") border=0 width=85 height=80/> #end </td> #end #if( $biometrics.get($key).get(""CapturedRightEye"") ) <td> #if( $biometrics.get($key).get(""CapturedRightEye"") ) <img src=$biometrics.get($key).get(""CapturedRightEye"") border=0 width=85 height=80/> #end </td> #end </tr> </table> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td> <p class=headings>${LeftPalmPrimLabel} #if( $secLangPresent ) /${LeftPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td> <p class=headings>${RightPalmPrimLabel} #if( $secLangPresent ) /${RightPalmSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td> <p class=headings>${ThumbsPrimLabel} #if( $secLangPresent ) /${ThumbsSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""CapturedLeftSlap"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedLeftSlap"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""CapturedRightSlap"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedRightSlap"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""CapturedThumbs"") ) <td style=""text-align:-webkit-center""> <img src=$biometrics.get($key).get(""CapturedThumbs"") border=0 width=85 height=80/> </td> #end </tr> </table> <br/> <table class=biometricsTable> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <p class=headings>${FacePrimLabel} #if( $secLangPresent ) /${FaceSecLabel} #end</p> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <p class=headings>${ExceptionPhotoPrimLabel} #if( $secLangPresent ) /${ExceptionPhotoSecLabel} #end</p> </td> #end </tr> <tr> #if( $biometrics.get($key).get(""FaceImageSource"") ) <td> <img src=$biometrics.get($key).get(""FaceImageSource"") border=0 width=85 height=80/> </td> #end #if( $biometrics.get($key).get(""subType"") == ""applicant"" && $ExceptionImageSource ) <td> <img src=${ExceptionImageSource} border=0 width=85 height=80/> </td> #end </tr> </table> </table> #end <br/> <div> <p class=head><b>${Consent}</b></p> <div class=consent-block id=radioId><div class=consent-text>${ConsentData}</div> <input type=radio name=consent id=consent-yes value=yes ${SelectedYes} onchange=changeColour(this)> <label for=consent-yes>${Yes}</label> &nbsp;&nbsp;&nbsp; <input type=radio name=consent id=consent-no value=no ${SelectedNo} onchange=changeColour(this)> <label for=consent-no>${No}</label> </div> </div> </div> </body> </html>",10003,Registration Client,reg-preview-template-part,True
+eng,1260,Dashboard Template,Dashboard of Registration Client,txt,velocity,"<!DOCTYPE html><html lang=""en""><head><meta charset=""utf-8""><meta name=""viewport"" content=""width=device-width, initial-scale=1""><style> * { box-sizing: border-box; } body { font-family: Arial, Helvetica, sans-serif;background-color: #f1f1f1; } header { padding: 20px; text-align: center; font-size: 15px; color: black; } .tablecss { font-size:13px; } .column { float: left; width: auto; padding: 10px; margin:10px; overflow:auto; border:1px solid #FF1493; } .buttons-column { float: left; width: auto; padding: 10px; margin:10px; overflow:auto; } .column-rect { float: left; width: 150px; padding: 2px; margin-right:5px; margin-left:5px; overflow:auto; height:115px; text-align:center; color:white; } .row:after { content: """"; display: table; clear: both; } </style></head><body><header><h2>${dashBoard}</h2></header><div class=""row""><div class=""column"" style=""background-color:#fff;""><h4>Users</h4><table class=""tablecss""> #foreach( $key in $userDetails.keySet() ) <tr><td width=10%><img src=$userDetails.get($key).get(""userRole"") height=15 width=15></img></td><td width=30%>$userDetails.get($key).get(""userId"")</td><td width=50%>$userDetails.get($key).get(""userName"")</td><td width=10%><img src=$userDetails.get($key).get(""userStatus"") height=25 width=25></img></td></tr> #end </table></div><div class=""buttons-column"" style=""margin-top: 0px;""><div class=""row""><div class=""column-rect"" style=""background-color:limegreen;""><h2>${totalPacketsCount}</h2><p>${totalPacketsLabel}</p></div><div class=""column-rect"" style=background-color:goldenrod;color:black""><h2>${pendingEODCount}</h2><p>${pendingEODLabel}</p></div><div class=""column-rect"" style=""background-color:red;""><h2>${pendingUploadCount}</h2><p>${pendingUploadLabel}</p></div></div></div><div class=""column"" style=""background-color:#fff;""><table width=""100%"" class=""tablecss""> #foreach( $key in $activities.keySet() ) <tr><td><h3>#if( $key != ""Updates"" ) $key #end</h3></td></tr><tr><td><table width=""100%"" class=""tablecss""> #foreach( $keyList in $activities.get($key) ) <tr><td width=60%>$keyList.get(""activityName"")</td><td width=40%>$keyList.get(""activityValue"")</td></tr> #end </table></td></tr> #end </table></div></div></body></html>",10003,Registration Client,reg-dashboard-template,True
+fra,1262,Modèle de tableau de bord,Dashboard of Registration Client,txt,velocity,"<!DOCTYPE html><html lang=""en""><head><meta charset=""utf-8""><meta name=""viewport"" content=""width=device-width, initial-scale=1""><style> * { box-sizing: border-box; } body { font-family: Arial, Helvetica, sans-serif;background-color: #f1f1f1; } header { padding: 20px; text-align: center; font-size: 15px; color: black; } .tablecss { font-size:13px; } .column { float: left; width: auto; padding: 10px; margin:10px; overflow:auto; border:1px solid #FF1493; } .buttons-column { float: left; width: auto; padding: 10px; margin:10px; overflow:auto; } .column-rect { float: left; width: 150px; padding: 2px; margin-right:5px; margin-left:5px; overflow:auto; height:115px; text-align:center; color:white; } .row:after { content: """"; display: table; clear: both; } </style></head><body><header><h2>${dashBoard}</h2></header><div class=""row""><div class=""column"" style=""background-color:#fff;""><h4>Users</h4><table class=""tablecss""> #foreach( $key in $userDetails.keySet() ) <tr><td width=10%><img src=$userDetails.get($key).get(""userRole"") height=15 width=15></img></td><td width=30%>$userDetails.get($key).get(""userId"")</td><td width=50%>$userDetails.get($key).get(""userName"")</td><td width=10%><img src=$userDetails.get($key).get(""userStatus"") height=25 width=25></img></td></tr> #end </table></div><div class=""buttons-column"" style=""margin-top: 0px;""><div class=""row""><div class=""column-rect"" style=""background-color:limegreen;""><h2>${totalPacketsCount}</h2><p>${totalPacketsLabel}</p></div><div class=""column-rect"" style=background-color:goldenrod;color:black""><h2>${pendingEODCount}</h2><p>${pendingEODLabel}</p></div><div class=""column-rect"" style=""background-color:red;""><h2>${pendingUploadCount}</h2><p>${pendingUploadLabel}</p></div></div></div><div class=""column"" style=""background-color:#fff;""><table width=""100%"" class=""tablecss""> #foreach( $key in $activities.keySet() ) <tr><td><h3>#if( $key != ""Updates"" ) $key #end</h3></td></tr><tr><td><table width=""100%"" class=""tablecss""> #foreach( $keyList in $activities.get($key) ) <tr><td width=60%>$keyList.get(""activityName"")</td><td width=40%>$keyList.get(""activityValue"")</td></tr> #end </table></td></tr> #end </table></div></div></body></html>",10003,Registration Client,reg-dashboard-template,True

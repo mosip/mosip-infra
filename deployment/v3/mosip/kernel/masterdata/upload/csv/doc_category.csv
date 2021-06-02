@@ -1,0 +1,11 @@
+lang_code,code,name,descr,is_active
+eng,POA,Proof of Address,Address Proof,True
+fra,POA,Un justificatif de domicile,Preuve dadresse,True
+eng,POI,Proof of Identity,Identity Proof,True
+fra,POI,Preuve didentité,Preuve didentité,True
+eng,POR,Proof of Relationship,Proof Relationship of the person,True
+fra,POR,Preuve de relation,Preuve de relation de la personne,True
+eng,POB,Proof of Birth,Proof date of birth of the person,False
+fra,POB,Preuve de naissance,Preuve de la date de naissance de la personne,False
+eng,POE,Proof of Biometric Exception,Proof of Biometric Exception,True
+fra,POE,Preuve dexception biométrique,Preuve dexception biométrique,True

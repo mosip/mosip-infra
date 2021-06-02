@@ -1,0 +1,14 @@
+lang_code,app_id,process_id,role_code,priority,is_active
+eng,10003,login_auth,REGISTRATION_OFFICER,3,True
+eng,10003,login_auth,REGISTRATION_SUPERVISOR,2,True
+eng,10003,login_auth,REGISTRATION_ADMIN,1,True
+eng,10003,packet_auth,REGISTRATION_OFFICER,3,True
+eng,10003,packet_auth,REGISTRATION_SUPERVISOR,2,True
+eng,10003,packet_auth,REGISTRATION_ADMIN,1,True
+eng,10003,eod_auth,REGISTRATION_SUPERVISOR,2,True
+eng,10003,eod_auth,REGISTRATION_ADMIN,1,True
+eng,10003,exception_auth,REGISTRATION_SUPERVISOR,2,True
+eng,10003,exception_auth,REGISTRATION_ADMIN,1,True
+eng,10003,onboard_auth,REGISTRATION_OFFICER,3,True
+eng,10003,onboard_auth,REGISTRATION_SUPERVISOR,2,True
+eng,10003,onboard_auth,REGISTRATION_ADMIN,1,True
