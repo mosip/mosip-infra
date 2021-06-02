@@ -7,8 +7,8 @@ Install:
 $ ./install.sh
 ```
 
-To see all headers:
+To see what's reaching httpbin:
 ```
-curl https://api.sandbox.mosip.net/httpbin/headers?show_env=true
+curl https://api.sandbox.mosip.net/httpbin/get?show_env=true
 ```
 
