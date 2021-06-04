@@ -72,7 +72,8 @@ versions:
         'regproc-notification-service': 'mosipqa/registration-processor-notification-service:develop'
       salt:
         'regproc-salt-generator': 'mosipdev/kernel-salt-generator:develop'
-
+      workflow:
+        'regproc-workflowmanager': 'mosipdev/registration-processor-workflow-manager-service:develop'
 
     dmzregproc:  
       group1:
