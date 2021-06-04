@@ -20,7 +20,7 @@ spec:
       - name: istio-ingressgateway-internal
         enabled: true
         label:
-            istio: istio-ingressgateway-internal
+            istio: ingressgateway-internal
         k8s:
           serviceAnnotations:
             service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
