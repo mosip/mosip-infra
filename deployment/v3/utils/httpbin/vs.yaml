@@ -7,7 +7,6 @@ spec:
   - "*"
   gateways:
   - istio-system/public
-  - istio-system/internal
   http:
   - match:
       - uri:
