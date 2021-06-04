@@ -1,0 +1,11 @@
+lang_code,id,name,brand,model,dtyp_code,min_driver_ver,descr,is_active
+fra,165,Fingerprint Scanner,Safran Morpho,1300 E2,FRS,1.12,To scan fingerprint,True
+eng,165,Fingerprint Scanner,Safran Morpho,1300 E2,FRS,1.12,To scan fingerprint,True
+fra,327,High Speed Dual Iris Scanner,Cogent,3M,IRS,2.34,To scan iris,True
+eng,327,High Speed Dual Iris Scanner,Cogent,3M,IRS,2.34,To scan iris,True
+fra,736,Webcam,Logitech,C270,CMR,2.086,To capture photo,True
+eng,736,Webcam,Logitech,C270,CMR,2.086,To capture photo,True
+fra,801,imageFORMULA,Canon,DR-C130,SCN,1.02,To scan documents,True
+eng,801,imageFORMULA,Canon,DR-C130,SCN,1.02,To scan documents,True
+fra,920,Single Function Inkjet,Canon,TS207,PRT,1.123,To print documents,True
+eng,920,Single Function Inkjet,Canon,TS207,PRT,1.123,To print documents,True

@@ -1,0 +1,9 @@
+lang_code,word,descr,is_active
+eng,shit,Blacklisted Word,True
+eng,damn,Blacklisted Word,True
+eng,nigga,Blacklisted Word,True
+eng,dammit,Blacklisted Word,True
+fra,Merde,Mot sur la liste noire,True
+fra,Damn,Mot sur la liste noire,True
+fra,nigga,Mot sur la liste noire,True
+fra,bon sang,Mot sur la liste noire,True

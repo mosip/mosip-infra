@@ -1,0 +1,169 @@
+lang_code,id,name,description,data_type,value_json,is_active
+eng,10001,bloodType,Blood Type,string,"[
+	{
+		""code"": ""101"",
+		""value"": ""A"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""102"",
+		""value"": ""A+"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""103"",
+		""value"": ""A-"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""104"",
+		""value"": ""B"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""105"",
+		""value"": ""B+"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""106"",
+		""value"": ""B-"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""107"",
+		""value"": ""AB"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""108"",
+		""value"": ""AB+"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""109"",
+		""value"": ""AB-"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""110"",
+		""value"": ""O"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""111"",
+		""value"": ""O+"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""112"",
+		""value"": ""O-"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""113"",
+		""value"": ""Don't Know"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""114"",
+		""value"": ""Not Applicable"",
+		""langCode"": ""eng"",
+		""active"": true
+	}
+]",True
+eng,10002,maritalStatus,Marital Status,string,"[
+	{
+		""code"": ""101"",
+		""value"": ""Single"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""102"",
+		""value"": ""Married"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""103"",
+		""value"": ""Widowed"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""104"",
+		""value"": ""Divorced"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""105"",
+		""value"": ""Legally Separated"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""106"",
+		""value"": ""Annulled"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""107"",
+		""value"": ""Nullified"",
+		""langCode"": ""eng"",
+		""active"": true
+	}
+]",True
+eng,10003,registrationType,Registration Type,string,"[
+	{
+		""code"": ""Document-based"",
+		""value"": ""Document-based"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""Introducer-based"",
+		""value"": ""Introducer-based"",
+		""langCode"": ""eng"",
+		""active"": true
+	}
+]",True
+eng,10004,modeOfClaim,Mode of Claim,string,"[
+	{
+		""code"": ""101"",
+		""value"": ""Pick-up"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""102"",
+		""value"": ""Delivery to permanent address"",
+		""langCode"": ""eng"",
+		""active"": true
+	},
+	{
+		""code"": ""103"",
+		""value"": ""Delivery to present address"",
+		""langCode"": ""eng"",
+		""active"": true
+	}
+]",True
+eng,f7f79e5a-530b-4a32-b950-9d19e41ea169,gender,Gender,string,"[{""code"":""MLE"",""value"":""Male"",""langCode"":""eng"",""active"":true},{""code"":""FLE"",""value"":""Female"",""langCode"":""eng"",""active"":true},{""code"":""OTH"",""value"":""Others"",""langCode"":""eng"",""active"":true}]",True
+fra,67af09d6-f704-487c-8962-666a9134e1bd,gender,Le genre,string,"[{""code"":""MLE"",""value"":""Mâle"",""langCode"":""fra"",""active"":true},{""code"":""FLE"",""value"":""Femme"",""langCode"":""fra"",""active"":true},{""code"":""OTH"",""value"":""Autres"",""langCode"":""fra"",""active"":true}]",True
+eng,f5ee4289-c38c-4828-a323-d83214c6dc5c,residenceStatus,Residence Status,string,"[{""code"":""NFR"",""value"":""Resident"",""langCode"":""eng"",""active"":true},{""code"":""FR"",""value"":""Non-Resident"",""langCode"":""eng"",""active"":true}]",True
+fra,d8038a47-8001-4cb4-839a-3894ea122673,residenceStatus,Statut de résidence,string,"[{""code"":""NFR"",""value"":""Résident"",""langCode"":""fra"",""active"":true},{""code"":""FR"",""value"":""Non-résident"",""langCode"":""fra"",""active"":true}]",True

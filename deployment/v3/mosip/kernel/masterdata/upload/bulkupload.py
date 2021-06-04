@@ -5,9 +5,7 @@ import argparse
 from api import *
 import csv
 import json
-import pandas as pd
 import config as conf
-import tempfile
 from utils import *
 
 def get_order_from_list(files_file_name):
@@ -22,19 +20,13 @@ def get_order_from_list(files_file_name):
         sys.exit('Table Order file not found ' + files_file_name + ' %tb')
     return table_order
 
-def bulk_upload_csv_files_to_masterdata(files, table_order):
+def bulk_upload_csvs_using_api(files, table_order):
     session = MosipSession(conf.server, conf.superadmin_user, conf.superadmin_pwd, ssl_verify=conf.ssl_verify)
     for f in table_order:
         for fi in files:
             if f==os.path.basename(fi).split('.')[0]:
                 myprint(fi)
-                fi_temp = os.path.basename(fi).split('.')
-                fi_temp[-1] = 'csv'
-                fi_temp_name = os.path.join(tempfile.gettempdir(),'.'.join(fi_temp))
-                if os.path.exists(fi_temp_name):
-                    os.remove(fi_temp_name)
-                pd.read_excel(fi,keep_default_na=False).to_csv(fi_temp_name,index=False)
-                r=session.bulk_upload('masterdata',fi_temp_name,'insert',f)
+                r=session.bulk_upload('masterdata',fi,'insert',f)
                 r=response_to_json(r)
                 myprint(r)
                 if len(r['errors'])!=0:
@@ -42,11 +34,10 @@ def bulk_upload_csv_files_to_masterdata(files, table_order):
                 if r['response']['status']!='COMPLETED':
                     if r['response']['statusDescription'].find('Duplicate Record') == -1:
                         sys.exit(11)
-                os.remove(fi_temp_name)
 
 def args_parse():
     parser = argparse.ArgumentParser()
-    parser.add_argument('path', help='directory containing all the tables in xlsx format')
+    parser.add_argument('path', help='directory containing all the tables in csv format')
     parser.add_argument('order', help='file that contains the table upload order')
     parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
     parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
@@ -69,7 +60,7 @@ def main():
     init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
     init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
 
-    bulk_upload_csv_files_to_masterdata(files,table_order)
+    bulk_upload_csvs_using_api(files,table_order)
 
 if __name__=="__main__":
     main()

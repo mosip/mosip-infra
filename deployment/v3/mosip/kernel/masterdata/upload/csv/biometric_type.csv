@@ -1,0 +1,7 @@
+lang_code,code,name,descr,is_active
+eng,FNR,Fingerprint,Finger prints of the applicant,True
+eng,IRS,Iris,Iris of the applicant,True
+eng,PHT,Photo,Photo of the face of the applicant,True
+fra,FNR,Empreintes digitales,Empreintes digitales du demandeur,True
+fra,IRS,Iris,Iris du demandeur,True
+fra,PHT,Photo,Photo du visage du demandeur,True

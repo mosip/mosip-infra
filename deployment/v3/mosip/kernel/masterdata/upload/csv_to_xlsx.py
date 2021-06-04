@@ -1,6 +1,6 @@
-# Python script to convert csv files to excel files.
-
 #!/usr/local/bin/python3
+
+# Python script to convert csv files to excel files.
 
 import os
 import sys
@@ -12,10 +12,9 @@ def csv_to_xlsx(path_to_csv_dir, path_to_xlsx_dir):
     files = path_to_files(path_to_csv_dir)
     files_xlsx = path_to_xlsx_dir
     for i in range(len(files)):
-        data = pd.read_csv(files[i], error_bad_lines=False)
-        filename = (files[i].replace('csv','')+'xlsx').replace(path_to_csv_dir+'/', '')
-        path = os.path.join(files_xlsx, os.path.basename(filename))
-        data.to_excel(path)
+        filename = os.path.basename(files[i]).replace('.csv','.xlsx')
+        path = os.path.join(files_xlsx, filename)
+        pd.read_csv(files[i], error_bad_lines=False).to_excel(path,index=None)
 
 def args_parse():
    parser = argparse.ArgumentParser()

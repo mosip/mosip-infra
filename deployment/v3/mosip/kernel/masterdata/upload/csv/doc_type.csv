@@ -1,0 +1,61 @@
+lang_code,code,name,descr,is_active
+eng,CIN,Reference Identity Card,Reference Identity Card,True
+fra,CIN,Carte d'identité de référence,Carte d'identité de référence,True
+eng,RNC,Rental contract,Rental Agreement of address,True
+fra,RNC,Contrat de location,Contrat de location dadresse,True
+eng,COR,Certificate of residence,Proof of Resident,True
+fra,COR,Certificat de résidence,Preuve de résidence,True
+eng,DOC001,Passport,Proof of Idendity,True
+fra,DOC001,Passeport,Preuve didentité,True
+eng,CRN,Certificate of Relationship,Proof relationship of a person,True
+fra,CRN,Certificat de relation,Preuve de relation dune personne,True
+eng,COB,Certificate of Birth,Proof birth and age of a person,True
+fra,COB,Certificat de naissance,Preuve de naissance et âge dune personne,True
+eng,COE,Certification of Exception,Certificate of Exception,True
+fra,COE,Certification dexception,Certification dexception,True
+eng,DOC002,PAN card,PAN card,True
+eng,DOC003,Either Ration or PDS Photo card,Either Ration or PDS Photo card,True
+eng,DOC004,Voter Identification card,Voter Identification card,True
+eng,DOC005,Driving licence of the applicant,Driving licence of the applicant,True
+eng,DOC006,Photo identification cards issued by the Government,Photo identification cards issued by the Government,True
+eng,DOC007,Service photo ID cards that is issued by a PSU,Service photo ID cards that is issued by a PSU,True
+eng,DOC008,Licence of Arms,Licence of Arms,True
+eng,DOC009,Photo Bank ATM card,Photo Bank ATM card,True
+eng,DOC010,Photo Credit card,Photo Credit card,True
+eng,DOC011,Photo card of the Freedom Fighter,Photo card of the Freedom Fighter,True
+eng,DOC012,Certificate of Marriage,Certificate of Marriage,True
+eng,DOC013,Passbook or Bank Statement,Passbook or Bank Statement,True
+eng,DOC014,Account statement or passbook of the Post Office,Account statement or passbook of the Post Office,True
+eng,DOC015,Ration Card,Ration Card,True
+eng,DOC016,PSU issued Service photo ID card with address,PSU issued Service photo ID card with address,True
+eng,DOC017,Previous 3 months’ electricity bill,Previous 3 months’ electricity bill,True
+eng,DOC018,Water bill as long as it is not more than 3 months’ old,Water bill as long as it is not more than 3 months’ old,True
+eng,DOC024,PDS Card,PDS Card,True
+eng,DOC025,"Medical card issued by the State Govt, CGHS, ECHS and ESIC","Medical card issued by the State Government, CGHS, ECHS and also ESIC",True
+eng,DOC026,Canteen card of the Army,Canteen card of the Army,True
+eng,DOC027,Family entitlement document,Any family entitlement document issued by any Central or State Government,True
+eng,DOC028,Birth Certificate,Registrar of Birth/municipal Corporation or any local government Birth Certificate,True
+fra,DOC002,Carte PAN,Carte PAN,True
+fra,DOC003,Soit ration ou PDS photo carte,Soit ration ou PDS photo carte,True
+fra,DOC004,Carte d’identification des électeurs,Carte d’identification des électeurs,True
+fra,DOC005,Permis de conduire du demandeur,Permis de conduire du demandeur,True
+fra,DOC006,Cartes d’identité photo émises par le gouvernement,Cartes d’identité photo émises par le gouvernement,True
+fra,DOC007,Cartes d’identité de service de photo émises par un PSU,Cartes d’identité de service de photo émises par un PSU,True
+fra,DOC008,Licence d’armes,Licence d’armes,True
+fra,DOC009,Photo banque carte bancaire,Photo banque carte bancaire,True
+fra,DOC010,Carte de crédit photo,Carte de crédit photo,True
+fra,DOC011,Carte photo du Freedom Fighter,Carte photo du Freedom Fighter,True
+fra,DOC012,Certificat de mariage,Certificat de mariage,True
+fra,DOC013,Livret ou relevé bancaire,Livret ou relevé bancaire,True
+fra,DOC014,Relevé de compte ou livret du Bureau de poste,Relevé de compte ou livret du Bureau de poste,True
+fra,DOC015,Carte de ration,Carte de ration,True
+fra,DOC016,PSU a émis la carte didentité de photo de service avec ladresse,PSU a émis la carte d’identité de photo de service avec l’adresse,True
+fra,DOC017,Facture d’électricité précédente de 3 mois,Facture d’électricité précédente de 3 mois,True
+fra,DOC018,Facture d’eau tant qu’elle n’a pas plus de 3 mois,Facture d’eau tant qu’elle n’a pas plus de 3 mois,True
+fra,DOC024,Carte PDS,Carte PDS,True
+fra,DOC025,Carte médicale délivrée par le govt de l'État,"Carte médicale délivrée par le gouvernement de l’État, le CGHS, l’ECHS et également l’ESIC",True
+fra,DOC026,Carte de cantine de l’armée,Carte de cantine de l’armée,True
+fra,DOC027,Titre de droit familial,Tout document de droit de la famille délivré par un gouvernement central ou,True
+fra,DOC028,Certificat de naissance,Registraire de naissance/municipalité ou tout acte de naissance du gouvernement local,True
+eng,EOP,Expetion Photo,Expetion Photo,True
+fra,EOP,Photo d exception,Photo d exception,True

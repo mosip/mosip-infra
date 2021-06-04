@@ -1,0 +1,11 @@
+lang_code,id,name,descr,is_active
+eng,login_auth,Login authentication,Login authentication,True
+eng,eod_auth,Eod authentication,Eod authentication,True
+eng,packet_auth,Packet authentication,Packet authentication,True
+eng,exception_auth,Exception authentication,Exception authentication,True
+eng,onboard_auth,Onboard authentication,Onboard authentication,True
+fra,login_auth,Authentification de connexion,Authentification de connexion,True
+fra,eod_auth,Authentification de nem,Authentification de nem,True
+fra,packet_auth,Authentification de paquet,Authentification de paquet,True
+fra,exception_auth,Authentification d’exception,Authentification d’exception,True
+fra,onboard_auth,Authentification intégrée,Authentification intégrée,True

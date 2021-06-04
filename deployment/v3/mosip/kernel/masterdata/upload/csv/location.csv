@@ -1,0 +1,81 @@
+lang_code,code,name,hierarchy_level,hierarchy_level_name,parent_loc_code,is_active
+eng,MOR,MyCountry,0,Country,,True
+fra,MOR,Maroc,0,Pays,,True
+eng,RSK,Rabat Sale Kenitra,1,Region,MOR,True
+fra,RSK,Rabat-Salé-Kénitra,1,Région,MOR,True
+eng,KTA,Kenitra,2,Province,RSK,True
+fra,KTA,Kénitra,2,Province,RSK,True
+eng,KNT,Kenitra,3,City,KTA,True
+fra,KNT,Kénitra,3,Ville,KTA,True
+eng,BNMR,Ben Mansour,4,Zone,KNT,True
+fra,BNMR,Ben Mansour,4,Zone,KNT,True
+eng,14022,14022,5,Postal Code,BNMR,True
+fra,14022,14022,5,code postal,BNMR,True
+eng,MNAS,Mnasra,4,Zone,KNT,True
+fra,MNAS,Mnasra,4,Zone,KNT,True
+eng,14053,14053,5,Postal Code,MNAS,True
+fra,14053,14053,5,code postal,MNAS,True
+eng,MOGR,Mograne,4,Zone,KNT,True
+fra,MOGR,Mograne,4,Zone,KNT,True
+eng,14023,14023,5,Postal Code,MOGR,True
+fra,14023,14023,5,code postal,MOGR,True
+eng,ASSM,Assam,4,Zone,KNT,True
+fra,ASSM,Assam,4,Zone,KNT,True
+eng,14000,14000,5,Postal Code,ASSM,True
+fra,14000,14000,5,code postal,ASSM,True
+eng,MEHD,Mehdia,4,Zone,KNT,True
+fra,MEHD,Mehdia,4,Zone,KNT,True
+eng,14110,14110,5,Postal Code,MEHD,True
+fra,14110,14110,5,code postal,MEHD,True
+eng,OLOJ,Ouled Oujih,4,Zone,KNT,True
+fra,OLOJ,Ouled Oujih,4,Zone,KNT,True
+eng,14080,14080,5,Postal Code,OLOJ,True
+fra,14080,14080,5,code postal,OLOJ,True
+eng,SDTB,Sidi Taibi,4,Zone,KNT,True
+fra,SDTB,Sidi Taibi,4,Zone,KNT,True
+eng,14025,14025,5,Postal Code,SDTB,True
+fra,14025,14025,5,code postal,SDTB,True
+eng,SATZ,Sidi Allal Tazi,4,Zone,KNT,True
+fra,SATZ,Sidi Allal Tazi,4,Zone,KNT,True
+eng,14050,14050,5,Postal Code,SATZ,True
+fra,14050,14050,5,code postal,SATZ,True
+eng,RBT,Rabat,2,Province,RSK,True
+fra,RBT,Rabat,2,Province,RSK,True
+eng,RAB,Rabat,3,City,RBT,True
+fra,RAB,Rabat,3,Ville,RBT,True
+eng,AGDL,Agdal,4,Zone,RAB,True
+fra,AGDL,Agdal,4,Zone,RAB,True
+eng,10106,10106,5,Postal Code,AGDL,True
+fra,10106,10106,5,code postal,AGDL,True
+eng,QRHS,Quartier Hassan,4,Zone,RAB,True
+fra,QRHS,Quartier Hassan,4,Zone,RAB,True
+eng,10000,10000,5,Postal Code,QRHS,True
+fra,10000,10000,5,code postal,QRHS,True
+eng,SOUS,Souissi,4,Zone,RAB,True
+fra,SOUS,Souissi,4,Zone,RAB,True
+eng,10105,10105,5,Postal Code,SOUS,True
+fra,10105,10105,5,code postal,SOUS,True
+eng,MADI,Madinat Al Irfane,4,Zone,RAB,True
+fra,MADI,Madinat Al Irfane,4,Zone,RAB,True
+eng,10112,10112,5,Postal Code,MADI,True
+fra,10112,10112,5,code postal,MADI,True
+eng,HARD,Hay Riad,4,Zone,RAB,True
+fra,HARD,Hay Riad,4,Zone,RAB,True
+eng,10104,10104,5,Postal Code,HARD,True
+fra,10104,10104,5,code postal,HARD,True
+eng,MDDR,Medina de Rabat,4,Zone,RAB,True
+fra,MDDR,Médina de Rabat,4,Zone,RAB,True
+eng,10036,10036,5,Postal Code,MDDR,True
+fra,10036,10036,5,code postal,MDDR,True
+eng,ELYF,EL YOUSSOUFIA,4,Zone,RAB,True
+fra,ELYF,EL YOUSSOUFIA,4,Zone,RAB,True
+eng,10190,10190,5,Postal Code,ELYF,True
+fra,10190,10190,5,code postal,ELYF,True
+eng,10110,10110,5,Postal Code,BNMR,True
+eng,10111,10111,5,Postal Code,BNMR,True
+eng,10113,10113,5,Postal Code,BNMR,True
+eng,10114,10114,5,Postal Code,BNMR,True
+fra,10111,10111,5,code postal,BNMR,True
+fra,10110,10110,5,code postal,BNMR,True
+fra,10113,10113,5,code postal,BNMR,True
+fra,10114,10114,5,code postal,BNMR,True

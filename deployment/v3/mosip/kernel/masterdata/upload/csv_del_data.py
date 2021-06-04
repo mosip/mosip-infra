@@ -1,8 +1,8 @@
+#!/usr/local/bin/python3
+
 # Python script for csv files to remove:
 #   - optional columns(cr_by | cr_dtimes | upd_by | upd_dtimes | is_deleted | del_dtimes)
 #   - Arabic language
-
-#!/usr/local/bin/python3
 
 import os
 import sys
@@ -16,9 +16,11 @@ def csv_del_data(path_to_csv_dir, path_to_res_dir):
     for i in range(len(files)):
         data = pd.read_csv(files[i], error_bad_lines=False)
         files[i] = files[i].replace("master-","") #removing prefix master from csv files
-        
+
+        data.columns = data.columns.str.lower()
+
         # to delete columns
-        drop_list = ['cr_by', 'cr_dtimes', 'upd_by', 'upd_dtimes', 'is_deleted', 'del_dtimes']
+        drop_list = ['cr_by', 'cr_dtimes', 'upd_by', 'upd_dtimes', 'is_deleted', 'del_dtimes', 'job_type']
         for j in drop_list:
             if j in data.columns:
                 data.drop(j, inplace=True, axis=1)
@@ -28,7 +30,7 @@ def csv_del_data(path_to_csv_dir, path_to_res_dir):
             data = data.set_index('lang_code')
             data = data.drop('ara', axis=0)
         except:
-            pass 
+            pass
         path = os.path.join(files_res, os.path.basename(files[i]))
         data.to_csv(path)
 
