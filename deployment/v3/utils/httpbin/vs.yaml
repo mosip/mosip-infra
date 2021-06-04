@@ -6,6 +6,7 @@ spec:
   hosts:
   - "*"
   gateways:
+  - istio-system/internal
   - istio-system/public
   http:
   - match:
