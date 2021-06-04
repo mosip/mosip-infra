@@ -1,0 +1,35 @@
+{
+  "id" : "mpolicy-default-abis",
+  "name" : "Default ABIS Partner",
+  "description" : "Mosip Abis Policy ",
+  "type" : "DataShare",
+  "policy_group": "abis_providers",
+  "def":{
+    "dataSharePolicies": {
+        "typeOfShare": "Data Share",
+        "validForInMinutes": "30",
+        "transactionsAllowed": "2",
+        "encryptionType": "none",
+        "shareDomain": "datashare-service",
+        "source": "Packet Manager"
+    },
+
+    "shareableAttributes": [{
+        "attributeName": "biometrics",
+        "group": "CBEFF",
+        "source": [{
+            "attribute": "registration-client\/NEW\/individualBiometrics",
+            "filter": [{
+                "type": "Iris"
+            }]
+        }, {
+            "attribute": "registration-client\/NEW\/individualBiometrics",
+            "filter": [{
+                "type": "Finger"
+            }]
+        }],
+        "encrypted": false
+        }
+    ]
+   }
+}  

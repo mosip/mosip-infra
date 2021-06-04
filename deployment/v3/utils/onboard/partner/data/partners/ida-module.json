@@ -1,0 +1,20 @@
+{
+  "id" : "mpartner-default-auth",
+  "name" : "IITB", 
+  "contact": "57664345", 
+  "address": "Bangalore",
+  "email" : "def@yz.com", 
+  "partner_domain": "AUTH",
+  "partner_type": "Online_Verification_Partner",
+  "certs": [
+      "data/certs/internal/ida_mpartner.json", 
+      "data/certs/internal/ida_root.json", 
+      "data/certs/internal/ida.json" 
+  ], 
+  "policies" : [ 
+    {
+       "policy_file": "data/policies/authshare.json",
+       "extractors" : []
+    }
+  ] 
+}

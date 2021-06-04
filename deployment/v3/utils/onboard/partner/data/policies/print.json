@@ -1,0 +1,62 @@
+{
+  "id" : "print",
+  "name" : "MSP Print Policy",
+  "description" : "MSP print policy with only photo as biometrics",
+  "type" : "DataShare",
+  "policy_group": "print",
+  "def": { 
+      "dataSharePolicies": {
+        "encryptionType": "Partner Based",
+        "shareDomain": "datashare-service",
+        "source": "ID Repository",
+        "transactionsAllowed": "2",
+        "typeOfShare": "direct",
+        "validForInMinutes": "30"
+      },
+      "shareableAttributes": [
+        {
+          "attributeName": "fullName",
+          "encrypted": false,
+          "source": [
+            {
+              "attribute": "firstName"
+            }
+          ]
+        },
+        {
+          "attributeName": "dateOfBirth",
+          "encrypted": false,
+          "source": [
+            {
+              "attribute": "dateOfBirth"
+            }
+          ]
+        },
+        {
+          "attributeName": "UIN",
+          "encrypted": false,
+          "source": [
+            {
+              "attribute": "UIN"
+            }
+          ]
+        },
+        {
+          "attributeName": "biometrics",
+          "encrypted": false,
+          "format": "none",
+          "group": "CBEFF",
+          "source": [
+            {
+              "attribute": "individualBiometrics",
+              "filter": [
+                {
+                  "type": "Face"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+}

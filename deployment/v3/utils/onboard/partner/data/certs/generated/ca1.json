@@ -1,0 +1,14 @@
+{
+    "overwrite": false,
+    "type": "generated",
+    "key_path":  "certs/ca1/pvt_key.pem",
+    "cert_path": "certs/ca1/cert.pem",
+    "is_ca": true, 
+    "cn": "mosip.org",
+    "org_name": "MOSIP",
+    "country": "IN",
+    "province": "KA",
+    "locality": "Bangalore" ,
+    "valid_days": 365,
+    "ca_cert": ""
+}
