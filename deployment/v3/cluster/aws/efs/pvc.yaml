@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-claim
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  selector:
+    matchLabels:
+      purpose: landing-zone
+  resources:
+    requests:
+      storage: 5Gi

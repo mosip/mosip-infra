@@ -1,0 +1,52 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-operator-my
+spec:
+  profile: default
+  meshConfig:
+    pathNormalization:
+      normalization: MERGE_SLASHES
+  components:
+    ingressGateways:
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          serviceAnnotations:
+            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+            service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+            proxy.istio.io/config: '{"gatewayTopology" : { "numTrustedProxies": 2 } }'
+      - name: istio-ingressgateway-internal
+        enabled: true
+        label:
+            istio: istio-ingressgateway-internal
+        k8s:
+          serviceAnnotations:
+            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+            service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+            service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+            proxy.istio.io/config: '{"gatewayTopology" : { "numTrustedProxies": 2 } }'
+          service:
+            ports:
+            - port: 15021
+              targetPort: 15021
+              name: status-port
+              protocol: TCP
+            - port: 80
+              targetPort: 8080
+              name: http2
+              protocol: TCP
+            - port: 443
+              targetPort: 8443
+              name: https
+              protocol: TCP
+            # additional ports
+            - port: 61616
+              targetPort: 61616
+              name: activemq
+              protocol: TCP
+            - port: 5432
+              targetPort: 5432
+              name: postgres
+              protocol: TCP

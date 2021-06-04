@@ -1,7 +1,8 @@
 # Istio
 
 ## Install
-Download istio package and follow the procedure given [here](https://istio.io/latest/docs/setup/install/helm/). The below shell script executes these steps:
+* Install `istioctl` as given [here](https://istio.io/latest/docs/setup/getting-started/#download)
+* Run
 ```
 ./install.sh
 ```
@@ -13,3 +14,8 @@ Download istio package and follow the procedure given [here](https://istio.io/la
     ```
 1. To check the connections you may install [httpbin](../../../utils/httpbin)
 
+## Istio injection
+To enable Istio injection in a namespace:
+```
+kubectl label ns <namespace> istio-injection=enabled --overwrite
+```
