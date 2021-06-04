@@ -1,0 +1,3 @@
+biosdk:     
+  zippedLibUrl: http://artifactory.artifactory/artifactory/libs-release-local/biosdk/biosdk-lib.zip
+  bioapiImpl: io.mosip.mock.sdk.impl.SampleSDK
