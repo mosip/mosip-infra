@@ -1,8 +1,11 @@
 # Masterdata Upload Utility
 
+## Introduction
+
 It is suggested to not edit the csv files directly. Instead use the xlsx files from the provided directory and "Save as CSV" into the csv directory.
 
-## 1. To bulkupload using api
+## Bulk upload using Admin API
+_TODO: The API is still undergoing testing. For now, we recommend upading using [sql directly](#Bulk-upload-using-sql)_
 - ```
   $ export IAM_USERNAME=<username>
   $ export IAM_PASSWORD=<password>
@@ -12,10 +15,10 @@ It is suggested to not edit the csv files directly. Instead use the xlsx files f
 - Make sure to change the first line of `bulkupload.py` to the correct python3 location.
 - This will bulkupload all csv files in order of `[table-order-file]` from `[path-to-csv-dir]` according to their file names, using the `/v1/admin/bulkupload` api.
 
-## 2. To bulkupload directly to db using sql
+## Bulk upload using sql
 
-- It is recommended to use the above script in at all cases, unless absolutely required.
-- ```
+* Use this script only once initially while seeding the DB.
+  ```
   $ chmod +x bulkupload.py
   $ export IAM_USERNAME=<username>
   $ export DB_USER=<db_username>
@@ -28,15 +31,13 @@ It is suggested to not edit the csv files directly. Instead use the xlsx files f
 - Make sure to change the first line of `bulkupload_using_sql.py` to the correct python3 location.
 - This will bulkupload all csv files in order of `[table-order-file]` from `[path-to-csv-dir]` according to their file names, directly to database, using sql "insert".
 
-## 3. Miscellaneous one-time scripts
-#### 3.1 csv_del_data.py
-- Use this script to delete unwanted data in the csvs, like unwanted rows and columns.
-- ```
+## Miscellaneous one-time scripts
+* `csv_del_data.py`: Use this script to delete unwanted data in the csvs, like unwanted rows and columns.
+  ```
   $ ./csv_del_data.py [original-csv-dir] [output-empty-csv-dir]
   ```
 
-#### 3.2 csv_to_xlsx.py
-- Use this script to convert all csv files from a directory to xlsx files.
-- ```
+* `csv_to_xlsx.py`: Use this script to convert all csv files from a directory to xlsx files.
+  ```
   $ ./csv_to_xlsx.py [original-csv-dir] [output-empty-xlsx-dir]
   ```
