@@ -311,6 +311,23 @@ services:
     podconfig:
       {{ podconfig.regproc.notificationService | to_nice_yaml(indent=6) | indent(6) }}
 
+  workflow:
+    serviceName: {{ versions.services.regproc.workflow.keys()[0] }}
+    dockerImage: {{ versions.services.regproc.workflow.values()[0] }}
+    ports:
+      eventbusPort: 5754
+      serverPort: 8026
+      workflowInternalEventBusPort: 5751
+      workflowInternalServerPort: 8024
+      workflowActionEventBusPort: 5752
+      workflowActionServerPort: 8023
+      servicePort: 80
+    ingressPath: /registrationprocessor/v1/workflowmanager/
+    healthUrl: /registrationprocessor/v1/workflowmanager/actuator/health
+    podconfig:
+      {{ podconfig.regproc.workflow | to_nice_yaml(indent=6) | indent(6) }}
+
+
 job:
   salt:
     serviceName: {{ versions.services.regproc.salt.keys()[0] }}
