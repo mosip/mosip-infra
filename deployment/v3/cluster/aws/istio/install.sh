@@ -1,8 +1,6 @@
 #!/bin/sh
 # Install ingress gateways
 
-echo "Create namespace istio-system"
-kubectl create namespace istio-system
 echo "Operator init"
 istioctl operator init
 echo "Create ingress gateways and load balancers"

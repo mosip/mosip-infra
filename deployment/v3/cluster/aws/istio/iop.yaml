@@ -5,6 +5,7 @@ metadata:
   name: istio-operator-my
 spec:
   profile: default
+  # This is done to merge multiple slashes in http URLs, otherwise, MOSIP APIs may not work
   meshConfig:
     pathNormalization:
       normalization: MERGE_SLASHES
