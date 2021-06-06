@@ -32,10 +32,11 @@ $ kubectl -n postgres apply -f istio/virtualservice.yaml
 $ docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U postgres -p 5432
 ```
 ## Initialize DB
-Run init postgres helm chart to create necessary DB, users, roles etc:
+* Review `values.yaml` for  which DBs you would like to initialize.
+* Run init postgres helm chart to create necessary DB, users, roles etc:
 ```
 $ helm repo update mosip
-$ helm -n postgres install postgres-init mosip/postgres-init
+$ helm -n postgres install postgres-init mosip/postgres-init -f values.yaml
 ```
 Be aware of version of helm chart corresponding to mosip version.
 
