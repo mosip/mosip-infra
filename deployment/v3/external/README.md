@@ -9,3 +9,5 @@ This folder contains installation procedures for all components that are not par
 * [Object Storage (MinIO)](minio/README.md)
 * [Anti-virus (Clamav)](antivirus/clamav/README.md)
 * [ActiveMQ](activemq/aws/README.md)
+* [BioSDK](biosdk/README.md)
+* [ABIS](abis/README.md)
