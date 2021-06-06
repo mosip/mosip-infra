@@ -50,6 +50,7 @@ Following install sequence is recommended:
 * [Rancher](rancher/README.md) 
 * [IAM (Keycloak)](external/iam/README.md)
 * [MOSIP K8s cluster](cluster/README.md)
+* [Monitoring](monitoring/README.md)
+* [Logging](logging/README.md)
 * [MOSIP external components](external/README.md)
 * [MOSIP core modules](mosip/README.md)
-
