@@ -1,4 +1,6 @@
 #!/usr/local/bin/python3
+# Upload masterdata directly using SQL insert instead of Admin's bulk upload API. 
+# This should be done only once in while seeding the DB.
 
 import sys
 import argparse

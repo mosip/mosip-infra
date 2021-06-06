@@ -1,8 +1,18 @@
 #!/bin/sh
 # Installs all PreReg helm charts 
+NS=prereg
+echo Copy configmaps
+./copy_cm.sh
+echo Create namespace
+kubectl create ns $NS
+echo Istio label 
+kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
-kubectl create ns prereg
+echo Installing prereg-application
 helm -n prereg install prereg-application mosip/prereg-application 
-helm -n prereg install prereg-batchjob mosip/prereg-batchjob
+echo Installing prereg-booking
 helm -n prereg install prereg-booking mosip/prereg-booking
+echo Installing prereg-datasync
 helm -n prereg install prereg-datasync mosip/prereg-datasync
+echo Installing prereg-batchjob
+helm -n prereg install prereg-batchjob mosip/prereg-batchjob

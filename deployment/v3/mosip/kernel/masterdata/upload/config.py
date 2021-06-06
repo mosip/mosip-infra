@@ -1,7 +1,8 @@
 import os
 
-server = 'https://api-internal.sandbox.mosip.net'
-ssl_verify=True
+#server = 'https://api-internal.sandbox.mosip.net'
+server = 'http://localhost'
+ssl_verify=False
 
 db_user = os.getenv('DB_USER')
 db_pwd = os.getenv('DB_PWD')

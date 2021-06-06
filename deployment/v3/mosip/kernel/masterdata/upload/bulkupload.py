@@ -1,5 +1,5 @@
 #!/usr/local/bin/python3
-
+# Upload masterdata using Admin's bulkupload API.
 import sys
 import argparse
 from api import *
