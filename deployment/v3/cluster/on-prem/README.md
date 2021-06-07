@@ -14,12 +14,13 @@
 * Install backup scripts 
 * Ensure that restoration works even if you dismantle current cluster and install Longhorn again
 
-### Loadbalancer
+### Loadbalancers
 * Provision one VM for Nginx. Or multiple VMs for high avaiability like Nginx Plus.
 * The machine should be external facing with public ip and DNS like `api.xyz.mosip.net`.  
 * Make sure you have SSL certificate for the above domain such that HTTPS is enabled. 
 * Install Nginx which will serve as Loadbalancer.  
 * TLS termination will happen here.  The traffic will be forward to cluster ingress over HTTP.
+* TODO: Add instsrutions for Internal LB.
  
 ## Metallb
 Install metallb. Assign pool of IPs within the subnet and make sure appropriate routing and NAT is done for packet to reach the subnet where worker nodes are running.
