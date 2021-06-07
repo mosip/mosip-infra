@@ -1,8 +1,8 @@
 # Kafka
 
 ## Install
+* Review `values.yaml`
+* Install
 ```
-$ kubectl create ns kafka
-$ helm repo update
-$ helm -n kafka install kafka bitnami/kafka -f values.yaml
+$ ./install.sh
 ```

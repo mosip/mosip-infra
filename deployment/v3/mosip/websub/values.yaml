@@ -1,4 +1,4 @@
-ub:
+websub:
   datasource_url: jdbc:postgresql://postgres-postgresql.postgres:5432/mosip_websub
   datasource_username: websubuser
   datasource_secret:

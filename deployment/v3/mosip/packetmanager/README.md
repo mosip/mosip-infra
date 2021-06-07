@@ -1,4 +1,4 @@
-# Artifactory
+# Packetmanager
 
 ## Install
 ```
