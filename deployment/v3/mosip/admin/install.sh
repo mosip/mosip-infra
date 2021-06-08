@@ -2,14 +2,18 @@
 # Installs the Admin module
 # Make sure you have updated ui_values.yaml
 NS=admin
-echo Helm update
+echo Copy configmaps
+./copy_cm.sh
+
+echo Create namespace
+kubectl create ns $NS
+
+echo Istio label 
+kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
-echo Creating namespace
-kubectl create ns $NS 
-
 while true; do
-  read -p "Have you updated ui_values.yaml Y/n ?" yn
+  read -p "Have you created/updated ui_values.yaml Y/n ?" yn
   if [[ $yn == "Y" ]]
     then
       echo Installing admin service. Will wait till service gets installed.
