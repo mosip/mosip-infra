@@ -14,7 +14,7 @@ https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/
     ```
 * Set replicas in above command to number of nodes in your Rancher cluster
 ## Integrate keycloak authentication
-Follow procedure given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/)
+After you have installed Keycloak, follow the instructions [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/)) to integrated with Rancher.
 
 ## Register clusters with Rancher
 * Login as admin in Rancher console 
