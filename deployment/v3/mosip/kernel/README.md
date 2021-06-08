@@ -2,7 +2,7 @@
 
 ## Install 
 ```
-$ ./install_all.sh
+$ ./install.sh
 ```
 ## Masterdata
 To upload masterdata follow the procedure given [here](masterdata/upload/README.md)

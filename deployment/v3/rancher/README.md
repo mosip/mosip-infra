@@ -13,8 +13,6 @@ https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/
     helm install rancher rancher-latest/rancher  --namespace cattle-system  --set hostname=rancher.mosip.net --set ingress.tls.source=letsEncrypt  --set letsEncrypt.email=info@mosip.io --set replicas=1
     ```
 * Set replicas in above command to number of nodes in your Rancher cluster
-## Integrate keycloak authentication
-Follow procedure given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/)
 
 ## Register clusters with Rancher
 * Login as admin in Rancher console 
