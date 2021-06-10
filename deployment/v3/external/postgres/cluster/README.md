@@ -18,7 +18,7 @@ $ ./get_pwd.sh
 ```
 
 ## Ingress
-To enable postgres access over secure internal channel (with wireguard front end bastion host) it is assumed that istio ingress controller has port 5432 opened up. See [gateway](../../../cluster/aws/istio/gateway-internal.yaml).
+To enable postgres access over secure internal channel (with wireguard front end bastion host) it is assumed that istio ingress controller has port 5432 opened up.
 
 Update `hosts` in `gateway.yaml` and run
 ```
