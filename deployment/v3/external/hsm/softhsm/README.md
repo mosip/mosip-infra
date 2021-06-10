@@ -2,10 +2,7 @@
 
 ## Install
 ```
-$ kubectl create namespace keymanager
-$ helm repo udpate
-$ helm -n keymanager install softhsm-kernel mosip/softhsm --set fullnameOverride=softhsm-kernel
-```
+`
 If you are running IDA, you will need another instance of softhsm.
 
 ```
