@@ -157,4 +157,4 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipqa/artifactory-server:develop'
+        'artifactory-service': 'mosipdev/artifactory-server:develop'
