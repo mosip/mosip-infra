@@ -74,6 +74,9 @@ If you do not want public access to your installation, you may set up a bastion 
 
 Follow the procedure given [here](../../docs/wireguard_bastion.md)
 
+## Httpbin
+Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
+
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
 

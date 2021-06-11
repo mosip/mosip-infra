@@ -12,4 +12,11 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - api-internal.sandbox.mosip.net
+    - api-internal.v3box1.mosip.net
+  - port:
+      number: 5432 
+      name: postgres
+      protocol: TCP 
+    hosts:
+    - "*"
+
