@@ -25,6 +25,8 @@ versions:
         'kernel-ridgenerator-service': 'mosipqa/kernel-ridgenerator-service:develop'
       keygen:
         'kernel-keys-generator': 'mosipqa/keys-generator:develop'
+      key-migrator:
+        'keys-migrator': 'mosipdev/keys-migrator:develop'
 
     prereg:
       application:
