@@ -2,7 +2,7 @@
 # Uninstalls idrepo services
 NS=datashare
 while true; do
-    read -p "Are you sure you want to delete Idrepo helm chart? Y/n ?" yn
+    read -p "Are you sure you want to delete Idrepo helm chart?(Y/n) " yn
     if [[ $yn == "Y" ]]
       then
         helm -n $NS delete idrepo-saltgen

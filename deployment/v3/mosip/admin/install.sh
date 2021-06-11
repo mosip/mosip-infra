@@ -20,7 +20,7 @@ while true; do
       helm -n $NS install admin-service mosip/admin-service --wait
 
       echo 'Installing admin-ui'
-      helm -n $NS install admin-ui mosip/admin-ui -f ui_values.yaml
+      helm -n $NS install admin-ui mosip/admin-ui -f ui_values.yaml 
     else
       break
   fi
