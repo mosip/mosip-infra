@@ -4,11 +4,11 @@ metadata:
   name: minio
 spec:
   selector:
-    istio: ingressgateway
+    istio: ingressgateway-internal
   servers:
   - port:
       number: 80
       name: http
       protocol: HTTP
     hosts:
-    - minio.sandbox.xyz.net
+    - minio.v3box1.xyz.net
