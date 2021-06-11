@@ -20,11 +20,10 @@ dockerHub:
 
 services:
   key-migrator:
-    serviceName: {{ versions.services.kernel.key.keys()[0] }} 
-    dockerImage: {{ versions.services.kernel.key.values()[0] }}
+    serviceName: {{ versions.services.kernel.key-migrator.keys()[0] }}
+    dockerImage: {{ versions.services.kernel.key-migrator.values()[0] }}
     containerPort: 9096
     servicePort: 80
-    #hsmUrl: tcp://softhsm-keymanager:80
     ingressPath: /v1/keymigrator
     healthUrl: /v1/keymigrator/actuator/health
     hsmClientZipPath: {{ hsm_client_zip_path }}
