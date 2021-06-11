@@ -1,8 +1,11 @@
 istio:
   enabled: true
   hosts:
-    - activemq.sandbox.xyz.net
+    - activemq.xyz.abc.net
   ## Associate with either public or internal ingress controllers
   ingressController:
     name: ingressgateway-internal
   prefix: /
+
+persistence:
+  storageClass: gp2
