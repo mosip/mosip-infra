@@ -24,11 +24,11 @@ Install metallb. Assign pool of IPs within the subnet and make sure appropriate 
 
 ## Ingress
 * Remove default ingress controller installed by `rke`.
-```
+```sh
 kc -n ingress-nginx delete all --all
 ```
 * Install nginx ingress as
-```
+```sh
 $ kubectl create namespace ingress-nginx
 $ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
 ```
