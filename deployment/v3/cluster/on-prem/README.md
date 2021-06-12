@@ -29,8 +29,8 @@ kc -n ingress-nginx delete all --all
 ```
 * Install nginx ingress as
 ```sh
-$ kubectl create namespace ingress-nginx
-$ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
+kubectl create namespace ingress-nginx
+helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
 ```
 ## TLS termination for Rancher
 * Install cert-manager for Letsencrypt:
@@ -42,5 +42,5 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-
 * Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
 * Update the domain names in `../global_configmap.yaml` and run
 ```sh
-$ kubectl apply -f ../global_configmap.yaml
+kubectl apply -f ../global_configmap.yaml
 ```
