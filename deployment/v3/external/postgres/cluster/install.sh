@@ -9,10 +9,10 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 echo Installing  postgres
 helm -n $NS install postgres bitnami/postgresql -f values.yaml --wait
 
-echo Installing Istio gateway and vs
-kubectl -n $NS apply -f istio/gateway.yaml
-kubectl -n $NS apply -f istio/vs.yaml
-
+echo Installing gateways, vs
+INTERNAL=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\"`
+echo Internal domain: $INTERNAL
+helm -n $NS install istio-addons chart/istio-addons --set internalHost=$INTERNAL
 
 
 

@@ -11,4 +11,4 @@ spec:
       name: postgres
       protocol: TCP
     hosts:
-    - api-internal.sandbox.xyz.net
+    - {{ .Values.internalHost }}
