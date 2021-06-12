@@ -7,7 +7,7 @@ kubectl create namespace postgres
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo Installing  postgres
-helm -n $NS install postgres bitnami/postgresql --wait
+helm -n $NS install postgres bitnami/postgresql -f values.yaml --wait
 
 echo Installing Istio gateway and vs
 kubectl -n $NS apply -f istio/gateway.yaml

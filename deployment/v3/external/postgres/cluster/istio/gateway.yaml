@@ -2,7 +2,6 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: postgres
-  namespace: postgres
 spec:
   selector:
     istio: ingressgateway-internal

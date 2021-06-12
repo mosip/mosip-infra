@@ -1,43 +1,7 @@
-databases:
-  mosip_master:
-    enabled: true
-
-  mosip_audit:
-    enabled: true
-
-  mosip_keymgr:
-    enabled: true 
-
-  mosip_kernel:
-    enabled: true
-
-  mosip_idmap:
-    enabled: true
-
-  mosip_prereg:
-    enabled: true
-
-  mosip_idrepo:
-    enabled: true
-
-  mosip_ida:
-    enabled: true
-
-  mosip_credential:
-    enabled: true
-
-  mosip_regprc:
-    enabled: true
-
-  mosip_regdevice:
-    enabled: true
-
-  mosip_authdevice:
-    enabled: true
-
-  mosip_pms:
-    enabled: true
-
-  mosip_websub:
-    enabled: true
-
+resources:
+  limits: {}
+  #   cpu: 250m
+  #   memory: 1Gi
+  requests: 
+    cpu: 2000m
+    memory: 3000Mi
