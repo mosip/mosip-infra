@@ -18,7 +18,7 @@ $ eksctl create cluster -f cluster.config
 You can also create cluster on Cloud using the Rancher console.  Refer to Rancher documentation.
 
 ## Persistence
-### AWS
+### GP2 
 * Default storage class is `gp2` which by is in "Delete" mode.  After helm is deleted, PV also gets deleted.  
 * To retain define a storage class `gp2-retain` by running `sc.yaml`. This will retain the PV. You will have to delete the storage from AWS console.  See some more details on persistence [here](../../docs/persistence.md).
 ```
@@ -26,7 +26,11 @@ $ kubectl apply -f sc.yaml
 ```
 * If the PV gets deleted (say cluster was retarted), then you will have to define a PV connecting to this instance of storage (you will need volume ID etc). TODO: how to do this?
 
-* For ReadWriteMany access you will need the AWS EFS storage class. This type of storage is required for Registration Processor landing zone.  Install using procedure given [here](efs/README.md)
+### LongHorn
+Install LongHorn as given [here](../longhorn/README.md)
+
+### EFS
+EFS may not be necessary if you are using LongHorn + backup on S3. However, if needed you may install it as given [here](efs/README.md)
 
 ## Ingress and load balancer (LB)
 Ingress is not installed by default on EKS. We use Istio ingress gateway controller to allow traffic in the cluster. Two channels are created - public and internal. See [architecture](../../docs/images/deployment_architecture.png).
