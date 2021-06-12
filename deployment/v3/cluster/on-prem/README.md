@@ -38,3 +38,9 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-
 
 * Use Canal networking model for Rancher RKE cluster install. 
 
+## Global configmap
+* Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
+* Update the domain names in `../global_configmap.yaml` and run
+```sh
+$ kubectl apply -f ../global_configmap.yaml
+```
