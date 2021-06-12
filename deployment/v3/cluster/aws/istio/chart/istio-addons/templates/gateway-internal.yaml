@@ -2,7 +2,6 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: internal
-  namespace: istio-system
 spec:
   selector:
     istio: ingressgateway-internal
@@ -12,7 +11,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - api-internal.v3box1.mosip.net
+    - {{ .Values.internalHost }}
   - port:
       number: 5432 
       name: postgres

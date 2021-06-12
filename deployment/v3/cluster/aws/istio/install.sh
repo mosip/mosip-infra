@@ -12,23 +12,13 @@ kubectl -n istio-system rollout status deploy istiod
 kubectl -n istio-system rollout status deploy istio-ingressgateway
 kubectl -n istio-system rollout status deploy istio-ingressgateway-internal
 
-echo "Enable proxy protocol"
-kubectl apply -f proxy-protocol.yaml
+echo Installing gateways, proxy protocol, authpolicies
+PUBLIC=`kubectl get cm global -o json | jq .data.\"mosip-api-host\"`
+INTERNAL=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\"`
+echo Public domain: $PUBLIC
+echo Internal dome: $INTERNAL
+helm -n istio-system install istio-addons chart/istio-addons --set publicHost=$PUBLIC --set internalHost=$INTERNAL
 
-while true; do
-  read -p "Have you set your domain host names in gateway.yaml and gateway-internal.yaml Y/n ?" yn
-  if [[ $yn == "Y" ]]
-    then
-      echo "Install default gateways"
-      kubectl apply -f gateway.yaml
-      kubectl apply -f gateway-internal.yaml
-      echo "apply auth policies"
-      kubectl apply -f authpolicies/*
-      break
-    else
-      break
-  fi
-done
 echo ------ IMPORTANT ---------
 echo If you already have pods running with envoy sidecars, restart all of them NOW.  Check if all of them appear with command "istioctl proxy-status"
 echo --------------------------
