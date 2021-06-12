@@ -4,17 +4,7 @@ ClamAV is open source antivirus software. We provide a helm chart to install Cla
 
 ## Install
 ```sh
-$ helm repo add https://mosip.github.io/mosip-helm
-$ helm repo udpate
-$ helm dep update
-$ helm -n clamav install clamav mosip/clamav
+./install.sh
 ```
-
-## Defaults
-* Check `values.yaml` for defaults
-```
-$ helm show values mosip/clamav
-```
-
 
 
