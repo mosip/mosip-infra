@@ -19,3 +19,11 @@ zookeeper:
   persistence:
     enabled: true
     size: 2Gi
+
+resources:
+  limits: {}
+  #   cpu: 250m
+  #   memory: 1Gi
+  requests: 
+    cpu: 200m
+    memory: 2000Mi
