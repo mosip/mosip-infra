@@ -4,6 +4,14 @@
 
 It is suggested to not edit the csv files directly. Instead use the xlsx files from the provided directory and "Save as CSV" into the csv directory.
 
+## Prequisites
+1. `python3`
+1. Install additional modules:
+```sh
+pip3 install -r requirements.txt
+```
+1. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
+
 ## Bulk upload using Admin API
 _TODO: The API is still undergoing testing. For now, we recommend upading using [sql directly](#Bulk-upload-using-sql)_
 - ```
