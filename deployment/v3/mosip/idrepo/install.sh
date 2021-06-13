@@ -2,9 +2,6 @@
 # Installs idrepo
 NS=idrepo
 
-echo Copy configmaps
-./copy_cm.sh
-
 echo Create namespace
 kubectl create ns $NS 
 
@@ -12,8 +9,11 @@ echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
+echo Copy configmaps
+./copy_cm.sh
+
 echo Running salt generator job
-helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen
+helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait-for-jobs
 
 echo Running credential
 helm -n $NS install credential mosip/credential
