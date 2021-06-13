@@ -1,9 +1,0 @@
-lang_code,code,descr,is_active
-eng,txt,Text File,True
-eng,xml,XML File,True
-eng,json,Json File,True
-fra,txt,Fichier texte,True
-fra,xml,Fichier XML,True
-fra,json,Fichier Json,True
-eng,html,html file,True
-fra,html,Fichier html,True

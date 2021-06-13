@@ -1,5 +1,0 @@
-lang_code,code,descr,sttyp_code,is_active
-eng,ACT,Activated,ADT,True
-eng,DCT,Deactivated,ADT,True
-fra,ACT,activated,ADT,True
-fra,DCT,disabled,ADT,True
