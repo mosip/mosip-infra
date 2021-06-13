@@ -1,8 +1,6 @@
 #!/bin/sh
 # Installs all kernel helm charts 
 NS=kernel
-echo Copy configmaps
-./copy_cm.sh
 
 echo Create namespace
 kubectl create ns $NS
@@ -10,6 +8,9 @@ kubectl create ns $NS
 echo Istio label 
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
+
+echo Copy configmaps
+./copy_cm.sh
 
 echo Installing authmanager
 helm -n $NS install authmanager mosip/authmanager
