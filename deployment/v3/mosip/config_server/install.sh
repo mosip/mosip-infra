@@ -15,4 +15,4 @@ echo Copy secrets
 ./copy_secrets.sh
 
 echo Installing config-server
-helm -n $NS install config-server mosip/config-server
+helm -n $NS install config-server mosip/config-server --wait
