@@ -7,7 +7,7 @@ metadata:
   namespace: default
 data:
   mosip-api-host: api.sandbox.xyz.net
-  mosip-api-host-url: https://api.sandbox.xyz.net
+  mosip-api-url: https://api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-api-internal-url: https://api-internal.sandbox.xyz.net
   mosip-activemq-host: activemq.sandbox.xyz.net
