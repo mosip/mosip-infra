@@ -281,9 +281,9 @@ repos:
     githubuser: ''
     githubpassword: ''
   ref_impl:
-    src: https://github.com/mosip/mosip-data
-    dest: '{{tmp_dir}}/mosip-data'
-    tag: develop-qa1
+    src: https://github.com/mosip/mosip-ref-impl
+    dest: '{{tmp_dir}}/mosip-ref-impl'
+    tag: develop
     githubuser: ''
     githubpassword: ''
   hotlist:
@@ -402,7 +402,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: develop-qa1
+  version: develop
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
