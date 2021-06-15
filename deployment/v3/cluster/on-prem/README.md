@@ -1,7 +1,6 @@
 # MOSIP cluster using Rancher on-premise  
 
-## Rancher k8s cluster
-### Cluster
+## Cluster
 * Set up VMs.
 * Install Wireguard as given [here](wireguard/README.md)
 * Create K8s cluster for MOSIP modules at least 5 worker nodes using Rancher's `rke` utility.
@@ -9,12 +8,10 @@
 * Give `internal_address: <wireguard address>` in `cluster.yml`.
 * Keep the Pod Security Policies disabled.
 
-### Persistence
-* Install Longhorn
-* Install backup scripts 
-* Ensure that restoration works even if you dismantle current cluster and install Longhorn again
+## Persistence
+* Install Longhorn as given [here](../longhorn/README.md)
 
-### Loadbalancers
+## Loadbalancers
 * Provision one VM for Nginx. Or multiple VMs for high avaiability like Nginx Plus.
 * The machine should be external facing with public ip and DNS like `api.xyz.mosip.net`.  
 * Make sure you have SSL certificate for the above domain such that HTTPS is enabled. 
@@ -27,13 +24,13 @@ Install metallb. Assign pool of IPs within the subnet and make sure appropriate 
 
 ## Ingress
 * Remove default ingress controller installed by `rke`.
-```
+```sh
 kc -n ingress-nginx delete all --all
 ```
 * Install nginx ingress as
-```
-$ kubectl create namespace ingress-nginx
-$ helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
+```sh
+kubectl create namespace ingress-nginx
+helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
 ```
 ## TLS termination for Rancher
 * Install cert-manager for Letsencrypt:
@@ -41,3 +38,9 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-
 
 * Use Canal networking model for Rancher RKE cluster install. 
 
+## Global configmap
+* Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
+* Update the domain names in `../global_configmap.yaml` and run
+```sh
+kubectl apply -f ../global_configmap.yaml
+```

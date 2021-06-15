@@ -1,7 +1,0 @@
-lang_code,code,name,descr,is_active
-eng,MIR,Mr,Male Title,True
-eng,MRS,Mrs,Female Title,True
-eng,MIS,Miss,Unmarried Female Title,True
-fra,MIR,Monsieur,Titre masculin,True
-fra,MRS,Madame,Titre féminin,True
-fra,MIS,Mademoiselle,Titre de femme célibataire,True

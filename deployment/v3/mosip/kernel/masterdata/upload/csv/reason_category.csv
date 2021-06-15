@@ -1,5 +1,0 @@
-lang_code,code,name,descr,is_active
-eng,MNA,Manual Adjudication,Rejection during Manual Adjudication,True
-eng,CLR,Client Rejection,Rejection in Registration Client,True
-fra,MNA,Manuel arbitrage,Renvoi en cours de sélection manuelle,True
-fra,CLR,Rejet de client,Rejet en enregistrement Client,True

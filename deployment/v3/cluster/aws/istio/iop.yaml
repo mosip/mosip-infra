@@ -9,6 +9,9 @@ spec:
   meshConfig:
     pathNormalization:
       normalization: MERGE_SLASHES
+    defaultConfig:
+      gatewayTopology:
+        numTrustedProxies: 2
   components:
     ingressGateways:
       - name: istio-ingressgateway
@@ -17,7 +20,6 @@ spec:
           serviceAnnotations:
             service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
             service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-            proxy.istio.io/config: '{"gatewayTopology" : { "numTrustedProxies": 2 } }'
       - name: istio-ingressgateway-internal
         enabled: true
         label:
@@ -27,7 +29,6 @@ spec:
             service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
             service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
             service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-            proxy.istio.io/config: '{"gatewayTopology" : { "numTrustedProxies": 2 } }'
           service:
             ports:
             - port: 15021

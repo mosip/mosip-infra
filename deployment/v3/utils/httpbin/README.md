@@ -10,5 +10,6 @@ $ ./install.sh
 To see what's reaching httpbin:
 ```
 curl https://api.sandbox.mosip.net/httpbin/get?show_env=true
+curl https://api-internal.sandbox.mosip.net/httpbin/get?show_env=true
 ```
 
