@@ -81,7 +81,7 @@ services:
       containerPort: 8089
     podconfig:
       {{ podconfig.regproc.group5 | to_nice_yaml(indent=6) | indent(6) }}
-    healthUrl: /registrationprocessor/v1/osivalidator/actuator/health
+    healthUrl: /registrationprocessor/v1/cmdvalidator/actuator/health
 
   group7:  
     serviceName: {{ versions.services.regproc.group7.keys()[0] }} 
