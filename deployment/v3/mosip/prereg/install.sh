@@ -24,6 +24,8 @@ helm -n prereg install prereg-datasync mosip/prereg-datasync
 echo Installing prereg-batchjob
 helm -n prereg install prereg-batchjob mosip/prereg-batchjob
 
-PREREG_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-url\" | tr -d '"'`
+PREREG_API=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-url\" | tr -d '"'`
+PREREG_UI=`kubectl get cm global -o json | jq .data.\"mosip-prereg-host\" | tr -d '"'`
 echo Installing prereg-ui
-helm -n prereg install prereg-ui mosip/prereg-ui --set prereg.host=$PREREG_HOST
+helm -n prereg install prereg-ui mosip/prereg-ui --set prereg.apiUrl=$PREREG_API --set istio.hosts[0]=$PREREG_UI
+~                                  
