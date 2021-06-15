@@ -10,6 +10,8 @@ data:
   mosip-api-url: https://api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-api-internal-url: https://api-internal.sandbox.xyz.net
+  mosip-prereg-host: prereg.sandbox.xyz.net
+  mosip-prereg-url: https://prereg.sandbox.xyz.net
   mosip-activemq-host: activemq.sandbox.xyz.net
   mosip-activemq-url: https://activemq.sandbox.xyz.net
   mosip-kibana-host: kibana.sandbox.xyz.net
