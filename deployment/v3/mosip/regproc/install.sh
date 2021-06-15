@@ -19,7 +19,7 @@ echo Installing regproc-camel
 helm -n regproc install regproc-camel mosip/regproc-camel
 
 echo Installing regproc-receiver
-helm -n regproc install regproc-receiver mosip/regproc-receiver
+helm -n regproc install regproc-receiver mosip/regproc-receiver -f receiver_values.yaml
 
 echo Installing regproc-pktserver
 helm -n regproc install regproc-pktserver mosip/regproc-pktserver
