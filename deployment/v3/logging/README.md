@@ -11,8 +11,9 @@ $ helm -n logging install elasticsearch bitnami/elasticsearch -f <your_values.ya
 * Cloud: You may use cloud provider's Elasticsearch hosted application in which case you don't need to install the same as given above. 
 
 ## Kibana
+* Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
 * Kibana connects to Elasticsearch. 
-* Review the settings in `kibana_values.yaml`.  Set `ingress.hostname`.
+* Review the settings in `kibana_values.yaml`. 
 * Install Kibana with a name *other* than `kibana` to avoid [this issue](https://github.com/bitnami/charts/issues/6099).
 ```
 $ helm -n logging install mykibana bitnami/kibana -f kibana_values.yaml
