@@ -23,3 +23,11 @@ helm -n $NS install regclient mosip/regclient \
   --set regclient.upgradeServerUrl=$REGCLIENT_URL \
   --set regclient.healthCheckUrl=$HEALTH_URL \
  --set istio.hosts[0]=$REGCLIENT_HOST
+
+## Construct download url for regclient
+## TODO: Crude. make the version extraction more robust
+VERSION=`helm show values mosip/regclient | grep "^  version" `
+set $VERSION
+echo 
+echo Regclient download url:
+echo $REGCLIENT_URL/registration-client/$2/reg-client.zip
