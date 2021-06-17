@@ -2,7 +2,9 @@
 
 ## Introduction
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service. The MinIO Operator is recommended way to deploy MinIO on Kubernetes. MinIO Operator supports deploying MinIO Tenants onto private and public cloud infrastructures ("Hybrid" Cloud).
+MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0. It is API compatible with Amazon S3 cloud storage service.  MinIO is required for on-prem setups. If you are installing MOSIP on cloud you need explore cloud native options that support S3 API.  On AWS, it would be S3.  
+
+The MinIO Operator is recommended way to deploy MinIO on Kubernetes. MinIO Operator supports deploying MinIO Tenants onto private and public cloud infrastructures ("Hybrid" Cloud).
 
 ## Prerequisites
 
