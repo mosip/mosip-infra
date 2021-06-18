@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kafkaconnect-deploy
+  name: debezium-deploy
   labels:
-    app: kafkaconnect
+    app: debezium
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: kafkaconnect
+      app: debezium
   template:
     metadata:
       labels:
-        app: kafkaconnect
+        app: debezium
     spec:
       containers:
-        - name: kafkaconnect-container
+        - name: debezium-container
           image: {{ .Values.debezium.image }}
           readinessProbe:
             httpGet:
@@ -42,14 +42,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafkaconnect-service
+  name: debezium-service
   labels:
-    app: kafkaconnect-service
+    app: debezium-service
 spec:
   type: ClusterIP
   ports:
-    - name: kafkaconnect
+    - name: debezium
       protocol: TCP
       port: {{ .Values.debezium.port }}
   selector:
-      app: kafkaconnect
+      app: debezium

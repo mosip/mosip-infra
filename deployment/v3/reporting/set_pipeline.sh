@@ -11,7 +11,7 @@ SPARK_CHART_VERSION=$(helm -n $NS show chart stable/spark | grep appVersion | cu
 
 ## Configure debezium to call kafka-connect api for creating topics in kafka
 
-CONNECT_SERVICE=$(kubectl $MY_CONFIG -n $NS get service -o go-template --template ' {{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | awk '{print $1}' | grep kafkaconnect | tail -n 1)
+CONNECT_SERVICE=$(kubectl $MY_CONFIG -n $NS get service -o go-template --template ' {{range .items}}{{.metadata.name}}{{"\n"}}{{end}}' | awk '{print $1}' | grep debezium | tail -n 1)
 
 # Use HTTP client (cURL), make the following request to the Kafka Connect API. This will configure a new Debezium PostgreSQL connector. This connector monitors the pgoutput stream for operations on the whitelisted tables:
 
@@ -19,7 +19,7 @@ CONNECT_SERVICE=$(kubectl $MY_CONFIG -n $NS get service -o go-template --templat
 DB_SECRET=$(kubectl $MY_CONFIG -n $NS get secret db-common-secrets -o jsonpath='{.data.db-dbuser-password}' | base64 --decode)
 
 #######----to be fixed----
-curl -X POST http://$CONNECT_SERVICE.$NS/connectors -H 'Content-Type: application/json' -d $1
+curl -X POST http://$CONNECT_SERVICE.$NS/connectors -H 'Content-Type: application/json' -d @$1
 
 ## To list the kafka topics:
 kubectl $MY_CONFIG -n $NS exec kafka-client -- kafka-topics --zookeeper kafka-zookeeper:2181 --list
@@ -38,7 +38,7 @@ kubectl $MY_CONFIG -n $NS cp $2 $PODNAME:opt/spark/examples/src/main/python/
 ## Run jobs
 
 # Job-1
-kubectl $MY_CONFIG -n $NS exec -it $PODNAME -- /opt/spark/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-assembly_2.10:$SPARK_CHART_VERSION --class org.apache.spark.examples.SparkPi   --master spark://spark-master:$SPARK_MASTER_PORT  /opt/spark/examples/src/main/python/<python-job>.py $SPARK_USER
+kubectl $MY_CONFIG -n $NS exec -it $PODNAME -- /opt/spark/bin/spark-submit --packages org.apache.spark:spark-streaming-kafka-assembly_2.10:$SPARK_CHART_VERSION --class org.apache.spark.examples.SparkPi   --master spark://spark-master:$SPARK_MASTER_PORT  /opt/spark/examples/src/main/python/$2 $SPARK_USER
 
 # Job-2
 
