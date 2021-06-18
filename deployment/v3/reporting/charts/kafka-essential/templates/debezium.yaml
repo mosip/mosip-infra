@@ -5,7 +5,7 @@ metadata:
   labels:
     app: kafkaconnect
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: kafkaconnect
@@ -16,28 +16,28 @@ spec:
     spec:
       containers:
         - name: kafkaconnect-container
-          image: debezium/connect:0.10.0.CR1
+          image: {{ .Values.debezium.image }}
           readinessProbe:
             httpGet:
               path: /
-              port: 8083
+              port: {{ .Values.debezium.port }}
           livenessProbe:
             httpGet:
               path: /
-              port: 8083
+              port: {{ .Values.debezium.port }}
           env:
             - name: BOOTSTRAP_SERVERS
-              value: kafka:9092
+              value: {{ .Values.kafka.server }}
             - name: GROUP_ID
-              value: "1"
+              value: {{ .Values.kafka.groupId | quote }}
             - name: OFFSET_STORAGE_TOPIC
-              value: connect-offsets
+              value: {{ .Values.kafka.topics.offset }}
             - name: CONFIG_STORAGE_TOPIC
-              value: connect-configs
+              value: {{ .Values.kafka.topics.config }}
             - name: STATUS_STORAGE_TOPIC
-              value: connect-status
+              value: {{ .Values.kafka.topics.status }}
           ports:
-          - containerPort: 8083
+          - containerPort: {{ .Values.debezium.port }}
 ---
 apiVersion: v1
 kind: Service
@@ -46,11 +46,10 @@ metadata:
   labels:
     app: kafkaconnect-service
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: kafkaconnect
       protocol: TCP
-      port: 8083
-      nodePort: 30500
+      port: {{ .Values.debezium.port }}
   selector:
       app: kafkaconnect

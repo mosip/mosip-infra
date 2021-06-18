@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: kafka-client
-    image: confluentinc/cp-kafka:5.0.1
+    image: {{ .Values.kafkaClient.image }}
     command:
       - sh
       - -c
