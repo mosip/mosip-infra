@@ -1,12 +1,12 @@
 - name: Install psycopg2
   pip:
-    name: psycopg2-binary
+    name: psycopg2-binary==2.8.6
     state: present
   become: yes
 
 - name: Install psycopg2 for python3
   pip:
-    name: psycopg2-binary
+    name: psycopg2-binary==2.8.6
     state: present
     executable: /bin/pip2
   become: yes
