@@ -7,7 +7,16 @@ DB_PWD=$(kubectl get secret --namespace postgres db-common-secrets -o jsonpath="
 DB_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
 DB_PORT=5432
 
-echo Uploading 
-cd lib
-python3 upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../xlsx
+while true; do
+    read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
+    if [[ $yn == "Y" ]]
+      then
+        echo Uploading ..
+        cd lib
+        python3 upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../xlsx
+        break
+      else
+        break
+    fi
+done
 
