@@ -1,7 +1,11 @@
 ## Reporting framework
 
 ### Introduction
-Reference reporting framework for real-time streaming data and visualization.
+Reference reporting framework for real-time streaming data and visualization.  
+
+#### High level architecture
+![](../docs/images/reporting_architecture.png)
+
 ## Installation
 #### Elasticsearch and Kibana
 It is assumed that Elasticsearch and Kibana are already installed in the cluster (assumed in namespace called `logging`).
