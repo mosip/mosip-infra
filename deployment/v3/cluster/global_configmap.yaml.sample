@@ -1,5 +1,14 @@
 ## The data here is  of generic interest to modules in different namespaces hence this is marked as global.
 ## Replace your domain names here
+## Default recommneded routing:
+##   mosip-api-host: Public load balancer (LB)
+##   mosip-api-internal-host: Internal LB 
+##   mosip-prereg-host:  Public LB
+##   mosip-activemq-host: Internal LB
+##   mosip-kibana-host: Internal LB
+##   mosip-regclient-host: Internal LB
+##   mosip-admin-host: Internal LB
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,14 +16,11 @@ metadata:
   namespace: default
 data:
   mosip-api-host: api.sandbox.xyz.net
-  mosip-api-url: https://api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
-  mosip-api-internal-url: https://api-internal.sandbox.xyz.net
   mosip-prereg-host: prereg.sandbox.xyz.net
-  mosip-prereg-url: https://prereg.sandbox.xyz.net
   mosip-activemq-host: activemq.sandbox.xyz.net
-  mosip-activemq-url: https://activemq.sandbox.xyz.net
   mosip-kibana-host: kibana.sandbox.xyz.net
-  mosip-kibana-url: https://kibana.sandbox.xyz.net
+  mosip-regclient-host: regclient.sandbox.xyz.net 
+  mosip-admin-host: admin.sandbox.xzy.net
   is_glowroot_env: absent
 
