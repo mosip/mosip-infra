@@ -10,6 +10,12 @@ import json
 import pandas as pd
 from datetime import datetime as dt
 from sqlalchemy import create_engine
+from sqlalchemy.schema import DropTable
+from sqlalchemy.ext.compiler import compiles
+
+@compiles(DropTable, "postgresql")
+def _compile_drop_table(element, compiler, **kwargs):
+    return compiler.visit_drop_table(element) + " CASCADE"
 
 def get_order_from_list(files_file_name):
     table_order = []
@@ -40,8 +46,8 @@ def args_parse():
     parser.add_argument('db_pwd', help='db host name/ip address')
     parser.add_argument('user', help='Admin username (as in IAM) of executor of this script')
     parser.add_argument('xls_folder', help='directory containing all the tables in xlsx format')
-    parser.add_argument('--db_user', help='Db user role for masterdb. Default: masteruser', type=str,
-                        default='masteruser')
+    parser.add_argument('--db_user', help='Db supseradmin user role for masterdb. Default: postgres', type=str,
+                        default='postgres')
     parser.add_argument('--db_port', help='db port. Default is 5432', type=int, default=5432)
     args = parser.parse_args()
     return args, parser
