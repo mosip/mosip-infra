@@ -10,12 +10,6 @@ import json
 import pandas as pd
 from datetime import datetime as dt
 from sqlalchemy import create_engine
-from sqlalchemy.schema import DropTable
-from sqlalchemy.ext.compiler import compiles
-
-@compiles(DropTable, "postgresql")
-def _compile_drop_table(element, compiler, **kwargs):
-    return compiler.visit_drop_table(element) + " CASCADE"
 
 def get_order_from_list(files_file_name):
     table_order = []
@@ -38,7 +32,7 @@ def upload_xlsx(files, table_order, admin_user, db_user, db_pwd, db_host, db_por
                 df = pd.read_excel(fi)
                 df['cr_by'] = admin_user
                 df['cr_dtimes'] = str(dt.utcnow())
-                df.to_sql(f,engine, index=False, if_exists='replace')
+                df.to_sql(f, engine, index=False, if_exists='append')
 
 def args_parse():
     parser = argparse.ArgumentParser()
