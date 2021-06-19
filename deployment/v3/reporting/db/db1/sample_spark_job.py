@@ -10,7 +10,6 @@ from pyspark.streaming.util import TransformFunction
 from datetime import datetime
 from elasticsearch import Elasticsearch
 
-#import configparser
 import pprint, StringIO
 import json
 import datetime
@@ -19,20 +18,19 @@ if __name__ == "__main__":
     sc = SparkContext(appName="KafkaStreamFromPostgresDB")
     ssc = StreamingContext(sc, 2)
 
-    ##Connection to elastic search - Configure for details
-    eshost = "elasticsearch-master.logging"
+    # Connection to elastic search - Configure for details
+    eshost = "elasticsearch-master.cattle-logging-system"
     esuser = "elastic"
     espassword = "elastic"
     esport = "9200"
-    indexname = "test-pipeline"
+    indexname = "master-template"
     es = Elasticsearch(eshost, http_auth=(esuser, espassword), port=esport)
     p=es.ping()
     print(p)
     
-    ##Connection to Kafka using Direct streaming methods.
-    brokers, topic = kafka-9092, postgres.public.containers #topic name
-    kStream = KafkaUtils.createDirectStream(ssc,[topic],{"metadata.broker.list": brokers,"auto.offset.reset" : "smallest"})
-    #print(kStream)
+    # Connection to Kafka using Direct streaming methods.
+    brokers, topic = "kafka:9092", "postgres.master.template" # Advertised listener for Brokers and Topic name
+    kStream = KafkaUtils.createDirectStream(ssc, [topic], {"metadata.broker.list" : brokers, "auto.offset.reset" : "smallest"})
     dbRecord = kStream.map(lambda x: x[1])
     dbRecord.map(lambda x: json.loads(x[1]))
     dbRecord.pprint()
@@ -41,31 +39,29 @@ if __name__ == "__main__":
     def sendRecord(rdd):
         list_elements = rdd.collect()
         print("list elements", list_elements)
-        #process record list
+        # Process record list
         for element in list_elements:
-            #convert string to python dictionary
+            # Convert string to python dictionary
             record = json.loads(element)
-            print("record json",record)
+            print("record json", record)
 
-            #Extract the id for unique key for elasticsearch index - configure w.r.t table
-            docId = record['payload']['after']['containerid']
-            print("docId",docId)
+            # Extract the id for unique key for elasticsearch index - configure w.r.t table
+            docId = record['payload']['after']['id']
+            print("docId", docId)
 
-            #record['date'] = convertEpochDate(record['creationdate']) #for processing date
-            creation_date = convertEpochDateTime(record['payload']['after']['creationdate'])
-            update_date = convertEpochDateTime(record['payload']['after']['updatedate'])
+            # record['date'] = convertEpochDate(record['cr_dtimes']) # example for processing date
+            # creation_date = convertEpochDateTime(record['payload']['after']['cr_dtimes']) # example for processing timestamp
 
-            record['payload']['after']['creationdate'] = creation_date
-            record['payload']['after']['updatedate'] = update_date
+            #record['payload']['after']['cr_dtimes'] = creation_date # re-assign processed value
 
-            #creating elasticsearch index for this record
-            res = es.index(index=indexname, id=docId, body=record)
+            # Creating elasticsearch index for this record
+            res = es.index(index = indexname, id=docId, body=record)
             print("result of index creation")
             print(res['result'])
-            es.indices.refresh(index=indexname)
+            es.indices.refresh(index = indexname)
 
     print("calling SendRecord")
-    print(dbRecord.foreachRDD(sendRecord))
+    dbRecord.foreachRDD(sendRecord)
 
     def convertEpochDateTime(epochDateTime):
         if epochDateTime is not None:
