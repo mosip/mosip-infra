@@ -12,22 +12,18 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
-echo Install reg client downloader
 REGCLIENT_URL=`kubectl get cm global -o json | jq .data.\"mosip-regclient-url\" | tr -d '"'`
 REGCLIENT_HOST=`kubectl get cm global -o json | jq .data.\"mosip-regclient-host\" | tr -d '"'`
 INTERNAL_URL=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-url\" | tr -d '"'`
 HEALTH_URL=$INTERNAL_URL/v1/syncdata/actuator/health
 INTERNAL_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
 
+echo Install reg client downloader. This may take a few minutes ..
 helm -n $NS install regclient mosip/regclient \
   --set regclient.upgradeServerUrl=$REGCLIENT_URL \
   --set regclient.healthCheckUrl=$HEALTH_URL \
- --set istio.hosts[0]=$REGCLIENT_HOST
+  --set istio.host=$REGCLIENT_HOST \
+  --wait
 
-## Construct download url for regclient
-## TODO: Crude. make the version extraction more robust
-VERSION=`helm show values mosip/regclient | grep "^  version" `
-set $VERSION
-echo 
-echo Regclient download url:
-echo $REGCLIENT_URL/registration-client/$2/reg-client.zip
+echo Get your download url from here
+echo $REGCLIENT_URL/
