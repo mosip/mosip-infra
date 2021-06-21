@@ -25,7 +25,7 @@ You can also create cluster on Cloud using the Rancher console.  Refer to Ranche
 
 ## Persistence
 ### GP2 
-* Default storage class is `gp2` which by is in "Delete" mode.  After helm is deleted, PV also gets deleted.  
+* Default storage class is `gp2` which by is in "Delete" mode which means if PV is deleted, the underlying storage is also deleted.  
 * To retain define a storage class `gp2-retain` by running `sc.yaml`. This will retain the PV. You will have to delete the storage from AWS console.  See some more details on persistence [here](../../docs/persistence.md).
 ```sh
 kubectl apply -f sc.yaml
