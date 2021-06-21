@@ -2,7 +2,7 @@
 
 ## Create using eksctl
 * If you already have `~/.kube/config` file created for another cluster, rename it.
-* Install `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+* Install k8s cluster using `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * Install `kubectl`
 * Set AWS credentials in `~/.aws/` folder (refer AWS documentation)
 * Copy `cluster.config.sample` to `cluster.config`.  
