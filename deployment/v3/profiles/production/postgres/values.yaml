@@ -1,0 +1,19 @@
+resources: 
+  limits: {}
+  #   cpu: 250m
+  #   memory: 1Gi
+  requests: 
+    cpu: 8000m
+    memory: 32000Mi
+
+postgresqlExtendedConf:                 
+   wal_level: logical
+   max_wal_senders: 20
+   max_replication_slots: 10
+   shared_buffers: 16GB                         
+   max_prepared_transactions: 1000
+   huge_pages: try                              
+   work_mem: 16MB                       # min 64kB
+   maintenance_work_mem: 3GB            # min 1MB
+   effective_cache_size: 32GB                   
+   log_min_duration_statement: 1000
