@@ -10,7 +10,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Running keygenerator
-helm -n $NS install kernel-keygen mosip/kernel-keygen --wait-for-jobs
+helm -n $NS install kernel-keygen mosip/kernel-keygen --wait --wait-for-jobs
 
 echo Installing keymanager
 helm -n $NS install keymanager mosip/keymanager
