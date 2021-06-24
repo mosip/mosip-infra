@@ -8,7 +8,7 @@ while true; do
       then
         echo Removing any existing installation
         helm -n postgres delete postgres-init
-        helm -n postgres install postgres-init mosip/postgres-init -f init_values.yaml --wait-for-jobs
+        helm -n postgres install postgres-init mosip/postgres-init -f init_values.yaml --wait --wait-for-jobs
         break
       else
         break
