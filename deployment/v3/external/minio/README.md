@@ -8,7 +8,7 @@ The MinIO Operator is recommended way to deploy MinIO on Kubernetes. MinIO Opera
 
 ## Prerequisites
 
-- Kubernetes version 1.17.0 or later.
+- Kubernetes version 1.19.0 or later.
 
 - Cluster contains a [namespace](https://github.com/minio/operator/blob/master/README.md#minio-tenant-namespace) for
   the MinIO Tenant.
@@ -18,6 +18,16 @@ The MinIO Operator is recommended way to deploy MinIO on Kubernetes. MinIO Opera
 
 - [Kubernetes `krew`](https://github.com/kubernetes-sigs/krew)
   plugin manager available on the client machine. See the [`krew` installation documentation](https://krew.sigs.k8s.io/docs/user-guide/setup/install/).
+
+- Minio Operator will deploy CertifiateSigningRequest (CSRs) and k8s needs to issue certificates for these CSRs. On an on-prem setup, if using RKE for k8s, to get k8s to issue CSRs, add the following in `cluster.yaml`.
+  ```
+  services:
+    kube-controller:
+      extra_args:
+        cluster-signing-cert-file: "/etc/kubernetes/ssl/kube-ca.pem"
+        cluster-signing-key-file: "/etc/kubernetes/ssl/kube-ca-key.pem"
+  ```
+  Then run `rke up`, to sync these changes.
 
 ## Deploy MinIO Cluster
 
@@ -48,6 +58,26 @@ The following `kubectl minio` command creates a MinIO Tenant with 1 node, 4 volu
     --capacity 8Gi                           \
     --namespace minio-tenant-1               \
     --storage-class local-storage
+```
+
+The above command, by default, deploys with TLS enabled. To change this behaviour here is what needs to be done:
+- Write the tenant to a file without actually deploying it. Like the following
+```sh
+  kubectl minio tenant create minio-tenant-1 \
+    --servers 1                              \
+    --volumes 4                              \
+    --capacity 8Gi                           \
+    --namespace minio-tenant-1               \
+    --storage-class local-storage            \
+    -o > minio-tenant-1.yaml
+```
+- Now change the following line in the tenant file.
+```
+requestAutoCert: false
+```
+- Then deploy the tenant.
+```sh
+kubectl apply -f minio-tenant-1.yaml
 ```
 
 ### Connect to the Tenant
