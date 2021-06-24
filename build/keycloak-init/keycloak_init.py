@@ -59,7 +59,7 @@ class KeycloakSession:
           "standardFlowEnabled": True,
           "serviceAccountsEnabled": True,
           "directAccessGrantsEnabled": True,
-          "redirectUris": [self.keycloak_admin.server_url],
+          "redirectUris": ['*'],
           "authorizationServicesEnabled": True
         }
         try:
