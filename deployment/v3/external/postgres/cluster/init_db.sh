@@ -1,7 +1,7 @@
 #!/bin/sh
 # Script to initialize the DB. 
 NS=postgres
-helm repo update mosip
+helm repo update
 while true; do
     read -p "CAUTION: all existing data will be lost. Are you sure ? Y/n ?" yn
     if [[ $yn == "Y" ]]

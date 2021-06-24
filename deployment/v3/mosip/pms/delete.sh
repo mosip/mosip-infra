@@ -1,6 +1,6 @@
 #!/bin/sh
 # Uninstalls all PMS helm charts
-NS=kernel
+NS=pms
 while true; do
     read -p "Are you sure you want to delete ALL PMS helm charts?(Y/n) " yn
     if [[ $yn == "Y" ]]

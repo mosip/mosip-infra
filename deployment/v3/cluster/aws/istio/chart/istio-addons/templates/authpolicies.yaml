@@ -2,11 +2,10 @@ apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: deny-swagger
-  namespace: istio-system
 spec:
   selector:
     matchLabels:
-      app: istio-ingressgateway
+      istio: ingressgateway
   action: DENY
   rules:
   - to:

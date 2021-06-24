@@ -3,9 +3,9 @@ persistence:
 
 elasticsearch:
   hosts:
-    - elasticsearch-master.logging.svc 
+    - elasticsearch-master
   port: 9200
 
 ingress:
-  enabled: true
-  hostname: kibana.sandbox.xyz.net
+  enabled: false
+

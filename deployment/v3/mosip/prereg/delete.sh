@@ -8,6 +8,7 @@ while true; do
         helm -n prereg delete prereg-batchjob
         helm -n prereg delete prereg-booking
         helm -n prereg delete prereg-datasync
+        helm -n prereg delete prereg-ui
         break
       else
         break

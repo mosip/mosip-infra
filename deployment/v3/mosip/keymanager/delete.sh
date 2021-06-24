@@ -6,6 +6,7 @@ while true; do
     if [[ $yn == "Y" ]]
       then
         helm -n $NS delete keymanager
+        helm -n $NS delete kernel-keygen
         break
       else
         break

@@ -2,15 +2,15 @@
 # Installs all Regproc helm charts
 NS=regproc
 
-echo Copy configmaps
-./copy_cm.sh
-
 echo Create namespace
 kubectl create ns $NS 
 
 echo Istio label 
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
+
+echo Copy configmaps
+./copy_cm.sh
 
 echo Installing regproc-status
 helm -n regproc install regproc-status mosip/regproc-status
@@ -19,7 +19,7 @@ echo Installing regproc-camel
 helm -n regproc install regproc-camel mosip/regproc-camel
 
 echo Installing regproc-receiver
-helm -n regproc install regproc-receiver mosip/regproc-receiver
+helm -n regproc install regproc-receiver mosip/regproc-receiver -f receiver_values.yaml
 
 echo Installing regproc-pktserver
 helm -n regproc install regproc-pktserver mosip/regproc-pktserver

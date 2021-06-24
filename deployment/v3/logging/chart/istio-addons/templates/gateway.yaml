@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kibana
+spec:
+  selector:
+    istio: ingressgateway-internal
+  servers:
+  - port:
+      number: 80
+      name: kibana
+      protocol: HTTP
+    hosts:
+    - {{ .Values.kibanaHost }}
