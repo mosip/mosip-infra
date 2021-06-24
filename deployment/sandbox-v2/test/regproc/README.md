@@ -14,7 +14,7 @@ Refer to notes in `config.py` and `data/packet*/ptkconf.py` for various paramete
 Following example packets are provided.  All these are for new registration.
 1. `packet1`: Individual 1 biometrics, no operator biometrics.
 1. `packet2`: Individual 2 biometrics different from above, no operator biometrics
-1. `packet2`: Indiviual 2 biometrics with operator biometrics of Individual 1. 
+1. `packet3`: Indiviual 2 biometrics with operator biometrics of Individual 1. 
 
 ## Clearing the DB
 This is optional.  To see your packet clearly, you may want to clear all records of previous packets in `mosip_regprc` tables:
