@@ -32,6 +32,7 @@ def upload_xlsx(files, table_order, admin_user, db_user, db_pwd, db_host, db_por
                 df = pd.read_excel(fi)
                 df['cr_by'] = admin_user
                 df['cr_dtimes'] = str(dt.utcnow())
+                engine.execute('TRUNCATE TABLE %s CASCADE;' % f)
                 df.to_sql(f, engine, index=False, if_exists='append')
 
 def args_parse():
