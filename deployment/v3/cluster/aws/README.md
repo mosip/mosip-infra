@@ -93,6 +93,12 @@ Import cluster into Rancher and assign access rights users in IAM (Keycloak)
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
 
+## Register the cluster with Rancher
+* Login as admin in Rancher console 
+* Configure your cloud credentials
+* Add this cluster to Rancher  
+* Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
+
 ## Troubleshooting
 * **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.
 * **Unable to delete pod**: This could be due to the above issue.  Force delete.  Example:

@@ -2,26 +2,27 @@
 ## Introduction
 An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Typically, one installation per organisation/MOSIP project would suffice considering ease of user management.
 
-Here we provide in-cluster installation procedure of Keycloak which is the default supported IAM with MOSIP.
+Here we provide k8s installation procedure for **Keycloak** which is the default supported IAM with MOSIP.
+
+## Cluster
+You may install Keycloak on the same cluster as [Rancher](../../rancher/README.md). Just make sure that the cluster has capacity to grow in case Keycloaks gets loaded while running in production.
 
 ## Install
-* Make sure ingress controller is running with service type as LoadBalancer
-* There is an external domain name like 'iam.mosip.net' that is forwarded to the LoadBalancer
-* Change postgres PV policy to `Retain` if you would like to persist keycloak data. This can be achieved by setting 'gp2-retain' storage class defined in `../cluster/sc.yaml`.
-* Update `ingress.hostname` in `values.yaml`.
-* Run
-```
-$ ./install.sh
-```
+* You will need an external domain name like 'iam.xyz.net' that points to the cluster.
+* Install keycloak as given [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). You may use the `values.yaml` and `install.sh` provided here. Make sure you have updated `CLUSTER_CONFIG` in all the scripts to point to your cluster.
+* Update `ingress.hostname` in `values.yaml` with above domain name.
+* Note that the helm chart installs postgres too.  If you already have an external postgres DB, point to the same while installing.
+* For postgres persistence the chart uses default storage class available with the cluster.
 * While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to. CAUTION: all persistent data will be erased if you delete PV.
-* If you use `gp2-retain` storage class then even after deleting PVC, PV, the storage will remain intact on AWS. If you wish to delete the same, go to AWS Console --> Volumes and delete the volume.
-* The chart above installs Postgres by default. 
+* To retain data even after PV deletion use a storage class that supports "Retain".  On AWS, you may install `gp2-retain` storage class given here and specify the same while installing Keycloak helm chart.
 
 ## Configmap and secret
 * Update `host_configmap.yaml` with your Keycloak host url and run
 ```
 $ kubectl apply -f host_configmap.yaml
 ```
+
+## Existing Keycloak 
 * In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
 ```
 keycloak:
@@ -36,7 +37,6 @@ keycloak:
       existingSecret: keycloak
       key: admin-password
 ```
-You may use `host_configmap.yaml` given here to add host url.
 
 ## Secret change
 In case you change admin password directly from console, then update the secret as well:
