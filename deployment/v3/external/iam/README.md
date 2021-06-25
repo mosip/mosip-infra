@@ -49,7 +49,7 @@ $ ./get_pwd.sh
 ```
 ## Rancher integration
 
-* If you have Rancher installed, enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
+* If you have Rancher installed, enable authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
 * IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user of Keycloak before you try to authenticate with Rancher. 
 * In Keyclok add another Mapper for the rancher client (in Master realm) with following fields:
   * Protocol: saml
@@ -85,6 +85,8 @@ $ helm repo add mosip https://mosip.github.io/mosip-helm
 ```
 $ helm install keycloak-init mosip/keycloak-init
 ```
+  
+## Keycloak console access
 Server URL is of the form `https://iam.xyz.net/auth/`.  The `/auth/` (with slash) is important.
 
 
