@@ -9,7 +9,7 @@ You may install Keycloak on the same cluster as [Rancher](../../rancher/README.m
 
 ## Install
 * You will need an external domain name like 'iam.xyz.net' that points to the cluster.
-* Install keycloak as given [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). You may use the `values.yaml` and `install.sh` provided here.
+* Install keycloak as given [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). You may use the `values.yaml` and `install.sh` provided here. Make sure you have updated `CLUSTER_CONFIG` in all the scripts to point to your cluster.
 * Update `ingress.hostname` in `values.yaml` with above domain name.
 * Note that the helm chart installs postgres too.  If you already have an external postgres DB, point to the same while installing.
 * For postgres persistence the chart uses default storage class available with the cluster.
@@ -21,6 +21,8 @@ You may install Keycloak on the same cluster as [Rancher](../../rancher/README.m
 ```
 $ kubectl apply -f host_configmap.yaml
 ```
+
+## Existing Keycloak 
 * In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
 ```
 keycloak:
@@ -35,7 +37,6 @@ keycloak:
       existingSecret: keycloak
       key: admin-password
 ```
-You may use `host_configmap.yaml` given here to add host url.
 
 ## Secret change
 In case you change admin password directly from console, then update the secret as well:
