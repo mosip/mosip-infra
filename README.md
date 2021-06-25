@@ -4,3 +4,8 @@
 
 This repository contains various scripts and procedures to deploy [MOSIP](https://mosipdocs.gitbook.io/platform) in various environments - developer, sandbox, production.
 
+# Latest versions
+
+### [Sandbox V2 (1.1.5)](https://github.com/mosip/mosip-infra/tree/1.1.5.3/deployment/sandbox-v2)
+### [Production-grade V3 deployment](https://github.com/mosip/mosip-infra/tree/1.1.5_v3/deployment/v3)
+
