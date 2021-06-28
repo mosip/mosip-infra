@@ -16,7 +16,7 @@ echo Copy configmaps
 echo Installing admin service. Will wait till service gets installed.
 helm -n $NS install admin-service mosip/admin-service --wait
 
-ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-url\" | tr -d '"'`
+ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
 echo Installing admin-ui
-helm -n $NS install admin-ui mosip/admin-ui --set admin.hostUrl=$ADMIN_HOST/v1/
+helm -n $NS install admin-ui mosip/admin-ui --set admin.hostUrl=https://$ADMIN_HOST/v1/
 

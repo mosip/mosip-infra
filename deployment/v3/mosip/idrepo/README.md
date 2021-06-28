@@ -1,6 +1,6 @@
 # ID Repository
 
 ## Install
-```
-$ ./install_all.sh
+```sh
+./install.sh
 ```

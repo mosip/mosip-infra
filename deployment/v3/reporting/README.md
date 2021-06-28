@@ -1,13 +1,20 @@
-# Work-in-progress
+## Reporting framework
 
-# Reporting framework
+### Introduction
+Reference reporting framework for real-time streaming data and visualization.  
 
-## Introduction
+#### High level architecture
+![](../docs/images/reporting_architecture.png)
 
-## Install
-### Elasticsearch and Kibana
-It is assumed that Elasticsearch and Kibana are already installed in the cluster (assumed in namespace called "monitoring")
-## Kafka and Spark
+## Installation
+#### Elasticsearch and Kibana
+It is assumed that Elasticsearch and Kibana are already installed in the cluster (assumed in namespace called `logging`).
+Assumed Postgres is installed in namespace called `postgres` with `extended.conf` as extended config.
+#### Kafka and Spark
 ```
-$ ./install.sh <>
+	$ ./install.sh <kube-config-file>
+```
+## Streaming 
+```
+	$ ./set_pipeline.sh <db.json> <python-job-file> <kube-config-file>
 ```

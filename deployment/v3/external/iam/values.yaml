@@ -9,7 +9,7 @@ auth:
 
 ingress:
   enabled: true
-  hostname: iam.mosip.net
+  hostname: iam.xyz.net
   annotations:
     ingress.kubernetes.io/class: nginx
 

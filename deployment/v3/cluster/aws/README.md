@@ -2,7 +2,7 @@
 
 ## Create using eksctl
 * If you already have `~/.kube/config` file created for another cluster, rename it.
-* Install `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+* Install k8s cluster using `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * Install `kubectl`
 * Set AWS credentials in `~/.aws/` folder (refer AWS documentation)
 * Copy `cluster.config.sample` to `cluster.config`.  
@@ -25,7 +25,7 @@ You can also create cluster on Cloud using the Rancher console.  Refer to Ranche
 
 ## Persistence
 ### GP2 
-* Default storage class is `gp2` which by is in "Delete" mode.  After helm is deleted, PV also gets deleted.  
+* Default storage class is `gp2` which by is in "Delete" mode which means if PV is deleted, the underlying storage is also deleted.  
 * To retain define a storage class `gp2-retain` by running `sc.yaml`. This will retain the PV. You will have to delete the storage from AWS console.  See some more details on persistence [here](../../docs/persistence.md).
 ```sh
 kubectl apply -f sc.yaml
@@ -92,6 +92,12 @@ Import cluster into Rancher and assign access rights users in IAM (Keycloak)
 
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
+
+## Register the cluster with Rancher
+* Login as admin in Rancher console 
+* Configure your cloud credentials
+* Add this cluster to Rancher  
+* Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
 
 ## Troubleshooting
 * **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.

@@ -32,7 +32,8 @@ def upload_xlsx(files, table_order, admin_user, db_user, db_pwd, db_host, db_por
                 df = pd.read_excel(fi)
                 df['cr_by'] = admin_user
                 df['cr_dtimes'] = str(dt.utcnow())
-                df.to_sql(f,engine, index=False, if_exists='append')
+                engine.execute('TRUNCATE TABLE %s CASCADE;' % f)
+                df.to_sql(f, engine, index=False, if_exists='append')
 
 def args_parse():
     parser = argparse.ArgumentParser()
@@ -40,8 +41,8 @@ def args_parse():
     parser.add_argument('db_pwd', help='db host name/ip address')
     parser.add_argument('user', help='Admin username (as in IAM) of executor of this script')
     parser.add_argument('xls_folder', help='directory containing all the tables in xlsx format')
-    parser.add_argument('--db_user', help='Db user role for masterdb. Default: masteruser', type=str,
-                        default='masteruser')
+    parser.add_argument('--db_user', help='Db supseradmin user role for masterdb. Default: postgres', type=str,
+                        default='postgres')
     parser.add_argument('--db_port', help='db port. Default is 5432', type=int, default=5432)
     args = parser.parse_args()
     return args, parser
