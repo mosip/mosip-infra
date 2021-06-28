@@ -20,6 +20,7 @@ services:
   keymigrator:
     serviceName: {{ versions.services.kernel.keymigrator.keys()[0] }}
     dockerImage: {{ versions.services.kernel.keymigrator.values()[0] }}
+    hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
     containerPort: 9096
     servicePort: 80
     hsmClientZipPath: {{ hsm_client_zip_path }}

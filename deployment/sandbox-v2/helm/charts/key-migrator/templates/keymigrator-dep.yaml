@@ -43,6 +43,8 @@ spec:
               value: {{ .Values.artifactoryUrl }}
             - name: is_glowroot_env
               value: {{ .Values.isGlowroot }}
+            - name: PKCS11_PROXY_SOCKET
+              value: {{ .Values.services.keymigrator.hsmUrl }}
             - name: zip_file_path
               value: {{ .Values.services.keymigrator.hsmClientZipPath }}
             - name: JDK_JAVA_OPTIONS

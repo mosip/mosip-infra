@@ -1,12 +1,5 @@
 # This play installs all Kernel services using Helm
 
-# Softhsm is needed for Keymanager
-#- import_playbook: softhsm.yml
-  vars:
-    kube_config: '{{clusters.mz.kube_config}}' 
-#    hsm_prop: '{{softhsm.keymanager}}'
-
-# Run all kernel services
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
