@@ -1,0 +1,9 @@
+- name: Sceduling upgraded Cronjob for test-rig
+  cron:
+   name: "{{  item  }}"
+   minute: "{{ (((30|int + ansible_loop.index|int) % 2|int) * 30|int)|int }}"
+   hour: "{{((((ansible_loop.index|int)+((ansible_loop.index|int) % 2)) / 2|int)+(schedule_time|int - 1|int))| int }}"
+   job: "cd {{ testrig_dir }}/ && java -jar -Dmodules={{ item }} -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+  loop: "{{ cron_modules }}"
+  loop_control:
+   extended: yes

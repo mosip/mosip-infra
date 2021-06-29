@@ -1,0 +1,8 @@
+tasks:
+  - name: "Restore the database"
+    postgresql_db:
+      state: restore
+      name: "{{db_name}}"
+      target: "/var/lib/{{ app_name }}/backups/uploads/{{ backup_file }}.dump.gz"
+    become: yes
+    become_user: postgres
