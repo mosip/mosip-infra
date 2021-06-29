@@ -455,13 +455,13 @@ cache_provider_url: http://artifactory-service.default:80/artifactory/libs-relea
 # user for every service inside the container
 container_user: mosip
 
-maven_dir: ''
+
 testrig_version: 'develop'
-#functional testrig variables
-db_file_path: '/home/mosipuser/dbPropsextint.properties'
-functional_test_dir: '{{user_home}}/mosip-functional-tests-{{ testrig_version }}'
-testrig_dir: '{{functional_test_dir}}/automationtests/target/'
-functional_test_report_dir: '{{report_dir}}/functional-test/'
-schedule_time: '1'
-cron_modules: '[ "prereg", "kernel", "admin", "regproc", "idrepository", "resident", "partner" ]'
-#modules: '["all"]'
+testrig_dir: '{{user_home}}/mosip-functional-tests'
+modules: '["all"]'
+functional_repo_path: 'https://github.com/mosip/mosip-functional-tests.git'
+functional_repo_dest: '{{user_home}}'
+
+
+githubuser: '{{item.value.githubuser}}'
+githubpassword: '{{item.value.githubpassword}}'

@@ -1,15 +1,14 @@
 # This play start the functional test and start scanning of API. Here we have split tasks and roles into seperate
 # play as tasks only run after roles if they are in the same play (for some reason)
 # and for us sequencing is important.
+#
+#- hosts: console
+#  gather_facts: true
+#  tasks:
+#    - {name: 'Create functional test report folder', file: {name: "{{ functional_test_report_dir }}", state: directory}}
 
 - hosts: console
   gather_facts: true
-  tasks:
-    - {name: 'Create functional test report folder', file: {name: "{{ functional_test_report_dir }}", state: directory}}
-
-- hosts: console
-  gather_facts: true
-
   vars_prompt:
     - name: "testrig_version"
       prompt: "Please provide git branch name"
