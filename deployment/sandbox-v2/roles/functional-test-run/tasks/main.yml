@@ -12,8 +12,8 @@
       become_user: root
       shell: "cd  /srv/nfs/mosip/postgres/ && rm init.lock"
 
-    - name: Initializing DB again
-      import_playbook: postgres-init.yml
+    - include_role:
+        name: postgres-init
       when: postgres.init == true
   when: check_for_state.user_input | bool
 
