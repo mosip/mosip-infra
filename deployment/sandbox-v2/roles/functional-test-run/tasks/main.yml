@@ -1,9 +1,30 @@
-- name: Sceduling upgraded Cronjob for test-rig
-  cron:
-   name: "{{  item  }}"
-   minute: "{{ (((30|int + ansible_loop.index|int) % 2|int) * 30|int)|int }}"
-   hour: "{{((((ansible_loop.index|int)+((ansible_loop.index|int) % 2)) / 2|int)+(schedule_time|int - 1|int))| int }}"
-   job: "cd {{ testrig_dir }}/ && java -jar -Dmodules={{ item }} -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
-  loop: "{{ cron_modules }}"
-  loop_control:
-   extended: yes
+- pause:
+    prompt: "Are you running over a fresh deployment for the first time? (having no manual testing data) (yes/no)?"
+  register: check_for_state
+
+- name: running function test without backup
+  block:
+    - name: running functional test for all modules.
+      shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules=prereg -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+
+    - name: delete init file
+      become: yes
+      become_user: root
+      shell: "cd  /srv/nfs/mosip/postgres/ && rm init.lock"
+
+    - name: Initializing DB again
+      import_playbook: postgres-init.yml
+      when: postgres.init == true
+  when: check_for_state.user_input | bool
+
+
+- name: running function test after backup
+  block:
+    - include_role:
+        name: db-backup
+
+    - name: running functional test for all modules.
+      shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules=prereg -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+
+    - include_role:
+        name: db-restore

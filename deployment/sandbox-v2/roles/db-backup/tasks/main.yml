@@ -1,25 +1,18 @@
-tasks:
-  - name: "Set timestamp of the backup"
-    set_fact:
-      now: "{{ lookup("pipe", "date +%F-%T") }}"
+- name: "Create a backup directory"
+  file:
+    path: "{{ backup_path }}/backups/"
+    mode: 0775
+    owner: mosipuser
+    state: directory
 
-  - name: "Create a backup directory"
-    file:
-      path: "/var/lib/{{ app_name }}/backups/{{ now }}/"
-      mode: 0777
-      owner: "{{ user_app }}"
-      state: directory
-
-  - name: "Back up the database"
-    postgresql_db:
-      state: dump
-      name: "{{ db_name }}"
-      target: "/var/lib/{{ app_name }}/backups/{{ now }}/{{ db_name }}.dump.gz"
-    become: yes
-    become_user: postgres
-
-  - name: "Fetch backup from the server"
-    fetch:
-      src: "/var/lib/{{ app_name }}/backups/{{ now }}/{{ db_name }}.dump.gz"
-      dest: "backups/{{ now }}/{{ db_name }}.dump.gz"
-      flat: yes
+- name: "Back up the databases"
+  name: '{{ item }}'
+  shell: "cd {{ backup_path }}/backups/ && pg_dump -F c --clean --host='{{inventory_hostname}}' --port=30090 --username='postgres' --dbname='{{item}}' > '{{item}}'.dump"
+  environment:
+    PGPASSWORD: '{{secrets.postgres.dbuser}}'
+    SU_USER_PWD: '{{secrets.postgres.su}}'
+    SYSADMIN_PWD: '{{secrets.postgres.sysadmin}}'
+    DBADMIN_PWD: '{{secrets.postgres.dbadmin}}'
+    APPADMIN_PWD: '{{secrets.postgres.appadmin}}'
+    DBUSER_PWD: '{{secrets.postgres.dbuser}}'
+  loop: '{{ db_modules }}'

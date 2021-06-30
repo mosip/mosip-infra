@@ -13,7 +13,7 @@ artifactory_url: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox.mosip.net
+sandbox_domain_name: minibox2.mosip.net
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
@@ -456,12 +456,13 @@ cache_provider_url: http://artifactory-service.default:80/artifactory/libs-relea
 container_user: mosip
 
 
-testrig_version: 'develop'
-testrig_dir: '{{user_home}}/mosip-functional-tests'
-modules: '["all"]'
 functional_repo_path: 'https://github.com/mosip/mosip-functional-tests.git'
-functional_repo_dest: '{{user_home}}'
-
-
-githubuser: '{{item.value.githubuser}}'
-githubpassword: '{{item.value.githubpassword}}'
+functional_repo_dest: '{{tmp_dir}}/mosip-functional-tests/'
+db_modules: '["mosip_master", "mosip_kernel", "mosip_iam", "mosip_audit", "mosip_authdevice", "mosip_keymgr", "mosip_regdevice", "mosip_credential", "mosip_idrepo", "mosip_idmap", "mosip_prereg", "mosip_regprc", "mosip_ida", "mosip_pms", "mosip_websub", "mosip_hotlist"]'
+testrig_version: 'develop'
+#modules: '["all"]'
+modules: '["prereg"]'
+envuser: 'qa'
+target_uri: 'minibox2.mosip.net'
+testlevel: 'smoke'
+backup_path: '{{tmp_dir}}/db-backup/'

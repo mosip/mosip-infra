@@ -1,8 +1,11 @@
-tasks:
-  - name: "Restore the database"
-    postgresql_db:
-      state: restore
-      name: "{{db_name}}"
-      target: "/var/lib/{{ app_name }}/backups/uploads/{{ backup_file }}.dump.gz"
-    become: yes
-    become_user: postgres
+- name: "Back up the database"
+  name: '{{ item }}'
+  shell: "cd {{ backup_path }}/backups/ && pg_restore --clean --host='{{inventory_hostname}}' --port=30090 --username='postgres' -d '{{item}}' '{{item}}.dump'"
+  environment:
+    PGPASSWORD: '{{secrets.postgres.dbuser}}'
+    SU_USER_PWD: '{{secrets.postgres.su}}'
+    SYSADMIN_PWD: '{{secrets.postgres.sysadmin}}'
+    DBADMIN_PWD: '{{secrets.postgres.dbadmin}}'
+    APPADMIN_PWD: '{{secrets.postgres.appadmin}}'
+    DBUSER_PWD: '{{secrets.postgres.dbuser}}'
+  loop: '{{ db_modules }}'

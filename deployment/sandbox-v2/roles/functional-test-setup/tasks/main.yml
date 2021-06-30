@@ -1,18 +1,8 @@
-- name: git checkout
-  expect:
-    command: 'git clone -b {{testrig_version}} -q {{functional_repo_path}} {{functional_repo_dest}}'
-    responses:
-      Username: '{{item.value.githubuser}}'
-      Password: '{{item.value.githubpassword}}'
-    timeout: 600
-  ignore_errors: yes
-  no_log: true
-
 - name: Bulding automation demo service for dependency
-  shell: "cd {{ testrig_dir }}/authentication-demo-service/ && mvn clean install"
+  shell: "cd {{ functional_repo_dest }}/authentication-demo-service/ && mvn clean install"
 
 - name: Bulding test-rig
-  shell: "cd {{ testrig_dir }}/automationtests && mvn clean install"
+  shell: "cd {{ functional_repo_dest }}/automationtests && mvn clean install"
 
 - name: Copy jar file to test testrig directory
-  shell: "mv {{ testrig_dir }}/automationtests/target/*dependencies.jar {{ testrig_dir }}/automationtests/target/automationtests.jar"
+  shell: "mv {{ functional_repo_dest }}/automationtests/target/*dependencies.jar {{ functional_repo_dest }}/automationtests/target/automationtests.jar"
