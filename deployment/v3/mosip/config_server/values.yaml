@@ -1,6 +1,6 @@
 gitRepo:
   uri: https://github.com/mosip/mosip-config
-  version: v3
+  version: 1.1.5_v3
   ## Folders within the base repo where properties may be found.
   searchFolders: ""
   private: false
