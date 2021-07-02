@@ -13,7 +13,7 @@ artifactory_url: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox2.mosip.net
+sandbox_domain_name: minibox.mosip.net
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
@@ -408,7 +408,7 @@ config_repo:
   gitpassword: '{{secrets.config_repo.password}}'
   search_folders: sandbox # Subdir in repo containing properties
   local_git_repo:
-    enabled: true
+    enabled: false
     path: '{{nfs.folder}}/mosip-config'
     storage_size: 10Mi
 
