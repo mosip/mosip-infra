@@ -6,7 +6,7 @@ Activemq Artemis is insalled using helm chart that has been slightly modified fr
 For web console, enable access via MOSIP external facing LB via ingress.  See ingress settings in `values.yaml`
 
 ## Domain name
-Create a sub-domain like `activemq.your-domain.com` and point it to *internal* load balancer. Access to activemq should NOT be opened to public. It is assumed that the sub-domain and hosts have been defined in global configmap as given [here](../../../cluster/global_configmap.yaml.sample)  
+Create a sub-domain like `activemq.your-domain.com` and point it to *internal* load balancer. Access to activemq must NOT be opened to public. It is assumed that the sub-domain and hosts have been defined in global configmap as given [here](../../../cluster/global_configmap.yaml.sample)  
 
 ## Install
 * Update `values.yaml`.  Make sure `ingress.hosts` points to a sub-domain that you have created in the above step.
