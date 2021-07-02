@@ -2,7 +2,6 @@ istio:
   enabled: true
   hosts:
     - activemq.xyz.abc.net
-  ## Associate with either public or internal ingress controllers
   ingressController:
     name: ingressgateway-internal
   prefix: /
