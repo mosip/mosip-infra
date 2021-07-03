@@ -14,6 +14,8 @@ serviceAccount: packetmanager
 probe:
   initialDelay: 30  # Seconds
   period: 30 # Seconds
+  initialLivenessDelay: 120
+
 imagePullPolicy: Always
 
 isGlowroot: {{ is_glowroot }} 
