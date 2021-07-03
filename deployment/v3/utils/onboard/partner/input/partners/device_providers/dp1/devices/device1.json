@@ -1,0 +1,22 @@
+{
+  "id" : "device1.dp1",
+  "name" : "Fingerprint Slap One", 
+  "contact": "574634345", 
+  "address": "Chennai",
+  "email" : "dp@xyz.com", 
+  "partner_domain": "DEVICE",
+  "partner_type": "Device_Provider",
+  "policies" : [],
+  "cert": {
+    "generated_key_path":  "certs/dp1/pvt_key.pem",
+    "generated_cert_path": "certs/dp1/cert.pem",
+    "is_ca": false,
+    "cn": "dp-one.com",
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "certs/ca1/cert.pem",
+    "ca_pvt_key": "certs/ca1/pvt_key.pem"
+    }
+}

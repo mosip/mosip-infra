@@ -1,0 +1,13 @@
+{
+    "key_path":  "certs/device1/pvt_key.pem",
+    "cert_path": "certs/device1/cert.pem",
+    "is_ca": false,
+    "cn": "device-one.dp1",
+    "org_name": "Fingerprint DP1", 
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "certs/dp1/cert.pem",
+    "ca_pvt_key": "certs/dp1/pvt_key.pem"
+}

@@ -1,0 +1,22 @@
+{
+    "id" : "msp-printers",
+    "name" : "MSP Print Partner", 
+    "contact": "574674345", 
+    "address": "Chennai",
+    "email" : "print2@yz.com", 
+    "partner_domain": "AUTH",
+    "partner_type": "Credential_Partner",
+    "certs": [
+        "input/certs/generated/print2.json", 
+        "input/certs/generated/ca1.json"
+    ], 
+    "policies" : [{
+        "policy_file": "input/policies/print.json",
+        "extractors": [{
+            "attribute": "individualBiometrics",
+            "biometric": "Finger",
+            "provider": "mock",
+            "version": "1.1"
+        }]
+    }] 
+}
