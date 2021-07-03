@@ -8,7 +8,7 @@ Here we provide k8s installation procedure for **Keycloak** which is the default
 You may install Keycloak on the same cluster as [Rancher](../../rancher/README.md). Just make sure that the cluster has capacity to grow in case Keycloaks gets loaded while running in production.
 
 ## Install
-* You will need an external domain name like 'iam.xyz.net' that points to the cluster.
+* You will need an external domain name like 'iam.xyz.net' that points to the cluster load balancer.
 * Install keycloak as given [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). You may use the `values.yaml` and `install.sh` provided here. Make sure you have updated `CLUSTER_CONFIG` in all the scripts to point to your cluster.
 * Update `ingress.hostname` in `values.yaml` with above domain name.
 * Note that the helm chart installs postgres too.  If you already have an external postgres DB, point to the same while installing.

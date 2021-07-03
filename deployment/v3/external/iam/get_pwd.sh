@@ -6,3 +6,4 @@ echo Keycloak prereg client password: $(KK get secret --namespace keycloak keycl
 echo Keycloak admin client password: $(KK get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.mosip_mosip_admin_client_secret}" | base64 --decode)
 echo Keycloak postgresql password: $(KK get secret --namespace keycloak keycloak-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 echo Keycloak postgresql postgres password: $(KK get secret --namespace keycloak keycloak-postgresql -o jsonpath="{.data.postgresql-postgres-password}" | base64 --decode)
+echo Keycloak pms client password: $(KK get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.mosip_mosip_pms_client_secret}" | base64 --decode)

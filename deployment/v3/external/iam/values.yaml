@@ -7,9 +7,10 @@ service:
 auth:
   adminUser: admin
 
+## Disable ingress as we use Istio
 ingress:
-  enabled: true
-  hostname: iam.xyz.net
+  enabled: false
+  hostname: 
   annotations:
     ingress.kubernetes.io/class: nginx
 
