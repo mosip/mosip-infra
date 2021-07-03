@@ -45,6 +45,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.booking.containerPort }}
 
