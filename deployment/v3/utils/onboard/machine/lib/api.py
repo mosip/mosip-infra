@@ -34,7 +34,8 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def add_machine_type(self, code, name, description, language, update=False):
+    ## Add machine type
+    def add_type(self, code, name, description, language, update=False):
         url = '%s/v1/masterdata/machinetypes' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -58,16 +59,18 @@ class MosipSession:
         r = response_to_json(r)
         return r
 
-    def add_machine_spec(self, name, type_code,  brand, model, description, language, min_driver_ver,
-                         update=False):
+    # Add machine spec
+    def add_spec(self, name, type_code,  brand, model, description, min_driver_ver, language, update=False):
         url = '%s/v1/masterdata/machinespecifications' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
+        spec_id = self.get_spec_id(name) 
+        print(name, spec_id)
         j = {
             'id': 'string',
             'metadata': {},
             'request': {
-                'id': '',
+                'id': spec_id,
                 'name': name,
                 'machineTypeCode': type_code,
                 'brand': brand,
@@ -80,13 +83,6 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
           }
-        r = self.get_specs()
-        try:
-            for item in r['response']['data']:
-              if item['name'] == name:
-                  j['request']['id'] = item['id']
-        except:
-            pass
 
         if update:
             r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
@@ -104,7 +100,7 @@ class MosipSession:
         return r
 
     def get_spec_id(self, name):
-        spec_id = None
+        spec_id = 'dummy'
         r = self.get_specs()
         try:
             for item in r['response']['data']:
