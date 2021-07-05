@@ -21,6 +21,8 @@ class KeycloakSession:
                                             realm_name=realm,
                                             verify=ssl_verify)
     def create_realm(self, realm):
+        ## TODO: have assgined a very large value to ssoSessionIdleTimeout. This needs to be reduced in the LTS
+        ## version
         payload = {
             "realm" : realm,
             "enabled": True,
@@ -31,7 +33,7 @@ class KeycloakSession:
             "accessTokenLifespanForImplicitFlow": 900,
             "actionTokenGeneratedByAdminLifespan": 43200,
             "actionTokenGeneratedByUserLifespan": 300
-            "ssoSessionIdleTimeout": 86400,
+            "ssoSessionIdleTimeout": 15552000,
             "ssoSessionMaxLifespan": 36000
         }
         try:
