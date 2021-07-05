@@ -50,17 +50,17 @@ spec:
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         ports:
-        - containerPort: {{ .Values.services.print.containerPort }}
+        - containerPort: {{ .Values.services.print.ports.containerPort }}
 
         readinessProbe:
           httpGet:
             path: {{ .Values.services.print.healthUrl }} 
-            port: {{ .Values.services.print.containerPort }} 
+            port: {{ .Values.services.print.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
   #      livenessProbe:
   #        httpGet:
   #          path: {{ .Values.services.print.healthUrl }} 
-  #          port: {{ .Values.services.print.containerPort }} 
+  #          port: {{ .Values.services.print.ports.containerPort }} 
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }}

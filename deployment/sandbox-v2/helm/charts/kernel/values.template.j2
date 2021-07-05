@@ -22,8 +22,9 @@ services:
   auth:
     serviceName: {{ versions.services.kernel.auth.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.auth.values()[0] }}
-    containerPort: 8091
-    servicePort: 80
+    ports:
+      containerPort: 8091
+      servicePort: 80
     ingressPath: /v1/authmanager
     healthUrl: /v1/authmanager/actuator/health
     podconfig:
@@ -33,8 +34,9 @@ services:
   masterdata:
     serviceName: {{ versions.services.kernel.masterdata.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.masterdata.values()[0] }}
-    containerPort: 8086
-    servicePort: 80
+    ports:
+      containerPort: 8086
+      servicePort: 80
     ingressPath: /v1/masterdata
     healthUrl: /v1/masterdata/actuator/health
     podconfig:
@@ -44,8 +46,9 @@ services:
   idgen:
     serviceName: {{ versions.services.kernel.idgen.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.idgen.values()[0] }}
-    containerPort: 8080
-    servicePort: 80
+    ports:
+      containerPort: 8080
+      servicePort: 80
     ingressPath: /v1/idgenerator 
     healthUrl: /v1/idgenerator/actuator/health
     podconfig:
@@ -55,8 +58,9 @@ services:
   prid:
     serviceName: {{ versions.services.kernel.prid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.prid.values()[0] }}
-    containerPort: 8100
-    servicePort: 80
+    ports:
+      containerPort: 8100
+      servicePort: 80
     ingressPath: /v1/pridgenerator
     healthUrl: /v1/pridgenerator/actuator/health
     podconfig:
@@ -66,8 +70,9 @@ services:
   sync:
     serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.sync.values()[0] }}
-    containerPort: 8089
-    servicePort: 80
+    ports:
+      containerPort: 8089
+      servicePort: 80
     ingressPath: /v1/syncdata 
     healthUrl: /v1/syncdata/actuator/health
     podconfig:
@@ -77,8 +82,9 @@ services:
   audit:
     serviceName: {{ versions.services.kernel.audit.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.audit.values()[0] }}
-    containerPort: 8081
-    servicePort: 80
+    ports:
+      containerPort: 8081
+      servicePort: 80
     ingressPath: /v1/auditmanager
     healthUrl: /v1/auditmanager/actuator/health
     podconfig:
@@ -88,8 +94,9 @@ services:
   key:
     serviceName: {{ versions.services.kernel.key.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.key.values()[0] }}
-    containerPort: 8088
-    servicePort: 80
+    ports:
+      containerPort: 8088
+      servicePort: 80
     hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
@@ -101,8 +108,9 @@ services:
   notifier:
     serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.notifier.values()[0] }}
-    containerPort: 8083
-    servicePort: 80
+    ports:
+      containerPort: 8083
+      servicePort: 80
     ingressPath: /v1/notifier
     healthUrl: /v1/notifier/actuator/health
     podconfig:
@@ -112,8 +120,9 @@ services:
   otp:
     serviceName: {{ versions.services.kernel.otp.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.otp.values()[0] }}
-    containerPort: 8085
-    servicePort: 80
+    ports:
+      containerPort: 8085
+      servicePort: 80
     ingressPath: /v1/otpmanager 
     healthUrl: /v1/otpmanager/actuator/health
     podconfig:
@@ -123,8 +132,9 @@ services:
   rid:
     serviceName: {{ versions.services.kernel.rid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.rid.values()[0] }}
-    containerPort: 8096
-    servicePort: 80
+    ports:
+      containerPort: 8096
+      servicePort: 80
     ingressPath: /v1/ridgenerator 
     healthUrl: /v1/ridgenerator/actuator/health
     podconfig:

@@ -9,4 +9,4 @@ spec:
     app: {{ .Values.services.ui.serviceName }}
   ports:
     - port: 80
-      targetPort: {{ .Values.services.ui.containerPort }}
+      targetPort: {{ .Values.services.ui.ports.containerPort }}

@@ -20,8 +20,9 @@ services:
   mockmv:
     serviceName: {{ versions.services.mock.mv.keys()[0] }}
     dockerImage: {{ versions.services.mock.mv.values()[0] }}
-    containerPort: 8081
-    servicePort: 80
+    ports:
+      containerPort: 8081
+      servicePort: 80
     ingressPath: /v1/mockmv
     healthUrl: /v1/mockmv/actuator/health
     podconfig:

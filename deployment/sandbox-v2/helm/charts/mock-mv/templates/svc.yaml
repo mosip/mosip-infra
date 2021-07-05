@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.mockmv.servicePort }}
-    targetPort: {{ .Values.services.mockmv.containerPort }}
+  - port: {{ .Values.services.mockmv.ports.servicePort }}
+    targetPort: {{ .Values.services.mockmv.ports.containerPort }}
   selector:
     app: {{ .Values.services.mockmv.serviceName }} 
 

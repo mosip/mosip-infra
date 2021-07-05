@@ -46,18 +46,18 @@ spec:
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
         ports:
-        - containerPort: {{ .Values.services.mockabis.containerPort }}
+        - containerPort: {{ .Values.services.mockabis.ports.containerPort }}
 
         readinessProbe:
           httpGet:
             path: {{ .Values.services.mockabis.healthUrl }} 
-            port: {{ .Values.services.mockabis.containerPort }} 
+            port: {{ .Values.services.mockabis.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
   #      livenessProbe:
   #        httpGet:
   #          path: {{ .Values.services.mockabis.healthUrl }} 
-  #          port: {{ .Values.services.mockabis.containerPort }} 
+  #          port: {{ .Values.services.mockabis.ports.containerPort }} 
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }}
   #

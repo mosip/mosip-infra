@@ -42,18 +42,18 @@ spec:
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
         ports:
-        - containerPort: {{ .Values.services.mockmv.containerPort }}
+        - containerPort: {{ .Values.services.mockmv.ports.containerPort }}
 
 #        readinessProbe:
 #          httpGet:
 #            path: {{ .Values.services.mockmv.healthUrl }} 
-#            port: {{ .Values.services.mockmv.containerPort }} 
+#            port: {{ .Values.services.mockmv.ports.containerPort }} 
 #          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
 #          periodSeconds: {{ .Values.probe.period }} 
   #      livenessProbe:
   #        httpGet:
   #          path: {{ .Values.services.mockmv.healthUrl }} 
-  #          port: {{ .Values.services.mockmv.containerPort }} 
+  #          port: {{ .Values.services.mockmv.ports.containerPort }} 
   #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
   #        periodSeconds: {{ .Values.probe.period }}
   #

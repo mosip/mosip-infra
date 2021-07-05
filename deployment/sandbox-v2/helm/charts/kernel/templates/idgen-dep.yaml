@@ -50,11 +50,11 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.idgen.containerPort }}
+        - containerPort: {{ .Values.services.idgen.ports.containerPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.idgen.healthUrl }}
-            port: {{ .Values.services.idgen.containerPort }}
+            port: {{ .Values.services.idgen.ports.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialDelay }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
@@ -62,7 +62,7 @@ spec:
         livenessProbe:
           httpGet:
             path: {{ .Values.services.idgen.healthUrl }}
-            port: {{ .Values.services.idgen.containerPort }}
+            port: {{ .Values.services.idgen.ports.containerPort }}
           initialDelaySeconds: {{ .Values.probe.initialLivenessDelay }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}

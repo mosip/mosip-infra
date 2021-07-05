@@ -37,7 +37,7 @@ spec:
         #TODO: Put health check
         volumeMounts:
         - name: landing-zone
-          mountPath: /home/ftp1/LANDING_ZONE  # Hardcoded in Dockerfile
+          mountPath: /home/mosip/landing  # Hardcoded in Dockerfile
       volumes:
       - name: landing-zone
         persistentVolumeClaim:

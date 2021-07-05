@@ -26,8 +26,9 @@ services:
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }}
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
-    containerPort: 9109
-    servicePort: 80
+    ports:
+      containerPort: 9109
+      servicePort: 80
     ingressPath: /v1/partnermanager
     healthUrl: /v1/partnermanager/actuator/health
     podconfig:
@@ -37,8 +38,9 @@ services:
   policy:
     serviceName: {{ versions.services.pms.policy.keys()[0] }}
     dockerImage: {{ versions.services.pms.policy.values()[0] }}
-    containerPort: 9107
-    servicePort: 80
+    ports:
+      containerPort: 9107
+      servicePort: 80
     ingressPath: /v1/policymanager
     healthUrl: /v1/policymanager/actuator/health
     podconfig:
@@ -48,8 +50,9 @@ services:
   ui:
     serviceName: {{ versions.services.pms.ui.keys()[0] }}
     dockerImage: {{ versions.services.pms.ui.values()[0] }}
-    containerPort: 8080
-    servicePort: 80
+    ports:
+      containerPort: 8080
+      servicePort: 80
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /pmp-ui
       {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

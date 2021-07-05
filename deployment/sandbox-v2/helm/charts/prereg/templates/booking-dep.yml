@@ -8,6 +8,7 @@ metadata:
     component: {{ .Values.component }} 
     
 spec:
+  {{ $podconfig := .Values.services.datasync.podconfig }}
   replicas: {{ .Values.services.booking.podconfig.replicas }} 
   selector:
     matchLabels:
@@ -28,8 +29,7 @@ spec:
       - name: {{ .Values.services.booking.serviceName }} 
         image: {{ .Values.services.booking.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.application.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
         env:
         - name: active_profile_env
           value: {{ .Values.activeProfileEnv }} 
@@ -48,9 +48,9 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.booking.containerPort }}
+        - containerPort: {{ .Values.services.booking.ports.containerPort }}
 
 
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.services.booking.containerPort }}
+            port: {{ .Values.services.booking.ports.containerPort }}
