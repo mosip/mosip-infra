@@ -31,6 +31,8 @@ class KeycloakSession:
             "accessTokenLifespanForImplicitFlow": 900,
             "actionTokenGeneratedByAdminLifespan": 43200,
             "actionTokenGeneratedByUserLifespan": 300
+            "ssoSessionIdleTimeout": 86400,
+            "ssoSessionMaxLifespan": 36000
         }
         try:
             self.keycloak_admin.create_realm(payload, skip_exists=False)
