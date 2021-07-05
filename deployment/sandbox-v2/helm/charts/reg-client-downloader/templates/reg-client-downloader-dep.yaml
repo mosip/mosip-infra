@@ -18,10 +18,6 @@ spec:
       maxSurge: {{ .Values.services.reg_client_downloader.podconfig.maxSurge }}
   template:
     metadata:
-      annotations:
-        prometheus.io/path: {{ .Values.annotation }}
-        prometheus.io/port: {{ .Values.docker.ports.containerPort | quote }}
-        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.serviceName }} 
         exportLogs: {{ .Values.exportLogs }}

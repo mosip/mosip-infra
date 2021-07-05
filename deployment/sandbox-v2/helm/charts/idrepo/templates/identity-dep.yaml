@@ -52,19 +52,19 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.identity.containerPort }}
+        - containerPort: {{ .Values.services.identity.ports.containerPort }}
 
 
         readinessProbe:
           httpGet:
             path: {{ .Values.services.identity.healthUrl }} 
-            port: {{ .Values.services.identity.containerPort }} 
+            port: {{ .Values.services.identity.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
  #       livenessProbe:
  #         httpGet:
  #           path: {{ .Values.services.identity.healthUrl }} 
- #           port: {{ .Values.services.identity.containerPort }} 
+ #           port: {{ .Values.services.identity.ports.containerPort }} 
  #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
  #         periodSeconds: {{ .Values.probe.period }}
  #

@@ -27,8 +27,9 @@ services:
   auth:
     serviceName: {{ versions.services.ida.auth.keys()[0] }} 
     dockerImage: {{ versions.services.ida.auth.values()[0] }}
-    containerPort: 8090
-    servicePort: 80
+    ports:
+      containerPort: 8090
+      servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
     ingressPath: /idauthentication/v1/auth
     healthUrl: /idauthentication/v1/auth/actuator/health
@@ -40,8 +41,9 @@ services:
   internal: 
     serviceName: {{ versions.services.ida.internal.keys()[0] }} 
     dockerImage: {{ versions.services.ida.internal.values()[0] }}
-    containerPort: 8093
-    servicePort: 80
+    ports:
+      containerPort: 8093
+      servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/internal
     healthUrl: /idauthentication/v1/internal/actuator/health
@@ -53,8 +55,9 @@ services:
   kyc: 
     serviceName: {{ versions.services.ida.kyc.keys()[0] }} 
     dockerImage: {{ versions.services.ida.kyc.values()[0] }}
-    containerPort: 8091
-    servicePort: 80
+    ports:
+      containerPort: 8091
+      servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/kyc
     healthUrl: /idauthentication/v1/kyc/actuator/health
@@ -66,8 +69,9 @@ services:
   otp: 
     serviceName: {{ versions.services.ida.otp.keys()[0] }} 
     dockerImage: {{ versions.services.ida.otp.values()[0] }}
-    containerPort: 8092
-    servicePort: 80
+    ports:
+      containerPort: 8092
+      servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   
     ingressPath: /idauthentication/v1/otp
     healthUrl: /idauthentication/v1/otp/actuator/health
