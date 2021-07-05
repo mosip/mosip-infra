@@ -164,4 +164,3 @@ versions:
     artifactory:
       service:
         'artifactory-service': 'mosipid/artifactory-server:1.1.5'
-vv
