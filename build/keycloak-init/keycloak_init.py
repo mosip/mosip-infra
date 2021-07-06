@@ -32,7 +32,7 @@ class KeycloakSession:
             "accessTokenLifespan": 86400,
             "accessTokenLifespanForImplicitFlow": 900,
             "actionTokenGeneratedByAdminLifespan": 43200,
-            "actionTokenGeneratedByUserLifespan": 300
+            "actionTokenGeneratedByUserLifespan": 300,
             "ssoSessionIdleTimeout": 15552000,
             "ssoSessionMaxLifespan": 36000
         }
