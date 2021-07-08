@@ -59,7 +59,7 @@ The certificate uploaded by the device provider should be a CA signed certificat
     ```
 * Insert the certificate in the master.ca_cert_store table
 
-### Steps to add the MOSIP ROOT certificate
+### Steps to add the MOSIP PMS ROOT certificate
 
 * Get a authentication token same as before
 * Fetch the PMS certificate from MOSIP's key manager API.
