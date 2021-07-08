@@ -1,0 +1,14 @@
+# This play installs all Kernel services using Helm
+
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'key-migrator'
+    helm_chart: '{{charts_root}}/key-migrator'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/key-migrator/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+

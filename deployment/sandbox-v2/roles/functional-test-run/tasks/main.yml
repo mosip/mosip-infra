@@ -1,0 +1,30 @@
+- pause:
+    prompt: "Are you running over a fresh deployment for the first time? (having no manual testing data) (yes/no)?"
+  register: check_for_state
+
+- name: running function test without backup
+  block:
+    - name: running functional test for all modules.
+      shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules=prereg -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+
+    - name: delete init file
+      become: yes
+      become_user: root
+      shell: "cd  /srv/nfs/mosip/postgres/ && rm init.lock"
+
+    - include_role:
+        name: postgres-init
+      when: postgres.init == true
+  when: check_for_state.user_input | bool
+
+
+- name: running function test after backup
+  block:
+    - include_role:
+        name: db-backup
+
+    - name: running functional test for all modules.
+      shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules=prereg -Denv.user={{ envuser }} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+
+    - include_role:
+        name: db-restore

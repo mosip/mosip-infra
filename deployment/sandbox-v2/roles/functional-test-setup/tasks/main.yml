@@ -1,0 +1,17 @@
+- name: Update maven repository with settings file
+  become: yes
+  become_user: root
+  copy:
+    src: "{{ item }}"
+    dest: "{{ maven_dir }}"
+  with_fileglob:
+    - "{{ utils_dir }}/settings.xml"
+
+- name: Bulding automation demo service for dependency
+  shell: "cd {{ functional_repo_dest }}/authentication-demo-service/ && mvn clean install"
+
+- name: Bulding test-rig
+  shell: "cd {{ functional_repo_dest }}/automationtests && mvn clean install"
+
+- name: Copy jar file to test testrig directory
+  shell: "mv {{ functional_repo_dest }}/automationtests/target/*dependencies.jar {{ functional_repo_dest }}/automationtests/target/automationtests.jar"

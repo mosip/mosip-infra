@@ -70,6 +70,13 @@ podconfig:
       maxSurge: 1 
       java_opts: "-Xms500M -Xmx500M"
 
+    keyMigrator:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
+      java_opts: "-Xms500M -Xmx500M"
+
   regproc:
     camel:
       replicas: 1

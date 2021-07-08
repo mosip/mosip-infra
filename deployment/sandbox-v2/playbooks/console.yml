@@ -37,6 +37,8 @@
      - {role: packages/jq, tags: [jq]}
      - {role: packages/netaddr, tags: [netaddr]}
      - {role: packages/psycopg2}
+     - {role: packages/openjdk}
+     - {role: packages/maven}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 

@@ -454,3 +454,16 @@ cache_provider_url: http://artifactory-service.default:80/artifactory/libs-relea
 
 # user for every service inside the container
 container_user: mosip
+
+
+maven_dir: '/etc/maven/'
+functional_repo_path: 'https://github.com/mosip/mosip-functional-tests.git'
+functional_repo_dest: '{{tmp_dir}}/mosip-functional-tests/'
+db_modules: '["mosip_master", "mosip_kernel", "mosip_iam", "mosip_audit", "mosip_authdevice", "mosip_keymgr", "mosip_regdevice", "mosip_credential", "mosip_idrepo", "mosip_idmap", "mosip_prereg", "mosip_regprc", "mosip_ida", "mosip_pms", "mosip_websub", "mosip_hotlist"]'
+testrig_version: 'develop'
+#modules: '["all"]'
+modules: '["prereg"]'
+envuser: 'qa'
+target_uri: 'minibox2.mosip.net'
+testlevel: 'smoke'
+backup_path: '{{tmp_dir}}/db-backup/'
