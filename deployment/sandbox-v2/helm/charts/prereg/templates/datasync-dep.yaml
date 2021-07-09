@@ -51,16 +51,22 @@ spec:
           value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.datasync.ports.containerPort }}
-
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.datasync.healthUrl }} 
-            port: {{ .Values.services.datasync.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-  #      livenessProbe:
-  #        httpGet:
-  #          path: {{ .Values.services.datasync.healthUrl }} 
-  #          port: {{ .Values.services.datasync.ports.containerPort }} 
-  #       initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-  #        periodSeconds: {{ .Values.probe.period }} 
+            path: {{ .Values.services.datasync.healthUrl }}
+            port: {{ .Values.services.datasync.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.datasync.healthUrl }}
+            port: {{ .Values.services.datasync.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.datasync.healthUrl }}
+            port: {{ .Values.services.datasync.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+
