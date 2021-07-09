@@ -8,9 +8,11 @@ iamAdapterUrl: {{ iam_adapter_url }}
 exportLogs: enabled  # Let filebeat export the logs
 
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
-imagePullPolicy: Always
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
 
 isGlowroot: {{ is_glowroot }} 
 
@@ -22,8 +24,9 @@ services:
   datashare:
     serviceName: {{ versions.services.datashare.service.keys()[0] }}
     dockerImage: {{ versions.services.datashare.service.values()[0] }}
-    containerPort: 8097
-    servicePort: 80
+    ports:
+      containerPort: 8097
+      servicePort: 80
     ingressPath: /v1/datashare
     healthUrl: /v1/datashare/actuator/health
     podconfig:
