@@ -51,13 +51,19 @@ spec:
         - containerPort: {{ .Values.services.sync.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.sync.healthUrl }} 
-            port: {{ .Values.services.sync.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.sync.healthUrl }} 
-#            port: {{ .Values.services.sync.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.sync.healthUrl }}
+            port: {{ .Values.services.sync.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.sync.healthUrl }}
+            port: {{ .Values.services.sync.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.sync.healthUrl }}
+            port: {{ .Values.services.sync.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
