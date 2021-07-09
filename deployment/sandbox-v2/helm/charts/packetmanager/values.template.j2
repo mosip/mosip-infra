@@ -12,9 +12,11 @@ clusterRole: packetmanager-cluster-role
 serviceAccount: packetmanager
 
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
-  initialLivenessDelay: 120
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
 
 imagePullPolicy: Always
 
