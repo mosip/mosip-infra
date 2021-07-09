@@ -54,17 +54,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.datashare.containerPort }}
-
+        - containerPort: {{ .Values.services.datashare.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.datashare.healthUrl }} 
-            port: {{ .Values.services.datashare.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-  #      livenessProbe:
-  #        httpGet:
-  #          path: {{ .Values.services.datashare.healthUrl }} 
-  #          port: {{ .Values.services.datashare.containerPort }} 
-  #        initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-  #        periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.datashare.healthUrl }}
+            port: {{ .Values.services.datashare.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.datashare.healthUrl }}
+            port: {{ .Values.services.datashare.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.datashare.healthUrl }}
+            port: {{ .Values.services.datashare.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
