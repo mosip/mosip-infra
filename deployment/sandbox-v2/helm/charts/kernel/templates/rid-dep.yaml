@@ -55,13 +55,20 @@ spec:
         - containerPort: {{ .Values.services.rid.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.rid.healthUrl }} 
-            port: {{ .Values.services.rid.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#         httpGet:
-#            path: {{ .Values.services.rid.healthUrl }} 
-#            port: {{ .Values.services.rid.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.rid.healthUrl }}
+            port: {{ .Values.services.rid.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.rid.healthUrl }}
+            port: {{ .Values.services.rid.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.rid.healthUrl }}
+            port: {{ .Values.services.rid.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+

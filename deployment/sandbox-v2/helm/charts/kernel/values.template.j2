@@ -8,9 +8,14 @@ iamAdapterUrl: {{ iam_adapter_url }}
 runtimeDepUrl: {{ runtimeDepUrlpath }}
 cont_user: {{ container_user }}
 exportLogs: enabled  # Let filebeat export the logs
+
 probe:
-  initialDelay: 120  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+  
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
