@@ -1,3 +1,4 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,13 +52,19 @@ spec:
         - containerPort: {{ .Values.services.partner.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.partner.healthUrl }} 
-            port: {{ .Values.services.partner.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.partner.healthUrl }} 
-#            port: {{ .Values.services.partner.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.partner.healthUrl }}
+            port: {{ .Values.services.partner.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.partner.healthUrl }}
+            port: {{ .Values.services.partner.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.partner.healthUrl }}
+            port: {{ .Values.services.partner.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
