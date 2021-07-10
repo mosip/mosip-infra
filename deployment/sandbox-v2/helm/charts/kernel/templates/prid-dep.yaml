@@ -52,22 +52,23 @@ spec:
           value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.prid.ports.containerPort }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.services.prid.healthUrl }}
-            port: {{ .Values.services.prid.ports.containerPort }}
-          periodSeconds: {{ .Values.probe.period }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.services.prid.healthUrl }}
-            port: {{ .Values.services.prid.ports.containerPort }}
-          periodSeconds: {{ .Values.probe.livenessPeriod }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
-        startupProbe:
-          httpGet:
-            path: {{ .Values.services.prid.healthUrl }}
-            port: {{ .Values.services.prid.ports.containerPort }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-          periodSeconds: {{ .Values.probe.startupPeriod }}
+# need to enable actuator health url for the service
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.period }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.livenessPeriod }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
+#        startupProbe:
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          failureThreshold: {{ .Values.probe.failureThreshold }}
+#          periodSeconds: {{ .Values.probe.startupPeriod }}
 
