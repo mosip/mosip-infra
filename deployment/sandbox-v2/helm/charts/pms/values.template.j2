@@ -10,9 +10,14 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
+
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 imagePullPolicy: Always
 
 isGlowroot: {{ is_glowroot }} 
@@ -22,7 +27,6 @@ dockerHub:
   keyname: {{ docker.hub.keyname }}
 
 services:
-
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }}
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
@@ -55,4 +59,3 @@ services:
       servicePort: 80
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /pmp-ui
-      {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

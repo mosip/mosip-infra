@@ -27,14 +27,4 @@ spec:
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
         ports:
-        - containerPort: {{ .Values.services.ui.ports.containerPorts }} 
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.ui.ports.containerPorts }}  # All defaults used
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.services.ui.ports.containerPorts }}  # All defaults used
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+        - containerPort: {{ .Values.services.ui.ports.containerPort }} 
