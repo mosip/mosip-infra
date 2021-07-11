@@ -49,13 +49,19 @@ spec:
         - containerPort: {{ .Values.services.resident.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.resident.healthUrl }} 
-            port: {{ .Values.services.resident.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.resident.healthUrl }} 
- #           port: {{ .Values.services.resident.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.resident.healthUrl }}
+            port: {{ .Values.services.resident.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.resident.healthUrl }}
+            port: {{ .Values.services.resident.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.resident.healthUrl }}
+            port: {{ .Values.services.resident.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
