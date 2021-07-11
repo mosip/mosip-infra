@@ -55,16 +55,22 @@ spec:
           containerPort: {{ .Values.services.abishandler.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abishandler.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.abishandler.healthUrl }}
+            port: {{ .Values.services.abishandler.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.abishandler.healthUrl }}
+            port: {{ .Values.services.abishandler.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.abishandler.healthUrl }}
+            port: {{ .Values.services.abishandler.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 
-#        readinessProbe:  # TODO: Uncomment this or put a actuator health url
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.abishandler.healthUrl }} 
-#            port: {{ .Values.services.abishandler.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 

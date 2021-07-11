@@ -55,16 +55,22 @@ spec:
           containerPort: {{ .Values.services.manual.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.manual.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.manual.healthUrl }}
+            port: {{ .Values.services.manual.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.manual.healthUrl }}
+            port: {{ .Values.services.manual.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.manual.healthUrl }}
+            port: {{ .Values.services.manual.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.manual.healthUrl }} 
-#            port: {{ .Values.services.manual.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #        httpGet:
- #           path: {{ .Values.services.manual.healthUrl }} 
- #           port: {{ .Values.services.manual.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
