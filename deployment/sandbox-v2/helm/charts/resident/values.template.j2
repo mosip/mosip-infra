@@ -16,8 +16,11 @@ sitePublicUrl: {{ site.sandbox_public_url }}
 isGlowroot: {{ is_glowroot }} 
 
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
 
 dockerHub:
   private: {{ docker.hub.private }}  
