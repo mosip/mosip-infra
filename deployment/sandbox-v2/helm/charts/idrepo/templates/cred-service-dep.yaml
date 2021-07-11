@@ -53,17 +53,22 @@ spec:
           value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.credentialservice.ports.containerPort }}
-
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.credentialservice.healthUrl }} 
-            port: {{ .Values.services.credentialservice.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.credentialservice.healthUrl }} 
- #           port: {{ .Values.services.credentialservice.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }}
- #
+            path: {{ .Values.services.credentialservice.healthUrl }}
+            port: {{ .Values.services.credentialservice.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.credentialservice.healthUrl }}
+            port: {{ .Values.services.credentialservice.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.credentialservice.healthUrl }}
+            port: {{ .Values.services.credentialservice.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+
