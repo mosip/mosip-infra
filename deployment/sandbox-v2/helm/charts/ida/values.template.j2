@@ -10,9 +10,14 @@ ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
 iamAdapterUrl: {{ iam_adapter_url }}
+
 probe:
-  initialDelay: 60  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 imagePullPolicy: Always
 
 sitePublicUrl: {{ site.sandbox_public_url }}
