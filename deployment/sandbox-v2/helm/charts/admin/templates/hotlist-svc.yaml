@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.hotlist.servicePort }}
-    targetPort: {{ .Values.services.hotlist.containerPort }}
+  - port: {{ .Values.services.hotlist.ports.servicePort }}
+    targetPort: {{ .Values.services.hotlist.ports.containerPort }}
   selector:
     app: {{ .Values.services.hotlist.serviceName }} 
 

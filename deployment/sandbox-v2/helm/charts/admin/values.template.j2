@@ -8,9 +8,14 @@ exportLogs: enabled  # Let filebeat export the logs
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
+
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 imagePullPolicy: Always
 sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
@@ -25,8 +30,9 @@ services:
   admin: 
     serviceName: {{ versions.services.admin.service.keys()[0] }}
     dockerImage: {{ versions.services.admin.service.values()[0] }}
-    containerPort: 8098
-    servicePort: 80
+    ports:
+      containerPort: 8098
+      servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
     podconfig:
@@ -35,8 +41,9 @@ services:
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}
-    containerPort: 8080
-    servicePort: 80
+    ports:
+      containerPort: 8080
+      servicePort: 80
     configName: admin-ui-config # ConfigMap name
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /admin-ui
@@ -44,8 +51,9 @@ services:
   hotlist:
     serviceName: {{ versions.services.admin.hotlist.keys()[0] }}
     dockerImage: {{ versions.services.admin.hotlist.values()[0] }}
-    containerPort: 8095
-    servicePort: 80
+    ports:
+      containerPort: 8095
+      servicePort: 80
     ingressPath: /v1/hotlist
     healthUrl: /v1/hotlist/actuator/health
     podconfig:
