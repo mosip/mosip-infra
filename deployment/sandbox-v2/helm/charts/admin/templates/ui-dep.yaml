@@ -27,17 +27,25 @@ spec:
         image: {{ .Values.services.ui.dockerImage  }}
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
         ports:
-        - containerPort: {{ .Values.services.ui.containerPort }} 
-        readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.ui.containerPort }}  # All defaults used
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-        livenessProbe:
-          tcpSocket:
-            port: {{ .Values.services.ui.containerPort }}  # All defaults used
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+        - containerPort: {{ .Values.services.ui.ports.containerPort }} 
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.period }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
+#        livenessProbe:
+#          httpGet:
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.livenessPeriod }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
+#        startupProbe:
+#          httpGet:
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
+#          failureThreshold: {{ .Values.probe.failureThreshold }}
+#          periodSeconds: {{ .Values.probe.startupPeriod }}
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json 
