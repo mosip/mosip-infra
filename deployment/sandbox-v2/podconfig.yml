@@ -328,20 +328,6 @@ podconfig:
       java_opts: "-Xms500M -Xmx500M"
 
   pms:
-    misp: 
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
- 
-    pm:
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
     partner:
       replicas: 1
       maxSurge: 1
