@@ -12,3 +12,10 @@ services:
 exportLogs: enabled  # Let filebeat export the logs
 
 
+probe:
+  period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
