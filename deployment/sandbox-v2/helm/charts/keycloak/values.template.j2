@@ -21,3 +21,11 @@ ingress:
 services:
   keycloak:
     podconfig: {{ podconfig.keycloak.service | to_yaml }} 
+
+probe:
+  period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+

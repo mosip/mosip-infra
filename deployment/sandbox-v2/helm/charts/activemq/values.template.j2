@@ -34,3 +34,11 @@ mountPath: /data/activemq  # path inside docker
 nfs:
   server: {{ nfs.server }} 
   path: {{ activemq.nfs_path }}
+
+probe:
+  period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
