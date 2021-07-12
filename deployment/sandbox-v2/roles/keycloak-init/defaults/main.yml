@@ -397,6 +397,7 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'BIOMETRIC_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'METADATA_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-regproc-client', role_name: 'CREATE_SHARE'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-ida-client', role_name: 'CREDENTIAL_REQUEST'}
   - {realm_id: 'mosip', username: 'service-account-mosip-ida-client', role_name: 'ID_AUTHENTICATION'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'GLOBAL_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-reg-client', role_name: 'REGISTRATION_ADMIN'}
