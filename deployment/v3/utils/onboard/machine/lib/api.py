@@ -110,22 +110,54 @@ class MosipSession:
           pass
         return spec_id
 
-    def get_machines(self):
-        url = '%s/v1/masterdata/machines' % self.server
+    def get_machines(self, lang):
+        url = '%s/v1/masterdata/machines/search' % self.server
         cookies = {'Authorization' : self.token}
-        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
+        ts = get_timestamp()
+        j =  {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'filters':[],
+            'sort':[{
+              'sortType':'desc',
+              'sortField':'createdDateTime'
+             }],
+            'pagination':{
+              'pageStart':0, 
+              'pageFetch':10
+            },
+            'languageCode': lang
+          },
+         'requesttime': ts,
+         'version':'1.0'
+        }
+        r = requests.post(url, cookies=cookies, json=j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
- 
-    def get_machine_id(self, name):
-        machine_id = ''
-        out = self.get_machines()
-        print(out)
-        exit(0)
 
-    def add_machine(self, machine_id, name, spec_name, regcenter, zone, pub_key, sign_pub_key, valid_days, 
-                    language, update=False):
+    def get_machine_id(self, name, lang): 
+        r = self.get_machines(lang)
+        if r['response']['data'] is None:
+           return None
+        for machine in r['response']['data']:
+           if machine['name'] == name and machine['langCode'] == lang:
+               return machine['id']
+        
+    def add_machine(self, name, spec_name, regcenter, zone, pub_key, sign_pub_key, valid_days, 
+                    lang, primary_lang):
         spec_id = self.get_spec_id(spec_name)
+        # Check if machine entry exists for primary lanague
+        machine_id = self.get_machine_id(name, primary_lang)
+        if machine_id is None:
+            machine_id = ''   
+
+        # Check if machine info already exists
+        update = True
+        r = self.get_machine_id(name, lang)
+        if r is None:
+            update = False 
+        
         url = '%s/v1/masterdata/machines' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
@@ -138,7 +170,7 @@ class MosipSession:
               'name': name,
               'ipAddress': '', # Unused
               'isActive': True,
-              'langCode': language,
+              'langCode': lang,
               'macAddress': '',  # Unused
               'machineSpecId': spec_id,
               'publicKey': pub_key,
