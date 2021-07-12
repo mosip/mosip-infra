@@ -34,7 +34,7 @@ rbac:
   create: true
   rules:
     - apiGroups:
-        - ""
+        - "*"
       resources:
         - pods
       verbs:
