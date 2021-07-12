@@ -31,5 +31,17 @@ spec:
         - containerPort: {{ .Values.docker.containerPort }}
         readinessProbe:
           tcpSocket:
-            port: {{  .Values.docker.containerPort }}
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 
