@@ -8,8 +8,12 @@
   "partner_type": "Device_Provider",
   "policies" : [],
   "cert": {
-    "generated_key_path":  "certs/dp1/pvt_key.pem",
-    "generated_cert_path": "certs/dp1/cert.pem",
+    "output": {
+      "folder": "certs/dp1",
+      "key":  "pvt_key.pem",
+      "cert": "cert.pem",
+      "keystore": "keystore.p12"
+    },
     "is_ca": false,
     "cn": "dp-one.com",
     "country": "IN",

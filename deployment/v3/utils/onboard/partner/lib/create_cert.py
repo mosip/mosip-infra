@@ -17,6 +17,7 @@ class Cert:
     def __init__(self):
         self.pvt_key_path = None  # output 
         self.cert_path = None # output 
+        self.p12_path = None # Output
         self.is_ca = None # Is the subject a CA.
         self.cn = None # Common Name
         self.org_name = None
@@ -27,21 +28,10 @@ class Cert:
         self.ca_cert_path = None # input   
         self.ca_pvt_key_path = None # input
  
-    def pem_to_p12(self, passphrase):
-        print('Creating p12 store')
-        p12 = crypto.PKCS12()
-        pem = crypto.load_privatekey(crypto.FILETYPE_PEM, open(self.pvt_key_path, 'rb').read())
-        p12.set_privatekey(pem)
-        fpath = self.pvt_key_path
-        dirname = os.path.dirname(fpath)
-        fname = os.path.basename(fpath)
-        p12_name = fname.split('.')[0] + '.p12'
-        p12_path = os.path.join(dirname, p12_name)
-        s = p12.export(passphrase=passphrase.encode())
-        fd = open(p12_path, 'wb')
-        fd.write(s) 
-        fd.close()
-
+    def create_p12(self, passphrase, alias):
+        os.system('openssl pkcs12  -name %s -export -out %s -inkey %s -in %s -passout pass:%s' % (alias, self.p12_path, 
+                  self.pvt_key_path, self.cert_path, passphrase))
+        
     def gen_pvt_key(self, passphrase='1234'):
         key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
         fd = open(self.pvt_key_path, 'wb')
@@ -49,7 +39,6 @@ class Cert:
                                    format=serialization.PrivateFormat.TraditionalOpenSSL,
                                    encryption_algorithm=serialization.NoEncryption()))
         fd.close()
-        self.pem_to_p12(passphrase)
         
     def create_cert(self):
         subject = x509.Name([
@@ -88,7 +77,8 @@ def parse_json(json_file):
     parsed_j = json.load(open(json_file, 'rt'))
     org_name = parsed_j['name']
     j = parsed_j['cert']
-    cert_path = j['generated_cert_path']
+    output = j['output']
+    cert_path = os.path.join(output['folder'], output['cert'])
     if os.path.exists(cert_path):
         goahead = input('Cert already exists. Overwrite? (Y/n) ')
         if goahead != 'Y':
@@ -102,8 +92,9 @@ def parse_json(json_file):
         ca_pvt_key_path = j['ca_pvt_key']
          
     cred = Cert()
-    cred.pvt_key_path = j['generated_key_path']
+    cred.pvt_key_path = os.path.join(output['folder'], output['key'])
     cred.cert_path = cert_path
+    cred.p12_path = os.path.join(output['folder'], output['keystore'])
     cred.is_ca = j['is_ca']
     cred.cn = j['cn']
     cred.org_name = org_name
@@ -116,7 +107,7 @@ def parse_json(json_file):
 
     return cred
 
-def generate_cert(json_file):
+def generate_cert(json_file, p12_passphrase, alias):
     cred = parse_json(json_file)  
     if cred is None:
         return 
@@ -130,10 +121,16 @@ def generate_cert(json_file):
     cred.create_cert()
     print('Cert created: %s' % cred.cert_path)
 
+    print('Creating p12 keystore')
+    cred.create_p12(p12_passphrase, alias)
+
+
 def args_parse(): 
    parser = argparse.ArgumentParser()
 
    parser.add_argument('path', help='JSON file containing cert specification')
+   parser.add_argument('p12_passphrase', help='Strong passphrase for .p12 file that is created')
+   parser.add_argument('p12_keyalias', help='Keyalias for key in p12 keystore')
    args = parser.parse_args()
    return args, parser
 
@@ -144,7 +141,7 @@ def main():
     
     json_file = args.path
 
-    generate_cert(json_file) 
+    generate_cert(args.path, args.p12_passphrase, args.p12_keyalias)
 
 if __name__=="__main__":
     main()
