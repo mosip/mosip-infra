@@ -32,5 +32,5 @@ vpc:
           id: "subnet-6bc5b227"
 
         ap-south-1a:
-          id: "subnet-6bc5b227"
+          id: "subnet-7d0c0d15"
   

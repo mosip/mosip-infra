@@ -8,7 +8,6 @@
 ## Kibana
 * Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
 * Kibana connects to Elasticsearch. 
-<<<<<<< HEAD
 * Review the settings in `kibana_values.yaml`.  Set `ingress.hostname`.
 * We install Kibana with a name *other* than `kibana` to avoid [this issue](https://github.com/bitnami/charts/issues/6099).
 

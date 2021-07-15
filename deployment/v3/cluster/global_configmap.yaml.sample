@@ -1,6 +1,6 @@
 ## The data here is  of generic interest to modules in different namespaces hence this is marked as global.
 ## Replace your domain names here
-## Default recommneded routing:
+## Default recommended routing:
 ##   mosip-api-host: Public load balancer (LB)
 ##   mosip-api-internal-host: Internal LB 
 ##   mosip-prereg-host:  Public LB
