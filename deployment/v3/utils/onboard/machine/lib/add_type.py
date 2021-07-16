@@ -34,7 +34,7 @@ def main():
         session = MosipSession(args.server, args.admin, args.admin_pwd, 'regproc', ssl_verify)
         for i,row in df.iterrows():
             r = session.add_type(df['code'][i], df['name'][i], df['description'][i], df['language'][i], 
-                                 update=True)
+                                 update=False)
             myprint(r)
     except:
         formatted_lines = traceback.format_exc()

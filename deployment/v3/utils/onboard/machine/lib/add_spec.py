@@ -35,7 +35,7 @@ def main():
         for i,row in df.iterrows():
             r = session.add_spec(df['name'][i], df['machine_type'][i],  df['brand'][i], df['model'][i],
                                  df['description'][i], df['min_driver_version'][i], df['language'][i], 
-                                 update=True)
+                                 update=False)
  
             myprint(r)
     except:

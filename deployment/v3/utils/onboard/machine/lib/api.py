@@ -138,6 +138,7 @@ class MosipSession:
 
     def get_machine_id(self, name, lang): 
         r = self.get_machines(lang)
+        print(r)
         if r['response']['data'] is None:
            return None
         for machine in r['response']['data']:
