@@ -127,7 +127,6 @@ def generate_cert(json_file, p12_passphrase, alias):
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-
    parser.add_argument('path', help='JSON file containing cert specification')
    parser.add_argument('p12_passphrase', help='Strong passphrase for .p12 file that is created')
    parser.add_argument('p12_keyalias', help='Keyalias for key in p12 keystore')
@@ -139,8 +138,6 @@ def main():
 
     init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
     
-    json_file = args.path
-
     generate_cert(args.path, args.p12_passphrase, args.p12_keyalias)
 
 if __name__=="__main__":
