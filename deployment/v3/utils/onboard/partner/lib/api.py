@@ -159,8 +159,6 @@ class MosipSession:
           'requesttime': ts,
           'version': '1.0'
         }
-        print(j)
-        print(url)
         r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
@@ -225,9 +223,7 @@ class MosipSession:
         '''
         cert_data: str
         '''
-        #TODO: Workaround. Restore later.
-        #url = '%s/v1/partnermanager/partners/certificate/ca/upload' % self.server
-        url = '%s/v1/keymanager/uploadCACertificate' % self.server
+        url = '%s/v1/partnermanager/partners/certificate/ca/upload' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -241,8 +237,6 @@ class MosipSession:
           'version': '1.0'
         } 
 
-        print(url)
-        print(j)
         r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
 
@@ -252,9 +246,7 @@ class MosipSession:
         '''
         cert_data: str
         '''
-        #TODO: Workaround. Restore later.
-        #url = '%s/v1/partnermanager/partners/certificate/upload' % self.server
-        url = '%s/v1/keymanager/uploadPartnerCertificate' % self.server
+        url = '%s/v1/partnermanager/partners/certificate/upload' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -263,9 +255,9 @@ class MosipSession:
             'request': {
                 'certificateData': cert_data,
                 'organizationName': org_name,
-                'partnerDomain': partner_domain
-               # 'partnerId': partner_id,
-               # 'partnerType': partner_type
+                'partnerDomain': partner_domain,
+                'partnerId': partner_id,
+                'partnerType': partner_type
             },
             'requesttime': ts,
             'version': '1.0'
@@ -401,5 +393,12 @@ class MosipSession:
                (self.server, app_id, ref_id)
         cookies = {'Authorization' : self.token}
         r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
+        r = response_to_json(r)
+        return r
+
+    def fetch_root_cert(self, app_id):
+        url = '%s/v1/keymanager/getCertificate?applicationId=%s' % (self.server, app_id)
+        cookies = {'Authorization' : self.token}
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)      
         r = response_to_json(r)
         return r
