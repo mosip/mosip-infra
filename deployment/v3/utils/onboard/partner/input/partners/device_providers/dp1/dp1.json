@@ -6,7 +6,7 @@
   "email" : "dp@xyz.com", 
   "partner_domain": "DEVICE",
   "partner_type": "Device_Provider",
-  "policies" : [],
+  "policy_group": "",
   "cert": {
     "output": {
       "folder": "certs/dp1",
