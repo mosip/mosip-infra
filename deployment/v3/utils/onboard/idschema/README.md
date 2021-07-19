@@ -1,5 +1,8 @@
 # Uplading ID Schema
-* Currently ID Schema version is not validated in Reg Proc
-* Latest schema in `identity_schema` table is picked for validation.
-* The schema id is automatically assigned.
-* We just need to specify UI Spec json and ID Schema will be created automatically if upload/publish APIs are used.
+* Create UI spec json.  Refer `schemas/us_spec.json` as an example.
+* Review `schema.sh` and run the same.
+* You may run the following for various command line options:
+```sh
+python3 lib/update_idschema.py --help
+```
+

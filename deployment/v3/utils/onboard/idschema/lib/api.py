@@ -4,7 +4,7 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='ida', ssl_verify=True):
+    def __init__(self, server, user, pwd, appid='admin', ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
