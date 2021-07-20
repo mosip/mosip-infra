@@ -1,0 +1,4 @@
+- hosts: console
+  gather_facts: true
+  roles:
+    - {role: db-backup, tags: [db-backup]}

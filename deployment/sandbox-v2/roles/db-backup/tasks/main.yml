@@ -1,0 +1,18 @@
+- name: "Create a backup directory"
+  file:
+    path: "{{ backup_path }}/backups/"
+    mode: 0775
+    owner: mosipuser
+    state: directory
+
+- name: "Back up the databases"
+  name: '{{ item }}'
+  shell: "cd {{ backup_path }}/backups/ && pg_dump -F c --clean --host='{{inventory_hostname}}' --port=30090 --username='postgres' --dbname='{{item}}' > '{{item}}'.dump"
+  environment:
+    PGPASSWORD: '{{secrets.postgres.dbuser}}'
+    SU_USER_PWD: '{{secrets.postgres.su}}'
+    SYSADMIN_PWD: '{{secrets.postgres.sysadmin}}'
+    DBADMIN_PWD: '{{secrets.postgres.dbadmin}}'
+    APPADMIN_PWD: '{{secrets.postgres.appadmin}}'
+    DBUSER_PWD: '{{secrets.postgres.dbuser}}'
+  loop: '{{ db_modules }}'
