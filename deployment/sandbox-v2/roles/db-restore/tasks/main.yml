@@ -1,6 +1,6 @@
 - name: "Restore the database"
   name: '{{ item }}'
-  shell: "cd {{ backup_path }}/backups/ && pg_restore --clean --host='{{inventory_hostname}}' --port=30090 --username='postgres' -d '{{item}}' '{{item}}.dump'"
+  shell: "cd {{ backup_path }}/backups/ && pg_restore --clean --host='{{inventory_hostname}}' --port='{{postgres.port}}' --username='{{postgres.user}}' -d '{{item}}' '{{item}}.dump'"
   environment:
     PGPASSWORD: '{{secrets.postgres.dbuser}}'
     SU_USER_PWD: '{{secrets.postgres.su}}'

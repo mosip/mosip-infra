@@ -7,7 +7,7 @@
 
 - name: "Back up the databases"
   name: '{{ item }}'
-  shell: "cd {{ backup_path }}/backups/ && pg_dump -F c --clean --host='{{inventory_hostname}}' --port=30090 --username='postgres' --dbname='{{item}}' > '{{item}}'.dump"
+  shell: "cd {{ backup_path }}/backups/ && pg_dump -F c --clean --host='{{inventory_hostname}}' --port='{{postgres.port}}' --username='{{postgres.user}}' --dbname='{{item}}' > '{{item}}'.dump"
   environment:
     PGPASSWORD: '{{secrets.postgres.dbuser}}'
     SU_USER_PWD: '{{secrets.postgres.su}}'
