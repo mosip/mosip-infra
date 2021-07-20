@@ -22,7 +22,7 @@ services:
     dockerImage: {{ versions.services.mock.abis.values()[0] }}
     containerPort: 8081
     servicePort: 80
-    ingressPath: /v1/mock-abis
+    ingressPath: /v1/mock-abis-service
     healthUrl: /v1/mock-abis-service/actuator/health
     podconfig:
       {{ podconfig.mockabis.service | to_nice_yaml(indent=6) | indent(6) }}

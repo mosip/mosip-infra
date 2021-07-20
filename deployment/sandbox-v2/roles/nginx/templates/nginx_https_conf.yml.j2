@@ -317,6 +317,10 @@ http {
            proxy_pass {{clusters.dmz.ingress.base_url}}/websub/;
         }
 
+        location /v1/mock-abis-service/ {
+           proxy_pass http://mzworker0.sb:30080/v1/mock-abis-service/;
+        }
+
         location /v1/hotlist/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/hotlist/;
         }
