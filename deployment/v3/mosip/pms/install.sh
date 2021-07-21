@@ -13,7 +13,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing partner manager
-helm -n $NS install pms-partner mosip/pms-partner
+helm -n $NS install pms-partner mosip/pms-partner -f values.yaml
 
 echo Installing policy manager
 helm -n $NS install pms-policy mosip/pms-policy

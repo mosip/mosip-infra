@@ -2,7 +2,7 @@
 
 ## Elasticsearch  
 * Install Elastic search using Bitnami Elasticsearch helm charts.  
-* Before install review the persistence, storage size, storage class etc. in values file of the chart.
+* Before install review the persistence, storage size, storage class etc. in values file of the chart. Enable persistence for production setups.
 * Cloud: You may use cloud provider's Elasticsearch hosted application in which case you don't need to install the same as given above. 
 
 ## Kibana

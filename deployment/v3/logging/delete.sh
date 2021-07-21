@@ -1,6 +1,6 @@
 #!/bin/sh
 # Uninstalls all logging helm charts
-NS=logging
+NS=cattle-logging-system
 while true; do
     read -p "Are you sure you want to delete ALL logging helm charts?(Y/n) " yn
     if [[ $yn == "Y" ]]

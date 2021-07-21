@@ -1,0 +1,25 @@
+ID Schema:
+=========
+Update schema
+
+Admin user:
+=============
+1. Add user to keycloak
+1. Given GLOBAL_ADMIN role
+1. Add user to zone using map_zone_user.py
+
+
+Machine:
+1. Add type
+1. Add spec
+1. Add machine
+
+Reg officer:
+1. If reg officer map user-regcenter using script
+
+Mock MDS:
+1. To see device certificates:
+`curl -v -X MOSIPDINFO http://127.0.0.1:4501/info`
+
+1. Make sure in regclient properites mdm devices are set to DEVICE (and not FTM).  FTM is used for Auth at the moment, with mock mds.
+

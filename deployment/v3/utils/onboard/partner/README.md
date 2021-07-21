@@ -36,7 +36,7 @@
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
-* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.
+* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.  For registration devices specify DEVICE.
 * **app_id**: App Id from where certificate has to be pulled. Generally IDA.
 * **cert_source**: `internal/generated/provided`. Cert may be already inside mosip, or has been provided external or needs to be generated.
 * **overwrite**: Applicable with `cert_source==generated`. Whether to regenerate.

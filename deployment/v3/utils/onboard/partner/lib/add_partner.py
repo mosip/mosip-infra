@@ -56,6 +56,7 @@ def main():
             open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
             myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)
 
+        '''
         # Upload MOSIP ROOT and PMS cert. TODO: this is temporary workaround that will be fixed in LTS version
         cert = fetch_root_cert('ROOT', session)    
         r = session.upload_ca_certificate(cert, j['partner_domain'])
@@ -64,6 +65,7 @@ def main():
         cert = fetch_root_cert('PMS', session)    
         r = session.upload_ca_certificate(cert, j['partner_domain'])
         myprint(r)
+        '''
 
     except:
         formatted_lines = traceback.format_exc()

@@ -1,43 +1,46 @@
+dbUserPasswords:
+  dbuserPassword: KQbhy58GYP
+
 databases:
   mosip_master:
     enabled: true
 
   mosip_audit:
-    enabled: true
+    enabled: false
 
   mosip_keymgr:
-    enabled: true 
+    enabled: false 
 
   mosip_kernel:
-    enabled: true
+    enabled: false
 
   mosip_idmap:
-    enabled: true
+    enabled: false
 
   mosip_prereg:
-    enabled: true
+    enabled: false
 
   mosip_idrepo:
-    enabled: true
+    enabled: false
 
   mosip_ida:
-    enabled: true
+    enabled: false
 
   mosip_credential:
-    enabled: true
+    enabled: false
 
   mosip_regprc:
-    enabled: true
+    enabled: false
 
   mosip_regdevice:
-    enabled: true
+    enabled: false
 
   mosip_authdevice:
-    enabled: true
+    enabled: false
 
   mosip_pms:
-    enabled: true
+    enabled: false
 
   mosip_websub:
-    enabled: true
+    enabled: false
 
