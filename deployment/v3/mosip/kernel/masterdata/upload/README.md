@@ -5,11 +5,15 @@ Masterdata is specified in xlsx files available in `xlsx` folder.  Update the xl
 
 ## Prequisites
 1. `python3`
-1. Install additional modules:
-```sh
-pip3 install -r requirements.txt
-```
-1. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
+2. Install dev tools:
+	```
+	sudo apt install python3-dev libpq-dev
+	```
+3. Install additional modules:
+	```
+	pip3 install -r requirements.txt
+	```
+4. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
 
 ## Run
 ```sh
