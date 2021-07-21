@@ -13,25 +13,25 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing authmanager
-helm -n $NS install authmanager mosip/authmanager
+helm -n $NS install authmanager mosip/authmanager --wait
 
 echo Installing auditmanager
-helm -n $NS install auditmanager mosip/auditmanager
+helm -n $NS install auditmanager mosip/auditmanager --wait
 
 echo Installing idgenerator
-helm -n $NS install idgenerator mosip/idgenerator  
+helm -n $NS install idgenerator mosip/idgenerator --wait 
 
 echo Installing masterdata
-helm -n $NS install masterdata mosip/masterdata
+helm -n $NS install masterdata mosip/masterdata --wait
 
 echo Installing otpmanager
-helm -n $NS install otpmanager mosip/otpmanager
+helm -n $NS install otpmanager mosip/otpmanager --wait
 
 echo Installing pridgenerator
-helm -n $NS install pridgenerator mosip/pridgenerator
+helm -n $NS install pridgenerator mosip/pridgenerator --wait
 
 echo Installing ridgenerator
-helm -n $NS install ridgenerator mosip/ridgenerator
+helm -n $NS install ridgenerator mosip/ridgenerator --wait
 
 echo Installing syncdata
-helm -n $NS install syncdata mosip/syncdata
+helm -n $NS install syncdata mosip/syncdata --wait
