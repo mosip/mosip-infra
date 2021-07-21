@@ -19,7 +19,7 @@ echo Installing auditmanager
 helm -n $NS install auditmanager mosip/auditmanager
 
 echo Installing idgenerator
-helm -n $NS install idgenerator mosip/idgenerator  
+helm -n $NS install idgenerator mosip/idgenerator
 
 echo Installing masterdata
 helm -n $NS install masterdata mosip/masterdata

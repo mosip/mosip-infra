@@ -1,3 +1,6 @@
 # IDA
 
-TBD
+## Install
+```
+$ ./install.sh
+```

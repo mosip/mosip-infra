@@ -1,7 +1,7 @@
 # Registration processor services
 
 ## Prerequisites
-Install Kafka as given [here](kafka/README.md)
+Install Kafka as given [here](../../external/kafka/README.md)
 
 ## Install
 ```
