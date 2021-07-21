@@ -22,5 +22,6 @@ data:
   mosip-kibana-host: kibana.sandbox.xyz.net
   mosip-regclient-host: regclient.sandbox.xyz.net 
   mosip-admin-host: admin.sandbox.xzy.net
+  mosip-minio-host: minio.sandbox.xyz.net
   is_glowroot_env: absent
 
