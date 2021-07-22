@@ -7,4 +7,7 @@
 1. Assign the group to the user 
 
 ## Secrets
-1. Create configmap and secrets as below
+1. Create configmap and secrets by running this script:
+```sh
+./cred.sh
+```
