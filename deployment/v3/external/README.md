@@ -6,7 +6,7 @@ This folder contains installation procedures for all components that are not par
 * [Postgres](postgres/README.md)
 * [IAM (Keycloak)](iam/README.md)
 * [HSM](hsm/README.md)
-* [Object Storage (MinIO)](minio/README.md)
+* [Object Storage](object_store/README.md)
 * [Anti-virus (Clamav)](antivirus/clamav/README.md)
 * [ActiveMQ](activemq/aws/README.md)
 * [Kafka](kafka/README.md)
