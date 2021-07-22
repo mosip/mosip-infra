@@ -34,8 +34,9 @@ services:
     serviceName: {{ versions.services.idrepo.identity.keys()[0] }} 
     dockerImage: {{ versions.services.idrepo.identity.values()[0] }}
     serviceName: idrepo-identity-service
-    containerPort: 8090
-    servicePort: 80
+    ports:
+      containerPort: 8090
+      servicePort: 80
     ingressPath: /idrepository/v1/identity 
     healthUrl: /idrepository/v1/identity/actuator/health
     podconfig:
@@ -45,8 +46,9 @@ services:
   vid: 
     serviceName: {{ versions.services.idrepo.vid.keys()[0] }} 
     dockerImage: {{ versions.services.idrepo.vid.values()[0] }}
-    containerPort: 8091
-    servicePort: 80
+    ports:
+      containerPort: 8091
+      servicePort: 80
     ingressPath: /idrepository/v1/vid
     healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
     podconfig:
@@ -56,8 +58,9 @@ services:
   bioextractor:
     serviceName: {{ versions.services.idrepo.bioextractor.keys()[0] }}
     dockerImage: {{ versions.services.idrepo.bioextractor.values()[0] }}
-    containerPort: 8100
-    servicePort: 80
+    ports:
+      containerPort: 8100
+      servicePort: 80
     ingressPath: /v1/bioextractor/mock
     healthUrl: /v1/bioextractor/mock/actuator/health
     podconfig:
@@ -67,8 +70,9 @@ services:
   credentialrequest:
     serviceName: {{ versions.services.idrepo.credentialreq.keys()[0] }}
     dockerImage: {{ versions.services.idrepo.credentialreq.values()[0] }}
-    containerPort: 8094
-    servicePort: 80
+    ports:
+      containerPort: 8094
+      servicePort: 80
     ingressPath: /v1/credentialrequest
     healthUrl: /v1/credentialrequest/actuator/health
     podconfig:
@@ -78,8 +82,9 @@ services:
   credentialservice:
     serviceName: {{ versions.services.idrepo.credentialservice.keys()[0] }}
     dockerImage: {{ versions.services.idrepo.credentialservice.values()[0] }}
-    containerPort: 8095
-    servicePort: 80
+    ports:
+      containerPort: 8095
+      servicePort: 80
     ingressPath: /v1/credentialservice
     healthUrl: /v1/credentialservice/actuator/health
     podconfig:

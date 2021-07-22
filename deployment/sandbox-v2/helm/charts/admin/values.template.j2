@@ -30,8 +30,9 @@ services:
   admin: 
     serviceName: {{ versions.services.admin.service.keys()[0] }}
     dockerImage: {{ versions.services.admin.service.values()[0] }}
-    containerPort: 8098
-    servicePort: 80
+    ports:
+      containerPort: 8098
+      servicePort: 80
     ingressPath: /v1/admin
     healthUrl: /v1/admin/actuator/health
     podconfig:
@@ -41,8 +42,9 @@ services:
   ui:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}
-    containerPort: 80
-    servicePort: 80
+    ports:
+      containerPort: 80
+      servicePort: 80
     configName: admin-ui-config # ConfigMap name
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /admin-ui

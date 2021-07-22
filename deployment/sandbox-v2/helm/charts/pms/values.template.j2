@@ -10,9 +10,14 @@ ingress:
 artifactoryUrl: {{ artifactory_url }} 
 sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
+
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 imagePullPolicy: Always
 
 isGlowroot: {{ is_glowroot }} 
@@ -25,8 +30,9 @@ services:
   misp: 
     serviceName: {{ versions.services.pms.misp.keys()[0] }} 
     dockerImage: {{ versions.services.pms.misp.values()[0] }}
-    containerPort: 9100
-    servicePort: 80
+    ports:
+      containerPort: 9100
+      servicePort: 80
     ingressPath: /partnermanagement/v1/misps
     healthUrl: /partnermanagement/v1/misps/actuator/health
     podconfig:
@@ -36,8 +42,9 @@ services:
   pm:
     serviceName: {{ versions.services.pms.pm.keys()[0] }} 
     dockerImage: {{ versions.services.pms.pm.values()[0] }}
-    containerPort: 9102
-    servicePort: 80
+    ports:
+      containerPort: 9102
+      servicePort: 80
     ingressPath: /partnermanagement/v1/pmpartners
     healthUrl: /partnermanagement/v1/pmpartners/actuator/health
     podconfig:
@@ -47,8 +54,9 @@ services:
   partner:
     serviceName: {{ versions.services.pms.partner.keys()[0] }} 
     dockerImage: {{ versions.services.pms.partner.values()[0] }}
-    containerPort: 9103
-    servicePort: 80
+    ports:
+      containerPort: 9103
+      servicePort: 80
     ingressPath: /partnermanagement/v1/partners
     healthUrl: /partnermanagement/v1/partners/actuator/health
     podconfig:
@@ -58,8 +66,9 @@ services:
   policy:
     serviceName: {{ versions.services.pms.policy.keys()[0] }} 
     dockerImage: {{ versions.services.pms.policy.values()[0] }}
-    containerPort: 9101
-    servicePort: 80
+    ports:
+      containerPort: 9101
+      servicePort: 80
     ingressPath: /partnermanagement/v1/policies
     healthUrl: /partnermanagement/v1/policies/actuator/health
     podconfig:

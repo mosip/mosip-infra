@@ -27,8 +27,9 @@ services:
   print:
     serviceName: {{ versions.services.print.service.keys()[0] }}
     dockerImage: {{ versions.services.print.service.values()[0] }}
-    containerPort: 8088
-    servicePort: 80
+    ports:
+      containerPort: 8088
+      servicePort: 80
     ingressPath: /v1/print
     healthUrl: /v1/print/actuator/health
     podconfig:

@@ -75,5 +75,3 @@ spec:
             port: {{ .Values.services.otp.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-
->>>>>>> ba697a4... [PSA-36] added probes in ida

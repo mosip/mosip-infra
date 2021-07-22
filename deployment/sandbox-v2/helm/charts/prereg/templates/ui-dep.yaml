@@ -44,20 +44,20 @@ spec:
             name: {{ .Values.services.ui.configName }}
 #        readinessProbe:
 #          httpGet:
-#            path: {{ .Values.services.auth.healthUrl }}
-#            port: {{ .Values.services.auth.ports.containerPort }}
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
 #          periodSeconds: {{ .Values.probe.period }}
 #          timeoutSeconds: {{ .Values.probe.timeout }}
 #        livenessProbe:
 #          httpGet:
-#            path: {{ .Values.services.auth.healthUrl }}
-#            port: {{ .Values.services.auth.ports.containerPort }}
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
 #          periodSeconds: {{ .Values.probe.livenessPeriod }}
 #          timeoutSeconds: {{ .Values.probe.timeout }}
 #        startupProbe:
 #          httpGet:
-#            path: {{ .Values.services.auth.healthUrl }}
-#            port: {{ .Values.services.auth.ports.containerPort }}
+#            path: {{ .Values.services.ui.healthUrl }}
+#            port: {{ .Values.services.ui.ports.containerPort }}
 #          failureThreshold: {{ .Values.probe.failureThreshold }}
 #          periodSeconds: {{ .Values.probe.startupPeriod }}
 

@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.bioextractor.servicePort }}
-    targetPort: {{ .Values.services.bioextractor.containerPort }}
+  - port: {{ .Values.services.bioextractor.ports.servicePort }}
+    targetPort: {{ .Values.services.bioextractor.ports.containerPort }}
   selector:
     app: {{ .Values.services.bioextractor.serviceName }} 
 

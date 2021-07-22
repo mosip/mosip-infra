@@ -24,8 +24,9 @@ services:
   datashare:
     serviceName: {{ versions.services.datashare.service.keys()[0] }}
     dockerImage: {{ versions.services.datashare.service.values()[0] }}
-    containerPort: 8097
-    servicePort: 80
+    ports:
+      containerPort: 8097
+      servicePort: 80
     ingressPath: /v1/datashare
     healthUrl: /v1/datashare/actuator/health
     podconfig:

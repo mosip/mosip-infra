@@ -52,16 +52,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.policy.containerPort }}
+        - containerPort: {{ .Values.services.policy.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.policy.healthUrl }} 
-            port: {{ .Values.services.policy.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.policy.healthUrl }} 
-#            port: {{ .Values.services.policy.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.policy.healthUrl }}
+            port: {{ .Values.services.policy.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.policy.healthUrl }}
+            port: {{ .Values.services.policy.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.policy.healthUrl }}
+            port: {{ .Values.services.policy.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

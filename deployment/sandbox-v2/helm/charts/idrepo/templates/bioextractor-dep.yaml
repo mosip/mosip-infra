@@ -56,19 +56,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.bioextractor.containerPort }}
-
-
+        - containerPort: {{ .Values.services.bioextractor.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.bioextractor.healthUrl }} 
-            port: {{ .Values.services.bioextractor.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.bioextractor.healthUrl }} 
- #           port: {{ .Values.services.bioextractor.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }}
- #
+            path: {{ .Values.services.bioextractor.healthUrl }}
+            port: {{ .Values.services.bioextractor.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.bioextractor.healthUrl }}
+            port: {{ .Values.services.bioextractor.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.bioextractor.healthUrl }}
+            port: {{ .Values.services.bioextractor.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
