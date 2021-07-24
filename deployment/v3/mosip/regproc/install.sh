@@ -39,8 +39,8 @@ helm -n $NS install regproc-osi mosip/regproc-osi
 echo Installing regproc-demo
 helm -n $NS install regproc-demo mosip/regproc-demo
 
-echo Installing regproc-biodupe
-helm -n $NS install regproc-biodupe mosip/regproc-biodupe
+echo Installing regproc-biodedupe
+helm -n $NS install regproc-biodedupe mosip/regproc-biodedupe
 
 echo Installing regproc-abishandler
 helm -n $NS install regproc-abishandler mosip/regproc-abishandler

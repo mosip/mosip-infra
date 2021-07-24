@@ -14,7 +14,7 @@ while true; do
         helm -n $NS delete regproc-quality 
         helm -n $NS delete regproc-osi 
         helm -n $NS delete regproc-demo 
-        helm -n $NS delete regproc-biodupe 
+        helm -n $NS delete regproc-biodedupe 
         helm -n $NS delete regproc-abishandler 
         helm -n $NS delete regproc-abismid 
         helm -n $NS delete regproc-manual 
