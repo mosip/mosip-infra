@@ -14,11 +14,10 @@ spec:
           prefix: /
     route:
     - destination:
-        host: rancher.cattle-system
+        host: rancher.cattle-system.svc.cluster.local
         port:
           number: 80
     headers:
       request:
         set:
           x-forwarded-proto: https
-

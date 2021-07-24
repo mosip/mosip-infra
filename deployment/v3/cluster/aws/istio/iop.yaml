@@ -10,6 +10,9 @@ spec:
     pathNormalization:
       normalization: MERGE_SLASHES
     defaultConfig:
+      proxyMetadata:
+        ISTIO_META_IDLE_TIMEOUT: 0s
+      holdApplicationUntilProxyStarts: true
       gatewayTopology:
         numTrustedProxies: 2
   components:
