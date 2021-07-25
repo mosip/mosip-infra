@@ -7,6 +7,7 @@ Admin user:
 1. Add user to keycloak
 1. Given GLOBAL_ADMIN role
 1. Add user to zone using map_zone_user.py
+1. Add user to user_detail table.
 
 
 Machine:
@@ -17,9 +18,24 @@ Machine:
 Reg officer:
 1. If reg officer map user-regcenter using script
 
-Mock MDS:
+Mock MDS
+=========
 1. To see device certificates:
 `curl -v -X MOSIPDINFO http://127.0.0.1:4501/info`
 
 1. Make sure in regclient properites mdm devices are set to DEVICE (and not FTM).  FTM is used for Auth at the moment, with mock mds.
+1. Create device certificates with partner as CA (below)
+1. Upload all the CA chanin certificates - ROOT, MOSIP PMS, partner to Keymanager.
+1. Copy the entire table to mosip_master ca_store table as given below.
 
+Partner
+=======
+1. Onboard partner with scripts.
+1. Make sure mosip root ca and pms CA is also uploaded in the right sequence in partner scripts.
+1. Check that all these certs including partner has been uploaded to keymanager partner ca certs table
+1. Copy the entire table above to master data ca_cert_store table.  Make sure the time chronology is correct. root should be first, next pms, next partner.
+1. partner cert appears in the ca table because partner is ca to devices.
+
+Mock abis
+========
+1. Load mock abis certs as given https://github.com/mosip/mosip-infra/blob/1.1.5.4/deployment/sandbox-v2/docs/abiscert.md
