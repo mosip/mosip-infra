@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  config.json: '{"baseUrl":"{{ tpl .Values.services.ui.apiHost . }}",  "pmpUrl" : "/pmp-ui/", "primaryLangCode": "eng", "secondaryLangCode": "ara", "version":"v1/"}'
+kind: ConfigMap
+metadata:
+  name: {{ .Values.services.ui.configName }}
+  namespace: {{ .Release.Namespace }} 
+
