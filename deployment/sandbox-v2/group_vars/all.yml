@@ -352,7 +352,7 @@ databases:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-#    release_path: '{{repos.pms.dest}}/db_release_scripts'
+    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
