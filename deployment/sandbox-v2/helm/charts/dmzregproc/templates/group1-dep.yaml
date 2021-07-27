@@ -43,6 +43,9 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        - name: regproc_jars_env
+          value: {{ .Values.regprocJarsPath }}
+
         ports:
         - name: hazelcast
           containerPort: {{ .Values.services.group1.ports.hazelcastPort }}
