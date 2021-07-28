@@ -179,8 +179,7 @@ class MosipSession:
         return r
 
     def add_partner_api_key_requests(self, partner_id, policy_name, description):
-        url = '%s/v1/partnermanager/partners/partners/%s/partnerAPIKeyRequests' % (self.server, 
-                                                                                              partner_id)
+        url = '%s/v1/partnermanager/partners/%s/apikey/request' % (self.server, partner_id)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -202,8 +201,7 @@ class MosipSession:
         '''
         status: Approved/
         '''
-        url = '%s/v1/partnermanager/pmpartners/pmpartners/PartnerAPIKeyRequests/%s' % (self.server,
-                                                                                                 api_request_id) 
+        url = '%s/v1/partnermanager/partners/apikey/%s' % (self.server, api_request_id) 
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
@@ -364,23 +362,22 @@ class MosipSession:
         return r
    
     def add_extractor(self, partner_id, policy_id, attribute, biometric, provider, version):
-        url = '%s/v1/partnermanager/partners/partners/partnerId/%s/policyId/%s' % (self.server, partner_id, 
-                                                                                      policy_id)
+        url = '%s/v1/partnermanager/partners/%s/bioextractors/%s' % (self.server, partner_id, policy_id)
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
-            'id': 'string',
-            'metadata': {},
-            'request': {
-                'extractors': [{
-                     'attributeName': attribute,
-                     'biometric': biometric,
-                      'extractor': {
-                          'provider': provider,
-                          'version': version
-                      }
-                }]
-            },
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'extractors': [{
+              'attributeName': attribute,
+              'biometric': biometric,
+              'extractor': {
+                'provider': provider,
+                'version': version
+              }
+            }]
+          },
             'requesttime': ts,
             'version': '1.0'
         }
