@@ -47,6 +47,6 @@ services:
     dockerImage: {{ versions.services.pms.ui.values()[0] }}
     containerPort: 8080
     servicePort: 80
-    apiHost: {{ site.sandbox_public_url }}/v1/
+    apiHost: {{ site.sandbox_public_url }}
     configName: pmp-ui-config
     ingressPath: /pmp-ui

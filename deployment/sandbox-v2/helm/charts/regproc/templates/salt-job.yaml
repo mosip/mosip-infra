@@ -29,8 +29,6 @@ spec:
           value: {{ .Values.springConfigLabel }} 
         - name: spring_config_url_env
           value: {{ .Values.configServerUrl }} 
-        - name: salt_gen_table_name_env
-          value: {{ .Values.job.salt.table }}
         - name: salt_gen_schema_name_env
           value: {{ .Values.job.salt.schema }}
         - name: salt_gen_db_alias_env
