@@ -1,5 +1,4 @@
 # Partner onboarding
-
 ## Onboarding steps
 1. Add policy group
 1. Add policy 
@@ -9,29 +8,23 @@
 1. Map partner to policy
 1. Add MISP
 
-## Script
-1. Make sure you run `./preinstall.sh`  for Python dependencies.
-1. Point to your sandbox in `config.py`:
-    ```
-    server='https://<your sandbox domain>'
-    ```
-1. Make sure users and corresponding roles are updated in Keycloak.  Refer to `config.py` for users and roles. Default sandbox installation automatically adds these users in Keycloak.
-1. Populate the JSONs in `data` folder.  
-1. Update/add any policies in `policies` folder.  The schema for policies are given here:
-    * [Auth policy schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/auth-policy-schema.json)
-    * [Data share schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/data-share-policy-schema.json)
-1. Create CA and partner certificates:
-    ```
-    $ ./create_certs.py data/certs
-    ```
-1.  Run the script as below:
-    ```
-    $ ./onboard.py <action>
-    For actions see help. The actions here map to steps above:
-    $ ./onboard.py --help
-    ```
-1. The steps are illustrated in [onboard playbook](../../../playbooks/onboard/partner.yml)
+## Adding Auth Partner 
+1. Add auth partner `add_partner.py`
+1. Get api request key
+```
+python3 lib/api_key_request.py $SERVER auth-partner-2 mpolicy-default-auth <user> <password>
+```
+1. Extractors
+```
+python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth photo face mock 1.1 <user> <password>
+python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth iris iris mock 1.1 <user> <password>
+python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth fingerprint finger mock 1.1 <user> <password>
+```
+1. Approve request
+```
+python3 lib/approve_apikey_request.py $SERVER 498721 <user> <password>
 
+```
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
