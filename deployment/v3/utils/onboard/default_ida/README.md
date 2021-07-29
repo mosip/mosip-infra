@@ -2,12 +2,11 @@ mpartner-default-ida is already onboarded via postgres-init DMLs.  Few more step
 
 This folder contains scripts that automate these steps.
 
-1. Zero Knowledge key exchange
+Run: 
 
-Script `ida_zk.py` uploads IDA:CRED_SERVICE public key to the Key Manager.  This is needed for Zero Kowledge encryption.
+```sh
+python3 lib/ida_cert.py $SERVER mosip-ida-client <password>
+```
 
-1. Other cert exchange
-
-Script `ida_cert` uploads other certificates from IDA --> Keymanager
 
 
