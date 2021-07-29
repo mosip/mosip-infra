@@ -11,7 +11,7 @@ LABEL build_time=${BUILD_TIME}
 
 WORKDIR  /opt/mosip
 COPY keycloak_init.py .
-ADD python-keycloak-plus.tgz .
+ADD python-keycloak-plus/ python-keycloak-plus/
 COPY requirements.txt .
 WORKDIR /opt/mosip/python-keycloak-plus
 RUN python3 setup.py install
