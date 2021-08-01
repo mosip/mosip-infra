@@ -25,6 +25,9 @@ Be aware of version of helm chart corresponding to mosip version.
 ## Delete
 Note that PVC and PV are not deleted after helm delete.  So if you would like to postgres again, make sure you delete PVC and PV.
 
+## Init a specific DB
+To initialized a specific db disable init of all others in `init_values.yaml` by settings `true` -> `false`.  Get db-user password with `get_pwd.sh`.  Provide the password in `init_values.yaml` and run `init_db.sh`.
+
 ## Troubleshooting
 * If you face login issues even when the password entered is correct, it could be due to previous PVC, and PV.  Delete them, but exercise caution as this will delete all persistent data.
 

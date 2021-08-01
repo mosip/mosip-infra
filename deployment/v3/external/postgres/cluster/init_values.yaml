@@ -1,3 +1,6 @@
+dbUserPasswords:
+  dbuserPassword: ""
+
 databases:
   mosip_master:
     enabled: true
