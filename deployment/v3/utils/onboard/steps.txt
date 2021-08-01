@@ -39,3 +39,14 @@ Partner
 Mock abis
 ========
 1. Load mock abis certs as given https://github.com/mosip/mosip-infra/blob/1.1.5.4/deployment/sandbox-v2/docs/abiscert.md
+
+Devices
+======
+For
+ "partner_domain": "DEVICE",
+  "partner_type": "Device_Provider",
+when a provider is added using `add_partner.py` the partner certificate is automatically publised to mosip_master ca_cert_store table via websub.
+
+Default IDA
+===========
+mpartner-default-auth is already preloaded as a parnter via postgres-init DMLs. There are additional steps to exchange certificates.  Follow the steps under onboard/default_ida
