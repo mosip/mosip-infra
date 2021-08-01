@@ -109,5 +109,35 @@ class MosipSession:
 
         return r
 
+    def get_partner_cert(self, partner_id):
+        url = '%s/v1/partnermanager/partners/%s/certificate' % (self.server, partner_id)
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        r = requests.get(url, cookies=cookies, verify=self.ssl_verify)
+        r = response_to_json(r)
+
+        return r
 
 
+    def upload_other_domain_cert_to_keymanager(self, app_id, ref_id, cert_data):
+        '''
+        cert_data: str
+        '''
+        url = '%s/v1/keymanager/uploadOtherDomainCertificate' % self.server
+        cookies = {'Authorization' : self.token}
+        ts = get_timestamp()
+        j = {
+          'id': 'string',
+          'metadata': {},
+          'request': {
+            'applicationId': app_id,
+            'certificateData': cert_data,
+            'referenceId': ref_id
+          },
+          'requesttime': ts,
+          'version': '1.0'
+        }
+
+        r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+        r = response_to_json(r)
+        return r

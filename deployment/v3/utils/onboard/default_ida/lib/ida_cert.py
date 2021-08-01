@@ -52,6 +52,17 @@ def upload_partner_cert(session, partner_id, app_id, ref_id=None):
     r = session.upload_partner_certificate(cert, 'AUTH', partner_id)
     myprint(r)
 
+def upload_to_keymanager(session, partner_id):
+    myprint('Getting mosip signed certificate for partner %s' % partner_id) 
+    r = session.get_partner_cert(partner_id)
+    myprint(r)
+    if len(r['errors']) != 0:
+        myprint('ABORTING')
+        return 1 
+    cert = r['response']['certificateData']
+
+    r = session.upload_other_domain_cert_to_keymanager('PARNTER', partner_id, cert)
+    myprint(r)
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
@@ -81,6 +92,9 @@ def main():
         upload_ca_cert(session, 'IDA')
 
         upload_partner_cert(session, 'mpartner-default-auth', 'IDA', 'mpartner-default-auth')
+  
+        upload_to_keymanager(session, 'mpartner-default-auth')
+ 
 
     except:
         formatted_lines = traceback.format_exc()
