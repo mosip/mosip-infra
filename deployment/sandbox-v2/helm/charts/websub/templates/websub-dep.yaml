@@ -50,6 +50,8 @@ spec:
           value: {{ .Values.hub.hub_auth_validate_token_url }}
         - name: hub_auth_filter_disable
           value: {{ .Values.hub.hub_auth_filter_disable }}
+        - name: hub_config_file_url_env
+          value: {{ .Values.hub.hub_config_file_url_env }}
 
         ports:
         - containerPort: {{ .Values.hub.port }} 
