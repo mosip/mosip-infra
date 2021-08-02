@@ -23,7 +23,6 @@ spec:
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
-      {{- include "dockerHubSecret" .  | indent 6}}
       - name: {{  .Values.docker.service }}
         image: {{ .Values.docker.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
