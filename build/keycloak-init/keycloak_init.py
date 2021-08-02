@@ -12,6 +12,7 @@ import traceback
 from keycloak import KeycloakAdmin
 from keycloak.exceptions import raise_error_from_response, KeycloakError
 from keycloak.connection import  ConnectionManager
+from keycloak.urls_patterns import URL_ADMIN_USER_REALM_ROLES
 
 class KeycloakSession:
     def __init__(self, realm, server_url, user, pwd, ssl_verify):
@@ -85,8 +86,10 @@ class KeycloakSession:
             for role in sa_roles:
                 role_rep = self.keycloak_admin.get_realm_role(role)
                 roles.append(role_rep)
-            user_id = self.keycloak_admin.get_user_by_name(username)
-            self.keycloak_admin.assign_realm_user_role(user_id[0]['id'], roles)
+            client_id = self.keycloak_admin.get_client_id(client)
+            user = self.keycloak_admin.get_client_service_account_user(client_id)
+            params_path = {"realm-name": self.keycloak_admin.realm_name, "id": user["id"]}
+            self.keycloak_admin.raw_post(URL_ADMIN_USER_REALM_ROLES.format(**params_path), data=json.dumps(roles))
         except:
             self.keycloak_admin.realm_name = 'master' # restore
             raise
@@ -103,7 +106,7 @@ class KeycloakSession:
         }
         try:
             print('Creating user %s' % uname)
-            self.keycloak_admin.create_user(payload, skip_exists=False) # If exists, update. So don't skip
+            self.keycloak_admin.create_user(payload, False) # If exists, update. So don't skip
             user_id = self.keycloak_admin.get_user_id(uname)
             self.keycloak_admin.set_user_password(user_id, password, temporary=temp_flag)
         except KeycloakError as e:
@@ -146,7 +149,8 @@ def main():
 
     server_url = server_url + '/auth/' # Full url to access api 
     try:
-        print('Create realms')
+        print('Create realms ')
+        print(server_url)
         ks = KeycloakSession('master', server_url, user, password, ssl_verify)
         for realm in values:
             r = ks.create_realm(realm)  # {realm : [role]}
