@@ -1,4 +1,4 @@
-# Production deployment check-list
+# Production deployment checklist
 
 1. Change log level to INFO in application properties.
 1. Enabled persistence in all modules.  On cloud change the storage class from 'Delete' to 'Retain'.
