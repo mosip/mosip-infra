@@ -1,6 +1,5 @@
 image:
   repository: bitnami/keycloak
-  tag: 11.0.2-debian-10-r12
 service:
   type: ClusterIP
 
@@ -34,7 +33,7 @@ rbac:
   create: true
   rules:
     - apiGroups:
-        - "*"
+        - ""
       resources:
         - pods
       verbs:
