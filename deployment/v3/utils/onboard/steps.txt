@@ -7,7 +7,7 @@ Admin user:
 1. Add user to keycloak
 1. Given GLOBAL_ADMIN role
 1. Add user to zone using map_zone_user.py
-1. Add user to user_detail table.
+1. Add user to user_detail table with map_user_regcenter.py script 
 
 
 Machine:
