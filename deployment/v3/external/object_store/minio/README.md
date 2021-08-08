@@ -124,3 +124,11 @@ For production workloads and applications *external* to the Kubernetes cluster, 
 [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) or a
 [Load Balancer](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer) to
 expose the MinIO Tenant services.
+
+
+## Create configmap and secret
+Run the script and pass the access key and secret.  For region specify "".
+```sh
+cd ../
+./cred.sh
+```
