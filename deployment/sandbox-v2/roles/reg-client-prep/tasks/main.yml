@@ -21,3 +21,9 @@
     dest: '{{reg_client.nfs_path}}'
   become: yes
 
+- name: copy maven-metdata.xml
+  template:
+    src: '{{reg_client.xml_file}}'
+    dest: '{{reg_client.nfs_path}}'
+    force: yes
+  become: yes
