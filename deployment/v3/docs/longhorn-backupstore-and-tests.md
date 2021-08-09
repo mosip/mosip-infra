@@ -18,6 +18,8 @@ s3://<your-bucket-name>@<your-aws-region>/
   - Then Save Settings.
 - After this step, when longhorn backup section is visited, it should already list if there are any previous present backups in the s3 storage.
 
+
+TODO: NFS backupstore.
 ## 2. Tests
 
 #### 2.1 Trying Longhorn Volumes
