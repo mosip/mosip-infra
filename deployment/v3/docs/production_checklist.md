@@ -5,4 +5,4 @@
 1. Review size of persistence and update.
 1. Set up backup for Longhorn.
 1. Disable registration processor External Stage if not required.
-
+1. Set rate control (throttling) parameters for PreReg.
