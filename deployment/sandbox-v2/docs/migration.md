@@ -1,4 +1,4 @@
-# Sandbox Migration to 1.1.5 Guide
+# Sandbox Migration to 1.1.5.4 Guide
 
 ## Introduction
 Below are the steps which are needed to be followed for migrating to the required version 1.1.5
@@ -17,7 +17,7 @@ Below are the steps which are needed to be followed for migrating to the require
           ```
 
 * Config Changes
-	- Rebase the 1.1.5 open source config into the current required existing branch.
+	- Rebase the 1.1.5 open-source config into the current required existing branch.
 	- update the ciphered text for password changes if any.
 
 * DB Rlease Changes
@@ -27,14 +27,14 @@ Below are the steps which are needed to be followed for migrating to the require
         - Execute the ``` postgres-init.yml ``` playbook after updating the upgrade section in ``` all.yml ```. 
 
 * Nginx changes
-        - 1.1.5 version have some changes with respect to below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
+        - 1.1.5 version has some changes for the below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
         - minio nodeport exposing over console VM
         - Pms module new api's
         - Command to redeploy using playbooks from ```sb``` folder is
         - ```an playbooks/nginx.yml```
 
 * Minio Migration for moving all the packets to one bucket taken as part of build 1.1.4.3 and above.
-	- Remove the minio service running in the MZ cluster using command ```helm1 delete minio```.
+	- Remove the minio service running in the MZ cluster using the command ```helm1 delete minio```.
 	- Redeploy the minio service in the MZ cluster with ansible command ```an playbooks/minio.yml``` from ```sb``` folder.
 	- Open port 32000 on the console so that the minio service can be accessed over nodeport for tcp connection on this port.
 	- Please check if above mentioned nginx changes are already done before performing this minio migration.
@@ -43,4 +43,20 @@ Below are the steps which are needed to be followed for migrating to the require
 * Deploying Latest Mosip Modules
 	- Uninstall all the mosip modules from mz and dmz clusters 
 	- Update artifactory to the latest version i.e 1.1.5 in versions.yml and redeploy.
-	- Install all the mz and dmz mosip modular services.
+	- Install all the mz and dmz MOSIP modular services.
+
+## Note
+In MOISP the encryption/decryption keys are mapped against the set of application ID and reference ID. There is a change in application ID and reference ID being used for encryption/decryption in pre-registration and id-repository from 1.1.4 to 1.1.5.x.
+
+In pre-registration, for encryption of demographic data, application ID, "REGISTRATION" and reference ID "" (blank) was used and now for encryption application ID "PRE_REGISTRATION" and reference ID "INDIVIDUAL" is used. Hence, to proceed ahead, we need to build a utility to migrate the data created in 1.1.4.
+
+In id-repository, for encryption of demographic data, uin, biometric data and document we were earlier using the application ID, "IDREPOSITORY" and reference ID "" (blank). But now we are using the same application ID but different reference IDs which is configured based on the below properties in id-repository-mz.properties.
+
+* mosip.idrepo.crypto.refId.uin=uin (for UIN number)
+* mosip.idrepo.crypto.refId.uin-data=identity_data (for demographic data)
+* mosip.idrepo.crypto.refId.demo-doc-data=demographic_data (for documents)
+* mosip.idrepo.crypto.refId.bio-doc-data=biometric_data (for biometrics)
+
+Hence, to proceed ahead, we can build a utility to migrate the data or mark the configurations as "" (blank).
+
+
