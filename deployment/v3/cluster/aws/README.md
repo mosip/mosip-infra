@@ -70,8 +70,8 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 ## Metrics server
 Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernets Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
-helm -n default install metrics-server bitnami/metrics-server 
-helm -n default upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
+helm -n kube-system install metrics-server bitnami/metrics-server 
+helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
 ``` 
 We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
 
