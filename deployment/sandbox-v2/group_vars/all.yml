@@ -464,8 +464,10 @@ testrig_version: 'develop'
 #modules: '["all"]'
 modules: '["prereg"]'
 envuser: 'qa'
-target_uri: 'minibox2.mosip.net'
+target_uri: '{{site.sandbox_public_url}}'
 testlevel: 'smoke'
 backup_path: '{{tmp_dir}}/db-backup/'
+utils_dir: '{{install_root}}/utils'
+pri_lang: 'hin'
 
 regproc_clamav_jar_path: /artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar  
