@@ -8,10 +8,4 @@ OBJECT_STORE=s3
 $COPY_UTIL configmap global default $DST_NS 
 $COPY_UTIL configmap keycloak-host keycloak $DST_NS ~/.kube/iam_config
 $COPY_UTIL configmap activemq-activemq-artemis-share activemq $DST_NS
-if [ $OBJECT_STORE == s3 ]
-  then
-    $COPY_UTIL configmap s3 s3 $DST_NS
-fi
-
-
-
+$COPY_UTIL configmap s3 s3 $DST_NS
