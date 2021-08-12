@@ -1,8 +1,6 @@
 #!/bin/sh
 # ./docker_build.sh git_tag
-# TODO: Current git tag used is mosip-12620 (for current testing).  The changes in all scripts here need
-# to be merged to main stream.
-# To see the differences in the script that were made for deployment, take git diff between `develop` and `mosip-12620` # branch
+# Giit tag used for updated sql scripts in all repos is mosip-16601.
 mkdir -p repos
 cd repos
 git clone -b $1 https://github.com/mosip/commons 
@@ -13,6 +11,6 @@ git clone -b $1 https://github.com/mosip/id-authentication
 git clone -b $1 https://github.com/mosip/id-repository
 git clone -b $1 https://github.com/mosip/websub
 cd ../
-docker build -t mosipdev/postgres-init:develop .
+docker build -t mosipdev/postgres-init:1.2.0
 
 
