@@ -6,3 +6,5 @@
 1. Set up backup for Longhorn.
 1. Disable registration processor External Stage if not required.
 1. Set rate control (throttling) parameters for PreReg.
+1. Reprocessor cronjob frequency and other settings
+1. All cronjobs timings according to the country (check property files)
