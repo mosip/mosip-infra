@@ -1,6 +1,6 @@
 - name: Install openjdk
   yum:
-    name: java-11-openjdk
+    name: java-11-openjdk-devel
     state: present
   become: yes
 
