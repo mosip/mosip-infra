@@ -170,7 +170,7 @@ postgres:
   init: true  # Initialize db. Set it to false in production after initializing once.
   upgrade:
     set: false  # accepts true or false value as per need.
-    version: develop # version gto which upgrade is needed.
+    version: 1.2.0-rc1 # version gto which upgrade is needed.
     type: release #should have two values release or revoke as per need.
     info_file: '{{tmp_dir}}/upgrade.db'
 
@@ -241,55 +241,55 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   ref_impl:
     src: https://github.com/mosip/mosip-ref-impl
     dest: '{{tmp_dir}}/mosip-ref-impl'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
   hotlist:
     src: https://github.com/mosip/admin-services
     dest: '{{tmp_dir}}/admin-services'
-    tag: develop
+    tag: 1.2.0-rc1
     githubuser: ''
     githubpassword: ''
 
@@ -402,7 +402,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: develop
+  version: 1.2.0-rc1
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
