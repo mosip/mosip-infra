@@ -1,46 +1,124 @@
-# MOSIP cluster using Rancher on-premise  
+# MOSIP cluster and Rancher cluster on-premise
 
-## Cluster
+### Prerequisites
+
+We need atleast the following no of nodes with atleast the following specifications to meet the prerequisites.
+* 5 nodes each with specs: 4 cores, 16 GB RAM, 64 GB Disk. Mosip cluster will be setup on these nodes.
+* 3 nodes each with specs: 2 cores, 8 GB RAM, 64 GB Disk. Rancher + IAM cluster will be setup in 2 of these nodes. Nginx will be setup in 1 node.
+
+
+![On Prem Architecture](../../docs/images/onprem.png)
+
+Note: Before getting started be wary of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might use nginx plus cluster, or one might not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+
+## 1. Rancher + IAM Cluster
+
+### 1.1 Cluster Setup
 * Set up VMs.
-* Install Wireguard as given [here](wireguard/README.md)
-* Create K8s cluster for MOSIP modules at least 5 worker nodes using Rancher's `rke` utility.
-* Use default Canal networking model (if you are using Wireguard)
-* Give `internal_address: <wireguard address>` in `cluster.yml`.
-* Keep the Pod Security Policies disabled.
+* [Optional] Install Wireguard as given [here](wireguard-mesh/README.md). In this case, give `internal_address: <wireguard address>` in `rke config`.
+* Create K8s cluster, for Rancher and IAM with at least 2 worker nodes using `rke` utility. Using [here](../../docs/rke-setup.md).
+* The rest of the document assumes `kcr` and `helmr` as this rancher cluster kubectl alias and helm alias.
 
-## Persistence
+### 1.2 Metallb Setup for Loadbalancer
+
+* Use [this](./metallb/) to install metallb on the rancher cluster.
+
+### 1.3 Istio for Service Discovery and Ingress
+
+* Go it [v3/rancher/on-prem/istio](../../rancher/on-prem/istio).
+* Edit the `install.sh` and `iop.yaml` accordingly, then run it.
+  ```
+  KUBECONFIG="~/.kube/rancher_iam.config" ./install.sh
+  ```
+* This will bring up all istio components and the ingress-gateways.
+* These ingressgateway services are of type loadbalancer. And metallb will have provisioned loadbalancer ips for the ingressgateway service.
+  ```
+  kcr get svc -n istio-system
+  ```
+
+
+### 1.4 External Nginx Setup
+
+* Use [this](./nginx/) to install nginx on an external node that proxies traffic to the above loadbalancers.
+
+### 1.5 Wireguard Bastion
+
+* Use [this](../../docs/wireguard_bastion.md) to install wireguard bastion server on an external node, preferrable the same as the nginx node above.
+
+### 1.6 Rancher Install
+
+* This will bring up rancher. After this wait for a few minutes and try accessing the rancher with the hostname, ex: `rancher.mosip.xyz.net`, from the browser.
+  ```
+  KUBECONFIG="$HOME/.kube/rancher_iam.config"
+  helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+  helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=rancher.mosip.xyz.net --set replicas=2 --set tls=external --set ingress.enabled=false
+  ```
+
+### 1.7 Longhorn for Persistence
+
 * Install Longhorn as given [here](../longhorn/README.md)
 
-## Loadbalancers
-* Provision one VM for Nginx. Or multiple VMs for high avaiability like Nginx Plus.
-* The machine should be external facing with public ip and DNS like `api.xyz.mosip.net`.  
-* Make sure you have SSL certificate for the above domain such that HTTPS is enabled. 
-* Install Nginx which will serve as Loadbalancer.  
-* TLS termination will happen here.  The traffic will be forward to cluster ingress over HTTP.
-* TODO: Add instsrutions for Internal LB.
- 
-## Metallb
-Install metallb. Assign pool of IPs within the subnet and make sure appropriate routing and NAT is done for packet to reach the subnet where worker nodes are running.
+### 1.8 IAM install
 
-## Ingress
-* Remove default ingress controller installed by `rke`.
-```sh
-kc -n ingress-nginx delete all --all
-```
-* Install nginx ingress as
-```sh
-kubectl create namespace ingress-nginx
-helm -n ingress-nginx install ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
-```
-## TLS termination for Rancher
-* Install cert-manager for Letsencrypt:
-https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-with-cert-manager-on-digitalocean-kubernetes
+* [Optional] Since longhorn is now installed, persistance can also be enabled for keycloak.
+* Go [here](../../external/iam) and use install.sh
+* Then integrate IAM with rancher. Find the steps in the same page.
 
-* Use Canal networking model for Rancher RKE cluster install. 
+## 2. Mosip Cluster
 
-## Global configmap
+### 2.1 Cluster Setup
+
+* Follow same as in section 1.1 and create a new cluster, using rke with [this](../../docs/rke-setup.md). This cluster we will refer to as mosip cluster, where all mosip external and core components will be isntalled.
+* `rke config`
+* Edit the following in the `cluster.yml`.
+  * ```
+    ingress:
+      provider: none
+    ```
+  * ```
+    services:
+      kube-controller:
+        extra_args:
+          cluster-signing-cert-file: "/etc/kubernetes/ssl/kube-ca.pem"
+          cluster-signing-key-file: "/etc/kubernetes/ssl/kube-ca-key.pem"
+    ```
+  * `rke up`
+* The above will give a new `kube_config_cluster.yml` file. Place it in `~/.kube/` with different name like `mosip_cluster.config`. Dont forget to make new aliases with this `KUBECONFIG`, for `kubectl` and `helm`, etc, for this new cluster, or these will get mixed up with previous rancher cluster.
+
+### 2.2 Metallb Setup
+
+* Use [this](./metallb/), the same as in Sec 1.2 above, to install metallb on the new mosip cluster.
+
+### 2.3 Global configmap
+
 * Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
 * Update the domain names in `../global_configmap.yaml` and run
-```sh
+```
 kubectl apply -f ../global_configmap.yaml
 ```
+
+### 2.4 Istio Setup
+
+* Go to [v3/cluster/on-prem/istio](./istio/).
+* Edit the `install.sh` and `iop.yaml` accordingly and install it.
+  ```
+  KUBECONFIG="$HOME/.kube/mosip_cluster.config"
+  ./install.sh
+  ```
+
+### 2.5 External Nginx setup
+
+* Use [this](./nginx/), same as above Sec 1.4, re-setup the above nginx.
+  * Add/Edit the servers in the `nginx.conf` with the new loadbalancer ips from the istio ingressgateway services from mosip cluster.
+  * Restart that nginx.
+
+### 2.6 Rancher Integration
+
+* Assumging Rancher cluster is ready, after Section 1, open that dashboard. Click on add cluster on top right.
+* Add members, atleast one as Owner.
+* In the cluster type selection screen, at the top, there is an option to "import any other kubernetes cluster", selct that.
+* That should give two commands to run on the new cluster (the mosip cluster). After running those, the new cluster should be integrated into Rancher.
+
+### 2.7 Longhorn Setup
+
+* Follow the same as section 1.7. Install Longhorn as given [here](../longhorn/README.md)

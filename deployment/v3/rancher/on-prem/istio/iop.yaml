@@ -19,7 +19,3 @@ spec:
     ingressGateways:
       - name: istio-ingressgateway
         enabled: true
-        k8s:
-          serviceAnnotations:
-            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-            service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
