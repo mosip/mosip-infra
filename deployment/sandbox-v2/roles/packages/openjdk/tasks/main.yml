@@ -9,7 +9,7 @@
 - name: set jdk 11 as default for java
   block:
     - name: Get jdk 11 serial number from update-alternatives for java
-      shell: echo "" | sudo update-alternatives --config java | grep java-11 | awk '{print $1}'
+      shell: echo "" | sudo update-alternatives --config java | grep java-11 | awk '{print $2}'
       register: java11SerialNo
       become: yes
     - name: Set jdk 11 as default for java
@@ -19,9 +19,9 @@
 - name: set jdk 11 as default for javac
   block:
     - name: Get jdk 11 serial number from update-alternatives for javac
-      shell: echo "" | sudo update-alternatives --config javac | grep java-11 | awk '{print $1}'
+      shell: echo "" | sudo update-alternatives --config javac | grep java-11 | awk '{print $2}'
       register: javac11SerialNo
       become: yes
     - name: Set jdk 11 as default for java
-      shell: echo "{{javac11SerialNo.stdout}}" | sudo update-alternatives --config javac | grep java-8 | awk '{print $1}'
+      shell: echo "{{javac11SerialNo.stdout}}" | sudo update-alternatives --config javac | grep java-11 | awk '{print $2}'
       become: yes
