@@ -15,16 +15,5 @@ imagePullPolicy: Always
 domain: {{ sandbox_domain_name }}
 
 hub:
-  datasource_url: jdbc:postgresql://{{ postgres.host }}:{{ postgres.port }}/mosip_websub 
-  datasource_username: websubuser
-  datasource_password: {{secrets.postgres.dbadmin}}
-  retry_count: 7
-  retry_interval: 1000
-  retry_backofffactor: 2.0
-  retry_maxwaitinterval: 65000
   port: 9191
-  republish_time: 2021-03-24T08:07:11.645Z
-  hub_auth_base_url: "{{site.sandbox_public_url}}/v1/authmanager"
-  hub_auth_validate_token_url: "/authorize/admin/validateToken"
-  hub_auth_filter_disable: "'true'"
-  hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub.conf"
+  hub_config_file_url_env: "http://mz.ingress:30080/config/*/dmz/{{ config_repo.version }}/websub.conf"
