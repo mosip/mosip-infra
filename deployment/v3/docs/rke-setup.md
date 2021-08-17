@@ -101,7 +101,7 @@
 * Install docker on all the new nodes.
   ```
   sudo apt install docker.io
-  sudo usermod -aG $USER docker
+  sudo usermod -aG docker $USER
   ```
 * Double check that the ssh and docker both dont ask for passwords when running.
 * Navigate to the same folder as above, where the `cluster.yml` and `cluster.rkestate` files are located.

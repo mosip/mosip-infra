@@ -1,15 +1,12 @@
 # MOSIP cluster and Rancher cluster on-premise
 
+![Architecture](../../docs/images/deployment_architecture.png)
+
+Note: Before getting started be wary of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+
 ### Prerequisites
 
-We need atleast the following no of nodes with atleast the following specifications to meet the prerequisites.
-* 5 nodes each with specs: 4 cores, 16 GB RAM, 64 GB Disk. Mosip cluster will be setup on these nodes.
-* 3 nodes each with specs: 2 cores, 8 GB RAM, 64 GB Disk. Rancher + IAM cluster will be setup in 2 of these nodes. Nginx will be setup in 1 node.
-
-
-![On Prem Architecture](../../docs/images/onprem.png)
-
-Note: Before getting started be wary of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might use nginx plus cluster, or one might not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+Refer to [this](./requirements.md) for the requirements or prerequisites before getting started.
 
 ## 1. Rancher + IAM Cluster
 
