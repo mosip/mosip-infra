@@ -67,7 +67,7 @@ versions:
       trans:
         'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.2.0-rc1'
       reprocess:
-        'regproc-reprocessor': 'mosipid/registration-processor-reprocessor:1.2.0-rc1'
+        'regproc-reprocessor': 'mosipid/registration-processor-reprocessor-stage:1.2.0-rc1'
       notificationService:
         'regproc-notification-service': 'mosipid/registration-processor-notification-service:1.2.0-rc1'
       salt:
