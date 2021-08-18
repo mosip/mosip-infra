@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs Reg Client Downloader
 NS=regclient
+CHART_VERSION=1.1.5
 
 echo Create namespace
 kubectl create ns $NS
@@ -21,7 +22,8 @@ helm -n $NS install regclient mosip/regclient \
   --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
   --set regclient.healthCheckUrl=$HEALTH_URL \
   --set istio.host=$REGCLIENT_HOST \
-  --wait
+  --wait \
+  --version $CHART_VERSION
 
 echo Get your download url from here
 echo https://$REGCLIENT_HOST/

@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs Websub
 NS=websub
+CHART_VERSION=1.1.5
 
 echo Create namespace
 kubectl create ns $NS 
@@ -16,4 +17,4 @@ echo Copy secrets
 ./copy_secrets.sh
 
 echo Installing Websub
-helm -n $NS install websub mosip/websub -f values.yaml --wait
+helm -n $NS install websub mosip/websub -f values.yaml --wait --version $CHART_VERSION
