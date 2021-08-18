@@ -7,8 +7,8 @@ while true; do
     if [[ $yn == "Y" ]]
       then
         echo Removing any existing installation
-        helm -n postgres delete postgres-init
-        helm -n postgres install postgres-init mosip/postgres-init -f init_values.yaml --wait --wait-for-jobs
+        helm -n $NS delete postgres-init
+        helm -n $NS install postgres-init mosip/postgres-init -f init_values.yaml --wait --wait-for-jobs
         break
       else
         break

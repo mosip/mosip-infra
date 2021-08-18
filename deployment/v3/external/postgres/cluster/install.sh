@@ -2,8 +2,8 @@
 # Installs postgres inside the cluster
 NS=postgres
 
-echo Create namespace postgres
-kubectl create namespace postgres
+echo Create namespace $NS 
+kubectl create namespace $NS 
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo Installing  postgres
