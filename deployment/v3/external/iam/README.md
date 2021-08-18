@@ -16,12 +16,6 @@ You may install Keycloak on the same cluster as [Rancher](../../rancher/README.m
 * While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before.  Delete them explicity if you need to. CAUTION: all persistent data will be erased if you delete PV.
 * To retain data even after PV deletion use a storage class that supports "Retain".  On AWS, you may install `gp2-retain` storage class given here and specify the same while installing Keycloak helm chart.
 
-## Configmap and secret
-* Update `host_configmap.yaml` with your Keycloak host url and run
-```
-$ kubectl apply -f host_configmap.yaml
-```
-
 ## Existing Keycloak 
 * In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
 ```
@@ -76,15 +70,12 @@ $ ./get_pwd.sh
 TODO: The keycloak docker version in `values.yaml` is an older version as the version 12.04 (latest bitnami) was crashing for `userinfo` request for client (like mosip-prereg-client). Watch latest bitnami release and upgrade 13+ version when available.
 
 ## Keycloak Init
-To populate base data of MOSIP:
-* Add mosip helm repo for Keycloak 
+To populate base data of MOSIP, run Keycloak Init job:
 ```
-$ helm repo add mosip https://mosip.github.io/mosip-helm 
+$ ./keycloak_init.sh
 ```
-* Run Keycloak init job
-```
-$ helm install keycloak-init mosip/keycloak-init
-```
+
+## Server URL
 Server URL is of the form `https://iam.xyz.net/auth/`.  The `/auth/` (with slash) is important.
 
 
