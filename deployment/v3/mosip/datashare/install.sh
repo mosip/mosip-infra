@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs Datashare
 NS=datashare
+CHART_VERSION=1.1.5
 
 echo Create namespace
 kubectl create ns $NS 
@@ -13,4 +14,4 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing Datashare
-helm -n $NS install datashare mosip/datashare --wait
+helm -n $NS install datashare mosip/datashare --wait --version $CHART_VERSION

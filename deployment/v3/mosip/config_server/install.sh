@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs config-server
 NS=config-server
+CHART_VERSION=1.1.5
 echo Create namespace
 kubectl create ns $NS
 
@@ -15,4 +16,4 @@ echo Copy secrets
 ./copy_secrets.sh
 
 echo Installing config-server
-helm -n $NS install config-server mosip/config-server -f values.yaml --wait
+helm -n $NS install config-server mosip/config-server -f values.yaml --wait --version $CHART_VERSION
