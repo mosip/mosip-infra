@@ -2,7 +2,7 @@
 ## Replace your domain names here
 ## Default recommended routing:
 ##   mosip-api-host: Public load balancer (LB)
-##   mosip-api-internal-host: Internal LB 
+##   mosip-api-internal-host: Internal LB
 ##   mosip-prereg-host:  Public LB
 ##   mosip-activemq-host: Internal LB
 ##   mosip-kibana-host: Internal LB
@@ -20,8 +20,7 @@ data:
   mosip-prereg-host: prereg.sandbox.xyz.net
   mosip-activemq-host: activemq.sandbox.xyz.net
   mosip-kibana-host: kibana.sandbox.xyz.net
-  mosip-regclient-host: regclient.sandbox.xyz.net 
+  mosip-regclient-host: regclient.sandbox.xyz.net
   mosip-admin-host: admin.sandbox.xzy.net
   mosip-minio-host: minio.sandbox.xyz.net
   is_glowroot_env: absent
-
