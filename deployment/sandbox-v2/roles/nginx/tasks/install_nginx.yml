@@ -4,6 +4,12 @@
     state: present
   become: yes
 
+- name: Install nginx-mod-stream
+  yum:
+    name: nginx-mod-stream
+    state: present
+  become: yes
+
 - name: Copy the default nginx conf file
   copy:
     src: 'nginx.default.conf'
