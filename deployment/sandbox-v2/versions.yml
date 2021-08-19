@@ -158,3 +158,7 @@ versions:
     artifactory:
       service:
         'artifactory-service': 'mosipdev/artifactory-server:develop'
+
+    keycloak:
+      service:
+        'keycloak': 'mosipdev/mosip-keycloak:develop'

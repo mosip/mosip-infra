@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.name }}
-        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }} 
+        image: {{ .Values.dockerImage }}
         env:
         - name: KEYCLOAK_USER 
           value: {{ .Values.keycloakUser }}

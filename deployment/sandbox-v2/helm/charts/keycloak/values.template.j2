@@ -1,6 +1,5 @@
-name: keycloak
-dockerImage: mosipid/mosip-keycloak
-dockerTag: develop
+name: {{ versions.services.keycloak.service.keys()[0] }}
+dockerImage: {{ versions.services.keycloak.service.values()[0] }}
 keycloakUser: {{ keycloak.user }}
 keycloakPassword: '' # To be passed directly with helm command
 domain: {{ sandbox_domain_name }}
