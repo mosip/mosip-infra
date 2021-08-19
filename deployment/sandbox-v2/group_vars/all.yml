@@ -9,7 +9,7 @@ logs_dir: '{{tmp_dir}}/logs'
 tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
-artifactory_url: http://artifactory-service.default:80/
+artifactory_url: http://mz.ingress:30080/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
