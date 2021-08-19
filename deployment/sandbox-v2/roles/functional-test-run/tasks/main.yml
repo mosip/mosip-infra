@@ -1,9 +1,10 @@
-- name: running function test after backup
-  - include_role:
-      name: db-backup
+- name: Backup Database Before running functional test
+  include_role:
+    name: db-backup
 
-  - name: running functional test for all modules.
-    shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules={{ modules }} -Denv.user={{ envuser }} -Denv.langcode={{pri_lang}} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
+- name: running functional test for all modules.
+  shell: "cd {{ functional_repo_dest }}/automationtests/target/ && java -jar -Dmodules={{ modules }} -Denv.user={{ envuser }} -Denv.langcode={{pri_lang}} -Denv.endpoint={{ target_uri }} -Denv.testLevel={{ testlevel }} automationtests.jar"
 
-  - include_role:
-      name: db-restore
+- name: Restore Database
+  include_role:
+    name: db-restore
