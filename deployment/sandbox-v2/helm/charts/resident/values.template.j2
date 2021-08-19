@@ -16,8 +16,11 @@ sitePublicUrl: {{ site.sandbox_public_url }}
 isGlowroot: {{ is_glowroot }} 
 
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
 
 dockerHub:
   private: {{ docker.hub.private }}  
@@ -28,9 +31,11 @@ services:
     serviceName: {{ versions.services.resident.resident.keys()[0] }} 
     dockerImage: {{ versions.services.resident.resident.values()[0] }}
     dockerTag: 1.0.10
-    containerPort: 8099
-    servicePort: 80
+    ports:
+      containerPort: 8099
+      servicePort: 80
     ingressPath: /resident/v1
     healthUrl: /resident/v1/actuator/health
     podconfig: 
       {{ podconfig.resident.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /resident/v1/actuator/prometheus

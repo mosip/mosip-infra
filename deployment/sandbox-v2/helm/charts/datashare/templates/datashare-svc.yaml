@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.datashare.servicePort }}
-    targetPort: {{ .Values.services.datashare.containerPort }}
+  - port: {{ .Values.services.datashare.ports.servicePort }}
+    targetPort: {{ .Values.services.datashare.ports.containerPort }}
   selector:
     app: {{ .Values.services.datashare.serviceName }} 
 

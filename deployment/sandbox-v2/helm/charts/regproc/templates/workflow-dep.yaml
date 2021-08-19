@@ -57,16 +57,21 @@ spec:
           containerPort: {{ .Values.services.workflow.ports.workflowActionEventBusPort }}
         - name: workflowact-sp
           containerPort: {{ .Values.services.workflow.ports.workflowActionServerPort }}
-
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.workflow.healthUrl }} 
-#            port: {{ .Values.services.workflow.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #        httpGet:
- #           path: {{ .Values.services.workflow.healthUrl }} 
- #           port: {{ .Values.services.workflow.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.workflow.healthUrl }}
+            port: {{ .Values.services.workflow.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.workflow.healthUrl }}
+            port: {{ .Values.services.workflow.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.workflow.healthUrl }}
+            port: {{ .Values.services.workflow.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

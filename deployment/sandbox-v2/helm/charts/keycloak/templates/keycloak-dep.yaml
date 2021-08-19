@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.name }}
-        image: {{ .Values.dockerImage }}:{{ .Values.dockerTag }} 
+        image: {{ .Values.dockerImage }}
         env:
         - name: KEYCLOAK_USER 
           value: {{ .Values.keycloakUser }}
@@ -50,4 +50,16 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 

@@ -46,15 +46,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.batch.containerPort }}
-
-        readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
-          tcpSocket:
-            port: {{ .Values.services.batch.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-   #     livenessProbe:
-   #       tcpSocket:
-   #         port: {{ .Values.services.batch.containerPort }}
-   #       initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-   #       periodSeconds: {{ .Values.probe.period }} 
+        - containerPort: {{ .Values.services.batch.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

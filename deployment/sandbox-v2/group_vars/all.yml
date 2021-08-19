@@ -281,7 +281,7 @@ repos:
     githubuser: ''
     githubpassword: ''
   ref_impl:
-    src: https://github.com/mosip/mosip-ref-impl
+    src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-ref-impl'
     tag: develop
     githubuser: ''

@@ -47,14 +47,19 @@ spec:
           value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.captcha.containerPort }}
-
-        readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
-          tcpSocket:
-            port: {{ .Values.services.captcha.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-   #     livenessProbe:
-   #       tcpSocket:
-   #         port: {{ .Values.services.captcha.containerPort }}
-   #       initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-   #       periodSeconds: {{ .Values.probe.period }} 
+            path: {{ .Values.services.captcha.healthUrl }}
+            port: {{ .Values.services.captcha.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.captcha.healthUrl }}
+            port: {{ .Values.services.captcha.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.captcha.healthUrl }}
+            port: {{ .Values.services.captcha.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

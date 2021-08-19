@@ -67,7 +67,7 @@ versions:
       trans:
         'regproc-registration-transaction-service': 'mosipdev/registration-processor-registration-transaction-service:develop'
       reprocess:
-        'regproc-reprocessor': 'mosipdev/registration-processor-reprocessor:develop'
+        'regproc-reprocessor': 'mosipdev/registration-processor-reprocessor-stage:develop'
       notificationService:
         'regproc-notification-service': 'mosipdev/registration-processor-notification-service:develop'
       salt:
@@ -158,3 +158,7 @@ versions:
     artifactory:
       service:
         'artifactory-service': 'mosipdev/artifactory-server:develop'
+
+    keycloak:
+      service:
+        'keycloak': 'mosipdev/mosip-keycloak:develop'
