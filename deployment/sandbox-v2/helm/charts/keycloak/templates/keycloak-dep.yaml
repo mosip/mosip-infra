@@ -50,4 +50,16 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{ .Values.containerPort }}  # All defaults used
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 

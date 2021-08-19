@@ -3,6 +3,7 @@ services:
   serviceName: {{ versions.services.websub.service.keys()[0] }}
   dockerImage: {{ versions.services.websub.service.values()[0] }}
   servicePort: 80
+  ingress: /websub
   podconfig:
     {{ podconfig.websub.service | to_nice_yaml(indent=4) | indent(4) }}
 

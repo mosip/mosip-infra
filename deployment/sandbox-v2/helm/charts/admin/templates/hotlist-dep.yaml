@@ -49,16 +49,23 @@ spec:
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         ports:
-        - containerPort: {{ .Values.services.hotlist.containerPort }}
+        - containerPort: {{ .Values.services.hotlist.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.hotlist.healthUrl }} 
-            port: {{ .Values.services.hotlist.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.hotlist.healthUrl }} 
-#            port: {{ .Values.services.hotlist.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
+            path: {{ .Values.services.hotlist.healthUrl }}
+            port: {{ .Values.services.hotlist.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.hotlist.healthUrl }}
+            port: {{ .Values.services.hotlist.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.hotlist.healthUrl }}
+            port: {{ .Values.services.hotlist.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+

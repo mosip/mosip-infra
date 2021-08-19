@@ -8,9 +8,14 @@ iamAdapterUrl: {{ iam_adapter_url }}
 runtimeDepUrl: {{ runtimeDepUrlpath }}
 cont_user: {{ container_user }}
 exportLogs: enabled  # Let filebeat export the logs
+
 probe:
-  initialDelay: 120  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+  
 imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }} 
 
@@ -22,104 +27,124 @@ services:
   auth:
     serviceName: {{ versions.services.kernel.auth.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.auth.values()[0] }}
-    containerPort: 8091
-    servicePort: 80
+    ports:
+      containerPort: 8091
+      servicePort: 80
     ingressPath: /v1/authmanager
     healthUrl: /v1/authmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.auth | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/authmanager/actuator/prometheus
 
   masterdata:
     serviceName: {{ versions.services.kernel.masterdata.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.masterdata.values()[0] }}
-    containerPort: 8086
-    servicePort: 80
+    ports:
+      containerPort: 8086
+      servicePort: 80
     ingressPath: /v1/masterdata
     healthUrl: /v1/masterdata/actuator/health
     podconfig:
       {{ podconfig.kernel.masterdata | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/masterdata/actuator/prometheus
 
   idgen:
     serviceName: {{ versions.services.kernel.idgen.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.idgen.values()[0] }}
-    containerPort: 8080
-    servicePort: 80
+    ports:
+      containerPort: 8080
+      servicePort: 80
     ingressPath: /v1/idgenerator 
     healthUrl: /v1/idgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.idgen | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/idgenerator/actuator/prometheus
 
   prid:
     serviceName: {{ versions.services.kernel.prid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.prid.values()[0] }}
-    containerPort: 8100
-    servicePort: 80
+    ports:
+      containerPort: 8100
+      servicePort: 80
     ingressPath: /v1/pridgenerator
     healthUrl: /v1/pridgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.prid | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/pridgenerator/actuator/prometheus
 
   sync:
     serviceName: {{ versions.services.kernel.sync.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.sync.values()[0] }}
-    containerPort: 8089
-    servicePort: 80
+    ports:
+      containerPort: 8089
+      servicePort: 80
     ingressPath: /v1/syncdata 
     healthUrl: /v1/syncdata/actuator/health
     podconfig:
       {{ podconfig.kernel.sync | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/syncdata/actuator/prometheus
 
   audit:
     serviceName: {{ versions.services.kernel.audit.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.audit.values()[0] }}
-    containerPort: 8081
-    servicePort: 80
+    ports:
+      containerPort: 8081
+      servicePort: 80
     ingressPath: /v1/auditmanager
     healthUrl: /v1/auditmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.audit | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/auditmanager/actuator/prometheus
 
   key:
     serviceName: {{ versions.services.kernel.key.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.key.values()[0] }}
-    containerPort: 8088
-    servicePort: 80
+    ports:
+      containerPort: 8088
+      servicePort: 80
     hsmUrl: tcp://softhsm-keymanager:80   # Should match with softhsm chart service name and port
     ingressPath: /v1/keymanager
     healthUrl: /v1/keymanager/actuator/health
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.kernel.key | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/keymanager/actuator/prometheus
 
   notifier:
     serviceName: {{ versions.services.kernel.notifier.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.notifier.values()[0] }}
-    containerPort: 8083
-    servicePort: 80
+    ports:
+      containerPort: 8083
+      servicePort: 80
     ingressPath: /v1/notifier
     healthUrl: /v1/notifier/actuator/health
     podconfig:
       {{ podconfig.kernel.notifier | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/notifier/actuator/prometheus
 
   otp:
     serviceName: {{ versions.services.kernel.otp.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.otp.values()[0] }}
-    containerPort: 8085
-    servicePort: 80
+    ports:
+      containerPort: 8085
+      servicePort: 80
     ingressPath: /v1/otpmanager 
     healthUrl: /v1/otpmanager/actuator/health
     podconfig:
       {{ podconfig.kernel.otp | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/otpmanager/actuator/prometheus
 
   rid:
     serviceName: {{ versions.services.kernel.rid.keys()[0] }} 
     dockerImage: {{ versions.services.kernel.rid.values()[0] }}
-    containerPort: 8096
-    servicePort: 80
+    ports:
+      containerPort: 8096
+      servicePort: 80
     ingressPath: /v1/ridgenerator 
     healthUrl: /v1/ridgenerator/actuator/health
     podconfig:
       {{ podconfig.kernel.rid | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/ridgenerator/actuator/prometheus
 
 generators:
   keygen:

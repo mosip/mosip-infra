@@ -21,6 +21,10 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.prid.annotation }}
+        prometheus.io/port: {{ .Values.services.prid.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.prid.serviceName }} 
         component: {{ .Values.component }} 
@@ -47,14 +51,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.prid.containerPort }}
-        readinessProbe:  #TODO: Since no actuator, we watch tcp port. Is there an actuator?
-          tcpSocket:
-            port: {{ .Values.services.prid.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+        - containerPort: {{ .Values.services.prid.ports.containerPort }}
+#        readinessProbe:
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.period }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
 #        livenessProbe:
-#          tcpSocket:
-#            port: {{ .Values.services.prid.containerPort }}
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          periodSeconds: {{ .Values.probe.livenessPeriod }}
+#          timeoutSeconds: {{ .Values.probe.timeout }}
+#        startupProbe:
+#          httpGet:
+#            path: {{ .Values.services.prid.healthUrl }}
+#            port: {{ .Values.services.prid.ports.containerPort }}
+#          failureThreshold: {{ .Values.probe.failureThreshold }}
+#          periodSeconds: {{ .Values.probe.startupPeriod }}

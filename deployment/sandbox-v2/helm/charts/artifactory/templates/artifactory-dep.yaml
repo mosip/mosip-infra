@@ -32,4 +32,16 @@ spec:
         readinessProbe:
           tcpSocket:
             port: {{  .Values.services.artifactory.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          tcpSocket:
+            port: {{  .Values.services.artifactory.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{  .Values.services.artifactory.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 

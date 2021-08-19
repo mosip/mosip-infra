@@ -3,9 +3,14 @@ part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel:  {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
+
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 imagePullPolicy: Always
 
 exportLogs: enabled  # Let filebeat export the logs
@@ -20,9 +25,11 @@ services:
   mockabis:
     serviceName: {{ versions.services.mock.abis.keys()[0] }}
     dockerImage: {{ versions.services.mock.abis.values()[0] }}
-    containerPort: 8081
-    servicePort: 80
+    ports:
+      containerPort: 8081
+      servicePort: 80
     ingressPath: /v1/mock-abis-service
     healthUrl: /v1/mock-abis-service/actuator/health
     podconfig:
       {{ podconfig.mockabis.service | to_nice_yaml(indent=6) | indent(6) }}
+    annotation: /v1/mock-abis/actuator/prometheus

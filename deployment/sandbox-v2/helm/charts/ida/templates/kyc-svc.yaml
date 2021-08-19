@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.kyc.servicePort }}
-    targetPort: {{ .Values.services.kyc.containerPort }}
+  - port: {{ .Values.services.kyc.ports.servicePort }}
+    targetPort: {{ .Values.services.kyc.ports.containerPort }}
   selector:
     app: {{ .Values.services.kyc.serviceName }} 
 
