@@ -1,7 +1,7 @@
 #!/bin/sh
 # Installs Keymanager
 NS=keymanager
-CHART_VERSION=1.1.5
+CHART_VERSION=1.2.0
 
 echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
