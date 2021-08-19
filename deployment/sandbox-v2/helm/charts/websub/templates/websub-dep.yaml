@@ -28,28 +28,6 @@ spec:
         {{ $resources := .Values.services.podconfig.resources }}
         {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
-        - name: hub_datasource_url_env
-          value: {{ .Values.hub.datasource_url }}
-        - name: hub_datasource_username_env
-          value: {{ .Values.hub.datasource_username }}
-        - name: hub_datasource_password_env
-          value: {{ .Values.hub.datasource_password }}
-        - name: hub_retry_count_env
-          value: {{ .Values.hub.retry_count | quote}}
-        - name: hub_retry_interval_env
-          value: {{ .Values.hub.retry_interval | quote}}
-        - name: hub_retry_backoff_factor_env
-          value: {{ .Values.hub.retry_backofffactor | quote }}
-        - name: hub_retry_max_wait_interval_env
-          value: {{ .Values.hub.retry_maxwaitinterval | quote}}
-        - name: hub_restart_republish_time_offset_env
-          value: {{ .Values.hub.republish_time }}
-        - name: hub_auth_base_url_env
-          value: {{ .Values.hub.hub_auth_base_url }}
-        - name: hub_auth_validate_token_url_env
-          value: {{ .Values.hub.hub_auth_validate_token_url }}
-        - name: hub_auth_filter_disable
-          value: {{ .Values.hub.hub_auth_filter_disable }}
         - name: hub_config_file_url_env
           value: {{ .Values.hub.hub_config_file_url_env }}
 
