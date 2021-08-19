@@ -23,6 +23,7 @@ individual_type
 zone
 daysofweek_list
 loc_hierarchy_list
+ui_spec
 identity_schema
 sync_job_def
 dynamic_field

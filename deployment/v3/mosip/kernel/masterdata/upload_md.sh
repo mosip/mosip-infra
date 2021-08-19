@@ -6,7 +6,7 @@ read -p "Enter IAM username: " iam_user
 DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
 DB_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
 DB_PORT=5432
-XLS=xlsx2
+XLS=xlsx
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
