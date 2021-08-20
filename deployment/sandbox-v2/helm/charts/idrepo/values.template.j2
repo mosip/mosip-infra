@@ -33,10 +33,10 @@ services:
   identity:
     serviceName: {{ versions.services.idrepo.identity.keys()[0] }} 
     dockerImage: {{ versions.services.idrepo.identity.values()[0] }}
+    serviceName: idrepo-identity-service
     ports:
-      serviceName: idrepo-identity-service
       containerPort: 8090
-    servicePort: 80
+      servicePort: 80
     ingressPath: /idrepository/v1/identity 
     healthUrl: /idrepository/v1/identity/actuator/health
     podconfig:

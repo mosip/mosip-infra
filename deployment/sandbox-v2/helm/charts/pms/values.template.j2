@@ -61,4 +61,5 @@ services:
     apiHost: {{ site.sandbox_public_url }}
     configName: pmp-ui-config
     ingressPath: /pmp-ui
+    podconfig:
       {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

@@ -60,18 +60,18 @@ spec:
         readinessProbe:
           httpGet:
             path: {{ .Values.services.workflow.healthUrl }}
-            port: {{ .Values.services.workflow.ports.containerPort }}
+            port: {{ .Values.services.workflow.ports.eventbusPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.workflow.healthUrl }}
-            port: {{ .Values.services.workflow.ports.containerPort }}
+            port: {{ .Values.services.workflow.ports.eventbusPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.workflow.healthUrl }}
-            port: {{ .Values.services.workflow.ports.containerPort }}
+            port: {{ .Values.services.workflow.ports.eventbusPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}

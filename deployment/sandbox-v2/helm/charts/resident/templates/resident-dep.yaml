@@ -50,7 +50,7 @@ spec:
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
         ports:
-        - containerPort: {{ .Values.services.resident.containerPort }}
+        - containerPort: {{ .Values.services.resident.ports.containerPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.resident.healthUrl }}

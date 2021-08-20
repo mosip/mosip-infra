@@ -7,17 +7,18 @@ metadata:
     app: {{ .Values.services.booking.serviceName }}
     component: {{ .Values.component }} 
     
+  {{ $podconfig := .Values.services.booking.podconfig }}
 spec:
-  replicas: {{ .Values.services.booking.podconfig.replicas }} 
+  replicas: {{ $podconfig.replicas }} 
   selector:
     matchLabels:
       app: {{ .Values.services.booking.serviceName }} 
-  minReadySeconds: {{ .Values.services.booking.podconfig.minReadySeconds }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.booking.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.booking.podconfig.maxSurge }}
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
       labels:
@@ -28,7 +29,7 @@ spec:
       - name: {{ .Values.services.booking.serviceName }} 
         image: {{ .Values.services.booking.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.application.podconfig.resources }}
+        {{ $resources := $podconfig.resources }}
         {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
         - name: active_profile_env
