@@ -1,2 +1,2 @@
 - name: upload certificate for mosip using newMan tool
-  shell: newman run "{{ postmanCollectionJSON }}"  -e "{{ postmanCollectionEnvVarJSON }}" --env-var 'url={{ sandbox_public_url }}'
+  shell: newman run "{{ postmanCollectionJSON }}"  -e "{{ postmanCollectionEnvVarJSON }}" --env-var 'url={{ site.sandbox_public_url }}'
