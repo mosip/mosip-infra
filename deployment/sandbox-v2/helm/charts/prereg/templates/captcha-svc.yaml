@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.captcha.servicePort }}
-    targetPort: {{ .Values.services.captcha.containerPort }}
+  - port: {{ .Values.services.captcha.ports.servicePort }}
+    targetPort: {{ .Values.services.captcha.ports.containerPort }}
   selector:
     app: {{ .Values.services.captcha.serviceName }} 
 

@@ -1,6 +1,5 @@
-name: keycloak
-dockerImage: mosipqa/mosip-keycloak
-dockerTag: develop
+name: {{ versions.services.keycloak.service.keys()[0] }}
+dockerImage: {{ versions.services.keycloak.service.values()[0] }}
 keycloakUser: {{ keycloak.user }}
 keycloakPassword: '' # To be passed directly with helm command
 domain: {{ sandbox_domain_name }}
@@ -21,3 +20,11 @@ ingress:
 services:
   keycloak:
     podconfig: {{ podconfig.keycloak.service | to_yaml }} 
+
+probe:
+  period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+

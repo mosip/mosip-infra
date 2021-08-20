@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.datasync.servicePort }}
-    targetPort: {{ .Values.services.datasync.containerPort }}
+  - port: {{ .Values.services.datasync.ports.servicePort }}
+    targetPort: {{ .Values.services.datasync.ports.containerPort }}
   selector:
     app: {{ .Values.services.datasync.serviceName }} 
 

@@ -45,10 +45,25 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.booking.containerPort }}
-
-
+        - containerPort: {{ .Values.services.booking.ports.containerPort }}
         readinessProbe:
-          tcpSocket:
-            port: {{ .Values.services.booking.containerPort }}
+          httpGet:
+            path: {{ .Values.services.booking.healthUrl }}
+            port: {{ .Values.services.booking.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.booking.healthUrl }}
+            port: {{ .Values.services.booking.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.booking.healthUrl }}
+            port: {{ .Values.services.booking.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

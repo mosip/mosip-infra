@@ -1,3 +1,5 @@
+Note: This is pre-release.. Migration document to this release is still in progress.
+
 # Sandbox Migration to 1.1.5 Guide
 
 ## Introduction

@@ -10,11 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /websub
-        pathType: ImplementationSpecific
+      - path: {{ .Values.services.ingress }}
         backend:
-          service:
-            name: {{ .Values.services.serviceName }}
-            port: 
-              number: 80 
-
+          serviceName: {{ .Values.services.serviceName }}
+          servicePort: {{ .Values.services.servicePort }}

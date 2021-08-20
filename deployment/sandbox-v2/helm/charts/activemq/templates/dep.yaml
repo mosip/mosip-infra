@@ -42,9 +42,21 @@ spec:
           value: {{ .Values.adminPassword }} 
         ports:
         - containerPort: {{ .Values.docker.containerPort }} 
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         readinessProbe:
           tcpSocket:
             port: {{ .Values.docker.containerPort }}  # All defaults used
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{ .Values.docker.containerPort }}  # All defaults used
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
         volumeMounts:
         - name: q-data
           mountPath: {{ .Values.mountPath }} 

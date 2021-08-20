@@ -4,7 +4,7 @@
     state: present
   become: yes
 
-- name: Install nginx-mod-stream
+- name: Install nginx-mod
   yum:
     name: nginx-mod-stream
     state: present
@@ -20,5 +20,3 @@
 - name: Restart nginx
   command: 'systemctl restart nginx'
   become: yes
-
-

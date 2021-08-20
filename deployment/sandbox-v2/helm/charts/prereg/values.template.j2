@@ -3,9 +3,14 @@ part-of: mosip
 activeProfileEnv: mz
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
+
 probe:
-  initialDelay: 180  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 30
+  startupPeriod: 10
+
 ingress:
    namespace: default
 artifactoryUrl: {{ artifactory_url }} 
@@ -23,8 +28,9 @@ services:
   application:
     serviceName: {{ versions.services.prereg.application.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.application.values()[0] }}
-    containerPort: 9090
-    servicePort: 80
+    ports:
+      containerPort: 9090
+      servicePort: 80
     ingressPath: /preregistration/v1
     healthUrl: /preregistration/v1/actuator/health
     podconfig:
@@ -32,8 +38,9 @@ services:
   batch:
     serviceName: {{ versions.services.prereg.batch.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.batch.values()[0] }}
-    containerPort: 9097
-    servicePort: 80
+    ports:
+      containerPort: 9097
+      servicePort: 80
     ingressPath: ""
     #healthUrl: /preregistration/v1/actuator/health # TODO: No actuator?
     podconfig:
@@ -41,8 +48,9 @@ services:
   booking:
     serviceName: {{ versions.services.prereg.booking.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.booking.values()[0] }}
-    containerPort: 9095
-    servicePort: 80
+    ports:
+      containerPort: 9095
+      servicePort: 80
     ingressPath: /preregistration/v1/appointment
     healthUrl: /preregistration/v1/actuator/health
     podconfig:
@@ -50,8 +58,9 @@ services:
   datasync:
     serviceName: {{ versions.services.prereg.datasync.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.datasync.values()[0] }}
-    containerPort: 9094
-    servicePort: 80
+    ports:
+      containerPort: 9094
+      servicePort: 80
     ingressPath: /preregistration/v1/sync
     healthUrl: /preregistration/v1/actuator/health
     podconfig:
@@ -59,18 +68,19 @@ services:
   captcha:
     serviceName: {{ versions.services.prereg.captcha.keys()[0] }}
     dockerImage: {{ versions.services.prereg.captcha.values()[0] }}
-    containerPort: 9089
-    servicePort: 80
+    ports:
+      containerPort: 9089
+      servicePort: 80
     ingressPath: /preregistration/v1/captcha
     healthUrl: /preregistration/v1/captcha/actuator/health
     podconfig:
       {{ podconfig.prereg.captcha | to_nice_yaml(indent=6) | indent(6) }}
-
   ui:
     serviceName: {{ versions.services.prereg.ui.keys()[0] }} 
     dockerImage: {{ versions.services.prereg.ui.values()[0] }}
-    containerPort: 8080
-    servicePort: 80
+    ports:
+      containerPort: 8080
+      servicePort: 80
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui

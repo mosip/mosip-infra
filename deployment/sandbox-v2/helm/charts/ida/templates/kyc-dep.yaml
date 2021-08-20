@@ -21,6 +21,10 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
+      annotations:
+        prometheus.io/path: {{ .Values.services.kyc.annotation }}
+        prometheus.io/port: {{ .Values.services.kyc.ports.containerPort | quote }}
+        prometheus.io/scrape: "'true'"
       labels:
         app: {{ .Values.services.kyc.serviceName }} 
         component: {{ .Values.component }} 
@@ -52,19 +56,22 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.kyc.containerPort }}
-        volumeMounts:
-
+        - containerPort: {{ .Values.services.kyc.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.kyc.healthUrl }} 
-            port: {{ .Values.services.kyc.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.kyc.healthUrl }} 
-#            port: {{ .Values.services.kyc.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }}
-#
+            path: {{ .Values.services.kyc.healthUrl }}
+            port: {{ .Values.services.kyc.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.kyc.healthUrl }}
+            port: {{ .Values.services.kyc.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.kyc.healthUrl }}
+            port: {{ .Values.services.kyc.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}

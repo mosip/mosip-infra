@@ -23,5 +23,5 @@
       register: javac11SerialNo
       become: yes
     - name: Set jdk 11 as default for java
-      shell: echo "{{javac11SerialNo.stdout}}" | sudo update-alternatives --config javac | grep java-8 | awk '{print $1}'
+      shell: echo "{{javac11SerialNo.stdout}}" | sudo update-alternatives --config javac | grep java-11 | awk '{print $2}'
       become: yes

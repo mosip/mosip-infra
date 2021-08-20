@@ -5,8 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }} 
 spec:
   ports:
-  - port: {{ .Values.services.mockabis.servicePort }}
-    targetPort: {{ .Values.services.mockabis.containerPort }}
+  - port: {{ .Values.services.mockabis.ports.servicePort }}
+    targetPort: {{ .Values.services.mockabis.ports.containerPort }}
   selector:
     app: {{ .Values.services.mockabis.serviceName }} 
 
