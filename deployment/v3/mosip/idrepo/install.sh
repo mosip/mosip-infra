@@ -1,7 +1,7 @@
 #!/bin/sh
 # Installs idrepo
 NS=idrepo
-CHART_VERSION=1.1.5
+CHART_VERSION=1.2.0
 
 echo Create namespace
 kubectl create ns $NS 
