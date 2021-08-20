@@ -1,0 +1,6 @@
+- name: Upload certificates for mosip
+  gather_facts: true
+  hosts: console
+  roles:
+    - {role: packages/newMan, tags: [newMan]}
+    - {role: uploadCerts, tags: [uploadCerts]}

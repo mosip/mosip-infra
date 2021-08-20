@@ -1,0 +1,23 @@
+- name: Get setup_16.x file from NodeSource
+  get_url:
+    url: https://rpm.nodesource.com/setup_16.x
+    dest: /tmp/setup_16.x
+    mode: '0777'
+  become: yes
+
+- name: Run setup_16.x file to add NodeSource yum repository
+  shell: bash /tmp/setup_16.x
+  become: yes
+
+- name: Install Node.js and npm
+  yum:
+    name: nodejs
+    state: present
+  become: yes
+
+- name: Install newman tool using npm
+  npm:
+    name: newman
+    state: present
+    global: true
+  become: yes
