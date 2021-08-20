@@ -53,7 +53,7 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.partner.containerPort }}
+        - containerPort: {{ .Values.services.partner.ports.containerPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.partner.healthUrl }}

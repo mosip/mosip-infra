@@ -11,6 +11,9 @@ spec:
   - http:
       paths:
       - path: {{ .Values.services.ingress }}
+        pathType: ImplementationSpecific
         backend:
-          serviceName: {{ .Values.services.serviceName }}
-          servicePort: {{ .Values.services.servicePort }}
+          service:
+            name: {{ .Values.services.serviceName }}
+            port: 
+              number: {{ .Values.services.servicePort }}
