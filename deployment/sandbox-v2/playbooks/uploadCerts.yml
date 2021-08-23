@@ -1,0 +1,9 @@
+# upload certificates for IDA, mpartner-default-auth, IDA-CRED-service, Mosip-Root, Resident,
+# mpartner-default-resident, print-partner, ABIS-partner
+
+- name: Upload certificates for mosip
+  gather_facts: true
+  hosts: console
+  roles:
+    - {role: packages/newMan, tags: [newMan]}
+    - {role: uploadCerts, tags: [uploadCerts]}

@@ -45,3 +45,5 @@
 - import_playbook: playbooks/mock-mv.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
+# upload Certificates
+- import_playbook: playbooks/uploadCerts.yml
