@@ -473,5 +473,5 @@ pri_lang: 'hin'
 regproc_clamav_jar_path: /artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar  
 
 ## Upload certificates
-postmanCollectionJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload_1.1.5.postman_collection.json'
-postmanCollectionEnvVarJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload_1.1.5.postman_environment.json'
+postmanCollectionJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload.postman_collection.json'
+postmanCollectionEnvVarJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload.postman_environment.json'
