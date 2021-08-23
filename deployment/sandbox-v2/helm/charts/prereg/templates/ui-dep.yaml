@@ -31,6 +31,9 @@ spec:
         env:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        env:
+        - name: preregistration_i18n_bundle_url_env
+          value: {{ .Values.preregistration_i18n_bundle_url }}
         ports:
         - containerPort: {{ .Values.services.ui.ports.containerPort }} 
         volumeMounts:
