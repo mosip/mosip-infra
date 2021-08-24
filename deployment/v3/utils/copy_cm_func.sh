@@ -5,10 +5,10 @@
 #   resource: configmap|secret
 #   source_cluster_config (optional): only needed while copying resources from other clusters. Example: `~/.kube/keycloak_config`
 
-if [ $1 == "configmap" ]
+if [ $1 = "configmap" ]
 then
   RESOURCE=configmap
-elif [ $1 == "secret" ]
+elif [ $1 = "secret" ]
 then
   RESOURCE=secret
 else
@@ -23,10 +23,4 @@ else
   KC_SOURCE=kubectl
 fi
 $KC_SOURCE -n $4 delete --ignore-not-found=true $RESOURCE $2
-$KC_SOURCE -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" | $KC_SOURCE -n $4 create -f -  
-
-
-
-
-
-
+$KC_SOURCE -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" | kubectl -n $4 create -f -  
