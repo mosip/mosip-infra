@@ -32,7 +32,7 @@ The instructions given here are for Ubuntu.  You may modified them accordingly f
 If you have need to add a new peer or change any parameter of existing peer, run the following sequence:
 1. Shutdown wireguard
     ```
-    $ ansible-playbook -i hosts.ini setup.yaml
+    $ ansible-playbook -i hosts.ini down.yaml
     ```
 1. Make the required changes in `hosts.ini` 
 1. Run setup again
