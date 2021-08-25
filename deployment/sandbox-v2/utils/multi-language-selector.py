@@ -4,8 +4,8 @@ import pandas as pd
 lang_list = ['hin', 'tam', 'fra']
 mandatory_lang= 'tam'
 pattern = '|'.join(lang_list)
-input_path='D:\\MultiLanguageTesting\\mosip-data\\data-dml\\mosip_master\\dml\\'  #User Defined
-folder_path='D:\\MultiLanguageTesting\\mosip-data\\data-dml\\mosip_master\\dml-old\\'
+input_path='/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/mosip-data/data-dml/mosip_master/dml/'  #User Defined
+folder_path='/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/mosip-data/data-dml/mosip_master/dml-old/'
 
 filelist=[]
 lang_code=[]
