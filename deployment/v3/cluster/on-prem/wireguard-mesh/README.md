@@ -3,7 +3,7 @@
 ## Introduction
 Internode communication may be secured by running Wireguard on all nodes in a mesh configuration (as opposed to typical client-server configuration).  Here, all the peers are connected to each other in a Wireguard mesh.  Wireguard needs to be installed *before* you install your on-prem kubernetes cluster.
 
-The instructions given here are for Ubuntu.  You may modified them accordingly for your OS distribution.
+The instructions given here are for Ubuntu.  You may modified them for your OS distribution.
 
 ## Prerequisites
 1. You have an admin/control machine from where you run your scripts.
