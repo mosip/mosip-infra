@@ -1,3 +1,0 @@
-persistence:
-  storageClass: longhorn
-  size: 5Gi 
