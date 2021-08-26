@@ -12,3 +12,4 @@ This folder contains installation procedures for all components that are not par
 * [Kafka](kafka/README.md)
 * [BioSDK](biosdk/README.md)
 * [ABIS](abis/README.md)
+* [Message Gateways](msg_gateway/README.md)
