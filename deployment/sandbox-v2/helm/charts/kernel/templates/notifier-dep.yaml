@@ -65,9 +65,9 @@ spec:
             port: {{ .Values.services.notifier.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
-        startupProbe:
-          httpGet:
-            path: {{ .Values.services.notifier.healthUrl }}
-            port: {{ .Values.services.notifier.ports.containerPort }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-          periodSeconds: {{ .Values.probe.startupPeriod }}
+        # startupProbe:
+        #  httpGet:
+        #    path: {{ .Values.services.notifier.healthUrl }}
+        #    port: {{ .Values.services.notifier.ports.containerPort }}
+        #  failureThreshold: {{ .Values.probe.failureThreshold }}
+        #  periodSeconds: {{ .Values.probe.startupPeriod }}
