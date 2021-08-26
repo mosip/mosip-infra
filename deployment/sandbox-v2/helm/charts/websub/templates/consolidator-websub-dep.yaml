@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.consolidator.serviceName }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.services.consolidator.podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.consolidator.serviceName }}
+  minReadySeconds: {{ .Values.services.consolidator.podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.services.consolidator.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.consolidator.podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.consolidator.serviceName }}
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      containers:
+        - name: {{ .Values.services.consolidator.serviceName }}
+          image: {{ .Values.services.consolidator.dockerImage }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{ $resources := .Values.services.consolidator.podconfig.resources }}
+          {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+          env:
+            - name: hub_config_file_url_env
+              value: {{ .Values.hub.consolidator.hub_config_file_url_env }}
+          ports:
+            - containerPort: {{ .Values.hub.consolidator.port }}

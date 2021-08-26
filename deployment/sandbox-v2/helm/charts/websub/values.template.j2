@@ -1,11 +1,20 @@
 name: websub # Will be used as service name too
 services:
-  serviceName: {{ versions.services.websub.service.keys()[0] }}
-  dockerImage: {{ versions.services.websub.service.values()[0] }}
-  servicePort: 80
-  ingress: /websub
-  podconfig:
-    {{ podconfig.websub.service | to_nice_yaml(indent=4) | indent(4) }}
+  websub:
+    serviceName: {{ versions.services.websub.service.keys()[0] }}
+    dockerImage: {{ versions.services.websub.service.values()[0] }}
+    servicePort: 80
+    ingress: /websub
+    podconfig:
+        {{ podconfig.websub.service | to_nice_yaml(indent=4) | indent(4) }}
+
+  consolidator:
+    serviceName: {{ versions.services.websub.consolidator.keys()[0] }}
+    dockerImage: {{ versions.services.websub.consolidator.values()[0] }}
+    servicePort: 80
+    ingress: /websub
+    podconfig:
+        {{ podconfig.websub.consolidator | to_nice_yaml(indent=4) | indent(4) }}
 
 exportLogs: enabled  # Let filebeat export the logs
 
@@ -16,5 +25,9 @@ imagePullPolicy: Always
 domain: {{ sandbox_domain_name }}
 
 hub:
-  port: 9191
-  hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub.conf"
+  websub:
+    port: 9191
+    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub.conf"
+  consolidator:
+    port: 9191
+    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/consolidator.conf"

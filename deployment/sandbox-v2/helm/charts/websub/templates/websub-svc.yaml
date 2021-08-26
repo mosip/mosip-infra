@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.services.serviceName }}
+  name: {{ .Values.services.websub.serviceName }}
   namespace: {{ .Release.Namespace }} 
 spec:
   selector:
-    app: {{ .Values.services.serviceName }}
+    app: {{ .Values.services.websub.serviceName }}
   ports:
-    - port: {{ .Values.services.servicePort }} 
-      targetPort: {{ .Values.hub.port }}
+    - port: {{ .Values.services.websub.servicePort }}
+      targetPort: {{ .Values.hub.websub.port }}
