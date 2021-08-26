@@ -149,7 +149,7 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipdev/mock-abis:1.1.5'
+        'mock-abis': 'mosipdev/mock-abis:develop'
       mv:
         'mock-mv': 'mosipqa/mock-mv:1.1.5'
       biosdk:

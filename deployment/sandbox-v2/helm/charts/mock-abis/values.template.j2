@@ -3,6 +3,7 @@ part-of: mosip
 activeProfileEnv: mz 
 springConfigLabel:  {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
+storageClass:  manual
 
 probe:
   period: 30 # Seconds
@@ -21,6 +22,16 @@ dockerHub:
   private: {{ docker.hub.private }}  
   keyname: {{ docker.hub.keyname }}
 
+pv:
+  name: abis-key
+  server: console.sb
+  path: {{clusters.mz.mock_abis.nfs_path}}
+  size: 4Gi
+
+pvc:
+  name: abis-key
+  size: 4Gi  
+
 services:
   mockabis:
     serviceName: {{ versions.services.mock.abis.keys()[0] }}
@@ -28,7 +39,7 @@ services:
     ports:
       containerPort: 8081
       servicePort: 80
-    ingressPath: /v1/mock-abis-service
+    ingressPath: /v1/mock-abis
     healthUrl: /v1/mock-abis-service/actuator/health
     podconfig:
       {{ podconfig.mockabis.service | to_nice_yaml(indent=6) | indent(6) }}
