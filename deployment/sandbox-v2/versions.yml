@@ -156,7 +156,9 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipid/websub-service:1.1.4'
+        'websub-service': 'mosipdev/websub-service:develop'
+      consolidator:
+        'consolidator-websub-service': 'mosipdev/consolidator-websub-service:kafkahub'
 
     mock:
       abis:

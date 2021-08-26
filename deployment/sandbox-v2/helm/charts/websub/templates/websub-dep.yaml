@@ -2,45 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata:
-  name: {{ .Values.services.serviceName }}
+  name: {{ .Values.services.websub.serviceName }}
   namespace: {{ .Release.Namespace }} 
 spec:
-  replicas: {{ .Values.services.podconfig.replicas }}  
+  replicas: {{ .Values.services.websub.podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.serviceName }}
-  minReadySeconds: {{ .Values.services.podconfig.minReadySeconds }}
+      app: {{ .Values.services.websub.serviceName }}
+  minReadySeconds: {{ .Values.services.websub.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.podconfig.maxSurge }}
+      maxUnavailable: {{ .Values.services.websub.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.websub.podconfig.maxSurge }}
   template:
     metadata:
       labels:
-        app: {{ .Values.services.serviceName }} 
+        app: {{ .Values.services.websub.serviceName }}
         exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
-      - name: {{ .Values.services.serviceName }}
-        image: {{ .Values.services.dockerImage }}
+      - name: {{ .Values.services.websub.serviceName }}
+        image: {{ .Values.services.websub.dockerImage }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.podconfig.resources }}
+        {{ $resources := .Values.services.websub.podconfig.resources }}
         {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
-        - name: hub_datasource_url_env
-          value: {{ .Values.hub.datasource_url }}
-        - name: hub_datasource_username_env
-          value: {{ .Values.hub.datasource_username }}
-        - name: hub_datasource_password_env
-          value: {{ .Values.hub.datasource_password }}
-        - name: hub_retry_count_env
-          value: {{ .Values.hub.retry_count | quote}}
-        - name: hub_retry_interval_env
-          value: {{ .Values.hub.retry_interval | quote}}
-        - name: hub_retry_backoff_factor_env
-          value: {{ .Values.hub.retry_backofffactor | quote }}
-        - name: hub_retry_max_wait_interval_env
-          value: {{ .Values.hub.retry_maxwaitinterval | quote}}
+        - name: hub_config_file_url_env
+          value: {{ .Values.hub.websub.hub_config_file_url_env }}
         ports:
-        - containerPort: {{ .Values.hub.port }} 
+        - containerPort: {{ .Values.hub.websub.port }}
