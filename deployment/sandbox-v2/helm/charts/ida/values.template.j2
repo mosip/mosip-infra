@@ -57,20 +57,6 @@ services:
       {{ podconfig.ida.internal | to_nice_yaml(indent=6) | indent(6) }}
     annotation: /idauthentication/v1/internal/actuator/prometheus
 
-  kyc: 
-    serviceName: {{ versions.services.ida.kyc.keys()[0] }} 
-    dockerImage: {{ versions.services.ida.kyc.values()[0] }}
-    ports:
-      containerPort: 8091
-      servicePort: 80
-    hsmUrl: tcp://softhsm-ida:80   
-    ingressPath: /idauthentication/v1/kyc
-    healthUrl: /idauthentication/v1/kyc/actuator/health
-    hsmClientZipPath: {{ hsm_client_zip_path }}
-    podconfig:
-      {{ podconfig.ida.kyc | to_nice_yaml(indent=6) | indent(6) }}
-    annotation: /idauthentication/v1/kyc/actuator/prometheus
-
   otp: 
     serviceName: {{ versions.services.ida.otp.keys()[0] }} 
     dockerImage: {{ versions.services.ida.otp.values()[0] }}

@@ -90,8 +90,6 @@ versions:
         'ida-auth-service': 'mosipdev/authentication-service:develop'
       internal:
         'ida-internal-service': 'mosipdev/authentication-internal-service:develop'
-      kyc:
-        'ida-kyc-service': 'mosipdev/authentication-kyc-service:develop'
       otp:
         'ida-otp-service': 'mosipdev/authentication-otp-service:develop'
       keygen:
