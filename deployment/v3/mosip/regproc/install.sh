@@ -17,7 +17,7 @@ echo Running regproc-salt job
 helm -n $NS install regproc-salt mosip/regproc-salt --version $CHART_VERSION
 
 echo Installing regproc-workflow
-helm -n $NS install regproc-workflow mosip/regproc-worflow --version $CHART_VERSION
+helm -n $NS install regproc-workflow mosip/regproc-workflow --version $CHART_VERSION
 
 echo Installing regproc-status
 helm -n $NS install regproc-status mosip/regproc-status --version $CHART_VERSION
