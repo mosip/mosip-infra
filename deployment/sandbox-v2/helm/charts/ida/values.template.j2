@@ -36,8 +36,8 @@ services:
       containerPort: 8090
       servicePort: 80
     hsmUrl: tcp://softhsm-ida:80   # Should match with softhsm chart service name and port (see, ida.yml and role/softhsm)
-    ingressPath: /idauthentication/v1/auth
-    healthUrl: /idauthentication/v1/auth/actuator/health
+    ingressPath: /idauthentication/v1
+    healthUrl: /idauthentication/v1/actuator/health
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.auth | to_nice_yaml(indent=6) | indent(6) }}
