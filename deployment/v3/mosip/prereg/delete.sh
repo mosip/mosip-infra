@@ -6,6 +6,7 @@ while true; do
       then
         kubectl -n prereg delete -f rate-control-envoyfilter.yaml
         helm -n prereg delete prereg-gateway
+        helm -n prereg delete prereg-captcha
         helm -n prereg delete prereg-application
         helm -n prereg delete prereg-batchjob
         helm -n prereg delete prereg-booking
