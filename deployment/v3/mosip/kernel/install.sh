@@ -36,3 +36,6 @@ helm -n $NS install ridgenerator mosip/ridgenerator --version $CHART_VERSION
 
 echo Installing syncdata
 helm -n $NS install syncdata mosip/syncdata --version $CHART_VERSION
+
+echo Installing notifier
+helm -n $NS install notifier mosip/notifier --version $CHART_VERSION

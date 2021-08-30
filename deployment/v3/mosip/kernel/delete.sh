@@ -13,6 +13,7 @@ while true; do
         helm -n $NS delete pridgenerator
         helm -n $NS delete ridgenerator
         helm -n $NS delete syncdata
+        helm -n $NS delete notifier
         break
       else
         break
