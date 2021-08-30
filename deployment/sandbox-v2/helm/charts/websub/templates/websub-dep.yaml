@@ -1,9 +1,9 @@
 ---
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
   name: {{ .Values.services.websub.serviceName }}
-  namespace: {{ .Release.Namespace }} 
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.services.websub.podconfig.replicas }}
   selector:
@@ -22,13 +22,13 @@ spec:
         exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
-      - name: {{ .Values.services.websub.serviceName }}
-        image: {{ .Values.services.websub.dockerImage }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.websub.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
-        env:
-        - name: hub_config_file_url_env
-          value: {{ .Values.hub.websub.hub_config_file_url_env }}
-        ports:
-        - containerPort: {{ .Values.hub.websub.port }}
+        - name: {{ .Values.services.websub.serviceName }}
+          image: {{ .Values.services.websub.dockerImage }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{ $resources := .Values.services.websub.podconfig.resources }}
+          {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+          env:
+            - name: hub_config_file_url_env
+              value: {{ .Values.hub.websub.hub_config_file_url_env }}
+          ports:
+            - containerPort: {{ .Values.hub.websub.port }}
