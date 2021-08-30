@@ -314,7 +314,7 @@ http {
         }
 
         location /hub/ {
-           proxy_pass http://dmzworker0.sb:30080/hub/;
+           proxy_pass {{clusters.dmz.ingress.base_url}}/hub/;
          }
 
         location /v1/mock-abis-service/ {
