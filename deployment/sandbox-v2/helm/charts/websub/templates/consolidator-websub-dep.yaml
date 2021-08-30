@@ -28,7 +28,5 @@ spec:
           {{ $resources := .Values.services.consolidator.podconfig.resources }}
           {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
           env:
-            - name: hub_config_file_url_env
+            - name: consolidator_config_file_url_env
               value: {{ .Values.hub.consolidator.hub_config_file_url_env }}
-          ports:
-            - containerPort: {{ .Values.hub.consolidator.port }}

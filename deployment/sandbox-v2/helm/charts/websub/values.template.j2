@@ -11,8 +11,6 @@ services:
   consolidator:
     serviceName: {{ versions.services.websub.consolidator.keys()[0] }}
     dockerImage: {{ versions.services.websub.consolidator.values()[0] }}
-    servicePort: 80
-    ingress: /websub
     podconfig:
         {{ podconfig.websub.consolidator | to_nice_yaml(indent=4) | indent(4) }}
 
@@ -27,7 +25,6 @@ domain: {{ sandbox_domain_name }}
 hub:
   websub:
     port: 9191
-    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub.conf"
+    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub-service-mz.toml"
   consolidator:
-    port: 9191
-    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/consolidator.conf"
+    hub_config_file_url_env: "http://mz.ingress:30080/config/*/mz/{{ config_repo.version }}/websub-consolidator-mz.toml"
