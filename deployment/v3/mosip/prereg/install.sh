@@ -7,7 +7,9 @@ echo Create namespace
 kubectl create ns $NS
 
 echo Istio label
-kubectl label ns $NS istio-injection=enabled --overwrite
+## TODO: Istio proxy disabled for now as prereui does not come up if 
+## envoy filter container gets installed after prereg container.
+kubectl label ns $NS istio-injection=disabled --overwrite
 helm repo update
 
 echo Copy configmaps
@@ -20,7 +22,7 @@ echo Install prereg-gateway
 helm -n $NS install prereg-gateway mosip/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
 
 echo Installing prereg-captcha
-helm -n $NS install prereg-application mosip/prereg-captcha --version $CHART_VERSION
+helm -n $NS install prereg-captcha mosip/prereg-captcha --version $CHART_VERSION
 
 echo Installing prereg-application
 helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
