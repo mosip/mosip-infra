@@ -1,3 +1,11 @@
+# Playbook to enable mock-abis
+#
+#-# Create folder on nfs
+- hosts: console
+  tasks:
+    - {name: 'Create folder', file: {name: '{{clusters.mz.mock_abis.nfs_path}}', state: directory}, become: yes}
+
+
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'

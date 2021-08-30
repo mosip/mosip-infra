@@ -107,7 +107,10 @@ clusters:
       num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
-      zookeeper_size: 2Gi 
+      zookeeper_size: 2Gi
+    mock_abis:
+      nfs_path: '{{nfs.folder}}/mock-abis'
+ 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access

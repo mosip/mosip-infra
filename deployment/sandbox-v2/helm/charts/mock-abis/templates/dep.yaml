@@ -65,3 +65,10 @@ spec:
             port: {{ .Values.services.mockabis.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+        volumeMounts:
+        - name: p12-key
+          mountPath: /home/mosip/keystore  # Hardcoded in Dockerfile
+      volumes:
+      - name: p12-key
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }}
