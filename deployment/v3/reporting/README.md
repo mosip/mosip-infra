@@ -5,10 +5,8 @@ Reference reporting framework for real-time streaming data and visualization.
 
 #### High level architecture
 
-- Current Architecture:
-	- Postgres(pre-installed) --(WAL)--> Debezium-Connector ---> Kafka-Queues ---> Elasticsearch-Connector ---> Elasticsearch(pre-installed) / Kibana(pre-installed)
-- TODO: Update Architecture Diagram.
-	- For older architecture, refer [here](../docs/images/reporting_architecture.png).
+![](../docs/images/reporting_architecture.png)
+
 
 ## Installation
 
