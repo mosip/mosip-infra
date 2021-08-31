@@ -1,8 +1,5 @@
 # Admin module
 
-## Hostname
-Set hostname in `ui_values.yaml` of Admin UI
-
 ## Install
 ```
 $ ./install.sh
