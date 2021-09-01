@@ -1,35 +1,34 @@
 ---
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
-  name: {{ .Values.services.serviceName }}
-  namespace: {{ .Release.Namespace }} 
+  name: {{ .Values.services.websub.serviceName }}
+  namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ .Values.services.podconfig.replicas }}  
+  replicas: {{ .Values.services.websub.podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.serviceName }}
-  minReadySeconds: {{ .Values.services.podconfig.minReadySeconds }}
+      app: {{ .Values.services.websub.serviceName }}
+  minReadySeconds: {{ .Values.services.websub.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.podconfig.maxSurge }}
+      maxUnavailable: {{ .Values.services.websub.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.websub.podconfig.maxSurge }}
   template:
     metadata:
       labels:
-        app: {{ .Values.services.serviceName }} 
+        app: {{ .Values.services.websub.serviceName }}
         exportLogs: {{ .Values.exportLogs }}
     spec:
       containers:
-      - name: {{ .Values.services.serviceName }}
-        image: {{ .Values.services.dockerImage }}
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-        {{ $resources := .Values.services.podconfig.resources }}
-        {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
-        env:
-        - name: hub_config_file_url_env
-          value: {{ .Values.hub.hub_config_file_url_env }}
-
-        ports:
-        - containerPort: {{ .Values.hub.port }} 
+        - name: {{ .Values.services.websub.serviceName }}
+          image: {{ .Values.services.websub.dockerImage }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          {{ $resources := .Values.services.websub.podconfig.resources }}
+          {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
+          env:
+            - name: hub_config_file_url_env
+              value: {{ .Values.hub.websub.hub_config_file_url_env }}
+          ports:
+            - containerPort: {{ .Values.hub.websub.port }}
