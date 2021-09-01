@@ -16,8 +16,7 @@ $ ./delete.sh
 ```
 
 ## Test
-On a browser open  `https://<prereg ui domain>/pre-registration-ui/`.  Follow the instructions.  You may use [sample documents](samples/) to upload during pre-registration. 
-
+On a browser open  `https://<prereg ui domain>/pre-registration-ui/`. Example `https://prereg.sandbox.xyz.net/pre-registration-ui`.  Follow the instructions.  You may use [sample documents](samples/) to upload during pre-registration. 
 
 ## Rate Control Using Envoyfilter
 
