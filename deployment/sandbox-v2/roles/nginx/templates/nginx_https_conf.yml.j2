@@ -143,12 +143,8 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/auditmanager/;
         }
 
-        location /idauthentication/v1/auth/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/auth/;
-        }
-
-        location /idauthentication/v1/kyc/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/kyc/;
+        location /idauthentication/v1/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/;
         }
 
         location /idauthentication/v1/otp/ {
@@ -318,7 +314,7 @@ http {
          }
 
         location /v1/mock-abis-service/ {
-           proxy_pass http://mzworker0.sb:30080/v1/mock-abis-service/;
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/mock-abis-service/;
         }
 
         location /v1/hotlist/ {
