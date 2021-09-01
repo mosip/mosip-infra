@@ -15,6 +15,10 @@
 $ ./delete.sh
 ```
 
+## Test
+On a browser open  `https://<prereg ui domain>/pre-registration-ui/`.  Follow the instructions.  You may use [sample documents](samples/) to upload during pre-registration. 
+
+
 ## Rate Control Using Envoyfilter
 
 - Using Envoyfilter one can limit the rate of http requests coming in to a resource. Reference: [this](https://istio.io/latest/docs/tasks/policy-enforcement/rate-limit/#local-rate-limit) and [this](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/local_rate_limit_filter).
