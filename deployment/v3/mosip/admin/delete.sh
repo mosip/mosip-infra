@@ -7,6 +7,7 @@ while true; do
       then
         helm -n $NS delete admin-ui
         helm -n $NS delete admin-service
+        helm -n $NS delete admin-hotlist
         break
       else
         break

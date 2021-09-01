@@ -2,7 +2,7 @@
 # Installs the Admin module
 # Make sure you have updated ui_values.yaml
 NS=admin
-CHART_VERSION=1.1.5
+CHART_VERSION=1.2.0
 
 echo Create namespace
 kubectl create ns $NS
@@ -13,6 +13,9 @@ helm repo update
 
 echo Copy configmaps
 ./copy_cm.sh
+
+echo Installing admin hotlist service. 
+helm -n $NS install admin-hotlist mosip/admin-hotlist --version $CHART_VERSION
 
 echo Installing admin service. Will wait till service gets installed.
 helm -n $NS install admin-service mosip/admin-service --wait --version $CHART_VERSION
