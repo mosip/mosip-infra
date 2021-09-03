@@ -1,17 +1,26 @@
 # this is for installing kafka with zookeeper from bitnami charts
+# if not preinstalled, enable these
 bitnami-kafka:
-  enabled: true
+  enabled: false
   zookeeper:
-    enabled: true
+    enabled: false
 
 # This is for debezium kafka connector
 debezium:
   enabled: true
+  # If kafka is preinstalled, specify how it can be reached here
+  kafka:
+    server: "kafka.kafka:9092"
 
 # This is for elasticsearch kafka connector
 confluentinc:
   cp-kafka-connect:
     enabled: true
+    # If kafka is preinstalled, specify how it can be reached here
+    kafka:
+      bootstrapServers: kafka.kafka:9092
+    configurationOverrides:
+      zookeeper.connect: zookeeper.kafka:2181
 
 # this is for kafkaClient
 kafkaClient:
