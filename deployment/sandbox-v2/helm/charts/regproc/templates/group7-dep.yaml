@@ -67,9 +67,9 @@ spec:
             port: {{ .Values.services.group7.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
-#        startupProbe:
-#          httpGet:
-#            path: {{ .Values.services.group7.healthUrl }}
-#            port: {{ .Values.services.group7.ports.containerPort }}
-#          failureThreshold: {{ .Values.probe.failureThreshold }}
-#          periodSeconds: {{ .Values.probe.startupPeriod }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.group7.healthUrl }}
+            port: {{ .Values.services.group7.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
