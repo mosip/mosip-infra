@@ -3,6 +3,7 @@
 
 ## Variables
 NS=reporting
+CHART_VERSION=1.2.0
 
 # Add helm repos
 helm repo add mosip https://mosip.github.io/mosip-helm
@@ -19,4 +20,4 @@ kubectl label ns $NS istio-injection=enabled
 ./copy_secret.sh $NS
 
 ## Install kafka and Zookeeper
-helm -n $NS install reporting mosip/reporting -f values.yaml --wait
+helm -n $NS install reporting mosip/reporting -f values.yaml --wait --version $CHART_VERSION
