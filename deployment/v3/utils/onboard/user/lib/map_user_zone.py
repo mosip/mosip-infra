@@ -14,7 +14,7 @@ def args_parse():
    parser.add_argument('server', type=str, help='Full url to point to the server')
    parser.add_argument('user', type=str, help='Keycloak username that needs to be mapped')
    parser.add_argument('zone', type=str, help='Zone code as in Zones table')
-   parser.add_argument('admin', type=str, help='Keycloak user with GLOBAL_ADMIN role who is adding user')
+   parser.add_argument('admin', type=str, help='Keycloak user with GLOBAL_ADMIN and ZONAL_ADMIN role who is adding user')
    parser.add_argument('admin_pwd', type=str, help='Password for admin')
    parser.add_argument('--update', help='Update info in DB. By default info will not be updated', action='store_true')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
