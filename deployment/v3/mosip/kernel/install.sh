@@ -22,8 +22,9 @@ helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION
 echo Installing idgenerator
 helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION
 
-echo Installing masterdata
-helm -n $NS install masterdata mosip/masterdata --version $CHART_VERSION
+ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-admin-host\" | tr -d '"'`
+echo Installing masterdata and allowing Admin UI to access masterdata services.
+helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
 
 echo Installing otpmanager
 helm -n $NS install otpmanager mosip/otpmanager --version $CHART_VERSION

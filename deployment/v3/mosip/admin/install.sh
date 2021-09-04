@@ -14,13 +14,15 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
+API_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
+ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-admin-host\" | tr -d '"'`
+
 echo Installing admin hotlist service. 
 helm -n $NS install admin-hotlist mosip/admin-hotlist --version $CHART_VERSION
 
 echo Installing admin service. Will wait till service gets installed.
-helm -n $NS install admin-service mosip/admin-service --wait --version $CHART_VERSION
+helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST --wait --version $CHART_VERSION
 
-ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
 echo Installing admin-ui
-helm -n $NS install admin-ui mosip/admin-ui --set admin.hostUrl=https://$ADMIN_HOST/v1/ --version $CHART_VERSION
+helm -n $NS install admin-ui mosip/admin-ui --set admin.hostUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=https://$ADMIN_HOST --version $CHART_VERSION
 
