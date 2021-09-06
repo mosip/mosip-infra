@@ -9,7 +9,7 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='regproc', ssl_verify=True, client_token=False):
+    def __init__(self, server, user, pwd, client, client_secret, appid='regproc', ssl_verify=True, client_token=False):
         self.server = server
         self.user = user
         self.pwd = pwd
@@ -17,10 +17,10 @@ class MosipSession:
         if client_token:
             self.token = self.auth_get_client_token(appid, self.user, self.pwd) 
         else:
-            self.token = self.auth_get_token(appid, self.user, self.pwd) 
+            self.token = self.auth_get_token(appid, client, client_secret, self.user, self.pwd) 
       
-    def auth_get_token(self, appid, username, pwd):
-        url = '%s/v1/authmanager/authenticate/useridPwd' % self.server
+    def auth_get_token(self, appid, client, client_secret, username, pwd):
+        url = '%s/v1/authmanager/authenticate/internal/useridPwd' % self.server
         ts = get_timestamp()
         j = {
             "id": "mosip.io.userId.pwd",
@@ -30,11 +30,14 @@ class MosipSession:
                 "request": {
                     "appId" : appid,
                     "userName": username,
-                    "password": pwd
+                    "password": pwd,
+                    'clientId': client,
+                    'clientSecret': client_secret
             }
         }
         r = requests.post(url, json = j, verify=self.ssl_verify)
-        token = read_token(r)
+        r = response_to_json(r)
+        token = r['response']['token'] 
         return token
 
     def auth_get_client_token(self, appid, client_id, pwd):
