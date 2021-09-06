@@ -58,8 +58,8 @@ $ ./get_pwd.sh
   * Display Name Field: givenName
   * User Name Field: email
   * UID Field: username
-  * Entity ID Field: https://<your rancher domain>/v1-saml/keycloak/saml/metadata
-  * Rancher API Host: https://<your rancher domain>
+  * Entity ID Field: https://your-rancher-domain/v1-saml/keycloak/saml/metadata
+  * Rancher API Host: https://your-rancher-domain
   * Groups Field: member
 * For users in keycloak assign roles rancher - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
 * Add a member to cluster/project:
