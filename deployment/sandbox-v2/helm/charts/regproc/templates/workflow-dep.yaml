@@ -69,9 +69,9 @@ spec:
             port: {{ .Values.services.workflow.ports.eventbusPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
-#        startupProbe:
-#          httpGet:
-#            path: {{ .Values.services.workflow.healthUrl }}
-#            port: {{ .Values.services.workflow.ports.eventbusPort }}
-#          failureThreshold: {{ .Values.probe.failureThreshold }}
-#          periodSeconds: {{ .Values.probe.startupPeriod }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.workflow.healthUrl }}
+            port: {{ .Values.services.workflow.ports.eventbusPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
