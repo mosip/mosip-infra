@@ -1,26 +1,22 @@
 # User Onboarding
 
-## Function
-The scripts here add usersto Keycloak and MasterDB.  The users typically are registration officers and supervisors, and admin.  
+User onboarding is required for
+1. Admin (who operates the Admin dashboard)
+1. Registration officers (RO) who register residents at the registration center.:w
 
-## Process
-1. Onboard Device Provider partner
-1. Add user to Keycloak
-1. Add user to MasterDB
 
-## JSON
-See example JSONs in `data/` folder.
-
-## Config
-1. Set the `server` url in `config.py`
-1. If the url has HTTPS and server SSL certificate is self-signed then set `ssl_verify=False`.
-1. Set all environment variables.
-
-## Run
+## Admin onboarding
+1. Make sure a user is created in keycloak with GLOBAL_ADMIN and ZONAL_ADMIN roles
+1. Set SERVER env variable to MOSIP API endpoint (example):
+1. Obtain `mosip-regproc-client` password from Keycloak `mosip` realm.
+```sh
+SERVER=https://api-internal.sandbox.xyz.net
 ```
-./onboard.py --help
+1. Run 
+```sh
+python3 lib/map_user_zone.py $SERVER <user> <zone> <admin_user> <admin_pasword> <mosip-regproc-client password>
 ```
-You may specify individual JSON file or an entire folder as input.  In folder is specified, all JSONs are picked up recursively.
-
-WARNING: Default behaviour of the scripts is to **update** a record if it already exists.  So be mindful of any changes in the JSONs.  You will not be prompted or warned for any updates to existing records.
-
+1. To update mapping if it already exists, run:
+```sh
+python3 lib/map_user_zone.py $SERVER <user> <zone> <admin_user> <admin_pasword> <mosip-regproc-client password> --update
+```
