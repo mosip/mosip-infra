@@ -149,11 +149,11 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipqa/mock-abis:1.2.0-rc2'
+        'mock-abis': 'mosipqa/mock-abis:develop'
       mv:
         'mock-mv': 'mosipqa/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipqa/biosdk-server:1.2.0-rc2'
+        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
 
     artifactory:
       service:
