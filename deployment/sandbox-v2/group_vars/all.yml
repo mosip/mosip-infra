@@ -277,12 +277,6 @@ repos:
     tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
-  websub:
-    src: https://github.com/mosip/websub
-    dest: '{{tmp_dir}}/websub'
-    tag: 1.2.0-rc2
-    githubuser: ''
-    githubpassword: ''
   mosip_data:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
@@ -366,7 +360,7 @@ databases:
   mosip_hotlist:
     user: hotlistuser
     sql_path: '{{repos.hotlist.dest}}/db_scripts'
-    release_path: '{{repos.websub.dest}}/db_release_scripts'
+#    release_path: '{{repos.websub.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
