@@ -244,55 +244,55 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   websub:
     src: https://github.com/mosip/websub
     dest: '{{tmp_dir}}/websub'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
-  ref_impl:
+  mosip_data:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   hotlist:
     src: https://github.com/mosip/admin-services
     dest: '{{tmp_dir}}/admin-services'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
 
@@ -306,7 +306,7 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_iam:
     user: iamuser
@@ -319,17 +319,17 @@ databases:
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_credential:
     user: credentialuser
@@ -346,22 +346,22 @@ databases:
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
 #    release_path: '{{repos.prereg.dest}}/db_release_scripts'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.regproc.dest}}/db_release_scripts'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
 #    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_websub:
     user: websubuser
