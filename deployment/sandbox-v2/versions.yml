@@ -45,7 +45,7 @@ versions:
     registration_client:
       downloader:
         'reg-client-downloader': 'mosipqa/registration-client:1.2.0-rc2'
-      version: 1.2.0-SNAPSHOT
+      version: '1.2.0-rc2-SNAPSHOT'
 
     regproc:
       group1:
@@ -115,7 +115,7 @@ versions:
       policy:
         'pms-policy-manager-service': 'mosipqa/policy-management-service:1.2.0-rc2'
       ui:
-        'pms-ui': 'mosipqa/pmp-ui:1.2.0-rc2'
+        'pms-ui': 'mosipqa/pmp-ui:develop'
 
     resident:
       resident:
@@ -135,7 +135,7 @@ versions:
 
     datashare:
       service:
-        'datashare-service': 'mosipqa/data-share-service:1.2.0-rc2'
+        'datashare-service': 'mosipqa/data-share-service:develop'
 
     print:
       service:
@@ -157,8 +157,8 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipqa/artifactory-server:1.2.0-rc2'
+        'artifactory-service': 'mosipqa/artifactory-server:develop'
 
     keycloak:
       service:
-        'keycloak': 'mosipqa/mosip-keycloak:1.2.0-rc2'
+        'keycloak': 'mosipqa/mosip-keycloak:develop'
