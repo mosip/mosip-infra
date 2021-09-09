@@ -1,0 +1,15 @@
+# base:
+#   db_prefix:
+#   db_user:
+#   db_hostname:
+#   db_port:
+#   # if this is not false it will directly take pass from this variable, else it will take from db_pass_secretref
+#   db_pass_direct:
+#   es_url:
+
+connectors_enabled:
+  prereg_applicant_demographic: true
+  prereg_applicant_document: true
+  prereg_otp_transaction: true
+  prereg_reg_appointment: true
+  prereg_reg_available_slot: true

@@ -1,18 +1,20 @@
-DEBEZ_CONN_NAME='audit'; # change this.. give unique name for each db/table
-DB_USER='postgres'; # change this
-DB_NAME='mosip_audit'; # change this
-DB_SCHEMA_NAME='audit'; # change this
-DB_TABLE_NAME='app_audit_log'; # change this
-DB_HOSTNAME='postgres-postgresql.postgres'; # change .. this is the db service name/hostname/ip
-DB_PORT='5432'; # change this.. this is the db port
-DB_PASS=:
-ES_HOSTNAME='elasticsearch-master.cattle-logging-system'; # change this.. this is the ES service name/hostname/ip
-ES_PORT='9200'; # change this.. this is the ES port
+# these following will be taken from env
+# If planning on running this manually .. set the following vars also
+#DB_USER=
+#DB_PORT=
+#DB_HOSTNAME=
+#DB_PASS=
+#DB_PREFIX_INDEX=
+#ES_URL=
 
-DB_PREFIX_INDEX='mosip_qa4'; # needn't change
+CONN_NAME="audit_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
+
 DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
 ES_CONN_URL='es-connect.reporting:8083'; # needn't change .. this is the ES-connector service name
 
+DB_NAME='mosip_audit'; # change this
+DB_TABLES='audit.app_audit_log'
+ES_INDICES=$(echo $DB_TABLES | sed -E "s/([^,]+)/$DB_PREFIX_INDEX.\1/g")
 
 curl \
   -X POST \
@@ -20,33 +22,36 @@ curl \
   -H 'Content-Type: application/json' \
   -d \
   '{
-      "name": '\"$DEBEZ_CONN_NAME\"',
+      "name": '\"$CONN_NAME\"',
       "config": {
           "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
           "plugin.name": "pgoutput",
           "publication.autocreate.mode": "filtered",
+          "slot.name": '\"debezium_$CONN_NAME\"',
+          "publication.name": '\"dbz_pub_$DB_PREFIX_INDEX\"',
           "database.hostname": '\"$DB_HOSTNAME\"',
           "database.port": '\"$DB_PORT\"',
           "database.user": '\"$DB_USER\"',
           "database.password": '\"$DB_PASS\"',
           "database.dbname": '\"$DB_NAME\"',
           "database.server.name": '\"$DB_PREFIX_INDEX\"',
-          "table.include.list": '\"$DB_SCHEMA_NAME.$DB_TABLE_NAME\"'
+          "table.include.list": '\"$DB_TABLES\"'
       }
 }';
+echo ;
 curl \
   -X POST \
   http://$ES_CONN_URL/connectors \
   -H 'Content-Type: application/json' \
   -d \
   '{
-      "name": '\"$DEBEZ_CONN_NAME\"',
+      "name": '\"$CONN_NAME\"',
       "config": {
           "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
-          "name": '\"$DEBEZ_CONN_NAME\"',
-          "connection.url": '\"http://$ES_HOSTNAME:$ES_PORT\"',
+          "name": '\"$CONN_NAME\"',
+          "connection.url": '\"$ES_URL\"',
           "tasks.max": "1",
-          "topics": '\"$DB_PREFIX_INDEX.$DB_SCHEMA_NAME.$DB_TABLE_NAME\"',
+          "topics": '\"$ES_INDICES\"',
           "key.ignore": "true",
           "schema.ignore": "true",
           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
@@ -63,10 +68,10 @@ curl \
 
           "transforms.tsconvert03.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert03.field": "action_dtimes",
-          "transforms.tsconvert03.seconds_type": "micro",
+          "transforms.tsconvert03.input.type": "micro_sec",
 
           "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert04.field": "log_dtimes",
-          "transforms.tsconvert04.seconds_type": "micro"
+          "transforms.tsconvert04.input.type": "micro_sec"
       }
 }';
