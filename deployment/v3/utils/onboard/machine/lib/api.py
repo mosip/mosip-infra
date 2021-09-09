@@ -9,15 +9,18 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='admin', ssl_verify=True):
+    def __init__(self, server, user, pwd, client, client_secret, appid='regproc', ssl_verify=True, client_token=False):
         self.server = server
         self.user = user
         self.pwd = pwd
-        self.ssl_verify = ssl_verify 
-        self.token = self.auth_get_token(appid, self.user, self.pwd) 
+        self.ssl_verify = ssl_verify
+        if client_token:
+            self.token = self.auth_get_client_token(appid, self.user, self.pwd) 
+        else:
+            self.token = self.auth_get_token(appid, client, client_secret, self.user, self.pwd) 
       
-    def auth_get_token(self, appid, username, pwd):
-        url = '%s/v1/authmanager/authenticate/useridPwd' % self.server
+    def auth_get_token(self, appid, client, client_secret, username, pwd):
+        url = '%s/v1/authmanager/authenticate/internal/useridPwd' % self.server
         ts = get_timestamp()
         j = {
             "id": "mosip.io.userId.pwd",
@@ -27,11 +30,14 @@ class MosipSession:
                 "request": {
                     "appId" : appid,
                     "userName": username,
-                    "password": pwd
+                    "password": pwd,
+                    'clientId': client,
+                    'clientSecret': client_secret
             }
         }
         r = requests.post(url, json = j, verify=self.ssl_verify)
-        token = read_token(r)
+        r = response_to_json(r)
+        token = r['response']['token'] 
         return token
 
     ## Add machine type
@@ -52,20 +58,24 @@ class MosipSession:
             'requesttime': ts,
             'version': '1.0'
         } 
+
         if update:
             r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         else:
             r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+
+        # Activate the machine type (by default isActive is false)
+        url2 = '%s/v1/masterdata/machinetypes?code=%s&isActive=true' % (self.server, code)
+        r = requests.patch(url2, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
-
+ 
     # Add machine spec
-    def add_spec(self, name, type_code,  brand, model, description, min_driver_ver, language, update=False):
+    def add_spec(self, name, type_code,  brand, model, description, min_driver_ver, language):
         url = '%s/v1/masterdata/machinespecifications' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         spec_id = self.get_spec_id(name) 
-        print(name, spec_id)
         j = {
             'id': 'string',
             'metadata': {},
@@ -84,11 +94,18 @@ class MosipSession:
             'version': '1.0'
           }
 
+        update = False
+        if spec_id != 'dummy':
+           update = True
+
         if update:
             r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         else:
             r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
 
+        spec_id = self.get_spec_id(name) 
+        url2 = '%s/v1/masterdata/machinespecifications?id=%s&isActive=true' % (self.server, spec_id)
+        r = requests.patch(url2, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
 
@@ -146,18 +163,14 @@ class MosipSession:
                return machine['id']
         
     def add_machine(self, name, spec_name, regcenter, zone, pub_key, sign_pub_key, valid_days, 
-                    lang, primary_lang):
+                    lang):
         spec_id = self.get_spec_id(spec_name)
-        # Check if machine entry exists for primary lanague
-        machine_id = self.get_machine_id(name, primary_lang)
+        machine_id = self.get_machine_id(name, lang)
+        update=False
         if machine_id is None:
             machine_id = ''   
-
-        # Check if machine info already exists
-        update = True
-        r = self.get_machine_id(name, lang)
-        if r is None:
-            update = False 
+        else:
+            update=True
         
         url = '%s/v1/masterdata/machines' % self.server
         cookies = {'Authorization' : self.token}
@@ -189,8 +202,9 @@ class MosipSession:
             r = requests.put(url, cookies=cookies, json = j, verify=self.ssl_verify)
         else:
             r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
+        machine_id = self.get_machine_id(name, lang)
+        url2 = '%s/v1/masterdata/machines?id=%s&isActive=true' % (self.server, machine_id)
+        r = requests.patch(url2, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
         return r
-
-
 

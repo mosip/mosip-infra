@@ -15,6 +15,7 @@ def args_parse():
    parser.add_argument('xlsx', type=str, help='Excel container machine specification data')
    parser.add_argument('admin', type=str, help='Keycloak user with GLOBAL_ADMIN role who is adding user')
    parser.add_argument('admin_pwd', type=str, help='Password for admin')
+   parser.add_argument('client_pwd', type=str, help='Password for mosip-regproc-client')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
    return args
@@ -31,12 +32,12 @@ def main():
     df = pd.read_excel(args.xlsx)
 
     try:
-        session = MosipSession(args.server, args.admin, args.admin_pwd, 'regproc', ssl_verify)
+        session = MosipSession(args.server, args.admin, args.admin_pwd, 'mosip-regproc-client', args.client_pwd,
+                               'regproc', ssl_verify)
         for i,row in df.iterrows():
             r = session.add_spec(df['name'][i], df['machine_type'][i],  df['brand'][i], df['model'][i],
-                                 df['description'][i], df['min_driver_version'][i], df['language'][i], 
-                                 update=False)
- 
+                                 df['description'][i], df['min_driver_version'][i], 'eng') # Language for legacy reason
+                                 
             myprint(r)
     except:
         formatted_lines = traceback.format_exc()
