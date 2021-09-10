@@ -19,5 +19,8 @@ kubectl label ns $NS istio-injection=enabled
 ## Copy db secrets from postgres namespace to current namespace
 ./copy_secret.sh $NS
 
-## Install kafka and Zookeeper
+## Install reporting helm chart
 helm -n $NS install reporting mosip/reporting -f values.yaml --wait --version $CHART_VERSION
+
+## Install reporting-init helm chart
+helm -n $NS install reporting mosip/reporting-init -f values-init.yaml --wait --version $CHART_VERSION

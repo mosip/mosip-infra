@@ -1,5 +1,4 @@
 # these following will be taken from env
-# If planning on running this manually .. set the following vars also
 #DB_USER=
 #DB_PORT=
 #DB_HOSTNAME=
