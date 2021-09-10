@@ -1,5 +1,4 @@
 # these following will be taken from env
-# If planning on running this manually .. set the following vars also
 #DB_USER=
 #DB_PORT=
 #DB_HOSTNAME=
@@ -7,13 +6,13 @@
 #DB_PREFIX_INDEX=
 #ES_URL=
 
-CONN_NAME="audit_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
+CONN_NAME="prereg_reg_available_slot_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
 
 DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
 ES_CONN_URL='es-connect.reporting:8083'; # needn't change .. this is the ES-connector service name
 
-DB_NAME='mosip_audit'; # change this
-DB_TABLES='audit.app_audit_log'
+DB_NAME='mosip_prereg'; # change this
+DB_TABLES='prereg.reg_available_slot'
 ES_INDICES=$(echo $DB_TABLES | sed -E "s/([^,]+)/$DB_PREFIX_INDEX.\1/g")
 
 curl \
@@ -56,7 +55,7 @@ curl \
           "schema.ignore": "true",
           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
           "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04",
+          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04,tsconvert05,tsconvert06,tsconvert07,tsconvert08",
 
           "transforms.tsconvert01.type": "io.debezium.transforms.ExtractNewRecordState",
           "transforms.tsconvert01.delete.handling.mode": "rewrite",
@@ -67,11 +66,30 @@ curl \
           "transforms.tsconvert02.field": "source_ts_ms",
 
           "transforms.tsconvert03.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
-          "transforms.tsconvert03.field": "action_dtimes",
-          "transforms.tsconvert03.input.type": "micro_sec",
+          "transforms.tsconvert03.field": "availability_date",
+          "transforms.tsconvert03.input.type": "days_epoch",
+          "transforms.tsconvert03.output.format": "yyyy-MM-dd",
 
           "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
-          "transforms.tsconvert04.field": "log_dtimes",
-          "transforms.tsconvert04.input.type": "micro_sec"
+          "transforms.tsconvert04.field": "slot_from_time",
+          "transforms.tsconvert04.input.type": "micro_sec",
+          "transforms.tsconvert04.output.format": "HH:mm:ss",
+
+          "transforms.tsconvert05.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert05.field": "slot_to_time",
+          "transforms.tsconvert05.input.type": "micro_sec",
+          "transforms.tsconvert05.output.format": "HH:mm:ss",
+
+          "transforms.tsconvert06.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert06.field": "cr_dtimes",
+          "transforms.tsconvert06.input.type": "micro_sec",
+
+          "transforms.tsconvert07.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert07.field": "upd_dtimes",
+          "transforms.tsconvert07.input.type": "micro_sec",
+
+          "transforms.tsconvert08.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert08.field": "upd_dtimes",
+          "transforms.tsconvert08.input.type": "micro_sec"
       }
 }';
