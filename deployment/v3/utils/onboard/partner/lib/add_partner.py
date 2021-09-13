@@ -15,8 +15,9 @@ def args_parse():
    parser = argparse.ArgumentParser()
    parser.add_argument('server', type=str, help='Full url to point to the server')
    parser.add_argument('path', help='File containing input data json')
-   parser.add_argument('user', type=str, help='User with PARTNER and PARTNERMANAGER role')
+   parser.add_argument('user', type=str, help='User with PARTNER and PARTNERMANAGER role in "mosip" realm')
    parser.add_argument('user_pwd', type=str, help='Password for user')
+   parser.add_argument('client_pwd', type=str, help='Password for mosip-partner-client')
    parser.add_argument('--disable_ssl_verify', help='Disable ssl cert verification while connecting to server', action='store_true')
    args = parser.parse_args()
    return args, parser
@@ -32,7 +33,9 @@ def main():
 
     j = json.load(open(args.path, 'rt'))
     try:
-        session = MosipSession(args.server, args.user, args.user_pwd, 'partner', ssl_verify=ssl_verify)
+        session = MosipSession(args.server, args.user, args.user_pwd, 'mosip-partner-client', args.client_pwd, 
+                               'partner', ssl_verify, client_token=False)
+        # Add partner
         r = session.add_partner(j['name'], j['contact'], j['address'], j['email'], j['id'], j['partner_type'], 
                                 j['policy_group'])
         myprint(r)
@@ -48,10 +51,11 @@ def main():
         base_path = j['cert']['output']['folder']
         cert_path = os.path.join(base_path, j['cert']['output']['cert'])
         cert_data = open(cert_path, 'rt').read()
+        myprint('Uploading partner cert')
         r = session.upload_partner_certificate(cert_data, j['name'], j['partner_domain'], j['id'], j['partner_type'])
         myprint(r)
         mosip_signed_cert_path = os.path.join(base_path, 'mosip_signed_cert.pem')
-        if r['errors'] is None:
+        if len(r['errors']) == 0:
             mosip_signed_cert = r['response']['signedCertificateData']
             open(mosip_signed_cert_path, 'wt').write(mosip_signed_cert)
             myprint('MOSIP signed certificate saved as %s' % mosip_signed_cert_path)

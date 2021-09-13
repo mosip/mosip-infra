@@ -9,32 +9,33 @@ sys.path.insert(0, '../')
 from utils import *
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='admin', ssl_verify=True, client_token=False):
+    def __init__(self, server, user, pwd, client, client_secret, appid='admin', ssl_verify=True, client_token=False):
         self.server = server
-        self.user = user
-        self.pwd = pwd
         self.ssl_verify = ssl_verify
         if client_token:
-            self.token = self.auth_get_client_token(appid, self.user, self.pwd) 
+            self.token = self.auth_get_client_token(appid, client, client_secret) 
         else:
-            self.token = self.auth_get_token(appid, self.user, self.pwd) 
+            self.token = self.auth_get_token(appid, client, client_secret, user, pwd) 
       
-    def auth_get_token(self, appid, username, pwd):
-        url = '%s/v1/authmanager/authenticate/useridPwd' % self.server
+    def auth_get_token(self, appid, client, client_secret, username, pwd):
+        url = '%s/v1/authmanager/authenticate/internal/useridPwd' % self.server
         ts = get_timestamp()
         j = {
-            "id": "mosip.io.userId.pwd",
-            "metadata" : {},
-                "version":"1.0",
-                "requesttime": ts,
-                "request": {
-                    "appId" : appid,
-                    "userName": username,
-                    "password": pwd
+            'id': 'mosip.io.userId.pwd',
+            'metadata' : {},
+            'version':'1.0',
+            'requesttime': ts,
+            'request': {
+                'appId' : appid,
+                'userName': username,
+                'password': pwd,
+                'clientId': client,
+                'clientSecret': client_secret
             }
         }
         r = requests.post(url, json = j, verify=self.ssl_verify)
-        token = read_token(r)
+        r = response_to_json(r)
+        token = r['response']['token'] 
         return token
 
     def auth_get_client_token(self, appid, client_id, pwd):
@@ -53,6 +54,7 @@ class MosipSession:
         }
 
         r = requests.post(url, json = j, verify=self.ssl_verify)
+        print(response_to_json(r))
         token = read_token(r)
         return token
 
@@ -252,10 +254,8 @@ class MosipSession:
             'metadata': {},
             'request': {
                 'certificateData': cert_data,
-                'organizationName': org_name,
                 'partnerDomain': partner_domain,
                 'partnerId': partner_id,
-                'partnerType': partner_type
             },
             'requesttime': ts,
             'version': '1.0'
