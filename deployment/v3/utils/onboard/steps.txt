@@ -25,7 +25,7 @@ Mock MDS
 
 1. Make sure in regclient properites mdm devices are set to DEVICE (and not FTM).  FTM is used for Auth at the moment, with mock mds.
 1. Create device certificates with partner as CA (below)
-1. Upload all the CA chanin certificates - ROOT, MOSIP PMS, partner to Keymanager.
+1. Upload all the CA chain certificates - ROOT, MOSIP PMS, partner to Keymanager DB.
 1. Copy the entire table to mosip_master ca_store table as given below.
 
 Partner
