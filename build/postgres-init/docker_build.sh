@@ -13,6 +13,6 @@ git clone -b $1 https://github.com/mosip/id-authentication
 git clone -b $1 https://github.com/mosip/id-repository
 git clone -b $1 https://github.com/mosip/websub
 cd ../
-docker build -t mosipdev/postgres-init:develop .
+docker build -t mosipdev/postgres-init:1.1.5 .
 
 

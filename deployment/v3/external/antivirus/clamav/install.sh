@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs Clamav
 NS=clamav
+CHART_VERSION=1.1.5
 
 echo Create namespace
 kubectl create ns $NS 
@@ -10,4 +11,4 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
 echo Installing Clamav
-helm -n $NS install clamav mosip/clamav --set replicaCount=1
+helm -n $NS install clamav mosip/clamav --set replicaCount=1 --version $CHART_VERSION
