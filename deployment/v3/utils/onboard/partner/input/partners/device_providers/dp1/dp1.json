@@ -4,7 +4,7 @@
   "contact": "574674345", 
   "address": "Chennai",
   "email" : "dp@xyz.com", 
-  "partner_domain": "DEVICE",
+  "partner_domain": "AUTH",
   "partner_type": "Device_Provider",
   "policy_group": "",
   "cert": {
