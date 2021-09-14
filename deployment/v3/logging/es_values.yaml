@@ -1,7 +1,9 @@
 master:
   persistence:
     enabled: false
+    storageClass: null
 data:
   persistence:
     enabled: false
+    storageClass: null
 
