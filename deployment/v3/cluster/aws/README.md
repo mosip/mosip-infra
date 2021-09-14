@@ -68,7 +68,7 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
 
 ## Metrics server
-Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernets Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
+Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
 helm -n default install metrics-server bitnami/metrics-server 
 helm -n default upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
