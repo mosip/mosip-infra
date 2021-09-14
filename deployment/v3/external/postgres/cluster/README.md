@@ -10,6 +10,7 @@
 ```
 ## Test
 * Make sure docker is running from machine you are testing.
+* Postgres is accessible over "internal" channel, i.e. over Wireguard.  Make sure you have the Wireguard setup along with credentials to connect to internal load balancer.
 * Connect to postgres:
 ```sh
 docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U postgres -p 5432
