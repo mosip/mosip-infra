@@ -8,8 +8,6 @@ Postgress may be integrated with MOSIP in the following ways:
 
 While production deployments will either use (1) or (2) for non-production deployment you may go with (3). It is possible to install high availablity Postgres on cluster as well, however, whether the same approach can be scaled to full scale production is yet to be evaluated and tested.  Having said that, the method outlined in (3) should work well for sandboxes and small pilot rollouts.
 
-## Dependency
-
 ## Cloud setup
 On AWS:
 * Provision a Postgres RDS instance on AWS depending on scale of deployment
