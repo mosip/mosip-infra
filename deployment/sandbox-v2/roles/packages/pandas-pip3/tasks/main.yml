@@ -1,0 +1,4 @@
+- name: Install pandas via pip3
+  pip3:
+    name: pandas
+  become: yes
