@@ -108,8 +108,6 @@ clusters:
       replica_count: 5
       zookeeper_replica_count: 5
       zookeeper_size: 2Gi
-    mock_abis:
-      nfs_path: '{{nfs.folder}}/mock-abis'
  
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
@@ -239,6 +237,11 @@ reg_client:
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
   logback_xml: '{{install_root}}/roles/reg-client-prep/files/logback.xml'
+
+mock_abis:
+  nfs_path: '{{nfs.folder}}/test-mock-abis/'
+  p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
+  prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
 
 repos:
   commons:
