@@ -9,7 +9,6 @@ import org.apache.kafka.connect.transforms.Transformation;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigException;
 import org.apache.kafka.connect.errors.DataException;
-import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;
@@ -79,7 +78,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
 
         Object makeQuery(List<Object> inputValues){
             if(inputValues.size()!=inputFields.length){
-                throw new ConnectException("Cant get all values for the mentioned " + INPUT_FIELDS_CONFIG + ". Given " + INPUT_FIELDS_CONFIG + " : " + inputFields);
+                return "Cant get all values for the mentioned " + INPUT_FIELDS_CONFIG + ". Given " + INPUT_FIELDS_CONFIG + " : " + inputFields;
             }
             else if(inputValues.size()==0){
                 return null;
@@ -102,7 +101,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
                     searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
                 }
                 catch(Exception e){
-                    if(i==MAX_RETRIES) throw new ConnectException("Error occured while making the query : " + e.getMessage());
+                    if(i==MAX_RETRIES) return "Error occured while making the query : " + e.getMessage();
                     else continue;
                 }
 
@@ -112,7 +111,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
                     return hits[0].getSourceAsMap().get(esOutputField);
                 }
                 catch(Exception e){
-                    if(i==MAX_RETRIES) throw new ConnectException("Error occured after querying, while getting the new field : " + e.getMessage());
+                    if(i==MAX_RETRIES) return "Error occured after querying, while getting the new field : " + e.getMessage();
                     else continue;
                 }
             }
