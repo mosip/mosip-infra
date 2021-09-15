@@ -2,3 +2,5 @@ pandas
 requests
 openpyxl
 sqlalchemy
+psycopg2
+
