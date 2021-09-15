@@ -2,8 +2,9 @@
 #
 #-# Create folder on nfs
 - hosts: console
-  tasks:
-    - {name: 'Create folder', file: {name: '{{clusters.mz.mock_abis.nfs_path}}', state: directory}, become: yes}
+  gather_facts: true
+  roles:
+    - {role: mock-abis-prep}
 
 
 - hosts: console
