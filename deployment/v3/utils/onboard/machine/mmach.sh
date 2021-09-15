@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Example script to add a machine
 
 SERVER=https://api-internal.v3box1.mosip.net

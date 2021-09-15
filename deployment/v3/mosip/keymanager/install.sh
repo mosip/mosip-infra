@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Keymanager
 NS=keymanager
 CHART_VERSION=1.1.5

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Artifactory
 NS=artifactory
 CHART_VERSION=1.1.5

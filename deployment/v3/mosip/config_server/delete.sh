@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls config server
 NS=config-server
 while true; do

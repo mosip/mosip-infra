@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## This script install all required components for reporting framework.
 
 ## Variables

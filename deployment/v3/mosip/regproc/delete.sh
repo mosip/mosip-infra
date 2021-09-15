@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls all Reg Proc helm charts
 NS=regproc
 while true; do

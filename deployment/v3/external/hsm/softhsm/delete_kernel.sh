@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls softhsm
 NS=keymanager
 while true; do

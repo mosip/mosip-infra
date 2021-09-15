@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs idrepo
 NS=idrepo
 CHART_VERSION=1.1.5

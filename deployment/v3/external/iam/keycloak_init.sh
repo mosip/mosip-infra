@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Initialize Keycloak with MOSIP base data
 KC="--kubeconfig $HOME/.kube/iam_config" 
 NS=keycloak

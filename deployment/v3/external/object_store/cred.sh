@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Creates configmap and secrets for S3/Minio
 # Specific "" for region for minio local installation
 [ $# -lt 3 ] && { echo "Usage: ./cred.sh <access key> <secret> <region>"; exit 1; }

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls all Admin helm charts 
 NS=admin
 while true; do
