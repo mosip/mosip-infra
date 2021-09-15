@@ -6,13 +6,13 @@
 #DB_PREFIX_INDEX=
 #ES_URL=
 
-CONN_NAME="prereg_applicant_document_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
+CONN_NAME="master_doc_type_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
 
 DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
 ES_CONN_URL='es-connect.reporting:8083'; # needn't change .. this is the ES-connector service name
 
-DB_NAME='mosip_prereg'; # change this
-DB_TABLES='prereg.applicant_document,prereg.applicant_document_consumed'
+DB_NAME='mosip_master'; # change this
+DB_TABLES='master.doc_type'
 ES_INDICES=$(echo $DB_TABLES | sed -E "s/([^,]+)/$DB_PREFIX_INDEX.\1/g")
 
 curl \
@@ -66,15 +66,16 @@ curl \
           "transforms.tsconvert02.field": "source_ts_ms",
 
           "transforms.tsconvert03.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
-          "transforms.tsconvert03.field": "encrypted_dtimes",
+          "transforms.tsconvert03.field": "cr_dtimes",
           "transforms.tsconvert03.input.type": "micro_sec",
 
           "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
-          "transforms.tsconvert04.field": "cr_dtimes",
+          "transforms.tsconvert04.field": "upd_dtimes",
           "transforms.tsconvert04.input.type": "micro_sec",
 
           "transforms.tsconvert05.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
-          "transforms.tsconvert05.field": "upd_dtimes",
+          "transforms.tsconvert05.field": "del_dtimes",
           "transforms.tsconvert05.input.type": "micro_sec"
       }
 }';
+sleep 60s;
