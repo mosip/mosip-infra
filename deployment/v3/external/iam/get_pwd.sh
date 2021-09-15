@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Get admin password
 alias KK='kubectl --kubeconfig $HOME/.kube/iam_config'
 echo Keycloak admin password: $(KK get secret --namespace keycloak keycloak -o jsonpath="{.data.admin-password}" | base64 --decode)

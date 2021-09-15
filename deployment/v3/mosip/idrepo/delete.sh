@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls idrepo services
 NS=idrepo
 while true; do

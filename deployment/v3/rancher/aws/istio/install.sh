@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Install ingress gateway
 KC="--kubeconfig $HOME/.kube/iam_config"
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 read -p "Enter IAM username: " iam_user
 

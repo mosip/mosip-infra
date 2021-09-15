@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls Regclient downloader
 NS=regclient
 while true; do

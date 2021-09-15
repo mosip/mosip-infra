@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Softhsm for Kernel 
 NS=keymanager
 STORAGE_CLASS=gp2

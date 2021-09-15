@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs postgres inside the cluster
 NS=postgres
 

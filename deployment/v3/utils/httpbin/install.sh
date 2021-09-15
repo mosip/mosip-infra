@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 NS=httpbin
 kubectl create ns $NS 
 kubectl label ns $NS istio-injection=enabled --overwrite

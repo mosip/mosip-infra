@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls artifactory
 NS=artifactory
 while true; do

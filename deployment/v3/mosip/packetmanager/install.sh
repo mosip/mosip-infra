@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs packetmanager
 NS=packetmanager
 CHART_VERSION=1.2.0

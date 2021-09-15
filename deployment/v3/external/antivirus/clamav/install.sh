@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Clamav
 NS=clamav
 CHART_VERSION=1.2.0

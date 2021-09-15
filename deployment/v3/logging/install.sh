@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Elasticsearch
 NS=cattle-logging-system
 

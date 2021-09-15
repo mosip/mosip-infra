@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs all kernel helm charts 
 NS=ida
 CHART_VERSION=1.2.0

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs all Regproc helm charts
 NS=regproc
 CHART_VERSION=1.2.0

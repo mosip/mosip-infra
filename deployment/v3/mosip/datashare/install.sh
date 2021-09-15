@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs Datashare
 NS=datashare
 CHART_VERSION=1.2.0
