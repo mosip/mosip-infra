@@ -7,12 +7,26 @@
 * Set AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 * Copy `cluster.config.sample` to `cluster.config`.  
 * Review the parameters of `cluster.config` carefully.
+* Make sure you have keys to created EC2 instance in `~/.ssh/`. If not, generate a key pair using AWS console.
 * Install
 ```sh
 eksctl create cluster -f cluster.config
 ```
 * Note that it takes around 30 minutes to create (or delete a cluster).
-* After creating cluster make a copy of `config` with a suitable name in `~/.kube/` folder, eg. `iam_config`, `mosip_config`.
+* After creating cluster make a backup copy of `config` with a suitable name in `~/.kube/` folder, eg. `iam_config`, `mosip_config`. This is because if you create cluster again using `eksctl` it will override the existing file `~/.ssh/config`.
+
+## Utilities
+Install following command line utilities:
+* kubectl
+* helm 3
+* jq
+
+## Helm repositories
+Add the following Helm repos:
+```sh
+helm repo add bitnami https://charts.bitnami.com/bitnam
+helm repo add mosip https://mosip.github.io/mosip-helm
+```
 
 ## Global configmap
 * Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
@@ -68,7 +82,7 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
 
 ## Metrics server
-Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernets Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
+Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
 helm -n kube-system install metrics-server bitnami/metrics-server 
 helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
