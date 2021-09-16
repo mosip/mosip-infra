@@ -9,22 +9,32 @@ import org.apache.kafka.connect.transforms.Transformation;
 import org.apache.kafka.common.config.AbstractConfig;
 import org.apache.kafka.common.config.ConfigException;
 import org.apache.kafka.connect.errors.DataException;
-import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;
 import org.apache.kafka.connect.data.Struct;
 
-import org.apache.http.HttpHost;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.BoolQueryBuilder;
+// import org.apache.http.HttpHost;
+// import org.elasticsearch.client.RestHighLevelClient;
+// import org.elasticsearch.client.RestClient;
+// import org.elasticsearch.client.RequestOptions;
+// import org.elasticsearch.action.search.SearchRequest;
+// import org.elasticsearch.action.search.SearchResponse;
+// import org.elasticsearch.search.SearchHit;
+// import org.elasticsearch.search.builder.SearchSourceBuilder;
+// import org.elasticsearch.index.query.QueryBuilders;
+// import org.elasticsearch.index.query.BoolQueryBuilder;
+
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +74,9 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
         String[] esInputFields;
         String esOutputField;
 
-        RestHighLevelClient esClient;
+        // RestHighLevelClient esClient;
+        CloseableHttpClient hClient;
+        HttpGet hGet;
 
         ESQueryConfig(String type, String esUrl, String esIndex, String[] esInputFields, String esOutputField, String[] inputFields, String outputField) {
             super(type,inputFields,outputField,Schema.STRING_SCHEMA);
@@ -74,51 +86,100 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
             this.esInputFields=esInputFields;
             this.esOutputField=esOutputField;
 
-            esClient = new RestHighLevelClient(RestClient.builder(HttpHost.create(this.esUrl)));
+            // esClient = new RestHighLevelClient(RestClient.builder(HttpHost.create(this.esUrl)));
+            hClient = HttpClients.createDefault();
+            hGet = new HttpGet(this.esUrl+"/"+this.esIndex+"/_search");
+            hGet.setHeader("Content-type", "application/json");
         }
 
         Object makeQuery(List<Object> inputValues){
             if(inputValues.size()!=inputFields.length){
-                throw new ConnectException("Cant get all values for the mentioned " + INPUT_FIELDS_CONFIG + ". Given " + INPUT_FIELDS_CONFIG + " : " + inputFields);
+                return "Cant get all values for the mentioned " + INPUT_FIELDS_CONFIG + ". Given " + INPUT_FIELDS_CONFIG + " : " + inputFields;
             }
             else if(inputValues.size()==0){
                 return null;
             }
-            // todo
-            SearchRequest searchRequest = new SearchRequest();
-            searchRequest.indices(esIndex);
-            SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-            for(int i=0; i<inputFields.length; i++){
-                boolQueryBuilder.must(QueryBuilders.termQuery(esInputFields[i], inputValues.get(i)));
-            }
-            sourceBuilder.query(boolQueryBuilder);
-            searchRequest.source(sourceBuilder);
 
-            SearchResponse searchResponse;
+            String requestJson = "{\"query\": { \"bool\": { \"must\": [";
+
+            for(int i=0; i<inputFields.length; i++){
+                if(i!=0)requestJson+=",";
+                requestJson += "{\"term\": {\"" + esInputFields[i] + ".keyword\": \"" + inputValues.get(i) + "\"}}";
+            }
+            requestJson += "]}}}";
+
+            hGet.setEntity(new StringEntity(requestJson));
+
+            JSONObject responseJson;
+
             final int MAX_RETRIES = 5;
             for(int i=1; i <= MAX_RETRIES; i++){
-                try{
-                    searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
+                try(CloseableHttpResponse hResponse = hClient.execute(hGet)){
+                    HttpEntity entity = hResponse.getEntity();
+                    String jsonString = EntityUtils.toString(entity);
+                    responseJson = new JSONObject(jsonString);
                 }
                 catch(Exception e){
-                    if(i==MAX_RETRIES) throw new ConnectException("Error occured while making the query : " + e.getMessage());
+                    if(i==MAX_RETRIES) return "Error occured while making the query : " + e.getMessage();
                     else continue;
                 }
 
-                // get the top hit .. error handling not done properly
-                try{
-                    SearchHit[] hits = searchResponse.getHits().getHits();
-                    return hits[0].getSourceAsMap().get(esOutputField);
+                if(responseJson.getJSONObject("hits").getJSONArray("hits").length()!=0){
+                    // get the top hit .. error handling not done properly
+                    return responseJson.getJSONObject("hits").getJSONArray("hits").getJSONObject(0).getJSONObject("_source").getString(esOutputField);
                 }
-                catch(Exception e){
-                    if(i==MAX_RETRIES) throw new ConnectException("Error occured after querying, while getting the new field : " + e.getMessage());
+                else{
+                    if(i==MAX_RETRIES) return "Error: No hits found";
                     else continue;
                 }
             }
             // control shouldn't reach here .. it shouldve thrown exception before or returned
             return "EMPTY";
+
         }
+
+        // Object makeQuery(List<Object> inputValues){
+        //     if(inputValues.size()!=inputFields.length){
+        //         return "Cant get all values for the mentioned " + INPUT_FIELDS_CONFIG + ". Given " + INPUT_FIELDS_CONFIG + " : " + inputFields;
+        //     }
+        //     else if(inputValues.size()==0){
+        //         return null;
+        //     }
+        //     // todo
+        //     SearchRequest searchRequest = new SearchRequest();
+        //     searchRequest.indices(esIndex);
+        //     SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        //     BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        //     for(int i=0; i<inputFields.length; i++){
+        //         boolQueryBuilder.must(QueryBuilders.termQuery(esInputFields[i], inputValues.get(i)));
+        //     }
+        //     sourceBuilder.query(boolQueryBuilder);
+        //     searchRequest.source(sourceBuilder);
+        //
+        //     SearchResponse searchResponse;
+        //     final int MAX_RETRIES = 5;
+        //     for(int i=1; i <= MAX_RETRIES; i++){
+        //         try{
+        //             searchResponse = esClient.search(searchRequest, RequestOptions.DEFAULT);
+        //         }
+        //         catch(Exception e){
+        //             if(i==MAX_RETRIES) return "Error occured while making the query : " + e.getMessage();
+        //             else continue;
+        //         }
+        //
+        //         // get the top hit .. error handling not done properly
+        //         try{
+        //             SearchHit[] hits = searchResponse.getHits().getHits();
+        //             return hits[0].getSourceAsMap().get(esOutputField);
+        //         }
+        //         catch(Exception e){
+        //             if(i==MAX_RETRIES) return "Error occured after querying, while getting the new field : " + e.getMessage();
+        //             else continue;
+        //         }
+        //     }
+        //     // control shouldn't reach here .. it shouldve thrown exception before or returned
+        //     return "EMPTY";
+        // }
 
         @Override
         Object make(Object input){
@@ -127,18 +188,19 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
 
         @Override
         void close(){
-            try{ esClient.close(); }catch(Exception e){}
+            // try{ esClient.close(); }catch(Exception e){}
+            try{hClient.close();}catch(Exception e){}
         }
 
     }
 
     public static final String PURPOSE = "dynamic field insertion";
-    public static final String TYPE_CONFIG = "type";
+    public static final String TYPE_CONFIG = "query.type";
     public static final String ES_URL_CONFIG = "es.url";
     public static final String ES_INDEX_CONFIG = "es.index";
-    public static final String ES_INPUT_FIELDS_CONFIG = "es.input.field";
+    public static final String ES_INPUT_FIELDS_CONFIG = "es.input.fields";
     public static final String ES_OUTPUT_FIELD_CONFIG = "es.output.field";
-    public static final String INPUT_FIELDS_CONFIG = "input.field";
+    public static final String INPUT_FIELDS_CONFIG = "input.fields";
     public static final String OUTPUT_FIELD_CONFIG = "output.field";
 
     private Config config;
@@ -159,7 +221,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
 
         schemaUpdateCache = new SynchronizedCache<>(new LRUCache<Schema,Schema>(16));
 
-        String type = absconf.getString(TYPE_CONFIG);
+        String type = "es";
 
         if(type.equals("es")){
             String esUrl = absconf.getString(ES_URL_CONFIG);

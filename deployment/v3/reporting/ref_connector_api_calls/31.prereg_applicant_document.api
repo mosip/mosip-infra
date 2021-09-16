@@ -80,7 +80,7 @@ curl \
           "transforms.tsconvert06.type": "io.mosip.kafka.connect.transforms.DynamicNewField$Value",
           "transforms.tsconvert06.es.index": '\"$DB_PREFIX_INDEX.master.doc_type\"',
           "transforms.tsconvert06.es.url": '\"$ES_URL\"',
-          "transforms.tsconvert06.input.fields": "doc_type_code,lang_code",
+          "transforms.tsconvert06.input.fields": "doc_typ_code,lang_code",
           "transforms.tsconvert06.es.input.fields": "code,lang_code",
           "transforms.tsconvert06.es.output.field": "name",
           "transforms.tsconvert06.output.field": "doc_type_name"

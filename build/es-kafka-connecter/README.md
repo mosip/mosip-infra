@@ -14,10 +14,12 @@ This docker image contains 4 key components
 Then it copies these jar files to build docker image
 
 ```sh
-$ rm *.jar
-$ wget https://repo.maven.apache.org/maven2/io/debezium/debezium-core/1.6.2.Final/debezium-core-1.6.2.Final.jar
+$ rm -r jars
 $ cd timestamp_adv ; mvn clean package ; cd ..
 $ cd dynamic_new ; mvn clean package ; cd ..
-$ cp timestamp_adv/target/timestamp_adv*.jar dynamic_new/target/dynamic_new*.jar .
+$ mkdir jars; cd jars
+$ cp ../timestamp_adv/target/timestamp_adv*.jar ../dynamic_new/target/dynamic_new*.jar .
+$ wget https://repo.maven.apache.org/maven2/io/debezium/debezium-core/1.6.2.Final/debezium-core-1.6.2.Final.jar
+$ cd ..
 $ docker build .
 ```
