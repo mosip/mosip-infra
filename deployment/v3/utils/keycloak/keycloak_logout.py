@@ -42,12 +42,14 @@ def main():
         keycloak_admin.realm_name = args.realm
         client_id = keycloak_admin.get_client_id(args.client_name)
         user = keycloak_admin.get_client_service_account_user(client_id)
-        keycloak_admin.logout(user['id'])
+        r = keycloak_admin.logout(user['id'])
+        print(r)
     except:
         formatted_lines = traceback.format_exc()
         print(formatted_lines)
         sys.exit(1)
 
+    print('Done')
     sys.exit(0)
 
 if __name__=="__main__":
