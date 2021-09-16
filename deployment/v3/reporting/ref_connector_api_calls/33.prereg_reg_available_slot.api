@@ -1,0 +1,103 @@
+# these following will be taken from env
+#DB_USER=
+#DB_PORT=
+#DB_HOSTNAME=
+#DB_PASS=
+#DB_PREFIX_INDEX=
+#ES_URL=
+
+CONN_NAME="prereg_reg_available_slot_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
+
+DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
+ES_CONN_URL='es-connect.reporting:8083'; # needn't change .. this is the ES-connector service name
+
+DB_NAME='mosip_prereg'; # change this
+DB_TABLES='prereg.reg_available_slot'
+ES_INDICES=$(echo $DB_TABLES | sed -E "s/([^,]+)/$DB_PREFIX_INDEX.\1/g")
+
+curl \
+  -X POST \
+  http://$DEBEZ_CONN_URL/connectors \
+  -H 'Content-Type: application/json' \
+  -d \
+  '{
+      "name": '\"$CONN_NAME\"',
+      "config": {
+          "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+          "plugin.name": "pgoutput",
+          "publication.autocreate.mode": "filtered",
+          "slot.name": '\"debezium_$CONN_NAME\"',
+          "publication.name": '\"dbz_pub_$DB_PREFIX_INDEX\"',
+          "database.hostname": '\"$DB_HOSTNAME\"',
+          "database.port": '\"$DB_PORT\"',
+          "database.user": '\"$DB_USER\"',
+          "database.password": '\"$DB_PASS\"',
+          "database.dbname": '\"$DB_NAME\"',
+          "database.server.name": '\"$DB_PREFIX_INDEX\"',
+          "table.include.list": '\"$DB_TABLES\"'
+      }
+}';
+echo ;
+curl \
+  -X POST \
+  http://$ES_CONN_URL/connectors \
+  -H 'Content-Type: application/json' \
+  -d \
+  '{
+      "name": '\"$CONN_NAME\"',
+      "config": {
+          "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+          "name": '\"$CONN_NAME\"',
+          "connection.url": '\"$ES_URL\"',
+          "tasks.max": "1",
+          "topics": '\"$ES_INDICES\"',
+          "key.ignore": "true",
+          "schema.ignore": "true",
+          "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+          "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04,tsconvert05,tsconvert06,tsconvert07,tsconvert08,tsconvert09",
+
+          "transforms.tsconvert01.type": "io.debezium.transforms.ExtractNewRecordState",
+          "transforms.tsconvert01.delete.handling.mode": "rewrite",
+          "transforms.tsconvert01.add.fields": "source.ts_ms:ts_ms,table,lsn",
+          "transforms.tsconvert01.add.fields.prefix": "source_",
+
+          "transforms.tsconvert02.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert02.field": "source_ts_ms",
+
+          "transforms.tsconvert03.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert03.field": "availability_date",
+          "transforms.tsconvert03.input.type": "days_epoch",
+          "transforms.tsconvert03.output.format": "yyyy-MM-dd",
+
+          "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert04.field": "slot_from_time",
+          "transforms.tsconvert04.input.type": "micro_sec",
+          "transforms.tsconvert04.output.format": "HH:mm:ss",
+
+          "transforms.tsconvert05.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert05.field": "slot_to_time",
+          "transforms.tsconvert05.input.type": "micro_sec",
+          "transforms.tsconvert05.output.format": "HH:mm:ss",
+
+          "transforms.tsconvert06.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert06.field": "cr_dtimes",
+          "transforms.tsconvert06.input.type": "micro_sec",
+
+          "transforms.tsconvert07.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert07.field": "upd_dtimes",
+          "transforms.tsconvert07.input.type": "micro_sec",
+
+          "transforms.tsconvert08.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
+          "transforms.tsconvert08.field": "upd_dtimes",
+          "transforms.tsconvert08.input.type": "micro_sec",
+
+          "transforms.tsconvert09.type": "io.mosip.kafka.connect.transforms.DynamicNewField$Value",
+          "transforms.tsconvert09.es.index": '\"$DB_PREFIX_INDEX.master.registration_center\"',
+          "transforms.tsconvert09.es.url": '\"$ES_URL\"',
+          "transforms.tsconvert09.input.fields": "regcntr_id",
+          "transforms.tsconvert09.es.input.fields": "id",
+          "transforms.tsconvert09.es.output.field": "name",
+          "transforms.tsconvert09.output.field": "regcntr_name"
+      }
+}';
