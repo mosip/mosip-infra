@@ -14,7 +14,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Running salt generator job
-helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait --wait-for-jobs
+helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait --wait-for-jobs --version $CHART_VERSION
 
 echo Running credential
 helm -n $NS install credential mosip/credential --version $CHART_VERSION
