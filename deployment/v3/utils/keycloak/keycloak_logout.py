@@ -16,7 +16,7 @@ from keycloak.urls_patterns import URL_ADMIN_USER_REALM_ROLES
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com')  
+   parser.add_argument('server_url', type=str, help='Keycloak server url. Eg. https://iam.xyz.com')  
    parser.add_argument('admin_user', type=str, help='Admin user')
    parser.add_argument('admin_password', type=str, help='Admin password')
    parser.add_argument('client_name', type=str, help='Name of the client that needs to be logged out')
