@@ -5,9 +5,9 @@ Various Python based utilities for Keycloak.
 ## Prerequisites
 1. Install python3.9 virtual env
 1. Switch to virtual env 
-1. Install requirements
+1. Install required modules
 ```sh
-pip install
+pip install -r requirements.txt
 ```
 
 ## Client session logout
