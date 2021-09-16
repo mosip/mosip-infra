@@ -10,7 +10,7 @@ Various Python based utilities for Keycloak.
 pip install -r requirements.txt
 ```
 
-## Client session logout
+## Client sessions logout
 The script here logs out all the sessions of given client and realm.  This is useful in case several sessions have been created and we would like to kill all of them.
 
 Run the script for all parameters needed:
