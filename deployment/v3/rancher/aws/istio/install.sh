@@ -9,7 +9,7 @@ echo Create ingress gateways and load balancers
 kubectl $KC apply -f iop.yaml
 
 echo Wait for all resources to come up
-sleep 20 
+sleep 30 
 kubectl $KC -n istio-system rollout status deploy istiod
 kubectl $KC -n istio-system rollout status deploy istio-ingressgateway
 
