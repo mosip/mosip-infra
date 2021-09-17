@@ -18,7 +18,7 @@ Masterdata is specified in xlsx files available in `xlsx` folder.  Update the xl
 ## Run
 Run the below command in python virtual environment.
 ```sh
-./upload_md.sh
+sh upload_md.sh
 ```
 The utility will run with default parameters. If your setup is different, update `upload_md.sh`.  You can find the parameters expected by utility with this command:
 ```
