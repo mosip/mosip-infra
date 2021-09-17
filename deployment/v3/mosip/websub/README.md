@@ -4,5 +4,5 @@
 * Review `values.yaml` esp. for postgres hostname
 * Install
 ```
-$ ./install.sh
+$ sh install.sh
 ``` 

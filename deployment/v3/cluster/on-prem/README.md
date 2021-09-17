@@ -25,7 +25,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 * Go it [v3/rancher/on-prem/istio](../../rancher/on-prem/istio).
 * Edit the `install.sh` and `iop.yaml` accordingly, then run it.
   ```
-  KUBECONFIG="~/.kube/rancher_iam.config" ./install.sh
+  KUBECONFIG="~/.kube/rancher_iam.config" sh install.sh
   ```
 * This will bring up all istio components and the ingress-gateways.
 * These ingressgateway services are of type loadbalancer. And metallb will have provisioned loadbalancer ips for the ingressgateway service.
@@ -100,7 +100,7 @@ kubectl apply -f ../global_configmap.yaml
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
   ```
   KUBECONFIG="$HOME/.kube/mosip_cluster.config"
-  ./install.sh
+  sh install.sh
   ```
 
 ### 2.5 External Nginx setup

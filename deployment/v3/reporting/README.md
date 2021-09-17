@@ -18,7 +18,7 @@ Reference reporting framework for real-time streaming data and visualization.
 #### 2. Kafka & Zookeeper & Debezium-Connector & Elasticsearch-Connector
 
 ```
-$ KUBECONFIG="<kube-config-file>" ./install.sh
+$ KUBECONFIG="<kube-config-file>" sh install.sh
 ```
 
 #### 3. Establish Connection/Pipeline

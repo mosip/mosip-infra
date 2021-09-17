@@ -3,7 +3,7 @@
 ## Install
 NOTE: Keymanager runs in a separate namespace from other kernel modules (for security, access restrictions)
 ```
-./install.sh
+sh install.sh
 ```
 ## Create base keys 
 This has to be done one-time. The job here will create base keys in HSM/Softhsm that must be kept intact throughout the project.  This job must be run ONLY ONCE.  It is assumed that HSM or SoftHsm is already installed.

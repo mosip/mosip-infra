@@ -4,7 +4,7 @@ This utility docker returns http headers received inside the cluster.  You may u
 
 Install:
 ```
-$ ./install.sh
+$ sh install.sh
 ```
 
 To see what's reaching httpbin:

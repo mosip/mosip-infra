@@ -57,7 +57,7 @@ Ingress is not installed by default on EKS. We use Istio ingress gateway control
 * Install ingresses as given here:
 ```sh
 cd istio
-./install.sh
+sh install.sh
 ```
 ### Load Balancers
 The above steps will spin-off two load balancers on AWS. You may view them on AWS console.  These may be also seen with
