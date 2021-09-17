@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Copy configmaps from other namespaces
 # DST_NS: Destination (current) namespace 
 COPY_UTIL=../../utils/copy_cm_func.sh

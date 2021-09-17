@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Creates configmap and secrets for Prereg Captcha
 [ $# -lt 2 ] && { echo "Usage: ./captcha.sh <site-key> <secret>"; exit 1; }
 

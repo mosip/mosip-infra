@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls all postgres resources
 NS=postgres
 while true; do

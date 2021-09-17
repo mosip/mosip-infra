@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs BioSDK
 NS=biosdk
 CHART_VERSION=1.2.0

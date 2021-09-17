@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls all logging helm charts
 NS=cattle-logging-system
 while true; do

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Copy configmaps from other namespaces
 # DST_NS: Destination namespace 
 # Change OBJECT_STORE to "minio" if you are using the same for object store

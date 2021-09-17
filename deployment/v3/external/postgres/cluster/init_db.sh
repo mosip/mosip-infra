@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Script to initialize the DB. 
 NS=postgres
 CHART_VERSION=1.2.0

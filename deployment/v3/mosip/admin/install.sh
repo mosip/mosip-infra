@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs the Admin module
 # Make sure you have updated ui_values.yaml
 NS=admin

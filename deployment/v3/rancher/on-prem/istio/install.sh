@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Install ingress gateway
 echo Operator init
 istioctl operator init

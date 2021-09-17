@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls Activemq
 NS=activemq
 while true; do

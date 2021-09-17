@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs Websub
 NS=websub
 CHART_VERSION=1.2.0

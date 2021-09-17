@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Script to force remove a namespace.
 # Usage: ./remove_namespace <namespace>
 set -eou pipefail

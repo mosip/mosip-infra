@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 SUDO=
 $SUDO pip3 install jinja2
 $SUDO pip3 install pyyaml

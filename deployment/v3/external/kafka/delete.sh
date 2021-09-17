@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls kafka
 NS=kafka
 while true; do

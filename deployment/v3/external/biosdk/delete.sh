@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls Biosdk
 NS=biosdk
 while true; do

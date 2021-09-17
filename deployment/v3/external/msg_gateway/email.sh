@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Creates configmap and secrets for Email 
 [ $# -lt 3 ] && { echo "Usage: ./email.sh <smtp_host> <username> <password>"; exit 1; }
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls Keymanager
 NS=keymanager
 while true; do

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs sample Print service
 NS=print
 CHART_VERSION=1.1.5

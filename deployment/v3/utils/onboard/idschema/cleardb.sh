@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Script to clear identity_schema table in mosip_master db.
 # WARNING: all data in table will be erased.
 # KNOW WHAT YOU ARE DOING!

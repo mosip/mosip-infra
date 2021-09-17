@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls packetmanager
 NS=packetmanager
 while true; do

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls all Kernel helm charts 
 NS=kernel
 while true; do

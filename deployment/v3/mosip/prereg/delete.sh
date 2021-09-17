@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls all Prereg helm charts
 while true; do
     read -p "Are you sure you want to delete ALL Prereg helm charts?(Y/n) " yn

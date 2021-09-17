@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Example script to update schema
 SERVER=https://api-internal.sandbox.xyz.net
 # Admin with GLOBAL_ADMIN role

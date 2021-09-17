@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs Mock ABIS
 NS=abis
 CHART_VERSION=1.2.0

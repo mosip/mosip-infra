@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs kafka
 NS=kafka
 
