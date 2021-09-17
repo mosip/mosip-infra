@@ -3,7 +3,7 @@
 NS=postgres
 while true; do
     read -p "CAUTION: PVC, PV will get deleted. If your PV is not in 'Retain' mode all data will be lost. Are you sure ? Y/n ?" yn
-    if [[ $yn == "Y" ]]
+    if [ $yn == "Y" ]
       then
         helm -n $NS delete postgres
         helm -n $NS delete istio-addons
