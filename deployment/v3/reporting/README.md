@@ -15,7 +15,7 @@ Reference reporting framework for real-time streaming data and visualization.
 - It is assumed that Elasticsearch and Kibana are already installed in the cluster.
 - Assumed Postgres is already installed with `extended.conf` as extended config.
 
-#### 2. Kafka & Zookeeper & Debezium-Connector & Elasticsearch-Connector
+#### 2. Install Kafka, Zookeeper, Debezium-Connector, Elasticsearch-Connector
 
 ```
 $ KUBECONFIG="<kube-config-file>" sh install.sh
@@ -32,7 +32,6 @@ $ KUBECONFIG="<kube-config-file>" ./run_connect_api.sh create_connector_api_call
 	- The db user used in the connector has to have 'REPLICATION' permission (or 'SUPERUSER' permission) set in the role, for debezium to capture.
 
 ## Cleanup/Uninstall
-
 - First run the delete api call, which deletes the connectors. Then to uninstall everything, delete the namespace.
 ```
 $ KUBECONFIG="<kube-config-file>" ./run_connect_api.sh delete_connector_api_calls
