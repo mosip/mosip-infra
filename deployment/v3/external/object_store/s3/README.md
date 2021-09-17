@@ -10,5 +10,5 @@
 1. Create configmap and secrets by running this script:
 ```sh
 cd ../
-./cred.sh
+sh cred.sh
 ```
