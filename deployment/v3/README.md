@@ -1,4 +1,4 @@
-# MOSIP Deployment V3 _(Beta)_
+# MOSIP Deployment V3
 
 ## High level architecture
 ![](docs/images/deployment_architecture.png)
