@@ -22,5 +22,7 @@ kubectl label ns $NS istio-injection=enabled
 ## Install reporting helm chart
 helm -n $NS install reporting mosip/reporting -f values.yaml --wait --version $CHART_VERSION
 
+sleep 30s
+
 ## Install reporting-init helm chart
-helm -n $NS install reporting mosip/reporting-init -f values-init.yaml --wait --version $CHART_VERSION
+helm -n $NS install reporting-init mosip/reporting-init -f values-init.yaml --wait --version $CHART_VERSION

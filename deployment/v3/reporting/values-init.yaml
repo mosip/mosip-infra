@@ -8,8 +8,14 @@
 #   es_url:
 
 connectors_enabled:
+  master_doc_type: true
+  master_registration_center: true
+  audit_app_audit_log: true
   prereg_applicant_demographic: true
   prereg_applicant_document: true
   prereg_otp_transaction: true
   prereg_reg_appointment: true
   prereg_reg_available_slot: true
+  ida_auth_transaction: true
+  regprc_registration: true
+  regprc_registration_list: true
