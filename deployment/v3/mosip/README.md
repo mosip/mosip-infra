@@ -17,5 +17,4 @@ Install in the following sequence:
 * [Admin](admin/README.md)
 * [Mock ABIS](mock-abis/README.md)
 * [IDA](ida/README.md)
-* [Reporting](../reporting/README.md)
-
+* [Registration Client](regclient/README.md)
