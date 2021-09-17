@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 VERSION=`helm show values mosip/regclient | grep "^  version" `
 set $VERSION

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Example script to add machine type
 
 SERVER=https://api-internal.v3box1.mosip.net

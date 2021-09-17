@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 NS=activemq
 
 echo Create namespace

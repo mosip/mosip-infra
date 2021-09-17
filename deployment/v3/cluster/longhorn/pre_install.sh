@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ## Installs prerequisites for LongHorn. 
 NS=longhorn-system
 

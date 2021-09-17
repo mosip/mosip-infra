@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ## Point config to your cluster on which you are installing IAM.
 KC="--kubeconfig $HOME/.kube/iam_config" 
 NS=keycloak

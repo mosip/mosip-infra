@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs Reg Client Downloader
 NS=regclient
 CHART_VERSION=1.1.5

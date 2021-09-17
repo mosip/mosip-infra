@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs Softhsm for IDA
 NS=ida
 STORAGE_CLASS=gp2

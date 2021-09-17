@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Get fluentd.conf  and fluent.conf
 echo fluentd.conf: $(kubectl get secret --namespace cattle-logging-system rancher-logging-eks-fluentd-app -o jsonpath="{.data.fluentd\.conf}" | base64 --decode)
 echo ''

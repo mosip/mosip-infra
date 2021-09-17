@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 CLIENT_POD_NAME=kafka-client
 NS=reporting

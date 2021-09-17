@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls all PMS helm charts
 NS=pms
 while true; do

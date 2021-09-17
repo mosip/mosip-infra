@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs config-server
 NS=config-server
 CHART_VERSION=1.1.5

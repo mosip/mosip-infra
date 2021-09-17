@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Copy configmap and secret from one namespace to another
 # ./copy_cm_func.sh <resource> <configmap_name> <source_namespace> <destination_namespace> [source_cluster_config]
 # Parameters:

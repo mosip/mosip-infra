@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uninstalls Mock ABIS
 NS=abis
 while true; do

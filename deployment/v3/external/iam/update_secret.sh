@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # If you update admin password via console, call this script to update the secret in kubernetes.
 # Usage:
 # ./update_secrets.sh <new_admin_password>

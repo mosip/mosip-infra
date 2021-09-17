@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Example script to add machine specification
 
 SERVER=https://api-internal.sandbox.xyz.net

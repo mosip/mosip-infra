@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Install ingress gateways
 
 #NOTE: istioctl is specific to kubeconfig file. If you've more than one config files, please specify them like mentioned below:

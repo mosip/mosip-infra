@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs all kernel helm charts 
 NS=kernel
 CHART_VERSION=1.1.5

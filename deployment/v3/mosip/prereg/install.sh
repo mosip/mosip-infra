@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Installs all PreReg helm charts
 NS=prereg
 CHART_VERSION=1.1.5
