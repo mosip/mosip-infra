@@ -5,7 +5,6 @@ import traceback
 import argparse
 import csv
 from api import *
-from db import *
 sys.path.insert(0, '../')
 from utils import *
 
