@@ -1,4 +1,6 @@
 - name: Install pandas via pip3
-  pip3:
+  pip:
     name: pandas
+    state: latest
+    executable: pip3
   become: yes
