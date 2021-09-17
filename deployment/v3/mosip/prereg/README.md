@@ -6,13 +6,12 @@
 * Make sure this domain points to the public load balancer as PreReg UI is exposed to public.
 * Install
   ```
-  $ sh install.sh
+  sh install.sh
   ```
 
 ## Uninstall
-
 ```
-$ ./delete.sh
+sh delete.sh
 ```
 
 ## Test
