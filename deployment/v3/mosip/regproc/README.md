@@ -5,7 +5,7 @@ Install Kafka as given [here](../../external/kafka/README.md)
 
 ## Install
 ```
-$ ./install.sh
+$ sh install.sh
 ```
 ## To delete all modules
 ```
