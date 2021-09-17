@@ -4,5 +4,5 @@ The information of your Email and SMS is created here.  Create these configmaps 
 
 Run 
 ```sh
-./email.sh
+sh email.sh
 ```
