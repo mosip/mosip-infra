@@ -17,3 +17,10 @@ Run the script for all parameters needed:
 ```sh
 python keycloak_logout.py --help
 ```
+
+## Create/delete users
+Script to create users in keycloak. Refer to example `input.yaml`.
+```sh
+python create_users.py --help
+python delete_users.py --help
+```
