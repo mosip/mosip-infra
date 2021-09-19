@@ -101,6 +101,7 @@ class KeycloakSession:
           "email" : email,
           "firstName" : fname,
           "lastName" : lname,
+          "enabled": True
         }
         try:
             print('Creating user %s' % uname)
