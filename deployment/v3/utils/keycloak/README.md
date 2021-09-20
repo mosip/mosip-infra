@@ -1,6 +1,9 @@
 # Keycloak utilities
 
-Various Python based utilities for Keycloak.
+Various Python based utilities for Keycloak:
+1. Client sessions logout
+2. Create users
+3. Delete users
 
 ## Prerequisites
 1. Install python3.9 virtual env
