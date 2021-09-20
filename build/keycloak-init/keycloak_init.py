@@ -12,6 +12,7 @@ import traceback
 from keycloak import KeycloakAdmin
 from keycloak.exceptions import raise_error_from_response, KeycloakError
 from keycloak.connection import  ConnectionManager
+from keycloak.urls_patterns import URL_ADMIN_USER_REALM_ROLES
 
 class KeycloakSession:
     def __init__(self, realm, server_url, user, pwd, ssl_verify):
@@ -21,8 +22,6 @@ class KeycloakSession:
                                             realm_name=realm,
                                             verify=ssl_verify)
     def create_realm(self, realm):
-        ## TODO: have assgined a very large value to ssoSessionIdleTimeout. This needs to be reduced in the LTS
-        ## version
         payload = {
             "realm" : realm,
             "enabled": True,
@@ -32,9 +31,7 @@ class KeycloakSession:
             "accessTokenLifespan": 86400,
             "accessTokenLifespanForImplicitFlow": 900,
             "actionTokenGeneratedByAdminLifespan": 43200,
-            "actionTokenGeneratedByUserLifespan": 300,
-            "ssoSessionIdleTimeout": 15552000,
-            "ssoSessionMaxLifespan": 36000
+            "actionTokenGeneratedByUserLifespan": 300
         }
         try:
             self.keycloak_admin.create_realm(payload, skip_exists=False)
@@ -81,16 +78,16 @@ class KeycloakSession:
         if len(sa_roles) == 0:  # Skip the below step
             self.keycloak_admin.realm_name = 'master' # restore
             return
-        # Assign service account roles. Use default username that's created when service account is enabled
-        # for a client.
-        username =  'service-account-'  + client
+
         try:
             roles = [] # Get full role reprentation of all roles 
             for role in sa_roles:
                 role_rep = self.keycloak_admin.get_realm_role(role)
                 roles.append(role_rep)
-            user_id = self.keycloak_admin.get_user_by_name(username)
-            self.keycloak_admin.assign_realm_user_role(user_id[0]['id'], roles)
+            client_id = self.keycloak_admin.get_client_id(client)
+            user = self.keycloak_admin.get_client_service_account_user(client_id)
+            params_path = {"realm-name": self.keycloak_admin.realm_name, "id": user["id"]}
+            self.keycloak_admin.raw_post(URL_ADMIN_USER_REALM_ROLES.format(**params_path), data=json.dumps(roles))
         except:
             self.keycloak_admin.realm_name = 'master' # restore
             raise
@@ -104,10 +101,11 @@ class KeycloakSession:
           "email" : email,
           "firstName" : fname,
           "lastName" : lname,
+          "enabled": True
         }
         try:
             print('Creating user %s' % uname)
-            self.keycloak_admin.create_user(payload, skip_exists=False) # If exists, update. So don't skip
+            self.keycloak_admin.create_user(payload, False) # If exists, update. So don't skip
             user_id = self.keycloak_admin.get_user_id(uname)
             self.keycloak_admin.set_user_password(user_id, password, temporary=temp_flag)
         except KeycloakError as e:
@@ -125,7 +123,7 @@ class KeycloakSession:
        
 def args_parse(): 
    parser = argparse.ArgumentParser()
-   parser.add_argument('server_url', type=str, help='Full url to point to the server for auth: Eg. https://iam.xyz.com/auth/.  Note: slash is important')  
+   parser.add_argument('server_url', type=str, help='Keycloak server url. Eg. https://iam.xyz.com')
    parser.add_argument('user', type=str, help='Admin user')
    parser.add_argument('password', type=str, help='Admin password')
    parser.add_argument('input_yaml', type=str, help='File containing input for roles and clients in YAML format')
@@ -150,7 +148,8 @@ def main():
 
     server_url = server_url + '/auth/' # Full url to access api 
     try:
-        print('Create realms')
+        print('Create realms ')
+        print(server_url)
         ks = KeycloakSession('master', server_url, user, password, ssl_verify)
         for realm in values:
             r = ks.create_realm(realm)  # {realm : [role]}
