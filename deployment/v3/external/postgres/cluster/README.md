@@ -6,7 +6,7 @@
 ```
 * A random password will get assigned for `postgres` user if you have not specified a password.  The password may be obtained using following script:
 ```sh
-sh get_pwd.sh
+./get_pwd.sh
 ```
 ## Test
 * Make sure docker is running from machine you are testing.
@@ -19,7 +19,7 @@ docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U pos
 * Review `init_values.yaml` for  which DBs you would like to initialize.
 * Run init postgres helm chart to create necessary DB, users, roles etc:
 ```sh
-sh init_db.sh
+./init_db.sh
 ```
 Be aware of version of helm chart corresponding to mosip version.
 
