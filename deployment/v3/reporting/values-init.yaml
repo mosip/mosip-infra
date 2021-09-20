@@ -19,3 +19,7 @@ connectors_enabled:
   ida_auth_transaction: true
   regprc_registration: true
   regprc_registration_list: true
+
+kibana_enabled:
+  prereg: true
+  prereg_operations: false
