@@ -47,6 +47,31 @@ if [[ $dbConnChk  -eq 0 ]]; then
   exit 1;
 fi
 echo "${today} connected to $MOSIP_DB_NAME Database running on server $DB_SERVERIP:$DB_PORT "  | tee -a $LOG;
-######################################## Run SQL FILE #################################################
 
-PGPASSWORD=$DBUSER_PWD psql -h $DB_SERVERIP -p $DB_PORT  -d $MOSIP_DB_NAME -U $DB_USER   -a -f SQL_FILE_PATH 2>&1 | tee -a $LOG;
+######################################## DDL/DML FLAG CHECK ###########################################
+### If DML_FLAG is 0 (zero). this means not to perform DML operation. If DML_FLAG is 1 (one) then perform DML operation.
+### If DDL_FLAG is 0 (zero). this means not to perform DDL operation  If DML_FLAG is 1 (one) then perform DDL operation.
+
+if [[ $DML_FLAG -eq 1 ]]; then
+
+#### TRUNCATE TABLE ######################
+PGPASSWORD=$DBUSER_PWD psql -h $DB_SERVERIP -p $DB_PORT  -d $MOSIP_DB_NAME -U $DB_USER -c "TRUNCATE TABLE $TABLE_NAME cascade ;" | tee -a $LOG;
+
+#### IMPORT DATA FROM DML/CSV FILE #######
+PGPASSWORD=$DBUSER_PWD psql -h $DB_SERVERIP -p $DB_PORT  -d $MOSIP_DB_NAME -U $DB_USER -c "\copy $TABLE_NAME from $DML_FILE_PATH delimiter ',' DML header;" | tee -a $LOG;
+else
+  echo "DML Operation not performed; SKIPPING" | tee -a $LOG;
+fi
+
+
+if [[ $DDL_FLAG -eq 1 ]]; then
+
+#### DROP TABLE ######################
+PGPASSWORD=$DBUSER_PWD psql -h $DB_SERVERIP -p $DB_PORT  -d $MOSIP_DB_NAME -U $DB_USER -c "DROP TABLE IF EXISTS $MOSIP_DB_NAME.TABLE_NAME CASCADE;" | tee -a $LOG;
+
+#### Run DDL SQL FILE ################
+PGPASSWORD=$DBUSER_PWD psql -h $DB_SERVERIP -p $DB_PORT  -d $MOSIP_DB_NAME -U $DB_USER -a -f $DDL_FILE_PATH | tee -a $LOG;
+
+else
+  echo "DDL Operation not performed; SKIPPING" | tee -a $LOG;
+fi
