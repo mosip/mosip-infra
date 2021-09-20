@@ -13,7 +13,7 @@
 
 ## Install Elasticsearch, Kibana and Istio addons
 ```sh
-sh install.sh
+./install.sh
 ```
 
 ## Rancher FluentD system

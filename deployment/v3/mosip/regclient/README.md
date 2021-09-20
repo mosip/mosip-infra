@@ -8,7 +8,7 @@ The chart here installs a regclient downloader accessed over an http URL.
 * The url must point to your internal loadbalancer as regclient will typically not be open to public.
 * Install
 ```sh
-sh install.sh
+./install.sh
 ```
 ## Download
 The download URL will be available at `https://your-reglient-host`. Example: `https://reglient.sandbox.xyz.net`.

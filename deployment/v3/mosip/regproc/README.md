@@ -10,7 +10,7 @@ cd topic
 
 ## Install
 ```
-$ sh install.sh
+$ ./install.sh
 ```
 ## To delete all modules
 ```

@@ -7,5 +7,5 @@ Kafa is required only if you are installing Registration Processor.
 * Replication factor must not exceed number of nodes available.
 * Install
 ```
-$ sh install.sh
+$ ./install.sh
 ```

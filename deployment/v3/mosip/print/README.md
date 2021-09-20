@@ -5,5 +5,5 @@ This is reference (sample)  print service that will need to be customized for a 
 
 ## Install
 ```sh
-sh install.sh
+./install.sh
 ```

@@ -2,7 +2,7 @@
 
 ## Install 
 ```sh
-sh install.sh
+./install.sh
 ```
 * A random password will get assigned for `postgres` user if you have not specified a password.  The password may be obtained using following script:
 ```sh

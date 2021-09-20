@@ -2,5 +2,5 @@
 
 ## Install
 ```
-$ sh install.sh
+$ ./install.sh
 ```
