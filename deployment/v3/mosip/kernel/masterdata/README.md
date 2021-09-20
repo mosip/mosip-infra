@@ -15,7 +15,8 @@ TODO: Check if below are needed
 	```
 	pip3 install -r requirements.txt
 	```
-4. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
+4. Install `jq` command line utility
+5. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
 
 ## Run
 ```sh
