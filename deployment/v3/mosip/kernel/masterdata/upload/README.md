@@ -13,7 +13,8 @@ Masterdata is specified in xlsx files available in `xlsx` folder.  Update the xl
 	```
 	pip3 install -r requirements.txt
 	```
-4. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
+4. Install `jq` command line utility
+5. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
 
 ## Run
 Run the below command in python virtual environment.
