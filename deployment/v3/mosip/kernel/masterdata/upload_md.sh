@@ -5,6 +5,7 @@ if [ $# -ge 1 ]
   then
     export KUBECONFIG=$1
 fi
+
 read -p "Enter IAM username: " iam_user
 
 # This username is hardcoded in sql scripts
