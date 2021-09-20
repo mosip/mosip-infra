@@ -35,7 +35,7 @@ keycloak:
 ## Secret change
 In case you change admin password directly from console, then update the secret as well:
 ```
-$ sh update_secret.sh <admin new password>
+$ ./update_secret.sh <admin new password>
 ```
 You may get the current admin password:
 ```
@@ -72,7 +72,7 @@ TODO: The keycloak docker version in `values.yaml` is an older version as the ve
 ## Keycloak Init
 To populate base data of MOSIP, run Keycloak Init job:
 ```
-$ sh keycloak_init.sh
+$ ./keycloak_init.sh
 ```
 
 ## Server URL
