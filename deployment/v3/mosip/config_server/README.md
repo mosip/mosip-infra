@@ -8,7 +8,7 @@ Config server serves all properties required for mosip modules.  This must be in
 * Update IAM kubeconfig file in `copy_cm.sh` and `copy_secrets.sh`
 * Install
 ```sh
-sh install.sh
+./install.sh
 ```
 
 

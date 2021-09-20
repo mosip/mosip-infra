@@ -6,7 +6,7 @@ Unlike real ABIS we run mock abis inside the cluster itself.  The same connects 
 NOTE: Install mock abis **after** installing [Config Server](../mosip/config_server/README.md)
 ## Install
 ```sh
-sh install.sh
+./install.sh
 ```
 
 

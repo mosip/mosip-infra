@@ -39,7 +39,7 @@ $ sh update_secret.sh <admin new password>
 ```
 You may get the current admin password:
 ```
-$ sh get_pwd.sh
+$ ./get_pwd.sh
 ```
 ## Rancher integration
 

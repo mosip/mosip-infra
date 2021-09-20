@@ -4,7 +4,7 @@ ClamAV is open source antivirus software. We provide a helm chart to install Cla
 
 ## Install
 ```sh
-sh install.sh
+./install.sh
 ```
 
 
