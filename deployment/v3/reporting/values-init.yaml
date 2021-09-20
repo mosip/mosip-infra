@@ -6,6 +6,7 @@
 #   # if this is not false it will directly take pass from this variable, else it will take from db_pass_secretref
 #   db_pass_direct:
 #   es_url:
+#   kibana_url:
 
 connectors_enabled:
   master_doc_type: true

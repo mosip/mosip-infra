@@ -44,6 +44,9 @@ cd /kibana_saved_objects
 EXTENSION=".ndjson"
 kib_list=(*.ndjson)
 
+# BIG TODO: The following lines while importing objects, the api call doesnt take care if there is a clash with previous objects with same id
+# Check if that is a problem
+
 for file in "${kib_list[@]}" ; do
   fname=$(basename $file $EXTENSION)
   fname=${fname#*.}
@@ -51,7 +54,7 @@ for file in "${kib_list[@]}" ; do
   if [ "${!fname}" = "true" ] ; then
     echo -e "\n>> $file\n"
     sed -i "s/___DB_PREFIX_INDEX___/$DB_PREFIX_INDEX/g" $file
-    curl -XPOST $KIBANA_URL/api/saved_objects/_import?createNewCopies=true -H "kbn-xsrf: true" --form file=@$file
+    curl -XPOST $KIBANA_URL/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@$file
     sleep 10s
   fi
 done
@@ -68,7 +71,7 @@ for dir in "${dir_list[@]}" ; do
   for file in "${kib_list[@]}" ; do
     echo -e "\n>> $file\n"
     sed -i "s/___DB_PREFIX_INDEX___/$DB_PREFIX_INDEX/g" $file
-    curl -XPOST $KIBANA_URL/api/saved_objects/_import?createNewCopies=true -H "kbn-xsrf: true" --form file=@$file
+    curl -XPOST $KIBANA_URL/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@$file
     sleep 10s
   done
   unset kib_list
