@@ -6,4 +6,5 @@ gitRepo:
   private: false
   ## User name of user who has access to the private repo. Ignore for public repo
   username: ""
+  ## Encode the github access token into base64 
   token: ""
