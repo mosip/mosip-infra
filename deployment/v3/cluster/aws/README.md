@@ -24,15 +24,16 @@ Install following command line utilities:
 ## Helm repositories
 Add the following Helm repos:
 ```sh
-helm repo add bitnami https://charts.bitnami.com/bitnam
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add mosip https://mosip.github.io/mosip-helm
 ```
 
 ## Global configmap
-* Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
-* Update the domain names in `../global_configmap.yaml` and run
+* `cd ../`
+* Copy `global_configmap.yaml.sample` to `global_configmap.yaml`  
+* Update the domain names in `global_configmap.yaml` and run
 ```sh
-kubectl apply -f ../global_configmap.yaml
+kubectl apply -f global_configmap.yaml
 ```
 ## Create using Rancher
 You can also create cluster on Cloud using the Rancher console.  Refer to Rancher documentation.
