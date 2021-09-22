@@ -24,7 +24,7 @@ Install following command line utilities:
 ## Helm repositories
 Add the following Helm repos:
 ```sh
-helm repo add bitnami https://charts.bitnami.com/bitnam
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo add mosip https://mosip.github.io/mosip-helm
 ```
 

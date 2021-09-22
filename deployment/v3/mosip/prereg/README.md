@@ -38,3 +38,10 @@ On a browser open  `https://<prereg ui domain>/pre-registration-ui/`. Example `h
   ```
   kubectl apply -n prereg -f rate-control-envoyfilter.yaml
   ```
+
+## Troubleshooting
+- If the pre-registration UI doesn't load, run the following comamnd 
+ ```
+ kubectl label ns prereg istio-injection=disabled --overwrite
+ ```
+  Restart pre-registration services

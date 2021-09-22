@@ -16,6 +16,8 @@ $ helm repo add mosip https://mosip.github.io/mosip-helm
 $ helm repo update
 $ helm -n activemq install activemq mosip/activemq-artemis -f values.yaml
 ```
+* **Master/slave**:  Note that after successful installation you will see Artemis master pod in `2/2` state while slave pod will continue to be in `1/2` state.  This is the high-availability master-slave configuration.  If master fails, the slave will become `2/2` receiving traffic from Artemis service and vice-a-versa.  You will see "readiness probe failed" message for the slave pod - this is normal and expected.
+
 ## Web console
 * Console url: `https://activemq.your-domain.com`
 * Default username: `artemis`
