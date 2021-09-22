@@ -1,5 +1,6 @@
 #!/bin/sh
-# 
+# Run in python virtual env
+# Iam user is informational - this name gets stored in the DB.
 read -p "Enter IAM username: " iam_user
 
 # This username is hardcoded in sql scripts
@@ -14,7 +15,7 @@ while true; do
       then
         echo Uploading ..
         cd lib
-        python3 upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS
+        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS
         break
       else
         break
