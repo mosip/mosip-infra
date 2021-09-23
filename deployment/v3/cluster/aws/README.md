@@ -75,6 +75,7 @@ kubectl -n istio-system get svc
 kubectl -n istio-system get svc
 ```
 * Enable Proxy Protocol v2 on target groups.
+* Make sure all subnets are included in Availabilty Zones for the LB.  Description --> Availability Zones --> Edit Subnets
 
 The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed on LB).
 
