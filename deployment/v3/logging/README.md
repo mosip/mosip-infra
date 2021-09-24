@@ -14,7 +14,7 @@
 ```
 http://elasticsearch-master:9200 
 ```
-Note :  Make sure that you select output as "Elastic search", Target as "http",  Host as "elasticsearch-master" and port as 9200.
+Note :  Make sure that you select output as "Elasticsearch", Target as "http",  Host as "elasticsearch-master" and port as 9200.
 
 * Set ClusterFlow Filter with `filter.yaml`.   Copy the contents of filter.yaml into the clusterflow Filters (after clearing the default content)
 * Set the Outputs within the Cluster Flow as the name of the ClusterOutputs.
