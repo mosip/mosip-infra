@@ -104,16 +104,13 @@ Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/REA
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
 
 ## Cluster management
-Import cluster into Rancher and assign access rights users in IAM (Keycloak)
-
-## Increase/delete nodes
-In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
-
-## Register the cluster with Rancher
 * Login as admin in Rancher console 
 * Configure your cloud credentials
 * Add this cluster to Rancher  
 * Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
+
+## Increase/delete nodes
+In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
 
 ## Troubleshooting
 * **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.
