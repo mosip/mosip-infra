@@ -6,7 +6,8 @@
 * Kibana connects to Elasticsearch. 
 *
 ## Install Elasticsearch, Kibana and Istio addons
-```sh ./install.sh
+```sh
+./install.sh
 ```
 
 ## Rancher FluentD system
