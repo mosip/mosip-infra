@@ -1,9 +1,7 @@
 # Logging
 
 ## Kibana
-* Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
-* Review the settings in `kibana_values.yaml`.  Set `ingress.hostname`.
-* Kibana connects to Elasticsearch. 
+Kibana connects to Elasticsearch. Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
 
 ## Install Elasticsearch, Kibana and Istio addons
 ```sh
