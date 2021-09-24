@@ -104,7 +104,10 @@ Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/REA
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
 
 ## Cluster management
-Import cluster into Rancher and assign access rights users in IAM (Keycloak)
+* Login as admin in Rancher console 
+* Configure your cloud credentials
+* Add this cluster to Rancher  
+* Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
 
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
