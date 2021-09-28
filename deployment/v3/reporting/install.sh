@@ -1,6 +1,10 @@
 #!/bin/sh
 ## This script install all required components for reporting framework.
 
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 ## Variables
 NS=reporting
 CHART_VERSION=1.2.0

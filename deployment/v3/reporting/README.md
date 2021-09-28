@@ -15,31 +15,103 @@ Reference reporting framework for real-time streaming data and visualization.
 - It is assumed that Elasticsearch and Kibana are already installed in the cluster.
 - Assumed Postgres is already installed with `extended.conf` as extended config.
 
-#### 2. Install Kafka, Zookeeper, Debezium-Connector, Elasticsearch-Connector
+#### 2. Install
 
+- The `install.sh` script installs all the following components:
+	- Debezium Connector Deployment (with `reporting` helm chart)
+	- Elasticsearch Conenctor Deployment (with `reporting` helm chart)
+	- Can Also install kafka+zookeper (optional) (with `reporting` helm chart)
+	- Can Also install elasticsearch+kibana (optional) (with `reporting` helm chart)
+	- The Connectors between debezium and postgres (with `reporting-init` helm chart)
+	- The Connectors between kafka and elasticsearch (with `reporting-init` helm chart)
+- How to configure the installation:
+	- Edit the `values.yaml` file. This file is the configuration for reporting helm chart.
+		- In this, configure whether or not to install kafka+zookeeper/elasticsearch+kibana. Or configure the debezium-connect-deployment/es-connect-deployment, etc.
+	- Edit the `values-init.yaml` file. This file is the configuration for reporting-init helm chart.
+		- In this, configure db_hostname,db_port,es_url,db_username, db_pass whether to take from secret or directly, etc. Also configure what es-connectors to install and what dbs and tables that debezium has to connect to kafka, etc.
+- How to install:
 ```
-$ KUBECONFIG="<kube-config-file>" sh install.sh
+$ ./install.sh <kube-config-file>
+```
+- NOTE: for the db_user use superuser/`postgres` for now, because any other user would require the db_ownership permission, create permission & replication permission. (TODO: solve the problems when using a different user.)
+- NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
+
+#### 3. Installing AdditionaL Connectors
+This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
+
+- Note: Both the following methods will not add additional tables of existing db to debezium. (Example: it wont add `prereg.otp_transaction`, if other prereg tables have been added before) For this, one will have to edit that db's existing debezium connector manually.
+
+###### Method 1:
+
+- Put the new elasticsearch connectors in one folder.
+	- Create a configmap with for this folder, using:
+	```
+	$ kubectl create configmap <conf-map-name> -n reporting --from-file=<folder-path>
+	```
+	- Edit in values-init.yaml, to use the above configmap:
+	```
+	es_kafka_connectors:
+		existingConfigMap: <conf-map-name>
+	```
+- Edit in values-init.yaml, the debezium_connectors for new dbs and tables. Or disable if not required.
+	- Can also use a custom debezium connector using the following. (Not recommended)
+	- Create a configmap with custom debezium connector:
+	```
+	$ kubectl create configmap <conf-map-name> -n reporting --from-file=<path-for-debez-connector>
+	```
+	- Edit in values-init.yaml, to use the above configmap:
+	```
+	debezium_connectors:
+		existingConfigMap: <conf-map-name>
+	```
+- Install reporting-init again. (First delete any previously completed instance. This wont affect the cluster/installation)
+```
+$ helm -n reporting delete reporting-init
+$ helm -n reporting install reporting-init mosip/reporting-init -f values-init.yaml
 ```
 
-#### 3. Establish Connection/Pipeline
-After all components are installed, for every db/table that is to be connected/synced to elasticsearch:
-- Edit the `./create_connector_api_calls.sample` file, accordingly. Edit only the lines, in the beginning, that are marked to be edited. Need not edit the rest.
-- After editing and renaming the file, Run the following;
+###### Method 2 (manually):
+
+- Edit the `./sample_connector.api` file, accordingly. And run the following;
 ```
-$ KUBECONFIG="<kube-config-file>" ./run_connect_api.sh create_connector_api_calls
+$ ./run_connect_api.sh sample_connector.api <kube-config-file>
 ```
-- NOTE:
-	- The db user used in the connector has to have 'REPLICATION' permission (or 'SUPERUSER' permission) set in the role, for debezium to capture.
+
+## Installing Kibana Dashboards using the script
+
+- The dashboards in the `ref_kibana_saved_objects` folder can be installed manually from the ui.
+- Or use the script, for each dashboard.
+	```
+	$ ./install_kibana_object.sh <file_name> <replace_name>
+	```
+	- The 2nd argument is optional. It replaces this string `___DB_PREFIX_INDEX___` with this 2nd argument, inside the ndjson file.
+	- Give a unique name in this argument, for this set of dashboards.
 
 ## Cleanup/Uninstall
-- First run the delete api call, which deletes the connectors. Then to uninstall everything, delete the namespace.
+
+- Delete the reporting components
 ```
-$ KUBECONFIG="<kube-config-file>" ./run_connect_api.sh delete_connector_api_calls
-$ KUBECONFIG="<kube-config-file>" kubectl delete ns reporting
+$ helm delete reporting-init -n reporting
+$ helm delete reporting -n reporting
+$ kubectl delete ns reporting
 ```
-- Cleanup:
-	- The delete api call is not deleting the replication slot in database created by debezium, if the user doesnt have superuser permissions. So will have to login to the db, and manually delete the replication slot in that case. TODO: look for better alternative.
+- Postgres Cleanup
+	- List replication replication slots.
 	```
-	postgres=# select pg_drop_replication_slot('debezium');
+	postgres=# select * from pg_replication_slots;
 	```
-	- Also, if necessary will have to manually delete the new indices created in elasticsearch.
+	- Delete each of the above slots.
+	```
+	postgres=# select pg_drop_replication_slot('<slot_name>');
+	```
+	- Go to each database, and drop publication.
+	```
+	postgres=# \c <db>
+	postgres=# select * from pg_publication;
+	postgres=# drop publication <pub_name>;
+	```
+- Kafka Cleanup
+	- It is recommended to cleanup all topics related to reporting in kafka, as the data will anyway be there in db/elasticsearch
+	- Delete all the relavent topics and the debezium and es kafka connectors' `status`, `offset` and `config` topics.
+- Elasticsearch and Kibana Cleanup
+	- One can delete the es indices, and delete the dashboards from kibana from the ui, if required.
