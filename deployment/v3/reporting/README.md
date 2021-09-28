@@ -21,8 +21,8 @@ Reference reporting framework for real-time streaming data and visualization.
   - `reporting` Helm chart:
     - Debezium-Kafka Connector 
     - Elasticsearch-Kafka Connector 
-    - Kafka+Zookeper (optional) 
-    - Elasticsearch & Kibana (optional)
+    - Kafka+Zookeeper _(optional)_
+    - Elasticsearch & Kibana _(optional)_
   - `reporting-init` Helm chart:
     - The Connectors between debezium and postgres 
     - The Connectors between kafka and elasticsearch 
