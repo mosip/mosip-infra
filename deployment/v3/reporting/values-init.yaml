@@ -9,7 +9,6 @@
 #   kibana_url:
 
 debezium_connectors:
-
   enabled: true
   delay_between_connectors: "20s"
   dbs:

@@ -32,4 +32,7 @@ echo "Waiting for helm chart to install"
 sleep 30s
 
 echo "Installing reporting-init helm"
-helm -n $NS install reporting-init mosip/reporting-init -f values-init.yaml --wait --version $CHART_VERSION
+INSTALL_NAME=$(kubectl get cm global -o jsonpath={.data.installation-name})
+read -p "Give the installation name: (default: $INSTALL_NAME) " TO_REPLACE
+TO_REPLACE=${TO_REPLACE:-$INSTALL_NAME}
+helm -n $NS install reporting-init mosip/reporting-init -f values-init.yaml --set base.db_prefix=$TO_REPLACE --wait --version $CHART_VERSION
