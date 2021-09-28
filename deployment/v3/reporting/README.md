@@ -17,7 +17,7 @@ Reference reporting framework for real-time streaming data and visualization.
 
 #### 2. Install
 
-- The `install.sh` script installs all the following components:
+The `install.sh` script installs all the following components:
   - `reporting` Helm chart:
     - Debezium Kafka Connect
     - Elasticsearch Kafka Connect 
@@ -26,18 +26,16 @@ Reference reporting framework for real-time streaming data and visualization.
   - `reporting-init` Helm chart:
     - Debezium-Postgres connectors
     - Elasticsearch-Kafka connectors
-   
-- How to configure the installation:
-	- Edit the `values.yaml` file. This file is the configuration for reporting helm chart.
-		- In this, configure whether or not to install kafka+zookeeper/elasticsearch+kibana. Or configure the debezium-connect-deployment/es-connect-deployment, etc.
-	- Edit the `values-init.yaml` file. This file is the configuration for reporting-init helm chart.
-		- In this, configure db_hostname,db_port,es_url,db_username, db_pass whether to take from secret or directly, etc. Also configure what es-connectors to install and what dbs and tables that debezium has to connect to kafka, etc.
-- How to install:
+
+Install:
+- Inspect `values.yaml` and `values-init.yaml` and configure appropriately.  Leave as is for default for installation.
+- Run
+```sh
+./install.sh <kube-config-file>
 ```
-$ ./install.sh <kube-config-file>
-```
+
 - NOTE: for the db_user use superuser/`postgres` for now, because any other user would require the db_ownership permission, create permission & replication permission. (TODO: solve the problems when using a different user.)
-- NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
+- NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants to add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
 
 #### 3. Installing AdditionaL Connectors
 This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
