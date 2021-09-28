@@ -36,7 +36,7 @@ versions:
       datasync:
         'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5.2'
       captcha:
-        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.1.5.2'
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.5.3'
       ui:
         'prereg-ui': 'mosipid/pre-registration-ui:1.1.5.2'
       
