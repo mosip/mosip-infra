@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $# -lt 1 ] ; then
-  echo "First argument folder path to dashboards. Second argument kubeconfig file"
+  echo "Usage: ./load_kibana_dashboards.sh <dashboards folder> [kubeconfig file]"
   exit 1
 fi
 
@@ -19,13 +19,9 @@ TEMP_OBJ_FILE="/tmp/temp_kib_obj.ndjson"
 
 for file in $1/* ; do
   cp $file $TEMP_OBJ_FILE
-
-  if [ $# -ge 2 ] ; then
-    sed -i.bak "s/___DB_PREFIX_INDEX___/$TO_REPLACE/g" $TEMP_OBJ_FILE
-  fi
+  sed -i.bak "s/___DB_PREFIX_INDEX___/$TO_REPLACE/g" $TEMP_OBJ_FILE  
   echo ;
-  echo "Installing : $file"
+  echo "Loading : $file"
   curl -XPOST "https://$KIBANA_URL/api/saved_objects/_import" -H "kbn-xsrf: true" --form file=@$TEMP_OBJ_FILE
-
   rm $TEMP_OBJ_FILE "$TEMP_OBJ_FILE.bak"
 done
