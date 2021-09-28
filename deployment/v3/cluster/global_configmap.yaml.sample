@@ -15,6 +15,7 @@ metadata:
   name: global
   namespace: default
 data:
+  installation-name: sandbox
   mosip-api-host: api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-prereg-host: prereg.sandbox.xyz.net
