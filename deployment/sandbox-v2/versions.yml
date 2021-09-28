@@ -42,8 +42,8 @@ versions:
       
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipid/registration-client:1.1.5.4'
-      version: 1.1.5.4
+        'reg-client-downloader': 'mosipdev/registration-client:1.1.5.5'
+      version: 1.1.5.5-SNAPSHOT
 
     regproc:
       camel:
