@@ -37,7 +37,7 @@ Install:
 - NOTE: for the db_user use superuser/`postgres` for now, because any other user would require the db_ownership permission, create permission & replication permission. (TODO: solve the problems when using a different user.)
 - NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants to add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
 
-#### 3. Installing AdditionaL Connectors
+#### 3. Installing addtional connectors
 This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
 
 - Note: Both the following methods will not add additional tables of existing db to debezium. (Example: it wont add `prereg.otp_transaction`, if other prereg tables have been added before) For this, one will have to edit that db's existing debezium connector manually.
@@ -88,7 +88,7 @@ $ ./run_connect_api.sh sample_connector.api <kube-config-file>
 	- The 2nd argument is optional. It replaces this string `___DB_PREFIX_INDEX___` with this 2nd argument, inside the ndjson file.
 	- Give a unique name in this argument, for this set of dashboards.
 
-## Cleanup/Uninstall
+## Cleanup/uninstall
 
 - Delete the reporting components
 ```
