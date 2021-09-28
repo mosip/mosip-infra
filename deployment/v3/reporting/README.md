@@ -18,12 +18,15 @@ Reference reporting framework for real-time streaming data and visualization.
 #### 2. Install
 
 - The `install.sh` script installs all the following components:
-	- Debezium Connector Deployment (with `reporting` helm chart)
-	- Elasticsearch Conenctor Deployment (with `reporting` helm chart)
-	- Can Also install kafka+zookeper (optional) (with `reporting` helm chart)
-	- Can Also install elasticsearch+kibana (optional) (with `reporting` helm chart)
-	- The Connectors between debezium and postgres (with `reporting-init` helm chart)
-	- The Connectors between kafka and elasticsearch (with `reporting-init` helm chart)
+  - `reporting` Helm chart:
+    - Debezium-Kafka Connector 
+    - Elasticsearch-Kafka Connector 
+    - Kafka+Zookeper (optional) 
+    - Elasticsearch & Kibana (optional)
+  - `reporting-init` Helm chart:
+    - The Connectors between debezium and postgres 
+    - The Connectors between kafka and elasticsearch 
+   
 - How to configure the installation:
 	- Edit the `values.yaml` file. This file is the configuration for reporting helm chart.
 		- In this, configure whether or not to install kafka+zookeeper/elasticsearch+kibana. Or configure the debezium-connect-deployment/es-connect-deployment, etc.
