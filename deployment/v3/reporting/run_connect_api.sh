@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ $# -ge 2 ] ; then
+  export KUBECONFIG=$2
+fi
+
 CLIENT_POD_NAME=kafka-client
 NS=reporting
 API_CALL=$(cat $1)

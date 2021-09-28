@@ -17,29 +17,6 @@ ES_INDICES=$(echo $DB_TABLES | sed -E "s/([^,]+)/$DB_PREFIX_INDEX.\1/g")
 
 curl \
   -X POST \
-  http://$DEBEZ_CONN_URL/connectors \
-  -H 'Content-Type: application/json' \
-  -d \
-  '{
-      "name": '\"$CONN_NAME\"',
-      "config": {
-          "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
-          "plugin.name": "pgoutput",
-          "publication.autocreate.mode": "filtered",
-          "slot.name": '\"debezium_$CONN_NAME\"',
-          "publication.name": '\"dbz_pub_$DB_PREFIX_INDEX\"',
-          "database.hostname": '\"$DB_HOSTNAME\"',
-          "database.port": '\"$DB_PORT\"',
-          "database.user": '\"$DB_USER\"',
-          "database.password": '\"$DB_PASS\"',
-          "database.dbname": '\"$DB_NAME\"',
-          "database.server.name": '\"$DB_PREFIX_INDEX\"',
-          "table.include.list": '\"$DB_TABLES\"'
-      }
-}';
-echo ;
-curl \
-  -X POST \
   http://$ES_CONN_URL/connectors \
   -H 'Content-Type: application/json' \
   -d \

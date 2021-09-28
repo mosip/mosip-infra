@@ -1,5 +1,5 @@
 # these following will be taken from env
-# If planning on running this manually .. set the following vars also
+# If planning on running this manually (or with run_connect_api.sh) .. set the following vars also
 #DB_USER=
 #DB_PORT=
 #DB_HOSTNAME=
@@ -7,7 +7,7 @@
 #DB_PREFIX_INDEX=
 #ES_URL=
 
-CONN_NAME="audit_$DB_PREFIX_INDEX"; # change this.. give unique name for each db/table
+CONN_NAME="audit_$DB_PREFIX_INDEX"; # change this.. give unique name for each connection
 
 DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
 ES_CONN_URL='es-connect.reporting:8083'; # needn't change .. this is the ES-connector service name
@@ -22,12 +22,12 @@ curl \
   -H 'Content-Type: application/json' \
   -d \
   '{
-      "name": '\"$CONN_NAME\"',
+      "name": '\"$DB_NAME\"',
       "config": {
           "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
           "plugin.name": "pgoutput",
           "publication.autocreate.mode": "filtered",
-          "slot.name": '\"debezium_$CONN_NAME\"',
+          "slot.name": '\"debezium_"$DB_NAME"_"$DB_PREFIX_INDEX"\"',
           "publication.name": '\"dbz_pub_$DB_PREFIX_INDEX\"',
           "database.hostname": '\"$DB_HOSTNAME\"',
           "database.port": '\"$DB_PORT\"',
