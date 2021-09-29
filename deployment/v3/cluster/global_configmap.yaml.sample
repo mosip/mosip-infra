@@ -8,6 +8,7 @@
 ##   mosip-kibana-host: Internal LB
 ##   mosip-regclient-host: Internal LB
 ##   mosip-admin-host: Internal LB
+##   mosip-kafka-host: Internal LB
 
 apiVersion: v1
 kind: ConfigMap
@@ -24,4 +25,5 @@ data:
   mosip-regclient-host: regclient.sandbox.xyz.net
   mosip-admin-host: admin.sandbox.xzy.net
   mosip-minio-host: minio.sandbox.xyz.net
+  mosip-kafka-host: kafka.sandbox.xyz.net
   is_glowroot_env: absent
