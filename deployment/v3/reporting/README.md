@@ -40,7 +40,7 @@ Various dashboards are available in `kibana_dashboards` folder.  Upload all of t
 ```
 The dashboards may also be uploaded manually using Kibana UI.
 
-## 3. Installing addtional connectors
+## Installing addtional connectors
 This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
 
 - Note: Both the following methods will not add additional tables of existing db to debezium. (Example: it wont add `prereg.otp_transaction`, if other prereg tables have been added before) For this, one will have to edit that db's existing debezium connector manually.
