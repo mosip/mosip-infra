@@ -54,4 +54,3 @@ Following install sequence is recommended:
 * [Logging](logging/README.md)
 * [MOSIP external components](external/README.md)
 * [MOSIP core modules](mosip/README.md)
-* [Reporting](reporting/README.md)
