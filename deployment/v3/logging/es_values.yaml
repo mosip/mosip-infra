@@ -1,9 +1,19 @@
-master:
-  persistence:
-    enabled: false
-    storageClass: null
+global:
+  kibanaEnabled: true
 data:
+  heapSize: 728m
   persistence:
     enabled: false
-    storageClass: null
-
+  resources:
+    requests:
+      memory: 512Mi
+master:
+  heapSize: 1024m
+  persistence:
+    enabled: false
+  resources:
+    requests:
+      memory: 728Mi
+kibana:
+  persistence:
+    enabled: false

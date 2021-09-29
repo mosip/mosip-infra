@@ -8,10 +8,7 @@ spec:
   gateways:
     - kibana
   http:
-  - match:
-      - uri:
-          prefix: "/"
-    route:
+  - route:
     - destination:
         host: {{ .Values.installName }}
         port:
