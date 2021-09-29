@@ -1,23 +1,19 @@
-## Reporting framework
+# Reporting framework
 
-### Introduction
+## Introduction
 Reference reporting framework for real-time streaming data and visualization.  
-
-#### High level architecture
 
 ![](../docs/images/reporting_architecture.png)
 
 
 ## Installation
 
-#### 1. Prerequisites
-
+### Prerequisites
 - It is assumed that Elasticsearch and Kibana are already installed in the cluster.
 - Assumed Postgres is already installed with `extended.conf` as extended config.
 
-#### 2. Install
-
-The `install.sh` script installs all the following components:
+###  Install
+The `install.sh` script installs the following components:
   - `reporting` Helm chart:
     - Debezium Kafka Connect
     - Elasticsearch Kafka Connect 
@@ -27,8 +23,8 @@ The `install.sh` script installs all the following components:
     - Debezium-Postgres connectors
     - Elasticsearch-Kafka connectors
 
-Install:
-- Inspect `values.yaml` and `values-init.yaml` and configure appropriately.  Leave as is for default for installation.
+**Install**:
+- Inspect `values.yaml` and `values-init.yaml` and configure appropriately.  Leave as is for default installation.
 - Run
 ```sh
 ./install.sh <kube-config-file>
@@ -37,12 +33,19 @@ Install:
 - NOTE: for the db_user use superuser/`postgres` for now, because any other user would require the db_ownership permission, create permission & replication permission. (TODO: solve the problems when using a different user.)
 - NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants to add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
 
-#### 3. Installing addtional connectors
+## Upload Kibana dashboards
+Various dashboards are available in `kibana_dashboards` folder.  Upload all of them with the following script:
+```sh
+./load_kibana_dashboards.sh
+```
+The dashboards may also be uploaded manually using Kibana UI.
+
+## Installing addtional connectors
 This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
 
 - Note: Both the following methods will not add additional tables of existing db to debezium. (Example: it wont add `prereg.otp_transaction`, if other prereg tables have been added before) For this, one will have to edit that db's existing debezium connector manually.
 
-###### Method 1:
+### Method 1:
 
 - Put the new elasticsearch connectors in one folder.
 	- Create a configmap with for this folder, using:
@@ -71,22 +74,13 @@ $ helm -n reporting delete reporting-init
 $ helm -n reporting install reporting-init mosip/reporting-init -f values-init.yaml
 ```
 
-###### Method 2 (manually):
+### Method 2 (manually):
 
 - Edit the `./sample_connector.api` file, accordingly. And run the following;
 ```
 $ ./run_connect_api.sh sample_connector.api <kube-config-file>
 ```
 
-## Installing Kibana Dashboards using the script
-
-- The dashboards in the `ref_kibana_saved_objects` folder can be installed manually from the ui.
-- Or use the script, for each dashboard.
-	```
-	$ ./install_kibana_object.sh <file_name> <replace_name>
-	```
-	- The 2nd argument is optional. It replaces this string `___DB_PREFIX_INDEX___` with this 2nd argument, inside the ndjson file.
-	- Give a unique name in this argument, for this set of dashboards.
 
 ## Cleanup/uninstall
 
