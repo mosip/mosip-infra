@@ -3,14 +3,16 @@ global:
 data:
   heapSize: 728m
   persistence:
-    enabled: false
+    enabled: true
+    size: 16Gi
   resources:
     requests:
       memory: 512Mi
 master:
   heapSize: 1024m
   persistence:
-    enabled: false
+    enabled: true
+    size: 16Gi
   resources:
     requests:
       memory: 728Mi
