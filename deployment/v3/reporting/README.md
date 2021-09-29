@@ -13,7 +13,7 @@ Reference reporting framework for real-time streaming data and visualization.
 - Assumed Postgres is already installed with `extended.conf` as extended config.
 
 ###  Install
-The `install.sh` script installs all the following components:
+The `install.sh` script installs the following components:
   - `reporting` Helm chart:
     - Debezium Kafka Connect
     - Elasticsearch Kafka Connect 
@@ -33,15 +33,12 @@ The `install.sh` script installs all the following components:
 - NOTE: for the db_user use superuser/`postgres` for now, because any other user would require the db_ownership permission, create permission & replication permission. (TODO: solve the problems when using a different user.)
 - NOTE: before installing, `reporting-init` debezium configuration, make sure to include all tables under that db beforehand. If one wants to add another table from the same db, it might be harder later on. (TODO: develop some script that adds additional tables under the same db)
 
-## Install Kibana dashboards
-
-### Manual
-The dashboards in the `kibana_dashboards` folder can be installed manually from Kibana UI.
-
-### Script
+## Upload Kibana dashboards
+Various dashboards are available in `kibana_dashboards` folder.  Upload all of them with the following script:
 ```sh
 ./load_kibana_dashboards.sh
 ```
+The dashboards may also be uploaded manually using Kibana UI.
 
 ## 3. Installing addtional connectors
 This section is when one wants to install additional connectors that are not present in the reference connectors (or) if one wants to install custom connectors.
