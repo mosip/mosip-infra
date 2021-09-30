@@ -11,7 +11,6 @@ COPY ./repos/id-repository/db_scripts .
 COPY ./repos/id-authentication/db_scripts .
 COPY ./repos/partner-management-services/db_scripts .
 COPY ./repos/admin-services/db_scripts .
-COPY ./repos/websub/db_scripts .
 ENV MOSIP_DB_NAME=
 ENV DB_SERVERIP=
 ENV DB_PORT=5432
