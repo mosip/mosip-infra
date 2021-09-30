@@ -1,5 +1,7 @@
 image:
   repository: bitnami/keycloak
+  ## This tag works well.  Remove this line if you would like to pull the latest version
+  tag: 14.0.0-debian-10-r24
 service:
   type: ClusterIP
 
