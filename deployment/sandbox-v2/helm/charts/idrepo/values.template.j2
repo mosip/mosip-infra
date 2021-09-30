@@ -49,7 +49,7 @@ services:
     ports:
       containerPort: 8091
       servicePort: 80
-    ingressPath: /idrepository/v1/vid
+    ingressPath: /idrepository/v1/
     healthUrl: /idrepository/v1/actuator/health # TODO: Check this url. It does not have /vid
     podconfig:
       {{ podconfig.idrepo.vid | to_nice_yaml(indent=6) | indent(6) }}
