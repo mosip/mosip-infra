@@ -6,7 +6,6 @@ while true; do
     if [ $yn == "Y" ]
       then
         helm -n $NS delete elasticsearch
-        helm -n $NS delete mykibana
         break
       else
         break
