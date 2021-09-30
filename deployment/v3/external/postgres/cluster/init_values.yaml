@@ -41,6 +41,6 @@ databases:
   mosip_pms:
     enabled: true
 
-  mosip_websub:
+  mosip_hotlist:
     enabled: true
 
