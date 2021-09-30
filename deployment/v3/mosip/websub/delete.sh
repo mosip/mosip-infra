@@ -6,6 +6,7 @@ while true; do
     if [ $yn == "Y" ]
       then
         helm -n $NS delete websub
+        helm -n $NS delete websub-consolidator
         break
       else
         break

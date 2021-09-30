@@ -13,8 +13,6 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
-echo Copy secrets
-./copy_secrets.sh
-
 echo Installing Websub
-helm -n $NS install websub mosip/websub -f values.yaml --wait --version $CHART_VERSION
+helm -n $NS install websub mosip/websub --version $CHART_VERSION
+helm -n $NS install websub-consolidator mosip/websub-consolidator --version $CHART_VERSION
