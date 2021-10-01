@@ -29,7 +29,7 @@ echo Installing regproc-pktserver
 helm -n $NS install regproc-pktserver mosip/regproc-pktserver --version $CHART_VERSION
 
 echo Installing group1
-helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1.yaml --version $CHART_VERSION
+helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1_values.yaml --version $CHART_VERSION
 
 echo Installing group2
 helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION
