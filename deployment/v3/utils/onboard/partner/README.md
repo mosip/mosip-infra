@@ -8,6 +8,22 @@
 1. Map partner to policy
 1. Add MISP
 
+## Prerequisites
+1. Python3.9
+1. Set up python3.9 virtual env
+```sh
+mkdir ~/.venv
+python3.9 -m venv ~/.venv/partner
+```
+1. Switch to virtual env 
+```
+source ~/.venv/partner/bin/activate
+```
+1. Install required modules
+```sh
+pip install -r requirements.txt
+```
+
 ## Adding Auth Partner 
 1. Add auth partner `add_partner.py`
 1. Get api request key
@@ -29,7 +45,7 @@ python3 lib/approve_apikey_request.py $SERVER 498721 <user> <password>
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
-* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.  For registration devices specify DEVICE.
+* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-default.properties` file.  For registration devices specify DEVICE.
 * **app_id**: App Id from where certificate has to be pulled. Generally IDA.
 * **cert_source**: `internal/generated/provided`. Cert may be already inside mosip, or has been provided external or needs to be generated.
 * **overwrite**: Applicable with `cert_source==generated`. Whether to regenerate.

@@ -7,7 +7,7 @@
   "def": { 
       "dataSharePolicies": {
         "encryptionType": "Partner Based",
-        "shareDomain": "datashare-service",
+        "shareDomain": "datashare.datashare",
         "source": "ID Repository",
         "transactionsAllowed": "2",
         "typeOfShare": "direct",

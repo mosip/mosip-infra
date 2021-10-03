@@ -131,7 +131,7 @@
       "validForInMinutes": "30",
       "transactionsAllowed": "2",
       "encryptionType": "Partner Based",
-      "shareDomain": "datashare-service",
+      "shareDomain": "datashare.datashare",
       "source": "ID Repository"
     }
   }

@@ -59,7 +59,7 @@ class MosipSession:
         return token
 
     def add_policy_group(self, name, description):
-        url = '%s/v1/policymanager/policies/policies/policyGroup' % self.server
+        url = '%s/v1/policymanager/policies/group/new' % self.server
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
