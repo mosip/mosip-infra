@@ -8,7 +8,6 @@ while true; do
         helm -n $NS delete ida-keygen
         helm -n $NS delete ida-auth
         helm -n $NS delete ida-internal
-        helm -n $NS delete ida-kyc
         helm -n $NS delete ida-otp
         break
       else
