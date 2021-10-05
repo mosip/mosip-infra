@@ -1,6 +1,6 @@
 # Resident service
 
 ## Install
-```
-$ ./install.sh
+```sh
+./install.sh
 ```
