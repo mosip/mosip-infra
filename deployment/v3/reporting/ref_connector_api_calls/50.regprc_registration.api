@@ -44,26 +44,26 @@ curl \
 
           "transforms.tsconvert03.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert03.field": "latest_trn_dtimes",
-          "transforms.tsconvert03.seconds_type": "micro_sec",
+          "transforms.tsconvert03.input.type": "micro_sec",
 
           "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert04.field": "pkt_cr_dtimes",
-          "transforms.tsconvert04.seconds_type": "micro_sec",
+          "transforms.tsconvert04.input.type": "micro_sec",
 
           "transforms.tsconvert05.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert05.field": "cr_dtimes",
-          "transforms.tsconvert05.seconds_type": "micro_sec",
+          "transforms.tsconvert05.input.type": "micro_sec",
 
           "transforms.tsconvert06.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert06.field": "upd_dtimes",
-          "transforms.tsconvert06.seconds_type": "micro_sec",
+          "transforms.tsconvert06.input.type": "micro_sec",
 
           "transforms.tsconvert07.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert07.field": "del_dtimes",
-          "transforms.tsconvert07.seconds_type": "micro_sec",
+          "transforms.tsconvert07.input.type": "micro_sec",
 
           "transforms.tsconvert08.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert08.field": "resume_timestamp",
-          "transforms.tsconvert08.seconds_type": "micro_sec"
+          "transforms.tsconvert08.input.type": "micro_sec"
       }
 }';
