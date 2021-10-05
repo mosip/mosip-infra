@@ -1,6 +1,6 @@
 # MOSIP Core
 
-Install in the following sequence:
+Install in the following order:
 * [Docker secrets](docker_secrets/README.md)
 * [Prereg captcha](captcha/README.md)
 * [Config server](config_server/README.md)
