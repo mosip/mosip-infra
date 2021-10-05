@@ -292,7 +292,7 @@ databases:
   mosip_kernel:
     user: kerneluser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -301,7 +301,7 @@ databases:
   mosip_iam:
     user: iamuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_audit:
     user: audituser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -310,17 +310,17 @@ databases:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+#    release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_credential:
     user: credentialuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
@@ -328,11 +328,11 @@ databases:
   mosip_idrepo:
     user: idrepouser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
-    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
+#    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
   mosip_idmap:
     user: idmapuser
     sql_path: '{{repos.idrepo.dest}}/db_scripts'
-    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
+#    release_path: '{{repos.idrepo.dest}}/db_release_scripts'
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
@@ -352,7 +352,7 @@ databases:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.pms.dest}}/db_release_scripts'
+#    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_websub:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'

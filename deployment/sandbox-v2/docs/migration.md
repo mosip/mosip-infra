@@ -11,7 +11,7 @@ Below are the steps which are needed to be followed for migrating to the require
           ```
             upgrade:
             set: true  # accepts true or false value as per need.
-            version: 1.1.5 # version gto which upgrade is needed.
+            version: 1.1.5 # version to which upgrade is needed.
             type: release
           ```
 
@@ -23,6 +23,13 @@ Below are the steps which are needed to be followed for migrating to the require
 	- Steps to execute is given in respective DB section in Modular repositories. ``` eg. for mosip_master, mosip_websub check Commons ```
          OR
         - Execute the ``` postgres-init.yml ``` playbook after updating the upgrade section in ``` all.yml ``` (as mentioned in Infra change section).
+
+**NOTES: Below mentioned are the DB's which needs migration moving from 1.1.4.* to 1.1.5.*
+        - mosip_master
+        - mosip_regproc
+        - mosip_credential
+        - mosip_ida
+        - mosip_websub
 
 * Nginx changes
         - 1.1.5.* version has some changes for the below points so we need to redeploy nginx once after updating sandbox ```domain name``` in ```all.yml```.
@@ -55,6 +62,6 @@ In id-repository, for encryption of demographic data, uin, biometric data and do
 * mosip.idrepo.crypto.refId.demo-doc-data=demographic_data (for documents)
 * mosip.idrepo.crypto.refId.bio-doc-data=biometric_data (for biometrics)
 
-Hence, to proceed ahead, we can build a utility to migrate the data or mark the configurations as "" (blank).
-
+***NOTE: 
+```By default we are handling this scenerio in Id-repo with keymanager 1.1.5.5 fix which will allow us to still process and fetch details of the packets created prior to migration and encrypted only using master key. But we should still use this utility to decrypt the data using master key and re-encrypt and save in the DB after encrypting with master and reference keys.```
 
