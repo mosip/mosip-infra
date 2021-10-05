@@ -1,12 +1,12 @@
 # base:
-#   db_prefix:
-#   db_user:
-#   db_hostname:
-#   db_port:
+#   # db_prefix:
+#   # db_user:
+#   # db_hostname:
+#   # db_port:
 #   # if this is not false it will directly take pass from this variable, else it will take from db_pass_secretref
-#   db_pass_direct:
-#   es_url:
-#   kibana_url:
+#   # db_pass_direct:
+#   # es_url:
+#   # kibana_url:
 
 debezium_connectors:
   enabled: true
@@ -22,9 +22,10 @@ debezium_connectors:
     tables: "ida.auth_transaction"
   - name: "mosip_regprc"
     tables: "regprc.registration,regprc.registration_list"
+  - name: "mosip_idrepo"
+    tables: "idrepo.anonymous_profile"
 
 
 es_kafka_connectors:
-
   enabled: true
   delay_between_connectors: "10s"
