@@ -8,6 +8,7 @@ sys.path.insert(0, '../')
 from utils import *
 
 def upload_zk_cert(session, from_app_id, from_ref_id, to_app_id, to_ref_id):
+    myprint('Uploading ZK cert')
     myprint('Getting certificate from %s:%s' % (from_app_id, from_ref_id))
     r = session.get_ida_internal_cert(from_app_id, from_ref_id)
     myprint(r)
@@ -28,7 +29,7 @@ def upload_zk_cert(session, from_app_id, from_ref_id, to_app_id, to_ref_id):
 # Fetch cert from IDA and upload via partner management
 def upload_ca_cert(session, app_id, ref_id=None):
     # Get IDA root
-    myprint('Fetching and uploading %s cert' % app_id)
+    myprint('Fetching %s cert' % app_id)
     r = session.get_ida_internal_cert(app_id, ref_id)
     myprint(r)
     if len(r['errors']) != 0:
@@ -37,11 +38,12 @@ def upload_ca_cert(session, app_id, ref_id=None):
     cert = r['response']['certificate']
 
     # Upload IDA Root as CA cert for IDA partner
+    myprint('Uploading %s as CA cert' % app_id)
     r = session.upload_ca_certificate(cert, 'AUTH')
     myprint(r)
 
 def upload_partner_cert(session, partner_id, app_id, ref_id=None):
-    myprint('Fetching and uploading %s cert' % app_id)
+    myprint('Fetching partner cert for %s:%s' % (app_id, partner_id))
     r = session.get_ida_internal_cert(app_id, ref_id)
     myprint(r)
     if len(r['errors']) != 0:
@@ -49,6 +51,7 @@ def upload_partner_cert(session, partner_id, app_id, ref_id=None):
         return 1 
     cert = r['response']['certificate']
 
+    myprint('Uploading partner cert for %s' % app_id)
     r = session.upload_partner_certificate(cert, 'AUTH', partner_id)
     myprint(r)
 
@@ -61,6 +64,7 @@ def upload_to_keymanager(session, partner_id):
         return 1 
     cert = r['response']['certificateData']
 
+    myprint('Uploading signed cert for %s as Other domain cert' % partner_id)
     r = session.upload_other_domain_cert_to_keymanager('PARNTER', partner_id, cert)
     myprint(r)
 
@@ -86,15 +90,10 @@ def main():
         session = MosipSession(args.server, args.client, args.client_pwd, 'ida', ssl_verify=ssl_verify)
 
         upload_zk_cert(session, 'IDA', 'CRED_SERVICE', 'IDA', 'PUBLIC_KEY')
-
         upload_ca_cert(session, 'ROOT')
-
         upload_ca_cert(session, 'IDA')
-
         upload_partner_cert(session, 'mpartner-default-auth', 'IDA', 'mpartner-default-auth')
-  
         upload_to_keymanager(session, 'mpartner-default-auth')
- 
 
     except:
         formatted_lines = traceback.format_exc()
