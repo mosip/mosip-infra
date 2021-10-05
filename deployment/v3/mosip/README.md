@@ -18,3 +18,4 @@ Install in the following sequence:
 * [Mock ABIS](mock-abis/README.md)
 * [IDA](ida/README.md)
 * [Registration Client](regclient/README.md)
+* [Resident](resident/README.md)
