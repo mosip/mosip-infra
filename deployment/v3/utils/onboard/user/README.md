@@ -4,6 +4,21 @@ User onboarding is required for
 1. Admin (who operates the Admin dashboard)
 1. Registration officers (RO) who register residents at the registration center.:w
 
+## Prerequisites
+1. Python3.9
+1. Set up python3.9 virtual env
+```sh
+mkdir ~/.venv
+python3.9 -m venv ~/.venv/partner
+```
+1. Switch to virtual env 
+```
+source ~/.venv/partner/bin/activate
+```
+1. Install required modules
+```sh
+pip install -r requirements.txt
+```
 
 ## Admin onboarding
 1. Make sure a user is created in keycloak with GLOBAL_ADMIN and ZONAL_ADMIN roles
@@ -13,11 +28,15 @@ User onboarding is required for
 ```sh
 SERVER=https://api-internal.sandbox.xyz.net
 ```
-1. Run 
+
+## Map user to regcenter
+1. Run  
 ```sh
-python3 lib/map_user_zone.py $SERVER <user> <zone> <admin_user> <admin_pasword> <mosip-regproc-client password>
+python lib/map_user_regcenter.py --help
 ```
-1. To update mapping if it already exists, run:
+
+## Map user to zone
+1. Run  
 ```sh
-python3 lib/map_user_zone.py $SERVER <user> <zone> <admin_user> <admin_pasword> <mosip-regproc-client password> --update
+python lib/map_user_zone.py --help
 ```

@@ -60,11 +60,30 @@ class MosipSession:
         return token
 
     def map_user_to_reg_center(self, username, regcenter):
-        url = '%s/v1/masterdata/users/%s/eng/%s' % (self.server, username, regcenter)
+        url = '%s/v1/masterdata/usercentermapping' % self.server
+        ts = get_timestamp()
         cookies = {'Authorization' : self.token}
-        ## TODO: POST is buggy, so we use PUT for now
-        r = requests.put(url, cookies=cookies, verify=self.ssl_verify)
+        j = {
+          'id': 'string',
+          'version': '1.0',
+          'requesttime': ts,
+          'metadata': {},
+          'request': {
+            'id': username,
+            'name': username, # Full name may be passed here
+            'statusCode': 'ACT',
+            'regCenterId': regcenter,
+            'isActive': True,
+            'langCode': 'eng'
+          }
+        }
+        r = requests.post(url, json=j, cookies=cookies, verify=self.ssl_verify)
+       
+        # Patch
+        url = '%s/v1/masterdata/usercentermapping?isActive=true&id=%s' % (self.server, username)
+        r = requests.patch(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
+  
         return r
 
     def map_user_to_zone(self, username, zone, update=False):
@@ -88,5 +107,8 @@ class MosipSession:
         else:
             r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
 
+        url = '%s/v1/masterdata/zoneuser?isActive=true&userId=%s' % (self.server, username)
+        r = requests.patch(url, cookies=cookies, verify=self.ssl_verify)
         r = response_to_json(r)
+
         return r
