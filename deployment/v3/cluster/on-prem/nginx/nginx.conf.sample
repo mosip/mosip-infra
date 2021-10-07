@@ -4,126 +4,126 @@ pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
 
 events {
-		worker_connections 768;
-		# multi_accept on;
+    worker_connections 768;
+    # multi_accept on;
 }
 
 http {
 
-		##
-		# Basic Settings
-		##
+    ##
+    # Basic Settings
+    ##
 
-		sendfile on;
-		tcp_nopush on;
-		tcp_nodelay on;
-		keepalive_timeout 65;
-		types_hash_max_size 2048;
-		# server_tokens off;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    # server_tokens off;
 
-		# server_names_hash_bucket_size 64;
-		# server_name_in_redirect off;
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
 
-		include /etc/nginx/mime.types;
-		default_type application/octet-stream;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
 
-		##
-		# SSL Settings
-		##
+    ##
+    # SSL Settings
+    ##
 
-		ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
-		ssl_prefer_server_ciphers on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
 
-		##
-		# Logging Settings
-		##
+    ##
+    # Logging Settings
+    ##
 
-		access_log /var/log/nginx/access.log;
-		error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
 
-		##
-		# Gzip Settings
-		##
+    ##
+    # Gzip Settings
+    ##
 
-		gzip on;
+    gzip on;
 
-		# gzip_vary on;
-		# gzip_proxied any;
-		# gzip_comp_level 6;
-		# gzip_buffers 16 8k;
-		# gzip_http_version 1.1;
-		# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    # gzip_vary on;
+    # gzip_proxied any;
+    # gzip_comp_level 6;
+    # gzip_buffers 16 8k;
+    # gzip_http_version 1.1;
+    # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
 
-		##
-		# Virtual Host Configs
-		##
+    ##
+    # Virtual Host Configs
+    ##
 
-		# Comment out these lines, otherwise the default servers and settings in these locations will also get imported
-		#include /etc/nginx/conf.d/*.conf;
-		#include /etc/nginx/sites-enabled/*;
+    # Comment out these lines, otherwise the default servers and settings in these locations will also get imported
+    #include /etc/nginx/conf.d/*.conf;
+    #include /etc/nginx/sites-enabled/*;
 
-		ssl_certificate <ssl-certificate>;
-		ssl_certificate_key <ssl-certificate-key>;
+    ssl_certificate <ssl-certificate>;
+    ssl_certificate_key <ssl-certificate-key>;
 
-		server{
-				listen <nginx-node-internal-interface-ip>:443 ssl;
-				server_name <rancher-hostname-and-iam-hostname>;
+    server{
+        listen <nginx-node-internal-interface-ip>:443 ssl;
+        server_name <rancher-hostname-and-iam-hostname>;
 
-				location / {
-						proxy_pass                      http://<rancher-cluster-ingressgateway-loadbalancer-ip>;
-						proxy_http_version              1.1;
-						proxy_set_header                Upgrade $http_upgrade;
-						proxy_set_header                Connection "upgrade";
-						proxy_set_header                Host $host;
-						proxy_set_header                Referer $http_referer;
-						proxy_set_header                X-Real-IP $remote_addr;
-						proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
-						proxy_set_header                X-Forwarded-Proto $scheme;
-						proxy_pass_request_headers      on;
-				}
-		}
-		server{
-				listen <nginx-node-internal-interface-ip>:443 ssl default_server;
-				# The above default_server tag ensures that any traffic that is on the internal interface
-				# and not matching any other server, will get directed to this
+        location / {
+            proxy_pass                      http://<rancher-cluster-ingressgateway-loadbalancer-ip>;
+            proxy_http_version              1.1;
+            proxy_set_header                Upgrade $http_upgrade;
+            proxy_set_header                Connection "upgrade";
+            proxy_set_header                Host $host;
+            proxy_set_header                Referer $http_referer;
+            proxy_set_header                X-Real-IP $remote_addr;
+            proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header                X-Forwarded-Proto $scheme;
+            proxy_pass_request_headers      on;
+        }
+    }
+    server {
+        listen <nginx-node-internal-interface-ip>:443 ssl default_server;
+        # The above default_server tag ensures that any traffic that is on the internal interface
+        # and not matching any other server, will get directed to this
 
-				location / {
-						proxy_pass                      http://<mosip-cluster-internal-ingressgateway-loadbalancer-ip>;
-						proxy_http_version              1.1;
-						proxy_set_header                Upgrade $http_upgrade;
-						proxy_set_header                Connection "upgrade";
-						proxy_set_header                Host $host;
-						proxy_set_header                Referer $http_referer;
-						proxy_set_header                X-Real-IP $remote_addr;
-						proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
-						proxy_set_header                X-Forwarded-Proto $scheme;
-						proxy_pass_request_headers      on;
-				}
-		}
-		server{
-				listen <nginx-node-external-interface-ip>:443 ssl;
-				# server_name directive is optional here because all traffic to this external interface can directly be proxied to public ingressgateway
+        location / {
+            proxy_pass                      http://<mosip-cluster-internal-ingressgateway-loadbalancer-ip>;
+            proxy_http_version              1.1;
+            proxy_set_header                Upgrade $http_upgrade;
+            proxy_set_header                Connection "upgrade";
+            proxy_set_header                Host $host;
+            proxy_set_header                Referer $http_referer;
+            proxy_set_header                X-Real-IP $remote_addr;
+            proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header                X-Forwarded-Proto $scheme;
+            proxy_pass_request_headers      on;
+        }
+    }
+    server {
+        listen <nginx-node-external-interface-ip>:443 ssl;
+        # server_name directive is optional here because all traffic to this external interface can directly be proxied to public ingressgateway
 
-				location / {
-						proxy_pass                      http://<mosip-cluster-public-ingressgateway-loadbalancer-ip>;
-						proxy_http_version              1.1;
-						proxy_set_header                Upgrade $http_upgrade;
-						proxy_set_header                Connection "upgrade";
-						proxy_set_header                Host $host;
-						proxy_set_header                Referer $http_referer;
-						proxy_set_header                X-Real-IP $remote_addr;
-						proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
-						proxy_set_header                X-Forwarded-Proto $scheme;
-						proxy_pass_request_headers      on;
-				}
-		}
+        location / {
+            proxy_pass                      http://<mosip-cluster-public-ingressgateway-loadbalancer-ip>;
+            proxy_http_version              1.1;
+            proxy_set_header                Upgrade $http_upgrade;
+            proxy_set_header                Connection "upgrade";
+            proxy_set_header                Host $host;
+            proxy_set_header                Referer $http_referer;
+            proxy_set_header                X-Real-IP $remote_addr;
+            proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header                X-Forwarded-Proto $scheme;
+            proxy_pass_request_headers      on;
+        }
+    }
 }
 stream {
-		# this section of servers is for tcp proxying
-		# add multiple servers one for each port, and proxy them to mosip cluster internal loadbalancer
-		# like postgres, activemq, etc
-		server{
-				listen <nginx-node-internal-ip>:<postgres-port>;
-				proxy_pass <mosip-cluster-ingressgateway-internal-loadbalancer-ip>:<postgres-port>;
-		}
+    # this section of servers is for tcp proxying
+    # add multiple servers one for each port, and proxy them to mosip cluster internal loadbalancer
+    # like postgres, activemq, etc
+    server{
+        listen <nginx-node-internal-ip>:<postgres-port>;
+        proxy_pass <mosip-cluster-ingressgateway-internal-loadbalancer-ip>:<postgres-port>;
+    }
 }
