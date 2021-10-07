@@ -2,7 +2,7 @@
 
 ![Architecture](../../docs/images/deployment_architecture.png)
 
-Note: Before getting started be wary of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+Note: Before getting started be aware of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
 
 ### Prerequisites
 
