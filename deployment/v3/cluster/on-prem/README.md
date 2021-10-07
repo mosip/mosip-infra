@@ -18,7 +18,9 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 
 ### 1.2 Metallb Setup for Loadbalancer
 
-* Use [this](./metallb/) to install metallb on the rancher cluster.
+Metallb is suitable for baremetal installations and requires specific network configurations (like Routers to have BGP protocol enabled).  If you are you have virtual machines in your on-prem infra, you may skip installing Metallb, but instead use Nginx as loadbalancer directly talking to Istio ingress services in Nodeport mode.  Of course, the node ports have to be manually enabled on the nodes as well as Nginx.  
+
+If you would like to install Metallb, check the instructions [here](./metallb/)
 
 ### 1.3 Istio for Service Discovery and Ingress
 
