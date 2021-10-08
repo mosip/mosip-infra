@@ -17,7 +17,7 @@ helm repo update
 # Creating namespace with istio-injeciton
 echo "Creating namespace"
 kubectl create ns $NS
-kubectl label ns $NS istio-injection=enabled
+# kubectl label ns $NS istio-injection=enabled
 
 ## Configure Postgres essentials
 # Assumed Postgres is installed in 'postgres' namespace with extended.conf as extended config.

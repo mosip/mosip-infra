@@ -44,11 +44,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.io.IOException;
 
-import io.mosip.kafka.connect.transforms.SchemaUtil;
-import static io.mosip.kafka.connect.transforms.Requirements.requireMap;
-import static io.mosip.kafka.connect.transforms.Requirements.requireSinkRecord;
-import static io.mosip.kafka.connect.transforms.Requirements.requireStruct;
-
 public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Transformation<R> {
 
     private abstract class Config{
@@ -317,7 +312,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
 
 
     private R applySchemaless(R record) {
-        final Map<String, Object> value = requireMap(operatingValue(record), PURPOSE);
+        final Map<String, Object> value = Requirements.requireMap(operatingValue(record), PURPOSE);
 
         final Map<String, Object> updatedValue = new HashMap<>(value);
 
@@ -332,7 +327,7 @@ public abstract class DynamicNewField<R extends ConnectRecord<R>> implements Tra
     }
 
     private R applyWithSchema(R record) {
-        final Struct value = requireStruct(operatingValue(record), PURPOSE);
+        final Struct value = Requirements.requireStruct(operatingValue(record), PURPOSE);
 
         Schema updatedSchema = schemaUpdateCache.get(value.schema());
         if (updatedSchema == null) {

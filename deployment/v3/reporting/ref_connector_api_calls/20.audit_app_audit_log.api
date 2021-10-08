@@ -28,14 +28,17 @@ curl \
           "connection.url": '\"$ES_URL\"',
           "tasks.max": "1",
           "topics": '\"$ES_INDICES\"',
-          "key.ignore": "true",
+          "key.ignore": "false",
           "schema.ignore": "true",
           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
           "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04",
+          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04,tsconvert05",
+
+          "behavior.on.null.values": "DELETE",
 
           "transforms.tsconvert01.type": "io.debezium.transforms.ExtractNewRecordState",
-          "transforms.tsconvert01.delete.handling.mode": "rewrite",
+          "transforms.tsconvert01.delete.handling.mode": "drop",
+          "transforms.tsconvert01.drop.tombstones": "false",
           "transforms.tsconvert01.add.fields": "source.ts_ms:ts_ms,table,lsn",
           "transforms.tsconvert01.add.fields.prefix": "source_",
 
@@ -48,6 +51,10 @@ curl \
 
           "transforms.tsconvert04.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert04.field": "log_dtimes",
-          "transforms.tsconvert04.input.type": "micro_sec"
+          "transforms.tsconvert04.input.type": "micro_sec",
+
+          "transforms.tsconvert05.type": "io.mosip.kafka.connect.transforms.TimestampSelector$Value",
+          "transforms.tsconvert05.ts.order": "log_dtimes,action_dtimes",
+          "transforms.tsconvert05.output.field": "@timestamp_gen"
       }
 }';

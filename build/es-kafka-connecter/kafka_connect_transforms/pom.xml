@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.mosip</groupId>
-  <artifactId>dynamic_new</artifactId>
+  <artifactId>the_transforms</artifactId>
   <version>0.1.0</version>
 
-  <name>dynamic_new</name>
+  <name>the_transforms</name>
   <url>https://mosip.io</url>
 
   <properties>
@@ -58,6 +58,10 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>

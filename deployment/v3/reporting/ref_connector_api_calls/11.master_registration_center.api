@@ -28,14 +28,17 @@ curl \
           "connection.url": '\"$ES_URL\"',
           "tasks.max": "1",
           "topics": '\"$ES_INDICES\"',
-          "key.ignore": "true",
+          "key.ignore": "false",
           "schema.ignore": "true",
           "key.converter": "org.apache.kafka.connect.storage.StringConverter",
           "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04,tsconvert05,tsconvert06,tsconvert07,tsconvert08,tsconvert09,tsconvert10",
+          "transforms": "tsconvert01,tsconvert02,tsconvert03,tsconvert04,tsconvert05,tsconvert06,tsconvert07,tsconvert08,tsconvert09,tsconvert10,tsconvert11",
+
+          "behavior.on.null.values": "DELETE",
 
           "transforms.tsconvert01.type": "io.debezium.transforms.ExtractNewRecordState",
-          "transforms.tsconvert01.delete.handling.mode": "rewrite",
+          "transforms.tsconvert01.delete.handling.mode": "drop",
+          "transforms.tsconvert01.drop.tombstones": "false",
           "transforms.tsconvert01.add.fields": "source.ts_ms:ts_ms,table,lsn",
           "transforms.tsconvert01.add.fields.prefix": "source_",
 
@@ -77,7 +80,11 @@ curl \
           "transforms.tsconvert10.type": "io.mosip.kafka.connect.transforms.TimestampConverterAdv$Value",
           "transforms.tsconvert10.field": "lunch_end_time",
           "transforms.tsconvert10.input.type": "micro_sec",
-          "transforms.tsconvert10.output.format": "HH:mm:ss"
+          "transforms.tsconvert10.output.format": "HH:mm:ss",
+
+          "transforms.tsconvert11.type": "io.mosip.kafka.connect.transforms.TimestampSelector$Value",
+          "transforms.tsconvert11.ts.order": "upd_dtimes,cr_dtimes",
+          "transforms.tsconvert11.output.field": "@timestamp_gen"
       }
 }';
 sleep 30s;
