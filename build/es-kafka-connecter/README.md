@@ -15,11 +15,10 @@ Then it copies these jar files to build docker image
 
 ```sh
 $ rm -r jars
-$ cd timestamp_adv ; mvn clean package ; cd ..
-$ cd dynamic_new ; mvn clean package ; cd ..
+$ cd kafka_connect_transforms ; mvn clean package ; cd ..
 $ mkdir jars; cd jars
-$ cp ../timestamp_adv/target/timestamp_adv*.jar ../dynamic_new/target/dynamic_new*.jar .
-$ wget https://repo.maven.apache.org/maven2/io/debezium/debezium-core/1.6.2.Final/debezium-core-1.6.2.Final.jar
+$ cp ../kafka_connect_transforms/target/the_transforms*.jar .
+$ wget https://repo.maven.apache.org/maven2/io/debezium/debezium-core/1.7.0.Final/debezium-core-1.7.0.Final.jar
 $ cd ..
 $ docker build .
 ```

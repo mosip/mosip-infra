@@ -1,0 +1,33 @@
+# these following will be taken from env
+#DB_USER=
+#DB_PORT=
+#DB_HOSTNAME=
+#DB_PASS=
+#DB_PREFIX_INDEX=
+#ES_URL=
+
+DEBEZ_CONN_URL='debezium-service.reporting:8083'; # needn't change .. this is the debezium-connector service name
+
+curl \
+  -X POST \
+  http://$DEBEZ_CONN_URL/connectors \
+  -H 'Content-Type: application/json' \
+  -d \
+  '{
+      "name": '\"$DB_NAME\"',
+      "config": {
+          "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+          "plugin.name": "pgoutput",
+          "publication.autocreate.mode": "filtered",
+          "slot.name": '\"debezium_"$DB_NAME"_"$DB_PREFIX_INDEX"\"',
+          "publication.name": '\"dbz_pub_$DB_PREFIX_INDEX\"',
+          "database.hostname": '\"$DB_HOSTNAME\"',
+          "database.port": '\"$DB_PORT\"',
+          "database.user": '\"$DB_USER\"',
+          "database.password": '\"$DB_PASS\"',
+          "database.dbname": '\"$DB_NAME\"',
+          "database.server.name": '\"$DB_PREFIX_INDEX\"',
+          "table.include.list": '\"$DB_TABLES\"'
+      }
+}';
+echo ;
