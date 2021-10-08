@@ -109,7 +109,7 @@ kubectl apply -f ../global_configmap.yaml
 
 ### External Nginx setup
 
-* Use [this](./nginx/), same as above Sec 1.4, re-setup the above nginx.
+* Use [this](./nginx/), same as above sections.
   * Add/Edit the servers in the `nginx.conf` with the new loadbalancer ips from the istio ingressgateway services from mosip cluster.
   * Restart that nginx.
 
@@ -122,4 +122,4 @@ kubectl apply -f ../global_configmap.yaml
 
 ### Longhorn setup
 
-* Follow the same as section 1.7. Install Longhorn as given [here](../longhorn/README.md)
+* Follow the same above section.
