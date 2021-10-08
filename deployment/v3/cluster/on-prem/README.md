@@ -35,7 +35,6 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
   kcr get svc -n istio-system
   ```
 
-
 ### 1.4 External Nginx Setup
 
 * Use [this](./nginx/) to install nginx on an external node that proxies traffic to the above loadbalancers.
@@ -84,7 +83,7 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
   * `rke up`
 * The above will give a new `kube_config_cluster.yml` file. Place it in `~/.kube/` with different name like `mosip_cluster.config`. Dont forget to make new aliases with this `KUBECONFIG`, for `kubectl` and `helm`, etc, for this new cluster, or these will get mixed up with previous rancher cluster.
 
-### 2.2 Metallb Setup
+### 2.2 Metallb (baremetal)
 
 * Use [this](./metallb/), the same as in Sec 1.2 above, to install metallb on the new mosip cluster.
 
