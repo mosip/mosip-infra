@@ -9,3 +9,4 @@
 1. Reprocessor cronjob frequency and other settings
 1. All cronjobs timings according to the country (check property files)
 1. Valid urls redirect in Keycloak - set specific urls.
+2. Keycloak Realm connection timeout settings - review all.
