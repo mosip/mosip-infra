@@ -82,9 +82,11 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
   * `rke up`
 * The above will give a new `kube_config_cluster.yml` file. Place it in `~/.kube/` with different name like `mosip_cluster.config`. Dont forget to make new aliases with this `KUBECONFIG`, for `kubectl` and `helm`, etc, for this new cluster, or these will get mixed up with previous rancher cluster.
 
-### 2.2 Metallb Setup
+### 2.2 Metallb (baremetal)
 
-* Use [this](./metallb/), the same as in Sec 1.2 above, to install metallb on the new mosip cluster.
+Metallb is suitable for baremetal installations and requires specific network configurations (like Routers to have BGP protocol enabled).  If you you have virtual machines in your on-prem infra, you may skip installing Metallb, but instead use Nginx as loadbalancer directly talking to Istio ingress services in Nodeport mode.  Of course, the node ports have to be manually enabled on the nodes as well as Nginx.  
+
+If you would like to install Metallb, check the instructions [here](./metallb/)
 
 ### 2.3 Global configmap
 
