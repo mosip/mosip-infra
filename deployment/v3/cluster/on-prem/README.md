@@ -2,7 +2,7 @@
 
 ![Architecture](../../docs/images/deployment_architecture.png)
 
-Note: Before getting started be wary of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+Before getting started be aware of your infrastructure architecture.  In the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
 
 ### Prerequisites
 
@@ -16,7 +16,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 * Create K8s cluster, for Rancher and IAM with at least 2 worker nodes using `rke` utility. Using [here](../../docs/rke-setup.md).
 * The rest of the document assumes `kcr` and `helmr` as this rancher cluster kubectl alias and helm alias.
 
-### 1.2 Metallb Setup for Loadbalancer
+### 1.2 Metallb setup for Loadbalancer
 
 * Use [this](./metallb/) to install metallb on the rancher cluster.
 
@@ -34,7 +34,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
   ```
 
 
-### 1.4 External Nginx Setup
+### 1.4 External Nginx setup
 
 * Use [this](./nginx/) to install nginx on an external node that proxies traffic to the above loadbalancers.
 
@@ -42,7 +42,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 
 * Use [this](../../docs/wireguard_bastion.md) to install wireguard bastion server on an external node, preferrable the same as the nginx node above.
 
-### 1.6 Rancher Install
+### 1.6 Rancher install
 
 * This will bring up rancher. After this wait for a few minutes and try accessing the rancher with the hostname, ex: `rancher.mosip.xyz.net`, from the browser.
   ```
@@ -51,7 +51,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
   helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=rancher.mosip.xyz.net --set replicas=2 --set tls=external --set ingress.enabled=false
   ```
 
-### 1.7 Longhorn for Persistence
+### 1.7 Longhorn for persistence
 
 * Install Longhorn as given [here](../longhorn/README.md)
 
@@ -61,9 +61,9 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 * Go [here](../../external/iam) and use install.sh
 * Then integrate IAM with rancher. Find the steps in the same page.
 
-## 2. Mosip Cluster
+## 2. Mosip cluster
 
-### 2.1 Cluster Setup
+### 2.1 Cluster setup
 
 * Follow same as in section 1.1 and create a new cluster, using rke with [this](../../docs/rke-setup.md). This cluster we will refer to as mosip cluster, where all mosip external and core components will be isntalled.
 * `rke config`
@@ -96,7 +96,7 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
 kubectl apply -f ../global_configmap.yaml
 ```
 
-### 2.4 Istio Setup
+### 2.4 Istio setup
 
 * Go to [v3/cluster/on-prem/istio](./istio/).
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
@@ -111,13 +111,13 @@ kubectl apply -f ../global_configmap.yaml
   * Add/Edit the servers in the `nginx.conf` with the new loadbalancer ips from the istio ingressgateway services from mosip cluster.
   * Restart that nginx.
 
-### 2.6 Rancher Integration
+### 2.6 Rancher integration
 
 * Assumging Rancher cluster is ready, after Section 1, open that dashboard. Click on add cluster on top right.
 * Add members, atleast one as Owner.
 * In the cluster type selection screen, at the top, there is an option to "import any other kubernetes cluster", selct that.
 * That should give two commands to run on the new cluster (the mosip cluster). After running those, the new cluster should be integrated into Rancher.
 
-### 2.7 Longhorn Setup
+### 2.7 Longhorn setup
 
 * Follow the same as section 1.7. Install Longhorn as given [here](../longhorn/README.md)
