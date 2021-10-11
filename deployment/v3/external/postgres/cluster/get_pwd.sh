@@ -2,6 +2,7 @@
 # Get postgres password
 # Usage: sh get_pwd.sh [kubeconfig file] 
 # Default kubeconfig file is $HOME/.kube/config
+
 if [ $# -ge 1 ]
   then
     export KUBECONFIG=$1

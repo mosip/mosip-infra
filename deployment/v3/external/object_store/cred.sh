@@ -1,7 +1,12 @@
 #!/bin/sh
 # Creates configmap and secrets for S3/Minio
 # Specific "" for region for minio local installation
-[ $# -lt 3 ] && { echo "Usage: ./cred.sh <access key> <secret> <region>"; exit 1; }
+[ $# -lt 3 ] && { echo "Usage: ./cred.sh <access key> <secret> <region> [kubeconfig]"; exit 1; }
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 3 ] ; then
+  export KUBECONFIG=$4
+fi
 
 NS=s3
 

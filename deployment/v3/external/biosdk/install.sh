@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs BioSDK
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=biosdk
 CHART_VERSION=1.2.0
 

@@ -1,5 +1,11 @@
 #!/bin/sh
 # Script to initialize the DB. 
+## Usage: ./init_db.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=postgres
 CHART_VERSION=1.2.0
 helm repo update
