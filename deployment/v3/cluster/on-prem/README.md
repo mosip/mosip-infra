@@ -2,7 +2,7 @@
 
 ![Architecture](../../docs/images/deployment_architecture.png)
 
-Note: Before getting started be aware of your architecture. Because in the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
+Before getting started be aware of your infrastructure architecture. In the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
 
 ### Prerequisites
 
@@ -18,7 +18,7 @@ Refer to [this](./requirements.md) for the requirements or prerequisites before 
 
 ### 1.2 Metallb Setup for Loadbalancer
 
-Metallb is suitable for baremetal installations and requires specific network configurations (like Routers to have BGP protocol enabled).  If you are you have virtual machines in your on-prem infra, you may skip installing Metallb, but instead use Nginx as loadbalancer directly talking to Istio ingress services in Nodeport mode.  Of course, the node ports have to be manually enabled on the nodes as well as Nginx.  
+Metallb is suitable for baremetal installations and requires specific network configurations (like Routers to have BGP protocol enabled).  If you you have virtual machines in your on-prem infra, you may skip installing Metallb, but instead use Nginx as loadbalancer directly talking to Istio ingress services in Nodeport mode.  Of course, the node ports have to be manually enabled on the nodes as well as Nginx.  
 
 If you would like to install Metallb, check the instructions [here](./metallb/)
 
@@ -34,7 +34,6 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
   ```
   kcr get svc -n istio-system
   ```
-
 
 ### 1.4 External Nginx Setup
 
@@ -84,7 +83,7 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
   * `rke up`
 * The above will give a new `kube_config_cluster.yml` file. Place it in `~/.kube/` with different name like `mosip_cluster.config`. Dont forget to make new aliases with this `KUBECONFIG`, for `kubectl` and `helm`, etc, for this new cluster, or these will get mixed up with previous rancher cluster.
 
-### 2.2 Metallb Setup
+### 2.2 Metallb (baremetal)
 
 * Use [this](./metallb/), the same as in Sec 1.2 above, to install metallb on the new mosip cluster.
 

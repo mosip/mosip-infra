@@ -9,3 +9,5 @@
 1. Reprocessor cronjob frequency and other settings
 1. All cronjobs timings according to the country (check property files)
 1. Valid urls redirect in Keycloak - set specific urls.
+1. Keycloak Realm connection timeout settings - review all.
+1. Postgres [production configuration](../profiles/production/postgres/values.yaml)
