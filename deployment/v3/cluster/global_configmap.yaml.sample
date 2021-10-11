@@ -23,7 +23,7 @@ data:
   mosip-activemq-host: activemq.sandbox.xyz.net
   mosip-kibana-host: kibana.sandbox.xyz.net
   mosip-regclient-host: regclient.sandbox.xyz.net
-  mosip-admin-host: admin.sandbox.xzy.net
+  mosip-admin-host: admin.sandbox.xyz.net
   mosip-minio-host: minio.sandbox.xyz.net
   mosip-kafka-host: kafka.sandbox.xyz.net
   is_glowroot_env: absent
