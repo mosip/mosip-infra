@@ -1,4 +1,10 @@
 #!/bin/sh
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=httpbin
 kubectl create ns $NS 
 kubectl label ns $NS istio-injection=enabled --overwrite

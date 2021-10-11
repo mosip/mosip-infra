@@ -1,8 +1,11 @@
 #!/bin/sh
 # Install ingress gateways
+## Usage: ./install.sh [kubeconfig]
 
-#NOTE: istioctl is specific to kubeconfig file. If you've more than one config files, please specify them like mentioned below:
-#istioctl --kubeconfig <path-to-config-file> or use -c as shorthand for --kubeconfig.
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 echo Operator init
 istioctl operator init
 

@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs Elasticsearch
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=cattle-logging-system
 
 echo Create namespace logging
