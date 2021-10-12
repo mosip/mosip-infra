@@ -1,5 +1,10 @@
 #!/bin/sh
 # Uninstalls all Kernel helm charts 
+## Usage: ./delete.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
 NS=kernel
 while true; do
     read -p "Are you sure you want to delete ALL Kernel helm charts?(Y/n) " yn

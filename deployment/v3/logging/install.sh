@@ -19,7 +19,7 @@ echo Installing Bitnami Elasticsearch and Kibana
 helm -n $NS install elasticsearch bitnami/elasticsearch -f es_values.yaml --wait
 
 KIBANA_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-kibana-host})
-KIBANA_NAME=kibana
+KIBANA_NAME=elasticsearch-kibana
 
 echo Install istio addons
 helm -n $NS install istio-addons chart/istio-addons --set kibanaHost=$KIBANA_HOST --set installName=$KIBANA_NAME
