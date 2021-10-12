@@ -28,6 +28,12 @@ pip install -r requirements.txt
 ```sh
 SERVER=https://api-internal.sandbox.xyz.net
 ```
+## Map user to zone
+1. Run  
+```sh
+python lib/map_user_zone.py --help
+```
+IMPORTANT: If this sequence is important - map zone first and then reg center.
 
 ## Map user to regcenter
 1. Run  
@@ -35,8 +41,3 @@ SERVER=https://api-internal.sandbox.xyz.net
 python lib/map_user_regcenter.py --help
 ```
 
-## Map user to zone
-1. Run  
-```sh
-python lib/map_user_zone.py --help
-```
