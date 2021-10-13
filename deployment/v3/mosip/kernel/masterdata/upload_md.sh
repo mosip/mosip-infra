@@ -20,7 +20,7 @@ while true; do
       then
         echo Uploading ..
         cd lib
-        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS
+        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS  --tables_file table_order
         break
       else
         break
