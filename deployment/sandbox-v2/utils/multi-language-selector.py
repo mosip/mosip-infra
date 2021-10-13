@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import shutil
 
 lang_list = ['hin', 'tam', 'fra']
 mandatory_lang= 'tam'
@@ -9,6 +10,11 @@ folder_path='/home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/mosip-data/da
 
 filelist=[]
 lang_code=[]
+
+if( os.path.isdir(folder_path) ):
+    print("Remove dml directory & Rename dml-old to dml")
+    shutil.rmtree(input_path)
+    os.rename(folder_path, input_path)
 
 os.rename(input_path, folder_path)
 os.mkdir(input_path)
