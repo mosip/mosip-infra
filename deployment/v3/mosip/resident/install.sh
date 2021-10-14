@@ -13,5 +13,5 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
-echo Installing Datashare
+echo Installing Resident
 helm -n $NS install resident mosip/resident --version $CHART_VERSION
