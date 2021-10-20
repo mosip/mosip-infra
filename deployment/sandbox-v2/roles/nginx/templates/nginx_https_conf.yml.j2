@@ -320,8 +320,8 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/datashare/;
         }
 
-        location /v1/biosdk-service/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/v1/biosdk-service/;
+        location /biosdk-service/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/biosdk-service/;
         }
 
         location /v1/print/ {
