@@ -18,7 +18,7 @@ bootpwd: {{ reg_client.bootpwd }}
 tpm: "N"
 certificate: "mosip_cer.cer"
 upgrade_server: {{ site.sandbox_public_url }}
-healthcheck: "{{ site.sandbox_public_url }}/vi/authmanager/actuator/health"
+healthcheck: "{{ site.sandbox_public_url }}/v1/authmanager/actuator/health"
 
 sc:
   name: ""
