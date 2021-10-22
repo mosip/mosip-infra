@@ -9,10 +9,10 @@ kubectl create ns $NS
 
 echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
-#helm repo update
+helm repo update
 
 echo Copy configmaps
-#./copy_cm.sh
+./copy_cm.sh
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})

@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs Softhsm for Kernel 
+## Usage: ./install_kernel.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=keymanager
 STORAGE_CLASS=gp2
 CHART_VERSION=1.2.0

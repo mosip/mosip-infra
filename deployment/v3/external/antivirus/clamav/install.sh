@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs Clamav
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=clamav
 CHART_VERSION=1.2.0
 

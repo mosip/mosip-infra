@@ -16,11 +16,11 @@ XLS=xlsx
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
-    if [ $yn == "Y" ]
+    if [ $yn = "Y" ]
       then
         echo Uploading ..
         cd lib
-        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS
+        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS  --tables_file table_order
         break
       else
         break

@@ -25,15 +25,15 @@ def get_order_from_list(files_file_name):
 
 def upload_xlsx(files, table_order, admin_user, db_user, db_pwd, db_host, db_port):
     engine = create_engine('postgresql://%s:%s@%s:%s/%s' % (db_user, db_pwd, db_host, db_port, 'mosip_master'))
-    for f in table_order:
+    for table in table_order:
         for fi in files:
-            if f==os.path.basename(fi).split('.')[0]:
+            if table==os.path.basename(fi).split('.')[0]:
                 myprint(fi)
                 df = pd.read_excel(fi)
                 df['cr_by'] = admin_user
                 df['cr_dtimes'] = str(dt.utcnow())
-                engine.execute('TRUNCATE TABLE %s CASCADE;' % f)
-                df.to_sql(f, engine, index=False, if_exists='append')
+                engine.execute('TRUNCATE TABLE %s CASCADE;' % table)
+                df.to_sql(table, engine, index=False, if_exists='append')
 
 def args_parse():
     parser = argparse.ArgumentParser()
@@ -41,6 +41,7 @@ def args_parse():
     parser.add_argument('db_pwd', help='db host name/ip address')
     parser.add_argument('user', help='Admin username (as in IAM) of executor of this script')
     parser.add_argument('xls_folder', help='directory containing all the tables in xlsx format')
+    parser.add_argument('--tables_file', type=str, default='table_order', help='File containing tables that need to be initiazed with the right order')
     parser.add_argument('--db_user', help='Db supseradmin user role for masterdb. Default: postgres', type=str,
                         default='postgres')
     parser.add_argument('--db_port', help='db port. Default is 5432', type=int, default=5432)
@@ -51,7 +52,7 @@ def main():
     args, parser =  args_parse()
 
     files = path_to_files(args.xls_folder)
-    table_order = get_order_from_list(os.path.join(sys.path[0], 'table_order'))
+    table_order = get_order_from_list(os.path.join(sys.path[0], args.tables_file))
 
     init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
 

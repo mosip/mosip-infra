@@ -1,5 +1,10 @@
 #!/bin/sh
 NS=activemq
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
 
 echo Create namespace
 kubectl create ns $NS

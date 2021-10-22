@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs kafka
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=kafka
 
 echo Create namespace

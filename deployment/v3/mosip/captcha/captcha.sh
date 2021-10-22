@@ -1,6 +1,11 @@
 #!/bin/sh
 # Creates configmap and secrets for Prereg Captcha
-[ $# -lt 2 ] && { echo "Usage: ./captcha.sh <site-key> <secret>"; exit 1; }
+## Usage: ./captcha.sh [kubeconfig]
+[ $# -lt 2 ] && { echo "Usage: ./captcha.sh <site-key> <secret> [kubeconfig]"; exit 1; }
+
+if [ $# -ge 2 ] ; then
+  export KUBECONFIG=$3
+fi
 
 NS=prereg
 

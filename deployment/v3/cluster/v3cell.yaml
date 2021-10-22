@@ -16,14 +16,14 @@ metadata:
   name: global
   namespace: default
 data:
-  installation-name: sandbox
-  mosip-api-host: api.sandbox.xyz.net
-  mosip-api-internal-host: api-internal.sandbox.xyz.net
-  mosip-prereg-host: prereg.sandbox.xyz.net
-  mosip-activemq-host: activemq.sandbox.xyz.net
-  mosip-kibana-host: kibana.sandbox.xyz.net
-  mosip-regclient-host: regclient.sandbox.xyz.net
-  mosip-admin-host: admin.sandbox.xyz.net
-  mosip-minio-host: minio.sandbox.xyz.net
-  mosip-kafka-host: kafka.sandbox.xyz.net
+  installation-name: v3cell
+  mosip-api-host: api.v3cell.mosip.net
+  mosip-api-internal-host: api-internal.v3cell.mosip.net
+  mosip-prereg-host: prereg.v3cell.mosip.net
+  mosip-activemq-host: activemq.v3cell.mosip.net
+  mosip-kibana-host: kibana.v3cell.mosip.net
+  mosip-regclient-host: regclient.v3cell.mosip.net
+  mosip-admin-host: admin.v3cell.mosip.net
+  mosip-minio-host: minio.v3cell.mosip.net
+  mosip-kafka-host: kafka.v3cell.mosip.net
   is_glowroot_env: absent

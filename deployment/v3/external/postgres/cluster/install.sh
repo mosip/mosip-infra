@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs postgres inside the cluster
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=postgres
 
 echo Create namespace $NS
