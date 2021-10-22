@@ -7,17 +7,17 @@ CHART_VERSION=1.2.0
 echo Create namespace
 kubectl create ns $NS
 
-echo Istio label 
+echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 #helm repo update
 
 echo Copy configmaps
 #./copy_cm.sh
 
-API_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
-ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-admin-host\" | tr -d '"'`
+API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
 
-echo Installing admin hotlist service. 
+echo Installing admin hotlist service.
 helm -n $NS install admin-hotlist mosip/admin-hotlist --version $CHART_VERSION
 
 echo Installing admin service. Will wait till service gets installed.
@@ -25,4 +25,3 @@ helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.all
 
 echo Installing admin-ui
 helm -n $NS install admin-ui mosip/admin-ui --set admin.hostUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
-

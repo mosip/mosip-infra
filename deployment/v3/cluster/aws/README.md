@@ -19,7 +19,6 @@ eksctl create cluster -f cluster.config
 Install following command line utilities:
 * kubectl
 * helm 3
-* jq
 
 ## Helm repositories
 Add the following Helm repos:
@@ -39,7 +38,7 @@ kubectl apply -f global_configmap.yaml
 You can also create cluster on Cloud using the Rancher console.  Refer to Rancher documentation.
 
 ## Persistence
-### GP2 
+### GP2
 * Default storage class is `gp2` which by is in "Delete" mode which means if PV is deleted, the underlying storage is also deleted.  
 * To retain define a storage class `gp2-retain` by running `sc.yaml`. This will retain the PV. You will have to delete the storage from AWS console.  See some more details on persistence [here](../../docs/persistence.md).
 ```sh
@@ -66,7 +65,7 @@ The above steps will spin-off two load balancers on AWS. You may view them on AW
 kubectl -n istio-system get svc
 ```
 * TLS termination is supposed to be on LB.  So all our traffic coming to ingress controller shall be HTTP.
-* Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html) 
+* Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html)
 * Add the certificates and 443 access to the LB listener.
 * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.
 * Forward TLS->443 listner traffic to target group that corresponds to listner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
@@ -80,15 +79,15 @@ kubectl -n istio-system get svc
 The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed on LB).
 
 ### Domain name
-* Point your domain names to respective LB's public DNS/IP. 
+* Point your domain names to respective LB's public DNS/IP.
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
 
 ## Metrics server
 Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
-helm -n kube-system install metrics-server bitnami/metrics-server 
+helm -n kube-system install metrics-server bitnami/metrics-server
 helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
-``` 
+```
 We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
 
 ## Wireguard bastion host
@@ -101,10 +100,10 @@ Follow the procedure given [here](../../docs/wireguard_bastion.md)
 Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
 
 ## Log rotation
-The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
+The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.
 
 ## Cluster management
-* Login as admin in Rancher console 
+* Login as admin in Rancher console
 * Configure your cloud credentials
 * Add this cluster to Rancher  
 * Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
@@ -113,7 +112,7 @@ The default log max log file size set on EKS cluster is 10MB with max number of 
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
 
 ## Register the cluster with Rancher
-* Login as admin in Rancher console 
+* Login as admin in Rancher console
 * Configure your cloud credentials
 * Add this cluster to Rancher  
 * Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
@@ -124,4 +123,4 @@ In Rancher console, under Edit Cluster, increase the Desired ASG size to the num
 ```
 kc -n logging delete pod --grace-period=0 --force elasticsearch-master-1
 ```
-* "Bad Gateway" from ingress controller:  Could be due to enabling proxy protocol v2 but not running `istio/proxy_protoco.yaml` 
+* "Bad Gateway" from ingress controller:  Could be due to enabling proxy protocol v2 but not running `istio/proxy_protoco.yaml`
