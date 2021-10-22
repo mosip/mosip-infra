@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs all kernel helm charts 
+# Installs all kernel helm charts
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -12,7 +12,7 @@ CHART_VERSION=1.2.0
 echo Create namespace
 kubectl create ns $NS
 
-echo Istio label 
+echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
@@ -28,7 +28,7 @@ helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION
 echo Installing idgenerator
 helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION
 
-ADMIN_HOST=`kubectl get cm global -o json | jq .data.\"mosip-admin-host\" | tr -d '"'`
+ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
 echo Installing masterdata and allowing Admin UI to access masterdata services.
 helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
 
