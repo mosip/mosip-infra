@@ -2,7 +2,7 @@
 
 User onboarding is required for
 1. Admin (who operates the Admin dashboard)
-1. Registration officers (RO) who register residents at the registration center.:w
+1. Registration officers (RO) who register residents at the registration center.
 
 ## Prerequisites
 1. Python3.9
