@@ -7,18 +7,18 @@ User onboarding is required for
 ## Prerequisites
 1. Python3.9
 1. Set up python3.9 virtual env
-```sh
-mkdir ~/.venv
-python3.9 -m venv ~/.venv/partner
-```
+    ```sh
+    mkdir ~/.venv
+    python3.9 -m venv ~/.venv/partner
+    ```
 1. Switch to virtual env 
-```
-source ~/.venv/partner/bin/activate
-```
+    ```
+    source ~/.venv/partner/bin/activate
+    ```
 1. Install required modules
-```sh
-pip install -r requirements.txt
-```
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 ## Admin onboarding
 1. Make sure a user is created in keycloak with GLOBAL_ADMIN and ZONAL_ADMIN roles
