@@ -107,7 +107,8 @@ clusters:
       num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
-      zookeeper_size: 2Gi 
+      zookeeper_size: 2Gi
+      service_name: 'kafka.default:9092' 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
@@ -149,7 +150,8 @@ clusters:
       num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
-      zookeeper_size: 2Gi 
+      zookeeper_size: 2Gi
+      service_name: 'kafka.default:9092' 
 
 # Registration processor shared variables
 #
