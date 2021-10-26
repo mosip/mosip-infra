@@ -7,6 +7,7 @@
     helm_chart: 'kafka-ui/kafka-ui'  # Assumed bitnami repo has already been added in Helm
     helm_namespace: 'kafka-ui'
     helm_values: '{{charts_root}}/kafka-ui/mz-values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
 
@@ -19,5 +20,6 @@
     helm_chart: 'kafka-ui/kafka-ui'  # Assumed bitnami repo has already been added in Helm
     helm_namespace: 'kafka-ui'
     helm_values: '{{charts_root}}/kafka-ui/dmz-values.template.j2'
+    helm_strings: ''
   roles:
     - {role:  helm}
