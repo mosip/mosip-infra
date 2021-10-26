@@ -1,0 +1,23 @@
+# Playbook to enable mz-kafka-ui
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'kafka-ui'
+    is_template: true
+    helm_chart: 'kafka-ui/kafka-ui'  # Assumed bitnami repo has already been added in Helm
+    helm_namespace: 'kafka-ui'
+    helm_values: '{{charts_root}}/kafka-ui/mz-values.template.j2'
+  roles:
+    - {role:  helm}
+
+# Playbook to enable dmz-kafka-ui
+- hosts: console
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'kafka-ui'
+    is_template: true
+    helm_chart: 'kafka-ui/kafka-ui'  # Assumed bitnami repo has already been added in Helm
+    helm_namespace: 'kafka-ui'
+    helm_values: '{{charts_root}}/kafka-ui/dmz-values.template.j2'
+  roles:
+    - {role:  helm}
