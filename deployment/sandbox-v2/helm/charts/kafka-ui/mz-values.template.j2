@@ -1,0 +1,10 @@
+envs:
+  config:
+    SERVER_SERVLET_CONTEXT_PATH: "/mz-kafka"
+    KAFKA_CLUSTERS_0_NAME: "mz_kafka"
+    KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: {{ clusters.mz.kafka.service_name }}
+image:
+  pullPolicy: Always
+ingress:
+  enabled: true
+  path: "/mz-kafka"
