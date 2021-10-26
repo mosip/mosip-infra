@@ -22,7 +22,6 @@ User onboarding is required for
 
 ## Admin onboarding
 1. Make sure a user is created in keycloak with GLOBAL_ADMIN and ZONAL_ADMIN roles
-1. Set SERVER env variable to MOSIP API endpoint (example):
 1. Obtain `mosip-regproc-client` password from Keycloak `mosip` realm. Use `get_pwd.sh` script given [here](../../../external/iam)
 1. Set shell env variable
 ```sh
