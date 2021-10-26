@@ -28,14 +28,14 @@ User onboarding is required for
 SERVER=https://api-internal.sandbox.xyz.net
 ```
 ## Map user to zone
-1. Run  
+Run  
 ```sh
 python lib/map_user_zone.py --help
 ```
-IMPORTANT: If this sequence is important - map zone first and then reg center.
+IMPORTANT:  This sequence is important - map zone first and then reg center.
 
 ## Map user to regcenter
-1. Run  
+Run  
 ```sh
 python lib/map_user_regcenter.py --help
 ```
