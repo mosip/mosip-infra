@@ -280,12 +280,6 @@ repos:
     tag: develop
     githubuser: ''
     githubpassword: ''
-  websub:
-    src: https://github.com/mosip/websub
-    dest: '{{tmp_dir}}/websub'
-    tag: develop
-    githubuser: ''
-    githubpassword: ''
   ref_impl:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
@@ -365,15 +359,11 @@ databases:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
-#    release_path: '{{repos.pms.dest}}/db_release_scripts'
-  mosip_websub:
-    user: websubuser
-    sql_path: '{{repos.websub.dest}}/db_scripts'
-    release_path: '{{repos.websub.dest}}/db_release_scripts'
+  #   release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_hotlist:
     user: hotlistuser
     sql_path: '{{repos.hotlist.dest}}/db_scripts'
-    release_path: '{{repos.websub.dest}}/db_release_scripts'
+   # release_path: '{{repos.websub.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
