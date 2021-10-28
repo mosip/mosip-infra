@@ -5,6 +5,7 @@ In current sandbox implementation, we have several worker nodes available in ```
 
 To add a new worker node on the pre-running cluster either be ```mzcluster``` or ```dmzcluster```:
 - Create a new VM which is reachable from ```console.sb```.
+- Establish ssh passwordless connection with new VM's using ssh-copy-id command. 
 - Add VM in mzworkers or dmzworkers group in ```hosts.ini```.
 - Run ```console.yaml``` and ```coredns.yaml``` in order to install packages and coredns stuffs.
 - Run correspondig cluster playbook: ```mzcluster.yaml``` or ```dmzcluster.yaml```.
