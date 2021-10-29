@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Values.component }}
@@ -17,3 +17,4 @@ spec:
                 name: {{ .Values.services.websub.serviceName }}
                 port:
                   number: {{ .Values.services.websub.servicePort }}
+

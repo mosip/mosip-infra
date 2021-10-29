@@ -27,6 +27,7 @@
 - import_playbook: playbooks/artifactory.yml
 - import_playbook: playbooks/mzkafka.yml  # Each zone has it's own kafka
 - import_playbook: playbooks/dmzkafka.yml
+- import_playbook: playbooks/websub-kafka.yml
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
 - import_playbook: playbooks/kernel.yml
