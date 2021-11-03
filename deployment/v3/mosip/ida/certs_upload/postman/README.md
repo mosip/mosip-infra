@@ -2,7 +2,7 @@
 
 The folder here contains Postman Collection to upload IDA certs.
 
-## Prequisites
+## Prerequisites
 Install Postman (browser or command line).  The command line version is called `newman`.
 
 ## Run
