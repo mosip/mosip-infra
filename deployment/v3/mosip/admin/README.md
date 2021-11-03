@@ -5,8 +5,8 @@
 ./install.sh
 ```
 ## Admin user
-1. Create a user in 'mosip' realm and assign roles GLOBAL_ADMIN and ZONAL_ADMIN. Use this to login via Keycloak for accessing the admin portal.
-1. Add the same username to masterdata `zone_user` table using [map_user_zone.py](../../utils/onboard/user/lib/map_user_zone.py)
+1. Create a user in 'mosip' realm called 'globaladmin' and assign roles GLOBAL_ADMIN.  Make sure this user has strong credentials.
+1. Use this user to login into Admin portal via Keycloak.
 
 ## Admin portal
 Access the portal with following URL:
