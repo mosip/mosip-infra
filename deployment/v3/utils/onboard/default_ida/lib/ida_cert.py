@@ -67,6 +67,7 @@ def upload_to_keymanager(session, partner_id):
     myprint('Uploading signed cert for %s as Other domain cert' % partner_id)
     r = session.upload_other_domain_cert_to_keymanager('PARNTER', partner_id, cert)
     myprint(r)
+    # TODO:  The signed cert should be uploaded to IDA as well.
 
 def args_parse(): 
    parser = argparse.ArgumentParser()
