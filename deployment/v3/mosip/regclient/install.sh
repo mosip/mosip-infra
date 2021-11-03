@@ -23,6 +23,7 @@ helm -n $NS install regclient mosip/regclient \
   --set regclient.healthCheckUrl=$HEALTH_URL \
   --set istio.host=$REGCLIENT_HOST \
   --wait \
+  -f values.yaml \
   --version $CHART_VERSION
 
 echo Get your download url from here
