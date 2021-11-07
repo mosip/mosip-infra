@@ -32,4 +32,4 @@
   shell: '{{helm_cli_path}}/helm repo add grafana https://grafana.github.io/helm-charts'  
 
 - name: Add provectus kafka-ui repo
-  shell: '{{helm_cli_path}}/helm repo add kafka-ui https://provectus.github.io/kafka-ui
+  shell: '{{helm_cli_path}}/helm repo add kafka-ui https://provectus.github.io/kafka-ui'
