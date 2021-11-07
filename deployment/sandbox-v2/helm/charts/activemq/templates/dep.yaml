@@ -60,7 +60,13 @@ spec:
         volumeMounts:
         - name: q-data
           mountPath: {{ .Values.mountPath }} 
+        - name: activemq-xml-conf
+          mountPath: "/opt/activemq/conf/activemq.xml" # hardcoded path for activemq.xml inside container
+          subPath: "activemq.xml"
       volumes:
       - name: q-data
         persistentVolumeClaim:
           claimName: {{ .Values.pvc.name }} 
+      - name: activemq-xml-conf
+        configMap:
+          name: {{ .Values.name }}
