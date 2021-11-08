@@ -158,6 +158,14 @@ regproc:
   nfs:
     server: '{{nfs.server}}'
     landing_folder: '{{nfs.folder}}/landing'
+    stages:
+      group2:
+        path: '{{nfs.folder}}/regproc/group2'
+        path_owner: 'mosipuser'
+        path_group: 'mosipuser'
+        healthCheckBashFile: '{{charts_root}}/regproc/files/healthCheckViaBashScript.sh'
+        healthCheckUrlListFile: '{{charts_root}}/regproc/files/group2HealthCheckUrlList'
+
 
 # Postgres persistent storage
 postgres:

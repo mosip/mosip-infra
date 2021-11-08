@@ -1,0 +1,17 @@
+- { name: 'Create {{dirName}} folder',
+    file: { name: '{{dirName}}',
+            owner: '{{owner}}',
+            group: '{{group}}',
+            state: directory
+    },
+    become: yes
+}
+
+- name: 'Copy HealthCheck bash'
+  copy:
+      src: '{{healthCheckBashFile}}'
+      dest: '{{dirName}}'
+- name: 'Copy HealthCheck list file'
+  copy:
+      src: '{{healthCheckUrlListFile}}'
+      dest: '{{dirName}}'
