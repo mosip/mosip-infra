@@ -53,15 +53,26 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.camel.ports.containerPort }}
 
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.camel.healthUrl }} 
-#            port: {{ .Values.services.camel.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.camel.healthUrl }} 
- #           port: {{ .Values.services.camel.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.camel.healthUrl }}
+            port: {{ .Values.services.camel.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.camel.healthUrl }}
+            port: {{ .Values.services.camel.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.camel.healthUrl }}
+            port: {{ .Values.services.camel.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
