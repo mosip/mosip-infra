@@ -1,6 +1,6 @@
-# Print partner Cert Upload (_Work-in-progress_)
+# Mock ABIS Cert Upload (_Work-in-progress_)
 
-The folder here contains Postman Collection to upload Print partner certs.
+The folder here contains Postman Collection to upload Mock ABIS certs.
 
 ## Prerequisites
 Install Postman (browser or command line).  The command line version is called `newman`.
