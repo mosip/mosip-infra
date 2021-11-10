@@ -55,22 +55,26 @@ spec:
           containerPort: {{ .Values.services.validator.ports.eventbusPort }}
         - name: vld-verticle
           containerPort: {{ .Values.services.validator.ports.containerPort }}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.group5.healthUrl }}
             port: {{ .Values.services.group5.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.group5.healthUrl }}
             port: {{ .Values.services.group5.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.group5.healthUrl }}
             port: {{ .Values.services.group5.ports.containerPort }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

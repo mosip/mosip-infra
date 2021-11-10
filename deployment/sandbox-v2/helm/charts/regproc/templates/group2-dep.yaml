@@ -59,22 +59,40 @@ spec:
           containerPort: {{ .Values.services.msg.ports.eventbusPort }}
         - name: msgverticle
           containerPort: {{ .Values.services.msg.ports.containerPort }}
+
         readinessProbe:
-          httpGet:
-            path: {{ .Values.services.msg.healthUrl }}
-            port: {{ .Values.services.msg.ports.containerPort }}
+          exec:
+            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
+                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
+                      "/home/mosip/regproc/group2/"
+            ]
+          timeoutSeconds: {{ .Values.probe.timeout }}
           periodSeconds: {{ .Values.probe.period }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
-          httpGet:
-            path: {{ .Values.services.msg.healthUrl }}
-            port: {{ .Values.services.msg.ports.containerPort }}
-          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          exec:
+            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
+                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
+                      "/home/mosip/regproc/group2/"
+            ]
           timeoutSeconds: {{ .Values.probe.timeout }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
-          httpGet:
-            path: {{ .Values.services.msg.healthUrl }}
-            port: {{ .Values.services.msg.ports.containerPort }}
+          exec:
+            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
+                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
+                      "/home/mosip/regproc/group2/"
+            ]
+          timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
+        volumeMounts:
+          - name: {{ .Values.healthCheck.persistence.volumeName }}
+            mountPath: {{ .Values.healthCheck.persistence.mountPath }}
+      volumes:
+        - name: {{ .Values.healthCheck.persistence.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.healthCheck.persistence.volumeName }}

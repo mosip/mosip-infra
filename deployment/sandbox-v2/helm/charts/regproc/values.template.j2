@@ -15,6 +15,7 @@ probe:
   livenessPeriod: 30
   failureThreshold: 30
   startupPeriod: 10
+  initialDelaySeconds: 240
 
 ingress:
    namespace: default
@@ -341,3 +342,15 @@ job:
     alias: mosip.regproc.db
     configName: registration-processor
 
+healthCheck:
+  persistence:
+    enabled: true
+    existingClaim: "k8s-health-check"  # should be same as volumeName
+    storageClass: ""
+    volumeName: "k8s-health-check"
+    accessMode: ReadWriteMany
+    size: 100Mi
+    mountPath: /home/mosip/regproc
+    nfs:
+      server: {{ nfs.server }}
+      path: '{{regproc.nfs.regproc_path}}'

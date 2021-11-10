@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: {{ .Values.healthCheck.persistence.volumeName }}
+    labels:
+        name: {{ .Values.healthCheck.persistence.volumeName }}
+spec:
+    storageClassName: ""
+    capacity:
+        storage: {{ .Values.healthCheck.persistence.size }}
+    accessModes:
+        - {{ .Values.healthCheck.persistence.accessMode }}
+    nfs:
+        server:  {{ .Values.healthCheck.persistence.nfs.server }}
+        path: {{ .Values.healthCheck.persistence.nfs.path }}
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+    name: {{ .Values.healthCheck.persistence.volumeName }}
+spec:
+    storageClassName: ""
+    accessModes:
+        - {{ .Values.healthCheck.persistence.accessMode }}
+    resources:
+        requests:
+            storage: {{ .Values.healthCheck.persistence.size }}
+    selector:
+        matchLabels:
+            name: {{ .Values.healthCheck.persistence.volumeName }}
