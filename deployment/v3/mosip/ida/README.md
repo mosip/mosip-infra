@@ -5,4 +5,4 @@
 $ ./install.sh
 ```
 ## Onboard IDA as partner
-Partner onboarding is already done as part of default IDA installation.  However, IDA's certificates needs to be uploaded to Keymanager.  Upload using Postman using collections provided [here](certs_upload/postman/README.md)
+Partner onboarding is already done as part of default IDA installation.  However, IDA's certificates needs to be uploaded to Keymanager.  Upload using Postman collections as given [here](certs_upload/postman/README.md)
