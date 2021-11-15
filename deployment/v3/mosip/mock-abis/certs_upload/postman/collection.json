@@ -34,7 +34,7 @@
                 "header": [],
                 "body": {
                     "mode": "raw",
-                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"appId\": \"ida\",\r\n        \"clientId\": \"mosip-ida-client\",\r\n        \"secretKey\": \"{{ida-client-secret}}\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"appId\": \"ida\",\r\n        \"clientId\": \"mosip-admin-client\",\r\n        \"secretKey\": \"{{admin-client-secret}}\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
                     "options": {
                         "raw": {
                             "language": "json"
