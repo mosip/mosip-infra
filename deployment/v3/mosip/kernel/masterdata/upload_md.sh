@@ -1,5 +1,5 @@
 #!/bin/sh
-# Usage: ./upload_md.sh [kubeconfig file] 
+# Usage: ./upload_md.sh [kubeconfig file]
 # Default kubeconfig file is $HOME/.kube/config
 if [ $# -ge 1 ]
   then
@@ -9,8 +9,8 @@ fi
 read -p "Enter IAM username: " iam_user
 
 # This username is hardcoded in sql scripts
-DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-DB_HOST=`kubectl get cm global -o json | jq .data.\"mosip-api-internal-host\" | tr -d '"'`
+DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath={.data.postgresql-password} | base64 --decode)
+DB_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 DB_PORT=5432
 XLS=xlsx
 
@@ -26,4 +26,3 @@ while true; do
         break
     fi
 done
-

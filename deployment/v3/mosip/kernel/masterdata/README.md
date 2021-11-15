@@ -1,7 +1,7 @@
 # Masterdata Upload Utility
 
 ## Introduction
-Masterdata is specified in xlsx files available in `xlsx` folder.  Update the xlsx as per the [masterdata guide](../../../docs/master_data_tables.xlsx) and run the upload utility. Note that you must run this utility only once to seed the DB data first time.  Subsequently, for any updates use Admin UI or Masterdata APIs. 
+Masterdata is specified in xlsx files available in `xlsx` folder.  Update the xlsx as per the [masterdata guide](../../../docs/master_data_tables.xlsx) and run the upload utility. Note that you must run this utility only once to seed the DB data first time.  Subsequently, for any updates use Admin UI or Masterdata APIs.
 
 ## Prequisites
 1. `python3.9` virtual env
@@ -15,8 +15,7 @@ TODO: Check if below are needed
 	```
 	pip install -r requirements.txt
 	```
-4. Install `jq` command line utility
-5. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
+4. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
 
 ## Run
 ```sh
