@@ -1,4 +1,4 @@
-# IDA Cert Upload 
+# IDA cert upload 
 The folder here contains Postman Collection to upload IDA certs.
 
 ## Prerequisites
