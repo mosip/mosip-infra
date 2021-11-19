@@ -1,6 +1,13 @@
 #!/bin/sh
 # Get admin password
-alias KK='kubectl --kubeconfig $HOME/.kube/iam_config'
+# Usage:
+# ./get_pwd.sh [kube_config_file]
+
+if [ $# -ge 1 ]; then
+  alias KK="KUBECONFIG=$1 kubectl"
+else
+  alias KK="KUBECONFIG=$HOME/.kube/iam_config kubectl"
+fi
 echo Keycloak admin password: $(KK get secret --namespace keycloak keycloak -o jsonpath="{.data.admin-password}" | base64 --decode)
 echo mosip-prereg-client password: $(KK get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.preregistration_mosip_prereg_client_secret}" | base64 --decode)
 
