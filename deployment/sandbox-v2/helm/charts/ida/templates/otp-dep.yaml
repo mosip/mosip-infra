@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.otp.hsmUrl }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}          
         - name: zip_file_path
           value: {{ .Values.services.otp.hsmClientZipPath }}
         - name: JDK_JAVA_OPTIONS
