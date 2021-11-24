@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.auth.hsmUrl }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}          
         - name: zip_file_path
           value: {{ .Values.services.auth.hsmClientZipPath }}
 #        - name: mosip_biosdk_service
