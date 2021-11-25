@@ -2,9 +2,10 @@ import requests
 import sys
 sys.path.insert(0, '../')
 from utils import *
+import config as conf
 
 class MosipSession:
-    def __init__(self, server, user, pwd, appid='ida', ssl_verify=True):
+    def __init__(self, server, user, pwd, appid=conf.appId, ssl_verify=True):
         self.server = server
         self.user = user
         self.pwd = pwd
