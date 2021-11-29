@@ -56,19 +56,24 @@ spec:
         - containerPort: {{ .Values.services.partner.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: {{ .Values.services.partner.healthUrl }}
-            port: {{ .Values.services.partner.ports.containerPort }}
-          periodSeconds: {{ .Values.probe.period }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
+            path: { { .Values.services.partner.healthUrl } }
+            port: { { .Values.services.partner.ports.containerPort } }
+          periodSeconds: { { .Values.probe.period } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
         livenessProbe:
           httpGet:
-            path: {{ .Values.services.partner.healthUrl }}
-            port: {{ .Values.services.partner.ports.containerPort }}
-          periodSeconds: {{ .Values.probe.livenessPeriod }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
+            path: { { .Values.services.partner.healthUrl } }
+            port: { { .Values.services.partner.ports.containerPort } }
+          periodSeconds: { { .Values.probe.livenessPeriod } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
         startupProbe:
           httpGet:
-            path: {{ .Values.services.partner.healthUrl }}
-            port: {{ .Values.services.partner.ports.containerPort }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-          periodSeconds: {{ .Values.probe.startupPeriod }}
+            path: { { .Values.services.partner.healthUrl } }
+            port: { { .Values.services.partner.ports.containerPort } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
+          periodSeconds: { { .Values.probe.startupPeriod } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
+
