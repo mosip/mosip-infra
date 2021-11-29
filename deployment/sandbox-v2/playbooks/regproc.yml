@@ -5,6 +5,18 @@
 - hosts: console
   tasks:
     - {name: 'Create landing folder', file: {name: '{{regproc.nfs.landing_folder}}', state: directory}, become: yes}
+    - {name: 'Create regproc folder', file: {name: '{{regproc.nfs.regproc_path}}',   state: directory}, become: yes}
+
+- hosts: console
+  roles:
+    - { role: k8sHealthCheckPod, vars: { dirName: '{{regproc.nfs.stages.group2.path}}',
+                                         owner: '{{regproc.nfs.stages.group2.path_owner}}',
+                                         group: '{{regproc.nfs.stages.group2.path_group}}',
+                                         healthCheckBashFile: '{{regproc.nfs.stages.group2.healthCheckBashFile}}',
+                                         healthCheckUrlListFile: '{{regproc.nfs.stages.group2.healthCheckUrlListFile}}',
+                                }
+    }
+
 
 # Run DMZ regproc
 - hosts: console

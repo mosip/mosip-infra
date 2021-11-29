@@ -1,0 +1,2 @@
+http://localhost:8090/registrationprocessor/v1/securezone/actuator/health
+http://localhost:8088/registrationprocessor/v1/sender-stage/actuator/health

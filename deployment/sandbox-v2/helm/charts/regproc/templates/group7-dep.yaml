@@ -55,21 +55,26 @@ spec:
           containerPort: {{ .Values.services.print.ports.eventbusPort }}
         - name: printverticle
           containerPort: {{ .Values.services.print.ports.containerPort }}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.group7.healthUrl }}
             port: {{ .Values.services.group7.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.group7.healthUrl }}
             port: {{ .Values.services.group7.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.group7.healthUrl }}
             port: {{ .Values.services.group7.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds}}

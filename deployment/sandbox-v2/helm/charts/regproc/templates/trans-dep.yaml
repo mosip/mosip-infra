@@ -47,21 +47,26 @@ spec:
         ports:
         - name: verticle-port
           containerPort: {{ .Values.services.trans.ports.containerPort }}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.trans.healthUrl }}
             port: {{ .Values.services.trans.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.trans.healthUrl }}
             port: {{ .Values.services.trans.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.trans.healthUrl }}
             port: {{ .Values.services.trans.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

@@ -47,6 +47,8 @@ spec:
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }} 
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}          
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.otp.hsmUrl }}
         - name: iam_adapter_url_env
@@ -65,15 +67,19 @@ spec:
             port: {{ .Values.services.otp.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.otp.healthUrl }}
             port: {{ .Values.services.otp.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.otp.healthUrl }}
             port: {{ .Values.services.otp.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

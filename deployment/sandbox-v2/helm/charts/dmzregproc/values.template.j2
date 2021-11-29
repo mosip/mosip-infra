@@ -10,8 +10,12 @@ regprocJarsPath: {{ regproc_clamav_jar_path }}
 sitePublicUrl: {{ site.sandbox_public_url }}
 
 probe:
-  initialDelay: 30  # Seconds
   period: 30 # Seconds
+  timeout: 10
+  livenessPeriod: 30
+  failureThreshold: 10
+  startupPeriod: 30
+  initialDelaySeconds: 60
 
 ingress:
    namespace: default

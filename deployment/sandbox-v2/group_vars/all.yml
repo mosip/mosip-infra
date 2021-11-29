@@ -158,6 +158,14 @@ regproc:
   nfs:
     server: '{{nfs.server}}'
     landing_folder: '{{nfs.folder}}/landing'
+    stages:
+      group2:
+        path: '{{nfs.folder}}/regproc/group2'
+        path_owner: 'mosipuser'
+        path_group: 'mosipuser'
+        healthCheckBashFile: '{{charts_root}}/regproc/files/healthCheckViaBashScript.sh'
+        healthCheckUrlListFile: '{{charts_root}}/regproc/files/group2HealthCheckUrlList'
+
 
 # Postgres persistent storage
 postgres:
@@ -239,7 +247,7 @@ reg_client:
   logback_xml: '{{install_root}}/roles/reg-client-prep/files/logback.xml'
 
 mock_abis:
-  nfs_path: '{{nfs.folder}}/test-mock-abis/'
+  nfs_path: '{{nfs.folder}}/mock-abis/'
   p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
   prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
 
@@ -247,49 +255,49 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
-  ref_impl:
+  mosip_data:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
   hotlist:
     src: https://github.com/mosip/admin-services
     dest: '{{tmp_dir}}/admin-services'
-    tag: develop
+    tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
 
@@ -303,7 +311,7 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_iam:
     user: iamuser
@@ -316,17 +324,17 @@ databases:
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_credential:
     user: credentialuser
@@ -343,27 +351,27 @@ databases:
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
 #    release_path: '{{repos.prereg.dest}}/db_release_scripts'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.regproc.dest}}/db_release_scripts'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
-  #   release_path: '{{repos.pms.dest}}/db_release_scripts'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
+#    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_hotlist:
     user: hotlistuser
     sql_path: '{{repos.hotlist.dest}}/db_scripts'
-   # release_path: '{{repos.websub.dest}}/db_release_scripts'
+#    release_path: '{{repos.websub.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
