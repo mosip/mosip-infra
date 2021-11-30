@@ -11,36 +11,25 @@
 ## Prerequisites
 1. Python3.9
 1. Set up python3.9 virtual env
-```sh
-mkdir ~/.venv
-python3.9 -m venv ~/.venv/partner
-```
+    ```sh
+    mkdir ~/.venv
+    python3.9 -m venv ~/.venv/partner
+    ```
 1. Switch to virtual env 
-```
-source ~/.venv/partner/bin/activate
-```
+    ```
+    source ~/.venv/partner/bin/activate
+    ```
 1. Install required modules
-```sh
-pip install -r requirements.txt
-```
+    ```sh
+    pip install -r requirements.txt
+    ```
+## Creation of certificates
+1. Run `create_cert.py` to create certificate for partners.  The input to this script is a json as given in following examples `input/partners`
 
-## Adding Auth Partner 
-1. Add auth partner `add_partner.py`
-1. Get api request key
-```
-python3 lib/api_key_request.py $SERVER auth-partner-2 mpolicy-default-auth <user> <password>
-```
-1. Extractors
-```
-python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth photo face mock 1.1 <user> <password>
-python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth iris iris mock 1.1 <user> <password>
-python3 lib/add_extractor.py $SERVER auth-partner-2 mpolicy-default-auth fingerprint finger mock 1.1 <user> <password>
-```
-1. Approve request
-```
-python3 lib/approve_apikey_request.py $SERVER 498721 <user> <password>
+## Onboard
+1. Onboard partners using Postman collection. Note that the values here are samples, you need to plug-in values appropriately in the json params of each API call.
+1. Use `single_line.sh` script to convert a cert from file to single line - required for Postman API calls.
 
-```
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
@@ -53,7 +42,7 @@ python3 lib/approve_apikey_request.py $SERVER 498721 <user> <password>
 * **org_name**: Must match partner name.
 
 ## Certs
-For internal certs the partner name must match the oranization name given in the cert.
+For internal certs the partner name must match the organisation name given in the cert.
 
 ## Policy group
 * Multiple policies can be within policy group.
