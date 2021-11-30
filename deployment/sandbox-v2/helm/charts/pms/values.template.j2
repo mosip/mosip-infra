@@ -15,8 +15,10 @@ probe:
   period: 30 # Seconds
   timeout: 10
   livenessPeriod: 30
-  failureThreshold: 30
+  failureThreshold: 10
   startupPeriod: 10
+  initialDelaySeconds: 60
+
 
 imagePullPolicy: Always
 
