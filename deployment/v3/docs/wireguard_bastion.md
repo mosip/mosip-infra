@@ -34,7 +34,7 @@ docker run -d \
   ghcr.io/linuxserver/wireguard
 ```
 * If you already have a config file you may mount it with `-v <your host path>:/config`.
-* You may increase the number of peers keeping the above mounted file intact, stopping the docker and running it again with `-e PEERS=<number of peers>`
+* You may increase the number of peers keeping the above mounted folders intact, stopping the docker and running it again with `-e PEERS=<number of peers>`
 
 ### Client install
 * Install a Wireguard app on your machine.  For MacOS there is a Wireguard app on the App Store.

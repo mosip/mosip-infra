@@ -1,5 +1,4 @@
-# IDA Cert Upload (_Work-in-progress_)
-
+# IDA cert upload 
 The folder here contains Postman Collection to upload IDA certs.
 
 ## Prerequisites
@@ -9,7 +8,7 @@ Install Postman (browser or command line).  The command line version is called `
 * Inspect `env.json` for any changes in default params.
 * Run on command line
 ```sh
-newman run collection.json -e env.json  --env-var 'url=https://xxx.yyy.zzz' --env-var 'ida-client-secret=xxxxxxxxxxxx'
+newman run collection.json -e env.json  --env-var 'url=https://xxx.yyy.zzz' --env-var 'admin-client-secret=xxxxxxxxxxxx'
 ```
 
 output:

@@ -1,4 +1,4 @@
-# MOSIP Sandox profile
+# MOSIP Sandbox profile
 
 ## Resources / hardware sizing
 

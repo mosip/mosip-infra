@@ -1,21 +1,27 @@
 #!/bin/sh
 ## Point config to your cluster on which you are installing IAM.
-KC="--kubeconfig $HOME/.kube/iam_config" 
+if [ $# -lt 1 ]; then
+  echo "Usage: ./install.sh <iam host name for this install> [kube_config_file]"; exit 1
+fi
+if [ $# -ge 2 ]; then
+  export KUBECONFIG=$2
+else
+  export KUBECONFIG="$HOME/.kube/iam_config"
+fi
 NS=keycloak
 
 echo Creating namespace
-kubectl $KC create ns keycloak
+kubectl create ns keycloak
 
-echo Istio label 
-kubectl $KC label ns $NS istio-injection=enabled --overwrite
-helm $KC repo add bitnami https://charts.bitnami.com/bitnami
+echo Istio label
+kubectl label ns $NS istio-injection=enabled --overwrite
+helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
-echo Installing 
-helm $KC -n $NS install keycloak bitnami/keycloak -f values.yaml
+echo Installing
+helm -n $NS install keycloak bitnami/keycloak -f values.yaml
 
 ## Set your iam domain
-HOST=iam.xyz.net
+HOST=$1
 echo Install Istio gateway, virtual service
-helm $KC -n $NS install istio-addons chart/istio-addons --set keycloakHost=$HOST
-
+helm -n $NS install istio-addons chart/istio-addons --set keycloakHost=$HOST
