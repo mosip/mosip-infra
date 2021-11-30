@@ -4,7 +4,7 @@ metadata:
   name: keycloak
 spec:
   selector:
-    istio: ingressgateway
+    istio: ingressgateway-internal
   servers:
   - port:
       number: 80
