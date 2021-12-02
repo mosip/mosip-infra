@@ -155,6 +155,19 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/internal/;
         }
 
+        location /idauthentication1/v1/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication1/v1/;
+        }
+
+        location /idauthentication1/v1/otp/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication1/v1/otp/;
+        }
+
+        location /idauthentication1/v1/internal/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication1/v1/internal/;
+        }
+
+
         location /idrepository/v1/identity/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/identity/;
         }

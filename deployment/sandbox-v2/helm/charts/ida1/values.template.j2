@@ -15,8 +15,9 @@ probe:
   period: 30 # Seconds
   timeout: 10
   livenessPeriod: 30
-  failureThreshold: 30
-  startupPeriod: 10
+  failureThreshold: 10
+  startupPeriod: 30
+  initialDelaySeconds: 240
 
 imagePullPolicy: Always
 
@@ -30,7 +31,7 @@ dockerHub:
 
 services:
   auth:
-    serviceName: ida1-auth
+    serviceName: {{ versions.services.ida.auth.keys()[0] }}
     dockerImage: {{ versions.services.ida.auth.values()[0] }}
     ports:
       containerPort: 8090
@@ -41,7 +42,7 @@ services:
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.auth | to_nice_yaml(indent=6) | indent(6) }}
-    annotation: /idauthentication/v1/auth/actuator/prometheus
+    annotation: /idauthentication1/v1/auth/actuator/prometheus
 
   internal: 
     serviceName: {{ versions.services.ida.internal.keys()[0] }} 
@@ -49,13 +50,13 @@ services:
     ports:
       containerPort: 8093
       servicePort: 80
-    hsmUrl: tcp://softhsm-ida:80   
-    ingressPath: /idauthentication/v1/internal
-    healthUrl: /idauthentication/v1/internal/actuator/health
+    hsmUrl: tcp://softhsm-ida1.idauth:80   
+    ingressPath: /idauthentication1/v1/internal
+    healthUrl: /idauthentication1/v1/internal/actuator/health
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.internal | to_nice_yaml(indent=6) | indent(6) }}
-    annotation: /idauthentication/v1/internal/actuator/prometheus
+    annotation: /idauthentication1/v1/internal/actuator/prometheus
 
   otp: 
     serviceName: {{ versions.services.ida.otp.keys()[0] }} 
@@ -63,18 +64,18 @@ services:
     ports:
       containerPort: 8092
       servicePort: 80
-    hsmUrl: tcp://softhsm-ida:80   
-    ingressPath: /idauthentication/v1/otp
-    healthUrl: /idauthentication/v1/otp/actuator/health
+    hsmUrl: tcp://softhsm-ida1.idauth:80   
+    ingressPath: /idauthentication1/v1/otp
+    healthUrl: /idauthentication1/v1/otp/actuator/health
     hsmClientZipPath: {{ hsm_client_zip_path }}
     podconfig:
       {{ podconfig.ida.otp | to_nice_yaml(indent=6) | indent(6) }}
-    annotation: /idauthentication/v1/otp/actuator/prometheus
+    annotation: /idauthentication1/v1/otp/actuator/prometheus
 
 generators:
   keygen:  
     name: {{ versions.services.ida.keygen.keys()[0] }} 
     dockerImage: {{ versions.services.ida.keygen.values()[0] }}
-    hsmUrl: tcp://softhsm-ida:80
+    hsmUrl: tcp://softhsm-ida1.idauth:80
     hsmClientZipPath: {{ hsm_client_zip_path }}
    
