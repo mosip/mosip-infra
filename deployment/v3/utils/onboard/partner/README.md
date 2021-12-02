@@ -23,13 +23,16 @@
     ```sh
     pip install -r requirements.txt
     ```
+1. Install utility Keystore Explorer.
+2. 
 ## Creation of certificates
 1. Run `create_cert.py` to create certificate for partners.  The input to this script is a json as given in following examples `input/partners`
 
 ## Onboard
 1. Onboard partners using Postman collection. Note that the values here are samples, you need to plug-in values appropriately in the json params of each API call.
 1. Use `single_line.sh` script to convert a cert from file to single line - required for Postman API calls.
-
+1. After upload of partner certificates, MOSIP returns back signed partner certificate.  Make sure that existing certficate in .p12 keystore file of partner is replaced with this certificate.  You may use utlity Keystore Explorer for this.
+ 
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
