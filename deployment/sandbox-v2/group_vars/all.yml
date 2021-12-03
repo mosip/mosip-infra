@@ -10,6 +10,7 @@ tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://mz.ingress:30080/
+artifactory_url1: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
@@ -236,6 +237,18 @@ softhsm:
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     nfs_path: '{{nfs.folder}}/softhsm/ida/'
+  ida1:  # Auth
+    label: ida1
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep1/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep1/files/tokens'
+    nfs_path: '{{nfs.folder}}/softhsm/ida1/'
+    helm_chart: '{{charts_root}}/softhsm1'
+    is_template: true
+    helm_namespace: 'idauth'
+    helm_values: '{{charts_root}}/softhsm1/values.template.j2'
+    helm_strings: ''
+    activeProfileEnv: 'mz1'
 
 reg_client:
   cert_file: mosip_cer.cer
@@ -250,6 +263,16 @@ mock_abis:
   nfs_path: '{{nfs.folder}}/mock-abis/'
   p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
   prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
+
+ida1:
+  kube_config: '{{clusters.mz.kube_config}}'
+  install_name: 'ida1'
+  helm_chart: '{{charts_root}}/ida1'
+  is_template: true
+  helm_namespace: 'idauth'
+  helm_values: '{{charts_root}}/ida1/values.template.j2'
+  helm_strings: ''
+  activeProfileEnv: 'mz1'
 
 repos:
   commons:
@@ -454,6 +477,7 @@ iam_adapter_regproc_url: 'http://artifactory-service.default:80/artifactory/libs
 iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://mock-biosdk-service/biosdk-service
+biosdk_service_url1: http://mock-biosdk-service.default/biosdk-service
 cache_provider_url: http://artifactory-service.default:80/artifactory/libs-release-local/cache/cache-provider.jar
 
 # user for every service inside the container

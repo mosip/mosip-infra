@@ -1,0 +1,34 @@
+# Softhsm.
+- import_playbook: softhsm1.yml
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    hsm_prop: '{{softhsm.ida1}}'
+
+# IDA
+- hosts: console
+  vars:
+    kube_config: '{{ida1.kube_config}}'
+    install_name: '{{ida1.install_name}}'
+    helm_chart: '{{ida1.helm_chart}}'
+    is_template: '{{ida1.is_template}}'
+    helm_namespace: '{{ida1.helm_namespace}}'
+    helm_values: '{{ida1.helm_values}}'
+    helm_strings: '{{ida1.helm_strings}}'
+    activeProfileEnv: '{{ida1.activeProfileEnv}}'
+  roles:
+    - {role:  helm}
+
+  tasks:
+    # TODO:  We are waiting here for ida to settle down. This must be changed to
+    # a better check later
+    - name: Waiting for ida to install completely.
+      pause:
+        seconds: 20 
+
+# Upload ZK certificate
+- hosts: console
+  tasks:
+    - name: Upload ida cred service certificate to keymanager
+      shell:
+        cmd: './ida_zk.py --server {{site.sandbox_internal_url}} --disable_ssl_verify'
+        chdir: '{{install_root}}/utils/onboard/ida_zk'
