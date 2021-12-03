@@ -17,11 +17,12 @@ sc:
 exportLogs: enabled  # Let filebeat export the logs
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
   startupPeriod: 10
+  initialDelaySeconds: 60
 
 resources:
   requests:
