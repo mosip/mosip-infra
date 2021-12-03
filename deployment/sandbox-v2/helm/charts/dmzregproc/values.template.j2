@@ -50,6 +50,7 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
+      containerPort: 8081
     ingressPath: /registrationprocessor/v1/packetreceiver/
     healthUrl: /registrationprocessor/v1/packetreceiver/actuator/health
     podconfig:
