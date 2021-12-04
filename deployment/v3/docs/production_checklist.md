@@ -13,3 +13,4 @@
 10. Valid urls redirect in Keycloak - set specific urls.
 11. Keycloak Realm connection timeout settings - review all.
 12. Postgres [production configuration](../profiles/production/postgres/values.yaml)
+13. Disable '111111' default OTP.
