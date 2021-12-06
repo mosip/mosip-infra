@@ -5,12 +5,12 @@ springConfigLabel: {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 10
-  startupPeriod: 30
-  initialDelaySeconds: 240
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
+  startupPeriod: 10
+  initialDelaySeconds: 180
 
 ingress:
    namespace: default

@@ -50,22 +50,26 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.services.hotlist.ports.containerPort }}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.hotlist.healthUrl }}
             port: {{ .Values.services.hotlist.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.hotlist.healthUrl }}
             port: {{ .Values.services.hotlist.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.hotlist.healthUrl }}
             port: {{ .Values.services.hotlist.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

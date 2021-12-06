@@ -48,10 +48,28 @@ spec:
         {{ end }} 
         {{ end }}
         ports:
-        - containerPort: {{ .Values.docker.containerPort }} 
+        - containerPort: {{ .Values.docker.containerPort }}
+
         readinessProbe:
           tcpSocket:
-            port: {{ .Values.docker.containerPort }}  # All defaults used
+            port: {{  .Values.docker.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          tcpSocket:
+            port: {{  .Values.docker.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          tcpSocket:
+            port: {{  .Values.docker.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
 {{ if eq .Values.localRepo.enabled true }}
         volumeMounts:
         - name: repo

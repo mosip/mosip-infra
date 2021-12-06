@@ -477,7 +477,7 @@ iam_adapter_regproc_url: 'http://artifactory-service.default:80/artifactory/libs
 iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
 runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://mock-biosdk-service/biosdk-service
-biosdk_service_url1: http://mock-biosdk-service.default/biosdk-service
+biosdk_service_url1: http://mock-biosdk-service.default:80/biosdk-service
 cache_provider_url: http://artifactory-service.default:80/artifactory/libs-release-local/cache/cache-provider.jar
 
 # user for every service inside the container
