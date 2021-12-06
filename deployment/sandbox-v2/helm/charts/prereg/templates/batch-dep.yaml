@@ -40,7 +40,9 @@ spec:
         - name: spring_config_url_env
           value: {{ .Values.configServerUrl }} 
         - name: artifactory_url_env
-          value: {{ .Values.artifactoryUrl }} 
+          value: {{ .Values.artifactoryUrl }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         - name: is_glowroot_env
           value: {{ .Values.isGlowroot }}
         - name: JDK_JAVA_OPTIONS
