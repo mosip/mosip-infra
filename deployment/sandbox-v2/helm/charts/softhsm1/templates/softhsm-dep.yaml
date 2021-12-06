@@ -55,9 +55,8 @@ spec:
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
         startupProbe:
-          httpGet:
-            path: {{ .Values.services.resident.healthUrl }}
-            port: {{ .Values.services.resident.ports.containerPort }}
+          tcpSocket:
+            port: {{ .Values.docker.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
