@@ -14,7 +14,7 @@ versions:
       sync:
         'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.2'
       audit :
-        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.3'
+        'kernel-auditmanager-service': 'mosipdev/kernel-auditmanager-service:1.1.5.5'
       key:
         'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:1.1.5.5'
       notifier:
