@@ -10,8 +10,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.x509.oid import NameOID
 from cryptography.hazmat.backends import default_backend
 from OpenSSL import crypto
-import config as conf
-from api import *
 
 class Cert:
     def __init__(self):
