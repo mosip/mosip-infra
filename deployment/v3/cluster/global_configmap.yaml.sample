@@ -26,4 +26,5 @@ data:
   mosip-admin-host: admin.sandbox.xyz.net
   mosip-minio-host: minio.sandbox.xyz.net
   mosip-kafka-host: kafka.sandbox.xyz.net
+  mosip-iam-host: iam.sandbox.xyz.net
   is_glowroot_env: absent
