@@ -1,7 +1,7 @@
 # Production deployment checklist
 
 1. Change log level to INFO in application properties.
-1. Enable persistence in all modules.  On cloud change the storage class from 'Delete' to 'Retain'.
+1. Enable persistence in all modules.  On cloud change the storage class from 'Delete' to 'Retain'.  If you already have PV as 'Delete', you can edit the PV config and change it to 'Retain' (without having to change storage class)
 2. Make sure storage class allows expansion of storage.
 3. Review size of persistent volumes and update.
 4. Increase the number of nodes in the cluster according to expected load.  
