@@ -62,10 +62,10 @@ services:
     ports:
       hazelcastPort: 5701
       servicePort: 80
-      containerPort: 9071
+      containerPort: 8091
     podconfig:
       {{ podconfig.regproc.group3 | to_nice_yaml(indent=6) | indent(6) }}
-    healthUrl: /registrationprocessor/v1/abishandler/actuator/health
+    healthUrl: /registrationprocessor/v1/abismiddleware/actuator/health
 
   group4:  
     serviceName: {{ versions.services.regproc.group4.keys()[0] }} 
