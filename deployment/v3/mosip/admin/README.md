@@ -25,5 +25,5 @@ Use the portal to onboard user, machine, center.
 Note that for onboarding a user (like a Zonal Admin or Registration Officer),
 1. Create user in Keycloak first with appropriate role. 
 1. Map the user to a Zone using Admin portal.
-1. Map user to a registration center (in case of Registration Officer/Supervisor).
+1. Map user to a registration center (in case of Registration Officer/Supervisor) using Admin portal.
 
