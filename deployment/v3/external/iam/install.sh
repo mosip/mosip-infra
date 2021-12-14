@@ -19,7 +19,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing
-helm -n $NS install keycloak bitnami/keycloak -f values.yaml
+helm -n $NS install keycloak bitnami/keycloak --version "4.3.0" -f values.yaml
 
 ## Set your iam domain
 HOST=$1
