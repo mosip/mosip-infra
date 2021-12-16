@@ -60,6 +60,5 @@ spec:
             # The config map gets mounted like files where key=file, value=file contents
       volumes:
         - name: ui-config
-          mountPath: /usr/share/nginx/html/assets/config.json
           configMap:
             name: {{ .Values.services.ui.configName }}
