@@ -323,6 +323,12 @@ repos:
     tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
+  keymanager:
+    src: https://github.com/mosip/keymanager
+    dest: '{{tmp_dir}}/keymanager'
+    tag: 1.2.0-rc2
+    githubuser: ''
+    githubpassword: ''
 
 # DBs 
 # Please uncomment the release_path key in each of the database section if there is change in the DB in specific version
@@ -351,9 +357,9 @@ databases:
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
-    sql_path: '{{repos.commons.dest}}/db_scripts'
+    sql_path: '{{repos.keymanager.dest}}/db_scripts'
     dml_path: '{{repos.mosip_data.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+    release_path: '{{repos.keymanager.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
