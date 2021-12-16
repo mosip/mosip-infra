@@ -159,6 +159,7 @@ regproc:
   nfs:
     server: '{{nfs.server}}'
     landing_folder: '{{nfs.folder}}/landing'
+    regproc_path: '{{nfs.folder}}/regproc'
     stages:
       group2:
         path: '{{nfs.folder}}/regproc/group2'
