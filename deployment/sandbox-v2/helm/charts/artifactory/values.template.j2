@@ -10,7 +10,8 @@ dockerHub:
 
 services:
   artifactory:
-    podconfig: {{ podconfig.artifactory.service | to_yaml }}
+    podconfig:
+      {{ podconfig.artifactory.service | to_nice_yaml(indent=6) | indent(6) }}
     containerPort: 8080
     servicePort: 80
 exportLogs: enabled  # Let filebeat export the logs
