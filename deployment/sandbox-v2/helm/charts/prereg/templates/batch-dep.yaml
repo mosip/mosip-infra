@@ -57,7 +57,7 @@ spec:
               - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
                 for str in $HEALTH_CHECK_PATHS; do 
                    curl_output="$(curl -w %{http_code} -o /dev/null -s $str)"; 
-                   if ! [ "$curl_output" = "200"]; then 
+                   if ! [ "$curl_output" = "200" ]; then 
                       echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1; 
                    fi; 
                 done
@@ -72,7 +72,7 @@ spec:
               - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
                 for str in $HEALTH_CHECK_PATHS; do
                    curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
-                   if ! [ "$curl_output" = "200"]; then
+                   if ! [ "$curl_output" = "200" ]; then
                       echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
                    fi;
                 done
@@ -87,7 +87,7 @@ spec:
               - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
                 for str in $HEALTH_CHECK_PATHS; do
                    curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
-                   if ! [ "$curl_output" = "200"]; then
+                   if ! [ "$curl_output" = "200" ]; then
                       echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
                    fi;
                 done
