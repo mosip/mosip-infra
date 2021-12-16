@@ -86,6 +86,7 @@ services:
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}
     ingressPath: /pre-registration-ui
+    healthUrl: /pre-registration-ui/
     podconfig:
       {{ podconfig.prereg.ui | to_nice_yaml(indent=6) | indent(6) }}
     
