@@ -49,6 +49,9 @@ helm -n $NS install regproc-group6 mosip/regproc-group6 --version $CHART_VERSION
 echo Installing group7
 helm -n $NS install regproc-group7 mosip/regproc-group7 --version $CHART_VERSION
 
+echo Installing regproc-trans
+helm -n $NS install regproc-trans mosip/regproc-trans --version $CHART_VERSION
+
 echo Installing regproc-notifier
 helm -n $NS install regproc-notifier mosip/regproc-notifier --version $CHART_VERSION
 
