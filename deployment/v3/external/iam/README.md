@@ -18,7 +18,7 @@ Here we provide k8s installation procedure for **Keycloak** which is the default
 
 * Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart. To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). Run the following, **twice**, with different keycloak hostnames and kubeconfig files, one time for organisation keycloak, second time for mosip keycloak.
 ```
-$ ./install.sh <keycloak host name for this install> <kubeconfig file for this cluster>
+$ ./install.sh <keycloak external host name for this install> <kubeconfig file for this cluster>
 ```
 * Note that the helm chart installs postgres too.  If you already have an external postgres DB, point to the same while installing.
 * For postgres persistence the chart uses default storage class available with the cluster.
