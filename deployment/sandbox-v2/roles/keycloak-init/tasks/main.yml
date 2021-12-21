@@ -48,3 +48,12 @@
     kc_role_name: '{{item.role_name}}'
     kc_username: '{{item.username}}' 
   with_items: '{{keycloak_mosip_user_role_map}}'
+
+# create mappers
+- include_tasks:
+    file: create_mapper.yml
+  vars:
+    kc_realm_id: '{{item.realm_id}}'
+    kc_client_id: '{{item.client_id}}'
+    kc_client_mapper: '{{item.mapper_name}}'
+  with_items: '{{keycloak_mosip_create_mappers}}'
