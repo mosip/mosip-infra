@@ -98,7 +98,6 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'Publish_CREDENTIAL_ISSUED_All_Individual'}
   - {realm_id: 'mosip', client_id: '', role_name: 'Subscribe_CREDENTIAL_ISSUED_Individual'}
   - {realm_id: 'mosip', client_id: '', role_name: 'Publish_AUTH_TYPE_STATUS_UPDATE_ACK_General'}
-  - {realm_id: 'mosip', client_id: '', role_name: 'Subscribe_AUTH_TYPE_STATUS_UPDATE_ACK_General'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'AUTH'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'preregistration', client_id: '', role_name: 'PREREG'}
