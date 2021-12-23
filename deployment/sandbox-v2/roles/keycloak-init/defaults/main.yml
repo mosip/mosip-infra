@@ -127,6 +127,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'ONLINE_VERIFICATION_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'ABIS_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'MISP_PARTNER'}
+# new realm roles for client IDs
   - {realm_id: 'mosip', client_id: '', role_name: 'PUBLISH_MISP_LICENSE_UPDATED_GENERAL'}
   - {realm_id: 'mosip', client_id: '', role_name: 'PUBLISH_PARTNER_UPDATED_GENERAL'}
   - {realm_id: 'mosip', client_id: '', role_name: 'PUBLISH_MISP_LICENSE_GENERATED_GENERAL'}
