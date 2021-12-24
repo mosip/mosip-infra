@@ -119,7 +119,18 @@ class KeycloakSession:
 
         self.keycloak_admin.realm_name = 'master' # restore
 
+    def assign_user_roles(self, realm, username, roles):
+        self.keycloak_admin.realm_name = realm
+        roles = [self.keycloak_admin.get_realm_role(role) for role in roles]
+        try:
+            print(f'''Get user id for {username}''')
+            user_id = self.keycloak_admin.get_user_id(username)
+            self.keycloak_admin.assign_realm_roles(user_id, roles)
+        except:
+            self.keycloak_admin.realm_name = 'master' # restore
+            raise
 
+        self.keycloak_admin.realm_name = 'master' # restore
        
 def args_parse(): 
    parser = argparse.ArgumentParser()
@@ -173,8 +184,9 @@ def main():
             
             users = values[realm]['users']
             for user in users:
+                print(f'''Creating user {user['username']}''')
                 r = ks.create_user(realm, user['username'], user['email'], user['firstName'], user['lastName'], user['password'], user['temporary'])
-
+                r = ks.assign_user_roles(realm, user['username'], user['realmRoles'])
     except:
         formatted_lines = traceback.format_exc()
         print(formatted_lines)
