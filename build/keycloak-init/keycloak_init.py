@@ -78,9 +78,7 @@ class KeycloakSession:
         if len(sa_roles) == 0:  # Skip the below step
             self.keycloak_admin.realm_name = 'master' # restore
             return
-        # Assign service account roles. Use default username that's created when service account is enabled
-        # for a client.
-        username =  'service-account-'  + client
+
         try:
             roles = [] # Get full role reprentation of all roles 
             for role in sa_roles:
@@ -103,6 +101,7 @@ class KeycloakSession:
           "email" : email,
           "firstName" : fname,
           "lastName" : lname,
+          "enabled": True
         }
         try:
             print('Creating user %s' % uname)
