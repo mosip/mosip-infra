@@ -32,6 +32,6 @@ $ docker build -t <your docker registry >/keycloak-init:<tag> .
 $ docker push <your docker registry >/keycloak-init:<tag>
 ```
 * Run
-```
-docker run -v /path/to/input_file_dir/:/opt/mosip/input -e KEYCLOAK_ADMIN_USER=user -e KEYCLOAK_ADMIN_PASSWORD=<password> -e KEYCLOAK_SERVER_URL=https://iam.xyz.net  mosipdev/keycloak-init:develop
-```
+See `run.sh`
+
+To just create users see example `users.yaml`
