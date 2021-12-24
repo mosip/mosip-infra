@@ -32,6 +32,7 @@ $ docker build -t <your docker registry >/keycloak-init:<tag> .
 $ docker push <your docker registry >/keycloak-init:<tag>
 ```
 * Run
+
 See `run.sh`
 
 To just create users see example `users.yaml`
