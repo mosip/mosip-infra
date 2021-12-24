@@ -4,7 +4,7 @@ ecdsa==0.17.0
 idna==2.10
 pyasn1==0.4.8
 python-jose==3.3.0
-python-keycloak==0.25.0
+python-keycloak==0.26.1
 PyYAML==5.4.1
 requests==2.25.1
 rsa==4.7.2
