@@ -479,9 +479,9 @@ coredns:
          node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
-iam_adapter_url: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_url: 'http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
-iam_adapter_url_dmz: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_url_dmz: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://mock-biosdk-service/biosdk-service
 biosdk_service_url1: http://mock-biosdk-service.default:80/biosdk-service
