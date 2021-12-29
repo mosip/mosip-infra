@@ -135,7 +135,7 @@ versions:
 
     datashare:
       service:
-        'datashare-service': 'mosipqa/data-share-service:develop'
+        'datashare-service': 'mosipqa/data-share-service:1.2.0-rc2'
 
     print:
       service:
@@ -157,8 +157,8 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipqa/artifactory-server:develop'
+        'artifactory-service': 'mosipqa/artifactory-server:1.2.0-rc2'
 
     keycloak:
       service:
-        'keycloak': 'mosipqa/mosip-keycloak:develop'
+        'keycloak': 'mosipqa/mosip-keycloak:1.2.0-rc2'

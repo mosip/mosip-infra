@@ -109,7 +109,7 @@ clusters:
       replica_count: 5
       zookeeper_replica_count: 5
       zookeeper_size: 2Gi
- 
+      service_name: 'kafka.default:9092' 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
@@ -151,7 +151,8 @@ clusters:
       num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
-      zookeeper_size: 2Gi 
+      zookeeper_size: 2Gi
+      service_name: 'kafka.default:9092' 
 
 # Registration processor shared variables
 #
@@ -159,6 +160,7 @@ regproc:
   nfs:
     server: '{{nfs.server}}'
     landing_folder: '{{nfs.folder}}/landing'
+    regproc_path: '{{nfs.folder}}/regproc'
     stages:
       group2:
         path: '{{nfs.folder}}/regproc/group2'
@@ -323,6 +325,12 @@ repos:
     tag: 1.2.0-rc2
     githubuser: ''
     githubpassword: ''
+  keymanager:
+    src: https://github.com/mosip/keymanager
+    dest: '{{tmp_dir}}/keymanager'
+    tag: 1.2.0-rc2
+    githubuser: ''
+    githubpassword: ''
 
 # DBs 
 # Please uncomment the release_path key in each of the database section if there is change in the DB in specific version
@@ -351,9 +359,9 @@ databases:
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
-    sql_path: '{{repos.commons.dest}}/db_scripts'
+    sql_path: '{{repos.keymanager.dest}}/db_scripts'
     dml_path: '{{repos.mosip_data.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+    release_path: '{{repos.keymanager.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
@@ -471,10 +479,9 @@ coredns:
          node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
-iam_adapter_url: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_url: 'http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
-iam_adapter_regproc_url: 'http://artifactory-service.default:80/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
-iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_url_dmz: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://mock-biosdk-service/biosdk-service
 biosdk_service_url1: http://mock-biosdk-service.default:80/biosdk-service
