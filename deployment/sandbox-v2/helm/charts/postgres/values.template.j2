@@ -30,7 +30,7 @@ resources:
     cpu: 250m 
 docker:
   image: postgres
-  tag: 12.2
+  tag: 13.2
   containerPort: 5432
 nodePort: {{ postgres.port }}
 maxConnections: {{ postgres.max_connections }} 
