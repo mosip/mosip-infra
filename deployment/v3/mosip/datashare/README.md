@@ -1,6 +1,0 @@
-# Datashare
-
-## Install
-```
-$ ./install.sh
-```

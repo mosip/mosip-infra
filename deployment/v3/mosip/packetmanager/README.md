@@ -1,6 +1,0 @@
-# Packetmanager
-
-## Install
-```
-$ ./install.sh
-```

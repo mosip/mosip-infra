@@ -1,6 +1,0 @@
-- hosts: cluster
-  tasks:
-    - name: Start wireguard 
-      shell: 'wg-quick up wg0'
-      become: yes
-
