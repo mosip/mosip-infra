@@ -55,3 +55,6 @@ Following install sequence is recommended:
 * [MOSIP external components](external/README.md)
 * [MOSIP core modules](mosip/README.md)
 * [Reporting](reporting/README.md)
+
+## Production hardening
+Refer to notes [here](docs/production_checklist.md) for production hardening items.
