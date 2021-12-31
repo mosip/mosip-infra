@@ -1,0 +1,25 @@
+{
+  "id" : "mpartner-default-abis",
+  "name" : "Default ABIS Partner",
+  "contact": "574674385", 
+  "address": "Paris",
+  "email" : "abis@xyz.com", 
+  "partner_domain": "AUTH",
+  "partner_type": "ABIS_Partner",
+  "policies" : [{
+      "policy_file": "input/policies/abispolicy.json",
+      "extractors": []
+  }],
+  "cert": {
+    "generated_key_path":  "certs/abis1/pvt_key.pem",
+    "generated_cert_path": "certs/abis1/cert.pem",
+    "is_ca": false,
+    "cn": "abis-one.com",
+    "country": "FR",
+    "province": "RG",
+    "locality": "Paris" ,
+    "valid_days": 365,
+    "ca_cert": "certs/ca1/cert.pem",
+    "ca_pvt_key": "certs/ca1/pvt_key.pem"
+  }
+}

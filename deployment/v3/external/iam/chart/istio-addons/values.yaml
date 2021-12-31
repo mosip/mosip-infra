@@ -1,0 +1,4 @@
+# In-cluster host name by which MOSIP services would be accessing Keycloak
+# svc name.namespace 
+keycloakHost: keycloak.keycloak
+keycloakExternalHost: iam.sandbox.xyz.net 

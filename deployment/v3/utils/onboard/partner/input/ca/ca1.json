@@ -1,0 +1,18 @@
+{
+  "name" : "MOSIP", 
+  "cert": {
+    "output": {
+      "folder": "certs/ca1", 
+      "key": "pvt_key.pem",
+      "cert": "cert.pem",
+      "keystore": "keystore.p12" 
+     },
+    "is_ca": true, 
+    "cn": "mosip.org",
+    "country": "IN",
+    "province": "KA",
+    "locality": "Bangalore",
+    "valid_days": 365,
+    "ca_cert": ""
+  }
+}

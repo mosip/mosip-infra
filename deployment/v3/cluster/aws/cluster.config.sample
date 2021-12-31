@@ -5,6 +5,7 @@ kind: ClusterConfig
 metadata:
   name: v3box1
   region: ap-south-1
+  version: "1.19"
 
 managedNodeGroups:
   - name: t3a-2xlarge-64gb
@@ -32,5 +33,5 @@ vpc:
           id: "subnet-6bc5b227"
 
         ap-south-1a:
-          id: "subnet-6bc5b227"
+          id: "subnet-7d0c0d15"
   

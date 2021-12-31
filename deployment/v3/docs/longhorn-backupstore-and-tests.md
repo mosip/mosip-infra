@@ -1,4 +1,7 @@
 ## 1. Setup a Backupstore
+
+# 1.1 Setup S3 Backupstore
+
 Setup a Amazon s3 compatible object storage separately. And this section is about how that external object storage can be linked with Longhorn to work as a backupstore (Refer [this](https://longhorn.io/docs/1.1.0/snapshots-and-backups/backup-and-restore/set-backup-target/)).
 
 - After setting up AWS S3, create a new IAM user for with the appropriate policy set, like [this](https://longhorn.io/docs/1.1.0/snapshots-and-backups/backup-and-restore/set-backup-target/), and get the ACCESS_KEY_ID and SECRET_ACCESS_KEY pair for the IAM user.
@@ -17,6 +20,28 @@ s3://<your-bucket-name>@<your-aws-region>/
   - Specify the previously created Kubernetes Secret with the ACCESS_KEY, in "Longhorn-UI/Setttings/General/Backup Target Credential Secret"
   - Then Save Settings.
 - After this step, when longhorn backup section is visited, it should already list if there are any previous present backups in the s3 storage.
+
+# 1.2 Setup NFS Backupstore
+
+- Setup an NFS server in a node/vm (whichever node accessible on the network by the rest of the nodes).
+  - Install nfs server.
+    ```
+    sudo apt install nfs-kernel-server
+    ```
+  - Edit `/etc/exports` file, to properly which folder to export, which ips can access that folder, read-write permissions, etc.
+  - After editing the above file, restart the nfs server.
+    ```
+    sudo exportfs -a
+    sudo systemctl restart nfs-kernel-server
+    ```
+- Before installing longhorn, nfsv4 client must have been setup on all the nodes. Follow preinstall script in [this](../cluster/longhorn). [Or install through package managers like `apt`, `yum` etc]
+- Once nfs server setup is done. Go to Longhorn Settings, from the UI, "Longhorn-UI/Settings/General/Backup/" in Backup Target, specify the nfs point like
+  ```
+  nfs://<nfs-server-ip>:/<nfs-folder>
+  ```
+  - Save it.
+  - No more secrets are required.
+  - Backup section should be activated by now in longhorn ui.
 
 ## 2. Tests
 

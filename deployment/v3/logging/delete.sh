@@ -1,12 +1,16 @@
 #!/bin/sh
 # Uninstalls all logging helm charts
-NS=logging
+## Usage: ./delete.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+NS=cattle-logging-system
 while true; do
-    read -p "Are you sure you want to delete ALL logging helm charts?(Y/n) " yn
-    if [[ $yn == "Y" ]]
+    read -p "Are you sure you want to delete ALL logging helm charts from $KUBECONFIG cluster?(Y/n) " yn
+    if [ $yn = "Y" ]
       then
         helm -n $NS delete elasticsearch
-        helm -n $NS delete mykibana
         break
       else
         break

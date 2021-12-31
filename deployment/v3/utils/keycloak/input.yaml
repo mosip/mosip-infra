@@ -1,0 +1,28 @@
+mosip:  # realm
+  roles: []
+  clients: []
+  users: 
+    - username: test_user
+      email: test_user@xyz.com
+      firstName: Nikki
+      lastName: Jonnes
+      password: 
+      requiredAction: [] 
+      temporary: False
+      #requiredAction: 
+      #  - updatePassword
+      #temporary: True
+      roles:
+        - PARTNER 
+        - MISP
+
+    - username: test_user2
+      email: test_user2@xyz.com
+      firstName: Nieki
+      lastName: Jonnes2
+      password:
+      requiredAction: []
+      temporary: False 
+      roles: []
+
+   

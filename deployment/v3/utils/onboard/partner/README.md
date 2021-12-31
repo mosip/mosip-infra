@@ -1,5 +1,4 @@
 # Partner onboarding
-
 ## Onboarding steps
 1. Add policy group
 1. Add policy 
@@ -9,34 +8,36 @@
 1. Map partner to policy
 1. Add MISP
 
-## Script
-1. Make sure you run `./preinstall.sh`  for Python dependencies.
-1. Point to your sandbox in `config.py`:
+## Prerequisites
+1. Python3.9
+1. Set up python3.9 virtual env
+    ```sh
+    mkdir ~/.venv
+    python3.9 -m venv ~/.venv/partner
     ```
-    server='https://<your sandbox domain>'
+1. Switch to virtual env 
     ```
-1. Make sure users and corresponding roles are updated in Keycloak.  Refer to `config.py` for users and roles. Default sandbox installation automatically adds these users in Keycloak.
-1. Populate the JSONs in `data` folder.  
-1. Update/add any policies in `policies` folder.  The schema for policies are given here:
-    * [Auth policy schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/auth-policy-schema.json)
-    * [Data share schema](https://github.com/mosip/mosip-config/blob/1.1.3/sandbox/data-share-policy-schema.json)
-1. Create CA and partner certificates:
+    source ~/.venv/partner/bin/activate
     ```
-    $ ./create_certs.py data/certs
+1. Install required modules
+    ```sh
+    pip install -r requirements.txt
     ```
-1.  Run the script as below:
-    ```
-    $ ./onboard.py <action>
-    For actions see help. The actions here map to steps above:
-    $ ./onboard.py --help
-    ```
-1. The steps are illustrated in [onboard playbook](../../../playbooks/onboard/partner.yml)
+1. Install utility Keystore Explorer.
+2. 
+## Creation of certificates
+1. Run `create_cert.py` to create certificate for partners.  The input to this script is a json as given in following examples `input/partners`
 
+## Onboard
+1. Onboard partners using Postman collection. Note that the values here are samples, you need to plug-in values appropriately in the json params of each API call.
+1. Use `single_line.sh` script to convert a cert from file to single line - required for Postman API calls.
+1. After upload of partner certificates, MOSIP returns back signed partner certificate.  Make sure that existing certficate in .p12 keystore file of partner is replaced with this certificate.  You may use utlity Keystore Explorer for this.
+ 
 ## Various attributes
 * **partnerType**: Partner types are pre-populated in `partner_type` table of `mosip_pms` DB and must not be altered.
 * **policyType**:  One of `Auth/DataShare/CredentialIssuance` 
 * **authTokenType**: One of `random/partner/policy`
-* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-mz.properties` file.
+* **partnerDomain**: One of `AUTH/DEVICE/FTM`.  These values are specified as `mosip.kernel.partner.allowed.domains` property in `kernel-default.properties` file.  For registration devices specify DEVICE.
 * **app_id**: App Id from where certificate has to be pulled. Generally IDA.
 * **cert_source**: `internal/generated/provided`. Cert may be already inside mosip, or has been provided external or needs to be generated.
 * **overwrite**: Applicable with `cert_source==generated`. Whether to regenerate.
@@ -44,7 +45,7 @@
 * **org_name**: Must match partner name.
 
 ## Certs
-For internal certs the partner name must match the oranization name given in the cert.
+For internal certs the partner name must match the organisation name given in the cert.
 
 ## Policy group
 * Multiple policies can be within policy group.

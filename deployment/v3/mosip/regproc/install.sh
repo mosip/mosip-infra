@@ -1,6 +1,7 @@
 #!/bin/sh
 # Installs all Regproc helm charts
 NS=regproc
+CHART_VERSION=1.2.0
 
 echo Create namespace
 kubectl create ns $NS 
@@ -12,66 +13,49 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
+echo Running regproc-salt job
+helm -n $NS install regproc-salt mosip/regproc-salt --version $CHART_VERSION
+
+echo Installing regproc-workflow
+helm -n $NS install regproc-workflow mosip/regproc-workflow --version $CHART_VERSION
+
 echo Installing regproc-status
-helm -n regproc install regproc-status mosip/regproc-status
+helm -n $NS install regproc-status mosip/regproc-status --version $CHART_VERSION
 
 echo Installing regproc-camel
-helm -n regproc install regproc-camel mosip/regproc-camel
-
-echo Installing regproc-receiver
-helm -n regproc install regproc-receiver mosip/regproc-receiver -f receiver_values.yaml
+helm -n $NS install regproc-camel mosip/regproc-camel --version $CHART_VERSION
 
 echo Installing regproc-pktserver
-helm -n regproc install regproc-pktserver mosip/regproc-pktserver
+helm -n $NS install regproc-pktserver mosip/regproc-pktserver --version $CHART_VERSION
 
-echo Installing regproc-uploader
-helm -n regproc install regproc-uploader mosip/regproc-uploader
+echo Installing group1
+helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1_values.yaml --version $CHART_VERSION
 
-echo Installing regproc-uploader
-helm -n regproc install regproc-validator mosip/regproc-validator
+echo Installing group2
+helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION
 
-echo Installing regproc-quality
-helm -n regproc install regproc-quality mosip/regproc-quality
+echo Installing group3 
+helm -n $NS install regproc-group3 mosip/regproc-group3  --version $CHART_VERSION
 
-echo Installing regproc-osi
-helm -n regproc install regproc-osi mosip/regproc-osi
+echo Installing group4
+helm -n $NS install regproc-group4 mosip/regproc-group4 --version $CHART_VERSION
 
-echo Installing regproc-demo
-helm -n regproc install regproc-demo mosip/regproc-demo
+echo Installing group5
+helm -n $NS install regproc-group5 mosip/regproc-group5 --version $CHART_VERSION
 
-echo Installing regproc-biodupe
-helm -n regproc install regproc-biodupe mosip/regproc-biodupe
+echo Installing group6
+helm -n $NS install regproc-group6 mosip/regproc-group6 --version $CHART_VERSION
 
-echo Installing regproc-abishandler
-helm -n regproc install regproc-abishandler mosip/regproc-abishandler
-
-echo Installing regproc-abismid
-helm -n regproc install regproc-abismid mosip/regproc-abismid
-
-echo Installing regproc-manual
-helm -n regproc install regproc-manual mosip/regproc-manual
-
-echo Installing regproc-bioauth
-helm -n regproc install regproc-bioauth mosip/regproc-bioauth
-
-echo Installing regproc-eis
-helm -n regproc install regproc-eis mosip/regproc-eis
-
-echo Installing regproc-external
-helm -n regproc install regproc-external mosip/regproc-external
-
-echo Installing regproc-msg
-helm -n regproc install regproc-msg mosip/regproc-msg
-
-echo Installing regproc-print
-helm -n regproc install regproc-print mosip/regproc-print
-
-echo Installing regproc-reprocess
-helm -n regproc install regproc-reprocess mosip/regproc-reprocess
+echo Installing group7
+helm -n $NS install regproc-group7 mosip/regproc-group7 --version $CHART_VERSION
 
 echo Installing regproc-trans
-helm -n regproc install regproc-trans mosip/regproc-trans
+helm -n $NS install regproc-trans mosip/regproc-trans --version $CHART_VERSION
 
-echo Installing regproc-uin
-helm -n regproc install regproc-uin mosip/regproc-uin
+echo Installing regproc-notifier
+helm -n $NS install regproc-notifier mosip/regproc-notifier --version $CHART_VERSION
+
+echo Installing regproc-reprocess
+helm -n $NS install regproc-reprocess mosip/regproc-reprocess --version $CHART_VERSION
+
 

@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: rancher
+spec:
+  hosts:
+    - "*"
+  gateways:
+  - rancher
+
+  http:
+  - match:
+      - uri:
+          prefix: /
+    route:
+    - destination:
+        host: rancher.cattle-system.svc.cluster.local
+        port:
+          number: 80
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https

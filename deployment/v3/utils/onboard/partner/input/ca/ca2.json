@@ -1,0 +1,18 @@
+{
+  "name" : "AuthCA", 
+  "cert": {
+    "output": {
+      "folder": "certs/ca2", 
+      "key": "pvt_key.pem",
+      "cert": "cert.pem",
+      "keystore": "keystore.p12" 
+     },
+    "is_ca": true, 
+    "cn": "auth-ca.org",
+    "country": "FR",
+    "province": "SP",
+    "locality": "Wood street",
+    "valid_days": 365,
+    "ca_cert": ""
+  }
+}
