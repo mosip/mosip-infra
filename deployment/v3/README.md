@@ -5,11 +5,11 @@
 
 ## Features
 * Single Kubernetes cluster MOSIP installation.
-* Single organisation-wide IAM system. Here, we install Keycloak.
+* Single organisation-wide IAM system for cluster access. Here, we install Keycloak.
+* Separate in-cluster IAM for each installation (for MOSIP functionality).
 * Cluster administration using Rancher. 
 * Rancher-IAM-cluster integration for Role Based Access Control (RBAC).
 * Option to access MOSIP cluster over private network using Wireguard.
-* Accces to all MOSIP modules via Ingress. 
 * Internal LB for ActiveMQ - ABIS connection. 
 * All cluster deployments via Helm charts.
 * Option to run external components inside cluster for development and testing.
