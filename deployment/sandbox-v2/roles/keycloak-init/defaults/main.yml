@@ -573,7 +573,7 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-idrepo-client', role_name: 'PUBLISH_AUTHENTICATION_TRANSACTION_STATUS_GENERAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-idrepo-client', role_name: 'uma_authorization'}
   - {realm_id: 'mosip', username: 'service-account-mosip-idrepo-client', role_name: 'PUBLISH_VID_CRED_STATUS_UPDATE_GENERAL'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-idrepo-client', role_name: 'Publish_AUTH_TYPE_STATUS_UPDATE_All_Individual'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-idrepo-client', role_name: 'PUBLISH_AUTH_TYPE_STATUS_UPDATE_ALL_INDIVIDUAL'}
   - {realm_id: 'mosip', username: 'service-account-mpartner-default-print', role_name: 'SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL'}
   - {realm_id: 'mosip', username: 'service-account-mpartner-default-print', role_name: 'PUBLISH_CREDENTIAL_STATUS_UPDATE_GENERAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-client', role_name: 'REGISTRATION_PROCESSOR'}
