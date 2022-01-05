@@ -24,4 +24,4 @@ helm -n $NS install keycloak bitnami/keycloak --version "4.3.0" -f values.yaml
 ## Set your iam domain
 HOST=$1
 echo Install Istio gateway, virtual service
-helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$HOST --set keycloakHost=keycloak.$NS
+helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$HOST --set keycloakInternalHost=keycloak.$NS
