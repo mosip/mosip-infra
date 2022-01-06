@@ -3,11 +3,10 @@
 # Usage:
 # ./keycloak_init.sh [kube_config_file]
 
-if [ $# -ge 1 ]; then
+if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
-else
-  export KUBECONFIG="$HOME/.kube/iam_config"
 fi
+
 NS=keycloak
 CHART_VERSION=1.2.0
 
