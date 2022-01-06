@@ -13,8 +13,8 @@
                           "userinfo.token.claim":"true",
                           "multivalued":"",
                           "aggregate.attrs":"",
-                          "user.attribute":"{{kc_client_mapper}}",
-                          "claim.name":"{{kc_client_mapper}}",
+                          "user.attribute":"{{kc_client_mapper_user_attribute}}",
+                          "claim.name":"{{kc_client_mapper_token_claim_name}}",
                           "jsonType.label":"String"
               },
               "name":"{{kc_client_mapper}}",

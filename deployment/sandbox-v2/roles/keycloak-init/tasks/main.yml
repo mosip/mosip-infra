@@ -56,4 +56,6 @@
     kc_realm_id: '{{item.realm_id}}'
     kc_client_id: '{{item.client_id}}'
     kc_client_mapper: '{{item.mapper_name}}'
+    kc_client_mapper_user_attribute: '{{item.mapper_user_attribute}}'
+    kc_client_mapper_token_claim_name: '{{item.token_claim_name}}'
   with_items: '{{keycloak_mosip_create_mappers}}'
