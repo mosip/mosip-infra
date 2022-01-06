@@ -509,6 +509,7 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'CREATE_SHARE'}
   - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'PMS_USER'}
   - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'PMS_ADMIN'}
+  - {realm_id: 'mosip', username: 'service-account-mosip-partner-client', role_name: 'SUBSCRIBE_CA_CERTIFICATE_UPLOADED_GENERAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'REGISTRATION_PROCESSOR'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'DATA_READ'}
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'DOCUMENT_READ'}
