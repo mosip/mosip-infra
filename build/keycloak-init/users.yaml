@@ -1,4 +1,4 @@
-## YAML to create a user
+## YAML to create a users
 mosip:  # realm
   roles: []
   clients: []
