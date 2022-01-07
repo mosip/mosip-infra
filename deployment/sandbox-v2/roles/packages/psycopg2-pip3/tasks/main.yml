@@ -12,17 +12,17 @@
 
 - name: Install postgresql-libs
   yum:
-      name: postgresql-libs
+      name: https://centos.pkgs.org/7/postgresql-13-x86_64/postgresql13-libs-13.5-1PGDG.rhel7.x86_64.rpm.html
       state: present
   become: yes
 
 - name: Install postgresql-devel
   yum:
-      name: postgresql-devel
+      name: https://centos.pkgs.org/7/postgresql-13-x86_64/postgresql13-devel-13.5-1PGDG.rhel7.x86_64.rpm.html
       state: present
   become: yes
 
-- name: Install pandas via pip3
+- name: Install psycopg2 via pip3
   pip:
       name: psycopg2
       state: latest

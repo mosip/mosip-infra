@@ -1,6 +1,6 @@
 # Run archive scripts for ida, idrepo, prereg, regproc DB
 
-- name: list archive DB scripts directories
+- name: Run archive DB scripts
   hosts: console
   gather_facts: true
   vars_files:
