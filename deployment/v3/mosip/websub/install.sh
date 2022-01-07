@@ -14,5 +14,5 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing Websub
+helm -n $NS install websub-consolidator mosip/websub-consolidator --version $CHART_VERSION --wait
 helm -n $NS install websub mosip/websub --version $CHART_VERSION
-helm -n $NS install websub-consolidator mosip/websub-consolidator --version $CHART_VERSION
