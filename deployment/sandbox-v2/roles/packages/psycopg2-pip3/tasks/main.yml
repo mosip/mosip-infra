@@ -10,33 +10,18 @@
       state: present
   become: yes
 
-- name: Install centos-release-scl
+- name: Install postgresql, postgresql-devel, postgresql-libs
   yum:
-      name: centos-release-scl
-      state: present
-  become: yes
-
-- name: Install postgresql13
-  yum:
-      name: postgresql13
-      state: present
-  become: yes
-
-- name: Install postgresql13-libs
-  yum:
-      name: postgresql13-libs
-      state: present
-  become: yes
-
-- name: Install postgresql13-devel
-  yum:
-      name: postgresql13-devel
+      name:
+        - postgresql
+        - postgresql-devel
+        - postgresql-libs
       state: present
   become: yes
 
 - name: Install psycopg2 via pip3
   pip:
       name: psycopg2
-      state: latest
+      state: present
       executable: pip3
   become: yes
