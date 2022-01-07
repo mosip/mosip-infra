@@ -121,9 +121,9 @@ versions:
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.2'
+        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.3'
       policy:
-        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.2'
+        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.3'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
 
