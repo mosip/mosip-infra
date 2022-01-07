@@ -25,3 +25,12 @@
       state: present
       executable: pip3
   become: yes
+
+- name: Remove postgresql, postgresql-devel, postgresql-libs packages
+  yum:
+      name:
+          - postgresql
+          - postgresql-devel
+          - postgresql-libs
+      state: absent
+  become: yes
