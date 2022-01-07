@@ -1,0 +1,3 @@
+- name: print dbScriptPath
+  debug:
+      msg: '{{ dbScriptPath }}'
