@@ -12,13 +12,13 @@
 
 - name: Install postgresql-libs
   yum:
-      name: https://centos.pkgs.org/7/postgresql-13-x86_64/postgresql13-libs-13.5-1PGDG.rhel7.x86_64.rpm.html
+      name: https://download.postgresql.org/pub/repos/yum/13/redhat/rhel-7-x86_64/postgresql13-libs-13.5-1PGDG.rhel7.x86_64.rpm
       state: present
   become: yes
 
 - name: Install postgresql-devel
   yum:
-      name: https://centos.pkgs.org/7/postgresql-13-x86_64/postgresql13-devel-13.5-1PGDG.rhel7.x86_64.rpm.html
+      name: https://download.postgresql.org/pub/repos/yum/13/redhat/rhel-7-x86_64/postgresql13-devel-13.5-1PGDG.rhel7.x86_64.rpm
       state: present
   become: yes
 
