@@ -27,6 +27,7 @@
      - {role: packages/pip3, tags: [pip3]}
      - {role: packages/docker, tags: [docker]}
      - {role: packages/kubectl, tags: [kubectl]}
+     - {role: psycopg2}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
