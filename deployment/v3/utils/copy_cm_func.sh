@@ -1,9 +1,10 @@
 #!/bin/sh
-# Copy configmap and secret from one namespace to another
-# ./copy_cm_func.sh <resource> <configmap_name> <source_namespace> <destination_namespace> [source_cluster_config]
+# Copy configmap and secret from one namespace to another.
+# ./copy_cm_func.sh <resource> <configmap_name> <source_namespace> <destination_namespace> [name]
 # Parameters:
 #   resource: configmap|secret
-#   source_cluster_config (optional): only needed while copying resources from other clusters. Example: `~/.kube/keycloak_config`
+#   name: Optional new name of the configmap or secret in destination namespace.  This may be needed if there is
+#         clash of names
 
 if [ $1 = "configmap" ]
 then
@@ -16,15 +17,15 @@ else
   exit 1
 fi
 
+
 if [ $# -ge 5 ]
 then
-  KC_SOURCE="kubectl --kubeconfig $5"
+   kubectl -n $4 delete --ignore-not-found=true $RESOURCE $5
+   kubectl -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" | sed "s/name: $2/name: $5/g" | kubectl -n $4 create -f -  
 else
-  KC_SOURCE=kubectl
-fi
-kubectl -n $4 delete --ignore-not-found=true $RESOURCE $2
-$KC_SOURCE -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" | kubectl -n $4 create -f -  
-
+   kubectl -n $4 delete --ignore-not-found=true $RESOURCE $2
+   kubectl -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" |  kubectl -n $4 create -f -  
+fi 
 
 
 

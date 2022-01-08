@@ -8,4 +8,4 @@ image:
   ## 
   pullPolicy: Always
 
-springConfigNameEnv: kernel
+springConfigNameEnv: id-authentication
