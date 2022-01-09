@@ -29,7 +29,7 @@ def upload_xlsx(files, table_order, admin_user, db_user, db_pwd, db_host, db_por
         for fi in files:
             if table==os.path.basename(fi).split('.')[0]:
                 myprint(fi)
-                df = pd.read_excel(fi)
+                df = pd.read_excel(fi, dtype={'apptyp_code' : str})
                 df['cr_by'] = admin_user
                 df['cr_dtimes'] = str(dt.utcnow())
                 engine.execute('TRUNCATE TABLE %s CASCADE;' % table)

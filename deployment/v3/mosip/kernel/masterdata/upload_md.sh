@@ -12,7 +12,8 @@ read -p "Enter IAM username: " iam_user
 DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath={.data.postgresql-password} | base64 --decode)
 DB_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 DB_PORT=5432
-XLS=xlsx
+MOSIP_DATA_REPO_BASE=/Users/puneet/Documents/mosip/lts/mosip-data/
+XLS_FOLDER_PATH=$MOSIP_DATA_REPO_BASE/data-dml/mosip_master/xlsx
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
@@ -20,7 +21,7 @@ while true; do
       then
         echo Uploading ..
         cd lib
-        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS  --tables_file table_order
+        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user $XLS_FOLDER_PATH  --tables_file table_order
         break
       else
         break
