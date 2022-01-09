@@ -26,6 +26,6 @@ TODO: Check if below are needed
     ```sh
     ./upload_md.sh <path of mosip-data repo>
     ```
-The shell script runs `lib/upload_masterdata.py` script.
+    The shell script runs `lib/upload_masterdata.py` script.
 
 1. To populate data only in specific tables comment out unwanted tables in `lib/table_order` with a `#` at the start of each line. 
