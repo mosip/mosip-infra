@@ -18,10 +18,14 @@ TODO: Check if below are needed
 4. (Optional) Install [XLS diff utiliy](https://github.com/na-ka-na/ExcelCompare).
 
 ## Run
-```sh
-./upload_md.sh
-```
-The utility will run with default parameters. If your setup is different, update `upload_md.sh`.  You can find the parameters expected by utility with this command:
-```
-python lib/upload_masterdata.py --help
-```
+1. Checkout `mosip-data` repo at location of your choice:
+    ```
+    git clone https://github.com/mosip/mosip-data -b lts
+    ```
+1. 
+    ```sh
+    ./upload_md.sh <path of mosip-data repo>
+    ```
+    The shell script runs `lib/upload_masterdata.py` script.
+
+1. To populate data only in specific tables comment out unwanted tables in `lib/table_order` with a `#` at the start of each line. 
