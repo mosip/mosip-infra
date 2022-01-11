@@ -1,6 +1,8 @@
 #!/bin/sh
 # Installs Softhsm for Kernel 
 ## Usage: ./install_kernel.sh [kubeconfig]
+## To change the name of complete installation:  --set fullnameOverride=softhsm-kernel
+
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
@@ -18,5 +20,5 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
 echo Installing Softhsm for Kernel
-helm -n $NS install softhsm-kernel mosip/softhsm --set fullnameOverride=softhsm-kernel --set persistence.storageClass=$STORAGE_CLASS -f values.yaml --version $CHART_VERSION
+helm -n $NS install softhsm mosip/softhsm --set persistence.storageClass=$STORAGE_CLASS -f values.yaml --version $CHART_VERSION
 

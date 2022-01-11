@@ -12,6 +12,7 @@ while true; do
     if [ $yn = "Y" ]
       then
         helm -n $NS delete kafka
+        helm -n $NS delete kafka-ui
         break
       else
         break

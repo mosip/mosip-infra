@@ -1,9 +1,9 @@
 #!/bin/sh
-# Usage: ./upload_md.sh [kubeconfig file]
+# Usage: ./upload_md.sh <mosip-data repo path> [kubeconfig file]
 # Default kubeconfig file is $HOME/.kube/config
-if [ $# -ge 1 ]
+if [ $# -ge 2 ]
   then
-    export KUBECONFIG=$1
+    export KUBECONFIG=$2
 fi
 
 read -p "Enter IAM username: " iam_user
@@ -12,7 +12,7 @@ read -p "Enter IAM username: " iam_user
 DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath={.data.postgresql-password} | base64 --decode)
 DB_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 DB_PORT=5432
-XLS=xlsx
+XLS_FOLDER_PATH=$1/data-dml/mosip_master/xlsx
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
@@ -20,7 +20,7 @@ while true; do
       then
         echo Uploading ..
         cd lib
-        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user ../$XLS  --tables_file table_order
+        python upload_masterdata.py $DB_HOST $DB_PWD $iam_user $XLS_FOLDER_PATH  --tables_file table_order
         break
       else
         break

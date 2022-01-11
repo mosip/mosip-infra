@@ -14,7 +14,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Running ida keygen
-helm -n $NS install ida-keygen mosip/ida-keygen --wait  --version $CHART_VERSION
+helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
 
 echo Installing ida auth 
 helm -n $NS install ida-auth mosip/ida-auth --version $CHART_VERSION
