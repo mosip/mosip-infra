@@ -2,7 +2,7 @@ name: clamav
 docker:
   image: mkodockx/docker-clamav:latest
   containerPort: 3310
-imagePullPolicy: Always
+imagePullPolicy: IfNotPresent
 
 services:
   clamav:
