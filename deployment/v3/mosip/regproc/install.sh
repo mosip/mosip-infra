@@ -34,7 +34,7 @@ helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1_values.yaml --
 echo Installing group2
 helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION
 
-echo Installing group3 
+echo Installing group3
 helm -n $NS install regproc-group3 mosip/regproc-group3  --version $CHART_VERSION
 
 echo Installing group4
