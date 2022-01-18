@@ -1,0 +1,24 @@
+- include: updatePropertyFile.yml
+
+- name: 'Get .sh script file for {{ dbScriptPath | dirname | basename }} DB'
+  shell: 'ls {{ dbScriptPath }}*.sh'
+  register: bashFile
+
+- name: 'run archive bash script for {{  bashFile.stdout_lines[0] | dirname | basename }} DB'
+  shell: 'cd {{ bashFile.stdout_lines[0] | dirname }} && bash {{ bashFile.stdout_lines[0] | basename }}'
+  register: out
+
+- name: 'print the archive script output {{ bashFile.stdout_lines[0] | dirname | basename  }} DB'
+  debug:
+      msg: '{{ out.stdout_lines }}'
+
+- name: 'remove password from property file for {{ dbScriptPath | dirname | basename }} DB'
+  lineinfile:
+      path: '{{ propertyFile.stdout_lines[0] }}'
+      regexp: '{{ property.oldProperty }}'
+      line: '{{ property.newProperty }}'
+  with_items:
+      - { oldProperty: '^source_db_pass=*', newProperty: 'source_db_pass=' }
+      - { oldProperty: '^archive_db_pass=*', newProperty: 'archive_db_pass=' }
+  loop_control:
+      loop_var: property

@@ -30,4 +30,4 @@ Note that with this filter any json object received in `log` field will be parse
 
 ## Troubleshooting
 * If MOSIP logs are not seen, check if all fields here have quotes (except numbers):
-Log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/v3/application-default.properties) property `server.tomcat.accesslog.pattern`.
+Log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/develop3-v3/application-default.properties) property `server.tomcat.accesslog.pattern`.

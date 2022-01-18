@@ -1,0 +1,28 @@
+#- name: print dbScriptPath
+#  debug:
+#      msg: '{{ dbScriptPath }}'
+
+- name: 'Get .ini property file for {{ dbScriptPath | dirname | basename }} DB'
+  shell: 'ls {{ dbScriptPath }}*.ini'
+  register: propertyFile
+
+#- debug:
+#    msg: '{{ propertyFile.stdout_lines }}'
+
+- name: 'update .ini property file for {{ dbScriptPath | dirname | basename }} DB'
+  lineinfile:
+      path: '{{ propertyFile.stdout_lines[0] }}'
+      regexp: '{{ property.oldProperty }}'
+      line: '{{ property.newProperty }}'
+  with_items:
+      - { oldProperty: '^source_db_serverip=*', newProperty: 'source_db_serverip={{ data_archive.source_db_serverip }}' }
+      - { oldProperty: '^source_db_port=*', newProperty: 'source_db_port={{ data_archive.source_db_port }}' }
+      - { oldProperty: '^source_db_pass=*', newProperty: 'source_db_pass={{ data_archive.source_db_pwd }}' }
+      #- { oldProperty: '^source_db_uname=*', newProperty: 'source_db_uname={{ data_archive.source_db_uname }}' }
+
+      - { oldProperty: '^archive_db_serverip=*', newProperty: 'archive_db_serverip={{ data_archive.archive_db_serverip }}' }
+      - { oldProperty: '^archive_db_port=*', newProperty: 'archive_db_port={{ data_archive.archive_db_port }}' }
+      - { oldProperty: '^archive_db_pass=*', newProperty: 'archive_db_pass={{ data_archive.archive_db_pwd }}' }
+      #- { oldProperty: '^archive_db_uname=*', newProperty: 'archive_db_uname={{ data_archive.archive_db_uname }}' }
+  loop_control:
+      loop_var: property
