@@ -1,0 +1,12 @@
+- hosts: console
+  tasks:
+      - name: "Run data-archive DB scripts"
+        cron:
+            name: "### Run data-archive DB scripts every day"
+            minute: "*/2"
+            hour: "*"
+            day: "*"
+            month: "*"
+            weekday: "*"
+            job: "cd {{ install_root}} && ansible-playbook -i hosts.ini --ask-vault-pass -e @secrets.yml playbooks/data-archive.yml"
+            user: 'mosipuser'

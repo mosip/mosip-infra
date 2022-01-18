@@ -24,7 +24,7 @@ spec:
       containers:
       - name: {{ .Values.name }}
         image: {{ .Values.docker.image }}
-        imagePullPolicy: Always
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
         {{ $resources := .Values.services.config_server.podconfig.resources }}
         {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
         env:
