@@ -1,12 +1,12 @@
-- name: Install psql rpm
+- name: Install psql12 rpm
   yum: 
     name:  http://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
     state: present
   become: yes
 
-- name: Install psql13
+- name: Install psql12
   yum:
-    name:  postgresql13
+    name:  postgresql12
     state: present
   become: yes
 

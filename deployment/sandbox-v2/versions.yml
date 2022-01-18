@@ -149,8 +149,7 @@ versions:
 
     mock:
       abis:
-        # Please don't change this image
-        'mock-abis': 'mosipint/mock-abis:develop'
+        'mock-abis': 'mosipqa/mock-abis:develop'
       mv:
         'mock-mv': 'mosipqa/mock-mv:1.1.5'
       biosdk:
