@@ -179,7 +179,12 @@ postgres:
   port: 30090 # hardcoded node port for postgres
   user: postgres 
   password: '{{secrets.postgres.su}}'
-  init: true  # Initialize db. Set it to false in production after initializing once.
+  db_common_pwd: '{{secrets.postgres.common_db_pwd}}'
+  namespace: default
+  ## Initiailize DB ( like v3 )
+  postgres_init:
+    chart_version: 1.2.0
+    init: true  # Initialize db. Set it to false in production after initializing once.
   upgrade:
     set: false  # accepts true or false value as per need.
     version: develop # version gto which upgrade is needed.
@@ -530,12 +535,3 @@ data_archive:
   archive_db_serverip: '{{ postgres.host }}'
   archive_db_port: '{{ postgres.port }}'
   archive_db_pwd: '{{ secrets.postgres.su }}'
-
-## Initiailize DB ( like v3 )
-kc1: 'kubectl --kubeconfig {{clusters.mz.kube_config}}'
-kc2: 'kubectl --kubeconfig {{clusters.dmz.kube_config}}'
-helm1: '{{helm_cli_path}}/helm  --kubeconfig {{clusters.mz.kube_config}}'
-helm2: '{{helm_cli_path}}/helm  --kubeconfig {{clusters.dmz.kube_config}}'
-postgres_init:
-  chart_version: 1.2.0
-  namespace: default

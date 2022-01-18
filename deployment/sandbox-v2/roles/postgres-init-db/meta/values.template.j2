@@ -1,7 +1,5 @@
 ## Some common set of users are created across all postgres servers with same password.  TODO: change this later.
 ## These user names are currently hardcoded in the sql scripts, so can't change from here.
-dbUserPasswords:
-  dbuserPassword: ''
 
 databases:
   mosip_master:
@@ -13,7 +11,7 @@ databases:
       secret:
         name: postgres-postgresql
         key: postgresql-password
-    dml: 0
+    dml: 1
 
   mosip_audit:
     enabled: true
