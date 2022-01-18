@@ -4,6 +4,9 @@
 - import_playbook: postgres-install.yml
   when: postgres.external == false
 
-- import_playbook: postgres-init.yml
+- import_playbook: postgres-init-db.yml
   when: postgres.init == true
+
+#- import_playbook: postgres-init.yml
+#  when: postgres.init == true
 
