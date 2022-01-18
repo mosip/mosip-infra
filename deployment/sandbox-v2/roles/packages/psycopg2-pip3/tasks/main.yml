@@ -1,3 +1,9 @@
+- name: Remove Existing postgres packages
+  yum:
+      name: postgresql*
+      state: absent
+  become: yes
+
 - name: Install Development tools
   yum:
       name: "@Development tools"
