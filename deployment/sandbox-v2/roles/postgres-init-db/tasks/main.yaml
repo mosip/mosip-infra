@@ -5,7 +5,7 @@
   shell: "{{helm_cli_path}}/helm repo update"
 
 - name: create secret "postgres-postgresql" for postgres-init DB
-  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }} create secret generic postgres-postgresql --from-literal=postgresql-password={{ postgres.password }} --dry-run=client -o yaml | {{kc1}} -n {{ postgres_init.namespace }}  apply -f - '
+  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }} create secret generic postgres-postgresql --from-literal=postgresql-password={{ postgres.password }} --dry-run=client -o yaml | kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }}  apply -f - '
 
 - name: convert values.template.j2 to values.yaml
   template:
@@ -16,4 +16,4 @@
   shell: "{{helm_cli_path}}/helm --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }} install postgres-init mosip/postgres-init -f {{install_root}}/roles/postgres-init-db/meta/values.yaml --version {{ postgres_init.chart_version }} --wait"
 
 - name: create secret "db-common-secrets" for postgres-init DB
-  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }} create secret generic db-common-secrets  --from-literal=db-dbuser-password={{ postgres.db_common_pwd }} --dry-run=client -o yaml | {{kc1}} -n {{ postgres_init.namespace }}  apply -f - '
+  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }} create secret generic db-common-secrets  --from-literal=db-dbuser-password={{ postgres.db_common_pwd }} --dry-run=client -o yaml | kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres_init.namespace }}  apply -f - '
