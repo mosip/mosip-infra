@@ -39,4 +39,3 @@
       when: "additional_features.healthcheck"
       run_once: yes
       tags: healthcheck
-
