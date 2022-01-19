@@ -61,7 +61,8 @@ spec:
           containerPort: {{ .Values.services.msg.ports.containerPort }}
 
         readinessProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
@@ -75,7 +76,8 @@ spec:
           periodSeconds: {{ .Values.probe.period }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
@@ -86,7 +88,8 @@ spec:
               fi;
               done
         startupProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
