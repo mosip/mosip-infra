@@ -57,7 +57,8 @@ spec:
           containerPort: {{ .Values.services.print.ports.containerPort }}
 
         readinessProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group7.healthUrl }};
@@ -71,7 +72,8 @@ spec:
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group7.healthUrl }};
@@ -85,7 +87,8 @@ spec:
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
-          command:
+          exec:
+            command:
             - /bin/bash
             - -c
             - HEALTH_CHECK_PATHS= {{ .Values.services.group7.healthUrl }};
