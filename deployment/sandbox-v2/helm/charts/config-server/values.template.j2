@@ -5,6 +5,7 @@ docker:
   servicePort: 80
 jarName: kernel-config-server # Without .jar. Used locally for Docker
 component: config-server
+imagePullPolicy: Always
 
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 

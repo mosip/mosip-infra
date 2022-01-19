@@ -1,0 +1,5 @@
+---
+- name: This playbook initiailize mosip DB
+  hosts: console
+  roles:
+      - { role: postgres-init-db }

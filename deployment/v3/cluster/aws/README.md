@@ -8,6 +8,7 @@
 * Copy `cluster.config.sample` to `cluster.config`.  
 * Review the parameters of `cluster.config` carefully.
 * Make sure you have keys to created EC2 instance in `~/.ssh/`. If not, generate a key pair using AWS console.
+* Ensure to have aws-iam-authenticator there as given [here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 * Install
 ```sh
 eksctl create cluster -f cluster.config
@@ -54,6 +55,7 @@ EFS may not be necessary if you are using LongHorn + backup on S3. However, if n
 
 ## Ingress and load balancer (LB)
 Ingress is not installed by default on EKS. We use Istio ingress gateway controller to allow traffic in the cluster. Two channels are created - public and internal. See [architecture](../../docs/images/deployment_architecture.png).
+* Install Istioctl as given [here](https://istio.io/latest/docs/ops/diagnostic-tools/istioctl/#install-hahahugoshortcode-s2-hbhb)
 * Install ingresses as given here:
 ```sh
 cd istio
@@ -68,13 +70,14 @@ kubectl -n istio-system get svc
 * Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html)
 * Add the certificates and 443 access to the LB listener.
 * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.
-* Forward TLS->443 listner traffic to target group that corresponds to listner on port 80. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
+* Forward TLS->443 listner traffic to target group that corresponds to listner on port 80 of respective Loadbalancers. This is because after TLS termination the protocol is HTTP so we must point LB to HTTP port of ingress controller.
 * Update health check ports of LB target groups to node port corresponding to port 15021. You can see the node ports with
 ```sh
 kubectl -n istio-system get svc
 ```
 * Enable Proxy Protocol v2 on target groups.
 * Make sure all subnets are included in Availabilty Zones for the LB.  Description --> Availability Zones --> Edit Subnets
+* Make sure to delete the listenrs for port 80 and 15021 from each of the loadbalancers as we restrict unsecured port 80 access over http.
 
 The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed on LB).
 

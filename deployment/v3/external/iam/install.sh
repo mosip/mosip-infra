@@ -14,7 +14,8 @@ echo Creating namespace
 kubectl create ns keycloak
 
 echo Istio label
-kubectl label ns $NS istio-injection=enabled --overwrite
+## TODO: enable istio injection after testing well.
+kubectl label ns $NS istio-injection=disabled --overwrite
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
