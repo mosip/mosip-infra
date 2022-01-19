@@ -6,6 +6,9 @@ metadata:
   labels:
     app: {{ .Values.services.pktserver.pvc.name }}
 spec:
+  selector:
+    matchLabels:
+      name: {{ .Values.services.pktserver.pv.name }}
   storageClassName: {{ .Values.storageClass }}
   accessModes:
     - ReadOnlyMany
