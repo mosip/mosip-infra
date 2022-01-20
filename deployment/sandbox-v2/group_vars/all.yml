@@ -186,6 +186,7 @@ postgres:
     chart_version: 1.2.0
     init: true  # Initialize db. Set it to false in production after initializing once.
   masterdata_upload:
+    user: sysadmin
     enable: true
     script_src_path: "{{ install_root }}/../v3/mosip/kernel/masterdata"
     script_dest_path: "{{ tmp_dir }}"

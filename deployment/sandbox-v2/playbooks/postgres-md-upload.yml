@@ -16,3 +16,8 @@
         copy:
             src: "{{ postgres.masterdata_upload.script_src_path }}"
             dest: "{{ postgres.masterdata_upload.script_dest_path }}"
+
+      - mame: Run python script to upload masterdata
+        shell: "{{python3 upload_masterdata.py {{postgres.host}} {{postgres.password}} {{postgres.masterdata_upload.user}} {{postgres.masterdata_upload.repo.dest}}/mosip_master/xlsx/ --db_port {{postgres.port}}"
+        args:
+            chdir: "{{ postgres.masterdata_upload.script_dest_path }}/masterdata/lib/"
