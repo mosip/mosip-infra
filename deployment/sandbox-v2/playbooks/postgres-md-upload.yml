@@ -18,6 +18,6 @@
             dest: "{{ postgres.masterdata_upload.script_dest_path }}"
 
       - name: Run python script to upload masterdata
-        shell: "{{python3 upload_masterdata.py {{postgres.host}} {{postgres.password}} {{postgres.masterdata_upload.user}} {{postgres.masterdata_upload.repo.dest}}/mosip_master/xlsx/ --db_port {{postgres.port}}"
+        shell: "python3 upload_masterdata.py {{postgres.host}} {{postgres.password}} {{postgres.masterdata_upload.user}} {{postgres.masterdata_upload.repo.dest}}/mosip_master/xlsx/ --db_port {{postgres.port}}"
         args:
             chdir: "{{ postgres.masterdata_upload.script_dest_path }}/masterdata/lib/"
