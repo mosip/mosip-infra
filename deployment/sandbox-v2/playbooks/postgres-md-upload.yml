@@ -4,15 +4,15 @@
   tasks:
       - name: Clone masterdata repo
         vars:
-            repo_path: '{{ postgres.masterdate_upload.repo.src }}'
-            repo_dest: '{{ postgres.masterdate_upload.repo.dest }}'
-            version: '{{ postgres.masterdate_upload.repo.tag }}'
-            githubuser: '{{ postgres.masterdate_upload.repo.githubuser }}'
-            githubpassword: '{{ postgres.masterdate_upload.repo.githubpassword }}'
+            repo_path: '{{ postgres.masterdata_upload.repo.src }}'
+            repo_dest: '{{ postgres.masterdata_upload.repo.dest }}'
+            version: '{{ postgres.masterdata_upload.repo.tag }}'
+            githubuser: '{{ postgres.masterdata_upload.repo.githubuser }}'
+            githubpassword: '{{ postgres.masterdata_upload.repo.githubpassword }}'
         include_role:
             name: github
 
       - name: copy masterdata script directory from v3 to tmp directory
         copy:
-            src: "{{ install_root }}/../v3/mosip/kernel/masterdata"
-            dest: "{{ tmp_dir }}/masterdata"
+            src: "{{ postgres.masterdata_upload.script_src_path }}"
+            dest: "{{ postgres.masterdata_upload.script_dest_path }}"

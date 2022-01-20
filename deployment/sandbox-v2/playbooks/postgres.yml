@@ -12,4 +12,4 @@
 
 ### upload masterdata
 - import_playbook: postgres-md-upload.yml
-  when: postgres.masterdate_upload.enable == true
+  when: postgres.masterdata_upload.enable == true

@@ -185,8 +185,10 @@ postgres:
   postgres_init:
     chart_version: 1.2.0
     init: true  # Initialize db. Set it to false in production after initializing once.
-  masterdate_upload:
+  masterdata_upload:
     enable: true
+    script_src_path: "{{ install_root }}/../v3/mosip/kernel/masterdata"
+    script_dest_path: "{{ tmp_dir }}/masterdata"
     repo:
       src: https://github.com/mosip/mosip-data
       dest: '{{tmp_dir}}/mosip-data'
