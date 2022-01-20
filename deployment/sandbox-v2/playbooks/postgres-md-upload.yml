@@ -1,0 +1,18 @@
+## upload masterdata
+- name: Upload masterdata
+  hosts: console
+  tasks:
+      - name: Clone masterdata repo
+        vars:
+            repo_path: '{{ postgres.masterdate_upload.repo.src }}'
+            repo_dest: '{{ postgres.masterdate_upload.repo.dest }}'
+            version: '{{ postgres.masterdate_upload.repo.tag }}'
+            githubuser: '{{ postgres.masterdate_upload.repo.githubuser }}'
+            githubpassword: '{{ postgres.masterdate_upload.repo.githubpassword }}'
+        include_role:
+            name: github
+
+      - name: copy masterdata script directory from v3 to tmp directory
+        copy:
+            src: "{{ install_root }}/../v3/mosip/kernel/masterdata"
+            dest: "{{ tmp_dir }}/masterdata"
