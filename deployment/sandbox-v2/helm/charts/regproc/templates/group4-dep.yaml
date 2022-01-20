@@ -57,23 +57,47 @@ spec:
           containerPort: {{ .Values.services.demo.ports.containerPort }}
 
         readinessProbe:
-          httpGet:
-            path: {{ .Values.services.group4.healthUrl }}
-            port: {{ .Values.services.group4.ports.containerPort }}
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group4.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+              echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
-          httpGet:
-            path: {{ .Values.services.group4.healthUrl }}
-            port: {{ .Values.services.group4.ports.containerPort }}
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group4.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+              echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
-          httpGet:
-            path: {{ .Values.services.group4.healthUrl }}
-            port: {{ .Values.services.group4.ports.containerPort }}
+          exec:
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group4.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+              echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}

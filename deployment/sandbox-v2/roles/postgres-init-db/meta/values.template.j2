@@ -1,0 +1,157 @@
+## Some common set of users are created across all postgres servers with same password.  TODO: change this later.
+## These user names are currently hardcoded in the sql scripts, so can't change from here.
+
+databases:
+  mosip_master:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_audit:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_keymgr:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_kernel:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_idmap:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_prereg:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_idrepo:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_ida:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_credential:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0
+
+  mosip_regprc:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_regdevice:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_authdevice:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_pms:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 1
+
+  mosip_hotlist:
+    enabled: true
+    host: "{{ postgres.host }}"
+    port: '{{ postgres.port }}'
+    su:
+      user: postgres
+      secret:
+        name: postgres-postgresql
+        key: postgresql-password
+    dml: 0

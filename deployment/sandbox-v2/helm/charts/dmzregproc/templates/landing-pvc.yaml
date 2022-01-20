@@ -6,6 +6,9 @@ metadata:
   labels:
     app: {{ .Values.landing.pvc.name }}
 spec:
+  selector:
+    matchLabels:
+      name: {{ .Values.landing.pv.name }}
   storageClassName: {{ .Values.storageClass }}
   accessModes:
     - ReadWriteMany
