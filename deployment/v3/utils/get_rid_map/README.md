@@ -20,9 +20,14 @@ Utlity that returns UINs corresponding to RIDs.  Input is a list of RIDs in file
     ```sh
     pip install -r requirements.txt
     ```
+1. Set the following shell environment variables 
+```sh
+export SERVER=https://<your server>
+export CLIENT=mosip-regproc-client
+export SECRET=<client secret>
+```
 
 ## Run
-
 ```
 python get_rid_map.py <rid file> <out csv>
 ```

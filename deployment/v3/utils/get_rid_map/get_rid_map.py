@@ -20,9 +20,9 @@ def get_uin_from_response(r):
 def print_usage():
     print('Usage: python get_rid_map.py <rid file> <out file>')
     print('Set the following shell env variables:') 
-    print('export SERVER: https://<your server>')
-    print('export CLIENT: mosip-regproc-client')
-   print('export SECRET: <client secret>')
+    print('export SERVER=https://<your server>')
+    print('export CLIENT=mosip-regproc-client')
+   print('export SECRET=<client secret>')
 
 def main(argv):
    if len(argv) != 3:
