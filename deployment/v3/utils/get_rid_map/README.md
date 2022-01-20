@@ -1,7 +1,7 @@
 # RID-UIN Map Utility
 
 ## Overview
-Utlity that returns UINs corresponding to RIDs.  Input is a list of RIDs in file. Output is RID-UID map generated in CSV format.
+Utlity that returns UINs corresponding to RIDs.  Input is a list of RIDs in a file. Output is RID-UID map generated in CSV format.
 
 **STRICT WARNING:**  This script is to be used for development purposes only.  
 
