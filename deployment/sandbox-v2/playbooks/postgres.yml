@@ -10,3 +10,6 @@
 #- import_playbook: postgres-init.yml
 #  when: postgres.init == true
 
+### upload masterdata
+- import_playbook: postgres-md-upload.yml
+  when: postgres.masterdata_upload.enable == true

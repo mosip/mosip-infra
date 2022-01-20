@@ -185,6 +185,17 @@ postgres:
   postgres_init:
     chart_version: 1.2.0
     init: true  # Initialize db. Set it to false in production after initializing once.
+  masterdata_upload:
+    user: sysadmin
+    enable: true
+    script_src_path: "{{ install_root }}/../v3/mosip/kernel/masterdata"
+    script_dest_path: "{{ tmp_dir }}"
+    repo:
+      src: https://github.com/mosip/mosip-data
+      dest: '{{tmp_dir}}/mosip-data'
+      tag: lts
+      githubuser: ''
+      githubpassword: ''
   upgrade:
     set: false  # accepts true or false value as per need.
     version: develop # version gto which upgrade is needed.
