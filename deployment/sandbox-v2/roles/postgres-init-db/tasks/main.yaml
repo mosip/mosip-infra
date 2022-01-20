@@ -17,3 +17,15 @@
 
 - name: create secret "db-common-secrets" for postgres-init DB
   shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} create secret generic db-common-secrets  --from-literal=db-dbuser-password={{ postgres.db_common_pwd }} --dry-run=client -o yaml | kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }}  apply -f - '
+
+- name: Get DB job list
+  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} get jobs | awk '/db-/{print $1}' "
+  register: dbJobList
+
+- debug:
+      msg: "{{ dbJobList.stdout_lines }}"
+
+- name: Wait till all DB jobs are completed
+  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} wait --for=condition=complete jobs {{item}}"
+  with_items:
+      "{{ dbJobList.stdout_lines }}"
