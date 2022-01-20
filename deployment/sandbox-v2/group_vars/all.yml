@@ -188,7 +188,7 @@ postgres:
   masterdata_upload:
     enable: true
     script_src_path: "{{ install_root }}/../v3/mosip/kernel/masterdata"
-    script_dest_path: "{{ tmp_dir }}/masterdata"
+    script_dest_path: "{{ tmp_dir }}"
     repo:
       src: https://github.com/mosip/mosip-data
       dest: '{{tmp_dir}}/mosip-data'
