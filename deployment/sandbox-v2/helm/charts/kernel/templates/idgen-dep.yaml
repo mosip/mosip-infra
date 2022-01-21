@@ -46,7 +46,9 @@ spec:
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }} 
         - name: is_glowroot_env
-          value: {{ .Values.isGlowroot }} 
+          value: {{ .Values.isGlowroot }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
