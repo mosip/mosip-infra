@@ -25,6 +25,17 @@
     dest: '/usr/share/nginx/html/index.html'
   become: yes
 
+- name: nginx ssl conf template to yml
+  template:
+    src: ssl_conf.yml.j2
+    dest: '{{tmp_dir}}/ssl.conf'
+
+- name: Copy new conf file
+  copy:
+    src: '{{tmp_dir}}/ssl.conf'
+    dest: '/etc/nginx/conf.d/ssl.conf'
+  become: yes
+
 - name: Set symlink to mosip versions file
   file: 
     src: '{{install_root}}/versions.yml'
