@@ -73,7 +73,7 @@
     "resetPasswordAllowed": false, 
     "revokeRefreshToken": false, 
     "smtpServer": {}, 
-    "sslRequired": "external", 
+    "sslRequired": "all",
     "ssoSessionIdleTimeout": 86400, 
     "ssoSessionIdleTimeoutRememberMe": 0, 
     "ssoSessionMaxLifespan": 36000, 
