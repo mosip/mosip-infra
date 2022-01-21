@@ -49,6 +49,8 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        - name: iam_adapter_url_env
+          value: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
         ports:
         - containerPort: {{ .Values.services.idgen.ports.containerPort }}
 #        readinessProbe:
