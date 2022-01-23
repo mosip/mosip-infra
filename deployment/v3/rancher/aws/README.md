@@ -51,6 +51,7 @@ The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatical
     * out of LB = HTTP --> port 80 of ingress nginx controller
 1. Make sure in the target group settings Proxy Protocol v2 is enabled.
 1. Make sure health check of target groups is working fine.
+1. Make sure all subnets are selected in LB -->Description --> Edit subnets.
 
 ## Doman name
 * Create a domain name for your rancher like `rancher.mosip.net` and point it to **internal** ip address of the LB.  Thi assumes that you have a wireguard to receive traffic from Internet and point to internal LB. 
