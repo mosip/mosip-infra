@@ -1,0 +1,21 @@
+ name: My timestamp play
+  hosts: all
+  tasks:
+    - name: Show timestamp
+      debug:
+        msg: "timezone on {{ inventory_hostname }} is {{ ansible_date_time.tz }} and time is {{ ansible_date_time.time }}"
+
+    - name: Run expect to wait for a successful PXE boot via out-of-band CIMC
+      shell:
+        cmd: |
+          echo machine is {{ inventory_hostname }} \n
+          date
+          echo \n
+          ntpq -p
+          echo \n
+          echo ===================================================== \n
+      register: ps
+
+    # Print the shell task's stdout.
+    - debug:
+        var: ps.stdout_lines
