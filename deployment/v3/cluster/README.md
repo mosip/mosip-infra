@@ -16,7 +16,7 @@
 * In case of Cloud installation with AWS the type of resource used is `t3.large` for above mentioned configuration. Do update the same in cluster.config while cluster creation.
 * In case of On-prem installation both the nodes should be there in same VPC so that there is no connectivity issue between them.
 
-## Rancher and Iam cluster.
+## MOSIP Cluster.
 * There should be one cluster organisation wide for Common Rancher and IAM (keycloak) installation:
 * Below is the configuration for the same:
 
