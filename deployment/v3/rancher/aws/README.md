@@ -5,6 +5,7 @@
 * Over wireguard
 * HA
 * Internal LB
+* IAM (integrate in this cluster). Or point to an external one.
 
 ## AWS
 Follow the procedure given [here](../../cluster/aws/README.md) to create a cluster on AWS.  Use the sample cluster config given in this folder - modify it according to your configuration.
@@ -70,3 +71,5 @@ The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatical
     kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{ .data.bootstrapPassword|base64decode}}{{ "\n" }}'
     ```
 * Assign a password.  IMPORTANT: makes sure this password is securely saved and retrievable by Admin.
+
+## Keycloak integration
