@@ -23,7 +23,7 @@
     sudo ip route add <loadbalancer-ip> via <first-cluster-node-ip>
     ```
 * `sudo apt install nginx`
-* Edit the nginx.conf file, like the [sample](./sample-nginx.conf) provided. See section 2 in this document.
+* Edit the nginx.conf file, like the [sample](./nginx.conf.sample) provided. See section 2 in this document.
 * Test config and start/restart nginx
   * For systemctl based linux systems, use:
     ```
