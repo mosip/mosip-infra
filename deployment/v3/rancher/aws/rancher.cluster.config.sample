@@ -3,14 +3,15 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: rancher 
+  name: rancher
   region: ap-south-1
+  version: "1.19"
 
 managedNodeGroups:
-  - name: t3a-xlarge-32gb
-    instanceType: t3a.xlarge
+  - name: t3a-large-32gb
+    instanceType: t3a.large
     instanceName: rancher-worker-node
-    desiredCapacity: 2
+    desiredCapacity: 2 
     privateNetworking: true 
     volumeSize: 32 
     volumeType: gp3
@@ -19,7 +20,6 @@ managedNodeGroups:
       allow: true
     labels: {deployment: rancher}
 
-# Specify subnets belonging to your VPC.
 # We use the same VPC for installing multiple clusters as we 
 # would like to have single Wireguard bastion host connecting to 
 # all. You may choose to have separate VPCs for each cluster 
@@ -33,5 +33,5 @@ vpc:
           id: "subnet-6bc5b227"
 
         ap-south-1a:
-          id: "subnet-6bc5b227"
+          id: "subnet-7d0c0d15"
   
