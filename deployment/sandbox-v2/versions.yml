@@ -115,7 +115,7 @@ versions:
       policy:
         'pms-policy-manager-service': 'mosipqa/policy-management-service:1.2.0-rc2'
       ui:
-        'pms-ui': 'mosipqa/pmp-ui:develop'
+        'pms-ui': 'mosipqa/pmp-ui:1.2.0-rc2'
 
     resident:
       resident:
