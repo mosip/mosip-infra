@@ -104,10 +104,3 @@ spec:
           periodSeconds: {{ .Values.probe.startupPeriod }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
-        volumeMounts:
-          - name: {{ .Values.healthCheck.persistence.volumeName }}
-            mountPath: {{ .Values.healthCheck.persistence.mountPath }}
-      volumes:
-        - name: {{ .Values.healthCheck.persistence.volumeName }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.healthCheck.persistence.volumeName }}
