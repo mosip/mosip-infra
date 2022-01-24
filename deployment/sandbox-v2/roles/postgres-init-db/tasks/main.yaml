@@ -26,6 +26,6 @@
       msg: "{{ dbJobList.stdout_lines }}"
 
 - name: Wait till all DB jobs are completed
-  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} wait --timeout=300s --for=condition=complete jobs {{item}}"
+  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} wait --timeout=150s --for=condition=complete jobs {{item}}"
   with_items:
       "{{ dbJobList.stdout_lines }}"
