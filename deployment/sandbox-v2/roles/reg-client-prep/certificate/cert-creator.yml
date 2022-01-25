@@ -1,3 +1,13 @@
+- name: Install community.crypto from ansible-galaxy
+  shell: "ansible-galaxy collection install community.crypto"
+
+- name: Install cryptography & PyOpenSSL
+  pip:
+    name:
+      - cryptography
+      - pyopenssl
+    state: present
+
 - name: Create CA private key with password protection
   community.crypto.openssl_privatekey:
     path: "{{reg_client.nfs_path}}/RootCA.key"
@@ -48,6 +58,7 @@
     ownca_privatekey_path: "{{reg_client.nfs_path}}/RootCA.key"
     ownca_not_after: +365d  # valid for one year
     ownca_not_before: "-1d"  # valid since yesterday
+    provider: ownca
   register: certificate
 
 - name: Write certificate file
@@ -66,3 +77,4 @@
     other_certificates: "{{reg_client.nfs_path}}/RootCA.pem"
     state: present
     passphrase: "{{reg_client.keystore_secret}}"
+    friendly_name: "regclient"
