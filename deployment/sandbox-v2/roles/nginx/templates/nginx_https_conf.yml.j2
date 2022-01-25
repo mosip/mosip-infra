@@ -301,6 +301,10 @@ http {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
 
+        location /mosipvc/ {
+           proxy_pass {{clusters.dmz.ingress.base_url}}/mosipvc/;
+        }
+
         location /activemq/admin/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/activemq/admin/;
         }
