@@ -5,13 +5,14 @@ springConfigLabel: {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: http://mz.ingress:30080
 imagePullPolicy: Always
+
 docker:
-  image: {{ versions.services.mosip-file-server.values()[0] }}
+  image: {{ versions.services.mosip_file_server.values()[0] }}
   ports:
     containerPort: 80
     servicePort: 80
 
-version: {{ versions.services.mosip-file-server.version }}
+version: {{ versions.services.mosip_file_server.values()[0] }}
 mountPath: "/home/mosip/mosipvc"  # path inside docker
 host: {{ site.sandbox_public_url }}
 clientid:
@@ -31,7 +32,7 @@ nfs:
   path: {{ mosip-file-server.nfs_path }}
 
 services:
-  mosip-file-server:
+  mosip_file_server:
     podconfig:
       {{ podconfig.mosip_file_server.service | to_nice_yaml(indent=6) | indent(6) }}
 

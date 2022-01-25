@@ -6,16 +6,16 @@ metadata:
   labels:
     app: {{ .Values.serviceName }}
 spec:
-  replicas: {{ .Values.services.mosip-file-server.podconfig.replicas }}
+  replicas: {{ .Values.services.mosip_file_server.podconfig.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.serviceName }} 
-  minReadySeconds: {{ .Values.services.mosip-file-server.podconfig.minReadySeconds }}
+  minReadySeconds: {{ .Values.services.mosip_file_server.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.mosip-file-server.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.mosip-file-server.podconfig.maxSurge }}
+      maxUnavailable: {{ .Values.services.mosip_file_server.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.mosip_file_server.podconfig.maxSurge }}
   template:
     metadata:
       labels:
