@@ -3,6 +3,6 @@
 # git_tag for all repos corresponding to postgres-init:1.2.0-rc1 is mosip-16601
 # git_tag for all repos corresponding to postgres-init:1.2.0-rc2 is mosip-17836
 
-TAG=mandeepdhiman90/postgres-init:1.2.0-rc2
+TAG=mosipdev/postgres-init:1.2.0-rc2
 echo Building $TAG
 docker build -t $TAG .
