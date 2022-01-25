@@ -302,6 +302,8 @@ http {
         }
 
         location /mosipvc/ {
+           autoindex  on;
+           add_header Access-Control-Allow-Origin *;
            proxy_pass {{clusters.dmz.ingress.base_url}}/mosipvc/;
         }
 
