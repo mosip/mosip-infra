@@ -1,5 +1,12 @@
 - include_vars: '{{versions_file}}' # Need for resolving various versions
 
+- name: create {{mosip_file_server.nfs_path}} directory
+  file:
+    name: '{{mosip_file_server.nfs_path}}'
+    state: directory
+    owner: mosipuser
+  become: yes
+
 - name: controller yml to json
   template:
     src: controller.yml.j2
@@ -8,7 +15,7 @@
 - name: Copy new conf file
   copy:
     src: '{{tmp_dir}}/controller.json'
-    dest: '{{mosip-file-server.nfs_path}}/controller.json'
+    dest: '{{mosip_file_server.nfs_path}}/controller.json'
   become: yes
 
 - name: context yml to json
@@ -19,18 +26,18 @@
 - name: Copy new conf file
   copy:
     src: '{{tmp_dir}}/mosip-context.json'
-    dest: '{{mosip-file-server.nfs_path}}/mosip-context.json'
+    dest: '{{mosip_file_server.nfs_path}}/mosip-context.json'
   become: yes
 
 
-- name: vccontext yml to json
-  template:
-    src: vccontext.yml.j2
-    dest: '{{tmp_dir}}/vccontext.jsonld'
+#- name: vccontext yml to json
+#  template:
+#    src: vccontext.yml.j2
+#    dest: '{{tmp_dir}}/vccontext.jsonld'
 
-- name: Copy new conf file
-  copy:
-    src: '{{tmp_dir}}/vccontext.jsonld'
-    dest: '{{mosip-file-server.nfs_path}}/vccontext.jsonld'
-  become: yes
+#- name: Copy new conf file
+#  copy:
+#    src: '{{tmp_dir}}/vccontext.jsonld'
+#    dest: '{{mosip_file_server.nfs_path}}/vccontext.jsonld'
+#  become: yes
     

@@ -163,3 +163,7 @@ versions:
     keycloak:
       service:
         'keycloak': 'mosipqa/mosip-keycloak:1.2.0-rc2'
+
+    mosip_file_server:
+      service:
+        'mosip_file_server': 'mosipdev/mosip-file-server:1.2.0-rc2'

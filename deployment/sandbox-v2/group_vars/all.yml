@@ -280,7 +280,7 @@ reg_client:
   signer_timestamp_Url: 'http://timestamp.comodoca.com/rfc3161'
 
 
-mosip-file-server:
+mosip_file_server:
   nfs_path: '{{nfs.folder}}/mosip-file-server/'
 
 mock_abis:
