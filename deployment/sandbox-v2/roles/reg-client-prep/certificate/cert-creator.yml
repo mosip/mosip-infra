@@ -1,5 +1,6 @@
 - name: Install community.crypto from ansible-galaxy
   shell: "ansible-galaxy collection install community.crypto"
+  become: yes
 
 - name: Install cryptography & PyOpenSSL
   pip:
@@ -16,6 +17,10 @@
   community.crypto.openssl_csr_pipe:
     privatekey_path: "{{reg_client.nfs_path}}/RootCA.key"
     common_name: CSRoot
+    country_name: IN
+    state_or_province_name: KAR
+    locality_name: BLR
+    organization_name: MOSIP
     basic_constraints:
       - 'CA:TRUE'
     basic_constraints_critical: yes
@@ -41,6 +46,10 @@
   community.crypto.openssl_csr_pipe:
     privatekey_path: "{{reg_client.nfs_path}}/Client.key"
     common_name: CSClient
+    country_name: IN
+    state_or_province_name: KAR
+    locality_name: BLR
+    organization_name: MOSIP
     basic_constraints:
       - 'CA:FALSE'
     basic_constraints_critical: yes
@@ -74,7 +83,6 @@
     path: "{{reg_client.nfs_path}}keystore.p12"
     privatekey_path: "{{reg_client.nfs_path}}/Client.key"
     certificate_path: "{{reg_client.nfs_path}}/Client.crt"
-    other_certificates: "{{reg_client.nfs_path}}/RootCA.pem"
     state: present
-    passphrase: "{{reg_client.keystore_secret}}"
-    friendly_name: "regclient"
+    passphrase: "{{ secrets.reg_client.keystorepass }}"
+    friendly_name: "CodeSigning"
