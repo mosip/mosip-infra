@@ -7,7 +7,7 @@ echo "token is $TOKEN"
 
 RESULT1=`curl -v -X "GET" \
   -H "Authorization: $TOKEN" \
-  "https://dev2.mosip.net/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
+  "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
   -H "accept: */*"`
 
 CERT=$(echo $RESULT1 | sed 's/.*certificate\":\"//g' | sed 's/\".*//g')

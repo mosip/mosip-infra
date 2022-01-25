@@ -13,7 +13,9 @@ docker:
 
 version: {{ versions.services.mosip-file-server.version }}
 mountPath: "/home/mosip/mosipvc"  # path inside docker
-upgrade_server: {{ site.sandbox_public_url }}
+host: {{ site.sandbox_public_url }}
+clientid:
+secert:
 
 sc:
   name: ""

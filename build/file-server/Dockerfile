@@ -16,8 +16,20 @@ ARG container_user_gid=1001
 # can be passed during Docker build as build time environment for artifactory URL
 ARG artifactory_url
 
+ARG hosturl
+
+ARG clientid
+
+ARG clientsecret
+
 # environment variable to pass artifactory url, at docker runtime
 ENV artifactory_url_env=${artifactory_url}
+
+ENV host_url_env=${hosturl}
+
+ENV clientid_env=${clientid}
+
+ENV clientsecret_env=${clientsecret}
 
 # install packages and create user
 RUN apt-get -y update \

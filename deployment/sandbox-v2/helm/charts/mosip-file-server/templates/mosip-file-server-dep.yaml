@@ -29,7 +29,12 @@ spec:
         env:
         - name: artifactory_url_env
           value: {{ .Values.artifactoryUrl }}
-
+        - name: host_url_env
+          value: {{ .Values.host }}
+        - name: clientid_env
+          value: {{ .Values.clientid }}
+        - name: clientsecret_env
+          value: {{ .Values.secret }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
 
