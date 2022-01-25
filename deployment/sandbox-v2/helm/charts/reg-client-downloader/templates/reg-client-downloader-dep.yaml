@@ -43,7 +43,10 @@ spec:
           value: {{ .Values.upgrade_server }}
         - name: healthcheck_url_env
           value: {{ .Values.healthcheck }}
-
+        - name: keystore_secret_env
+          value: {{ .Values.keystoreSecret }}
+        - name: signer_timestamp_url_env
+          value: {{ .Values.signerTimestampUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
 

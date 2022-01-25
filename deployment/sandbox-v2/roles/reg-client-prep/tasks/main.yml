@@ -1,7 +1,7 @@
 ---
 # Creates folder in nfs for reg-client to provide metadata.xml and mosip-cer file.
 # These files are further used by reg-client downloader to create the client zip.
-
+- import_playbook: certificate/cert-creator.yml
 - include_vars: '{{versions_file}}'
 - name: Create reg client folder in nfs.
   file:
