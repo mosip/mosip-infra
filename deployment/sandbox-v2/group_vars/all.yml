@@ -276,6 +276,9 @@ reg_client:
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
   logback_xml: '{{install_root}}/roles/reg-client-prep/files/logback.xml'
+  keystore_secret: '{{secrets.reg_client.keystorepass}}'
+  signer_timestamp_Url: 'http://timestamp.comodoca.com/rfc3161'
+
 
 mosip-file-server:
   nfs_path: '{{nfs.folder}}/mosip-file-server/'
