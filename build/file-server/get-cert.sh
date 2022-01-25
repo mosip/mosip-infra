@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#bash auth.sh > temp.txt
+bash auth.sh
 TOKEN=$(cat -n temp.txt | sed -n '/authorization:/,/\;.*/p' |  sed 's/.*authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
 #echo result is $RESULT
 echo "token is $TOKEN"
