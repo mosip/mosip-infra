@@ -9,7 +9,7 @@ imagePullPolicy: Always
 docker:
   image: {{ versions.services.mosip_file_server.service.values()[0] }}
   ports:
-    containerPort: 80
+    containerPort: 8080
     servicePort: 80
 
 version: {{ versions.services.mosip_file_server.values()[0] }}
