@@ -7,7 +7,7 @@ artifactoryUrl: http://mz.ingress:30080
 imagePullPolicy: Always
 
 docker:
-  image: {{ versions.services.mosip_file_server.values()[0] }}
+  image: {{ versions.services.mosip_file_server.service.values()[0] }}
   ports:
     containerPort: 80
     servicePort: 80
