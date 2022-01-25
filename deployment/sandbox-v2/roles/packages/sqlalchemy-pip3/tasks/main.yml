@@ -1,0 +1,6 @@
+- name: Install sqlalchemy via pip3
+  pip:
+      name: sqlalchemy
+      state: present
+      executable: pip3
+  become: yes

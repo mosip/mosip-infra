@@ -42,6 +42,7 @@
      - {role: packages/openjdk}
      - {role: packages/maven}
      - {role: packages/pandas-pip3}
+     - {role: packages/sqlalchemy-pip3}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 
