@@ -3,16 +3,16 @@ name: Maven Package upon a push
 on:
   push:
     branches:
-      - develop
+      - 1.2.*
   
 jobs:
 
-  build-keycloak-init:
+  build-file-server:
     runs-on: ubuntu-latest
     env: 
       NAMESPACE: ${{ secrets. dev_namespace_docker_hub }}
-      SERVICE_NAME: keycloak-init
-      SERVICE_LOCATION: build/keycloak-init
+      SERVICE_NAME: mosip-file-server
+      SERVICE_LOCATION: build/file-server
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
