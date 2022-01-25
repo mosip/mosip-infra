@@ -5,4 +5,4 @@
 
 TAG=mosipdev/postgres-init:1.2.0-rc2
 echo Building $TAG
-docker build -t $TAG .
+docker build --no-cache -t $TAG .
