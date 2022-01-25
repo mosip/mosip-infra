@@ -71,7 +71,7 @@ ENTRYPOINT [ "./get-cert.sh" ]
 #get the admin i18n bundle zip from artifactory
 CMD echo "starting nginx" ; \
     wget --no-check-certificate --no-cache --no-cookies $artifactory_url_env/artifactory/libs-release-local/mosipvc/mosipvc.zip -O $base_path/mosipvc.zip ; \
-    unzip -q $base_path/mosipvc.zip -d $base_path/
+    unzip -q $base_path/mosipvc.zip -d $base_path/ ; \
     nginx ; \
     sleep infinity
 
