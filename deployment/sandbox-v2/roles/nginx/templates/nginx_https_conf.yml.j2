@@ -302,10 +302,19 @@ http {
         }
 
         location /mosipvc/ {
+           if ($request_method = 'OPTIONS') {
+             add_header 'Access-Control-Allow-Origin' '*';
+             add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+             add_header 'Access-Control-Allow-Headers' 'Content-Type';
+             add_header 'Content-Type' 'application/json';
+             return 204;
+            }
            autoindex  on;
            add_header Access-Control-Allow-Origin *;
-           proxy_pass {{clusters.dmz.ingress.base_url}}/mosipvc/;
+           add_header Access-Control-Allow-Methods "GET, OPTIONS";
+           proxy_pass http://dmzworker0.sb:30080/mosipvc/;
         }
+
 
         location /activemq/admin/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/activemq/admin/;
