@@ -1,5 +1,11 @@
 - include_vars: '{{versions_file}}' # Need for resolving various versions
 
+- name: create {{mosip_file_server.nfs_path}} directory
+  file:
+    name: '{{mosip_file_server.nfs_path}}'
+    state: directory
+    owner: mosipuser
+
 - name: controller yml to json
   template:
     src: controller.yml.j2
