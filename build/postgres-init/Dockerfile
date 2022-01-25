@@ -4,16 +4,15 @@ RUN apt-get install -y python3
 RUN apt-get install -y python3-pip
 RUN pip3 install xlrd
 WORKDIR /home/mosip/repos/db_scripts
-COPY ../commons/db_scripts .
-COPY ../pre-registration/db_scripts .
-COPY ../registration/db_scripts .
-COPY ../id-repository/db_scripts .
-COPY ../id-authentication/db_scripts .
-COPY ./partner-management-services/db_scripts .
-COPY ./audit-manager/db_scripts .
-COPY ./keymanager/db_scripts .
-COPY ./admin-services/db_scripts .
-
+COPY ./repos/commons/db_scripts .
+COPY ./repos/pre-registration/db_scripts .
+COPY ./repos/registration/db_scripts .
+COPY ./repos/id-repository/db_scripts .
+COPY ./repos/id-authentication/db_scripts .
+COPY ./repos/partner-management-services/db_scripts .
+COPY ./repos/admin-services/db_scripts .
+COPY ./repos/keymanager/db_scripts .
+COPY ./repos/audit-manager/db_scripts .
 ENV MOSIP_DB_NAME=
 ENV DB_SERVERIP=
 ENV DB_PORT=5432
