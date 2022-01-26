@@ -1,5 +1,7 @@
 ## 1. Setting up kubernetes with rke on Ubuntu
 
+
+
 - Exchange keys with the remote node:
   - First generate keys on our machine:
   ```
@@ -23,6 +25,7 @@
   </details>
 
 - Install docker on the remote node. Using the following command or [this](https://docs.docker.com/engine/install/ubuntu/).
+  - `sudo apt install updates -y`
   - `sudo apt install docker.io`
   - Be sure to add user to docker group.<br/>
   `sudo usermod -aG docker $USER`
@@ -80,11 +83,12 @@
           cluster-signing-cert-file: "/etc/kubernetes/ssl/kube-ca.pem"
           cluster-signing-key-file: "/etc/kubernetes/ssl/kube-ca-key.pem"
     ```
+- Open these Inbound ports for all the nodes or add the rule to the common network security group. [this](https://rancher.com/docs/rancher/v2.6/en/installation/requirements/ports/#rancher-aws-ec2-security-group).
 - Bring up the cluster, with the given cluster.yml: `rke up`
 - Once `rke up` is done, cluster is setup. Yayy. It will give a `kube_config_cluster.yaml`. Copy that into your `$HOME/.kube/` directory and set proper permissions.
   ```
   cp kube_config_cluster.yml ~/.kube/cluster_name.config
-  chmod 600 ~/.kube/cluster_name.config
+  chmod 400 ~/.kube/cluster_name.config
   ```
 - Then add the above kubeconfig file to environment variable `KUBECONFIG`. Or create aliases in `~/.bashrc` or equivalent, like
   ```
@@ -92,7 +96,7 @@
   ```
 - Try if kubectl is actually working. `kc get nodes`
 
-## 2. Adding nodes to cluster.
+## 2. Adding new nodes to cluster.
 
 * Copy the ssh keys to the new nodes.
   ```
