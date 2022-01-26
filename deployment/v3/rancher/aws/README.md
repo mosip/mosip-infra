@@ -56,6 +56,9 @@ The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatical
 ## Doman name
 * Create a domain name for your rancher like `rancher.mosip.net` and point it to **internal** ip address of the LB.  Thi assumes that you have a wireguard to receive traffic from Internet and point to internal LB. 
 
+## Keycloak
+We recommend using an IAM that controls user access to the cluster.  Here, we install Keycloak in the same cluster.
+
 ## Rancher
 * Install rancher using Helm.
     ```
