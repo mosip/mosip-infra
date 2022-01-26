@@ -1,11 +1,12 @@
 # Kuberenetes cluster for MOSIP
 
+
 * [AWS](aws/README.md):  Create cluster on Amazon EKS
 * [On-prem](on-prem/README.md): Create cluster on-premise using Rancher
 
-# Hardware Configurations:
+## Hardware configurations
 
-## Rancher and Iam cluster.
+### Rancher cluster 
 * There should be one cluster organisation wide for Common Rancher and IAM (keycloak) installation:
 * Below is the configuration for the same:
 
@@ -16,7 +17,7 @@
 * In case of Cloud installation with AWS the type of resource used is `t3.large` for above mentioned configuration. Do update the same in cluster.config while cluster creation.
 * In case of On-prem installation both the nodes should be there in same VPC so that there is no connectivity issue between them.
 
-## MOSIP Cluster.
+### MOSIP cluster
 * There should be one cluster organisation wide for Common Rancher and IAM (keycloak) installation:
 * Below is the configuration for the same:
 
@@ -27,9 +28,9 @@
 * In case of Cloud installation with AWS the type of resource used is `t3.2xlarge` for above mentioned configuration. Do update the same in cluster.config while cluster creation.
 * In case of On-prem installation all the nodes should be there in same VPC so that there is no connectivity issue between them.
 
-## Wireguard Bastian Server
+## Wireguard bastion Server
 
-* There should be a wireguard bastian server for all the internal routings there with MOSIP cluster.
+* There should be a wireguard bastion server for all the internal routings there with MOSIP cluster.
 * The configuration for the same will be as follows:
 
 | no. of VM | no. of vCPU's | RAM | storage |
