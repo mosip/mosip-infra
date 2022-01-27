@@ -9,7 +9,7 @@
             state: absent
         with_items:
             - "{{ postgres.masterdata_upload.repo.dest }}"
-            - "{{ postgres.masterdata_upload.script_dest_path }}"
+            - "{{ postgres.masterdata_upload.script_dest_path }}/masterdata"
 
       - name: Clone masterdata repo
         vars:
