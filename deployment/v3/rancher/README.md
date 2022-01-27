@@ -2,7 +2,7 @@
 
 ## Introduction
 Rancher may be used to manage all your clusters.  Typically, you would need just one installation per organisation.
-Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions installing Rancher Management Servier along with Keycloak within the same cluster.  
+Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions to install Rancher Management Server along with Keycloak within the same cluster.  
 
 ## On-prem 
 * Create a dedicated k8s cluster. You would need at least 2 worker nodes for high availability. Create cluster on AWS as given [here](aws/README.md).  For on-prem clusters you will have to follow cluster installation as given [here](on-prem/README.md)
