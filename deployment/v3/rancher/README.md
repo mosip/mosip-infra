@@ -114,4 +114,4 @@ We recommend using an IAM that controls user access to the cluster.  Here, we in
 * For users in keycloak assign roles rancher - cluster and project roles.  Under `default` project add all the namespaces. Then, for a non-admin user you may provide Read-Only role (under projects).
 * Add a member to cluster/project in Rancher:
   * Give member name exactly as `username` in Keycloak
-  * Assign appropriate role like Cluster Owner, Cluster Viewer e
+  * Assign appropriate role like Cluster Owner, Cluster Viewer etc.
