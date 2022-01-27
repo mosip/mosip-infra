@@ -95,7 +95,7 @@ We recommend using an IAM that controls user access to the cluster.  Here, we in
 ## IAM integration
 * Enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
 * IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user of Keycloak before you try to authenticate with Rancher.
-* In Keyclok add another Mapper for the rancher client (in Master realm) with following fields:
+* In Keycloak add another Mapper for the rancher client (in Master realm) with following fields:
   * Protocol: saml
   * Name: username
   * Mapper Type: User Property
