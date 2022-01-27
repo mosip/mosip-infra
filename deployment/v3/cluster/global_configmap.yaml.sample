@@ -8,7 +8,9 @@
 ##   mosip-kibana-host: Internal LB
 ##   mosip-regclient-host: Internal LB
 ##   mosip-admin-host: Internal LB
+##   mosip-minio-host: Internal LB
 ##   mosip-kafka-host: Internal LB
+##   mosip-iam-external-host: Internal LB
 
 apiVersion: v1
 kind: ConfigMap

@@ -75,14 +75,7 @@
     ingress:
       provider: none
     ```
-  - Also edit the following section in `cluster.yml`, this is required for CSRs to get issued (which is required for minio operator install)
-    ```
-    services:
-      kube-controller:
-        extra_args:
-          cluster-signing-cert-file: "/etc/kubernetes/ssl/kube-ca.pem"
-          cluster-signing-key-file: "/etc/kubernetes/ssl/kube-ca-key.pem"
-    ```
+  - [IMPORTANT] Furthermore edit the cluster.yml, according this [rke cluster hardening document](./rke_cluster_hardening.md)
 - Open these Inbound ports for all the nodes or add the rule to the common network security group. [this](https://rancher.com/docs/rancher/v2.6/en/installation/requirements/ports/#rancher-aws-ec2-security-group).
 - Bring up the cluster, with the given cluster.yml: `rke up`
 - Once `rke up` is done, cluster is setup. Yayy. It will give a `kube_config_cluster.yaml`. Copy that into your `$HOME/.kube/` directory and set proper permissions.
