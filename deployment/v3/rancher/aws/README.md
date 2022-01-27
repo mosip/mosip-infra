@@ -29,7 +29,7 @@ helm install \
 -f nginx.values.yaml
 ```
 
-## Set configmap 
+### Set configmap 
 * Edit configmap
     ```
     kubectl -n ingress-nginx edit cm  ingress-nginx-controller
