@@ -1,6 +1,3 @@
-- name: Install community.crypto from ansible-galaxy
-  shell: "ansible-galaxy collection install community.crypto"
-
 - name: Install cryptography & PyOpenSSL
   pip:
     name:

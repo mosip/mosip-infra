@@ -3,6 +3,7 @@
 sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum install -y ansible
 ansible-galaxy collection install ansible.netcommon
+ansible-galaxy collection install community.crypto
 sudo yum install -y tmux 
 sudo yum install -y vim
 sudo yum install -y nano
