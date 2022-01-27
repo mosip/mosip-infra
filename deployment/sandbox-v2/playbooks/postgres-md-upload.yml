@@ -1,16 +1,16 @@
 ## upload masterdata
 
-- name: Remove old mosip-data repo & masterdata directory from tmp directory
-  file:
-      path: "{{item}}"
-      state: absent
-  with_items:
-      - "{{ postgres.masterdata_upload.repo.dest }}"
-      - "{{ postgres.masterdata_upload.script_dest_path }}"
-
 - name: Upload masterdata
   hosts: console
   tasks:
+      - name: Remove old mosip-data repo & masterdata script directory from tmp directory
+        file:
+            path: "{{item}}"
+            state: absent
+        with_items:
+            - "{{ postgres.masterdata_upload.repo.dest }}"
+            - "{{ postgres.masterdata_upload.script_dest_path }}"
+
       - name: Clone masterdata repo
         vars:
             repo_path: '{{ postgres.masterdata_upload.repo.src }}'
