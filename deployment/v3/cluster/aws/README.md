@@ -120,6 +120,28 @@ In Rancher console, under Edit Cluster, increase the Desired ASG size to the num
 * Add this cluster to Rancher  
 * Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
 
+## Delete the EKS cluster
+When we remove an EKS cluster we should also make sure that all the volumes and loadbalancers related to cluster are also removed. Will follow below steps to remove the cluster and cluster resources.
+* Crosscheck if all the pv allocated to the cluster are in delete mode using below command
+```
+kubectl get pv
+```
+* If any of the pc allocated is in Retain mode just note the pv name so that the same can be deleted after cluster deletion.
+* Delete the namespaces whose resources are using any of the pv's.
+* We are running Istio in loadbalancer mode from isto-system namespace so the same also needed to be removed.
+* We have identified the namespaces using the pv and loadbalancer. Use the below command delete the required namespaces:
+```
+kubectl delete ns postgres kafka regproc catle-logging-system keycloak activemq keymanager ida istio-system
+```
+* Verify if all the pv and loadbalancers are deleted.
+* Delete the pv's which were in retain mode from AWS console Volumes.
+* Delete the EKS cluster using below command there.
+```
+eksctl delete cluster --name <cluster name>
+```
+Note: this may take around 30 mins.
+* Once completed crosscheck if the cluster is deleted or not from AWS console side.
+
 ## Troubleshooting
 * **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.
 * **Unable to delete pod**: This could be due to the above issue.  Force delete.  Example:

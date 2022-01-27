@@ -1,6 +1,6 @@
-## 1. Setting up kubernetes with rke on Ubuntu
+# RKE Cluster Creation and Updates with On-prem Ubuntu VM's
 
-
+## Create Cluster with RKE
 
 - Exchange keys with the remote node:
   - First generate keys on our machine:
@@ -33,13 +33,13 @@
   `docker stats`
 - Configure rke cluster. `rke config`.
   - Number of hosts is the number of nodes.
-  - Internal IP is; if we want the nodes to talk to eachother on a different interface, other than their ssh/public ip.
+  - Internal IP is; if we want the nodes to talk to each other on a different interface, other than their ssh/public ip.
   - Any combination of `controlplane, etcd, worker` roles can be used for any nodes.
   - Use default Canal networking model
   - Keep the Pod Security Policies disabled.
 
     <details>
-      <summary>Sample Config Options</summary>
+      <summary>Sample configuration Options</summary>
 
       ```
       [+] Cluster Level SSH Private Key Path [~/.ssh/id_rsa]:
@@ -70,7 +70,7 @@
       ```
     </details><br/>
   - After the above command edit any other changes to `cluster.yml` in current folder.
-  - If you dont want the default ingress controller installed (default is not recommended), edit `ingress` section of the `cluster.yml`.
+  - If you don't want the default ingress controller installed (default is not recommended), edit `ingress` section of the `cluster.yml`.
     ```
     ingress:
       provider: none
@@ -107,7 +107,7 @@
   sudo apt install docker.io
   sudo usermod -aG docker $USER
   ```
-* Double check that the ssh and docker both dont ask for passwords when running.
+* Double check that the ssh and docker both don't ask for passwords when running.
 * Navigate to the same folder as above, where the `cluster.yml` and `cluster.rkestate` files are located.
 * Edit the cluster.yml file
   * Add extra nodes with their ips and roles.
