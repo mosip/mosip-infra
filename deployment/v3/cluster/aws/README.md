@@ -131,7 +131,7 @@ kubectl get pv
 * Istio is in Loadbalancer mode from isto-system Namespace so the same also needed to be removed.
 * We have identified the Namespaces using the PV and Loadbalancer. Use the below command delete the required Namespaces:
 ```
-kubectl delete ns postgres kafka regproc catle-logging-system keycloak activemq keymanager ida istio-system
+kubectl delete ns postgres kafka regproc cattle-logging-system keycloak activemq keymanager ida istio-system
 ```
 * Verify if all the PV and Loadbalancers are deleted.
 * Delete the PV's which were in retain mode from AWS console Volumes.
