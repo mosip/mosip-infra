@@ -15,6 +15,6 @@
   * For a full list of public vs internally accessible hostname, refer to [this](../global_configmap.yaml.sample)
   * Rancher and IAM hostname can also be mapped to the internal interface ip. (Unless they want to be publicly accessible, then they can be mapped to public ip).
 * For the SSL certificates:
-  * One wildcard certificate like `*.mosip.xyz.net` is sufficient for all the hostnames if they are decided to be put under the same hostname. Like;
-  * Since the certificates go only one level in hierarchy, something like `prereg.sandbox1.mosip.xyz.net`, would work because a new certiificate will be required here.
-  * So choose the hostnames and certificates accordingly, before getting started. Refer [here](../global_configmap.yaml.sample) again for a list of hostname required by mosip (*Excluding Rancher and IAM hostnames*)
+  * One wildcard certificate like `*.mosip.xyz.net` is sufficient for all the hostnames if they are decided to be put under the same hostname.
+  * Since the certificates go only one level in hierarchy, something like `prereg.sandbox1.mosip.xyz.net`, would NOT work because a new certiificate will be required.
+  * So choose the hostnames and certificates accordingly, before getting started. Refer [here](../global_configmap.yaml.sample) again for a list of hostname required by mosip.

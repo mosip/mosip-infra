@@ -66,21 +66,9 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
 
 ### 2.1 Cluster Setup
 
-* Follow same as in section 1.1 and create a new cluster, using rke with [this](../../docs/rke-setup.md). This cluster we will refer to as mosip cluster, where all mosip external and core components will be isntalled.
-* `rke config`
-* Edit the following in the `cluster.yml`.
-  * ```
-    ingress:
-      provider: none
-    ```
-  * ```
-    services:
-      kube-controller:
-        extra_args:
-          cluster-signing-cert-file: "/etc/kubernetes/ssl/kube-ca.pem"
-          cluster-signing-key-file: "/etc/kubernetes/ssl/kube-ca-key.pem"
-    ```
-  * `rke up`
+* Follow same as in section 1.1 and create a new cluster, using rke with [this](../../docs/rke-setup.md). This cluster we will refer to as mosip cluster, where all mosip external and core components will be installed.
+* `rke config`. Then edit the `cluster.yml` file. Then run `rke up`.
+  * Make sure to follow [this](../../docs/rke-setup.md) while configuring.
 * The above will give a new `kube_config_cluster.yml` file. Place it in `~/.kube/` with different name like `mosip_cluster.config`. Dont forget to make new aliases with this `KUBECONFIG`, for `kubectl` and `helm`, etc, for this new cluster, or these will get mixed up with previous rancher cluster.
 
 ### 2.2 Metallb (baremetal)
