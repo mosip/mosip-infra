@@ -44,7 +44,7 @@ helm install \
     ```
      kubectl -n ingress-nginx delete pod  <controller pod name> 
     ```
-## Loadbalancer (LB)
+## AWS Loadbalancer (LB)
 The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatically created.  Check the following on AWS console:
 
 1. An LB has been created. You may also see the DNS of LB with
