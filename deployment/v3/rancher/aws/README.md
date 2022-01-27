@@ -1,7 +1,7 @@
-# Rancher on AWS EKS Cluster
+# AWS EKS Cluster for Rancher
 
 ## Prerequisites
-* Wireguard is setup as given [here](../README.md#wireguard)
+* Wireguard is setup as given [here](../docs/wireguard_bastion.md)
 * If you already have `~/.kube/config` file created for another cluster, rename it.
 * Install k8s cluster using `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * Set AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
@@ -60,27 +60,5 @@ The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatical
 1. Check health check of target groups.
 1. Remove listner 80 from LB as we will receive traffic only on 443.
 
-## Doman name
-Create a domain name for your rancher like `rancher.mosip.net` in [Route 53](https://aws.amazon.com/route53/) and point it to **internal** ip address of the LB.  
-
-## Keycloak 
-
-
-## Rancher
-* Install rancher using Helm.
-    ```
-     helm install rancher rancher-latest/rancher \
-      --namespace cattle-system \
-      --set hostname=rancher.mosip.net \
-      --set bootstrapPassword=admin \
-      --set tls=external
-    ```
-## Login 
-* Open rancher page `https://rancher.mosip.net`
-* Get Bootstrap password using
-    ```
-    kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{ .data.bootstrapPassword|base64decode}}{{ "\n" }}'
-    ```
-* Assign a password.  IMPORTANT: makes sure this password is securely saved and retrievable by Admin.
-
-## Keycloak integration
+## Domain name
+Create a domain name for your rancher like `rancher.mosip.net` and point it to **internal** ip address of the LB. This assumes that you have a wireguard to receive traffic from Internet and point to internal LB. 

@@ -9,14 +9,13 @@ fi
 if [ $# -ge 2 ]; then
   export KUBECONFIG=$2
 else
-  export KUBECONFIG="$HOME/.kube/iam_config"
+  export KUBECONFIG="$HOME/.kube/config"
 fi
 NS=keycloak
 
 echo Creating namespace
 kubectl create ns keycloak
 
-echo Istio label
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
