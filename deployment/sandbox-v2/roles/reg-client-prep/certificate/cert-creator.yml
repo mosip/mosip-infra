@@ -70,8 +70,6 @@
   copy:
     dest: "{{reg_client.nfs_path}}/Client.crt"
     content: "{{ certificate.certificate }}"
-  run_once: true
-
 
 - name: Generate PKCS#12 file
   community.crypto.openssl_pkcs12:
