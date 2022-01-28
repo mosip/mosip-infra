@@ -1,8 +1,7 @@
 #!/bin/sh
 ## Point config to your cluster on which you are installing IAM.
-if [ $# -lt 1 ]; then
-  echo "Usage: ./install.sh [kube_config_file]"; exit 1
-fi
+## "Usage: ./install.sh [kube_config_file]"
+
 if [ $# -ge 1 ]; then
   export KUBECONFIG=$1
 else
