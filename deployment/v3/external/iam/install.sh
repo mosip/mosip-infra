@@ -1,12 +1,12 @@
 #!/bin/sh
 ## Point config to your cluster on which you are installing IAM.
 if [ $# -lt 1 ]; then
-  echo "Usage: ./install.sh <iam host name for this install> [kube_config_file]"; exit 1
+  echo "Usage: ./install.sh [kube_config_file]"; exit 1
 fi
-if [ $# -ge 2 ]; then
-  export KUBECONFIG=$2
+if [ $# -ge 1 ]; then
+  export KUBECONFIG=$1
 else
-  export KUBECONFIG="$HOME/.kube/iam_config"
+  export KUBECONFIG="$HOME/.kube/config"
 fi
 NS=keycloak
 
@@ -22,7 +22,6 @@ helm repo update
 echo Installing
 helm -n $NS install keycloak bitnami/keycloak --version "4.3.0" -f values.yaml
 
-## Set your iam domain
-HOST=$1
+EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 echo Install Istio gateway, virtual service
-helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$HOST --set keycloakInternalHost=keycloak.$NS
+helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost=keycloak.$NS
