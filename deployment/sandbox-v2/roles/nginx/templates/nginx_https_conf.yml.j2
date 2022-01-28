@@ -97,7 +97,7 @@ http {
         }
 
         location /keycloak/ {
-          proxy_cookie_path /keycloak/auth/realms/mosip/ "/; HTTPOnly; Secure"
+          proxy_cookie_path /keycloak/auth/realms/mosip/ "/; HTTPOnly; Secure";
           proxy_pass {{clusters.mz.ingress.base_url}}/keycloak/;
         }
 
