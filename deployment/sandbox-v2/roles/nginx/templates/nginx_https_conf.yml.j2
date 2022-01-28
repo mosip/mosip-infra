@@ -75,7 +75,7 @@ http {
         ssl_session_timeout  10m;
         ssl_ciphers HIGH:!aNULL:!MD5;
         ssl_prefer_server_ciphers on;
-        proxy_cookie_path / "/; SameSite=None; HTTPOnly; Secure";
+
 
         proxy_set_header Host $host;  
         proxy_set_header X-Real-IP $remote_addr;
@@ -93,9 +93,11 @@ http {
         include /etc/nginx/default.d/*.conf;
 
         location / {
+           proxy_cookie_path / "/; SameSite=None; HTTPOnly; Secure";
         }
 
         location /keycloak/ {
+          proxy_cookie_path /keycloak/auth/realms/mosip/ "/; HTTPOnly; Secure"
           proxy_pass {{clusters.mz.ingress.base_url}}/keycloak/;
         }
 
