@@ -21,7 +21,7 @@ upgrade_server: {{ site.sandbox_public_url }}
 healthcheck: "{{ site.sandbox_public_url }}/v1/syncdata/actuator/health"
 keystoreSecret: "{{reg_client.keystore_secret}}"
 signerTimestampUrl: "{{reg_client.signer_timestamp_Url}}"
-
+#sdk_url: http://mz.ingress:30080/artifactory/libs-release-local/sdk/tech5/sdkDependency.zip
 
 sc:
   name: ""
