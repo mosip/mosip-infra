@@ -47,6 +47,8 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: virusscanner_url_env
+          value: {{ .Values.virusscanner_url }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
