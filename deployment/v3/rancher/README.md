@@ -19,6 +19,7 @@ Refer [here](keycloak/README.md)
      helm install rancher rancher-latest/rancher \
       --namespace cattle-system \
       --set hostname=rancher.mosip.net \
+      --set replicas=2 \
       --set bootstrapPassword=admin \
       --set tls=external
     ```
