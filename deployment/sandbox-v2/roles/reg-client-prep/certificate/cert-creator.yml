@@ -22,6 +22,9 @@
     basic_constraints_critical: yes
     key_usage:
       - keyCertSign
+      - digitalSignature
+      - cRLSign
+      - keyCertSign
     extendedKeyUsage:
       - codeSigning
     key_usage_critical: true
@@ -51,6 +54,9 @@
     basic_constraints_critical: yes
     key_usage:
       - keyCertSign
+      - nonRepudiation
+      - digitalSignature
+      - keyEncipherment
     extendedKeyUsage:
       - codeSigning
     key_usage_critical: true
