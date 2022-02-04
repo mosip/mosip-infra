@@ -74,7 +74,7 @@ The above steps will spin-off two load balancers on AWS. You may view them on AW
 ```sh
 kubectl -n istio-system get svc
 ```
-* TLS termination is supposed to be on LB.  So all our traffic coming to ingress controller shall be HTTP.
+* TLS termination is supposed to be on LB. So all our traffic coming to ingress controller shall be HTTP.
 * Obtain AWS TLS certificate as given [here](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html)
 * Add the certificates and 443 access to the LB listener.
 * Update listener TCP->443 to **TLS->443** and point to the certificate of domain name that belongs to your cluster.

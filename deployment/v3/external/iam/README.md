@@ -1,11 +1,9 @@
 # Keycloak
-## Introduction
-An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.
 
-Here we provide k8s installation procedure for **Keycloak** which is the default supported IAM with MOSIP.
+## Introduction
+An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Here we provide k8s installation procedure for **Keycloak** which is the default supported IAM with MOSIP.
 
 ## Prerequisites
-
 - It is recommended to have two seperate installations of keycloak;
   1. one that can be considered as an organization level keycloak (which will be integrated with rancher for authentication); You may install this Keycloak on the same cluster as [Rancher](../../rancher/README.md), since Rancher is also a single installation per organization.
   2. another installation per every MOSIP cluster. This needs to installed in the mosip cluster itself, so that modules can use this for authentication.
@@ -15,7 +13,6 @@ Here we provide k8s installation procedure for **Keycloak** which is the default
   2. 'iam.mosip.xyz.net' that points to the mosip cluster's load balancer.
 
 ## Install
-
 * Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart. To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). Run the following, **twice**, with different keycloak hostnames and kubeconfig files, one time for organisation keycloak, second time for mosip keycloak.
 ```
 $ ./install.sh <keycloak external host name for this install> <kubeconfig file for this cluster>
