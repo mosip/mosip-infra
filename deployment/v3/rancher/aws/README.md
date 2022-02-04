@@ -1,7 +1,7 @@
 # AWS EKS Cluster for Rancher
 
 ## Prerequisites
-* Wireguard is setup as given [here](../../docs/wireguard_bastion.md)
+* Wireguard is setup as given [here](../../docs/wireguard_bastion.md).
 * If you already have `~/.kube/config` file created for another cluster, rename it.
 * Install k8s cluster using `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
 * Set AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
