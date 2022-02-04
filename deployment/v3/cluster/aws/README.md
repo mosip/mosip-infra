@@ -13,7 +13,6 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 * `kubectl` utility installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * `aws-iam-authenticator` installed as given[here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
-* [Certificate requirements](./requirements.md#Certificate-requirements) to be met.
 
 ### Install
 * Copy `cluster.config.sample ` to `mosip.cluster.config`.  
