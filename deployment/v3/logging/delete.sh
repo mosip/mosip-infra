@@ -11,6 +11,7 @@ while true; do
     if [ $yn = "Y" ]
       then
         helm -n $NS delete elasticsearch
+        helm -n $NS delete istio-addons
         break
       else
         break
