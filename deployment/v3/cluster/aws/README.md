@@ -11,8 +11,9 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 * Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)._
 * `eksctl` utility installed as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html).
 * `kubectl` utility installed.
-* Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file). 
+* Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * `aws-iam-authenticator` installed as given[here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
+* [Certificate requirements](./requirements.md#Certificate-requirements) to be met.
 
 ### Install
 * Copy `cluster.config.sample ` to `mosip.cluster.config`.  
@@ -69,6 +70,7 @@ Ingress is not installed by default on EKS. We use Istio ingress gateway control
 cd istio
 ./install.sh
 ```
+
 ### Load Balancers
 The above steps will spin-off two load balancers on AWS. You may view them on AWS console.  These may be also seen with
 ```sh
@@ -113,20 +115,14 @@ Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/REA
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.
 
-## Cluster management
+## Register the cluster with Rancher
 * Login as admin in Rancher console
 * Configure your cloud credentials
 * Add this cluster to Rancher  
 * Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
 
 ## Increase/delete nodes
-In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.  
-
-## Register the cluster with Rancher
-* Login as admin in Rancher console
-* Configure your cloud credentials
-* Add this cluster to Rancher  
-* Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
+In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.
 
 ## Delete the EKS cluster
 When we remove an EKS cluster we should also make sure that all the volumes and loadbalancers related to cluster are also removed. Will follow below steps to remove the cluster and cluster resources.
