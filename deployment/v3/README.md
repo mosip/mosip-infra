@@ -5,7 +5,7 @@ We provide a reference implementation of a Kubernetes based **production grade**
 
 ![](docs/images/deployment_architecture.png)
 
-Ther are two Kubernetes clusters - one for [Rancher](https://www.rancher.com/) and [Keycloak](https://www.keycloak.org/)(IAM) and another for all MOSIP modules. Rancher is used for cluster administration and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  MOSIP modules are installed via [Helm Charts](https://github.com/mosip/mosip-helm/tree/1.2.0). The modules may be installed in High Availability (HA) mode by replicating the [pods](https://kubernetes.io/docs/concepts/workloads/pods/).  
+There are two Kubernetes clusters - one for [Rancher](https://www.rancher.com/) and [Keycloak](https://www.keycloak.org/)(IAM) and another for all MOSIP modules. Rancher is used for cluster administration and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  MOSIP modules are installed via [Helm Charts](https://github.com/mosip/mosip-helm/tree/1.2.0). The modules may be installed in High Availability (HA) mode by replicating the [pods](https://kubernetes.io/docs/concepts/workloads/pods/).  
 
 We provide installation instructions for both, cloud (here AWS) an on-premise (on-prem). 
 
