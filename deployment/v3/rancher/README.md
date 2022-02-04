@@ -4,7 +4,7 @@
 Rancher may be used to manage all your clusters.  Typically, you would need just one installation per organisation.
 Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions to install Rancher Management Server along with Keycloak within the same cluster.  
 
-![](../docs/images/rancher_iam.png) 
+![](../docs/images/rancher_iam.png)
 
 ## Cluster install
 * [aws](aws/README.md)
@@ -23,7 +23,8 @@ Refer [here](keycloak/README.md)
       --set bootstrapPassword=admin \
       --set tls=external
     ```
-## Login 
+
+## Login
 * Open rancher page `https://rancher.mosip.net`
 * Get Bootstrap password using
     ```
@@ -55,5 +56,3 @@ Refer [here](keycloak/README.md)
 * Add a member to cluster/project in Rancher:
   * Give member name exactly as `username` in Keycloak
   * Assign appropriate role like Cluster Owner, Cluster Viewer etc.
-
-

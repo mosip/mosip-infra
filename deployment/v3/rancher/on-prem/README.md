@@ -14,5 +14,4 @@
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
 ##  Nginx + Wireguard
-* Fllow [this](./nginx_wireguard/) to install nginx on a seperate node.
-
+* Follow [this](./nginx_wireguard/) to install nginx on a seperate node.
