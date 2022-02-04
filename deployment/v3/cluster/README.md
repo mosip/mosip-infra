@@ -7,5 +7,5 @@
 
 ## Hardware configurations
 
-* Refer to [Requirements for AWS MOSIP Cluster](./aws/requirements.md)
-* Refer to [Requirements for On-prem MOSIP Cluster](./on-prem/requirements.md)
+* [Requirements for AWS MOSIP Cluster](./aws/requirements.md)
+* [Requirements for On-prem MOSIP Cluster](./on-prem/requirements.md)
