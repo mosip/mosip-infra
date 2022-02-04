@@ -1,15 +1,13 @@
 # Requirements for On-prem MOSIP Cluster
-
-This document is just a comprehensive list of requirements. Follow the installation procedure to meet these requirements.
+This document is a comprehensive list of requirements. Follow the installation procedure to meet these requirements.
 
 ## Hardware requirements
+Will require the following number of Virtual Machines (VMs).
 
-Will require the following number of nodes/vms
-
-| No. of nodes | No. of vCPUs | RAM | Storage | Used as part of |
-|---|---|---|---|---|
-| 5 | 8 vCPU | 32GB | 64 GB | Cluster nodes |
-| 1 | 2 vCPU | 1 GB | 8 GB | Wireguard Bastion Node |
+|Purpose|vCPUs|RAM|Storage|Number of VMs|
+|---|:---:|:---:|:---:|---:|
+|Cluster nodes | 8 | 32 GB | 64 GB |5|
+|Wireguard bastion host| 2 | 1 GB | 8 GB |1| 
 
 For better security and access we can have separate Wireguard bastion server for all the partners and field operations like:
 1. ABIS Partner
