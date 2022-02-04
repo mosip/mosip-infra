@@ -1,4 +1,4 @@
-# Requirements for On-prem Nodes/VMs
+# Requirements for On-prem Nodes
 
 * We need atleast the following no of nodes with atleast the following specifications to meet the prerequisites.
   * 5 nodes each with specs: 8 cores, 32 GB RAM, 64 GB Disk. Mosip cluster will be setup on these nodes.
