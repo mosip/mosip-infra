@@ -1,21 +1,22 @@
-# MOSIP cluster Setup on-premise
+# On-prem Cluster Setup
+
+## Overview
+This is a guide to set up on-prem Kubernetes cluster that will host all the MOSIP modules.
 
 ![Architecture](../../docs/images/deployment_architecture.png)
 
-Before getting started be aware of your infrastructure architecture. In the above architecture it is assumed that, the landing-zone node(for ssh into the other nodes, etc), the external nginx node, and the wireguard bastion node, all three are clubbed together. But during production, one might choose to use nginx plus cluster, or one might choose not have any landing zone for ssh, or etc, and in those cases the procedure has to change accordingly.
 
 ### 1. Prerequisites
 
-- Refer to [this](./requirements.md) for the requirements or prerequisites before getting started.
-- For setting up a rancher cluster, refer to [this](../../rancher) (This cluster is not used for/by mosip components but can be used to manage rest of the clusters in the organization).
+- Requirements met as given [here](./requirements.md).
+- [Rancher](../../rancher) installed.
 
-### 2. Cluster Setup
+### 2. Cluster setup
 * Set up VMs.
 * [Optional] Install Wireguard each cluster node (wireguard-mesh) as given [here](wireguard-mesh/README.md). In this case, give `internal_address: <wireguard address>` in `rke config`.
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
-### 3. Istio for Service Discovery and Ingress
-
+### 3. Istio for service Discovery and ingress
 * Go to [v3/cluster/on-prem/istio](./istio/).
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
   ```
