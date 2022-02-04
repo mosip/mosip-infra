@@ -14,13 +14,7 @@ Before getting started be aware of your infrastructure architecture. In the abov
 * [Optional] Install Wireguard each cluster node (wireguard-mesh) as given [here](wireguard-mesh/README.md). In this case, give `internal_address: <wireguard address>` in `rke config`.
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
-### 3. Metallb Setup for Loadbalancer
-
-Metallb is suitable for baremetal installations and requires specific network configurations (like Routers to have BGP protocol enabled). If you you have virtual machines in your on-prem infra, you may skip installing Metallb, but instead use Nginx as loadbalancer directly talking to Istio ingress services in Nodeport mode.  Of course, the node ports have to be manually enabled on the nodes as well as Nginx.
-
-If you would like to install Metallb, check the instructions [here](./metallb/)
-
-### 4. Istio for Service Discovery and Ingress
+### 3. Istio for Service Discovery and Ingress
 
 * Go to [v3/cluster/on-prem/istio](./istio/).
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
@@ -35,7 +29,7 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
   kubectl get svc -n istio-system
   ```
 
-### 5. Global configmap
+### 4. Global configmap
 
 * Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
 * Update the domain names in `../global_configmap.yaml` and run
@@ -43,12 +37,12 @@ If you would like to install Metallb, check the instructions [here](./metallb/)
 kubectl apply -f ../global_configmap.yaml
 ```
 
-### 6. Nginx Loadbalancer + Wireguard Bastion Setup
+### 5. Nginx Loadbalancer + Wireguard Bastion Setup
 
-* Use [this](./nginx/) to install nginx on an external node that proxies traffic to the above loadbalancers.
+* Use [this](./nginx_wireguard/) to install nginx on an external node that proxies traffic to the above loadbalancers.
 * The above will also setup wireguard on the nginx node.
 
-### 7. Rancher Integration
+### 6. Rancher Integration
 * This section is for integrating the newly created mosip cluster with rancher.
 * Assuming a rancher cluster, open that dashboard. Click on add cluster on top right.
 * Add members, atleast one as Owner.

@@ -29,21 +29,6 @@ helm install \
 -f nginx.values.yaml
 ```
 
-### Set configmap
-* Edit configmap
-    ```
-    kubectl -n ingress-nginx edit cm  ingress-nginx-controller
-    ```
-* Add following data:
-    ```
-    data:
-      use-forwarded-headers: "true"
-      use-proxy-protocol: "true"
-    ```
-* Restart ingress controller
-    ```
-     kubectl -n ingress-nginx delete pod  <controller pod name>
-    ```
 ## AWS Loadbalancer (LB)
 The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatically created.  Check the following on AWS console:
 
