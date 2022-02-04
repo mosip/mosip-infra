@@ -7,12 +7,12 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 ### Prerequisites
 * AWS account and credentials with permissions to create EKS cluster.
 * AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-* Wireguard setup as given [here](../docs/wireguard_bastion.md)
+* [Wireguard setup](../docs/wireguard_bastion.md).
 * Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)._
-* `eksctl` utility installed as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html).
+* [`eksctl`](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) utility.
 * `kubectl` utility installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
-* `aws-iam-authenticator` installed as given[here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
+* [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
 
 ### Install
 * Copy `cluster.config.sample ` to `mosip.cluster.config`.  
