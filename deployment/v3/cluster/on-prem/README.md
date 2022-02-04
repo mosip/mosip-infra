@@ -13,10 +13,10 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
   - [Certificate requirements](./requirements.md#Certificate-requirements).
 - [Rancher](../../rancher) installed.
 - Install following command line utilities:
-  - kubectl
-  - helm 3
-  - rke
-  - istioctl
+  - `kubectl`
+  - `helm`
+  - `rke`
+  - `istioctl`
 - Add the following Helm repos:
   ```sh
   helm repo add bitnami https://charts.bitnami.com/bitnami
