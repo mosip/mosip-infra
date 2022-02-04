@@ -1,20 +1,28 @@
 # MOSIP cluster on Amazon EKS
 
-## Create using eksctl
-* If you already have `~/.kube/config` file created for another cluster, rename it.
-* Install k8s cluster using `eksctl` as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-* Install `kubectl`
-* Set AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
-* Copy `cluster.config.sample` to `cluster.config`.  
-* Review the parameters of `cluster.config` carefully.
-* Make sure you have keys to created EC2 instance in `~/.ssh/`. If not, generate a key pair using AWS console.
-* Ensure to have aws-iam-authenticator there as given [here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
+## Overview
+The instructions here install an EKS cluster on AWS along with Network Loadbalancer and [Istio](https://istio.io/).  We have chosen cloud's Network Load Balancer (Layer 4) over Application Load Balancer (Layer 7) as we have application load balancing done by Istio Ingress running inside the cluster.
+
+## Install Kubernetes cluster
+### Prerequisites
+* AWS account and credentials with permissions to create EKS cluster.
+* AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+* Wireguard setup as given [here](../docs/wireguard_bastion.md)
+* Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)._
+* `eksctl` utility installed as given [here](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html).
+* `kubectl` utility installed.
+* Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file). 
+* `aws-iam-authenticator` installed as given[here](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
+
+### Install
+* Copy `cluster.config.sample ` to `mosip.cluster.config`.  
+* Review the parameters of `mosip.cluster.config` carefully.
 * Install
 ```sh
-eksctl create cluster -f cluster.config
+eksctl create cluster -f mosip.cluster.config
 ```
 * Note that it takes around 30 minutes to create (or delete a cluster).
-* After creating cluster make a backup copy of `config` with a suitable name in `~/.kube/` folder, eg. `iam_config`, `mosip_config`. This is because if you create cluster again using `eksctl` it will override the existing file `~/.ssh/config`.
+* After creating cluster make a backup copy of `config` with a suitable name in `~/.kube/` folder, eg. `mosip_config` because if you create cluster again using `eksctl` it will override existing `~/.kube/config`. Set file permission to `chmod 400 ~/.kube/rancher_config` to avoid any accidental changes or deletion.
 
 ## Utilities
 Install following command line utilities:
