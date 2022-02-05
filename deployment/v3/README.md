@@ -1,7 +1,7 @@
 # MOSIP Deployment V3 _(Reference Implementation)_
 
 ## Overview
-We provide reference implementation of a Kubernetes based **production grade** deployment of MOSIP, also called **V3 deployment**. The same can be deployed as a sandbox or a scaled up larger full-scale deployment. Several security features have been added over the [single click installer (V2)](../sandbox-v2).  
+We provide reference implementation of a Kubernetes based **production grade** deployment of MOSIP, also called **V3 deployment**. The same may be deployed both as a **sandbox** or **full-scale production deployment**. Several security features and enhancements have been added over the [single click installer (V2)](../sandbox-v2).  
 
 ![](docs/images/deployment_architecture.png)
 
