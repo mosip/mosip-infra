@@ -1,7 +1,7 @@
 # Rancher Management Server
 
 ## Introduction
-Rancher may be used to manage all your clusters.  Typically, you would need just one installation per organisation.
+Rancher is used to manage all your clusters.  Typically, you would need just one installation per project or organisation.
 Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions to install Rancher Management Server along with Keycloak within the same cluster.  
 
 ![](../docs/images/rancher_iam.png)
