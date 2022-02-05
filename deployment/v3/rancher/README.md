@@ -2,7 +2,7 @@
 
 ## Introduction
 Rancher is used to manage all your clusters.  Typically, you would need just one installation per project or organisation.
-Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions to install Rancher Management Server along with Keycloak within the same cluster.  
+Install Rancher before you install MOSIP cluster.  While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing it on a Kubernetes cluster. You may also use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).  Here, we provide instructions to install Rancher Management Server along with Keycloak within the same cluster.  
 
 ![](../docs/images/rancher_iam.png)
 
@@ -11,10 +11,10 @@ Install Rancher before you install MOSIP cluster.  While Rancher may be installe
 * [on-prem](on-prem/README.md)
 
 ## Keycloak
-Refer [here](keycloak/README.md)
+Refer [here](keycloak/README.md) for installation of Keycloak.
 
 ## Rancher
-* Install rancher using Helm.
+* Install Rancher using Helm.
     ```
      helm install rancher rancher-latest/rancher \
       --namespace cattle-system \
@@ -25,7 +25,7 @@ Refer [here](keycloak/README.md)
     ```
 
 ## Login
-* Open rancher page `https://rancher.mosip.net`
+* Open Rancher page `https://rancher.mosip.net`.
 * Get Bootstrap password using
     ```
     kubectl get secret --namespace cattle-system bootstrap-secret -o go-template='{{ .data.bootstrapPassword|base64decode}}{{ "\n" }}'
@@ -33,8 +33,8 @@ Refer [here](keycloak/README.md)
 * Assign a password.  IMPORTANT: makes sure this password is securely saved and retrievable by Admin.
 
 ## Keycloak-Rancher integration
-* Enabled authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
-* IMPORTANT: If you have logged in as admin user in Keycloak make sure an email id, and first name field is added to the admin user of Keycloak before you try to authenticate with Rancher.
+* Login as "admin" user in Keycloak and make sure an email id, and first name field is populated for "admin" user. This is important for Rancher authentication as given below.
+* Enable authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
 * In Keycloak add another Mapper for the rancher client (in Master realm) with following fields:
   * Protocol: saml
   * Name: username
