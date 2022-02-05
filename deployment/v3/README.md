@@ -7,7 +7,7 @@ We provide reference implementation of a Kubernetes based **production grade** d
 
 There are two Kubernetes clusters - one for [Rancher](https://www.rancher.com/) and another for all MOSIP modules. Rancher is used for cluster administration and [RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).  MOSIP modules are installed via [Helm Charts](https://github.com/mosip/mosip-helm/tree/1.2.0). The modules may be installed in High Availability (HA) mode by replicating the [pods](https://kubernetes.io/docs/concepts/workloads/pods/).  
 
-We provide installation instructions for both, cloud (here AWS) an on-premise (on-prem). 
+We provide installation instructions for both, cloud (here AWS) and on-premise (on-prem). 
 
 ## Cloud versus on-prem
 There are certain differences between cloud and on-prem deployments. Few of them are given below:
