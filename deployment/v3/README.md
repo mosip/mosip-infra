@@ -14,8 +14,8 @@ There are certain differences between cloud and on-prem deployments. Few of them
 |Feature|Cloud|On-prem|
 |---|---|---|
 |K8s cluster|Cloud provider provisioned. Eg. EKS on AWS, AKS on Azure|Native, eg. using [Rancher RKE](https://rancher.com/docs/rke/latest/en/)|
-|Load balancer|Automatic provision of LB|Nginx|
-|TLS termination|Cloud LB|Nginx|
+|Load balancer|Automatic provision of loadbalancer|Nginx|
+|TLS termination|Cloud loadbalancer|Nginx|
 |Inter-node Wireguard network|Not compatible|Works well|
 |Storage|Cloud storage like EBS on AWS|[Longhorn](cluster/longhorn) or [NFS](https://en.wikipedia.org/wiki/Network_File_System)|
 
