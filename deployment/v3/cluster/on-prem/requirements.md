@@ -1,15 +1,16 @@
 # Requirements for On-prem MOSIP Cluster Sandbox
 
-Listed below are hardware, network and certificate requirements to setup a MOSIP sandbox on-prem.  Note that [Rancher cluster requirements](../../rancher/on-prem) are not covered here.
+Listed below are hardware, network and certificate requirements to setup a **MOSIP sandbox** on-prem.  Note that [Rancher cluster requirements](../../rancher/on-prem) are not covered here.
 
 ## Hardware requirements
-Will require the following number of Virtual Machines (VMs) to setup MOSIP sandob
 
-|Purpose|vCPUs|RAM|Storage|Number of VMs|
+|Purpose|vCPUs|RAM|Storage|Number of VMs\*|
 |---|:---:|:---:|:---:|---:|
 |Cluster nodes | 8 | 32 GB | 64 GB |5|
 |Wireguard bastion host| 2 | 1 GB | 8 GB |1| 
 |Nginx + Wireguard|4|16GB|32 GB|1|
+
+\* Virtual Machines
 
 ## Network configuration
 * The cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
