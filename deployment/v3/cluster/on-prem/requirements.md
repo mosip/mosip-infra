@@ -13,11 +13,11 @@ Listed below are hardware, network and certificate requirements to setup a **MOS
 \* Virtual Machines
 
 ## Network configuration
-* The cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
-* The Nginx node should be accessible publicly. That means, this node should have atleast the following networking configuration:
-  * One internal network interface where it CAN ACCESS the other nodes. And one public interface
-  * One public interface; this either has a direct public ip. Or there is some firewall rule somewhere else to forward that public-ip 443/tcp & 51820/udp traffic to this interface. (51820 is wireguard port, for bastion server).
+### Nginx network interface
+* Internal: To access cluster nodes.
+* Public: Either has a direct public IP or behind a firewall that forwards traffic on 443/tcp & 51820/udp to this interface. 
 
+* The cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
 ## DNS requirements
 
 Will require the DNS mappings. <br/>
