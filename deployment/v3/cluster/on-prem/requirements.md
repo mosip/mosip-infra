@@ -1,5 +1,4 @@
 # Requirements for On-prem MOSIP Cluster
-This document is a comprehensive list of requirements. Follow the installation procedure to meet these requirements.
 
 ## Hardware requirements
 Will require the following number of Virtual Machines (VMs).
