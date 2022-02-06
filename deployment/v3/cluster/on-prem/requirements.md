@@ -1,25 +1,17 @@
-# Requirements for On-prem MOSIP Cluster
+# Requirements for On-prem MOSIP Cluster Sandbox
+
+Listed below are hardware, network and certificate requirements to setup a MOSIP sandbox on-prem.
 
 ## Hardware requirements
-Will require the following number of Virtual Machines (VMs).
+Will require the following number of Virtual Machines (VMs) to setup MOSIP sandob
 
 |Purpose|vCPUs|RAM|Storage|Number of VMs|
 |---|:---:|:---:|:---:|---:|
 |Cluster nodes | 8 | 32 GB | 64 GB |5|
 |Wireguard bastion host| 2 | 1 GB | 8 GB |1| 
 
-For better security and access we can have separate Wireguard bastion server for all the partners and field operations like:
-1. ABIS Partner
-1. Auth Partners
-1. Print Partners
-1. Field Operators
-1. Admin Authorities
-1. Process Monitoring departments
-
-Note: The same can be configured with single bastion server node also
-
 ## Network configuration
-* The Cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
+* The cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
 * The Nginx node should be accessible publicly. That means, this node should have atleast the following networking configuration:
   * One internal network interface where it CAN ACCESS the other nodes. And one public interface
   * One public interface; this either has a direct public ip. Or there is some firewall rule somewhere else to forward that public-ip 443/tcp & 51820/udp traffic to this interface. (51820 is wireguard port, for bastion server).
