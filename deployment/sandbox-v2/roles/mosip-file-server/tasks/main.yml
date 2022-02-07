@@ -29,15 +29,45 @@
     dest: '{{mosip_file_server.nfs_path}}/mosip-context.json'
   become: yes
 
+- name: Authenticate in auth maanger
+  shell: 'curl -s -D - -o /dev/null -X "POST" \
+    "{{site.sandbox_public_url}}/v1/authmanager/authenticate/clientidsecretkey" \
+    -H "accept: */*" \
+    -H "Content-Type: application/json" \
+    -d "{
+    "id": "string",
+    "version": "string",
+    "requesttime": "{{ansible_date_time.date.iso8601_micro}}",
+    "metadata": {},
+    "request": {
+      "clientId": "mosip-regproc-client",
+      "secretKey": "{{secret.keycloak.mosip_regproc_client}}",
+      "appId": "regproc"
+      }
+    }" | sed -n "/authorization:/,/\;.*/p" |  sed "s/.*authorization://; s/$\n.*//" | awk "NR==1{print $1}"'
+  register: token
 
-#- name: vccontext yml to json
-#  template:
-#    src: vccontext.yml.j2
-#    dest: '{{tmp_dir}}/vccontext.jsonld'
+- name: Check Token
+  shell: 'echo {{token}}'
 
-#- name: Copy new conf file
-#  copy:
-#    src: '{{tmp_dir}}/vccontext.jsonld'
-#    dest: '{{mosip_file_server.nfs_path}}/vccontext.jsonld'
-#  become: yes
-    
+
+- name: get key from keymanager
+  shell: 'curl -X "GET" \
+            --cookie "Authorization={{token}}" \
+            "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
+            -H "accept: */*" | sed "s/.*certificate\":\"//g" | sed "s/\".*//g"'
+  register: certificate
+
+- name: Check Token
+  shell: 'echo {{certificate}}'
+
+- name: context yml to json
+  template:
+    src: public-key.yml.j2
+    dest: '{{tmp_dir}}/public-key.json'
+
+- name: Copy new conf file
+  copy:
+    src: '{{tmp_dir}}/public-key.json'
+    dest: '{{mosip_file_server.nfs_path}}/public-key.json'
+  become: yes
