@@ -51,7 +51,7 @@
   shell: 'echo {{token}}'
 
 
-- name: get key from keymanager
+- name: get public key from keymanager
   shell: 'curl -X "GET" \
             --cookie "Authorization={{token}}" \
             "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
@@ -61,12 +61,12 @@
 - name: Check Token
   shell: 'echo {{certificate}}'
 
-- name: context yml to json
+- name: public key yml to json
   template:
     src: public-key.yml.j2
     dest: '{{tmp_dir}}/public-key.json'
 
-- name: Copy new conf file
+- name: Copy new json file
   copy:
     src: '{{tmp_dir}}/public-key.json'
     dest: '{{mosip_file_server.nfs_path}}/public-key.json'
