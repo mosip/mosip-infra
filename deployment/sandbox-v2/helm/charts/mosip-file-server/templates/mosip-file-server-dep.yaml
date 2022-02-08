@@ -27,12 +27,10 @@ spec:
         image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-        - name: artifactory_url_env
-          value: {{ .Values.artifactoryUrl }}
         - name: host_url_env
           value: {{ .Values.host }}
-        - name: clientid_env
-          value: {{ .Values.clientid }}
+        - name: date_env
+          value: {{ .Values.date }}
         - name: clientsecret_env
           value: {{ .Values.secret }}
         ports:

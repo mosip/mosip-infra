@@ -18,7 +18,7 @@ ARG artifactory_url
 
 ARG hosturl
 
-ARG clientid
+ARG date
 
 ARG clientsecret
 
@@ -27,7 +27,7 @@ ENV artifactory_url_env=${artifactory_url}
 
 ENV host_url_env=${hosturl}
 
-ENV clientid_env=${clientid}
+ENV date_env=${date}
 
 ENV clientsecret_env=${clientsecret}
 

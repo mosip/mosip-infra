@@ -8,7 +8,7 @@ curl -s -D -o /dev/null -X "POST" \
   -d '{
   "id": "string",
   "version": "string",
-  "requesttime": "'$date'",
+  "requesttime": "'$date_env'",
   "metadata": {},
   "request": {
     "clientId": "mosip-regproc-client",
