@@ -67,7 +67,7 @@ USER ${container_user_uid}:${container_user_gid}
 
 EXPOSE 8080
 
-ENTRYPOINT["./get-cert.sh"]
+ENTRYPOINT ["./get-cert.sh"]
 
 CMD echo "starting nginx" ; \
     nginx ; \
