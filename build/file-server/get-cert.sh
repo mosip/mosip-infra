@@ -9,4 +9,5 @@ RESULT=`curl -X "GET" \
   -H "accept: */*"`
 
 CERT=$(echo $RESULT | sed 's/.*certificate\":\"//g' | sed 's/\".*//g')
-sed -i 's/replace-public-key/$CERT/' $base_path/public-key.json
+echo $CERT
+sed -i "s/replace-public-key/$CERT/" $base_path/public-key.json
