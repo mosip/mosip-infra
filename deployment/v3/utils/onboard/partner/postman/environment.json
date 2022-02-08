@@ -1,0 +1,164 @@
+{
+    "id": "e4c60f99-9edb-4df8-a41b-a24eee086ee3",
+    "name": "qa-rc2",
+    "values": [{
+            "key": "url",
+            "value": "https://qa4.mosip.net",
+            "enabled": true
+        },
+        {
+            "key": "policygroupname",
+            "value": "policygroup115",
+            "enabled": true
+        },
+        {
+            "key": "policyname",
+            "value": "policy115",
+            "enabled": true
+        },
+        {
+            "key": "partnerid",
+            "value": "authpartner115",
+            "enabled": true
+        },
+        {
+            "key": "kcurl",
+            "value": "https://qa4.mosip.net/",
+            "enabled": true
+        },
+        {
+            "key": "kcusername",
+            "value": "admin",
+            "enabled": true
+        },
+        {
+            "key": "kcpassword",
+            "value": "admin",
+            "enabled": true
+        },
+        {
+            "key": "username",
+            "value": "110068",
+            "enabled": true
+        },
+        {
+            "key": "password",
+            "value": "Techno@123",
+            "enabled": true
+        },
+        {
+            "key": "applicationid",
+            "value": "partner",
+            "enabled": true
+        },
+        {
+            "key": "clientsecret",
+            "value": "abc123",
+            "enabled": true
+        },
+        {
+            "key": "partneremail",
+            "value": "partnerdemoemail115@mail.com",
+            "enabled": true
+        },
+        {
+            "key": "partnerpassword",
+            "value": "admin",
+            "enabled": true
+        },
+        {
+            "key": "MISPcontact",
+            "value": "9898989115",
+            "enabled": true
+        },
+        {
+            "key": "MISPpartneremail",
+            "value": "demomispemail115@mail.com",
+            "enabled": true
+        },
+        {
+            "key": "MISPpartnerid",
+            "value": "MISPpartner115",
+            "enabled": true
+        },
+        {
+            "key": "MISPaddress",
+            "value": "demo address,country 1,earth",
+            "enabled": true
+        },
+        {
+            "key": "requesttime",
+            "value": "2022-01-31T10:07:52.624Z",
+            "enabled": true
+        },
+        {
+            "key": "partneraddress",
+            "value": "address,ogpartner",
+            "enabled": true
+        },
+        {
+            "key": "label",
+            "value": "label115",
+            "enabled": true
+        },
+        {
+            "key": "partnercontact",
+            "value": "9898989115",
+            "enabled": true
+        },
+        {
+            "key": "policygroupid",
+            "value": "62334",
+            "enabled": true
+        },
+        {
+            "key": "policyid",
+            "value": "31446",
+            "enabled": true
+        },
+        {
+            "key": "kcuserid",
+            "value": "45d55091-76aa-4826-9fb5-49d13fbabab5",
+            "enabled": true
+        },
+        {
+            "key": "kcroleid",
+            "value": "f08752d7-26ec-49f0-ae01-0d3aaab682a9",
+            "enabled": true
+        },
+        {
+            "key": "apikey",
+            "value": "399244",
+            "enabled": true
+        },
+        {
+            "key": "datasharepolicyname",
+            "value": "datasharepolicy2",
+            "enabled": true
+        },
+        {
+            "key": "datasharepolicygroupname",
+            "value": "datasharepolicygroup2",
+            "enabled": true
+        },
+        {
+            "key": "datasharepolicyid",
+            "value": "16011",
+            "enabled": true
+        },
+        {
+            "key": "datasharepolicygroupid",
+            "value": "11684",
+            "type": "any",
+            "enabled": true
+        },
+        {
+            "key": "misplicensekey",
+            "value": "PJ7owJWZhZUlShtTNVTMVRNh8wKPRRUf3vo0SFVGphFyT8Fy9i",
+            "enabled": true
+        }
+    ],
+    "_postman_variable_scope": "environment",
+    "_postman_exported_at": "2022-01-31T11:00:44.335Z",
+    "_postman_exported_using": "Postman/8.12.5"
+}
