@@ -1,29 +1,32 @@
 # Requirements for On-prem MOSIP Cluster Sandbox
 
-Listed below are hardware, network and certificate requirements to setup a **MOSIP sandbox** on-prem.  Note that [Rancher cluster requirements](../../rancher/on-prem) are not covered here.
+Listed below are hardware, network and certificate requirements to setup a **MOSIP sandbox** on-prem.  Note that [Rancher cluster (on-prem) requirements](../../rancher/on-prem) are not covered here.
 
 ## Hardware requirements
 
 |Purpose|vCPUs|RAM|Storage|Number of VMs\*|
 |---|:---:|:---:|:---:|---:|
 |Cluster nodes | 8 | 32 GB | 64 GB |5|
-|Wireguard bastion host| 2 | 4 GB | 16 GB |1| 
-|Nginx|4|16GB|32 GB|1|
+|Wireguard bastion host| 2 | 4 GB | 16 GB |1|
+|Nginx|2|4GB|16 GB|1|
 
 \* Virtual Machines
 
 ## Network configuration
-### Nginx network interface
-* Internal: To access cluster nodes.
-* Public: Either has a direct public IP or behind a firewall that forwards traffic on 443/tcp & 51820/udp to this interface. 
 
-* The cluster nodes needs not be accessed by public internet. So an internal interface with internet access is sufficient. (Eg: NAT Network)
+The following network configuration is required for the above mentioned nodes.
+* Cluster Nodes
+  * One internal interface: with internet access and that is on the same network as all the rest of nodes. (Eg: NAT Network)
+* Nginx VM
+  * One internal interface: that is on the same network as all the rest of nodes.
+  * One public interface: Either has a direct public IP, or a firewall rule that forwards traffic on 443/tcp port to this interface ip.
+* Wireguard Bastion
+  * One internal interface: that is on the same network as all the rest of nodes.
+  * One public interface: Either has a direct public IP, or a firewall rule that forwards traffic on 51820/udp port to this interface ip.
+
 ## DNS requirements
 
-Will require the DNS mappings. <br/>
-The actual hostnames will vary from organisation to organisation. A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
-Note: Will get the loadbalancer ip only after the ingressgateways are installed and the loadbalancers are setup. Only then proceed to DNS mapping. <br/>
-Note: If there are multiple replicas of this nginx+wireguard node, public ips of all of the nodes can be mapped to public hostnames, same with the internal ips.
+The following DNS mappings will be required.
 
 | Hostname | Mapped to |
 |---|---|
@@ -37,6 +40,9 @@ Note: If there are multiple replicas of this nginx+wireguard node, public ips of
 | mosip-minio-host | Internal ip |
 | mosip-kafka-host | Internal ip |
 | mosip-iam-external-host | Internal ip |
+
+Note: The above table is just a placeholder for hostnames, the actual name itself varies from organisation to organisation.  A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
+Note: Only proceed to DNS mapping after the ingressgateways are installed and the nginx reverse proxy is setup.
 
 ## Certificate requirements
 
