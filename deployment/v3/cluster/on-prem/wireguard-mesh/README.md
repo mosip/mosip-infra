@@ -5,6 +5,8 @@ Internode communication may be secured by running Wireguard on all nodes in a me
 
 The instructions given here are for Ubuntu.  You may modified them accordingly for your OS distribution.
 
+These are NOT instructions for wireguard bastion host setup. For that follow [this](../../../docs/wireguard_bastion.md)
+
 ## Prerequisites
 1. You have an admin/control machine from where you run your scripts.
 1. Virtual machines (nodes) are provisioned and accessible from admin machine.
@@ -13,14 +15,14 @@ The instructions given here are for Ubuntu.  You may modified them accordingly f
 1. Wireguard mesh configuration tool [wg-meshconf](https://github.com/k4yt3x/wg-meshconf) is installed.
 
 ## Install
-1. Create `hosts.ini` file using `hosts.ini.sample` as example. 
+1. Create `hosts.ini` file using `hosts.ini.sample` as example.
     * `wg_address` is arbitrary as long as it does not clash with any other addresses.
-    * `[control]` is your admin machine from where you are running these scripts. 
+    * `[control]` is your admin machine from where you are running these scripts.
 1. Install Wireguard on all nodes:
     ```
     $ ansible-playbook -i hosts.ini install.yaml
     ```
-1. Setup wireguard mesh configuration file for each node and copy the same to `/etc/wireguard/wg0.conf` of respective node. 
+1. Setup wireguard mesh configuration file for each node and copy the same to `/etc/wireguard/wg0.conf` of respective node.
     ```
     $ ansible-playbook -i hosts.ini setup.yaml
     ```
@@ -34,7 +36,7 @@ If you have need to add a new peer or change any parameter of existing peer, run
     ```
     $ ansible-playbook -i hosts.ini setup.yaml
     ```
-1. Make the required changes in `hosts.ini` 
+1. Make the required changes in `hosts.ini`
 1. Run setup again
     ```
     $ ansible-playbook -i hosts.ini setup.yaml

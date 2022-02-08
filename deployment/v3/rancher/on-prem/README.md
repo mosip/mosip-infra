@@ -10,8 +10,11 @@
 
 ## Cluster Setup
 * Set up VMs.
-* [IMPORTANT] DON'T remove the default settings for ingress provider while configuring rke `cluster.yml`, because we want the default ingress controller to be installed.
+* [IMPORTANT] **DONOT** remove the default settings for ingress provider while configuring rke `cluster.yml`, because we want the default ingress controller to be installed.
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
-##  Nginx + Wireguard
-* Follow [this](./nginx_wireguard/) to install nginx on a seperate node.
+##  Nginx Loadbalancer / Reverse Proxy
+* Install [nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
+
+## Wireguard Bastion Host
+* Install [Wireguard Bastion Host](../../docs/wireguard_bastion.md) on a seperate node/VM.

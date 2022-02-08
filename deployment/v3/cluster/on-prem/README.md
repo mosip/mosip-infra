@@ -10,12 +10,12 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 - [Network configuration requirements](./requirements.md#Network-configuration).
 - [Certificate requirements](./requirements.md#Certificate-requirements).
 - [Rancher](../../rancher) installed.
-- Install following command line utilities:
+- Following command line utilities installed:
   - `kubectl`
   - `helm`
   - `rke`
   - `istioctl`
-- Add the following Helm repos:
+- Following Helm repos added:
   ```sh
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add mosip https://mosip.github.io/mosip-helm
@@ -23,10 +23,10 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 
 ## Cluster setup
 * Set up VMs.
-* Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
+* Using this [RKE Cluster Creation](../../docs/rke-setup.md) document, create a K8s cluster.
 
 ## Istio for service discovery and ingress
-* Go to [v3/cluster/on-prem/istio](./istio/).
+* Navigate to [istio](./istio/) folder in the same directory.
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
   ```
   KUBECONFIG="$HOME/.kube/mosip_cluster.config"
@@ -46,23 +46,29 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 kubectl apply -f ../global_configmap.yaml
 ```
 
-## Nginx loadbalancer + Wireguard bastion setup
+## Nginx loadbalancer / Reverse Proxy
 
-* Use [this](./nginx_wireguard/) to install nginx on an external node that proxies traffic to the above loadbalancers.
-* The above will also setup wireguard on the nginx node.
+* Install [Nginx Reverse Proxy](./nginx/) on a seperate machine/VM, that proxies traffic to the above ingressgateways.
 
-## Domain name mapping
-* Point your domain names to respective public IP or internal ip of the nginx node.
+## Wireguard bastion setup
+
+* Install [Wireguard Bastion Host](../../docs/wireguard_bastion.md) on a seperate machine/VM.
+
+## DNS mapping
+
+* Point your domain names to respective public IP or internal ip of the nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and to your global configmap, to co-relate the mappings.
 
 ## Httpbin
-Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
+
+* Install httpbin as given [here](../../utils/httpbin/README.md) for testing the wiring.
 
 ## Register the cluster with Rancher
+
 * This section is for integrating the newly created mosip cluster with rancher.
-* Assuming a rancher cluster, open that dashboard. Click on add cluster on top right.
-* Add members, atleast one as Owner.
+* Assuming a rancher cluster is already installed, open that Rancher dashboard. Click on add cluster on top right.
 * In the cluster type selection screen, at the top, there is an option to "import any other kubernetes cluster", select that.
 * That should give two commands to run on the new cluster (the mosip cluster). After running those, the new cluster should be integrated into Rancher.
+* Add members, atleast one as Owner.
 
-## Longhorn for persistence
-* Install Longhorn as given [here](../longhorn/README.md)
+## Longhorn
+* Install Longhorn as given [here](../longhorn/README.md) for persistent storage.
