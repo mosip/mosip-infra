@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #echo "* Request for authorization"
-curl -s -D -o /dev/null -X "POST" \
+curl -s -D - -o /dev/null -X "POST" \
   "$host_url_env/v1/authmanager/authenticate/clientidsecretkey" \
   -H "accept: */*" \
   -H "Content-Type: application/json" \
@@ -17,4 +17,4 @@ curl -s -D -o /dev/null -X "POST" \
   }
 }' > temp.txt 2>&1 &
 
-sleep 5
+sleep 10
