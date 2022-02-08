@@ -32,7 +32,7 @@ spec:
         - name: date_env
           value: {{ .Values.date }}
         - name: clientsecret_env
-          value: {{ .Values.secret }}
+          value: {{ .Values.clientsecret }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
 

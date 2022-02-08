@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 bash auth.sh
+cat temp.txt
 TOKEN=$(cat -n temp.txt | sed -n '/authorization:/,/\;.*/p' |  sed 's/.*authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
 
 RESULT=`curl -X "GET" \
