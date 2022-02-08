@@ -45,5 +45,7 @@
 - import_playbook: playbooks/mock-mv.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
+# Mosip-file-server
+- import_playbook: playbooks/mosip-file-server.yml
 # upload Certificates
 - import_playbook: playbooks/uploadCerts.yml
