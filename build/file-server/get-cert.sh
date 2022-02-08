@@ -2,7 +2,7 @@
 
 bash auth.sh
 TOKEN=$(cat -n temp.txt | sed -n '/authorization:/,/\;.*/p' |  sed 's/.*authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
-RESULT=`curl --http2 -X "GET" \
+RESULT=`curl -v \
   --cookie "Authorization=$TOKEN" \
   "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
   -H "accept: */*"`
