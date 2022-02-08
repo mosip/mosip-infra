@@ -48,6 +48,14 @@ ADD ./default.conf /etc/nginx/conf.d/
 
 ADD ./download.conf /etc/nginx/include/download.conf
 
+ADD auth.sh auth.sh
+
+ADD get-cert.sh get-cert.sh
+
+RUN chmod +x auth.sh
+
+RUN chmod +x get-cert.sh
+
 RUN cd /home/${container_user} && mkdir mosipvc
 
 ENV base_path=/home/${container_user}/mosipvc
@@ -58,6 +66,8 @@ RUN chown -R ${container_user}:${container_user} /home/${container_user}
 USER ${container_user_uid}:${container_user_gid}
 
 EXPOSE 8080
+
+ENTRYPOINT["./get-cert.sh"]
 
 CMD echo "starting nginx" ; \
     nginx ; \
