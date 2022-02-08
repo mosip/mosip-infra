@@ -7,7 +7,7 @@ RESULT=`curl -X "GET" \
   --cookie "Authorization=$TOKEN" \
   "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" \
   -H "accept: */*"`
-
+echo $RESULT
 CERT=$(echo $RESULT | sed 's/.*certificate\":\"//g' | sed 's/\".*//g')
 echo $CERT | sed -e 's/\\n/\n/g' > cert.pem
 cat cert.pem
