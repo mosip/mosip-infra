@@ -19,7 +19,7 @@ curl -s -D - -o /dev/null -X "POST" \
 
 sleep 10
 
-TOKEN=$(cat -n temp.txt | sed -n '/authorization:/,/\;.*/p' |  sed 's/.*authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
+TOKEN=$(cat -n temp.txt | sed -n '/Authorization:/,/\;.*/p' |  sed 's/.*Authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
 
 curl -v -X "GET" \
   -H "Accept: application/json" \
