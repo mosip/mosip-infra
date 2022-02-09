@@ -31,3 +31,7 @@ CERT=$(echo $RESULT | sed 's/.*certificate\":\"//g' | sed 's/\".*//g')
 echo $CERT | sed -e 's/\\n/\n/g' > cert.pem
 openssl x509 -pubkey -noout -in cert.pem  > pubkey.pem
 sed -i "s&replace-public-key&$(cat pubkey.pem | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\\\n/g')&g" $base_path/public-key.json
+
+echo "public key creation complete"
+
+exec "$@"
