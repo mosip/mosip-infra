@@ -14,7 +14,7 @@ docker:
 
 version: {{ versions.services.mosip_file_server.values()[0] }}
 mountPath: "/home/mosip/mosipvc"  # path inside docker
-host: {{ site.sandbox_public_url }}
+host: http://mz.ingress:30080
 clientsecret: {{ secrets.keycloak.mosip_regproc_client }}
 date: {{ ansible_date_time.iso8601_micro }}
 
