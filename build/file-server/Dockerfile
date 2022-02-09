@@ -48,11 +48,7 @@ ADD ./default.conf /etc/nginx/conf.d/
 
 ADD ./download.conf /etc/nginx/include/download.conf
 
-ADD auth.sh auth.sh
-
 ADD get-cert.sh get-cert.sh
-
-RUN chmod +x auth.sh
 
 RUN chmod +x get-cert.sh
 
