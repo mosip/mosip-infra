@@ -33,7 +33,7 @@ ENV clientsecret_env=${clientsecret}
 
 # install packages and create user
 RUN apt-get -y update \
-&& apt-get install -y unzip wget zip npm \
+&& apt-get install -y unzip curl\
 && groupadd -g ${container_user_gid} ${container_user_group} \
 && useradd -u ${container_user_uid} -g ${container_user_group} -s /bin/sh -m ${container_user} \
 && mkdir -p /var/run/nginx /var/tmp/nginx \
@@ -48,11 +48,7 @@ ADD ./default.conf /etc/nginx/conf.d/
 
 ADD ./download.conf /etc/nginx/include/download.conf
 
-ADD auth.sh auth.sh
-
 ADD get-cert.sh get-cert.sh
-
-RUN chmod +x auth.sh
 
 RUN chmod +x get-cert.sh
 
