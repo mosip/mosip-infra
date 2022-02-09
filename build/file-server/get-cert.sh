@@ -21,7 +21,7 @@ sleep 10
 
 TOKEN=$(cat -n temp.txt | sed -n '/authorization:/,/\;.*/p' |  sed 's/.*authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
 
-curl --http2-prior-knowledge -v -X "GET" \
+curl -v -X "GET" \
   -H "Accept: application/json" \
   --cookie "Authorization=$TOKEN" \
   "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" > result.txt
