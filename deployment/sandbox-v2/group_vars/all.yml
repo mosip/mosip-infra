@@ -433,8 +433,8 @@ databases:
 #    release_path: '{{repos.websub.dest}}/db_release_scripts'
   mosip_archive:
     user: archiveuser
-    sql_path: '{{repos.data-archive}}/data-archive/db_scripts'
-#    release_path: '{{repos.data-archive}}/data-archive/db_release_scripts'
+    sql_path: '{{repos.data-archive.dest}}/data-archive/db_scripts'
+#    release_path: '{{repos.data-archive.dest}}/data-archive/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
@@ -545,7 +545,7 @@ postmanCollectionEnvVarJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload
 
 ## Archive DB script variables
 data_archive:
-  script_path: '{{ repos.data-archive }}/data-archive/archive-jobs'
+  script_path: '{{ repos.data-archive.dest }}/data-archive/archive-jobs'
   source_db_serverip: '{{ postgres.host }}'
   source_db_port: '{{ postgres.port }}'
   source_db_pwd: '{{ secrets.postgres.su }}'
