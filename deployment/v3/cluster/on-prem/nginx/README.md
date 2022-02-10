@@ -2,28 +2,15 @@
 
 # NGINX Reverse Proxy Setup
 
-* On on prem systems, loadbalancers (usually metallb), will be chosen to run on the internal subnet.
-* We can then dedicate a node that run on the same internal subnet as above, which run an nginx reverse proxy into the loadbalancer. And this can accessed publicly.
+* On on prem systems, Ingressgateways will be chosen to be exposed as nodeport services.
+* We can then dedicate a node that run on the same internal subnet as cluster nodes, which run an nginx reverse proxy into the above nodeports. And this can accessed publicly.
 
 ## 1. Intial Setup
 
 * Provision one VM for Nginx. Or multiple VMs for high avaiability like Nginx Plus.
-* The machine should be external facing with public ip and DNS like `api.mosip.xyz.net`.
-  * Full dns refer to [this](../../global_configmap.yaml.sample)
-  * Example `rancher.mosip.xyz.net` should point to the nginx node internal ip.
 * TLS termination will happen here. The traffic will be forward to cluster ingress over HTTP.
   * Make sure you have SSL certificate for the above domain so that HTTPS is enabled.
   * To get wildcard ssl certificates using letsencrypt, use [this](../../../docs/wildcard-ssl-certs-letsencrypt.md).
-* Make sure the metallb loadbalancer ips are reachable from this nginx node.
-  * To test whether nginx node can reach the loadbalancer ip, we can use curl.
-    ```
-    kcr get svc -n istio-system
-    curl http://<loadbalancer-ip>
-    ```
-  * If it is not reachable or gives `No route to host`, add an route in the routing table.
-    ```
-    sudo ip route add <loadbalancer-ip> via <first-cluster-node-ip>
-    ```
 * `sudo apt install nginx`
 * Edit the nginx.conf file, like the [sample](./nginx.conf.sample) provided. See section 2 in this document.
 * Test config and start/restart nginx

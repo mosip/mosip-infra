@@ -1,10 +1,10 @@
 # Requirements for AWS MOSIP Cluster
 
-This document is just a comprehensive list of requirements. Follow the installation procedure to meet these requirements. (i.e., do not manually create the nodes or loadbalancers on console)
+Listed below are hardware, network and certificate requirements for **MOSIP sandbox** on AWS. Note that [Rancher cluster (AWS) requirements](../../rancher/aws) are not covered here.
 
 ## Hardware requirements
 
-Will require the following number of EC2 nodes/instances
+The following number of EC2 nodes/instances will be required
 
 | No. of nodes | No. of vCPUs | RAM | Storage | AWS Type of each node | Used as part of |
 |---|---|---|---|---|---|
@@ -13,26 +13,14 @@ Will require the following number of EC2 nodes/instances
 
 Note: All the above nodes are to be on the same VPC.
 
-For better security and access we can have separate Wireguard bastion server for all the partners and field operations like:
-1. ABIS Partner
-1. Auth Partners
-1. Print Partners
-1. Field Operators
-1. Admin Authorities
-1. Process Monitoring departments
-
-Note: The same can be configured with single bastion server node also
-
 ## LoadBalancers
 
-Will need two loadbalancers, one for each ingressgateway, as describe in [the reference image](../README.md). <br/>
+Two loadbalancers will be required, one for each ingressgateway, as describe in [the reference image](../README.md). <br/>
 Note: These will automatically be created upon installation of the istio & ingressgateways.
 
 ## DNS Requirements
 
-Will require the DNS mappings. <br/>
-The actual hostnames will vary from organisation to organisation. A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
-Note: Will get the loadbalancer ip only after the ingressgateways are installed and the loadbalancers are setup. Only then proceed to DNS mapping.
+The following DNS mappings will be required.
 
 | Hostname | Mapped to Loadbalancer/ip |
 |---|---|
@@ -46,6 +34,9 @@ Note: Will get the loadbalancer ip only after the ingressgateways are installed 
 | mosip-minio-host | Internal LB |
 | mosip-kafka-host | Internal LB |
 | mosip-iam-external-host | Internal LB |
+
+Note: The above table is just a placeholder for hostnames, the actual name itself varies from organisation to organisation.  A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
+Note: Only proceed to DNS mapping after the ingressgateways are installed and the loadbalancers are setup.
 
 ## Certificate Requirements
 
