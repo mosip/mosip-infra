@@ -434,7 +434,7 @@ databases:
   mosip_archive:
     user: archiveuser
     sql_path: '{{repos.data-archive}}/data-archive/db_scripts'
-#    release_path: '{{repos.mosip_ref_impl.dest}}/data-archive/db_release_scripts'
+#    release_path: '{{repos.data-archive}}/data-archive/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
