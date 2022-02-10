@@ -62,7 +62,7 @@
     "quickLoginCheckMilliSeconds": 1000, 
     "realm": "master", 
     "refreshTokenMaxReuse": 0, 
-    "registrationAllowed": false, 
+    "registrationAllowed": true,
     "registrationEmailAsUsername": false, 
     "registrationFlow": "registration", 
     "rememberMe": false, 
