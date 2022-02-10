@@ -27,12 +27,14 @@ spec:
         image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-        - name: host_url_env
-          value: {{ .Values.host }}
-        - name: date_env
-          value: {{ .Values.date }}
-        - name: clientsecret_env
-          value: {{ .Values.clientsecret }}
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }}
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }}
+        - name: auth_url_env
+          value: {{ .Values.authmanagerUrl }}
+        - name: key_url_env
+          value: {{ .Values.keymanagerUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
 
