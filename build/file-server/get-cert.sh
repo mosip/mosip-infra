@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 
+#get date
+date=$(date --utc +%FT%T.%3NZ)
+
+#get secret
+clientsecret_env=$(curl $spring_config_url_env/config/*/default/$spring_config_label_env/registration-processor-default.properties | sed -n '/token.request.secretKey=/,/ /p' | cut -d '#' -f1 |  sed 's/.*secretKey=//; s/$\n.*//' | awk 'NR==1{print $1}')
+
 #echo "* Request for authorization"
 curl -s -D - -o /dev/null -X "POST" \
-  "$host_url_env/v1/authmanager/authenticate/clientidsecretkey" \
+  "$auth_url_env/v1/authmanager/authenticate/clientidsecretkey" \
   -H "accept: */*" \
   -H "Content-Type: application/json" \
   -d '{
   "id": "string",
   "version": "string",
-  "requesttime": "'$date_env'",
+  "requesttime": "'$date'",
   "metadata": {},
   "request": {
     "clientId": "mosip-regproc-client",
@@ -18,13 +24,12 @@ curl -s -D - -o /dev/null -X "POST" \
 }' > temp.txt 2>&1 &
 
 sleep 10
-
 TOKEN=$(cat -n temp.txt | sed -n '/Authorization:/,/\;.*/p' |  sed 's/.*Authorization://; s/$\n.*//' | awk 'NR==1{print $1}')
 
-curl -v -X "GET" \
+curl -X "GET" \
   -H "Accept: application/json" \
   --cookie "Authorization=$TOKEN" \
-  "$host_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" > result.txt
+  "$key_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" > result.txt
 
 RESULT=$(cat result.txt)
 CERT=$(echo $RESULT | sed 's/.*certificate\":\"//g' | sed 's/\".*//g')

@@ -14,22 +14,25 @@ ARG container_user_uid=1001
 ARG container_user_gid=1001
 
 # can be passed during Docker build as build time environment for artifactory URL
-ARG artifactory_url
 
-ARG hosturl
+ARG authurl
 
-ARG date
+ARG keyurl
 
-ARG clientsecret
+ARG spring_config_url
+
+ARG spring_config_label
 
 # environment variable to pass artifactory url, at docker runtime
 ENV artifactory_url_env=${artifactory_url}
 
-ENV host_url_env=${hosturl}
+ENV auth_url_env=${authurl}
 
-ENV date_env=${date}
+ENV key_url_env=${keyurl}
 
-ENV clientsecret_env=${clientsecret}
+ENV spring_config_label_env=${spring_config_label}
+
+ENV spring_config_url_env=${spring_config_url}
 
 # install packages and create user
 RUN apt-get -y update \

@@ -3,7 +3,6 @@ serviceName: mosip-file-server
 activeProfileEnv: default-dmz
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
-artifactoryUrl: http://mz.ingress:30080
 imagePullPolicy: Always
 
 docker:
@@ -14,7 +13,8 @@ docker:
 
 version: {{ versions.services.mosip_file_server.values()[0] }}
 mountPath: "/home/mosip/mosipvc"  # path inside docker
-host: http://mz.ingress:30080
+authmanagerUrl: http://mz.ingress:30080
+keymanagerUrl: http://mz.ingress:30080
 clientsecret: {{ secrets.keycloak.mosip_regproc_client }}
 date: {{ ansible_date_time.iso8601_micro }}
 
