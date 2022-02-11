@@ -4,166 +4,166 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipqa/kernel-auth-service:1.2.0-rc2'
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.2.0'
       masterdata:
-        'kernel-masterdata-service': 'mosipqa/kernel-masterdata-service:1.2.0-rc2'
+        'kernel-masterdata-service': 'mosipid/kernel-masterdata-service:1.2.0'
       idgen:
-        'kernel-idgenerator-service': 'mosipqa/kernel-idgenerator-service:1.2.0-rc2'
+        'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.2.0'
       prid:
-        'kernel-pridgenerator-service': 'mosipqa/kernel-pridgenerator-service:1.2.0-rc2'
+        'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.2.0'
       sync:
-        'kernel-syncdata-service': 'mosipqa/kernel-syncdata-service:1.2.0-rc2'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.2.0'
       audit :
-        'kernel-auditmanager-service': 'mosipqa/kernel-auditmanager-service:1.2.0-rc2'
+        'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.2.0'
       key:
-        'kernel-keymanager-service': 'mosipqa/kernel-keymanager-service:1.2.0-rc2'
+        'kernel-keymanager-service': 'mosipid/kernel-keymanager-service:1.2.0'
       notifier:
-        'kernel-notification-service': 'mosipqa/kernel-notification-service:1.2.0-rc2'
+        'kernel-notification-service': 'mosipid/kernel-notification-service:1.2.0'
       otp:
-        'kernel-otpmanager-service': 'mosipqa/kernel-otpmanager-service:1.2.0-rc2'
+        'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.2.0'
       rid:
-        'kernel-ridgenerator-service': 'mosipqa/kernel-ridgenerator-service:1.2.0-rc2'
+        'kernel-ridgenerator-service': 'mosipid/kernel-ridgenerator-service:1.2.0'
       keygen:
-        'kernel-keys-generator': 'mosipqa/keys-generator:1.2.0-rc2'
+        'kernel-keys-generator': 'mosipid/keys-generator:1.2.0'
       keymigrator:
-        'keymigrator': 'mosipqa/keys-migrator:1.2.0-rc2'
+        'keymigrator': 'mosipid/keys-migrator:1.2.0'
 
     prereg:
       application:
-        'prereg-application-service': 'mosipqa/pre-registration-application-service:1.2.0-rc2'
+        'prereg-application-service': 'mosipid/pre-registration-application-service:1.2.0'
       batch:
-        'prereg-batchjob-service': 'mosipqa/pre-registration-batchjob:1.2.0-rc2'
+        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.2.0'
       booking:
-        'prereg-booking-service': 'mosipqa/pre-registration-booking-service:1.2.0-rc2'
+        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.2.0'
       datasync:
-        'prereg-datasync-service': 'mosipqa/pre-registration-datasync-service:1.2.0-rc2'
+        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.2.0'
       captcha:
-        'prereg-captcha-service': 'mosipqa/pre-registration-captcha-service:1.2.0-rc2'
+        'prereg-captcha-service': 'mosipid/pre-registration-captcha-service:1.2.0'
       ui:
-        'prereg-ui': 'mosipqa/pre-registration-ui:1.2.0-rc2'
+        'prereg-ui': 'mosipid/pre-registration-ui:1.2.0'
 
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipqa/registration-client:1.2.0-rc2'
-      version: '1.2.0-rc2-SNAPSHOT'
+        'reg-client-downloader': 'mosipid/registration-client:1.2.0'
+      version: '1.2.0'
 
     regproc:
       group1:
-        'regproc-stage-group-1': 'mosipqa/registration-processor-stage-group-1:1.2.0-rc2'
+        'regproc-stage-group-1': 'mosipid/registration-processor-stage-group-1:1.2.0'
       group2:
-        'regproc-stage-group-2': 'mosipqa/registration-processor-stage-group-2:1.2.0-rc2'
+        'regproc-stage-group-2': 'mosipid/registration-processor-stage-group-2:1.2.0'
       group3:
-        'regproc-stage-group-3': 'mosipqa/registration-processor-stage-group-3:1.2.0-rc2'
+        'regproc-stage-group-3': 'mosipid/registration-processor-stage-group-3:1.2.0'
       group4:
-        'regproc-stage-group-4': 'mosipqa/registration-processor-stage-group-4:1.2.0-rc2'
+        'regproc-stage-group-4': 'mosipid/registration-processor-stage-group-4:1.2.0'
       group5:
-        'regproc-stage-group-5': 'mosipqa/registration-processor-stage-group-5:1.2.0-rc2'
+        'regproc-stage-group-5': 'mosipid/registration-processor-stage-group-5:1.2.0'
       group6:
-        'regproc-stage-group-6': 'mosipqa/registration-processor-stage-group-6:1.2.0-rc2'
+        'regproc-stage-group-6': 'mosipid/registration-processor-stage-group-6:1.2.0'
       group7:
-        'regproc-stage-group-7': 'mosipqa/registration-processor-stage-group-7:1.2.0-rc2'
+        'regproc-stage-group-7': 'mosipid/registration-processor-stage-group-7:1.2.0'
       camel:
-        'regproc-camel-stage': 'mosipqa/registration-processor-common-camel-bridge:1.2.0-rc2'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.2.0'
       trans:
-        'regproc-registration-transaction-service': 'mosipqa/registration-processor-registration-transaction-service:1.2.0-rc2'
+        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.2.0'
       reprocess:
-        'regproc-reprocessor': 'mosipqa/registration-processor-reprocessor:1.2.0-rc2'
+        'regproc-reprocessor': 'mosipid/registration-processor-reprocessor:1.2.0'
       notificationService:
-        'regproc-notification-service': 'mosipqa/registration-processor-notification-service:1.2.0-rc2'
+        'regproc-notification-service': 'mosipid/registration-processor-notification-service:1.2.0'
       salt:
-        'regproc-salt-generator': 'mosipqa/kernel-salt-generator:1.2.0-rc2'
+        'regproc-salt-generator': 'mosipid/kernel-salt-generator:1.2.0'
       workflow:
-        'regproc-workflowmanager': 'mosipqa/registration-processor-workflow-manager-service:1.2.0-rc2'
+        'regproc-workflowmanager': 'mosipid/registration-processor-workflow-manager-service:1.2.0'
 
     dmzregproc:
       group1:
-        'regproc-stage-group-1': 'mosipqa/registration-processor-stage-group-1:1.2.0-rc2'
+        'regproc-stage-group-1': 'mosipid/registration-processor-stage-group-1:1.2.0'
       camel:
-        'regproc-camel-stage': 'mosipqa/registration-processor-common-camel-bridge:1.2.0-rc2'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.2.0'
       status:
-        'regproc-registration-status-service': 'mosipqa/registration-processor-registration-status-service:1.2.0-rc2'
+        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.2.0'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipqa/registration-processor-dmz-packet-server:1.0.9'
+        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.0.9'
 
     ida:
       auth:
-        'ida-auth-service': 'mosipqa/authentication-service:1.2.0-rc2'
+        'ida-auth-service': 'mosipid/authentication-service:1.2.0'
       internal:
-        'ida-internal-service': 'mosipqa/authentication-internal-service:1.2.0-rc2'
+        'ida-internal-service': 'mosipid/authentication-internal-service:1.2.0'
       otp:
-        'ida-otp-service': 'mosipqa/authentication-otp-service:1.2.0-rc2'
+        'ida-otp-service': 'mosipid/authentication-otp-service:1.2.0'
       keygen:
-        'ida-key-generator': 'mosipqa/keys-generator:1.2.0-rc2'
+        'ida-key-generator': 'mosipid/keys-generator:1.2.0'
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipqa/id-repository-identity-service:1.2.0-rc2'
+        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.2.0'
       vid:
-        'idrepo-vid-service': 'mosipqa/id-repository-vid-service:1.2.0-rc2'
+        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.2.0'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipqa/credential-request-generator:1.2.0-rc2'
+        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.2.0'
       credentialservice:
-        'idrepo-credential-service': 'mosipqa/credential-service:1.2.0-rc2'
+        'idrepo-credential-service': 'mosipid/credential-service:1.2.0'
       salt:
-        'idrepo-salt-generator': 'mosipqa/id-repository-salt-generator:1.2.0-rc2'
+        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.2.0'
       feeder:
-        'idrepo-credential-feeder': 'mosipqa/id-repository-credentials-feeder:1.2.0-rc2'
+        'idrepo-credential-feeder': 'mosipid/id-repository-credentials-feeder:1.2.0'
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipqa/partner-management-service:1.2.0-rc2'
+        'pms-partner-manager-service': 'mosipid/partner-management-service:1.2.0'
       policy:
-        'pms-policy-manager-service': 'mosipqa/policy-management-service:1.2.0-rc2'
+        'pms-policy-manager-service': 'mosipid/policy-management-service:1.2.0'
       ui:
-        'pms-ui': 'mosipqa/pmp-ui:1.2.0-rc2'
+        'pms-ui': 'mosipid/pmp-ui:1.2.0'
 
     resident:
       resident:
-        'resident-service': 'mosipqa/resident-service:1.2.0-rc2'
+        'resident-service': 'mosipid/resident-service:1.2.0'
 
     admin:
       service:
-        'admin-service': 'mosipqa/admin-service:1.2.0-rc2'
+        'admin-service': 'mosipid/admin-service:1.2.0'
       ui:
-        'admin-ui': 'mosipqa/admin-ui:1.2.0-rc2'
+        'admin-ui': 'mosipid/admin-ui:1.2.0'
       hotlist:
-        'admin-hotlist-service': 'mosipqa/hotlist-service:1.2.0-rc2'
+        'admin-hotlist-service': 'mosipid/hotlist-service:1.2.0'
 
     packetmanager:
       service:
-        'packetmanager-service': 'mosipqa/commons-packet-service:1.2.0-rc2'
+        'packetmanager-service': 'mosipid/commons-packet-service:1.2.0'
 
     datashare:
       service:
-        'datashare-service': 'mosipqa/data-share-service:1.2.0-rc2'
+        'datashare-service': 'mosipid/data-share-service:1.2.0'
 
     print:
       service:
-        'print-service': 'mosipqa/print:1.2.0-rc2'
+        'print-service': 'mosipid/print:1.2.0'
 
     websub:
       service:
-        'websub-service': 'mosipqa/websub-service:1.2.0-rc2'
+        'websub-service': 'mosipid/websub-service:1.2.0'
       consolidator:
-        'consolidator-websub-service': 'mosipqa/consolidator-websub-service:1.2.0-rc2'
+        'consolidator-websub-service': 'mosipid/consolidator-websub-service:1.2.0'
 
     mock:
       abis:
         # Please don't change this image
         'mock-abis': 'mosipint/mock-abis:develop'
       mv:
-        'mock-mv': 'mosipqa/mock-mv:1.1.5'
+        'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
+        'mock-biosdk-service': 'mosipid/biosdk-server:develop'
 
     artifactory:
       service:
-        'artifactory-service': 'mosipqa/artifactory-server:1.2.0-rc2'
+        'artifactory-service': 'mosipid/artifactory-server:1.2.0'
 
     keycloak:
       service:
-        'keycloak': 'mosipqa/mosip-keycloak:1.2.0-rc2'
+        'keycloak': 'mosipid/mosip-keycloak:1.2.0'
 
     mosip_file_server:
       service:
-        'mosip_file_server': 'mosipdev/mosip-file-server:1.2.0-rc2'
+        'mosip_file_server': 'mosipdev/mosip-file-server:1.2.0'
