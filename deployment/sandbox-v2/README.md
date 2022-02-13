@@ -1,4 +1,4 @@
-# MOSIP Single Click Installer (V3)
+# MOSIP Single Click Installer (V2)
 
 ## Introduction
 
