@@ -1,8 +1,8 @@
 serviceName: mosip-file-server
 
-activeProfileEnv: default-dmz
+activeProfileEnv: default
 springConfigLabel: {{ config_repo.version }} 
-configServerUrl: {{ config_server.internal_url }}
+configServerUrl: http://mz.ingress:30080
 imagePullPolicy: Always
 
 docker:
