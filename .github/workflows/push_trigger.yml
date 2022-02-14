@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 1.2.*
+      - release.*
   
 jobs:
 
