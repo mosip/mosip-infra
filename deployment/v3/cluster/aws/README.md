@@ -46,6 +46,12 @@ kubectl apply -f global_configmap.yaml
 ## Create using Rancher
 You can also create cluster on Cloud using the Rancher console.  Refer to Rancher documentation.
 
+## Register the cluster with Rancher
+* Login as admin in Rancher console
+* Configure your cloud credentials
+* Add this cluster to Rancher  
+* Make sure the correct zone is selected to be able to see the cluster on Rancher console. 
+
 ## Persistence
 ### GP2
 * Default storage class is `gp2` which by is in "Delete" mode which means if PV is deleted, the underlying storage is also deleted.  
@@ -106,13 +112,7 @@ We have installed in `default` namespace.  You may choose any other namespace as
 Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
 
 ## Log rotation
-The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.
-
-## Register the cluster with Rancher
-* Login as admin in Rancher console
-* Configure your cloud credentials
-* Add this cluster to Rancher  
-* Make sure the correct zone is selected to be able to see the cluster on Rancher console.  
+The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
 
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.
