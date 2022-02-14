@@ -4,7 +4,7 @@
 
 The single click installer, also called **V2** is a legacy installer based on Ansible scripts. The sandbox may be used for development and testing. 
 
-_**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Do not run the sandbox with any confidential data.  Watch out for [V3](../v3) deployment which is a production grade deployment._ 
+_**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Do not run the sandbox with any confidential data.  Watch out for [V3 deployment](../v3) which is a production grade deployment._ 
 
 ## Sandbox architectuare
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
