@@ -24,7 +24,8 @@ curl -s -D - -o /dev/null -X "POST" \
 }' > temp.txt 2>&1 &
 
 sleep 10
-TOKEN=$(cat -n temp.txt | sed -n '/Authorization:/,/\;.*/pI' |  sed 's/.*Authorization://; s/$\n.*//I' | awk 'NR==1{print $1}')
+#TOKEN=$(cat -n temp.txt | sed -n '/Authorization:/,/\;.*/pI' |  sed 's/.*Authorization://i; s/$\n.*//I' | awk 'NR==1{print $1}')
+TOKEN=$(cat -n temp.txt | grep -i Authorization: |  sed 's/.*Authorization://i; s/$\n.*//' | awk 'NR==1{print $1}')
 
 curl -X "GET" \
   -H "Accept: application/json" \
@@ -32,7 +33,7 @@ curl -X "GET" \
   "$key_url_env/v1/keymanager/getCertificate?applicationId=KERNEL&referenceId=SIGN" > result.txt
 
 RESULT=$(cat result.txt)
-CERT=$(echo $RESULT | sed 's/.*certificate\":\"//gI' | sed 's/\".*//gI')
+CERT=$(echo $RESULT | sed 's/.*certificate\":\"//gi' | sed 's/\".*//gI')
 echo $CERT | sed -e 's/\\n/\n/g' > cert.pem
 openssl x509 -pubkey -noout -in cert.pem  > pubkey.pem
 sed -i "s&replace-public-key&$(cat pubkey.pem | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\\\r\\\\n/g')&g" $base_path/public-key.json
