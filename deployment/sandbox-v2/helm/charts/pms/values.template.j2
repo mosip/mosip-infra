@@ -1,6 +1,6 @@
 component: pms
 part-of: mosip
-activeProfileEnv: mz 
+activeProfileEnv: default 
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 exportLogs: enabled  # Let filebeat export the logs
@@ -12,12 +12,12 @@ sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 10
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
   startupPeriod: 10
-  initialDelaySeconds: 60
+  initialDelaySeconds: 120
 
 
 imagePullPolicy: Always
@@ -63,5 +63,6 @@ services:
     apiHost: {{ site.sandbox_public_url }}/
     configName: pmp-ui-config
     ingressPath: /pmp-ui
+    healthUrl: /pmp-ui
     podconfig:
       {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}

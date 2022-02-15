@@ -1,0 +1,34 @@
+- name: 'Get id of client {{kc_client_id}}'
+  include_tasks: get_client_info.yml
+
+- name: 'Create mapper {{kc_client_mapper}}'
+  uri:
+    url: '{{keycloak.url}}/auth/admin/realms/{{kc_realm_id}}/clients/{{kc_client_info.json[0].id}}/protocol-mappers/models'
+    method: POST
+    body: '{  
+              "protocol":"openid-connect",
+              "config": { 
+                          "id.token.claim":"true",
+                          "access.token.claim":"true",
+                          "userinfo.token.claim":"true",
+                          "multivalued":"",
+                          "aggregate.attrs":"",
+                          "user.attribute":"{{kc_client_mapper_user_attribute}}",
+                          "claim.name":"{{kc_client_mapper_token_claim_name}}",
+                          "jsonType.label":"String"
+              },
+              "name":"{{kc_client_mapper}}",
+              "protocolMapper":"oidc-usermodel-attribute-mapper"
+          }'
+    body_format: json
+    remote_src: 'no'
+    status_code:
+      - 201
+      - 409 # Role already exists
+    headers:
+      Content-type: "application/json"
+      Accept: "application/json"
+      Authorization: "Bearer {{keycloak_admin_token}}"
+
+## References:
+## 1. https://stackoverflow.com/questions/66912222/how-to-create-mapper-for-each-user-attribute-in-keycloak-via-rest-api

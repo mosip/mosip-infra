@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceName }} 
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.serviceName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceName }} 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0 
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      containers:
+      - name: {{ .Values.serviceName }} 
+        image: {{ .Values.docker.image }}:{{ .Values.docker.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        - name: SOFTHSM2_CONF
+          value: {{ .Values.mountPath }}/{{ .Values.confFile }}
+         
+        ports:
+        - containerPort: {{ .Values.docker.ports.containerPort }}
+
+        readinessProbe:  #Since no actuator, we watch tcp port.
+          tcpSocket:
+            port: {{ .Values.docker.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          tcpSocket:
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
+        volumeMounts:
+        - name: softhsm-data
+          mountPath: {{ .Values.mountPath }} 
+      volumes:
+      - name: softhsm-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }} 

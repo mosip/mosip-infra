@@ -1,0 +1,32 @@
+## upload masterdata
+
+- name: Upload masterdata
+  hosts: console
+  tasks:
+      - name: Remove old mosip-data repo & masterdata script directory from tmp directory
+        file:
+            path: "{{item}}"
+            state: absent
+        with_items:
+            - "{{ postgres.masterdata_upload.repo.dest }}"
+            - "{{ postgres.masterdata_upload.script_dest_path }}/masterdata"
+
+      - name: Clone masterdata repo
+        vars:
+            repo_path: '{{ postgres.masterdata_upload.repo.src }}'
+            repo_dest: '{{ postgres.masterdata_upload.repo.dest }}'
+            version: '{{ postgres.masterdata_upload.repo.tag }}'
+            githubuser: '{{ postgres.masterdata_upload.repo.githubuser }}'
+            githubpassword: '{{ postgres.masterdata_upload.repo.githubpassword }}'
+        include_role:
+            name: github
+
+      - name: copy masterdata script directory from v3 to tmp directory
+        copy:
+            src: "{{ postgres.masterdata_upload.script_src_path }}"
+            dest: "{{ postgres.masterdata_upload.script_dest_path }}"
+
+      - name: Run python script to upload masterdata
+        shell: "python3 upload_masterdata.py {{postgres.host}} {{postgres.password}} {{postgres.masterdata_upload.user}} {{postgres.masterdata_upload.repo.dest}}/mosip_master/xlsx/ --db_port {{postgres.port}}"
+        args:
+            chdir: "{{ postgres.masterdata_upload.script_dest_path }}/masterdata/lib/"

@@ -1,12 +1,14 @@
 # Wireguard Bastion Host
 
-## Introduction
-If you would like to restrict public access to your deployment/sandbox/cluster, add a bastion server as follows:
+## Overview
+A Wireguard bastion host (Wireguard server) provides secure private channel to access MOSIP cluster. The host restrics public access, and enables access to only those clients who have their public key listed in Wireguard server.  Wireguard listens on UDP port51820.
+
 ![](images/wireguard_landing.jpg)
 
-## Server install
-* Create a VM (Ubuntu Server recommended) and make sure the VM has access to internal load balancer (it could be in the same VPC). This may be simply achieved by running the VM in the same VPC as the cluster. The VM need not be of high capacity as this server is only a Wireguard end point.
-* Install docker, and make sure you add `$USER` to docker group:
+## Server installation
+* Provision a Virtual Machine (VM) and make sure it has access to internal load balancer (refer [architecture](../README.md). Recommended configuration of VM is 2 vCPU, 4 GB RAM, 16 GB storage. While this configuration should work for small scale deployments, it must be scaled up if the host becomes a bottleneck in high loads.
+
+ * Install docker, and make sure you add `$USER` to docker group:
 ```
 sudo usermod -aG docker $USER
 ```
@@ -28,11 +30,11 @@ docker run -d \
   ghcr.io/linuxserver/wireguard
 ```
 * If you already have a config file you may mount it with `-v <your host path>:/config`.
-* You may increase the number of peers keeping the above mounted file intact, stopping the docker and running it again with `-e PEERS=<number of peers>`
-* 
+* You may increase the number of peers keeping the above mounted folders intact, stopping the docker and running it again with `-e PEERS=<number of peers>`
+
 ## Client install
 * Install a Wireguard app on your machine.  For MacOS there is a Wireguard app on the App Store.
 * Enter the server docker and cd to `/config` folder.  Here you will find the config files for peers. You may add the corresponding `peer.conf` file in client Wireguard config.
 * Make sure `Endpoint` mentioned for the client is Wireguard bastion hosts' IP adddress.
-* Modify the `Allowed IPs` of the client to private IP addresses for Internal Load Balancers of your clusters.  Here, we assumed that all your clusters are running in the same VPC so that bastion host is able to reach all of them. 
+* Modify the `Allowed IPs` of the client to private IP addresses for Internal Load Balancers of your clusters.  Here, we assumed that all your clusters are running in the same VPC so that bastion host is able to reach all of them.
 

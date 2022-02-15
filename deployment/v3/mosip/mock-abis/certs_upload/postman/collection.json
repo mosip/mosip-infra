@@ -1,0 +1,186 @@
+{
+    "info": {
+        "_postman_id": "be03605c-a8be-4f09-b07b-c33efe239644",
+        "name": "Automated Cert Upload for ABIS",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Clientid and Token combination has been validated successfully\", function () {\r",
+                            "  pm.expect(pm.response.text()).to.include(\"Clientid and Token combination had been validated successfully\");\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"appId\": \"ida\",\r\n        \"clientId\": \"mosip-admin-client\",\r\n        \"secretKey\": \"{{admin-client-secret}}\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/authmanager/authenticate/clientidsecretkey",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "authmanager",
+                        "authenticate",
+                        "clientidsecretkey"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST ABIS CA cert",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData.errors==\"[]\"){\r",
+                            "    pm.test(\"Posted ABIS-Rootcert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDTjCCAjagAwIBAgIEYFrxXTANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\\nDTIxMDMyNDA3NTkyNVoXDTIyMDMyNDA3NTkyNVowaTELMAkGA1UEBhMCSU4xEjAQ\\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\\ncGFydG5lci1kZWZhdWx0LWFiaXMxEjAQBgNVBAMMCWFiaXMtcm9vdDCCASIwDQYJ\\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBANkwlDzNZTBi1fBF4GU4qFAJ3S+Ca0Kf\\ngfvg93rQlZ5LBTnZFwAxpCZtGHYb7vkqM9e7adYGC48EPWI0A+48QmF3Z6vSBXg9\\nKckINa/vFCTEYrctMHS8CcBjWBf9agJq4+wWqNu8sYHD9pOzDf1uMbQJTI5VvgGx\\nv890pZrXdIrR4MPTLB0rkl2sVOqbG7bts0Eqh8TO86126CDzoDrtBCj3RBP/j/dg\\nBmz7LWFkG6/by+mXzdZcS46v7P/Q366WrDbMCCtjKIRAA0HQD3vdKT0V03Eiw/EU\\nVxVh9sdbkO5h/T8VWI7ghEjr4PpJXPYWRbVlt6uPDpbX+yEiOWG/SsMCAwEAATAN\\nBgkqhkiG9w0BAQsFAAOCAQEAEj42FlN8LnNPv3iWttydxm9kEJemyJdw8nPLCC4y\\nxigXrcxPgNcoJiDBXLIAwhTmPK1hdn/BndAeUsX8mauuzf4V7Ydw1a999s8Vsj8S\\nOLa8voXAE2sjdYZm0cYID0y/ak3+ZrKqCXP6bcmPOLz2plnGJB7TUQ+d8gZXsLA6\\nCoopaJOlNM4jPNbX/k30vfFmyrXm2++5stErrSOix25J79DGdmJH896/pmGmB60/\\nXGnpyESrVTbhTE+cx0gDHdq5T47qHcXM6CVuH/uYNy5iLCaBRzVQ043gFj3ioym1\\nnZ60dsvdG8nEENBu9SzN3Mn24pz0BQ99Qn5ymsQwYAEeDQ==\\n-----END CERTIFICATE-----\\n\",\r\n        \"partnerDomain\": \"Auth\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "ca",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST ABIS partner cert",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "console.log(jsonData);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted ABIS partnercert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\": \"-----BEGIN CERTIFICATE-----\\nMIIDWjCCAkKgAwIBAgIEYFrz6DANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\\nDTIxMDMyNDA4MTAxNloXDTIyMDMyNDA4MTAxNlowdTELMAkGA1UEBhMCSU4xEjAQ\\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\\ncGFydG5lci1kZWZhdWx0LWFiaXMxHjAcBgNVBAMMFW1wYXJ0bmVyLWRlZmF1bHQt\\nYWJpczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKuA8CuDIRQCUCl9\\nyVh/dGOb/CiMnbcL/lsLq+VeYo51yyycj5kH2wuTlnXRZAOJklCvhAIJP68q799S\\nW+aMr+pOLm4rCgMfPD30UVdcmza+dPfl7A3/YZ5UjALOqjVMmwcUxmh1k5yL9QRo\\n1LNLCGkwd0hfgT35Y9sC0CDxD3aOesaz0oP9dkGETpcv8nMW4VxWHvOekup1gqAi\\nEn1VBat6qVGjwBNKAVkq75Q8P477DyT+t9NRs9IW68ZQXvR+VQvofDNDk8PshXVQ\\nMjesEgQHs7bIhTb6hAmGJsQM97yBAA6+EEGGqvLTZDDXjTAtdNZpjml0jaaMnURl\\nzF+qh08CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjdfHjKlrt7mV0MomYO7KkuCc\\naCscPAN74UZaCMRE5pXixeQVctsWE/KI7KdmJwZWqZvQrb/AX4VwZu5A1zcDNOJ6\\nB7UaDePCMBXRPcyUAAWWwr0AtV0JkEei3d2TbqiPXqlCM1fvvkKQqGZxa61CvSdN\\nz2XmY9W09gbAgkMx3svv6MHpZlJuWY8OZVr0ID1hW+ajEoCf5Adv2Iwuogg/Hs9D\\nlhhvYg4GzU/qWE9vFYO52UqtVPfrzQZTPBQE5Hrg0a32HBOwL3vu0ms2gf1lEt23\\nEf/8TZA5kT/0bMYlB6heGjIKEC90tEv645jbkgJoCI+GgazTTe9wYHXmgz9oPw==\\n-----END CERTIFICATE-----\\n\",\r\n   \r\n        \"partnerDomain\": \"AUTH\",\r\n        \"partnerId\": \"mpartner-default-abis\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

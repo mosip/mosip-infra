@@ -1,0 +1,545 @@
+{
+    "info": {
+        "_postman_id": "ca85badc-c7ca-491c-ab3b-f8f0f9909248",
+        "name": "Automated Cert Upload for IDA",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Clientid and Token combination has been validated successfully\", function () {\r",
+                            "  pm.expect(pm.response.text()).to.include(\"Clientid and Token combination had been validated successfully\");\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"appId\": \"ida\",\r\n        \"clientId\": \"mosip-admin-client\",\r\n        \"secretKey\": \"{{admin-client-secret}}\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/authmanager/authenticate/clientidsecretkey",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "authmanager",
+                        "authenticate",
+                        "clientidsecretkey"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET IDA Internal Root Certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got IDA Internal Root cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});\r",
+                            "\r",
+                            "\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"rootcert\",data);"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=ROOT",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "idauthentication",
+                        "v1",
+                        "internal",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "ROOT"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST IDA Internal Root certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted IDA-Internal-Rootcert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\": {{rootcert}},\r\n        \"partnerDomain\": \"Auth\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n  }",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "ca",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET IDA certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"IDAcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got IDA-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "idauthentication",
+                        "v1",
+                        "internal",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "IDA"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST  IDA Certificate",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted IDA-Rootcert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\":{{IDAcert}},\r\n        \"partnerDomain\": \"Auth\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "ca",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET  Mpartner default-auth certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"MPDAcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got mpartner-default-auth-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "idauthentication",
+                        "v1",
+                        "internal",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "IDA"
+                        },
+                        {
+                            "key": "referenceId",
+                            "value": "mpartner-default-auth"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST Mpartner-Deafult-AuthCertificate  certificate",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\")\r",
+                            "{\r",
+                            "    pm.test(\"Posted Mpartner-default-auth-cert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}\r",
+                            "\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.signedCertificateData);\r",
+                            "//console.log(data);\r",
+                            "pm.environment.set(\"Signedmpartnerdefaultauthcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got signed-certificate\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\":{{MPDAcert}},\r\n        \"partnerDomain\": \"AUTH\",\r\n        \"partnerId\": \"mpartner-default-auth\" \r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Upload the Signed certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "\r",
+                            "pm.test(\"Posted Signed certificate\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n  \"applicationId\": \"IDA\",\r\n  \"certificateData\": {{Signedmpartnerdefaultauthcert}},\r\n  \"referenceId\": \"mpartner-default-auth\"\r\n  },\r\n  \"requesttime\": \"2018-12-10T06:12:52.994Z\",\r\n  \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/idauthentication/v1/internal/uploadCertificate",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "idauthentication",
+                        "v1",
+                        "internal",
+                        "uploadCertificate"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Get IDA-CRED SERVICE cert",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"IDACREDcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got IDA CRED_SERVICE-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "idauthentication",
+                        "v1",
+                        "internal",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "IDA"
+                        },
+                        {
+                            "key": "referenceId",
+                            "value": "CRED_SERVICE"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST IDA-PUBLIC_KEY certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"null\")\r",
+                            "{\r",
+                            "  pm.test(\"Posted IDA-PUBLIC_KEY\", function () {\r",
+                            "  var jsonData = pm.response.json();\r",
+                            "  pm.expect(jsonData.errors).to.eql(null);\r",
+                            "});}\r",
+                            "else\r",
+                            "{\r",
+                            "pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "  pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "});\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"applicationId\": \"IDA\",\r\n        \"certificateData\":{{IDACREDcert}},\r\n        \"referenceId\": \"PUBLIC_KEY\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/keymanager/uploadOtherDomainCertificate",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "keymanager",
+                        "uploadOtherDomainCertificate"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

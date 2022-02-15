@@ -1,0 +1,19 @@
+{
+  "name" : "Fingerprint Slap One", 
+  "cert": {
+     "output": {
+       "folder": "certs/dp1/devices/finger",
+       "key":  "pvt_key.pem",
+       "cert": "cert.pem",
+       "keystore": "finger.p12"
+     },
+    "is_ca": false,
+    "cn": "device1.dp1",
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "certs/dp1/cert.pem",
+    "ca_pvt_key": "certs/dp1/pvt_key.pem"
+    }
+}

@@ -1,0 +1,31 @@
+- name: Add mosip helm repository
+  shell: "{{helm_cli_path}}/helm repo add mosip https://mosip.github.io/mosip-helm"
+
+- name: update helm repository
+  shell: "{{helm_cli_path}}/helm repo update"
+
+- name: create secret "postgres-postgresql" for postgres-init DB
+  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} create secret generic postgres-postgresql --from-literal=postgresql-password={{ postgres.password }} --dry-run=client -o yaml | kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }}  apply -f - '
+
+- name: convert values.template.j2 to values.yaml
+  template:
+      src: '{{install_root}}/roles/postgres-init-db/meta/values.template.j2'
+      dest: '{{install_root}}/roles/postgres-init-db/meta/values.yaml'
+
+- name: Initiailized postgres DB
+  shell: "{{helm_cli_path}}/helm --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} install postgres-init mosip/postgres-init -f {{install_root}}/roles/postgres-init-db/meta/values.yaml --version {{ postgres.postgres_init.chart_version }} --wait"
+
+- name: create secret "db-common-secrets" for postgres-init DB
+  shell: 'kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} create secret generic db-common-secrets  --from-literal=db-dbuser-password={{ postgres.db_common_pwd }} --dry-run=client -o yaml | kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }}  apply -f - '
+
+- name: Get DB job list
+  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} get jobs | awk '/db-/{print $1}' "
+  register: dbJobList
+
+- debug:
+      msg: "{{ dbJobList.stdout_lines }}"
+
+- name: Wait till all DB jobs are completed
+  shell: "kubectl --kubeconfig {{clusters.mz.kube_config}} -n {{ postgres.namespace }} wait --timeout=180s --for=condition=complete jobs {{item}}"
+  with_items:
+      "{{ dbJobList.stdout_lines }}"

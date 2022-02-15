@@ -27,6 +27,7 @@
      - {role: packages/pip3, tags: [pip3]}
      - {role: packages/docker, tags: [docker]}
      - {role: packages/kubectl, tags: [kubectl]}
+     - {role: packages/psycopg2-pip3}
      - {role: packages/psql, tags: [psql]}
      - {role: packages/openshift, tags: [openshift]}
      - {role: packages/helm-cli, tags: [helm-cli]}
@@ -41,6 +42,8 @@
      - {role: packages/openjdk}
      - {role: packages/maven}
      - {role: packages/pandas-pip3}
+     - {role: packages/sqlalchemy-pip3}
+     - {role: packages/xlrd-pip3}
 
   tasks: 
     - name: Set read permission to home directory needed for nginx 

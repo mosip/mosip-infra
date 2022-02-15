@@ -1,0 +1,88 @@
+- name: Install cryptography & PyOpenSSL
+  pip:
+    name:
+      - cryptography
+      - pyopenssl
+    state: present
+
+- name: Create CA private key with password protection
+  community.crypto.openssl_privatekey:
+    path: "{{reg_client.nfs_path}}/RootCA.key"
+
+- name: Create certificate signing request (CSR) for CA certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: "{{reg_client.nfs_path}}/RootCA.key"
+    common_name: CSRoot
+    country_name: IN
+    state_or_province_name: KAR
+    locality_name: BLR
+    organization_name: MOSIP
+    basic_constraints:
+      - 'CA:TRUE'
+    basic_constraints_critical: yes
+    key_usage:
+      - keyCertSign
+      - digitalSignature
+      - cRLSign
+      - keyCertSign
+    extendedKeyUsage:
+      - codeSigning
+    key_usage_critical: true
+  register: ca_csr
+
+- name: Create self-signed CA certificate from CSR
+  community.crypto.x509_certificate:
+    path: "{{reg_client.nfs_path}}/RootCA.pem"
+    csr_content: "{{ ca_csr.csr }}"
+    privatekey_path: "{{reg_client.nfs_path}}/RootCA.key"
+    provider: selfsigned
+
+- name: Create private key for new certificate
+  community.crypto.openssl_privatekey:
+    path: "{{reg_client.nfs_path}}/Client.key"
+
+- name: Create certificate signing request (CSR) for new certificate
+  community.crypto.openssl_csr_pipe:
+    privatekey_path: "{{reg_client.nfs_path}}/Client.key"
+    common_name: CSClient
+    country_name: IN
+    state_or_province_name: KAR
+    locality_name: BLR
+    organization_name: MOSIP
+    basic_constraints:
+      - 'CA:FALSE'
+    basic_constraints_critical: yes
+    key_usage:
+      - keyCertSign
+      - nonRepudiation
+      - digitalSignature
+      - keyEncipherment
+    extendedKeyUsage:
+      - codeSigning
+    key_usage_critical: true
+  register: csr
+
+- name: Sign certificate with our CA
+  community.crypto.x509_certificate_pipe:
+    csr_content: "{{ csr.csr }}"
+    ownca_path: "{{reg_client.nfs_path}}/RootCA.pem"
+    ownca_privatekey_path: "{{reg_client.nfs_path}}/RootCA.key"
+    ownca_not_after: +365d  # valid for one year
+    ownca_not_before: "-1d"  # valid since yesterday
+    provider: ownca
+  register: certificate
+
+- name: Write certificate file
+  copy:
+    dest: "{{reg_client.nfs_path}}/Client.crt"
+    content: "{{ certificate.certificate }}"
+
+- name: Generate PKCS#12 file
+  community.crypto.openssl_pkcs12:
+    action: export
+    path: "{{reg_client.nfs_path}}keystore.p12"
+    privatekey_path: "{{reg_client.nfs_path}}/Client.key"
+    certificate_path: "{{reg_client.nfs_path}}/Client.crt"
+    state: present
+    passphrase: "{{ secrets.reg_client.keystorepass }}"
+    friendly_name: "CodeSigning"

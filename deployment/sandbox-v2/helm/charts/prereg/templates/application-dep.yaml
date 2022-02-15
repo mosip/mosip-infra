@@ -47,30 +47,32 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         - name: mosipbox_public_url
           value: {{ .Values.sitePublicUrl }}
+        - name: virusscanner_url_env
+          value: {{ .Values.virusscanner_url }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
         - containerPort: {{ .Values.services.application.ports.containerPort }}
         readinessProbe:
           httpGet:
-            path: { { .Values.services.application.healthUrl } }
-            port: { { .Values.services.application.ports.containerPort } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          periodSeconds: { { .Values.probe.period } }
-          timeoutSeconds: { { .Values.probe.timeout } }
+            path: {{ .Values.services.application.healthUrl }}
+            port: {{ .Values.services.application.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         livenessProbe:
           httpGet:
-            path: { { .Values.services.application.healthUrl } }
-            port: { { .Values.services.application.ports.containerPort } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          periodSeconds: { { .Values.probe.livenessPeriod } }
-          timeoutSeconds: { { .Values.probe.timeout } }
+            path: {{ .Values.services.application.healthUrl }}
+            port: {{ .Values.services.application.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         startupProbe:
           httpGet:
-            path: { { .Values.services.application.healthUrl } }
-            port: { { .Values.services.application.ports.containerPort } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          periodSeconds: { { .Values.probe.startupPeriod } }
-          timeoutSeconds: { { .Values.probe.timeout } }
-          initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
+            path: {{ .Values.services.application.healthUrl }}
+            port: {{ .Values.services.application.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 

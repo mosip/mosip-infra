@@ -23,15 +23,15 @@
 		<file>${APP_LOG_ROOT}/metrics.log</file>
 		<encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>${APP_LOG_ROOT}/metrics.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+			<fileNamePattern>${APP_LOG_ROOT}/metrics-archive.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
 		</rollingPolicy>
 	</appender>
 
-	<logger name="io.mosip" level="INFO">
+	<logger name="io.mosip" level="INFO" additivity="false">
 		<appender-ref ref="applicationLog" />
 	</logger>
 
-	<logger name="io.micrometer.core.instrument.logging.LoggingMeterRegistry" level="INFO">
+	<logger name="io.mosip.registration.config.LoggingJsonMeterRegistry" level="INFO" additivity="false">
 		<appender-ref ref="metrics" />
 	</logger>
 

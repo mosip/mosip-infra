@@ -1,0 +1,26 @@
+{
+  "id" : "auth-partner-2",
+  "name" : "Auth Provider Two",
+  "contact": "574674355", 
+  "address": "Paris",
+  "email" : "ap2@xyz.com", 
+  "partner_domain": "AUTH",
+  "partner_type": "Online_Verification_Partner",
+  "policy_group": "mpolicygroup-default-auth",
+  "cert": {
+    "output": {
+      "folder": "certs/ap2",
+      "key":  "pvt_key.pem",
+      "cert": "cert.pem",
+      "keystore": "keystore.p12"
+    },
+    "is_ca": false,
+    "cn": "auth-partner-2.com",
+    "country": "FR",
+    "province": "UI",
+    "locality": "Paris" ,
+    "valid_days": 365,
+    "ca_cert": "certs/ca2/cert.pem",
+    "ca_pvt_key": "certs/ca2/pvt_key.pem"
+    }
+}

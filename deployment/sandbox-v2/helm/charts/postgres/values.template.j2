@@ -17,11 +17,12 @@ sc:
 exportLogs: enabled  # Let filebeat export the logs
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
   failureThreshold: 30
   startupPeriod: 10
+  initialDelaySeconds: 60
 
 resources:
   requests:
@@ -29,7 +30,7 @@ resources:
     cpu: 250m 
 docker:
   image: postgres
-  tag: 12.2
+  tag: 13.2
   containerPort: 5432
 nodePort: {{ postgres.port }}
 maxConnections: {{ postgres.max_connections }} 

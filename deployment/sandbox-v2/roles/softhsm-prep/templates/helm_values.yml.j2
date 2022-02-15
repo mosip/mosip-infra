@@ -1,13 +1,13 @@
 namespace: default
 serviceName: softhsm-{{hsm_prop.label}}
 
-activeProfileEnv: mz 
+activeProfileEnv: default 
 springConfigLabel: master
 configServerUrl: http://config-server/config
 artifactoryUrl: http://13.71.87.138:8040
 
 docker:
-  image: mosipdev/softhsm
+  image: mosipid/softhsm
   tag: v1
   ports:
     containerPort: 5666

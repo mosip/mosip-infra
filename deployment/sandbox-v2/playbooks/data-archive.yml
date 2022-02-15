@@ -1,0 +1,21 @@
+# Run archive scripts for ida, idrepo, prereg, regproc DB
+
+- name: Run archive DB scripts
+  hosts: console
+  gather_facts: true
+  vars_files:
+    - ../group_vars/all.yml
+  tasks:
+    - name: Get archive directories
+      shell: 'ls -d {{ data_archive.script_path }}/*/'
+      register: archive_list
+    - debug:
+        msg: "{{ archive_list.stdout_lines }}"
+
+    - name: include role
+      include_role:
+        name: run-achive-db-scripts
+      vars:
+        dbScriptPath: '{{ item }}'
+      with_items:
+        - '{{ archive_list.stdout_lines }}'

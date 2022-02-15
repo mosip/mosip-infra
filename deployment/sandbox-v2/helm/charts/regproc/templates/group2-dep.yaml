@@ -62,37 +62,45 @@ spec:
 
         readinessProbe:
           exec:
-            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
-                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
-                      "/home/mosip/regproc/group2/"
-            ]
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+                 echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
           timeoutSeconds: {{ .Values.probe.timeout }}
           periodSeconds: {{ .Values.probe.period }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           exec:
-            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
-                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
-                      "/home/mosip/regproc/group2/"
-            ]
-          timeoutSeconds: {{ .Values.probe.timeout }}
-          periodSeconds: {{ .Values.probe.livenessPeriod }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+                 echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
         startupProbe:
           exec:
-            command: ["bash","/home/mosip/regproc/group2/healthCheckViaBashScript.sh",
-                      "/home/mosip/regproc/group2/group2HealthCheckUrlList",
-                      "/home/mosip/regproc/group2/"
-            ]
+            command:
+            - /bin/bash
+            - -c
+            - HEALTH_CHECK_PATHS= {{ .Values.services.group2.healthUrl }};
+              for str in $HEALTH_CHECK_PATHS; do
+              curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
+              if ! [ "$curl_output" = "200" ]; then
+                 echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
+              fi;
+              done
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
-        volumeMounts:
-          - name: {{ .Values.healthCheck.persistence.volumeName }}
-            mountPath: {{ .Values.healthCheck.persistence.mountPath }}
-      volumes:
-        - name: {{ .Values.healthCheck.persistence.volumeName }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.healthCheck.persistence.volumeName }}

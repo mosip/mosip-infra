@@ -1,0 +1,27 @@
+# Playbook to install reg-client downloader
+# Inputs:
+#   kube_config  
+
+
+
+# Prepare folders on nfs
+- hosts: console
+  gather_facts: true
+  vars:
+    reg_prop: '{{mosip-file-server}}'
+  roles:
+    - {role: mosip-file-server}
+
+# Convert helm template to helm values 
+- hosts: console
+  vars:
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'mosip-file-server'
+    helm_chart: '{{charts_root}}/mosip-file-server'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/mosip-file-server/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+

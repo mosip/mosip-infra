@@ -47,19 +47,23 @@ spec:
           value: {{ .Values.keycloakExternalUrl }}  
         ports:
         - containerPort: {{ .Values.containerPort }} 
+
         readinessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           tcpSocket:
             port: {{ .Values.containerPort }}  # All defaults used
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

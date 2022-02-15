@@ -1,0 +1,11 @@
+## Settings here would spawn a Internal Network Loadbalancer (LB) on a AWS.  The LB should be accessed over Wireguard that receives traffic from Internet and directs it to LB.  Using external LB is not recommended as Rancher install needs to be as secure as possible.
+controller:
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+      service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  config:
+    use-forwarded-headers: "true"
+    use-proxy-protocol: "true"

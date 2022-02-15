@@ -1,0 +1,436 @@
+{
+    "info": {
+        "_postman_id": "5a43932c-5022-4731-bafc-282af54996a2",
+        "name": "Automated Cert Upload for Resident",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test(\"Clientid and Token combination has been validated successfully\", function () {\r",
+                            "    pm.expect(pm.response.text()).to.include(\"Clientid and Token combination had been validated successfully\");\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"appId\": \"ida\",\r\n        \"clientId\": \"mosip-admin-client\",\r\n        \"secretKey\": \"{{admin-client-secret}}\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/authmanager/authenticate/clientidsecretkey",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "authmanager",
+                        "authenticate",
+                        "clientidsecretkey"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET RESIDENT Root Certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"Resrootcert\",data);\r",
+                            "\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got RESIDENT-ROOT-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql(null);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/v1/keymanager/getCertificate?applicationId=ROOT",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "keymanager",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "ROOT"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST RESIDENT_Root certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted RESIDENT-ROOT-Cert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\":{{Resrootcert}},\r\n        \"partnerDomain\": \"AUTH\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "ca",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET resident certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"Rescert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got Resident-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql(null);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/v1/keymanager/getCertificate?applicationId=RESIDENT",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "keymanager",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "RESIDENT"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST Resident  certificate",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted RESIDENT cert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);;\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\":{{Rescert}},\r\n        \"partnerDomain\": \"AUTH\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}\r\n",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "ca",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "GET Mpartner default resident cert",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.certificate);\r",
+                            "console.log(data);\r",
+                            "pm.environment.set(\"MPDRcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got mpartner-default-resident-cert\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql(null);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{url}}/v1/keymanager/getCertificate?applicationId=RESIDENT&referenceId=mpartner-default-resident",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "keymanager",
+                        "getCertificate"
+                    ],
+                    "query": [
+                        {
+                            "key": "applicationId",
+                            "value": "RESIDENT"
+                        },
+                        {
+                            "key": "referenceId",
+                            "value": "mpartner-default-resident"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST mpartner default resident cert",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
+                        ],
+                        "type": "text/javascript"
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var jsonData = JSON.stringify(jsonData.errors);\r",
+                            "if (jsonData==\"[]\"){\r",
+                            "    pm.test(\"Posted Mpartner-default-resident cert\", function () {\r",
+                            "        var jsonData = pm.response.json();\r",
+                            "        pm.expect(jsonData.errors).to.eql([]);\r",
+                            "    });\r",
+                            "}\r",
+                            "else{\r",
+                            "    pm.test(\"Certificate already exists in DB\", function () {\r",
+                            "        pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
+                            "    });\r",
+                            "}\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "var data = JSON.stringify(jsonData.response.signedCertificateData);\r",
+                            "pm.environment.set(\"signedmpartnerdefaultresidentcert\",data);\r",
+                            "var jsonData = JSON.parse(responseBody);\r",
+                            "pm.test(\"Got signed-certificate\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql([]);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"certificateData\":{{MPDRcert}},\r\n        \"partnerDomain\": \"AUTH\",\r\n        \"partnerId\": \"mpartner-default-resident\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "partnermanager",
+                        "partners",
+                        "certificate",
+                        "upload"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Upload Signed Certificate Copy",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "\r",
+                            "pm.test(\"Posted Signed certificate\", function () {\r",
+                            "    var jsonData = pm.response.json();\r",
+                            "    pm.expect(jsonData.errors).to.eql(null);\r",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"id\": \"string\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"applicationId\": \"RESIDENT\",\r\n        \"certificateData\":{{signedmpartnerdefaultresidentcert}},\r\n        \"referenceId\": \"mpartner-default-resident\"\r\n    },\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"version\": \"string\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{url}}/v1/keymanager/uploadCertificate",
+                    "host": [
+                        "{{url}}"
+                    ],
+                    "path": [
+                        "v1",
+                        "keymanager",
+                        "uploadCertificate"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

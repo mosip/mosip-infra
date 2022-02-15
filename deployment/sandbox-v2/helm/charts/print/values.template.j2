@@ -1,18 +1,18 @@
 component: print
 part-of: mosip
-activeProfileEnv: mz 
+activeProfileEnv: default 
 springConfigLabel:  {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 artifactoryUrl: {{ artifactory_url }} 
 iamAdapterUrl: {{ iam_adapter_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 10
-  startupPeriod: 30
-  initialDelaySeconds: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 120
 
 imagePullPolicy: Always
 

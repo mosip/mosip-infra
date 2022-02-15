@@ -1,0 +1,95 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: sample-httpbin-authn-policy
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway-internal
+  action: CUSTOM
+  provider:
+    name: oauth2-proxy
+  rules:
+  - to:
+    - operation:
+        hosts: ["h__mosip-api-internal-host__h"]
+        paths: ["/httpbin*"]
+---
+# # The following AuthorizationPolicy is not supported by istio yet.
+# # Hence an envoyfilter is written manually
+# # In future once support is added replace the subsequent envoyfilter with this authorizationPolicy (or similar one).
+#
+# apiVersion: security.istio.io/v1beta1
+# kind: AuthorizationPolicy
+# metadata:
+#   name: sample-httpbin-authz-policy
+#   namespace: istio-system
+# spec:
+#   selector:
+#     matchLabels:
+#       istio: ingressgateway-internal
+#   action: DENY
+#   rules:
+#   - to:
+#     - operation:
+#         hosts: ["h__mosip-api-internal-host__h"]
+#         paths: ["/httpbin*"]
+#     when:
+#     - key: request.headers[x-auth-request-groups]
+#       notValues: ["*role:httpbin_access*"]
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: sample-httpbin-authz-filter
+  namespace: istio-system
+spec:
+  workloadSelector:
+    labels:
+      istio: ingressgateway-internal
+  configPatches:
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        portNumber: 8080
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+    patch:
+      operation: ADD
+      filterClass: AUTHZ
+      value:
+        name: envoy.filters.http.rbac.mydeny
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.rbac.v3.RBAC
+          rules:
+            action: DENY
+            policies:
+              "httpbinPolicy":
+                permissions:
+                - and_rules:
+                    rules:
+                    - or_rules:
+                        rules:
+                        - header:
+                            name: ":authority"
+                            exact_match: h__mosip-api-internal-host__h
+                    - or_rules:
+                        rules:
+                        - url_path:
+                            path:
+                              prefix: "/httpbin"
+                        # - url_path:
+                        #     path:
+                        #       prefix: "/hmmm"
+                principals:
+                - and_ids:
+                    ids:
+                    - not_id:
+                        or_ids:
+                          ids:
+                          - header:
+                              name: x-auth-request-groups
+                              contains_match: 'role:httpbin_access'
