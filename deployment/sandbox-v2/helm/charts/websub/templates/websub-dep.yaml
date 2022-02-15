@@ -4,10 +4,6 @@ kind: Deployment
 metadata:
   name: {{ .Values.services.websub.serviceName }}
   namespace: {{ .Release.Namespace }}
-  annotations:
-    # This is what defines this resource as a hook. Without this line, the
-    # pod is considered part of the release.
-    "helm.sh/hook": post-install
 spec:
   replicas: {{ .Values.services.websub.podconfig.replicas }}
   selector:
