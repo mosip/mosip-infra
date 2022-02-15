@@ -17,13 +17,3 @@
     kafka_prop: '{{clusters.dmz.kafka}}' # To be passed to the value template replacement
   roles:
     - {role:  helm}
-
-- hosts: console
-  tasks:
-    - name: create websub topics
-      shell: "kubectl --kubeconfig {{clusters.dmz.kube_config}} exec -it kafka-0 -- bash -c '{{item}}'"
-      with_items:
-        - 'kafka-topics.sh --if-not-exists --create --partitions 1 --topic consolidated-websub-subscribers --bootstrap-server localhost:9092 --replication-factor 1'
-        - 'kafka-topics.sh --if-not-exists --create --partitions 1 --topic registered-websub-subscribers   --bootstrap-server localhost:9092 --replication-factor 1'
-        - 'kafka-topics.sh --if-not-exists --create --partitions 1 --topic consolidated-websub-topics      --bootstrap-server localhost:9092 --replication-factor 1'
-        - 'kafka-topics.sh --if-not-exists --create --partitions 1 --topic registered-websub-topics        --bootstrap-server localhost:9092 --replication-factor 1'
