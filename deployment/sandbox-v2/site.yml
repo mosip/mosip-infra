@@ -28,6 +28,7 @@
 - import_playbook: playbooks/dmzkafka.yml
 # MOSIP modules
 - import_playbook: playbooks/config-server.yml    
+- import_playbook: playbooks/websub-consolidator.yml
 - import_playbook: playbooks/mock-biosdk.yml
 - import_playbook: playbooks/mock-abis.yml
 - import_playbook: playbooks/websub.yml
