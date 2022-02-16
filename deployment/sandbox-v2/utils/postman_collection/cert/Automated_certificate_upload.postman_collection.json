@@ -34,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"appId\": \"ida\",\r\n    \"clientId\": \"mosip-ida-client\",\r\n    \"secretKey\": \"abc123\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n\t}",
+					"raw": "\t{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"appId\": \"ida\",\r\n    \"clientId\": \"mosip-ida-client\",\r\n    \"secretKey\": \"AuHRIaKU1avPJEId\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n\t}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -437,107 +437,6 @@
 						"v1",
 						"internal",
 						"uploadCertificate"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get IDA-CRED SERVICE cert",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"var data = JSON.stringify(jsonData.response.certificate);\r",
-							"console.log(data);\r",
-							"pm.environment.set(\"IDACREDcert\",data);\r",
-							"var jsonData = JSON.parse(responseBody);\r",
-							"pm.test(\"Got IDA CRED_SERVICE-cert\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.eql([]);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=CRED_SERVICE",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"idauthentication",
-						"v1",
-						"internal",
-						"getCertificate"
-					],
-					"query": [
-						{
-							"key": "applicationId",
-							"value": "IDA"
-						},
-						{
-							"key": "referenceId",
-							"value": "CRED_SERVICE"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST IDA-PUBLIC_KEY certificate",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"var jsonData = JSON.stringify(jsonData.errors);\r",
-							"if (jsonData==\"null\")\r",
-							"{\r",
-							"    pm.test(\"Posted IDA-PUBLIC_KEY\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.eql(null);\r",
-							"});}\r",
-							"else\r",
-							"{\r",
-							"pm.test(\"Certificate already exists in DB\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
-							"});\r",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"applicationId\": \"IDA\",\r\n    \"certificateData\":{{IDACREDcert}},\r\n    \"referenceId\": \"PUBLIC_KEY\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/v1/keymanager/uploadOtherDomainCertificate",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"v1",
-						"keymanager",
-						"uploadOtherDomainCertificate"
 					]
 				}
 			},
