@@ -1,7 +1,8 @@
 # MOSIP Core
 
-Install in the following sequence:
+Install in the following order:
 * [Docker secrets](docker_secrets/README.md)
+* [Prereg captcha](captcha/README.md)
 * [Config server](config_server/README.md)
 * [Artifactory](artifactory/README.md)
 * [Keymanager](keymanager/README.md)
@@ -16,5 +17,5 @@ Install in the following sequence:
 * [Admin](admin/README.md)
 * [Mock ABIS](mock-abis/README.md)
 * [IDA](ida/README.md)
-* [Reporting](reporting/README.md)
-
+* [Registration Client](regclient/README.md)
+* [Resident](resident/README.md)

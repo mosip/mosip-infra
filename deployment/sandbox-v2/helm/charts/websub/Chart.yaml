@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: ""
 description: A Helm chart for Websub 
 name: websub
-version: 1.1.2
+version: 1.2.0

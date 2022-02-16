@@ -1,0 +1,19 @@
+{
+  "name" : "Iris Double One", 
+  "cert": {
+     "output": {
+       "folder": "certs/dp1/devices/iris",
+       "key":  "pvt_key.pem",
+       "cert": "cert.pem",
+       "keystore": "iris.p12"
+     },
+    "is_ca": false,
+    "cn": "iris1.dp1",
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "certs/dp1/cert.pem",
+    "ca_pvt_key": "certs/dp1/pvt_key.pem"
+    }
+}

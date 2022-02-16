@@ -1,0 +1,42 @@
+- name: Remove Existing postgres packages
+  yum:
+      name: postgresql*
+      state: absent
+  become: yes
+
+- name: Install Development tools
+  yum:
+      name: "@Development tools"
+      state: present
+  become: yes
+
+- name: Install python3-devel
+  yum:
+      name: python3-devel
+      state: present
+  become: yes
+
+- name: Install postgresql, postgresql-devel, postgresql-libs
+  yum:
+      name:
+        - postgresql
+        - postgresql-devel
+        - postgresql-libs
+      state: present
+  become: yes
+
+- name: Install psycopg2 via pip3
+  pip:
+      name: psycopg2
+      state: present
+      executable: pip3
+  become: yes
+
+- name: Remove postgresql, postgresql-devel, postgresql-libs packages
+  yum:
+      name:
+          - postgresql
+          - postgresql-devel
+          - postgresql-libs
+      state: absent
+  become: yes

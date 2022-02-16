@@ -4,6 +4,12 @@
 - import_playbook: postgres-install.yml
   when: postgres.external == false
 
-- import_playbook: postgres-init.yml
-  when: postgres.init == true
+- import_playbook: postgres-init-db.yml
+  when: postgres.postgres_init.init == true
 
+#- import_playbook: postgres-init.yml
+#  when: postgres.init == true
+
+### upload masterdata
+- import_playbook: postgres-md-upload.yml
+  when: postgres.masterdata_upload.enable == true

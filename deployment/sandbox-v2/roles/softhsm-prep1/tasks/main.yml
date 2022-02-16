@@ -1,0 +1,24 @@
+# Creates folder on a node for softhsm
+# These tasks are applicable on the node on which
+# folders are located.
+
+- name: Create softhsm folder
+  file:
+    path: '{{hsm_prop.nfs_path}}'
+    state: directory 
+  become: yes
+
+- name: Copy conf file
+  copy:
+    src: '{{hsm_prop.conf_path}}/{{hsm_prop.conf_file}}'
+    dest: '{{hsm_prop.nfs_path}}' 
+  become: yes
+  
+- name: Copy base tokens
+  copy:
+    src: '{{hsm_prop.tokens_path}}' 
+    dest: '{{hsm_prop.nfs_path}}'
+    force: no
+  become: yes
+
+

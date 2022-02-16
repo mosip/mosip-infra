@@ -4,12 +4,13 @@
 #
 user_home: '{{lookup("env", "HOME")}}'
 install_root: '{{user_home}}/mosip-infra/deployment/sandbox-v2'
-tmp_dir: '{{install_root}}/tmp/'
+tmp_dir: '{{install_root}}/tmp'
 logs_dir: '{{tmp_dir}}/logs'
 tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://mz.ingress:30080/
+artifactory_url1: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
@@ -108,7 +109,7 @@ clusters:
       replica_count: 5
       zookeeper_replica_count: 5
       zookeeper_size: 2Gi
- 
+      service_name: 'kafka.default:9092' 
   dmz:
     kube_config:  "{{lookup('env', 'HOME') }}/.kube/dmzcluster.config" 
     nodeport_node: '{{groups.dmzworkers[0]}}'  # Any node on cluster for nodeport access
@@ -150,7 +151,8 @@ clusters:
       num_partitions: 20
       replica_count: 5
       zookeeper_replica_count: 5
-      zookeeper_size: 2Gi 
+      zookeeper_size: 2Gi
+      service_name: 'kafka.default:9092' 
 
 # Registration processor shared variables
 #
@@ -158,6 +160,15 @@ regproc:
   nfs:
     server: '{{nfs.server}}'
     landing_folder: '{{nfs.folder}}/landing'
+    regproc_path: '{{nfs.folder}}/regproc'
+    stages:
+      group2:
+        path: '{{nfs.folder}}/regproc/group2'
+        path_owner: 'mosipuser'
+        path_group: 'mosipuser'
+        healthCheckBashFile: '{{charts_root}}/regproc/files/healthCheckViaBashScript.sh'
+        healthCheckUrlListFile: '{{charts_root}}/regproc/files/group2HealthCheckUrlList'
+
 
 # Postgres persistent storage
 postgres:
@@ -165,10 +176,26 @@ postgres:
                    # you already have postgres running on a separate system.
   # Change host here if external: true
   host: '{{clusters.mz.nodeport_node}}'  # Host name of any node since standard sandbox runs postgres as pod on nodeport
-  port: 30090 # hardcoded node port for postgres  
+  port: 30090 # hardcoded node port for postgres
   user: postgres 
   password: '{{secrets.postgres.su}}'
-  init: true  # Initialize db. Set it to false in production after initializing once.
+  db_common_pwd: '{{secrets.postgres.common_db_pwd}}'
+  namespace: default
+  ## Initiailize DB ( like v3 )
+  postgres_init:
+    chart_version: 1.2.0
+    init: true  # Initialize db. Set it to false in production after initializing once.
+  masterdata_upload:
+    user: sysadmin
+    enable: true
+    script_src_path: "{{ install_root }}/../v3/mosip/kernel/masterdata"
+    script_dest_path: "{{ tmp_dir }}"
+    repo:
+      src: https://github.com/mosip/mosip-data
+      dest: '{{tmp_dir}}/mosip-data'
+      tag: lts
+      githubuser: ''
+      githubpassword: ''
   upgrade:
     set: false  # accepts true or false value as per need.
     version: develop # version gto which upgrade is needed.
@@ -228,6 +255,18 @@ softhsm:
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     nfs_path: '{{nfs.folder}}/softhsm/ida/'
+  ida1:  # Auth
+    label: ida1
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep1/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep1/files/tokens'
+    nfs_path: '{{nfs.folder}}/softhsm/ida1/'
+    helm_chart: '{{charts_root}}/softhsm1'
+    is_template: true
+    helm_namespace: 'idauth'
+    helm_values: '{{charts_root}}/softhsm1/values.template.j2'
+    helm_strings: ''
+    activeProfileEnv: 'mz1'
 
 reg_client:
   cert_file: mosip_cer.cer
@@ -237,6 +276,27 @@ reg_client:
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
   logback_xml: '{{install_root}}/roles/reg-client-prep/files/logback.xml'
+  keystore_secret: '{{secrets.reg_client.keystorepass}}'
+  signer_timestamp_Url: 'http://timestamp.comodoca.com/rfc3161'
+
+
+mosip_file_server:
+  nfs_path: '{{nfs.folder}}/mosip-file-server/'
+
+mock_abis:
+  nfs_path: '{{nfs.folder}}/mock-abis/'
+  p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
+  prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
+
+ida1:
+  kube_config: '{{clusters.mz.kube_config}}'
+  install_name: 'ida1'
+  helm_chart: '{{charts_root}}/ida1'
+  is_template: true
+  helm_namespace: 'idauth'
+  helm_values: '{{charts_root}}/ida1/values.template.j2'
+  helm_strings: ''
+  activeProfileEnv: 'mz1'
 
 mock_abis:
   nfs_path: '{{nfs.folder}}/test-mock-abis/'
@@ -247,49 +307,61 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
-  ref_impl:
+  mosip_data:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
-    tag: develop
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
   hotlist:
     src: https://github.com/mosip/admin-services
     dest: '{{tmp_dir}}/admin-services'
-    tag: develop
+    tag: release-1.2.0
+    githubuser: ''
+    githubpassword: ''
+  keymanager:
+    src: https://github.com/mosip/keymanager
+    dest: '{{tmp_dir}}/keymanager'
+    tag: release-1.2.0
+    githubuser: ''
+    githubpassword: ''
+  mosip_ref_impl:
+    src: https://github.com/mosip/mosip-ref-impl
+    dest: '{{tmp_dir}}/mosip-ref-impl'
+    tag: release-1.2.0
     githubuser: ''
     githubpassword: ''
 
@@ -303,7 +375,7 @@ databases:
   mosip_master:
     user: masteruser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_iam:
     user: iamuser
@@ -316,17 +388,17 @@ databases:
   mosip_authdevice:
     user: authdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_keymgr:
     user: keymgruser
-    sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.commons.dest}}/db_release_scripts'
+    sql_path: '{{repos.keymanager.dest}}/db_scripts'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
+    release_path: '{{repos.keymanager.dest}}/db_release_scripts'
   mosip_regdevice:
     user: regdeviceuser
     sql_path: '{{repos.commons.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.commons.dest}}/db_release_scripts'
   mosip_credential:
     user: credentialuser
@@ -343,27 +415,31 @@ databases:
   mosip_prereg:
     user: prereguser
     sql_path: '{{repos.prereg.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
 #    release_path: '{{repos.prereg.dest}}/db_release_scripts'
   mosip_regprc:
     user: regprcuser
     sql_path: '{{repos.regproc.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.regproc.dest}}/db_release_scripts'
   mosip_ida:
     user: idauser
     sql_path: '{{repos.ida.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
     release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
-  #   release_path: '{{repos.pms.dest}}/db_release_scripts'
+    dml_path: '{{repos.mosip_data.dest}}/data-dml'
+#    release_path: '{{repos.pms.dest}}/db_release_scripts'
   mosip_hotlist:
     user: hotlistuser
     sql_path: '{{repos.hotlist.dest}}/db_scripts'
-   # release_path: '{{repos.websub.dest}}/db_release_scripts'
+#    release_path: '{{repos.websub.dest}}/db_release_scripts'
+  mosip_archive:
+    user: archiveuser
+    sql_path: '{{repos.data-archive.dest}}/data-archive/db_scripts'
+#    release_path: '{{repos.data-archive.dest}}/data-archive/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
@@ -440,12 +516,12 @@ coredns:
          node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
  
 
-iam_adapter_url: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+iam_adapter_url: 'http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
-iam_adapter_regproc_url: 'http://artifactory-service.default:80/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
-iam_adapter_regproc_ext_url: '{{clusters.mz.ingress.base_url}}/artifactory/libs-snapshot-local/io/mosip/kernel/kernel-auth-adapter/1.2.0-SNAPSHOT/kernel-auth-adapter-1.2.0-SNAPSHOT-regproc-20201209055103.jar'
+iam_adapter_url_dmz: '{{clusters.mz.ingress.base_url}}/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar'
 runtimeDepUrlpath: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/
 biosdk_service_url: http://mock-biosdk-service/biosdk-service
+biosdk_service_url1: http://mock-biosdk-service.default:80/biosdk-service
 cache_provider_url: http://artifactory-service.default:80/artifactory/libs-release-local/cache/cache-provider.jar
 
 # user for every service inside the container
@@ -455,7 +531,7 @@ container_user: mosip
 maven_dir: '/etc/maven/'
 functional_repo_path: 'https://github.com/mosip/mosip-functional-tests.git'
 functional_repo_dest: '{{tmp_dir}}/mosip-functional-tests/'
-db_modules: '["mosip_master", "mosip_kernel", "mosip_iam", "mosip_audit", "mosip_authdevice", "mosip_keymgr", "mosip_regdevice", "mosip_credential", "mosip_idrepo", "mosip_idmap", "mosip_prereg", "mosip_regprc", "mosip_ida", "mosip_pms", "mosip_websub", "mosip_hotlist"]'
+db_modules: '["mosip_master", "mosip_kernel", "mosip_iam", "mosip_audit", "mosip_authdevice", "mosip_keymgr", "mosip_regdevice", "mosip_credential", "mosip_idrepo", "mosip_idmap", "mosip_prereg", "mosip_regprc", "mosip_ida", "mosip_pms", "mosip_hotlist"]'
 testrig_version: 'develop'
 #modules: '["all"]'
 modules: '["prereg"]'
@@ -471,3 +547,13 @@ regproc_clamav_jar_path: /artifactory/libs-release-local/clamav/kernel-virusscan
 ## Upload certificates
 postmanCollectionJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload.postman_collection.json'
 postmanCollectionEnvVarJSON: '{{install_root}}/roles/uploadCerts/meta/certUpload.postman_environment.json'
+
+## Archive DB script variables
+data_archive:
+  script_path: '{{ repos.data-archive.dest }}/data-archive/archive-jobs'
+  source_db_serverip: '{{ postgres.host }}'
+  source_db_port: '{{ postgres.port }}'
+  source_db_pwd: '{{ secrets.postgres.su }}'
+  archive_db_serverip: '{{ postgres.host }}'
+  archive_db_port: '{{ postgres.port }}'
+  archive_db_pwd: '{{ secrets.postgres.su }}'

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.serviceName }}
+spec:
+  replicas: {{ .Values.services.mosip_file_server.podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.serviceName }} 
+  minReadySeconds: {{ .Values.services.mosip_file_server.podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ .Values.services.mosip_file_server.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.mosip_file_server.podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.serviceName }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      containers:
+      - name: {{ .Values.serviceName }} 
+        image: {{ .Values.docker.image }} 
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }}
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }}
+        - name: auth_url_env
+          value: {{ .Values.authmanagerUrl }}
+        - name: key_url_env
+          value: {{ .Values.keymanagerUrl }}
+        ports:
+        - containerPort: {{ .Values.docker.ports.containerPort }}
+
+        volumeMounts:
+        - name: mosip-file-server-volume
+          mountPath: {{ .Values.mountPath }}
+      volumes:
+      - name: mosip-file-server-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.pvc.name }}

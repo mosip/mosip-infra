@@ -1,0 +1,52 @@
+{
+  "id" : "abc-bank",
+  "name" : "ABC Bank",
+  "contact": "674674385", 
+  "address": "Paris",
+  "email" : "abcbank@xyz.com", 
+  "partner_domain": "AUTH",
+  "partner_type": "Auth_Partner",
+  "policies" : [{
+      "policy_file": "input/policies/abispolicy.json",
+      "extractors": []
+  }],
+  "cert": {
+    "generated_key_path":  "certs/abis1/pvt_key.pem",
+    "generated_cert_path": "certs/abis1/cert.pem",
+    "is_ca": false,
+    "cn": "abis-one.com",
+    "country": "FR",
+    "province": "RG",
+    "locality": "Paris" ,
+    "valid_days": 365,
+    "ca_cert": "certs/ca1/cert.pem",
+    "ca_pvt_key": "certs/ca1/pvt_key.pem"
+  }
+}
+
+{
+  "id" : "dp-partner",
+  "name" : "Device Provider One",
+  "contact": "574674345",
+  "address": "Chennai",
+  "email" : "dp@xyz.com",
+  "partner_domain": "AUTH",
+  "partner_type": "Device_Provider",
+  "policy_group": "",
+  "cert": {
+    "output": {
+      "folder": "certs/dp1",
+      "key":  "pvt_key.pem",
+      "cert": "cert.pem",
+      "keystore": "keystore.p12"
+    },
+    "is_ca": false,
+    "cn": "dp-one.com",
+    "country": "IN",
+    "province": "TN",
+    "locality": "Chennai" ,
+    "valid_days": 365,
+    "ca_cert": "certs/ca1/cert.pem",
+    "ca_pvt_key": "certs/ca1/pvt_key.pem"
+    }
+}

@@ -43,25 +43,32 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports:
         - name: server-port
           containerPort: {{ .Values.services.notificationService.ports.containerPort }}
+
         readinessProbe:
           httpGet:
             path: {{ .Values.services.notificationService.healthUrl }}
             port: {{ .Values.services.notificationService.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.notificationService.healthUrl }}
             port: {{ .Values.services.notificationService.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.notificationService.healthUrl }}
             port: {{ .Values.services.notificationService.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 

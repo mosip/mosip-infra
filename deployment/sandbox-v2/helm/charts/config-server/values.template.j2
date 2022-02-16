@@ -5,6 +5,7 @@ docker:
   servicePort: 80
 jarName: kernel-config-server # Without .jar. Used locally for Docker
 component: config-server
+imagePullPolicy: Always
 
 domain: {{ sandbox_domain_name }}
 internalDomain: {{ clusters.mz.nodeport_node }} 
@@ -42,3 +43,10 @@ services:
     podconfig:
       {{ podconfig.config_server.service | to_nice_yaml(indent=6) | indent(6) }}
 
+probe:
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
+  startupPeriod: 10
+  initialDelaySeconds: 60

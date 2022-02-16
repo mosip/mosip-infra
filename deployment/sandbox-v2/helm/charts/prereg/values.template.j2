@@ -1,16 +1,16 @@
 component: prereg
 part-of: mosip
-activeProfileEnv: mz
+activeProfileEnv: default
 springConfigLabel: {{ config_repo.version }} 
 configServerUrl: {{ config_server.internal_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 10
-  startupPeriod: 30
-  initialDelaySeconds: 240
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 180
 
 ingress:
    namespace: default
@@ -21,6 +21,7 @@ imagePullPolicy: Always
 isGlowroot: {{ is_glowroot }}
 preregistration_i18n_bundle_url: http://artifactory-service/artifactory/libs-release-local/i18n/pre-registration-i18n-bundle.zip
 exportLogs: enabled  # Let filebeat export the logs
+virusscanner_url: http://artifactory-service/artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
 
 virusscanner_url: http://artifactory-service/artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
 
@@ -88,6 +89,7 @@ services:
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}
     ingressPath: /pre-registration-ui
+    healthUrl: /pre-registration-ui/
     podconfig:
       {{ podconfig.prereg.ui | to_nice_yaml(indent=6) | indent(6) }}
     

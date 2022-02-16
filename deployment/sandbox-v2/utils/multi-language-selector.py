@@ -15,7 +15,7 @@ if( os.path.isdir(folder_path) ):
     print("Remove dml directory & Rename dml-old to dml")
     shutil.rmtree(input_path)
     os.rename(folder_path, input_path)
-    
+
 os.rename(input_path, folder_path)
 os.mkdir(input_path)
 

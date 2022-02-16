@@ -1,6 +1,6 @@
 name: activemq
 docker:
-  image:  mosipdev/activemq:1.1.3
+  image:  mosipid/activemq:1.1.3
   containerPort: 61616
   nodeport: 30616
   min-memory: 512
@@ -36,9 +36,9 @@ nfs:
   path: {{ activemq.nfs_path }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
   startupPeriod: 10
-
+  initialDelaySeconds: 30

@@ -1,0 +1,6 @@
+- name: Install xlrd for python3 via pip3
+  pip:
+      name: xlrd==1.2.0
+      state: present
+      executable: pip3
+  become: yes

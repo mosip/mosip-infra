@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth2-proxy-confmap
+data:
+  oauth2_proxy.cfg: |
+    email_domains = ["*"]
+    redirect_url = "https://___IAM_HOST___/oauth2/callback"
+    silence_ping_logging = true
+    skip_provider_button = true
+    whitelist_domains = ["___ROOT_DOMAIN___"]
+    cookie_domains = ["___ROOT_DOMAIN___"]
+    cookie_name = "_oauth2_proxy____INSTALLATION_NAME___"
+  alpha.cfg: |
+    injectRequestHeaders:
+    - name: X-Forwarded-Groups
+      values:
+      - claim: groups
+    - name: X-Forwarded-User
+      values:
+      - claim: user
+    - name: X-Forwarded-Email
+      values:
+      - claim: email
+    - name: X-Forwarded-Preferred-Username
+      values:
+      - claim: preferred_username
+    - name: Authorization
+      values:
+      - claim: id_token
+        prefix: 'Bearer '
+    injectResponseHeaders:
+    - name: X-Auth-Access-Token
+      values:
+      - claim: access_token
+    - name: X-Auth-Request-User
+      values:
+      - claim: user
+    - name: X-Auth-Request-Email
+      values:
+      - claim: email
+    - name: X-Auth-Request-Preferred-Username
+      values:
+      - claim: preferred_username
+    - name: X-Auth-Request-Groups
+      values:
+      - claim: groups
+    - name: Authorization
+      values:
+      - claim: id_token
+        prefix: 'Bearer '
+    providers:
+    - clientID: "___ISTIO_CLIENT_ID___"
+      clientSecret: "___ISTIO_CLIENT_SECRET___"
+      id: keycloak-oidc-istio
+      provider: keycloak-oidc
+      oidcConfig:
+        emailClaim: email
+        groupsClaim: groups
+        userIDClaim: email
+        insecureAllowUnverifiedEmail: true
+        insecureSkipNonce: true
+        issuerURL: https://___IAM_HOST___/auth/realms/istio
+    server:
+      BindAddress: 0.0.0.0:4180
+    upstreamConfig:
+      upstreams:
+      - id: static_200
+        path: /
+        static: true
+        staticCode: 200
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy
+  labels:
+    app: oauth2-proxy
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth2-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:v7.2.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - --config=/bitnami/oauth2-proxy/conf/oauth2_proxy.cfg
+        - --alpha-config=/bitnami/oauth2-proxy/conf/alpha.cfg
+        env:
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          value: "WFhYWFhYWFhYWFhYWFhYWA=="
+        ports:
+        - containerPort: 4180
+          name: http
+          protocol: TCP
+        resources:
+          limits: {}
+          requests: {}
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 5
+        volumeMounts:
+        - name: main-configuration
+          mountPath: /bitnami/oauth2-proxy/conf
+      volumes:
+      - name: main-configuration
+        configMap:
+          defaultMode: 420
+          name: oauth2-proxy-confmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-proxy
+  labels:
+    app: oauth2-proxy
+spec:
+  type: ClusterIP
+  selector:
+    app: oauth2-proxy
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http

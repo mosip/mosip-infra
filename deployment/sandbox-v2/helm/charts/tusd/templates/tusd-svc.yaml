@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.docker.service }}
+  namespace: {{ .Release.Namespace }} 
+
+spec:
+  selector:
+    app: {{ .Values.docker.service }}
+  ports:
+    - port: {{ .Values.services.tusd.servicePort }}
+      targetPort: {{ .Values.services.tusd.containerPort }}

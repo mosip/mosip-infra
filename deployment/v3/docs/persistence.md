@@ -23,7 +23,7 @@ The document here describes the behaviour of persistence and storage class on EK
 ## Statefulset, gp2 storage class
 * Storage class: `gp2`
 * Default "delete" (not retain) 
-* Mount PVC on a deployment
+* Mount PVC on a statefulset
 * PV and PVC are created
 * `helm delete` DOES not delete both PVC and PV
 * When you re-install helm chart, same PVC and PV are preserved.

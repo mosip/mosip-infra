@@ -1,14 +1,4 @@
 FROM postgres
-
-ARG SOURCE
-ARG COMMIT_HASH
-ARG COMMIT_ID
-ARG BUILD_TIME
-LABEL source=${SOURCE}
-LABEL commit_hash=${COMMIT_HASH}
-LABEL commit_id=${COMMIT_ID}
-LABEL build_time=${BUILD_TIME}
-
 RUN apt-get update
 RUN apt-get install -y python3
 RUN apt-get install -y python3-pip
@@ -20,7 +10,9 @@ COPY ./repos/registration/db_scripts .
 COPY ./repos/id-repository/db_scripts .
 COPY ./repos/id-authentication/db_scripts .
 COPY ./repos/partner-management-services/db_scripts .
-COPY ./repos/websub/db_scripts .
+COPY ./repos/admin-services/db_scripts .
+COPY ./repos/keymanager/db_scripts .
+COPY ./repos/audit-manager/db_scripts .
 ENV MOSIP_DB_NAME=
 ENV DB_SERVERIP=
 ENV DB_PORT=5432
