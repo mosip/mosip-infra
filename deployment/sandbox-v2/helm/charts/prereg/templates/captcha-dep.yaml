@@ -69,4 +69,3 @@ spec:
           periodSeconds: {{ .Values.probe.startupPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
-

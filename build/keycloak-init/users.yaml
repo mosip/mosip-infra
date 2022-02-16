@@ -1,0 +1,22 @@
+## YAML to create a users
+mosip:  # realm
+  roles: []
+  clients: []
+  users: # list of users
+    - username: test_user15
+      email: test_user15@xyz.com
+      firstName: Test
+      lastName: User15
+      password: abcde
+      temporary: False
+      realmRoles: 
+        - PARTNER
+    - username: test_user16
+      email: test_user16@xyz.com
+      firstName: Test
+      lastName: User16
+      password: abcde
+      temporary: False
+      realmRoles: 
+        - REGISTRATION_OFFICER
+

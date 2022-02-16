@@ -28,7 +28,6 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }} 
         ports:
         - containerPort: {{ .Values.services.ui.ports.containerPort }}
-
         readinessProbe:
           httpGet:
             path: {{ .Values.services.ui.healthUrl }}
@@ -60,5 +59,6 @@ spec:
             # The config map gets mounted like files where key=file, value=file contents
       volumes:
         - name: ui-config
+          mountPath: /usr/share/nginx/html/assets/config.json
           configMap:
             name: {{ .Values.services.ui.configName }}

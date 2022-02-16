@@ -283,12 +283,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -362,6 +362,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -428,6 +505,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -468,6 +622,83 @@
 										"mosip",
 										"roles",
 										"AUTH_PARTNER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -672,7 +903,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{cacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -715,7 +946,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{intercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -769,7 +1000,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercert}}\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1170,12 +1401,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -1249,6 +1480,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -1293,7 +1601,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{MISPpartnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
@@ -1307,8 +1615,85 @@
 									"query": [
 										{
 											"key": "username",
-											"value": "{{partnerid}}"
+											"value": "{{MISPpartnerid}}"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -1355,6 +1740,83 @@
 										"mosip",
 										"roles",
 										"MISP_PARTNER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -1478,7 +1940,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{MISPaddress}}\",\r\n    \"contactNumber\": \"{{MISPcontact}}\",\r\n    \"emailId\": \"{{MISPpartneremail}}\",\r\n    \"organizationName\": \"{{MISPpartnerid}}\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\",\r\n    \"partnerType\": \"Misp_Partner\",\r\n    \"policyGroup\": \"{{policygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{MISPaddress}}\",\r\n    \"contactNumber\": \"{{MISPcontact}}\",\r\n    \"emailId\": \"{{MISPpartneremail}}\",\r\n    \"organizationName\": \"{{MISPpartnerid}}\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\",\r\n    \"partnerType\": \"Misp_Partner\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1559,7 +2021,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{MISPcacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{MISPcacert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1602,7 +2064,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{MISPintercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{MISPintercert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1656,7 +2118,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{MISPpartnercert}}\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{MISPpartnercert}},\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1736,7 +2198,7 @@
 			]
 		},
 		{
-			"name": "Device/FTM partner registration",
+			"name": "Device partner registration",
 			"item": [
 				{
 					"name": "Keycloak partner addition",
@@ -1833,12 +2295,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -1912,6 +2374,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -1978,6 +2517,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -2018,6 +2634,83 @@
 										"mosip",
 										"roles",
 										"DEVICE_PROVIDER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -2141,7 +2834,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{address}}\",\r\n    \"contactNumber\": \"{{contact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"{{partnerid}}\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"DEVICE_PROVIDER\"\r\n   \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{partneraddress}}\",\r\n    \"contactNumber\": \"{{partnercontact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"{{partnerid}}\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"DEVICE_PROVIDER\"\r\n   \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2222,7 +2915,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{cacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"DEVICE\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2265,7 +2958,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{intercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"DEVICE\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2319,7 +3012,850 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercert}}\",\r\n    \"partnerDomain\": \"DEVICE\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"DEVICE\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/partnermanager/partners/certificate/upload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"partnermanager",
+										"partners",
+										"certificate",
+										"upload"
+									]
+								},
+								"description": "The partner cert will be signed back and shared with the response as well ."
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "FTM partner registration",
+			"item": [
+				{
+					"name": "Keycloak partner addition",
+					"item": [
+						{
+							"name": "Authenticating as partner manager",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"\",\n  \"version\": \"LTS\",\n  \"requesttime\":\"{{requesttime}}\",\n  \"metadata\": {},\n  \"request\": {\n    \"userName\":\"{{username}}\",\n    \"password\":\"{{password}}\",\n    \"appId\":\"{{applicationid}}\",\n    \"clientId\":\"mosip-partner-client\",\n    \"clientSecret\":\"{{clientsecret}}\"\n  }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/authmanager/authenticate/useridPwd",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"authmanager",
+										"authenticate",
+										"useridPwd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding partner as an user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{keycloaktoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"username\":\"{{partnerid}}\",\r\n   \"firstName\":\"{{partnerid}}\",\r\n   \"lastName\":\"\",\r\n   \"email\":\"{{partneremail}}\",\r\n   \"enabled\":true,\r\n   \"credentials\":[ \r\n      { \r\n         \"temporary\": false,\r\n         \"type\":\"password\",\r\n         \"value\":\"{{partnerpassword}}\"\r\n      }\r\n   ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/users",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"admin",
+										"realms",
+										"mosip",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting partner's userid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"var data = jsonData[0].id;\r",
+											"console.log(data);\r",
+											"pm.environment.set(\"kcuserid\",data);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{keycloaktoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"admin",
+										"realms",
+										"mosip",
+										"users"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{partnerid}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting the required role id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"var thisdata = jsonData.id;\r",
+											"console.log(thisdata);\r",
+											"pm.environment.set(\"kcroleid\",thisdata);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{keycloaktoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/roles/FTM_PROVIDER",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"admin",
+										"realms",
+										"mosip",
+										"roles",
+										"FTM_PROVIDER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mapping roles with partner",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{keycloaktoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[ \r\n    {\"id\" : \"{{kcroleid}}\",\r\n   \"name\":\"FTM_PROVIDER\"}\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/users/{{kcuserid}}/role-mappings/realm",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"admin",
+										"realms",
+										"mosip",
+										"users",
+										"{{kcuserid}}",
+										"role-mappings",
+										"realm"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "FTM partner registration",
+					"item": [
+						{
+							"name": "Authenticating as partner",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"string\",\n  \"version\": \"string\",\n  \"requesttime\": \"{{requesttime}}\",\n  \"metadata\": {},\n  \"request\": {\n    \"userName\": \"{{partnerid}}\",\n    \"password\": \"{{partnerpassword}}\",\n    \"appId\": \"partner\"\n  }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/authmanager/authenticate/useridPwd",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"authmanager",
+										"authenticate",
+										"useridPwd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partner self registration",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    const {response} =pm.response.json();\r",
+											"    pm.environment.set('MISPpartnerid',response.partnerId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{partneraddress}}\",\r\n    \"contactNumber\": \"{{partnercontact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"{{partnerid}}\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"FTM_PROVIDER\"\r\n   \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/partnermanager/partners",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"partnermanager",
+										"partners"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Authenticating as partner manager",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"\",\n  \"version\": \"LTS\",\n  \"requesttime\":\"{{requesttime}}\",\n  \"metadata\": {},\n  \"request\": {\n    \"userName\":\"{{username}}\",\n    \"password\":\"{{password}}\",\n    \"appId\":\"{{applicationid}}\",\n    \"clientId\":\"{{clientid}}\",\n    \"clientSecret\":\"{{clientsecret}}\"\n  }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/v1/authmanager/authenticate/useridPwd",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"authmanager",
+										"authenticate",
+										"useridPwd"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Uploading CA certificate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"FTM\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"partnermanager",
+										"partners",
+										"certificate",
+										"ca",
+										"upload"
+									]
+								},
+								"description": "Here It is assumed that the Partner will provide MOSIP with the three certificates, namely ca certificate, intermediate certificate, and partner certificate ."
+							},
+							"response": []
+						},
+						{
+							"name": "Uploading intermediate certificate",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"FTM\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"partnermanager",
+										"partners",
+										"certificate",
+										"ca",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Uploading partner certificate",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"var data = JSON.stringify(jsonData.response.signedCertificateData);\r",
+											"console.log(data);\r",
+											"pm.environment.set(\"SIGNEDPCERT\",data);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"FTM\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2606,12 +4142,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -2685,6 +4221,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -2751,6 +4364,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -2791,6 +4481,83 @@
 										"mosip",
 										"roles",
 										"CREDENTIAL_PARTNER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -2914,7 +4681,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{address}}\",\r\n    \"contactNumber\": \"{{contact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"{{partnerid}}\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"Credential_Partner\",\r\n    \"policyGroup\": \"{{datasharepolicygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"LTS\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{partneraddress}}\",\r\n    \"contactNumber\": \"{{partnercontact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"{{partnerid}}\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"Credential_Partner\",\r\n    \"policyGroup\": \"{{datasharepolicygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"LTS\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2995,7 +4762,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{cacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3038,7 +4805,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{intercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3092,7 +4859,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercert}}\",\r\n    \"partnerDomain\": \"DEVICE\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3348,7 +5115,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"desc\": \"Data Share Policy1\",\r\n    \"name\": \"{{datasharepolicyname}}\",\r\n    \"policies\": {   \r\n      \"dataSharePolicies\": {\r\n\t\t\"typeOfShare\": \"direct\",\r\n\t\t\"validForInMinutes\": \"30\",\r\n\t\t\"transactionsAllowed\": \"2\",\r\n\t\t\"encryptionType\": \"Partner Based\",\r\n\t\t\"shareDomain\": \"datashare-service\",\r\n\t\t\"source\": \"ID Repository\"\r\n      },\r\n      \"shareableAttributes\": [\r\n\t\t{\r\n\t\t\t\"attributeName\": \"fullName\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"fullName\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"language\": \"eng\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"dateOfBirth\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"dateOfBirth\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false,\r\n\t\t\t\"format\": \"YYYY\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"gender\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"gender\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"phone\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"phone\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"email\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"email\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine1\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine1\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine2\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine2\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine3\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine3\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"region\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"region\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"province\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"province\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"city\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"city\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"UIN\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"UIN\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"postalCode\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"postalCode\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"biometrics\",\r\n\t\t\t\"group\": \"CBEFF\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"individualBiometrics\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Face\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Finger\",\r\n\t\t\t\t\t\t\t\"subType\": [\r\n\t\t\t\t\t\t\t\t\"Left Thumb\",\r\n\t\t\t\t\t\t\t\t\"Right Thumb\"\r\n\t\t\t\t\t\t\t]\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": true,\r\n\t\t\t\"format\": \"extraction\"\r\n\t\t}\r\n\t]\r\n      \r\n    },\r\n    \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n    \"policyType\": \"DataShare\"\r\n  },\r\n  \"requesttime\": \"2018-12-10T06:12:52.994Z\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n    \"id\": \"string\",\r\n    \"version\": \"string\",\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"policyId\": \"{{datasharepolicyname}}\",\r\n        \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n        \"policyType\": \"Datashare\",\r\n        \"name\": \"{{datasharepolicyname}}\",\r\n        \"desc\": \"To Share Data\",\r\n        \"version\": \"1.0\",\r\n        \"policies\": {\r\n            \"shareableAttributes\": [\r\n                {\r\n                    \"attributeName\": \"fullName\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"fullName\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"dateOfBirth\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"dateOfBirth\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"gender\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"gender\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"phone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"phone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"email\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"email\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine1\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine1\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine2\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine2\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine3\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine3\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"region\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"region\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"province\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"province\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"city\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"city\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"postalCode\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"postalCode\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"zone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"zone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"preferredLang\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"preferredLang\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": false\r\n                },\r\n                {\r\n                    \"attributeName\": \"individualBiometrics\",\r\n                    \"group\": \"CBEFF\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"individualBiometrics\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true,\r\n                    \"format\": \"extraction\"\r\n                }\r\n            ],\r\n            \"dataSharePolicies\": {\r\n                \"typeOfShare\": \"Data Share\",\r\n                \"validForInMinutes\": \"30\",\r\n                \"transactionsAllowed\": \"2\",\r\n                \"encryptionType\": \"Partner Based\",\r\n                \"shareDomain\": \"datashare-service\",\r\n                \"source\": \"ID Repository\"\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3489,12 +5256,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -3568,6 +5335,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -3634,6 +5478,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -3674,6 +5595,83 @@
 										"mosip",
 										"roles",
 										"ONLINE_VERIFICATION_PARTNER"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -3770,6 +5768,55 @@
 							"response": []
 						},
 						{
+							"name": "Partner self registration",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    const {response} =pm.response.json();\r",
+											"    pm.environment.set('cppartnerid',response.partnerId);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{partneraddress}}\",\r\n    \"contactNumber\": \"{{partnercontact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"IITB\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"Online_Verification_Partner\",\r\n    \"policyGroup\": \"{{datasharepolicygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"LTS\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/partnermanager/partners",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"partnermanager",
+										"partners"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Authenticating as partner manager",
 							"event": [
 								{
@@ -3806,55 +5853,6 @@
 										"authmanager",
 										"authenticate",
 										"useridPwd"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Partner self registration",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"postman.setEnvironmentVariable('requesttime', (new Date()).toISOString());"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"    const {response} =pm.response.json();\r",
-											"    pm.environment.set('cppartnerid',response.partnerId);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{address}}\",\r\n    \"contactNumber\": \"{{contact}}\",\r\n    \"emailId\": \"{{partneremail}}\",\r\n    \"organizationName\": \"IITB\",\r\n    \"partnerId\": \"{{partnerid}}\",\r\n    \"partnerType\": \"Credential_Partner\",\r\n    \"policyGroup\": \"{{datasharepolicygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"LTS\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{url}}/v1/partnermanager/partners",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"v1",
-										"partnermanager",
-										"partners"
 									]
 								}
 							},
@@ -3939,7 +5937,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercertificate}}\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercertificate}},\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3965,15 +5963,12 @@
 						},
 						{
 							"name": "Uploading signed cert back to ida",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"version\": \"string\",\r\n  \"requesttime\": \"2022-02-09T12:29:27.054Z\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"applicationId\": \"IDA\",\r\n    \"referenceId\": \"{{partnerid}}\",\r\n    \"certificateData\": \"{{signedpartnercert}}\"\r\n  }\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"version\": \"string\",\r\n  \"requesttime\": \"\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"applicationId\": \"IDA\",\r\n    \"referenceId\": \"{{partnerid}}\",\r\n    \"certificateData\": {{signedpartnercert}}\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4177,7 +6172,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"version\": \"string\",\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"policyName\": \"{{policyname}}\",\r\n    \"label\": \"{{label}}\"\r\n  }\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"version\": \"string\",\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"policyName\": \"{{datasharepolicyname}}\",\r\n    \"label\": \"{{label}}\"\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4323,7 +6318,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"desc\": \"Data Share Policy1\",\r\n    \"name\": \"{{datasharepolicyname}}\",\r\n    \"policies\": {   \r\n      \"dataSharePolicies\": {\r\n\t\t\"typeOfShare\": \"direct\",\r\n\t\t\"validForInMinutes\": \"30\",\r\n\t\t\"transactionsAllowed\": \"2\",\r\n\t\t\"encryptionType\": \"Partner Based\",\r\n\t\t\"shareDomain\": \"datashare-service\",\r\n\t\t\"source\": \"ID Repository\"\r\n      },\r\n      \"shareableAttributes\": [\r\n\t\t{\r\n\t\t\t\"attributeName\": \"fullName\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"fullName\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"language\": \"eng\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"dateOfBirth\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"dateOfBirth\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false,\r\n\t\t\t\"format\": \"YYYY\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"gender\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"gender\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"phone\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"phone\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"email\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"email\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine1\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine1\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine2\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine2\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine3\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine3\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"region\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"region\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"province\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"province\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"city\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"city\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"UIN\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"UIN\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"postalCode\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"postalCode\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"biometrics\",\r\n\t\t\t\"group\": \"CBEFF\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"individualBiometrics\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Face\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Finger\",\r\n\t\t\t\t\t\t\t\"subType\": [\r\n\t\t\t\t\t\t\t\t\"Left Thumb\",\r\n\t\t\t\t\t\t\t\t\"Right Thumb\"\r\n\t\t\t\t\t\t\t]\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": true,\r\n\t\t\t\"format\": \"extraction\"\r\n\t\t}\r\n\t]\r\n      \r\n    },\r\n    \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n    \"policyType\": \"DataShare\"\r\n  },\r\n  \"requesttime\": \"2018-12-10T06:12:52.994Z\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n    \"id\": \"string\",\r\n    \"version\": \"string\",\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"policyId\": \"{{datasharepolicyname}}\",\r\n        \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n        \"policyType\": \"Datashare\",\r\n        \"name\": \"{{datasharepolicyname}}\",\r\n        \"desc\": \"To Share Data\",\r\n        \"version\": \"1.0\",\r\n        \"policies\": {\r\n            \"shareableAttributes\": [\r\n                {\r\n                    \"attributeName\": \"fullName\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"fullName\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"dateOfBirth\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"dateOfBirth\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"gender\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"gender\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"phone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"phone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"email\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"email\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine1\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine1\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine2\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine2\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine3\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine3\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"region\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"region\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"province\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"province\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"city\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"city\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"postalCode\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"postalCode\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"zone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"zone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"preferredLang\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"preferredLang\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": false\r\n                },\r\n                {\r\n                    \"attributeName\": \"individualBiometrics\",\r\n                    \"group\": \"CBEFF\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"individualBiometrics\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true,\r\n                    \"format\": \"extraction\"\r\n                }\r\n            ],\r\n            \"dataSharePolicies\": {\r\n                \"typeOfShare\": \"Data Share\",\r\n                \"validForInMinutes\": \"30\",\r\n                \"transactionsAllowed\": \"2\",\r\n                \"encryptionType\": \"Partner Based\",\r\n                \"shareDomain\": \"datashare-service\",\r\n                \"source\": \"ID Repository\"\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4464,12 +6459,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -4543,6 +6538,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -4609,6 +6681,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -4649,6 +6798,83 @@
 										"mosip",
 										"roles",
 										"CREDENTIAL_ISSUANCE"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -4853,7 +7079,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{cacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4896,7 +7122,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{intercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4950,7 +7176,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercert}}\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5371,7 +7597,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"desc\": \"Data Share Policy1\",\r\n    \"name\": \"{{datasharepolicyname}}\",\r\n    \"policies\": {   \r\n      \"dataSharePolicies\": {\r\n\t\t\"typeOfShare\": \"direct\",\r\n\t\t\"validForInMinutes\": \"30\",\r\n\t\t\"transactionsAllowed\": \"2\",\r\n\t\t\"encryptionType\": \"Partner Based\",\r\n\t\t\"shareDomain\": \"datashare-service\",\r\n\t\t\"source\": \"ID Repository\"\r\n      },\r\n      \"shareableAttributes\": [\r\n\t\t{\r\n\t\t\t\"attributeName\": \"fullName\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"fullName\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"language\": \"eng\"\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"dateOfBirth\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"dateOfBirth\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false,\r\n\t\t\t\"format\": \"YYYY\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"gender\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"gender\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"phone\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"phone\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"email\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"email\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine1\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine1\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine2\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine2\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"addressLine3\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"addressLine3\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"region\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"region\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"province\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"province\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"city\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"city\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"UIN\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"UIN\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"postalCode\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"postalCode\"\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"attributeName\": \"biometrics\",\r\n\t\t\t\"group\": \"CBEFF\",\r\n\t\t\t\"source\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"attribute\": \"individualBiometrics\",\r\n\t\t\t\t\t\"filter\": [\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Face\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\"type\": \"Finger\",\r\n\t\t\t\t\t\t\t\"subType\": [\r\n\t\t\t\t\t\t\t\t\"Left Thumb\",\r\n\t\t\t\t\t\t\t\t\"Right Thumb\"\r\n\t\t\t\t\t\t\t]\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t]\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t\"encrypted\": true,\r\n\t\t\t\"format\": \"extraction\"\r\n\t\t}\r\n\t]\r\n      \r\n    },\r\n    \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n    \"policyType\": \"DataShare\"\r\n  },\r\n  \"requesttime\": \"2018-12-10T06:12:52.994Z\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n    \"id\": \"string\",\r\n    \"version\": \"string\",\r\n    \"requesttime\": \"{{requesttime}}\",\r\n    \"metadata\": {},\r\n    \"request\": {\r\n        \"policyId\": \"{{datasharepolicyname}}\",\r\n        \"policyGroupName\": \"{{datasharepolicygroupname}}\",\r\n        \"policyType\": \"Datashare\",\r\n        \"name\": \"{{datasharepolicyname}}\",\r\n        \"desc\": \"To Share Data\",\r\n        \"version\": \"1.0\",\r\n        \"policies\": {\r\n            \"shareableAttributes\": [\r\n                {\r\n                    \"attributeName\": \"fullName\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"fullName\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"dateOfBirth\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"dateOfBirth\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"gender\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"gender\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"phone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"phone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"email\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"email\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine1\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine1\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine2\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine2\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"addressLine3\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"addressLine3\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"region\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"region\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"province\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"province\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"city\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"city\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"postalCode\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"postalCode\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"zone\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"zone\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true\r\n                },\r\n                {\r\n                    \"attributeName\": \"preferredLang\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"preferredLang\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": false\r\n                },\r\n                {\r\n                    \"attributeName\": \"individualBiometrics\",\r\n                    \"group\": \"CBEFF\",\r\n                    \"source\": [\r\n                        {\r\n                            \"attribute\": \"individualBiometrics\"\r\n                        }\r\n                    ],\r\n                    \"encrypted\": true,\r\n                    \"format\": \"extraction\"\r\n                }\r\n            ],\r\n            \"dataSharePolicies\": {\r\n                \"typeOfShare\": \"Data Share\",\r\n                \"validForInMinutes\": \"30\",\r\n                \"transactionsAllowed\": \"2\",\r\n                \"encryptionType\": \"Partner Based\",\r\n                \"shareDomain\": \"datashare-service\",\r\n                \"source\": \"ID Repository\"\r\n            }\r\n        }\r\n    }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5512,12 +7738,12 @@
 										},
 										{
 											"key": "username",
-											"value": "{{kcusername}}",
+											"value": "{{keycloakusername}}",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "{{kcpassword}}",
+											"value": "{{keycloakpassword}}",
 											"type": "text"
 										}
 									]
@@ -5591,6 +7817,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting partner's userid",
 							"event": [
 								{
@@ -5657,6 +7960,83 @@
 							"response": []
 						},
 						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Getting the required role id",
 							"event": [
 								{
@@ -5697,6 +8077,83 @@
 										"mosip",
 										"roles",
 										"CREDENTIAL_ISSUANCE"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Getting keycloak token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"//var data = JSON.stringify(jsonData);\r",
+											"console.log(jsonData.access_token);\r",
+											"pm.environment.set(\"keycloaktoken\", jsonData.access_token);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "admin-cli",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "{{keycloakusername}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "{{keycloakpassword}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{kcurl}}/auth/realms/master/protocol/openid-connect/token",
+									"host": [
+										"{{kcurl}}"
+									],
+									"path": [
+										"auth",
+										"realms",
+										"master",
+										"protocol",
+										"openid-connect",
+										"token"
 									]
 								}
 							},
@@ -5901,7 +8358,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{cacert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{cacert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5944,7 +8401,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{intercert}}\",\r\n    \"partnerDomain\": \"Auth\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
+									"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{intercert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5998,7 +8455,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":\"{{partnercert}}\",\r\n    \"partnerDomain\": \"Auth\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{partnercert}},\r\n    \"partnerDomain\": \"AUTH\",\r\n    \"partnerId\": \"{{partnerid}}\"\r\n \r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
