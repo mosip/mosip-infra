@@ -129,7 +129,7 @@ Below are the necessary certificate exchange in Mosip.
 * The steps for the print certificate exchange is mentoned there in [printcert.md](docs/printcert.md)
 * The steps for the MDS device and FTM certificate exchange is mentoned there in [MDSdevicecert.md](docs/MDSdevicecert.md)
 
-- Also we have a complete postman collection containing all the api's as mentioned abive we just need to update the Domain name an dfollow the instructions in the above docs. The collection is stored in [utils](utils/postman_collection/cert)
+- Also we have a complete postman collection containing all the api's as mentioned abive we just need to update the Domain name an dfollow the instructions in the above docs. The collection is stored in [utils](utils/postman_collection/Automated_collections)
 
 ## Dashboards
 The links to various dashboards are available at 
