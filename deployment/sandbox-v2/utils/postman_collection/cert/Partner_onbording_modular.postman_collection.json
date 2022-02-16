@@ -1293,7 +1293,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{partnerid}}",
+									"raw": "{{kcurl}}/auth/admin/realms/mosip/users?username={{MISPpartnerid}}",
 									"host": [
 										"{{kcurl}}"
 									],
