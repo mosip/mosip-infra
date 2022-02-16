@@ -1307,7 +1307,7 @@
 									"query": [
 										{
 											"key": "username",
-											"value": "{{partnerid}}"
+											"value": "{{MISPpartnerid}}"
 										}
 									]
 								}
@@ -1478,7 +1478,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{MISPaddress}}\",\r\n    \"contactNumber\": \"{{MISPcontact}}\",\r\n    \"emailId\": \"{{MISPpartneremail}}\",\r\n    \"organizationName\": \"{{MISPpartnerid}}\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\",\r\n    \"partnerType\": \"Misp_Partner\",\r\n    \"policyGroup\": \"{{policygroupname}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
+									"raw": "{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"address\": \"{{MISPaddress}}\",\r\n    \"contactNumber\": \"{{MISPcontact}}\",\r\n    \"emailId\": \"{{MISPpartneremail}}\",\r\n    \"organizationName\": \"{{MISPpartnerid}}\",\r\n    \"partnerId\": \"{{MISPpartnerid}}\",\r\n    \"partnerType\": \"Misp_Partner\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
