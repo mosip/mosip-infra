@@ -10,10 +10,10 @@ To know more about postman and its usage, you can click [here](https://www.postm
 * There is another postman_enviornment.collection, which can be imported as well. This collection already contains all the required variables, however the user needs to change the variable values as per requirement and usage.
 
 ## Automated_Certificate_Upload
-This collection is meant to upload all the certificates which are needed just after deployment for the modules.
-.We upload IDA module crtificates,Resident Module certificates ,Print module and Abis module certificates through this collection.
-.The collection is set in such a way that the user only has to set the url/baseurl value as a variable in postman and rest of the things will be taken care of by the postman.
-For example:
+* This collection is meant to upload all the certificates which are needed just after deployment for the modules.
+* We upload IDA module crtificates, Resident Module certificates, Print module and Abis module certificates through this collection.
+* The collection is set in such a way that the user only has to set the url/baseurl value as a variable in postman and rest of the things will be taken care of by the postman.
+* For example:
 In the second step:
 Get IDA internal Root certificate, after getting the certificate in response, the user doesn’t have to copy or store it anywhere, it will be auto stored as {{rootcert}} in postman variables.
 
@@ -40,7 +40,3 @@ For example, while Onboarding Device_provider partner
 * After successful upload admin will share a mosip-signed certificate back to the partner, which partner can use for mosip-related trust validation.
 
 Note- There is another variable collection shared in mosip-infra which needs to be imported to postman, that collection contains all the required variables and it has to be changed as per requirement.
-
-
-
-
