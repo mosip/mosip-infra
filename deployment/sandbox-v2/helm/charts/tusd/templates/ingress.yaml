@@ -8,12 +8,14 @@ metadata:
     nginx.com/health-checks: "true"
 spec:
   rules:
-  - http:
-      paths:
-      - path: /files/
-        pathType: ImplementationSpecific
-          service:
-            name: {{ .Values.docker.service }}
-            port: 
-              number: 80
+    - http:
+        paths:
+          - path: /files/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{.Values.docker.service}}
+                port:
+                  number: 80
+
 
