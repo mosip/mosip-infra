@@ -31,6 +31,13 @@
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
+- name: Comment import IO in certbot/crypto_util.py
+  replace:
+    path: '{{ansible_env.HOME}}/.venv-py3/lib/python3.6/site-packages/certbot/crypto_util.py'
+    regexp: 'from acme.magic_typing import IO'
+    replace: '#from acme.magic_typing import IO'
+    backup: yes
+
 - name: run certbot 
   shell: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '
   become: yes
