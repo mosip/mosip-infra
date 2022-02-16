@@ -3,8 +3,8 @@
 
 - hosts: console
   vars:
-    kube_config: '{{clusters.mz.kube_config}}' 
-    install_name: 'tusd'
+    kube_config: '{{clusters.dmz.kube_config}}'
+    install_name: 'tusd-server'
     helm_chart: '{{charts_root}}/tusd'
     is_template: true  
     helm_namespace: default

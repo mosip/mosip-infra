@@ -1,7 +1,7 @@
-name: tusd
+name: tusd-server
 docker:
-  service: tusd
-  image: tusproject/tusd:v1.8.0
+  service: {{ versions.services.tusd.service.keys()[0] }}
+  image: {{ versions.services.tusd.service.values()[0] }}
 imagePullPolicy: Always
 
 dockerHub:
@@ -12,7 +12,7 @@ services:
   tusd:
     podconfig:
       {{ podconfig.tusd.service | to_nice_yaml(indent=6) | indent(6) }}
-    containerPort: 8080
+    containerPort: 1080
     servicePort: 80
 exportLogs: enabled  # Let filebeat export the logs
 

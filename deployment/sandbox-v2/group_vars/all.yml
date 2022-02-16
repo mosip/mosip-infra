@@ -298,11 +298,6 @@ ida1:
   helm_strings: ''
   activeProfileEnv: 'mz1'
 
-mock_abis:
-  nfs_path: '{{nfs.folder}}/test-mock-abis/'
-  p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
-  prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
-
 repos:
   commons:
     src: https://github.com/mosip/commons 

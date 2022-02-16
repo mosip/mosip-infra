@@ -10,9 +10,8 @@ spec:
   rules:
   - http:
       paths:
-      - path: /tusd
+      - path: /files/
         pathType: ImplementationSpecific
-        backend:
           service:
             name: {{ .Values.docker.service }}
             port: 

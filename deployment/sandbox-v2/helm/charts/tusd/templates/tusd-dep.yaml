@@ -29,7 +29,6 @@ spec:
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
         - containerPort: {{ .Values.services.tusd.containerPort }}
-
         readinessProbe:
           tcpSocket:
             port: {{  .Values.services.tusd.containerPort }}
