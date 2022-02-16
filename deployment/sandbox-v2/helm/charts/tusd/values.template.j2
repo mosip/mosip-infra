@@ -1,7 +1,7 @@
-name: tusd
+name: tusd-server
 docker:
-  service: tusd
-  image: anushas/tusd-test:latest
+  service: {{ versions.services.tusd.service.keys()[0] }}
+  image: {{ versions.services.tusd.service.values()[0] }}
 imagePullPolicy: Always
 
 dockerHub:

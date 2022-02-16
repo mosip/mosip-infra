@@ -167,3 +167,7 @@ versions:
     mosip_file_server:
       service:
         'mosip_file_server': 'mosipdev/mosip-file-server:develop'
+
+    tusd:
+      service:
+        'tusd-server': 'mosipdev/tusd-server:develop'
