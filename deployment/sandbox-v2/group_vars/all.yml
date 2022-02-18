@@ -13,7 +13,7 @@ artifactory_url: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox.mosip.net
+sandbox_domain_name: web.niraregistry.xyz
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
@@ -34,7 +34,7 @@ ssl:
       csr: '/etc/ssl/csr/nginx-selfsigned.csr'
     letsencrypt:
       get_certificate: true  # get a fresh certificate for the domain using Letsencrypt
-      email: info@mosip.io
+      email: okumfranq@gmail.com
       certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
       certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 
