@@ -20,7 +20,7 @@ PUBLIC=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 INTERNAL=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 echo Public domain: $PUBLIC
 echo Internal dome: $INTERNAL
-helm -n istio-system install istio-addons chart/istio-addons --set publicHost=$PUBLIC --set internalHost=$INTERNAL
+helm -n istio-system install istio-addons chart/istio-addons --set publicHost=$PUBLIC --set internalHost=$INTERNAL --set proxyProtocol.enabled=false
 
 echo ------ IMPORTANT ---------
 echo If you already have pods running with envoy sidecars, restart all of them NOW.  Check if all of them appear with command "istioctl proxy-status"

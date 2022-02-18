@@ -41,6 +41,9 @@ spec:
       - name: istio-ingressgateway
         enabled: true
         k8s:
+          env:
+            name: ISTIO_META_IDLE_TIMEOUT
+            value: 300s
           serviceAnnotations:
             service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
             service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
@@ -49,6 +52,9 @@ spec:
         label:
             istio: ingressgateway-internal
         k8s:
+          env:
+            name: ISTIO_META_IDLE_TIMEOUT
+            value: 300s
           serviceAnnotations:
             service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
             service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
