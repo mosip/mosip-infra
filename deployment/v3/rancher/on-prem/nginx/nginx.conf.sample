@@ -63,7 +63,7 @@ http {
     #include /etc/nginx/sites-enabled/*;
 
     upstream myrancherserver {
-      <rancher-nodeport-of-all-nodes>
+        <rancher-nodeport-of-all-nodes>
     }
 
     ssl_certificate <rancher-ssl-certificate>;
