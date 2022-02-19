@@ -1,2 +1,5 @@
 internalHost: api-internal.sandbox.xyz.net
 publicHost: api.sandbox.xyz.net
+proxyProtocol:
+  enabled: true
+
