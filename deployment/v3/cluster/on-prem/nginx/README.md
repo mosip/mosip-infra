@@ -26,7 +26,7 @@
 ```
 * To install only wireguard:
 ```
-# WG_DIR=$HOME ./install.shs wg
+# WG_DIR=$HOME ./install.sh wg
 ```
 <details>
   <summary>For non debian based OSes</summary>
