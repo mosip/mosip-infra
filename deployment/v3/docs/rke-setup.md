@@ -1,4 +1,4 @@
-# RKE Cluster Creation and Updates with On-prem Ubuntu VM's
+# RKE Cluster Creation 
 
 ## Create Cluster with RKE
 
@@ -37,10 +37,7 @@
   - Any combination of `controlplane, etcd, worker` roles can be used for any nodes.
   - Use default Canal networking model
   - Keep the Pod Security Policies disabled.
-
-    <details>
-      <summary>Sample configuration Options</summary>
-
+  - Sample configuration options:
       ```
       [+] Cluster Level SSH Private Key Path [~/.ssh/id_rsa]:
       [+] Number of Hosts [1]:
@@ -68,14 +65,13 @@
       [+] Cluster DNS Service IP [10.43.0.10]:
       [+] Add addon manifest URLs or YAML files [no]:
       ```
-    </details><br/>
   - After the above command edit any other changes to `cluster.yml` in current folder.
   - If you don't want the default ingress controller installed (default is not recommended), edit `ingress` section of the `cluster.yml`.
     ```
     ingress:
       provider: none
     ```
-  - [IMPORTANT] Furthermore edit the cluster.yml, according this [rke cluster hardening document](./rke_cluster_hardening.md)
+  - [IMPORTANT] Furthermore edit the `cluster.yml`, according to this [rke cluster hardening document](./rke_cluster_hardening.md)
 - Open these Inbound ports for all the nodes or add the rule to the common network security group. [this](https://rancher.com/docs/rancher/v2.6/en/installation/requirements/ports/#rancher-aws-ec2-security-group).
 - Bring up the cluster, with the given cluster.yml: `rke up`
 - Once `rke up` is done, cluster is setup. Yayy. It will give a `kube_config_cluster.yaml`. Copy that into your `$HOME/.kube/` directory and set proper permissions.
@@ -89,7 +85,7 @@
   ```
 - Try if kubectl is actually working. `kc get nodes`
 
-## 2. Adding new nodes to cluster.
+##  Adding new nodes to cluster.
 
 * Copy the ssh keys to the new nodes.
   ```
