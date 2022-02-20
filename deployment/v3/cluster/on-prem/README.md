@@ -37,31 +37,22 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
   ```
 
 ## Global configmap
-
 * Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
 * Update the domain names in `../global_configmap.yaml` and run
 ```
 kubectl apply -f ../global_configmap.yaml
 ```
 
-## Nginx loadbalancer / Reverse Proxy
-
+## Nginx + Wireguard 
 * Install [Nginx Reverse Proxy](./nginx/) on a seperate machine/VM, that proxies traffic to the above ingressgateways.
 
-## Wireguard bastion setup
-
-* Install [Wireguard Bastion Host](../../docs/wireguard_bastion.md) on a seperate machine/VM.
-
 ## DNS mapping
-
 * Point your domain names to respective public IP or internal ip of the nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and to your global configmap, to co-relate the mappings.
 
 ## Httpbin
-
 * Install httpbin as given [here](../../utils/httpbin/README.md) for testing the wiring.
 
 ## Register the cluster with Rancher
-
 * This section is for integrating the newly created mosip cluster with rancher.
 * Assuming a rancher cluster is already installed, open that Rancher dashboard. Click on add cluster on top right.
 * In the cluster type selection screen, at the top, there is an option to "import any other kubernetes cluster", select that.
