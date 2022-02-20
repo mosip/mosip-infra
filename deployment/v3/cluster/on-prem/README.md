@@ -6,16 +6,14 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 ![Architecture](../../docs/images/deployment_architecture.png)
 
 ## Prerequisites
-- [Hardware requirements](./requirements.md#Hardware-requirements).
-- [Network configuration requirements](./requirements.md#Network-configuration).
-- [Certificate requirements](./requirements.md#Certificate-requirements).
-- [Rancher](../../rancher) installed.
-- Following command line utilities installed:
+- [Hardware, network, certificate requirements](./requirements.md).
+- [Rancher](../../rancher).
+- Command line utilities:
   - `kubectl`
   - `helm`
   - `rke`
   - `istioctl`
-- Following Helm repos added:
+- Helm repos:
   ```sh
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add mosip https://mosip.github.io/mosip-helm
