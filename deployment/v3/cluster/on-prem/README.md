@@ -27,7 +27,7 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 * Navigate to [istio](./istio/) folder in the same directory.
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
   ```
-  KUBECONFIG="$HOME/.kube/mosip_cluster.config"
+  export KUBECONFIG="$HOME/.kube/mosip_cluster.config"
   ./install.sh
   ```
 * This will bring up all istio components and the ingress-gateways.
