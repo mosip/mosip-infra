@@ -8,7 +8,7 @@
 ./pre_install.sh
 ```
 ## Longhorn
-* Install using Rancher UI as given [here](https://longhorn.io/docs/latest/deploy/install/install-with-rancher/)).
+* Install using Rancher UI as given [here](https://longhorn.io/docs/latest/deploy/install/install-with-rancher/).
 * Make sure you disable default storage class flag before installing on Cloud.
 	```
 	$ kubectl patch storageclass longhorn -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
