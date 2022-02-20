@@ -21,43 +21,41 @@ This is a guide to set up on-prem Kubernetes cluster that will host all the MOSI
 
 ## Cluster setup
 * Set up VMs.
-* Using this [RKE Cluster Creation](../../docs/rke-setup.md) document, create a K8s cluster.
+* Create Kubernetes cluster as given in [RKE Cluster Creation](../../docs/rke-setup.md) document.
 
 ## Istio for service discovery and ingress
-* Navigate to [istio](./istio/) folder in the same directory.
+* Navigate to [istio](./istio/) folder in this directory.
 * Edit the `install.sh` and `iop.yaml` accordingly and install it.
   ```
   export KUBECONFIG="$HOME/.kube/mosip_cluster.config"
   ./install.sh
   ```
-* This will bring up all istio components and the ingress-gateways.
-* Check inressgateway services using;
+* This will bring up all Istio components and the Ingress Gateways.
+* Check Ingress Gateway services using;
   ```
   kubectl get svc -n istio-system
   ```
 
 ## Global configmap
-* Copy `../global_configmap.yaml.sample` to `../global_configmap.yaml`  
-* Update the domain names in `../global_configmap.yaml` and run
-```
-kubectl apply -f ../global_configmap.yaml
+* `cd ../`
+* Copy `global_configmap.yaml.sample` to `global_configmap.yaml`
+* Update the domain names in `global_configmap.yaml` and run
+```sh
+kubectl apply -f global_configmap.yaml
 ```
 
 ## Nginx + Wireguard 
-* Install [Nginx Reverse Proxy](./nginx/) on a seperate machine/VM, that proxies traffic to the above ingressgateways.
+* Install [Nginx Reverse Proxy](./nginx/) on a seperate machine/VM, that proxies traffic to the above Ingress Gateways.
 
 ## DNS mapping
-* Point your domain names to respective public IP or internal ip of the nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and to your global configmap, to co-relate the mappings.
+* Point your domain names to respective public IP or internal IP of the Nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and your `global_configmap.yaml` to correlate the mappings.
 
 ## Httpbin
-* Install httpbin as given [here](../../utils/httpbin/README.md) for testing the wiring.
+* Install [`httpbin`](../../utils/httpbin/README.md) for testing the wiring.
 
 ## Register the cluster with Rancher
-* This section is for integrating the newly created mosip cluster with rancher.
-* Assuming a rancher cluster is already installed, open that Rancher dashboard. Click on add cluster on top right.
-* In the cluster type selection screen, at the top, there is an option to "import any other kubernetes cluster", select that.
-* That should give two commands to run on the new cluster (the mosip cluster). After running those, the new cluster should be integrated into Rancher.
+Add the newly created cluster to [Rancher Management Server](../../rancher/README.md) as given [here](https://rancher.com/docs/rancher/v2.6/en/cluster-provisioning/registered-clusters/).
 * Add members, atleast one as Owner.
 
 ## Longhorn
-* Install Longhorn as given [here](../longhorn/README.md) for persistent storage.
+* Install [Longhorn](../longhorn/README.md) for persistent storage.
