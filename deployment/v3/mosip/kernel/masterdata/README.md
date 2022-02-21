@@ -20,7 +20,7 @@ TODO: Check if below are needed
 ## Run
 1. Checkout `mosip-data` repo at location of your choice:
     ```
-    git clone https://github.com/mosip/mosip-data -b lts
+    git clone https://github.com/mosip/mosip-data -b develop 
     ```
 1. 
     ```sh
