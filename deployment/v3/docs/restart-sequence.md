@@ -1,4 +1,4 @@
-# Restart Sequence of mosip services
+# Restart Sequence of MOSIP Services 
 
 1. activemq
 2. artifactory

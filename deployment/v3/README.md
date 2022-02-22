@@ -30,4 +30,4 @@ Following install sequence is recommended:
 * [Reporting](reporting/README.md)
 
 ## Production hardening
-Refer to [production hardening checklist](docs/production_checklist.md).
+Refer to [production hardening checklist](docs/production-checklist.md).

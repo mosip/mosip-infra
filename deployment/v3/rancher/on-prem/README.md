@@ -17,4 +17,4 @@
 * Install [nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
 
 ## Wireguard Bastion Host
-* Install [Wireguard Bastion Host](../../docs/wireguard_bastion.md) on a seperate node/VM.
+* Install [Wireguard Bastion Host](../../docs/wireguard-bastion.md) on a seperate node/VM.

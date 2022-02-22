@@ -7,7 +7,7 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 ### Prerequisites
 * AWS account and credentials with permissions to create EKS cluster.
 * AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
-* [Wireguard bastion host setup](../docs/wireguard_bastion.md).
+* [Wireguard bastion host setup](../docs/wireguard-bastion.md).
 * Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)._
 * [`eksctl`](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) utility.
 * `kubectl` utility installed.
