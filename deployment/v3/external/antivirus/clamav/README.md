@@ -1,6 +1,9 @@
 # ClamAV
 
-ClamAV is open source antivirus software. We provide a helm chart to install ClamAV. The same may be used for development and testing; for production deployments you may need to use a production-grade antivirus software.
+## Overivew
+[ClamAV](https://www.clamav.net/) is an open source antivirus software. We install the [wiremind](https://wiremind.github.io/wiremind-helm-charts) helm chart here. The docker image has been updated to official image as updated in [`values.yaml`](values.yaml) file.
+
+The same may be used for development and testing; for production deployments you may need a production-grade antivirus software.
 
 ## Install
 * Update `replicaCount` and docker image (if required).
