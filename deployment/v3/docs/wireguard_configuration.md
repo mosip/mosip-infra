@@ -1,49 +1,40 @@
 # Wireguard Documentation
 
 
-## 1. Login via ssh
+## Steps to configure wireguard
 
-* Login to wireguard instance via ssh
+1. Login to the wireguard instance via ssh.
    ```
     ssh -i mosip-aws.pem ubuntu@3.7.248.153
    ```
-
-## 2. list files
-
-* List files
-   ```
-   ls
-   ```
-
-## 3. Open assigned.txt file
-* To assign the peer
-   ```
-   vim assigned.txt
-   ```
-
-## 4. Add the peers with name as below
-* Write the name of the peer
-   ```
-   peer1 : XYZ
-   ```
-
-## 5. Change directory
-* Change directory
-   ```
-     cd config
-   ```
-## 6. List peers
-* List peers
+2. Use `ls` cmd to see the list of files.
    ```
      ls
    ```
+3. From the list, open `assigned.txt` file to assign the peer.
+   ```
+   vim assigned.txt
+   ```
+4. Add the peers with name as mentioned below.
+   ```
+   peer1 : peername
+   ```
+5. Change the directory to `config`.
+   ```
+     cd config
+   ```
+6. Use `ls` cmd to see the list of peers.
 
-## 7. Change directory
-* Change directory (whichever the peer you have assigned in the assigned.txt file)
+7. Change the directory to a particular peer which has been chosen in step4.
    ```
      cd peer1 
    ```
+8. In this directory, list files and open `peer1.conf` file.
    ```
-     vi peer1.conf file
-     Delete DNS IP, then update allowed IP's(subnet ip of AWS), and then share the conf file with the peer.
+     vim peer1.conf file
+   ```
+9. In the `peer1.conf` file,
+* delete the DNS IP
+* update the allowed IP's(subnet IP of AWS)
+* share the conf file with the peer
 
