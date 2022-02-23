@@ -1,0 +1,8 @@
+
+## Increase in production
+replicaCount: 1
+## We are using official clamav docker instead of mailu/clamav that was present originally
+image:
+  repository: clamav/clamav
+  tag: latest
+  pullPolicy: Always
