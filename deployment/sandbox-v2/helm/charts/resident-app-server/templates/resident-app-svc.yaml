@@ -1,76 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: {{ .Values.services.resident.serviceName }}
+  name: {{ .Values.services.resident-app-server.serviceName }}
   namespace: {{ .Release.Namespace }}
-  labels:
-    app: {{ .Values.services.resident.serviceName }}
-    component: {{ .Values.component }}
-
 spec:
-  replicas: {{ .Values.services.resident.podconfig.replicas }}
+  ports:
+    - port: {{ .Values.services.resident-app-server.ports.servicePort }}
+      targetPort: {{ .Values.services.resident-app-server.ports.containerPort }}
   selector:
-    matchLabels:
-      app: {{ .Values.services.resident.serviceName }}
-  minReadySeconds: {{ .Values.services.resident.podconfig.minReadySeconds }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: {{ .Values.services.resident.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.resident.podconfig.maxSurge }}
-  template:
-    metadata:
-      annotations:
-        prometheus.io/path: {{ .Values.services.resident.annotation }}
-        prometheus.io/port: {{ .Values.services.resident.ports.containerPort | quote }}
-        prometheus.io/scrape: "'true'"
-      labels:
-        app: {{ .Values.services.resident.serviceName }}
-        component: {{ .Values.component }}
-        exportLogs: {{ .Values.exportLogs }}
-    spec:
-      {{- include "dockerHubSecret" .  | indent 6}}
-      containers:
-        - name: {{ .Values.services.resident.serviceName }}
-          image: {{ .Values.services.resident.dockerImage }}
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
-          {{ $resources := .Values.services.resident.podconfig.resources }}
-          {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
-          env:
-            - name: active_profile_env
-              value: {{ .Values.activeProfileEnv }}
-            - name: spring_config_label_env
-              value: {{ .Values.springConfigLabel }}
-            - name: spring_config_url_env
-              value: {{ .Values.configServerUrl }}
-            - name: artifactory_url_env
-              value: {{ .Values.artifactoryUrl }}
-            - name: is_glowroot_env
-              value: {{ .Values.isGlowroot }}
-            - name: iam_adapter_url_env
-              value: {{ .Values.iamAdapterUrl }}
-          ports:
-            - containerPort: {{ .Values.services.resident.ports.containerPort }}
-          readinessProbe:
-            httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
-            periodSeconds: {{ .Values.probe.period }}
-            timeoutSeconds: {{ .Values.probe.timeout }}
-            failureThreshold: {{ .Values.probe.failureThreshold }}
-          livenessProbe:
-            httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
-            periodSeconds: {{ .Values.probe.livenessPeriod }}
-            timeoutSeconds: {{ .Values.probe.timeout }}
-            failureThreshold: {{ .Values.probe.failureThreshold }}
-          startupProbe:
-            httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
-            failureThreshold: {{ .Values.probe.failureThreshold }}
-            periodSeconds: {{ .Values.probe.startupPeriod }}
-            timeoutSeconds: {{ .Values.probe.timeout }}
-            initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
-
+    app: {{ .Values.services.resident-app-server.serviceName }}

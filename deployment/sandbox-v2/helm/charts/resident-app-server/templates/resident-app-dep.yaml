@@ -1,40 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.services.resident.serviceName }}
+  name: {{ .Values.services.resident-app-server.serviceName }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ .Values.services.resident.serviceName }}
+    app: {{ .Values.services.resident-app-server.serviceName }}
     component: {{ .Values.component }}
 
 spec:
-  replicas: {{ .Values.services.resident.podconfig.replicas }}
+  replicas: {{ .Values.services.resident-app-server.podconfig.replicas }}
   selector:
     matchLabels:
-      app: {{ .Values.services.resident.serviceName }}
-  minReadySeconds: {{ .Values.services.resident.podconfig.minReadySeconds }}
+      app: {{ .Values.services.resident-app-server.serviceName }}
+  minReadySeconds: {{ .Values.services.resident-app-server.podconfig.minReadySeconds }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: {{ .Values.services.resident.podconfig.maxUnavailable }}
-      maxSurge: {{ .Values.services.resident.podconfig.maxSurge }}
+      maxUnavailable: {{ .Values.services.resident-app-server.podconfig.maxUnavailable }}
+      maxSurge: {{ .Values.services.resident-app-server.podconfig.maxSurge }}
   template:
     metadata:
       annotations:
-        prometheus.io/path: {{ .Values.services.resident.annotation }}
-        prometheus.io/port: {{ .Values.services.resident.ports.containerPort | quote }}
+        prometheus.io/path: {{ .Values.services.resident-app-server.annotation }}
+        prometheus.io/port: {{ .Values.services.resident-app-server.ports.containerPort | quote }}
         prometheus.io/scrape: "'true'"
       labels:
-        app: {{ .Values.services.resident.serviceName }}
+        app: {{ .Values.services.resident-app-server.serviceName }}
         component: {{ .Values.component }}
         exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
       containers:
-        - name: {{ .Values.services.resident.serviceName }}
-          image: {{ .Values.services.resident.dockerImage }}
+        - name: {{ .Values.services.resident-app-server.serviceName }}
+          image: {{ .Values.services.resident-app-server.dockerImage }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
-          {{ $resources := .Values.services.resident.podconfig.resources }}
+          {{ $resources := .Values.services.resident_app_server.podconfig.resources }}
           {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
           env:
             - name: active_profile_env
@@ -50,25 +50,25 @@ spec:
             - name: iam_adapter_url_env
               value: {{ .Values.iamAdapterUrl }}
           ports:
-            - containerPort: {{ .Values.services.resident.ports.containerPort }}
+            - containerPort: {{ .Values.services.resident-app-server.ports.containerPort }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
+              path: {{ .Values.services.resident-app-server.healthUrl }}
+              port: {{ .Values.services.resident-app-server.ports.containerPort }}
             periodSeconds: {{ .Values.probe.period }}
             timeoutSeconds: {{ .Values.probe.timeout }}
             failureThreshold: {{ .Values.probe.failureThreshold }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
+              path: {{ .Values.services.resident-app-server.healthUrl }}
+              port: {{ .Values.services.resident-app-server.ports.containerPort }}
             periodSeconds: {{ .Values.probe.livenessPeriod }}
             timeoutSeconds: {{ .Values.probe.timeout }}
             failureThreshold: {{ .Values.probe.failureThreshold }}
           startupProbe:
             httpGet:
-              path: {{ .Values.services.resident.healthUrl }}
-              port: {{ .Values.services.resident.ports.containerPort }}
+              path: {{ .Values.services.resident-app-server.healthUrl }}
+              port: {{ .Values.services.resident-app-server.ports.containerPort }}
             failureThreshold: {{ .Values.probe.failureThreshold }}
             periodSeconds: {{ .Values.probe.startupPeriod }}
             timeoutSeconds: {{ .Values.probe.timeout }}
