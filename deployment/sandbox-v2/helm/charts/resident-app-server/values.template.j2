@@ -33,10 +33,10 @@ services:
     dockerImage: {{ versions.services.resident-app-server.resident-app-server.values()[0] }}
     dockerTag: 1.0.10
     ports:
-      containerPort: 8099
+      containerPort: 8088
       servicePort: 80
-    ingressPath: /resident/v1
-    healthUrl: /resident/v1/actuator/health
+    ingressPath: /v1/resident
+    healthUrl: /v1/resident/actuator/health
     podconfig:
       {{ podconfig.resident.service | to_nice_yaml(indent=6) | indent(6) }}
-    annotation: /resident/v1/actuator/prometheus
+    annotation: /v1/resident/actuator/prometheus
