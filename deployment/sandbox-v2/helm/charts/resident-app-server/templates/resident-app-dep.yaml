@@ -34,7 +34,7 @@ spec:
         - name: {{ .Values.services.resident-app-server.serviceName }}
           image: {{ .Values.services.resident-app-server.dockerImage }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
-          {{ $resources := .Values.services.resident_app_server.podconfig.resources }}
+          {{ $resources := .Values.services.resident-app-server.podconfig.resources }}
           {{- include "resourcesDefinition" (dict "res" $resources) | indent 8 }}
           env:
             - name: active_profile_env
