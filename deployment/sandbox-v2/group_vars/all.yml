@@ -283,6 +283,9 @@ reg_client:
 mosip_file_server:
   nfs_path: '{{nfs.folder}}/mosip-file-server/'
 
+resident_file_server:
+  nfs_path: '{{nfs.folder}}/resident-app-server/'
+
 mock_abis:
   nfs_path: '{{nfs.folder}}/mock-abis/'
   p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
