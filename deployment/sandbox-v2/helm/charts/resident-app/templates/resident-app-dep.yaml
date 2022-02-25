@@ -39,12 +39,3 @@ spec:
           value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
-
-
-#        volumeMounts:
-#        - name: mosip-file-server-volume
-#          mountPath: {{ .Values.mountPath }}
-#      volumes:
-#      - name: mosip-file-server-volume
-#        persistentVolumeClaim:
-#          claimName: {{ .Values.pvc.name }}
