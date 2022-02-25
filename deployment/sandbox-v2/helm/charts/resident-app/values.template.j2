@@ -2,11 +2,11 @@ serviceName: resident-app-server
 
 activeProfileEnv: default
 springConfigLabel: {{ config_repo.version }} 
-configServerUrl: http://mz.ingress:30080
+configServerUrl: {{ config_server.internal_url }}
 imagePullPolicy: Always
 artifactoryUrl: {{ artifactory_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
-
+isGlowroot: absent
 sitePublicUrl: {{ site.sandbox_public_url }}
 
 probe:
