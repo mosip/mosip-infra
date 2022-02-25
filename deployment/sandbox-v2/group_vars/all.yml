@@ -242,7 +242,7 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   prereg:
@@ -260,13 +260,13 @@ repos:
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   pms:
