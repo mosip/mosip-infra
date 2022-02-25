@@ -12,7 +12,7 @@ docker:
     servicePort: 80
 
 version: {{ versions.services.mosip_file_server.values()[0] }}
-mountPath: "/home/mosip/mosipvc"  # path inside docker
+mountPath: "/home/mosip/files"  # path inside docker
 authmanagerUrl: http://mz.ingress:30080
 keymanagerUrl: http://mz.ingress:30080
 clientsecret: {{ secrets.keycloak.mosip_regproc_client }}
