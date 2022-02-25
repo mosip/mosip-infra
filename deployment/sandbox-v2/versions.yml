@@ -28,17 +28,15 @@ versions:
 
     prereg:
       application:
-        'prereg-application-service': 'mosipdev/pre-registration-application-service:1.1.5.3'
+        'prereg-application-service': 'mosipid/pre-registration-application-service:1.1.3'
       batch:
-        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.5.2'
+        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.3'
       booking:
-        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.5.2'
+        'prereg-booking-service': 'mosipid/pre-registration-booking-service:1.1.3'
       datasync:
-        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5.2'
-      captcha:
-        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.5.3'
+        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.3'
       ui:
-        'prereg-ui': 'mosipdev/pre-registration-ui:1.1.5.3'
+        'prereg-ui': 'mosipid/pre-registration-ui:1.1.3'
       
     registration_client:
       downloader:
