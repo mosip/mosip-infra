@@ -10,7 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /mosipvc
+      - path: /files
         pathType: ImplementationSpecific
         backend:
           service:
