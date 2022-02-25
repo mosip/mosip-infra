@@ -29,8 +29,8 @@ dockerHub:
 
 services:
   resident:
-    serviceName: {{ versions.services.resident-app-server.resident-app-server.keys()[0] }}
-    dockerImage: {{ versions.services.resident-app-server.resident-app-server.values()[0] }}
+    serviceName: {{ versions.services.resident-app-server.service.keys()[0] }}
+    dockerImage: {{ versions.services.resident-app-server.service.values()[0] }}
     dockerTag: 1.0.10
     ports:
       containerPort: 8088
