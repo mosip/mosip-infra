@@ -27,15 +27,17 @@ spec:
         image: {{ .Values.docker.image }} 
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         env:
-        - name: spring_config_label_env
-          value: {{ .Values.springConfigLabel }}
-        - name: spring_config_url_env
-          value: {{ .Values.configServerUrl }}
-        - name: artifactory_url_env
-          value: {{ .Values.artifactoryUrl }}
-        - name: is_glowroot_env
-          value: {{ .Values.isGlowroot }}
-        - name: iam_adapter_url_env
-          value: {{ .Values.iamAdapterUrl }}
+          - name: active_profile_env
+            value: {{ .Values.activeProfileEnv }}
+          - name: spring_config_label_env
+            value: {{ .Values.springConfigLabel }}
+          - name: spring_config_url_env
+            value: {{ .Values.configServerUrl }}
+          - name: artifactory_url_env
+            value: {{ .Values.artifactoryUrl }}
+          - name: is_glowroot_env
+            value: {{ .Values.isGlowroot }}
+          - name: iam_adapter_url_env
+            value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
