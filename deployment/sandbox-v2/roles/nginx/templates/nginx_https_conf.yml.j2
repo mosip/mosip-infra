@@ -299,6 +299,10 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/resident/v1/;
         }
 
+        location /residentmobileapp/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/resident/;
+        }
+
         location /registration-client/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
@@ -314,7 +318,7 @@ http {
            autoindex  on;
            add_header Access-Control-Allow-Origin *;
            add_header Access-Control-Allow-Methods "GET, OPTIONS";
-           proxy_pass http://dmzworker0.sb:30080/mosipvc/;
+           proxy_pass http://dmzworker0.sb:30080/files/mosipvc/;
         }
 
 
