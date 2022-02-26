@@ -56,3 +56,8 @@ Refer [here](keycloak/README.md) for installation of Keycloak.
 * Add a member to cluster/project in Rancher:
   * Give member name exactly as `username` in Keycloak
   * Assign appropriate role like Cluster Owner, Cluster Viewer etc.
+
+## Certificates expiry
+In case you see certificate expiry message while adding users, on **local** cluster run these commands:
+
+https://rancher.com/docs/rancher/v2.6/en/troubleshooting/expired-webhook-certificates/
