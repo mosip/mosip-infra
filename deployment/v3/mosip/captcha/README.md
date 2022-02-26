@@ -1,4 +1,4 @@
-# Captcha for PreRegistration UI
+# Captcha for Pre-registration Portal
 
 Create a google recaptcha v2 ("I am not a Robot") from Google Recaptcha Admin.  Give the domain name as your PreReg domain name.  Example "prereg.sandbox.xyz.net".
 
