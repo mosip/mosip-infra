@@ -19,3 +19,4 @@
 16. Review 1id-authentication-mapping.json` in config vis-a-vis attribute names in idschema
 17. Scripts to clean up processed packets in landing zone.
 18. On-prem K8s cluster production configuration as given [here](rke_cluster_hardening.md).
+19. Increase `replicaCount` for Clamav.
