@@ -16,4 +16,4 @@ spec:
     - destination:
         host: minio
         port:
-           number: 9000
+           number: 9001
