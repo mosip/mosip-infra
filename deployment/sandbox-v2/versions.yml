@@ -171,3 +171,7 @@ versions:
     tusd:
       service:
         'tusd-server': 'mosipdev/tusd-server:develop'
+
+    resident_app_server:
+      service:
+        'resident-app-server': 'mosipdev/resident-app:develop'

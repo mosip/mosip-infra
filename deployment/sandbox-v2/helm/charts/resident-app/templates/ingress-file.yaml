@@ -10,11 +10,11 @@ spec:
   rules:
   - http:
       paths:
-      - path: /files
+      - path: /v1/resident/
         pathType: ImplementationSpecific
         backend:
           service:
             name: {{ .Values.serviceName }}
             port: 
-              number: 80 
+              number: 80
 

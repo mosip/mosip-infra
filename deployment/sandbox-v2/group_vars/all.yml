@@ -281,7 +281,12 @@ reg_client:
 
 
 mosip_file_server:
-  nfs_path: '{{nfs.folder}}/mosip-file-server/'
+  nfs_path: '{{nfs.folder}}/mosip-file-server/files'
+  mosipvc_path: '{{nfs.folder}}/mosip-file-server/files/mosipvc/'
+  mobileapp_path: '{{nfs.folder}}/mosip-file-server/files/mobileapp/'
+
+resident_app_server:
+  nfs_path: '{{nfs.folder}}/resident-app-server/'
 
 mock_abis:
   nfs_path: '{{nfs.folder}}/mock-abis/'

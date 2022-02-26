@@ -8,7 +8,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=keymanager
+NS=softhsm-kernel
 STORAGE_CLASS=gp2
 CHART_VERSION=1.2.0
 
