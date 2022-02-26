@@ -3,3 +3,8 @@ biosdk:
   ## in which case change the URL accordingly.
   zippedLibUrl: http://artifactory.artifactory/artifactory/libs-release-local/biosdk/biosdk-lib.zip
   bioapiImpl: io.mosip.mock.sdk.impl.SampleSDK
+
+image:
+  registry: docker.io
+  repository: mosipqa/biosdk-server
+  tag: develop
