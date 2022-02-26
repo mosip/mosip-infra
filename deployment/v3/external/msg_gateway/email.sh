@@ -1,6 +1,12 @@
 #!/bin/sh
 # Creates configmap and secrets for Email 
-[ $# -lt 3 ] && { echo "Usage: ./email.sh <smtp_host> <username> <password>"; exit 1; }
+## Usage: ./install.sh [kubeconfig]
+
+[ $# -lt 3 ] && { echo "Usage: ./email.sh <smtp_host> <username> <password> [kubeconfig]"; exit 1; }
+
+if [ $# -ge 3 ] ; then
+  export KUBECONFIG=$4
+fi
 
 NS=msg-gateways
 
