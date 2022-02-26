@@ -13,4 +13,4 @@ postgresqlExtendedConf:
    max_connections: 1000
 
 global:
-  storageClass: gp2-retain
+  storageClass: gp2
