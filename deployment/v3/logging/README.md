@@ -1,10 +1,10 @@
 # Logging
 
 ## Kibana
-Kibana connects to Elasticsearch. Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
+ Kibana connects to Elasticsearch. Make sure you have a domain like `kibana.sandbox.xyz.net` pointing to your internal load balancer included in [global configmap](../cluster/global_configmap.yaml.sample).
 
 ## Install Elasticsearch, Kibana and Istio addons
-```sh
+```sh 
 ./install.sh
 ```
 
@@ -16,7 +16,7 @@ http://elasticsearch-master:9200
 ```
 Note :  Make sure that you select Output as "Elasticsearch", Target as "http",  Host as "elasticsearch-master" and Port as 9200.
 
-* Set ClusterFlow Filter with `filter.yaml`.   Copy the contents of filter.yaml into the clusterflow Filters (after deleting the default content).
+* Set ClusterFlow Filter with `filter.yaml`.   Copy the contents of filter.yaml into the clusterflow Filters (after clearing the default content)
 * Set the Outputs within the Cluster Flow as the name of the ClusterOutputs.
 
 Note that with this filter any json object received in `log` field will be parsed into individual fields and indexed.
@@ -30,4 +30,4 @@ Note that with this filter any json object received in `log` field will be parse
 
 ## Troubleshooting
 * If MOSIP logs are not seen, check if all fields here have quotes (except numbers):
-Log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/v3/application-default.properties) property `server.tomcat.accesslog.pattern`.
+Log pattern in [mosip-config](https://github.com/mosip/mosip-config/blob/develop3-v3/application-default.properties) property `server.tomcat.accesslog.pattern`.
