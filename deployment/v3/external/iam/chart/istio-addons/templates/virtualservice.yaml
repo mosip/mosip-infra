@@ -11,6 +11,18 @@ spec:
   http:
   - match:
       - uri:
+          prefix: /oauth2
+    route:
+    - destination:
+        host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+        port:
+          number: 80
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https
+  - match:
+      - uri:
           prefix: /
     route:
     - destination:

@@ -4,6 +4,8 @@ metadata:
   name: keycloak-host
   namespace: keycloak
 data:
-  keycloak-host: {{ .Values.keycloakHost }}
-  keycloak-host-url: {{ printf "https://%s" .Values.keycloakHost }}
+  keycloak-internal-host: {{ .Values.keycloakInternalHost }}
+  keycloak-internal-url: {{ printf "http://%s" .Values.keycloakInternalHost }}
+  keycloak-external-host: {{ .Values.keycloakExternalHost }}
+  keycloak-external-url: {{ printf "https://%s" .Values.keycloakExternalHost }}
 

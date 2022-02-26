@@ -1,5 +1,8 @@
-image:
-  repository: bitnami/keycloak
+#image:
+#Refrain from fixing docker tags. Instead use the appropriate chart version, while helm install
+#bitnami/keycloak helm chart version 4.3.0 uses keycloak 14.0.0 version
+  #repository: bitnami/keycloak
+  #tag: 14.0.0-debian-10-r24
 service:
   type: ClusterIP
 
@@ -9,7 +12,7 @@ auth:
 ## Disable ingress as we use Istio
 ingress:
   enabled: false
-  hostname: 
+  hostname:
   annotations:
     ingress.kubernetes.io/class: nginx
 
@@ -25,17 +28,17 @@ resources:
   limits: {}
   #   cpu: 250m
   #   memory: 1Gi
-  requests: 
+  requests:
     cpu: 200m
     memory: 1000Mi
 
 rbac:
   create: true
   rules:
-    - apiGroups:
-        - ""
-      resources:
-        - pods
-      verbs:
-        - get
-        - list
+  - apiGroups:
+    - ""
+    resources:
+    - pods
+    verbs:
+    - get
+    - list
