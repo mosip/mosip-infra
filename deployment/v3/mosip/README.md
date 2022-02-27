@@ -16,6 +16,6 @@ Install in the following order:
 * [Partner Management](pms/README.md)
 * [Registration Processor](regproc/README.md)
 * [Admin](admin/README.md)
-* [IDA](ida/README.md)
+* [ID Authentication](ida/README.md)
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
