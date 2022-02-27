@@ -1,9 +1,15 @@
 #!/bin/sh
 # Uninstalls idrepo services
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=idrepo
 while true; do
-    read -p "Are you sure you want to delete Idrepo helm chart?(Y/n) " yn
-    if [ $yn == "Y" ]
+    read -p "Are you sure you want to delete idrepo helm chart?(Y/n) " yn
+    if [ $yn = "Y" ]
       then
         helm -n $NS delete idrepo-saltgen
         helm -n $NS delete credential

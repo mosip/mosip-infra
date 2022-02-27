@@ -1,8 +1,14 @@
 #!/bin/sh
 # Uninstalls all Prereg helm charts
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 while true; do
-    read -p "Are you sure you want to delete ALL Prereg helm charts?(Y/n) " yn
-    if [ $yn == "Y" ]
+    read -p "Are you sure you want to delete prereg helm chart?(Y/n) " yn
+    if [ $yn = "Y" ]
       then
         kubectl -n prereg delete -f rate-control-envoyfilter.yaml
         helm -n prereg delete prereg-gateway

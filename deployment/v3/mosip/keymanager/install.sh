@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs Keymanager
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=keymanager
 CHART_VERSION=1.1.5
 echo Create Namespace

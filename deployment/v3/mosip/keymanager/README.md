@@ -10,7 +10,6 @@ This has to be done one-time. The job here will create base keys in HSM/Softhsm 
 * Make sure properties in `application-default.properties` and `kernel-default.properties` are appropriately set to generate your organization's certificates.
 * Run the job
 ```
-helm -n keymanager install kernel-keygen mosip/kernel-keygen
+kubectl create ns keymanager
+helm -n keymanager install kernel-keygen mosip/kernel-keygen --version 1.1.5
 ```
-
-

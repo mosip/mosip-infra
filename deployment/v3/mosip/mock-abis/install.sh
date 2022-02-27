@@ -1,5 +1,12 @@
 #!/bin/sh
 # Installs Mock ABIS
+## Usage: ./delete.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+
 NS=abis
 CHART_VERSION=1.1.5
 

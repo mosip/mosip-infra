@@ -1,9 +1,15 @@
 #!/bin/sh
 # Uninstalls all Kernel helm charts 
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=ida
 while true; do
-    read -p "Are you sure you want to delete ALL Kernel helm charts?(Y/n) " yn
-    if [ $yn == "Y" ]
+    read -p "Are you sure you want to delete ida helm chart?(Y/n) " yn
+    if [ $yn = "Y" ]
       then
         helm -n $NS delete ida-keygen
         helm -n $NS delete ida-auth
