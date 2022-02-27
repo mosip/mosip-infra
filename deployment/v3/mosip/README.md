@@ -3,7 +3,7 @@
 Install in the following order:
 * [Docker secrets](docker_secrets/README.md)
 * [Prereg captcha](captcha/README.md)
-* [Config server](config_server/README.md)
+* [Config Server](config_server/README.md)
 * [Artifactory](artifactory/README.md)
 * [WebSub](websub/README.md)
 * [Mock ABIS](mock-abis/README.md)
