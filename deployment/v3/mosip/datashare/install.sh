@@ -1,5 +1,11 @@
 #!/bin/sh
 # Installs Datashare
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=datashare
 CHART_VERSION=1.1.5
 
@@ -14,4 +20,4 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing Datashare
-helm -n $NS install datashare mosip/datashare --wait --version $CHART_VERSION
+helm -n $NS install datashare mosip/datashare -f values.yaml --wait --version $CHART_VERSION
