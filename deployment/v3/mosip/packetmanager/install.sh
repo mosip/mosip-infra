@@ -20,4 +20,4 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing packetmanager
-helm -n $NS install packetmanager mosip/packetmanager -f values.yaml --version $CHART_VERSION
+helm -n $NS install packetmanager mosip/packetmanager --version $CHART_VERSION

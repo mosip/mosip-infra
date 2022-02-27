@@ -23,14 +23,14 @@ echo Running salt generator job
 helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait --wait-for-jobs --version $CHART_VERSION
 
 echo Running credential
-helm -n $NS install credential mosip/credential -f cred-values.yaml --version $CHART_VERSION
+helm -n $NS install credential mosip/credential --version $CHART_VERSION
 
 echo Running credential request service
-helm -n $NS install credentialrequest mosip/credentialrequest -f credreq-values.yaml --version $CHART_VERSION
+helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
 
 echo Running identity service
-helm -n $NS install identity mosip/identity -f identity-values.yaml --version $CHART_VERSION
+helm -n $NS install identity mosip/identity  --version $CHART_VERSION
 
 echo Running vid service
-helm -n $NS install vid mosip/vid -f vid-values.yaml --version $CHART_VERSION
+helm -n $NS install vid mosip/vid  --version $CHART_VERSION
 

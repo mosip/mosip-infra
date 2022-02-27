@@ -20,4 +20,4 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing Datashare
-helm -n $NS install datashare mosip/datashare -f values.yaml --wait --version $CHART_VERSION
+helm -n $NS install datashare mosip/datashare  --wait --version $CHART_VERSION
