@@ -1,4 +1,4 @@
-# Resident service
+# Resident Services
 
 ## Install
 ```sh

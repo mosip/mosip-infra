@@ -1,8 +1,8 @@
-# Websub
+# WebSub
 
 ## Install
-* Review `values.yaml` esp. for postgres hostname
+* Review `values.yaml` esp. for Postgres hostname.
 * Install
 ```
-$ ./install.sh
+./install.sh
 ``` 
