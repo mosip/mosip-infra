@@ -32,3 +32,16 @@ services:
     healthUrl: /v1/resident/actuator/health
 
 exportLogs: enabled  # Let filebeat export the logs
+
+sc:
+  name: ""
+pv:
+  name: resident-app-server
+  size: 2Mi
+pvc:
+  name: resident-app-server
+  size: 2Mi
+
+nfs:
+  server: {{ nfs.server }}
+  path: {{ resident_app_server.nfs_path }}

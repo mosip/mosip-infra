@@ -1,3 +1,11 @@
+# Prepare folders on nfs
+- hosts: console
+  gather_facts: true
+  vars:
+    reg_prop: '{{resident_app_server}}'
+  roles:
+    - {role: resident-app}
+
 - hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
