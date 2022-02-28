@@ -56,3 +56,4 @@ machine_master_h
 registration_center_h
 user_detail_h
 zone_user_h
+rcid_seq

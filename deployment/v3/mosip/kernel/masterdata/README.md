@@ -24,7 +24,7 @@ TODO: Check if below are needed
     ```
 1. 
     ```sh
-    ./upload_md.sh <path of mosip-data repo>
+    ./upload_md.sh <path of mosip-data repo>/mosip_master/xlsx
     ```
     The shell script runs `lib/upload_masterdata.py` script.
 

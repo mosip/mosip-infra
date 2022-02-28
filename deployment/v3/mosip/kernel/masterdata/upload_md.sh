@@ -1,6 +1,14 @@
 #!/bin/sh
-# Usage: ./upload_md.sh <mosip-data repo path> [kubeconfig file]
+# Usage: ./upload_md.sh <XLS folder path> [kubeconfig file]
 # Default kubeconfig file is $HOME/.kube/config
+echo $#
+
+if [ $# -lt 1 ]
+  then
+    echo "Usage: ./upload_md.sh <XLS folder path> [kubeconfig file]"
+    exit
+fi
+
 if [ $# -ge 2 ]
   then
     export KUBECONFIG=$2
@@ -12,7 +20,7 @@ read -p "Enter IAM username: " iam_user
 DB_PWD=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath={.data.postgresql-password} | base64 --decode)
 DB_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 DB_PORT=5432
-XLS_FOLDER_PATH=$1/data-dml/mosip_master/xlsx
+XLS_FOLDER_PATH=$1
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
