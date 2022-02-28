@@ -20,7 +20,7 @@ On a browser open  `https://<prereg ui domain>/pre-registration-ui/`. Example `h
 
 ## Rate Control Using Envoyfilter
 
-- Using Envoyfilter one can limit the rate of http requests coming in to a resource. Reference: [this](https://istio.io/latest/docs/tasks/policy-enforcement/rate-limit/#local-rate-limit) and [this](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/local_rate_limit_filter).
+- Using Envoyfilter one can limit the rate of http requests coming in to a resource. Reference: [Istio Policty Enforcement](https://istio.io/latest/docs/tasks/policy-enforcement/rate-limit/#local-rate-limit) and [Rate Limit Filter](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/local_rate_limit_filter).
 - Edit the envoyfilter [here](./rate-control-envoyfilter.yaml)
   - Edit these values in the envoyfilter accordingly.
     ```
