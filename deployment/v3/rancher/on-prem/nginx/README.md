@@ -4,9 +4,10 @@
 This document describes how to install and setup Nginx reverse proxy into the ingress controller.
 
 ## Prerequisites
-* The `install.sh` script needs OS to be debian based, linux machine(s). (Ideally an Ubuntu Server)
-* The following commandline utilities needed
-  * `ip`,`bash`,`sed`,`docker`(optional, only required for wireguard bastion setup)
+* Ubuntu (or Debian based OS).
+* Command line utilities:
+  * `ip`.
+  * `docker`(only for wireguard bastion setup).
 * The SSL certificate and key pair to be copied into this machine. The script will prompt for the path to these.
 
 ## Installation
