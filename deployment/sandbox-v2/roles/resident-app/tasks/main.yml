@@ -1,0 +1,8 @@
+#this is to create nfs directory for resident app
+
+- name: create {{resident_app_server.nfs_path}} directory
+  file:
+    name: '{{resident_app_server.nfs_path}}'
+    state: directory
+    owner: mosipuser
+  become: yes

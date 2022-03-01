@@ -15,7 +15,7 @@ probe:
   livenessPeriod: 10
   failureThreshold: 30
   startupPeriod: 10
-  initialDelaySeconds: 120
+  initialDelaySeconds: 60
 
 docker:
   image: {{ versions.services.resident_app_server.service.values()[0] }}
@@ -29,5 +29,19 @@ services:
   resident_app_server:
     podconfig:
       {{ podconfig.resident_app_server.service | to_nice_yaml(indent=6) | indent(6) }}
+    healthUrl: /v1/resident/actuator/health
 
 exportLogs: enabled  # Let filebeat export the logs
+
+sc:
+  name: ""
+pv:
+  name: resident-app-server
+  size: 2Mi
+pvc:
+  name: resident-app-server
+  size: 2Mi
+
+nfs:
+  server: {{ nfs.server }}
+  path: {{ resident_app_server.nfs_path }}

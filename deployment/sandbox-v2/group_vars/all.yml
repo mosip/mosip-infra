@@ -557,3 +557,4 @@ data_archive:
   archive_db_serverip: '{{ postgres.host }}'
   archive_db_port: '{{ postgres.port }}'
   archive_db_pwd: '{{ secrets.postgres.su }}'
+

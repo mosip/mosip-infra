@@ -41,3 +41,32 @@ spec:
             value: {{ .Values.iamAdapterUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.resident_app_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.resident_app_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.resident_app_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+        volumeMounts:
+          - name: resident-app-server-volume
+            mountPath: {{ .Values.mountPath }}
+      volumes:
+        - name: resident-app-server-volume
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
