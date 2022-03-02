@@ -18,3 +18,6 @@
 
 ## Wireguard Bastion Host
 * Install [Wireguard Bastion Host](../../docs/wireguard-bastion.md) on a seperate node/VM.
+
+## Longhorn
+* Install [Longhorn](../longhorn/README.md) for persistent storage.

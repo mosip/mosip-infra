@@ -3,7 +3,7 @@
 # If no argument then will install only nginx.
 
 if [ -z $WG_DIR ]; then
-  WG_DIR=.
+  WG_DIR=$(pwd)
 fi
 CURR_DIR=$(pwd)
 
