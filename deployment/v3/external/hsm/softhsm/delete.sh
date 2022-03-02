@@ -1,17 +1,18 @@
 #!/bin/sh
 # Uninstalls softhsm
-## Usage: ./delete_kernel.sh [kubeconfig]
+## Usage: ./delete_ida.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=softhsm-kernel
+NS=softhsm-ida
 while true; do
-    read -p "Are you sure you want to delete Softhsm Kernel helm charts? Y/n ?" yn
+    read -p "Are you sure you want to delete Softhsm helm charts? Y/n ?" yn
     if [ $yn = "Y" ]
       then
         helm -n $NS delete softhsm-kernel
+        helm -n $NS delete softhsm-ida
         break
       else
         break
