@@ -1,0 +1,35 @@
+apiVersion: v1
+data:
+  log4j.properties: "## ---------------------------------------------------------------------------\r\n##
+    Licensed to the Apache Software Foundation (ASF) under one or more\r\n## contributor
+    license agreements.  See the NOTICE file distributed with\r\n## this work for
+    additional information regarding copyright ownership.\r\n## The ASF licenses this
+    file to You under the Apache License, Version 2.0\r\n## (the \"License\"); you
+    may not use this file except in compliance with\r\n## the License.  You may obtain
+    a copy of the License at\r\n## \r\n## http://www.apache.org/licenses/LICENSE-2.0\r\n##
+    \r\n## Unless required by applicable law or agreed to in writing, software\r\n##
+    distributed under the License is distributed on an \"AS IS\" BASIS,\r\n## WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\n## See the
+    License for the specific language governing permissions and\r\n## limitations
+    under the License.\r\n## ---------------------------------------------------------------------------\r\n\r\n#\r\n#
+    This file controls most of the logging in ActiveMQ which is mainly based around
+    \r\n# the commons logging API.\r\n#\r\n#log4j.rootLogger=INFO, console, logfile\r\nlog4j.logger.org.apache.activemq.spring=WARN\r\nlog4j.logger.org.apache.activemq.web.handler=WARN\r\nlog4j.logger.org.springframework=WARN\r\nlog4j.logger.org.apache.xbean=WARN\r\nlog4j.logger.org.apache.camel=INFO\r\nlog4j.logger.org.eclipse.jetty=WARN\r\n\r\n#
+    When debugging or reporting problems to the ActiveMQ team,\r\n# comment out the
+    above lines and uncomment the next.\r\n\r\n#log4j.rootLogger=DEBUG, out, stdout\r\nlog4j.rootLogger=DEBUG,
+    logfile, console\r\n\r\n# Or for more fine grained debug logging uncomment one
+    of these\r\n#log4j.logger.org.apache.activemq=DEBUG\r\n#log4j.logger.org.apache.camel=DEBUG\r\n\r\n#
+    Console appender\r\nlog4j.appender.console=org.apache.log4j.ConsoleAppender\r\n#log4j.appender.console.layout=org.apache.log4j.PatternLayout\r\n#log4j.appender.console.layout.ConversionPattern=%5p
+    | %m%n\r\nlog4j.appender.console.layout=org.apache.log4j.PatternLayout\r\nlog4j.appender.console.layout.ConversionPattern=%d
+    | %-5p | %m | %c | %t%n\r\n#log4j.appender.console.threshold=INFO\r\n\r\n# File
+    appender\r\nlog4j.appender.logfile=org.apache.log4j.RollingFileAppender\r\nlog4j.appender.logfile.file=${activemq.base}/data/activemq.log\r\nlog4j.appender.logfile.maxFileSize=1024KB\r\nlog4j.appender.logfile.maxBackupIndex=5\r\nlog4j.appender.logfile.append=true\r\nlog4j.appender.logfile.layout=org.apache.log4j.PatternLayout\r\nlog4j.appender.logfile.layout.ConversionPattern=%d
+    | %-5p | %m | %c | %t%n\r\n# use some of the following patterns to see MDC logging
+    data\r\n#\r\n# %X{activemq.broker}\r\n# %X{activemq.connector}\r\n# %X{activemq.destination}\r\n#\r\n#
+    e.g.\r\n#\r\n# log4j.appender.logfile.layout.ConversionPattern=%d | %-20.20X{activemq.connector}
+    | %-5p | %m | %c | %t%n\r\n\r\nlog4j.throwableRenderer=org.apache.log4j.EnhancedThrowableRenderer\r\n\r\n###########\r\n#
+    Audit log\r\n###########\r\n\r\nlog4j.additivity.org.apache.activemq.audit=false\r\nlog4j.logger.org.apache.activemq.audit=INFO,
+    audit\r\n\r\nlog4j.appender.audit=org.apache.log4j.RollingFileAppender\r\nlog4j.appender.audit.file=${activemq.base}/data/audit.log\r\nlog4j.appender.audit.maxFileSize=1024KB\r\nlog4j.appender.audit.maxBackupIndex=5\r\nlog4j.appender.audit.append=true\r\nlog4j.appender.audit.layout=org.apache.log4j.PatternLayout\r\nlog4j.appender.audit.layout.ConversionPattern=%-5p
+    | %m | %t%n\r\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ .Values.name }}-log4j-props

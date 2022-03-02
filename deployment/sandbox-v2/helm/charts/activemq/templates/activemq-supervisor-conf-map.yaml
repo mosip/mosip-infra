@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  activemq.conf: "[program:activemq]\r\npriority=20\r\ndirectory=/tmp\r\ncommand=/opt/activemq/bin/activemq
+    console\r\nuser=root\r\nautostart=true\r\nautorestart=true\r\n#stdout_logfile=/var/log/supervisor/%(program_name)s.log\r\nstdout_logfile=/dev/fd/1\r\nstdout_logfile_maxbytes=0\r\n#stderr_logfile=/var/log/supervisor/%(program_name)s.log\r\nstderr_logfile=/dev/fd/2\r\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ .Values.name }}-supervisor-conf

@@ -40,6 +40,8 @@ spec:
           value: admin
         - name: ACTIVEMQ_ADMIN_PASSWORD
           value: {{ .Values.adminPassword }} 
+        #- name: ACTIVEMQ_LOGLEVEL
+        #  value: "DEBUG, logfile, console"
         ports:
         - containerPort: {{ .Values.docker.containerPort }} 
         livenessProbe:
@@ -63,6 +65,12 @@ spec:
         - name: activemq-xml-conf
           mountPath: "/opt/activemq/conf/activemq.xml" # hardcoded path for activemq.xml inside container
           subPath: "activemq.xml"
+        - name: activemq-log4j-props
+          mountPath: "/opt/activemq/conf/log4j.properties" # hardcoded path for log4j.properties inside container
+          subPath: "log4j.properties"
+        - name: activemq-supervisor-conf
+          mountPath: "/etc/supervisor/conf.d/activemq.conf" # hardcoded path for activemq.conf (supervisor conf)
+          subPath: "activemq.conf"
       volumes:
       - name: q-data
         persistentVolumeClaim:
@@ -70,3 +78,9 @@ spec:
       - name: activemq-xml-conf
         configMap:
           name: {{ .Values.name }}
+      - name: activemq-log4j-props
+        configMap:
+          name: {{ .Values.name }}-log4j-props
+      - name: activemq-supervisor-conf
+        configMap:
+          name: {{ .Values.name }}-supervisor-conf 
