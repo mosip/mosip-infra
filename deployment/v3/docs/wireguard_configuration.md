@@ -1,8 +1,7 @@
-# Wireguard Documentation
 
-## User manual for wireguard setup
+# Wireguard Administrator’s Guide
 
-This document is prepared to create wireguard configuration for the particular user
+This document is prepared to create wireguard configuration for the particular user.
 
 1. Login to the wireguard instance via ssh.
    ```
