@@ -10,12 +10,12 @@
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
 * Hardware requirements:
-    * All the above nodes must be in the same VPC.
+    * All the nodes must be in the same VPC.
 
-    |Purpose|vCPUs|RAM|Storage|AWS Instance Type|Number of Nodes|
-    |---|:---:|:---:|:---:|:---:|---:|
-    |Cluster nodes | 2 | 8 GB | 32 GB | t3.large |2|
-    |[Wireguard bastion host](../../docs/wireguard-bastion.md)| 2 | 4 GB | 8 GB | t2.medium |1|
+|Purpose|vCPUs|RAM|Storage|AWS Instance Type|Number of Nodes|
+|---|:---:|:---:|:---:|:---:|---:|
+|Cluster nodes | 2 | 8 GB | 32 GB | t3.large |2|
+|[Wireguard bastion host](../../docs/wireguard-bastion.md)| 2 | 4 GB | 8 GB | t2.medium |1|
 
 * Certificates:
     * Depending upon the above hostnames, atleast one wildcard SSL certificate will be required. For example; `*.org.net`.
@@ -46,11 +46,11 @@ helm install \
 
 The above will automatically spawn an [Internal AWS Network Load Balancer (L4)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-network-load-balancer.html).  
 
-## Network Load Balancer (LB)
+## Network Load Balancer (NLB)
 
 Check the following on AWS console:
 
-1. An LB has been created. You may also see the DNS of LB with
+1. An NLB has been created. You may also see the DNS of NLB with
     ```
     kubectl -n ingress-nginx get svc
     ```
@@ -64,4 +64,8 @@ Check the following on AWS console:
 1. Remove listner 80 from LB as we will receive traffic only on 443.
 
 ## Domain name
-Create a domain name for your rancher like `rancher.mosip.net` and point it to **internal** ip address of the LB. This assumes that you have a wireguard to receive traffic from Internet and point to internal LB.
+Create the following domain names:
+1. Rancher: `rancher.xyz.net` 
+2. Keycloak: `iam.xyz.net` and 
+
+Point the above to **internal** ip address of the NLB. This assumes that you have a [Wireguard Bastion Host](../../docs/wireguard-bastion.md) has been installed. On AWS this is done on Route 53 console. 
