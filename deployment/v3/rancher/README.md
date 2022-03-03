@@ -7,7 +7,7 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
 ![](../docs/images/rancher_iam.png)
 
 ## Cluster install
-* [aws](aws/README.md)
+* [AWS](aws/README.md)
 * [on-prem](on-prem/README.md)
 
 ## Rancher
