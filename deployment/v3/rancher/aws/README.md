@@ -66,6 +66,6 @@ Check the following on AWS console:
 ## Domain name
 Create the following domain names:
 1. Rancher: `rancher.xyz.net` 
-2. Keycloak: `iam.xyz.net` and 
+2. Keycloak: `iam.xyz.net`  
 
 Point the above to **internal** ip address of the NLB. This assumes that you have a [Wireguard Bastion Host](../../docs/wireguard-bastion.md) has been installed. On AWS this is done on Route 53 console. 
