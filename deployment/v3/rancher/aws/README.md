@@ -4,12 +4,22 @@
 * AWS account and credentials with permissions to create EKS cluster.
 * AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 * [Wireguard setup](../../docs/wireguard-bastion.md).
-* Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden).
+* Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)_.
 * [`eksctl`](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) utility.
 * `kubectl` utility installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
-* [Hardware, network, certificate requirements](./requirements.md). Compute Node requirements are already configured in `rancher.cluster.config.sample`.
+* Hardware requirements:
+    * All the above nodes must be in the same VPC.
+
+    |Purpose|vCPUs|RAM|Storage|AWS Instance Type|Number of Nodes|
+    |---|:---:|:---:|:---:|:---:|---:|
+    |Cluster nodes | 2 | 8 GB | 32 GB | t3.large |2|
+    |[Wireguard bastion host](../../docs/wireguard-bastion.md)| 2 | 4 GB | 8 GB | t2.medium |1|
+
+* Certificates:
+    * Depending upon the above hostnames, atleast one wildcard SSL certificate will be required. For example; `*.org.net`.
+    * More ssl certificates will be required, for every new level of hierarchy. For example; `*.sandbox1.org.net`.
 
 ## Install cluster
 * Copy `rancher.cluster.config.sample ` to `rancher.cluster.config`.  
