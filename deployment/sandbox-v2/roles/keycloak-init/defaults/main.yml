@@ -603,3 +603,5 @@ keycloak_mosip_create_mappers:
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "organizationName", mapper_user_attribute: 'organizationName', token_claim_name: 'organizationName'}
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "partnerType", mapper_user_attribute: 'partnerType', token_claim_name: 'partnerType'}
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "addressTest", mapper_user_attribute: 'address', token_claim_name: 'addressTest'}
+
+  - {realm_id: 'mosip', client_id: 'mosip-partner-client', mapper_name: "langCode", mapper_user_attribute: 'langCode', token_claim_name: 'langCode'}
