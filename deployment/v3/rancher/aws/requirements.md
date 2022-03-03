@@ -1,9 +1,7 @@
 # Requirements for AWS Rancher Cluster
-
 Listed below are hardware, network and certificate requirements to setup a **Rancher Cluster** on AWS.
 
 ## Hardware requirements
-
 The following number of EC2 nodes/instances will be required
 
 |Purpose|vCPUs|RAM|Storage| AWS Type of each node | Number of Nodes|
@@ -14,23 +12,16 @@ The following number of EC2 nodes/instances will be required
 Note: all the above nodes must be on the same VPC.
 
 ## Load balancer
-
-Cloud provided load balancer will be automatically created upon installation of the ingress controller.
+Cloud provided load balancer will be automatically created upon installation of the [ingress controller](README.md#ingress-controller).
 
 ## DNS requirements
-
 The following DNS mappings will be required.
 
 | Hostname | Mapped to |
 |---|---|
-| rancher.org.net | Ingresscontroller Loadbalancer \* |
-| iam.org.net | Ingresscontroller Loadbalancer \* |
-
-\* There is only one LB in the cluster.<br/>
-Note: The above table is just a placeholder for hostnames, the actual name itself varies from organisation to organisation. <br/>
-Note: Will get the loadbalancer ip only after the ingresscontroller is installed and the loadbalancer is setup. Only then proceed to DNS mapping.
+| rancher.xyz.net | Ingresscontroller Loadbalancer |
+| iam.xyz.net | Ingresscontroller Loadbalancer |
 
 ## Certificate requirements
-
 * Depending upon the above hostnames, atleast one wildcard SSL certificate will be required. For example; `*.org.net`.
 * More ssl certificates will be required, for every new level of hierarchy. For example; `*.sandbox1.org.net`.
