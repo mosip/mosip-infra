@@ -11,7 +11,8 @@ The following number of EC2 nodes/instances will be required
 | 5 | 8 vCPU | 32GB | 64 GB | t3.2xlarge | Cluster nodes |
 | 1 | 2 vCPU | 1 GB | 8 GB | t2.micro | Wireguard Bastion Node |
 
-Note: All the above nodes are to be on the same VPC.
+Note: All the above nodes are to be on the same VPC.<br/>
+Note: The above should also be on the same VPC as rancher cluster, since these will require rancher access. Otherwise the routes have to be manually setup.
 
 ## LoadBalancers
 

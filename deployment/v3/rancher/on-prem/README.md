@@ -1,23 +1,28 @@
 # On-prem Kubernetes Cluster for Rancher
 
 ##  Prerequisites
-* For high availability, you would need at least 2 worker nodes.
-* For external access you will need a public domain like `rancher.xyz.net` to point to this installation.
+* [Hardware, network, certificate requirements](./requirements.md).
 * TLS termination: you may terminate TLS in any of the following ways:
   * Directly on Rancher service
   * On ingress controller
   * On a reverse proxy before the ingress controller
+* We have configured tls to terminate on the reverse proxy / loadbalancer, as default in our configuration.
 
 ## Cluster Setup
 * Set up VMs.
-* [IMPORTANT] **DONOT** remove the default settings for ingress provider while configuring rke `cluster.yml`, because we want the default ingress controller to be installed.
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
-##  Nginx Loadbalancer / Reverse Proxy
+## Nginx Ingress Controller
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+helm install \                               
+  ingress-nginx ingress-nginx/ingress-nginx \
+  --namespace ingress-nginx \
+  --version 3.12.0 \
+  --create-namespace  \
+  -f ingress-nginx.values.yaml
+```
+
+##  Nginx Loadbalancer / Reverse Proxy + Wireguard Bastion Host
 * Install [nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
-
-## Wireguard Bastion Host
-* Install [Wireguard Bastion Host](../../docs/wireguard-bastion.md) on a seperate node/VM.
-
-## Longhorn
-* Install [Longhorn](../longhorn/README.md) for persistent storage.

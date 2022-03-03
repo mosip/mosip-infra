@@ -6,9 +6,13 @@ Listed below are hardware, network and certificate requirements to setup a **MOS
 |Purpose|vCPUs|RAM|Storage|Number of VMs\*|
 |---|:---:|:---:|:---:|---:|
 |Cluster nodes | 8 | 32 GB | 64 GB |5|
+|Wireguard bastion host**| 2 | 1 GB | 8 GB |1|
 |Nginx|2|4GB|16 GB|1|
 
-\* Virtual Machines
+\* Virtual Machines<br/>
+\** Note: Wireguard Bastion Host can also be setup on the Nginx node itself.<br/>
+Note: All the above nodes are to be on the same network.<br/>
+Note: The above should also be on the same network as rancher cluster, since these will require rancher access. Otherwise the routing has to be manually setup.
 
 ## Network configuration
 The following network configuration is required for the above mentioned nodes.

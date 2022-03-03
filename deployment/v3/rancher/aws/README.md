@@ -9,7 +9,7 @@
 * `kubectl` utility installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
-
+* [Hardware, network, certificate requirements](./requirements.md). Compute Node requirements are already configured in `rancher.cluster.config.sample`.
 
 ## Install cluster
 * Copy `rancher.cluster.config.sample ` to `rancher.cluster.config`.  
@@ -23,6 +23,8 @@ eksctl create cluster -f rancher.cluster.config
 
 ## Nginx ingress
 ```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
 helm install \                               
   ingress-nginx ingress-nginx/ingress-nginx \
   --namespace ingress-nginx \

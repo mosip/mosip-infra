@@ -6,8 +6,6 @@
 ```
 ./install.sh
 ```
-1. Point your domain names to the nginx node internal or public ip respectively.
-2. To check the connections you may install [httpbin](../../../utils/httpbin)
 
 ## Istio injection
 To enable Istio injection in a namespace:
