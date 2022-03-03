@@ -4,16 +4,23 @@
 ![](docs/images/deployment_architecture.png)
 
 ## Features
+* Clusters not dependent on OS of underlying VM's i.e. Operating System agnostic.
+* Supports all type of Kubernetes solution like RKE, EKS, AKS etc. 
 * Single Kubernetes cluster MOSIP installation.
 * Single organisation-wide IAM system. Here, we install Keycloak.
 * Cluster administration using Rancher. 
 * Rancher-IAM-cluster integration for Role Based Access Control (RBAC).
-* Option to access MOSIP cluster over private network using Wireguard.
-* Accces to all MOSIP modules via Ingress. 
+* Intra cluster traffic management using powerfull Istio Mesh.
+* Two communication channels for the cluster (PUBLIC and INTERNAL to the cluster). 
 * Internal LB for ActiveMQ - ABIS connection. 
-* All cluster deployments via Helm charts.
+* Published Production grade Helm charts for each MOSIP modules from seperate [repository](https://github.com/mosip/mosip-helm).
+* All cluster, external services and MOSIP services deployments via Helm charts using shell scripts.
+* Deployment of MOSIP modules and external services in separate namespaces with its own ingress, permissions and policies.
+* Storing secrets as Kubernetes secrets, no more passing of secrets via plain texts anywhere.
+* Passing necessary configuration properties like usernames and URL's via configmaps. 
 * Option to run external components inside cluster for development and testing.
 * High Availability option for all components including Rancher and IAM.
+* Easy instalation and control of Logging and monitoring from Rancher dashboards directly.
 
 ### IAM (Keycloak)
 We recommend a single Identity & Access Management (IAM) for an organization or a project to avoid managing multiple entries for the same user.  The IAM may be shared across multiple MOSIP installations.  Here, we deploy Keycloak. However, any OAuth 2.0 compliant IAM should work well with MOSIP.
