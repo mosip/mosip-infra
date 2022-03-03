@@ -20,3 +20,5 @@
 17. Scripts to clean up processed packets in landing zone.
 18. On-prem K8s cluster production configuration as given [here](rke_cluster_hardening.md).
 19. Increase `replicaCount` for Clamav.
+20. Kafka: disable option to delte a topic: [`deleteTopicEnable: false`](../external/kafka/values.yaml)
+
