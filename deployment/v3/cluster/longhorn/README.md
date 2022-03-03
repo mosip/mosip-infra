@@ -3,10 +3,6 @@
 ## Introduction
 [Longhorn](https://longhorn.io) is a persistant storage provider that installs are storage class `longhorn` on the cluster.
 
-## Prerequisites
-```sh
-./pre_install.sh
-```
 ## Longhorn
 * Install using Rancher UI as given [here](https://longhorn.io/docs/latest/deploy/install/install-with-rancher/).
 * Make sure you disable default storage class flag before installing on Cloud.
