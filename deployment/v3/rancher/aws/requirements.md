@@ -9,14 +9,13 @@ The following number of EC2 nodes/instances will be required
 |Purpose|vCPUs|RAM|Storage| AWS Type of each node | Number of Nodes|
 |---|:---:|:---:|:---:|:---:|---:|
 |Cluster nodes | 2 | 8 GB | 32 GB | t3.large |2|
-|Wireguard bastion host| 2 | 1 GB | 8 GB | t2.micro |1|
+|[Wireguard bastion host](../../docs/wireguard-bastion.md)| 2 | 4 GB | 8 GB | t2.medium |1|
 
-Note: All the above nodes are to be on the same VPC.
+Note: all the above nodes must be on the same VPC.
 
-## LoadBalancers
+## Load balancer
 
-One loadbalancer will be required, for the ingress controller. <br/>
-Note: This will automatically be created upon installation of the ingress controller.
+Cloud provided load balancer will be automatically created upon installation of the ingress controller.
 
 ## DNS requirements
 
