@@ -34,14 +34,17 @@ helm install \
 -f nginx.values.yaml
 ```
 
-## AWS Loadbalancer (LB)
-The `nginx.values.yaml` specifies a AWS Network Loadbalancer (L4) be automatically created.  Check the following on AWS console:
+The above will automatically spawn an [Internal AWS Network Load Balancer (L4)](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-network-load-balancer.html).  
+
+## Network Load Balancer (LB)
+
+Check the following on AWS console:
 
 1. An LB has been created. You may also see the DNS of LB with
     ```
     kubectl -n ingress-nginx get svc
     ```
-1. Edit listner "443".  Select "TLS".
+1. Edit listner "443". Select "TLS".
 1. Note the target group name of listner 80. Set target group of 443 to target group of 80.  Basically, we want TLS termination at the LB and it must forward HTTP traffic (not HTTPS) to port 80 of ingress controller.  So
     * Input of LB:  HTTPS
     * Output of LB: HTTP --> port 80 of ingress nginx controller
