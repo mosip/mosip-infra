@@ -36,6 +36,6 @@ This document helps in creating wireguard configurations for the particular user
      vim peer1.conf file
    ```
 9. In the `peer1.conf` file,
-* Delete the DNS IP.
-* Update the allowed IP's(subnet IP of AWS).
-* Share the conf file with the peer.
+    * Delete the DNS IP.
+    * Update the allowed IP's(subnet IP of AWS).
+    * Share the conf file with the peer.
