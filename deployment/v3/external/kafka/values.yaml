@@ -7,6 +7,8 @@ numPartitions: 20
 replicaCount: 5
 sidecars: {}
 autoCreateTopicsEnable: true
+# CAUTION: In production, Disable below option.
+deleteTopicEnable: true
 
 persistence:
   enabled: true
