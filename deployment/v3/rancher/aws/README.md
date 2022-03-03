@@ -3,7 +3,7 @@
 ## Prerequisites
 * AWS account and credentials with permissions to create EKS cluster.
 * AWS credentials in `~/.aws/` folder as given [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
-* [Wireguard setup](../../docs/wireguard_bastion.md).
+* [Wireguard setup](../../docs/wireguard-bastion.md).
 * Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden).
 * [`eksctl`](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) utility.
 * `kubectl` utility installed.
