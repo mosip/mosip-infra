@@ -13,6 +13,7 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 * `kubectl` utility installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
+* [Hardware, network, certificate requirements](./requirements.md). Compute Node requirements are already configured in `cluster.config.sample`.
 
 ### Install
 * Copy `cluster.config.sample ` to `mosip.cluster.config`.  
@@ -50,7 +51,7 @@ You can also create cluster on Cloud using the Rancher console.  Refer to Ranche
 * Login as admin in Rancher console
 * Configure your cloud credentials
 * Add this cluster to Rancher  
-* Make sure the correct zone is selected to be able to see the cluster on Rancher console. 
+* Make sure the correct zone is selected to be able to see the cluster on Rancher console.
 
 ## Persistence
 ### GP2
@@ -112,7 +113,7 @@ We have installed in `default` namespace.  You may choose any other namespace as
 Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
 
 ## Log rotation
-The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node. 
+The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.
 
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.

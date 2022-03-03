@@ -14,10 +14,12 @@ ingress:
   ingressClassName: ""
   pathType: ImplementationSpecific
   apiVersion: ""
-  hostname: 
+  hostname:
   path: /
   annotations:
     ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tls: false
   selfSigned: false
   extraHosts: []

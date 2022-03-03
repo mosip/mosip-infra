@@ -1,7 +1,7 @@
 # Rancher Management Server
 
 ## Introduction
-Rancher is used to manage multiple kubernetes clusters for the organisation. We need one Rancher installation throughout the organisaton. Install Rancher before installation of MOSIP cluster. While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing it on a Kubernetes cluster. We will use the same cluster to install IAM [Keycloak](https://www.keycloak.org/). 
+Rancher is used to manage multiple kubernetes clusters for the organisation. We need one Rancher installation throughout the organisaton. Install Rancher before installation of MOSIP cluster. While Rancher may be installed native, or just using Docker on any VM, for high availability and management we recommend installing it on a Kubernetes cluster. We will use the same cluster to install IAM [Keycloak](https://www.keycloak.org/).
 
 ## Architecture Diagram
 ![](../docs/images/rancher_iam.png)
@@ -10,14 +10,14 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
 * [aws](aws/README.md)
 * [on-prem](on-prem/README.md)
 
-## Keycloak
-Refer [here](keycloak/README.md) for installation of Keycloak.
-
 ## Rancher
 * Install Rancher using Helm.
     ```
-     helm install rancher rancher-latest/rancher \
+    helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
+    helm repo update
+    helm install rancher rancher-latest/rancher \
       --namespace cattle-system \
+      --create-namespace
       --set hostname=rancher.mosip.net \
       --set replicas=2 \
       --set bootstrapPassword=admin \
@@ -32,9 +32,16 @@ Refer [here](keycloak/README.md) for installation of Keycloak.
     ```
 * Assign a password.  IMPORTANT: makes sure this password is securely saved and retrievable by Admin.
 
+## Persistent storage
+* On Cloud hosted cluster, like AWS, built-in persistent storage options are available. Like AWS's EBS.
+* But on an on-prem cluster, a persistent storage provider would have to be installed. Install Longhorn for persistence using [this](./longhorn).
+
+## Keycloak
+Refer [here](keycloak/README.md) for installation of Keycloak.
+
 ## Keycloak-Rancher integration
 * Login as "admin" user in Keycloak and make sure an email id, and first name field is populated for "admin" user. This is important for Rancher authentication as given below.
-* Enable authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.5/en/admin-settings/authentication/keycloak/).
+* Enable authentication with Keycloak using the steps given [here](https://rancher.com/docs/rancher/v2.6/en/admin-settings/authentication/keycloak-saml/).
 * In Keycloak add another Mapper for the rancher client (in Master realm) with following fields:
   * Protocol: saml
   * Name: username

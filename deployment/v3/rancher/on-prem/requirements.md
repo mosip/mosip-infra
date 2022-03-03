@@ -7,10 +7,11 @@ Listed below are hardware, network and certificate requirements to setup a **Ran
 |Purpose|vCPUs|RAM|Storage| Number of Vms\*|
 |---|:---:|:---:|:---:|---:|
 |Cluster nodes | 2 | 8 GB | 32 GB | 2|
-|Wireguard bastion host| 2 | 1 GB | 8 GB |1|
-|Nginx|2|1GB|8 GB|1|
+|Wireguard bastion host**| 2 | 1 GB | 8 GB |1|
+|Nginx|2|2GB|16 GB|1|
 
-\* Virtual Machines
+\* Virtual Machines<br/>
+\** Note: Wireguard Bastion Host can also be setup on the Nginx node itself.
 
 ## Network configuration
 
