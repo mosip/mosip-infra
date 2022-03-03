@@ -40,7 +40,7 @@ Further, for private access to MOSIP APIs, a Wireguard bastion host may be insta
 All components installed here have High Availibity (HA) option.
 * IAM:  Keycloak may be run on a separate k8s cluster thereby providing HA. 
 * Rancher: Similar to IAM, Rancher server may also be run on a separate k8s cluster. 
-* Activeq: Master-slave configuration of ActiveMQ installed.
+* Activemq: Master-slave configuration of ActiveMQ installed.
 * MOSIP pods:  All pods may be replicated for HA.
 
 ## Cloud versus on-prem
@@ -48,7 +48,7 @@ There are certain differences between cloud and on-prem deployments.  Few of the
 |Feature|Cloud|On-prem|
 |---|---|---|
 |K8s cluster|Cloud provider provisioned. Eg. EKS on AWS, AKS on Azure|Native, eg. using Rancher RKE|
-|Load balancer|Automatic provision of LB|Metallb|
+|Load balancer|Automatic provision of LB|Nginx|
 |TLS termination|Cloud LB|Nginx|
 |Inter-node Wireguard network|Not compatible|Works well|
 
