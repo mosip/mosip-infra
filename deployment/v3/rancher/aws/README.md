@@ -21,7 +21,8 @@ eksctl create cluster -f rancher.cluster.config
 * Note that it takes around 30 minutes to create (or delete a cluster).
 * After creating cluster make a backup copy of `config` with a suitable name in `~/.kube/` folder, eg. `rancher_config` because if you create cluster again using `eksctl` it will override existing `~/.kube/config`. Set file permission to `chmod 400 ~/.kube/rancher_config` to avoid any accidental changes or deletion.
 
-## Nginx ingress
+## Ingress controller 
+Install [Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/) using Helm charts:
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
