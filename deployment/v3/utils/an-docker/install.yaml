@@ -1,0 +1,29 @@
+- hosts: cluster
+  become: true
+  tasks:
+  - name: Install docker.io for Debian
+    when: ansible_os_family == "Debian"
+    apt:
+      name: "docker.io"
+      state: present
+      update_cache: yes
+
+  - name: Add docker repo For Centos
+    when: ansible_os_family == "RedHat"
+    yum_repository:
+      name: Docker
+      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  - name: Install docker repo For Centos
+    when: ansible_os_family == "RedHat"
+    yum:
+      update_cache: yes
+      state: present
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+  - name: Add docker user to docker group
+    command: usermod -aG docker {{ ansible_user }}
+
+  - name: Start docker service
+    command: systemctl start docker

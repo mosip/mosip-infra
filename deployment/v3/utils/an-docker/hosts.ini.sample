@@ -1,0 +1,4 @@
+[cluster]
+node1 ansible_host=<ssh-ip> ansible_user=ubuntu
+node2 ansible_host=<ssh-ip> ansible_user=ubuntu
+node3 ansible_host=<ssh-ip> ansible_user=ubuntu
