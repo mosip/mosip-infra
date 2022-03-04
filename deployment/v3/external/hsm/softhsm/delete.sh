@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=softhsm-ida
+NS=softhsm
 while true; do
     read -p "Are you sure you want to delete Softhsm helm charts? Y/n ?" yn
     if [ $yn = "Y" ]
