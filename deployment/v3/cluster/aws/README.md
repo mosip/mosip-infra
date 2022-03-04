@@ -123,27 +123,6 @@ The default log max log file size set on EKS cluster is 10MB with max number of 
 ## Increase/delete nodes
 In Rancher console, under Edit Cluster, increase the Desired ASG size to the number of nodes you need.  Nodes should get created.
 
-## Delete the EKS cluster
-When we remove an EKS cluster we should also make sure that all the volumes and loadbalancers related to cluster are also removed. Will follow below steps to remove the cluster and cluster resources.
-* Crosscheck if all the Persistent Volume (PV) allocated to the cluster are in delete mode using below command
-```
-kubectl get pv
-```
-* If any of the PV allocated is in Retain mode just note the PV name so that the same can be deleted after EKS cluster deletion.
-* Delete the Namespaces whose resources are using any of the PV's.
-* Istio is in Loadbalancer mode from isto-system Namespace so the same also needed to be removed.
-* We have identified the Namespaces using the PV and Loadbalancer. Use the below command delete the required Namespaces:
-```
-kubectl delete ns postgres kafka regproc cattle-logging-system keycloak activemq keymanager ida istio-system
-```
-* Verify if all the PV and Loadbalancers are deleted.
-* Delete the PV's which were in retain mode from AWS console Volumes.
-* Delete the EKS cluster using below command there.
-```
-eksctl delete cluster --name <cluster name>
-```
-Note: this may take around 30 mins.
-* Once completed verify if the cluster is deleted from AWS console.
 
 ## Troubleshooting
 * **TLS Handshake issue**: If while accessing resources you see error as mentioned [here](https://stackoverflow.com/questions/51302515/kubernetes-net-http-tls-handshake-timeout-when-fetching-logs-baremetal), then it could be due to node(s) not availability due to resource constraints (RAM, storage, compute).  Either add nodes or delete pods.
