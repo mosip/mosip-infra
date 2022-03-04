@@ -55,7 +55,6 @@ There are certain differences between cloud and on-prem deployments.  Few of the
 ## Installation
 Following install sequence is recommended:
 * [Rancher](rancher/README.md) 
-* [IAM (Keycloak)](external/iam/README.md)
 * [MOSIP K8s cluster](cluster/README.md)
 * [Monitoring](monitoring/README.md)
 * [Logging](logging/README.md)
