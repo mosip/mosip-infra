@@ -11,6 +11,7 @@ The instructions here install an EKS cluster on AWS along with Network Loadbalan
 * Copy of `~/.kube/config` file with another name. _(IMPORTANT. As in this process your existing `~/.kube/config` file will be overridden)._
 * [`eksctl`](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html) utility.
 * `kubectl` utility installed.
+* `helm` installed.
 * Key `.pem` file from AWS console in `~/.ssh/` folder. (Generate a new one if you do not have this key file).
 * [`aws-iam-authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) installed.
 
@@ -24,10 +25,6 @@ eksctl create cluster -f mosip.cluster.config
 * Note that it takes around 30 minutes to create (or delete a cluster).
 * After creating cluster make a backup copy of `config` with a suitable name in `~/.kube/` folder, eg. `mosip_config` because if you create cluster again using `eksctl` it will override existing `~/.kube/config`. Set file permission to `chmod 400 ~/.kube/rancher_config` to avoid any accidental changes or deletion.
 
-## Utilities
-Install following command line utilities:
-* kubectl
-* helm 3
 
 ## Helm repositories
 Add the following Helm repos:
