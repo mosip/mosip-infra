@@ -34,7 +34,7 @@ spec:
         - name: is_glowroot_env
           value: absent
         - name: iam_adapter_url_env
-          value: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
+          value: {{ .Values.artifactoryUrl }} 
         - name: olv_partner_ids_env
           value: "mpartner-default-auth"
         - name: skip_existing_cred_requests_for_partner_env
