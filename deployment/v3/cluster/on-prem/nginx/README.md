@@ -1,48 +1,62 @@
 # NGINX Reverse Proxy Setup
 
-* On on prem systems, loadbalancers (usually metallb), will be chosen to run on the internal subnet.
-* We can then dedicate a node that run on the same internal subnet as above, which run an nginx reverse proxy into the loadbalancer. And this can accessed publicly.
+* On on prem systems, Ingressgateways will be chosen to be exposed as nodeport services.
+* We can then dedicate a node that run on the same internal subnet as cluster nodes, which run an nginx reverse proxy into the above nodeports. And this can accessed publicly.
 
-## 1. Intial Setup
+## Prerequisites
 
 * Provision one VM for Nginx. Or multiple VMs for high avaiability like Nginx Plus.
-* The machine should be external facing with public ip and DNS like `api.mosip.xyz.net`.
-  * Full dns refer to [this](../../global_configmap.yaml.sample)
-  * Example `rancher.mosip.xyz.net` should point to the nginx node internal ip.
-* TLS termination will happen here. The traffic will be forward to cluster ingress over HTTP.
-  * Make sure you have SSL certificate for the above domain so that HTTPS is enabled.
+* SSL certificate and key pair (for TLS termination) are required. The script will prompt for the path to these.
   * To get wildcard ssl certificates using letsencrypt, use [this](../../../docs/wildcard-ssl-certs-letsencrypt.md).
-* Make sure the metallb loadbalancer ips are reachable from this nginx node.
-  * To test whether nginx node can reach the loadbalancer ip, we can use curl.
-    ```
-    kcr get svc -n istio-system
-    curl http://<loadbalancer-ip>
-    ```
-  * If it is not reachable or gives `No route to host`, add an route in the routing table.
-    ```
-    sudo ip route add <loadbalancer-ip> via <first-cluster-node-ip>
-    ```
-* `sudo apt install nginx`
-* Edit the nginx.conf file, like the [sample](./sample-nginx.conf) provided. See section 2 in this document.
-* Test config and start/restart nginx
-  * For systemctl based linux systems, use:
-    ```
-    sudo nginx -t
-    sudo systemctl restart nginx
-    ```
-  * For others use;
-    ```
-    sudo nginx -t
-    sudo nginx -s reload
-    ```
+* Make sure this nginx node has two network interfaces. One of which has to face external traffic. And one of the interfaces has to be on the same network as the cluster nodes/machines. The public facing interface itself can also be on the same internal network and the second interface can just be a dummy one . Network configuration is left to administrators. (In case provisioning another interface is not possible, one can create a virtual interface in linux like a tap/macvtap. A dummy virtual interface also will do.)
+* The `install.sh` script needs OS to be debian based, linux machine(s). (Ideally an Ubuntu Server)
+* The following commandline utilities needed
+  * `bash`,`sed`,`docker`(optional, only required for wireguard bastion setup) 
 
-## 2. Configuring servers in nginx.conf
+## Installation
+* Always run the script as root user. (or with sudo)
+* The script is interactive and it will prompt for everything required.
+* To only install nginx:
+```
+# ./install.sh
+```
+* To install nginx with wireguard (docker is required. And the `WG_DIR` is variable and has to be specified in absolute path. This dir will store all the conf files and peer keys):
+```
+# WG_DIR=$HOME ./install.sh +wg
+```
+* To install only wireguard:
+```
+# WG_DIR=$HOME ./install.sh wg
+```
+<details>
+  <summary>For non debian based OSes</summary>
 
-* Each server section in the config corresponds to one particular ip/ dns name.
-* Ip values in `listen` directive are the ips that the nginx server listens on. There we have to provide the nginx internal interface ip/ public interface ip, accordingly.
-* Ip values in `proxy_pass` directive are the destination ips to what we want to proxy to. There we have to provide loadbalancer ips.
-* Edit the config so that, in the first server all requests to nginx-node internal interface, with the server_name(host name) of rancher and iam, go to the rancher-cluster-ingressgateway-loadbalancer.
-* Edit the second server so that rest of all requests to nginx-node internal interface should go to the mosip-cluster-internal-ingressgateway-loadbalancer. (Here `server_name` need not be specified, instead use the tag `default_server`, check sample)
-* Edit the third server so that all requests to nginx-node-public-interface-ip should go to the mosip-cluster-internal-ingressgateway-loadbalancer. (Here also no need to specify `server_name` or `default_server`)
-* Any no of servers can be added depending on the ise case.
-* There is also a `stream` section, which is used to proxy raw TCP traffic. Add any no of servers there also, one for each port that is to be exposed. This port has to be open on the loadbalancer to which this has to be proxied to.
+  Replace `apt install` with your respective package manager, like `yum`, `apk`, `pkg`,`brew`, etc.
+</details>
+
+### Post-Installation
+
+* After installation one can check nginx installed status:<br/>
+`sudo systemctl status nginx`
+<details>
+  <summary>For Optional Wireguard bastion installation</summary>
+
+  * After initial wg installation, one can check in the given `WG_DIR` there should be two folder `wgbaseconf` & `wgconf`:
+  * `wgbaseconf` contains pubkey privkey pairs for all the peers. `wgconf` contains the actual peer conf files.
+  * If one wants to run multiple replicas of this `nginx+wireguard` node, one can choose to copy this `wgbaseconf` folder off to the new replicas' `WG_DIR`, and then rerun the script on the new node. This time the pub-priv keypair will be preserved across all the replica nodes.
+  * Before sharing the wireguard peer conf file, create a file `assigned.txt` and take a list of all peers
+  * Incase of multiple replicas of `nginx+wireguard` node, combine the wg conf files of all the replicas into one conf file as multiple peers.
+</details>
+
+### Uninstall
+```
+sudo apt purge nginx nginx-common
+```
+<details>
+  <summary>If Wireguard bastion also installed, use this to remove it</summary>
+
+```
+docker rm -f wireguard
+sudo rm -rf $WG_DIR/wgbaseconf $WG_DIR/wgconf
+```
+</details>

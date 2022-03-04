@@ -1,20 +1,49 @@
-# Requirements for On-prem Nodes/VMs
+# Requirements for On-prem MOSIP Cluster Sandbox
 
-* We need atleast the following no of nodes with atleast the following specifications to meet the prerequisites.
-  * 5 nodes each with specs: 8 cores, 32 GB RAM, 64 GB Disk. Mosip cluster will be setup on these nodes.
-  * 2 nodes each with specs: 2 cores, 8 GB RAM, 64 GB Disk. Rancher + IAM cluster will be setup in 2 of these nodes.
-  * 1 node, same as above, with specs: 2 cores, 8 GB RAM, 64 GB Disk. Nginx will be setup in this node.
-  * Note: Wireguard bastion will also be setup on the nginx node only, no need for a dedicated VM.
-* The Nginx node should be accessible publicly. That means, this node should have atleast the following networking configuration:
-  * One internal network interface where it can talk to the other nodes, one public interface
-  * One public interface; this either has a direct public ip. Or there is some firewall rule somewhere else to forward that public-ip 443/tcp & 51820/udp traffic to this interface. (51820 is wireguard port, for bastion server).
-  * Side note: If wireguard bastion is to be installed on the same node as the nginx, One may omit the dedicated internal interface. This is only required to distinguish internal vs public traffic coming to nginx node. In this case we can replace the internal interface with this wiregaurd interface only. Even the DNS (for internal hostnames) can point to this.
-* DNS info:
-  * All the publicly accessible hostname should be mapped to the public ip of nginx node.
-  * All the internal/non-public hostnames should be mapped to the internal interface of nginx node
-  * For a full list of public vs internally accessible hostname, refer to [this](../global_configmap.yaml.sample)
-  * Rancher and IAM hostname can also be mapped to the internal interface ip. (Unless they want to be publicly accessible, then they can be mapped to public ip).
-* For the SSL certificates:
-  * One wildcard certificate like `*.mosip.xyz.net` is sufficient for all the hostnames if they are decided to be put under the same hostname. Like;
-  * Since the certificates go only one level in hierarchy, something like `prereg.sandbox1.mosip.xyz.net`, would work because a new certiificate will be required here.
-  * So choose the hostnames and certificates accordingly, before getting started. Refer [here](../global_configmap.yaml.sample) again for a list of hostname required by mosip (*Excluding Rancher and IAM hostnames*)
+Listed below are hardware, network and certificate requirements to setup a **MOSIP sandbox** on-prem.  Note that requirements for [Rancher cluster](../../rancher/on-prem) are not covered here.
+
+## Hardware requirements
+|Purpose|vCPUs|RAM|Storage|Number of VMs\*|
+|---|:---:|:---:|:---:|---:|
+|Cluster nodes | 8 | 32 GB | 64 GB |5|
+|Wireguard bastion host**| 2 | 1 GB | 8 GB |1|
+|Nginx|2|4GB|16 GB|1|
+
+\* Virtual Machines<br/>
+\** Note: Wireguard Bastion Host can also be setup on the Nginx node itself.<br/>
+Note: All the above nodes are to be on the same network.<br/>
+Note: The above should also be on the same network as rancher cluster, since these will require rancher access. Otherwise the routing has to be manually setup.
+
+## Network configuration
+The following network configuration is required for the above mentioned nodes.
+* Cluster Nodes
+  * One internal interface: with internet access and that is on the same network as all the rest of nodes. (Eg: NAT Network)
+* Nginx VM
+  * One internal interface: that is on the same network as all the rest of nodes.
+  * One public interface: Either has a direct public IP, or a firewall rule that forwards traffic on 443/tcp port to this interface ip.
+* Wireguard Bastion
+  * One internal interface: that is on the same network as all the rest of nodes.
+  * One public interface: Either has a direct public IP, or a firewall rule that forwards traffic on 51820/udp port to this interface ip.
+
+## DNS requirements
+The following DNS mappings will be required.
+
+| Hostname | Mapped to |
+|---|---|
+| mosip-api-host | Public ip of Nginx node |
+| mosip-api-internal-host | Internal ip of Nginx Node|
+| mosip-prereg-host | Public ip |
+| mosip-activemq-host | Internal ip |
+| mosip-kibana-host | Internal ip |
+| mosip-regclient-host | Internal ip |
+| mosip-admin-host | Internal ip |
+| mosip-minio-host | Internal ip |
+| mosip-kafka-host | Internal ip |
+| mosip-iam-external-host | Internal ip |
+
+Note: The above table is just a placeholder for hostnames, the actual name itself varies from organisation to organisation.  A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
+Note: Only proceed to DNS mapping after the ingressgateways are installed and the nginx reverse proxy is setup.
+
+## Certificate requirements
+* Depending upon the above hostnames, will requires atleast one wildcard SSL certificate. For example; `*.mosip.gov.country`.
+* Will need more ssl certificates, for every new level of hierarchy. For example; `*.sandbox1.mosip.example.org`.
