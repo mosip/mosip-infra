@@ -1,7 +1,11 @@
-# Install docker on all nodes
+# Ansible Docker Installer
 
-* configure `hosts.ini.sample` and copy to `hosts.ini`
-* run
+## Overview
+This folder contains Ansible scripts to install Docker on set of nodes.
+
+## Install
+* Configure `hosts.ini.sample` and copy to `hosts.ini`
+* Run
 ```
 ansible-playbook -i hosts.ini install.yaml
 ```
