@@ -1,0 +1,15 @@
+activemq=activemq
+artifactory=artifactory
+abis=mock-abis
+websub=websub
+kernel=kernel
+packetmanager=packetmanager
+datashare=datashare
+prereg=prereg
+regproc=regproc
+ida=ida
+idrepo=idrepo
+pms=pms
+resident=resident
+admin=admin
+print=print
