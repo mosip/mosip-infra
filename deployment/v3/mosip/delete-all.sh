@@ -1,63 +1,73 @@
 #!/bin/bash
-echo deleting MOSIP services
+# Deletes MOSIP services
+## Usage: ./delete-all.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+WORK_DIR=`pwd`
+
+echo Deleting MOSIP services
 
 cd config_server 
 ./delete.sh
-cd ../
-echo Deleted Config Server
+cd $WORK_DIR
 
 cd artifactory
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd keymanager
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd websub
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd kernel
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd packetmanager
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd datashare
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd prereg
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd idrepo
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd pms
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd mock-abis
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd regproc
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd admin
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd ida
 ./delete.sh
-cd ../
+cd $WORK_DIR
 
 cd regclient
 ./delete.sh
-cd ../
+cd $WORK_DIR
+
+echo Deleted MOSIP services
