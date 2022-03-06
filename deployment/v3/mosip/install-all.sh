@@ -67,6 +67,14 @@ cd ida
 ./install.sh
 cd $WORK_DIR
 
+cd print
+./install.sh
+cd $WORK_DIR
+
+cd mosip-file-server
+./install.sh
+cd $WORK_DIR
+
 cd regclient
 ./install.sh
 cd $WORK_DIR

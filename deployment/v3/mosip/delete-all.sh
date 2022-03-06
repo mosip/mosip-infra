@@ -66,6 +66,14 @@ cd ida
 ./delete.sh
 cd $WORK_DIR
 
+cd print
+./delete.sh
+cd $WORK_DIR
+
+cd mosip-file-server
+./delete.sh
+cd $WORK_DIR
+
 cd regclient
 ./delete.sh
 cd $WORK_DIR
