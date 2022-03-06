@@ -1,5 +1,5 @@
 #!/bin/sh
-# Uninstalls all Kernel helm charts 
+# Uninstalls all kernel helm charts 
 ## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 NS=kernel
 while true; do
-    read -p "Are you sure you want to delete ALL Kernel helm charts?(Y/n) " yn
+    read -p "Are you sure you want to delete all kernel helm charts?(Y/n) " yn
     if [ $yn = "Y" ]
       then
         helm -n $NS delete auditmanager

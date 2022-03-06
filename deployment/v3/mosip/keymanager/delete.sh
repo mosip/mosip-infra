@@ -1,5 +1,5 @@
 #!/bin/sh
-# Uninstalls Keymanager
+# Uninstalls keymanager
 ## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -8,7 +8,7 @@ fi
 
 NS=keymanager
 while true; do
-    read -p "Are you sure you want to delete Keymanager helm chart?(Y/n) " yn
+    read -p "Are you sure you want to delete keymanager helm chart?(Y/n) " yn
     if [ $yn = "Y" ]
       then
         helm -n $NS delete kernel-keygen
