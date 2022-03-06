@@ -1,5 +1,12 @@
 #!/bin/sh
-# Uninstalls Regclient downloader
+# Uninstalls mosip-file-server
+## Usage: ./delete.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+
 NS=mosip-file-server
 while true; do
     read -p "Are you sure you want to delete mosip-file-server helm chart?(Y/n) " yn

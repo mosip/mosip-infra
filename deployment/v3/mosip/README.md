@@ -17,5 +17,12 @@ Install in the following order:
 * [Registration Processor](regproc/README.md)
 * [Admin](admin/README.md)
 * [ID Authentication](ida/README.md)
+* [Print](print/README.md)
+* [Mosip File Server](mosip-file-server/README.md)
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
+
+The same can be achieved by running `install-all.sh`
+```
+./install-al.sh
+```
