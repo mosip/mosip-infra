@@ -1,10 +1,11 @@
 #!/bin/sh
-# Restart the idrepo deployment
+# Restart the prereg services
 ## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=idrepo
+
+NS=prereg
 kubectl -n $NS rollout restart deploy

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Restart the deployment
+# Restarts the admin services
 ## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then

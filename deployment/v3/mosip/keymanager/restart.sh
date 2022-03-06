@@ -1,10 +1,10 @@
 #!/bin/sh
-# Restart the idrepo deployment
+# Restart the keymanager
 ## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=idrepo
-kubectl -n $NS rollout restart deploy
+NS=keymanager
+kubectl -n $NS rollout restart deploy keymanager

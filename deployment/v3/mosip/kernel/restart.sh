@@ -1,6 +1,5 @@
 #!/bin/sh
-# Restart the deployment
-## Usage: ./delete.sh [kubeconfig]
+# Restart the kernel services
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
