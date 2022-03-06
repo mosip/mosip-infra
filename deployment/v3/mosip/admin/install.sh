@@ -1,11 +1,18 @@
 #!/bin/sh
-# Installs the Admin module
+# Installs the admin module
 # Make sure you have updated ui_values.yaml
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+
 NS=admin
 CHART_VERSION=1.2.0
 
 echo Create namespace
-kubectl create ns $NS
+kubectl create $NS namespace
 
 echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
@@ -27,5 +34,9 @@ helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.all
 
 echo Installing admin-ui
 helm -n $NS install admin-ui mosip/admin-ui --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
+
+kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+echo Installed admin services
 
 echo "Admin portal URL: https://$ADMIN_HOST/admin-ui/"

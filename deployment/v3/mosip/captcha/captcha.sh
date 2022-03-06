@@ -9,7 +9,8 @@ fi
 
 NS=prereg
 
-echo Create namespace
+echo Create $NS namespace
 kubectl create ns $NS 
 
+echo Setting up captcha secrets
 kubectl -n $NS create secret generic prereg-captcha --from-literal=prereg-captcha-site-key=$1 --from-literal=prereg-captcha-secret-key=$2 --dry-run=client  -o yaml | kubectl apply -f -
