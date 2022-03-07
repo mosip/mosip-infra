@@ -10,31 +10,11 @@ WORK_DIR=`pwd`
 
 echo Deleting MOSIP services
 
-cd config-server 
+cd regproc
 ./delete.sh
 cd $WORK_DIR
 
-cd artifactory
-./delete.sh
-cd $WORK_DIR
-
-cd keymanager
-./delete.sh
-cd $WORK_DIR
-
-cd websub
-./delete.sh
-cd $WORK_DIR
-
-cd kernel
-./delete.sh
-cd $WORK_DIR
-
-cd packetmanager
-./delete.sh
-cd $WORK_DIR
-
-cd datashare
+cd resident
 ./delete.sh
 cd $WORK_DIR
 
@@ -46,6 +26,22 @@ cd idrepo
 ./delete.sh
 cd $WORK_DIR
 
+cd print
+./delete.sh
+cd $WORK_DIR
+
+cd ida
+./delete.sh
+cd $WORK_DIR
+
+cd packetmanager
+./delete.sh
+cd $WORK_DIR
+
+cd datashare
+./delete.sh
+cd $WORK_DIR
+
 cd pms
 ./delete.sh
 cd $WORK_DIR
@@ -54,19 +50,7 @@ cd mock-abis
 ./delete.sh
 cd $WORK_DIR
 
-cd regproc
-./delete.sh
-cd $WORK_DIR
-
 cd admin
-./delete.sh
-cd $WORK_DIR
-
-cd ida
-./delete.sh
-cd $WORK_DIR
-
-cd print
 ./delete.sh
 cd $WORK_DIR
 
@@ -75,6 +59,26 @@ cd mosip-file-server
 cd $WORK_DIR
 
 cd regclient
+./delete.sh
+cd $WORK_DIR
+
+cd keymanager
+./delete.sh
+cd $WORK_DIR
+
+cd kernel
+./delete.sh
+cd $WORK_DIR
+
+cd config-server
+./delete.sh
+cd $WORK_DIR
+
+cd artifactory
+./delete.sh
+cd $WORK_DIR
+
+cd websub
 ./delete.sh
 cd $WORK_DIR
 

@@ -70,6 +70,10 @@ cd print
 ./restart.sh
 cd $WORK_DIR
 
+cd resident
+./restart.sh
+cd $WORK_DIR
+
 cd mosip-file-server
 ./restart.sh
 cd $WORK_DIR

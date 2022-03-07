@@ -75,6 +75,11 @@ cd mosip-file-server
 ./install.sh
 cd $WORK_DIR
 
+cd resident
+./install.sh
+cd $WORK_DIR
+
+
 cd regclient
 ./install.sh
 cd $WORK_DIR
