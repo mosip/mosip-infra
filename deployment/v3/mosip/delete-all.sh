@@ -10,7 +10,7 @@ WORK_DIR=`pwd`
 
 echo Deleting MOSIP services
 
-cd config_server 
+cd config-server 
 ./delete.sh
 cd $WORK_DIR
 

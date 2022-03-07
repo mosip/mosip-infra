@@ -11,7 +11,7 @@ WORK_DIR=`pwd`
 
 echo Installing MOSIP services
 
-cd config_server 
+cd config-server 
 ./install.sh
 cd $WORK_DIR
 
