@@ -1,7 +1,7 @@
 # MOSIP Core
 
 Install in the following order:
-* [Docker secrets](docker_secrets/README.md)
+* [Docker secrets](docker-secrets/README.md)
 * [Prereg captcha](captcha/README.md)
 * [Config Server](config-server/README.md)
 * [Artifactory](artifactory/README.md)
