@@ -1,7 +1,7 @@
 # Keycloak
 
 ## Introduction
-An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP.  Here we provide k8s installation procedure for **Keycloak** which is the default supported IAM with MOSIP.
+An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM) system with MOSIP. We install [Bitnami keycloak](https://bitnami.com/stack/keycloak/helm) in MOSIP inside the kubernetes cluster. 
 
 ## Prerequisites
 - It is recommended to have two seperate installations of keycloak;
@@ -13,9 +13,9 @@ An organisation may use any OAuth 2.0 compliant Identity Access Management (IAM)
   2. 'iam.mosip.xyz.net' that points to the mosip cluster's load balancer.
 
 ## Install
-* Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart. To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). Run the following, **twice**, with different keycloak hostnames and kubeconfig files, one time for organisation keycloak, second time for mosip keycloak.
+* Use the `install.sh` provided in this directory. This will install Keycloak as bitnami helm chart. To further configure `values.yaml` and for any other info, refer [here](https://github.com/bitnami/charts/tree/master/bitnami/keycloak). 
 ```
-$ ./install.sh <keycloak external host name for this install> <kubeconfig file for this cluster>
+$ ./install.sh <kubeconfig file for this cluster>
 ```
 * Note that the helm chart installs postgres too.  If you already have an external postgres DB, point to the same while installing.
 * For postgres persistence the chart uses default storage class available with the cluster.
