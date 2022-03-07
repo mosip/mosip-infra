@@ -23,7 +23,13 @@ ansible-playbook -i hosts.ini wireguard.yaml
 - Install wireguard docker with enough number of peers
 - Assign peer1 to yourself and set your wireguard client
 
-## Disable swap
+## Open ports
+```
+ansible-playbook -i hosts.ini ports.yaml
+```
+
+## Disable swap 
+Need to check if this step is required.
 
 ```
 ansible-playbook -i hosts.ini swap.yaml
