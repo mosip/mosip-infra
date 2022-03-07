@@ -9,7 +9,7 @@ fi
 NS=kernel
 CHART_VERSION=1.2.0
 
-echo Create namespace
+echo Create $NS namespace
 kubectl create ns $NS
 
 echo Istio label
@@ -46,3 +46,7 @@ helm -n $NS install syncdata mosip/syncdata --version $CHART_VERSION
 
 echo Installing notifier
 helm -n $NS install notifier mosip/notifier --version $CHART_VERSION
+
+kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+echo Installed kernel services

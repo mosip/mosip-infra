@@ -1,8 +1,15 @@
 #!/bin/sh
 # Installs config-server
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=config-server
 CHART_VERSION=1.2.0
-echo Create namespace
+
+echo Create $NS namespace
 kubectl create ns $NS
 
 echo Istio label 

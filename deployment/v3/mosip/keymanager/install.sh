@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs Keymanager
+# Installs keymanager
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -9,7 +9,7 @@ fi
 NS=keymanager
 CHART_VERSION=1.2.0
 
-echo Creating keymanager namespace
+echo Creating $NS namespace
 kubectl create ns $NS
 
 echo Istio label
@@ -25,3 +25,7 @@ helm -n $NS install kernel-keygen mosip/keygen --wait --wait-for-jobs --version 
 
 echo Installing keymanager
 helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION
+
+kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+echo Installed keymanager services

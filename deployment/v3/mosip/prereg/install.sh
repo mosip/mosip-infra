@@ -1,9 +1,15 @@
 #!/bin/sh
-# Installs all PreReg helm charts
+# Installs all prereg helm charts
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=prereg
 CHART_VERSION=1.2.0
 
-echo Create namespace
+echo Create $NS namespace
 kubectl create ns $NS
 
 echo Istio label
@@ -39,5 +45,9 @@ helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSI
 echo Installing prereg-ui
 helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
 
-echo Installing Prereg rate-control Envoyfilter
+echo Installing prereg rate-control Envoyfilter
 kubectl apply -n $NS -f rate-control-envoyfilter.yaml
+
+kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+echo Installed prereg services

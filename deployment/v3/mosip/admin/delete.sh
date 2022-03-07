@@ -1,5 +1,11 @@
 #!/bin/sh
-# Uninstalls all Admin helm charts 
+# Uninstalls all admin helm charts 
+## Usage: ./delete.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=admin
 while true; do
     read -p "Are you sure you want to delete ALL Admin helm charts?(Y/n) " yn
