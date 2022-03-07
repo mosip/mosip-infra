@@ -1,10 +1,16 @@
 #!/bin/sh
-# Installs all kernel helm charts 
+# Installs all ida helm charts 
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
 NS=ida
 CHART_VERSION=1.2.0
 
 echo Create namespace
-kubectl create ns $NS
+kubectl create $NS namespace
 
 echo Istio label 
 kubectl label ns $NS istio-injection=enabled --overwrite
@@ -25,3 +31,6 @@ helm -n $NS install ida-internal mosip/ida-internal --version $CHART_VERSION
 echo Installing ida otp
 helm -n $NS install ida-otp mosip/ida-otp --version $CHART_VERSION
 
+kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+echo Intalled ida services

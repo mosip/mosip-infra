@@ -1,10 +1,17 @@
 #!/bin/sh
 # Install mosip-file-server
+## Usage: ./install.sh [kubeconfig]
+
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+
 NS=mosip-file-server
 CHART_VERSION=1.2.0
 
 echo Create namespace
-kubectl create ns $NS
+kubectl create $NS namespace
 
 echo Istio label Disabled
 kubectl label ns $NS istio-injection=disabled --overwrite

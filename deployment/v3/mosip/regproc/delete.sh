@@ -1,8 +1,8 @@
 #!/bin/sh
-# Uninstalls all Reg Proc helm charts
+# Uninstalls all regproc helm charts
 NS=regproc
 while true; do
-    read -p "Are you sure you want to delete ALL Regproc helm charts?(Y/n) " yn
+    read -p "Are you sure you want to delete all regproc helm charts?(Y/n) " yn
     if [ $yn = "Y" ]
       then
         helm -n $NS delete regproc-salt
