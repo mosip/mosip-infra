@@ -2,8 +2,16 @@ serviceName: mosip-file-server
 
 activeProfileEnv: default
 springConfigLabel: {{ config_repo.version }} 
-configServerUrl: http://mz.ingress:30080
+configServerUrl: http://mz.ingress:30080/config
 imagePullPolicy: Always
+
+probe:
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 30
 
 docker:
   image: {{ versions.services.mosip_file_server.service.values()[0] }}
@@ -33,6 +41,7 @@ nfs:
 
 services:
   mosip_file_server:
+    healthUrl: /files/mosipvc/
     podconfig:
       {{ podconfig.mosip_file_server.service | to_nice_yaml(indent=6) | indent(6) }}
 

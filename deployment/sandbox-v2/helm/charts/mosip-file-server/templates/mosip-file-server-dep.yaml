@@ -37,6 +37,28 @@ spec:
           value: {{ .Values.keymanagerUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.mosip_file_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.mosip_file_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.mosip_file_server.healthUrl }}
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
         volumeMounts:
         - name: mosip-file-server-volume
