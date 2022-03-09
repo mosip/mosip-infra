@@ -41,7 +41,7 @@ nfs:
 
 services:
   mosip_file_server:
-    healthUrl: /mosip-file-server/.well-known/
+    healthUrl: /.well-known/
     podconfig:
       {{ podconfig.mosip_file_server.service | to_nice_yaml(indent=6) | indent(6) }}
 
