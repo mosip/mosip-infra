@@ -10,7 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /files
+      - path: {{ .Values.services.mosip_file_server.ingressPath }}
         pathType: ImplementationSpecific
         backend:
           service:

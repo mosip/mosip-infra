@@ -307,7 +307,7 @@ http {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
 
-        location /mosipvc/ {
+        location /.well-known/ {
            if ($request_method = 'OPTIONS') {
              add_header 'Access-Control-Allow-Origin' '*';
              add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
@@ -318,7 +318,7 @@ http {
            autoindex  on;
            add_header Access-Control-Allow-Origin *;
            add_header Access-Control-Allow-Methods "GET, OPTIONS";
-           proxy_pass http://dmzworker0.sb:30080/files/mosipvc/;
+           proxy_pass http://dmzworker0.sb:30080/.well-known/;
         }
 
 
