@@ -42,7 +42,7 @@ nfs:
 services:
   mosip_file_server:
     ingressPath_well_known: /.well-known/
-    ingressPath_files: /files/
+    ingressPath_files: /mobileapp/
     healthUrl: /.well-known/
     podconfig:
       {{ podconfig.mosip_file_server.service | to_nice_yaml(indent=6) | indent(6) }}
