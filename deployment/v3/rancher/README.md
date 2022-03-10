@@ -34,7 +34,7 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
 
 ## Persistent storage
 * On Cloud hosted cluster, like AWS, built-in persistent storage options are available. Like AWS's EBS.
-* But on an on-prem cluster, a persistent storage provider would have to be installed. Install Longhorn for persistence using [this](./longhorn).
+* But on an on-prem cluster, a persistent storage provider would have to be installed. Install Longhorn for persistence using [this](../cluster/longhorn).
 
 ## Keycloak
 Refer [here](keycloak/README.md) for installation of Keycloak.
