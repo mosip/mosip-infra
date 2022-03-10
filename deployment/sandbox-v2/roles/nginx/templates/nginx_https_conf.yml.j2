@@ -321,6 +321,13 @@ http {
            proxy_pass http://dmzworker0.sb:30080/.well-known/;
         }
 
+        location = /mobileapp/ {
+           proxy_pass http://dmzworker0.sb:30080/files/mobileapp/;
+           if ( $request_filename ~ "^.*/(.+\.(apk|zip))$" ) {
+               set $fname $1;
+               add_header Content-Disposition "attachment; filename=$fname";
+           }
+        }
 
         location /activemq/admin/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/activemq/admin/;
