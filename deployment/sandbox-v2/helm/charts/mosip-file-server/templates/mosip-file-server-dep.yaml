@@ -37,8 +37,6 @@ spec:
           value: {{ .Values.keymanagerUrl }}
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
-        command: ["/bin/bash"]
-        args: ["-c", "mkdir -p /home/mosip/mosip-file-server/.well-known/mosipvc/  /home/mosip/mosip-file-server/files/mobileapp/ && cp -r /mnt/mosip-file-server/.well-known/mosipvc/* /home/mosip/mosip-file-server/.well-known/mosipvc/ && /bin/bash  /home/mosip/get-cert.sh && echo 'starting nginx'&& nginx && sleep infinity;"]
         readinessProbe:
           httpGet:
             path: {{ .Values.services.mosip_file_server.healthUrl }}
