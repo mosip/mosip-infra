@@ -5,8 +5,6 @@
     name: '{{mosip_file_server.mosipvc_path}}'
     state: directory
     owner: mosipuser
-    group: mosipuser
-    mode: '0644'
   become: yes
 
 - name: create {{mosip_file_server.mobileapp_path}} directory
@@ -14,8 +12,6 @@
     name: '{{mosip_file_server.mobileapp_path}}'
     state: directory
     owner: mosipuser
-    group: mosipuser
-    mode: '0644'
   become: yes
 
 - name: controller yml to json
@@ -27,9 +23,6 @@
   copy:
     src: '{{tmp_dir}}/controller.json'
     dest: '{{mosip_file_server.mosipvc_path}}/controller.json'
-    owner: mosipuser
-    group: mosipuser
-    mode: '0644'
   become: yes
 
 - name: context yml to json
@@ -41,9 +34,6 @@
   copy:
     src: '{{tmp_dir}}/mosip-context.json'
     dest: '{{mosip_file_server.mosipvc_path}}/mosip-context.json'
-    owner: mosipuser
-    group: mosipuser
-    mode: '0644'
   become: yes
 
 - name: public key yml to json
@@ -55,7 +45,4 @@
   copy:
     src: '{{tmp_dir}}/public-key.json'
     dest: '{{mosip_file_server.mosipvc_path}}/public-key.json'
-    owner: mosipuser
-    group: mosipuser
-    mode: '0644'
   become: yes
