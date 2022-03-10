@@ -2,23 +2,47 @@
   "@context": [{
        "@version": 1.1
     },"https://www.w3.org/ns/odrl.jsonld", {
-    "mosip": "{{site.sandbox_public_url}}/.well-known/",
+    "mosip": "{{site.sandbox_public_url}}/.well-known#",
     "schema": "http://schema.org/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "vcVer": "mosip:vcVer",
     "UIN": "mosip:UIN",
-    "addressLine1": "mosip:addressLine1",
-    "addressLine2": "mosip:addressLine2",
-    "addressLine3": "mosip:addressLine3",
-    "city": "mosip:city",
+    "addressLine1": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine1",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
+    "addressLine2": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine2",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
+    "addressLine3": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine3",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
+    "city": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#city",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
     "dateOfBirth": "mosip:dateOfBirth",
     "email": "mosip:email",
-    "fullName": "mosip:fullName",
-    "gender": "mosip:gender",
+    "fullName": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#fullName",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
+    "gender": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#gender",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
     "phone": "mosip:phone",
     "postalCode": "mosip:postalCode",
-    "province": "mosip:province",
-    "region": "mosip:region",
+    "province": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#province",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
+    "region": {
+        "@id": "{{site.sandbox_public_url}}/.well-known#region",
+        "@context": {"value": "rdf:value", "lang": "@language"}
+    },
     "biometrics": "mosip:biometrics"
   }]
 }
