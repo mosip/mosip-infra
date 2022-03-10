@@ -281,8 +281,8 @@ reg_client:
 
 
 mosip_file_server:
-  nfs_path: '{{nfs.folder}}/mosip-file-server/files'
-  mosipvc_path: '{{nfs.folder}}/mosip-file-server/files/mosipvc/'
+  nfs_path: '{{nfs.folder}}/mosip-file-server/'
+  mosipvc_path: '{{nfs.folder}}/mosip-file-server/.well-known/mosipvc/'
   mobileapp_path: '{{nfs.folder}}/mosip-file-server/files/mobileapp/'
 
 resident_app_server:
