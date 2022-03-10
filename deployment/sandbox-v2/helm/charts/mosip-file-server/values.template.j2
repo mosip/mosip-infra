@@ -20,7 +20,7 @@ docker:
     servicePort: 80
 
 version: {{ versions.services.mosip_file_server.values()[0] }}
-mountPath: "/home/mosip/files"  # path inside docker
+mountPath: "/home/mosip/mosip-file-server/"  # path inside docker
 authmanagerUrl: http://mz.ingress:30080
 keymanagerUrl: http://mz.ingress:30080
 clientsecret: {{ secrets.keycloak.mosip_regproc_client }}
@@ -41,7 +41,9 @@ nfs:
 
 services:
   mosip_file_server:
-    healthUrl: /files/mosipvc/
+    ingressPath_well_known: /.well-known/
+    ingressPath_files: /files/mobileapp/
+    healthUrl: /.well-known/
     podconfig:
       {{ podconfig.mosip_file_server.service | to_nice_yaml(indent=6) | indent(6) }}
 
