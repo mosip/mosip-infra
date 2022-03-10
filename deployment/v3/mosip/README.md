@@ -30,16 +30,16 @@ cd all
 ```
 
 ## Restart
-The `restart-all.sh` script here does rollout restart all the mosip services.
-Note: this script is not part of fresh installation and use the same only when restart of services are required.
+* The `restart-all.sh` script here does rollout restart all the mosip services.
+* This script is not part of regular installation. Please use the same only when restart of services are required.
 ```
 cd all
 ./restart-all.sh
 ```
 
 ## Delete
-The `delete-all.sh` script here deletes all the mosip services helm charts.
-Note: This script is not part of fresh installation. Please use this script cautiously as per need as it deletes all the mosip services.
+* The `delete-all.sh` script here deletes all the mosip services helm charts.
+* This script is not part of regular installation. Please use this script cautiously as per need as it deletes all the mosip services.
 ```
 cd all
 ./delete-all.sh
