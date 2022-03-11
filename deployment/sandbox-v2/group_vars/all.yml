@@ -193,7 +193,7 @@ postgres:
     repo:
       src: https://github.com/mosip/mosip-data
       dest: '{{tmp_dir}}/mosip-data'
-      tag: develop
+      tag: 1.2.0.1
       githubuser: ''
       githubpassword: ''
   upgrade:
@@ -474,7 +474,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: qa-release
+  version: 1.2.0.1
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
