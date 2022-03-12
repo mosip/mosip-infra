@@ -28,7 +28,7 @@ declare -a module=("regproc"
                    "websub"
                    )
 
-echo Deleteing MOSIP services.
+echo Deleting MOSIP services.
 
 for i in "${module[@]}"
 do
@@ -36,4 +36,4 @@ do
   ./delete.sh
 done
 
-echo All the MOSIP-services deleted.
+echo All the MOSIP services deleted.
