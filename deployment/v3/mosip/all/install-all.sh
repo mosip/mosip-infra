@@ -9,7 +9,8 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("captcha"
+declare -a module=("docker-secrets"
+                   "captcha"
                    "config-server"
                    "artifactory"
                    "keymanager"

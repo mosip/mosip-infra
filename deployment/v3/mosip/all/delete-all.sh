@@ -8,7 +8,8 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("regproc"
+declare -a module=("docker-secrets"
+                   "regproc"
                    "resident"
                    "prereg"
                    "admin"
