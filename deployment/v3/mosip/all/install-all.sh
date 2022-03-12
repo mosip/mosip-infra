@@ -9,7 +9,8 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("config-server"
+declare -a module=("captcha"
+                   "config-server"
                    "artifactory"
                    "keymanager"
                    "websub"
