@@ -1,0 +1,71 @@
+import hudson.EnvVars;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.NodePropertyDescriptor;
+import hudson.util.DescribableList;
+import jenkins.model.Jenkins;
+
+node {
+ def mvnHome = tool name: 'M2_HOME', type: 'maven'
+ def branch = env.NEXT_BRANCH_NAME
+ def newVersion
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def testRepoBranch = 'sprint-0.8.0'
+ def buildInfo
+ updatedServices = []
+ updatedDockerImages = []
+ containersToRun = ''
+ containersNames = ''
+ k8DevContext = 'dev-k8-cluster'
+ def registryUrl = 'http://docker-registry.mosip.io:5000'
+ def registryName = 'docker-registry.mosip.io:5000'
+ def registryCredentials = '305c7f35-2eb5-44b4-b574-a0855ef70c26'
+ 
+ // Asking user if he wants to promote the code to QA, user will choose either proceed or abort
+ stage('checkout') {
+  input 'Do you want to promote the code to QA?'
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: 'git@github.com:mosip/mosip.git', credentialsId: 'fd9c5f45-e6ac-45ea-b345-f6fbeb303044']
+    ]
+   ])
+  }
+ }
+
+	
+stage("Checkout test repo and run integration test cases"){
+dir(testRepoBranch+"/mosip-test") {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: testRepoBranch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: 'git@github.com:mosip/mosip-test.git', credentialsId: 'fd9c5f45-e6ac-45ea-b345-f6fbeb303044']
+    ]
+   ])
+  }
+  dir(testRepoBranch+"/mosip-test/automation/mosip-qa")
+  {
+	sh '/usr/local/maven/bin/mvn clean install -Dmaven.test.failure.ignore=true'
+		  
+  }
+	
+publishHTML (target: [
+      allowMissing: false,
+      alwaysLinkToLastBuild: false,
+      keepAll: true,
+      reportDir: testRepoBranch+'/mosip-test/automation/mosip-qa/target/surefire-reports',
+      reportFiles: 'emailable-report.html',
+      reportName: "Tests Report"
+  ])
+}
+}
+
+

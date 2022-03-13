@@ -1,0 +1,176 @@
+# configuration hdfs slave
+
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('hdfs-slave-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name }}"
+
+- name: Check uname for hdfs slave server for {{ env_name  }}
+  command: uname -a
+  register: system_info_hdfs_slave
+
+- name: Adding authorized keys of slave for hdfs slave for {{ env_name }}
+  authorized_key:
+    user: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    key: "{{ hostvars['localhost']['public_key_content_hdfs_slave_' + env_name]}}"
+
+- name: Adding authorized keys of master for hdfs slave for {{ env_name }}
+  authorized_key:
+    user: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    key: "{{ hostvars['localhost']['public_key_content_hdfs_master_' + env_name]}}"
+
+- name: put private key in hdfs slave for {{ env_name }}
+  template:
+    src: ../../configuration/hdfs/slave-private-key.j2
+    dest: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa"
+    mode: u=rw,g=,o=
+
+- name: put public key in hdfs slave for {{ env_name }}
+  template:
+    src: ../../configuration/hdfs/slave-public-key.j2
+    dest: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa.pub"
+    mode: u=rw,g=,o=
+
+- name: Transfer hadoop binary file from master to slave
+  synchronize:
+    src: /home/{{ hostvars['localhost']['global_username'] }}/hadoop
+    dest: /home/{{ hostvars['localhost']['global_username'] }}
+  delegate_to: hdfs-master-vm-{{ env_name }}
+
+# - name: Unarchive hadoop binary
+#   unarchive: 
+#     src: /home/{{ hostvars['localhost']['global_username'] }}/hadoop.gz 
+#     dest: /home/{{ hostvars['localhost']['global_username'] }}
+#     remote_src: yes
+#   args:
+#     creates: /home/{{ hostvars['localhost']['global_username'] }}/hadoop
+
+- name: Open port 51000
+  become: yes
+  firewalld:
+    port: "51000/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51090
+  become: yes
+  firewalld:
+    port: "51090/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51010
+  become: yes
+  firewalld:
+    port: "51010/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open  port 51075
+  become: yes
+  firewalld:
+    port: "51075/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51020
+  become: yes
+  firewalld:
+    port: "51020/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51070
+  become: yes
+  firewalld:
+    port: "51070/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51100
+  become: yes
+  firewalld:
+    port: "51100/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port 51105
+  become: yes
+  firewalld:
+    port: "51105/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+- name: Install java for hdfs slave for {{ env_name  }} environment
+  become: yes
+  yum:
+    name: java-1.8.0-openjdk-devel
+    state: present
+
+- name: Getting JAVA home path to set
+  shell: 'echo $(readlink -f /etc/alternatives/java) | sed "s|/bin/java||"'
+  become: yes
+  register: java_home
+
+
+
+- name: Printing output java home
+  debug: msg="{{ java_home }}"
+
+- name: Update bashrc  for {{ hostvars['localhost']['global_username'] }} user for hdfs slave for {{ env_name }}
+  run_once: true
+  lineinfile:
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/.bashrc
+    line: "export JAVA_HOME={{ java_home| json_query('stdout') }}"
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    insertafter: EOF
+    create: True
+
+- name: Sourcing .bashrc file
+  shell: "source /home/{{ hostvars['localhost']['global_username'] }}/.bashrc"
+
+- name: Update host file for hdfs slave for {{ env_name }}
+  run_once: true
+  become: yes
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item }}"
+  with_items:
+    - "{{ hostvars['localhost']['output_private_ip_hdfs_master_' + env_name] | json_query('stdout')}} hdfs-master"
+    - "{{ hostvars['localhost']['output_private_ip_hdfs_slave_' + env_name] | json_query('stdout')}} hdfs-slave"
+
+
+- name: Update bashrc  for {{ hostvars['localhost']['global_username'] }} user for hdfs variables hdfs slave for {{ env_name }}
+  run_once: true
+  lineinfile:
+    dest: /home/{{ hostvars['localhost']['global_username'] }}/.bashrc
+    line: "{{ item }}"
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    state: present
+    insertafter: EOF
+    create: True
+  with_items:
+    - export HADOOP_HOME=$HOME/hadoop
+    - export HADOOP_CONF_DIR=$HOME/hadoop/etc/hadoop
+    - export HADOOP_MAPRED_HOME=$HOME/hadoop
+    - export HADOOP_COMMON_HOME=$HOME/hadoop
+    - export HADOOP_HDFS_HOME=$HOME/hadoop
+    - export YARN_HOME=$HOME/hadoop
+    - export PATH=$PATH:$HOME/hadoop/bin
+
+
+- name: Sourcing .bashrc file
+  shell: "source /home/{{ hostvars['localhost']['global_username'] }}/.bashrc"
+

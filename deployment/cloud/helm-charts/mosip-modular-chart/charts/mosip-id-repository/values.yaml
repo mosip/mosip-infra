@@ -1,0 +1,31 @@
+commons:
+    dockerRegistry:
+        url: docker-registry.mosip.io:5000
+        pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull
+    configServer:
+        url: http://config-server:51000/config
+    ingress:
+        annotations:
+            kubernetes.io/ingress.class: nginx
+            nginx.ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/proxy-body-size: "50m"
+            ingress.kubernetes.io/proxy-connect-timeout: "3600"
+            ingress.kubernetes.io/proxy-read-timeout: "3600"
+            ingress.kubernetes.io/proxy-send-timeout: "3600"
+            ingress.kubernetes.io/send-timeout: "3600"
+
+services:
+    id-repository-identity-service:
+       servicePath: /idrepository/v1/identity
+       servicePort: 8090
+       dockerImageName: id-repository-identity-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev
+    id-repository-vid-service:
+       servicePath: /idrepository/v1/
+       servicePort: 8091
+       dockerImageName: id-repository-vid-service
+       dockerImageTag: latest
+       configLabel: 0.12.0
+       activeProfile: dev

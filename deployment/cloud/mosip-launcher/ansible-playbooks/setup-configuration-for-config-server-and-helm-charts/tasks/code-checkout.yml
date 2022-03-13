@@ -1,0 +1,15 @@
+- name: Pull configuration repo from git
+  git: 
+    repo: "{{ scm_config_repo_url }}"
+    dest: /opt/configuration
+
+- name: Changing branch of configuration repo to the branch containing the config templates.
+  shell:
+    cmd: "git checkout {{ scm_branch }}"
+    chdir: /opt/configuration
+
+
+
+
+
+

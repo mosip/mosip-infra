@@ -1,0 +1,87 @@
+{
+  "identity" : {
+    "fullName" : [ {
+      "language" : "eng",
+      "value" : "ravan ravan"
+    }, {
+      "language" : "ara",
+      "value" : "قشرشى قشرشى"
+    } ],
+    "dateOfBirth" : "1994/02/01",
+    "age" : 25,
+    "gender" : [ {
+      "language" : "eng",
+      "value" : "Male"
+    }, {
+      "language" : "ara",
+      "value" : "الذكر"
+    } ],
+    "residenceStatus" : [ {
+      "language" : "eng",
+      "value" : "Non-Foreigner"
+    }, {
+      "language" : "ara",
+      "value" : "غير أجنبي"
+    } ],
+    "addressLine1" : [ {
+      "language" : "eng",
+      "value" : "#ravan,karnataka"
+    }, {
+      "language" : "ara",
+      "value" : "٣قشرشىونشقىشفشنش"
+    } ],
+    "region" : [ {
+      "language" : "eng",
+      "value" : "Rabat Sale Kenitra"
+    }, {
+      "language" : "ara",
+      "value" : "جهة الرباط سلا القنيطرة"
+    } ],
+    "province" : [ {
+      "language" : "eng",
+      "value" : "Kenitra"
+    }, {
+      "language" : "ara",
+      "value" : "القنيطرة"
+    } ],
+    "city" : [ {
+      "language" : "eng",
+      "value" : "Kenitra"
+    }, {
+      "language" : "ara",
+      "value" : "القنيطرة"
+    } ],
+    "postalCode" : "14022",
+    "phone" : "8144203235",
+    "email" : "girish.yarru@mindtree.com",
+    "referenceIdentityNumber" : "9876543210",
+    "zone" : [ {
+      "language" : "eng",
+      "value" : "Ben Mansour"
+    }, {
+      "language" : "ara",
+      "value" : "بن منصور"
+    } ],
+    "proofOfAddress" : {
+      "value" : "POA_Certificate of residence",
+      "type" : "COR",
+      "format" : "jpg"
+    },
+    "proofOfIdentity" : {
+      "value" : "POI_PAN card",
+      "type" : "DOC002",
+      "format" : "jpg"
+    },
+    "proofOfRelationship" : {
+      "value" : "POR_Certificate of Relationship",
+      "type" : "CRN",
+      "format" : "jpg"
+    },
+    "individualBiometrics" : {
+      "format" : "cbeff",
+      "version" : 1.0,
+      "value" : "applicant_bio_CBEFF"
+    },
+    "IDSchemaVersion" : 1.0
+  }
+}

@@ -1,0 +1,44 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pre-registration-ui
+spec:
+  replicas: 1
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: pre-registration-ui
+    spec:
+      containers:
+      - name: pre-registration-ui
+        image: docker-registry.mosip.io:5000/pre-registration-ui
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+        volumeMounts:
+            - name: config
+              mountPath: /usr/share/nginx/html/assets/config.json
+              subPath: config.json
+      imagePullSecrets:
+      - name: pvt-reg-cred
+      volumes:
+        - name: config
+          configMap:
+            name: pre-registration-ui-configuration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pre-registration-ui
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: pre-registration-ui

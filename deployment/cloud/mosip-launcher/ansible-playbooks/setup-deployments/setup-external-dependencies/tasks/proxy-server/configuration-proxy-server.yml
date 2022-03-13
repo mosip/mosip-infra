@@ -1,0 +1,139 @@
+- name: show all the hosts matching the pattern, i.e. all but the group www
+  debug:
+    msg: "{{ item }}"
+  with_inventory_hostnames:
+    - all:!www
+
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('proxy-server-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name  }}"
+
+- name: Check uname for proxy server for {{ env_name  }}
+  command: uname -a
+  register: system_info
+
+- name: Printing system info for proxy server for {{ env_name  }}
+  debug: msg="{{ system_info | json_query('stdout')  }}"
+
+- name: create empty file for private key for proxy server for {{ env_name  }}
+  file:
+    path: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa"
+    state: touch
+
+- name: put private key in proxy server for {{ env_name  }}
+  template:
+    src: ../../configuration/nginx-private-key-content.j2
+    dest: "/home/{{ hostvars['localhost']['global_username'] }}/.ssh/id_rsa"
+    mode: u=rw,g=,o=
+
+- name: create empty file for adding nginx repo in yum for proxy server for {{ env_name  }}
+  become: yes
+  file:
+    path: "/etc/yum.repos.d/nginx.repo"
+    state: touch
+
+- name: put repo link in nginx.repo file for proxy server for {{ env_name  }}
+  become: yes
+  lineinfile:
+    path: "/etc/yum.repos.d/nginx.repo"
+    line: "{{ item }}"
+  with_items:
+    - '[nginx]'
+    - 'name=nginx repo'
+    - 'baseurl=http://nginx.org/packages/mainline/rhel/7/$basearch/'
+    - 'gpgcheck=0'
+    - 'enabled=1'
+
+- name: Install nginx for proxy server for {{ env_name  }}
+  become: yes
+  yum:
+    name: nginx
+    state: present
+
+- name: create empty file for location.conf for proxy server for {{ env_name  }}
+  become: yes
+  file:
+    path: "/etc/nginx/location.conf"
+    state: touch
+
+- name: Ansible create location conf for proxy server for {{ env_name  }}
+  become: yes
+  template:
+    src: ../../configuration/location-config.j2
+    dest: /etc/nginx/location.conf
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    group: "{{ hostvars['localhost']['global_username'] }}"
+    mode: u=rw,g=r,o=r
+
+- name: Ansible create nginx conf for proxy server for {{ env_name  }}
+  become: yes
+  template:
+    src: ../../configuration/nginx-proxy-server-template.j2
+    dest: /etc/nginx/nginx.conf
+    owner: "{{ hostvars['localhost']['global_username'] }}"
+    group: "{{ hostvars['localhost']['global_username'] }}"
+    mode: u=rw,g=r,o=rs
+
+# # - name: put nginx conf into proxy server 
+# #   become: yes
+# #   copy:
+# #     src: ../configuration/nginx-proxy-server.conf
+# #     dest: /etc/nginx/nginx.conf
+# #     owner: "{{ hostvars['localhost']['global_username'] }}"
+# #     group: "{{ hostvars['localhost']['global_username'] }}"
+# #     mode: u=rw,g=r,o=r
+
+- name: Start nginx for proxy server for {{ env_name  }}
+  become: yes
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+    
+
+- name: Install epel-release for proxy server for {{ env_name  }}
+  become: yes
+  yum:
+    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Open Proxy server port 80
+  become: yes
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open Proxy server port 443
+  become: yes
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Install cert-bot for proxy server for {{ env_name  }}
+  become: yes
+  yum:
+    name: certbot
+    state: present
+
+- name: Install python2-certbot-nginx for proxy server for {{ env_name  }}
+  become: yes
+  yum:
+    name: python2-certbot-nginx
+    state: present
+    
+- name: nginx network connectivity settings
+  become: yes
+  command: setsebool -P httpd_can_network_connect 1
+
+- name: Generating ssl certs for nginx for proxy server for {{ env_name  }}
+  become: yes
+  command: certbot --nginx  -m {{ hostvars['localhost']['global_username'] }}@mail.com --agree-tos -n --domains {{ hostvars['localhost']['output_domain_name_proxy_server_' + env_name] | json_query('stdout')}}
+  register: output_ssl_certs_generation
+

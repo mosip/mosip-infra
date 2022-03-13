@@ -1,0 +1,44 @@
+{{- if .Values.ingress.enabled -}}
+{{- $serviceName := include "docker-registry.fullname" . -}}
+{{- $servicePort := .Values.service.port -}}
+{{- $path := .Values.ingress.path -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "docker-registry.fullname" . }}
+  labels:
+    app: {{ template "docker-registry.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- if .Values.ingress.labels }}
+{{ toYaml .Values.ingress.labels | indent 4 }}
+{{- end }}
+  annotations:
+    {{- range $key, $value := .Values.ingress.annotations }}
+      {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+        - backend:
+            serviceName: {{ $serviceName }}
+            servicePort: {{ $servicePort }}
+          path: /v2
+        - backend:
+            serviceName: {{ $serviceName }}
+            servicePort: {{ $servicePort }}
+          path: /v2{{ $path }}
+        - backend:
+            serviceName: {{ $serviceName }}
+            servicePort: {{ $servicePort }}
+          path: {{ $path }}/v2
+  {{- if .Values.ingress.tls }}
+  tls:
+    - secretName: {{ .Values.ingress.tls.secretName }}
+      hosts:
+        - {{ .Values.ingress.tls.hostname }}
+  {{- end -}}
+{{- end -}}

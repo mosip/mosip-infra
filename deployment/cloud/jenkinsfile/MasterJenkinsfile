@@ -1,0 +1,61 @@
+node {
+ def mvnHome = tool name: 'M2_HOME', type: 'maven'
+ def branch = params.BRANCH_NAME
+ def mosip_ref_impl_branch="mosip_ref_impl_${branch}"
+ //def newVersion
+ def gitURL = params.GIT_URL
+ def rtMaven = Artifactory.newMavenBuild()
+ def gitCredentials = params.GIT_CREDENTIALS
+ def gitRefImplURL = params.GIT_REF_IMPL_URL
+ rtMaven.tool = 'M2_HOME'
+
+ stage('checkout') {
+    dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: gitURL, credentialsId: gitCredentials]
+    ]
+   ])
+  }
+  dir(mosip_ref_impl_branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: gitRefImplURL, credentialsId: gitCredentials]
+    ]
+   ])
+  }
+  }
+   stage('---------- npm build, mvn-clean-install ---------------') {
+   dir(mosip_ref_impl_branch){
+  // Looking for angular.json file to to find out if the submodule we are building is an angular project
+        echo "Looking for angular projects to build"
+		// removing angular folder for admin to build, since we are not currently deploying admin services with launcher.
+        sh "find . -path ./reference-implementation/admin-ui -prune -o -name 'angular.json' -print> directoryAngularFiles"
+        locationOfAngularFiles = readFile( "directoryAngularFiles" ).split( "\\r?\\n" );
+        for (int i=0; i < locationOfAngularFiles.size(); i++) {
+            if(locationOfAngularFiles[i].equals("")){
+            break;
+            }
+            def currentModule = locationOfAngularFiles[i]
+            sh "dirname $currentModule > parentDirectoryPath"
+            parentDirectoryPath = readFile('parentDirectoryPath').trim()
+            sh "rm -f parentDirectoryPath"
+            parentDirectoryPathFormatted = parentDirectoryPath.substring(1);
+            
+            // installing node modules and building the angular project
+            sh "npm --prefix $parentDirectoryPath install $parentDirectoryPath"
+            sh "npm --prefix $parentDirectoryPath run-script build -- --prod --base-href . --output-path=dist"
+		}
+		}
+	rtMaven.run pom: branch + '/pom.xml', goals: 'clean install -Dspring.cloud.config.label='+branch
+cleanWs()
+}
+  }

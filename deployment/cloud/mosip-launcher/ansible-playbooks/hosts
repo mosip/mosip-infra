@@ -1,0 +1,4 @@
+[dev]
+clamav-vm-dev ansible_host=10.0.2.5 ansible_user=madmin ansible_port=22 ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -q madmin@104.211.229.64"'
+[int]
+clamav-vm-int ansible_host=10.0.2.6 ansible_port=22 ansible_user=madmin ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p -q madmin@104.211.224.139"'

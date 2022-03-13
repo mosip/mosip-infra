@@ -1,0 +1,36 @@
+    
+node{
+	def server = Artifactory.server 'ART'
+  def rtMaven = Artifactory.newMavenBuild()
+	def mvnHome = tool name: 'M2_HOME', type: 'maven'
+  def buildInfo
+	def branch = 'master'
+	def gitCredentialsId = env.GIT_CREDENTIALS
+	def gitUrl =env.GIT_URL
+
+  stage('checkout'){
+	git branch: branch, credentialsId: gitCredentialsId, url: gitUrl
+  }
+  stage('--------- Artifactory configuration ----------------') {
+  /*
+  JFrog artifactory configuration
+  */
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+ stage('---------- mvn-clean-install and push to artifactory  ---------------') {
+
+  rtMaven.run pom: 'pom.xml', goals: 'clean install -DskipTests -Dspring.cloud.config.label='+branch, buildInfo: buildInfo
+
+  
+ }
+  stage('----------- Publish build info -------------') {
+  /*
+  Publishing build info to Artifcatory (JFrog)
+  */
+  server.publishBuildInfo buildInfo
+ }
+  }
