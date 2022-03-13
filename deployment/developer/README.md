@@ -15,11 +15,7 @@ This guide assumes familiarity with Linux systems.
 1. Create `mosip` directory in home directory.
 1. `$ cd $HOME/mosip`
 1. Clone this repo:    
-`$ git clone https://github.com/mosip/mosip-infra.git`  
-1. Clone `mosip-platform` repo:  
-`$ git clone https://github.com/mosip/mosip-platform.git`    
-`$ cd mosip-platform`  
-`$ git checkout 0.9.1_10092019_a`  
+`$ git clone https://github.com/mosip/mosip-infra.git`   
 1. Run any *country specific* scripts now.
 1. Install prerequisties (Python3.6 etc):  
 `$ cd mosip-infra/deployment/developer`  
