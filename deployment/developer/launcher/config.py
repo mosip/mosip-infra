@@ -24,35 +24,36 @@ SOFTHSM_PIN = '1234'
 
 CODE_DIR = os.path.join(MOSIP_DIR, 'mosip-platform')
 
-# Directory for landing zone and archival. Should be same as in 
+# Directory for landing zone and archival. Should be same as in
 # registration-processor.properties
-PACKET_STORE = os.path.join(MOSIP_DIR, 'packet_store') 
+PACKET_STORE = os.path.join(MOSIP_DIR, 'packet_store')
 PACKET_LANDING = os.path.join(PACKET_STORE, 'LANDING_ZONE')
-PACKET_ARCHIVAL = os.path.join(PACKET_STORE, 'ARCHIVE_PACKET_LOCATION') 
+PACKET_ARCHIVAL = os.path.join(PACKET_STORE, 'ARCHIVE_PACKET_LOCATION')
 
 POSTGRES_PORT = 5432
 PG_CONF_DIR = '/var/lib/pgsql/10/data'  # Postgres
 
-SFTP_KEY = 'sftpkey' # Should be same as in registration-processor.properties
-CONFIG_SERVER_PORT = 6616 # Should be same as in application.properties of 
-                          # config-server
-COUNTRY_NAME='mycountry'  # For LDAP 
+SFTP_KEY = 'sftpkey'  # Should be same as in registration-processor.properties
+CONFIG_SERVER_PORT = 6616  # Should be same as in application.properties of
+# config-server
+COUNTRY_NAME = 'mycountry'  # For LDAP
 
-CLAMAV_PORT = 3310 # CAUTION: Change resources/clamav_scan.conf if you change this
+CLAMAV_PORT = 3310  # CAUTION: Change resources/clamav_scan.conf if you change this
 
 # Local repo where all config files of MOSIP will be fetched by config server.
-CONFIG_REPO= os.path.join(MOSIP_DIR, 'myconfig')  # git repo 
-LOGS_DIR = os.path.join(MOSIP_DIR, 'mosip-infra/deployment/developer/launcher/logs')
+CONFIG_REPO = os.path.join(MOSIP_DIR, 'myconfig')  # git repo
+LOGS_DIR = os.path.join(
+    MOSIP_DIR, 'mosip-infra/deployment/developer/launcher/logs')
 
-JAVA_HEAP_SIZE = '256m' 
+JAVA_HEAP_SIZE = '256m'
 
-PACKET_LANDING_ZONE_PATH = os.path.join(MOSIP_DIR, 'dmz_packet_store') 
+PACKET_LANDING_ZONE_PATH = os.path.join(MOSIP_DIR, 'dmz_packet_store')
 DB_SCRIPTS_PATH = os.path.join(MOSIP_DIR, 'mosip-platform/db_scripts/')
-DB_PASSWORDS = { # Same passwords should be present in .properties files
-    'sysadminpwd' : 'Mosipadm@dev123',
-    'dbadminpwd' : 'Mosipadm@dev123', 
-    'appadminpwd': 'Mosipadm@dev123', 
-    'dbuserpwd' : 'Mosip@dev123'
+DB_PASSWORDS = {  # Same passwords should be present in .properties files
+    'sysadminpwd': 'Mosipadm@dev123',
+    'dbadminpwd': 'Mosipadm@dev123',
+    'appadminpwd': 'Mosipadm@dev123',
+    'dbuserpwd': 'Mosip@dev123'
 }
 
 SQL_SCRIPTS = [  # These are in a paritcular sequence
@@ -76,23 +77,23 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_iam/mosip_iam_ddl_deploy.sql',
     'mosip_iam/mosip_iam_dml_deploy.sql',
 
-    'mosip_ida/mosip_role_common.sql',
-    'mosip_ida/mosip_role_idauser.sql',
-    'mosip_ida/mosip_ida_db.sql',
-    'mosip_ida/mosip_ida_grants.sql',
-    'mosip_ida/mosip_ida_ddl_deploy.sql',
+    # 'mosip_ida/mosip_role_common.sql',
+    # 'mosip_ida/mosip_role_idauser.sql',
+    # 'mosip_ida/mosip_ida_db.sql',
+    # 'mosip_ida/mosip_ida_grants.sql',
+    # 'mosip_ida/mosip_ida_ddl_deploy.sql',
 
-    'mosip_idmap/mosip_role_common.sql',
-    'mosip_idmap/mosip_role_idmapuser.sql',
-    'mosip_idmap/mosip_idmap_db.sql',
-    'mosip_idmap/mosip_idmap_grants.sql',
-    'mosip_idmap/mosip_idmap_ddl_deploy.sql',
+    # 'mosip_idmap/mosip_role_common.sql',
+    # 'mosip_idmap/mosip_role_idmapuser.sql',
+    # 'mosip_idmap/mosip_idmap_db.sql',
+    # 'mosip_idmap/mosip_idmap_grants.sql',
+    # 'mosip_idmap/mosip_idmap_ddl_deploy.sql',
 
-    'mosip_idrepo/mosip_role_common.sql',
-    'mosip_idrepo/mosip_role_idrepouser.sql',
-    'mosip_idrepo/mosip_idrepo_db.sql',
-    'mosip_idrepo/mosip_idrepo_grants.sql',
-    'mosip_idrepo/mosip_idrepo_ddl_deploy.sql',
+    # 'mosip_idrepo/mosip_role_common.sql',
+    # 'mosip_idrepo/mosip_role_idrepouser.sql',
+    # 'mosip_idrepo/mosip_idrepo_db.sql',
+    # 'mosip_idrepo/mosip_idrepo_grants.sql',
+    # 'mosip_idrepo/mosip_idrepo_ddl_deploy.sql',
 
     'mosip_master/mosip_role_common.sql',
     'mosip_master/mosip_role_masteruser.sql',
@@ -100,26 +101,26 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
     'mosip_master/mosip_master_grants.sql',
     'mosip_master/mosip_master_ddl_deploy.sql',
     'mosip_master/mosip_master_dml_deploy.sql',
-  
-    'mosip_pmp/mosip_role_common.sql',
-    'mosip_pmp/mosip_role_pmpuser.sql',
-    'mosip_pmp/mosip_pmp_db.sql',
-    'mosip_pmp/mosip_pmp_grants.sql',
-    'mosip_pmp/mosip_pmp_ddl_deploy.sql',
 
-    'mosip_prereg/mosip_role_common.sql',
-    'mosip_prereg/mosip_role_prereguser.sql',
-    'mosip_prereg/mosip_prereg_db.sql',
-    'mosip_prereg/mosip_prereg_grants.sql',
-    'mosip_prereg/mosip_prereg_ddl_deploy.sql',
-    'mosip_prereg/mosip_prereg_dml_deploy.sql',
+    # 'mosip_pmp/mosip_role_common.sql',
+    # 'mosip_pmp/mosip_role_pmpuser.sql',
+    # 'mosip_pmp/mosip_pmp_db.sql',
+    # 'mosip_pmp/mosip_pmp_grants.sql',
+    # 'mosip_pmp/mosip_pmp_ddl_deploy.sql',
 
-    'mosip_regprc/mosip_role_common.sql',
-    'mosip_regprc/mosip_role_regprcuser.sql',
-    'mosip_regprc/mosip_regprc_db.sql',
-    'mosip_regprc/mosip_regprc_grants.sql',
-    'mosip_regprc/mosip_regprc_ddl_deploy.sql',
-    'mosip_regprc/mosip_regprc_dml_deploy.sql' 
+    # 'mosip_prereg/mosip_role_common.sql',
+    # 'mosip_prereg/mosip_role_prereguser.sql',
+    # 'mosip_prereg/mosip_prereg_db.sql',
+    # 'mosip_prereg/mosip_prereg_grants.sql',
+    # 'mosip_prereg/mosip_prereg_ddl_deploy.sql',
+    # 'mosip_prereg/mosip_prereg_dml_deploy.sql',
+
+    # 'mosip_regprc/mosip_role_common.sql',
+    # 'mosip_regprc/mosip_role_regprcuser.sql',
+    # 'mosip_regprc/mosip_regprc_db.sql',
+    # 'mosip_regprc/mosip_regprc_grants.sql',
+    # 'mosip_regprc/mosip_regprc_ddl_deploy.sql',
+    # 'mosip_regprc/mosip_regprc_dml_deploy.sql'
 ]
 
 # (module, service, additional run options, log file suffix)
@@ -133,8 +134,8 @@ PREREG_SERVICES = [
 # REGPROC_SERVICES = [
 #     ('registrationprocessor', 'registration-processor-core', '', ''),
 #     ('registrationprocessor', 'registration-processor-bio-dedupe-service-impl', '', ''),
-#     ('registrationprocessor', 'registration-processor-notification-service', '', ''), 
-#     ('registrationprocessor', 'registration-processor-info-storage-service', '', ''), 
+#     ('registrationprocessor', 'registration-processor-notification-service', '', ''),
+#     ('registrationprocessor', 'registration-processor-info-storage-service', '', ''),
 #     ('registrationprocessor', 'registration-processor-message-sender-impl', '', ''),
 #     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722', '_dmz'),
 #     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723', '_secure'),
@@ -143,10 +144,10 @@ PREREG_SERVICES = [
 #      ('registrationprocessor', 'registration-processor-quality-checker', '', ''),
 #       ('registrationprocessor', 'registration-processor-registration-status-service-impl', '', ''),
 #        ('registrationprocessor', 'registration-processor-rest-client', '', '')
-     
+
 # ]
 
-KERNEL_SERVICES = [ 
+KERNEL_SERVICES = [
     ('kernel', 'kernel-auth-service', '-Dserver.port=8191', ''),
     ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188', ''),
     ('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185', ''),
@@ -207,5 +208,5 @@ KERNEL_SERVICES = [
 
 ]
 
-# MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
+# MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES
 MOSIP_SERVICES = KERNEL_SERVICES
