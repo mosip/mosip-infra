@@ -10,7 +10,7 @@ NS=websub
 CHART_VERSION=1.2.0
 
 echo Create $NS namespace
-kubectl create $NS namespace
+kubectl create ns $NS
 
 echo Istio label 
 kubectl label ns $NS istio-injection=enabled --overwrite
