@@ -126,8 +126,8 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
 PREREG_SERVICES = [
     ('preregistration', 'pre-registration-application-service', '', ''),
     ('preregistration', 'pre-registration-batchjob', '', ''),
-    ('preregistration', 'pre-registration-captcha-service', '', '')
-    ('preregistration', 'pre-registration-core', '', '')
+    ('preregistration', 'pre-registration-captcha-service', '', ''),
+    ('preregistration', 'pre-registration-core', '', ''),
     ('preregistration', 'pre-registration-datasync-service', '', '')]
 
 # REGPROC_SERVICES = [
