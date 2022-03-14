@@ -1,6 +1,6 @@
 #!/usr/bin/python3.6
 # Centos - Get the full DVD iso.  Custom select softwares - select GNU Desktop
-# version while installing in VM.  
+# version while installing in VM.
 # The script has been tried on CentOS 7
 
 import subprocess
@@ -21,11 +21,13 @@ from config_server import *
 from sftp_utils import *
 from nginx_utils import *
 
-logger = logging.getLogger() # Root Logger 
+logger = logging.getLogger()  # Root Logger
+
 
 def give_home_read_permissions():
     logger.info('Giving read persmissons to home directory')
-    command('chmod 755 %s' % os.environ['HOME']) 
+    command('chmod 755 %s' % os.environ['HOME'])
+
 
 def install_tools():
     logger.info('Installing  EPEL')
@@ -41,9 +43,11 @@ def install_tools():
     command('sudo pip3.6 install requests')
     command('sudo pip3.6 install pycrypto')
 
+
 def create_various_folders():
-    os.makedirs(PACKET_LANDING, exist_ok=True) 
-    os.makedirs(PACKET_ARCHIVAL, exist_ok=True) 
+    os.makedirs(PACKET_LANDING, exist_ok=True)
+    os.makedirs(PACKET_ARCHIVAL, exist_ok=True)
+
 
 def install_environ():
     logger.info('Installing environ')
@@ -56,28 +60,31 @@ def install_environ():
     install_clamav()
     install_apacheds()
     load_ldap(COUNTRY_NAME)
-    install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR) 
+    install_softhsm(SOFTHSM_INSTALL_DIR, SOFTHSM_CONFIG_DIR)
     init_softhsm(SOFTHSM_PIN)
-    install_sftp(SFTP_KEY)  
+    install_sftp(SFTP_KEY)
     install_nginx()
-    create_various_folders() 
-    install_config_repo(CONFIG_REPO, SFTP_KEY) # Always install in the end
+    create_various_folders()
+    install_config_repo(CONFIG_REPO, SFTP_KEY)  # Always install in the end
     logger.info('Env install done')
 
+
 def start_environ():
-    restart_docker() 
+    restart_docker()
     restart_postgres()
     restart_apacheds()
     restart_clamav()
     run_hdfs()
 
+
 def build_code(code_dir):
     logger.info('Building code')
-    cwd = os.getcwd() 
-    os.chdir(code_dir) 
-    command('mvn -DskipTests install')
+    cwd = os.getcwd()
+    os.chdir(code_dir)
+    command('mvn -X install')
     os.chdir(cwd)
     logger.info('Building code done')
+
 
 def start_services(services, version):
     '''
@@ -86,7 +93,7 @@ def start_services(services, version):
         services:  List of tuples [(module, service, options), ..] 
         version: Assumed all services have same version specified in pom.xml.
     '''
-    logger.info('Starting MOSIP services')    
+    logger.info('Starting MOSIP services')
 
     logger.info('Running Config Server ..')
     err = run_config_server(CONFIG_REPO, LOGS_DIR)
@@ -96,15 +103,16 @@ def start_services(services, version):
     time.sleep(10)
     logger.info('Running all services..')
     for module, service, options, suffix in services:
-        jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'], 
-            module, service, version)
+        jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'],
+                                                           module, service, version)
         jar_name = get_jar_name(service, version)
-        run_jar(jar_dir, jar_name, LOGS_DIR, CONFIG_SERVER_PORT,  
+        run_jar(jar_dir, jar_name, LOGS_DIR, CONFIG_SERVER_PORT,
                 JAVA_HEAP_SIZE, options, suffix)
 
-    logger.info('Starting MOSIP services - Done')    
+    logger.info('Starting MOSIP services - Done')
 
     return 0
+
 
 def stop_services(services, version):
     '''
@@ -113,7 +121,7 @@ def stop_services(services, version):
         services:  Dict of form {service_name : service_dir}
     '''
     logger.info('Stopping MOSIP services')
-    for _, service, _, _ in services: 
+    for _, service, _, _ in services:
         jar_name = get_jar_name(service, version)
         kill_process(jar_name)
 
@@ -122,13 +130,19 @@ def stop_services(services, version):
 
     logger.info('Stopping MOSIP services - done')
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--install-environ', action='store_true', help='Install  all the environment needed. The services are run autumatically.  The DB, LDAP etc are  initialized too')   
-    parser.add_argument('--start-environ', action='store_true', help='Restart  all environment daemons. This assumes that environ has already been setup.')   
-    parser.add_argument('--build-code', action='store_true', help='mvn builds all the jars')
-    parser.add_argument('--start-services', action='store_true', help='Run all the services to bring up MOSIP')
-    parser.add_argument('--stop-services', action='store_true', help='Stop all running services')
+    parser.add_argument('--install-environ', action='store_true',
+                        help='Install  all the environment needed. The services are run autumatically.  The DB, LDAP etc are  initialized too')
+    parser.add_argument('--start-environ', action='store_true',
+                        help='Restart  all environment daemons. This assumes that environ has already been setup.')
+    parser.add_argument('--build-code', action='store_true',
+                        help='mvn builds all the jars')
+    parser.add_argument('--start-services', action='store_true',
+                        help='Run all the services to bring up MOSIP')
+    parser.add_argument('--stop-services', action='store_true',
+                        help='Stop all running services')
 
     return parser
 
@@ -150,7 +164,7 @@ def main():
         start_services(MOSIP_SERVICES, MOSIP_VERSION)
     if args.stop_services:
         stop_services(MOSIP_SERVICES, MOSIP_VERSION)
-     
-if __name__== '__main__':
+
+
+if __name__ == '__main__':
     main()
-       
