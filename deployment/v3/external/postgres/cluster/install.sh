@@ -13,7 +13,7 @@ kubectl create namespace $NS
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo Installing  postgres
-helm -n $NS install postgres bitnami/postgresql -f values.yaml --wait
+helm -n $NS install postgres bitnami/postgresql --version 10.16.2 -f values.yaml --wait
 
 echo Installing gateways, vs
 INTERNAL=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
