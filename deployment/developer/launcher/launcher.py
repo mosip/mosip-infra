@@ -47,11 +47,11 @@ def create_various_folders():
 
 def install_environ():
     logger.info('Installing environ')
-    give_home_read_permissions() # For various access
-    install_tools()
-    install_docker()
-    install_postgres()
-    init_db(DB_SCRIPTS_PATH, SQL_SCRIPTS, DB_PASSWORDS)
+    # give_home_read_permissions() # For various access
+    # install_tools()
+    # install_docker()
+    # install_postgres()
+    # init_db(DB_SCRIPTS_PATH, SQL_SCRIPTS, DB_PASSWORDS)
     run_hdfs()
     install_clamav()
     install_apacheds()
