@@ -124,32 +124,88 @@ SQL_SCRIPTS = [  # These are in a paritcular sequence
 
 # (module, service, additional run options, log file suffix)
 PREREG_SERVICES = [
-    ('preregistration', 'pre-registration-login-service', '', ''),
-    ('preregistration', 'pre-registration-notification-service', '', ''),
-    ('preregistration', 'pre-registration-demographic-service', '', '')]
+    ('preregistration', 'pre-registration-application-service', '', ''),
+    ('preregistration', 'pre-registration-batchjob', '', ''),
+    ('preregistration', 'pre-registration-captcha-service', '', '')
+    ('preregistration', 'pre-registration-core', '', '')
+    ('preregistration', 'pre-registration-datasync-service', '', '')]
 
-REGPROC_SERVICES = [
-    ('registrationprocessor', 'registration-processor-packet-receiver-stage', '', ''),
-    ('registrationprocessor', 'registration-processor-packet-uploader-stage', '-Dregistration.processor.zone=secure', ''),
-    ('registrationprocessor', 'registration-processor-packet-validator-stage', '', ''), 
-    ('registrationprocessor', 'registration-processor-quality-checker-stage', '', ''), 
-    ('registrationprocessor', 'registration-processor-osi-validator-stage', '', ''),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722', '_dmz'),
-    ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723', '_secure'),
-    ('registrationprocessor', 'registration-processor-registration-status-service', '', '')
-]
+# REGPROC_SERVICES = [
+#     ('registrationprocessor', 'registration-processor-core', '', ''),
+#     ('registrationprocessor', 'registration-processor-bio-dedupe-service-impl', '', ''),
+#     ('registrationprocessor', 'registration-processor-notification-service', '', ''), 
+#     ('registrationprocessor', 'registration-processor-info-storage-service', '', ''), 
+#     ('registrationprocessor', 'registration-processor-message-sender-impl', '', ''),
+#     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=dmz -Deventbus.port=5722', '_dmz'),
+#     ('registrationprocessor', 'registration-processor-common-camel-bridge', '-Dregistration.processor.zone=secure -Deventbus.port=5723', '_secure'),
+#     ('registrationprocessor', 'registration-processor-packet-manager', '', '')
+
+#      ('registrationprocessor', 'registration-processor-quality-checker', '', ''),
+#       ('registrationprocessor', 'registration-processor-registration-status-service-impl', '', ''),
+#        ('registrationprocessor', 'registration-processor-rest-client', '', '')
+     
+# ]
 
 KERNEL_SERVICES = [ 
     ('kernel', 'kernel-auth-service', '-Dserver.port=8191', ''),
     ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188', ''),
-    #('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185', ''),
+    ('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185', ''),
     #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183', ''),
     ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186', ''),
     ('kernel', 'kernel-syncdata-service', '-Dserver.port=8189', ''),
     ('kernel', 'kernel-cryptomanager-service', '-Dserver.port=8187', ''),
     ('kernel', 'kernel-signature-service', '-Dserver.port=8192', ''),
     ('kernel', 'kernel-auditmanager-service', '-Dserver.port=8181', ''),
+
+    ('kernel', 'kernel-applicanttype-api', '-Dserver.port=5050', ''),
+    ('kernel', 'kernel-auditmanager-api', '-Dserver.port=5051', ''),
+    ('kernel', 'kernel-auth-adapter', '-Dserver.port=5052', ''),
+    ('kernel', 'kernel-authcodeflowproxy-api', '-Dserver.port=5053', ''),
+    ('kernel', 'kernel-bioapi-provider', '-Dserver.port=5054', ''),
+    ('kernel', 'kernel-biometrics-api', '-Dserver.port=5055', ''),
+    ('kernel', 'kernel-biosdk-provider', '-Dserver.port=5056', ''),
+
+    ('kernel', 'kernel-cbeffutil-api', '-Dserver.port=5057', ''),
+    ('kernel', 'kernel-core', '-Dserver.port=5058', ''),
+    ('kernel', 'kernel-crypto-jce', '-Dserver.port=5059', ''),
+    ('kernel', 'kernel-crypto-signature', '-Dserver.port=5060', ''),
+    ('kernel', 'kernel-dataaccess-hibernate', '-Dserver.port=5061', ''),
+    ('kernel', 'kernel-datamapper-orika', '-Dserver.port=5062', ''),
+    ('kernel', 'kernel-idgenerator-machineid', '-Dserver.port=5063', ''),
+    ('kernel', 'kernel-idgenerator-mispid', '-Dserver.port=5064', ''),
+    ('kernel', 'kernel-idgenerator-partnerid', '-Dserver.port=5065', ''),
+    ('kernel', 'kernel-idgenerator-prid', '-Dserver.port=5066', ''),
+
+    ('kernel', 'kernel-idgenerator-regcenterid', '-Dserver.port=5067', ''),
+    ('kernel', 'kernel-idgenerator-rid', '-Dserver.port=5068', ''),
+    ('kernel', 'kernel-idgenerator-service', '-Dserver.port=5069', ''),
+    ('kernel', 'kernel-idgenerator-tokenid', '-Dserver.port=5070', ''),
+    ('kernel', 'kernel-idgenerator-vid', '-Dserver.port=5071', ''),
+    ('kernel', 'kernel-idobjectvalidator', '-Dserver.port=5072', ''),
+    ('kernel', 'kernel-idvalidator-mispid', '-Dserver.port=5073', ''),
+    ('kernel', 'kernel-idvalidator-prid', '-Dserver.port=5074', ''),
+    ('kernel', 'kernel-idvalidator-rid', '-Dserver.port=5075', ''),
+    ('kernel', 'kernel-idvalidator-uin', '-Dserver.port=5076', ''),
+    ('kernel', 'kernel-idvalidator-vid', '-Dserver.port=5077', ''),
+
+    ('kernel', 'kernel-keygenerator-bouncycastle', '-Dserver.port=5078', ''),
+    ('kernel', 'kernel-licensekeygenerator-misp', '-Dserver.port=5079', ''),
+    ('kernel', 'kernel-logger-logback', '-Dserver.port=5080', ''),
+    ('kernel', 'kernel-notification-service', '-Dserver.port=5081', ''),
+    ('kernel', 'kernel-pdfgenerator-itext', '-Dserver.port=5082', ''),
+    ('kernel', 'kernel-pinvalidator', '-Dserver.port=5083', ''),
+    ('kernel', 'kernel-pridgenerator-service', '-Dserver.port=5084', ''),
+    ('kernel', 'kernel-qrcodegenerator-zxing', '-Dserver.port=5085', ''),
+    ('kernel', 'kernel-registration-packet-manager', '-Dserver.port=5086', ''),
+    ('kernel', 'kernel-ridgenerator-service', '-Dserver.port=5087', ''),
+    ('kernel', 'kernel-salt-generator', '-Dserver.port=5088', ''),
+    ('kernel', 'kernel-templatemanager-velocity', '-Dserver.port=5089', ''),
+    ('kernel', 'kernel-transliteration-icu4j', '-Dserver.port=5090', ''),
+    ('kernel', 'kernel-websubclient-api', '-Dserver.port=5091', ''),
+    ('kernel', 'keys-generator', '-Dserver.port=5092', ''),
+    ('kernel', 'khazana', '-Dserver.port=5093', '')
+
 ]
 
-MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
-
+# MOSIP_SERVICES = KERNEL_SERVICES + REGPROC_SERVICES 
+MOSIP_SERVICES = KERNEL_SERVICES
