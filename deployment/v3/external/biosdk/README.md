@@ -1,7 +1,7 @@
 # Biosdk Service
 
 ## Introduction
-* Pleae find detailed overview and introduction of [Biosdk Service](https://github.com/mosip/mosip-ref-impl/tree/develop/biosdk-services).
+* [Overview](https://github.com/mosip/mosip-ref-impl/tree/develop/biosdk-services).
 * The service expects `biosdk library` typically provided by a vendor.
 * Host the library at a location that can be downloaded from within cluster with a URL.
 * The default installation biosdk service contains mock SDK for testing the interfaces.
