@@ -1,4 +1,7 @@
-# MOSIP Core
+# MOSIP Services
+
+## Overview
+The steps here install all MOSIP provided services - core and reference implementations.
 
 ## Prerequisites
 * In case you are using private docker images for MOSIP services

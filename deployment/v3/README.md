@@ -25,8 +25,8 @@ Following install sequence is recommended:
 * [MOSIP K8s cluster](cluster/README.md)
 * [Monitoring](monitoring/README.md)
 * [Logging](logging/README.md)
-* [MOSIP external components](external/README.md)
-* [MOSIP core modules](mosip/README.md)
+* [External components](external/README.md)
+* [MOSIP services](mosip/README.md)
 * [Reporting](reporting/README.md)
 
 ## Production hardening
