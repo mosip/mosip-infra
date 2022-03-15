@@ -95,12 +95,12 @@ def start_services(services, version):
     '''
     logger.info('Starting MOSIP services')
 
-    logger.info('Running Config Server ..')
-    err = run_config_server(CONFIG_REPO, LOGS_DIR)
-    if err:
-        logger.error('Could not run config server. Exiting..')
-        return 1
-    time.sleep(10)
+    # logger.info('Running Config Server ..')
+    # err = run_config_server(CONFIG_REPO, LOGS_DIR)
+    # if err:
+    #     logger.error('Could not run config server. Exiting..')
+    #     return 1
+    # time.sleep(10)
     logger.info('Running all services..')
     # mosip/mosip-platform/<module>/target
     for module, service, options, suffix, jar_path in services:
