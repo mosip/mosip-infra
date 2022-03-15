@@ -148,8 +148,10 @@ PREREG_SERVICES = [
 # ]
 
 KERNEL_SERVICES = [
-    ('kernel', 'kernel-auth-service', '-Dserver.port=8191', ''),
-    ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188', ''),
+    ('kernel', 'kernel-auth-service', '-Dserver.port=8191', '',
+     '1.1.5.5-SNAPSHOT/kernel-auth-service-1.1.5.5-SNAPSHOT.jar'),
+    ('kernel', 'kernel-keymanager-service', '-Dserver.port=8188', '',
+     '1.1.5.3/kernel-keymanager-service-1.1.5.3-lib.jar'),
     ('kernel', 'kernel-otpmanager-service', '-Dserver.port=8185', ''),
     #('kernel', 'kernel-emailnotification-service', '-Dserver.port=8183', ''),
     ('kernel', 'kernel-masterdata-service', '-Dserver.port=8186', ''),

@@ -103,10 +103,11 @@ def start_services(services, version):
     time.sleep(10)
     logger.info('Running all services..')
     # mosip/mosip-platform/<module>/target
-    for module, service, options, suffix in services:
-        jar_dir = '%s/.m2/repository/io/mosip/%s/%s/%s' % (os.environ['HOME'],
-                                                           module, service, version+'-SNAPSHOT')
-        jar_name = get_jar_name(service, version)
+    for module, service, options, suffix, jar_path in services:
+        jar_dir = '%s/.m2/repository/io/mosip/%s/%s' % (os.environ['HOME'],
+                                                           module, service)
+        jar_name = service+jar_path
+        # get_jar_name(service, version)
         run_jar(jar_dir, jar_name, LOGS_DIR, CONFIG_SERVER_PORT,
                 JAVA_HEAP_SIZE, options, suffix)
 
