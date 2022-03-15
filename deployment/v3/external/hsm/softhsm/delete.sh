@@ -1,6 +1,6 @@
 #!/bin/sh
 # Uninstalls softhsm
-## Usage: ./delete_ida.sh [kubeconfig]
+## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
