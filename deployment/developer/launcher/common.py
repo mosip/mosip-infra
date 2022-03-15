@@ -5,16 +5,19 @@ from config import *
 
 logger = logging.getLogger(__name__)
 
+
 def command(cmd):
     r = subprocess.run(cmd, shell=True)
-    if r.returncode != 0: 
+    if r.returncode != 0:
         logger.error(r)
-        
-def get_jar_name(service, version):
-    return service + '-' + version + '.jar'
 
-def run_jar(jar_dir, jar_name, logs_dir, config_port, 
-            max_heap_size=JAVA_HEAP_SIZE, add_options='', 
+
+def get_jar_name(service, version):
+    return service + '-' + version + '-SNAPSHOT.jar'
+
+
+def run_jar(jar_dir, jar_name, logs_dir, config_port,
+            max_heap_size=JAVA_HEAP_SIZE, add_options='',
             log_suffix=''):
     '''
     Args:
@@ -23,22 +26,23 @@ def run_jar(jar_dir, jar_name, logs_dir, config_port,
             instances of same service are run 
     '''
     logger.info('Running jar %s' % jar_name)
-    cwd = os.getcwd() 
+    cwd = os.getcwd()
     os.chdir(jar_dir)
     options = [
-        '-Dspring.cloud.config.uri=http://localhost:%d' % config_port, 
+        '-Dspring.cloud.config.uri=http://localhost:%d' % config_port,
         '-Dspring.cloud.config.label=master',
         '-Dspring.profiles.active=dev',
         '-Xmx%s' % max_heap_size,
-        add_options 
+        add_options
     ]
-    cmd = 'java %s -jar %s >>%s/%s.server%s.log 2>&1 &' % (' '.join(options), 
-                                                    jar_name, logs_dir, 
-                                                    jar_name,   log_suffix)
+    cmd = 'java %s -jar %s >>%s/%s.server%s.log 2>&1 &' % (' '.join(options),
+                                                           jar_name, logs_dir,
+                                                           jar_name,   log_suffix)
     logger.info('Command: %s' % cmd)
     command(cmd)
     logger.info('%s run in background' % jar_name)
     os.chdir(cwd)
+
 
 def kill_process(search_str):
     '''
@@ -47,7 +51,7 @@ def kill_process(search_str):
     for easy searching. The char used for concatenation is unlikely char like
     #.
     '''
-    import psutil # Moved here in case module not found during launcher load 
+    import psutil  # Moved here in case module not found during launcher load
     for p in psutil.process_iter():
         pinfo = p.as_dict(attrs=['pid', 'cmdline'])
         if search_str in '#'.join(pinfo['cmdline']):
