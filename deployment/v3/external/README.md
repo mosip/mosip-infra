@@ -18,7 +18,7 @@
 * [Message Gateways](msg-gateway/README.md)
 
 ## Install
-* Run install-all.sh script to install in defined sequence.
+* Run `install-all.sh` script to install in defined sequence.
 ```
 cd all
 ./install-all.sh

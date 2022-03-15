@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs Softhsm for Kernel and Ida
+# Installs Softhsm for Kernel and IDA
 ## Usage: ./install.sh [kubeconfig]
 
 
