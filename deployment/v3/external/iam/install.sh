@@ -9,8 +9,8 @@ else
 fi
 NS=keycloak
 
-echo Creating namespace
-kubectl create ns keycloak
+echo Creating $NS namespace
+kubectl create ns $NS
 
 echo Istio label
 ## TODO: enable istio injection after testing well.
