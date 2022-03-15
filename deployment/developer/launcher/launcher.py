@@ -141,6 +141,10 @@ def parse_args():
                         help='Restart  all environment daemons. This assumes that environ has already been setup.')
     parser.add_argument('--build-code', action='store_true',
                         help='mvn builds all the jars')
+    parser.add_argument('--build-prereg-code', action='store_true',
+                        help='Builds all pre-registration jars')
+    parser.add_argument('--start-prereg-services', action='store_true',
+                        help='Runs all pre-registration services')
     parser.add_argument('--start-services', action='store_true',
                         help='Run all the services to bring up MOSIP')
     parser.add_argument('--stop-services', action='store_true',
@@ -162,6 +166,10 @@ def main():
         start_environ()
     if args.build_code:
         build_code(CODE_DIR)
+    if args.build_prereg_code:
+        build_code(PREREG_CODE_DIR)
+    if args.start_prereg_services:
+        start_services(PREREG_SERVICES,'1.1.5.3')
     if args.start_services:
         start_services(MOSIP_SERVICES, MOSIP_VERSION)
     if args.stop_services:

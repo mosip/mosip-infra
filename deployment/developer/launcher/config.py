@@ -24,6 +24,8 @@ SOFTHSM_PIN = '1234'
 
 CODE_DIR = os.path.join(MOSIP_DIR, 'mosip-platform')
 
+PREREG_CODE_DIR = os.path.join(MOSIP_DIR, 'pre-registration/pre-registration')
+
 # Directory for landing zone and archival. Should be same as in
 # registration-processor.properties
 PACKET_STORE = os.path.join(MOSIP_DIR, 'packet_store')
