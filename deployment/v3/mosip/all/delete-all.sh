@@ -27,6 +27,7 @@ declare -a module=("docker-secrets"
                    "config-server"
                    "artifactory"
                    "websub"
+                   "biosdk"
                    )
 
 echo Deleting MOSIP services.

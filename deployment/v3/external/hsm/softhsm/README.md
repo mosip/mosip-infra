@@ -2,8 +2,7 @@
 
 ## Install
 ```sh
-sh install_kernel.sh
-sh install_ida.sh
+sh install.sh
 ```
 ## Defaults
 * Replication factor is 1.  Multiple replication factors are not supported on AWS at the moment 'cause AWS EBS does not support `ReadWriteMany`.

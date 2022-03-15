@@ -3,12 +3,12 @@
 ## Overview
 The steps here install all MOSIP provided services - core and reference implementations.
 
-## Prerequisites
-* In case you are using private docker images for MOSIP services
-  * Get ready with below list of details for all the private registries to be used as per [prerequisites](docker-secrets/README.md#Prerequisites)
-  * Update the secret name in `values.yaml` for all the charts pulling docker images from respective private registry
-* Create the `site key` and `secret key` as per [Captcha prerequisites](captcha/README.md#Prerequisites)
-* Update the `values.yaml` file of config-server chart as per the git repository details in [config-repo](config-repo/values.yaml)
+## Pre-requisites
+* In case you are using private docker images for MOSIP services,
+  * Prepare the list of details for all the private registries to be used as per the [prerequisites](docker-secrets/README.md#Prerequisites).
+  * Update the secret name in `values.yaml` for all the charts pulling docker images from respective private registry.
+* Create the `site key` and `secret key` as per [Captcha prerequisites](captcha/README.md#Prerequisites).
+* Update the `values.yaml` file of config-server chart as per the git repository details in [config-repo](config-repo/values.yaml).
 
 ## Install
 Install in the following order:
@@ -33,7 +33,7 @@ Install in the following order:
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
 
-The same can be achieved by running `all/install-all.sh`
+The same can be achieved by running `all/install-all.sh`.
 ```
 cd all
 ./install-all.sh
