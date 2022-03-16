@@ -1,0 +1,113 @@
+- name: Setting env_name for current host
+  set_fact:
+    env_name: "{{ inventory_hostname | replace('dmz-vm-','') }}"
+
+- name: Printing env name for current host
+  debug: msg= "{{ env_name  }}"
+
+- name: Check uname for dmz server for {{ env_name  }}
+  command: uname -a
+  register: system_info_dmz
+
+- name: Including Services configuration values from variable file.
+  include_vars:
+      file: ../../../../configurations/services-configurations.yml
+      name: services
+
+- name: Open port {{ services.registration_processor_packet_receiver_port }}
+  become: yes
+  firewalld:
+    port: "{{ services.registration_processor_packet_receiver_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port {{ services.registration_processor_registration_status_port }}
+  become: yes
+  firewalld:
+    port: "{{ services.registration_processor_registration_status_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Open port {{ services.registration_processor_packet_generator_port }}
+  become: yes
+  firewalld:
+    port: "{{ services.registration_processor_packet_generator_port }}/tcp"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Printing system info for dmz for {{ env_name  }}
+  debug: msg="{{ system_info_dmz | json_query('stdout')  }}"
+
+- name: Fetch docker version
+  shell: docker version 2>&1 | grep Version | awk '{print $2}'
+  register: docker_version
+
+- name: Add Docker repo for dmz server for {{ env_name  }}
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+
+- name: Enable Docker Edge repo for dmz server for {{ env_name  }}
+  ini_file:
+    dest: /etc/yum.repos.d/docer-ce.repo
+    section: 'docker-ce-edge'
+    option: enabled
+    value: 0
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+
+- name: Install se-linux for dmz for {{ env_name  }}
+  become: yes
+  yum:
+    name: http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.68-1.el7.noarch.rpm
+    state: present
+
+- name: Enable Docker Test repo for dmz server for {{ env_name  }}
+  ini_file:
+    dest: /etc/yum.repos.d/docer-ce.repo
+    section: 'docker-ce-test'
+    option: enabled
+    value: 0
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+
+- name: Install Docker for dmz server for {{ env_name  }}
+  yum:
+    name: docker-ce-18.06.1.ce
+    state: present
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+
+- name: Start Docker service for dmz server for {{ env_name  }} 
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+
+- name: Add user to docker group for dmz server for {{ env_name  }}
+  user:
+    name: "{{ hostvars['localhost']['global_username'] }}"
+    groups: docker
+    append: yes
+  become: yes
+  # when: "docker_check.stdout.find('not-found') != -1"
+  when: docker_version.stdout == ''
+  register: output_add_user_to_docker_group
+
+- name: reset ssh connection to allow user changes to affect 'current login user' for dmz server for {{ env_name  }}
+  meta: reset_connection
+
+- name: Log into private registry from dmz for {{ env_name }}
+  command:  "docker login {{ hostvars['localhost']['docker_registry_url']   }} -u={{ hostvars['localhost']['docker_registry_username'] }} -p={{ hostvars['localhost']['docker_registry_password'] }}"

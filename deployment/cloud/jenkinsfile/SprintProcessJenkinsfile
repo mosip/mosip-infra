@@ -1,0 +1,123 @@
+import hudson.EnvVars;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.slaves.NodeProperty;
+import hudson.slaves.NodePropertyDescriptor;
+import hudson.util.DescribableList;
+import jenkins.model.Jenkins;
+
+node {
+ def mvnHome = tool name: 'M2_HOME', type: 'maven'
+ def branch = params.BRANCH_NAME
+ def newVersion
+ def server = Artifactory.server 'ART'
+ def rtMaven = Artifactory.newMavenBuild()
+ def buildInfo
+ def gitUrl = params.GIT_URL
+ def gitCredentials = params.GIT_CREDENTIALS
+ 
+ // Asking user if he wants to start a new sprint, user will choose either proceed or abort
+ stage('checkout') {
+  input 'Do you want to start a new Sprint?'
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    userRemoteConfigs: [
+     [url: gitUrl, credentialsId: gitCredentials]
+    ]
+   ])
+  }
+ }
+
+ // updating the pom versions to a new version inputed by user and removing '-snapshot'
+ stage('update-versions') {
+  dir(branch) {
+   pom = readMavenPom file: 'pom.xml'
+   version = pom.version
+   suggestedValue = pom.version.replace("-SNAPSHOT", "")
+   String[] st = suggestedValue.split("\\.");
+   int n = Integer.parseInt(st[1]) + 1;
+   suggestedValue = st[0] + "." + n + ".0";
+   def userInput = input(
+    id: 'userInput', message: 'Enter version number',
+    parameters: [
+
+     string(
+      defaultValue: suggestedValue,
+      description: 'Previous version in pom.xml is ' + version,
+      name: 'Version')
+    ])
+   // Save to variables. Default to empty string if not found.
+   echo userInput
+
+   newVersion = pom.version.replace("${version}", "${userInput}")
+   sh "${mvnHome}/bin/mvn versions:set -DnewVersion=${newVersion}"
+   sh "${mvnHome}/bin/mvn versions:commit"
+  }
+ }
+ 
+   stage('--------- Artifactory configuration ----------------') {
+  /*
+  JFrog artifactory configuration
+  */
+  rtMaven.tool = 'M2_HOME' // Tool name from Jenkins configuration
+  rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
+  buildInfo = Artifactory.newBuildInfo()
+  buildInfo.env.capture = true
+ }
+
+ 
+ 
+  stage('---------- mvn-clean-install and push to artifactory  ---------------') {
+  rtMaven.run pom: branch + '/pom.xml', goals: 'clean install -DskipTests', buildInfo: buildInfo
+ }
+ 
+  stage('----------- Publish build info -------------') {
+  /*
+  Publishing build info to Artifcatory (JFrog)
+  */
+  server.publishBuildInfo buildInfo
+ }
+ stage('GIT - Create new branch') {
+  dir(branch) {
+   sh "git checkout -b ${newVersion}"
+   sh "git add ."
+   sh "git commit -m 'new branch created'"
+
+   sshagent(['fd9c5f45-e6ac-45ea-b345-f6fbeb303044']) {
+    sh "git push origin ${newVersion}"
+   }
+  }
+
+ // Setting global environment variable for Branch name
+	echo "Setting global variable NEXT_BRANCH_NAME to "+newVersion
+	createGlobalEnvironmentVariables("NEXT_BRANCH_NAME",newVersion)
+ } 
+
+}
+
+
+
+// function which will configure Jenkins global variable
+public createGlobalEnvironmentVariables(String key, String value) {
+
+ Jenkins instance = Jenkins.getInstance();
+
+ DescribableList < NodeProperty <?> , NodePropertyDescriptor > globalNodeProperties = instance.getGlobalNodeProperties();
+ List < EnvironmentVariablesNodeProperty > envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class);
+
+ EnvironmentVariablesNodeProperty newEnvVarsNodeProperty = null;
+ EnvVars envVars = null;
+
+ if (envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0) {
+  newEnvVarsNodeProperty = new hudson.slaves.EnvironmentVariablesNodeProperty();
+  globalNodeProperties.add(newEnvVarsNodeProperty);
+  envVars = newEnvVarsNodeProperty.getEnvVars();
+ } else {
+  envVars = envVarsNodePropertyList.get(0).getEnvVars();
+ }
+ envVars.put(key, value)
+ instance.save()
+}

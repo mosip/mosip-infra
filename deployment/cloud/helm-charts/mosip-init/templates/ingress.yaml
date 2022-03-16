@@ -1,0 +1,18 @@
+{{- $root := . -}}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mosip-ingress  
+  annotations:
+{{ toYaml $root.Values.commons.ingress.annotations | indent 4 }}
+spec:  
+  rules:
+  - http:
+      paths:
+       {{- range $serviceName, $val := $root.Values.deploymentsAndServices }} 
+      - path: {{ .servicePath }}
+        backend:
+          serviceName: {{ $serviceName }}
+          servicePort: {{ .servicePort }}
+      {{- end }}

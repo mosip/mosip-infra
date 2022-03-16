@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+#getting current repositpry name
+current_repo="$(basename `git rev-parse --show-toplevel`)"
+
+# only check commit messages on mosip repo
+[ "$current_repo" != "mosip" ] && exit 0
+
+msg_file=$1
+
+commit_msg=`cat $1`
+
+# echo `expr substr $commit_msg 0 9`
+issue_number=`echo $commit_msg | awk '{print substr($0,0,9)}'`
+
+cat `echo "https://mosipid.atlassian.net/browse/$issue_number">>$msg_file`

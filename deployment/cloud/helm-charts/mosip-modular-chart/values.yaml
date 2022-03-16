@@ -1,0 +1,18 @@
+
+commons:
+    dockerRegistry:
+        url: docker-registry.mosip.io:5000
+        pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull
+
+
+# secrets:
+#     pvt-reg-cred:
+#         type: kubernetes.io/dockercfg
+#         .dockercfg: <Your Docker Credentials > #should be in base64 encoded format.
+
+## To override values of subchart, write in below syntax.
+# mosip-kernel:
+#     commons:
+#         dockerRegistry:
+#             url: docker-registry.mosip.io:5000
+#             pullSecret: pvt-reg-cred # these secret must exist in same namespace to ensure image pull

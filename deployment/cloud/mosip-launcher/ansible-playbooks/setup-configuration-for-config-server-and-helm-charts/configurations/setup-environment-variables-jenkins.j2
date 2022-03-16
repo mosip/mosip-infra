@@ -1,0 +1,31 @@
+import hudson.slaves.EnvironmentVariablesNodeProperty
+import jenkins.model.Jenkins
+
+instance = Jenkins.getInstance()
+globalNodeProperties = instance.getGlobalNodeProperties()
+envVarsNodePropertyList = globalNodeProperties.getAll(EnvironmentVariablesNodeProperty.class)
+
+newEnvVarsNodeProperty = null
+envVars = null
+
+if ( envVarsNodePropertyList == null || envVarsNodePropertyList.size() == 0 ) {
+  newEnvVarsNodeProperty = new EnvironmentVariablesNodeProperty();
+  globalNodeProperties.add(newEnvVarsNodeProperty)
+  envVars = newEnvVarsNodeProperty.getEnvVars()
+} else {
+  envVars = envVarsNodePropertyList.get(0).getEnvVars()
+}
+
+envVars.put("keystoreContent", "{{ keystore_content }}")
+envVars.put("KeystoreAlias", "{{ keystore_alias }}")
+envVars.put("KeystoreKeySecret", "{{ keystore_key_secret }}")
+envVars.put("KeystoreStorePassword", "{{ keystore_store_password }}")
+envVars.put("gitPublicKey", "{{ git_public_key_content }}")
+envVars.put("gitPrivateKey", "{{ git_private_key_content }}")
+envVars.put("gitKnownHosts", "{{ git_known_hosts_content }}")
+envVars.put("privateRegistrySecret", "{{ dockercfg_content }}")
+envVars.put("gitConfigRepositorySshUrl", "{{ scm_config_repo_url }}")
+envVars.put("gitConfigFolder", "rendered-config")
+envVars.put("deploymentsClusterInternalLoadBalancerIp", "10.0.2.240")
+
+instance.save()

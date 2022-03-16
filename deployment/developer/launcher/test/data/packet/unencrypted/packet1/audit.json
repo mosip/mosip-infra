@@ -1,0 +1,4558 @@
+[ {
+  "eventId" : "REG-EVT-110",
+  "eventName" : "PACKET_META_JSON_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 377000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet Meta-Data JSON created successfully",
+  "uuid" : "0b249e2a-5810-4887-aa95-120f0a073433",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 386000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-109",
+  "eventName" : "PACKET_HMAC_FILE_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 394000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet HMAC File created successfully",
+  "uuid" : "e0f7597b-3999-4e08-84c3-b85ac7d558bf",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 400000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-110",
+  "eventName" : "PACKET_META_JSON_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 404000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet Meta-Data JSON created successfully",
+  "uuid" : "c9ac8354-79a7-4a6f-8ef0-215535ab45e7",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 409000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-110",
+  "eventName" : "PACKET_META_JSON_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 628000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet Meta-Data JSON created successfully",
+  "uuid" : "e36de428-bba8-4e57-a9ce-0711b0a1a1ba",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 639000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-107",
+  "eventName" : "PACKET_INTERNAL_ZIP",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 662000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet internally zipped successfully",
+  "uuid" : "b9153429-4143-4f43-93c9-9190b415c2b5",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 667000000,
+    "second" : 20,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-112",
+  "eventName" : "PACKET_AES_ENCRYPTED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 32000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet AES Encryptor",
+  "moduleId" : "REG-MOD-121",
+  "description" : "Packet Encrypted Sucessfully",
+  "uuid" : "0be278e4-30af-4823-b875-8b54881c905d",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 37000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-099",
+  "eventName" : "PACKET_ENCRYPTED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 60000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002020190905041913",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Encryptor",
+  "moduleId" : "REG-MOD-120",
+  "description" : "Packet Encrypted Sucessfully",
+  "uuid" : "b78a4bea-32a5-4cd5-89c9-e3920e45ada9",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 65000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-137",
+  "eventName" : "NOTIFICATION_SERVICE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 160000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Notification",
+  "moduleId" : "REG-MOD-137",
+  "description" : "Notification request status",
+  "uuid" : "4b17f1fd-583d-48f0-b4f3-a4a2724b8b24",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 166000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-137",
+  "eventName" : "NOTIFICATION_SERVICE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 260000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Notification",
+  "moduleId" : "REG-MOD-137",
+  "description" : "Notification request status",
+  "uuid" : "2e2dcac0-7243-445a-aa71-03603cc4588a",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 274000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-137",
+  "eventName" : "NOTIFICATION_SERVICE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 787000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Notification",
+  "moduleId" : "REG-MOD-137",
+  "description" : "Notification request status",
+  "uuid" : "b2120ec8-b768-47b4-aeb2-0d238a6da36f",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 799000000,
+    "second" : 21,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 333000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "34a39876-ce80-4e9c-b3fe-9ea29fe3755d",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 338000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 347000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "5a54fd0f-85df-4278-85c2-972ed748f2d0",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 352000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-021",
+  "eventName" : "NAV_HOME",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 399000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Home",
+  "uuid" : "a5cd5844-c454-4716-851f-6232a173cb7a",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 406000000,
+    "second" : 27,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-012",
+  "eventName" : "NAV_APPROVE_REG",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 542000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Approve Registration",
+  "uuid" : "42a53da7-c431-4873-91c4-dd750386474c",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 548000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 625000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "97226aa5-d9bb-43ae-a664-db3bda07bb0d",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 630000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 638000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "deb0fac8-29f3-4495-9f35-33aa1e94f5de",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 644000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 511000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "f7f0cf70-8bb2-4ff7-99e5-0a22d64a0b2b",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 518000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 528000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "efc3e14e-483c-48a8-8057-0e964d48741f",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 533000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 538000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "50a7381f-ac01-48a0-b1b8-fa0f49afadb5",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 543000000,
+    "second" : 33,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-067",
+  "eventName" : "REG_SUPERVISOR_AUTH_PASSWORD",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 277000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: OS Authentication",
+  "moduleId" : "REG-MOD-107",
+  "description" : "Supervisor authentication with password: Click of Submit",
+  "uuid" : "bebae4b7-2899-49df-81c3-3c07bbbffdb3",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 283000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 297000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "aa4255fc-dd56-4331-b9c3-443bfba33ecc",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 302000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 309000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "8588ec53-0652-4c08-b3e5-eacd65b79390",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 314000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 321000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "3a97e467-5b44-4d05-b274-15abf2bda3b3",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 326000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-126",
+  "eventName" : "PACKET_UPDATE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 332000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Update Packet",
+  "moduleId" : "REG-MOD-132",
+  "description" : "Packets which are in created state are updated",
+  "uuid" : "96828ca2-7be6-4839-981f-252b2b8ed634",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 337000000,
+    "second" : 43,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 630000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "a26cef44-a5c6-4ba4-a7aa-fdb38334cc01",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 635000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 648000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "908b3109-d28c-4998-8fad-419ae7809a29",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 653000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-093",
+  "eventName" : "SYNC_PRE_REGISTRATION_PACKET",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 84000000,
+    "second" : 48,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Server to Client Sync",
+  "moduleId" : "REG-MOD-114",
+  "description" : "Sync pre-registration data",
+  "uuid" : "e615f461-fe02-4562-ae3a-d6b626b3e554",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 92000000,
+    "second" : 48,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-014",
+  "eventName" : "NAV_UPLOAD_PACKETS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 101000000,
+    "second" : 48,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Upload Packets",
+  "uuid" : "a1bfdd75-f73a-4798-b3fa-66a6b6cd0441",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 109000000,
+    "second" : 48,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-079",
+  "eventName" : "UPLOAD_PACKET",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 753000000,
+    "second" : 50,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Upload Packets",
+  "moduleId" : "REG-MOD-110",
+  "description" : "Upload packets",
+  "uuid" : "17c4d0f3-c77b-4475-aa6e-ca15b29aeb19",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 766000000,
+    "second" : 50,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-112",
+  "eventName" : "PACKET_AES_ENCRYPTED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 137000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet AES Encryptor",
+  "moduleId" : "REG-MOD-121",
+  "description" : "Packet Encrypted Sucessfully",
+  "uuid" : "db19fecc-a23a-4941-99d5-9c9d2f9a8480",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 142000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-079",
+  "eventName" : "UPLOAD_PACKET",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 948000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Upload Packets",
+  "moduleId" : "REG-MOD-110",
+  "description" : "Upload packets",
+  "uuid" : "46aebde9-1942-4e07-aefc-22cc4fdbff2b",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 954000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-133",
+  "eventName" : "PACKET_UPLOAD",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 22,
+    "monthValue" : 9,
+    "nano" : 960000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "packetUpload",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet upload",
+  "moduleId" : "REG-MOD-135",
+  "description" : "Upload the local packets to the server",
+  "uuid" : "eafee3cd-8768-445d-9a9c-c37fc395b166",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 52,
+    "monthValue" : 9,
+    "nano" : 972000000,
+    "second" : 51,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 28,
+    "monthValue" : 9,
+    "nano" : 116000000,
+    "second" : 55,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "faec1fbe-682a-4408-8b8c-2cf05ddec3f9",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 9,
+    "minute" : 58,
+    "monthValue" : 9,
+    "nano" : 122000000,
+    "second" : 55,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 33,
+    "monthValue" : 9,
+    "nano" : 344000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "5c129bea-e5d7-4538-b739-ef7b3e146506",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 3,
+    "monthValue" : 9,
+    "nano" : 360000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 37,
+    "monthValue" : 9,
+    "nano" : 849000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "4c428ea9-406f-4dcd-80bf-2ab9055e2e0f",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 7,
+    "monthValue" : 9,
+    "nano" : 863000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 183000000,
+    "second" : 19,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "387af928-2335-4e5b-9455-2fe65b8a6140",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 194000000,
+    "second" : 19,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 42,
+    "monthValue" : 9,
+    "nano" : 237000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "b142c6dc-75ba-487e-b4b8-4a10564c0ad6",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 12,
+    "monthValue" : 9,
+    "nano" : 244000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 42,
+    "monthValue" : 9,
+    "nano" : 256000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "864addb4-ce59-47bd-a5a0-cc4760d5a314",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 12,
+    "monthValue" : 9,
+    "nano" : 263000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-021",
+  "eventName" : "NAV_HOME",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 42,
+    "monthValue" : 9,
+    "nano" : 316000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Home",
+  "uuid" : "c829a15a-655a-485a-ad15-149f2cabe6da",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 12,
+    "monthValue" : 9,
+    "nano" : 325000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 46,
+    "monthValue" : 9,
+    "nano" : 841000000,
+    "second" : 56,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "1fcf74d7-89ce-4fbf-ae22-8dc973b7669c",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 16,
+    "monthValue" : 9,
+    "nano" : 861000000,
+    "second" : 56,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 51,
+    "monthValue" : 9,
+    "nano" : 204000000,
+    "second" : 1,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "46a82a53-5ca0-4485-beff-e497aa83afdf",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 21,
+    "monthValue" : 9,
+    "nano" : 219000000,
+    "second" : 1,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 55,
+    "monthValue" : 9,
+    "nano" : 660000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "1902af9e-0dcf-4e27-b336-6c1aca1d8f81",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 25,
+    "monthValue" : 9,
+    "nano" : 682000000,
+    "second" : 18,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 4,
+    "minute" : 59,
+    "monthValue" : 9,
+    "nano" : 332000000,
+    "second" : 24,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "7e47a1de-3916-4d2a-bc7c-9a7bfda6580b",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 29,
+    "monthValue" : 9,
+    "nano" : 348000000,
+    "second" : 24,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 3,
+    "monthValue" : 9,
+    "nano" : 627000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "9f7df388-88b3-4ad3-bd11-de302d6f4e7e",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 33,
+    "monthValue" : 9,
+    "nano" : 650000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-141",
+  "eventName" : "REFRESHED_TIMEOUT",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 7,
+    "monthValue" : 9,
+    "nano" : 463000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "refresh timeout",
+  "moduleId" : "REG-MOD-146",
+  "description" : "The time task remainder alert",
+  "uuid" : "f078fe60-367e-47b7-9078-11245fe6e244",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 37,
+    "monthValue" : 9,
+    "nano" : 470000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-001",
+  "eventName" : "LOGIN_AUTHENTICATE_USER_ID",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 782000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "NA",
+  "moduleName" : "Login",
+  "moduleId" : "REG-MOD-101",
+  "description" : "Login authenticating user id: Click of Submit",
+  "uuid" : "491e2a0c-abfb-4d15-9448-6a8475b4f1d4",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 858000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 889000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "NA",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "7f3ff08e-58f5-4757-a86e-73118f9c1724",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 901000000,
+    "second" : 29,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 584000000,
+    "second" : 30,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "NA",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "e4f5a295-c6ed-40dd-84e4-8cf3a5b52237",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 594000000,
+    "second" : 30,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-002",
+  "eventName" : "LOGIN_WITH_PASSWORD",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 902000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "NA",
+  "moduleName" : "Login",
+  "moduleId" : "REG-MOD-101",
+  "description" : "Login with password: Click of Submit",
+  "uuid" : "527f488f-096b-44e9-b1e2-418564f2bafa",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 911000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 924000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "NA",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "c09aed4d-70c0-4d01-b0cb-61e617f9eca6",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 932000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 945000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "NA",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "4ed1d765-1a46-4898-aeb3-79e1b5fdb3bc",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 953000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 964000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "NA",
+  "sessionUserName" : "NA",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "NA",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "6f0f5ca1-7f4d-43ec-9b51-bf8b9a9beaf1",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 972000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-119",
+  "eventName" : "FETCH_CENTER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 987000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Center Detail",
+  "moduleId" : "REG-MOD-128",
+  "description" : "Fetching Center Details",
+  "uuid" : "ca2f4f5c-11f1-4ae8-a6a2-f14a36d34632",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 999000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-121",
+  "eventName" : "FETCH_SCREEN_AUTH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 17000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Screen AUthorization",
+  "moduleId" : "REG-MOD-130",
+  "description" : "Fetching screens to be authorized",
+  "uuid" : "f33cc8a4-061f-4b9d-8b25-72d4ce14bf78",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 34000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-021",
+  "eventName" : "NAV_HOME",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 263000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login",
+  "moduleId" : "REG-MOD-101",
+  "description" : "Navigation link: Home",
+  "uuid" : "bb219359-10c2-471b-b82b-e9b86d223a9e",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 274000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 398000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "85b64453-d155-4a2c-aca6-5807a15889ad",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 405000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 441000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "df09a193-47fa-4608-856e-387ce42ee643",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 447000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-021",
+  "eventName" : "NAV_HOME",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 520000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Home",
+  "uuid" : "0d5485fc-8077-43b8-9fb6-a180e4b3037d",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 526000000,
+    "second" : 35,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 931000000,
+    "second" : 37,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "a6939892-5854-479d-a2a4-f1d090fb7206",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 939000000,
+    "second" : 37,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-125",
+  "eventName" : "PACKET_RETRIVE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 956000000,
+    "second" : 37,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Retrive for Approval",
+  "moduleId" : "REG-MOD-131",
+  "description" : "Packets which are in created state for approval are retrived",
+  "uuid" : "fa67c2cd-acea-4b6f-957b-1c86caf9a722",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 964000000,
+    "second" : 37,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-021",
+  "eventName" : "NAV_HOME",
+  "eventType" : "SYSTEM",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 15000000,
+    "second" : 38,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Home",
+  "uuid" : "bdf66287-ba77-4469-a625-12f2235e1f2e",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 23000000,
+    "second" : 38,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-016",
+  "eventName" : "NAV_SYNC_DATA",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 11,
+    "monthValue" : 9,
+    "nano" : 199000000,
+    "second" : 38,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Navigation link: Sync Data",
+  "uuid" : "d2742bad-c092-4ad5-a0e9-05ce30f7cfe2",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 41,
+    "monthValue" : 9,
+    "nano" : 208000000,
+    "second" : 38,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-010",
+  "eventName" : "NAV_NEW_REG",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 725000000,
+    "second" : 40,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Navigation",
+  "moduleId" : "REG-MOD-102",
+  "description" : "Click of navigation link: New Registration",
+  "uuid" : "6cee51c8-034b-4b94-b781-b87d12873667",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 735000000,
+    "second" : 40,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-128",
+  "eventName" : "PENDING_PKT_COUNT_VALIDATION",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 10000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Sync service",
+  "moduleId" : "REG-MOD-133",
+  "description" : "Validating the Pending packets count",
+  "uuid" : "660471c2-545b-4bd9-ad20-42deda1b25f7",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 20000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-129",
+  "eventName" : "PENDING_PKT_DURATION_VALIDATION",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 32000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Sync service",
+  "moduleId" : "REG-MOD-133",
+  "description" : "Validating the Pending packets Duration",
+  "uuid" : "4bde89cd-2816-4510-9856-c59229d533ac",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 41000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-122",
+  "eventName" : "SYNC_JOB_INFO_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 115000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Sync service",
+  "moduleId" : "REG-MOD-133",
+  "description" : "SyncJobInfo containing the sync control list and yet to export packet count fetched successfully",
+  "uuid" : "96ac0ba5-edb8-4e77-b64c-6fd01d0b4bca",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 123000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-127",
+  "eventName" : "SYNC_GEO_VALIDATE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 132000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Sync service",
+  "moduleId" : "REG-MOD-133",
+  "description" : "Validating the geo information ended successfully",
+  "uuid" : "9fb20d5c-589f-46dc-a30e-e830f8043fda",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 139000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-123",
+  "eventName" : "SYNC_INFO_VALIDATION",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 13,
+    "monthValue" : 9,
+    "nano" : 145000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Sync service",
+  "moduleId" : "REG-MOD-133",
+  "description" : "Validating the sync status ended successfully",
+  "uuid" : "23773f7e-54bf-4b85-a2db-3236c1ee5eba",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 43,
+    "monthValue" : 9,
+    "nano" : 152000000,
+    "second" : 42,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-139",
+  "eventName" : "SAVE_DETAIL_TO_DTO",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 17,
+    "monthValue" : 9,
+    "nano" : 620000000,
+    "second" : 52,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "UserID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration initialization",
+  "moduleId" : "REG-MOD-140",
+  "description" : "Saving the details to DTO",
+  "uuid" : "f073be67-1db4-4be0-8602-3f8415ac9f73",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 47,
+    "monthValue" : 9,
+    "nano" : 635000000,
+    "second" : 52,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-025",
+  "eventName" : "REG_DEMO_NEXT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 17,
+    "monthValue" : 9,
+    "nano" : 786000000,
+    "second" : 52,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: DemographicsDetails",
+  "moduleId" : "REG-MOD-103",
+  "description" : "Click of Next after capturing demographic details",
+  "uuid" : "09ddc8c0-df48-41f8-8c48-22c1ffa18018",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 47,
+    "monthValue" : 9,
+    "nano" : 802000000,
+    "second" : 52,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-026",
+  "eventName" : "REG_DOC_POA_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 17,
+    "monthValue" : 9,
+    "nano" : 483000000,
+    "second" : 59,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Documents",
+  "moduleId" : "REG-MOD-104",
+  "description" : "PoA: Click of Scan",
+  "uuid" : "972c2d8f-aaed-41a6-bd90-857dd6c544dd",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 47,
+    "monthValue" : 9,
+    "nano" : 495000000,
+    "second" : 59,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-029",
+  "eventName" : "REG_DOC_POI_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 919000000,
+    "second" : 4,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Documents",
+  "moduleId" : "REG-MOD-104",
+  "description" : "PoI: Click of Scan",
+  "uuid" : "e029dc51-f1cf-4415-9e91-3ec672c6aa07",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 930000000,
+    "second" : 4,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-032",
+  "eventName" : "REG_DOC_POR_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 491000000,
+    "second" : 7,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Documents",
+  "moduleId" : "REG-MOD-104",
+  "description" : "PoR: Click of Scan",
+  "uuid" : "5d790117-fc13-40ac-beef-7de1598e9993",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 499000000,
+    "second" : 7,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-038",
+  "eventName" : "REG_DOC_NEXT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 187000000,
+    "second" : 10,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Documents",
+  "moduleId" : "REG-MOD-104",
+  "description" : "Click of Next after uploading documents",
+  "uuid" : "213036bb-021b-4567-b1f0-5867e8231712",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 201000000,
+    "second" : 10,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-043",
+  "eventName" : "REG_BIO_LEFT_SLAP_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 28000000,
+    "second" : 12,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Fingerprints: Scan of left slap",
+  "uuid" : "4ad000a0-01f4-431b-a412-6646d8bb7ebb",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 34000000,
+    "second" : 12,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-044",
+  "eventName" : "REG_BIO_RIGHT_SLAP_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 18000000,
+    "second" : 25,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Fingerprints: Scan of right slap",
+  "uuid" : "231834fe-b5a3-4a8d-8533-be4d2951c502",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 25000000,
+    "second" : 25,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-045",
+  "eventName" : "REG_BIO_THUMBS_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 664000000,
+    "second" : 28,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Fingerprints: Scan of thumbs",
+  "uuid" : "f16d42a7-48ab-4d6b-91ac-d1f7b6f15312",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 673000000,
+    "second" : 28,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-046",
+  "eventName" : "REG_BIO_FINGERPRINT_NEXT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 625000000,
+    "second" : 32,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Click of Next after capturing fingerprints",
+  "uuid" : "f423e7fa-ca4f-4f89-b90c-6fb0c1aa0690",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 634000000,
+    "second" : 32,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-048",
+  "eventName" : "REG_BIO_IRIS_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 588000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Iris: Scan of left iris",
+  "uuid" : "6174107b-29cd-43d2-84a4-6151cf74f735",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 599000000,
+    "second" : 34,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-143",
+  "eventName" : "REG_BIO_IRIS_SCAN",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 389000000,
+    "second" : 41,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Iris: Scan of right iris",
+  "uuid" : "666eb165-0185-49fd-9557-021ec02fac99",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 400000000,
+    "second" : 41,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-049",
+  "eventName" : "REG_BIO_IRIS_NEXT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 156000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Click of Next after capturing irises",
+  "uuid" : "9bd63dba-00e7-4f31-9337-6004803dde08",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 166000000,
+    "second" : 44,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-051",
+  "eventName" : "REG_BIO_FACE_CAPTURE",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 18,
+    "monthValue" : 9,
+    "nano" : 57000000,
+    "second" : 46,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Photo: Face capture",
+  "uuid" : "65105d3e-b879-4ad9-bbb9-2afd6ef0ca55",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 48,
+    "monthValue" : 9,
+    "nano" : 68000000,
+    "second" : 46,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-052",
+  "eventName" : "REG_BIO_FACE_CAPTURE_NEXT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 525000000,
+    "second" : 0,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Biometrics",
+  "moduleId" : "REG-MOD-105",
+  "description" : "Click of Next after capturing face photo",
+  "uuid" : "46277682-7ecb-442d-9aec-437cff4d6dec",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 530000000,
+    "second" : 0,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-139",
+  "eventName" : "SAVE_DETAIL_TO_DTO",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 211000000,
+    "second" : 1,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "UserID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration initialization",
+  "moduleId" : "REG-MOD-140",
+  "description" : "Saving the details to DTO",
+  "uuid" : "59352292-6133-48bc-8437-28ac1de44480",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 216000000,
+    "second" : 1,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-057",
+  "eventName" : "REG_PREVIEW_SUBMIT",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 426000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: Preview",
+  "moduleId" : "REG-MOD-106",
+  "description" : "Submit",
+  "uuid" : "bea0b5fe-2c50-44d1-aedd-6da655e658a9",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 437000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 447000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "62d61c9d-ce54-4ade-acbd-c1ee52f63a2c",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 454000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 468000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "3a3ee414-335a-4287-8727-3efbbf2249fa",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 476000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-114",
+  "eventName" : "LOGIN_MODES_FETCH",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 484000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Login Modes",
+  "moduleId" : "REG-MOD-123",
+  "description" : "Fetching Login Modes",
+  "uuid" : "fba58d5c-4505-4d56-be5f-2f9ef83103ce",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 490000000,
+    "second" : 6,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-058",
+  "eventName" : "REG_OPERATOR_AUTH_PASSWORD",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 396000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "110039",
+  "idType" : "USER_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Registration: OS Authentication",
+  "moduleId" : "REG-MOD-107",
+  "description" : "Operator authentication with password: Click of Submit",
+  "uuid" : "bd98bde4-94c0-45b2-9807-4b6df6d77788",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 407000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 416000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "b1cac255-685a-47fa-8aa5-c4f0215d56f8",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 424000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-117",
+  "eventName" : "FETCH_USER_DETAILS",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 609000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "REGISTRATION",
+  "idType" : "APPLICATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "User Detail",
+  "moduleId" : "REG-MOD-126",
+  "description" : "Fetching User Details",
+  "uuid" : "4b77c944-29c6-4144-ac3d-bb4c6dbcf4db",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 617000000,
+    "second" : 13,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-109",
+  "eventName" : "PACKET_HMAC_FILE_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 253000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002120190905051341",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet HMAC File created successfully",
+  "uuid" : "10743736-e21e-440b-bea3-545bd9713a74",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 260000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+}, {
+  "eventId" : "REG-EVT-108",
+  "eventName" : "PACKET_DEMO_JSON_CREATED",
+  "eventType" : "USER",
+  "actionTimeStamp" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 5,
+    "minute" : 19,
+    "monthValue" : 9,
+    "nano" : 278000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  },
+  "hostName" : "a1ml28565",
+  "hostIp" : "172.23.30.49",
+  "applicationId" : "REG",
+  "applicationName" : "REGISTRATION",
+  "sessionUserId" : "110039",
+  "sessionUserName" : "Girish Yarru",
+  "id" : "10006100360002120190905051341",
+  "idType" : "REGISTRATION_ID",
+  "createdBy" : "Girish Yarru",
+  "moduleName" : "Packet Creator",
+  "moduleId" : "REG-MOD-119",
+  "description" : "Packet Demographic JSON created successfully",
+  "uuid" : "fb0b38b0-6797-49c4-ac82-1773805457fd",
+  "createdAt" : {
+    "month" : "SEPTEMBER",
+    "year" : 2019,
+    "dayOfMonth" : 5,
+    "hour" : 10,
+    "minute" : 49,
+    "monthValue" : 9,
+    "nano" : 284000000,
+    "second" : 14,
+    "dayOfWeek" : "THURSDAY",
+    "dayOfYear" : 248,
+    "chronology" : {
+      "id" : "ISO",
+      "calendarType" : "iso8601"
+    }
+  }
+} ]

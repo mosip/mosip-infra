@@ -1,0 +1,17 @@
+{{- $root := . -}}
+{{- range $serviceName, $val := $root.Values.servicesOnly }} 
+---
+apiVersion: v1
+kind: Service
+metadata:
+ namespace: default
+ name: {{ $serviceName }}
+spec:
+ selector:
+   component: {{ $serviceName }}
+ clusterIP: None
+ ports:
+    {{- range $val }}
+{{ toYaml . | indent 1}}
+    {{ end }}
+{{- end }}

@@ -1,0 +1,189 @@
+node{
+ def mvnHome = tool name: 'M2_HOME', type: 'maven'
+ def branch = env.NEXT_BRANCH_NAME
+ def newVersion
+ def projectToBuild = 'authentication'
+def registryUrl = env.REGISTRY_URL
+ def registryName = env.REGISTRY_NAME
+   def registryCredentials = env.dockerRegistryCredentials
+ k8Context = 'MOSIP-INT-Kubernetes'
+ updatedServices = []
+ updatedDockerImages = []
+ // For DMZ
+  updatedServicesForDmz = []
+  updatedDockerImagesForDmz = []
+  containersToRunForDmz=''
+  containerNamesForDmz=''
+ 
+ 
+ // Asking user if he wants to promote the code to QA, user will choose either proceed or abort
+ stage('checkout') {
+  cleanWs()
+  input 'Do you want to promote the code to QA?'
+  dir(branch) {
+   checkout([$class: 'GitSCM',
+    branches: [
+     [name: branch]
+    ],
+    extensions: scm.extensions + [[$class: 'CleanCheckout']],
+    userRemoteConfigs: [
+     [url: 'git@github.com:mosip/mosip.git', credentialsId: 'fd9c5f45-e6ac-45ea-b345-f6fbeb303044']
+    ]
+   ])
+  }
+}
+stage('update-versions') {
+  dir(branch) {
+	  sh "git status"
+   pom = readMavenPom file: 'pom.xml'
+   version = pom.version
+   suggestedValue = pom.version
+   String[] st = suggestedValue.split("\\.");
+   int n = Integer.parseInt(st[2]) + 1;
+   suggestedValue = st[0] + "." + st[1] + "."+n;
+   def userInput = input(
+    id: 'userInput', message: 'Enter version number',
+    parameters: [
+
+     string(
+      defaultValue: suggestedValue,
+      description: 'Previous version in pom.xml is ' + version,
+      name: 'Version')
+    ])
+   // Save to variables. Default to empty string if not found.
+   echo userInput
+
+   newVersion = pom.version.replace("${version}", "${userInput}")
+   sh "${mvnHome}/bin/mvn versions:set -DnewVersion=${newVersion}"
+   sh "${mvnHome}/bin/mvn versions:commit"
+  }
+ }
+ stage('docker images'){
+ 	dir(branch){
+	    pomFile = readMavenPom file: projectToBuild+'/pom.xml'
+	    dockerImagesTagVersion = pomFile.parent.version
+   	    echo dockerImagesTagVersion
+	    
+	    sh "find . -name 'Dockerfile'> testdirectoryDockerFiles"
+  	    testlocationOfDockerFiles = readFile("testdirectoryDockerFiles").split("\\r?\\n");
+            sh "rm -f testdirectoryDockerFiles"
+            if (testlocationOfDockerFiles[0].equals("")) {
+                echo "tested:::: no docker files present, returning"
+                return;
+           }
+	   
+	   sh "dirname `find . -name 'Dockerfile'`> directoryDockerFiles"
+           locationOfDockerFiles = readFile("directoryDockerFiles").split("\\r?\\n");
+           sh "rm -f directoryDockerFiles"
+	   for (int i = 0; i < locationOfDockerFiles.size(); i++) {
+     		if (locationOfDockerFiles[i].equals("")) {
+      		break;
+     	   }
+	   
+	   def currentModule = locationOfDockerFiles[i]
+           /*
+           Getting name of the module to be built
+           */
+           sh "basename $currentModule > moduleName"
+           moduleName = readFile('moduleName').trim()
+           sh "rm -f moduleName"
+            /*
+           Getting path of the module to be built
+           */
+           modulePath = locationOfDockerFiles[i].substring(2);
+	   
+	    /**
+    	   Finding out the parent directory of modules to deploy services accordingly.
+           **/
+           sh "dirname $currentModule > parentDirectory"
+           def parentDirectory = readFile('parentDirectory').trim()
+           parentDirectory = parentDirectory.substring(2);
+        
+	   echo "Parent Directory"
+	   echo parentDirectory
+	   
+	   /*
+           If Services are present in init directory, they have to be deployed in DM Zone
+           */
+     	   if(parentDirectory == 'registration-processor/init'){
+	        echo "From reg proc init"
+		echo moduleName
+	   	updatedServicesForDmz.add(moduleName)
+                updatedDockerImagesForDmz.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+		 /*
+                 Updating containersToRun List for dmz
+                 */
+                 containersToRunForDmz = containersToRunForDmz + " " + registryName + '/' + moduleName  + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+                 /*
+                 /*
+                 Updating containersName List for dmz
+                 */
+                 containerNamesForDmz = containerNamesForDmz + " " + moduleName
+	   }
+	   /*
+           If Services are present in pre-processor, post-processor or core-processor directory, they have to be deployed in Private Zone
+           */
+           else if ((parentDirectory == 'registration-processor/core-processor') || (parentDirectory == 'registration-processor/pre-processor') ||(parentDirectory == 'registration-processor/post-processor')){
+	   	  echo "From reg proc private"
+		  echo moduleName
+                  updatedServices.add(moduleName)
+                  updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+           }
+            /*
+          If Services are present in root path in registartion-processor module and starts with 'registration-processor-common', they have to be deployed in both private and DM Zones.
+           */
+           else if (parentDirectory == 'registration-processor' && moduleName.startsWith('registration-processor-common')) {
+	          echo "reg proc both"
+		  echo moduleName
+                  updatedServicesForDmz.add(moduleName)
+                  updatedDockerImagesForDmz.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+                  updatedServices.add(moduleName)
+                  updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+                  /*
+                  Updating containersToRun List for dmz
+                  */
+                  containersToRunForDmz = containersToRunForDmz + " " + registryName + '/' + moduleName  + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+                  /*
+                  /*
+                  Updating containersName List for dmz
+                  */
+                  containerNamesForDmz = containerNamesForDmz + " " + moduleName
+          } 
+	  else if(!locationOfDockerFiles[i].startsWith('./scripts/mosip-launcher') && !locationOfDockerFiles[i].startsWith('./admin')){
+	  	   updatedServices.add(moduleName)
+                   updatedDockerImages.add(registryName + '/' + moduleName + ":$dockerImagesTagVersion.$BUILD_NUMBER")
+		   echo "Module Name"
+	           echo moduleName 
+	   }
+          }
+	  echo "updated services"
+	  for (int i=0; i<updatedServices.size();i++){
+	  	echo updatedServices[i]
+	  }
+	  echo "updated services for dmz"
+	  for (int i=0; i<updatedServicesForDmz.size();i++){
+	  	echo updatedServicesForDmz[i]
+	  }
+	  
+	}
+    }
+	stage('Private zone deployment'){
+	dir(branch){
+	       docker.withRegistry(registryUrl, registryCredentials) {
+                def buildName = 'admin-service-release' + ":$dockerImagesTagVersion.$BUILD_NUMBER"
+                newApp = docker.build(buildName, '-f ' + "./admin/admin-service/Dockerfile" + ' ' + "admin/admin-service")
+                newApp.push()
+                newApp.push 'latest'
+	   }
+        }
+		//sh "kubectl config use-context $k8Context"
+		//for (int i=0;i<updatedDockerImages.size();i++){
+	//		def updatedDockerImage = updatedDockerImages[i]
+          //              def updatedService = updatedServices[i]
+		//	echo "Updating [ Service:$updatedService, Image:$updatedDockerImage ]"
+		//	sh "kubectl set image deployment/$updatedService $updatedService=$updatedDockerImage"
+		//}
+	   echo "Getting list of all services" 
+           //sh "kubectl get pods"
+	}
+}

@@ -1,0 +1,61 @@
+node {
+
+ // If the build is triggered by any upstream job
+ if (currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause)) {
+  sendEmail()
+ }
+}
+@NonCPS
+def sendEmail() {
+
+ // Name of the Jenkins jobs for email notification will be sent if status is FAILURE
+ def String[] jobsForStatusNotification = ["Kernel", "Authentication", "Pre-Registration", "Registration", "Registration-Processor", "modify-pipeline-poc", "master-branch-build-all-modules"]
+
+ def upstream = currentBuild.rawBuild.getCause(hudson.model.Cause$UpstreamCause)
+
+ // Description for upstream job by which this pipeline has been triggered
+ def description = upstream?.shortDescription
+
+ // projectName for upstream job by which this pipeline has been triggered
+ def projectName = description.substring(description.indexOf("\"") + 1, description.indexOf("\"", description.indexOf("\"") + 1));
+
+ // projectStatus for upstream job by which this pipeline has been triggered
+ def projectStatus = Jenkins.instance.getItem(projectName).lastCompletedBuild.getResult().toString()
+
+ // projectBuildNumber for upstream job by which this pipeline has been triggered
+ def projectBuildNumber = Jenkins.instance.getItem(projectName).lastCompletedBuild.getNumber().toString()
+
+ // projectBuildURL for upstream job by which this pipeline has been triggered
+ def projectBuildURL = Jenkins.instance.getItem(projectName).lastCompletedBuild.absoluteUrl.toString()
+
+ echo "projectName: " + projectName
+ echo "projectStatus: " + projectStatus
+ echo "projectBuildNumber: "+projectBuildNumber
+ echo "projectBuildURL: "+projectBuildURL
+
+ def recipients
+ if (jobsForStatusNotification.contains(projectName) && projectStatus.equals("FAILURE")) {
+  if (projectName.equals("Kernel")) {
+    recipients = "$env.KERNEL_RECIPIENT_LIST"
+  } else if (projectName.equals("Pre-Registration")) {
+    recipients = "$env.PRE_REGISTRATION_RECIPIENT_LIST"
+  } else if (projectName.equals("Authentication")) {
+    recipients = "$env.IDA_RECIPIENT_LIST"
+  } else if (projectName.equals("Registration")) {
+    recipients = "$env.REGISTRATION_RECIPIENT_LIST"
+  } else if (projectName.equals("Registration-Processor")) {
+    recipients = "$env.REGISTRATION_PROCESSOR_RECIPIENT_LIST"
+  } else if (projectName.equals("master-branch-build-all-modules")) {
+    recipients = "$env.MASTER_BRANCH_BUILD_ALL_MODULES_RECIPIENT_LIST"
+  } else if (projectName.equals("modify-pipeline-poc")) {
+   recipients = "$env.TEST_RECIPIENT_LIST"
+  }
+
+    emailext (
+                        subject: "MOSIP Jenkins Job '${projectName} with build no ${projectBuildNumber} failed'",
+                        body: """<p>Check console output at <a href="${projectBuildURL}">${projectName}</a></p>""",
+                        to: "$recipients",
+                        from: '"Jenkins" <info@mosip.io>'
+                    )
+       }
+}

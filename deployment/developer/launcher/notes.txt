@@ -1,0 +1,53 @@
+Following error occuring while loading config.  The file is present, so not sure what it means:
+
+ Properties location [classpath:application-${spring.profiles.active}.properties] not resolvable: class path resource [application-dev.properties] cannot be opened because it does not exist
+
+Softhsm
+
+-- Compile, install softhsm2
+-- put mosip_softhsm file in ~/.softhsm
+-- Point the above file in kernel.properties
+-- Run
+softhsm2-util --init-token --slot 0 --pin ${softhsm_pin_env} --so-pin ${softhsm_pin_env} --label 'Keymanager_token'
+
+PIN is 1234
+
+-- Delete all entires of key_alias table under mosip_kernel
+   Do the above whenever key manager is being restarted.
+$ \c mosip_kernel
+$ delete from key_alias;
+
+
+To get in PSQL
+$ sudo su postgres
+$ psql
+
+===================
+Add the following steps
+-- Generate public and private key using keygen, and copy the keys in ~/.ssh
+-- Give the private key name in properties file
+
+-- log on to hdfs
+$ docker exec -it <container id> /bin/bash
+
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/regprocessor
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/prereg
+$ /usr/local/hadoop-2.7.0/bin/hdfs dfs -mkdir /user/idrepo
+===============
+
+Changes for kernel-syncdata-service
+
+pom.xml -- change version number to 0.9.1
+pom.xml -- change parent pom name to kernel-parent
+
+===============
+Install nginx using
+sudo yum install -y nginx
+
+In /etc/nginx.conf add such links:
+
+location /v1/authmanager {
+            proxy_pass http://localhost:8191;
+        }
+
+$ sudo setsebool httpd_can_network_connect on -P

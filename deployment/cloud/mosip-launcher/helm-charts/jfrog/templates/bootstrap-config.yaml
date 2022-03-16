@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-release-bootstrap-config
+data:
+  security.import.xml: |
+    {{- (tpl (.Files.Get "configuration/security.import.xml") . ) | nindent 4 }}
+  artifactory.config.import.xml: |
+    {{- (tpl (.Files.Get "configuration/artifactory.config.import.xml") . ) | nindent 4 }}
+
+    

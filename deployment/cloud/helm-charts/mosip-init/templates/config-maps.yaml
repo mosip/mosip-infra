@@ -1,0 +1,12 @@
+{{- $root := . -}}
+{{- range $configMapName, $val := $root.Values.configMaps }} 
+---
+apiVersion: v1
+data:
+    {{- range $filename, $filevalue := $val }}
+    {{$filename}}: {{ $filevalue | toJson | replace "carriagereturnnewline" "\\r\\n" }}
+    {{ end }}
+kind: ConfigMap
+metadata:
+  name: {{ $configMapName }}
+{{- end}}

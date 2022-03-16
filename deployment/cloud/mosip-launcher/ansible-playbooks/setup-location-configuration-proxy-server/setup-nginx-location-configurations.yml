@@ -1,0 +1,45 @@
+---
+- name: Proxy Server configuration
+  hosts: "proxy-server-vm-*"
+  become: yes
+  serial: 1
+  gather_facts: true
+
+
+
+  tasks:
+    - name: Including Services configuration values from variable file.
+      include_vars:
+          file: ../configurations/services-configurations.yml
+          name: services
+
+    - name: Setting env_name for current host
+      set_fact:
+        env_name: "{{ inventory_hostname | replace('proxy-server-vm-','') }}"
+
+    - name: Printing env name for current host
+      debug: msg= "{{ env_name  }}"
+
+    - name: Check uname for proxy server for {{ env_name  }}
+      command: uname -a
+      register: system_info_proxy_server
+
+    - name: Printing system info for proxy server for {{ env_name  }}
+      debug: msg="{{ system_info_proxy_server | json_query('stdout')  }}"
+
+
+    - name: Creating location configuration for proxy server for {{ env_name  }}
+      become: yes
+      template:
+        src: ./configurations/proxy-server-location.j2
+        dest: /etc/nginx/location.conf
+        owner: "{{ hostvars['localhost']['global_username'] }}"
+        group: "{{ hostvars['localhost']['global_username'] }}"
+        mode: u=rw,g=r,o=r
+
+    - name: Start nginx for proxy server for {{ env_name  }}
+      become: yes
+      service:
+        name: nginx
+        state: restarted
+        enabled: yes

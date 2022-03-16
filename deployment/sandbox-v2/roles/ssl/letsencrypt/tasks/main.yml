@@ -29,15 +29,14 @@
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
 
-- name: run certbot 
-  shell: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '
+- name: run certbot
+  shell: 'certbot certonly --nginx -n -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '
+ # command: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d "{{sandbox_domain_name}}"'
   become: yes
   register: out
   with_items:
-    - "{{sandbox_domain_name}}"
-    # add more sub-domains - should exist in DNS records.
-    #- "api.{{sandbox_domain_name}}"
-
+   - "{{sandbox_domain_name}}"
+   
 - debug:
     msg: '{{out}}'
 
