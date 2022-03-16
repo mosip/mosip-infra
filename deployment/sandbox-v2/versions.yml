@@ -115,15 +115,15 @@ versions:
       credentialreq:
         'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:1.1.5.5'
       credentialservice:
-        'idrepo-credential-service': 'mosipev/credential-service:1.1.5.5'
+        'idrepo-credential-service': 'mosipdev/credential-service:1.1.5.5'
       salt:  
         'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5.3'
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipdev/partner-management-service:1.1.5.3_hub'
+        'pms-partner-manager-service': 'mosipdev/partner-management-service:1.1.5.4'
       policy:
-        'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5.3_hub'
+        'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5.4'
       ui:
         'pms-ui': 'mosipdev/pmp-ui:develop'
 
