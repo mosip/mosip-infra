@@ -1,6 +1,6 @@
 # Requirements for On-prem Rancher Cluster
 
-Listed below are hardware, network and certificate requirements to setup a **Rancher Cluster** on-prem.
+Listed below are hardware, network and certificate requirements to setup a Rancher Kuberntes cluster.
 
 ## Hardware requirements
 
