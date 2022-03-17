@@ -40,7 +40,7 @@ cd all
 ```
 
 ## Restart
-* The `restart-all.sh` script here does rollout restart all the mosip services.
+* The `restart-all.sh` script here does rollout restart all the MOSIP services.
 * This script is not part of regular installation. Please use the same only when restart of services are required.
 ```
 cd all
