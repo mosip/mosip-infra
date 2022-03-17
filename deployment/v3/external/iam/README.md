@@ -55,3 +55,11 @@ To populate base data of MOSIP, run Keycloak Init job:
 ```
 $ ./keycloak_init.sh <kubeconfig file for mosip cluster>
 ```
+
+## Frontend URL
+- Navigate to keycloak admin console.
+- Navigate to `Mosip` realm.
+- Configure *Frontend URL* property in *Realm Settings* page. Value for the frontend url should be: `https://<mosip-iam-external-host>/auth`. Eg: `https://iam.sandbox.mosip.net/auth`.
+- Save it.
+
+TODO: Automate this as part of keycloak-init
