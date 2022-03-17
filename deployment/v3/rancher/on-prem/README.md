@@ -3,16 +3,17 @@
 ##  Prerequisites
 * [Hardware, network, certificate requirements](./requirements.md).
 * TLS termination: you may terminate TLS in any of the following ways:
-  * Directly on Rancher service
+  * On a reverse proxy (like Nginx) before the ingress controller (done as default in this installation).
   * On ingress controller
-  * On a reverse proxy before the ingress controller
-* We have configured tls to terminate on the reverse proxy / loadbalancer, as default in our configuration.
-
-## Cluster Setup
+  * Directly on Rancher service
+ 
+## Cluster setup
 * Set up VMs.
 * Create K8s cluster, using `rke` utility. Using [this](../../docs/rke-setup.md).
 
-## Nginx Ingress Controller
+## Ingress controller
+Install [Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/deploy/):
+
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
@@ -24,5 +25,5 @@ helm install \
   -f ingress-nginx.values.yaml
 ```
 
-##  Nginx Loadbalancer / Reverse Proxy + Wireguard Bastion Host
-* Install [nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
+## Reverse proxy (Nginx) + Wireguard bastion host
+* Install [Nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
