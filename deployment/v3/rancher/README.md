@@ -18,7 +18,7 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
     helm install rancher rancher-latest/rancher \
       --namespace cattle-system \
       --create-namespace \
-      --set hostname=rancher.mosip.net \
+      --set hostname=rancher.xyz.net \
       --set replicas=2 \
       --set bootstrapPassword=admin \
       --set tls=external
