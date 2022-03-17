@@ -46,6 +46,8 @@ spec:
           value: {{ $podconfig.java_opts }}
         - name: regproc_jars_env
           value: {{ .Values.regprocJarsPath }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
 
         ports:
         - name: hazelcast
