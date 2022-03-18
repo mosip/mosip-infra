@@ -8,14 +8,15 @@ fi
 
 NS=postgres
 
-echo Create namespace $NS
+echo Create $NS namespace
 kubectl create namespace $NS
 kubectl label ns $NS istio-injection=enabled --overwrite
 
-echo Installing  postgres
-helm -n $NS install postgres bitnami/postgresql -f values.yaml --wait
+echo Installing  Postgres
+helm -n $NS install postgres bitnami/postgresql --version 10.16.2 -f values.yaml --wait
+echo Installed Postgres
 
-echo Installing gateways, vs
+echo Installing gateways and virtual services
 INTERNAL=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 echo Internal domain: $INTERNAL
 helm -n $NS install istio-addons chart/istio-addons --set internalHost=$INTERNAL
