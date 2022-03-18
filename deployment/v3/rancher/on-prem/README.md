@@ -16,8 +16,8 @@ _If you already have a Wireguard bastion host then you may skip this step._
 ```
 ansible-playbook -i hosts.ini wireguard.yaml
 ```
-* Install [wireguard docker](../../docs/wireguard-bastion.md) with enough number of peers.
-- Assign peer1 to yourself and set your wireguard client before working on the cluster.
+* Install [Wireguard docker](../../docs/wireguard-bastion.md) with enough number of peers.
+- Assign peer1 to yourself and set your Wireguard client before working on the cluster.
 
 ## Ports
 * Open ports on each of the nodes.
