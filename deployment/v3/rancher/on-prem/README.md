@@ -3,11 +3,7 @@
 ## Prerequisites
 * [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 * [Hardware, network, certificate requirements](./requirements.md).
-* TLS termination: you may terminate TLS in any of the following ways:
-  * On a reverse proxy (like Nginx) before the ingress controller (done as default in this installation).
-  * On ingress controller
-  * Directly on Rancher service
- 
+
 ## Virtual machines
 * Set up VMs.
 * Set up [passwordless SSH](../../docs/ssh.md).
@@ -120,7 +116,7 @@ helm install \
 
 ## Reverse proxy (Nginx) + Wireguard bastion host
 * Install [Nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
-
+* Note that TLS termination is done on Nginx which means traffic from Nginx to cluster is HTTP (not HTTPS). A [Wireguard mesh](../../utils/wireguard-mesh/README.md) may be installed to ensure encrypted traffic.  
 ##  Adding new nodes to cluster.
 _This step is only required if you have to add more nodes to an existing cluster._
 * Copy the ssh keys, setup Docker and open ports as given above.
