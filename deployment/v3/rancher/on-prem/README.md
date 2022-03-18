@@ -110,10 +110,10 @@ Install [Nginx ingress controller](https://kubernetes.github.io/ingress-nginx/de
 ```
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo update
-helm install \                               
+helm install \                                                                                                             
   ingress-nginx ingress-nginx/ingress-nginx \
   --namespace ingress-nginx \
-  --version 3.12.0 \
+  --version 4.0.18 \
   --create-namespace  \
   -f ingress-nginx.values.yaml
 ```
