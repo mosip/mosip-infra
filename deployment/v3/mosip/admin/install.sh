@@ -22,9 +22,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-#ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
-# TODO: change this to above later.
-ADMIN_HOST=$API_HOST
+ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
 
 echo Installing admin hotlist service.
 helm -n $NS install admin-hotlist mosip/admin-hotlist --version $CHART_VERSION

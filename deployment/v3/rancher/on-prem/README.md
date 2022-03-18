@@ -1,7 +1,7 @@
 # On-prem Kubernetes Cluster for Rancher
 
 ## Prerequisites
-* [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+* [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 * [Hardware, network, certificate requirements](./requirements.md).
 
 ## Virtual machines
@@ -12,7 +12,7 @@
 ## Wireguard bastion node
 _If you already have a Wireguard bastion host then you may skip this step._
 
-* Open required Wireguard ports 
+* Open required Wireguard ports.
 ```
 ansible-playbook -i hosts.ini wireguard.yaml
 ```
@@ -20,17 +20,17 @@ ansible-playbook -i hosts.ini wireguard.yaml
 - Assign peer1 to yourself and set your wireguard client before working on the cluster.
 
 ## Ports
-* Open ports on each of the nodes
+* Open ports on each of the nodes.
 ```
 ansible-playbook -i hosts.ini ports.yaml
 ```
-* Disable swap _(perhaps not needed as swap is already disabled)_
+* Disable swap _(perhaps not needed as swap is already disabled)_.
 ```
 ansible-playbook -i hosts.ini swap.yaml
 ```
 
 ## Docker
-Install docker on all nodes:
+Install docker on all nodes.
 ```
 ansible-playbook -i hosts.ini docker.yaml
 ```
@@ -117,7 +117,8 @@ helm install \
 ## Reverse proxy (Nginx) + Wireguard bastion host
 * Install [Nginx reverse proxy](./nginx/) that proxies into ingresscontroller on a seperate node.
 * Note that TLS termination is done on Nginx which means traffic from Nginx to cluster is HTTP (not HTTPS). A [Wireguard mesh](../../utils/wireguard-mesh/README.md) may be installed to ensure encrypted traffic.  
-##  Adding new nodes to cluster.
+
+##  Adding new nodes to cluster
 _This step is only required if you have to add more nodes to an existing cluster._
 * Copy the ssh keys, setup Docker and open ports as given above.
 * Edit the `cluster.yml` file and add extra nodes with their IPs and roles.
