@@ -8,8 +8,7 @@ This document describes how to install and setup Nginx reverse proxy that direct
 * Command line utilities:
   * `ip`.
   * `docker`(only for wireguard bastion setup).
-* The SSL certificate and key pair to be copied into this machine. The script will prompt for the path to these.
-  * To get wildcard ssl certificates using letsencrypt, use [this](../../../docs/wildcard-ssl-certs-letsencrypt.md).
+* SSL certificate as given in [SSL Certificates with Letsencrypt](../../../docs/wildcard-ssl-certs-letsencrypt.md). The SSL certificate and key pair to be copied into this machine. The script will prompt for the path to these. 
 
 ## Installation
 ### Nginx + Wireguard
