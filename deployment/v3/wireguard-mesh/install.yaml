@@ -1,0 +1,9 @@
+- hosts: cluster
+  tasks:
+    - name: Update
+      command: 'apt update'
+      become: yes
+
+    - name: Install wireguard 
+      command: 'apt install -y wireguard'
+      become: yes

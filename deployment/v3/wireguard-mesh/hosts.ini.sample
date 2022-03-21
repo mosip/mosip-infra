@@ -1,0 +1,7 @@
+[cluster]
+node1 ansible_host=vm1.xyz.com  ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/yourkey.pem wg_address=10.10.1.20/32 private_ip=192.168.32.10
+node2 ansible_host=vm2.xyz.com  ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/yourkey.pem wg_address=10.10.1.21/32 private_ip=192.168.32.11
+node3 ansible_host=vm3.xyz.com  ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/yourkey.pem wg_address=10.10.1.22/32 private_ip=192.168.32.12
+
+[control]
+admin ansible_host=127.0.0.1 ansible_user=username 

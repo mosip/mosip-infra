@@ -1,0 +1,28 @@
+- hosts: control
+  connection: local
+  tasks:
+    - name: Check if peer exists
+      shell: 'wg-meshconf showpeers --simplify'  
+      register: out 
+  
+    - name: Adding new peers
+      shell: 'wg-meshconf addpeer {{ item }}  --address {{ hostvars[item]["wg_address"] }} --endpoint {{ hostvars[item]["private_ip"] }}'
+      when: ("| " + item + " |") not in out.stdout
+      with_items: '{{ groups["cluster"] }}'
+
+    - name: Updating peers
+      shell: 'wg-meshconf updatepeer {{ item }}  --address {{ hostvars[item]["wg_address"] }} --endpoint {{ hostvars[item]["private_ip"] }}'
+      #when: '"| {{ item }} |" in out.stdout'
+      when: ("| " + item + " |") in out.stdout
+      with_items: '{{ groups["cluster"] }}'
+
+    - name: Generate configs for all peers
+      shell: 'wg-meshconf genconfig -o configs'
+
+- hosts: cluster
+  tasks:
+    - name: copy config files
+      ansible.builtin.copy:
+        src: '{{ playbook_dir }}/configs/{{ inventory_hostname }}.conf'
+        dest: /etc/wireguard/wg0.conf
+      become: yes 
