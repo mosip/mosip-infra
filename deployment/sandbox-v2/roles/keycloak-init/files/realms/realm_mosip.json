@@ -75,7 +75,7 @@
     "sslRequired": "all",
     "ssoSessionIdleTimeout": 86400, 
     "ssoSessionIdleTimeoutRememberMe": 0, 
-    "ssoSessionMaxLifespan": 36000, 
+    "ssoSessionMaxLifespan": 86400,
     "ssoSessionMaxLifespanRememberMe": 0, 
     "supportedLocales": [], 
     "userManagedAccessAllowed": false, 
