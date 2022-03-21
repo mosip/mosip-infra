@@ -1,5 +1,5 @@
 {
-    "accessCodeLifespan": 7200, 
+    "accessCodeLifespan": 60,
     "accessCodeLifespanLogin": 1800, 
     "accessCodeLifespanUserAction": 300, 
     "accessTokenLifespan": 86400, 
