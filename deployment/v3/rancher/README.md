@@ -11,7 +11,7 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
 * [on-prem](on-prem/README.md)
 
 ## Rancher
-* Install Rancher using Helm [Here](rancher-ui/README.md).
+* Install Rancher using Helm. For more details see [Rancher-ui guide](rancher-ui/README.md).
 
 ## Persistent storage
 * On Cloud hosted cluster, like AWS, built-in persistent storage options are available. Like AWS's EBS.
