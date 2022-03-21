@@ -1,4 +1,4 @@
-# On-prem Cluster Setup
+# MOSIP K8S Cluster Setup using RKE
 
 ## Overview
 This is a guide to set up on-prem Kubernetes cluster that will host all the MOSIP modules.
