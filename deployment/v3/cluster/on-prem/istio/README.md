@@ -12,3 +12,9 @@ To enable Istio injection in a namespace:
 ```
 kubectl label ns <namespace> istio-injection=enabled --overwrite
 ```
+
+## Uninstall
+This is not part of regular installation. Perform this step only while removing Istio components.
+```
+./delete.sh
+```
