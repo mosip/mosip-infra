@@ -1,0 +1,15 @@
+hostname: rancher.e2e.mosip.net
+
+ingress:
+  enabled: true
+  includeDefaultExtraAnnotations: true
+  extraAnnotations:
+      kubernetes.io/ingress.class: nginx
+
+rancherImage: rancher/rancher
+
+replicas: 2
+
+tls: external
+
+bootstrapPassword: 'admin'

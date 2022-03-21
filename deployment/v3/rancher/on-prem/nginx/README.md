@@ -1,24 +1,23 @@
 # Nginx Reverse Proxy
 
 ## Overview
-This document describes how to install and setup Nginx reverse proxy into the ingress controller.
+This document describes how to install and setup Nginx reverse proxy that directs traffic to Ingress controller running on K8s cluster.
 
 ## Prerequisites
 * Ubuntu (or Debian based OS).
 * Command line utilities:
   * `ip`.
   * `docker`(only for wireguard bastion setup).
-* The SSL certificate and key pair to be copied into this machine. The script will prompt for the path to these.
-  * To get wildcard ssl certificates using letsencrypt, use [this](../../../docs/wildcard-ssl-certs-letsencrypt.md).
+* SSL certificate as given in [SSL Certificates with Letsencrypt](../../../docs/wildcard-ssl-certs-letsencrypt.md). The SSL certificate and key pair to be copied into this machine. The script will prompt for the path to these. 
 
 ## Installation
-* To install just Nginx (without Wireguard), run the script as ROOT user:
+### Nginx + Wireguard
+```
+WG_DIR=<aboslute-path-of-wg-dir> sudo ./install.sh +wg
+```
+### Only Nginx
 ```sh
  sudo ./install.sh
-```
-* To install Nginx + Wireguard bastion host, specify argument `+wg`. Please note, path given in `WG_DIR` variable needs to be absolute path.
-```
-WG_DIR=<path-to-wg-dir> sudo ./install.sh +wg
 ```
 
 ## Post installation
