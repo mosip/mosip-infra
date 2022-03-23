@@ -74,7 +74,7 @@ if [ "$1" = "+wg" ] || [ "$1" = "wg" ]; then
     wg_interface_ip=${to_replace:-$wg_interface_ip}
   fi
   if [ -z "$wg_peers_no" ]; then
-    echo -en "=====>\nGive number of peers in wireguard : "
+    echo -en "=====>\nGive number of peers in wireguard: "
     read wg_peers_no
   fi
   if [ -z "$wg_peer_allowed_ips" ]; then
@@ -117,7 +117,7 @@ if [ "$1" != "wg" ]; then
   sed -i "s/<cluster-nodeport-postgres-of-all-nodes>/$upstream_server_postgres/g" /etc/nginx/nginx.conf &&
   sed -i "s/<cluster-nodeport-activemq-of-all-nodes>/$upstream_server_activemq/g" /etc/nginx/nginx.conf &&
   systemctl restart nginx &&
-  echo "Nginx Installation succesful"
+  echo "Nginx installed succesfully."
 fi &&
 
 # installing wireguard as docker
@@ -170,5 +170,5 @@ if [ "$1" = "+wg" ] || [ "$1" = "wg" ]; then
   cp rules.sh.sample $WG_DIR/wgconf/rules.sh &&
   sed -i "s/PostUp.*\n/PostUp = \/config\/rules.sh/g" $WG_DIR/wgconf/wg0.conf &&
   docker restart wireguard &&
-  echo "Wireguard installation Complete"
+  echo "Wireguard installation complete"
 fi
