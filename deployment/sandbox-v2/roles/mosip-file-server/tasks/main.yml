@@ -14,6 +14,11 @@
     owner: mosipuser
   become: yes
 
+- name: create mosip_file_server temporary directory
+  file:
+    path: '{{ mosip_file_server.tmp_dir }}'
+    state: directory
+
 - name: controller yml to json
   template:
     src: '{{ item.src }}'
