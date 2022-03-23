@@ -138,6 +138,7 @@ databases:
     enabled: true
     host: "{{ postgres.host }}"
     port: '{{ postgres.port }}'
+    ENV_VERSION_FLAG: true
     su:
       user: postgres
       secret:
