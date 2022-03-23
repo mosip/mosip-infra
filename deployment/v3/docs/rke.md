@@ -43,5 +43,6 @@ When you're running ```$ rke up```, it runs a sequence ```rke init -> rke up```.
 - ClusterUp( ) - Comparing the desired state and current state, add new config, deploy the cluster components on the nodes.
 
 #### Note:
-- ```$ rke up --init``` will convert cluster.yaml to state.DesiredState.
-- ```$ rke up``` will convert state.DesiredState to state.CurrentState and reflects installation on nodes.
+- ```rke up --init``` will convert cluster.yaml to state.DesiredState.
+- ```rke up``` will convert state.DesiredState to state.CurrentState and reflects installation on nodes.
+- ```rke remove``` will delete the cluster and its state.

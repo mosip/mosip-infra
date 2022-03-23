@@ -6,6 +6,7 @@ This is a guide to set up Kubernetes cluster on Virtual Machines using RKE. This
 ![Architecture](../../docs/images/deployment_architecture.png)
 
 ## Prerequisites
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 - [Hardware, network, certificate requirements](./requirements.md).
 - [Rancher](../../rancher).
 - Command line utilities:
@@ -18,8 +19,7 @@ This is a guide to set up Kubernetes cluster on Virtual Machines using RKE. This
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add mosip https://mosip.github.io/mosip-helm
   ```
-
-## Cluster setup
+## Virtual machines
 * Set up VMs.
 * Set up [passwordless SSH](../../docs/ssh.md).
 * Create copy of `hosts.ini.sample` as `hosts.ini`. Update the IP addresses.
