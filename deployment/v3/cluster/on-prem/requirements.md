@@ -28,18 +28,18 @@ The following network configuration is required for the above mentioned nodes.
 ## DNS requirements
 The following DNS mappings will be required.
 
-| Hostname | Mapped to |
-|---|---|
-| mosip-api-host | Public ip of Nginx node |
-| mosip-api-internal-host | Internal ip of Nginx Node|
-| mosip-prereg-host | Public ip |
-| mosip-activemq-host | Internal ip |
-| mosip-kibana-host | Internal ip |
-| mosip-regclient-host | Internal ip |
-| mosip-admin-host | Internal ip |
-| mosip-minio-host | Internal ip |
-| mosip-kafka-host | Internal ip |
-| mosip-iam-external-host | Internal ip |
+| Hostname | Domain | Mapped to |
+|---|---|---|
+| mosip-api-host | api.sandbox.xyz.net | Public ip of Nginx node |
+| mosip-api-internal-host | api-internal.sandbox.xyz.net | Internal ip of Nginx Node|
+| mosip-prereg-host | prereg.sandbox.xyz.net | Public ip |
+| mosip-activemq-host | activemq.sandbox.xyz.net | Internal ip |
+| mosip-kibana-host | kibana.sandbox.xyz.net | Internal ip |
+| mosip-regclient-host | regclient.sandbox.xyz.net | Internal ip |
+| mosip-admin-host | admin.sandbox.xyz.net | Internal ip |
+| mosip-minio-host | minio.sandbox.xyz.net | Internal ip |
+| mosip-kafka-host | kafka.sandbox.xyz.net | Internal ip |
+| mosip-iam-external-host | iam.sandbox.xyz.net | Internal ip |
 
 Note: The above table is just a placeholder for hostnames, the actual name itself varies from organisation to organisation.  A sample hostname list is given at [global_configmap.yaml.sample](../global_configmap.yaml.sample) <br/>
 Note: Only proceed to DNS mapping after the ingressgateways are installed and the nginx reverse proxy is setup.
