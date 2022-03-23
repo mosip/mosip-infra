@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+# Script to install Nginx with public and private interfaces
 # Usage: WG_DIR=<wg_dir> ./install.sh [+wg].
-# If no argument then will install only nginx.
+# +wg: Install Wiregaurd on the same Nginx machine. Optional.
+# WG_DIR: Directory where all key files will be stored by Wireguard. Only applicable with +wg option
 
 if [ -z $WG_DIR ]; then
   WG_DIR=.
