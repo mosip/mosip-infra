@@ -114,6 +114,28 @@ KUBECONFIG="$HOME/.kube/<cluster_name>_config
 ```
 kubect get nodes
 ```
+## Global configmap
+* `cd ../`
+* Copy `global_configmap.yaml.sample` to `global_configmap.yaml`  
+* Update the domain names in `global_configmap.yaml` and run
+```sh
+kubectl apply -f global_configmap.yaml
+```
+## Register the cluster with Rancher
+* Login as admin in Rancher console
+* Select `Import Existing` for cluster addition.
+* Select the `Generic` as cluster type to add.
+* Fill the `Cluster Name` field and select `Create`.
+* You will get the kubecl commands to be executed in the kubernetes cluster
+```
+eg.
+kubectl apply -f https://rancher.e2e.mosip.net/v3/import/pdmkx6b4xxtpcd699gzwdtt5bckwf4ctdgr7xkmmtwg8dfjk4hmbpk_c-m-db8kcj4r.yaml
+```
+* Wait for few seconds after executing the command for the cluster to get verified.
+* Your cluster is now added to the rancher management server.
+
+## Longhorn
+* Install [Longhorn](../longhorn/README.md) for persistent storage.
 
 ## Istio for service discovery and Ingress
 * `cd /istio/`
@@ -127,21 +149,10 @@ kubect get nodes
   ```
   kubectl get svc -n istio-system
   ```
-
-## Global configmap
-* `cd ../`
-* Copy `global_configmap.yaml.sample` to `global_configmap.yaml`
-* Update the domain names in `global_configmap.yaml` and run
-```sh
-kubectl apply -f global_configmap.yaml
-```
-
 ## Nginx + Wireguard 
 * Install [Nginx Reverse Proxy](./nginx/) on a seperate machine/VM, that proxies traffic to the above Ingress Gateways.
-
 ## DNS mapping
 * Point your domain names to respective public IP or internal IP of the Nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and your `global_configmap.yaml` to correlate the mappings.
-
 ## Metrics server
 Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
@@ -152,10 +163,3 @@ We have installed in `default` namespace.  You may choose any other namespace as
 
 ## Httpbin
 * Install [`httpbin`](../../utils/httpbin/README.md) for testing the wiring.
-
-## Register the cluster with Rancher
-Add the newly created cluster to [Rancher Management Server](../../rancher/README.md) as given [here](https://rancher.com/docs/rancher/v2.6/en/cluster-provisioning/registered-clusters/).
-* Add members, atleast one as Owner.
-
-## Longhorn
-* Install [Longhorn](../longhorn/README.md) for persistent storage.
