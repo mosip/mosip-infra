@@ -17,16 +17,16 @@
 * Always run the script as root user. (or with sudo)
 * The script is interactive and it will prompt for everything required.
 * To only install nginx:
-```
-# ./install.sh
+```sh
+./install.sh
 ```
 * To install nginx with wireguard (docker is required. And the `WG_DIR` is variable and has to be specified in absolute path. This dir will store all the conf files and peer keys):
-```
-# WG_DIR=$HOME ./install.sh +wg
+```sh
+WG_DIR=$HOME ./install.sh +wg
 ```
 * To install only wireguard:
-```
-# WG_DIR=$HOME ./install.sh wg
+```sh
+WG_DIR=$HOME ./install.sh wg
 ```
 <details>
   <summary>For non debian based OSes</summary>
