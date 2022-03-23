@@ -142,6 +142,14 @@ kubectl apply -f global_configmap.yaml
 ## DNS mapping
 * Point your domain names to respective public IP or internal IP of the Nginx node. Refer to the [DNS Requirements](./requirements.md#DNS_requirements) document and your `global_configmap.yaml` to correlate the mappings.
 
+## Metrics server
+Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
+```sh
+helm -n kube-system install metrics-server bitnami/metrics-server
+helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
+```
+We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
+
 ## Httpbin
 * Install [`httpbin`](../../utils/httpbin/README.md) for testing the wiring.
 
