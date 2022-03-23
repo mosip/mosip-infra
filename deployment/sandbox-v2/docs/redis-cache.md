@@ -42,19 +42,19 @@ add below contents into the service file
 [Install]
  WantedBy=default.target
 ```
-1. Change the permission of the file
+2. Change the permission of the file
 ```
 chmod  664 /etc/system/system/redis.service
 ```
-1. Reload all unit files to make systemd know about the new service
+3. Reload all unit files to make systemd know about the new service
 ```
 systemctl daemon-reload
 ```
-1. Starting the service
+4. Starting the service
 ```
 systemctl start redis
 ```
-1. Check the status
+5. Check the status
 ```
 systemctl status redis
 ```
@@ -63,27 +63,29 @@ systemctl status redis
 ```
 vim /etc/redis/redis.conf
 ```
-1. Changes in redis.conf file
+2. Changes in redis.conf file
 ```
 protected-mode no                                                                           ## Change protected mode yes to  no,
 bind 0.0.0.0                                                                                ## Change/comment “bind 127.0.0.1 -::1” 
 supervised auto                                                                             ## Uncomment the “supervised auto”
 ```
-1. Save and restart the redis service
+3. Save and restart the redis service
 ```
 systemctl restart redis
 ```
-1. Add below paramenters in `application-mz.properties` filr in mosip-config
+4. Add below paramenters in `application-mz.properties` filr in mosip-config
 ```
 redis.cache.hostname=<ip of redis server>
 redis.cache.port=6379
 # Time to live for 30 mins
 spring.cache.redis.time-to-live=10800000
 ```
-1. Update the cache provider URL in `groups_var/all.yml` as below
+5. Update the cache provider URL in `groups_var/all.yml` as below
 ```
 cache_provider_url: http://artifactory-service.default:80/artifactory/libs-release-local/cache/redis-cache-provider.jar
 ```
+6. Make sure you have the latest artifactory `tag: 1.1.5.5` image being pulled by artifactory service. You can also restart the same to get the latest image and then redeploy the packetmanager.
+
 ## Reference:
 1. Redis installation - https://redis.io/topics/quickstart
 2. Making Redis Service - https://www.opentechguides.com/how-to/article/centos/169/systemd-custom-service.html
