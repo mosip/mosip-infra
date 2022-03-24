@@ -284,6 +284,7 @@ mosip_file_server:
   nfs_path: '{{nfs.folder}}/mosip-file-server/'
   mosipvc_path: '{{nfs.folder}}/mosip-file-server/.well-known/mosipvc/'
   mobileapp_path: '{{nfs.folder}}/mosip-file-server/files/mobileapp/'
+  tmp_dir: '{{tmp_dir}}/mosip_file_server'
 
 resident_app_server:
   nfs_path: '{{nfs.folder}}/resident-app-server/'
