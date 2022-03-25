@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "e5ff1263-0416-4606-812d-43eb7346b95c",
-		"name": "Automated_certificate_upload",
+		"_postman_id": "0a560d9f-12d6-448e-845d-409359d5dae3",
+		"name": "Collection to upload certificates of default partners",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Authentication",
+			"name": "Authentication as mosip-ida-client",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -34,7 +34,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\t{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"appId\": \"ida\",\r\n    \"clientId\": \"mosip-ida-client\",\r\n    \"secretKey\": \"AuHRIaKU1avPJEId\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n\t}",
+					"raw": "\t{\r\n  \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"appId\": \"ida\",\r\n    \"clientId\": \"mosip-ida-client\",\r\n    \"secretKey\": \"{{secretkey}}\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n\t}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -57,7 +57,7 @@
 			"response": []
 		},
 		{
-			"name": "GET IDA Internal Root Certificate",
+			"name": "Download ida root certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -103,7 +103,7 @@
 			"response": []
 		},
 		{
-			"name": "POST IDA Internal Root certificate",
+			"name": "Upload ida root certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -168,7 +168,7 @@
 			"response": []
 		},
 		{
-			"name": "GET IDA certificate",
+			"name": "Download ida certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -213,7 +213,7 @@
 			"response": []
 		},
 		{
-			"name": "POST  IDA Certificate",
+			"name": "Upload ida certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -277,7 +277,7 @@
 			"response": []
 		},
 		{
-			"name": "GET  Mpartner default-auth certificate",
+			"name": "Download mpartner-default-auth certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -326,7 +326,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Mpartner-Deafult-AuthCertificate  certificate",
+			"name": "Upload mpartner-default-auth certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -399,7 +399,7 @@
 			"response": []
 		},
 		{
-			"name": "Upload the Signed certificate",
+			"name": "Upload mosip signed mpartner-default-auth certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -443,116 +443,7 @@
 			"response": []
 		},
 		{
-			"name": "GET RESIDENT Root Certificate",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"var data = JSON.stringify(jsonData.response.certificate);\r",
-							"console.log(data);\r",
-							"pm.environment.set(\"Resrootcert\",data);\r",
-							"\r",
-							"var jsonData = JSON.parse(responseBody);\r",
-							"pm.test(\"Got RESIDENT-ROOT-cert\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.eql(null);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/v1/keymanager/getCertificate?applicationId=ROOT",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"v1",
-						"keymanager",
-						"getCertificate"
-					],
-					"query": [
-						{
-							"key": "applicationId",
-							"value": "ROOT"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST RESIDENT_Root certificate",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);\r",
-							"var jsonData = JSON.stringify(jsonData.errors);\r",
-							"if (jsonData==\"[]\")\r",
-							"{\r",
-							"    pm.test(\"Posted RESIDENT-ROOT-Cert\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.errors).to.eql([]);\r",
-							"});}\r",
-							"else\r",
-							"{\r",
-							"pm.test(\"Certificate already exists in DB\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Certificate already exists \");\r",
-							"});\r",
-							"}"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"postman.setGlobalVariable('requesttime', (new Date()).toISOString());"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"string\",\r\n  \"metadata\": {},\r\n  \"request\": {\r\n    \"certificateData\":{{Resrootcert}},\r\n    \"partnerDomain\": \"AUTH\"\r\n  },\r\n  \"requesttime\": \"{{requesttime}}\",\r\n  \"version\": \"string\"\r\n  }\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/v1/partnermanager/partners/certificate/ca/upload",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"v1",
-						"partnermanager",
-						"partners",
-						"certificate",
-						"ca",
-						"upload"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET resident certificate",
+			"name": "Download resident certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -596,7 +487,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Resident  certificate",
+			"name": "Upload resident certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -660,7 +551,7 @@
 			"response": []
 		},
 		{
-			"name": "GET Mpartner default resident cert",
+			"name": "Download mpartner-default-resident certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -708,7 +599,7 @@
 			"response": []
 		},
 		{
-			"name": "POST mpartner default resident cert",
+			"name": "Upload mpartner-default-resident certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -779,7 +670,7 @@
 			"response": []
 		},
 		{
-			"name": "Upload Signed Certificate",
+			"name": "Upload mosip signed maprtner-default-resident certificate",
 			"event": [
 				{
 					"listen": "test",
@@ -822,7 +713,7 @@
 			"response": []
 		},
 		{
-			"name": "POST print   CA certificate",
+			"name": "upload print certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -887,7 +778,7 @@
 			"response": []
 		},
 		{
-			"name": "POST  print partner certificate.",
+			"name": "Upload mpartner-default-print certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -951,7 +842,7 @@
 			"response": []
 		},
 		{
-			"name": "POST ABIS CA cert",
+			"name": "Upload abis certificate",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1015,7 +906,7 @@
 			"response": []
 		},
 		{
-			"name": "POST ABIS partner cert",
+			"name": "Upload mpartner-default-abis certificate",
 			"event": [
 				{
 					"listen": "prerequest",
