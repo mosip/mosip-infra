@@ -73,7 +73,7 @@ cd istio
 ./install.sh
 ```
 
-### Load Balancers
+### Load Balancers Configuratin
 The above steps will spin-off two load balancers on AWS. You may view them on AWS console.  These may be also seen with
 ```sh
 kubectl -n istio-system get svc
