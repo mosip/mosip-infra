@@ -25,6 +25,10 @@ if [ "$1" != "wg" ]; then
     read cluster_nginx_certs
     cluster_nginx_certs=$(sed 's/\//\\\//g' <<< $cluster_nginx_certs)
   fi
+  if [ -z "$cluster_public_domains" ]; then
+    echo -en "=====>\nGive list of (comma seperated) publicly exposing domain names (without any whitespaces) : "
+    read cluster_public_domains
+  fi
   if [ -z "$cluster_nginx_cert_key" ]; then
     echo -en "=====>\nGive path for SSL Certificate Key for mosip.xyz.net (without any whitespaces) : "
     read cluster_nginx_cert_key
@@ -106,6 +110,9 @@ if [ "$1" != "wg" ]; then
   for ip in $(sed "s/,/\n/g" <<< $cluster_node_ips); do
     upstream_server_activemq="${upstream_server_activemq}server ${ip}:${cluster_ingress_activemq_nodeport};\n\t\t"
   done &&
+  for domain in $(sed "s/,/\n/g" <<< $cluster_domain_names); do
+    upstream_public_domain_names="${upstream_public_domain_names} ${domain}"
+  done &&
   cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig &&
   cp nginx.conf.sample /etc/nginx/nginx.conf &&
   sed -i "s/<cluster-nodeport-public-of-all-nodes>/$upstream_server_public/g" /etc/nginx/nginx.conf &&
@@ -116,8 +123,9 @@ if [ "$1" != "wg" ]; then
   sed -i "s/<cluster-nginx-public-ip>/$cluster_nginx_public_ip/g" /etc/nginx/nginx.conf &&
   sed -i "s/<cluster-nodeport-postgres-of-all-nodes>/$upstream_server_postgres/g" /etc/nginx/nginx.conf &&
   sed -i "s/<cluster-nodeport-activemq-of-all-nodes>/$upstream_server_activemq/g" /etc/nginx/nginx.conf &&
-  systemctl restart nginx &&
-  echo "Nginx installed succesfully."
+  sed -i "s/<cluster-public-domain-names>/$upstream_public_domain_names/g" /etc/nginx/nginx.conf &&
+#  systemctl restart nginx &&
+#  echo "Nginx installed succesfully."
 fi &&
 
 # installing wireguard as docker

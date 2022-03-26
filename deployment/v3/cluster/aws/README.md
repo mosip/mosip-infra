@@ -94,8 +94,11 @@ kubectl -n istio-system get svc
 The reason for considering a LB for ingress is such that TLS termination can happen at the LB and packets can be inspected before sending to cluster ingress.  Thus ingress will receive plain text. On EKS, we will assume that the connection between Loadbalancer and cluster machines is secure (Wireguard cannot be installed on LB).
 
 ### Domain name
-* Point your domain names to respective LB's public DNS/IP.
-* On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
+* Initially all the services will be accesible only over the internal channel.
+* Point all your domain names to internal LoadBalancers DNS/IP intially till testing is done.
+* On AWS this may be done on Route 53 console.
+* You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
+* After Go live decision enable [public access](../../docs/public-access.md).
 
 ## Metrics server
 Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:

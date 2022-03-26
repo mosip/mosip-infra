@@ -75,7 +75,7 @@ http {
     ssl_certificate_key <cluster-ssl-certificate-key>;
 
     server{
-        listen <cluster-nginx-internal-ip>:443 ssl;
+        listen <cluster-nginx-internal-ip>:443 ssl  default_server;
 
         location / {
             proxy_pass                      http://myInternalIngressUpstream;
@@ -92,8 +92,8 @@ http {
     }
 
     server{
-        listen <cluster-nginx-public-ip>:443 ssl;
-
+        listen <cluster-nginx-internal-ip>:443 ssl;
+        server_name <cluster-public-domain-names>;
         location / {
             proxy_pass                      http://myPublicIngressUpstream;
             proxy_http_version              1.1;

@@ -39,7 +39,7 @@ spec:
   components:
     ingressGateways:
       - name: istio-ingressgateway
-        enabled: true
+        enabled: false
         k8s:
           env:
           - name: ISTIO_META_IDLE_TIMEOUT
