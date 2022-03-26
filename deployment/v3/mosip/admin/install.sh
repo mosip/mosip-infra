@@ -9,7 +9,7 @@ fi
 
 
 NS=admin
-CHART_VERSION=1.2.0
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
