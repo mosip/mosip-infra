@@ -38,6 +38,7 @@ WG_DIR=$HOME ./install.sh wg
 
 * After installation one can check nginx installed status:<br/>
 `sudo systemctl status nginx`
+* Install `httpbin` for testing the nginx wiring as per [httpbin check](../../../utils/httpbin/README.md).
 <details>
   <summary>For Optional Wireguard bastion installation</summary>
 

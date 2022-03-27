@@ -74,7 +74,7 @@ cd istio
 ```
 
 ### Load Balancers
-The above steps will spin-off two load balancers on AWS. You may view them on AWS console.  These may be also seen with
+The above steps will spin-off a load balancers on AWS. You may view them on AWS console.  These may be also seen with
 ```sh
 kubectl -n istio-system get svc
 ```
@@ -101,7 +101,7 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 * After Go live decision enable [public access](../../docs/public-access.md).
 
 ## Metrics server
-Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
+Although Prometheus runs its own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
 helm -n kube-system install metrics-server bitnami/metrics-server
 helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiService.create=true
