@@ -10,7 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /v1/resident/
+      - path: /v1/mimoto/
         pathType: ImplementationSpecific
         backend:
           service:
