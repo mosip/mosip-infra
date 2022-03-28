@@ -11,6 +11,3 @@ postgresqlExtendedConf:
    max_wal_senders: 20
    max_replication_slots: 10
    max_connections: 1000
-
-global:
-  storageClass: gp2

@@ -5,6 +5,3 @@ istio:
   ingressController:
     name: ingressgateway-internal
   prefix: /
-
-persistence:
-  storageClass: gp2
