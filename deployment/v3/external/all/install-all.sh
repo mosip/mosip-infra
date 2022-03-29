@@ -36,7 +36,7 @@ cd $ROOT_DIR/activemq/aws
 cd $ROOT_DIR/kafka
 ./install.sh
 
-echo Biosdk services needed to be deployed separately in pilot or production setup. In testing env's will use biosdk services provided my MOSIP which will be installed as part of the MOSIP services installation.
+echo Biosdk services needed to be deployed separately in pilot or production setup. In testing environment will use biosdk services provided my MOSIP which will be installed as part of the MOSIP services installation.
 
 echo ABIS needed to be up and running outside the MOSIP cluster and should be able to connect to the activeMQ. For testing Purpose MOSIP has provided a mock stimulator for the same named as mock-abis which will be deployed as part of the MOSIP services installation.
 
