@@ -74,7 +74,7 @@ cd istio
 ```
 
 ### Load Balancers
-The above steps will spin-off two load balancers on AWS. You may view them on AWS console.  These may be also seen with
+The above steps will spin-off internal facing Load Balancers on AWS. You may view them on AWS console.  These may be also seen with
 ```sh
 kubectl -n istio-system get svc
 ```
@@ -96,7 +96,7 @@ The reason for considering a LB for ingress is such that TLS termination can hap
 ### Domain name
 * Point your domain names to respective LB's public DNS/IP.
 * On AWS this may be done on Route 53 console.  You will have to add a CNAME record if your LB has public DNS or an A record if IP address.
-
+* Once done with internal testing 
 ## Metrics server
 Although Prometheus runs it own metrics server to collect data, it is useful to install Kubernetes Metrics Server.  The same will enable `kubectl top` command and also some of the metrics in Rancher UI. Install as below:
 ```sh
@@ -106,7 +106,7 @@ helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiServ
 We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
 
 ## Httpbin
-Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
+Install `httpbin` for testing the wiring as per [httpbin check](../../utils/httpbin/README.md).
 
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.
