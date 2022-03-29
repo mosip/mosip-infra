@@ -75,6 +75,7 @@ cd istio
 
 ### Load Balancers
 The above steps will spin-off a load balancers on AWS. You may view them on AWS console.  These may be also seen with
+
 ```sh
 kubectl -n istio-system get svc
 ```
@@ -109,7 +110,7 @@ helm -n kube-system upgrade metrics-server bitnami/metrics-server  --set apiServ
 We have installed in `default` namespace.  You may choose any other namespace as per your deployment.
 
 ## Httpbin
-Install `httpbin` for testing the wiring as given [here](../../utils/httpbin/README.md)
+Install `httpbin` for testing the wiring as per [httpbin check](../../utils/httpbin/README.md).
 
 ## Log rotation
 The default log max log file size set on EKS cluster is 10MB with max number of files as 10.  Refer to `/etc/docker/daemon.json` on any node.

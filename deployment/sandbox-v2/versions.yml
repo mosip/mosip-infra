@@ -174,4 +174,4 @@ versions:
 
     resident_app_server:
       service:
-        'resident-app-server': 'mosipdev/resident-app:develop'
+        'resident-app-server': 'mosipdev/mimoto:develop'
