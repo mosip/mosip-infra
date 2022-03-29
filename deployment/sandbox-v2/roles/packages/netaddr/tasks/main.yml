@@ -2,4 +2,5 @@
   pip:
     name: netaddr
     state: present
+    version: 0.7.19
   become: yes
