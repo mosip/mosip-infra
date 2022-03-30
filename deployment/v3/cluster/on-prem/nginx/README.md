@@ -12,7 +12,7 @@ Nginx is used as a reverse proxy to direct traffic into the cluster via two chan
     1.  Public: Facing public Internet.
     1.  Internal: With private IP front-ended by Wireguard. This interface must be on same the same network as the cluster nodes/machines. (In case, provisioning another interface is not possible, create a virtual interface on Lnux like a `tap/macvtap`. A dummy virtual interface also will do.)
 * Command-line utilities:
-  * `bash`,
+  * `bash`
   * `sed`
   * `docker`(optional, only required for wireguard bastion setup) 
 * Nginx machine details are updated in `../hosts.ini`.
