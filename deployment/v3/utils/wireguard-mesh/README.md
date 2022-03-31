@@ -5,7 +5,7 @@ Internode communication may be secured by running Wireguard on all nodes in a me
 
 The instructions given here are for Ubuntu.  You may modified them accordingly for your OS distribution.
 
-These are NOT instructions for wireguard bastion host setup. For that follow [this](../../../docs/wireguard_bastion.md)
+These are NOT instructions for [Wireguard Bastion host](https://docs.mosip.io/1.2.0/deployment/sandbox-deployment/wireguard-bastion) setup.
 
 ## Prerequisites
 1. You have an admin/control machine from where you run your scripts.
