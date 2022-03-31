@@ -20,7 +20,7 @@ probe:
 docker:
   image: {{ versions.services.converter.service.values()[0] }}
   ports:
-    containerPort: 8088
+    containerPort: 8089
     servicePort: 80
 
 version: {{ versions.services.converter.values()[0] }}
@@ -30,7 +30,6 @@ services:
     podconfig:
       {{ podconfig.converter.service | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /v1/converter/actuator/health
-    mountPath: /home/mosip/converter/
 
 exportLogs: enabled  # Let filebeat export the logs
 
