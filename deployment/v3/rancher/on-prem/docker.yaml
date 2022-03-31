@@ -26,5 +26,11 @@
   - name: Add docker user to docker group
     command: usermod -aG docker {{ ansible_user }}
 
+  - name: Copy dameon.json to limit logs
+    ansible.builtin.copy:
+      src: ./daemon.json
+      dest: /etc/docker
+      mode: '0644'
+
   - name: Start docker service
     command: systemctl start docker

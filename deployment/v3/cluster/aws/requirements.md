@@ -41,5 +41,4 @@ Note: Only proceed to DNS mapping after the ingressgateways are installed and th
 
 ## Certificate Requirements
 
-* Depending upon the above hostnames, will requires atleast one wildcard SSL certificate. For example; `*.mosip.gov.country`.
-* Will need more ssl certificates, for every new level of hierarchy. For example; `*.sandbox1.mosip.example.org`.
+* Depending upon the above hostnames, procure SSL certificates for domain and subdomains. E.g. `sandbox.mosip.net` and `*.sandbox.mosip.net`.
