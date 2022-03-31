@@ -19,6 +19,7 @@ metadata:
   namespace: default
 data:
   installation-name: sandbox
+  installation-domain: sandbox.xyz.net
   mosip-api-host: api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-prereg-host: prereg.sandbox.xyz.net
@@ -29,4 +30,5 @@ data:
   mosip-minio-host: minio.sandbox.xyz.net
   mosip-kafka-host: kafka.sandbox.xyz.net
   mosip-iam-external-host: iam.sandbox.xyz.net
+  mosip-iam-host: iam.sandbox.xyz.net
   is_glowroot_env: absent
