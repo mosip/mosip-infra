@@ -20,6 +20,7 @@ metadata:
 data:
   installation-name: sandbox
   installation-domain: sandbox.xyz.net
+  mosip-version: develop
   mosip-api-host: api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-prereg-host: prereg.sandbox.xyz.net
