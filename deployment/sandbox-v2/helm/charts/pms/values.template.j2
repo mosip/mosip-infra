@@ -12,11 +12,12 @@ sitePublicUrl: {{ site.sandbox_public_url }}
 iamAdapterUrl: {{ iam_adapter_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
   failureThreshold: 30
   startupPeriod: 10
+  initialDelaySeconds: 120
 
 imagePullPolicy: Always
 

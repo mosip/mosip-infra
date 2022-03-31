@@ -43,7 +43,7 @@ spec:
           value: {{ .Values.isGlowroot }} 
         ports:
         - containerPort: {{ .Values.services.mockmv.ports.containerPort }}
-        readinessProbe:
+#       readinessProbe:
 #          httpGet:
 #            path: {{ .Values.services.mockmv.healthUrl }}
 #            port: {{ .Values.services.mockmv.ports.containerPort }}

@@ -46,16 +46,26 @@ spec:
 
         ports:
         - containerPort: {{ .Values.docker.ports.containerPort }}
-        readinessProbe:  #Since no actuator, we watch tcp port.
+        readinessProbe: #Since no actuator, we watch tcp port.
           tcpSocket:
-            port: {{ .Values.docker.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         tcpSocket:
- #           port: {{ .Values.docker.ports.containerPort }}
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
+            port: { { .Values.docker.ports.containerPort } }
+          periodSeconds: { { .Values.probe.period } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
+        livenessProbe:
+          tcpSocket:
+            port: { { .Values.docker.ports.containerPort } }
+          periodSeconds: { { .Values.probe.livenessPeriod } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
+        startupProbe:
+          tcpSocket:
+            port: { { .Values.docker.ports.containerPort } }
+          failureThreshold: { { .Values.probe.failureThreshold } }
+          periodSeconds: { { .Values.probe.startupPeriod } }
+          timeoutSeconds: { { .Values.probe.timeout } }
+          initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
+
         volumeMounts:
         - name: reg-client-volume
           mountPath: {{ .Values.mountPath }}

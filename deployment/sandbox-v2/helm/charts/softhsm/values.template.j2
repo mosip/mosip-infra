@@ -31,6 +31,11 @@ nfs:
   path: {{hsm_prop.nfs_path}}
 
 probe:
-  initialDelay: 15  # Seconds
-  period: 30 # Seconds
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
+  startupPeriod: 10
+  initialDelaySeconds: 60
+
 healthUrl: ''
