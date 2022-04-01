@@ -17,6 +17,6 @@ helm -n $NS install postgres bitnami/postgresql --version 10.16.2 -f values.yaml
 echo Installed Postgres
 
 echo Installing gateways and virtual services
-INTERNAL=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+POSTGRES_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
 echo Internal domain: $INTERNAL
-helm -n $NS install istio-addons chart/istio-addons --set internalHost=$INTERNAL
+helm -n $NS install istio-addons chart/istio-addons --set postgresHost=$POSTGRES_HOST

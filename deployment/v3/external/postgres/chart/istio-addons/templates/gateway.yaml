@@ -11,4 +11,4 @@ spec:
       name: postgres
       protocol: TCP
     hosts:
-    - {{ .Values.internalHost }}
+    - {{ .Values.postgresHost }}
