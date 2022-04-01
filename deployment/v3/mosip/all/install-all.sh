@@ -9,7 +9,8 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("docker-secrets"
+declare -a module=("landing-page"
+                   "docker-secrets"
                    "captcha"
                    "config-server"
                    "artifactory"
