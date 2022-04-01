@@ -43,23 +43,23 @@ spec:
         - containerPort: {{ .Values.docker.ports.containerPort }}
         readinessProbe: #Since no actuator, we watch tcp port.
           tcpSocket:
-            port: { { .Values.docker.ports.containerPort } }
-          periodSeconds: { { .Values.probe.period } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          timeoutSeconds: { { .Values.probe.timeout } }
+            port: {{ .Values.docker.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         livenessProbe:
           tcpSocket:
-            port: { { .Values.docker.ports.containerPort } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          periodSeconds: { { .Values.probe.livenessPeriod } }
-          timeoutSeconds: { { .Values.probe.timeout } }
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         startupProbe:
           tcpSocket:
-            port: { { .Values.docker.ports.containerPort } }
-          failureThreshold: { { .Values.probe.failureThreshold } }
-          periodSeconds: { { .Values.probe.startupPeriod } }
-          timeoutSeconds: { { .Values.probe.timeout } }
-          initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
+            port: {{ .Values.docker.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
 
         volumeMounts:

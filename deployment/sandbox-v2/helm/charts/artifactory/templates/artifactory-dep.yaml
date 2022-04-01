@@ -31,21 +31,21 @@ spec:
 
         readinessProbe:
             tcpSocket:
-              port: { { .Values.services.artifactory.containerPort } }
-            periodSeconds: { { .Values.probe.period } }
-            timeoutSeconds: { { .Values.probe.timeout } }
-            failureThreshold: { { .Values.probe.failureThreshold } }
+              port: {{ .Values.services.artifactory.containerPort }}
+            periodSeconds: {{ .Values.probe.period }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
             tcpSocket:
-              port: { { .Values.services.artifactory.containerPort } }
-            periodSeconds: { { .Values.probe.livenessPeriod } }
-            timeoutSeconds: { { .Values.probe.timeout } }
-            failureThreshold: { { .Values.probe.failureThreshold } }
+              port: {{ .Values.services.artifactory.containerPort }}
+            periodSeconds: {{ .Values.probe.livenessPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
             tcpSocket:
-              port: { { .Values.services.artifactory.containerPort } }
-            failureThreshold: { { .Values.probe.failureThreshold } }
-            periodSeconds: { { .Values.probe.startupPeriod } }
-            timeoutSeconds: { { .Values.probe.timeout } }
-            initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
+              port: {{ .Values.services.artifactory.containerPort }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+            periodSeconds: {{ .Values.probe.startupPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 

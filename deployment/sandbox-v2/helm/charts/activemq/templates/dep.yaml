@@ -59,8 +59,8 @@ spec:
             port: {{ .Values.docker.containerPort }}  # All defaults used
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-          initialDelaySeconds: { { .Values.probe.initialDelaySeconds } }
-          timeoutSeconds: { { .Values.probe.timeout } }
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         volumeMounts:
         - name: q-data
           mountPath: {{ .Values.mountPath }} 
