@@ -10,7 +10,7 @@ Following install sequence is recommended:
 * [Kubernetes infra](https://github.com/mosip/k8s-infra)
 * [External components](external/README.md)
 * [MOSIP services](mosip/README.md)
-* [Reporting](reporting/README.md)
+* [Reporting](https://github.com/mosip/reporting/tree/develop)
 
 ## Production hardening
 Refer to [production hardening checklist](docs/production-checklist.md).
