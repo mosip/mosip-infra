@@ -6,12 +6,12 @@ podconfig:
       maxUnavailable: 0
       maxSurge: 1
       java_opts: "-Xms1000M -Xmx1000M"
- 
+
     masterdata:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     idgen:
@@ -20,7 +20,7 @@ podconfig:
       maxUnavailable: 0
       maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
- 
+
     prid:
       replicas: 1
       minReadySeconds: 10
@@ -32,42 +32,42 @@ podconfig:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     audit :
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     key:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     notifier:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     otp:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     rid:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
   regproc:
@@ -77,9 +77,9 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
-    notification: 
-      replicas: 1 
+
+    notification:
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
@@ -91,30 +91,30 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
+
     quality:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
+
     validator:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
+
     osi:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     demo:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
@@ -142,95 +142,95 @@ podconfig:
       java_opts: "-Xms500M -Xmx500M"
 
     abismid:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     manual:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     external:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
-    eis: 
-      replicas: 1 
+    eis:
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     uin:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     msg:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     print:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     trans:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
     reprocess:
-      replicas: 1 
+      replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
 
-  dmzregproc:  
+  dmzregproc:
     receiver:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     camel:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     status:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     pktserver:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
   prereg:
@@ -247,14 +247,14 @@ podconfig:
       maxUnavailable: 0
       maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
-  
+
     booking:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
- 
+
     datasync:
       replicas: 1
       minReadySeconds: 10
@@ -266,7 +266,7 @@ podconfig:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1  
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
   ida:
@@ -274,28 +274,28 @@ podconfig:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
-    internal: 
-      replicas: 1
-      minReadySeconds: 10
-      maxUnavailable: 0
-      maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
-
-    kyc: 
+    internal:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
-    otp: 
+    kyc:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
+      java_opts: "-Xms500M -Xmx500M"
+
+    otp:
+      replicas: 1
+      minReadySeconds: 10
+      maxUnavailable: 0
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
   idrepo:
@@ -303,21 +303,21 @@ podconfig:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
-    vid: 
+    vid:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     credentialreq:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
-      maxSurge: 1 
+      maxSurge: 1
       java_opts: "-Xms500M -Xmx500M"
 
     credentialservice:
@@ -328,27 +328,13 @@ podconfig:
       java_opts: "-Xms500M -Xmx500M"
 
   pms:
-    misp: 
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
- 
-    pm:
-      replicas: 1
-      maxSurge: 1
-      maxUnavailable: 0
-      minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
-
     partner:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
- 
+
     policy:
       replicas: 1
       maxSurge: 1
@@ -363,7 +349,7 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
-  
+
   resident:
     service:
       replicas: 1
@@ -371,7 +357,7 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       java_opts: "-Xms500M -Xmx500M"
-  
+
   activemq:
     service:
       replicas: 1
@@ -393,7 +379,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-  
+
   clamav:
     service:
       replicas: 1
@@ -407,7 +393,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-  
+
   datashare:
     service:
       replicas: 1
@@ -442,7 +428,7 @@ podconfig:
           memory: 500Mi
         limits:
           cpu: 400m
-          memory: 700Mi 
+          memory: 700Mi
 
   mockmv:
     service:
@@ -486,6 +472,12 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
 
+  consolidator:
+    replicas: 1
+    maxSurge: 1
+    maxUnavailable: 0
+    minReadySeconds: 10
+
   resident_app_server:
     service:
       replicas: 1
@@ -501,6 +493,7 @@ podconfig:
           cpu: 300m
           memory: 1Gi
 
+
   ingress:
     nginx:
-      replicas: 1 
+      replicas: 1
