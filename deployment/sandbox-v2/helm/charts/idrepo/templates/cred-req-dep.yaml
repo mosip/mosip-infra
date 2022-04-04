@@ -66,7 +66,7 @@ spec:
             port: {{ .Values.services.credentialrequest.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
-          failureThreshold: { { .Values.probe.failureThreshold }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.credentialrequest.healthUrl }}
