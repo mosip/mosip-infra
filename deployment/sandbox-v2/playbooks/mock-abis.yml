@@ -1,4 +1,9 @@
 - hosts: console
+  gather_facts: true
+  roles:
+    - {role: mock-abis-prep}
+
+- hosts: console
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
     install_name: 'mock-abis'
@@ -9,3 +14,4 @@
     helm_strings: ''
   roles:
     - {role:  helm}
+
