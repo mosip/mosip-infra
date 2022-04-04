@@ -13,9 +13,9 @@ probe:
   period: 10 # Seconds
   timeout: 5
   livenessPeriod: 10
-  failureThreshold: 30
+  failureThreshold: 15
   startupPeriod: 10
-  initialDelaySeconds: 180
+  initialDelaySeconds: 30
 
 imagePullPolicy: Always
 sitePublicUrl: {{ site.sandbox_public_url }}
@@ -44,8 +44,9 @@ services:
     serviceName: {{ versions.services.admin.ui.keys()[0] }}
     dockerImage: {{ versions.services.admin.ui.values()[0] }}
     ports:
-      containerPort: 80
+      containerPort: 8080
       servicePort: 80
     configName: admin-ui-config # ConfigMap name
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /admin-ui
+    healthUrl: /admin-ui/
