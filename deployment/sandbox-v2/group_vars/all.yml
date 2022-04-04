@@ -238,6 +238,12 @@ reg_client:
   crypto_key: 'bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4='
   bootpwd: 'bW9zaXAxMjM0NQ=='
 
+mosip_file_server:
+  nfs_path: '{{nfs.folder}}/mosip-file-server/'
+  mosipvc_path: '{{nfs.folder}}/mosip-file-server/.well-known/mosipvc/'
+  mobileapp_path: '{{nfs.folder}}/mosip-file-server/files/mobileapp/'
+  tmp_dir: '{{tmp_dir}}/mosip_file_server'
+
 repos:
   commons:
     src: https://github.com/mosip/commons 

@@ -167,6 +167,10 @@ versions:
       service:
         'artifactory-service': 'mosipint/artifactory-server:1.1.5.5'
 
+    mosip_file_server:
+      service:
+        'mosip_file_server': 'mosipdev/mosip-file-server:1.2.0.1'
+
     resident_app_server:
       service:
         'resident-app-server': 'mosipdev/mimoto:develop'
