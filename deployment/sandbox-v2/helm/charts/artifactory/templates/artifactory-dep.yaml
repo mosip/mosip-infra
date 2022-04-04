@@ -27,7 +27,7 @@ spec:
         image: {{ .Values.docker.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
         ports:
-          - containerPort: { { .Values.services.artifactory.containerPort } }
+        - containerPort: {{ .Values.services.artifactory.containerPort }}
 
         readinessProbe:
             tcpSocket:
