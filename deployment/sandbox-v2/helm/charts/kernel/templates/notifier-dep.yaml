@@ -74,5 +74,5 @@ spec:
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
-          initialDelaySeconds: { { .Values.probe.initialDelaySeconds }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
