@@ -1,0 +1,6 @@
+apiVersion: v2
+name: resident-app-server
+description: A Helm chart for installing resident app server
+type: application
+version: 0.0.1
+appVersion: v1

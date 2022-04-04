@@ -164,3 +164,7 @@ versions:
     artifactory:
       service:
         'artifactory-service': 'mosipid/artifactory-server:1.1.5'
+
+    resident_app_server:
+      service:
+        'resident-app-server': 'mosipdev/mimoto:develop'
