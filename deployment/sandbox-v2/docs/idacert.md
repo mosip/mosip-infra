@@ -39,7 +39,8 @@
   * 4. Get the IDA certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
         ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA```
 
-  * 5. Upload IDA certificate from the above request in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificat$        ```
+  * 5. Upload IDA certificate from the above request in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificat$       
+  	 ```
         {
           "id": "string",
           "metadata": {},
@@ -50,7 +51,7 @@
           "requesttime": "2021-03-24T08:24:13.349Z",
           "version": "string"
         }
-        ```
+	```
   * 6. Get the mpartner-default-auth partner certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
         ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth```
 

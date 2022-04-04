@@ -242,7 +242,7 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   prereg:
@@ -260,13 +260,13 @@ repos:
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   pms:
@@ -393,7 +393,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: 1.1.5.3
+  version: 1.1.5.4
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'
