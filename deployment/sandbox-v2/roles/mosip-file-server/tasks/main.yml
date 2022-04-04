@@ -1,0 +1,36 @@
+- include_vars: '{{versions_file}}' # Need for resolving various versions
+
+- name: create {{mosip_file_server.mosipvc_path}} directory
+  file:
+    name: '{{mosip_file_server.mosipvc_path}}'
+    state: directory
+    owner: mosipuser
+  become: yes
+
+- name: create {{mosip_file_server.mobileapp_path}} directory
+  file:
+    name: '{{mosip_file_server.mobileapp_path}}'
+    state: directory
+    owner: mosipuser
+  become: yes
+
+- name: create mosip_file_server temporary directory
+  file:
+    path: '{{ mosip_file_server.tmp_dir }}'
+    state: directory
+
+- name: controller yml to json
+  template:
+    src: '{{ item.src }}'
+    dest: "{{ mosip_file_server.tmp_dir }}/{{ item.path | regex_replace('\\yml.j2$', 'json') }}"
+  with_filetree: '../templates/'
+
+- name: Copy controller file
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ mosip_file_server.mosipvc_path }}'
+    owner: mosipuser
+    group: mosipuser
+    mode: 0664
+  with_filetree: '{{ mosip_file_server.tmp_dir }}'
+  become: yes

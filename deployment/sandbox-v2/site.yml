@@ -43,5 +43,7 @@
 - import_playbook: playbooks/print.yml
 - import_playbook: playbooks/mock-abis.yml
 - import_playbook: playbooks/mock-mv.yml
+- import_playbook: playbooks/mosip-file-server.yml
+- import_playbook: playbooks/resident-app.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
