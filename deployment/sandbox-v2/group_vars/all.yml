@@ -242,6 +242,13 @@ mock_abis:
   nfs_path: '{{nfs.folder}}/mock-abis/'
   p12: '{{install_root}}/roles/mock-abis-prep/files/cbeff.p12'
   prop: '{{install_root}}/roles/mock-abis-prep/files/partner.properties'
+  
+mosip_file_server:
+  nfs_path: '{{nfs.folder}}/mosip-file-server/'
+  mosipvc_path: '{{nfs.folder}}/mosip-file-server/.well-known/mosipvc/'
+  mobileapp_path: '{{nfs.folder}}/mosip-file-server/files/mobileapp/'
+  tmp_dir: '{{tmp_dir}}/mosip_file_server'
+
 
 repos:
   commons:
@@ -420,6 +427,9 @@ activemq:
   container_port: 61616
   nfs_path: '{{nfs.folder}}/activemq/'
   admin_password: '{{secrets.activemq.admin}}'
+
+resident_app_server:
+  nfs_path: '{{nfs.folder}}/resident-app-server/'
   
 # Private DNS - typically required for on-prem setups, but we enable it as
 # default for cloud as well.  So we don't have to use cloud DNS.

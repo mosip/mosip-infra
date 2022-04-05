@@ -39,7 +39,7 @@ versions:
         'prereg-captcha-service': 'mosipint/pre-registration-captcha-service:1.1.5.3'
       ui:
         'prereg-ui': 'mosipint/pre-registration-ui:1.1.5.3'
-      
+
     registration_client:
       downloader:
         'reg-client-downloader': 'mosipint/registration-client:1.1.5.5'
@@ -48,7 +48,7 @@ versions:
     regproc:
       camel:
         'regproc-camel-stage': 'mosipint/registration-processor-common-camel-bridge:1.1.5.5'
-      notification: 
+      notification:
         'regproc-securezone-notification-stage': 'mosipint/registration-processor-securezone-notification-stage:1.1.5.5'
       uploader:
         'regproc-packet-uploader-stage': 'mosipint/registration-processor-packet-uploader-stage:1.1.5.5'
@@ -72,7 +72,7 @@ versions:
         'regproc-manual-verification-stage': 'mosipint/registration-processor-manual-verification-stage:1.1.5.5'
       external:
         'regproc-external-stage': 'mosipint/registration-processor-external-stage:1.1.5.5'
-      eis: 
+      eis:
         'regproc-external-integration-service': 'mosipint/registration-processor-external-integration-service:1.1.5.5'
       uin:
         'regproc-uin-generator-stage': 'mosipint/registration-processor-uin-generator-stage:1.1.5.5'
@@ -85,7 +85,7 @@ versions:
       reprocess:
         'regproc-reprocessor-stage': 'mosipint/registration-processor-reprocessor-stage:1.1.5.5'
 
-    dmzregproc:  
+    dmzregproc:
       receiver:
         'regproc-packet-receiver-stage': 'mosipint/registration-processor-packet-receiver-stage:1.1.5.5'
       camel:
@@ -94,29 +94,29 @@ versions:
         'regproc-registration-status-service': 'mosipint/registration-processor-registration-status-service:1.1.5.5'
       pktserver:
         'regproc-dmz-packet-server': 'mosipint/registration-processor-dmz-packet-server:1.1.5.5'
-        
+
     ida:
       auth:
         'ida-auth-service': 'mosipint/authentication-service:1.1.5.5'
-      internal: 
-         'ida-internal-service': 'mosipint/authentication-internal-service:1.1.5.5'
-      kyc: 
-         'ida-kyc-service': 'mosipint/authentication-kyc-service:1.1.5.5'
-      otp: 
-         'ida-otp-service': 'mosipint/authentication-otp-service:1.1.5.5'
-      keygen:  
+      internal:
+        'ida-internal-service': 'mosipint/authentication-internal-service:1.1.5.5'
+      kyc:
+        'ida-kyc-service': 'mosipint/authentication-kyc-service:1.1.5.5'
+      otp:
+        'ida-otp-service': 'mosipint/authentication-otp-service:1.1.5.5'
+      keygen:
         'ida-key-generator': 'mosipid/keys-generator:1.1.5'
 
     idrepo:
       identity:
         'idrepo-identity-service': 'mosipint/id-repository-identity-service:1.1.5.5'
-      vid: 
+      vid:
         'idrepo-vid-service': 'mosipint/id-repository-vid-service:1.1.5.5'
       credentialreq:
         'idrepo-credential-request-generator': 'mosipint/credential-request-generator:1.1.5.5'
       credentialservice:
         'idrepo-credential-service': 'mosipint/credential-service:1.1.5.5'
-      salt:  
+      salt:
         'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5.3'
 
     pms:
@@ -127,16 +127,16 @@ versions:
       ui:
         'pms-ui': 'mosipint/pmp-ui:develop'
 
-    resident: 
-      resident:  
+    resident:
+      resident:
         'resident-service': 'mosipint/resident-service:1.1.5.2'
-    
+
     admin:
       service:
         'admin-service': 'mosipid/admin-service:1.1.5.2'
       ui:
         'admin-ui': 'mosipid/admin-ui:1.1.5'
-    
+
     packetmanager:
       service:
         'packetmanager-service': 'mosipid/commons-packet-service:1.1.5.4'
@@ -160,10 +160,17 @@ versions:
         'mock-abis': 'mosipid/mock-abis:1.1.5'
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
-      biosdk: 
+      biosdk:
         'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
 
     artifactory:
       service:
         'artifactory-service': 'mosipint/artifactory-server:1.1.5.5'
 
+    mosip_file_server:
+      service:
+        'mosip_file_server': 'mosipdev/mosip-file-server:1.2.0.1'
+
+    resident_app_server:
+      service:
+        'resident-app-server': 'mosipdev/mimoto:develop'
