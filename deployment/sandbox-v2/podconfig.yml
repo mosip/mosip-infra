@@ -19,7 +19,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -61,7 +61,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -103,7 +103,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -117,7 +117,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -145,7 +145,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -160,7 +160,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -174,7 +174,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -188,7 +188,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -202,7 +202,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -216,7 +216,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -230,7 +230,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -244,7 +244,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -258,7 +258,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -272,7 +272,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -329,7 +329,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -343,7 +343,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -386,7 +386,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -400,7 +400,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -413,7 +413,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -427,7 +427,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -441,7 +441,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1  
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -456,7 +456,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -470,7 +470,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -484,7 +484,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -513,7 +513,7 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -556,7 +556,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -585,7 +585,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -627,7 +627,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -641,7 +641,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -698,7 +698,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -788,7 +788,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -830,7 +830,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -845,7 +845,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
@@ -860,7 +860,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-       java_opts: "-Xms750M -Xmx750M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
