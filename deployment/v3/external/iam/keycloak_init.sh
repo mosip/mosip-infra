@@ -8,7 +8,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=keycloak
-CHART_VERSION=1.2.0
+CHART_VERSION=12.0.2
 
 helm repo add mosip https://mosip.github.io/mosip-helm
 helm repo update
