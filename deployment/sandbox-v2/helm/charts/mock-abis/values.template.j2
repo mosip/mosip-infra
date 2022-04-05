@@ -5,11 +5,12 @@ springConfigLabel:  {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
-  livenessPeriod: 30
-  failureThreshold: 30
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 15
   startupPeriod: 10
+  initialDelaySeconds: 30
 
 imagePullPolicy: Always
 
@@ -20,6 +21,16 @@ isGlowroot: present
 dockerHub:
   private: {{ docker.hub.private }}  
   keyname: {{ docker.hub.keyname }}
+
+pv:
+  name: abis-key
+  server: console.sb
+  path: {{mock_abis.nfs_path}}
+  size: 4Gi
+
+pvc:
+  name: abis-key
+  size: 4Gi
 
 services:
   mockabis:

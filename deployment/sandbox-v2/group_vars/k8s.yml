@@ -8,7 +8,7 @@
 #   console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'  # e.g
 
 # Kubernetes
-kube_version: v1.19.0
+kube_version: v1.21.1
 
 token: b0f7b8.8d1767876297d85c
 

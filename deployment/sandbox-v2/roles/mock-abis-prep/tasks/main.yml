@@ -1,0 +1,23 @@
+---
+# Creates folder in nfs for mock-abis to provide p12 certificate and partner properties.
+# These files are further used mock-abis for encryption decryption
+
+- include_vars: '{{versions_file}}'
+- name: Create mock-abis folder in nfs
+  file:
+    path: '{{mock_abis.nfs_path}}'
+    state: directory 
+  become: yes
+
+- name: copy p12 key and partner prop file
+  copy:
+    src: '{{mock_abis.p12}}'
+    dest: '{{mock_abis.nfs_path}}'
+  become: yes
+
+- name: copy Partner properties
+  template:
+    src: '{{mock_abis.prop}}'
+    dest: '{{mock_abis.nfs_path}}'
+    force: yes
+  become: yes

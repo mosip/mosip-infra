@@ -55,12 +55,14 @@ spec:
           httpGet:
             path: {{ .Values.services.application.healthUrl }}
             port: {{ .Values.services.application.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.application.healthUrl }}
             port: {{ .Values.services.application.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
         startupProbe:
@@ -69,4 +71,5 @@ spec:
             port: {{ .Values.services.application.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
-
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

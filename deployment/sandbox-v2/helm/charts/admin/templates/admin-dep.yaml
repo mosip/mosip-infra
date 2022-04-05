@@ -66,10 +66,13 @@ spec:
             port: {{ .Values.services.admin.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.admin.healthUrl }}
             port: {{ .Values.services.admin.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 

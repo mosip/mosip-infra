@@ -42,3 +42,11 @@ services:
     podconfig:
       {{ podconfig.config_server.service | to_nice_yaml(indent=6) | indent(6) }}
 
+probe:
+   period: 10 # Seconds
+   timeout: 5
+   livenessPeriod: 10
+   failureThreshold: 15
+   startupPeriod: 10
+   initialDelaySeconds: 60
+

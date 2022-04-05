@@ -20,13 +20,13 @@ spec:
       maxSurge: {{ $podconfig.maxSurge }}
   template:
     metadata:
-      annotations:
-        prometheus.io/path: {{ .Values.services.notification.annotation }}
-        prometheus.io/port: {{ .Values.services.notification.ports.containerPort | quote }}
-        prometheus.io/scrape: "'true'"
+      #annotations:
+      #  prometheus.io/path: {{ .Values.services.notification.annotation }}
+      #  prometheus.io/port: {{ .Values.services.notification.ports.containerPort | quote }}
+      #  prometheus.io/scrape: "'true'"
       labels:
-        app: {{ .Values.services.notification.serviceName }} 
-        component: service-hazelcast-server
+        app: {{ .Values.services.notification.serviceName }}
+       # component: service-hazelcast-server
         exportLogs: {{ .Values.exportLogs }}
     spec:
       {{- include "dockerHubSecret" .  | indent 6}}
@@ -48,6 +48,8 @@ spec:
           value: {{ .Values.isGlowroot }}
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        - name: iam_adapter_url_env
+          value: { { .Values.iamAdapterUrl } }
         ports:
         - name: eventbus-port
           containerPort: {{ .Values.services.notification.ports.eventbusPort }}
@@ -55,22 +57,28 @@ spec:
           containerPort: {{ .Values.services.notification.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.notification.ports.containerPort }}
+        - name: server-port
+          containerPort: {{ .Values.services.notificationService.ports.containerPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.notification.healthUrl }}
             port: {{ .Values.services.notification.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.notification.healthUrl }}
             port: {{ .Values.services.notification.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.notification.healthUrl }}
             port: {{ .Values.services.notification.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 

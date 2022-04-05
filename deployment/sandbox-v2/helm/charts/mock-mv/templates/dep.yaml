@@ -44,21 +44,21 @@ spec:
         ports:
         - containerPort: {{ .Values.services.mockmv.ports.containerPort }}
         readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.mockmv.healthUrl }}
-#            port: {{ .Values.services.mockmv.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.period }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.mockmv.healthUrl }}
-#            port: {{ .Values.services.mockmv.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.livenessPeriod }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        startupProbe:
-#          httpGet:
-#            path: {{ .Values.services.mockmv.healthUrl }}
-#            port: {{ .Values.services.mockmv.ports.containerPort }}
-#          failureThreshold: {{ .Values.probe.failureThreshold }}
-#          periodSeconds: {{ .Values.probe.startupPeriod }}
+         httpGet:
+           path: {{ .Values.services.mockmv.healthUrl }}
+           port: {{ .Values.services.mockmv.ports.containerPort }}
+         periodSeconds: {{ .Values.probe.period }}
+         timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+           path: {{ .Values.services.mockmv.healthUrl }}
+           port: {{ .Values.services.mockmv.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+           path: {{ .Values.services.mockmv.healthUrl }}
+           port: {{ .Values.services.mockmv.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
 
