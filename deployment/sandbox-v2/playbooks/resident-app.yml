@@ -1,0 +1,19 @@
+# Prepare folders on nfs
+- hosts: console
+  gather_facts: true
+  vars:
+    reg_prop: '{{resident_app_server}}'
+  roles:
+    - {role: resident-app}
+
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'resident-app-server'
+    helm_chart: '{{charts_root}}/resident-app'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/resident-app/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
