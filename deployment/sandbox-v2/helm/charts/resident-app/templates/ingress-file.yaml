@@ -10,7 +10,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /v1/mimoto/
+      - path: {{ .Values.services.resident_app_server.ingressPath }}
         pathType: ImplementationSpecific
         backend:
           service:
