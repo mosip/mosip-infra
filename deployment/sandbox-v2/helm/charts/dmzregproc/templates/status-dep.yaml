@@ -54,10 +54,18 @@ spec:
             port: {{ .Values.services.status.ports.containerPort }} 
           initialDelaySeconds: {{ .Values.probe.initialDelay }} 
           periodSeconds: {{ .Values.probe.period }} 
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.status.healthUrl }} 
-#            port: {{ .Values.services.status.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
-#
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.status.healthUrl }}
+            port: {{ .Values.services.status.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.status.healthUrl }}
+            port: {{ .Values.services.status.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+

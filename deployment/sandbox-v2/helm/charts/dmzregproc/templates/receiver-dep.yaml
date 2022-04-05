@@ -51,18 +51,25 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.receiver.ports.containerPort }}
 
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.receiver.healthUrl }} 
-#            port: {{ .Values.services.receiver.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.receiver.healthUrl }} 
- #           port: {{ .Values.services.receiver.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.receiver.healthUrl }}
+            port: {{ .Values.services.receiver.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+        livenessProbe:
+          httpGet:
+           path: {{ .Values.services.receiver.healthUrl }}
+           port: {{ .Values.services.receiver.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+        startupProbe:
+          httpGet:
+            path: { { .Values.services.receiver.healthUrl } }
+            port: { { .Values.services.receiver.ports.containerPort } }
+          initialDelaySeconds: { { .Values.probe.initialDelay } }
+          periodSeconds: { { .Values.probe.period } }
+
         volumeMounts:
         - name: landing-zone
           mountPath: {{ .Values.landing.mountPath }}
