@@ -14,6 +14,7 @@ if [ $# -ge 2 ]
     export KUBECONFIG=$2
 fi
 
+# This user name is only informational - for column `cr_by` in database.
 read -p "Enter IAM username: " iam_user
 
 # This username is hardcoded in sql scripts
