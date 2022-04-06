@@ -46,14 +46,15 @@ spec:
           httpGet:
             path: {{ .Values.services.captcha.healthUrl }}
             port: {{ .Values.services.captcha.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.captcha.healthUrl }}
             port: {{ .Values.services.captcha.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
           periodSeconds: {{ .Values.probe.period }}
         startupProbe:
           httpGet:

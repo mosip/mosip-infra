@@ -57,14 +57,14 @@ spec:
           httpGet:
             path: {{ .Values.services.camel.healthUrl }}
             port: {{ .Values.services.camel.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
           periodSeconds: {{ .Values.probe.period }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
          httpGet:
            path: {{ .Values.services.camel.healthUrl }}
            port: {{ .Values.services.camel.ports.containerPort }}
-         initialDelaySeconds: {{ .Values.probe.initialDelay }}
+         timeoutSeconds: {{ .Values.probe.timeout }}
          periodSeconds: {{ .Values.probe.period }}
          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:

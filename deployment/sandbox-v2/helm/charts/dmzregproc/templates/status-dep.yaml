@@ -52,14 +52,16 @@ spec:
           httpGet:
             path: {{ .Values.services.status.healthUrl }} 
             port: {{ .Values.services.status.ports.containerPort }} 
-          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-          periodSeconds: {{ .Values.probe.period }} 
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: {{ .Values.services.status.healthUrl }}
             port: {{ .Values.services.status.ports.containerPort }}
-          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
           periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
           httpGet:
             path: {{ .Values.services.status.healthUrl }}

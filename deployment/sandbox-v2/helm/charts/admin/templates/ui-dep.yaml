@@ -48,7 +48,9 @@ spec:
             port: {{ .Values.services.ui.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json 

@@ -48,49 +48,24 @@ spec:
         ports:
         - containerPort: {{ .Values.services.batch.ports.containerPort }}
         readinessProbe:
-          exec:
-            command:
-              - /bin/bash
-              - -c
-              - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
-                for str in $HEALTH_CHECK_PATHS; do
-                curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
-                if ! [ "$curl_output" = "200" ]; then
-                echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
-                fi;
-                done
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
           periodSeconds: {{ .Values.probe.period }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         livenessProbe:
-          exec:
-            command:
-              - /bin/bash
-              - -c
-              - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
-                for str in $HEALTH_CHECK_PATHS; do
-                curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
-                if ! [ "$curl_output" = "200" ]; then
-                echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
-                fi;
-                done
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
         startupProbe:
-          exec:
-            command:
-              - /bin/bash
-              - -c
-              - HEALTH_CHECK_PATHS="http://prereg-application-service:80/preregistration/v1/actuator/health";
-                for str in $HEALTH_CHECK_PATHS; do
-                curl_output="$(curl -w %{http_code} -o /dev/null -s $str)";
-                if ! [ "$curl_output" = "200" ]; then
-                echo "$str failed with status code $curl_output" >> /dev/stderr && exit 1;
-                fi;
-                done
+          httpGet:
+            path: {{ .Values.services.batch.healthUrl }}
+            port: {{ .Values.services.batch.ports.containerPort }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
           periodSeconds: {{ .Values.probe.startupPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
-

@@ -34,8 +34,13 @@ nfs:
   path: {{ reg_client.nfs_path }}
 
 probe:
-  initialDelay: 15  # Seconds
-  period: 30 # Seconds
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 450
+
 healthUrl: ''
 
 services:

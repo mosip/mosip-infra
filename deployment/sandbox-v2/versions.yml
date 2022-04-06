@@ -4,7 +4,7 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.3'
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.5'
       masterdata:
         'kernel-masterdata-service': 'mosipint/kernel-masterdata-service:1.1.5.3'
       idgen:
