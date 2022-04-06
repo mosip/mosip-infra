@@ -32,7 +32,3 @@ services:
     healthUrl: /v1/converter/actuator/health
 
 exportLogs: enabled  # Let filebeat export the logs
-
-nfs:
-  server: {{ nfs.server }}
-  path: {{ converter.nfs_path }}
