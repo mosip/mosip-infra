@@ -178,4 +178,4 @@ versions:
 
     converter:
       service:
-        'converter': 'mosipdev/converter:develop'
+        'converter': 'mosipdev/kernel-bio-converter:develop'

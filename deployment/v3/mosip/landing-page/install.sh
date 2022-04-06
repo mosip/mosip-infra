@@ -30,8 +30,9 @@ KAFKA=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
 KIBANA=$(kubectl get cm global -o jsonpath={.data.mosip-kibana-host})
 ACTIVEMQ=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
 MINIO=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
-KEYCLOAK=$(kubectl get cm global -o jsonpath={.data.mosip-iam-host})
+KEYCLOAK=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 REGCLIENT=$(kubectl get cm global -o jsonpath={.data.mosip-regclient-host})
+POSTGRES=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
 POSTGRES_PORT=5432  
 
 echo Installing landing page
@@ -48,7 +49,8 @@ helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
 --set landing.minio=$MINIO \
 --set landing.keycloak=$KEYCLOAK  \
 --set landing.regclient=$REGCLIENT  \
---set landing.postgresPort=$POSTGRES_PORT \
+--set landing.postgres.host=$POSTGRES \
+--set landing.postgres.port=$POSTGRES_PORT \
 --set istio.host=$DOMAIN
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
