@@ -23,10 +23,10 @@ services:
     podconfig: {{ podconfig.keycloak.service | to_yaml }} 
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
+  period: 10 # Seconds
+  timeout: 5
   livenessPeriod: 30
-  failureThreshold: 30
+  failureThreshold: 15
   startupPeriod: 10
   initialDelaySeconds: 30
 
