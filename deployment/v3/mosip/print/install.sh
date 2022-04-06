@@ -8,7 +8,7 @@ fi
 
 
 NS=print
-CHART_VERSION=1.2.0
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS 

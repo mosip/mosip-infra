@@ -9,8 +9,8 @@ else
 fi
 NS=keycloak
 
-echo Creating namespace
-kubectl create ns keycloak
+echo Creating $NS namespace
+kubectl create ns $NS
 
 echo Istio label
 ## TODO: enable istio injection after testing well.
@@ -19,7 +19,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing
-helm -n $NS install keycloak bitnami/keycloak --version "4.3.0" -f values.yaml
+helm -n $NS install keycloak bitnami/keycloak --version "4.3.0" -f values.yaml --wait
 
 EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 echo Install Istio gateway, virtual service

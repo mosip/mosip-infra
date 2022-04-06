@@ -465,7 +465,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'pm_testuser', role_name: 'PARTNERMANAGER'}
 
     # For service account mappings client name must be prefixed with service-account-
-  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'REGISTRATION_PROCESSOR'}

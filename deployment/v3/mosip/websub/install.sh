@@ -7,10 +7,10 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=websub
-CHART_VERSION=1.2.0
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
-kubectl create $NS namespace
+kubectl create ns $NS
 
 echo Istio label 
 kubectl label ns $NS istio-injection=enabled --overwrite

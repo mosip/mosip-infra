@@ -13,8 +13,10 @@ while true; do
       then
         helm -n $NS delete kafka
         helm -n $NS delete kafka-ui
+        echo Deleted kafka and kafka-ui services.
         break
       else
         break
     fi
 done
+

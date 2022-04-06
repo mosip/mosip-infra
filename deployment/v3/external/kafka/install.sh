@@ -8,10 +8,10 @@ fi
 
 NS=kafka
 
-echo Create namespace
-kubectl create ns $NS 
+echo Create $NS namespace
+kubectl create ns $NS
 
-echo Istio label 
+echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 
 echo Updating helm repos
@@ -30,3 +30,5 @@ KAFKA_UI_NAME=kafka-ui
 
 echo Install istio addons
 helm -n $NS install istio-addons chart/istio-addons --set kafkaUiHost=$KAFKA_UI_HOST --set installName=$KAFKA_UI_NAME
+
+Echo Installed kafka and kafka-ui services
