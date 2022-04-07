@@ -14,10 +14,11 @@
 - name: Upgrade pip to latest
   command: '{{ansible_env.HOME}}/.venv-py3/bin/pip install --upgrade pip'
 
-- name: Install certbot in python3 virtual environment 
+- name: Install certbot in python3 virtual environment
   pip:
-    name: certbot
-    version: '{{certbot_version}}' 
+    name:
+      - cryptography==3.3.2
+      - 'certbot=={{certbot_version}}'
     virtualenv_python: python3
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
@@ -25,9 +26,16 @@
 - name: Install certbot-nginx
   pip:
     name: certbot-nginx
-    version: '{{certbot_nginx_version}}' 
+    version: '{{certbot_nginx_version}}'
     virtualenv: '{{ansible_env.HOME}}/.venv-py3'
     state: present
+
+- name: Comment import IO in certbot/crypto_util.py
+  replace:
+    path: '{{ansible_env.HOME}}/.venv-py3/lib/python3.6/site-packages/certbot/crypto_util.py'
+    regexp: 'from acme.magic_typing import IO'
+    replace: '#from acme.magic_typing import IO'
+    backup: yes
 
 - name: run certbot 
   shell: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '

@@ -10,6 +10,7 @@
     kubeadm init --service-cidr {{ service_cidr }} \
                  --ignore-preflight-errors all \
                  --pod-network-cidr {{ pod_network_cidr }} \
+                 --kubernetes-version {{ kube_version }} \
                  --token {{ token }} \
                  --apiserver-advertise-address {{ kubemaster_ip }} \
                  {{ kubeadm_opts }} \
