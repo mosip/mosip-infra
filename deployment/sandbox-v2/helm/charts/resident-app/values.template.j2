@@ -30,6 +30,7 @@ services:
     podconfig:
       {{ podconfig.resident_app_server.service | to_nice_yaml(indent=6) | indent(6) }}
     healthUrl: /v1/resident/actuator/health
+    mountPath: /home/mosip/resident-app-server/
 
 exportLogs: enabled  # Let filebeat export the logs
 
