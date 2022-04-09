@@ -672,11 +672,11 @@ podconfig:
       java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
-          cpu: 300m
-          memory: 1.5Gi
+          cpu: 500m
+          memory: 1Gi
         limits:
-          cpu: 300m
-          memory: 1.5Gi
+          cpu: 500m
+          memory: 1Gi
 
   packetmanager:
     service:
