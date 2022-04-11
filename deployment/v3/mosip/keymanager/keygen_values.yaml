@@ -1,1 +1,2 @@
 springConfigNameEnv: kernel
+softHsmCM: softhsm-kernel-share
