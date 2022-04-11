@@ -1,34 +1,34 @@
-# Postgres
+# Postgres installation on Kubernetes cluster
 
-## Introduction
-Postgress may be integrated with MOSIP in the following ways:
-1. **Cloud**: Postgres service provided by Cloud Provider, like RDS on AWS.
-1. **Native**: Postgres setup on dedicated VMs (outside of MOSIP cluster)
-1. **In-cluster**: Postgres running inside MOSIP Kubernetes cluster. Typically, for development purposes.   
+## Install 
+```sh
+./install.sh
+```
+* A random password will get assigned for `postgres` user if you have not specified a password.  The password may be obtained using following script:
+```sh
+./get_pwd.sh
+```
+## Test
+* Make sure docker is running from machine you are testing.
+* Postgres is accessible over "internal" channel, i.e. over Wireguard.  Make sure you have the Wireguard setup along with credentials to connect to internal load balancer.
+* Connect to postgres:
+```sh
+docker run -it --rm postgres psql -h <hostname pointing to load balancer> -U postgres -p 5432
+```
+## Initialize DB
+* Review `init_values.yaml` for  which DBs you would like to initialize.
+* Run init postgres helm chart to create necessary DB, users, roles etc:
+```sh
+./init_db.sh
+```
+Be aware of version of helm chart corresponding to mosip version.
 
-While production deployments will either use (1) or (2) for non-production deployment you may go with (3). It is possible to install high availablity Postgres on cluster as well, however, whether the same approach can be scaled to full scale production is yet to be evaluated and tested.  Having said that, the method outlined in (3) should work well for sandboxes and small pilot rollouts.
+## Delete
+Note that PVC and PV are not deleted after helm delete.  So if you would like to postgres again, make sure you delete PVC and PV.
 
-## Cloud setup
-On AWS:
-* Provision a Postgres RDS instance on AWS depending on scale of deployment
-* CAUTION: Do check the costs of RDS before deploying.
-* Make sure a Kubernetes secret with postgres superuser and password is created in `postgres` namespace. TODO: provide the yaml.
+## Init a specific DB
+To initialized a specific db disable init of all others in `init_values.yaml` by settings `true` -> `false`.  Get db-user password with `get_pwd.sh`.  Provide the password in `init_values.yaml` and run `init_db.sh`.
 
-## Native
-Follow Postgres installation procedure of your choice. Make sure high availability, replication and other reliability factors are taken care.
-* Make sure a Kubernetes secret with postgres superuser and password is created in `postgres` namespace. TODO: provide the yaml.
-
-## In-cluster
-Follow instructions given [here](cluster/README.md)
-
-## Recommended DB groupings
-In production, rather than running all DBs on a single Postgres server it is recommended you have multiple servers with following DBs running on them:
-1. Audit: mosip_audit
-1. PMS: mosip_pms, mosip_authdevice, mosip_regdevice
-1. IDA: mosip_ida
-1. REGPROC: mosip_regprc
-1. PREREG: mosip_prereg
-1. KERNEL: mosip_kernel
-1. IDREPO: mosip-idrepo, mosip-credential, mosip_idmap 
-1. mosip_websub 
+## Troubleshooting
+* If you face login issues even when the password entered is correct, it could be due to previous PVC, and PV.  Delete them, but exercise caution as this will delete all persistent data.
 
