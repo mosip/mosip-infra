@@ -12,7 +12,9 @@ The steps here install all MOSIP provided services - core and reference implemen
 
 ## Install
 Install in the following order:
-* [Config Server Secrets](conf-secrets/README.md)
+* [Landing page](landing-page/README.md)
+* [Docker secrets](docker-secrets/README.md)
+* [Prereg captcha](captcha/README.md)
 * [Config Server](config-server/README.md)
 * [Artifactory](artifactory/README.md)
 * [Key Manager](keymanager/README.md)

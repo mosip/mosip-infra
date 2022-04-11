@@ -12,3 +12,6 @@ Following install sequence is recommended:
 * [MOSIP services](mosip/README.md)
 * [Testrig](testrig/README.md)
 * [Reporting](https://github.com/mosip/reporting/tree/develop)
+
+## Production hardening
+Refer to [production hardening checklist](docs/production-checklist.md).
