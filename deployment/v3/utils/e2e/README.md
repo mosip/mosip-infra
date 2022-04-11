@@ -1,30 +1,20 @@
-# Installation on e2e
+# Installation on E2E Networks
 
-## Scripts
-Folder contains scripts and instructions to install MOSIP on e2e networks.  This is work-in-progres.
+## Create VM 
+- Ubuntu 20.04
+- Hourly billed
+- CPU 12, RAM 30
+- Should be same VPC
+- Rename the nodes to a consistent name
+- Number of replicas
+- Public IP is not required as we would use Wireguard (except for Wireguard and Nginx)
+- Root user is 'root' (not 'ubuntu')
 
-1. `cleanup.yaml`:  After deleting the cluster, this script might be used to clear up some of the folders. The usage of this script is not established yet - it has been picked up from v2 reset cluster procedure.
+![Node creation 0](_images/e2e-node-0.png)
 
-## Install guide
-1. Create nodes as given in [here](e2e.md).
-1. Create copy of `hosts.ini.sample` as `hosts.ini`. Update the IP addresses.
+![Node creation 1](_images/e2e-node-1.png)
 
-## Wireguard bastion node
-- Open required Wireguard ports 
-```
-ansible-playbook -i hosts.ini wireguard.yaml
-```
-- Install [wireguard docker](../../docs/wireguard-bastion.md) with enough number of peers.
-- Assign peer1 to yourself and set your wireguard client before working on the cluster.
+![Node creation 1](_images/e2e-node-2.png)
 
-## Cluster nodes
-* Open ports on each of the nodes
-```
-ansible-playbook -i hosts.ini ports.yaml
-```
-* Disable swap _(perhaps not needed as swap is already disabled)_
-```
-ansible-playbook -i hosts.ini swap.yaml
-```
 
-With the above steps the nodes are ready for RKE installation.
+
