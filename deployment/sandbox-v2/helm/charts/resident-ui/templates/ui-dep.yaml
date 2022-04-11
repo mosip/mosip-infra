@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.services.resident-ui.serviceName}}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.services.resident-ui.serviceName}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{.Values.services.resident-ui.serviceName}}
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+        - name: {{.Values.services.resident-uiui.serviceName}}
+          image: {{ .Values.services.resident-ui.dockerImage  }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.services.resident-ui.ports.containerPort }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.services.resident-ui.healthUrl }}
+              port: {{ .Values.services.resident-ui.ports.containerPort }}
+            periodSeconds: {{ .Values.probe.period }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.services.resident-ui.healthUrl }}
+              port: {{ .Values.services.resident-ui.ports.containerPort }}
+            periodSeconds: {{ .Values.probe.livenessPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.services.resident-ui.healthUrl }}
+              port: {{ .Values.services.resident-ui.ports.containerPort }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+            periodSeconds: {{ .Values.probe.startupPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
+          volumeMounts:
+            - name: ui-config
+              mountPath: /usr/share/nginx/html/assets/config.json
+              # The above path is fixed in Dockerfile
+              subPath: config.json # subPath is needed.  Check why?
+              # The config map gets mounted like files where key=file, value=file contents
+      volumes:
+        - name: ui-config
+          configMap:
+            name: {{ .Values.services.resident-ui.configName }}

@@ -1,0 +1,43 @@
+component: resident-ui
+part-of: mosip
+activeProfileEnv: default
+springConfigLabel: {{ config_repo.version }}
+configServerUrl: {{ config_server.internal_url }}
+exportLogs: enabled  # Let filebeat export the logs
+
+ingress:
+   namespace: default
+artifactoryUrl: {{ artifactory_url }}
+sitePublicUrl: {{ site.sandbox_public_url }}
+iamAdapterUrl: {{ iam_adapter_url }}
+
+probe:
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 120
+
+
+imagePullPolicy: Always
+
+isGlowroot: {{ is_glowroot }}
+
+dockerHub:
+  private: {{ docker.hub.private }}
+  keyname: {{ docker.hub.keyname }}
+
+services:
+  resident-ui:
+    serviceName: {{ versions.services.resident-ui.keys()[0] }}
+    dockerImage: {{ versions.services.resident-ui.values()[0] }}
+    ports:
+      containerPort: 8080
+      servicePort: 80
+    apiHost: {{ site.sandbox_public_url }}/
+    configName: resident-ui-config
+    ingressPath: /resident-ui
+    healthUrl: /resident-ui
+    podconfig:
+      {{ podconfig.resident-ui.policy | to_nice_yaml(indent=6) | indent(6) }}
