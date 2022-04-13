@@ -30,6 +30,7 @@ declare -a module=("landing-page"
                    "print"
                    "mosip-file-server"
                    "resident"
+                   "resident-app"
                    "regclient"
                    )
 
