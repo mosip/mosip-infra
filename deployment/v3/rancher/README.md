@@ -6,7 +6,18 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
 ## Architecture Diagram
 ![](../docs/images/rancher_iam.png)
 
-## Cluster install
+## Utililties
+* Install following command line utilities:
+    * `kubectl`
+    * `helm`
+    * `rke`
+    * `istioctl`
+* Add Helm repos:
+    ```sh
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm repo add mosip https://mosip.github.io/mosip-helm
+    ```
+## Kubernetes cluster installation
 * [AWS](aws/README.md)
 * [on-prem](on-prem/README.md)
 
@@ -18,7 +29,7 @@ Rancher is used to manage multiple kubernetes clusters for the organisation. We 
     helm install rancher rancher-latest/rancher \
       --namespace cattle-system \
       --create-namespace \
-      --set hostname=rancher.mosip.net \
+      --set hostname=rancher.xyz.net \
       --set replicas=2 \
       --set bootstrapPassword=admin \
       --set tls=external

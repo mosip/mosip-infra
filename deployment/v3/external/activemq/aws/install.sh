@@ -1,12 +1,14 @@
 #!/bin/sh
-NS=activemq
+## Installs activeMQ
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-echo Create namespace
+NS=activemq
+
+echo Create $NS namespace
 kubectl create ns $NS
 kubectl label namespace $NS istio-injection=enabled --overwrite
 

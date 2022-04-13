@@ -1,21 +1,20 @@
-# Generating SSL Certificates with Letsencrypt
+# SSL Certificates with Letsencrypt
 
-* Make sure python3 is installed.
+* Install `python3`.
 * Install letsencrypt and certbot packages.
 ```
 sudo apt install letsencrypt
 sudo apt install certbot python3-certbot-nginx
 ```
-* Generate Certificates.
+* Generate certificates for your domain name.
 ```
 sudo certbot certonly --agree-tos --manual --preferred-challenges=dns -d *.mosip.xyz.net
 ```
-  * This default challenge is http challenge, but we have changed it to dns challenge, because we want wildcard certificates.
-  * What this means is that, this will ask to create a dns record, type TXT, with host _acme-challenge.mosip.xyz.net, with a specific text string.
-  * Create that particular dns entry, and wait for a few minutes till it comes up. Use the following command to validate if the dns entry is up.
+   * The default challenge HTTP is changed to DNS challenge, as we require wildcard certificates.
+   * Create a DNS record in your DNS service of type TXT with host `_acme-challenge.mosip.xyz.net`, with the string prompted by the script.
+  * Wait for a few minutes for the above entry to get into effect. Verify: 
     ```
     host -t TXT _acme-challenge.mosip.xyz.net
     ```
   * Press enter in the `certbot` prompt to proceed.
-  * It uses the above dns and matches the text string to validate the domains, and generate the certificates.
-* Use the certificates generated in /etc/letsencrypt in your webserver.
+* Certificates are created in `/etc/letsencrypt` on your machine.

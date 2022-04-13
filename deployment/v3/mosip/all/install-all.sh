@@ -9,8 +9,7 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("landing-page"
-                   "docker-secrets"
+declare -a module=("docker-secrets"
                    "captcha"
                    "config-server"
                    "artifactory"
@@ -30,7 +29,6 @@ declare -a module=("landing-page"
                    "print"
                    "mosip-file-server"
                    "resident"
-                   "resident-app"
                    "regclient"
                    )
 

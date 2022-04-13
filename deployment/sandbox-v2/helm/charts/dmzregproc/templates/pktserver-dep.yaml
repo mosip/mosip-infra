@@ -32,6 +32,8 @@ spec:
         env:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
         ports: 
         - containerPort: {{ .Values.services.pktserver.ports.containerPort }}
 

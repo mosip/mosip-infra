@@ -8,7 +8,7 @@ fi
 
 NS=clamav
 
-echo Create namespace
+echo Create $NS namespace
 kubectl create ns $NS 
 
 echo Istio label 
@@ -18,3 +18,5 @@ helm repo update
 
 echo Installing Clamav
 helm -n $NS install clamav wiremind/clamav -f values.yaml
+
+echo ClamAV installed sucessfully
