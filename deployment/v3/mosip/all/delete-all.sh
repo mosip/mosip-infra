@@ -8,7 +8,8 @@ fi
 
 ROOT_DIR=`pwd`/../
 
-declare -a module=("landing-page"
+declare -a module=(
+                   "landing-page"
                    "docker-secrets"
                    "regproc"
                    "resident"
