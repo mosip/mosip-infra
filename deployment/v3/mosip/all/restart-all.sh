@@ -27,6 +27,7 @@ declare -a module=("config-server"
                    "print"
                    "mosip-file-server"
                    "resident"
+                   "resident-app"
                    "regclient"
                    )
 
