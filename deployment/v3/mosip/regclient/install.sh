@@ -7,7 +7,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regclient
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.2
+
+## GENERATE KEYSTORE PASSWORD
+KEYSTORE_PWD=$( openssl rand -base64 10 )
+
+bash create-signing-certs.sh $KEYSTORE_PWD
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -15,6 +20,14 @@ kubectl create ns $NS
 echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
+
+echo "Create secret for keystore-secret-env, delete if exists"
+kubectl -n $NS delete secrets keystore-secret-env
+kubectl -n regclient create secret generic keystore-secret-env --from-literal="keystore_secret_env=$KEYSTORE_PWD"
+
+echo "Create configmaps for certs, delete if exists"
+kubectl -n $NS delete cm regclient-certs
+kubectl -n $NS create cm regclient-certs --from-file=./certs/
 
 echo Copy configmaps
 ./copy_cm.sh
