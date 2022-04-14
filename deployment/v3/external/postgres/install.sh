@@ -19,4 +19,4 @@ echo Installed Postgres
 echo Installing gateways and virtual services
 POSTGRES_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
 echo Internal domain: $INTERNAL
-helm -n $NS install istio-addons chart/istio-addons --set postgresHost=$POSTGRES_HOST
+helm -n $NS install istio-addons chart/istio-addons --set postgresHost=$POSTGRES_HOST --wait

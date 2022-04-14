@@ -8,16 +8,26 @@ fi
 
 NS=masterdata-loader
 CHART_VERSION=12.0.2
+echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
+echo  Please skip this if masterdata is already uploaded.
+read -p "CAUTION: Do you still want to continue(Y/n)" yn
+if [ $yn = "Y" ] 
+  then
 
-echo Create $NS namespace
-kubectl create ns $NS
+   echo Create $NS namespace
+   kubectl create ns $NS
 
-echo Istio label
-kubectl label ns $NS istio-injection=enabled --overwrite
-helm repo update
+   echo Istio label
+   kubectl label ns $NS istio-injection=enabled --overwrite
+   helm repo update
 
-echo Copy configmaps
-./copy_secrets.sh
+   echo Copy configmaps
+   ./copy_secrets.sh
 
-echo Loading masterdata
-helm -n $NS install masterdata-loader  mosip/masterdata-loader --version $CHART_VERSION
+   echo Loading masterdata
+   helm -n $NS install masterdata-loader  mosip/masterdata-loader --version $CHART_VERSION --wait
+
+   else
+   break
+
+fi

@@ -18,6 +18,7 @@ declare -a module=(
                    "keymanager"
                    "websub"
                    "kernel"
+                   "masterdata-loader"
                    "biosdk"
                    "packetmanager"
                    "datashare"
@@ -31,6 +32,7 @@ declare -a module=(
                    "print"
                    "mosip-file-server"
                    "resident"
+                   "resident-app"
                    "regclient"
                    )
 
