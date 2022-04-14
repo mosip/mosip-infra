@@ -1,2 +1,2 @@
 springConfigNameEnv: id-authentication
-softHsmCM: softshm-ida-share
+softHsmCM: softhsm-ida-share

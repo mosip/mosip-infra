@@ -11,7 +11,7 @@ ROOT_DIR=`pwd`/../
 
 echo Installing External services
 
-cd $ROOT_DIR/postgres/cluster
+cd $ROOT_DIR/postgres
 ./install.sh
 ./init_db.sh
 
