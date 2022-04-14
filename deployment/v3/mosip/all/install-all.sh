@@ -18,6 +18,7 @@ declare -a module=(
                    "keymanager"
                    "websub"
                    "kernel"
+                   "masterdata-loader"
                    "biosdk"
                    "packetmanager"
                    "datashare"
