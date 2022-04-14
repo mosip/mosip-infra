@@ -10,6 +10,8 @@ fi
 ROOT_DIR=`pwd`/../
 
 declare -a module=(
+declare -a module=(
+                   "landing-page"
                    "config-server"
                    "artifactory"
                    "keymanager"

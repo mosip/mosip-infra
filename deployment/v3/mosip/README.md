@@ -33,6 +33,7 @@ Install in the following order:
 * [Mosip File Server](mosip-file-server/README.md)
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
+* [Partner Onboarder](partner-onboarder/README.md)
 
 The same can be achieved by running `all/install-all.sh`.
 ```
