@@ -308,61 +308,61 @@ repos:
   commons:
     src: https://github.com/mosip/commons 
     dest: '{{tmp_dir}}/commons'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   prereg:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   idrepo:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   mosip_data:
     src: https://github.com/mosip/mosip-data
     dest: '{{tmp_dir}}/mosip-data'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   hotlist:
     src: https://github.com/mosip/admin-services
     dest: '{{tmp_dir}}/admin-services'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   keymanager:
     src: https://github.com/mosip/keymanager
     dest: '{{tmp_dir}}/keymanager'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
   mosip_ref_impl:
     src: https://github.com/mosip/mosip-ref-impl
     dest: '{{tmp_dir}}/mosip-ref-impl'
-    tag: release-1.2.0
+    tag: 1.2.0.1
     githubuser: ''
     githubpassword: ''
 

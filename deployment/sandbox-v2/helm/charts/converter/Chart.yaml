@@ -1,0 +1,6 @@
+apiVersion: v2
+name: converter
+description: A Helm chart for installing converter
+type: application
+version: 0.0.1
+appVersion: v1

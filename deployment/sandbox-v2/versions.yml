@@ -175,3 +175,10 @@ versions:
     resident_app_server:
       service:
         'resident-app-server': 'mosipqa/mimoto:develop'
+    converter:
+      service:
+        'converter': 'mosipdev/kernel-bio-converter:develop'
+
+    resident-ui:
+      service:
+        'resident-ui': 'mosipdev/resident-ui:develop'
