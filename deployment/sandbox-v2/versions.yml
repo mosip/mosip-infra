@@ -4,21 +4,21 @@ versions:
 
     kernel:
       auth:
-        'kernel-auth-service':  'mosipdev/kernel-auth-service:1.1.5.5'
+        'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.3'
       masterdata:
-        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:1.1.5.3'
+        'kernel-masterdata-service': 'mosipint/kernel-masterdata-service:1.1.5.3'
       idgen:
         'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.4'
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.3'
       sync:
-        'kernel-syncdata-service': 'mosipdev/kernel-syncdata-service:1.1.5.3'
+        'kernel-syncdata-service': 'mosipint/kernel-syncdata-service:1.1.5.3'
       audit :
-        'kernel-auditmanager-service': 'mosipdev/kernel-auditmanager-service:1.1.5.6'
+        'kernel-auditmanager-service': 'mosipint/kernel-auditmanager-service:1.1.5.6'
       key:
-        'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:1.1.5.5'
+        'kernel-keymanager-service': 'mosipint/kernel-keymanager-service:1.1.5.5'
       notifier:
-        'kernel-notification-service': 'mosipdev/kernel-notification-service:1.1.5.5'
+        'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5.3'
       otp:
         'kernel-otpmanager-service': 'mosipid/kernel-otpmanager-service:1.1.5.3'
       rid:
@@ -28,34 +28,34 @@ versions:
 
     prereg:
       application:
-        'prereg-application-service': 'mosipdev/pre-registration-application-service:1.1.5.3'
+        'prereg-application-service': 'mosipint/pre-registration-application-service:1.1.5.3'
       batch:
-        'prereg-batchjob-service': 'mosipdev/pre-registration-batchjob:1.1.5.3'
+        'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.5.2'
       booking:
-        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:1.1.5.3'
+        'prereg-booking-service': 'mosipdev/pre-registration-booking-service:1.1.5.5'
       datasync:
-        'prereg-datasync-service': 'mosipdev/pre-registration-datasync-service:1.1.5.3'
+        'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5.2'
       captcha:
-        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.5.3'
+        'prereg-captcha-service': 'mosipint/pre-registration-captcha-service:1.1.5.3'
       ui:
-        'prereg-ui': 'mosipdev/pre-registration-ui:1.1.5.3'
+        'prereg-ui': 'mosipint/pre-registration-ui:1.1.5.3'
 
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipdev/registration-client:1.1.5.5'
+        'reg-client-downloader': 'mosipint/registration-client:1.1.5.5'
       version: 1.1.5.5-SNAPSHOT
 
     regproc:
       camel:
-        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.5.5'
+        'regproc-camel-stage': 'mosipint/registration-processor-common-camel-bridge:1.1.5.5'
       notification:
-        'regproc-securezone-notification-stage': 'mosipdev/registration-processor-securezone-notification-stage:1.1.5.5'
+        'regproc-securezone-notification-stage': 'mosipint/registration-processor-securezone-notification-stage:1.1.5.5'
       uploader:
-        'regproc-packet-uploader-stage': 'mosipdev/registration-processor-packet-uploader-stage:1.1.5.5'
+        'regproc-packet-uploader-stage': 'mosipint/registration-processor-packet-uploader-stage:1.1.5.5'
       quality:
-        'regproc-quality-checker-stage': 'mosipdev/registration-processor-quality-checker-stage:1.1.5.5'
+        'regproc-quality-checker-stage': 'mosipint/registration-processor-quality-checker-stage:1.1.5.5'
       validator:
-        'regproc-packet-validator-stage': 'mosipdev/registration-processor-packet-validator-stage:1.1.5.5'
+        'regproc-packet-validator-stage': 'mosipint/registration-processor-packet-validator-stage:1.1.5.5'
       osi:
         'regproc-osi-validator-stage': 'mosipdev/registration-processor-osi-validator-stage:1.1.5.5'
       demo:
@@ -93,7 +93,7 @@ versions:
       status:
         'regproc-registration-status-service': 'mosipdev/registration-processor-registration-status-service:1.1.5.5'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipdev/registration-processor-dmz-packet-server:1.0.9'
+        'regproc-dmz-packet-server': 'mosipdev/registration-processor-dmz-packet-server:1.1.5.5'
 
     ida:
       auth:
@@ -121,11 +121,11 @@ versions:
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipdev/partner-management-service:1.1.5.3_hub'
+        'pms-partner-manager-service': 'mosipdev/partner-management-service:1.1.5.4'
       policy:
-        'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5.3_hub'
+        'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5.4'
       ui:
-        'pms-ui': 'mosipdev/pmp-ui:develop'
+        'pms-ui': 'mosipint/pmp-ui:develop'
 
     resident:
       resident:
@@ -139,11 +139,11 @@ versions:
 
     packetmanager:
       service:
-        'packetmanager-service': 'mosipid/commons-packet-service:1.1.5.4'
+        'packetmanager-service': 'mosipdev/commons-packet-service:1.1.5.5'
 
     datashare:
       service:
-        'datashare-service': 'mosipid/data-share-service:1.1.5.2'
+        'datashare-service': 'mosipdev/data-share-service:1.1.5.3'
 
     print:
       service:
@@ -151,15 +151,15 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipdev/websub-service:1.1.5.3'
+        'websub-service': 'mosipint/websub-service:1.1.5.3'
       consolidator:
-        'consolidator-websub-service': 'mosipdev/consolidator-websub-service:1.1.5.3'
+        'consolidator-websub-service': 'mosipint/consolidator-websub-service:1.1.5.3'
 
     mock:
       abis:
-        'mock-abis': 'mosipdev/mock-abis:develop'
+        'mock-abis': 'mosipid/mock-abis:1.1.5'
       mv:
-        'mock-mv': 'mosipdev/mock-mv:develop'
+        'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
         'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
 
