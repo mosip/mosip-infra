@@ -31,6 +31,7 @@ declare -a module=(
                    "artifactory"
                    "websub"
                    "biosdk"
+                   "partner-onboarder"
                    )
 
 echo Deleting MOSIP services.
