@@ -1,0 +1,137 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: admin-proxy
+  name: admin-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-proxy
+  template:
+    metadata:
+      labels:
+        app: admin-proxy
+    spec:
+      containers:
+      - name: admin-proxy
+        image: nginxinc/nginx-unprivileged:1.21.6-alpine
+        ports:
+        - name: http
+          containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: "/ping"
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 20
+          timeoutSeconds: 1
+          failureThreshold: 2
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: "/ping"
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 2
+          successThreshold: 1
+
+        volumeMounts:
+        - name: nginx-conf
+          mountPath: /etc/nginx/
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: admin-proxy
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: admin-proxy
+data:
+  nginx.conf: |-
+    worker_processes  auto;
+    error_log  /var/log/nginx/error.log notice;
+    pid        /tmp/nginx.pid;
+    events {
+        worker_connections  1024;
+    }
+    http {
+        proxy_temp_path /tmp/proxy_temp;
+        client_body_temp_path /tmp/client_temp;
+        fastcgi_temp_path /tmp/fastcgi_temp;
+        uwsgi_temp_path /tmp/uwsgi_temp;
+        scgi_temp_path /tmp/scgi_temp;
+
+        #include       /etc/nginx/mime.types;
+        #default_type  application/octet-stream;
+
+        log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                          '$status $body_bytes_sent "$http_referer" '
+                          '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log  /var/log/nginx/access.log  main;
+
+        proxy_buffer_size  128k;
+        proxy_buffers  4 256k;
+        proxy_busy_buffers_size 256k;
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        gzip  on;
+
+        server {
+            listen 8080;
+
+            location /v1/masterdata {
+                proxy_pass                      http://masterdata.kernel;
+                proxy_http_version              1.1;
+                proxy_set_header                Upgrade $http_upgrade;
+                proxy_set_header                Connection "upgrade";
+                proxy_set_header                Host $host;
+                proxy_set_header                Referer $http_referer;
+                proxy_set_header                X-Real-IP $remote_addr;
+                proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header                X-Forwarded-Proto $scheme;
+                proxy_pass_request_headers      on;
+            }
+
+            location /v1/keymanager {
+                proxy_pass                      http://keymanager.keymanager;
+                proxy_http_version              1.1;
+                proxy_set_header                Upgrade $http_upgrade;
+                proxy_set_header                Connection "upgrade";
+                proxy_set_header                Host $host;
+                proxy_set_header                Referer $http_referer;
+                proxy_set_header                X-Real-IP $remote_addr;
+                proxy_set_header                X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header                X-Forwarded-Proto $scheme;
+                proxy_pass_request_headers      on;
+            }
+            location /ping {
+                return 200 'ping';
+            }
+        }
+    }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: admin-proxy
+  name: admin-proxy
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: admin-proxy

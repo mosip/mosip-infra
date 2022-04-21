@@ -14,6 +14,7 @@ while true; do
         helm -n $NS delete admin-ui
         helm -n $NS delete admin-service
         helm -n $NS delete admin-hotlist
+	kubectl delete -n $NS -f admin-proxy.yaml
         break
       else
         break
