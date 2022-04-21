@@ -6,17 +6,17 @@ versions:
       auth:
         'kernel-auth-service':  'mosipid/kernel-auth-service:1.1.5.3'
       masterdata:
-        'kernel-masterdata-service': 'mosipint/kernel-masterdata-service:1.1.5.3'
+        'kernel-masterdata-service': 'mosipdev/kernel-masterdata-service:1.1.5.3'
       idgen:
         'kernel-idgenerator-service': 'mosipid/kernel-idgenerator-service:1.1.5.4'
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.3'
       sync:
-        'kernel-syncdata-service': 'mosipint/kernel-syncdata-service:1.1.5.3'
+        'kernel-syncdata-service': 'mosipdev/kernel-syncdata-service:1.1.5.3'
       audit :
-        'kernel-auditmanager-service': 'mosipint/kernel-auditmanager-service:1.1.5.6'
+        'kernel-auditmanager-service': 'mosipdev/kernel-auditmanager-service:1.1.5.6'
       key:
-        'kernel-keymanager-service': 'mosipint/kernel-keymanager-service:1.1.5.5'
+        'kernel-keymanager-service': 'mosipdev/kernel-keymanager-service:1.1.5.5'
       notifier:
         'kernel-notification-service': 'mosipid/kernel-notification-service:1.1.5.3'
       otp:
@@ -28,7 +28,7 @@ versions:
 
     prereg:
       application:
-        'prereg-application-service': 'mosipint/pre-registration-application-service:1.1.5.3'
+        'prereg-application-service': 'mosipdev/pre-registration-application-service:1.1.5.3'
       batch:
         'prereg-batchjob-service': 'mosipid/pre-registration-batchjob:1.1.5.2'
       booking:
@@ -36,26 +36,26 @@ versions:
       datasync:
         'prereg-datasync-service': 'mosipid/pre-registration-datasync-service:1.1.5.2'
       captcha:
-        'prereg-captcha-service': 'mosipint/pre-registration-captcha-service:1.1.5.3'
+        'prereg-captcha-service': 'mosipdev/pre-registration-captcha-service:1.1.5.3'
       ui:
-        'prereg-ui': 'mosipint/pre-registration-ui:1.1.5.3'
+        'prereg-ui': 'mosipdev/pre-registration-ui:1.1.5.3'
 
     registration_client:
       downloader:
-        'reg-client-downloader': 'mosipint/registration-client:1.1.5.5'
+        'reg-client-downloader': 'mosipdev/registration-client:1.1.5.5'
       version: 1.1.5.5-SNAPSHOT
 
     regproc:
       camel:
-        'regproc-camel-stage': 'mosipint/registration-processor-common-camel-bridge:1.1.5.5'
+        'regproc-camel-stage': 'mosipdev/registration-processor-common-camel-bridge:1.1.5.5'
       notification:
-        'regproc-securezone-notification-stage': 'mosipint/registration-processor-securezone-notification-stage:1.1.5.5'
+        'regproc-securezone-notification-stage': 'mosipdev/registration-processor-securezone-notification-stage:1.1.5.5'
       uploader:
-        'regproc-packet-uploader-stage': 'mosipint/registration-processor-packet-uploader-stage:1.1.5.5'
+        'regproc-packet-uploader-stage': 'mosipdev/registration-processor-packet-uploader-stage:1.1.5.5'
       quality:
-        'regproc-quality-checker-stage': 'mosipint/registration-processor-quality-checker-stage:1.1.5.5'
+        'regproc-quality-checker-stage': 'mosipdev/registration-processor-quality-checker-stage:1.1.5.5'
       validator:
-        'regproc-packet-validator-stage': 'mosipint/registration-processor-packet-validator-stage:1.1.5.5'
+        'regproc-packet-validator-stage': 'mosipdev/registration-processor-packet-validator-stage:1.1.5.5'
       osi:
         'regproc-osi-validator-stage': 'mosipdev/registration-processor-osi-validator-stage:1.1.5.5'
       demo:
@@ -125,7 +125,7 @@ versions:
       policy:
         'pms-policy-manager-service': 'mosipdev/policy-management-service:1.1.5.4'
       ui:
-        'pms-ui': 'mosipint/pmp-ui:develop'
+        'pms-ui': 'mosipdev/pmp-ui:develop'
 
     resident:
       resident:
@@ -151,9 +151,9 @@ versions:
 
     websub:
       service:
-        'websub-service': 'mosipint/websub-service:1.1.5.3'
+        'websub-service': 'mosipdev/websub-service:1.1.5.3'
       consolidator:
-        'consolidator-websub-service': 'mosipint/consolidator-websub-service:1.1.5.3'
+        'consolidator-websub-service': 'mosipdev/consolidator-websub-service:1.1.5.3'
 
     mock:
       abis:
@@ -161,7 +161,7 @@ versions:
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
+        'mock-biosdk-service': 'mosipid/biosdk-server:1.2.0'
 
     artifactory:
       service:
