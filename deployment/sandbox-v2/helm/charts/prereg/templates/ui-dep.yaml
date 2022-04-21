@@ -32,7 +32,29 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.ui.ports.containerPort }} 
+        - containerPort: {{ .Values.services.ui.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.ui.healthUrl }}
+            port: {{ .Values.services.ui.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.ui.healthUrl }}
+            port: {{ .Values.services.ui.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.ui.healthUrl }}
+            port: {{ .Values.services.ui.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
         volumeMounts:
             - name: ui-config 
               mountPath: /usr/share/nginx/html/assets/config.json
@@ -43,22 +65,4 @@ spec:
         - name: ui-config
           configMap:
             name: {{ .Values.services.ui.configName }}
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.ui.healthUrl }}
-#            port: {{ .Values.services.ui.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.period }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.ui.healthUrl }}
-#            port: {{ .Values.services.ui.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.livenessPeriod }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        startupProbe:
-#          httpGet:
-#            path: {{ .Values.services.ui.healthUrl }}
-#            port: {{ .Values.services.ui.ports.containerPort }}
-#          failureThreshold: {{ .Values.probe.failureThreshold }}
-#          periodSeconds: {{ .Values.probe.startupPeriod }}
 

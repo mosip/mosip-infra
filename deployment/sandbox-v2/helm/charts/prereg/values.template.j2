@@ -5,11 +5,12 @@ springConfigLabel: {{ config_repo.version }}
 configServerUrl: {{ config_server.internal_url }}
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
+  period: 10 # Seconds
+  timeout: 5
   livenessPeriod: 30
-  failureThreshold: 30
+  failureThreshold: 15
   startupPeriod: 10
+  initialDelaySeconds: 30
 
 ingress:
    namespace: default
@@ -88,6 +89,7 @@ services:
     configName: prereg-ui-config # ConfigMap name
     apiHost: https://{{ sandbox_domain_name }}/
     ingressPath: /pre-registration-ui
+    healthUrl: /pre-registration-ui/
     podconfig:
       {{ podconfig.prereg.ui | to_nice_yaml(indent=6) | indent(6) }}
     

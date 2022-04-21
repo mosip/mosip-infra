@@ -63,9 +63,10 @@ spec:
             periodSeconds: {{ .Values.probe.startupPeriod }}
             timeoutSeconds: {{ .Values.probe.timeout }}
             initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+
           volumeMounts:
             - name: resident-app-server-volume
-              mountPath: {{ .Values.mountPath }}
+              mountPath: {{ .Values.services.resident_app_server.mountPath }}
       volumes:
         - name: resident-app-server-volume
           persistentVolumeClaim:

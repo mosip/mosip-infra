@@ -51,22 +51,32 @@ spec:
         - name: verticle-port
           containerPort: {{ .Values.services.receiver.ports.containerPort }}
 
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.receiver.healthUrl }} 
-#            port: {{ .Values.services.receiver.ports.containerPort }} 
-#          initialDelaySeconds: {{ .Values.probe.initialDelay }} 
-#          periodSeconds: {{ .Values.probe.period }} 
- #       livenessProbe:
- #         httpGet:
- #           path: {{ .Values.services.receiver.healthUrl }} 
- #           port: {{ .Values.services.receiver.ports.containerPort }} 
- #         initialDelaySeconds: {{ .Values.probe.initialDelay }} 
- #         periodSeconds: {{ .Values.probe.period }} 
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.receiver.healthUrl }}
+            port: {{ .Values.services.receiver.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        livenessProbe:
+          httpGet:
+           path: {{ .Values.services.receiver.healthUrl }}
+           port: {{ .Values.services.receiver.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.receiver.healthUrl }}
+            port: {{ .Values.services.receiver.ports.containerPort }}
+          initialDelaySeconds: {{ .Values.probe.initialDelay }}
+          periodSeconds: {{ .Values.probe.period }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+
         volumeMounts:
         - name: landing-zone
           mountPath: {{ .Values.landing.mountPath }}
-
       volumes:
       - name: landing-zone
         persistentVolumeClaim:

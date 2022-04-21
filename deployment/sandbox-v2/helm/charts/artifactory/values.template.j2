@@ -11,14 +11,16 @@ dockerHub:
 
 services:
   artifactory:
-    podconfig: {{ podconfig.artifactory.service | to_yaml }}
+    podconfig:
+      {{ podconfig.artifactory.service | to_nice_yaml(indent=6) | indent(6) }}
 
 exportLogs: enabled  # Let filebeat export the logs
 
 probe:
-  period: 30 # Seconds
-  timeout: 10
+  period: 10 # Seconds
+  timeout: 5
   livenessPeriod: 30
-  failureThreshold: 30
+  failureThreshold: 15
   startupPeriod: 10
+  initialDelaySeconds: 60
 

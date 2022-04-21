@@ -55,22 +55,26 @@ spec:
           containerPort: {{ .Values.services.abismid.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.abismid.ports.containerPort }}
-#        readinessProbe:
-#          httpGet:
-#            path: {{ .Values.services.abismid.healthUrl }}
-#            port: {{ .Values.services.abismid.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.period }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        livenessProbe:
-#          httpGet:
-#            path: {{ .Values.services.abismid.healthUrl }}
-#            port: {{ .Values.services.abismid.ports.containerPort }}
-#          periodSeconds: {{ .Values.probe.livenessPeriod }}
-#          timeoutSeconds: {{ .Values.probe.timeout }}
-#        startupProbe:
-#          httpGet:
-#            path: {{ .Values.services.abismid.healthUrl }}
-#            port: {{ .Values.services.abismid.ports.containerPort }}
-#          failureThreshold: {{ .Values.probe.failureThreshold }}
-#          periodSeconds: {{ .Values.probe.startupPeriod }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.abismid.healthUrl }}
+            port: {{ .Values.services.abismid.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.abismid.healthUrl }}
+            port: {{ .Values.services.abismid.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.abismid.healthUrl }}
+            port: {{ .Values.services.abismid.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
 
