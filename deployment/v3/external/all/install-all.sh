@@ -30,7 +30,7 @@ cd $ROOT_DIR/object-store
 cd $ROOT_DIR/antivirus/clamav
 ./install.sh
 
-cd $ROOT_DIR/activemq/aws
+cd $ROOT_DIR/activemq/
 ./install.sh
 
 cd $ROOT_DIR/kafka
