@@ -47,6 +47,8 @@ spec:
           value: {{ .Values.keystoreSecret }}
         - name: signer_timestamp_url_env
           value: {{ .Values.signerTimestampUrl }}
+        - name: host_name_env
+          value: {{ .Values.hostName }}
 #        - name: reg_client_sdk_url_env
 #          value: {{ .Values.sdk_url_env }}
         ports:
