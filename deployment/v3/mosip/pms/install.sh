@@ -9,6 +9,9 @@ fi
 NS=pms
 CHART_VERSION=12.0.2
 
+API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
+
 echo Create $NS namespace
 kubectl create ns $NS
 
@@ -25,6 +28,11 @@ helm -n $NS install pms-partner mosip/pms-partner --version $CHART_VERSION
 echo Installing policy manager
 helm -n $NS install pms-policy mosip/pms-policy --version $CHART_VERSION
 
+echo Installing pmp-ui
+helm -n $NS install pmp-ui mosip/pmp-ui --set pmp.apiUrl=https://$PMP_HOST/ --set istio.hosts\[0\]=$PMP_HOST --version $CHART_VERSION
+
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
 echo Intalled pms services
+
+echo "Admin portal URL: https://$PMP_HOST/pmp-ui/"
