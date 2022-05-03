@@ -18,6 +18,7 @@ bootpwd: {{ reg_client.bootpwd }}
 tpm: "N"
 certificate: "mosip_cer.cer"
 upgrade_server: {{ site.sandbox_public_url }}
+hostName: {{ site.sandbox_public_url }}
 healthcheck: "{{ site.sandbox_public_url }}/v1/syncdata/actuator/health"
 keystoreSecret: "{{reg_client.keystore_secret}}"
 signerTimestampUrl: "{{reg_client.signer_timestamp_Url}}"
