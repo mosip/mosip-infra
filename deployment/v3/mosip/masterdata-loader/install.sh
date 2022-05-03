@@ -25,7 +25,7 @@ if [ $yn = "Y" ]
    ./copy_secrets.sh
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  mosip/masterdata-loader --version $CHART_VERSION --wait
+   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=develop --version $CHART_VERSION --wait
 
    else
    break
