@@ -11,6 +11,9 @@ CHART_VERSION=12.0.2
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
 
+API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
+
 echo Create $NS namespace
 kubectl create ns $NS
 
