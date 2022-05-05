@@ -31,3 +31,6 @@ test.txt
 .vscode
 __pycache__
 /venv/
+molecule_role
+sandbox_test
+
