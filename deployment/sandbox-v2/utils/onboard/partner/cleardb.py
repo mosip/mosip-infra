@@ -5,7 +5,7 @@ from db import *
 
 PG_USER = 'postgres'
 PG_PWD = ''
-PG_HOST = 'mzworker0.sb'
+PG_HOST = 'mzworker0.ta.co.ug'
 PG_PORT = 30090 
 
 def delete_tables(db_name, tables):

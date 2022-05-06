@@ -4,4 +4,4 @@
 # Example:
 # $ update_masterdb /home/mosipuser/mosip-infra/deployment/sandbox-v2/tmp/commons/db_scripts/mosip_master 
 cd $1
-psql -d mosip_master -h mzworker0.sb -p 30090 -U sysadmin < mosip_master_dml_deploy.sql  
+psql -d mosip_master -h mzworker0.ta.co.ug -p 30090 -U sysadmin < mosip_master_dml_deploy.sql  

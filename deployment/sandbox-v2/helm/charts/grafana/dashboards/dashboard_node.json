@@ -3754,8 +3754,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "mzworker0.sb",
-          "value": "mzworker0.sb"
+          "text": "mzworker0.ta.co.ug",
+          "value": "mzworker0.ta.co.ug"
         },
         "datasource": "Prometheus",
         "definition": "label_values(node_uname_info{origin_prometheus=~\"$origin_prometheus\",job=~\"$job\",instance=~\"$node\"}, nodename)",
