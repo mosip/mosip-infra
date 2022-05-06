@@ -4,7 +4,7 @@
 # Params that need to be defined in parent playbook including variables in this
 # file
 #   cluster_name: ''  # Any string
-#   cluster_master: ''  # Host name of master machine. e.g: mzmaster.sb
+cluster_master: 'mzmaster.ta.co.ug'  # Host name of master machine. e.g: mzmaster.sb
 #   console_kubeadmin_config_path: '{{clusters.mz.kube_config}}'  # e.g
 
 # Kubernetes
