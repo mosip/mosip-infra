@@ -8,14 +8,9 @@
   when: reset_cluster is succeeded
   shell: |
     kubeadm join --token {{ token }} \
+                --discovery-token-unsafe-skip-ca-verification \
                 {{ kubemaster_ip }}:6443
   register: join_cluster
   notify:
     - Recreate kube-dns
 
-# -name: Join to Kubernetes cluster
-#  when: reset_cluster is succeeded
-#  shell: |
-#    kubeadm join --token {{ token }} \
-#                --discovery-token-unsafe-skip-ca-verification \
-#                {{ kubemaster_ip }}:6443
