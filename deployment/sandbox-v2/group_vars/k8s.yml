@@ -28,7 +28,7 @@ network: flannel
 
 # Change this to an appropriate interface, preferably a private network.
 # Default is 'eth0'.
-network_interface: "eth0"
+network_interface: "ens160" ##changed network interface to ens160 from eth0
 ansible_interface_param: 'ansible_{{network_interface}}'
 kubemaster_ip: '{{ hostvars[cluster_master][ansible_interface_param].ipv4.address }}'
 
