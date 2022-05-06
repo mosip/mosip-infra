@@ -1,0 +1,4 @@
+# Install some useful utils on all machines
+- hosts: all
+  gather_facts: true
+  command: "reboot"
