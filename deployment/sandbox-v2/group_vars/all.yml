@@ -36,8 +36,8 @@ ssl:
     letsencrypt:
       get_certificate: false  # get a fresh certificate for the domain using Letsencrypt
       email: sales@techno-associates.co.ug
-      certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
-      certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
+      certificate: '/etc/ssl/certs/nginx-selfsigned.crt' #'/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
+      certificate_key:  '/etc/ssl/private/nginx-selfsigned.key' #'/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 
 developer_mode: true  # false if limited APIs are exposed externally.
     
