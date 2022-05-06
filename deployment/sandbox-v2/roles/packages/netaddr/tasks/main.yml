@@ -1,5 +1,5 @@
 - name: Install python netaddr
-  pip:
-    name: netaddr
+  yum:
+    name: python-netaddr
     state: present
   become: yes
