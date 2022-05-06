@@ -288,7 +288,7 @@ http {
         }
 
         location /admin-ui/templates/ {
-           proxy_pass http://mzworker0.sb:30080/admin-ui/templates/;
+           proxy_pass http://mzworker0.ta.co.ug:30080/admin-ui/templates/;
            if ( $request_filename ~ "^.*/(.+\.(csv))$" ) {
                set $fname $1;
                add_header Content-Disposition "attachment; filename=$fname";
