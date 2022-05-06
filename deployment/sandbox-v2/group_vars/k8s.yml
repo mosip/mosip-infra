@@ -24,7 +24,7 @@ service_cidr: "10.96.0.0/12"
 pod_network_cidr: "10.244.0.0/16"
 
 # Network implementation('flannel', 'calico', 'canal')
-network: flannel
+network: "flannel.1" #updated flannel network name to match host
 
 # Change this to an appropriate interface, preferably a private network.
 # Default is 'eth0'.
