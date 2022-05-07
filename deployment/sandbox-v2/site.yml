@@ -10,7 +10,7 @@
 # MZ cluster
 - import_playbook: playbooks/mzcluster.yml
 - import_playbook: playbooks/mz-nfs-provisioner.yml
-- import_playbook: playbooks/mzmonitoring.yml
+- import_playbook: playbooks/mzmonitoring.yml 
 - import_playbook: playbooks/taints.yml # At this point we apply any taints for MOSIP pods. 
 # DMZ cluster
 - import_playbook: playbooks/dmzcluster.yml
