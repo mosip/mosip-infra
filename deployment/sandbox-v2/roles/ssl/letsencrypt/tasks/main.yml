@@ -38,12 +38,12 @@
     replace: '#from acme.magic_typing import IO'
     backup: yes
 
-- name: run certbot 
-  shell: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '
-  become: yes
-  register: out
-  with_items:
-    - "{{sandbox_domain_name}}"
+# - name: run certbot 
+#   shell: '{{ansible_env.HOME}}/.venv-py3/bin/certbot certonly --nginx -n  -m "{{ssl.ca.letsencrypt.email}}" --agree-tos -d {{ item }} '
+#   become: yes
+#   register: out
+#   with_items:
+#     - "{{sandbox_domain_name}}"
     # add more sub-domains - should exist in DNS records.
     #- "api.{{sandbox_domain_name}}"
 
