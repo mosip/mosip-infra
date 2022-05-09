@@ -48,7 +48,7 @@ resources:
 
 protocol: http
 
-serverHost: "0.0.0.0"
+serverHost: "192.168.0.23"
 
 healthCheckPath: "/app/kibana"
 
