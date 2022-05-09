@@ -11,6 +11,7 @@ target/
 .project
 .settings/
 .vertx/
+.venv/
 bin/
 tmp/
 logs/

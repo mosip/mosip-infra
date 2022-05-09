@@ -13,3 +13,4 @@
   register: join_cluster
   notify:
     - Recreate kube-dns
+

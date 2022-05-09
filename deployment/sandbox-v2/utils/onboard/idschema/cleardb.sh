@@ -4,4 +4,4 @@
 # KNOW WHAT YOU ARE DOING!
 # Modify -h host to point to your setup
 
-psql -d mosip_master  -h mzingress.sb -p 30090 -U postgres < sql/regdel.sql
+psql -d mosip_master  -h mzingress.ta.co.ug -p 30090 -U postgres < sql/regdel.sql
