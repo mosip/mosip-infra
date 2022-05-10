@@ -11,7 +11,7 @@
 # Kubernetes
 kube_version: v1.21.1
 
-token: b0f7b8.8d1767876297d85c
+token: b0f9e1.8d1767876297e97b #b0f7b8.8d1767876297d85c
 
 # 1.8.x feature: --feature-gates SelfHosting=true
 init_opts: ""
@@ -25,7 +25,7 @@ service_cidr: "10.96.0.0/12"
 pod_network_cidr: "10.244.0.0/16"
 
 # Network implementation('flannel', 'calico', 'canal')
-network: "flannel.1" #updated flannel network name to match host
+network: "calico" #updated flannel network name to match host
 
 # Change this to an appropriate interface, preferably a private network.
 # Default is 'eth0'.
@@ -53,4 +53,3 @@ additional_features:
 
 # temporary directory used by additional features
 tmp_dir: /tmp/kubeadm-ansible-files
-
