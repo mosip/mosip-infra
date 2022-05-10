@@ -188,7 +188,7 @@ postgres:
   masterdata_upload:
     user: sysadmin
     enable: true
-    script_src_path: "{{ install_root }}/utils/masterdata/"
+    script_src_path: "{{ install_root }}/utils/masterdata"
     script_dest_path: "{{ tmp_dir }}"
     repo:
       src: https://github.com/mosip/mosip-data
