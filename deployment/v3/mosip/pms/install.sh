@@ -22,11 +22,17 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
+INTERNAL_API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
+
 echo Installing partner manager
-helm -n $NS install pms-partner mosip/pms-partner --version $CHART_VERSION
+helm -n $NS install pms-partner mosip/pms-partner --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
 echo Installing policy manager
-helm -n $NS install pms-policy mosip/pms-policy --version $CHART_VERSION
+helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+
+echo Installing pmp-ui
+helm -n pms install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
 echo Installing pmp-ui
 helm -n $NS install pmp-ui mosip/pmp-ui --set pmp.apiUrl=https://$PMP_HOST/ --set istio.hosts\[0\]=$PMP_HOST --version $CHART_VERSION
