@@ -143,7 +143,7 @@ versions:
 
     datashare:
       service:
-        'datashare-service': 'mosipdev/data-share-service:1.1.5.3'
+        'datashare-service': 'mosipid/data-share-service:1.1.5.3'
 
     print:
       service:
