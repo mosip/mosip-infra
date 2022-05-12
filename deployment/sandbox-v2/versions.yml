@@ -157,11 +157,11 @@ versions:
 
     mock:
       abis:
-        'mock-abis': 'mosipid/mock-abis:1.1.5'
+        'mock-abis': 'mosipid/mock-abis:develop'
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipid/biosdk-server:1.2.0'
+        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
 
     artifactory:
       service:
@@ -173,4 +173,4 @@ versions:
 
     resident_app_server:
       service:
-        'resident-app-server': 'mosipdev/mimoto:develop'
+        'resident-app-server': 'mosipid/mimoto:1.1.5'
