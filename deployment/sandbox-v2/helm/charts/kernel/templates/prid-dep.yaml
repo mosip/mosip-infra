@@ -60,14 +60,14 @@ spec:
         periodSeconds: {{ .Values.probe.period }}
         timeoutSeconds: {{ .Values.probe.timeout }}
         failureThreshold: {{ .Values.probe.failureThreshold }}
-        livenessProbe:
+      livenessProbe:
           httpGet:
             path: {{ .Values.services.prid.healthUrl }}
             port: {{ .Values.services.prid.ports.containerPort }}
           periodSeconds: {{ .Values.probe.livenessPeriod }}
           timeoutSeconds: {{ .Values.probe.timeout }}
           failureThreshold: {{ .Values.probe.failureThreshold }}
-        startupProbe:
+      startupProbe:
           httpGet:
             path: {{ .Values.services.prid.healthUrl }}
             port: {{ .Values.services.prid.ports.containerPort }}
