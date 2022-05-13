@@ -672,11 +672,11 @@ podconfig:
       java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
-          cpu: 300m
-          memory: 1.5Gi
+          cpu: 500m
+          memory: 1Gi
         limits:
-          cpu: 300m
-          memory: 1.5Gi
+          cpu: 500m
+          memory: 1Gi
 
   packetmanager:
     service:
@@ -810,10 +810,10 @@ podconfig:
       resources:
         requests:
           cpu: 300m
-          memory: 1.5Gi
+          memory: 1Gi
         limits:
           cpu: 300m
-          memory: 1.5Gi
+          memory: 1Gi
 
   mockabis:
     service:
@@ -901,11 +901,11 @@ podconfig:
           cpu: 300m
           memory: 1.5Gi
 
-  consolidator:
-    replicas: 1
-    maxSurge: 1
-    maxUnavailable: 0
-    minReadySeconds: 10
+    consolidator:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
 
   resident_app_server:
     service:

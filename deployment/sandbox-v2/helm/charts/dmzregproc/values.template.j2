@@ -42,7 +42,6 @@ landing:   # Landing folder where packets land
 
 imagePullPolicy: Always 
 services:
-
   receiver:
     serviceName: {{ versions.services.dmzregproc.receiver.keys()[0] }} 
     dockerImage: {{ versions.services.dmzregproc.receiver.values()[0] }}

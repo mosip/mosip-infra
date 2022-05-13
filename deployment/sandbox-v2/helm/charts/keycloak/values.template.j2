@@ -20,7 +20,8 @@ ingress:
 
 services:
   keycloak:
-    podconfig: {{ podconfig.keycloak.service | to_yaml }} 
+    podconfig:
+      {{ podconfig.keycloak.service | to_nice_yaml(indent=6) | indent(6) }}
 
 probe:
   period: 10 # Seconds

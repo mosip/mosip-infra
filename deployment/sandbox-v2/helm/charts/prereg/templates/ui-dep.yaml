@@ -32,17 +32,7 @@ spec:
         - name: JDK_JAVA_OPTIONS
           value: {{ $podconfig.java_opts }}
         ports:
-        - containerPort: {{ .Values.services.ui.ports.containerPort }} 
-        volumeMounts:
-            - name: ui-config 
-              mountPath: /usr/share/nginx/html/assets/config.json
-              # The above path is fixed in Dockerfile
-              subPath: config.json #TODO: subPath is needed.  Check why
-              # The config map gets mounted like files where key=file, value=file contents
-      volumes:
-        - name: ui-config
-          configMap:
-            name: {{ .Values.services.ui.configName }}
+        - containerPort: {{ .Values.services.ui.ports.containerPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.ui.healthUrl }}
@@ -65,4 +55,14 @@ spec:
           periodSeconds: {{ .Values.probe.startupPeriod }}
           initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.probe.timeout }}
+        volumeMounts:
+            - name: ui-config 
+              mountPath: /usr/share/nginx/html/assets/config.json
+              # The above path is fixed in Dockerfile
+              subPath: config.json #TODO: subPath is needed.  Check why
+              # The config map gets mounted like files where key=file, value=file contents
+      volumes:
+        - name: ui-config
+          configMap:
+            name: {{ .Values.services.ui.configName }}
 

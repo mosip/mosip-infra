@@ -45,6 +45,7 @@ healthUrl: ''
 
 services:
   reg_client_downloader:
-    podconfig: {{ podconfig.reg_client_downloader.service | to_yaml }}
+    podconfig:
+      {{ podconfig.reg_client_downloader.service | to_nice_yaml(indent=6) | indent(6) }}
 
 exportLogs: enabled  # Let filebeat export the logs

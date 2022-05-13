@@ -14,7 +14,7 @@ iamAdapterUrl: {{ iam_adapter_url }}
 probe:
   period: 10 # Seconds
   timeout: 5
-  livenessPeriod: 30
+  livenessPeriod: 10
   failureThreshold: 15
   startupPeriod: 10
   initialDelaySeconds: 120
@@ -60,6 +60,6 @@ services:
       servicePort: 80
     apiHost: {{ site.sandbox_public_url }}/v1/
     ingressPath: /pmp-ui
-    healthUrl: /pmp-ui
+    healthUrl: /pmp-ui/
     podconfig:
-        {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}
+      {{ podconfig.pms.policy | to_nice_yaml(indent=6) | indent(6) }}
