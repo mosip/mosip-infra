@@ -7,6 +7,9 @@ numPartitions: {{ kafka_prop.num_partitions }}
 replicaCount: {{ kafka_prop.replica_count }}
 sidecars: {}
 autoCreateTopicsEnable: true
+# CAUTION: In production, disable below option.
+# To delete topics in kafka, enable the below options
+# deleteTopicEnable: true
 
 persistence:
   enabled: true
