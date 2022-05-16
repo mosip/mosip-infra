@@ -1,10 +1,12 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
   name: minio-proxy
 spec:
   rules:
-  - host: minio-hostname-ingress-svc      #Name of the minio specific proxy ingress service
+  - host: minio-hostname-ingress-svc.ingress-nginx     #Name of the minio specific proxy ingress service
     http:
       paths:
       - backend:
