@@ -1,0 +1,9 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: minio-proxy-svc
+subsets:
+- addresses:
+  - ip: 10.244.4.41
+  ports:
+  - port: 9000

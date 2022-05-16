@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: minio-proxy
+spec:
+  rules:
+  - host: minio-hostname-ingress-svc      #Name of the minio specific proxy ingress service
+    http:
+      paths:
+      - backend:
+          serviceName: minio-proxy-svc    #Name of the proxy minio service and endpoint
+          servicePort: 80

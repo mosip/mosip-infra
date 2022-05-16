@@ -1,0 +1,15 @@
+# Installs Minio Object store 
+
+- hosts: console
+  gather_facts: true
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'minio-proxy'
+    helm_chart: '{{charts_root}}/minio-proxy'
+    is_template: true  
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/minio-proxy/values.template.j2'
+    helm_strings: ''
+  roles:
+     - {role:  helm}
+

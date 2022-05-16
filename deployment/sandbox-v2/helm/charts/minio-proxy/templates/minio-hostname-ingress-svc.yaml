@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-hostname-ingress-svc
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: minio-hostname-ingress-svc
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
