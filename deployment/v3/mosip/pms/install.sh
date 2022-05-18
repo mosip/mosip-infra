@@ -31,8 +31,6 @@ helm -n $NS install pms-partner mosip/pms-partner --set istio.corsPolicy.allowOr
 echo Installing policy manager
 helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
-echo Installing pmp-ui
-helm -n pms install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
 echo Installing pmp-ui
 helm -n $NS install pmp-ui mosip/pmp-ui --set pmp.apiUrl=https://$PMP_HOST/ --set istio.hosts\[0\]=$PMP_HOST --version $CHART_VERSION
