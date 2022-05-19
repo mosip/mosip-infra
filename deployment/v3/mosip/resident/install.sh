@@ -22,6 +22,19 @@ echo Copy configmaps
 echo Installing Resident
 helm -n $NS install resident mosip/resident --version $CHART_VERSION
 
+API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
+resident-ui_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-ui-host})
+
+#echo Installing resident-ui-Proxy into Masterdata and Keymanager.
+#kubectl -n $NS apply -f resident-ui-proxy.yaml
+
+echo Installing resident-ui
+helm -n $NS install resident-ui mosip/resident-ui --set resident-ui.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$resident-ui_HOST --version $CHART_VERSION
+
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
 echo Intalled resident services
+
+echo Installed resident-ui
+
+echo "resident-ui portal URL: https://$resident-ui_HOST/resident-ui"

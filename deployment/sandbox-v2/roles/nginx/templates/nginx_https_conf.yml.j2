@@ -306,6 +306,10 @@ http {
         location /registration-client/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
+	
+	 location /resident-ui/ {
+           proxy_pass {{clusters.dmz.ingress.base_url}}/resident-ui/;
+        }
 
         location /.well-known/ {
            if ($request_method = 'OPTIONS') {
