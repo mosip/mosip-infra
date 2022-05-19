@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs all mosip-compliance-toolkit helm charts
+# Installs all compliance-toolkit helm charts
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -20,18 +20,18 @@ echo Copy configmaps
 ./copy_cm.sh
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-mosip-compliance-toolkit-ui_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-mosip-compliance-toolkit-ui-host})
+compliance-toolkit-ui_HOST=$(kubectl get cm global -o jsonpath={.data.compliance-toolkit-ui-host})
 
 echo Installing compliance-toolkit
-helm -n $NS install compliance-toolkit mosip/mosip-compliance-toolkit --version $CHART_VERSION
+helm -n $NS install compliance-toolkit mosip/compliance-toolkit --version $CHART_VERSION
 
 echo Installing compliance-toolkit-ui
-helm -n $NS install compliance-toolkit-ui mosip/mosip-compliance-toolkit-ui --set mosip-compliance-toolkit-ui.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$mosip-compliance-toolkit-ui_HOST --version $CHART_VERSION
+helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set compliance-toolkit-ui.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$mosip-compliance-toolkit-ui_HOST --version $CHART_VERSION
 
 echo Installed compliance-toolkit and compliance-toolkit-ui
 
-echo "compliance-toolkit-ui portal URL: https://$mosip-compliance-toolkit-ui_HOST/mosip-compliance-toolkit-ui"
+echo "compliance-toolkit-ui portal URL: https://$compliance-toolkit-ui_HOST/compliance-toolkit-ui"
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
-echo Installed mosip-compliance-toolkit services
+echo Installed compliance-toolkit services
