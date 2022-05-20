@@ -119,7 +119,7 @@ The certificate uploaded by the device provider should be a CA signed certificat
     }
     ```
 * Insert the PMS certificate in the master.ca_cert_store table via query.
-    * Decrypt the Root certificate and note down the values.
+    * Decrypt the Root certificate and note down the values. <br>
       ![pms-certificate-decode.png](pms-certificate-decode.png)
     * Update the query based on above values and get cert_thumbprint from `keymanager` DB `key_alias` table.
       ```
