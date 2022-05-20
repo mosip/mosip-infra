@@ -268,4 +268,41 @@ Once the ROOT certificates are in Master DB and the Device Provider CA certifica
     ```
 
 ### Steps to build mock MDS
- We should now create a key store and use it in MOCK MDS for creating MDS Device Keys.
+* After uploading partner certificate. We will get a signedCertificateData respone from MOSIP. 
+  Save that signedCertificateData into a file with name "mosip-signed.crt"
+  ![mosip-singed.png](mosip-singed.png) 
+  ```
+    techno-384@techno384-Latitude-3410:~/Downloads/CA_CERT_UTILITY$ cat mosip-signed.crt 
+    -----BEGIN CERTIFICATE-----
+    MIIEjTCCA3WgAwIBAgIIsOv/bh2BhO0wDQYJKoZIhvcNAQELBQAwdjELMAkGA1UE
+    BhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM
+    BElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChQTVMpMRUwEwYDVQQD
+    DAx3d3cubW9zaXAuaW8wHhcNMjEwODMxMDg1OTI1WhcNMjIwODMxMDg1OTI1WjBT
+    MQswCQYDVQQGEwJJTjEMMAoGA1UECAwDS2FyMQwwCgYDVQQHDANCbHIxDDAKBgNV
+    BAoMA0RQMjEMMAoGA1UECwwDRFAyMQwwCgYDVQQDDANEUDIwggIiMA0GCSqGSIb3
+    DQEBAQUAA4ICDwAwggIKAoICAQDpsdHIR71zgWlJAvi00xrUF6r3/buNkKUqq8JR
+    eRMXW0ioxZYmbBPTFoAu4asMsLLuYTZFotZQaNalv5zRACgH3/XKmnPBZgAWGjly
+    lz6fZvpccT+JP2lygFxmTPQRJ48axW04Njb9wBMs0QZb6Dq+VO5acOr/KbSPh0vF
+    qKhMSTvTBSGXUGvyFmrRm9xq+5sdsAyBSOmwnQgmBNSidZCSVIrDfIyL2tExyjb7
+    QUUOUYIdlkgx30K67MLWMgX8MljJHosWAHjlAN8JK8Bh+ZYPrTkGN+DPuJHbn/By
+    mPZESHxRw7PbiXQSMwQxX7gvRseK1J2Bk/M48sMKLIl/q/hthl80kEJusjtl9wbK
+    9FgStnsA8PpD0hK+8XTjI50ZWD1HNOFtoe9yfmUFR5iPRUn3Fvci+UARUa+And0F
+    CNUO52KjWiMVxUY236AEwJ9faJ3if3q15k9Ee/a+I0yf+D/ACGs0IMeHaEzGtuv5
+    PQ1Xqis3xP1yO17VY07O/P1BUS5en8WO7rmTyUbGXwTfD0umSqvn8IK1VS0WZvpN
+    3/Sz1qVsqDB7jS+4fsO/PTYlcE+fSZiT30jsrGEU5yXefhRY7AVjOhpOD+qZdhXX
+    AV6+CZ+o+Qx6tt42r1bd3IaecnZXZ4SEINJk5TXhQ5cLEe7YkKMhQZ7h6pR6jrB6
+    N493bwIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQ8CDV9P9+w
+    B7a7Ufb7XnJWsdmz0zAOBgNVHQ8BAf8EBAMCAoQwDQYJKoZIhvcNAQELBQADggEB
+    AIwDgLITgjh+TcsUjtdoji1rNyxLEf9jc5znJGwg0D3PpNJeSnyz7lRA5j2WPtbK
+    iweKFXyaCz8JR/t6AVysLH3gSTmJ74SmpkkF0DHFfKm/gC+c+k7mpFmSAqMzkn62
+    M4mab2c5ls1S9UFNyaJyr64EhUZBFgyDYI4/Sc9sUXZqaCHKaKU6F0MzJe2ojvO4
+    hoLodrHoHWtN0QNWr9EfJwGbAg0W9LZNICIULi6kp8ZwZKnIby94y22S0qq8eVEs
+    4lTQQ/dVh26T8++HLvIM15637PPEm/eUjJANt3HwcTdtR3yGz0bJmxKGnhZ9NKsO
+    VUJQgSfneHIbEuJXq4ZScLs=
+    -----END CERTIFICATE-----
+  ```
+
+* In master DB ---> ca_cert_store table check whether Partner certificate uploaded automatically.
+  ![master-ca-cert-store.png](master-ca-cert-store.png)
+
+* We should now create a key store and use it in MOCK MDS for creating MDS Device Keys.
