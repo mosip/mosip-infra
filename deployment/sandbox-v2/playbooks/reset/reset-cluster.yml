@@ -47,15 +47,15 @@
           ignore_errors: True
 
         - name: Remove interfaces
-          command: 'ifconfig flannel.1 down' 
+          command: 'ifconfig flannel down' 
           ignore_errors: True
 
         - name: Remove interfaces
           command: 'ifconfig docker0 down' 
           ignore_errors: True
 
-        - name: Delete flannel.1 interface
-          command: ip link delete flannel.1
+        - name: Delete flannel interface
+          command: ip link delete flannel
           when: network == "flannel" or network == "canal"
           ignore_errors: True
     
