@@ -30,7 +30,7 @@ helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins.
 #kubectl -n $NS apply -f resident-ui-proxy.yaml
 
 echo Installing resident-ui
-helm -n $NS install resident-ui ~/IdeaProjects/new/mosip-helm/charts/resident-ui --set residentUi.apiHost=$API_HOST --set istio.hosts\[0\]=$resident_ui_HOST --version $CHART_VERSION
+helm -n $NS install resident-ui mosip/resident-ui --set residentUi.apiHost=$API_HOST --set istio.hosts\[0\]=$resident_ui_HOST --version $CHART_VERSION
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
