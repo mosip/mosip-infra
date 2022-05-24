@@ -60,7 +60,12 @@ The certificate uploaded by the device provider should be a CA signed certificat
 * Insert the ROOT certificate in the master.ca_cert_store table via insert query.
     * Decrypt the Root certificate and note down the values.
       ![root-certificate-decode.png](root-certificate-decode.png)
-    * Update the query based on above values and get cert_thumbprint from `keymanager` DB `key_alias` table.
+    * Get cert_thumbprint from `keymanager` DB `key_alias` table.
+      ```
+      SELECT id, app_id, cert_thumbprint, key_gen_dtimes, key_expire_dtimes,cr_by, cr_dtimes
+      FROM keymgr.key_alias where app_id='ROOT';
+      ```
+    * Update the below query based on above values.
       ```
       INSERT INTO master.ca_cert_store (cert_id,cert_subject,cert_issuer,issuer_id,cert_not_before,cert_not_after,crl_uri,cert_data,cert_thumbprint,cert_serial_no,partner_domain,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) VALUES
       ('3402d011-3755-4fe3-b389-d137d1071b79',
@@ -121,7 +126,12 @@ The certificate uploaded by the device provider should be a CA signed certificat
 * Insert the PMS certificate in the master.ca_cert_store table via query.
     * Decrypt the Root certificate and note down the values. <br>
       ![pms-certificate-decode.png](pms-certificate-decode.png)
-    * Update the query based on above values and get cert_thumbprint from `keymanager` DB `key_alias` table.
+    * Get cert_thumbprint from `keymanager` DB `key_alias` table.
+      ```
+      SELECT id, app_id, cert_thumbprint, key_gen_dtimes, key_expire_dtimes,cr_by, cr_dtimes
+      FROM keymgr.key_alias where app_id='PMS';
+      ```
+    * Update the below query based on above values.
       ```
       INSERT INTO master.ca_cert_store (cert_id,cert_subject,cert_issuer,issuer_id,cert_not_before,cert_not_after,crl_uri,cert_data,cert_thumbprint,cert_serial_no,partner_domain,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) VALUES
       ('c9dcbc9e-7577-4ae8-9f62-bc5e2c626cd5',
