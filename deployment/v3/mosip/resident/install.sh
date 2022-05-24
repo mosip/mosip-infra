@@ -20,7 +20,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-ui-host})
+RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip.resident-host})
 
 
 #echo Installing Resident
@@ -38,4 +38,4 @@ kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout statu
 
 echo Installed resident-ui
 
-echo "resident-ui portal URL: https://$RESIDENT_HOST/resident-ui"
+echo "resident-ui portal URL: https://$RESIDENT_HOST/"
