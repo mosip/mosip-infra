@@ -19,23 +19,26 @@ helm repo update
 echo Copy configmaps
 ./copy_cm.sh
 
+echo Copy secrets
+./copy_secrets.sh
+
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip.resident-host})
+RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
 
 
-#echo Installing Resident
-helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins.\[0\].prefix=$RESIDENT_HOST --version $CHART_VERSION
+echo Installing Resident
+helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=$RESIDENT_HOST --version $CHART_VERSION
 
-#echo Installing resident-ui-Proxy into Masterdata and Keymanager.
-#kubectl -n $NS apply -f resident-ui-proxy.yaml
+echo Installing Resident App
+helm -n $NS install resident-app mosip/resident-app --version $CHART_VERSION
 
-echo Installing resident-ui
+echo Installing Resident UI
 helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $CHART_VERSION
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
-#echo Installed resident services
-
-echo Installed resident-ui
+echo Installed Resident services
+echo Installed Resident App
+echo Installed Resident UI
 
 echo "resident-ui portal URL: https://$RESIDENT_HOST/"
