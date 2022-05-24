@@ -14,12 +14,12 @@ artifactory_url1: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox.mosip.net
+sandbox_domain_name: techno-associates.xyz
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
   sandbox_internal_url: 'https://{{internal_domain_name}}'  # Pointing to nginx which runs on console
-  sandbox_internal_tld: 'sb'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
+  sandbox_internal_tld: 'xyz'  # Top-level domain name.  This much match tld of all hosts in hosts.ini
   ingress_tld: 'ingress'  # Fixed. Don't change this!
   ssl:
     ca: 'letsencrypt'   # The ca to be used in this deployment
@@ -35,7 +35,7 @@ ssl:
       csr: '/etc/ssl/csr/nginx-selfsigned.csr'
     letsencrypt:
       get_certificate: true  # get a fresh certificate for the domain using Letsencrypt
-      email: info@mosip.io
+      email: sales@techno-associates.co.ug
       certificate: '/etc/letsencrypt/live/{{sandbox_domain_name}}/fullchain.pem'
       certificate_key: '/etc/letsencrypt/live/{{sandbox_domain_name}}/privkey.pem'
 
