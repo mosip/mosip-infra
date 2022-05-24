@@ -4,6 +4,15 @@
 ```
 ./install.sh
 ```
+
+## Admin proxy
+Admin service accesses other services like Materdata and Keymanager and currently there is only one URL that is used to connect to both these services. This will get fixed in future versions, but as a an interim solution, Admin Proxy docker has been created, which is basically an Nginx proxy connecting to the above services with these URLs: 
+```
+http://admin-proxy/v1/masterdata
+http://admin-proxy/v1/keymanager
+```
+The proxy is installed as part of `install.sh` script.
+
 ## Admin user
 1. In Keycloak, create a user in `mosip` realm called `globaladmin` and assign role `GLOBAL_ADMIN`.  Make sure this user has strong credentials. 
 2. Use this user to login into Admin portal via Keycloak. (Note that this user is already on-boarded as default user while uploading masterdata XLS in Kernel module)

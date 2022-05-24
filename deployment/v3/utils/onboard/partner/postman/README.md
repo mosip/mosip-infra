@@ -1,8 +1,7 @@
-# Running Postman Collections
+# Parnter Onboarding 
 
 ## Overview
-All the postman collections available, are automated meaning they can be run with one-click. They can also be run sequentially manually.
-To know more about postman and its usage, you can click [here](https://www.postman.com/)
+The folder here contains [Postman](https://www.postman.com/) collection for onboarding a partner. The collection may be run using Postman app, browser plugin or with command line utility `newman`.
 
 ## Using the collection
 * To use the collection the user needs to have latest postman application installed on local system.

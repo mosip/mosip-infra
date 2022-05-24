@@ -71,6 +71,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'CREDENTIAL_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'ONLINE_VERIFICATION_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'ABIS_PARTNER'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'SDK_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'MISP_PARTNER'}
 # client_id & roles mapping
   - {realm_id: 'mosip', client_id: '', role_name: 'PUBLISH_MISP_LICENSE_UPDATED_GENERAL'}
@@ -465,7 +466,6 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'pm_testuser', role_name: 'PARTNERMANAGER'}
 
     # For service account mappings client name must be prefixed with service-account-
-  - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'INDIVIDUAL'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PRE_REGISTRATION_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'PREREG'}
   - {realm_id: 'mosip', username: 'service-account-mosip-prereg-client', role_name: 'REGISTRATION_PROCESSOR'}
@@ -603,5 +603,4 @@ keycloak_mosip_create_mappers:
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "organizationName", mapper_user_attribute: 'organizationName', token_claim_name: 'organizationName'}
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "partnerType", mapper_user_attribute: 'partnerType', token_claim_name: 'partnerType'}
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "addressTest", mapper_user_attribute: 'address', token_claim_name: 'addressTest'}
-
-  - {realm_id: 'mosip', client_id: 'mosip-partner-client', mapper_name: "langCode", mapper_user_attribute: 'langCode', token_claim_name: 'langCode'}
+  - {realm_id: 'mosip', client_id: 'mosip-pms-client', mapper_name: "langCode", mapper_user_attribute: 'langCode', token_claim_name: 'langCode'}

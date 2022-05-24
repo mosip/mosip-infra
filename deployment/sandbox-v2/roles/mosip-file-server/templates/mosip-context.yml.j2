@@ -2,45 +2,44 @@
   "@context": [{
        "@version": 1.1
     },"https://www.w3.org/ns/odrl.jsonld", {
-    "mosip": "{{site.sandbox_public_url}}/.well-known#",
+    "mosip": "{{site.sandbox_public_url}}/mosip#",
     "schema": "http://schema.org/",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "vcVer": "mosip:vcVer",
     "UIN": "mosip:UIN",
     "addressLine1": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine1",
+        "@id": "{{site.sandbox_public_url}}/mosip#addressLine1",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "addressLine2": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine2",
+        "@id": "{{site.sandbox_public_url}}/mosip#addressLine2",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "addressLine3": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#addressLine3",
+        "@id": "{{site.sandbox_public_url}}/mosip#addressLine3",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "city": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#city",
+        "@id": "{{site.sandbox_public_url}}/mosip#city",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "dateOfBirth": "mosip:dateOfBirth",
     "email": "mosip:email",
     "fullName": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#fullName",
+        "@id": "{{site.sandbox_public_url}}/mosip#fullName",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "gender": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#gender",
+        "@id": "{{site.sandbox_public_url}}/mosip#gender",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "phone": "mosip:phone",
-    "postalCode": "mosip:postalCode",
-    "province": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#province",
-        "@context": {"value": "rdf:value", "lang": "@language"}
+     "postalCode": {
+          "@id": "{{site.sandbox_public_url}}/mosip#postalCode",
+          "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "region": {
-        "@id": "{{site.sandbox_public_url}}/.well-known#region",
+        "@id": "{{site.sandbox_public_url}}/mosip#region",
         "@context": {"value": "rdf:value", "lang": "@language"}
     },
     "biometrics": "mosip:biometrics"
