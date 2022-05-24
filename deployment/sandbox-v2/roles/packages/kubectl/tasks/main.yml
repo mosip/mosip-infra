@@ -1,7 +1,7 @@
-- name: Install kubectl v1.21.1
+- name: Install kubectl v1.23.6
   command: | 
     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    curl -LO https://dl.k8s.io/release/v1.21.1/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v1.23.6/bin/linux/amd64/kubectl
 #   become: yes
 
 # - name: Install kubectl
