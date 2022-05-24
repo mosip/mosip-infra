@@ -1,11 +1,11 @@
-- name: Install kubectl v1.21.1
-  command: | 
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    curl -LO https://dl.k8s.io/release/v1.21.1/bin/linux/amd64/kubectl
-#   become: yes
+- name: Install kubectl config
+  copy:  
+    src: kubectl_config
+    dest: /etc/yum.repos.d/kubernetes.repo
+  become: yes
 
-# - name: Install kubectl
-#   yum:
-#     name: kubectl
-#     state: present
-#   become: yes
+- name: Install kubectl
+  yum:
+    name: kubectl
+    state: present
+  become: yes
