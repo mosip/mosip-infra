@@ -6,6 +6,7 @@ while true; do
     if [ $yn = "Y" ]
       then
         helm -n $NS delete resident
+        helm -n $NS delete resident-app
         helm -n $NS delete resident-ui
 #        kubectl delete -n $NS -f resident-ui
         break
