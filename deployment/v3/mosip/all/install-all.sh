@@ -33,7 +33,6 @@ declare -a module=(
                    "mosip-file-server"
                    "resident"
                    "partner-onboarder"
-                   "resident-app"
                    "regclient"
                    )
 
