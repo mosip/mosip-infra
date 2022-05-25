@@ -96,6 +96,8 @@
 	2. For an Auth partner, the ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `AUTH` domain.
 	3. For an device partner, the ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `DEVICE` domain.
 	4. For an FTM partner, the CA and Sub-CA certificates of that FTM certificate needs to be uploaded into IDA against `FTM` domain.
+	
+	And then IDA services needs to be restarted since the certificates are cached which needs to be updated with latest certificates.
 
 # Troubleshooting
 
