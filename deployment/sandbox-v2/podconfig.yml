@@ -821,7 +821,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      resources:
+      #resources:
         #requests:
           #cpu: 300m
           #memory: 700Mi
@@ -835,7 +835,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      resources:
+      #resources:
         #requests:
           #cpu: 300m
           #memory: 700Mi
