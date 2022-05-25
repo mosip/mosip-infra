@@ -836,12 +836,13 @@ podconfig:
       maxUnavailable: 0
       minReadySeconds: 10
       resources:
-      #requests:
-      #cpu: 300m
-      #memory: 700Mi
-      #limits:
-      #cpu: 300m
-      #memory: 700Mi
+        #requests:
+          #cpu: 300m
+          #memory: 700Mi
+        #limits:
+          #cpu: 300m
+          #memory: 700Mi
+
   mockmv:
     service:
       replicas: 1
