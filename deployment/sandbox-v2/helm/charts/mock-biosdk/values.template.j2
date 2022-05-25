@@ -7,7 +7,7 @@ services:
   containerPort: 9099
   healthUrl: /biosdk-service/actuator/health
   podconfig:
-    {{ podconfig.biosdk.service | to_nice_yaml(indent=6) | indent(6) }}
+    {{ podconfig.biosdk.service | to_nice_yaml(indent=6) | indent(4) }}
 
 probe:
   period: 10 # Seconds
