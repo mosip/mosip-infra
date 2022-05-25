@@ -12,16 +12,16 @@ The certificate uploaded by the device provider should be a CA signed certificat
     Request Body:
     ```JSON
     {
-	  "id": "string",
-	  "metadata": {},
-	  "request": {
-	    "appId": "ida",
-	    "clientId": "mosip-ida-client",
-	    "secretKey": "<secret>"
-	  },
-	  "requesttime": "2018-12-10T06:12:52.994Z",
-	  "version": "string"
-	}
+      "id": "string",
+      "metadata": {},
+      "request": {
+        "appId": "ida",
+        "clientId": "mosip-ida-client",
+        "secretKey": "<secret>"
+      },
+      "requesttime": "2018-12-10T06:12:52.994Z",
+      "version": "string"
+    }
     ```
     Response:
     ```JSON
@@ -57,7 +57,49 @@ The certificate uploaded by the device provider should be a CA signed certificat
         "errors": null
     }
     ```
-* Insert the certificate in the master.ca_cert_store table
+* Insert the ROOT certificate in the master.ca_cert_store table via insert query.
+    * Decrypt the Root certificate and note down the values.
+      ![root-certificate-decode.png](root-certificate-decode.png)
+    * Get cert_thumbprint from `keymanager` DB `key_alias` table.
+      ```
+      SELECT id, app_id, cert_thumbprint, key_gen_dtimes, key_expire_dtimes,cr_by, cr_dtimes
+      FROM keymgr.key_alias where app_id='ROOT';
+      ```
+    * Update the below query based on above values.
+      ```
+      INSERT INTO master.ca_cert_store (cert_id,cert_subject,cert_issuer,issuer_id,cert_not_before,cert_not_after,crl_uri,cert_data,cert_thumbprint,cert_serial_no,partner_domain,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) VALUES
+      ('3402d011-3755-4fe3-b389-d137d1071b79',
+       'CN=www.mosip.io,OU=MOSIP-TECH-CENTER,O=IITB,L=BANGALORE,ST=KA,C=IN',
+       'CN=www.mosip.io,OU=MOSIP-TECH-CENTER,O=IITB,L=BANGALORE,ST=KA,C=IN',
+       '3402d011-3755-4fe3-b389-d137d1071b79',
+       '2021-05-12 11:25:00.000','2024-05-06 11:25:00.000',NULL,
+       '-----BEGIN CERTIFICATE-----
+        MIIDlDCCAnygAwIBAgIIRruz8cS+fb0wDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE
+        BhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM
+        BElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu
+        bW9zaXAuaW8wHhcNMjEwMzEwMTAzNjAwWhcNMjYwMzEwMTAzNjAwWjBwMQswCQYD
+        VQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE
+        CgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3
+        dy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALpZzgZy
+        LpNL4zvUEq3sO+ZRHthhIu3YedUP65aXPWToXgQGTW4xE4hxpShf/oYFlzK5DAkt
+        pSt3ESxa2VYbKULs70hzyD0dvGsvhF4j53UP9neRjvcbPke1Gi7IDM9bU9fHcLnW
+        AfGdr7AmuhksKiSva3QEviGHG1t92QnlBasyRuk96fRt5HcQe40swYcgd8ODqU37
+        LFLI1QGfbLYxDsnYQ1y/YLsrve70EF/HGoAjPrA1cYBsW/jGnmLZCU3BOV/4wSMO
+        dFJoHgdKnl96R187e8Yg19iZ4sDaWqoC91oLkTBtRqeTWI1gjiJAC0R5bcAl8RIU
+        xYwVhM/rLrO3nl0CAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU
+        u5hT8wY+nVvfUe9t7LKHxGozqt4wDQYJKoZIhvcNAQELBQADggEBABrRVgNRybd9
+        S1YQbEGY8+xa58tldM08m1sorhFhtvv95pvMTEKgeoxAr0BFSewZCaVnqzSewmcA
+        yMRGeTACEeNJZSTKKTif2y6PsieXuJC6R0rSUI5/8qDBByrfxP2e1rMQh1olJtUW
+        Nk8oQOu82+k9vOZn3ZvqS0yPxgi5x3A23yBpgUX4OqK5j69h8AmIt3EtXGJK76ie
+        /bWfiqjdEdp2cJfnInHuZRvRY3DcajtJ3kCqfcX0OCmZMHvYqnaUOVy9PNfszQYh
+        XxBKKdg0wuDVSFe1k/lYQ+ScG9qKyk+61wDBC4P/R97+trN9b7+imsQImjkLxrOl
+        DvInt/Ne62s=-----END CERTIFICATE-----',
+        '25f8194c4725d5e93dba6535db82b7adb4e55804',
+        '5096865254269156797',
+        'DEVICE','SYSTEM',now(),NULL,NULL,false,NULL);
+      ```
+    * Run the updated query on `master` DB
+
 
 ### Steps to add the MOSIP PMS ROOT certificate
 
@@ -81,9 +123,54 @@ The certificate uploaded by the device provider should be a CA signed certificat
         "errors": null
     }
     ```
-* Insert the certificate in the master.ca_cert_store table
+* Insert the PMS certificate in the master.ca_cert_store table via query.
+    * Decrypt the Root certificate and note down the values. <br>
+      ![pms-certificate-decode.png](pms-certificate-decode.png)
+    * Get cert_thumbprint from `keymanager` DB `key_alias` table.
+      ```
+      SELECT id, app_id, cert_thumbprint, key_gen_dtimes, key_expire_dtimes,cr_by, cr_dtimes
+      FROM keymgr.key_alias where app_id='PMS';
+      ```
+    * Update the below query based on above values.
+      ```
+      INSERT INTO master.ca_cert_store (cert_id,cert_subject,cert_issuer,issuer_id,cert_not_before,cert_not_after,crl_uri,cert_data,cert_thumbprint,cert_serial_no,partner_domain,cr_by,cr_dtimes,upd_by,upd_dtimes,is_deleted,del_dtimes) VALUES
+      ('c9dcbc9e-7577-4ae8-9f62-bc5e2c626cd5',
+       'CN=www.mosip.io,OU=MOSIP-TECH-CENTER(PMS),O=IITB,L=BANGALORE,ST=KA,C=IN',
+       'CN=www.mosip.io,OU=MOSIP-TECH-CENTER,O=IITB,L=BANGALORE,ST=KA,C=IN',
+       '3402d011-3755-4fe3-b389-d137d1071b79',
+       '2020-11-20 11:25:00.000','2023-11-20 11:25:00.000',NULL,
+       '-----BEGIN CERTIFICATE-----
+        MIIDmjCCAoKgAwIBAgIIpScE1GBNZwUwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE
+        BhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM
+        BElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu
+        bW9zaXAuaW8wHhcNMjEwNTA2MTQwOTQwWhcNMjQwNTA1MTQwOTQwWjB2MQswCQYD
+        VQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE
+        CgwESUlUQjEgMB4GA1UECwwXTU9TSVAtVEVDSC1DRU5URVIgKFBNUykxFTATBgNV
+        BAMMDHd3dy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+        AL5mAhnVD24iGShd5LtupPC/UdaUGygh34gT3cBVxTDMaw+2TmHZmkg6PfrSwR7R
+        2+CBhv6G3QrE3MxmG690SRSh21vtVW92P/ylvu0RQVpItoU85tIImu/QCq1WRrSJ
+        4MFXFGhqjSqKjStY/gC27whn6YJ1dOGnhC+hlFc4hJNTO9aGXJnzNRLe5ocK7ZzB
+        XDV/OI++fkKNY6XE4lfhKciRLAR2N5jb4iyj/+l8AgS2TkL9lEvHqXJF18ZjMv/V
+        02k5AWFktqOvPXZnezdx+7tw80LsAN3/VgprusZ9z7TRMyUjRNazpesd2z1cZfLX
+        wLFBrL909/XKvfSftsS5TIsCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
+        HQ4EFgQUa60OEIGpS1WmzkSn5QQpf5F9U5gwDQYJKoZIhvcNAQELBQADggEBAEw3
+        7jGL15kp8JiLJ1bANyhUMCvU8vmvwPbrdFIbQHuJnD+h1OWKqunPPe4RFDHrO/5W
+        zMYeVIuo0Bc6ZOd3N3SQH8x8x6zzzYFCuwzref1y8esnF4o4t0/+R4IvNEROgMRs
+        13Ccc16h1DoAkdvqyeOv1Z2nlt7byAX2K0yohmN2ek3kFWAGHNWsammQbynkKsAS
+        qIjoIO/zKaugIrGR3IuhJ/bmxKAMuSHUIAio3+M1krnwae06chKHC2pI1+2ApjUA
+        c5VPY455NX06LN6u0uRuQ7HHCHCECJu931E0Z9wkIzq4zmARC6D7Gy0UjHYePgOx
+        W0XO7P9lROIGxbBVne4=
+        -----END CERTIFICATE-----',
+       '651D0A6BB0B25CB81EA50A8CD5D1AFFA6E0B2E942A714AC35FA49D068403A7C8',
+       '-6546258223164463355',
+       'DEVICE','SYSTEM',now(),NULL,NULL,false,NULL);
+      ```
+    * Run the updated query on `master` DB
 
-### Steps to add a CA in MOSIP
+* View ROOT & PMS certificates on master DB ca_cert_store table.
+  ![inserted-root-pms.png](inserted-root-pms.png)
+
+### Steps to add a Device Provider CA in MOSIP
 
 * Get a authentication token
     Request URL: `POST https://qa.mosip.net/v1/authmanager/authenticate/clientidsecretkey`
@@ -191,4 +278,41 @@ Once the ROOT certificates are in Master DB and the Device Provider CA certifica
     ```
 
 ### Steps to build mock MDS
- We should now create a key store and use it in MOCK MDS for creating MDS Device Keys.
+* After uploading partner certificate. We will get a signedCertificateData respone from MOSIP. 
+  Save that signedCertificateData into a file with name "mosip-signed.crt"
+  ![mosip-singed.png](mosip-singed.png) 
+  ```
+    techno-384@techno384-Latitude-3410:~/Downloads/CA_CERT_UTILITY$ cat mosip-signed.crt 
+    -----BEGIN CERTIFICATE-----
+    MIIEjTCCA3WgAwIBAgIIsOv/bh2BhO0wDQYJKoZIhvcNAQELBQAwdjELMAkGA1UE
+    BhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM
+    BElJVEIxIDAeBgNVBAsMF01PU0lQLVRFQ0gtQ0VOVEVSIChQTVMpMRUwEwYDVQQD
+    DAx3d3cubW9zaXAuaW8wHhcNMjEwODMxMDg1OTI1WhcNMjIwODMxMDg1OTI1WjBT
+    MQswCQYDVQQGEwJJTjEMMAoGA1UECAwDS2FyMQwwCgYDVQQHDANCbHIxDDAKBgNV
+    BAoMA0RQMjEMMAoGA1UECwwDRFAyMQwwCgYDVQQDDANEUDIwggIiMA0GCSqGSIb3
+    DQEBAQUAA4ICDwAwggIKAoICAQDpsdHIR71zgWlJAvi00xrUF6r3/buNkKUqq8JR
+    eRMXW0ioxZYmbBPTFoAu4asMsLLuYTZFotZQaNalv5zRACgH3/XKmnPBZgAWGjly
+    lz6fZvpccT+JP2lygFxmTPQRJ48axW04Njb9wBMs0QZb6Dq+VO5acOr/KbSPh0vF
+    qKhMSTvTBSGXUGvyFmrRm9xq+5sdsAyBSOmwnQgmBNSidZCSVIrDfIyL2tExyjb7
+    QUUOUYIdlkgx30K67MLWMgX8MljJHosWAHjlAN8JK8Bh+ZYPrTkGN+DPuJHbn/By
+    mPZESHxRw7PbiXQSMwQxX7gvRseK1J2Bk/M48sMKLIl/q/hthl80kEJusjtl9wbK
+    9FgStnsA8PpD0hK+8XTjI50ZWD1HNOFtoe9yfmUFR5iPRUn3Fvci+UARUa+And0F
+    CNUO52KjWiMVxUY236AEwJ9faJ3if3q15k9Ee/a+I0yf+D/ACGs0IMeHaEzGtuv5
+    PQ1Xqis3xP1yO17VY07O/P1BUS5en8WO7rmTyUbGXwTfD0umSqvn8IK1VS0WZvpN
+    3/Sz1qVsqDB7jS+4fsO/PTYlcE+fSZiT30jsrGEU5yXefhRY7AVjOhpOD+qZdhXX
+    AV6+CZ+o+Qx6tt42r1bd3IaecnZXZ4SEINJk5TXhQ5cLEe7YkKMhQZ7h6pR6jrB6
+    N493bwIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBQ8CDV9P9+w
+    B7a7Ufb7XnJWsdmz0zAOBgNVHQ8BAf8EBAMCAoQwDQYJKoZIhvcNAQELBQADggEB
+    AIwDgLITgjh+TcsUjtdoji1rNyxLEf9jc5znJGwg0D3PpNJeSnyz7lRA5j2WPtbK
+    iweKFXyaCz8JR/t6AVysLH3gSTmJ74SmpkkF0DHFfKm/gC+c+k7mpFmSAqMzkn62
+    M4mab2c5ls1S9UFNyaJyr64EhUZBFgyDYI4/Sc9sUXZqaCHKaKU6F0MzJe2ojvO4
+    hoLodrHoHWtN0QNWr9EfJwGbAg0W9LZNICIULi6kp8ZwZKnIby94y22S0qq8eVEs
+    4lTQQ/dVh26T8++HLvIM15637PPEm/eUjJANt3HwcTdtR3yGz0bJmxKGnhZ9NKsO
+    VUJQgSfneHIbEuJXq4ZScLs=
+    -----END CERTIFICATE-----
+  ```
+
+* In master DB ---> ca_cert_store table check whether Partner certificate uploaded automatically.
+  ![master-ca-cert-store.png](master-ca-cert-store.png)
+
+* We should now create a key store and use it in MOCK MDS for creating MDS Device Keys.
