@@ -94,8 +94,8 @@
 	For example,
 	1. For an online_verification_partner such as `mpartner-default-auth`, ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `AUTH` domain.
 	2. For an Auth partner, the ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `AUTH` domain.
-	3. For an device partner, the ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `DEVICE` domain.
-	4. For an FTM partner, the CA and Sub-CA certificates of that FTM certificate needs to be uploaded into IDA against `FTM` domain.
+	3. For an device partner, the ROOT and PMS certificates of Keymanager Service and the Signed Device Partner certificate needs to be uploaded into IDA against `DEVICE` domain.
+	4. For an FTM partner, the CA and Sub-CA certificates of that FTM certificate and the Signed FTM Partner certificate needs to be uploaded into IDA against `FTM` domain.
 	
 	And then IDA services needs to be restarted since the certificates are cached which needs to be updated with latest certificates.
 
