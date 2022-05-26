@@ -92,12 +92,30 @@
 	
 	**Note:** The CA and Sub-CA certificates of any partner needs to be uploaded to IDA manually. Upload the certificate in the below SWAGGER URL against the respective domain:- ```https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST``` partnercertmanager  --> /uploadCACertificate
 	For example,
-	1. For an online_verification_partner such as `mpartner-default-auth`, ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `AUTH` domain.
-	2. For an Auth partner, the ROOT and PMS certificates of Keymanager Service needs to be uploaded into IDA against `AUTH` domain.
-	3. For an device partner, the ROOT and PMS certificates of Keymanager Service and the Signed Device Partner certificate needs to be uploaded into IDA against `DEVICE` domain.
-	4. For an FTM partner, the CA and Sub-CA certificates of that FTM certificate and the Signed FTM Partner certificate needs to be uploaded into IDA against `FTM` domain.
+	1. For an online_verification_partner such as `mpartner-default-auth`, below certificates needs to be uploaded into IDA against `AUTH` domain.
+	```
+		i. ROOT certificates of Keymanager Service, and
+		ii. PMS certificates of Keymanager Service
+	```
+	2. For an AUTH partner below certificates needs to be uploaded into IDA against `AUTH` domain:
+	```
+		i. ROOT certificates of Keymanager Service, and
+		ii. PMS certificates of Keymanager Service
+	```
+	3. For an DEVICE partner below certificates needs to be uploaded into IDA against `DEVICE` domain:
+	```
+		i. ROOT certificates of Keymanager Service
+		ii. PMS certificates of Keymanager Service, and
+		iii. the Signed DEVICE Partner certificate.
+	```
+	4. For an FTM partner below certificates needs to be uploaded into IDA against `FTM` domain:
+	```
+		i. the CA Certifcate of FTM partner certificate
+		ii. the Sub-CA certificates of that FTM partner certificate, and
+		iii. the Signed FTM Partner certificate.
+	```
 	
-	And then IDA services needs to be restarted since the certificates are cached which needs to be updated with latest certificates.
+	And then IDA services needs to be restarted since the certificates are cached so that it can be be cleared and updated with latest certificates.
 
 # Troubleshooting
 
