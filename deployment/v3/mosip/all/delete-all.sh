@@ -13,7 +13,6 @@ declare -a module=(
                    "docker-secrets"
                    "regproc"
                    "resident"
-                   "resident-app"
                    "prereg"
                    "admin"
                    "idrepo"
