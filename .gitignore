@@ -31,3 +31,4 @@ test.txt
 .vscode
 __pycache__
 /venv/
+deployment/v3/mosip/regclient/certs/
