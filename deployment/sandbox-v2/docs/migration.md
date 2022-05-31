@@ -1,4 +1,4 @@
-# Sandbox Migration to 1.1.5.4 Guide
+# Sandbox Migration to 1.1.5.5 Guide
 
 ## Introduction
 Below are the steps which are needed to be followed for migrating to the required version 1.1.5
@@ -7,6 +7,7 @@ Below are the steps which are needed to be followed for migrating to the require
 	- Update the open source Infra repo 1.1.5.4 branch into the required existing version branch of forked repo.
 	- update/crosscheck the secrets.yml in the current branch and resolve all the conflicts.
 	- UPDATE ```config_repo``` section all.yml with details pointing to the latest existing branch.
+	- Use syncdata service 1.1.5.3 version when after migration so that existing reg-client with 1.1.4.x version and 1.1.5.x version both can be synced a the same time.
         - Update the postgres upgrade section in all.yml as required.
           ```
             upgrade:
@@ -16,7 +17,7 @@ Below are the steps which are needed to be followed for migrating to the require
           ```
 
 * Config Changes
-	- Rebase the 1.1.5.3 open source config into the current required existing branch.
+	- Rebase the 1.1.5.4 open source config into the current required existing branch.
 	- update the ciphered text for password changes if any.
 
 * DB Release Changes
@@ -56,5 +57,3 @@ In id-repository, for encryption of demographic data, uin, biometric data and do
 * mosip.idrepo.crypto.refId.bio-doc-data=biometric_data (for biometrics)
 
 Hence, to proceed ahead, we can build a utility to migrate the data or mark the configurations as "" (blank).
-
-
