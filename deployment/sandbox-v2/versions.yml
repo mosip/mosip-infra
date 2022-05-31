@@ -12,7 +12,7 @@ versions:
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.5'
       sync:
-        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.3'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.2'
       audit :
         'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.6'
       key:
@@ -47,53 +47,53 @@ versions:
 
     regproc:
       camel:
-        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.5'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.6'
       notification:
-        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.5.5'
+        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.5.6'
       uploader:
-        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.5.5'
+        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.5.6'
       quality:
-        'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.1.5.5'
+        'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.1.5.6'
       validator:
-        'regproc-packet-validator-stage': 'mosipid/registration-processor-packet-validator-stage:1.1.5.5'
+        'regproc-packet-validator-stage': 'mosipid/registration-processor-packet-validator-stage:1.1.5.6'
       osi:
-        'regproc-osi-validator-stage': 'mosipid/registration-processor-osi-validator-stage:1.1.5.5'
+        'regproc-osi-validator-stage': 'mosipid/registration-processor-osi-validator-stage:1.1.5.6'
       demo:
-        'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.1.5.5'
+        'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.1.5.6'
       bio:
-        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.5.5'
+        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.5.6'
       bioauth:
-        'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.1.5.5'
+        'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.1.5.6'
       abishandler:
-        'regproc-abis-handler-stage': 'mosipid/registration-processor-abis-handler-stage:1.1.5.5'
+        'regproc-abis-handler-stage': 'mosipid/registration-processor-abis-handler-stage:1.1.5.6'
       abismid:
-        'regproc-abis-middleware-stage': 'mosipid/registration-processor-abis-middleware-stage:1.1.5.5'
+        'regproc-abis-middleware-stage': 'mosipid/registration-processor-abis-middleware-stage:1.1.5.6'
       manual:
-        'regproc-manual-verification-stage': 'mosipid/registration-processor-manual-verification-stage:1.1.5.5'
+        'regproc-manual-verification-stage': 'mosipid/registration-processor-manual-verification-stage:1.1.5.6'
       external:
-        'regproc-external-stage': 'mosipid/registration-processor-external-stage:1.1.5.5'
+        'regproc-external-stage': 'mosipid/registration-processor-external-stage:1.1.5.6'
       eis:
-        'regproc-external-integration-service': 'mosipid/registration-processor-external-integration-service:1.1.5.5'
+        'regproc-external-integration-service': 'mosipid/registration-processor-external-integration-service:1.1.5.6'
       uin:
-        'regproc-uin-generator-stage': 'mosipid/registration-processor-uin-generator-stage:1.1.5.5'
+        'regproc-uin-generator-stage': 'mosipid/registration-processor-uin-generator-stage:1.1.5.6'
       msg:
-        'regproc-message-sender-stage': 'mosipid/registration-processor-message-sender-stage:1.1.5.5'
+        'regproc-message-sender-stage': 'mosipid/registration-processor-message-sender-stage:1.1.5.6'
       print:
-        'regproc-printing-stage': 'mosipid/registration-processor-printing-stage:1.1.5.5'
+        'regproc-printing-stage': 'mosipid/registration-processor-printing-stage:1.1.5.6'
       trans:
-        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.1.5.5'
+        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.1.5.6'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.5.5'
+        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.5.6'
 
     dmzregproc:
       receiver:
-        'regproc-packet-receiver-stage': 'mosipid/registration-processor-packet-receiver-stage:1.1.5.5'
+        'regproc-packet-receiver-stage': 'mosipid/registration-processor-packet-receiver-stage:1.1.5.6'
       camel:
-        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.5'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.6'
       status:
-        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.1.5.5'
+        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.1.5.6'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.1.5.5'
+        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.1.5.6'
 
     ida:
       auth:
@@ -161,7 +161,7 @@ versions:
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipqa/biosdk-server:develop'
+        'mock-biosdk-service': 'mosipid/biosdk-server:1.1.5.5'
 
     artifactory:
       service:
