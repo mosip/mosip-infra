@@ -1,29 +1,32 @@
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: sample-httpbin-authn-policy
-  namespace: istio-system
-spec:
-  selector:
-    matchLabels:
-      istio: ingressgateway-internal
-  action: CUSTOM
-  provider:
-    name: oauth2-proxy
-  rules:
-  - to:
-    - operation:
-        hosts: ["h__mosip-api-internal-host__h"]
-        paths: ["/httpbin*"]
----
-# # The following AuthorizationPolicy is not supported by istio yet.
+# # The following AuthorizationPolicys are not supported by istio yet.
 # # Hence an envoyfilter is written manually
-# # In future once support is added replace the subsequent envoyfilter with this authorizationPolicy (or similar one).
+# # In future once support is added replace the subsequent envoyfilter with this authorizationPolicys (or similar ones).
+# apiVersion: security.istio.io/v1beta1
+# kind: AuthorizationPolicy
+# metadata:
+#   name: sample-ext-custom-authn-policy
+#   namespace: istio-system
+# spec:
+#   selector:
+#     matchLabels:
+#       istio: ingressgateway-internal
+#   action: CUSTOM
+#   provider:
+#     name: oauth2-proxy
+#   rules:
+#   - to:
+#     - operation:
+#         hosts: ["h__mosip-api-internal-host__h"]
+#         paths: ["/httpbin*"]
+#     - operation:
+#         hosts: ["h__mosip-api-internal-host__h"]
+#         paths: [ "*swagger*" ]
+# ---
 #
 # apiVersion: security.istio.io/v1beta1
 # kind: AuthorizationPolicy
 # metadata:
-#   name: sample-httpbin-authz-policy
+#   name: sample-ext-custom-authz-policy
 #   namespace: istio-system
 # spec:
 #   selector:
@@ -38,11 +41,11 @@ spec:
 #     when:
 #     - key: request.headers[x-auth-request-groups]
 #       notValues: ["*role:httpbin_access*"]
----
+# ---
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
-  name: sample-httpbin-authz-filter
+  name: sample-ext-custom-authz-filter
   namespace: istio-system
 spec:
   workloadSelector:
@@ -57,9 +60,182 @@ spec:
         filterChain:
           filter:
             name: "envoy.filters.network.http_connection_manager"
+            subFilter:
+              name: "envoy.filters.http.router"
     patch:
-      operation: ADD
-      filterClass: AUTHZ
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.rbac
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.rbac.v3.RBAC
+          shadow_rules:
+            action: DENY
+            policies:
+              "istio-ext-authz-ns[istio-system]-policy[sample-ext-custom-authn-policy]-rule[0]":
+                permissions:
+                - and_rules:
+                    rules:
+                    - header:
+                        name: ":authority"
+                        string_match:
+                          exact: h__mosip-api-internal-host__h
+                          ignore_case: true
+                    - url_path:
+                        path:
+                          prefix: "/httpbin"
+                - and_rules:
+                    rules:
+                    - header:
+                        name: ":authority"
+                        string_match:
+                          exact: h__mosip-api-internal-host__h
+                          ignore_case: true
+                    - url_path:
+                        path:
+                          contains: "swagger"
+                - header:
+                    name: ":authority"
+                    string_match:
+                      exact: h__mosip-kibana-host__h
+                      ignore_case: true
+                - header:
+                    name: ":authority"
+                    string_match:
+                      exact: h__mosip-kafka-host__h
+                      ignore_case: true
+                principals:
+                - any: true
+          shadow_rules_stat_prefix: istio_ext_authz_
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        portNumber: 8080
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+            subFilter:
+              name: "envoy.filters.http.router"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.ext_authz
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.ext_authz.v3.ExtAuthz
+          http_service:
+            server_uri:
+              uri: "http://oauth2-proxy.oauth2-proxy.svc.cluster.local"
+              cluster: "outbound|80||oauth2-proxy.oauth2-proxy.svc.cluster.local"
+              timeout: "600s"
+            authorization_request:
+              allowed_headers:
+                patterns:
+                - exact: authorization
+                  ignore_case: true
+                - exact: cookie
+                  ignore_case: true
+              headers_to_add:
+              - key: X-Auth-Request-Redirect
+                value: "https://%REQ(:authority)%%REQ(:path)%"
+            authorization_response:
+              allowed_upstream_headers:
+                patterns:
+                - exact: authorization
+                  ignore_case: true
+                - exact: path
+                  ignore_case: true
+                - exact: x-auth-access-token
+                  ignore_case: true
+                - exact: x-auth-request-user
+                  ignore_case: true
+                - exact: x-auth-request-email
+                  ignore_case: true
+                - exact: x-auth-request-preferred-username
+                  ignore_case: true
+                - exact: x-auth-request-groups
+                  ignore_case: true
+              allowed_client_headers:
+                patterns:
+                - exact: content-type
+                  ignore_case: true
+                - exact: set-cookie
+                  ignore_case: true
+          transport_api_version: V3
+          filter_enabled_metadata:
+            filter: envoy.filters.http.rbac
+            path:
+            - key: istio_ext_authz_shadow_effective_policy_id
+            value:
+              string_match:
+                prefix: istio-ext-authz
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        portNumber: 8080
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+            subFilter:
+              name: "envoy.filters.http.router"
+    patch:
+      operation: INSERT_BEFORE
+      value:
+        name: envoy.filters.http.jwt_authn
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
+          providers:
+            oauth2-istio-0:
+              issuer: "https://h__mosip-iam-external-host__h/auth/realms/istio"
+              audiences:
+              - istio-auth-client
+              local_jwks:
+                inline_string: 'rjwks__https://h__mosip-iam-external-host__h/auth/realms/istio/protocol/openid-connect/certs__rjwks'
+              payload_in_metadata: istio_jwt_payload
+              forward: true
+          rules:
+          - match:
+              headers:
+              - name: ":authority"
+                exact_match: h__mosip-api-internal-host__h
+              prefix: "/httpbin"
+            requires:
+              provider_name: oauth2-istio-0
+          - match:
+              headers:
+              - name: ":authority"
+                exact_match: h__mosip-api-internal-host__h
+              - name: ":path"
+                contains_match: "swagger"
+              prefix: "/"
+            requires:
+              provider_name: oauth2-istio-0
+          - match:
+              headers:
+              - name: ":authority"
+                exact_match: h__mosip-kibana-host__h
+              prefix: "/"
+            requires:
+              provider_name: oauth2-istio-0
+          - match:
+              headers:
+              - name: ":authority"
+                exact_match: h__mosip-kafka-host__h
+              prefix: "/"
+            requires:
+              provider_name: oauth2-istio-0
+  - applyTo: HTTP_FILTER
+    match:
+      context: GATEWAY
+      listener:
+        portNumber: 8080
+        filterChain:
+          filter:
+            name: "envoy.filters.network.http_connection_manager"
+            subFilter:
+              name: "envoy.filters.http.router"
+    patch:
+      operation: INSERT_BEFORE
       value:
         name: envoy.filters.http.rbac.mydeny
         typed_config:
@@ -71,25 +247,101 @@ spec:
                 permissions:
                 - and_rules:
                     rules:
-                    - or_rules:
-                        rules:
-                        - header:
-                            name: ":authority"
-                            exact_match: h__mosip-api-internal-host__h
-                    - or_rules:
-                        rules:
-                        - url_path:
-                            path:
-                              prefix: "/httpbin"
-                        # - url_path:
-                        #     path:
-                        #       prefix: "/hmmm"
+                    - header:
+                        name: ":authority"
+                        string_match:
+                          exact: h__mosip-api-internal-host__h
+                          ignore_case: true
+                    - url_path:
+                        path:
+                          prefix: "/httpbin"
                 principals:
                 - and_ids:
                     ids:
                     - not_id:
                         or_ids:
                           ids:
-                          - header:
-                              name: x-auth-request-groups
-                              contains_match: 'role:httpbin_access'
+                          - metadata:
+                              filter: envoy.filters.http.jwt_authn
+                              path:
+                                - key: istio_jwt_payload
+                                - key: realm_access_roles
+                              value:
+                                list_match:
+                                  one_of:
+                                    string_match:
+                                      exact: httpbin_access
+              "swaggerPolicy":
+                permissions:
+                - and_rules:
+                    rules:
+                    - header:
+                        name: ":authority"
+                        string_match:
+                          exact: h__mosip-api-internal-host__h
+                          ignore_case: true
+                    - url_path:
+                        path:
+                          contains: swagger
+                principals:
+                - and_ids:
+                    ids:
+                    - not_id:
+                        or_ids:
+                          ids:
+                          - metadata:
+                              filter: envoy.filters.http.jwt_authn
+                              path:
+                                - key: istio_jwt_payload
+                                - key: realm_access_roles
+                              value:
+                                list_match:
+                                  one_of:
+                                    string_match:
+                                      exact: swagger_access
+              "kibanaPolicy":
+                permissions:
+                - header:
+                    name: ":authority"
+                    string_match:
+                      exact: h__mosip-kibana-host__h
+                      ignore_case: true
+                principals:
+                - and_ids:
+                    ids:
+                    - not_id:
+                        or_ids:
+                          ids:
+                          - metadata:
+                              filter: envoy.filters.http.jwt_authn
+                              path:
+                                - key: istio_jwt_payload
+                                - key: realm_access_roles
+                              value:
+                                list_match:
+                                  one_of:
+                                    string_match:
+                                      exact: kibana_access
+              "kafkaUiPolicy":
+                permissions:
+                - header:
+                    name: ":authority"
+                    string_match:
+                      exact: h__mosip-kafka-host__h
+                      ignore_case: true
+                principals:
+                - and_ids:
+                    ids:
+                    - not_id:
+                        or_ids:
+                          ids:
+                          - metadata:
+                              filter: envoy.filters.http.jwt_authn
+                              path:
+                                - key: istio_jwt_payload
+                                - key: realm_access_roles
+                              value:
+                                list_match:
+                                  one_of:
+                                    string_match:
+                                      exact: kafka_ui_access
