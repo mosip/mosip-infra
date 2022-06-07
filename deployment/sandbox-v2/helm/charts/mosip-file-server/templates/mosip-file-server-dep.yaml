@@ -35,6 +35,8 @@ spec:
               value: {{ .Values.authmanagerUrl }}
             - name: key_url_env
               value: {{ .Values.keymanagerUrl }}
+            - name: active_profile_env
+              value: {{ .Values.activeProfileEnv }}
           ports:
             - containerPort: {{ .Values.docker.ports.containerPort }}
           readinessProbe:
