@@ -1,8 +1,6 @@
-#image:
-#Refrain from fixing docker tags. Instead use the appropriate chart version, while helm install
-#bitnami/keycloak helm chart version 4.3.0 uses keycloak 14.0.0 version
-  #repository: bitnami/keycloak
-  #tag: 14.0.0-debian-10-r24
+# Refrain from fixing docker tags. Instead use the appropriate chart version, while helm install
+# Latest Helm chart of Bitnami uses Keycloak 18+ 
+
 service:
   type: ClusterIP
 
