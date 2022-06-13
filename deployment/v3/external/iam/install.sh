@@ -19,7 +19,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing
-helm -n $NS install keycloak bitnami/keycloak --version "9.2.2" -f values.yaml --wait
+helm -n $NS install keycloak bitnami/keycloak --version "7.1.18" -f values.yaml --wait
 
 EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 echo Install Istio gateway, virtual service
