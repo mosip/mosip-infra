@@ -15,6 +15,7 @@ if [ $yn = "Y" ]
   then
 
    echo Create $NS namespace
+   helm delete masterdata-loader -n $NS
    kubectl create ns $NS
 
    echo Istio label
