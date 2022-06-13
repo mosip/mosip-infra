@@ -17,4 +17,6 @@ Install in the following sequence:
 * [Admin](admin/README.md)
 * [IDA](ida/README.md)
 * [Registration Client](regclient/README.md)
-
+* [mosip-file-server](mosip-file-server/README.md)
+* [Resident](resident/README.md)
+* [Resident-App](resident-app/README.md)
