@@ -4,5 +4,5 @@ The information of your Email and SMS gateways is created here.  Create these co
 
 Run 
 ```sh
-./email.sh
+./install.sh
 ```
