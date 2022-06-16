@@ -23,13 +23,16 @@ echo Copy configmaps
 FILESERVER_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 HEALTH_URL=https://$FILESERVER_HOST/.well-known/
 
+read -p "Please Enter the Mobile APP public urls separated by comma(,): " URLS
+
 echo Install mosip-file-server. This may take a few minutes ..
-helm -n $NS install mosip-file-server mosip/mosip-file-server      \
+helm -n $NS install mosip-file-server ~/Desktop/MOSIP/mosip-helm/charts/mosip-file-server      \
   --set mosipfileserver.host=$FILESERVER_HOST                      \
-  --set istio.existingGateway="istio-system/public"                \
+  --set mosipfileserver.urls={$URLS}                               \
   --wait                                                           \
   -f values.yaml                                                   \
   --version $CHART_VERSION
 
 echo Get your download url from here
 echo https://$FILESERVER_HOST/.well-known/
+echo https://$FILESERVER_HOST/files/mobileapp/
