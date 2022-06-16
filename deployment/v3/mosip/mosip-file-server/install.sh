@@ -23,12 +23,14 @@ echo Copy configmaps
 FILESERVER_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 HEALTH_URL=https://$FILESERVER_HOST/.well-known/
 
-read -p "Please Enter the Mobile APP public urls separated by comma(,): " URLS
+read -p "Please Enter MOBILE APP Link publicly accessible APK: " pub_url
+read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
 
 echo Install mosip-file-server. This may take a few minutes ..
 helm -n $NS install mosip-file-server ~/Desktop/MOSIP/mosip-helm/charts/mosip-file-server      \
   --set mosipfileserver.host=$FILESERVER_HOST                      \
-  --set mosipfileserver.urls={$URLS}                               \
+  --set mosipfileserver.puburl={$pub_url}                          \
+  --set mosipfileserver.privurl={$priv_url}                        \
   --wait                                                           \
   -f values.yaml                                                   \
   --version $CHART_VERSION
