@@ -27,7 +27,7 @@ read -p "Please Enter MOBILE APP Link publicly accessible APK: " pub_url
 read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
 
 echo Install mosip-file-server. This may take a few minutes ..
-helm -n $NS install mosip-file-server ~/Desktop/MOSIP/mosip-helm/charts/mosip-file-server      \
+helm -n $NS install mosip-file-server mosip/mosip-file-server      \
   --set mosipfileserver.host=$FILESERVER_HOST                      \
   --set mosipfileserver.puburl={$pub_url}                          \
   --set mosipfileserver.privurl={$priv_url}                        \
