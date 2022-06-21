@@ -29,7 +29,7 @@
 
 1. Make sure below listed properties from `kernel-default.properties` or `kernel-*.properties` file in config set to false.
    ```
-   management.health.mail.enabled=false
+   management.health.mail.enabled=true
    mosip.kernel.sms.proxy-sms=false
    mosip.kernel.mail.proxy-mail=false
    ```
