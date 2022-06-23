@@ -26,11 +26,11 @@ echo Installing compliance-toolkit
 helm -n $NS install compliance-toolkit mosip/compliance-toolkit --set istio.corsPolicy.allowOrigins\[0\].prefix=$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installing compliance-toolkit-ui
-helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set compliance-toolkit-ui.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
+helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set istio.hosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installed compliance-toolkit and compliance-toolkit-ui
 
-echo "compliance-toolkit-ui portal URL: https://$//$COMPLIANCE_HOST/"
+echo "compliance-toolkit-ui portal URL: https://$COMPLIANCE_HOST/compliance-toolkit-ui"
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
