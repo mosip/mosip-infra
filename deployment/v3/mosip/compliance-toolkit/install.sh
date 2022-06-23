@@ -20,13 +20,13 @@ echo Copy configmaps
 ./copy_cm.sh
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-COMPLIANCE_HOST=$(kubectl get cm global -o jsonpath={.data.compliance-toolkit-ui-host})
+COMPLIANCE_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-compliance-host})
 
 echo Installing compliance-toolkit
 helm -n $NS install compliance-toolkit mosip/compliance-toolkit --set istio.corsPolicy.allowOrigins\[0\].prefix=$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installing compliance-toolkit-ui
-helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set istio.hosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
+helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set compliance.apiHosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installed compliance-toolkit and compliance-toolkit-ui
 
