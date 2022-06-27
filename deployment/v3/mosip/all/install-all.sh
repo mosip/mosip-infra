@@ -34,6 +34,7 @@ declare -a module=(
                    "resident"
                    "partner-onboarder"
                    "regclient"
+                   "compliance-toolkit"
                    )
 
 echo Installing MOSIP services
