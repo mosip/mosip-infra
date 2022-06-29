@@ -109,13 +109,13 @@ versions:
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipid/id-repository-identity-service:1.1.5.5'
+        'idrepo-identity-service': 'mosipdev/id-repository-identity-service:1.1.5.6'
       vid:
-        'idrepo-vid-service': 'mosipid/id-repository-vid-service:1.1.5.5'
+        'idrepo-vid-service': 'mosipdev/id-repository-vid-service:1.1.5.6'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipid/credential-request-generator:1.1.5.5'
+        'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:1.1.5.6'
       credentialservice:
-        'idrepo-credential-service': 'mosipid/credential-service:1.1.5.5'
+        'idrepo-credential-service': 'mosipdev/credential-service:1.1.5.6'
       salt:
         'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5.3'
 
@@ -133,7 +133,7 @@ versions:
 
     admin:
       service:
-        'admin-service': 'mosipid/admin-service:1.1.5.2'
+        'admin-service': 'mosipdev/admin-service:1.1.5.4'
       ui:
         'admin-ui': 'mosipid/admin-ui:1.1.5'
 
