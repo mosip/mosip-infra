@@ -23,14 +23,14 @@ API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 COMPLIANCE_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-compliance-host})
 
 echo Installing compliance-toolkit
-helm -n $NS install compliance-toolkit mosip/compliance-toolkit --set istio.corsPolicy.allowOrigins\[0\].prefix=$COMPLIANCE_HOST --version $CHART_VERSION
+helm -n $NS install compliance-toolkit mosip/compliance-toolkit --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installing compliance-toolkit-ui
-helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set compliance.apiHosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
+helm -n $NS install compliance-toolkit-ui mosip/compliance-toolkit-ui --set compliance.apiHost=$API_HOST --set istio.hosts\[0\]=$COMPLIANCE_HOST --version $CHART_VERSION
 
 echo Installed compliance-toolkit and compliance-toolkit-ui
 
-echo "compliance-toolkit-ui portal URL: https://$COMPLIANCE_HOST/compliance-toolkit-ui"
+echo "compliance-toolkit-ui portal URL: https://$COMPLIANCE_HOST/"
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
