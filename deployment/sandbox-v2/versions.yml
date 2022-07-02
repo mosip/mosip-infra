@@ -174,3 +174,7 @@ versions:
     resident_app_server:
       service:
         'resident-app-server': 'mosipid/mimoto:1.1.5'
+
+    digitalcard:
+      service:
+        'digitalcard-service': 'mosipdev/digital-card-service:1.1.5.6'

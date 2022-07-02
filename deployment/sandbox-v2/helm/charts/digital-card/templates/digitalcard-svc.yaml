@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.digitalcard.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.digitalcard.ports.servicePort }}
+    targetPort: {{ .Values.services.digitalcard.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.digitalcard.serviceName }} 
+
