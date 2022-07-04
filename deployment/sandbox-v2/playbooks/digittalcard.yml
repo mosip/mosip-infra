@@ -2,10 +2,10 @@
   vars:
     kube_config: '{{clusters.mz.kube_config}}'
     install_name: 'digitalcard'
-    helm_chart: '{{charts_root}}/digitalcard'
+    helm_chart: '{{charts_root}}/digital-card'
     is_template: true  
     helm_namespace: default
-    helm_values: '{{charts_root}}/digitalcard/values.template.j2'
+    helm_values: '{{charts_root}}/digital-card/values.template.j2'
     helm_strings: ''
   roles:
     - {role:  helm}
