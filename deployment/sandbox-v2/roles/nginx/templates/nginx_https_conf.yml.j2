@@ -366,6 +366,10 @@ http {
            proxy_pass {{clusters.dmz.ingress.base_url}}/dmz-kafka/;
         }
 
+        location /v1/print/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/print/;
+        }
+
         error_page 404 /404.html;
             location = /40x.html {
         }
