@@ -8,8 +8,6 @@ NC='\033[0m' # No Color
 
 if [ $# -ge 1 ]; then
   export KUBECONFIG=$1
-else
-  export KUBECONFIG="$HOME/.kube/config"
 fi
 NS=keycloak
 
