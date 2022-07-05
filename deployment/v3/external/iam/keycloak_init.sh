@@ -13,5 +13,7 @@ CHART_VERSION=12.0.1
 helm repo add mosip https://mosip.github.io/mosip-helm
 helm repo update
 
+FRONTEND_URL=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
+
 echo Initializing keycloak
-helm -n $NS install keycloak-init mosip/keycloak-init --version $CHART_VERSION
+helm -n $NS install keycloak-init ../keycloak-init --set frontend=https://$FRONTEND_URL/auth --version 12.0.2

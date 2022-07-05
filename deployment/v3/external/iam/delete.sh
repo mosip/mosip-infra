@@ -11,6 +11,8 @@ while true; do
     if [ $yn = "Y" ]
       then
         helm -n $NS delete keycloak
+        helm -n $NS delete keycloak-init
+        helm -n $NS delete istio-addons
         break
       else
         break

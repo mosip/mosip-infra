@@ -4,8 +4,6 @@
 
 if [ $# -ge 1 ]; then
   export KUBECONFIG=$1
-else
-  export KUBECONFIG="$HOME/.kube/config"
 fi
 NS=keycloak
 
