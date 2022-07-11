@@ -64,6 +64,7 @@ keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any cli
   - {realm_id: 'mosip', client_id: '', role_name: 'BIOMETRIC_READ'}
   - {realm_id: 'mosip', client_id: '', role_name: 'METADATA_READ'}
   - {realm_id: 'mosip', client_id: '', role_name: 'KEY_MAKER'}
+  - {realm_id: 'mosip', client_id: '', role_name: 'DIGITALCARD_ADMIN'}
 # Partner types' roles
   - {realm_id: 'mosip', client_id: '', role_name: 'AUTH_PARTNER'}
   - {realm_id: 'mosip', client_id: '', role_name: 'DEVICE_PROVIDER'}
