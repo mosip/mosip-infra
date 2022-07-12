@@ -31,6 +31,7 @@ Install in the following order:
 * [Admin](admin/README.md)
 * [ID Authentication](ida/README.md)
 * [Print](print/README.md)
+* [Partner Onboarder](partner-onboarder/README.md)
 * [Mosip File Server](mosip-file-server/README.md)
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
