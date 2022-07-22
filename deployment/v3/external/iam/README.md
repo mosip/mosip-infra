@@ -62,4 +62,68 @@ $ ./keycloak_init.sh <kubeconfig file for mosip cluster>
 - Configure *Frontend URL* property in *Realm Settings* page. Value for the frontend url should be: `https://<mosip-iam-external-host>/auth`. Eg: `https://iam.sandbox.mosip.net/auth`.
 - Save it.
 
+Automated this as part of keycloak-init
+
+## Enable Multi Languages in keycloak
+- Navigate to the keycloak admin console.
+- Navigate to `Mosip` realm.
+- Navigate to `Realms Settings` ----> `Themes`.
+- Enable `Internationalization Enabled`.
+- Set languages in `Supported Locales`.
+- Click on `Save`.
+  ![keycloak-1.png](../../docs/images/keycloak-1.png)
+- Confirm via checking languages in `Mosip` admin login page `https://iam.sandbox.xyz.net/auth/admin/mosip/console/`.
+  ![img.png](../../docs/images/keycloak-2.png)
+
 TODO: Automate this as part of keycloak-init
+
+## EXPORT 
+
+### Export from Jboss keycloak 9.0.0
+
+* Copy `export.sh` to the console machine of the specific environment and run the `export.sh`. <br>
+  Make sure the console has Kubernetes cluster access.
+  ```sh
+  ./export.sh
+  ```
+  ```
+  Provide kubernetes cluster config file path : <k8s-cluster-config-file>
+  Provide keycloak namespace ( Default namespace: default ) : <namespace-of-keycloak>
+  Provide directory location for export files ( Default Location: current directory ) : <path-to-export-keycloak-files>
+  Created Export Directory : <path-to-export-keycloak-files>
+  Provide "No of users per file" ( Default: 1000, Recommended value: total number of users ) : <total-no-of-keycloak-users>
+  ```
+* Press `ctrl+c` once after `Export finished successfully` displayed.
+  ```
+  18:07:06,903 INFO  [org.keycloak.services] (ServerService Thread Pool -- 62) KC-SERVICES0035: Export finished successfully
+  ```
+* Copy exports files from console machine to your local.
+
+
+## IMPORT
+
+### Import to Bitnami Keycloak ( Helm chart version: 7.1.18 )
+* If already existing keycloak is running, set the environmental variable `KEYCLOAK_EXTRA_ARGS=-Dkeycloak.profile.feature.upload_scripts=enabled` to enable the import feature.
+* Run `import.sh` to deploy keycloak with the import feature enabled.
+  ```sh
+  ./import.sh
+  ```
+
+### Import Realm via Keycloak UI
+* Login to keycloak Admin console, Navigate `Master` realm and Click on `Add Realm`.
+* Click on the `select file` to Import the keycloak realm. Select keycloak exported realm JSON file.
+* Set realm name to `mosip` and click on `create`.
+  ![keycloak-4.png](../../docs/images/keycloak-4.png)
+
+### Import Users via Keycloak UI
+* Login to keycloak Admin console, Navigate to `Mosip` realm.
+* Click on `Import` ---> Select `Exported json file` and click on `Import`.
+  ![keycloak-3.png](../../docs/images/keycloak-3.png)
+
+### IMPORT INIT
+
+* Update realm, roles, clients, & service account client roles details in `import-init-values.yaml`.
+* run `import-init.sh`
+  ```sh
+  ./import-init.sh
+  ```

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: keycloak-host
-  namespace: keycloak
+  namespace: {{ .Release.Namespace }}
 data:
   keycloak-internal-host: {{ .Values.keycloakInternalHost }}
   keycloak-internal-url: {{ printf "http://%s" .Values.keycloakInternalHost }}
