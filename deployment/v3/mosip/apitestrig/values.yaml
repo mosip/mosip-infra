@@ -1,0 +1,13 @@
+modules:
+  - name: prereg
+    enabled: true
+  - name: masterdata
+    enabled: false
+  - name: idrepo
+    enabled: false
+  - name: partner
+    enabled: false
+  - name: resident
+    enabled: false
+  - name: auth
+    enabled: false
