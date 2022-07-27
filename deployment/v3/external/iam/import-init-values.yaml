@@ -1,0 +1,20 @@
+keycloak:
+  realms: |-
+    del_realms: []
+    mosip: # realm
+      roles: []
+      del_roles: []
+      del_clients: []
+      clients: []
+        #- name: client-name
+        #  mappers:
+        #    - mapper_name: mapper-name
+        #      mapper_user_attribute: mapper-name
+        #      token_claim_name: mapper-name
+        #  del_saroles: []
+        #  saroles: []
+image:
+  repository: syedsalman041997/keycloak-init
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 9.0.0

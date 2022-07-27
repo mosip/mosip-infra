@@ -26,7 +26,7 @@ spec:
           prefix: /
     route:
     - destination:
-        host: keycloak.keycloak.svc.cluster.local
+        host: {{ .Values.service }}.{{ .Release.Namespace }}.svc.cluster.local
         port:
           number: 80
     headers:
