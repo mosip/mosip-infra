@@ -2,12 +2,12 @@ modules:
   - name: prereg
     enabled: true
   - name: masterdata
-    enabled: false
+    enabled: true
   - name: idrepo
-    enabled: false
+    enabled: true
   - name: partner
-    enabled: false
+    enabled: true
   - name: resident
-    enabled: false
+    enabled: true
   - name: auth
     enabled: false
