@@ -23,6 +23,11 @@ SERVER_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."installa
 kubectl -n $NS delete --ignore-not-found=true configmap db-cm
 kubectl -n $NS create configmap db-cm --from-literal=db-port=5432 --from-literal=db-su-user=postgres --from-literal=db-server=$SERVER_HOST
 
+echo "Adding s3 configmap"
+kubectl -n $NS delete --ignore-not-found=true configmap s3
+S3_HOST='http://minio.minio:9000'
+kubectl -n s3 get cm s3 -o yaml | sed 's/kind:/  s3-host: http:\/\/minio\.minio\:9000\nkind\:/g' | sed "s/namespace: s3/namespace: $NS/g"  | kubectl -n $NS create -f -
+
 read -p "Please provide language code with comma separated value (ex. eng,ara ) : " langcode
 
 API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
