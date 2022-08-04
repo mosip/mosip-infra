@@ -42,7 +42,7 @@ kubectl -n $NS create configmap apitestrig  --from-literal=ENV_USER=$ENV_USER \
 echo Copy secrets
 ./copy_secrets.sh
 
-DB_SU_PASSWORD=$( kubectl -n postgres get secrets postgres-postgresql -o json | jq -r '.data."postgresql-password"')
+DB_SU_PASSWORD=$( kubectl -n postgres get secrets postgres-postgresql -o json | jq -r '.data."postgresql-password"' | base64 -d )
 kubectl -n $NS delete --ignore-not-found=true secret db-secrets
 kubectl -n $NS create secret generic db-secrets --from-literal="db-su-password=$DB_SU_PASSWORD"
 
