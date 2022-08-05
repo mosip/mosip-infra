@@ -16,4 +16,13 @@ domain: {{ sandbox_domain_name }}
 
 hub:
   consolidator:
+    port: 9192
     hub_config_file_url_env: "http://mz.ingress:30080/config/*/default/{{ config_repo.version }}/websub-consolidator.toml"
+
+probe:
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 20
