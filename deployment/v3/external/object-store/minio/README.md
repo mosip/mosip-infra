@@ -41,7 +41,7 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
     mc alias ls
   ```
 
-## Backup
+#### Backup
 * Create a backup directory.
   ```
     mkdir -p <backup-directory>
@@ -51,7 +51,7 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
     mc mirror <src-alias-name> <backup-directory>
   ```
 
-## Restore
+#### Restore
 
 * Set `MINIO_SERVER` and `MINIO_BACKUP_DIR`.
   ```
