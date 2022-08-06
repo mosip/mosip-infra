@@ -248,7 +248,7 @@ repos:
   commons:
     src: https://github.com/mosip/commons
     dest: '{{tmp_dir}}/commons'
-    tag: 1.1.5.5
+    tag: 1.1.5.6
     githubuser: ''
     githubpassword: ''
   prereg:
@@ -278,7 +278,7 @@ repos:
   pms:
     src: https://github.com/mosip/partner-management-services
     dest: '{{tmp_dir}}/partner-management-services'
-    tag: 1.1.5
+    tag: 1.1.5.5
     githubuser: ''
     githubpassword: ''
   websub:
@@ -291,6 +291,12 @@ repos:
     src: https://github.com/mosip/mosip-ref-impl
     dest: '{{tmp_dir}}/mosip-ref-impl'
     tag: 1.1.5
+    githubuser: ''
+    githubpassword: ''
+  digital_card:
+    src: https://github.com/mosip/digital-card-service
+    dest: '{{tmp_dir}}/digital-card-service
+    tag: 1.1.5.6
     githubuser: ''
     githubpassword: ''
 
@@ -366,6 +372,10 @@ databases:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
     release_path: '{{repos.websub.dest}}/db_release_scripts'
+  mosip_digitalcard:
+    user: digitalcarduser
+    sql_path: '{{repos.digital_card.dest}}/db_scripts'
+    release_path: '{{repos.digital_card.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
