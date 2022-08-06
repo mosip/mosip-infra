@@ -117,7 +117,7 @@ versions:
       credentialservice:
         'idrepo-credential-service': 'mosipdev/credential-service:1.1.5.6'
       salt:
-        'idrepo-salt-generator': 'mosipid/id-repository-salt-generator:1.1.5.3'
+        'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:1.1.5.6'
 
     pms:
       partner:
@@ -129,13 +129,13 @@ versions:
 
     resident:
       resident:
-        'resident-service': 'mosipid/resident-service:1.1.5.3'
+        'resident-service': 'mosipdev/resident-service:1.1.5.4'
 
     admin:
       service:
         'admin-service': 'mosipdev/admin-service:1.1.5.4'
       ui:
-        'admin-ui': 'mosipid/admin-ui:1.1.5'
+        'admin-ui': 'mosipdev/admin-ui:1.1.5.1'
 
     packetmanager:
       service:
@@ -165,7 +165,7 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:1.1.5.5'
+        'artifactory-service': 'mosipdev/artifactory-server:1.1.5.6'
 
     mosip_file_server:
       service:
