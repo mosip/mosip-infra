@@ -100,6 +100,21 @@ TODO: Automate this as part of keycloak-init
 * Copy exports files from console machine to your local.
 
 
+### Export from Bitnami keycloak ( Helm/chart Version: 7.1.18 )
+* Set the  `KEYCLOAK_EXTRA_ARGS` as an environmental variable to export realm & its users.
+* Set the value for `-Dkeycloak.migration.usersPerFile` ( Recommended value: total number of users ) to the below environmental variable value.
+  ```
+  name: KEYCLOAK_EXTRA_ARGS
+  value: '-Dkeycloak.profile.feature.upload_scripts=enabled \
+              -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir \
+              -Dkeycloak.migration.realmName=mosip \
+              -Dkeycloak.migration.usersExportStrategy=DIFFERENT_FILES \
+              -Dkeycloak.migration.usersPerFile=<TOTAL-NUMBER-OF-USERS> \
+              -Dkeycloak.migration.file=/'
+  ```
+* Wait till the application is up and running.
+* Keycloak will be exported to location `/opt/bitnami/keycloak/standalone/keycloak-export/`.
+* Copy the `keycloak-export` directory from the above location to your local via the `kubectl cp` command.
 ## IMPORT
 
 ### Import to Bitnami Keycloak ( Helm chart version: 7.1.18 )
