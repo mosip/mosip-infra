@@ -10,13 +10,13 @@ from api import *
 from db import *
 from utils import *
 
-def reprocess_packets(rids, delay):
+def reprocess_packets(registrations, delay):
     '''
     rids:  List of rids
     '''
     session = MosipSession(conf.server, conf.client_id, conf.client_pwd, ssl_verify=conf.ssl_verify, client_token=True)
-    for rid in rids:
-        r = session.notify_securezone(rid)
+    for registration in registrations:
+        r = session.notify_securezone(registration)
         myprint(r)
         time.sleep(delay)
 
@@ -32,7 +32,6 @@ def read_rids(filename):
 def fetch_rids_from_db(query):
     db = DB(conf.db_user, conf.db_pwd, conf.db_host, conf.db_port, 'mosip_regprc') 
     rids = db.get_rids(query)
-    rids = [r[0] for r in rids] 
     return rids
    
 def args_parse(): 
