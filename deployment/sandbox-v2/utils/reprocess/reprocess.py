@@ -37,7 +37,7 @@ def fetch_rids_from_db(query):
 def args_parse(): 
    parser = argparse.ArgumentParser()
    group = parser.add_mutually_exclusive_group(required=True)
-   group.add_argument('--rid', type=str,  help='RID to be processed')
+   group.add_argument('--registration', type=str,  help='RID to be processed')
    group.add_argument('--file', type=str,  help='File containing newline seperated list of RIDs')
    group.add_argument('--db', action='store_true',  help='Query db and get RIDs')
    parser.add_argument('--server', type=str, help='Full url to point to the server.  Setting this overrides server specified in config.py')
@@ -56,8 +56,8 @@ def main():
     init_logger('full', 'a', './out.log', level=logging.INFO)  # Append mode
     init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
    
-    if args.rid:
-       registrations = [args.rid]
+    if args.registration:
+       registrations = [tuple(map(str, r.split(', '))) for r in [args.registration] if len(r) != 0]
     elif args.file:
       registrations = read_rids(args.file)
     elif args.db:
