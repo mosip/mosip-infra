@@ -33,25 +33,25 @@ spec:
           ports:
             - containerPort: {{ .Values.hub.websub.port }}
 
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.hub.websub.healthUrl }}
-            port: {{ .Values.hub.websub.port }}
-          periodSeconds: {{ .Values.probe.period }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.hub.websub.healthUrl }}
-            port: {{ .Values.hub.websub.port }}
-          periodSeconds: {{ .Values.probe.livenessPeriod }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-        startupProbe:
-          httpGet:
-            path: {{ .Values.hub.websub.healthUrl }}
-            port: {{ .Values.hub.websub.port }}
-          failureThreshold: {{ .Values.probe.failureThreshold }}
-          periodSeconds: {{ .Values.probe.startupPeriod }}
-          timeoutSeconds: {{ .Values.probe.timeout }}
-          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.hub.websub.healthUrl }}
+              port: {{ .Values.hub.websub.port }}
+            periodSeconds: {{ .Values.probe.period }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.hub.websub.healthUrl }}
+              port: {{ .Values.hub.websub.port }}
+            periodSeconds: {{ .Values.probe.livenessPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+          startupProbe:
+            httpGet:
+              path: {{ .Values.hub.websub.healthUrl }}
+              port: {{ .Values.hub.websub.port }}
+            failureThreshold: {{ .Values.probe.failureThreshold }}
+            periodSeconds: {{ .Values.probe.startupPeriod }}
+            timeoutSeconds: {{ .Values.probe.timeout }}
+            initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
