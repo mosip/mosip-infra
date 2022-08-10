@@ -115,6 +115,7 @@ TODO: Automate this as part of keycloak-init
 * Wait till the application is up and running.
 * Keycloak will be exported to location `/opt/bitnami/keycloak/standalone/keycloak-export/`.
 * Copy the `keycloak-export` directory from the above location to your local via the `kubectl cp` command.
+
 ## IMPORT
 
 ### Import to Bitnami Keycloak ( Helm chart version: 7.1.18 )
