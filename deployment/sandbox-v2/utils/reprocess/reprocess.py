@@ -10,13 +10,13 @@ from api import *
 from db import *
 from utils import *
 
-def reprocess_packets(rids, delay):
+def reprocess_packets(registrations, delay):
     '''
     rids:  List of rids
     '''
     session = MosipSession(conf.server, conf.client_id, conf.client_pwd, ssl_verify=conf.ssl_verify, client_token=True)
-    for rid in rids:
-        r = session.notify_securezone(rid)
+    for registration in registrations:
+        r = session.notify_securezone(registration)
         myprint(r)
         time.sleep(delay)
 
@@ -24,15 +24,14 @@ def read_rids(filename):
     '''
     Read rids from a file with a list of rids one on each line
     '''
-    rids = open(filename, 'rt').readlines()
-    rids = [r.strip() for r in rids]  # Strip newline char
-    rids = [r for r in rids if len(r) != 0]  # Filter empty lines
-    return rids
+    registrations = open(filename, 'rt').readlines()
+    registrations = [r.strip() for r in registrations]  # Strip newline char
+    registrations = [tuple(map(str, r.split(', '))) for r in registrations if len(r) != 0]  # Filter empty lines
+    return registrations
 
 def fetch_rids_from_db(query):
     db = DB(conf.db_user, conf.db_pwd, conf.db_host, conf.db_port, 'mosip_regprc') 
     rids = db.get_rids(query)
-    rids = [r[0] for r in rids] 
     return rids
    
 def args_parse(): 
@@ -58,16 +57,16 @@ def main():
     init_logger('last', 'w', './last.log', level=logging.INFO, stdout=False)  # Just record log of last run
    
     if args.rid:
-       rids = [args.rid]
+       registrations = [args.rid]
     elif args.file:
-      rids = read_rids(args.file)
+      registrations = read_rids(args.file)
     elif args.db:
-      rids = fetch_rids_from_db(conf.query)
+      registrations = fetch_rids_from_db(conf.query)
     else:    
        parser.print_usage()
        
     try:
-       reprocess_packets(rids, conf.delay) 
+       reprocess_packets(registrations, conf.delay)
     except:
         formatted_lines = traceback.format_exc()
         myprint(formatted_lines)
