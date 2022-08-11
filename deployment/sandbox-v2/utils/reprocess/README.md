@@ -15,17 +15,20 @@ $ ./preinstall.sh
 1. Set the `delay` between processing two RIDs.
 
 ## Run
-The script takes Registration Ids (RIDs) as input. Provide RID directly as argument or via a file. Example:
+The script takes Registrations as input. Provide rid, process and workflow instance id directly as argument or via a file. Example:
 ```
-$ ./reprocess.py --rid 10002100740000520210122091401
+$ ./reprocess.py --registration "'10001101040000520220809113748', 'NEW', 'e6e944b1-5c4b-42aa-b749-b39428cb7512'"
 
 OR
 
-$ ./reprocess.py --file rids.txt
+$ ./reprocess.py --file registrations.txt
 
-where rids.txt looks like:
-10002100740000520210122091401
-10001100130000120210114122006
+where registrations.txt looks like ('registration id', 'process', 'workflow instance id'):
+'10001101040000520220809113748', 'NEW', 'e6e944b1-5c4b-42aa-b749-b39428cb7512'
+'10001101040000520220809113730', 'UPDATE', 'e6e944b1-5c4b-42aa-b749-b39428cb7333'
+'10001101040000520220809113732', 'NEW', 'e6e944b1-5c4b-42aa-b749-b39428cb3838'
+'10001101040000520220809113722', 'NEW', 'e6e944b1-5c4b-42aa-b749-b39428cb3iii'
+'10001101040000520220809113721', 'NEW', 'e6e944b1-5c4b-42aa-b749-b39428cb8888'
 ...
 ...
 

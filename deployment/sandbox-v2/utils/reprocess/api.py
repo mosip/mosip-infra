@@ -56,7 +56,7 @@ class MosipSession:
         token = read_token(r)
         return token
 
-    def notify_securezone(self, rid):
+    def notify_securezone(self, registration):
         '''
         policies: dict with policies structure
         '''
@@ -65,12 +65,14 @@ class MosipSession:
         cookies = {'Authorization' : self.token}
         ts = get_timestamp()
         j = {
-           'reg_type': 'NEW',
-           'rid': rid, 
+           'rid': registration[0],
+            'reg_type': registration[1],
+            'workflowInstanceId': registration[2],
            'isValid': True,
            'internalError': False,
            'messageBusAddress': None,
-           'retryCount': None
+           'retryCount': None,
+            'iteration': 1
         }
         r = requests.post(url, cookies=cookies, json = j, verify=self.ssl_verify)
         r = response_to_json(r)
