@@ -119,9 +119,9 @@ TODO: Automate this as part of keycloak-init
 
 ### Import to Bitnami Keycloak ( Helm chart version: 7.1.18 )
 * If already existing keycloak is running, set the environmental variable `KEYCLOAK_EXTRA_ARGS=-Dkeycloak.profile.feature.upload_scripts=enabled` to enable the import feature.
-* Run `import.sh` to deploy keycloak with the import feature enabled.
+* Run `install.sh` to deploy keycloak with the import feature enabled.
   ```sh
-  ./import.sh
+  ./install.sh
   ```
 
 ### Import Realm via Keycloak UI
