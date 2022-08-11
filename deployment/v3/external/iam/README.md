@@ -135,10 +135,10 @@ TODO: Automate this as part of keycloak-init
 * Click on `Import` ---> Select `Exported json file` and click on `Import`.
   ![keycloak-3.png](../../docs/images/keycloak-3.png)
 
-### IMPORT INIT
+### UPGRADE INIT
 
-* Update realm, roles, clients, & service account client roles details in `import-init-values.yaml`.
-* run `import-init.sh`
+* Update realm, roles, clients, & service account client roles details in `upgrade-init-values.yaml`.
+* run `upgrade-init.sh`
   ```sh
-  ./import-init.sh
+  ./upgrade-init.sh
   ```
