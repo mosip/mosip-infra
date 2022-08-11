@@ -9,6 +9,11 @@ service:
 auth:
   adminUser: admin
 
+extraEnvVars:
+  - name: KEYCLOAK_EXTRA_ARGS
+    value: "-Dkeycloak.profile.feature.upload_scripts=enabled"
+    #value: "-Dkeycloak.profile.feature.upload_scripts=enabled -Dkeycloak.import=/config/realm-mosip.json"
+
 ## Disable ingress as we use Istio
 ingress:
   enabled: false
