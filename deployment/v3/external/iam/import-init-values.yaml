@@ -238,6 +238,8 @@ keycloak:
            - uma_authorization
        - name: mosip-prereg-client
          mappers: []
+         del_saroles:
+           - INDIVIDUAL
          saroles:
            - PREREG
            - REGISTRATION_PROCESSOR
