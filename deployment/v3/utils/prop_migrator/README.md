@@ -145,6 +145,3 @@ Note:
 
 - It is highly recommended to create backups of your property files before running this script, as it modifies the files in place.
 - The `manual-configuration.csv` file can be used to manually update the property files based on the required configuration actions mentioned in the file.
-
-----
-
