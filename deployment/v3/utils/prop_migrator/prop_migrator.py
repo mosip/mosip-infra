@@ -27,8 +27,8 @@ def init_logger(filename):
 
 def args_parse():
     parser = argparse.ArgumentParser()
-    parser.add_argument('prop_1154', help='Property file for 1.1.5.4 version', action='store')
-    parser.add_argument('prop_1201', help='Property file for 1.2.0.1 version', action='store')
+    parser.add_argument('prop_old', help='Property file for old version', action='store')
+    parser.add_argument('prop_new', help='Property file for new version (to which migrating)', action='store')
     parser.add_argument('migration_rules', help='CSV with rules to migrate', action='store')
     parser.add_argument('out_folder', help='Folder where all migrated .properties files are written', action='store')
     args = parser.parse_args()
@@ -93,11 +93,11 @@ logger = init_logger('prop.log')
 def main():
     args, parser = args_parse()
 
-    property_fname = os.path.basename(args.prop_1201)
+    property_fname = os.path.basename(args.prop_new)
     rules = read_migration_rules(args.migration_rules, property_fname)
 
     out_path = os.path.join(args.out_folder, property_fname)
-    apply_rules(args.prop_1201, args.prop_1154, rules, args.out_folder)
+    apply_rules(args.prop_new, args.prop_old, rules, args.out_folder)
 
 if __name__== '__main__':
     main()
