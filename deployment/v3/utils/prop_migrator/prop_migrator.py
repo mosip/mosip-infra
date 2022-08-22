@@ -79,9 +79,9 @@ def apply_rules(new_properties_file, old_properties_file, rules, out_folder):
             if rules[prop]['classification'] == '1':  
                 if prop in old_props.keys():
                     line = f'{prop}={old_props[prop]}\n' # Replace original line
-                    logger.info(f'UPDATED: {prop}')
-                    if old_props[prop].strip() != new_props[prop].strip():
-                        logger.info(f'DIFFERENT: {prop}')
+                    logger.info(f'UPDATED: {prop}={old_props[prop]}')
+                    #if old_props[prop].strip() != new_props[prop].strip():
+                    #   logger.info(f'DIFFERENT: {prop}')
                 else:
                     logger.error(f'{prop} not found in {old_properties_file}') 
 
