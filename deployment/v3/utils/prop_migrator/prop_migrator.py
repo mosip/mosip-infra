@@ -63,11 +63,12 @@ In this function we apply classification '1' only.
 '''
 def apply_rules(new_properties_file, old_properties_file, rules, out_folder):
     old_props = read_props(old_properties_file)
-    lines = open(new_properties_file, 'rt').readlines()
+    new_props = read_props(new_properties_file)
     out_lines = []
     props = rules.keys() 
     os.makedirs(out_folder, exist_ok=True)
     out_path = open(os.path.join(out_folder, os.path.basename(new_properties_file)), 'wt')
+    lines = open(new_properties_file, 'rt').readlines()
     for line in lines:
         if len(line.strip()) == 0 or line.strip()[0] == '#': # Filter
             out_path.write(f'{line}')
@@ -76,44 +77,16 @@ def apply_rules(new_properties_file, old_properties_file, rules, out_folder):
         prop = words[0].strip()
         if prop in props:
             if rules[prop]['classification'] == '1':  
-                if prop not in old_props.keys():
+                if prop in old_props.keys():
+                    line = f'{prop}={old_props[prop]}\n' # Replace original line
+                    logger.info(f'UPDATED: {prop}')
+                    if old_props[prop].strip() != new_props[prop].strip():
+                        logger.info(f'DIFFERENT: {prop}')
+                else:
                     logger.error(f'{prop} not found in {old_properties_file}') 
-                    out_path.write(f'{line}')
-                    continue
-                line2 = f'{prop}={old_props[prop]}\n'            
-                out_path.write(f'{line2}')
-            else:
-                out_path.write(f'{line}')
 
+        out_path.write(f'{line}')
     out_path.close()
-
-def diff_report(fname1, fname2):
-
-    pp = pprint.PrettyPrinter(indent=0)
-    props1 = read_props(fname1)    
-    props2 = read_props(fname2)    
-    set1 = set(props1.keys())      
-    set2 = set(props2.keys())      
-    
-    # Find out common properties with different value
-    common = set1.intersection(set2)
-    print('DIFFERENT VALUES:\n')
-    for k in common:
-        v1 = props1[k].strip()
-        v2 = props2[k].strip()
-        if v1 != v2:
-            print(k + ':')    
-            print('< ' + v1)
-            print('> ' + v2)
-            print('')
-    print('=======================================================')
-    print('\nNEW PROPERTIES in %s' % fname1)  
-    pp.pprint(set1 - set2)
-    print('')
-    print('=======================================================')
-    print('\nNEW PROPERITES in %s' % fname2)  
-    pp.pprint(set2 - set1)
-    print('')
 
 logger = init_logger('prop.log')
 
