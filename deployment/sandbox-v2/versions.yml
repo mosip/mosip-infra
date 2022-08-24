@@ -109,33 +109,33 @@ versions:
 
     idrepo:
       identity:
-        'idrepo-identity-service': 'mosipdev/id-repository-identity-service:1.1.5.6'
+        'idrepo-identity-service': 'mosipint/id-repository-identity-service:1.1.5.6'
       vid:
-        'idrepo-vid-service': 'mosipdev/id-repository-vid-service:1.1.5.6'
+        'idrepo-vid-service': 'mosipint/id-repository-vid-service:1.1.5.6'
       credentialreq:
-        'idrepo-credential-request-generator': 'mosipdev/credential-request-generator:1.1.5.6'
+        'idrepo-credential-request-generator': 'mosipint/credential-request-generator:1.1.5.6'
       credentialservice:
-        'idrepo-credential-service': 'mosipdev/credential-service:1.1.5.6'
+        'idrepo-credential-service': 'mosipint/credential-service:1.1.5.6'
       salt:
-        'idrepo-salt-generator': 'mosipdev/id-repository-salt-generator:1.1.5.6'
+        'idrepo-salt-generator': 'mosipint/id-repository-salt-generator:1.1.5.6'
 
     pms:
       partner:
-        'pms-partner-manager-service': 'mosipid/partner-management-service:1.1.5.4'
+        'pms-partner-manager-service': 'mosipint/partner-management-service:1.1.5.5'
       policy:
-        'pms-policy-manager-service': 'mosipid/policy-management-service:1.1.5.4'
+        'pms-policy-manager-service': 'mosipint/policy-management-service:1.1.5.5'
       ui:
         'pms-ui': 'mosipint/pmp-ui:develop'
 
     resident:
       resident:
-        'resident-service': 'mosipdev/resident-service:1.1.5.4'
+        'resident-service': 'mosipint/resident-service:1.1.5.4'
 
     admin:
       service:
-        'admin-service': 'mosipdev/admin-service:1.1.5.4'
+        'admin-service': 'mosipint/admin-service:1.1.5.4'
       ui:
-        'admin-ui': 'mosipdev/admin-ui:1.1.5.1'
+        'admin-ui': 'mosipint/admin-ui:1.1.5.1'
 
     packetmanager:
       service:
@@ -165,7 +165,7 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipdev/artifactory-server:1.1.5.6'
+        'artifactory-service': 'mosipint/artifactory-server:1.1.5.6'
 
     mosip_file_server:
       service:
@@ -177,4 +177,4 @@ versions:
 
     digitalcard:
       service:
-        'digitalcard-service': 'mosipdev/digital-card-service:1.1.5.6'
+        'digitalcard-service': 'mosipint/digital-card-service:1.1.5.6'
