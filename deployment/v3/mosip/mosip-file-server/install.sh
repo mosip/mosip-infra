@@ -31,8 +31,8 @@ read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
 echo Install mosip-file-server. This may take a few minutes ..
 helm -n $NS install mosip-file-server mosip/mosip-file-server      \
   --set mosipfileserver.host=$FILESERVER_HOST                      \
-  --set mosipfileserver.puburl={$pub_url}                          \
-  --set mosipfileserver.privurl={$priv_url}                        \
+  --set mosipfileserver.puburl\[0\]="$pub_url"                     \
+  --set mosipfileserver.privurl\[0]="$priv_url"                    \
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
   --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
