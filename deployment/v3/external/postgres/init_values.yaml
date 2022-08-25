@@ -43,4 +43,7 @@ databases:
 
   mosip_hotlist:
     enabled: true
+ 
+  mosip_digitalcard:
+    enabled: true
 
