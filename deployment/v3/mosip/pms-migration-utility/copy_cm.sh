@@ -3,7 +3,7 @@
 # DST_NS: Destination namespace
 
 COPY_UTIL=../../utils/copy_cm_func.sh
-DST_NS=pms-115-120
+DST_NS=pms-migration-utility
 
 $COPY_UTIL configmap global default $DST_NS
 $COPY_UTIL configmap artifactory-share artifactory $DST_NS

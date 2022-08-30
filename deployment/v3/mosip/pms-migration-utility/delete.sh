@@ -6,12 +6,12 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=pms-115-120
+NS=pms-migration-utility
 while true; do
     read -p "Are you sure you want to delete all pms helm charts?(Y/n) " yn
     if [ $yn = "Y" ]
       then
-        helm -n $NS delete pms-115-120
+        helm -n $NS delete pms-migration-utility
         break
       else
         break
