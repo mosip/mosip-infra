@@ -295,7 +295,7 @@ repos:
     githubpassword: ''
   digital_card:
     src: https://github.com/mosip/digital-card-service
-    dest: '{{tmp_dir}}/digital-card-service
+    dest: '{{tmp_dir}}/digital-card-service'
     tag: 1.1.5.6
     githubuser: ''
     githubpassword: ''
