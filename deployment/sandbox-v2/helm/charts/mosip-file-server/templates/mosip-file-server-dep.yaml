@@ -26,6 +26,8 @@ spec:
         - name: {{ .Values.serviceName }}
           image: {{ .Values.docker.image }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command: ["/bin/bash"]
+          args: ["-c", "mkdir -p {{ .Values.well_known_path }} {{ .Values.mobileapp_path }} && cp {{ .Values.mountPath }}/.well-known/mosipvc/* {{ .Values.well_known_path }} && /bin/bash  /home/mosip/get-cert.sh && echo 'starting nginx'&& nginx && sleep infinity;"]
           env:
             - name: spring_config_label_env
               value: {{ .Values.springConfigLabel }}
@@ -68,4 +70,5 @@ spec:
       volumes:
         - name: mosip-file-server-volume
           persistentVolumeClaim:
-            claimName: {{ .Values.pvc.name }}
+            claimName: {{ .Values.pvc.name }}                                                                                                        
+
