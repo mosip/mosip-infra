@@ -34,7 +34,7 @@
 	  "version": "string"
 	}
 	```
-  * 4. Get the IDA certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
+  * 4. Get the Digitalcard certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
         ```https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=DIGITAL_CARD```
 
   * 5. Upload IDA certificate from the above request in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificat$        ```
@@ -42,7 +42,7 @@
           "id": "string",
           "metadata": {},
           "request": {
-            "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDTjCCAjagAwIBAgIEYFrxXTANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDA$
+            "certificateData": "Certificate data",
             "partnerDomain": "AUTH"
           },
           "requesttime": "2021-03-24T08:24:13.349Z",
