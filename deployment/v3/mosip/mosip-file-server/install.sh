@@ -25,6 +25,13 @@ API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 API_INTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 HEALTH_URL=https://$FILESERVER_HOST/.well-known/
 
+kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secret
+KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
+kubectl -n $NS create secret generic keycloak-client-secret --from-literal="MOSIP_REGPROC_CLIENT_SECRET=$KEYCLOAK_CLIENT_SECRET"
+
+kubectl -n $NS --ignore-not-found=true delete configmap mosip-file-server
+kubectl -n $NS create configmap mosip-file-server --from-literal="AUTHMANAGER_URL=http://authmanager.kernel" --from-literal="KEYMANAGER_URL=http://keymanager.keymanager"
+
 read -p "Please Enter MOBILE APP Link publicly accessible APK: " pub_url
 read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
 
