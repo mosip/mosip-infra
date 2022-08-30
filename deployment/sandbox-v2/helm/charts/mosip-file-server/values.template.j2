@@ -23,7 +23,7 @@ version: {{ versions.services.mosip_file_server.values()[0] }}
 mountPath: "/mnt/mosip-file-server"  # path inside docker
 authmanagerUrl: 'http://mz.ingress:30080'
 keymanagerUrl: 'http://mz.ingress:30080'
-clientsecret: {{ secrets.keycloak.mosip_regproc_client }}
+mosip_regproc_client_secret: {{ secrets.keycloak.mosip_regproc_client }}
 date: {{ ansible_date_time.iso8601_micro }}
 well_known_path: '/home/mosip/mosip-file-server/.well-known/mosipvc/'
 mobileapp_path: '/home/mosip/mosip-file-server/files/mobileapp/'
