@@ -25,7 +25,7 @@ keycloak_mosip_clients:
   - {realm_id: 'mosip', client_id: 'mosip-creser-idpass-client', secret: 'abc123'}
   - {realm_id: 'mosip', client_id: 'mosip-pms-client', secret: 'abc123'}
   - {realm_id: 'mosip', client_id: 'mpartner-default-mobile', secret: 'abc123'}
-  - {realm_id: 'mosip', client_id: 'mpartner-digitalcard-client', secret: 'abc123'}
+  - {realm_id: 'mosip', client_id: 'mpartner-default-digitalcard', secret: 'abc123'}
 
 keycloak_mosip_roles:  # Currently, all rolese belong to a realm (not to any client)
   - {realm_id: 'mosip', client_id: '', role_name: 'REGISTRATION_OFFICER'}
@@ -431,8 +431,8 @@ keycloak_mosip_user_role_map:
   - {realm_id: 'mosip', username: 'service-account-mosip-creser-idpass-client', role_name: 'CREDENTIAL_REQUEST'}
   - {realm_id: 'mosip', username: 'service-account-mosip-pms-client', role_name: 'PARTNER_ADMIN'}
   - {realm_id: 'mosip', username: 'service-account-mpartner-default-mobile', role_name: 'CREDENTIAL_PARTNER'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-digitalcard-client', role_name: 'CREATE_SHARE'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-digitalcard-client', role_name: 'CREDENTIAL_REQUEST'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-digitalcard-client', role_name: 'GLOBAL_ADMIN'}
-  - {realm_id: 'mosip', username: 'service-account-mosip-digitalcard-mobile', role_name: 'DIGITAL_CARD'}
+  - {realm_id: 'mosip', username: 'service-account-mpartner-default-digitalcard', role_name: 'CREATE_SHARE'}
+  - {realm_id: 'mosip', username: 'service-account-mpartner-default-digitalcard', role_name: 'CREDENTIAL_REQUEST'}
+  - {realm_id: 'mosip', username: 'service-account-mpartner-default-digitalcard', role_name: 'GLOBAL_ADMIN'}
+  - {realm_id: 'mosip', username: 'service-account-mpartner-default-digitalcard', role_name: 'DIGITAL_CARD'}
 
