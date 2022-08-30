@@ -169,7 +169,7 @@ versions:
 
     mosip_file_server:
       service:
-        'mosip_file_server': 'mosipid/mosip-file-server:1.1.5_v2'
+        'mosip_file_server': 'mosipdev/mosip-file-server:1.1.5.1'
 
     resident_app_server:
       service:
