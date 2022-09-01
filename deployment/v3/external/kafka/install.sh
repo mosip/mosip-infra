@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kafka
+CHART_VERSION=0.4.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -23,7 +24,7 @@ echo Installing kafka
 helm -n $NS install kafka bitnami/kafka -f values.yaml --wait
 
 echo Installing kafka-ui
-helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait
+helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --VERSION $CHART_VERSION
 
 KAFKA_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
 KAFKA_UI_NAME=kafka-ui
