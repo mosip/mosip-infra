@@ -6,11 +6,8 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=pms-migration-utility
+NS=upgrade
 CHART_VERSION=12.0.2
-
-API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -27,6 +24,6 @@ helm -n $NS install pms-migration-utility mosip/pms-migration-utility --wait --w
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
-echo Intalled pms-migration-utility services
+echo Installed pms-migration-utility services
 
 

@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=pms-migration-utility
+NS=upgrade
 while true; do
     read -p "Are you sure you want to delete all pms helm charts?(Y/n) " yn
     if [ $yn = "Y" ]
