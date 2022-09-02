@@ -10,6 +10,7 @@ Config server serves all properties required by MOSIP modules. This must be inst
 * Review `values.yaml` and make sure git repository parameters are as per your installation.
 * Install
 ```sh
+./install_secrets.sh
 ./install.sh
 ```
 
