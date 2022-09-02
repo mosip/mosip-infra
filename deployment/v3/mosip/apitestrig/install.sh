@@ -28,15 +28,13 @@ kubectl -n $NS delete --ignore-not-found=true configmap s3
 S3_HOST='http://minio.minio:9000'
 kubectl -n s3 get cm s3 -o yaml | sed 's/kind:/  s3-host: http:\/\/minio\.minio\:9000\nkind\:/g' | sed "s/namespace: s3/namespace: $NS/g"  | kubectl -n $NS create -f -
 
-read -p "Please provide language code with comma separated value (ex. eng,ara ) : " langcode
 
 API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 ENV_USER=$( kubectl -n default get cm global -o json  |jq -r '.data."installation-name"' )
 
 kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
 kubectl -n $NS create configmap apitestrig  --from-literal=ENV_USER=$ENV_USER \
---from-literal=ENV_ENDPOINT=https://$API_INTERNAL_HOST  \
---from-literal=ENV_LANGCODE=$langcode
+--from-literal=ENV_ENDPOINT=https://$API_INTERNAL_HOST
 
 echo Copy secrets
 ./copy_secrets.sh
