@@ -12,3 +12,4 @@ $COPY_UTIL secret softhsm-ida softhsm $DST_NS
 $COPY_UTIL secret s3 s3 $DST_NS
 $COPY_UTIL secret email-gateway msg-gateways $DST_NS
 $COPY_UTIL secret prereg-captcha prereg $DST_NS
+$COPY_UTIL secret conf-secrets-various conf-secrets $DST_NS

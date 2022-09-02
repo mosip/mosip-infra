@@ -10,6 +10,7 @@ NS=config-server
 CHART_VERSION=12.0.1
 
 read -p "Is values.yaml for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn
+if [ $yn = "Y" ]; then read -p "Are config-server secrets installed using install_secrets.sh?(Y/n) " yn; fi
 if [ $yn = "Y" ]
   then
     echo Create $NS namespace
