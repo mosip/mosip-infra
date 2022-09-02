@@ -13,6 +13,7 @@ declare -a module=(
                    "landing-page"
                    "docker-secrets"
                    "captcha"
+                   "conf-secrets"
                    "config-server"
                    "artifactory"
                    "keymanager"
