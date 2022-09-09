@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # This script migrates properties in mosip-config from 1.1.5.1 to 1.2.0.1.  
-# The scripts excepts an 'ugrade.csv' file that specifies rules for the migration 
-# Usage: python prop_migrator <1.1.5.4 prop file> <1.2.0.1 prop file> <upgrade.csv> <out folder>
+# The scripts excepts an 'migrations_rules.csv' file that specifies rules for the migration 
+# Usage: python prop_migrator <1.1.5.1 prop file> <1.2.0.1 prop file> <migration rules csv> <out folder>
 
 import argparse
 import sys
@@ -59,7 +59,10 @@ def read_migration_rules(migration_fname, properties_fname):
     return rules
 
 '''
-In this function we apply classification '1' only.
+In this function we apply classification '1' and '2' only. The actions for each 
+of these are as follows:
+1: Retain old property
+2: Create a manual adjudication output CSV 
 '''
 def apply_rules(new_properties_file, old_properties_file, rules, out_folder):
     old_props = read_props(old_properties_file)
@@ -67,32 +70,54 @@ def apply_rules(new_properties_file, old_properties_file, rules, out_folder):
     out_lines = []
     props = rules.keys() 
     os.makedirs(out_folder, exist_ok=True)
-    out_path = open(os.path.join(out_folder, os.path.basename(new_properties_file)), 'wt')
+    prop_path = open(os.path.join(out_folder, os.path.basename(new_properties_file)), 'wt')
+    adjudication_path = open(os.path.join(out_folder, 'adjudication.csv'), 'wt')
+    adjudication_rows = [] # row of dicts
     lines = open(new_properties_file, 'rt').readlines()
     for line in lines:
         if len(line.strip()) == 0 or line.strip()[0] == '#': # Filter
-            out_path.write(f'{line}')
+            prop_path.write(f'{line}')
             continue
         words = line.split('=')
         prop = words[0].strip()
         if prop in props:
-            if rules[prop]['classification'] == '1':  
+            if rules[prop]['classification'] == '1': # Retain old property  
                 if prop in old_props.keys():
                     line = f'{prop}={old_props[prop]}\n' # Replace original line
                     logger.info(f'UPDATED: {prop}={old_props[prop]}')
-                    #if old_props[prop].strip() != new_props[prop].strip():
-                    #   logger.info(f'DIFFERENT: {prop}')
                 else:
                     logger.error(f'{prop} not found in {old_properties_file}') 
+            elif rules[prop]['classification'] == '2':  # Create an adjudication CSV 
+                row = {}
+                row['property_file'] = rules[prop]['property_file'] 
+                row['property'] = rules[prop]['property'] 
+                if prop in old_props:
+                    row['previous_value'] = old_props[prop]
+                else:
+                    row['previous_value'] = ''
+                if prop in new_props:
+                    row['new_value'] = new_props[prop]
+                else:
+                    row['new_value'] = ''
+                row['comment'] = rules[prop]['comment']
+                adjudication_rows.append(row)
+        prop_path.write(f'{line}')
+   
+    # Write the adjudication file
+    prefix = os.path.basename(new_properties_file).split('.')[0]
+    with open(os.path.join(out_folder, f'{prefix}_adjudication.csv'), 'w', newline='') as csvfile:
+        fieldnames = ['property_file', 'property', 'previous_value', 'new_value', 'comment']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames, lineterminator=os.linesep) # Remove control-m chars
+        writer.writeheader()
+        writer.writerows(adjudication_rows)
 
-        out_path.write(f'{line}')
-    out_path.close()
+    prop_path.close()
 
 logger = init_logger('prop.log')
 
 def main():
     args, parser = args_parse()
-
+    logger.info(args)
     property_fname = os.path.basename(args.prop_new)
     rules = read_migration_rules(args.migration_rules, property_fname)
 
