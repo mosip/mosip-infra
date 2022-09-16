@@ -1,0 +1,102 @@
+# Ports to be opened for v2 deployment as listed here:
+- hosts: cluster
+  become: true
+  vars:
+    vpc_ip: '' #VPC CIDR range of IP e.g 172.31.0.0/16
+  tasks:
+    - community.general.ufw:
+        rule: allow
+        name: OpenSSH
+        from: "{{ vpc_ip }}"
+
+    - community.general.ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - community.general.ufw:
+        rule: allow
+        port: 443
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - community.general.ufw:
+        rule: allow
+        port: 2376
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - community.general.ufw:
+        rule: allow
+        port: 443
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - name: Allow port range 2379-2380 for k8's master
+      community.general.ufw:
+        rule: allow
+        port: 2379-2380
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - name: Allow tcp port range 10250-10255 for k8's master
+      community.general.ufw:
+        rule: allow
+        port: 10250-10255
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - name: Allow udp port range 30000-32767 for K8s nodeports
+      community.general.ufw:
+        rule: allow
+        port: 30000:32767
+        proto: udp
+        from: "{{ vpc_ip }}"
+
+    - name: "Allow udp port 53"
+      community.general.ufw:
+        rule: allow
+        port: 53
+        proto: udp
+        from: "{{ vpc_ip }}"
+
+    - name: "Allow udp port range 30000-32767"
+      community.general.ufw:
+        rule: allow
+        port: 30000-32767
+        proto: udp
+        from: "{{ vpc_ip }}"
+
+    - name: "Allow tcp 10250:10252"
+      community.general.ufw:
+        rule: allow
+        port: 10250:10252
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - name: "Allow tcp 6443"
+      community.general.ufw:
+        rule: allow
+        port: 6443
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    ## Ports for cluster monitoring
+    - name: "Allow tcp 9100"
+      community.general.ufw:
+        rule: allow
+        port: 9100
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    # NFS console machine
+    - name: "Allow tcp 2049"
+      community.general.ufw:
+        rule: allow
+        port: 2049
+        proto: tcp
+        from: "{{ vpc_ip }}"
+
+    - community.general.ufw:
+        state: enabled
