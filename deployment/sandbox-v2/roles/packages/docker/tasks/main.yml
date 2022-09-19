@@ -36,9 +36,3 @@
 - name: Run docker for daemon.json
   shell: 'systemctl restart docker'
   become: yes
-
-- name: Install docker py
-  pip:
-    name: docker-py
-    state: present
-  become: yes
