@@ -1,77 +1,170 @@
 # Procedure to be followed while performing below steps
 
-1. DB change, keycloak restart services.
-2. Restart of all the services.
-3. Restart of specific services.
-4. Manual reprocess
-5. Modification of Reprocessor config
-6. Rollout restarts
+1. Procedure to add new DB.
+2. Procedure to add a new client and its secret.
+3. Procedure for Restart of all the services in the particular module
+4. Procedure for Redeploy services on cmd
+5. Manual reprocess
+6. Procedure for Rollout restarts
 
-## DB change, keycloak restart services.
+## Procedure to add new DB
 
-* When we add any new db , we have to follow below steps:
+* We have two procedure for DB change
+1. How to deploy a new DB from our local
+2. How to deploy a new DB using Kubernetes jobs
 
-1. Update all database parameters in postgres-init/values.yaml (https://github.com/mosip/mosip-helm/blob/develop/charts/postgres-init/values.yaml)
+## 1. To deploy a new DB from our local, we have to follow the below steps
+
+* Clone the particular github repo to local
+* Update the following environment variables in deploy.properties file
 ![](/home/techno-243/Pictures/img1.png)
-2. We need to add configmap.yaml and job.yaml file for the particular db in the templates section of postgres_init (https://github.com/mosip/mosip-helm/tree/develop/charts/postgres-init/templates)
-![](/home/techno-243/Pictures/img2.png)
-3. we need to clone the particular github repo to local , then set the following environment variables
-![](/home/techno-243/Pictures/img3.png)
-4. After setting up all these values in the respective folder of github repo cloned
-5. Run the following command to deploy the db in pgadmin
-   * bash deploy.sh deploy.properties
+* After setting up all these values in the respective folder of github repo
+* Run the deploy.sh to deploy the db
+   * **bash deploy.sh deploy.properties**
+* The db will be created and we can check in the database for the specific environment
+
+## To deploy a new DB using Kubernetes jobs, we have to follow the below steps:
+
+*  Make sure you have  the  postgres-init helm/chart in your local
+* Set the kubeconfig file to particular environment ( for which environment you have to deploy)
+   * Download Kubernetes cluster kubeconfig file from rancher dashboard to your local.
+   ![](/home/techno-243/Pictures/img2.png)
+   * Install kubectl package to your local machine.
+   * Set  kubeconfig  to the particular environment using  **cp <yaml.file> config** command
+   * Check whether kubeconfig pointing to correct cluster or not using command **kubectl config view**
+   ![](/home/techno-243/Pictures/img3.png)
+* Add repo name in postgress-int repo-list.txt ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/repo-list.txt)
 ![](/home/techno-243/Pictures/img4.png)
-6. The db will be created in pgadmin for the specific environment needed
-
-
-## Restart of all the services
-
-* If we want to restart of all the services in rancher, we have to make sure below points:
-
-1. First namespace should be correct
-2. We need to check whether we are in pod section or not, we have to be in pod section
+* Add new db name in postgres-init Dockerfile ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/Dockerfile)
 ![](/home/techno-243/Pictures/img5.png)
-3. To restart of all services, we have to basically just select state checkbox and  it will ask for confirmation then we can click on delete
+* Make sure db scripts repo should have the same branch as postgres-init , this will taken care by the workflows/push_trigger.yml (https://github.com/mosip/postgres-init/blob/develop/.github/workflows/push_trigger.yml)
 ![](/home/techno-243/Pictures/img6.png)
-4. Restart sequence of MOSIP services (https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/docs/restart-sequence.md)
-
-* If we want  to try with our local system, we have to make sure below points:
-
-1. We have to download cluster config file from rancher
-2. We have to set our kubeconfig for which environment we need to restart all the services using below command
-   * cp <yaml.file> config
-3. We want to check whether kubeconfig pointing to correct cluster or not using below command
-Kubectl config view
+* Update postgres-init helm/chart under database section in mosip-helm postgres-init/values.yaml ( https://github.com/mosip/mosip-helm/blob/develop/charts/postgres-init/values.yaml)
 ![](/home/techno-243/Pictures/img7.png)
-4. To restart of all the services, use the following commands
-   * helm -n <ns> list
-   * helm -n <ns> delete <service_names>
+* For a new db , you have to create  a new <DB_NAME>-env-configmap.yaml and <DB_NAME>-job.yaml for the particular db in the templates section of mosip-helm postgres-init/templates ( https://github.com/mosip/mosip-helm/tree/develop/charts/postgres-init/templates)
+*  Make these below changes in mosip-infra postgres/init_values.yaml ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_values.yam )
+    * Add the database name in postgres/init_values.yaml, make sure enabled to true
+    ![](/home/techno-243/Pictures/img8.png)
+    *  Set remaining database to false in init_values.yaml, if we want to deploy only one db
+    ![](/home/techno-243/Pictures/img9.png)
+* Make these below changes in mosip-infra postgres/init_db.sh ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_db.sh)
+   * Change the name from postgres-init to new <DB_NAME>
+   ![](/home/techno-243/Pictures/img10.png)
+   * Update the local helm path in the install script  (/home/techno-243/IdeaProjects/mosip-helm/charts/<DB_NAME>)
+   ![](/home/techno-243/Pictures/img11.png)
+* Run init_db.sh , it will create the db in that particular environment
 
 
+## Procedure to add a new client and its secret.
 
-## Restart of specific services:
+1. To add a new client and its secret in keycloack-init 
+2. To add a new client in running keycloack 
 
-* If we want to restart of specific services in rancher, we have to make sure below points:
- 
-1. First namespace should be correct
-2. We need to check whether we are in pod section or not, we have to be in pod section
-![](/home/techno-243/Pictures/img1.png)
-3.  To restart of specific services, we have to select specific service, click on delete   and  it will ask for confirmation then we can click on delete
-![](/home/techno-243/Pictures/img8.png)
+## 1. To add a new client and its secret in keycloack-init , we need to follow the below procedure
 
+* Go to keycloak-init helm/chart ( https://github.com/mosip/mosip-helm/tree/develop/charts/keycloak-init)
+* Make these below changes in mosip-helm keycloak-init/values.yaml  ( https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml)
+   * Check wheather that roles exists or not under realms section in that particluar helm (https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml )
+   ![](/home/techno-243/Pictures/img12.png)
+   * We have to add that particular client  under client section ( https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml )
+   ![](/home/techno-243/Pictures/img13.png)
+
+## 2. To add a new client in running keycloack , we need to follow the below procedure
+
+* Create helm chart for particular client in mosip-helm
+* If we add a new client or secret it should be updated in _overides.tpl
+![](/home/techno-243/Pictures/img14.png)
+* Add the clients and secrets  in mosip-helm repo keycloak-init/values.yml file
+![](/home/techno-243/Pictures/img15.png)
+* Add particular client in keycloak clients in the keycloak
+![](/home/techno-243/Pictures/img16.png)
+* After saving the data in keycloak client section, you can see the secret
+![](/home/techno-243/Pictures/img17.png)
+* Add the same secret in the rancher ( namespace:config-server / keycloack-clients-secrete)
+![](/home/techno-243/Pictures/img18.png)
+* Also add the same secret in rancher (namespace:keycloak/ keycloack-clients-secrete)
+![](/home/techno-243/Pictures/img19.png)
+* Once secret added in rancher, edit the yaml file of config-server deployment and add the client and secret
+![](/home/techno-243/Pictures/img20.png)
+* Once the config-server service is up,restart the respective service
+
+
+## Procedure for Restart of all the services in the particular module
+
+1. Restart of all the services for a particular module in rancher, you have to make sure the below points
+2. Restart a specific services in that particular module in rancher, you have to make sure the below points
+3. Restart of all the  MOSIP services using script
+
+## 1. If you want to restart of all the services for a particular module in rancher, you have to make sure the below points
+
+* Select the namespace for particular module
+![](/home/techno-243/Pictures/img21.png)
+* Make sure you are in pod section 
+![](/home/techno-243/Pictures/img22.png)
+* To restart of all services in the particular module, select the state checkbox  in pod section and click on delete 
+![](/home/techno-243/Pictures/img23.png)
+* It will ask for confirmation then delete the same
+![](/home/techno-243/Pictures/img24.png)
+
+## 2. If you want to restart of specific services of that particular module in rancher, you have to make sure the below points
+
+* Select the namespace for particular module   
+![](/home/techno-243/Pictures/img21.png)
+* Make sure you are in pod section 
+![](/home/techno-243/Pictures/img22.png)
+* To restart of specific services, select the particular service checkbox and click on delete, it will ask for confirmation then delete the same
+![](/home/techno-243/Pictures/img25.png)
+
+## 3. To restart all the services using script
+
+* Run restart-all.sh to restart all the mosip services  in mosip-infra (https://github.com/mosip/mosip-infra/tree/develop/deployment/v3/mosip/all)
+![](/home/techno-243/Pictures/img26.png)
+
+##  Procedure for Redeploy services on cmd
+
+* Set the kubeconfig file to particular environment ( for which environment you have to deploy)
+   * Download Kubernetes cluster kubeconfig file from rancher dashboard to your local.
+   ![](/home/techno-243/Pictures/img27.png)
+   * Install kubectl package to your local machine
+   * Set kubeconfig to the particular environment using cp <yaml.file> config command
+   ![](/home/techno-243/Pictures/img28.png)
+   * Check whether kubeconfig pointing to correct cluster or not using below command Kubectl config view  command
+   ![](/home/techno-243/Pictures/img29.png)
+* To redeploy of services, use the following two steps
+   * Run delete.sh script to delete the services
+   ![](/home/techno-243/Pictures/img30.png)
+   * Run install.sh script to install services
+   ![](/home/techno-243/Pictures/img31.png)
 
 ## Manual reprocess
 
+* If you want to run any script manually , just follow the below attached link
+  ( https://github.com/mosip/mosip-infra/tree/1.2.0.1/deployment/v3/utils/reprocess#reproces-packet )
 
-## Modification of Reprocessor config
+
+## Procedure for Rollout restarts
+
+A rolling restart is shutting down and updating nodes one at a time (while the other nodes are running) until they're all updated
+
+* For a rolling restart, we run the following commands:
+
+1. Run the kubectl get pods command to verify the pods running
+![](/home/techno-243/Pictures/img32.png)
+2. Run the rollout restart command  to restart the pods one by one without impacting the deployment 
+    * **kubectl get deployment**
+    ![](/home/techno-243/Pictures/img33.png)
+    * **kubectl rollout restart deployment <deployment_name>** 
+    ![](/home/techno-243/Pictures/img34.png)
+    * kubectl get pods command below to view the pods running 
+    ![](/home/techno-243/Pictures/img35.png)
 
 
 
-## Rollout restarts
 
-For rolling out a restart, use the following command:
 
-* kubectl rollout restart pod <pod_name>
+
+
+
 
 
 
