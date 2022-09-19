@@ -23,7 +23,7 @@
    * **bash deploy.sh deploy.properties**
 * The db will be created and we can check in the database for the specific environment
 
-## To deploy a new DB using Kubernetes jobs, we have to follow the below steps:
+## 2. To deploy a new DB using Kubernetes jobs, we have to follow the below steps:
 
 *  Make sure you have  the  postgres-init helm/chart in your local
 * Set the kubeconfig file to particular environment ( for which environment you have to deploy)
