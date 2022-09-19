@@ -22,13 +22,22 @@
           zone: "{{item.zone}}"
       with_items:
         - {port: "8080", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "22", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "25", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "111", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "80", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "601", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "443", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "53", proto: "udp", state: "enabled", zone: "public" }
+        - {port: "7703-7726", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "2376", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "2379-2380", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "30000:32767", proto: "udp", state: "enabled", zone: "public" }
+        - {port: "30000-32767", proto: "udp", state: "enabled", zone: "public" }
         - {port: "10250:10252", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "6443", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "9100", proto: "tcp", state: "enabled", zone: "public" }
         - {port: "2049", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "2048", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "30000-32767", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "41497-43774", proto: "tcp", state: "enabled", zone: "public" }
+        - {port: "25654-29933", proto: "tcp", state: "enabled", zone: "public" }
