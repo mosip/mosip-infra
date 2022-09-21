@@ -1,43 +1,45 @@
----
 - name: FirewallD installation and ports addition to the nodes
   hosts: cluster
+  vars:
+    port_list:
+      - { port: 8080/tcp, state: enabled }
+      - { port: 22/tcp, state: enabled }
+      - { port: 25/tcp, state: enabled }
+      - { port: 111/tcp, state: enabled }
+      - { port: 80/tcp, state: enabled }
+      - { port: 601/tcp, state: enabled }
+      - { port: 443/tcp, state: enabled }
+      - { port: 53/udp, state: enabled }
+      - { port: 7703-7726/tcp, state: enabled }
+      - { port: 2376/tcp, state: enabled }
+      - { port: 2379-2380/tcp, state: enabled }
+      - { port: 30000-32767/udp, state: enabled }
+      - { port: 10250-10252/tcp, state: enabled }
+      - { port: 6443/tcp, state: enabled }
+      - { port: 9100/tcp, state: enabled }
+      - { port: 2049/tcp, state: enabled }
+      - { port: 2048/tcp, state: enabled }
+      - { port: 41497-43774/tcp, state: enabled }
+      - { port: 25654-29933/tcp, state: enabled }
   tasks:
     - name: Install firewalld
       yum:
         name: firewalld
         state: latest
-      become: yes
       notify:
         - start firewalld
     - name: start firewalld
       service:
         name: firewalld
         state: started
-    - name: FirewallD rules
-        firewalld:
-          permanent: true
-          immediate: yes
-          port: "{{item.port}}/{{item.proto}}"
-          state: "{{item.state}}"
-          zone: "{{item.zone}}"
-      with_items:
-        - {port: "8080", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "22", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "25", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "111", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "80", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "601", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "443", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "53", proto: "udp", state: "enabled", zone: "public" }
-        - {port: "7703-7726", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "2376", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "2379-2380", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "30000-32767", proto: "udp", state: "enabled", zone: "public" }
-        - {port: "10250:10252", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "6443", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "9100", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "2049", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "2048", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "30000-32767", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "41497-43774", proto: "tcp", state: "enabled", zone: "public" }
-        - {port: "25654-29933", proto: "tcp", state: "enabled", zone: "public" }
+        enabled: yes
+      become: yes
+    - name: enable ports
+      firewalld:
+        zone: public
+        port: "{{ item.port }}"
+        permanent: true
+        state: "{{ item.state }}"
+      loop:
+        "{{ port_list }}"
+      become: yes
