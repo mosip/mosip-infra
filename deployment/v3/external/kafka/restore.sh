@@ -174,7 +174,7 @@ helm -n $NS install kafka bitnami/kafka -f values.yaml --wait | sed 's/^/  /g';
 #### Install kafka-ui
 HEADING='Install kafka-ui';
 print_heading "$HEADING";  ## calling print_heading function
-helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait | sed 's/^/  /g';
+helm -n $NS install kafka-ui kafka-ui/kafka-ui --set envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka.$NS:9092 --set envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER=kafka-zookeeper.$NS:2181 -f ui-values.yaml --wait | sed 's/^/  /g';
 
 #### Install Istio addons
 HEADING='Install Istio addons';
@@ -201,10 +201,20 @@ chk_exit_status "$CMD" "\t  Backup Name not found";
 printf "%s\n  [ Remove Kafka & Zookeeper statefulset ] %s\n\t" $(tput setaf 2) $(tput sgr0);
 CMD="kubectl --kubeconfig $K8S_CONFIG_FILE -n $NS --ignore-not-found=true delete statefulset kafka kafka-zookeeper";
 chk_exit_status "$CMD" "\t  Backup Name not found";
+#### Check whether all kafka.$NAMESPACE pods are terminated
+printf "\n%s  [ Check whether all kafka.$NS pods are terminated ] %s\n" $(tput setaf 2) $(tput sgr0)
+for name in kafka zookeeper; do
+    CMD="kubectl --kubeconfig=$K8S_CONFIG_FILE -n $NS wait --for=delete pod --timeout=300s -l app.kubernetes.io/name=$name";
+    chk_exit_status "$CMD" "The $name pods failed to be ready by 5 minutes.";
+done
 
 printf "%s\n  [ Restore Kafka ] %s\n\t" $(tput setaf 2) $(tput sgr0);
 RESTORE_NAME="restore-$BACKUP_NAME-$( date +'%d-%m-%Y-%H-%M' )";
 velero restore --kubeconfig $K8S_CONFIG_FILE  create $RESTORE_NAME --from-backup $BACKUP_NAME --namespace-mappings default:$NS --wait;
+
+printf "%s\n  [ Update Namespace in statefulset environmental variables ] %s\n\t" $(tput setaf 2) $(tput sgr0);
+kubectl -n $NS get statefulset kafka-zookeeper -o yaml | sed "s/default.svc.cluster.local/$NS.svc.cluster.local/g" | kubectl -n $NS apply -f -;
+kubectl -n $NS get statefulset kafka -o yaml | sed "s/default.svc.cluster.local/$NS.svc.cluster.local/g" | kubectl -n $NS apply -f - ;
 
 HEADING="List Restores";
 print_heading "$HEADING";  ## calling print_heading function
