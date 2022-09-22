@@ -32,3 +32,39 @@
         .........................................
         Backup completed with status: Completed. You may check for more information using the commands `velero backup describe kafka-15-09-2022-13-21` and `velero backup logs kafka-15-09-2022-13-21`.
   ```
+  
+
+# Restore kafka
+* Make sure `values.yaml` & `ui-values.yaml` is up-to-date.
+* run `restore.sh` to restore kafka from backup
+  ```
+    $ ./restore.sh  <K8S_CLUSTER_CONFIG_FILE>
+
+     ============== Check Cluster Config File ==========================================================================================================
+
+      Kubernetes Cluster file found 
+
+     ============== Check packages installed ===========================================================================================================
+
+      kubectl, minio client (mc), & velero packages are already installed !!! 
+
+     ============== S3 Setup ===========================================================================================================================
+      Provide S3 server : <S3_SERVER_NAME>
+      Provide S3 access key : <S3_ACCESS_KEY>
+      Provide S3 secret key : <S3_SECRET_KEY>
+      Provide S3 region ( Default region = minio ) : <S3_REGION>
+     ....
+     ....
+     ============== Create Restore =====================================================================================================================
+      Provide Namespace to restore ( Default Namespace = kafka ) : <NAMSPACE_TO_RESTORE>
+     ....
+     ....
+     ============== Restore Kafka from Backup ==========================================================================================================
+     [ List Backups ] 	
+      NAME                     STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+      kafka-backup             Completed   0        0          2022-08-25 20:00:08 +0530 IST   2d        default            app.kubernetes.io/instance=kafka
+      kafka-backup-1           Completed   0        0          2022-08-29 15:03:31 +0530 IST   6d        default            app.kubernetes.io/instance=kafka
+     [ Check backup existence ]
+      Provide Backup Name : <KAFKA_BACKUP_NAME>
+  
+  ```
