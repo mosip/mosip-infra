@@ -32,9 +32,9 @@
    * Install kubectl package to your local machine.
    * Set  kubeconfig  to the particular environment using  **cp <yaml.file> config** command
    * Check whether kubeconfig pointing to correct cluster or not using command **kubectl config view**
-   ![](/home/techno-243/Pictures/img3.png)
+   ![kubeconfigfile.png](images/kubeconfigfile.png)
 * Add repo name in postgress-int repo-list.txt ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/repo-list.txt)
-![](/home/techno-243/Pictures/img4.png)
+![]
 * Add new db name in postgres-init Dockerfile ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/Dockerfile)
 ![](/home/techno-243/Pictures/img5.png)
 * Make sure db scripts repo should have the same branch as postgres-init , this will taken care by the workflows/push_trigger.yml (https://github.com/mosip/postgres-init/blob/develop/.github/workflows/push_trigger.yml)
