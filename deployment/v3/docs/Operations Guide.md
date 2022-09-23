@@ -28,7 +28,7 @@
 *  Make sure you have  the  postgres-init helm/chart in your local
 * Set the kubeconfig file to particular environment ( for which environment you have to deploy)
    * Download Kubernetes cluster kubeconfig file from rancher dashboard to your local.
-   ![](/home/techno-243/Pictures/img2.png)
+   ![clusterfile.png](images/clusterfile.png)
    * Install kubectl package to your local machine.
    * Set  kubeconfig  to the particular environment using  **cp <yaml.file> config** command
    * Check whether kubeconfig pointing to correct cluster or not using command **kubectl config view**
