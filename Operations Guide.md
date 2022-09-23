@@ -57,10 +57,10 @@
 
 ## Procedure to add a new client and its secret.
 
-1. To add a new client and its secret in keycloack-init 
-2. To add a new client in running keycloack 
+1. To add a new client and its secret in keycloak-init 
+2. To add a new client in running keycloak 
 
-## 1. To add a new client and its secret in keycloack-init , we need to follow the below procedure
+## 1. To add a new client and its secret in keycloak-init , we need to follow the below procedure
 
 * Go to keycloak-init helm/chart ( https://github.com/mosip/mosip-helm/tree/develop/charts/keycloak-init)
 * Make these below changes in mosip-helm keycloak-init/values.yaml  ( https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml)
