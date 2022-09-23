@@ -34,24 +34,24 @@
    * Check whether kubeconfig pointing to correct cluster or not using command **kubectl config view**
    ![kubeconfigfile.png](images/kubeconfigfile.png)
 * Add repo name in postgress-int repo-list.txt ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/repo-list.txt)
-![]
+![repolist.png](images/repolist.png)
 * Add new db name in postgres-init Dockerfile ( https://github.com/mosip/postgres-init/blob/develop/postgres-init/Dockerfile)
-![](/home/techno-243/Pictures/img5.png)
+![dockerfile.png](images/dockerfile.png)
 * Make sure db scripts repo should have the same branch as postgres-init , this will taken care by the workflows/push_trigger.yml (https://github.com/mosip/postgres-init/blob/develop/.github/workflows/push_trigger.yml)
-![](/home/techno-243/Pictures/img6.png)
+![pushtrigger.png](images/pushtrigger.png)
 * Update postgres-init helm/chart under database section in mosip-helm postgres-init/values.yaml ( https://github.com/mosip/mosip-helm/blob/develop/charts/postgres-init/values.yaml)
-![](/home/techno-243/Pictures/img7.png)
+![valuesfile.png](images/valuesfile.png)
 * For a new db , you have to create  a new <DB_NAME>-env-configmap.yaml and <DB_NAME>-job.yaml for the particular db in the templates section of mosip-helm postgres-init/templates ( https://github.com/mosip/mosip-helm/tree/develop/charts/postgres-init/templates)
 *  Make these below changes in mosip-infra postgres/init_values.yaml ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_values.yam )
     * Add the database name in postgres/init_values.yaml, make sure enabled to true
-    ![](/home/techno-243/Pictures/img8.png)
+    ![init_valuesfile.png](images/init_valuesfile.png)
     *  Set remaining database to false in init_values.yaml, if we want to deploy only one db
-    ![](/home/techno-243/Pictures/img9.png)
+    ![database.png](images/database.png)
 * Make these below changes in mosip-infra postgres/init_db.sh ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_db.sh)
    * Change the name from postgres-init to new <DB_NAME>
-   ![](/home/techno-243/Pictures/img10.png)
+   ![postgres-init.png](images/postgres-init.png)
    * Update the local helm path in the install script  (/home/techno-243/IdeaProjects/mosip-helm/charts/<DB_NAME>)
-   ![](/home/techno-243/Pictures/img11.png)
+   ![helmpath.png](images/helmpath.png)
 * Run init_db.sh , it will create the db in that particular environment
 
 
@@ -65,27 +65,27 @@
 * Go to keycloak-init helm/chart ( https://github.com/mosip/mosip-helm/tree/develop/charts/keycloak-init)
 * Make these below changes in mosip-helm keycloak-init/values.yaml  ( https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml)
    * Check wheather that roles exists or not under realms section in that particluar helm (https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml )
-   ![](/home/techno-243/Pictures/img12.png)
+   ![roles.png](images/roles.png)
    * We have to add that particular client  under client section ( https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml )
-   ![](/home/techno-243/Pictures/img13.png)
+   ![client.png](images/client.png)
 
 ## 2. To add a new client in running keycloack , we need to follow the below procedure
 
 * Create helm chart for particular client in mosip-helm
 * If we add a new client or secret it should be updated in _overides.tpl
-![](/home/techno-243/Pictures/img14.png)
+![overides.png](images/overides.png)
 * Add the clients and secrets  in mosip-helm repo keycloak-init/values.yml file
-![](/home/techno-243/Pictures/img15.png)
+![keycloak_init_valuesfile.png](images/keycloak_init_valuesfile.png)
 * Add particular client in keycloak clients in the keycloak
-![](/home/techno-243/Pictures/img16.png)
+![addclient.png](images/addclient.png)
 * After saving the data in keycloak client section, you can see the secret
-![](/home/techno-243/Pictures/img17.png)
+![addclient.png](images/addclient.png)
 * Add the same secret in the rancher ( namespace:config-server / keycloack-clients-secrete)
-![](/home/techno-243/Pictures/img18.png)
+![configmapnamespace.png](images/configmapnamespace.png)
 * Also add the same secret in rancher (namespace:keycloak/ keycloack-clients-secrete)
-![](/home/techno-243/Pictures/img19.png)
+![keycloaknamespace.png](images/keycloaknamespace.png)
 * Once secret added in rancher, edit the yaml file of config-server deployment and add the client and secret
-![](/home/techno-243/Pictures/img20.png)
+![deploymentedit.png](images/deploymentedit.png)
 * Once the config-server service is up,restart the respective service
 
 
@@ -98,43 +98,43 @@
 ## 1. If you want to restart of all the services for a particular module in rancher, you have to make sure the below points
 
 * Select the namespace for particular module
-![](/home/techno-243/Pictures/img21.png)
+![namespace.png](images/namespace.png)
 * Make sure you are in pod section 
-![](/home/techno-243/Pictures/img22.png)
+![podsection.png](images/podsection.png)
 * To restart of all services in the particular module, select the state checkbox  in pod section and click on delete 
-![](/home/techno-243/Pictures/img23.png)
+![state.png](images/state.png)
 * It will ask for confirmation then delete the same
-![](/home/techno-243/Pictures/img24.png)
+![delete.png](images/delete.png)
 
 ## 2. If you want to restart of specific services of that particular module in rancher, you have to make sure the below points
 
 * Select the namespace for particular module   
-![](/home/techno-243/Pictures/img21.png)
-* Make sure you are in pod section 
-![](/home/techno-243/Pictures/img22.png)
+![namespace.png](images/namespace.png)
+* Make sure you are in pod section
+![podsection.png](images/podsection.png)
 * To restart of specific services, select the particular service checkbox and click on delete, it will ask for confirmation then delete the same
-![](/home/techno-243/Pictures/img25.png)
+![specific_service.png](images/specific_service.png)
 
 ## 3. To restart all the services using script
 
 * Run restart-all.sh to restart all the mosip services  in mosip-infra (https://github.com/mosip/mosip-infra/tree/develop/deployment/v3/mosip/all)
-![](/home/techno-243/Pictures/img26.png)
+![restartallservices.png](images/restartallservices.png)
 
 ##  Procedure for Redeploy services on cmd
 
 * Set the kubeconfig file to particular environment ( for which environment you have to deploy)
    * Download Kubernetes cluster kubeconfig file from rancher dashboard to your local.
-   ![](/home/techno-243/Pictures/img27.png)
+   ![clusterfile1.png](images/clusterfile1.png)
    * Install kubectl package to your local machine
    * Set kubeconfig to the particular environment using cp <yaml.file> config command
-   ![](/home/techno-243/Pictures/img28.png)
+   ![kubeconfigcommand.png](images/kubeconfigcommand.png)
    * Check whether kubeconfig pointing to correct cluster or not using below command Kubectl config view  command
-   ![](/home/techno-243/Pictures/img29.png)
+   ![config-view.png](images/config-view.png)
 * To redeploy of services, use the following two steps
    * Run delete.sh script to delete the services
-   ![](/home/techno-243/Pictures/img30.png)
+   ![delete.sh.png](images/delete.sh.png)
    * Run install.sh script to install services
-   ![](/home/techno-243/Pictures/img31.png)
+   ![install.sh.png](images/install.sh.png)
 
 ## Manual reprocess
 
@@ -149,14 +149,14 @@ A rolling restart is shutting down and updating nodes one at a time (while the o
 * For a rolling restart, we run the following commands:
 
 1. Run the kubectl get pods command to verify the pods running
-![](/home/techno-243/Pictures/img32.png)
+![getcommand.png](images/getcommand.png)
 2. Run the rollout restart command  to restart the pods one by one without impacting the deployment 
     * **kubectl get deployment**
-    ![](/home/techno-243/Pictures/img33.png)
+    ![deploymentcmd.png](images/deploymentcmd.png)
     * **kubectl rollout restart deployment <deployment_name>** 
-    ![](/home/techno-243/Pictures/img34.png)
+    ![rollout.png](images/rollout.png)
     * kubectl get pods command below to view the pods running 
-    ![](/home/techno-243/Pictures/img35.png)
+    ![viewpods.png](images/viewpods.png)
 
 
 
