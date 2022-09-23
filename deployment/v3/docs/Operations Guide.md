@@ -25,7 +25,7 @@
 
 ## 2. To deploy a new DB using Kubernetes jobs, we have to follow the below steps:
 
-*  Make sure you have  the  postgres-init helm/chart in your local
+* Make sure you have the postgres-init helm/chart in your local
 * Set the kubeconfig file to particular environment ( for which environment you have to deploy)
 * Download Kubernetes cluster kubeconfig file from rancher dashboard to your local.<br>
   ![clusterfile.png](images/clusterfile.png)<br>
@@ -43,15 +43,15 @@
  ![valuesfile.png](images/valuesfile.png)<br>
 * For a new db , you have to create  a new <DB_NAME>-env-configmap.yaml and <DB_NAME>-job.yaml for the particular db in the templates section of mosip-helm postgres-init/templates ( https://github.com/mosip/mosip-helm/tree/develop/charts/postgres-init/templates)
 * Make these below changes in mosip-infra postgres/init_values.yaml ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_values.yam )
-* Add the database name in postgres/init_values.yaml,make sure enabled to true <br>
- ![init_valuesfile.png](images/init_valuesfile.png)<br>
-* Set remaining database to false in init_values.yaml, if we want to deploy only one db <br>
- ![database.png](images/database.png)<br>
+  * Add the database name in postgres/init_values.yaml,make sure enabled to true <br>
+    ![init_valuesfile.png](images/init_valuesfile.png)<br>
+  * Set remaining database to false in init_values.yaml, if we want to deploy only one db <br>
+    ![database.png](images/database.png)<br>
 * Make these below changes in mosip-infra postgres/init_db.sh ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_db.sh)
-* Change the name from postgres-init to new <DB_NAME><br>
- ![postgres-init.png](images/postgres-init.png)<br>
-* Update the local helm path in the install script  (/home/techno-243/IdeaProjects/mosip-helm/charts/<DB_NAME>)<br>
- ![helmpath.png](images/helmpath.png)<br>
+  * Change the name from postgres-init to new <DB_NAME><br>
+    ![postgres-init.png](images/postgres-init.png)<br>
+  * Update the local helm path in the install script  (/home/techno-243/IdeaProjects/mosip-helm/charts/<DB_NAME>)<br>
+    ![helmpath.png](images/helmpath.png)<br>
 * Run init_db.sh , it will create the db in that particular environment
 
 
@@ -131,10 +131,10 @@
 * Check whether kubeconfig pointing to correct cluster or not using below command Kubectl config view  command <br>
  ![config-view.png](images/config-view.png) <br>
 * To redeploy of services, use the following two steps
-* Run delete.sh script to delete the services <br>
- ![delete.sh.png](images/delete.sh.png)<br>
-* Run install.sh script to install services<br>
- ![install.sh.png](images/install.sh.png)<br>
+  * Run delete.sh script to delete the services <br>
+    ![delete.sh.png](images/delete.sh.png)<br>
+  * Run install.sh script to install services<br>
+    ![install.sh.png](images/install.sh.png)<br>
 
 ## Manual reprocess
 
