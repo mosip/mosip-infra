@@ -16,8 +16,8 @@
 ## 1. To deploy a new DB from our local, we have to follow the below steps
 
 * Clone the particular github repo to local
-* Update the following environment variables in deploy.properties file <br>
- ![property file.png](images/property file.png) <br>
+* Update the following environment variables in deploy properties file <br>
+  <img src="images/property file.png" width="500"><br> 
 * After setting up all these values in the respective folder of github repo
 * Run the deploy.sh to deploy the db
    * **bash deploy.sh deploy.properties**
@@ -47,7 +47,7 @@
  ![init_valuesfile.png](images/init_valuesfile.png)<br>
 * Set remaining database to false in init_values.yaml, if we want to deploy only one db <br>
  ![database.png](images/database.png)<br>
-* Make these below changes in mosip-infra postgres/init_db.sh ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_db.sh)<br
+* Make these below changes in mosip-infra postgres/init_db.sh ( https://github.com/mosip/mosip-infra/blob/develop/deployment/v3/external/postgres/init_db.sh)
 * Change the name from postgres-init to new <DB_NAME><br>
  ![postgres-init.png](images/postgres-init.png)<br>
 * Update the local helm path in the install script  (/home/techno-243/IdeaProjects/mosip-helm/charts/<DB_NAME>)<br>
