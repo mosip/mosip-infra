@@ -66,3 +66,20 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
       mc mirror $MINIO_BACKUP_DIR/$bucket $MINIO_SERVER/$bucket;
     done
   ```
+
+#### Connecting Minio to Prometheus
+Prometheus needs to scrape data from minio buckets for continuous monitoring. 
+
+Service monitor should be enabled in values.yaml script for prometheus to scrape the data from minio.
+
+Then the minio dashboard should display the metrics that are scraped by prometheus. 
+
+The following environmental variables needs to be mapped for the same.
+
+```MINIO_PROMETHEUS_URL - http://rancher-monitoring-prometheus.cattle-monitoring-system:9090```
+
+```MINIO_PROMETHEUS_JOB_ID - minio```
+
+![minio-dashboard.png](images/minio-dashboard.png)
+
+The above mentioned changes are taken care in values.yaml script.
