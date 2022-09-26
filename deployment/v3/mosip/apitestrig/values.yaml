@@ -10,4 +10,4 @@ modules:
   - name: resident
     enabled: true
   - name: auth
-    enabled: false
+    enabled: true
