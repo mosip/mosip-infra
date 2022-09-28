@@ -31,6 +31,7 @@ declare -a module=(
                    "websub"
                    "biosdk"
                    "partner-onboarder"
+                   "idp"
                    )
 
 echo Deleting MOSIP services.

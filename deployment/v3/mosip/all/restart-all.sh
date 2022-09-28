@@ -33,6 +33,7 @@ declare -a module=(
                    "partner-onboarding"
                    "resident-app"
                    "regclient"
+                   "idp"
                    )
 
 echo Restarting MOSIP services
