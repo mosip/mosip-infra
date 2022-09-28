@@ -29,8 +29,8 @@ echo "Create configmaps mockida, delete if exists"
 kubectl -n $NS  --ignore-not-found=true delete cm mock-auth-data
 kubectl -n $NS create cm mock-auth-data --from-file=./mock-auth-data/
 
-echo Installing idp
-helm -n $NS install idp mosip/idp-ui --version $CHART_VERSION
+echo Installing IDP
+helm -n $NS install idp mosip/idp --version $CHART_VERSION
 
 echo Installing IDP UI
 helm -n $NS install idp-ui mosip/idp-ui --set istio.hosts\[0\]=$IDP_HOST --version $CHART_VERSION
