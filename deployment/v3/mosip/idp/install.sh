@@ -26,8 +26,8 @@ kubectl -n $NS delete --ignore-not-found=true configmap idp-ui-cm
 kubectl -n $NS create configmap idp-ui-cm --from-literal="REACT_APP_API_BASE_URL=http://$IDP_HOST/v1/idp" --from-literal="REACT_APP_SBI_DOMAIN_URI=http://$IDP_HOST"
 
 echo "Create configmaps mockida, delete if exists"
-kubectl -n $NS  --ignore-not-found=true delete cm mockida
-kubectl -n $NS create cm mockida --from-file=./mockida/
+kubectl -n $NS  --ignore-not-found=true delete cm mock-auth-data
+kubectl -n $NS create cm mock-auth-data --from-file=./mock-auth-data/
 
 echo Installing idp
 helm -n $NS install idp mosip/idp-ui --version $CHART_VERSION
