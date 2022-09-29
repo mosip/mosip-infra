@@ -16,8 +16,13 @@ echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
+echo "Copy configmaps"
+./copy_cm.sh
+
+SMTP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
+
 echo Installing mock-smtp
-helm -n $NS install mock-smtp mosip/mock-smtp --version $CHART_VERSION
+helm -n $NS install mock-smtp mosip/mock-smtp --set istio.hosts\[0\]=$SMTP_HOST --version $CHART_VERSION
 
 kubectl -n $NS get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
