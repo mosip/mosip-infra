@@ -35,6 +35,7 @@ REGCLIENT=$(kubectl get cm global -o jsonpath={.data.mosip-regclient-host})
 POSTGRES=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
 POSTGRES_PORT=5432  
 PMP=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
+SMTP=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
 
 echo Installing landing page
 helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
@@ -53,6 +54,7 @@ helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
 --set landing.postgres.host=$POSTGRES \
 --set landing.postgres.port=$POSTGRES_PORT \
 --set landing.pmp=$PMP \
+--set landing.smtp=$SMTP \
 --set istio.host=$DOMAIN
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
