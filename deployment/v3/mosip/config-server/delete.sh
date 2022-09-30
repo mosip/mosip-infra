@@ -12,7 +12,7 @@ while true; do
     if [ $yn = "Y" ]
       then
         kubectl -n $NS delete configmap global keycloak-host activemq-activemq-artemis-share s3 email-gateway
-        kubectl -n $NS delete secret db-common-secrets keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 email-gateway prereg-captcha
+        kubectl -n $NS delete secret db-secrets keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 email-gateway prereg-captcha
         helm -n $NS delete config-server
         break
       else
