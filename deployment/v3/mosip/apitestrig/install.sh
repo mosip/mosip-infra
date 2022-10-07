@@ -34,7 +34,8 @@ ENV_USER=$( kubectl -n default get cm global -o json  |jq -r '.data."installatio
 
 kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
 kubectl -n $NS create configmap apitestrig  --from-literal=ENV_USER=$ENV_USER \
---from-literal=ENV_ENDPOINT=https://$API_INTERNAL_HOST
+--from-literal=ENV_ENDPOINT=https://$API_INTERNAL_HOST \
+--from-literal=ENV_TESTLEVEL=smokeAndRegression
 
 echo Copy secrets
 ./copy_secrets.sh
