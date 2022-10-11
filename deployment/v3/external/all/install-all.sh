@@ -12,6 +12,7 @@ ROOT_DIR=`pwd`/../
 echo Installing External services
 
 cd $ROOT_DIR/postgres
+./db_password_gen.sh
 ./install.sh
 ./init_db.sh
 
