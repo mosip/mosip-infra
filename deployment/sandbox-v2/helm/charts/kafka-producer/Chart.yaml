@@ -1,0 +1,6 @@
+apiVersion: batch/v1
+appVersion: "1.2.0"
+description: A Helm chart for MOSIP kafka-producer job
+name: kafka-producer
+version: 1.2.0
+
