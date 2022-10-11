@@ -19,7 +19,8 @@ while true; do
         helm -n $NS delete regproc-group7
         helm -n $NS delete regproc-notifier 
         helm -n $NS delete regproc-trans
-        helm -n $NS delete regproc-reprocess 
+        helm -n $NS delete regproc-reprocess
+        helm -n $NS delete regproc-landingzoneutility
         break
       else
         break
