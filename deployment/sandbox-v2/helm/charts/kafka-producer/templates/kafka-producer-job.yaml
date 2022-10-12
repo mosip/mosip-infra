@@ -17,17 +17,6 @@ spec:
         component: {{ .Values.component }}
     spec:
       restartPolicy: Never  # This is one time job
-      initContainers:
-      - name: take-data-dir-ownership
-        image: alpine:3
-        command:
-        - chown
-        - -R
-        - 1001:1001
-        - /home/mosip/mnt
-        volumeMounts:
-        - name: kafka-producer-data
-          mountPath: /home/mosip/mnt
       containers:
       - name: {{ .Values.kafka.producer.name }}
         image: {{ .Values.kafka.producer.dockerImage }}
