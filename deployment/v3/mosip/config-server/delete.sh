@@ -12,7 +12,12 @@ while true; do
     if [ $yn = "Y" ]
       then
         kubectl -n $NS delete configmap global keycloak-host activemq-activemq-artemis-share s3 email-gateway
-        kubectl -n $NS delete secret db-mosip-audit-secret db-mosip-authdevice-secret db-mosip-credential-secret db-mosip-digitalcard-secret db-mosip-hotlist-secret db-mosip-ida-secret db-mosip-idmap-secret db-mosip-idp-secret db-mosip-idrepo-secret db-mosip-kernel-secret db-mosip-keymgr-secret db-mosip-master-secret db-mosip-pms-secret db-mosip-prereg-secret db-mosip-regdevice-secret db-mosip-regprc-secret db-mosip-resident-secret db-mosip-toolkit-secret keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 email-gateway prereg-captcha
+        kubectl -n $NS delete secret keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 email-gateway prereg-captcha
+        DB_SECRET_REGEX='db-.*-secret'
+        db_secrets_list=$(kubectl get secrets -n $NS --no-headers -o custom-columns=':.metadata.name' | grep "$DB_SECRET_REGEX")
+        for db_secret in $db_secrets_list; do
+          kubectl -n $NS delete secret $db_secret
+        done
         helm -n $NS delete config-server
         break
       else
