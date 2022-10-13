@@ -6,6 +6,9 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 NS=onboarder
+while true; do
+    read -p "Are you sure you want to delete all partner-onboarder ?(Y/n) " yn
+    if [ $yn = "Y" ]
 echo Deleting partner-onboarder helm
 kubectl -n $NS delete configmap global
 helm -n $NS delete partner-onboarder
