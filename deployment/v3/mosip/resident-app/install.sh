@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=resident
-CHART_VERSION=12.0.1-beta
+CHART_VERSION=12.0.1
 
 echo Create namespace
 kubectl create namespace $NS

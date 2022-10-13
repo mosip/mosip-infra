@@ -14,7 +14,7 @@ read -p "CAUTION: Do you still want to continue(Y/n)" yn
 if [ $yn = "Y" ] 
   then
    NS=masterdata-loader
-   CHART_VERSION=12.0.1-beta
+   CHART_VERSION=12.0.1
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    helm delete masterdata-loader -n $NS
