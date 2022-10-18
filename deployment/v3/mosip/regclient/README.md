@@ -14,8 +14,11 @@ The chart here installs a regclient downloader accessed over an http URL.
 The download URL will be available at `https://your-reglient-host`. Example: `https://reglient.sandbox.xyz.net`.
 
 ## Customization
-If you want to add extraenv variables to the regclient docker add them in extraenvvars section of the values file and include the same in the install.sh script of regclient.
-A sample 'values.sample.yaml' file is added for any further references.
+If you want to add extra environment variables to the regclient docker do follow the below mentioned steps.
+1. Add the variables in extraEnvVars section of the sample 'values.yaml.sample' file given.
+2. Rename 'values.yaml.sample' file to 'values.yaml'.
+3. Add 'values.yaml' in the install.sh script of regclient inorder to include the environmental variables to the regclient docker.
+
 
 ## Set up of regclient
 Follow the guide [here](https://github.com/mosip/registration-client/blob/develop/README.md)
