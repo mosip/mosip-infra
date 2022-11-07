@@ -37,6 +37,6 @@ if [ $choice = "2" ]; then
 fi
 
 echo Installing packetcreator
-helm -n $NS install packetcreator /home/techno-384/Desktop/MOSIP/mosip-helm/charts/packetcreator $( echo $list ) --wait --version $CHART_VERSION
+helm -n $NS install packetcreator mosip/packetcreator $( echo $list ) --wait --version $CHART_VERSION
 echo Installed packetcreator.
 
