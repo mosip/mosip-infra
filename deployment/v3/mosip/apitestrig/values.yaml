@@ -11,3 +11,6 @@ modules:
     enabled: true
   - name: auth
     enabled: true
+  - name: mobileid
+    enabled: true
+
