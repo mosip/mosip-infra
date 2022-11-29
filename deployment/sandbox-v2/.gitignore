@@ -1,2 +1,3 @@
 logs/
 tmp/
+helm/charts/*/values.yaml
