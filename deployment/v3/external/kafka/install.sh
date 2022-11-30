@@ -20,7 +20,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing kafka
-helm -n $NS install kafka bitnami/kafka -f values.yaml --wait
+helm -n $NS install kafka bitnami/kafka -f values.yaml --wait --version 18.3.1
 
 echo Installing kafka-ui
 helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait
