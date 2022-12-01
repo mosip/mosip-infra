@@ -44,9 +44,9 @@ It is possible to bring up MOSIP modules with lesser VMs as below.  However, do 
 Before installing MOSIP modules you will have to set up your VMs as below:
 1. Install above mentioned OS on all machines
 1. Create user 'mosipuser' on console machine with password-less `sudo su`. 
-1. `hostname` on all machines must match hostnames in `hosts.ini`.  Set the same with
+1. Run `playbooks/set-hostname.yaml` to set the hostname.
     ```
-    $ sudo hostnamectl set-hostname <hostname>
+    $[mosipuser@console.sb] an playbooks/set-hostname.yaml
     ```
 1. Enable Internet connectivity on all machines. 
 1. Disable `firewalld` on all machines. 
