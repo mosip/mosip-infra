@@ -165,7 +165,7 @@ http {
 
         # Note the below is for VID access.        
         location /idrepository/v1/ {
-           proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/vid/;                                                                         
+           proxy_pass {{clusters.mz.ingress.base_url}}/idrepository/v1/;                                                                         
          }
 
         location /registrationprocessor/v1/sender-stage/ {
