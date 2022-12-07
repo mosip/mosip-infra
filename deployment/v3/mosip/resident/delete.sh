@@ -6,6 +6,7 @@ while true; do
     if [ $yn = "Y" ]
       then
         helm -n $NS delete resident
+        helm -n $NS delete resident-ui
         break
       else
         break
