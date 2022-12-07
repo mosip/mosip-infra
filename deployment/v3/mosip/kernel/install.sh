@@ -20,7 +20,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing authmanager
-helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION
+helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION --set extraEnvVarsCM=["global","config-server-share","artifactory-share-develop"]
 
 echo Installing auditmanager
 helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION
