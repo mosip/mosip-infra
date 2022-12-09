@@ -35,7 +35,6 @@ declare -a module=(
                    "resident"
                    "partner-onboarder"
                    "regclient"
-                   "idp"
                    )
 
 echo Installing MOSIP services
