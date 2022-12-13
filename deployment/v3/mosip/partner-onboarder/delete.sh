@@ -5,7 +5,6 @@
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
-<<<<<<< HEAD
 
 function deleting_onboarder() {
   NS=onboarder

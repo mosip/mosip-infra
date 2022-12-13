@@ -6,6 +6,20 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
+echo "Do you have public domain & valid SSL? (Y/n) "
+echo "Y: if you have public domain & valid ssl certificate"
+echo "n: if you don't have public domain & valid ssl certificate"
+read -p "" flag
+
+if [ -z "$flag" ]; then
+  echo "'flag' was provided; EXITING;"
+  exit 1;
+fi
+ENABLE_INSECURE=''
+if [ "$flag" = "n" ]; then
+  ENABLE_INSECURE='--set onboarding.enableInsecure=true';
+fi
+
 NS=onboarder
 CHART_VERSION=12.0.2
 
