@@ -10,7 +10,6 @@ fi
 ROOT_DIR=`pwd`/../
 
 declare -a module=(
-declare -a module=(
                    "landing-page"
                    "config-server"
                    "artifactory"
@@ -33,7 +32,6 @@ declare -a module=(
                    "partner-onboarding"
                    "resident-app"
                    "regclient"
-                   "idp"
                    )
 
 echo Restarting MOSIP services
