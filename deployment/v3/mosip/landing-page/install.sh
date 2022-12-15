@@ -57,6 +57,7 @@ helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
 --set landing.postgres.host=$POSTGRES \
 --set landing.postgres.port=$POSTGRES_PORT \
 --set landing.pmp=$PMP \
+--set landing.compliance=$COMPLIANCE \
 --set landing.resident=$RESIDENT \
 --set landing.idp=$IDP \
 --set landing.smtp=$SMTP \
