@@ -24,7 +24,3 @@ echo Installed Softhsm for Kernel
 echo Installing Softhsm for IDA
 helm -n $NS install softhsm-ida mosip/softhsm -f values.yaml --version $CHART_VERSION --wait
 echo Installed Softhsm for IDA
-
-echo Installing Softhsm for IDP
-helm -n $NS install softhsm-idp mosip/softhsm -f values.yaml --version $CHART_VERSION --wait
-echo Installed Softhsm for IDP
