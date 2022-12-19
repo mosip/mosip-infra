@@ -36,7 +36,6 @@ Install in the following order:
 * [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
 * [Partner Onboarder](partner-onboarder/README.md)
-* [IDP](idp/README.md)
 
 The same can be achieved by running `all/install-all.sh`.
 ```

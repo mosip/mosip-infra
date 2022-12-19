@@ -29,3 +29,11 @@ resources:
   requests: 
     cpu: 200m
     memory: 2000Mi
+
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 30
+  successThreshold: 1
