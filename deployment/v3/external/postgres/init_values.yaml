@@ -48,10 +48,10 @@ databases:
     enabled: true
 
   mosip_toolkit:
-    enabled: true
+    enabled: false
 
   mosip_digitalcard:
-    enabled: true
+    enabled: false
 
   mosip_idp:
-    enabled: true
+    enabled: false
