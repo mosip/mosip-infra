@@ -19,7 +19,7 @@ Install in the following order:
 * [Artifactory](artifactory/README.md)
 * [WebSub](websub/README.md)
 * [Mock ABIS](mock-abis/README.md)
-* [Mock MV](mock-mv)
+* [Mock MV](mock-mv/README.md)
 * [Key Manager](keymanager/README.md)
 * [WebSub](websub/README.md)
 * [Masterdata-loader](masterdata-loader/README.md)
