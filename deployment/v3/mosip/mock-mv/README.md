@@ -1,7 +1,7 @@
 # Mock MV
 
 ## Introduction
-Mock MV reads the request from the queue and mocks the response for external "manual adjudication" and "verification" systems. Mock MV runs inside the cluster as a Kubernetes pod.
+Mock MV is the mock implementation of manual adjudication or verification system. Mock MV is a microservice installed inside MOSIP K8 cluster.
 
 
 ## Install
