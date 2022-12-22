@@ -22,6 +22,7 @@ declare -a module=(
                    "datashare"
                    "pms"
                    "mock-abis"
+                   "mock-mv"
                    "regclient"
                    "mosip-file-server"
                    "keymanager"
