@@ -8,7 +8,7 @@ fi
 
 
 NS=mosip-file-server
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-B2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -25,12 +25,9 @@ API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
 API_INTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 HEALTH_URL=https://$FILESERVER_HOST/.well-known/
 
-kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secrets
-KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
-kubectl -n $NS create secret generic keycloak-client-secrets --from-literal="MOSIP_REGPROC_CLIENT_SECRET=$KEYCLOAK_CLIENT_SECRET"
-
 kubectl -n $NS --ignore-not-found=true delete configmap mosip-file-server
-kubectl -n $NS create configmap mosip-file-server --from-literal="AUTHMANAGER_URL=http://authmanager.kernel" --from-literal="KEYMANAGER_URL=http://keymanager.keymanager"
+kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secret
+KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
 
 read -p "Please Enter MOBILE APP Link publicly accessible APK: " pub_url
 read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
@@ -40,6 +37,7 @@ helm -n $NS install mosip-file-server mosip/mosip-file-server      \
   --set mosipfileserver.host=$FILESERVER_HOST                      \
   --set mosipfileserver.puburl\[0\]="$pub_url"                     \
   --set mosipfileserver.privurl\[0]="$priv_url"                    \
+  --set mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET="$KEYCLOAK_CLIENT_SECRET" \
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
   --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
@@ -48,4 +46,5 @@ helm -n $NS install mosip-file-server mosip/mosip-file-server      \
 
 echo Get your download url from here
 echo https://$FILESERVER_HOST/.well-known/
-echo https://$FILESERVER_HOST/files/mobileapp/
+echo https://$FILESERVER_HOST/mobileapp/
+echo https://$FILESERVER_HOST/mosip-certs/

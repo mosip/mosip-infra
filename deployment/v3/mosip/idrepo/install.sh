@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=idrepo
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-B2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -23,7 +23,7 @@ echo Running salt generator job
 helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait --wait-for-jobs
 
 echo Running credential
-helm -n $NS install credential mosip/credential --version $CHART_VERSION
+helm -n $NS install credential mosip/credential --version $CHART_VERSION --set "extraEnvVarsCM={"global","config-server-share","artifactory-share-develop"}"
 
 echo Running credential request service
 helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
