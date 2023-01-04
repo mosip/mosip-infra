@@ -6,6 +6,12 @@
 ```
 * A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
 
+## Generate DB-Passwords
+```sh
+./db_password_gen.sh
+```
+* For each DB it will generate separate passwords.
+
 ## Test
 * Make sure docker is running from machine you are testing.
 * Postgres is accessible over "internal" channel, i.e. over Wireguard.  Make sure you have the Wireguard setup along with credentials to connect to internal load balancer.
