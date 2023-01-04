@@ -18,7 +18,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing
-helm -n $NS install $SERVICE_NAME bitnami/keycloak --version "7.1.18" --set image.repository=mosipdev/mosip-keycloak --set image.tag=16.1.1-debian-10-r85 -f values.yaml --wait
+helm -n $NS install $SERVICE_NAME mosip/keycloak --version "7.1.18" --set image.repository=mosipdev/mosip-keycloak --set image.tag=16.1.1-debian-10-r85 -f values.yaml --wait
 
 EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 echo Install Istio gateway, virtual service

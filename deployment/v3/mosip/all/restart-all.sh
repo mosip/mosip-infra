@@ -23,6 +23,7 @@ declare -a module=(
                    "idrepo"
                    "pms"
                    "mock-abis"
+                   "mock-mv"
                    "regproc"
                    "admin"
                    "ida"

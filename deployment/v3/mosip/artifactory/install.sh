@@ -10,15 +10,26 @@ NS=artifactory
 CHART_VERSION=12.0.2
 
 echo Create $NS namespace
-kubectl create ns $NS 
+kubectl create ns $NS
 
-echo Istio label 
+echo Istio label
 kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
 echo Installing artifactory
-helm -n $NS install artifactory mosip/artifactory --version $CHART_VERSION 
+helm -n $NS install artifactory mosip/artifactory --version $CHART_VERSION
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
 echo Installed artifactory service
+
+echo Copy configmaps
+./copy_cm.sh
+
+echo Copied artifactory share as artifactory-share-develop
+
+kubectl patch cm -n $NS artifactory-share-beta1 --type merge -p '{"data":{"iam_adapter_url_env":"http://artifactory.artifactory:80/artifactory/libs-release-local/io/mosip/kernel/1.2.0.1-B1/kernel-auth-adapter.jar"}}'
+kubectl patch cm -n $NS artifactory-share-beta1 --type merge -p '{"data":{"virusscanner_url_env":"http://artifactory.artifactory:80/artifactory/libs-release-local/clamav/1.2.0.1-B1/kernel-virusscanner-clamav.jar"}}'
+
+
+echo Updating the artifactory-share-develop configmap to point to develop jar for iam_adapter_url_env
