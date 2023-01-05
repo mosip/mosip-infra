@@ -22,12 +22,3 @@ helm -n $NS install artifactory mosip/artifactory --version $CHART_VERSION
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
 echo Installed artifactory service
-
-echo Copy configmaps
-./copy_cm.sh
-
-echo Copied artifactory share as artifactory-share-develop
-
-kubectl patch cm -n $NS artifactory-share-develop --type merge -p '{"data":{"iam_adapter_url_env":"http://artifactory.artifactory:80/artifactory/libs-release-local/io/mosip/kernel/develop/kernel-auth-adapter.jar"}}'
-
-echo Updating the artifactory-share-develop configmap to point to develop jar for iam_adapter_url_env
