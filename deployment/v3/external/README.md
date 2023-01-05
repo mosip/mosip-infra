@@ -16,7 +16,7 @@
 * [BioSDK](biosdk/README.md)
 * [ABIS](abis/README.md)
 * [Message Gateways](msg-gateway/README.md)
-
+* [Landing page](landing-page/README.md)
 ## Install
 * Run `install-all.sh` script to install in defined sequence.
 ```
