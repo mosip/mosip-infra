@@ -38,7 +38,6 @@ function installing_pms() {
   echo Installing pmp-ui
   helm -n pms install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
-
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed pms services
