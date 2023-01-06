@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=prereg
+NS=captcha
 PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
 RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
 
@@ -25,8 +25,7 @@ function Prereg_Captcha() {
   read RSECRET_KEY
 
   echo Setting up captcha secrets
-  kubectl -n $NS create secret generic prereg-captcha --from-literal=prereg-captcha-site-key=$SITE_KEY --from-literal=prereg-captcha-secret-key=$SECRET_KEY --dry-run=client  -o yaml | kubectl apply -f -
-  kubectl -n resident create secret generic resident-captcha --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --dry-run=client -o yaml | kubectl apply -f -
+  kubectl -n $NS create secret generic mosip-captcha --from-literal=prereg-captcha-site-key=$SITE_KEY --from-literal=prereg-captcha-secret-key=$SECRET_KEY --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --dry-run=client  -o yaml | kubectl apply -f -
   return 0
 }
 
