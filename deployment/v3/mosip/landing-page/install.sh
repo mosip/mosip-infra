@@ -61,7 +61,6 @@ helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
 --set landing.resident=$RESIDENT \
 --set landing.idp=$IDP \
 --set landing.smtp=$SMTP \
-
 --set istio.host=$DOMAIN
 
 kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
