@@ -22,10 +22,10 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --version $CHART_VERSION --set "extraEnvVarsCM={"global","config-server-share","artifactory-share-develop"}"
+  helm -n $NS install credential mosip/credential --version $CHART_VERSION
 
   echo Running credential request service
   helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
