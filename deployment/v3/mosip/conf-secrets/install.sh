@@ -17,4 +17,4 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
 echo "Installing Secrets required by config-server"
-helm -n $NS install conf-secrets mosip/conf-secrets --wait
+helm -n $NS install conf-secrets mosip/conf-secrets --version $CHART_VERSION --wait
