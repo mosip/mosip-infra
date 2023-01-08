@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=conf-secrets
-CHART_VERSION=12.0.1-beta
+CHART_VERSION=12.0.1-B2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -17,4 +17,4 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 helm repo update
 
 echo "Installing Secrets required by config-server"
-helm -n $NS install conf-secrets mosip/conf-secrets --wait
+helm -n $NS install conf-secrets mosip/conf-secrets --version $CHART_VERSION --wait

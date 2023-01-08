@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=postgres
-CHART_VERSION=12.0.1-beta
+CHART_VERSION=12.0.1-B2
 helm repo update
 while true; do
     read -p "CAUTION: all existing data will be lost. Are you sure?(Y/n)" yn

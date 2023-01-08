@@ -8,6 +8,7 @@ fi
 
 NS=postgres
 
+helm repo update
 echo Create $NS namespace
 kubectl create namespace $NS
 kubectl label ns $NS istio-injection=enabled --overwrite

@@ -44,3 +44,14 @@ databases:
   mosip_hotlist:
     enabled: true
 
+  mosip_resident:
+    enabled: true
+
+  mosip_toolkit:
+    enabled: false
+
+  mosip_digitalcard:
+    enabled: false
+
+  mosip_idp:
+    enabled: false
