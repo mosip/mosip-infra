@@ -32,6 +32,8 @@ function installing_artifactory() {
 
   kubectl patch cm -n $NS artifactory-share-beta1 --type merge -p '{"data":{"iam_adapter_url_env":"http://artifactory.artifactory:80/artifactory/libs-release-local/io/mosip/kernel/1.2.0.1-B1/kernel-auth-adapter.jar"}}'
 
+  kubectl patch cm -n $NS artifactory-share-beta1 --type merge -p '{"data":{"virusscanner_url_env":"http://artifactory.artifactory:80/artifactory/libs-release-local/clamav/1.2.0.1-B1/kernel-virusscanner-clamav.jar"}}'
+  
   echo Updating the artifactory-share-develop configmap to point to develop jar for iam_adapter_url_env
   return 0
 }
