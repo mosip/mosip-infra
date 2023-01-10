@@ -33,7 +33,6 @@ kubectl -n $NS delete --ignore-not-found=true secret db-secrets
 DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-postgres-host"' )
 API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 ENV_USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
-DB_SU_PASSWORD=$( kubectl -n postgres get secrets postgres-postgresql -o json | jq -r '.data."postgresql-password"' | base64 -d )
 
 read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
 if [ -z "$time" ]; then
@@ -64,7 +63,7 @@ if [ "$flag" = "n" ]; then
 fi
 
 echo Installing apitestrig
-helm -n $NS install apitestrig /home/techno-384/Desktop/MOSIP/mosip-helm/charts/apitestrig/ \
+helm -n $NS install apitestrig mosip/apitestrig/ \
 --set crontime="0 $time * * *" \
 -f values.yaml  \
 --version $CHART_VERSION \
@@ -77,8 +76,7 @@ helm -n $NS install apitestrig /home/techno-384/Desktop/MOSIP/mosip-helm/charts/
 --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
 --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
 --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
-$ENABLE_INSECURE \
---set apitestrig.secrets.db.db-su-password="$DB_SU_PASSWORD"
+$ENABLE_INSECURE
 
 echo Installed apitestrig.
 
