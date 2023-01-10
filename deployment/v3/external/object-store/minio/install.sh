@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs MinIO using helm chart inside MOSIP cluster
 ## Usage: ./install.sh [kubeconfig]
 
@@ -12,13 +12,24 @@ echo Create $NS namespace
 kubectl create ns $NS
 kubectl label ns $NS istio-injection=enabled --overwrite
 
-echo Installing minio
-helm -n minio install minio mosip/minio --version 10.1.6 
+function installing_minio() {
+  echo Installing minio
+  helm -n minio install minio mosip/minio --version 10.1.6
 
-echo Installing gateways and virtualservice
-EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
+  echo Installing gateways and virtualservice
+  EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
 
-echo host: $EXTERNAL_HOST
-helm -n $NS install istio-addons chart/istio-addons --set externalHost=$EXTERNAL_HOST
+  echo host: $EXTERNAL_HOST
+  helm -n $NS install istio-addons chart/istio-addons --set externalHost=$EXTERNAL_HOST
 
-echo Helm installed. Next step is to execute the cred.sh to update secrets in s3 namespace
+  echo Helm installed. Next step is to execute the cred.sh to update secrets in s3 namespace
+  return 0
+}
+
+# set commands for error handling.
+set -e
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o pipefail  # trace ERR through pipes
+installing_minio   # calling function

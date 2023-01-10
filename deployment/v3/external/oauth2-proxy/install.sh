@@ -62,12 +62,23 @@ NS=oauth2-proxy
 echo Creating namespace
 kubectl create ns $NS
 
-echo Istio label
-kubectl label ns $NS istio-injection=enabled --overwrite
+function installing_oauth2_proxy() {
+  echo Istio label
+  kubectl label ns $NS istio-injection=enabled --overwrite
 
-echo Installing
-kubectl apply -f $TEMP_MANIFEST -n $NS
-#helm -n $NS install oauth2-proxy bitnami/oauth2-proxy -f values-oauth2-proxy.yaml --set configuration.clientID=$istio_client_id --set configuration.clientSecret=$istio_client_secret
-#helm -n $NS install oauth2-proxy bitnami/oauth2-proxy -f values-oauth2-proxy.yaml
+  echo Installing
+  kubectl apply -f $TEMP_MANIFEST -n $NS
+  #helm -n $NS install oauth2-proxy bitnami/oauth2-proxy -f values-oauth2-proxy.yaml --set configuration.clientID=$istio_client_id --set configuration.clientSecret=$istio_client_secret
+  #helm -n $NS install oauth2-proxy bitnami/oauth2-proxy -f values-oauth2-proxy.yaml
 
-rm $TEMP_MANIFEST $KCADM_CFG
+  rm $TEMP_MANIFEST $KCADM_CFG
+  return 0
+}
+
+# set commands for error handling.
+set -e
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o pipefail  # trace ERR through pipes
+installing_oauth2_proxy   # calling function

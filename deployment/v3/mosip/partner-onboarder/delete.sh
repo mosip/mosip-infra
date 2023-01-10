@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Uninstalls partner-onboarder helm
 ## Usage: ./delete.sh [kubeconfig]
 
