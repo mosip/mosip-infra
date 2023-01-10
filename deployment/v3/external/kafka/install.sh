@@ -24,7 +24,6 @@ function installing_kafka() {
   echo Installing kafka
   helm -n $NS install kafka mosip/kafka -f values.yaml --wait --version 18.3.1
 
-
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $CHART_VERSION
 
