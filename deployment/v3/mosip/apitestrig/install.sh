@@ -22,7 +22,7 @@ echo Copy configmaps
 echo Copy secrets
 ./copy_secrets.sh
 
-echo "Delete s3, db-cm, & apitestrig configmap if exists"
+echo "Delete s3, db, & apitestrig configmap if exists"
 kubectl -n $NS delete --ignore-not-found=true configmap s3
 kubectl -n $NS delete --ignore-not-found=true configmap db
 kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
