@@ -24,11 +24,8 @@ echo Copy secrets
 
 echo "Delete s3, db-cm, & apitestrig configmap if exists"
 kubectl -n $NS delete --ignore-not-found=true configmap s3
-kubectl -n $NS delete --ignore-not-found=true configmap db-cm
+kubectl -n $NS delete --ignore-not-found=true configmap db
 kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
-
-echo "Delete db-secrets secret if exists"
-kubectl -n $NS delete --ignore-not-found=true secret db-secrets
 
 DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-postgres-host"' )
 API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
