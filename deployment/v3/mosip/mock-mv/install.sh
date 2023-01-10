@@ -27,6 +27,7 @@ function installing_mockmv() {
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed mock-mv services
+
   return 0
 }
 

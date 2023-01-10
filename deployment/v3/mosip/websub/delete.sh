@@ -13,7 +13,7 @@ function deleting_websub() {
       if [ $yn = "Y" ]
         then
           helm -n $NS delete websub-consolidator
-          helm -n $NS delete websub           
+          helm -n $NS delete websub
           break
         else
           break

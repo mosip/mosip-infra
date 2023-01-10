@@ -47,7 +47,7 @@ function installing_Cred() {
     kill -9 `ps --pid $$ -oppid=`; exit
     break
     fi
-  done  
+  done
   return 0
 }
 

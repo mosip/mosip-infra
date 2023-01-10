@@ -12,7 +12,8 @@ CHART_VERSION=12.0.1-B2
 ## GENERATE KEYSTORE PASSWORD
 KEYSTORE_PWD=$( openssl rand -base64 10 )
 
-bash create-signing-certs.sh $KEYSTORE_PWD
+sed -i 's/\r$//' create-signing-certs.sh
+./create-signing-certs.sh $KEYSTORE_PWD
 
 ## GENERATE KEYSTORE PASSWORD
 KEYSTORE_PWD=$( openssl rand -base64 10 )

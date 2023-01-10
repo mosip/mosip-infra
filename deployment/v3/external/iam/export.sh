@@ -45,7 +45,6 @@ function export_keycloak() {
 
   echo "  KEYCLOAK POD ID : $KEYCLOAK_POD_ID"
 
-
   kubectl -n $NAMESPACE exec -it $KEYCLOAK_POD_ID -- mkdir -p /tmp/keycloak-export/;
 
   echo "$(tput setaf 3)Press \"CTRL+C\" once after \"Export finished successfully\" is displayed !!! $(tput sgr0)"

@@ -26,7 +26,6 @@ function installing_websub() {
   helm -n $NS install websub mosip/websub --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
   echo Installed websub services
   return 0
 }

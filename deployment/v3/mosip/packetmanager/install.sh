@@ -6,7 +6,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 NS=packetmanager
 CHART_VERSION=12.0.1-B2
 

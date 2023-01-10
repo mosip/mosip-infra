@@ -1,18 +1,23 @@
 #!/bin/bash
-# Restart the idrepo services
-## Usage: ./restart.sh [kubeconfig]
+# Uninstalls Activemq
+## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-function Restarting_idrepo() {
-  NS=idrepo
-  kubectl -n $NS rollout restart deploy
-
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
-  echo Restarted idrepo services
+function deleting_Activemq() {
+  NS=activemq
+  while true; do
+      read -p "Are you sure you want to delete ActiveMQ helm chart? (Y/n) " yn
+      if [ $yn = "Y" ]
+        then
+          helm -n $NS delete activemq
+          break
+        else
+          break
+      fi
+  done
   return 0
 }
 
@@ -22,4 +27,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-Restarting_idrepo   # calling function
+deleting_Activemq   # calling function

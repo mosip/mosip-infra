@@ -7,7 +7,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 NS=admin
 CHART_VERSION=12.0.1-B2
 
