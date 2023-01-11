@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Installs BioSDK
 ## Usage: ./install.sh [kubeconfig]
 
@@ -12,11 +12,21 @@ CHART_VERSION=12.0.1-B2
 echo Create $NS namespace
 kubectl create ns $NS
 
-echo Istio label
-kubectl label ns $NS istio-injection=enabled --overwrite
-helm repo update
+function installing_biosdk() {
+  echo Istio label
+  kubectl label ns $NS istio-injection=enabled --overwrite
+  helm repo update
 
-echo Installing Biosdk server
-helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
+  echo Installing Biosdk server
+  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
+  echo Biosdk service installed sucessfully.
+  return 0
+}
 
-echo Biosdk service installed sucessfully.
+# set commands for error handling.
+set -e
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o pipefail  # trace ERR through pipes
+installing_biosdk   # calling function
