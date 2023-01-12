@@ -10,9 +10,7 @@ fi
 function installing_all() {
   ROOT_DIR=`pwd`/../
 
-  declare -a module=("docker-secrets"
-                     "captcha"
-                     "conf-secrets"
+  declare -a module=("conf-secrets"
                      "config-server"
                      "artifactory"
                      "keymanager"

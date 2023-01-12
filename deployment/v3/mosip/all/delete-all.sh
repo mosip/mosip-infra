@@ -9,8 +9,7 @@ fi
 function Deleting_all() {
   ROOT_DIR=`pwd`/../
 
-  declare -a module=("docker-secrets"
-                     "regproc"
+  declare -a module=("regproc"
                      "resident"
                      "resident-app"
                      "prereg"
