@@ -12,29 +12,29 @@ The steps here install all MOSIP provided services - core and reference implemen
 
 ## Install
 Install in the following order:
-* [Masterdata-loader](masterdata-loader/README.md)
 * [Config Server Secrets](conf-secrets/README.md)
 * [Config Server](config-server/README.md)
 * [Artifactory](artifactory/README.md)
-* [WebSub](websub/README.md)
-* [Mock ABIS](mock-abis/README.md)
-* [Mock MV](mock-mv/README.md)
 * [Key Manager](keymanager/README.md)
+* [WebSub](websub/README.md)
 * [Kernel](kernel/README.md)
+* [Masterdata-loader](masterdata-loader/)
 * [Packet Manager](packetmanager/README.md)
 * [Datashare](datashare/README.md)
 * [Pre-registration](prereg/README.md)
 * [ID Repository](idrepo/README.md)
 * [Partner Management](pms/README.md)
+* [Mock ABIS](mock-abis/README.md)
+* [Mock MV](mock-mv/README.md)
 * [Registration Processor](regproc/README.md)
 * [Admin](admin/README.md)
 * [ID Authentication](ida/README.md)
 * [Print](print/README.md)
 * [Partner Onboarder](partner-onboarder/README.md)
 * [Mosip File Server](mosip-file-server/README.md)
-* [Registration Client](regclient/README.md)
 * [Resident Services](resident/README.md)
-
+* [Registration Client](regclient/README.md)
+## Install
 The same can be achieved by running `all/install-all.sh`.
 ```
 cd all
