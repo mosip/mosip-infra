@@ -5,24 +5,14 @@
 
 ## postgres external configuration procedure
 
-* Go to mosip-config repo
-* Use the following grep command to get all files that are required to be updated
+* Go to mosip-config and checkout to specific branch to update config properties.
+* Default value for database hostname is `postgres-postgresql.postgres` and  Default value for database port number is `5432`.
+* If you are using external service, then you have to update hostname and port number with this below sed command and provide the new hostname
   ```
    cd mosip-config
-   grep -r "postgres-postgresql.postgres'
-   grep -r "5432"
+   sed -i 's/postgres-postgresql.postgres/new-hostname/g' *
+   sed -i 's/5432/new-port number/g' *
   ```
-* When we perform the above step we will get some files that need to be updated with the correct db.url, db.hostname and db.port number
-* Files to be updated.
-    * `id-authentication-default.properties`
-    * `syncdata-default.properties`
-    * `registration-processor-default.properties`
-    * `kernel-default.properties`
-    * `hotlist-default.properties`
-    * `partner-management-default.properties`
-    * `pre-registration-default.properties`
-    * `id-repository-default.properties`
-    * `admin-default.properties`
 * Create `postgres` namespace.
 * Create secret with name `postgres-postgresql` in `postgres` namespace, with appropriate superuser password. For example:
   ```
@@ -35,7 +25,7 @@
   data:
     postgresql-password: {{ base64 encoded superuser password }}
   ```
-* Proceed with postgres-init script from [deployment/v3/external/postgres](../external/postgres)
+* Proceed with **postgres-init** script from [deployment/v3/external/postgres/README.md](../external/postgres/README.md)
 
 
 ## keycloak external configuration procedure
@@ -49,12 +39,12 @@
     name: keycloak-host
     namespace: keycloak
   data:
-    keycloak-external-host: iam.dev.mosip.net
-    keycloak-external-url: https://iam.dev.mosip.net
+    keycloak-external-host: iam.sandbox.mosip.net
+    keycloak-external-url: https://iam.sandbox.mosip.net
     keycloak-internal-host: keycloak.keycloak
     keycloak-internal-url: http://keycloak.keycloak
   ```
-* Create secret with name `keycloak` in `keycloak` namespace with following data. Use appropriate admin-password. For example:
+* Create secret with name `keycloak` in `keycloak` namespace with following data. Use appropriate admin-password, admin-password is the password of the admin user in keycloak master realm. For example:
   ```
   apiVersion: v1
   kind: Secret
@@ -65,20 +55,16 @@
   data:
     admin-password: {{ base64 encoded admin password }}
   ```
-* Proceed with **keycloak_init.sh** script from [deployment/v3/external/iam](../external/iam)
+* Proceed with **keycloak_init.sh** script from [deployment/v3/external/iam/README.md](../external/iam/README.md)
 
 
 ## minio external configuration procedure
 
-* Go to mosip-config repo
-* Modify the following properties in each of the following files in mosip-config repo, with appropriate values.
+* Go to mosip-config and checkout to specific branch to update config properties
+* Default value for s3 URL is `object.store.s3.url=http://minio.minio:9000`
+* If you are using external service, then you have to update s3 URL using this below sed command and provide the new s3 URL
   ```
-   object.store.s3.url={{ s3 url }}
+   cd mosip-config
+   sed -i 's/old-url/new-url/g' property.files *
   ```
-* Files to be updated.
-    * `registration-processor-default.properties`
-    * `packet-manager-default.properties`
-    * `pre-registration-default.properties`
-    * `data-share-default.properties`
-    * `id-repository-default.properties`
-* Proceed with **object-store** install scripts from [deployment/v3/external/object-store](../external/object-store)
+* Proceed with **object-store** install scripts from [deployment/v3/external/object-store/README.md](../external/object-store/README.md)
