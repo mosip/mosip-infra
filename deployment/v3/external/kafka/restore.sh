@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # restore kafka via Velero
 ## Usage: ./restore.sh kubeconfig
 chk_status(){

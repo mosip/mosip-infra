@@ -7,39 +7,52 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-ROOT_DIR=`pwd`/../
+function Restarting_all() {
+  ROOT_DIR=`pwd`/../
 
-declare -a module=(
-                   "landing-page"
-                   "config-server"
-                   "artifactory"
-                   "keymanager"
-                   "websub"
-                   "kernel"
-                   "biosdk"
-                   "packetmanager"
-                   "datashare"
-                   "prereg"
-                   "idrepo"
-                   "pms"
-                   "mock-abis"
-                   "regproc"
-                   "admin"
-                   "ida"
-                   "print"
-                   "mosip-file-server"
-                   "resident"
-                   "partner-onboarding"
-                   "resident-app"
-                   "regclient"
-                   )
+  declare -a module=(
+                     "landing-page"
+                     "config-server"
+                     "artifactory"
+                     "keymanager"
+                     "websub"
+                     "kernel"
+                     "biosdk"
+                     "packetmanager"
+                     "datashare"
+                     "prereg"
+                     "idrepo"
+                     "pms"
+                     "mock-abis"
+                     "mock-mv"
+                     "regproc"
+                     "admin"
+                     "ida"
+                     "print"
+                     "mosip-file-server"
+                     "resident"
+                     "partner-onboarding"
+                     "resident-app"
+                     "regclient"
+                     )
 
-echo Restarting MOSIP services
+  echo Restarting MOSIP services
 
-for i in "${module[@]}"
-do
-  cd $ROOT_DIR/"$i"
-  ./restart.sh
-done
+  for i in "${module[@]}"
+  do
+    cd $ROOT_DIR/"$i"
+    sed -i 's/\r$//' restart.sh
+    ./restart.sh
+  done
 
-echo All MOSIP services restarted sucessfully.
+  echo All MOSIP services restarted sucessfully.
+  return 0
+}
+
+# set commands for error handling.
+set -e
+set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
+set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
+set -o errtrace  # trace ERR through 'time command' and other functions
+set -o pipefail  # trace ERR through pipes
+Restarting_all   # calling function
