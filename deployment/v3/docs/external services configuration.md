@@ -64,8 +64,8 @@
   data:
     admin-password: {{ base64 encoded admin password }}
   ```
-### Note: 
-- The admin-password is the password of the admin user of the master realm in the keycloak.
+  ### Note: 
+  - The admin-password is the password of the admin user of the master realm in the keycloak.
 * Proceed with **keycloak_init.sh** script from [here](../external/iam/README.md#keycloak-init).
 
 
