@@ -6,7 +6,7 @@
 ## Postgres external configuration procedure
 
 * Go to mosip-config and checkout to a specific branch to update config properties.
-* The default value for the database hostname is `postgres-postgresql. Postgres` and the Default value for database port number are `5432`.
+* The default value for the database hostname is `postgres-postgresql. Postgres` and the default value for the database port number are `5432`.
 * If you are using an external service, then you have to update the hostname and port number with this below sed command and provide the external-hostname and external-port.
   ```
    cd mosip-config
@@ -65,7 +65,7 @@
 
 * Go to mosip-config and checkout to a specific branch to update config properties.
 * The default value for the s3 URL is `object.store.s3.url=http://minio.minio:9000`.
-* If you are using an external service, then you have to update the s3 URL using this below sed command and provide the new s3 URL.
+* If you are using an external service, then you have to update the s3 URL using with this below sed command and provide the external URL.
   ```
    cd mosip-config
    sed -i 's/http://minio.minio/<external-url>/g'  *
