@@ -11,6 +11,8 @@ modules:
     enabled: true
   - name: auth
     enabled: true
+  - name: idp
+    enabled: true
   - name: mobileid
     enabled: true
 
