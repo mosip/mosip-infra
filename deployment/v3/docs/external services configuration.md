@@ -7,7 +7,7 @@ This document describes how to configure external services like MinIO, Keycloak,
 
 * Go to `mosip-config` and checkout to a specific branch to update the `config` properties.
 * The default value for the database hostname is `postgres-postgresql.postgres` and the default value for the database port number are `5432`.
-* If you are using an external service, you need to update the hostname and port number with the sed command mentioned below and also provide the external-hostname along with external-port. 
+* If you are using an external service, you need to update the hostname and port number with the `sed` command mentioned below and also provide the external-hostname along with external-port. 
   ```
    cd mosip-config
    sed -i 's/postgres-postgresql.postgres/<postgres-external-hostname>/g' *
@@ -77,6 +77,6 @@ This document describes how to configure external services like MinIO, Keycloak,
 * If you are using an external service, you need to update the s3 URL using with the `sed` command below and also provide the external URL. 
   ```
    cd mosip-config
-   sed -i 's/http://minio.minio/<external-url>/g'  *
+   sed -i 's/http://minio.minio/<external-url>/g' *
   ```
 * Proceed with **object-store** install scripts from [here](../external/object-store/README.md).
