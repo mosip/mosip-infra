@@ -21,8 +21,8 @@ function resident_app() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  echo Installing Resident
-  helm -n $NS install resident-app mosip/resident-app --version $CHART_VERSION
+  echo Installing mimoto
+  helm -n $NS install mimoto mosip/mimoto --version $CHART_VERSION
 
   echo Intalled resident services
   return 0
