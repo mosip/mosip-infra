@@ -41,7 +41,9 @@ function installing_resident() {
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed Resident services
+  echo Installed mimoto
   echo Installed Resident UI
+
 
   echo "resident-ui portal URL: https://$RESIDENT_HOST/"
   return 0
