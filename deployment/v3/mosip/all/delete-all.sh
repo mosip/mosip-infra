@@ -13,7 +13,6 @@ function Deleting_all() {
                      "docker-secrets"
                      "regproc"
                      "resident"
-                     "resident-app"
                      "prereg"
                      "admin"
                      "idrepo"
