@@ -1,13 +1,13 @@
 #  External Services Configuration
 
-* This document describes how to configure external services like Minio,Keycloak, and Postgres
+This document describes how to configure external services like MinIO, Keycloak, and Postgres.
 
 
 ## Postgres external configuration procedure
 
-* Go to mosip-config and checkout to a specific branch to update config properties.
+* Go to `mosip-config` and checkout to a specific branch to update the `config` properties.
 * The default value for the database hostname is `postgres-postgresql.postgres` and the default value for the database port number are `5432`.
-* If you are using an external service, then you have to update the hostname and port number with this below sed command and provide the external-hostname and external-port.
+* If you are using an external service, then you have to update the hostname and port number with the `sed` command mentioned below and also provide the external-hostname along with the external-port. 
   ```
    cd mosip-config
    sed -i 's/postgres-postgresql.postgres/<postgres-external-hostname>/g' *
@@ -32,7 +32,7 @@
 * Proceed with **postgres-init** script from [here](../external/postgres/README.md#initialize-db).
 
 
-## keycloak external configuration procedure
+## Keycloak external configuration procedure
 
 * Create a `keycloak` namespace.
   ```
@@ -64,17 +64,17 @@
   data:
     admin-password: {{ base64 encoded admin password }}
   ```
-  ### Note: 
+  Note: 
   - The admin-password is the password of the admin user of the master realm in the keycloak.
 * Proceed with **keycloak_init.sh** script from [here](../external/iam/README.md#keycloak-init).
 
 
 
-## minio external configuration procedure
+## MinIO external configuration procedure
 
-* Go to mosip-config and checkout to a specific branch to update config properties.
+* Go to `mosip-config` and checkout to a specific branch to update the `config` properties.
 * The default value for the s3 URL is `object.store.s3.url=http://minio.minio:9000`.
-* If you are using an external service, then you have to update the s3 URL using with this below sed command and provide the external URL.
+* If you are using an external service, then you will need to update the s3 URL using with the `sed` command below and also provide the external URL. 
   ```
    cd mosip-config
    sed -i 's/http://minio.minio/<external-url>/g'  *
