@@ -74,7 +74,7 @@ This document describes how to configure external services like MinIO, Keycloak,
 
 * Go to `mosip-config` and checkout to a specific branch to update the `config` properties.
 * The default value for the s3 URL is `object.store.s3.url=http://minio.minio:9000`.
-* If you are using an external service, you need to update the s3 URL using via `sed` command below and also provide the external URL. 
+* If you are using an external service, you need to update the s3 URL via `sed` command below and also provide the external URL. 
   ```
    cd mosip-config
    sed -i 's/http://minio.minio/<external-url>/g' *
