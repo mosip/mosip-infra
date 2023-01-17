@@ -45,10 +45,8 @@ function installing_regproc() {
   echo Installing group3
   helm -n $NS install regproc-group3 mosip/regproc-group3  --version $CHART_VERSION
 
-  set +e
   echo Installing group4
   helm -n $NS install regproc-group4 mosip/regproc-group4 --version $CHART_VERSION
-  set -e
 
   echo Installing group5
   helm -n $NS install regproc-group5 mosip/regproc-group5 --version $CHART_VERSION
