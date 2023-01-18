@@ -8,6 +8,7 @@ fi
 
 NS=resident
 CHART_VERSION=12.0.2
+MIMOTO_CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -32,8 +33,8 @@ function installing_resident() {
   echo Installing Resident
   helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=$RESIDENT_HOST --version $CHART_VERSION
 
-  echo Installing Resident App
-  helm -n $NS install resident-app mosip/resident-app --version $CHART_VERSION
+  echo Installing mimoto
+  helm -n $NS install mimoto mosip/mimoto --version $MIMOTO_CHART_VERSION
 
   echo Installing Resident UI
   helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $CHART_VERSION
