@@ -8,7 +8,7 @@ fi
 
 
 NS=packetmanager
-CHART_VERSION=12.0.2
+CHART_VERSION=12.0.1-beta
 
 echo Create $NS namespace
 kubectl create ns $NS 
