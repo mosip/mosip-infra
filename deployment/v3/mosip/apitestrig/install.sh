@@ -62,7 +62,7 @@ function installing_apitestrig() {
   fi
   
   echo Installing apitestrig
-  helm -n $NS install apitestrig mosip/apitestrig/ \
+  helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
