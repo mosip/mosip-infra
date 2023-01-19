@@ -9,7 +9,6 @@ $COPY_UTIL secret keycloak-client-secrets keycloak $DST_NS
 $COPY_UTIL secret activemq-activemq-artemis activemq $DST_NS 
 $COPY_UTIL secret softhsm-kernel softhsm $DST_NS
 $COPY_UTIL secret softhsm-ida softhsm $DST_NS
-$COPY_UTIL secret softhsm-idp softhsm $DST_NS
 $COPY_UTIL secret s3 s3 $DST_NS
 $COPY_UTIL secret email-gateway msg-gateways $DST_NS
 $COPY_UTIL secret mosip-captcha captcha $DST_NS
