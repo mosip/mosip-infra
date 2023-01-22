@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=idrepo
-CHART_VERSION=12.0.1-B2
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -25,16 +25,16 @@ function installing_idrepo() {
   helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --version $CHART_VERSION
+  helm -n $NS install credential mosip/credential --set image.repository=mosipdev/credential-service --version $CHART_VERSION
 
   echo Running credential request service
-  helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
+  helm -n $NS install credentialrequest mosip/credentialrequest --set image.repository=mosipdev/credential-request-generator --version $CHART_VERSION
 
   echo Running identity service
-  helm -n $NS install identity mosip/identity --version $CHART_VERSION
+  helm -n $NS install identity mosip/identity --set image.repository=mosipdev/id-repository-identity-service --version $CHART_VERSION
 
   echo Running vid service
-  helm -n $NS install vid mosip/vid --version $CHART_VERSION
+  helm -n $NS install vid mosip/vid --set image.repository=mosipdev/id-repository-vid-service --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
