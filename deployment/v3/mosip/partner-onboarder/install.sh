@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=onboarder
-CHART_VERSION=12.0.1-beta
+CHART_VERSION=12.0.1-B2
 
 echo "Do you have public domain & valid SSL? (Y/n) "
 echo "Y: if you have public domain & valid ssl certificate"
