@@ -32,7 +32,6 @@ function installing_all() {
                      "partner-onboarder"
                      "mosip-file-server"
                      "resident"
-                     "resident-app"
                      "regclient"
                      )
 

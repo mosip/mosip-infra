@@ -11,7 +11,6 @@ function Deleting_all() {
 
   declare -a module=("regproc"
                      "resident"
-                     "resident-app"
                      "prereg"
                      "admin"
                      "idrepo"

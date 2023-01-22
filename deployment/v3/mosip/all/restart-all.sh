@@ -29,7 +29,6 @@ function Restarting_all() {
                      "print"
                      "mosip-file-server"
                      "resident"
-                     "resident-app"
                      "regclient"
                      )
 

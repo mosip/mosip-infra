@@ -8,6 +8,7 @@ function deleting_resident() {
       if [ $yn = "Y" ]
         then
           helm -n $NS delete resident
+          helm -n $NS delete mimoto
           helm -n $NS delete resident-ui
           break
         else
