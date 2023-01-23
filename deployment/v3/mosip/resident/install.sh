@@ -31,7 +31,7 @@ function installing_resident() {
 
 
   echo Installing Resident
-  helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=$RESIDENT_HOST --set image.reporitory=mosipdev/resident-service --version $CHART_VERSION
+  helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=$RESIDENT_HOST --set image.repository=mosipdev/resident-service --set image.tag=1.2.0.1-B2 --version $CHART_VERSION
 
   echo Installing mimoto
   helm -n $NS install mimoto mosip/mimoto --version --set image.repository=mosipdev/mimoto $MIMOTO_CHART_VERSION
