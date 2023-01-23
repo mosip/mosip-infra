@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=12.0.2
+CHART_VERSION=12.0.1-beta
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_kernel() {
   ./copy_cm.sh
 
   echo Installing authmanager
-  helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION
+  helm -n $NS install authmanager mosip/authmanager --set image.tag=1.2.0.1-B2 --version $CHART_VERSION
 
   echo Installing auditmanager
   helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION
