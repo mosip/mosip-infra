@@ -17,7 +17,7 @@ function initialize_db() {
           echo Removing any existing installation
           helm -n $NS delete postgres-init
           echo Initializing DB
-          helm -n $NS install postgres-init mosip/postgres-init -f init_values.yaml --version $CHART_VERSION --wait --wait-for-jobs
+          helm -n $NS install postgres-init mosip/postgres-init --set image.repository=mosipdev/postres-init -f init_values.yaml --version $CHART_VERSION --wait --wait-for-jobs
           break
         else
           break
@@ -25,6 +25,7 @@ function initialize_db() {
   done
   return 0
 }
+
 
 # set commands for error handling.
 set -e

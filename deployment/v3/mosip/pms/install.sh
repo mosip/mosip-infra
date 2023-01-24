@@ -34,7 +34,7 @@ function installing_pms() {
   helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
   echo Installing pmp-ui
-  helm -n pms install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --set imge.repository=mosipdev/pmp-ui --version 12.0.2
+  helm -n pms install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --set image.repository=mosipdev/pmp-ui --version 12.0.2
 
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
