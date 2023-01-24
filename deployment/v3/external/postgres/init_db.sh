@@ -26,6 +26,7 @@ function initialize_db() {
   return 0
 }
 
+
 # set commands for error handling.
 set -e
 set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
