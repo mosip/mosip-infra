@@ -40,7 +40,7 @@ function installing_onboarder() {
   CERT_MANAGER_PASSWORD=$(kubectl get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.mosip_deployment_client_secret}" | base64 --decode)
 
   echo Onboarding default partners
-  helm -n $NS install partner-onboarder  mosip/partner-onboarder $ENABLE_INSECURE --set onboarding.apiUrl=$API_URL --set onboarding.certManagerPassword=$CERT_MANAGER_PASSWORD --set istio.hosts[0]=$HOST --version $CHART_VERSION
+  helm -n $NS install partner-onboarder  mosip/partner-onboarder $ENABLE_INSECURE --set onboarding.apiUrl=$API_URL --set onboarding.certManagerPassword=$CERT_MANAGER_PASSWORD --set istio.hosts[0]=$HOST --set image.repository=mosipdev/partner-onboarder  --version $CHART_VERSION
 
   echo Review reports at https://$HOST
   return 0

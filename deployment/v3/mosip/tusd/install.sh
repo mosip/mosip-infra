@@ -22,7 +22,7 @@ function installing_tusd() {
   ./copy_cm.sh
 
   echo Installing tusd service
-  helm -n $NS install tusd-service mosip/tusd --wait --version $CHART_VERSION
+  helm -n $NS install tusd-service mosip/tusd --set image.repository=mosipdev/tusd-server --wait --version $CHART_VERSION
   return 0
 }
 

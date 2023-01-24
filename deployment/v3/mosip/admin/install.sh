@@ -30,13 +30,13 @@ function installing_admin() {
   kubectl -n $NS apply -f admin-proxy.yaml
 
   echo Installing admin hotlist service.
-  helm -n $NS install admin-hotlist mosip/admin-hotlist --version $CHART_VERSION
+  helm -n $NS install admin-hotlist mosip/admin-hotlist --set image.repository=mosipdev/hotlist-service  --version $CHART_VERSION
 
   echo Installing admin service. Will wait till service gets installed.
-  helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION
+  helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST image.repository=mosipdev/admin-service --wait --version $CHART_VERSION
 
   echo Installing admin-ui
-  helm -n $NS install admin-ui mosip/admin-ui --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
+  helm -n $NS install admin-ui mosip/admin-ui --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --set image.repository=mosipdev/admin-ui  --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -22,16 +22,16 @@ function installing_ida() {
   ./copy_cm.sh
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs image.repository=mosipdev/keys-generator  --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing ida auth
-  helm -n $NS install ida-auth mosip/ida-auth --version $CHART_VERSION
+  helm -n $NS install ida-auth mosip/ida-auth --set image.repository=mosipdev/authentication-service  --version $CHART_VERSION
 
   echo Installing ida internal
-  helm -n $NS install ida-internal mosip/ida-internal --version $CHART_VERSION
+  helm -n $NS install ida-internal mosip/ida-internal --set image.repository=mosipdev/authentication-internal-service  --version $CHART_VERSION
 
   echo Installing ida otp
-  helm -n $NS install ida-otp mosip/ida-otp --version $CHART_VERSION
+  helm -n $NS install ida-otp mosip/ida-otp image.repository=mosipdev/authentication-otp-service  --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -30,22 +30,22 @@ function installing_prereg() {
   helm -n $NS install prereg-gateway mosip/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
 
   echo Installing prereg-captcha
-  helm -n $NS install prereg-captcha mosip/prereg-captcha --version $CHART_VERSION
+  helm -n $NS install prereg-captcha mosip/prereg-captcha --set image.repository=mosipdev/pre-registration-captcha-service  --version $CHART_VERSION
 
   echo Installing prereg-application
-  helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
+  helm -n $NS install prereg-application mosip/prereg-application --set image.repository=mosipdev/pre-registration-application-service  --version $CHART_VERSION
 
   echo Installing prereg-booking
-  helm -n $NS install prereg-booking mosip/prereg-booking --version $CHART_VERSION
+  helm -n $NS install prereg-booking mosip/prereg-booking --set image.repository=mosipdev/pre-registration-booking-service  --version $CHART_VERSION
 
   echo Installing prereg-datasync
-  helm -n $NS install prereg-datasync mosip/prereg-datasync --version $CHART_VERSION
+  helm -n $NS install prereg-datasync mosip/prereg-datasync --set image.repository=mosipdev/pre-registration-datasync-service  --version $CHART_VERSION
 
   echo Installing prereg-batchjob
-  helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
+  helm -n $NS install prereg-batchjob mosip/prereg-batchjob --set image.repository=mosipdev/pre-registration-batchjob  --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --set image.repository=mosipdev/pre-registration-ui  --version $CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml
