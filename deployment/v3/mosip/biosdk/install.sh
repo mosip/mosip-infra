@@ -18,7 +18,7 @@ function installing_biosdk() {
   helm repo update
 
   echo Installing Biosdk server
-  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
+  helm -n $NS install biosdk-service mosip/biosdk-service --set image.repository=mosipid/biosdk-server --set image.tag=1.2.0.1-B1 -f values.yaml --version $CHART_VERSION
   echo Biosdk service installed sucessfully.
   return 0
 }

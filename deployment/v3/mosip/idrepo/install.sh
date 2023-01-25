@@ -22,19 +22,19 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --set image.repository=mosipid/id-repository-salt-generator --set image.tag=1.2.0.1-B1 --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --version $CHART_VERSION
+  helm -n $NS install credential mosip/credential --set image.repository=mosipid/credential-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   echo Running credential request service
-  helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
+  helm -n $NS install credentialrequest mosip/credentialrequest --set image.repository=mosipid/credential-request-generator --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   echo Running identity service
-  helm -n $NS install identity mosip/identity --version $CHART_VERSION
+  helm -n $NS install identity mosip/identity --set image.repository=mosipid/id-repository-identity-service --set image.tag=1.2.0.1-B1  --version $CHART_VERSION
 
   echo Running vid service
-  helm -n $NS install vid mosip/vid --version $CHART_VERSION
+  helm -n $NS install vid mosip/vid --set image.repository=mosipid/id-repository-vid-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed idrepo services

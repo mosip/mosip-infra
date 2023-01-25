@@ -22,7 +22,7 @@ function installing_packetmanager() {
   ./copy_cm.sh
 
   echo Installing packetmanager
-  helm -n $NS install packetmanager mosip/packetmanager --version $CHART_VERSION
+  helm -n $NS install packetmanager mosip/packetmanager --set image.repository=mosipid/commons-packet-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   return 0

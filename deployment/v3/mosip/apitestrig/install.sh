@@ -63,6 +63,8 @@ function installing_apitestrig() {
 
   echo Installing apitestrig
   helm -n $NS install apitestrig mosip/apitestrig \
+  --set image.repository=mosipdev/automationtests \
+  --set image.tag=develop
   --set crontime="0 $time * * *" \
   -f values.yaml \
   --version $CHART_VERSION \

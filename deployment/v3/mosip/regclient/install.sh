@@ -41,6 +41,8 @@ function installing_regclient() {
 
   echo Install reg client downloader. This may take a few minutes ..
   helm -n $NS install regclient mosip/regclient \
+    --set image.repository=mosipid/registration-client \
+    --set image.tag=1.2.0.1-B1 \
     --set regclient.upgradeServerUrl=https://$INTERNAL_HOST \
     --set regclient.healthCheckUrl=$HEALTH_URL \
     --set regclient.hostName=$INTERNAL_HOST \

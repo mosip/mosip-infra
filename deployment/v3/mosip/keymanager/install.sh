@@ -23,10 +23,10 @@ function installing_keymanager() {
   ./copy_cm.sh
 
   echo Running keygenerator. This may take a few minutes..
-  helm -n $NS install kernel-keygen mosip/keygen --wait --wait-for-jobs --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install kernel-keygen mosip/keygen --set image.repository=mosipid/keys-generator --set image.tag=1.2.0.1-B1 --wait --wait-for-jobs --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing keymanager
-  helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION
+  helm -n $NS install keymanager mosip/keymanager --set image.repository=mosipqa/kernel-keymanager-service --set image.tag=1.2.0.1-B2 --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed keymanager services
