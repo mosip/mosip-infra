@@ -25,7 +25,7 @@ function installing_idrepo() {
   helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --set image.repository=mosipqa/credential-service --set image.tag=develop --version $CHART_VERSION
+  helm -n $NS install credential mosip/credential --version $CHART_VERSION
 
   echo Running credential request service
   helm -n $NS install credentialrequest mosip/credentialrequest --version $CHART_VERSION
