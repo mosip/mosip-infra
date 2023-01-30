@@ -45,6 +45,7 @@ function installing_regclient() {
     --set regclient.hostName=$INTERNAL_HOST \
     --set istio.host=$REGCLIENT_HOST \
     --wait \
+    --set image.repository=mosipdev/registration-client  \
     --version $CHART_VERSION
 
   echo Get your download url from here

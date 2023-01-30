@@ -22,8 +22,8 @@ function installing_websub() {
   ./copy_cm.sh
 
   echo Installing websub
-  helm -n $NS install websub-consolidator mosip/websub-consolidator --version $CHART_VERSION --wait
-  helm -n $NS install websub mosip/websub --version $CHART_VERSION
+  helm -n $NS install websub-consolidator mosip/websub-consolidator --set image.repository=mosipdev/consolidator-websub-service --version $CHART_VERSION --wait
+  helm -n $NS install websub mosip/websub --set image.repository=mosipdev/websub-service --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

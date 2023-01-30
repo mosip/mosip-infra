@@ -43,6 +43,7 @@ function installing_mfs() {
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
     --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
     --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
+    --set image.repository=mosipdev/mosip-file-server  \
     --wait                                                           \
     --version $CHART_VERSION
 

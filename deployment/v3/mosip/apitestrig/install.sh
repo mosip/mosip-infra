@@ -64,6 +64,7 @@ function installing_apitestrig() {
   echo Installing apitestrig
   helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
+  --set image.repository=mosipdev/automationtests
   -f values.yaml  \
   --version $CHART_VERSION \
   --set apitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
