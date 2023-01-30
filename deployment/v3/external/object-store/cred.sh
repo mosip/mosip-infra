@@ -23,11 +23,13 @@ function installing_Cred() {
   do
     if [ $choice = "1" ]
     then
+    read -p "Please provide pretext value : " PRETEXT_VALUE
     echo Creating secrets as per Minio native installation
     USER=$(kubectl -n minio get secret minio -o jsonpath='{.data.root-user}' | base64 --decode)
     PASS=$(kubectl -n minio get secret minio -o jsonpath='{.data.root-password}' | base64 --decode)
     kubectl -n s3 create configmap s3 --from-literal=s3-user-key=$USER --from-literal=s3-region="" --dry-run=client  -o yaml | kubectl apply -f -
     kubectl -n s3 create secret generic s3 --from-literal=s3-user-secret=$PASS --dry-run=client  -o yaml | kubectl apply -f -
+    kubectl -n s3 create secret generic pretext-value --from-literal=pretext-value=$PRETEXT_VALUE --dry-run=client  -o yaml | kubectl apply -f -
     echo object-store secret and config map is set now.
     break
     elif [ $choice = "2" ]
