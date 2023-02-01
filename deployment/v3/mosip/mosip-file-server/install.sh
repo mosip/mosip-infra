@@ -43,6 +43,7 @@ helm -n $NS install mosip-file-server mosip/mosip-file-server      \
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
   --set istio.corsPolicy.allowOrigins\[2\].prefix=https://verifiablecredential.io \
+  --set image.tag=1.2.0.1-B2
   --wait                                                           \
   --version $CHART_VERSION
 
