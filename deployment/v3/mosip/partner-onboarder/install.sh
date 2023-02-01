@@ -38,6 +38,6 @@ HOST=$(kubectl get cm global -o jsonpath={.data.mosip-onboarder-host})
 CERT_MANAGER_PASSWORD=$(kubectl get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.mosip_deployment_client_secret}" | base64 --decode)
 
 echo Onboarding default partners
-helm -n $NS install partner-onboarder  mosip/partner-onboarder $ENABLE_INSECURE --set onboarding.apiUrl=$API_URL --set onboarding.certManagerPassword=$CERT_MANAGER_PASSWORD --set istio.hosts[0]=$HOST --version $CHART_VERSION
+helm -n $NS install partner-onboarder  mosip/partner-onboarder --set image.repository=mosipqa/partner-onboarder --set image.tag=1.2.0.1 $ENABLE_INSECURE --set onboarding.apiUrl=$API_URL --set onboarding.certManagerPassword=$CERT_MANAGER_PASSWORD --set istio.hosts[0]=$HOST --version $CHART_VERSION
 
 echo Review reports at https://$HOST
