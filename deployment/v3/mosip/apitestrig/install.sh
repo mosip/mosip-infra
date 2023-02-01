@@ -60,6 +60,6 @@ if [ $time -gt 23 ] || [ $time -lt 0 ] ; then
 fi
 
 echo Installing apitestrig
-helm -n $NS install apitestrig mosip/apitestrig --set image.repository=mosipqa/automationtests --set image.tag=develop --set crontime="0 $time * * *" -f values.yaml --wait --version $CHART_VERSION
+helm -n $NS install apitestrig mosip/apitestrig  --set crontime="0 $time * * *" -f values.yaml --wait --version $CHART_VERSION
 echo Installed apitestrig.
 
