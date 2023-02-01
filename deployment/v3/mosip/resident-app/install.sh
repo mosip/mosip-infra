@@ -20,7 +20,7 @@ echo Copy configmaps
 ./copy_cm.sh
 
 echo Installing Resident
-helm -n $NS install resident-app mosip/resident-app --version $CHART_VERSION
+helm -n $NS install resident-app mosip/resident-app --set image.repository=mosipid/mimoto --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
 echo Intalled resident services
                                
