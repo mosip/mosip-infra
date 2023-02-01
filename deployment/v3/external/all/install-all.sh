@@ -50,6 +50,9 @@ function installing_all() {
   cd $ROOT_DIR/conf-secrets
   ./install.sh
 
+  cd $ROOT_DIR/landing-page
+  ./install.sh
+  
   echo All External services deployed an configured sucessfully.
   return 0
 }
