@@ -16,6 +16,7 @@ kubectl create ns $NS
 function installing_minio-client() {
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
+  helm repo update
 
   echo Copy secrets
   ./copy_secrets.sh
