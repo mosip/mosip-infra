@@ -30,14 +30,9 @@ function installing_mfs() {
   kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secret
   KEYCLOAK_CLIENT_SECRET=$( kubectl -n keycloak get secrets keycloak-client-secrets -o yaml | awk '/mosip_regproc_client_secret: /{print $2}' | base64 -d )
 
-  read -p "Please Enter MOBILE APP Link publicly accessible APK: " pub_url
-  read -p "Please Enter MOBILE APP Link privately accessible APK: " priv_url
-
   echo Install mosip-file-server. This may take a few minutes ..
   helm -n $NS install mosip-file-server mosip/mosip-file-server      \
     --set mosipfileserver.host=$FILESERVER_HOST                      \
-    --set mosipfileserver.puburl\[0\]="$pub_url"                     \
-    --set mosipfileserver.privurl\[0]="$priv_url"                    \
     --set mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET="$KEYCLOAK_CLIENT_SECRET" \
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
     --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$API_INTERNAL_HOST \
@@ -47,7 +42,7 @@ function installing_mfs() {
 
   echo Get your download url from here
   echo https://$FILESERVER_HOST/.well-known/
-  echo https://$FILESERVER_HOST/mobileapp/
+  echo https://$FILESERVER_HOST/inji/
   echo https://$FILESERVER_HOST/mosip-certs/
   return 0
 }
