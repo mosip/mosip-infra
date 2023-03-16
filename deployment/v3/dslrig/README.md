@@ -1,13 +1,14 @@
 # DSLRIG
 
 ## Introduction
-DSLRIG will test the end-to-end working of APIs of the MOSIP modules.
+DSL RIG will test end-to-end functional flows involving multiple MOSIP modules.
+
+#### Prerequisites
+* Packet utility running in rancher cluster exposed to be accessed by the cluster.
+* Auth demo and DSL RIG to be running in the same cluster.
+* NFS server already present and related details.
 
 ## Install
-* Make sure to deploy the authdemo and packetcreator services before deploying DSLRIG.
-* Packetcreator will be deployed on a separate cluster/observation cluster.
-* Authdemo and DSL-Orchestrator will be deployed on the MOSIP cluster.
-* A separate server to set up NFS service is required.  
 * Install
 ```sh
 ./install.sh
