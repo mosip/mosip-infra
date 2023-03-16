@@ -29,7 +29,7 @@ function installing_apitestrig() {
   kubectl -n $NS delete --ignore-not-found=true configmap db
   kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
   
-  DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-postgres-host"' )
+  DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   ENV_USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
   
