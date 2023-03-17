@@ -10,6 +10,12 @@ ApiTestRig will test the working of APIs of the MOSIP modules.
 ./install.sh
 ```
 
+## Uninstall
+* To uninstall ApiTestRig, run `delete.sh` script.
+```sh
+./delete.sh 
+```
+
 ## Run apitestrig manually
 
 #### Rancher UI
