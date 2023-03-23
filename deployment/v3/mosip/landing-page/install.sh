@@ -39,7 +39,7 @@ function landing_page() {
   PMP=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
   COMPLIANCE=$(kubectl get cm global -o jsonpath={.data.mosip-compliance-host})
   RESIDENT=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
-  IDP=$(kubectl get cm global -o jsonpath={.data.mosip-idp-host})
+  ESIGNET=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
   SMTP=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
 
   echo Installing landing page
@@ -61,7 +61,7 @@ function landing_page() {
   --set landing.compliance=$COMPLIANCE \
   --set landing.pmp=$PMP \
   --set landing.resident=$RESIDENT \
-  --set landing.idp=$IDP \
+  --set landing.esignet=$ESIGNET \
   --set landing.smtp=$SMTP \
   --set istio.host=$DOMAIN
 
