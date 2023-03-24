@@ -10,6 +10,7 @@ fi
 NS=captcha
 PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
 RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
+ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
 
 echo Create $NS namespace
 kubectl create ns $NS
