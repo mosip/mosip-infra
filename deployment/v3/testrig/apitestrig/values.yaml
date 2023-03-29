@@ -15,3 +15,4 @@ modules:
     enabled: true
   - name: mimoto
     enabled: true
+    enabled: false

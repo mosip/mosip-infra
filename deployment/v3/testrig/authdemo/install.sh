@@ -7,7 +7,11 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=authdemo
+<<<<<<< HEAD
 CHART_VERSION=12.0.2
+=======
+CHART_VERSION=12.0.1-B3
+>>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -26,7 +30,11 @@ function installing_authdemo() {
 
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
+<<<<<<< HEAD
   echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
+=======
+  echo "n: if you don't have public domain & valid ssl certificate"
+>>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
   read -p "" flag
 
   if [ -z "$flag" ]; then
@@ -35,7 +43,11 @@ function installing_authdemo() {
   fi
   ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
+<<<<<<< HEAD
     ENABLE_INSECURE='--set enable_insecure=true';
+=======
+    ENABLE_INSECURE='--set authdemo.configmaps.authdemo.ENABLE_INSECURE=true';
+>>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
   fi
 
   read -p "Please provide NFS host : " NFS_HOST
