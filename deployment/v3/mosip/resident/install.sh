@@ -8,7 +8,7 @@ fi
 
 NS=resident
 CHART_VERSION=12.0.1-B3
-RESIDENT_UI_CHART_VERSION=12.0.1-B2
+RESIDENT_UI_CHART_VERSION=0.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
