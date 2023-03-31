@@ -8,6 +8,7 @@ fi
 
 NS=resident
 CHART_VERSION=12.0.1-B3
+MIMOTO_CHART_VERSION=0.9
 RESIDENT_UI_CHART_VERSION=0.0.1
 
 echo Create $NS namespace
@@ -55,7 +56,7 @@ function installing_resident() {
   helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing mimoto
-  helm -n $NS install mimoto mosip/mimoto --version $CHART_VERSION
+  helm -n $NS install mimoto mosip/mimoto --version $MIMOTO_CHART_VERSION
 
   echo Installing Resident UI
   helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $RESIDENT_UI_CHART_VERSION
