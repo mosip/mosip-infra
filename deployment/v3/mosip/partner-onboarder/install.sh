@@ -21,7 +21,7 @@ if [ "$flag" = "n" ]; then
 fi
 
 NS=onboarder
-CHART_VERSION=12.0.1-B2
+CHART_VERSION=12.0.1-B3
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -34,6 +34,10 @@ function installing_onboarder() {
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
+
+  echo Copy secrets
+  sed -i 's/\r$//' copy_secrets.sh
+  ./copy_secrets.sh
 
   API_URL=https://$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
   HOST=$(kubectl get cm global -o jsonpath={.data.mosip-onboarder-host})
