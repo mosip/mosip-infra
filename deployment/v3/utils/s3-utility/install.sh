@@ -1,19 +1,19 @@
 #!/bin/bash
-# Installs minio-client
+# Installs s3-utility
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=minio-client
+NS=util
 CHART_VERSION=1.0.0
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 
-function installing_minio-client() {
+function installing_s3-utility() {
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
@@ -35,18 +35,18 @@ function installing_minio-client() {
      exit 1;
   fi
 
-  read -p "Please provide number of days the apitestrig reports needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " NO_OF_DAYS
-  if [ -z "$NO_OF_DAYS" ]; then
+  read -p "Please provide number of days the apitestrig reports needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
+  if [ -z "$S3_RETENTION_DAYS" ]; then
       echo "ERROR: Number of days to clear the test report cannot be empty; EXITING;";
       exit 1;
   fi
 
-  echo Installing minio-client
-  helm -n $NS install minio-client mosip/minio-client --set minioclient.no_of_days=$NO_OF_DAYS \
+  echo Installing s3-utility
+  helm -n $NS install s3-utility mosip/s3-utility --set minioclient.retention_days=$S3_RETENTION_DAYS \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION
   
-  echo Installed minio-client utility
+  echo Installed s3 client utility
   return 0
 }
 
@@ -56,4 +56,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_minio-client  # calling function
+installing_s3-utility  # calling function
