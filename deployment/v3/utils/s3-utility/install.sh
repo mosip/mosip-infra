@@ -41,7 +41,7 @@ function installing_s3-utility() {
       exit 1;
   fi
 
-  read -p "Please provide bucket name from where objects needs to be removed: " BUCKET_NAME
+  read -p "Please provide bucket name for which objects needs to be removed: " BUCKET_NAME
   if [ -z "$BUCKET_NAME" ]; then
       echo "ERROR: Bucket name cannot be empty; EXITING;";
       exit 1;
