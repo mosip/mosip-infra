@@ -41,9 +41,16 @@ function installing_s3-utility() {
       exit 1;
   fi
 
+  read -p "Please provide bucket name for which objects needs to be removed: " BUCKET_NAME
+  if [ -z "$BUCKET_NAME" ]; then
+      echo "ERROR: Bucket name cannot be empty; EXITING;";
+      exit 1;
+  fi
+
   echo Installing s3-utility
   helm -n $NS install s3-utility mosip/s3-utility --set minioclient.retention_days=$S3_RETENTION_DAYS \
   --set crontime="0 $time * * *" \
+  --set minioclient.bucket_name=$BUCKET_NAME \
   --version $CHART_VERSION
   
   echo Installed s3 client utility
