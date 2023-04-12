@@ -27,27 +27,34 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_onboarder() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=enabled --overwrite
-  helm repo update
 
-  echo Copy configmaps
-  sed -i 's/\r$//' copy_cm.sh
-  ./copy_cm.sh
+  read -p "Is values.yaml for onboarder chart set correctly as part of Pre-requisites?(Y/n) " yn;
+  if [ $yn = "Y" ]; then
+    echo Istio label
+    kubectl label ns $NS istio-injection=disabled --overwrite
+    helm repo update
 
-  echo Copy secrets
-  sed -i 's/\r$//' copy_secrets.sh
-  ./copy_secrets.sh
+    echo Copy configmaps
+    kubectl -n $NS --ignore-not-found=true delete cm s3
+    sed -i 's/\r$//' copy_cm.sh
+    ./copy_cm.sh
 
-  API_URL=https://$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-  HOST=$(kubectl get cm global -o jsonpath={.data.mosip-onboarder-host})
-  CERT_MANAGER_PASSWORD=$(kubectl get secret --namespace keycloak keycloak-client-secrets -o jsonpath="{.data.mosip_deployment_client_secret}" | base64 --decode)
+    echo Copy secrets
+    sed -i 's/\r$//' copy_secrets.sh
+    ./copy_secrets.sh
 
-  echo Onboarding default partners
-  helm -n $NS install partner-onboarder  mosip/partner-onboarder $ENABLE_INSECURE --set onboarding.apiUrl=$API_URL --set onboarding.certManagerPassword=$CERT_MANAGER_PASSWORD --set istio.hosts[0]=$HOST --version $CHART_VERSION
+    echo Onboarding default partners
+    helm -n $NS install partner-onboarder mosip/partner-onboarder \
+    --set onboarding.configmaps.s3.s3-host='http://minio.minio:9000' \
+    --set onboarding.configmaps.s3.s3-user-key='admin' \
+    --set onboarding.configmaps.s3.s3-region='' \
+    $ENABLE_INSECURE \
+    -f values.yaml \
+    --version $CHART_VERSION
 
-  echo Review reports at https://$HOST
-  return 0
+    echo Reports are moved to S3 under onboarder bucket
+    return 0
+  fi
 }
 
 # set commands for error handling.
