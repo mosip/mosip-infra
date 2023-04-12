@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=s3-utility
+NS=util
 CHART_VERSION=1.0.0
 
 echo Create $NS namespace

@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function deleting_s3-utility() {
-  NS=s3-utility
+  NS=util
   while true; do
       read -p "Are you sure you want to delete s3-utility helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
