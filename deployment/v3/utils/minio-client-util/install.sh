@@ -1,19 +1,19 @@
 #!/bin/bash
-# Installs s3-utility
+# Installs minio-client-util
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=util
+NS=minio-client-util
 CHART_VERSION=1.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 
-function installing_s3-utility() {
+function installing_minio-client-util() {
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
@@ -47,13 +47,13 @@ function installing_s3-utility() {
       exit 1;
   fi
 
-  echo Installing s3-utility
-  helm -n $NS install s3-utility mosip/s3-utility --set minioclient.retention_days=$S3_RETENTION_DAYS \
+  echo Installing minio-client-util
+  helm -n $NS install minio-client-util mosip/minio-client-util --set minioclient.retention_days=$S3_RETENTION_DAYS \
   --set crontime="0 $time * * *" \
   --set minioclient.bucket_name=$BUCKET_NAME \
   --version $CHART_VERSION
   
-  echo Installed s3 client utility
+  echo Installed minio client utility
   return 0
 }
 
@@ -63,4 +63,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_s3-utility  # calling function
+installing_minio-client-util  # calling function
