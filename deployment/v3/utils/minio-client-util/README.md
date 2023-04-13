@@ -1,4 +1,4 @@
-# S3 Client Utility
+# Minio Client Utility
 
 ## Context
 * This utility helps to clear objects from S3 buckets.
@@ -13,18 +13,18 @@
 ```sh
 ./install.sh
 ```
-#### Run s3-utility manually via Rancher UI
-* Select the s3-utility cronjob and click the 'Run Now' option
+#### Run minio-client-util manually via Rancher UI
+* Select the minio-client-util cronjob and click the 'Run Now' option
 ![mc-1.png](images/mc-1.png)
 
-#### Run s3-utility manually via CLI
+#### Run minio-client-util manually via CLI
 * Download Kubernetes cluster `kubeconfig` file from `rancher dashboard` to your local.
 * Install `kubectl` package to your local machine.
-* Run s3-utility manually via CLI by creating a new job from an existing k8s cronjob.
+* Run minio-client-util manually via CLI by creating a new job from an existing k8s cronjob.
   ```
-  kubectl --kubeconfig=<k8s-config-file> -n s3-utility create job --from=cronjob/<cronjob-name> <job-name>
+  kubectl --kubeconfig=<k8s-config-file> -n minio-client-util create job --from=cronjob/<cronjob-name> <job-name>
   ```
   Example:
   ```
-  kubectl --kubeconfig=/home/xxx/Downloads/dev.config -n s3-utility create job --from=cronjob/cronjob-s3-utility cronjob-s3-utility
+  kubectl --kubeconfig=/home/xxx/Downloads/dev.config -n minio-client-util create job --from=cronjob/cronjob-minio-client-util cronjob-minio-client-util
   ```
