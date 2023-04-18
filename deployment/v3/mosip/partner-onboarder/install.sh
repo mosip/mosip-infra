@@ -54,7 +54,13 @@ function installing_onboarder() {
 
 echo "Reports are moved to S3 under onboarder bucket"
 echo "Please follow the steps as mentioned in the document link below to configure mimoto-keybinding-partner:"
-printf "\e[1m\e[34m%s\e[0m.\n" "https://github.com/mosip/mosip-infra/blob/ckm007-patch-1/deployment/v3/mosip/partner-onboarder/README.md#conf>
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+GITHUB_URL="https://github.com/mosip/mosip-infra/blob"
+FILE_PATH="/deployment/v3/mosip/partner-onboarder/README.md"
+FULL_URL="$GITHUB_URL/$BRANCH_NAME$FILE_PATH#configuration"
+
+echo -e  "\e[1m\e[4m\e[34m\e]8;;$FULL_URL\a$FULL_URL\e[0m\e[24m\e]8;;\a"
+
 
 echo -e "\e[1mHave you completed the changes mentioned in the onboarding document? (y/n)\e[0m"
 read answer
