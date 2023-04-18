@@ -12,7 +12,6 @@ CHART_VERSION=12.0.2
 echo Create $NS namespace
 kubectl create ns $NS
 
-
 function installing_dslrig() {
   ENV_NAME=$( kubectl -n default get cm global -o json |jq -r '.data."installation-domain"')
 
@@ -35,12 +34,12 @@ function installing_dslrig() {
      echo "ERROR: Time should be in range ( 0-23 ); EXITING;";
      exit 1;
   fi
-  
+
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
   echo "n: if you don't have public domain & valid ssl certificate"
   read -p "" flag
-  
+
   if [ -z "$flag" ]; then
     echo "'flag' was provided; EXITING;"
     exit 1;
@@ -54,12 +53,6 @@ function installing_dslrig() {
 
   if [ -z $packetUtilityBaseUrl ]; then
     echo "Packet utility Base URL not provided; EXITING;"
-    exit 1;
-  fi
-
-  read -p "Please provide langcode : " langcode
-  if [ -z $langcode ]; then
-    echo "Language code not provided; EXITING;"
     exit 1;
   fi
 
@@ -82,7 +75,6 @@ function installing_dslrig() {
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
-
   echo Installing dslrig
   helm -n $NS install dslorchestrator mosip/dslorchestrator \
   --set crontime="0 $time * * *" \
@@ -97,11 +89,10 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set dslorchestrator.configmaps.dslorchestrator.TESTLEVEL="full" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
-  --set dslorchestrator.configmaps.dslorchestrator.LANG_CODE="$langcode" \
   --set persistence.nfs.server="$NFS_HOST" \
   --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
   $ENABLE_INSECURE
-  
+
   echo Installed dslrig.
   return 0
 }
