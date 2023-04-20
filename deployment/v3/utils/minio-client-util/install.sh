@@ -13,12 +13,7 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_minio-client-util() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
-
-  echo Copy secrets
-  ./copy_secrets.sh
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -42,7 +37,8 @@ function installing_minio-client-util() {
       exit 1;
   fi
 
-  read -p "Please provide S3 Secret Key " S3_SECRET_KEY
+  echo "Please provide S3 Secret Key"
+  read -s S3_SECRET_KEY
   if [ -z "$S3_SECRET_KEY" ]; then
       echo "ERROR: Secret Key not Specified; EXITING;";
       exit 1;
@@ -63,11 +59,12 @@ function installing_minio-client-util() {
   echo Installing minio-client-util
   helm -n $NS install minio-client-util mosip/minio-client-util --set minioclient.retention_days=$S3_RETENTION_DAYS \
   --set crontime="0 $time * * *" \
-  --set minioclient.bucket_name=$BUCKET_NAME \
-  --set S3_SERVER_URL=$S3_SERVER_URL \
-  --set S3_ACCESS_KEY=$S3_ACCESS_KEY \
-  --set S3_SECRET_KEY=$S3_SECRET_KEY \
+  --set minioclient.configmaps.s3.s3_bucket_name=$BUCKET_NAME \
+  --set minioclient.configmaps.s3.s3_host=$S3_SERVER_URL \
+  --set minioclient.configmaps.s3.s3_access_key=$S3_ACCESS_KEY \
+  --set minioclient.configmaps.s3.s3_secret_key=$S3_SECRET_KEY \
   --version $CHART_VERSION
+
   
   echo Installed minio client utility
   return 0
