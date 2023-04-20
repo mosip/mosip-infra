@@ -35,6 +35,12 @@ function installing_minio-client-util() {
      exit 1;
   fi
 
+  read -p "Please provide S3 Server URL: [Press enter to have the default value (default:'http://minio.minio:9000')]" S3_SERVER_URL
+
+  read -p "Please provide S3 Access Key: [Press enter to have the default value (default: admin)]" S3_ACCESS_KEY
+
+  read -p "Please provide S3 Secret Key: [For v2 environment please provide the key, For v3 environment just press enter]" S3_SECRET_KEY
+
   read -p "Please provide number of days the apitestrig reports needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
   if [ -z "$S3_RETENTION_DAYS" ]; then
       echo "ERROR: Number of days to clear the test report cannot be empty; EXITING;";
@@ -51,6 +57,9 @@ function installing_minio-client-util() {
   helm -n $NS install minio-client-util mosip/minio-client-util --set minioclient.retention_days=$S3_RETENTION_DAYS \
   --set crontime="0 $time * * *" \
   --set minioclient.bucket_name=$BUCKET_NAME \
+  --set S3_SERVER_URL=$S3_SERVER_URL \
+  --set S3_ACCESS_KEY=$S3_ACCESS_KEY \
+  --set S3_SECRET_KEY=$S3_SECRET_KEY \
   --version $CHART_VERSION
   
   echo Installed minio client utility
