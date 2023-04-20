@@ -44,7 +44,7 @@ function installing_minio-client-util() {
       exit 1;
   fi
 
-  read -p "\n Please provide number of days the objects needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
+  read -p "Please provide number of days the objects needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
   if [ -z "$S3_RETENTION_DAYS" ]; then
       echo "ERROR: Number of days to clear the test report cannot be empty; EXITING;";
       exit 1;
