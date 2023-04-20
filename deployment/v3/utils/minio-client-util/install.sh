@@ -13,12 +13,7 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_minio-client-util() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
-
-  echo Copy secrets
-  ./copy_secrets.sh
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
