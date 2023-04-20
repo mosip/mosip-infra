@@ -29,7 +29,7 @@ function installing_minio-client-util() {
      exit 1;
   fi
 
-  read -p "Please provide S3 Server URL (Default value:'http://minio.minio:9000')" S3_SERVER_URL
+  read -p "Please provide S3 Server URL " S3_SERVER_URL
   if [ -z "$S3_SERVER_URL" ]; then
       echo "ERROR: S3 Server URL not Specified; EXITING;";
       exit 1;
