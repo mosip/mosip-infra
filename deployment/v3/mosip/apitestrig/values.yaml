@@ -11,7 +11,7 @@ modules:
     enabled: true
   - name: auth
     enabled: true
-  - name: idp
+  - name: esignet
     enabled: true
   - name: mobileid
     enabled: true
