@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=gc-util
-CHART_VERSION=1.0.0
+CHART_VERSION=0.0.8
 
 echo Create $NS namespace
 kubectl create ns $NS
