@@ -9,7 +9,7 @@
 ```
 #### Run gc-util manually via Rancher UI
 * Select the gc-util cronjob and click the 'Run Now' option
-![gc.png](images/gc.png)
+![gc.png](../docs/images/gc-util.png)
 
 #### Run gc-util manually via CLI
 * Download Kubernetes cluster `kubeconfig` file from `rancher dashboard` to your local.
