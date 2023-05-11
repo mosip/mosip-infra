@@ -87,7 +87,6 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.db.db-port="5432" \
   --set dslorchestrator.configmaps.dslorchestrator.USER="$USER" \
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
-  --set dslorchestrator.configmaps.dslorchestrator.TESTLEVEL="full" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
   --set persistence.nfs.server="$NFS_HOST" \
   --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
