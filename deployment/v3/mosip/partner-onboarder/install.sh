@@ -17,7 +17,7 @@ if [ -z "$flag" ]; then
 fi
 ENABLE_INSECURE=''
 if [ "$flag" = "n" ]; then
-  ENABLE_INSECURE='--set onboarding.enableInsecure=true';
+  ENABLE_INSECURE='--set onboarding.configmaps.onboarding.ENABLE_INSECURE=true';
 fi
 
 NS=onboarder

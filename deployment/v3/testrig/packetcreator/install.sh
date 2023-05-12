@@ -26,11 +26,17 @@ function installing_packetcreator() {
   read -p "" choice
 
   if [ $choice = "1" ]; then
-    list="--set ingress.enabled=true";
+    read -p "Please provide packetcreator host : " PACKETCREATOR_HOST
+
+    if [ -z $PACKETCREATOR_HOST ]; then
+      echo "PACKETCREATOR_HOST not provided; EXITING;"
+      exit 1;
+    fi
+    list="--set ingress.enabled=true --set istio.enabled=false --set ingress.host=$PACKETCREATOR_HOST";
   fi
 
   if [ $choice = "2" ]; then
-    list='--set istio.enabled=true';
+    list='--set istio.enabled=true --set ingress.enabled=false';
 
     echo Istio label
     kubectl label ns $NS istio-injection=enabled --overwrite

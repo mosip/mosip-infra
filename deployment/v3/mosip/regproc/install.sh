@@ -23,7 +23,7 @@ function installing_regproc() {
   ./copy_cm.sh
 
   echo Running regproc-salt job
-  helm -n $NS install regproc-salt mosip/regproc-salt --version $SALTGEN_CHART_VERSION
+  helm -n $NS install regproc-salt mosip/regproc-salt --version $SALTGEN_CHART_VERSION --wait
 
   echo Installing regproc-workflow
   helm -n $NS install regproc-workflow mosip/regproc-workflow --version $CHART_VERSION
