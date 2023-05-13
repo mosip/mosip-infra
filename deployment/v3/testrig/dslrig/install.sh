@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=dslrig
-CHART_VERSION=12.0.1-B3
+CHART_VERSION=12.0.1-B4
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -20,7 +20,7 @@ function installing_dslrig() {
   read -p "Please provide NFS pem file for SSH login : " NFS_PEM_FILE
   read -p "Please provide user for SSH login : " NFS_USER
   echo -e "[nfs_server]\nnfsserver ansible_user=$NFS_USER ansible_host=$NFS_HOST ansible_ssh_private_key_file=$NFS_PEM_FILE" env_name="$ENV_NAME" > hosts.ini
-  ansible-playbook -i hosts.ini nfs-server.yaml
+  #ansible-playbook -i hosts.ini nfs-server.yaml
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -47,7 +47,7 @@ function installing_dslrig() {
   fi
   ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE='--set dslrig.configmaps.dslrig.ENABLE_INSECURE=true';
+    ENABLE_INSECURE='--set dslorchestrator.configmaps.dslorchestrator.ENABLE_INSECURE=true';
   fi
 
   read -p "Please provide packet Utility Base URL (eg: https://<host>:<port>/v1/packetcreator) : " packetUtilityBaseUrl
@@ -65,7 +65,7 @@ function installing_dslrig() {
 
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
-  helm repo update
+  #helm repo update
 
   echo Copy configmaps
   ./copy_cm.sh
@@ -84,7 +84,7 @@ function installing_dslrig() {
 
 
   echo Installing dslrig
-  helm -n $NS install dslorchestrator mosip/dslorchestrator \
+  helm -n $NS install dslorchestrator /home/techno-384/Desktop/MOSIP/mosip-helm/charts/dslorchestrator \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION \
   --set dslorchestrator.configmaps.s3.s3-host='http://minio.minio:9000' \
