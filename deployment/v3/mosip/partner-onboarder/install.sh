@@ -49,6 +49,7 @@ function installing_onboarder() {
     --set onboarding.configmaps.s3.s3-user-key='admin' \
     --set onboarding.configmaps.s3.s3-region='' \
     $ENABLE_INSECURE \
+    --wait --wait-for-jobs \
     -f values.yaml \
     --version $CHART_VERSION
 
