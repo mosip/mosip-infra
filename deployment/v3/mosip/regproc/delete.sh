@@ -21,7 +21,7 @@ function deleting_regproc() {
           helm -n $NS delete regproc-notifier
           helm -n $NS delete regproc-trans
           helm -n $NS delete regproc-reprocess
-          helm -n $NS delete regproc-landingzoneutility
+          helm -n $NS delete regproc-landingzone
           break
         else
           break
