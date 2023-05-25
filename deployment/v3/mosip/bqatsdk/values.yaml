@@ -2,4 +2,4 @@ bqatsdk:
   ## This is url of bqatsdk lib accessed from within cluster.  BqatSDK may be hosted outside the cluster
   ## in which case change the URL accordingly.
   zippedLibUrl: http://artifactory.artifactory/artifactory/libs-release-local/biosdk/bqatsdk-lib.jar
-  bioapiImpl: io.mosip.mock.sdk.impl.SampleSDKV2
+  bioapiImpl: io.bqat.sdk.services.impl.BqatQualitySdkService
