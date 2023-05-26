@@ -26,22 +26,42 @@ function installing_packetcreator() {
   read -p "" choice
 
   if [ $choice = "1" ]; then
-    list="--set ingress.enabled=true";
+    read -p "Please provide packetcreator host : " PACKETCREATOR_HOST
+
+    if [ -z $PACKETCREATOR_HOST ]; then
+      echo "PACKETCREATOR_HOST not provided; EXITING;"
+      exit 1;
+    fi
+    list="--set ingress.enabled=true --set istio.enabled=false --set ingress.host=$PACKETCREATOR_HOST";
   fi
 
   if [ $choice = "2" ]; then
-    list='--set istio.enabled=true';
+    list='--set istio.enabled=true --set ingress.enabled=false';
 
     echo Istio label
     kubectl label ns $NS istio-injection=enabled --overwrite
     helm repo update
   fi
 
+  echo "Do you have public domain & valid SSL? (Y/n) "
+  echo "Y: if you have public domain & valid ssl certificate"
+  echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
+  read -p "" flag
+
+  if [ -z "$flag" ]; then
+    echo "'flag' was provided; EXITING;"
+    exit 1;
+  fi
+  ENABLE_INSECURE='--set initContainers=[]'
+  if [ "$flag" = "n" ]; then
+    ENABLE_INSECURE=;
+  fi
+
   echo Installing packetcreator
   helm -n $NS install packetcreator mosip/packetcreator \
   $( echo $list ) \
   --set persistence.nfs.server="$NFS_HOST" \
-  --wait --version $CHART_VERSION
+  --wait --version $CHART_VERSION $ENABLE_INSECURE
   echo Installed packetcreator.
   return 0
 }
