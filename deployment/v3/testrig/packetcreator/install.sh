@@ -57,6 +57,13 @@ function installing_packetcreator() {
     ENABLE_INSECURE=;
   fi
 
+  api_internal_host=$( kubectl -n default get cm global -o json | jq -rc '.data."mosip-api-internal-host"' )
+
+  if [[ $api_internal_host = "null" ]]; then
+    read -p "Please provide mosip-api-internal-host " api_internal_host
+    kubectl -n $NS create cm global --from-literal="mosip-api-internal-host"="$api_internal_host"
+  fi
+
   echo Installing packetcreator
   helm -n $NS install packetcreator mosip/packetcreator \
   $( echo $list ) \
