@@ -44,6 +44,18 @@ function installing_all() {
   cd $ROOT_DIR/msg-gateway
   ./install.sh
 
+  cd $ROOT_DIR/docker-secrets
+  ./install.sh
+
+  cd $ROOT_DIR/conf-secrets
+  ./install.sh
+
+  cd $ROOT_DIR/landing-page
+  ./install.sh
+
+  cd $ROOT_DIR/captcha
+  ./install.sh
+  
   echo All External services deployed an configured sucessfully.
   return 0
 }

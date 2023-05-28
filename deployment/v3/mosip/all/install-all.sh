@@ -10,11 +10,7 @@ fi
 function Installing_all() {
   ROOT_DIR=`pwd`/../
 
-  declare -a module=(
-                     "landing-page"
-                     "docker-secrets"
-                     "captcha"
-                     "conf-secrets"
+  declare -a module=("conf-secrets"
                      "config-server"
                      "artifactory"
                      "keymanager"
@@ -36,6 +32,8 @@ function Installing_all() {
                      "mosip-file-server"
                      "resident"
                      "partner-onboarder"
+                     "mosip-file-server"
+                     "resident"
                      "regclient"
                      )
 
