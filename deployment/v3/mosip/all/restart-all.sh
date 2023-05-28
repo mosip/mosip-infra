@@ -10,9 +10,7 @@ fi
 function Restarting_all() {
   ROOT_DIR=`pwd`/../
 
-  declare -a module=(
-                     "landing-page"
-                     "config-server"
+  declare -a module=("config-server"
                      "artifactory"
                      "keymanager"
                      "websub"
@@ -31,8 +29,6 @@ function Restarting_all() {
                      "print"
                      "mosip-file-server"
                      "resident"
-                     "partner-onboarding"
-                     "resident-app"
                      "regclient"
                      )
 
