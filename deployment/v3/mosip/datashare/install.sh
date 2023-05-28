@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=datashare
-CHART_VERSION=12.0.2
+CHART_VERSION=12.0.1-B2
 
 echo Create $NS namespace
 kubectl create ns $NS 
