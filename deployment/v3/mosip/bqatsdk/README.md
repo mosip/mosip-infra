@@ -8,8 +8,7 @@ The service expects **bqatsdk library** typically provided by a vendor.  Host th
 ## Prerequisites
 To run this BqatSDK service, you will need to first run the [artifactory](../../mosip/artifactory/README.md) which contains the mock SDK library.
 
-## Install
-* Update `values.yaml` with your bqatsdk zipped library url and classpath. 
+## Install 
 * Install
 ```sh
 ./install.sh
