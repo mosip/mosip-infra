@@ -13,29 +13,22 @@ DSLRIG will test end-to-end functional flows involving multiple MOSIP modules.
 ```sh
 ./install.sh
 ```
-<<<<<<< HEAD
 * During the execution of the `install.sh` script, a prompt appears requesting information regarding the presence of a public domain and a valid SSL certificate on the server.
 * If the server lacks a public domain and a valid SSL certificate, it is advisable to select the `n` option. Opting it will enable the `init-container` with an `emptyDir` volume and include it in the deployment process.
 * The init-container will proceed to download the server's self-signed SSL certificate and mount it to the specified location within the container's Java keystore (i.e., `cacerts`) file.
 * This particular functionality caters to scenarios where the script needs to be employed on a server utilizing self-signed SSL certificates.
-=======
 
 ## Uninstall
 * To uninstall DSLRIG, run `delete.sh` script.
 ```sh
 ./delete.sh 
 ```
->>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
 
 ## Run dslrig manually
 
 #### Rancher UI
 * Run dslrig manually via Rancher UI.
-<<<<<<< HEAD
-  ![dslrig-1.png](../docs/images/dslrig-1.png)
-=======
   ![dslrig-1.png](../../docs/images/dslrig-1.png)
->>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
 * There are two modes of dslrig `sanity` & `full`.
     * By default, dslrig will execute in `full` mode.
     * If you want to run dslrig with `sanity` mode, 
