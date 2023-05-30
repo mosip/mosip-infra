@@ -46,7 +46,7 @@
  
 For IDA mpartner-default-auth partner certificate exchange, below are the steps :
       
-   * 1. Authenticate yourself and get authorization token from authmanager swagger
+   * 1. Authenticate yourself and get authorization token from authmanager swagger.
       SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ```
       
        
