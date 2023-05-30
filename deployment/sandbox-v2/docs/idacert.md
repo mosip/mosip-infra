@@ -24,7 +24,7 @@
 	  "version": "string"
 	}
 	```
-  * 2. Get the certificate data from the URL mentioned below. The application id(appId) used is IDA and reference id(refId) =CRED_SERVICE
+  * 2. Get the certificate data from the URL mentioned below. The application id(appId) used is IDA and reference id(refId)= CRED_SERVICE
 	```https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui/index.html?configUrl=/idauthentication/v1/internal/v3/api-docs/swagger-config#/keymanager/getCertificate```
      
        Ensure to copy the certificate value in the response from the above request.
