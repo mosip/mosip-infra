@@ -52,9 +52,9 @@ function installing_packetcreator() {
     echo "'flag' was provided; EXITING;"
     exit 1;
   fi
-  ENABLE_INSECURE='--set initContainers=[]'
+  ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE=;
+    ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
   api_internal_host=$( kubectl -n default get cm global -o json | jq -rc '.data."mosip-api-internal-host"' )

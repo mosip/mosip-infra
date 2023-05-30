@@ -30,9 +30,9 @@ function installing_kernel() {
     echo "'flag' was provided; EXITING;"
     exit 1;
   fi
-  ENABLE_INSECURE='--set initContainers=[]'
+  ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE=;
+    ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
   echo Installing authmanager
