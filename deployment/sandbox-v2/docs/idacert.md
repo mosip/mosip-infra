@@ -1,13 +1,10 @@
 # IDA certificate exchange guide 
 
 - In IDA, there are two kinds of certificate exchange.
-  
-	  1 . IDA Zero-knowledge certificate exchange
+  1 . IDA Zero-knowledge certificate exchange.
+  2 . IDA mpartner-default-auth partner certificate exchange. 
 
-	  2 . IDA mpartner-default-auth partner certificate exchange. 
-
-
-  For IDA Zero-Knowledge certificate exchange,below are the steps 
+  For IDA Zero-Knowledge certificate exchange,below are the steps : 
   * 1. Authenticate yourself and get authorization token from authmanager swagger.
 
 	SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ``` 
@@ -47,7 +44,7 @@
 
  P.S : The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
  
-For IDA mpartner-default-auth partner certificate exchange, below are the steps
+For IDA mpartner-default-auth partner certificate exchange, below are the steps :
       
    * 1. Authenticate yourself and get authorization token from authmanager swagger
       SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ```
