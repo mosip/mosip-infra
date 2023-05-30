@@ -48,7 +48,7 @@ function installing_apitestrig() {
 
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
-  echo "n: if you don't have public domain & valid ssl certificate"
+  echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
   read -p "" flag
 
   if [ -z "$flag" ]; then
@@ -57,7 +57,7 @@ function installing_apitestrig() {
   fi
   ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE='--set apitestrig.configmaps.apitestrig.ENABLE_INSECURE=true';
+    ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
   echo Installing apitestrig
