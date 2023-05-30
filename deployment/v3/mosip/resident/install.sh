@@ -26,15 +26,29 @@ function installing_resident() {
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
 
+  echo "Do you have public domain & valid SSL? (Y/n) "
+  echo "Y: if you have public domain & valid ssl certificate"
+  echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
+  read -p "" flag
+
+  if [ -z "$flag" ]; then
+    echo "'flag' was provided; EXITING;"
+    exit 1;
+  fi
+  ENABLE_INSECURE=''
+  if [ "$flag" = "n" ]; then
+    ENABLE_INSECURE='--set enable_insecure=true';
+  fi
+
   API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
   RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
 
 
   echo Installing Resident
-  helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION
+  helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing mimoto
-  helm -n $NS install mimoto mosip/mimoto --version $MIMOTO_CHART_VERSION
+  helm -n $NS install mimoto mosip/mimoto --version $MIMOTO_CHART_VERSION $ENABLE_INSECURE
 
   echo Installing Resident UI
   helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=https://$RESIDENT_HOST --version $CHART_VERSION
