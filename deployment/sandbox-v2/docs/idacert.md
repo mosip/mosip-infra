@@ -1,6 +1,6 @@
 # IDA certificate exchange guide 
 
-- In IDA, there are two kinds of certificate exchange.
+- In IDA, there are two kinds of certificate exchange :
   1 . IDA Zero-knowledge certificate exchange.
   2 . IDA mpartner-default-auth partner certificate exchange. 
 
@@ -42,7 +42,7 @@
      "referenceId": "PUBLIC_KEY",
      "certificateData": "{copied certificate from step-II}" }}
 
- P.S : The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
+ Note : The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
  
 For IDA mpartner-default-auth partner certificate exchange, below are the steps :
       
