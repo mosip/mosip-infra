@@ -22,7 +22,7 @@ function installing_bqatsdk() {
   ./copy_cm.sh
 
   echo Installing Bqatsdk server
-  helm -n $NS install bqat-sdk mosip/bqat-sdk values.yaml --version $CHART_VERSION
+  helm -n $NS install bqat-sdk mosip/bqat-sdk -f values.yaml --version $CHART_VERSION
 
   echo Bqatsdk service installed sucessfully.
   return 0
