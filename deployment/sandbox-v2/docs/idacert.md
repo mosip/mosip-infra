@@ -92,7 +92,7 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps
       ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA ```
       
 
-     make sure to copy the certificate value in the response from the above request. Save this copy as IDA.cer file locally as this might be required in the future.
+     Ensure to copy the certificate value in the response from the above request. Save this copy as IDA.cer file locally as this might be required in the future.
   * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL :-
 
     ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
