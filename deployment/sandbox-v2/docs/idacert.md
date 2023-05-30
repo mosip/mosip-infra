@@ -29,7 +29,7 @@
      
        Ensure to copy the certificate value in the response from the above request.
        
-  * 3. Upload the copied certificate from step-2 through the below SWAGGER URL:-
+  * 3. Upload the copied certificate from step-2 through the below SWAGGER URL:
        
        ```https://minibox.mosip.net/v1/keymanager/swagger-ui/index.html?configUrl=/v1/keymanager/v3/api-docs/swagger-config#/keymanager/uploadOtherDomainCertificate``` 
       
@@ -73,7 +73,7 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps
 
        Ensure to copy the certificate value in the response from the above request.
 
-  * 3. Upload copied ROOT certificate through the below SWAGGER URL:-
+  * 3. Upload copied ROOT certificate through the below SWAGGER URL:
        
         ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
        ```{
@@ -93,7 +93,7 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps
       
 
      Ensure to copy the certificate value in the response from the above request. Save this copy as IDA.cer file locally as this might be required in the future.
-  * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL :-
+  * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL :
 
     ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
       
@@ -114,7 +114,7 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps
        
 Ensure to copy the certificate value in the response from the above request
 
-  * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:-
+  * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:
       
        ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
     ```
