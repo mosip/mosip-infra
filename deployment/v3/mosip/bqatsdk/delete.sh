@@ -12,7 +12,7 @@ function deleting_bqatsdk() {
       read -p "Are you sure you want to delete Bqatsdk Service helm chart?(Y/n) " yn
       if [ $yn = "Y" ]
         then
-          helm -n $NS delete bqat-sdk
+          helm -n $NS delete bqatsdk-service
           break
         else
           break
