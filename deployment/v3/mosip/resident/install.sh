@@ -8,7 +8,6 @@ fi
 
 NS=resident
 CHART_VERSION=12.0.2
-MIMOTO_CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -47,16 +46,12 @@ function installing_resident() {
   echo Installing Resident
   helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
 
-  echo Installing mimoto
-  helm -n $NS install mimoto mosip/mimoto --version $MIMOTO_CHART_VERSION $ENABLE_INSECURE
-
   echo Installing Resident UI
   helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=https://$RESIDENT_HOST --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed Resident services
-  echo Installed Resident App
   echo Installed Resident UI
 
   echo "resident-ui portal URL: https://$RESIDENT_HOST/"
