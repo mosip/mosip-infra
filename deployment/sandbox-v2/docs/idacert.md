@@ -1,11 +1,12 @@
 # IDA certificate exchange guide 
 
 - In IDA, there are two kinds of certificate exchange :
-  1 . IDA Zero-knowledge certificate exchange.
-  2 . IDA mpartner-default-auth partner certificate exchange. 
+  1. IDA Zero-knowledge certificate exchange
+  2. IDA mpartner-default-auth partner certificate exchange
 
-  For IDA Zero-Knowledge certificate exchange,below are the steps : 
-  * 1. Authenticate yourself and get authorization token from authmanager swagger.
+  For IDA Zero-Knowledge certificate exchange, below are the steps: 
+  
+ * 1. Authenticate yourself and get authorization token from authmanager swagger.
 
 	SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ``` 
 	```
@@ -21,12 +22,12 @@
 	  "version": "string"
 	}
 	```
-  * 2. Get the certificate data from the URL mentioned below. The application id(appId) used is IDA and reference id(refId)= CRED_SERVICE
+  * 2. Get the certificate data from the URL mentioned below. The application ID(appId) used is IDA and reference ID(refId)= CRED_SERVICE
 	```https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui/index.html?configUrl=/idauthentication/v1/internal/v3/api-docs/swagger-config#/keymanager/getCertificate```
      
        Ensure to copy the certificate value in the response from the above request.
        
-  * 3. Upload the copied certificate from step-2 through the below SWAGGER URL:
+  * 3. Upload the copied certificate from step-II through the below SWAGGER URL.
        
        ```https://minibox.mosip.net/v1/keymanager/swagger-ui/index.html?configUrl=/v1/keymanager/v3/api-docs/swagger-config#/keymanager/uploadOtherDomainCertificate``` 
       
@@ -42,9 +43,9 @@
      "referenceId": "PUBLIC_KEY",
      "certificateData": "{copied certificate from step-II}" }}
 
- Note : The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
+ Note: The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
  
-For IDA mpartner-default-auth partner certificate exchange, below are the steps :
+For IDA mpartner-default-auth partner certificate exchange, below are the steps:
       
    * 1. Authenticate yourself and get authorization token from authmanager swagger.
       SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ```
@@ -70,9 +71,10 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps 
 
        Ensure to copy the certificate value in the response from the above request.
 
-  * 3. Upload copied ROOT certificate through the below SWAGGER URL:
+  * 3. Upload copied ROOT certificate through the below SWAGGER URL.
        
         ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
+	
        ```{
           "id": "string",
           "metadata": {},
@@ -83,14 +85,16 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps 
           "requesttime": "2021-03-24T08:24:13.349Z",
           "version": "string"
         }
+	```
 	
-  * 4. Get the IDA certificate data from the below URL
+  * 4. Get the IDA certificate data from the below URL.
       
       ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA ```
       
 
-     Ensure to copy the certificate value in the response from the above request. Save this copy as IDA.cer file locally as this might be required in the future.
-  * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL :
+     Ensure to copy the certificate value in the response from the above request. Save this copy as `IDA.cer` file locally as this might be required in the future.
+     
+  * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL.
 
     ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
       
@@ -113,8 +117,9 @@ Ensure to copy the certificate value in the response from the above request
 
   * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:
       
-       ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
-    ```
+       ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` 
+       
+   ```    
     {
       "id": "string",
       "metadata": {},
