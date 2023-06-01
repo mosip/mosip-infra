@@ -43,7 +43,7 @@
      "referenceId": "PUBLIC_KEY",
      "certificateData": "{copied certificate from step-II}" }}
 
- Note: The process of uploading IDA Zero-Knowledge certificates should only take place once per environment.
+ Note: The process of uploading IDA Zero-Knowledge certificates should only take place once.
  
 For IDA mpartner-default-auth partner certificate exchange, below are the steps:
       
@@ -92,7 +92,8 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps:
       ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA ```
       
 
-     Ensure to copy the certificate value in the response from the above request. Save this copy as `IDA.cer` file locally as this might be required in the future.
+     Ensure to copy the certificate value in the response from the above request. 
+     
      
   * 5. Upload copied IDA certificate from the above request in the below SWAGGER URL.
 
@@ -113,13 +114,13 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps:
 
         ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth ```
        
-Ensure to copy the certificate value in the response from the above request
+Ensure to copy the certificate value in the response from the above request. Save this copy as `mpartner-default-auth.cer` file locally as this may be used in the future.
 
   * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:
       
        ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` 
-       
-   ```    
+ `
+ 
     {
       "id": "string",
       "metadata": {},
@@ -131,27 +132,26 @@ Ensure to copy the certificate value in the response from the above request
       "requesttime": "",
       "version": "string"
     }
-    ```
-
+`
     Ensure to copy certificate value in the response. This is  MOSIP's pms-signed certificate.
 
   * 8. Upload copied pms-signed certificate through below URL:
 
        ``` https://api-internal.dev.mosip.net/idauthentication/v1/internal/swagger-ui/index.html?configUrl=/idauthentication/v1/internal/v3/api-docs/swagger-config#/keymanager/uploadCertificate  ```
        
-   ```
+   
     {
       "id": "string",
       "metadata": {},
       "request": {
-        "applicationId": "PARTNER",
+        "applicationId": "IDA",
         "referenceId": "mpartner-default-auth",
         "certificateData": "Copied certficate data fom the responce of step VII(mosip-signed)"
       },
       "requesttime": "2018-12-10T06:12:52.994Z",
       "version": "string"
     }
-    ```
+  
 
 
 ## Troubleshooting
