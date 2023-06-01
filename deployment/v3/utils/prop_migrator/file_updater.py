@@ -46,10 +46,10 @@ with open(value_takes_priority_csv, 'r') as file:
         else:
             non_matching_combinations.append((property_file_name, key))
 
-# Check if the property files exist in the lts directory and update their values
+# Check if the property files exist in the new directory and update their values
 for combination in matching_combinations:
-    new_property_file, key = combination
-    new_property_file_path = os.path.join(new_directory, new_property_file)
+    property_file_name, key = combination
+    new_property_file_path = os.path.join(new_directory, property_file_name)
 
     if os.path.isfile(new_property_file_path):
         old_value = properties_dict[combination]
@@ -58,7 +58,7 @@ for combination in matching_combinations:
         updated_lines = []
         with open(new_property_file_path, 'r') as file:
             for line in file:
-                if line.strip().startswith(key):
+                if line.strip().startswith(key + '='):
                     line = f'{key}={old_value}\n'
                 updated_lines.append(line)
 
@@ -66,6 +66,9 @@ for combination in matching_combinations:
             file.writelines(updated_lines)
 
         updated_property_files.append(new_property_file_path)
+
+        # Update properties_dict with new value
+        properties_dict[(property_file_name, key)] = old_value
 
         # Print the updated property file
         print(f"Updated {new_property_file_path} with {key}={old_value}")
@@ -79,7 +82,7 @@ with open(lts_value_takes_priority_csv, 'r') as file3:
 
         # Compare the combinations and add matching rows to the list
         for combination in non_matching_combinations:
-            lts_property_file, key = combination
+            new_property_file, key = combination
             if new_property_file == property_file_name and key == key3:
                 similar_new_value.append(row3)
                 unresolved_combinations.discard(combination)  # Remove the resolved combination from unresolved set
