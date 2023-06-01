@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.generators.keygen.name }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.generators.keygen.name }}
+    component: {{ .Values.component }} 
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-delete-policy": hook-succeeded
+    
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.generators.keygen.name }} 
+        component: {{ .Values.component }} 
+    spec:
+      restartPolicy: Never  # This is one time job
+      containers:
+      - name: {{ .Values.generators.keygen.name }} 
+        image: {{ .Values.generators.keygen.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: spring_config_name_env
+          value: id-authentication
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: absent
+        - name: PKCS11_PROXY_SOCKET
+          value: {{ .Values.generators.keygen.hsmUrl }}
+        - name: zip_file_path
+          value: {{ .Values.generators.keygen.hsmClientZipPath }}

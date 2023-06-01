@@ -97,15 +97,21 @@ versions:
 
     ida:
       auth:
-        'ida-auth-service': 'mosipid/authentication-service:1.1.5.5'
+        'ida-auth-service': 'mosipqa/authentication-service:1.1.5.5-P1'
       internal:
-        'ida-internal-service': 'mosipid/authentication-internal-service:1.1.5.5'
+        'ida-internal-service': 'mosipqa/authentication-internal-service:1.1.5.5-P1'
       kyc:
-        'ida-kyc-service': 'mosipid/authentication-kyc-service:1.1.5.5'
+        'ida-kyc-service': 'mosipqa/authentication-kyc-service:1.1.5.5-P1'
       otp:
-        'ida-otp-service': 'mosipid/authentication-otp-service:1.1.5.5'
+        'ida-otp-service': 'mosipqa/authentication-otp-service:1.1.5.5-P1'
       keygen:
         'ida-key-generator': 'mosipid/keys-generator:1.1.5'
+      authlts:
+        'ida-auth-service': 'mosipqa/authentication-service:1.2.0.1-B3'
+      internallts:
+        'ida-internal-service': 'mosipqa/authentication-internal-service:1.2.0.1-B3'
+      otplts:
+        'ida-otp-service': 'mosipqa/authentication-otp-service:1.2.0.1-B3'
 
     idrepo:
       identity:
@@ -161,11 +167,13 @@ versions:
       mv:
         'mock-mv': 'mosipid/mock-mv:1.1.5'
       biosdk:
-        'mock-biosdk-service': 'mosipid/biosdk-server:1.1.5.5'
+        'mock-biosdk-service': 'mosipid/biosdk-server:1.2.0.1-B2'
 
     artifactory:
       service:
         'artifactory-service': 'mosipid/artifactory-server:1.1.5.5'
+      lts:
+        'artifactory-service': 'mosipid/artifactory-server:1.2.0.1-B4'
 
     mosip_file_server:
       service:
