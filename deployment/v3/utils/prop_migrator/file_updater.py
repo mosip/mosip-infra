@@ -2,14 +2,15 @@ import csv
 import os
 import sys
 
-different_properties_csv = 'different_properties.csv'
-value_takes_priority_csv = 'knowledge/1.1.5.5-value-takes-priority.csv'
-lts_value_takes_priority_csv = 'knowledge/lts-Value-takes-priority.csv'
-new_directory = 'new-config/v1.2.0.1-B1'
+different_properties_csv = 'output/different_properties.csv'
+old_value_takes_priority_csv = 'knowledge/old-value-takes-priority.csv'
+latest_value_takes_priority_csv = 'knowledge/latest-Value-takes-priority.csv'
+latest_repo_branch = sys.argv[1]
+latest_directory = f'latest-config/{latest_repo_branch}'
 manual_adjudication_csv = 'manual-adjudication.csv'
-file1_only_csv = 'file1_only.csv'
+old_file_only_csv = 'output/old_file_only.csv'
 intentionally_removed_csv = 'knowledge/intentionally-removed-in-lts.csv'
-file2_only_csv = 'file2_only.csv'
+latest_file_only_csv = 'output/latest_file_only.csv'
 decent_default_value_csv = 'knowledge/new-property-with-decent-default-value.csv'
 log_file = 'logs.txt'
 
@@ -17,7 +18,7 @@ matching_combinations = []
 non_matching_combinations = []
 matching_rows = []
 updated_property_files = []
-similar_new_value = []
+similar_latest_value = []
 unresolved_combinations = set()  # Use a set to avoid duplicates
 case2_matching_combinations = []
 case2_unresolved_combinations = set()  # Use a set to avoid duplicates
@@ -31,10 +32,10 @@ key_values = set()
 # Read different_properties.csv
 with open(different_properties_csv, 'r') as file:
     reader = csv.DictReader(file)
-    properties_dict = {(row['New Property File'], row['Key']): row['Old Value'] for row in reader}
+    properties_dict = {(row['Latest Property File'], row['Key']): row['Old Value'] for row in reader}
 
-# Read 1.1.5.5-value-takes-priority.csv
-with open(value_takes_priority_csv, 'r') as file:
+# Read old-value-takes-priority.csv
+with open(old_value_takes_priority_csv, 'r') as file:
     reader = csv.DictReader(file)
     for row in reader:
         property_file_name = row['Property file name']
@@ -46,32 +47,35 @@ with open(value_takes_priority_csv, 'r') as file:
         else:
             non_matching_combinations.append((property_file_name, key))
 
-# Check if the property files exist in the lts directory and update their values
+# Check if the property files exist in the latest directory and update their values
 for combination in matching_combinations:
-    new_property_file, key = combination
-    new_property_file_path = os.path.join(new_directory, new_property_file)
+    property_file_name, key = combination
+    latest_property_file_path = os.path.join(latest_directory, property_file_name)
 
-    if os.path.isfile(new_property_file_path):
+    if os.path.isfile(latest_property_file_path):
         old_value = properties_dict[combination]
 
         # Update the value in the property file
         updated_lines = []
-        with open(new_property_file_path, 'r') as file:
+        with open(latest_property_file_path, 'r') as file:
             for line in file:
-                if line.strip().startswith(key):
+                if line.strip().startswith(key + '='):
                     line = f'{key}={old_value}\n'
                 updated_lines.append(line)
 
-        with open(new_property_file_path, 'w') as file:
+        with open(latest_property_file_path, 'w') as file:
             file.writelines(updated_lines)
 
-        updated_property_files.append(new_property_file_path)
+        updated_property_files.append(latest_property_file_path)
+
+        # Update properties_dict with latest value
+        properties_dict[(property_file_name, key)] = old_value
 
         # Print the updated property file
-        print(f"Updated {new_property_file_path} with {key}={old_value}")
+        print(f"Updated {latest_property_file_path} with {key}={old_value}")
 
-# Compare non-matching combinations with lts-Value-takes-priority.csv
-with open(lts_value_takes_priority_csv, 'r') as file3:
+# Compare non-matching combinations with latest-Value-takes-priority.csv
+with open(latest_value_takes_priority_csv, 'r') as file3:
     reader3 = csv.DictReader(file3)
     for row3 in reader3:
         property_file_name = row3['Property file name']
@@ -79,20 +83,20 @@ with open(lts_value_takes_priority_csv, 'r') as file3:
 
         # Compare the combinations and add matching rows to the list
         for combination in non_matching_combinations:
-            lts_property_file, key = combination
-            if new_property_file == property_file_name and key == key3:
-                similar_new_value.append(row3)
+            latest_property_file, key = combination
+            if latest_property_file == property_file_name and key == key3:
+                similar_latest_value.append(row3)
                 unresolved_combinations.discard(combination)  # Remove the resolved combination from unresolved set
                 break
         else:
             unresolved_combinations.add(combination)  # Add unresolved combination to the set
 
-# Read the "value-takes-priority" files and store the combinations in a set
-with open(value_takes_priority_csv, 'r') as file2:
+# Read the "old_value-takes-priority" files and store the combinations in a set
+with open(old_value_takes_priority_csv, 'r') as file2:
     reader2 = csv.DictReader(file2)
     key_values.update((row['Property file name'], row['key']) for row in reader2)
 
-with open(lts_value_takes_priority_csv, 'r') as file3:
+with open(latest_value_takes_priority_csv, 'r') as file3:
     reader3 = csv.DictReader(file3)
     key_values.update((row['Property file name'], row['key']) for row in reader3)
 
@@ -102,33 +106,33 @@ unresolved_combinations = set()
 with open(different_properties_csv, 'r') as file1:
     reader1 = csv.DictReader(file1)
     for row1 in reader1:
-        new_property_file = row1['New Property File']
+        latest_property_file = row1['Latest Property File']
         key = row1['Key']
-        combination = (new_property_file, key)
+        combination = (latest_property_file, key)
         if combination not in key_values:
             unresolved_combinations.add(combination)
 
 # Create manual-adjudication.csv with comment "update-if-old-value-takes-priority"
 with open(manual_adjudication_csv, 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'New Value', 'Action'])
+    writer.writerow(['Property file name', 'Key', 'Old Value', 'Latest Value', 'Adjudication Action'])
 
     # Iterate through the different_properties.csv and update values if combination matches
     with open(different_properties_csv, 'r') as file1:
         reader1 = csv.DictReader(file1)
         for row1 in reader1:
-            property_file = row1['New Property File']
+            property_file = row1['Latest Property File']
             key = row1['Key']
             old_value = row1['Old Value']
-            new_value = row1['New Value']
+            latest_value = row1['Latest Value']
             combination = (property_file, key)
             if combination in unresolved_combinations:
-                writer.writerow([property_file, key, old_value, new_value, 'update-if-old-value-takes-priority'])
+                writer.writerow([property_file, key, old_value, latest_value, 'update-if-old-value-takes-priority'])
 
 print("Manual adjudication CSV file has been created.")
 
-# Read file1_only.csv and intentionally-removed-in-lts.csv and compare.
-with open(file1_only_csv, 'r') as file1:
+# Read old_file_only.csv and intentionally-removed-in-lts.csv and compare.
+with open(old_file_only_csv, 'r') as file1:
     reader1 = csv.DictReader(file1)
     for row1 in reader1:
         property_file_name1 = row1['Old Property File']
@@ -158,10 +162,10 @@ if os.path.isfile(manual_adjudication_csv):
 
         # Store existing combinations in a set
         for row in existing_content[1:]:  # Skip the header row
-            lts_property_file = row[0]
+            latest_property_file = row[0]
             key = row[1]
             old_value = row[2]
-            existing_combinations.add((lts_property_file, key, old_value))
+            existing_combinations.add((latest_property_file, key, old_value))
 
 # Add new unresolved combinations to the case2 combinations
 case2_existing_combinations.update(case2_unresolved_combinations)
@@ -169,29 +173,29 @@ case2_existing_combinations.update(case2_unresolved_combinations)
 # Append the updated combinations to the manual-adjudication.csv file
 with open(manual_adjudication_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'Action'])
+    writer.writerow(['Property file name', 'Key', 'Old Value', 'Adjudication Action'])
 
     # Write the new content
     for combination in case2_existing_combinations:
-        new_property_file, key = combination
+        latest_property_file, key = combination
 
         # Find the corresponding old value in file1_only_csv and update it in manual-adjudication.csv
-        with open(file1_only_csv, 'r') as file1:
+        with open(old_file_only_csv, 'r') as file1:
             reader1 = csv.DictReader(file1)
             for row1 in reader1:
                 property_file_name1 = row1['Old Property File']
                 key1 = row1['Key']
                 old_value1 = row1['Old Value']
-                if property_file_name1 == new_property_file and key1 == key:
-                    writer.writerow([new_property_file, key, old_value1, 'copy-property-if-required-in-lts'])
+                if property_file_name1 == latest_property_file and key1 == key:
+                    writer.writerow([latest_property_file, key, old_value1, 'copy-property-if-required-in-lts'])
                     break
 print("Manual adjudication CSV file has been updated.")
 
-# Read file2_only.csv and find matching combinations
-with open(file2_only_csv, 'r') as file2:
+# Read latest_file_only.csv and find matching combinations
+with open(latest_file_only_csv, 'r') as file2:
     reader2 = csv.DictReader(file2)
     for row2 in reader2:
-        property_file_name2 = row2['New Property File']
+        property_file_name2 = row2['Latest Property File']
         key2 = row2['Key']
         combination_found = False
 
@@ -218,10 +222,10 @@ if os.path.isfile(manual_adjudication_csv):
 
         # Store existing combinations in a set
         for row in existing_content[1:]:  # Skip the header row
-            lts_property_file = row[0]
+            latest_property_file = row[0]
             key = row[1]
-            new_value = row[2]
-            existing_combinations.add((lts_property_file, key, new_value))
+            latest_value = row[2]
+            existing_combinations.add((latest_property_file, key, latest_value))
 
 # Add new unresolved combinations to the case3 combinations
 case3_existing_combinations.update(case3_unresolved_combinations)
@@ -229,21 +233,21 @@ case3_existing_combinations.update(case3_unresolved_combinations)
 # Append the updated combinations to the manual-adjudication.csv file
 with open(manual_adjudication_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'New Value', 'Action'])
+    writer.writerow(['Property file name', 'Key', 'Latest Value', 'Adjudication Action'])
 
     # Write the new content
     for combination in case3_existing_combinations:
-        new_property_file, key = combination
+        latest_property_file, key = combination
 
-        # Find the corresponding new value in file2_only_csv and update it in manual-adjudication.csv
-        with open(file2_only_csv, 'r') as file2:
+        # Find the corresponding new value in latest_file_only_csv and update it in manual-adjudication.csv
+        with open(latest_file_only_csv, 'r') as file2:
             reader2 = csv.DictReader(file2)
             for row2 in reader2:
-                property_file_name2 = row2['New Property File']
+                property_file_name2 = row2['Latest Property File']
                 key2 = row2['Key']
-                new_value2 = row2['New Value']
-                if property_file_name2 == new_property_file and key2 == key:
-                    writer.writerow([new_property_file, key, new_value2, 'update-if-value-needs-change'])
+                latest_value2 = row2['Latest Value']
+                if property_file_name2 == latest_property_file and key2 == key:
+                    writer.writerow([latest_property_file, key, latest_value2, 'update-if-value-needs-change'])
                     break
 print("Manual adjudication CSV file has been updated.")
 
@@ -260,8 +264,8 @@ with open(log_file, 'w') as file:
     for combination in matching_combinations:
         print(combination)
 
-    print("Similar New values:")
-    for row in similar_new_value:
+    print("Similar Latest values:")
+    for row in similar_latest_value:
         print(row)
 
     print("Unresolved combinations:")
