@@ -40,8 +40,27 @@ To initialized a specific db disable init of all others in `init_values.yaml` by
   ```
   psql -h <HOSTNAME> -p <PORT-NUMBER> -U <USERNAME> -f <BACKUP_FILE_NAME>.dump
   ```
-
-
+## DB Upgrade
+* Used to upgrade the schemas and required data from one MOSIP version to another.
+* At a time upgrade server performs upgrade from one sequential version to another.
+* In case of upgrade of multiple versions, do update all the details sequentially in `upgrade.csv`.
+* Install in required Kubernetes cluster using below mentioned steps:
+### Pre-requisites for upgrade
+* DB_SERVERIP : Ip to access the DB server to be upgraded.
+* DB_PORT : port for connecting to DB server.
+* SU_USER : Super User for DB server.
+* SYS_ADMIN_USER : Sysadmin User for DB server.
+* SU_USER_PWD : Super User Password
+* SYS_ADMIN_PWD : Sysadmin User Password.
+* Updated `upgrade.csv` with sequential details of upgrade to be performed.
+### Install Upgrade
+```
+./postgres-upgrade.sh
+```
+### Delete Upgrade
+```
+helm delete postgres-upgrade -n postgres
+```
 ## Troubleshooting
 * If you face login issues even when the password entered is correct, it could be due to previous PVC, and PV.  Delete them, but exercise caution as this will delete all persistent data.
 * If you face below error while importing db's.
