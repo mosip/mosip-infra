@@ -7,7 +7,7 @@ old_value_takes_priority_csv = 'knowledge/old-value-takes-priority.csv'
 latest_value_takes_priority_csv = 'knowledge/latest-Value-takes-priority.csv'
 latest_repo_branch = sys.argv[1]
 latest_directory = f'latest-config/{latest_repo_branch}'
-manual_adjudication_csv = 'manual-adjudication.csv'
+manual_configuration_csv = 'manual-configuration.csv'
 old_file_only_csv = 'output/old_file_only.csv'
 intentionally_removed_csv = 'knowledge/intentionally-removed-in-lts.csv'
 latest_file_only_csv = 'output/latest_file_only.csv'
@@ -112,10 +112,10 @@ with open(different_properties_csv, 'r') as file1:
         if combination not in key_values:
             unresolved_combinations.add(combination)
 
-# Create manual-adjudication.csv with comment "update-if-old-value-takes-priority"
-with open(manual_adjudication_csv, 'w', newline='') as file:
+# Create manual-configuration.csv with comment "update-if-old-value-takes-priority"
+with open(manual_configuration_csv, 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'Latest Value', 'Adjudication Action'])
+    writer.writerow(['Property file name', 'Key', 'Old Value', 'Latest Value', 'Configuration Action'])
 
     # Iterate through the different_properties.csv and update values if combination matches
     with open(different_properties_csv, 'r') as file1:
@@ -129,7 +129,7 @@ with open(manual_adjudication_csv, 'w', newline='') as file:
             if combination in unresolved_combinations:
                 writer.writerow([property_file, key, old_value, latest_value, 'update-if-old-value-takes-priority'])
 
-print("Manual adjudication CSV file has been created.")
+print("Manual configuration CSV file has been created.")
 
 # Read old_file_only.csv and intentionally-removed-in-lts.csv and compare.
 with open(old_file_only_csv, 'r') as file1:
@@ -154,9 +154,9 @@ with open(old_file_only_csv, 'r') as file1:
         if not combination_found:
             case2_unresolved_combinations.add((property_file_name1, key1))
 
-# Read the existing manual-adjudication.csv file and store the existing combinations
-if os.path.isfile(manual_adjudication_csv):
-    with open(manual_adjudication_csv, 'r') as file:
+# Read the existing manual-configuration.csv file and store the existing combinations
+if os.path.isfile(manual_configuration_csv):
+    with open(manual_configuration_csv, 'r') as file:
         reader = csv.reader(file)
         existing_content = list(reader)  # Read existing content and store it in memory
 
@@ -170,16 +170,16 @@ if os.path.isfile(manual_adjudication_csv):
 # Add new unresolved combinations to the case2 combinations
 case2_existing_combinations.update(case2_unresolved_combinations)
 
-# Append the updated combinations to the manual-adjudication.csv file
-with open(manual_adjudication_csv, 'a', newline='') as file:
+# Append the updated combinations to the manual-configuration.csv file
+with open(manual_configuration_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'Adjudication Action'])
+    writer.writerow(['Property file name', 'Key', 'Old Value', 'Configuration Action'])
 
     # Write the new content
     for combination in case2_existing_combinations:
         latest_property_file, key = combination
 
-        # Find the corresponding old value in file1_only_csv and update it in manual-adjudication.csv
+        # Find the corresponding old value in file1_only_csv and update it in manual-configuration.csv
         with open(old_file_only_csv, 'r') as file1:
             reader1 = csv.DictReader(file1)
             for row1 in reader1:
@@ -189,7 +189,7 @@ with open(manual_adjudication_csv, 'a', newline='') as file:
                 if property_file_name1 == latest_property_file and key1 == key:
                     writer.writerow([latest_property_file, key, old_value1, 'copy-property-if-required-in-lts'])
                     break
-print("Manual adjudication CSV file has been updated.")
+print("Manual configuration CSV file has been updated.")
 
 # Read latest_file_only.csv and find matching combinations
 with open(latest_file_only_csv, 'r') as file2:
@@ -214,9 +214,9 @@ with open(latest_file_only_csv, 'r') as file2:
         if not combination_found:
             case3_unresolved_combinations.add((property_file_name2, key2))
 
-# Read the existing manual-adjudication.csv file and store the existing combinations
-if os.path.isfile(manual_adjudication_csv):
-    with open(manual_adjudication_csv, 'r') as file:
+# Read the existing manual-configuration.csv file and store the existing combinations
+if os.path.isfile(manual_configuration_csv):
+    with open(manual_configuration_csv, 'r') as file:
         reader = csv.reader(file)
         existing_content = list(reader)  # Read existing content and store it in memory
 
@@ -230,16 +230,16 @@ if os.path.isfile(manual_adjudication_csv):
 # Add new unresolved combinations to the case3 combinations
 case3_existing_combinations.update(case3_unresolved_combinations)
 
-# Append the updated combinations to the manual-adjudication.csv file
-with open(manual_adjudication_csv, 'a', newline='') as file:
+# Append the updated combinations to the manual-configuration.csv file
+with open(manual_configuration_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Latest Value', 'Adjudication Action'])
+    writer.writerow(['Property file name', 'Key', 'Latest Value', 'Configuration Action'])
 
     # Write the new content
     for combination in case3_existing_combinations:
         latest_property_file, key = combination
 
-        # Find the corresponding new value in latest_file_only_csv and update it in manual-adjudication.csv
+        # Find the corresponding new value in latest_file_only_csv and update it in manual-configuration.csv
         with open(latest_file_only_csv, 'r') as file2:
             reader2 = csv.DictReader(file2)
             for row2 in reader2:
@@ -249,7 +249,7 @@ with open(manual_adjudication_csv, 'a', newline='') as file:
                 if property_file_name2 == latest_property_file and key2 == key:
                     writer.writerow([latest_property_file, key, latest_value2, 'update-if-value-needs-change'])
                     break
-print("Manual adjudication CSV file has been updated.")
+print("Manual configuration CSV file has been updated.")
 
 # Open a file for writing the log
 with open(log_file, 'w') as file:
