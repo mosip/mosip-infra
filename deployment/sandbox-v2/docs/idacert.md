@@ -11,7 +11,6 @@
   For IDA Zero-Knowledge certificate exchange, below are the steps: 
   
  * 1. Authenticate yourself and get authorization token from authmanager Swagger.
-
 	Swagger URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ``` 
 	```
 	{
@@ -36,16 +35,17 @@
        ```https://minibox.mosip.net/v1/keymanager/swagger-ui/index.html?configUrl=/v1/keymanager/v3/api-docs/swagger-config#/keymanager/uploadOtherDomainCertificate``` 
       
        Request body:
-	```
-	{
-     "id": "string",
-     "version": "string",
-     "requesttime": "2023-05-30T04:36:36.006Z"
-     "metadata": {},
-     "request": {
-     "applicationId": "IDA",
-     "referenceId": "PUBLIC_KEY",
-     "certificateData": "{copied certificate from step-II}" }}
+        ```
+        {
+         "id": "string",
+         "version": "string",
+         "requesttime": "2023-05-30T04:36:36.006Z"
+         "metadata": {},
+         "request": {
+         "applicationId": "IDA",
+         "referenceId": "PUBLIC_KEY",
+         "certificateData": "{copied certificate from step-II}" }}
+        ```
 
  Note: The process of uploading IDA Zero-Knowledge certificates should only take place once.
  
@@ -72,27 +72,25 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps:
 
 
   * 2. Get the CA certificate from the below URL.
-       
         ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=ROOT```
-    
-    Sample Response :
- 
-   `` {
-    "id": null,
-    "version": null,
-    "responsetime": "2023-06-06T04:14:53.267Z",
-    "metadata": null,
-    "response": {
-    "certificate": "-----BEGIN CERTIFICATE-----\nMIIDlDCCAnygAwIBAgII4fC0eIinexgwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjMwNTAyMDUwMzMxWhcNMjgwNTAxMDUwMzMxWjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALqDlR/1\n3ak4IMyszlXK/1r/EO3+FJUDAJmHh7ldqgARbIvqFaggvK1+mkbKHhEg5lkwIYfQ\n2JqcyHoOfH++HKd9Rz3UgDWjTs+FYvsnZvTXLAS8/K46heuhrDVh62RfEsxT+6Hw\nH9/rwhO389vv4sUnib9jhK7phoPWeQvcPCs/WWenwqDmXLgtaFZVpCpMwQddMjcb\nkO7mG7lHwztHTF8YMfAaD6qdKRoKlkAL6hROI2wgjVtGq0hhKsT5r5ErDpYmrQhl\nJkF/rDR4dy5fobG9/cPW92yBSNmQFzPkFRBgGKaat0an5xHA8LZi3DKKf9ZNorWR\ndzuUqOsBMQTUFVUCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\nUaI4d+3c/UFCyK27DMTOZdp4VOswDQYJKoZIhvcNAQELBQADggEBAIe68CCK+5Ff\nFghp9Rub3RmTtPkGDDfCyhCaV4BabKMPTfYHceIcHIrVHmFUhIhp++rHV0k+NF65\nP5Qzz8cccurv7kAWSF1QUJbKah0h28N5Et1wOylEGjASpdEb1QBRsBt2Lw2Ov6za\n/BEISOTnDhhCWEzAJBiDzjhBUIOo579QI34j6ZKpl1J4oDuOvqJYEyvOGigZegO5\nNdoYzfc8YAKaAlxQl1yQDGPVWjZL3f3af9NpsioovjiPq1xQZuBKnFhlt2oRIEmF\nScctUgo/35i+fLSvmU/fz0edmv8BrKEoD98xZaHsuHHELsT5q/c+6YM7FtgM1XPj\nxng33ECpswo=\n-----END CERTIFICATE-----\n",
-    "certSignRequest": null,
-    "issuedAt": "2023-05-02T05:03:31.000Z",
-    "expiryAt": "2028-05-01T05:03:31.000Z",
-    "timestamp": "2023-06-06T04:14:53.308Z"
-    },
-    "errors": []
-    }
-   ``
-       Ensure to copy the certificate value in the response from the above request.
+       <br>Sample Response :
+        ```{
+        "id": null,
+        "version": null,
+        "responsetime": "2023-06-06T04:14:53.267Z",
+        "metadata": null,
+        "response": {
+        "certificate": "-----BEGIN CERTIFICATE-----\nMIIDlDCCAnygAwIBAgII4fC0eIinexgwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjMwNTAyMDUwMzMxWhcNMjgwNTAxMDUwMzMxWjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALqDlR/1\n3ak4IMyszlXK/1r/EO3+FJUDAJmHh7ldqgARbIvqFaggvK1+mkbKHhEg5lkwIYfQ\n2JqcyHoOfH++HKd9Rz3UgDWjTs+FYvsnZvTXLAS8/K46heuhrDVh62RfEsxT+6Hw\nH9/rwhO389vv4sUnib9jhK7phoPWeQvcPCs/WWenwqDmXLgtaFZVpCpMwQddMjcb\nkO7mG7lHwztHTF8YMfAaD6qdKRoKlkAL6hROI2wgjVtGq0hhKsT5r5ErDpYmrQhl\nJkF/rDR4dy5fobG9/cPW92yBSNmQFzPkFRBgGKaat0an5xHA8LZi3DKKf9ZNorWR\ndzuUqOsBMQTUFVUCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\nUaI4d+3c/UFCyK27DMTOZdp4VOswDQYJKoZIhvcNAQELBQADggEBAIe68CCK+5Ff\nFghp9Rub3RmTtPkGDDfCyhCaV4BabKMPTfYHceIcHIrVHmFUhIhp++rHV0k+NF65\nP5Qzz8cccurv7kAWSF1QUJbKah0h28N5Et1wOylEGjASpdEb1QBRsBt2Lw2Ov6za\n/BEISOTnDhhCWEzAJBiDzjhBUIOo579QI34j6ZKpl1J4oDuOvqJYEyvOGigZegO5\nNdoYzfc8YAKaAlxQl1yQDGPVWjZL3f3af9NpsioovjiPq1xQZuBKnFhlt2oRIEmF\nScctUgo/35i+fLSvmU/fz0edmv8BrKEoD98xZaHsuHHELsT5q/c+6YM7FtgM1XPj\nxng33ECpswo=\n-----END CERTIFICATE-----\n",
+        "certSignRequest": null,
+        "issuedAt": "2023-05-02T05:03:31.000Z",
+        "expiryAt": "2028-05-01T05:03:31.000Z",
+        "timestamp": "2023-06-06T04:14:53.308Z"
+        },
+        "errors": []
+        }```
+
+
+      <br>Ensure to copy the certificate value in the response from the above request.
 
   * 3. Upload copied ROOT certificate through the below Swagger URL.
        
@@ -108,15 +106,12 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps:
           "requesttime": "2021-03-24T08:24:13.349Z",
           "version": "string"
         }
-	```
 	
   * 4. Get the SUBCA certificate data from the below URL.
       
       ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA ```
-      
-
-     Ensure to copy the certificate value in the response from the above request. 
-     
+       
+    Ensure to copy the certificate value in the response from the above request.
      
   * 5. Upload copied IDA certificate from the above request in the below Swagger URL.
 
@@ -131,7 +126,7 @@ For IDA mpartner-default-auth partner certificate exchange, below are the steps:
           },
           "requesttime": "2021-03-24T08:24:13.349Z",
           "version": "string"
-        }
+        }```
     
   * 6. Get the mpartner-default-auth partner(Partner Certificate /Client certificate ) certificate data from the below URL.
 
@@ -156,7 +151,7 @@ Ensure to copy the certificate value in the response from the above request. Sav
       "version": "string"
     }
 `
-    Ensure to copy certificate value in the response. This is  MOSIP's pms-signed certificate.
+          Ensure to copy certificate value in the response. This is  MOSIP's pms-signed certificate.
 
   * 8. Upload copied pms-signed certificate through below URL:
 
