@@ -174,10 +174,8 @@ Ensure to copy the certificate value in the response from the above request. Sav
       "requesttime": "2018-12-10T06:12:52.994Z",
       "version": "string"
     }
-  
 
-
-## Troubleshooting
+## Troubleshoot
 
 - Please check if the domain name is correctly replaced.
 - In case of errors related to timestamp please update the latest timestamp in the request.
