@@ -1,12 +1,17 @@
 # IDA certificate exchange guide 
 
-- In Ida we have two types of certificate exchange
-	- IDA Zero knowledge certificate exchange this is taken care just after the ida installaton is done in playbook ```ida.yml```
-	- IDA mpartner-default-auth partner certificate exchange :- for this we need to follow the below steps:-
+- In IDA, there are two steps of certificate exchange :
+  
+  Step 1: IDA Zero-knowledge certificate exchange
+  
+  Step 2: IDA mpartner-default-auth partner certificate exchange
 
-  * 1. Authenticate yourself and get authorization token from authmanager swagger. Also adding the request after that which can be used.. please update the domain name in the request.
+ `Step-1:`
 
-	SWAGGER URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ```  hit authmanager section in try-out section.
+  For IDA Zero-Knowledge certificate exchange, below are the steps: 
+  
+ * 1. Authenticate yourself and get authorization token from authmanager Swagger.
+	Swagger URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ``` 
 	```
 	{
 	  "id": "string",
@@ -20,220 +25,158 @@
 	  "version": "string"
 	}
 	```
-  * 2. Get the ROOT certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
-	```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=ROOT```
+  * 2. Get the certificate data from the URL mentioned below. Use application ID (appID) =IDA and reference ID (refID) =CRED_SERVICE
+	```https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui/index.html?configUrl=/idauthentication/v1/internal/v3/api-docs/swagger-config#/keymanager/getCertificate```
+     
+       Ensure to copy the certificate value in the response from the above request.
+       
+  * 3. Upload the copied certificate from step-II through the below Swagger URL.
+       
+       ```https://minibox.mosip.net/v1/keymanager/swagger-ui/index.html?configUrl=/v1/keymanager/v3/api-docs/swagger-config#/keymanager/uploadOtherDomainCertificate``` 
+      
+       Request body:
+        ```
+        {
+         "id": "string",
+         "version": "string",
+         "requesttime": "2023-05-30T04:36:36.006Z"
+         "metadata": {},
+         "request": {
+         "applicationId": "IDA",
+         "referenceId": "PUBLIC_KEY",
+         "certificateData": "{copied certificate from step-II}" }}
+        ```
 
-  * 3. Upload ROOT certificate from the above request in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST``` Partner_Service_Controller --> /partners/certificate/ca/upload --> with below request
-	```
+ Note: The process of uploading IDA Zero-Knowledge certificates should only take place once.
+ 
+`Step-2:`
+
+For IDA mpartner-default-auth partner certificate exchange, below are the steps:
+      
+   * 1. Authenticate yourself and get authorization token from authmanager Swagger.
+      Swagger URL:- ```https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST ```
+      
+       
 	{
 	  "id": "string",
 	  "metadata": {},
 	  "request": {
-	    "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDTjCCAjagAwIBAgIEYFrxXTANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\nDTIxMDMyNDA3NTkyNVoXDTIyMDMyNDA3NTkyNVowaTELMAkGA1UEBhMCSU4xEjAQ\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\ncGFydG5lci1kZWZhdWx0LWFiaXMxEjAQBgNVBAMMCWFiaXMtcm9vdDCCASIwDQYJ\nKoZIhvcNAQEBBQADggEPADCCAQoCggEBANkwlDzNZTBi1fBF4GU4qFAJ3S+Ca0Kf\ngfvg93rQlZ5LBTnZFwAxpCZtGHYb7vkqM9e7adYGC48EPWI0A+48QmF3Z6vSBXg9\nKckINa/vFCTEYrctMHS8CcBjWBf9agJq4+wWqNu8sYHD9pOzDf1uMbQJTI5VvgGx\nv890pZrXdIrR4MPTLB0rkl2sVOqbG7bts0Eqh8TO86126CDzoDrtBCj3RBP/j/dg\nBmz7LWFkG6/by+mXzdZcS46v7P/Q366WrDbMCCtjKIRAA0HQD3vdKT0V03Eiw/EU\nVxVh9sdbkO5h/T8VWI7ghEjr4PpJXPYWRbVlt6uPDpbX+yEiOWG/SsMCAwEAATAN\nBgkqhkiG9w0BAQsFAAOCAQEAEj42FlN8LnNPv3iWttydxm9kEJemyJdw8nPLCC4y\nxigXrcxPgNcoJiDBXLIAwhTmPK1hdn/BndAeUsX8mauuzf4V7Ydw1a999s8Vsj8S\nOLa8voXAE2sjdYZm0cYID0y/ak3+ZrKqCXP6bcmPOLz2plnGJB7TUQ+d8gZXsLA6\nCoopaJOlNM4jPNbX/k30vfFmyrXm2++5stErrSOix25J79DGdmJH896/pmGmB60/\nXGnpyESrVTbhTE+cx0gDHdq5T47qHcXM6CVuH/uYNy5iLCaBRzVQ043gFj3ioym1\nnZ60dsvdG8nEENBu9SzN3Mn24pz0BQ99Qn5ymsQwYAEeDQ==\n-----END CERTIFICATE-----\n",
-	    "partnerDomain": "AUTH"
+	    "appId": "ida",
+	    "clientId": "mosip-ida-client",
+	    "secretKey": "abc123"
 	  },
-	  "requesttime": "2021-03-24T08:24:13.349Z",
+	  "requesttime": "2018-12-10T06:12:52.994Z",
 	  "version": "string"
 	}
-	```
-  * 4. Get the IDA certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
-        ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA```
+	
 
-  * 5. Upload IDA certificate from the above request in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificat$       
-  	 ```
-        {
+
+  * 2. Get the CA certificate from the below URL.
+        ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=ROOT```
+       <br>Sample Response :
+        ```{
+        "id": null,
+        "version": null,
+        "responsetime": "2023-06-06T04:14:53.267Z",
+        "metadata": null,
+        "response": {
+        "certificate": "-----BEGIN CERTIFICATE-----\nMIIDlDCCAnygAwIBAgII4fC0eIinexgwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjMwNTAyMDUwMzMxWhcNMjgwNTAxMDUwMzMxWjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALqDlR/1\n3ak4IMyszlXK/1r/EO3+FJUDAJmHh7ldqgARbIvqFaggvK1+mkbKHhEg5lkwIYfQ\n2JqcyHoOfH++HKd9Rz3UgDWjTs+FYvsnZvTXLAS8/K46heuhrDVh62RfEsxT+6Hw\nH9/rwhO389vv4sUnib9jhK7phoPWeQvcPCs/WWenwqDmXLgtaFZVpCpMwQddMjcb\nkO7mG7lHwztHTF8YMfAaD6qdKRoKlkAL6hROI2wgjVtGq0hhKsT5r5ErDpYmrQhl\nJkF/rDR4dy5fobG9/cPW92yBSNmQFzPkFRBgGKaat0an5xHA8LZi3DKKf9ZNorWR\ndzuUqOsBMQTUFVUCAwEAAaMyMDAwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU\nUaI4d+3c/UFCyK27DMTOZdp4VOswDQYJKoZIhvcNAQELBQADggEBAIe68CCK+5Ff\nFghp9Rub3RmTtPkGDDfCyhCaV4BabKMPTfYHceIcHIrVHmFUhIhp++rHV0k+NF65\nP5Qzz8cccurv7kAWSF1QUJbKah0h28N5Et1wOylEGjASpdEb1QBRsBt2Lw2Ov6za\n/BEISOTnDhhCWEzAJBiDzjhBUIOo579QI34j6ZKpl1J4oDuOvqJYEyvOGigZegO5\nNdoYzfc8YAKaAlxQl1yQDGPVWjZL3f3af9NpsioovjiPq1xQZuBKnFhlt2oRIEmF\nScctUgo/35i+fLSvmU/fz0edmv8BrKEoD98xZaHsuHHELsT5q/c+6YM7FtgM1XPj\nxng33ECpswo=\n-----END CERTIFICATE-----\n",
+        "certSignRequest": null,
+        "issuedAt": "2023-05-02T05:03:31.000Z",
+        "expiryAt": "2028-05-01T05:03:31.000Z",
+        "timestamp": "2023-06-06T04:14:53.308Z"
+        },
+        "errors": []
+        }```
+
+
+      <br>Ensure to copy the certificate value in the response from the above request.
+
+  * 3. Upload copied ROOT certificate through the below Swagger URL.
+       
+        ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
+	
+       ```{
           "id": "string",
           "metadata": {},
           "request": {
-            "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDTjCCAjagAwIBAgIEYFrxXTANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDA$
+            "certificateData": "{Copied certificate from step-II}"
             "partnerDomain": "AUTH"
           },
           "requesttime": "2021-03-24T08:24:13.349Z",
           "version": "string"
         }
-	```
-  * 6. Get the mpartner-default-auth partner certificate data from the below URL, Copy it and use it for certificate exchange in the next step.
-        ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth```
+	
+  * 4. Get the SUBCA certificate data from the below URL.
+      
+      ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA ```
+       
+    Ensure to copy the certificate value in the response from the above request.
+     
+  * 5. Upload copied IDA certificate from the above request in the below Swagger URL.
 
+    ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST ```
+      
+        ```{
+          "id": "string",
+          "metadata": {},
+          "request": {
+            "certificateData": "{Copied certificate from step-IV}"
+            "partnerDomain": "AUTH"
+          },
+          "requesttime": "2021-03-24T08:24:13.349Z",
+          "version": "string"
+        }```
+    
+  * 6. Get the mpartner-default-auth partner(Partner Certificate /Client certificate ) certificate data from the below URL.
 
-  * 7. Upload mpartner-default-auth Partner certificate in the below SWAGGER URL:- ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` Partner_Service_Controller --> /partners/certificate/upload --> with below request
-    ```
+        ```https://minibox.mosip.net/idauthentication/v1/internal/getCertificate?applicationId=IDA&referenceId=mpartner-default-auth ```
+       
+Ensure to copy the certificate value in the response from the above request. Save this copy as `mpartner-default-auth.cer` file locally as this may be used in the future.
+
+  * 7. Upload mpartner-default-auth Partner certificate in the below Swagger URL:
+      
+       ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/uploadPartnerCertificateUsingPOST_1``` 
+ `
+ 
     {
       "id": "string",
       "metadata": {},
       "request": {
-        "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDWjCCAkKgAwIBAgIEYFrz6DANBgkqhkiG9w0BAQsFADBpMQswCQYDVQQGEwJJ\nTjESMBAGA1UECAwJS2FybmF0YWthMRIwEAYDVQQHDAlCYW5nYWxvcmUxHjAcBgNV\nBAoMFW1wYXJ0bmVyLWRlZmF1bHQtYWJpczESMBAGA1UEAwwJYWJpcy1yb290MB4X\nDTIxMDMyNDA4MTAxNloXDTIyMDMyNDA4MTAxNlowdTELMAkGA1UEBhMCSU4xEjAQ\nBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJQmFuZ2Fsb3JlMR4wHAYDVQQKDBVt\ncGFydG5lci1kZWZhdWx0LWFiaXMxHjAcBgNVBAMMFW1wYXJ0bmVyLWRlZmF1bHQt\nYWJpczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKuA8CuDIRQCUCl9\nyVh/dGOb/CiMnbcL/lsLq+VeYo51yyycj5kH2wuTlnXRZAOJklCvhAIJP68q799S\nW+aMr+pOLm4rCgMfPD30UVdcmza+dPfl7A3/YZ5UjALOqjVMmwcUxmh1k5yL9QRo\n1LNLCGkwd0hfgT35Y9sC0CDxD3aOesaz0oP9dkGETpcv8nMW4VxWHvOekup1gqAi\nEn1VBat6qVGjwBNKAVkq75Q8P477DyT+t9NRs9IW68ZQXvR+VQvofDNDk8PshXVQ\nMjesEgQHs7bIhTb6hAmGJsQM97yBAA6+EEGGqvLTZDDXjTAtdNZpjml0jaaMnURl\nzF+qh08CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAjdfHjKlrt7mV0MomYO7KkuCc\naCscPAN74UZaCMRE5pXixeQVctsWE/KI7KdmJwZWqZvQrb/AX4VwZu5A1zcDNOJ6\nB7UaDePCMBXRPcyUAAWWwr0AtV0JkEei3d2TbqiPXqlCM1fvvkKQqGZxa61CvSdN\nz2XmY9W09gbAgkMx3svv6MHpZlJuWY8OZVr0ID1hW+ajEoCf5Adv2Iwuogg/Hs9D\nlhhvYg4GzU/qWE9vFYO52UqtVPfrzQZTPBQE5Hrg0a32HBOwL3vu0ms2gf1lEt23\nEf/8TZA5kT/0bMYlB6heGjIKEC90tEv645jbkgJoCI+GgazTTe9wYHXmgz9oPw==\n-----END CERTIFICATE-----\n",
+        "certificateData": "{Copied certificate from step-VI}",
        "partnerDomain": "AUTH",
         "partnerId": "mpartner-default-auth"
         },
       "requesttime": "",
       "version": "string"
     }
+`
+          Ensure to copy certificate value in the response. This is  MOSIP's pms-signed certificate.
 
-  * 8. get the certificate data from below swagger URL, use the certificate data in the next request ...
-       ```https://minibox.mosip.net/v1/partnermanager/swagger-ui.html#/Partner%20Service%20Controller/getPartnerCertificateUsingGET_1```
-       partner_service_controller->getpartnercertificate
-      try it out the above request with partner id as :- `mpartner-default-auth`
+  * 8. Upload copied pms-signed certificate through below URL:
 
-  * 9. Upload the response signing certificate obtained from the reponse of the above api into the keymanager for mpartner-default-ida partner in keymanager using below Swagger URL: `https://minibox.mosip.net/v1/keymanager/swagger-ui.html#/keymanager/uploadOtherDomainCertificateUsingPOST`  keymanager --> /uploadotherdomainCertificate with below request
-    ```
+       ``` https://api-internal.dev.mosip.net/idauthentication/v1/internal/swagger-ui/index.html?configUrl=/idauthentication/v1/internal/v3/api-docs/swagger-config#/keymanager/uploadCertificate  ```
+       
+   
     {
       "id": "string",
       "metadata": {},
       "request": {
-        "applicationId": "PARTNER",
-        "certificateData": "certficate data fom the responce of step 7",
-        "referenceId": "mpartner-default-auth"
+        "applicationId": "IDA",
+        "referenceId": "mpartner-default-auth",
+        "certificateData": "Copied certficate data fom the responce of step VII(mosip-signed)"
       },
       "requesttime": "2018-12-10T06:12:52.994Z",
       "version": "string"
     }
-    ```
-	
-    **Note:** The CA and Sub-CA certificates of any partner needs to be uploaded to IDA manually. 
-              Upload the certificate in the below SWAGGER URL against the respective 
-              domain:- `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-    For example,
-    1. For an online_verification_partner such as `mpartner-default-auth`, below certificates needs to be uploaded into IDA against `AUTH` domain.
-       
-       * MOSIP ROOT certificates from Keymanager Service. 
-           - Authenticate yourself and get authorization token from authmanager swagger 
-             ```
-             URI: https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST`
-             REQUEST:
-               {
-                 "id": "string",
-                 "metadata": {},
-                 "request": {
-                               "appId": "ida",
-                               "clientId": "mosip-ida-client",
-                               "secretKey": "<provide client secret key>"
-                          },
-                 "requesttime": "",
-                 "version": "string"
-             }
-             ```
-           - Get MOSIP ROOT certificate via below URL
-             ```
-             URI: https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=ROOT
-             OUTPUT:
-                    {  "id":null,
-                       "version":null,
-                       "responsetime":"2022-06-08T13:18:12.383Z",
-                       "metadata":null,
-                       "response": 
-                                 {  
-                                     "certificate":"-----BEGIN CERTIFICATE-----\nMIIDpzCCAo+gAwIBAgIIQE3S0X1MsgMwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjIwMjIxMDcxOTQ4WhcNMjcwMjIxMDcxOTQ4WjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALEH6MPa\nBksrGHqDe9Snk6OB+izUZ9h18Q3S39ayZWnCv4T3rrnGVok1DcW7xVTDdwZv+FDa\nEb1lkkTVGzPnIbLjUff8t2A0Zx3mi2Ff38xGj1zJ98GVWFLvL9rN/3eSj9F5dlkO\nmi4QYpUTYuhyT/QBEWKyAEz7YwVxev4kf0/ebdQ0YCHhj/MjjSIfsOgSodtZfGv0\nPddaRClXOAKMUC5vTatGIKGUBGr5/BumwCTdKG63LAFV4H8WG1FGEAeX8h4hMuhL\nCPcs6mOxPX27oFBAeLC0SOB8BGXkaCZKKYyxYC4sYCAKKIjUtW3W2I4Tr4SOYacO\nDfQ0fAeElogFX70CAwEAAaNFMEMwEgYDVR0TAQH/BAgwBgEB/wIBAjAdBgNVHQ4E\nFgQUuyxVSUC87HBeBonvlq9SWFdNqpswDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3\nDQEBCwUAA4IBAQBmRDpf6Wq1nwAGQ9Al8DZpnJpjcwgXD+ZanL7Ju5zk5F8Or3ay\nqVNarS0dsjQ32JBGl4/+aG0eAWGKr7VA8kXut6Fd/qTLT2ywAoaxLZskknz0mFHa\nQOpp9qnn0GfegWaxdhN72+G3CXq6WTLhod9gH6LdejwKpiIirBbKO970kJ2Jfki2\nJffmpxbfCTGwbCtgGJhj5AGxZjyAjaE4ro1ozII5eWcXGwYqmKw5cKRpl3sNbdgz\nZL6mIuvMlPNNRE7lHc4v2ERWuBaLXoSSf9sKXxPYZZnDdrtSNKcgHhXnuVA27mPK\n8UTV2X2wt7p7aejNQCOI4+ncHIHOIPxgnCSS\n-----END CERTIFICATE-----\n",
-                                     "certSignRequest":null,
-                                     "issuedAt":"2022-02-21T07:19:48.000Z",
-                                     "expiryAt":"2027-02-21T07:19:48.000Z",
-                                     "timestamp":"2022-06-08T13:18:12.383Z"
-                                 },
-                       "errors":null
-                    }
-             ```
-           - Copy certificate from above response and upload to IDA
-             ```
-             URI: https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate
-             REQUEST:
-                     {
-                        "id": "string",
-                        "version": "string",
-                        "requesttime": "2023-05-04T06:12:52.994Z",
-                        "metadata": {},
-                        "request": { 
-                                      "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDpzCCAo+gAwIBAgIIQE3S0X1MsgMwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjIwMjIxMDcxOTQ4WhcNMjcwMjIxMDcxOTQ4WjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALEH6MPa\nBksrGHqDe9Snk6OB+izUZ9h18Q3S39ayZWnCv4T3rrnGVok1DcW7xVTDdwZv+FDa\nEb1lkkTVGzPnIbLjUff8t2A0Zx3mi2Ff38xGj1zJ98GVWFLvL9rN/3eSj9F5dlkO\nmi4QYpUTYuhyT/QBEWKyAEz7YwVxev4kf0/ebdQ0YCHhj/MjjSIfsOgSodtZfGv0\nPddaRClXOAKMUC5vTatGIKGUBGr5/BumwCTdKG63LAFV4H8WG1FGEAeX8h4hMuhL\nCPcs6mOxPX27oFBAeLC0SOB8BGXkaCZKKYyxYC4sYCAKKIjUtW3W2I4Tr4SOYacO\nDfQ0fAeElogFX70CAwEAAaNFMEMwEgYDVR0TAQH/BAgwBgEB/wIBAjAdBgNVHQ4E\nFgQUuyxVSUC87HBeBonvlq9SWFdNqpswDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3\nDQEBCwUAA4IBAQBmRDpf6Wq1nwAGQ9Al8DZpnJpjcwgXD+ZanL7Ju5zk5F8Or3ay\nqVNarS0dsjQ32JBGl4/+aG0eAWGKr7VA8kXut6Fd/qTLT2ywAoaxLZskknz0mFHa\nQOpp9qnn0GfegWaxdhN72+G3CXq6WTLhod9gH6LdejwKpiIirBbKO970kJ2Jfki2\nJffmpxbfCTGwbCtgGJhj5AGxZjyAjaE4ro1ozII5eWcXGwYqmKw5cKRpl3sNbdgz\nZL6mIuvMlPNNRE7lHc4v2ERWuBaLXoSSf9sKXxPYZZnDdrtSNKcgHhXnuVA27mPK\n8UTV2X2wt7p7aejNQCOI4+ncHIHOIPxgnCSS\n-----END CERTIFICATE-----\n",
-                                      "partnerDomain": "AUTH" 
-                                 }
-                     }
-             ```
-       * MOSIP PMS certificates of Keymanager Service
-           - Authenticate yourself and get authorization token from authmanager swagger, if required.
-           - Get MOSIP PMS certificate via below URL
-             ```
-             URI: https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=PMS
-             OUTPUT:
-                    {  "id":null,
-                       "version":null,
-                       "responsetime":"2022-06-08T13:18:12.383Z",
-                       "metadata":null,
-                       "response": 
-                                 {  
-                                     "certificate":"-----BEGIN CERTIFICATE-----\nMIIDpzCCAo+gAwIBAgIIQE3S0X1MsgMwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjIwMjIxMDcxOTQ4WhcNMjcwMjIxMDcxOTQ4WjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALEH6MPa\nBksrGHqDe9Snk6OB+izUZ9h18Q3S39ayZWnCv4T3rrnGVok1DcW7xVTDdwZv+FDa\nEb1lkkTVGzPnIbLjUff8t2A0Zx3mi2Ff38xGj1zJ98GVWFLvL9rN/3eSj9F5dlkO\nmi4QYpUTYuhyT/QBEWKyAEz7YwVxev4kf0/ebdQ0YCHhj/MjjSIfsOgSodtZfGv0\nPddaRClXOAKMUC5vTatGIKGUBGr5/BumwCTdKG63LAFV4H8WG1FGEAeX8h4hMuhL\nCPcs6mOxPX27oFBAeLC0SOB8BGXkaCZKKYyxYC4sYCAKKIjUtW3W2I4Tr4SOYacO\nDfQ0fAeElogFX70CAwEAAaNFMEMwEgYDVR0TAQH/BAgwBgEB/wIBAjAdBgNVHQ4E\nFgQUuyxVSUC87HBeBonvlq9SWFdNqpswDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3\nDQEBCwUAA4IBAQBmRDpf6Wq1nwAGQ9Al8DZpnJpjcwgXD+ZanL7Ju5zk5F8Or3ay\nqVNarS0dsjQ32JBGl4/+aG0eAWGKr7VA8kXut6Fd/qTLT2ywAoaxLZskknz0mFHa\nQOpp9qnn0GfegWaxdhN72+G3CXq6WTLhod9gH6LdejwKpiIirBbKO970kJ2Jfki2\nJffmpxbfCTGwbCtgGJhj5AGxZjyAjaE4ro1ozII5eWcXGwYqmKw5cKRpl3sNbdgz\nZL6mIuvMlPNNRE7lHc4v2ERWuBaLXoSSf9sKXxPYZZnDdrtSNKcgHhXnuVA27mPK\n8UTV2X2wt7p7aejNQCOI4+ncHIHOIPxgnCSS\n-----END CERTIFICATE-----\n",
-                                     "certSignRequest":null,
-                                     "issuedAt":"2022-02-21T07:19:48.000Z",
-                                     "expiryAt":"2027-02-21T07:19:48.000Z",
-                                     "timestamp":"2022-06-08T13:18:12.383Z"
-                                 },
-                       "errors":null
-                    }
-             ```
-           - Copy certificate from above response and upload to IDA
-             ```
-             URI: https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate
-             REQUEST:
-                     {
-                        "id": "string",
-                        "version": "string",
-                        "requesttime": "2023-05-04T06:12:52.994Z",
-                        "metadata": {},
-                        "request": { 
-                                      "certificateData": "-----BEGIN CERTIFICATE-----\nMIIDpzCCAo+gAwIBAgIIQE3S0X1MsgMwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UE\nBhMCSU4xCzAJBgNVBAgMAktBMRIwEAYDVQQHDAlCQU5HQUxPUkUxDTALBgNVBAoM\nBElJVEIxGjAYBgNVBAsMEU1PU0lQLVRFQ0gtQ0VOVEVSMRUwEwYDVQQDDAx3d3cu\nbW9zaXAuaW8wHhcNMjIwMjIxMDcxOTQ4WhcNMjcwMjIxMDcxOTQ4WjBwMQswCQYD\nVQQGEwJJTjELMAkGA1UECAwCS0ExEjAQBgNVBAcMCUJBTkdBTE9SRTENMAsGA1UE\nCgwESUlUQjEaMBgGA1UECwwRTU9TSVAtVEVDSC1DRU5URVIxFTATBgNVBAMMDHd3\ndy5tb3NpcC5pbzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALEH6MPa\nBksrGHqDe9Snk6OB+izUZ9h18Q3S39ayZWnCv4T3rrnGVok1DcW7xVTDdwZv+FDa\nEb1lkkTVGzPnIbLjUff8t2A0Zx3mi2Ff38xGj1zJ98GVWFLvL9rN/3eSj9F5dlkO\nmi4QYpUTYuhyT/QBEWKyAEz7YwVxev4kf0/ebdQ0YCHhj/MjjSIfsOgSodtZfGv0\nPddaRClXOAKMUC5vTatGIKGUBGr5/BumwCTdKG63LAFV4H8WG1FGEAeX8h4hMuhL\nCPcs6mOxPX27oFBAeLC0SOB8BGXkaCZKKYyxYC4sYCAKKIjUtW3W2I4Tr4SOYacO\nDfQ0fAeElogFX70CAwEAAaNFMEMwEgYDVR0TAQH/BAgwBgEB/wIBAjAdBgNVHQ4E\nFgQUuyxVSUC87HBeBonvlq9SWFdNqpswDgYDVR0PAQH/BAQDAgKEMA0GCSqGSIb3\nDQEBCwUAA4IBAQBmRDpf6Wq1nwAGQ9Al8DZpnJpjcwgXD+ZanL7Ju5zk5F8Or3ay\nqVNarS0dsjQ32JBGl4/+aG0eAWGKr7VA8kXut6Fd/qTLT2ywAoaxLZskknz0mFHa\nQOpp9qnn0GfegWaxdhN72+G3CXq6WTLhod9gH6LdejwKpiIirBbKO970kJ2Jfki2\nJffmpxbfCTGwbCtgGJhj5AGxZjyAjaE4ro1ozII5eWcXGwYqmKw5cKRpl3sNbdgz\nZL6mIuvMlPNNRE7lHc4v2ERWuBaLXoSSf9sKXxPYZZnDdrtSNKcgHhXnuVA27mPK\n8UTV2X2wt7p7aejNQCOI4+ncHIHOIPxgnCSS\n-----END CERTIFICATE-----\n",
-                                      "partnerDomain": "AUTH" 
-                                 }
-                     }
-             ```
-    2. For an AUTH partner below certificates needs to be uploaded into IDA against `AUTH` domain. 
-       You can use requests from above example.
-        * MOSIP ROOT certificates from Keymanager Service.
-            - Authenticate yourself and get authorization token from authmanager swagger URL `https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST`
-            - Get MOSIP ROOT certificate via URL `https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=ROOT`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
 
-        * MOSIP PMS certificates from Keymanager Service.
-            - Get MOSIP PMS certificate via URL `https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=PMS`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-    3. For an DEVICE partner below certificates needs to be uploaded into IDA against `DEVICE` domain.
-       You can use requests from above example.
-        * MOSIP ROOT certificates from Keymanager Service.
-            - Authenticate yourself and get authorization token from authmanager swagger URL `https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST`
-            - Get MOSIP ROOT certificate via URL `https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=ROOT`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-        * MOSIP PMS certificates from Keymanager Service.
-            - Get MOSIP PMS certificate via URL `https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=PMS`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-        * The Signed DEVICE Partner certificate.
-            - Get SIGNED certificate for DEVICE partner via URL `https://minibox.mosip.net/v1/partnermanager/partners/<partnerID>/certificate`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-    4. For an DEVICE partner below certificates needs to be uploaded into IDA against `DEVICE` domain.
-       You can use requests from above example.
-        * CA Certificate of FTM partner certificate.
-            - Authenticate yourself and get authorization token from authmanager swagger URL `https://minibox.mosip.net/v1/authmanager/swagger-ui.html#/authmanager/clientIdSecretKeyUsingPOST`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-        * Sub-CA certificates of that FTM partner certificate.
-            - Get MOSIP PMS certificate via URL `https://minibox.mosip.net/v1/keymanager/getCertificate?applicationId=PMS`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-        * The Signed FTM Partner certificate.
-            - Get SIGNED certificate for DEVICE partner via URL `https://minibox.mosip.net/v1/partnermanager/partners/<partnerID>/certificate`
-            - Copy certificate from above response and upload to IDA `https://minibox.mosip.net/idauthentication/v1/internal/swagger-ui.html#/Partner%20Service%20Controller/uploadCACertificateUsingPOST` ---> `partnercertmanager`  --> `/uploadCACertificate`
-
-    5. After uploading certificates, IDA services needs to be restarted since the certificates are cached 
-       so that it can be cleared and updated with the latest certificates.
-
-# Troubleshooting
+## Troubleshoot
 
 - Please check if the domain name is correctly replaced.
 - In case of errors related to timestamp please update the latest timestamp in the request.
 - If the Swagger links are not available check if the services are running fine. 
-	swagger 1:- kernel-Auth-service.
-	swagger 2:- pms services.
-	swagger 3:- pms services.
+	Swagger 2:- pms services.
+	Swagger 3:- pms services.
 	get certificate request :- ida services.
 - In case you gett error in certifacte upload for either of ROOT, IDA, mpartner-default-auth reponse as ```certificate data already exist``` pls ignore as the certifcate exchange is done once.
 - As of now this is WIP on this document. 
