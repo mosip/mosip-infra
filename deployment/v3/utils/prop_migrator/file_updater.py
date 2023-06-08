@@ -131,7 +131,7 @@ with open(manual_configuration_csv, 'w', newline='') as file:
 
 print("Manual configuration CSV file has been created.")
 
-# Read old_file_only.csv and intentionally-removed-in-lts.csv and compare.
+# Read old_file_only.csv and intentionally_removed_in_lts.csv and compare.
 with open(old_file_only_csv, 'r') as file1:
     reader1 = csv.DictReader(file1)
     for row1 in reader1:
@@ -161,10 +161,11 @@ if os.path.isfile(manual_configuration_csv):
         existing_content = list(reader)  # Read existing content and store it in memory
 
         # Store existing combinations in a set
+        header = existing_content[0]  # Get the header row
         for row in existing_content[1:]:  # Skip the header row
-            latest_property_file = row[0]
-            key = row[1]
-            old_value = row[2]
+            latest_property_file = row[header.index('Property file name')]
+            key = row[header.index('Key')]
+            old_value = row[header.index('Old Value')]
             existing_combinations.add((latest_property_file, key, old_value))
 
 # Add new unresolved combinations to the case2 combinations
@@ -173,7 +174,6 @@ case2_existing_combinations.update(case2_unresolved_combinations)
 # Append the updated combinations to the manual-configuration.csv file
 with open(manual_configuration_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'Configuration Action'])
 
     # Write the new content
     for combination in case2_existing_combinations:
@@ -187,7 +187,7 @@ with open(manual_configuration_csv, 'a', newline='') as file:
                 key1 = row1['Key']
                 old_value1 = row1['Old Value']
                 if property_file_name1 == latest_property_file and key1 == key:
-                    writer.writerow([latest_property_file, key, old_value1, 'copy-property-if-required-in-lts'])
+                    writer.writerow([latest_property_file, key, old_value1, '', 'copy-property-if-required-in-lts'])
                     break
 print("Manual configuration CSV file has been updated.")
 
@@ -220,12 +220,13 @@ if os.path.isfile(manual_configuration_csv):
         reader = csv.reader(file)
         existing_content = list(reader)  # Read existing content and store it in memory
 
-        # Store existing combinations in a set
-        for row in existing_content[1:]:  # Skip the header row
-            latest_property_file = row[0]
-            key = row[1]
-            latest_value = row[2]
-            existing_combinations.add((latest_property_file, key, latest_value))
+    # Store existing combinations in a set
+    header = existing_content[0]  # Get the header row
+    for row in existing_content[1:]:  # Skip the header row
+        latest_property_file = row[header.index('Property file name')]
+        key = row[header.index('Key')]
+        latest_value = row[header.index('Latest Value')]
+        existing_combinations.add((latest_property_file, key, latest_value))
 
 # Add new unresolved combinations to the case3 combinations
 case3_existing_combinations.update(case3_unresolved_combinations)
@@ -233,13 +234,12 @@ case3_existing_combinations.update(case3_unresolved_combinations)
 # Append the updated combinations to the manual-configuration.csv file
 with open(manual_configuration_csv, 'a', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Latest Value', 'Configuration Action'])
 
     # Write the new content
     for combination in case3_existing_combinations:
         latest_property_file, key = combination
 
-        # Find the corresponding new value in latest_file_only_csv and update it in manual-configuration.csv
+        # Find the corresponding new value in latest_file_only.csv and update it in manual-configuration.csv
         with open(latest_file_only_csv, 'r') as file2:
             reader2 = csv.DictReader(file2)
             for row2 in reader2:
@@ -247,7 +247,7 @@ with open(manual_configuration_csv, 'a', newline='') as file:
                 key2 = row2['Key']
                 latest_value2 = row2['Latest Value']
                 if property_file_name2 == latest_property_file and key2 == key:
-                    writer.writerow([latest_property_file, key, latest_value2, 'update-if-value-needs-change'])
+                    writer.writerow([latest_property_file, key, '', latest_value2, 'update-if-value-needs-change'])
                     break
 print("Manual configuration CSV file has been updated.")
 
