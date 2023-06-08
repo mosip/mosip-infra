@@ -42,13 +42,12 @@ function initialize_db() {
           kubectl -n $NS delete configmap --ignore-not-found=true  postgres-upgrade
           kubectl -n $NS create configmap postgres-upgrade --from-file=./upgrade.csv
 
+          read_user_input PRIMARY_LANGUAGE_CODE "Enter the primary lang. code";
           read_user_input DB_SERVERIP "Database server host";
           read_user_input DB_PORT "Database server port";
           read_user_input SU_USER "Database super username";
-          read_user_input SYS_ADMIN_USER "Database System admin username";
 
           read_user_input SU_USER_PWD "Database super user password";
-          read_user_input SYS_ADMIN_PWD "Database system admin password";
 
           helm -n $NS install postgres-upgrade mosip/postgres-upgrade \
           --set database.host="$DB_SERVERIP" \
