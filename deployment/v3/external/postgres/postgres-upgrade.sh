@@ -53,9 +53,8 @@ function initialize_db() {
           --set database.host="$DB_SERVERIP" \
           --set database.port="$DB_PORT" \
           --set database.su.user="$SU_USER" \
-          --set database.sysadmin.user="$SYS_ADMIN_USER" \
+          --set database.plangcode="$PRIMARY_LANGUAGE_CODE" \
           --set database.su.su_password="$SU_USER_PWD" \
-          --set database.sysadmin.sysadmin_password="$SYS_ADMIN_PWD" \
           --version $CHART_VERSION \
           --wait --wait-for-jobs
           break
