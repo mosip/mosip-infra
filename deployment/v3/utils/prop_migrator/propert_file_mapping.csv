@@ -18,9 +18,7 @@ sandbox/kernel-mz.properties,kernel-default.properties
 sandbox/credential-service-mz.properties,credential-service-default.properties
 sandbox/data-share-mz.properties,data-share-default.properties
   -,id-authentication-otp-default.properties
-sandbox/mimoto-mz.properties,mimoto-default.properties
 sandbox/partner-management-mz.properties,partner-management-default.properties
 sandbox/registration-processor-mz.properties,registration-processor-default.properties
  -,digital-card-default.properties
- -,mock-identity-system-default.properties
  -,mock-mv-default.properties
