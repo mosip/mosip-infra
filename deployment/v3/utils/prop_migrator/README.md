@@ -52,7 +52,7 @@ To use the script, follow these steps:
    old-config/file1.properties, latest-config/file1.properties
    old-config/file2.properties, latest-config/file2.properties
 
-## Notes
+Note:
 
 - Make sure you have the necessary permissions to clone the repositories and access the property files.
 - Ensure that the required Git commands are available in your environment.
@@ -195,7 +195,7 @@ The script generates a log file (`logs.txt`) that provides detailed information 
 
 The script creates or updates the `manual-configuration.csv` file. This file includes unresolved combinations and combinations that require further manual configuration. You can use this file to manually update the property files based on the required configuration actions mentioned in the file.
 
-## Notes
+Note:
 
 - It is highly recommended to create backups of your property files before running this script, as it modifies the files in place.
 - The `manual-configuration.csv` file can be used to manually update the property files based on the required configuration actions mentioned in the file.
