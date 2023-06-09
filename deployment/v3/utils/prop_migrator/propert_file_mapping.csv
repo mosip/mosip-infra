@@ -9,7 +9,6 @@ sandbox/resident-mz.properties,resident-default.properties
 sandbox/pre-registration-mz.properties,pre-registration-default.properties
 sandbox/id-authentication-mz.properties,id-authentication-default.properties
 sandbox/application-mz.properties,application-default.properties
-sandbox/opencrvs-mz.properties,opencrvs-default.properties
 sandbox/print-mz.properties,print-default.properties
 sandbox/hotlist-mz.properties,hotlist-default.properties
 sandbox/mock-abis-mz.properties,mock-abis-default.properties
@@ -22,4 +21,6 @@ sandbox/data-share-mz.properties,data-share-default.properties
 sandbox/mimoto-mz.properties,mimoto-default.properties
 sandbox/partner-management-mz.properties,partner-management-default.properties
 sandbox/registration-processor-mz.properties,registration-processor-default.properties
- -,resident-app-default.properties
+ -,digital-card-default.properties
+ -,mock-identity-system-default.properties
+ -,mock-mv-default.properties
