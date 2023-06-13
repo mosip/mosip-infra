@@ -10,17 +10,17 @@ Kafka is required only if you are installing Registration Processor.
 $ ./install.sh
 ```
 
-## Procedure to Backup & Restore bitnami kafka via Velero
+## Procedure to Backup & Restore Bitnami Kafka via Velero
 
 #### Prerequisites
-* Required separate `minio` server / 'S3' , accessible from both backup & restore clusters along with `api` & `console` port accessible.
+* Require separate `minio` server / `S3` which is accessible from both backup & restore clusters along with accessible `api` & `console` ports.
 * Ensure to create a bucket with name `velero`.
 * Required backup & restore servers cluster config file.
 * Install [velero](https://velero.io/docs/v1.9/basic-install/#install-the-cli) cli on both cluster management machines.
 * Install [minio client](https://docs.min.io/docs/minio-client-quickstart-guide.html) cli on both cluster management machines.
 
-#### Backup kafka
-* Login to the console machine,navigate to the `Kafka directory (under /v3/external/)`, and execute the backup script to create a backup of Kafka.
+#### Backup Kafka
+* Login to the console machine, navigate to the `Kafka directory (under /v3/external/)`, and execute the backup script to create a backup of Kafka.
   ```
   [mosipuser@console ~]$ cd $HOME/mosip-infra/deployment/v3/external/kafka
   ```
@@ -49,7 +49,7 @@ $ ./install.sh
   ```
 
 
-#### Restore kafka
+#### Restore Kafka
 * Ensure `values.yaml` & `ui-values.yaml` is up-to-date.
 * Run `restore.sh` to restore kafka from backup
   ```
