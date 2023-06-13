@@ -88,4 +88,4 @@ $ ./install.sh
   ```
   mc: <ERROR> Unable to list folder. The request signature we calculated does not match the signature you provided. Check your key and signing method
   ```
-  Then, Ensure that you provide the appropriate API version, either `--api S3v2` or `--api S3v4`, when executing the `mc set alias` command.
+  Then, ensure that you provide the appropriate API version, either `--api S3v2` or `--api S3v4`, when executing the `mc set alias` command.
