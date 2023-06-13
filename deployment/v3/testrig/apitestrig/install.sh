@@ -61,7 +61,7 @@ function installing_apitestrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
-  read -p "Please provide the no of days to remove old files >=  no of days ( Default: 3 )" reportExpirationInDays
+  read -p "Please provide the retention days to remove old reports ( Default: 3 )" reportExpirationInDays
 
   if [[ -z $reportExpirationInDays ]]; then
     reportExpirationInDays=3
