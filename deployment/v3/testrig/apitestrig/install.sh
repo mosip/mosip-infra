@@ -61,6 +61,16 @@ function installing_apitestrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
+  read -p "Please provide the no of days to remove old files >=  no of days ( Default: 3 )" reportExpirationInDays
+
+  if [[ -z $reportExpirationInDays ]]; then
+    reportExpirationInDays=3
+  fi
+  if ! [[ $reportExpirationInDays =~ ^[0-9]+$ ]]; then
+    echo "The variable \"reportExpirationInDays\" should contain only number; EXITING";
+    exit 1;
+  fi
+
   echo Installing apitestrig
   helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
@@ -75,6 +85,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
+  --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
   $ENABLE_INSECURE
   
   echo Installed apitestrig.
