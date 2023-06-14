@@ -11,7 +11,7 @@
 * [HSM](hsm/README.md)
 * [Object Storage](object-store/README.md)
 * [Anti-virus (Clamav)](antivirus/clamav/README.md)
-* [ActiveMQ](activemq/aws/README.md)
+* [ActiveMQ](activemq/README.md)
 * [Kafka](kafka/README.md)
 * [BioSDK](biosdk/README.md)
 * [ABIS](abis/README.md)
