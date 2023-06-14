@@ -91,7 +91,7 @@ read_user_input s3_region "S3 region ( Default region = minio )" "minio";
 # set S3 alias
 s3_alias=s3_server
 echo -n "  "
-CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v4"
+CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v2"
 chk_exit_status "$CMD" "Not able to reach S3 SERVER"
 
 # create velero bucket, Ignore if already exist
