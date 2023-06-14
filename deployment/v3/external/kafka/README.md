@@ -13,7 +13,7 @@ $ ./install.sh
 #### Prerequisites
 * Require separate `minio` server / `S3` which is accessible from both backup & restore clusters along with accessible `api` & `console` ports.
 * Ensure to create a bucket with name `velero`.
-* Required backup & restore servers cluster config file.
+* Required backup & restore server cluster's kube config file.
 * Install [velero](https://velero.io/docs/v1.9/basic-install/#install-the-cli) cli on both cluster management machines.
 * Install [minio client](https://docs.min.io/docs/minio-client-quickstart-guide.html) cli on both cluster management machines.
 
