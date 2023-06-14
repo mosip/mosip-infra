@@ -16,7 +16,7 @@ sh install.sh
   ```
   export KUBECONFIG=<kubeconfig-file>
   export NS=<softhsm-namespace>
-  export POD_NAME=<pod-name>
+  export POD_NAME=<source-pod-name>
   ```
 * Execute the following command to create a backup of the SoftHSM to the cluster's console machine.
   ```
@@ -25,11 +25,12 @@ sh install.sh
 
 #### Restore
 * Ensure to have the backup directory for SoftHSM on cluster's console machine.
+* Ensure that the newly generated keys are removed from the destination SoftHSM service, located within the `/softhsm/tokens` directory inside the pod.
 * Update the variables provided below.
   ```
   export KUBECONFIG=<kubeconfig-file>
   export NS=<softhsm-namespace>
-  export POD_NAME=<pod-name>
+  export POD_NAME=<destination-pod-name>
   ```
 * Execute the following command to restore SoftHSM from backup.
   ```
