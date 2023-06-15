@@ -83,3 +83,11 @@ The following environmental variables needs to be mapped for the same.
 ![minio-dashboard.png](images/minio-dashboard.png)
 
 The above mentioned changes are taken care in values.yaml script.
+
+
+## Troubleshoot
+* If you encounter the following error while attempting to access MinIO.
+  ```
+  mc: <ERROR> Unable to list folder. The request signature we calculated does not match the signature you provided. Check your key and signing method
+  ```
+  Then, ensure that you provide the appropriate API version, either `--api S3v2` or `--api S3v4`, when executing the `mc set alias` command.
