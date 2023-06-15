@@ -73,7 +73,6 @@ This script updates property files in a given directory based on information pro
 7. Reads `old_file_only.csv` and `intentionally_removed_in_lts.csv` files and compares the combinations.
 8. Updates the `manual-configuration.csv` file with the new combinations.
 
-
 ## Prerequisites
 
 
