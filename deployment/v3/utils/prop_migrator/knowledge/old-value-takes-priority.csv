@@ -145,3 +145,4 @@ application-default.properties,mosip.country.code
 application-default.properties,mosip.notification.timezone
 application-default.properties,mosip.kernel.applicant.type.age.limit
 application-default.properties,mosip.kernel.filtervalue.max_columns
+resident-default.properties,resident.machine.id

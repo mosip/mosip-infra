@@ -330,3 +330,4 @@ sandbox/syncdata-mz.properties,mosip.kernel.sign-url
 sandbox/syncdata-mz.properties,syncdata.websub.resubscription.delay.secs
 sandbox/syncdata-mz.properties,mosip.kernel.client.crypto.iv-length
 sandbox/syncdata-mz.properties,mosip.kernel.client.crypto.aad-length
+sandbox/resident-mz.properties,object.store.base.location
