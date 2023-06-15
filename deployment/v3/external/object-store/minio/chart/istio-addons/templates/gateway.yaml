@@ -12,3 +12,9 @@ spec:
       protocol: HTTP
     hosts:
     - {{ .Values.externalHost }}  
+  - port:
+        name: minio
+        number: 9000
+        protocol: HTTP
+    hosts:
+        - {{ .Values.externalHost }}

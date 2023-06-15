@@ -49,9 +49,8 @@ To initialized a specific db disable init of all others in `init_values.yaml` by
 * DB_SERVERIP : Ip to access the DB server to be upgraded.
 * DB_PORT : port for connecting to DB server.
 * SU_USER : Super User for DB server.
-* SYS_ADMIN_USER : Sysadmin User for DB server.
 * SU_USER_PWD : Super User Password
-* SYS_ADMIN_PWD : Sysadmin User Password.
+* PRIMARY_LANGUAGE_CODE : Primary language for MOSIP.
 * Updated `upgrade.csv` with sequential details of upgrade to be performed.
 ### Install Upgrade
 ```
