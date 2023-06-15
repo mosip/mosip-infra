@@ -2,29 +2,16 @@
 
 This script compares property files between an old repository and a latest repository, identifies the differences, and generates CSV files to summarize the results.
 
-## Overview
-
-When working with version-controlled repositories, it's common to have different versions of property files that contain configuration settings. This script helps you compare property files between two repositories (old and latest) and provides insights into the differences between them. It is particularly useful when migrating from an old version of a repository to a new version, ensuring that important configuration settings are maintained and updated correctly.
-
-The script performs the following steps:
-
-1. Cloning repositories: It clones the old and latest repositories using Git, allowing you to specify the repository URLs and branch names.
-
-2. Retrieving property file mapping: You provide a CSV file (`property_file_mapping.csv`) that contains the mapping of property files between the old and latest repositories. Each row in the CSV file contains two columns: `Old Property File` and `Latest Property File`. The script reads this file to determine which property files should be compared.
-
-3. Comparing property files: The script compares the property files specified in the CSV file pair by pair. It identifies properties with different values, properties that exist only in the old repository, and properties that exist only in the latest repository.
-
-4. Generating output files: After comparing the property files, the script generates three CSV files in the `output` directory:
-    - `different_properties.csv`: Contains the details of properties that have different values between the old and latest repositories.
-    - `old_file_only.csv`: Contains the details of properties that exist only in the old repository.
-    - `latest_file_only.csv`: Contains the details of properties that exist only in the latest repository.
-
 ## Prerequisites
 
 Before running the script, ensure that you have the following prerequisites:
 
 - Python 3 installed: The script is written in Python, so you need Python 3 installed on your system.
 - Git command-line tool installed: The script uses Git commands to clone the repositories. Make sure Git is installed and available in your command-line environment.
+  * Make sure Git is installed and available in your command-line environment. You can download Git from the official Git website: [https://git-scm.com](https://git-scm.com).
+  * To check if Git is installed, open a command prompt or terminal window and run the following command:
+   ```shell
+   git --version
 
 ## Usage
 
@@ -39,11 +26,11 @@ To use the script, follow these steps:
    ```shell
    pip install -r requirements.txt
 
-4. Prepare the CSV file containing the mapping of property files:
+4. Cross-check the CSV file containing the mapping of property files:
 
-    - Create a CSV file named `property_file_mapping.csv`.
+    - CSV file named `property_file_mapping.csv`.
     - Each row in the CSV file should contain two columns: `Old Property File` and `Latest Property File`.
-    - Provide the relative paths of the property files in the old and latest repositories.
+    - Provide the relative paths of the property files in the old and latest repositories. ( if not present )
 
    Example:
 
@@ -52,10 +39,20 @@ To use the script, follow these steps:
    old-config/file1.properties, latest-config/file1.properties
    old-config/file2.properties, latest-config/file2.properties
 
-## Notes
+5. To run the `file_comparator.py` script, execute the following command, replacing the placeholder values with the actual values or variables you want to pass as arguments:
+   ```bash
+   python3 file_comparator.py "$old_repo_url" "$old_repo_branch" "$latest_repo_url" "$latest_repo_branch"
+
+   * $old_repo_url: The URL of the old repository.
+   * $old_repo_branch: The branch name or commit hash of the old repository.
+   * $latest_repo_url: The URL of the latest repository.
+   * $latest_repo_branch: The branch name or commit hash of the latest repository.
+
+Note:
 
 - Make sure you have the necessary permissions to clone the repositories and access the property files.
 - Ensure that the required Git commands are available in your environment.
+- The script will compare the files between the old and latest repositories based on the provided arguments.
 - The script assumes that the property files are in a key-value format with one property per line.
 - The script skips lines that start with '#' and lines that do not contain '='.
 - If a property file specified in the CSV mapping does not exist in either repository, it will be skipped.
@@ -63,9 +60,9 @@ To use the script, follow these steps:
 -----
 # Property File Updater
 
-The Property File Updater is a script that automates the process of updating property files based on information provided in CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
+The Property File Updater is a script that automates the process of updating property files based on information provided in knowledge base CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
 
-This script updates property files in a given directory based on information provided in CSV files. It performs the following actions:
+This script updates property files in a given directory based on information provided in knowledge base CSV files. It performs the following actions:
 
 1. Reads a CSV file (`different_properties.csv`) containing information about different property values.
 2. Reads two CSV files (`old-value-takes-priority.csv` and `latest-Value-takes-priority.csv`) to prioritize property values.
@@ -95,90 +92,6 @@ This script updates property files in a given directory based on information pro
 4. The script will update the property files and generate a log file (logs.txt) with the details of the update process.
 5. It will also create or update the manual-configuration.csv file with unresolved combinations for further manual configuration.
 
-## CSV File Structures
-
-The script expects the following CSV files to be present in the specified locations:
-
-### different_properties.csv
-
-This file contains information about different property values found in different versions of property files. It has the following structure:
-
-| Latest Property File | Key  | Old Value | Latest Value |
-|----------------------|------|-----------|--------------|
-| file1.properties     | key1 | value1    | value2       |
-| file2.properties     | key2 | value3    | value4       |
-| ...                  | ...  | ...       | ...          |
-
-### old_value-takes-priority.csv
-
-This file prioritizes the old property values over the latest ones. It has the following structure:
-
-| Property File Name | Key  |
-|--------------------|------|
-| file1.properties   | key1 |
-| file2.properties   | key2 |
-| ...                | ...  |
-
-### latest_value-takes-priority.csv
-
-This file prioritizes the latest property values over the old ones. It has the following structure:
-
-| Property File Name | Key  |
-|--------------------|------|
-| file1.properties   | key1 |
-| file2.properties   | key2 |
-| ...                | ...  |
-
-### old_file_only.csv
-
-This file contains property combinations that are present only in the old property files. It has the following structure:
-
-| Old Property File | Key  | Old Value |
-|-------------------|------|-----------|
-| file1.properties  | key1 | value1    |
-| file2.properties  | key2 | value2    |
-| ...               | ...  | ...       |
-
-### latest_file_only.csv
-
-This file contains property combinations that are present only in the latest property files. It has the following structure:
-
-| Latest Property File | Key  | Latest Value |
-|----------------------|------|--------------|
-| file1.properties     | key1 | value1       |
-| file2.properties     | key2 | value2       |
-| ...                  | ...  | ...          |
-
-### intentionally_removed_in_lts.csv
-
-This file contains property combinations that were intentionally removed in the latest version. It has the following structure:
-
-| Property File Name | Key  |
-|--------------------|------|
-| file1.properties   | key1 |
-| file2.properties   | key2 |
-| ...                | ...  |
-
-### decent_default_value.csv
-
-This file contains information about decent default property values for the latest property files. It has the following structure:
-
-| Property File Name | Key  | Latest Value |
-|--------------------|------|--------------|
-| file1.properties   | key1 | value1       |
-| file2.properties   | key2 | value2       |
-| ...                | ...  | ...          |
-
-### manual-configuration.csv
-
-This file is created or updated by the script and includes unresolved combinations and combinations that require further manual configuration. It has the following structure:
-
-| Property File Name | Key  | Old Value | Latest Value | Configuration Action |
-|--------------------|------|-----------|--------------|---------------------|
-| file1.properties   | key1 | value1    | value2       | update-if-required  |
-| file2.properties   | key2 | value3    | value4       | copy-property       |
-| ...                | ...  | ...       | ...          | ...                 |
-
 ## Output
 
 The Property File Updater generates the following output:
@@ -195,7 +108,7 @@ The script generates a log file (`logs.txt`) that provides detailed information 
 
 The script creates or updates the `manual-configuration.csv` file. This file includes unresolved combinations and combinations that require further manual configuration. You can use this file to manually update the property files based on the required configuration actions mentioned in the file.
 
-## Notes
+Note:
 
 - It is highly recommended to create backups of your property files before running this script, as it modifies the files in place.
 - The `manual-configuration.csv` file can be used to manually update the property files based on the required configuration actions mentioned in the file.
