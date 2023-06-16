@@ -49,8 +49,8 @@ for old_filename, latest_filename in property_file_pairs:
             latest_properties = {}
             for line in latest_lines:
                 line = line.strip()
-                if "=" not in line:
-                    continue  # Skip lines that don't contain '='
+                if line.startswith('#') or "=" not in line:
+                    continue  # Skip lines that start with '#' or don't contain '='
                 key, value = line.split("=", 1)
                 latest_properties[key] = value
 
@@ -71,15 +71,15 @@ for old_filename, latest_filename in property_file_pairs:
 
     for line in old_lines:
         line = line.strip()
-        if "=" not in line:
-            continue  # Skip lines that don't contain '='
+        if line.startswith('#') or "=" not in line:
+            continue  # Skip lines that start with '#' or don't contain '='
         key, value = line.split("=", 1)
         old_properties[key] = value
 
     for line in latest_lines:
         line = line.strip()
-        if "=" not in line:
-            continue  # Skip lines that don't contain '='
+        if line.startswith('#') or "=" not in line:
+            continue  # Skip lines that start with '#' or don't contain '='
         key, value = line.split("=", 1)
         latest_properties[key] = value
 
