@@ -15,7 +15,7 @@ function initialize_db() {
       if [ $yn = "Y" ]
         then
           echo Removing any existing installation
-          helm -n $NS delete postgres-init
+          helm -n $NS delete postgres-init || true
           echo Initializing DB
           helm -n $NS install postgres-init mosip/postgres-init -f init_values.yaml --version $CHART_VERSION --wait --wait-for-jobs
           break

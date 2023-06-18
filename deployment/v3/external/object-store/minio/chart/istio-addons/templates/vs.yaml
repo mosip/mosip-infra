@@ -8,6 +8,14 @@ spec:
   gateways:
   - minio
   http:
+  - name: minio
+    match:
+    - port: 9000
+    route:
+    - destination:
+        host: minio
+        port:
+           number: 9000
   - name: http
     match:
     - uri:

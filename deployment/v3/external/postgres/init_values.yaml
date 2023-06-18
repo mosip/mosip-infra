@@ -49,12 +49,10 @@ databases:
 
   mosip_toolkit:
     enabled: false
-
+ 
   mosip_digitalcard:
     enabled: false
 
-  mosip_esignet:
+  mosip_idp:
     enabled: false
 
-  mosip_mockidentitysystem:
-    enabled: false

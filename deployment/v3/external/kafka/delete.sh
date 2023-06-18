@@ -14,6 +14,7 @@ function deleting_kafka() {
         then
           helm -n $NS delete kafka
           helm -n $NS delete kafka-ui
+          helm -n $NS delete istio-addons
           echo Deleted kafka and kafka-ui services.
           break
         else
@@ -30,3 +31,4 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
 deleting_kafka   # calling function
+
