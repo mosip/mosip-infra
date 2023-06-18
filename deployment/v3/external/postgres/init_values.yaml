@@ -70,7 +70,7 @@ databases:
     enabled: false
     branch: develop
 
-  mosip_esignet:
+  mosip_idp:
     enabled: false
     branch: develop
 

@@ -4,10 +4,8 @@
 ```sh
 ./install.sh
 ```
-* A random password will get assigned for `postgres` user if you have not specified a password.  The password may be obtained using following script:
-```sh
-./get_pwd.sh
-```
+* A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
+
 ## Test
 * Make sure docker is running from machine you are testing.
 * Postgres is accessible over "internal" channel, i.e. over Wireguard.  Make sure you have the Wireguard setup along with credentials to connect to internal load balancer.
