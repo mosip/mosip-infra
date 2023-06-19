@@ -20,10 +20,11 @@ This module generates and install secrets required by config-server.
    | print-mz.properties             | print-default.properties             | mosip.event.secret | print-websub-hub-secret |
    | id-authentication-mz.properties | id-authentication-default.properties | mosip.ida.kyc.token.secret | mosip-ida-kyc-token-secret |
    | mimoto-mz.properties            | mimoto-default.properties            | wallet.binding.partner.api.key | mimoto-wallet-binding-partner-api-key |   
-   | id-authentication-mz.properties | id-authentication-default.properties | mosip-kernel-tokenid-uin-salt | mosip-kernel-tokenid-uin-salt |
+   | id-authentication-mz.properties | id-authentication-default.properties | mosip.kernel.tokenid.uin.salt | mosip-kernel-tokenid-uin-salt |
    | id-authentication-mz.properties | id-authentication-default.properties | mosip.kernel.tokenid.partnercode.salt | mosip-kernel-tokenid-partnercode-salt |
    | resident-mz.properties          | resident-default.properties          | resident.websub.authtype.status.secret | resident-websub-authtype-status-secret |
    | resident-mz.properties          | resident-default.properties          | resident.websub.credential.status.update.secret | resident-websub-credential-status-update-secret |
    | resident-mz.properties          | resident-default.properties          | resident.websub.auth.transaction.status.secret | resident-websub-auth-transaction-status-secret |
    | id-authentication-mz.properties  | id-authentication-default.properties | ida-websub-masterdata-templates-callback-secret | ida-websub-masterdata-templates-callback-secret |
    | id-repository-mz.properties | id-repository-default.properties | mosip.idrepo.websub.vid-credential-update.secret | idrepo-websub-vid-credential-update-secret |
+   | id-authentication-mz.properties  | id-authentication-default.properties | ida-websub-masterdata-titles-callback-secret | ida-websub-masterdata-titles-callback-secret |
