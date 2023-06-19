@@ -25,3 +25,5 @@ This module generates and install secrets required by config-server.
    | resident-mz.properties          | resident-default.properties          | resident.websub.authtype.status.secret | resident-websub-authtype-status-secret |
    | resident-mz.properties          | resident-default.properties          | resident.websub.credential.status.update.secret | resident-websub-credential-status-update-secret |
    | resident-mz.properties          | resident-default.properties          | resident.websub.auth.transaction.status.secret | resident-websub-auth-transaction-status-secret |
+   | id-authentication-mz.properties  | id-authentication-default.properties | ida-websub-masterdata-templates-callback-secret | ida-websub-masterdata-templates-callback-secret |
+   | id-repository-mz.properties | id-repository-default.properties | mosip.idrepo.websub.vid-credential-update.secret | idrepo-websub-vid-credential-update-secret |
