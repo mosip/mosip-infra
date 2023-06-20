@@ -56,6 +56,16 @@ function installing_dslrig() {
     exit 1;
   fi
 
+  read -p "Please provide the retention days to remove old reports ( Default: 3 )" reportExpirationInDays
+
+  if [[ -z $reportExpirationInDays ]]; then
+    reportExpirationInDays=3
+  fi
+  if ! [[ $reportExpirationInDays =~ ^[0-9]+$ ]]; then
+    echo "The variable \"reportExpirationInDays\" should contain only number; EXITING";
+    exit 1;
+  fi
+
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
@@ -90,6 +100,7 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
   --set persistence.nfs.server="$NFS_HOST" \
   --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
+  --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
   $ENABLE_INSECURE
 
   echo Installed dslrig.
