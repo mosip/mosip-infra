@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function Deleting_pms_utility() {
-  NS=upgrade
+  NS=pms-migration-utility
   while true; do
       read -p "Are you sure you want to delete all pms helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
