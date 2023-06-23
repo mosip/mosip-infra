@@ -9,12 +9,14 @@ fi
 function deleting_kafka() {
   NS=kafka
   while true; do
-      read -p "Are you sure you want to delete kafka helm chart? Y/n ?" yn
+      read -p "CAUTION: PVC, PV will get deleted. If your PV is not in 'Retain' mode all data will be lost. Are you sure ? Y/n ?" yn
       if [ $yn = "Y" ]
         then
           helm -n $NS delete kafka
           helm -n $NS delete kafka-ui
           helm -n $NS delete istio-addons
+          kubectl -n $NS delete pvc -l app.kubernetes.io/name=kafka
+          kubectl -n $NS delete pvc -l app.kubernetes.io/name=zookeeper
           echo Deleted kafka and kafka-ui services.
           break
         else
