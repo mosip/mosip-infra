@@ -65,7 +65,6 @@ kubectl apply -f postgres-postgresql.yaml
 ```
 5. After running the above command ``db-common-secrets`` and ``postgres-postgresql`` will be created as ``secrets`` in ``postgres`` namespace.
 
-  
 ## DB Upgrade
 * Used to upgrade the schemas and required data from one MOSIP version to another.
 * At a time upgrade server performs upgrade from one sequential version to another.
