@@ -32,3 +32,5 @@ test.txt
 __pycache__
 /venv/
 deployment/v3/mosip/regclient/certs/
+deployment/v3/external/kafka/credentials-velero
+deployment/v3/utils/misc/rknf_tmp.json
