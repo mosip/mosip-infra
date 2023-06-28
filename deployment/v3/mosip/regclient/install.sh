@@ -9,6 +9,11 @@ fi
 NS=regclient
 CHART_VERSION=12.0.2
 
+## Install jq package
+echo "Installing jq package..."
+sudo apt-get update
+sudo apt-get install -y jq
+
 ## GENERATE KEYSTORE PASSWORD
 KEYSTORE_PWD=$( openssl rand -base64 10 )
 
