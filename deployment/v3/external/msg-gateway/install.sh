@@ -37,8 +37,14 @@ function msg_gateway() {
   kubectl -n $NS delete --ignore-not-found=true secret email-gateway
   kubectl -n $NS create secret generic email-gateway --from-literal="email-smtp-secret=$SECRET" --dry-run=client  -o yaml | kubectl apply -f -
 
-  echo Email realted configurations set.
+  kubectl -n $NS delete --ignore-not-found=true configmap sms-gateway
+  kubectl -n $NS create configmap sms-gateway --from-literal="sms-smtp-host=$HOST" --from-literal="sms-smtp-port=$PORT" --from-literal="sms-smtp-username=$USER"
+  kubectl -n $NS delete --ignore-not-found=true secret sms-gateway
+  kubectl -n $NS create secret generic sms-gateway --from-literal="sms-smtp-secret=$SECRET" --dry-run=client  -o yaml | kubectl apply -f -
+
+  echo Email and Sms realted configurations set.
   return 0
+
 }
 
 # set commands for error handling.
