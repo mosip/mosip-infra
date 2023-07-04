@@ -16,7 +16,8 @@ function msg_gateway() {
   kubectl label ns $NS istio-injection=enabled --overwrite
 
   HOST=mock-smtp.mock-smtp
-  PORT=8025
+  EMAIL_PORT=8025
+  SMS_PORT=8080
   USER=
   SECRET="''"
 
@@ -32,12 +33,12 @@ function msg_gateway() {
       read -p "Please enter the SMTP secret key " SECRET
   fi
 
-  kubectl -n $NS delete --ignore-not-found=true configmap email-gateway
-  kubectl -n $NS create configmap email-gateway --from-literal="email-smtp-host=$HOST" --from-literal="email-smtp-port=$PORT" --from-literal="email-smtp-username=$USER"
-  kubectl -n $NS delete --ignore-not-found=true secret email-gateway
-  kubectl -n $NS create secret generic email-gateway --from-literal="email-smtp-secret=$SECRET" --dry-run=client  -o yaml | kubectl apply -f -
+  kubectl -n $NS delete --ignore-not-found=true configmap msg-gateway
+  kubectl -n $NS create configmap msg-gateway --from-literal="msg-smtp-host=$HOST" --from-literal="email-smtp-port=$EMAIL_PORT" --from-literal="sms-smtp-port=$SMS_PORT" --from-literal="msg-smtp-username=$USER"
+  kubectl -n $NS delete --ignore-not-found=true secret msg
+  kubectl -n $NS create secret generic msg-gateway --from-literal="msg-smtp-secret=$SECRET" --dry-run=client  -o yaml | kubectl apply -f -
 
-  echo Email realted configurations set.
+  echo email and sms realted configurations set.
   return 0
 }
 
