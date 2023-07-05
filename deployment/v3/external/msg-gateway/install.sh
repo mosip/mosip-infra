@@ -1,5 +1,5 @@
 #!/bin/bash
-# Creates configmap and secrets for Email 
+# Creates configmap and secrets for smtp
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -16,7 +16,7 @@ function msg_gateway() {
   kubectl label ns $NS istio-injection=enabled --overwrite
 
   HOST=mock-smtp.mock-smtp
-  EMAIL_PORT=8025
+  SMTP_PORT=8025
   SMS_PORT=8080
   USER=
   SECRET="''"
@@ -34,11 +34,11 @@ function msg_gateway() {
   fi
 
   kubectl -n $NS delete --ignore-not-found=true configmap msg-gateway
-  kubectl -n $NS create configmap msg-gateway --from-literal="smtp-host=$HOST" --from-literal="smtp-port=$EMAIL_PORT" --from-literal="sms-port=$SMS_PORT" --from-literal="smtp-username=$USER"
+  kubectl -n $NS create configmap msg-gateway --from-literal="smtp-host=$HOST" --from-literal="smtp-port=$SMTP_PORT" --from-literal="sms-port=$SMS_PORT" --from-literal="smtp-username=$USER"
   kubectl -n $NS delete --ignore-not-found=true secret msg-gateway
   kubectl -n $NS create secret generic msg-gateway --from-literal="smtp-secret=$SECRET" --dry-run=client  -o yaml | kubectl apply -f -
 
-  echo email and sms realted configurations set.
+  echo smtp and sms realted configurations set.
   return 0
 }
 
