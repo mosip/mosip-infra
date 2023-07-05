@@ -47,53 +47,53 @@ versions:
 
     regproc:
       camel:
-        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.6'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.5-P4'
       notification:
-        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.5.6'
+        'regproc-securezone-notification-stage': 'mosipid/registration-processor-securezone-notification-stage:1.1.5.5-P4'
       uploader:
-        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.5.6'
+        'regproc-packet-uploader-stage': 'mosipid/registration-processor-packet-uploader-stage:1.1.5.5-P4'
       quality:
-        'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.1.5.6'
+        'regproc-quality-checker-stage': 'mosipid/registration-processor-quality-checker-stage:1.1.5.5-P4'
       validator:
-        'regproc-packet-validator-stage': 'mosipid/registration-processor-packet-validator-stage:1.1.5.6'
+        'regproc-packet-validator-stage': 'mosipid/registration-processor-packet-validator-stage:1.1.5.5-P4'
       osi:
-        'regproc-osi-validator-stage': 'mosipid/registration-processor-osi-validator-stage:1.1.5.6'
+        'regproc-osi-validator-stage': 'mosipid/registration-processor-osi-validator-stage:1.1.5.5-P4'
       demo:
-        'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.1.5.6'
+        'regproc-demo-dedupe-stage': 'mosipid/registration-processor-demo-dedupe-stage:1.1.5.5-P4'
       bio:
-        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.5.6'
+        'regproc-bio-dedupe-stage': 'mosipid/registration-processor-bio-dedupe-stage:1.1.5.5-P4'
       bioauth:
-        'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.1.5.6'
+        'regproc-biometric-authentication-stage': 'mosipid/registration-processor-biometric-authentication-stage:1.1.5.5-P4'
       abishandler:
-        'regproc-abis-handler-stage': 'mosipid/registration-processor-abis-handler-stage:1.1.5.6'
+        'regproc-abis-handler-stage': 'mosipid/registration-processor-abis-handler-stage:1.1.5.5-P4'
       abismid:
-        'regproc-abis-middleware-stage': 'mosipid/registration-processor-abis-middleware-stage:1.1.5.6'
+        'regproc-abis-middleware-stage': 'mosipid/registration-processor-abis-middleware-stage:1.1.5.5-P4'
       manual:
-        'regproc-manual-verification-stage': 'mosipid/registration-processor-manual-verification-stage:1.1.5.6'
+        'regproc-manual-verification-stage': 'mosipid/registration-processor-manual-verification-stage:1.1.5.5-P4'
       external:
-        'regproc-external-stage': 'mosipid/registration-processor-external-stage:1.1.5.6'
+        'regproc-external-stage': 'mosipid/registration-processor-external-stage:1.1.5.5-P4'
       eis:
-        'regproc-external-integration-service': 'mosipid/registration-processor-external-integration-service:1.1.5.6'
+        'regproc-external-integration-service': 'mosipid/registration-processor-external-integration-service:1.1.5.5-P4'
       uin:
-        'regproc-uin-generator-stage': 'mosipid/registration-processor-uin-generator-stage:1.1.5.6'
+        'regproc-uin-generator-stage': 'mosipid/registration-processor-uin-generator-stage:1.1.5.5-P4'
       msg:
-        'regproc-message-sender-stage': 'mosipid/registration-processor-message-sender-stage:1.1.5.6'
+        'regproc-message-sender-stage': 'mosipid/registration-processor-message-sender-stage:1.1.5.5-P4'
       print:
-        'regproc-printing-stage': 'mosipid/registration-processor-printing-stage:1.1.5.6'
+        'regproc-printing-stage': 'mosipid/registration-processor-printing-stage:1.1.5.5-P4'
       trans:
-        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.1.5.6'
+        'regproc-registration-transaction-service': 'mosipid/registration-processor-registration-transaction-service:1.1.5.5-P4'
       reprocess:
-        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.5.6'
+        'regproc-reprocessor-stage': 'mosipid/registration-processor-reprocessor-stage:1.1.5.5-P4'
 
     dmzregproc:
       receiver:
-        'regproc-packet-receiver-stage': 'mosipid/registration-processor-packet-receiver-stage:1.1.5.6'
+        'regproc-packet-receiver-stage': 'mosipid/registration-processor-packet-receiver-stage:1.1.5.5-P4'
       camel:
-        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.6'
+        'regproc-camel-stage': 'mosipid/registration-processor-common-camel-bridge:1.1.5.5-P4'
       status:
-        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.1.5.6'
+        'regproc-registration-status-service': 'mosipid/registration-processor-registration-status-service:1.1.5.5-P4'
       pktserver:
-        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.1.5.6'
+        'regproc-dmz-packet-server': 'mosipid/registration-processor-dmz-packet-server:1.1.5.5-P4'
 
     ida:
       auth:
