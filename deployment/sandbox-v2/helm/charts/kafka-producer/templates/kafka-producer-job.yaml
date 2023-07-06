@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.kafka.producer.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ .Values.kafka.producer.name }}
+    component: {{ .Values.component }}
+  annotations:
+#    "helm.sh/hook": pre-install
+#    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.kafka.producer.name }}
+        component: {{ .Values.component }}
+    spec:
+      restartPolicy: Never  # This is one time job
+      containers:
+      - name: {{ .Values.kafka.producer.name }}
+        image: {{ .Values.kafka.producer.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: logger_level
+          value: {{ .Values.logger_level }}
+        - name: bootstrap_servers
+          value: {{ .Values.bootstrap_servers }}
+        - name: output_topic
+          value: {{ .Values.output_topic }}
+        - name: src_path
+          value: {{ .Values.src_path }}
+        - name: src_type
+          value: {{ .Values.src_type }}
+        - name: file_name
+          value: {{ .Values.file_name }}
+        - name: message_bus_address
+          value: {{ .Values.message_bus_address }}
+        - name: url_path
+          value: {{ .Values.url_path }}
+        - name: file_size_limit
+          value: {{ .Values.file_size_limit | quote }}
+        - name: thread_count
+          value: {{ .Values.thread_count | quote }}
+        volumeMounts:
+        - name: kafka-producer-data
+          mountPath: {{ .Values.mountPath }}
+      volumes:
+        - name: kafka-producer-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
+
+

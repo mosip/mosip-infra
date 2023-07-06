@@ -1,0 +1,19 @@
+#this play is to execute a one time job for kafka-producer
+#
+#prepare folders on remote node
+- hosts: console
+  gather_facts: true
+
+
+# convert helm template to helm values
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'kafka-producer'
+    helm_chart: '{{charts_root}}/kafka-producer'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/kafka-producer/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
