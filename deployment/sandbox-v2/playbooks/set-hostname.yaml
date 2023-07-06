@@ -1,0 +1,7 @@
+- name: set hostname
+  hosts: console mzmaster mzworkers dmzmaster dmzworkers
+  tasks:
+   - name: 'set hostname'
+     hostname:
+       name: "{{ inventory_hostname }}"
+     become: yes

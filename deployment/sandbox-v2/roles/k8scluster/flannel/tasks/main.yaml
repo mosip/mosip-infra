@@ -1,0 +1,34 @@
+---
+- name: Download flannel compressed file
+  get_url:
+    url: https://github.com/containernetworking/plugins/releases/download/v0.8.7/cni-plugins-linux-amd64-v0.8.7.tgz
+    # url_username: {{ username }}
+    # url_passwor: {{ passwd }}
+    dest: /tmp/cni-plugins-linux-amd64-v0.8.7.tgz
+  # register: bin_files
+
+- name: create directory
+  file:
+    path: /tmp/cni-plugins/
+    state: directory
+
+- name: UNZIPPING the files
+  unarchive:
+    src: /tmp/cni-plugins-linux-amd64-v0.8.7.tgz
+    dest: /tmp/cni-plugins
+    copy: no
+  # with_items:
+  # - "{{ bin_files.stdout }}"
+
+- name: create directory for flannel
+  file:
+    path: /opt/cni/bin/
+    state: directory
+
+- name: Copy flannel to /opt/cni/bin/
+  copy:
+    src: /tmp/cni-plugins/flannel
+    dest: /opt/cni/bin/flannel
+    mode: 0500
+    remote_src: yes
+  

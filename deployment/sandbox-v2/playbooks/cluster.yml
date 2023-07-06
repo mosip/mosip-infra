@@ -5,6 +5,7 @@
   roles:
     - { role: k8scluster/docker, tags: docker }
     - { role: packages/git, tags: git }
+    - { role: k8scluster/flannel, tags: flannel }
 
 - hosts: '{{master}}'  # Master 
   gather_facts: yes
