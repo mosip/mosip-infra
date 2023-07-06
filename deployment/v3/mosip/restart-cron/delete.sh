@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function deleting_restart-cron() {
-  NS=restart-cron
+  NS=infra-admin
   while true; do
       read -p "Are you sure you want to delete restart-cron helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
