@@ -1,5 +1,5 @@
 #!/bin/bash
-# Creates configmap and secrets for smtp
+# Creates configmap and secrets for SMTP and SMS
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
