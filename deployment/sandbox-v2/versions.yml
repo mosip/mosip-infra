@@ -12,7 +12,7 @@ versions:
       prid:
         'kernel-pridgenerator-service': 'mosipid/kernel-pridgenerator-service:1.1.5.5'
       sync:
-        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.2-P2'
+        'kernel-syncdata-service': 'mosipid/kernel-syncdata-service:1.1.5.3-P2'
       audit :
         'kernel-auditmanager-service': 'mosipid/kernel-auditmanager-service:1.1.5.5-P1'
       key:
@@ -43,7 +43,7 @@ versions:
     registration_client:
       downloader:
         'reg-client-downloader': 'mosipid/registration-client:1.1.5.5-P1'
-      version: 1.1.5.5
+      version: 1.1.5.5-P1
 
     regproc:
       camel:
