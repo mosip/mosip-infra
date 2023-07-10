@@ -74,6 +74,8 @@ HEADING="Check packages installed"
 print_heading "$HEADING";  ## calling print_heading function
 chk_exit_status "which mc > /dev/null" "MINIO Client ( mc ) not installed";
 chk_exit_status "which velero > /dev/null" "Velero is not installed";
+velero_version=$(velero version --client-only |awk '/Version/{print $2}' );
+chk_exit_status "[ $velero_version = "v1.9.0" ]" "Velero version should be v1.9.0";
 chk_exit_status "which kubectl > /dev/null" "kubectl is not installed";
 echo "$(tput setaf 2)  kubectl, minio client (mc), & velero packages are already installed !!! $(tput sgr0)"
 
@@ -91,7 +93,7 @@ read_user_input s3_region "S3 region ( Default region = minio )" "minio";
 # set S3 alias
 s3_alias=s3_server
 echo -n "  "
-CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v2"
+CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v4"
 chk_exit_status "$CMD" "Not able to reach S3 SERVER"
 
 # create velero bucket, Ignore if already exist
@@ -170,6 +172,7 @@ velero backup create "$BACKUP_NAME" \
     --selector app.kubernetes.io/instance="$SERVICE" \
     --include-namespaces "$NAMESPACE" \
     --kubeconfig "$K8S_CONFIG_FILE" \
+    --ttl "35040h0m0s" \
     --wait
 
 HEADING="List Backup"
