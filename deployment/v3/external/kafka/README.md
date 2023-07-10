@@ -129,5 +129,16 @@ $ ./install.sh
   Re-run the restore operation via running `./restore.sh` script.
   ```
   velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> describe restore <restore-name> --details
+  ```
+  For kafka pods,
+  ```
+  kubectl --kubeconfig=<K8S_CLUSTER_CONFIG_FILE> -n kafka exec -it <kafka-pod-name> -- bash
   
+  I have no name!@kafka-X:/$ rm -rf /bitnami/kafka/data/*
+  ```
+  For zookeeper pods,
+  ```
+  kubectl --kubeconfig=<K8S_CLUSTER_CONFIG_FILE> -n kafka exec -it <zookeeper-pod-name> -- bash
+  
+  I have no name!@kafka-zookeeper-X:/$ rm -rf /bitnami/zookeeper/data/*
   ```
