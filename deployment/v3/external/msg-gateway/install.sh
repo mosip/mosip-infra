@@ -25,6 +25,7 @@ function msg_gateway() {
   SMS_SECRET="''"
 
   read -p "Would you like to use mock-smtp (Y/N) [ Default: Y ] : " yn
+  read -p "Would you like to use mock-sms (Y/N) [ Default: Y ] : " yn
   # Set yn to N if user input is null
   if [ -z $yn ]; then
     yn=Y;
