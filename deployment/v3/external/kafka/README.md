@@ -49,6 +49,7 @@ $ ./install.sh
 
 #### Restore Kafka
 * Ensure `values.yaml` & `ui-values.yaml` is up-to-date.
+* Ensure to update the required storage in `values.yaml`.
 * Run `restore.sh` to restore kafka from backup
   ```
     $ ./restore.sh  <K8S_CLUSTER_CONFIG_FILE>
@@ -87,3 +88,46 @@ $ ./install.sh
   mc: <ERROR> Unable to list folder. The request signature we calculated does not match the signature you provided. Check your key and signing method
   ```
   Then, ensure that you provide the appropriate API version, either `--api S3v2` or `--api S3v4`, when executing the `mc set alias` command.
+* To list backup/restore.
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> get backup
+  ```
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> get restore
+  ```
+* To check the status of backup/restore.
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> describe backup <backup-name> --details
+  ```
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> describe restore <restore-name> --details
+  ```
+* To check the logs of backup/restore.
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> backup logs <backup-name>
+  ```
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> restore logs <restore-name>
+  ```
+* Restart velero pod if backup/restore is stuck in `New` state.
+  ```
+  kubectl --kubeconfig=<K8S_CLUSTER_CONFIG_FILE> -n velero rollout restart deploy velero
+  ```
+* To list podvolumerestores.
+  ```
+  kubectl --kubeconfig=<K8S_CLUSTER_CONFIG_FILE> -n velero get podvolumerestores
+  ```
+* To delete backup/restore.
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> backup <backup-name>
+  ```
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> restore delete <restore-name>
+  ```
+* If the restore operation `Failed`/`partiallyFailed`, describe the restore and check for which pod the restore operation failed to restore volume.
+  Once the same kafka/zookeeper pod is up, login to the pod and remove the data for kafka `rm -rf /bitnami/kafka/data/*`, for zookeeper `rm -rf /bitnami/zookeeper/data/*`.
+  Re-run the restore operation via running `./restore.sh` script.
+  ```
+  velero --kubeconfig <K8S_CLUSTER_CONFIG_FILE> describe restore <restore-name> --details
+  
+  ```
