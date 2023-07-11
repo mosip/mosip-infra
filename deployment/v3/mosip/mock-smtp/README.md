@@ -25,10 +25,6 @@ The chart here installs a Mock SMTP and Mock SMS accessed over an https URL.
   mosip.kernel.sms.route:mock
   mosip.kernel.sms.authkey:dummy
   
-  ## [In case you dont want static 111111 OTP change this to use random one]
-  #application-default.properties
-  mosip.kernel.sms.proxy-sms=false
-  
   ```
 * Install
 ```sh
