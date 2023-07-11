@@ -29,17 +29,14 @@ function msg_gateway() {
   if [ -z $yn ]; then
     yn=Y;
   fi
-  if [ $yn = "Y" ]; then
+  if [ $yn != "Y" ]; then
       read -p "Please enter the SMTP host " SMTP_HOST
       read -p "Please enter the SMTP host port " SMTP_PORT
       read -p "Please enter the SMTP user " SMTP_USER
       read -p "Please enter the SMTP secret key " SMTP_SECRET
   fi
   read -p "Would you like to use mock-sms (Y/N) [ Default: Y ] : " yn
-  if [ -z $yn ]; then
-    yn=Y;
-  fi
-  if [ $yn = "Y" ]; then
+  if [ $yn != "Y" ]; then
       read -p "Please enter the SMS host " SMS_HOST
       read -p "Please enter the SMS host port " SMS_PORT
       read -p "Please enter the SMS user " SMS_USER
