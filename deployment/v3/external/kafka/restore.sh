@@ -74,6 +74,8 @@ HEADING="Check packages installed"
 print_heading "$HEADING";  ## calling print_heading function
 chk_exit_status "which mc > /dev/null" "MINIO Client ( mc ) not installed";
 chk_exit_status "which velero > /dev/null" "Velero is not installed";
+velero_version=$(velero version --client-only |awk '/Version/{print $2}' );
+chk_exit_status "[ $velero_version = "v1.9.0" ]" "Velero version should be v1.9.0";
 chk_exit_status "which kubectl > /dev/null" "kubectl is not installed";
 echo "$(tput setaf 2)  kubectl, minio client (mc), & velero packages are already installed !!! $(tput sgr0)"
 
@@ -91,7 +93,7 @@ read_user_input s3_region "S3 region ( Default region = minio )" "minio";
 # set S3 alias
 s3_alias=s3_server
 echo -n "  "
-CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v2"
+CMD="mc alias set $s3_alias $s3_server $s3_access_key $s3_secret_key --api S3v4"
 chk_exit_status "$CMD" "Not able to reach S3 SERVER"
 
 # create velero bucket, Ignore if already exist
@@ -125,13 +127,17 @@ if ! [ "$STATUS" = "0" ];then
 fi
 echo "$(tput setaf 2)  Velero deployed $(tput sgr0)"
 
+echo "$(tput setaf 2)  Enabling velero debug mode $(tput sgr0)"
+kubectl -n velero patch deploy velero --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/args", "value": ['server','--features=','--default-volumes-to-restic=true','--log-level','debug']}]'
+kubectl -n velero rollout status deploy velero
+
 NO_OF_RETRIES=5
 HEADING="Check BackupStorageLocations validity"
 print_heading "$HEADING";  ## calling print_heading function
 for i in $(seq 1 $NO_OF_RETRIES); do
     echo "$(tput setaf 6)  [Trying : $i ] $(tput sgr 0)";
-    printf "\tPlease wait for 5 seconds;\n";
-    sleep 5;
+    printf "\tPlease wait for 20 seconds;\n";
+    sleep 20;
     BackupStorageLocationValid=$( kubectl --kubeconfig=$K8S_CONFIG_FILE logs deployment/velero -n velero |grep -c "BackupStorageLocations is valid" 2>&1 & );
     printf "\tBackupStorageLocationValid = %s" $BackupStorageLocationValid;
     if [ "$BackupStorageLocationValid" -eq 0 ]; then
@@ -157,31 +163,8 @@ read_user_input NS "Namespace to restore ( Default Namespace = kafka )" "kafka";
 #### Update helm repos
 HEADING="Update HELM repos";
 print_heading "$HEADING";  ## calling print_heading function
-helm repo add kafka-ui https://provectus.github.io/kafka-ui | sed 's/^/  /g';
-helm repo add bitnami https://charts.bitnami.com/bitnami | sed 's/^/  /g';
-helm repo update | sed 's/^/  /g';
 
-#### create namespace
-HEADING="Create Namespace";
-print_heading "$HEADING";  ## calling print_heading function
-kubectl --kubeconfig=$K8S_CONFIG_FILE create ns $NS | sed 's/^/  /g';
-
-#### Install Kafka
-HEADING="Install kafka";
-print_heading "$HEADING";  ## calling print_heading function
-helm -n $NS install kafka bitnami/kafka -f values.yaml --wait | sed 's/^/  /g';
-
-#### Install kafka-ui
-HEADING='Install kafka-ui';
-print_heading "$HEADING";  ## calling print_heading function
-helm -n $NS install kafka-ui kafka-ui/kafka-ui --set envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka.$NS:9092 --set envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER=kafka-zookeeper.$NS:2181 -f ui-values.yaml --wait | sed 's/^/  /g';
-
-#### Install Istio addons
-HEADING='Install Istio addons';
-print_heading "$HEADING";  ## calling print_heading function
-KAFKA_UI_HOST=$(kubectl --kubeconfig=$K8S_CONFIG_FILE get cm global -o jsonpath={.data.mosip-api-internal-host})
-KAFKA_UI_NAME=kafka-ui
-helm -n $NS install istio-addons chart/istio-addons --set kafkaUiHost=$KAFKA_UI_HOST --set installName=$KAFKA_UI_NAME | sed 's/^/  /g';
+./install.sh $K8S_CONFIG_FILE
 
 HEADING="List Backup";
 print_heading "$HEADING";  ## calling print_heading function
@@ -200,21 +183,28 @@ chk_exit_status "$CMD" "\t  Backup Name not found";
 
 printf "%s\n  [ Remove Kafka & Zookeeper statefulset ] %s\n\t" $(tput setaf 2) $(tput sgr0);
 CMD="kubectl --kubeconfig $K8S_CONFIG_FILE -n $NS --ignore-not-found=true delete statefulset kafka kafka-zookeeper";
-chk_exit_status "$CMD" "\t  Backup Name not found";
-#### Check whether all kafka.$NAMESPACE pods are terminated
+chk_exit_status "$CMD" "\t  Not able to delete kafka's statefulset not found";
+### Check whether all kafka.$NAMESPACE pods are terminated
 printf "\n%s  [ Check whether all kafka.$NS pods are terminated ] %s\n" $(tput setaf 2) $(tput sgr0)
-for name in kafka zookeeper; do
-    CMD="kubectl --kubeconfig=$K8S_CONFIG_FILE -n $NS wait --for=delete pod --timeout=300s -l app.kubernetes.io/name=$name";
-    chk_exit_status "$CMD" "The $name pods failed to be ready by 5 minutes.";
+for name in zookeeper kafka; do
+    CMD="kubectl --kubeconfig=$K8S_CONFIG_FILE -n $NS wait --for=delete pod --timeout=600s -l app.kubernetes.io/name=$name";
+    chk_exit_status "$CMD" "The $name pods failed to be ready by 10 minutes.";
 done
 
 printf "%s\n  [ Restore Kafka ] %s\n\t" $(tput setaf 2) $(tput sgr0);
 RESTORE_NAME="restore-$BACKUP_NAME-$( date +'%d-%m-%Y-%H-%M' )";
-velero restore --kubeconfig $K8S_CONFIG_FILE  create $RESTORE_NAME --from-backup $BACKUP_NAME --namespace-mappings default:$NS --wait;
+velero restore --kubeconfig $K8S_CONFIG_FILE  create $RESTORE_NAME --from-backup $BACKUP_NAME --namespace-mappings default:$NS --exclude-resources "configmaps.v1,secrets.v1" --wait;
 
 printf "%s\n  [ Update Namespace in statefulset environmental variables ] %s\n\t" $(tput setaf 2) $(tput sgr0);
 kubectl -n $NS get statefulset kafka-zookeeper -o yaml | sed "s/default.svc.cluster.local/$NS.svc.cluster.local/g" | kubectl -n $NS apply -f -;
 kubectl -n $NS get statefulset kafka -o yaml | sed "s/default.svc.cluster.local/$NS.svc.cluster.local/g" | kubectl -n $NS apply -f - ;
+
+### Check whether all kafka.$NAMESPACE pods are terminated
+printf "\n%s  [ Check whether all kafka.$NS pods are up ] %s\n" $(tput setaf 2) $(tput sgr0)
+for name in kafka-zookeeper kafka; do
+    CMD="kubectl --kubeconfig=$K8S_CONFIG_FILE -n $NS rollout status statefulset $name --timeout=1200s --watch";
+    chk_exit_status "$CMD" "The $name pods failed to be ready by 20 minutes.";
+done
 
 HEADING="List Restores";
 print_heading "$HEADING";  ## calling print_heading function
