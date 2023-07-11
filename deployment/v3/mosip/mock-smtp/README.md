@@ -6,7 +6,7 @@ The chart here installs a Mock SMTP and Mock SMS accessed over an https URL.
 ## Install
 * The url must point to your internal loadbalancer as `https://smtp.sandbox.xyz.net/` will typically not be open to public.
 * For more details refer [mock-smtp-repo](https://github.com/mosip/mock-smtp)
-* Make sure to update the below properties in the config's `kernel-default.properties` and `application-default.properties` file.
+* Make sure to update the below properties in the config's `kernel-default.properties` file.
   ```
   #kernel-default.properties
   #Email properties
