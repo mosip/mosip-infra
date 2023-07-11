@@ -36,6 +36,9 @@ function msg_gateway() {
       read -p "Please enter the SMTP secret key " SMTP_SECRET
   fi
   read -p "Would you like to use mock-sms (Y/N) [ Default: Y ] : " yn
+  if [ -z $yn ]; then
+    unset yn
+  fi
   if [ $yn != "Y" ]; then
       read -p "Please enter the SMS host " SMS_HOST
       read -p "Please enter the SMS host port " SMS_PORT
