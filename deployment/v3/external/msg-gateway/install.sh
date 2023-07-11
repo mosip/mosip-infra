@@ -50,7 +50,7 @@ function msg_gateway() {
   kubectl -n $NS delete --ignore-not-found=true secret msg-gateway
   kubectl -n $NS create secret generic msg-gateway --from-literal="smtp-secret=$SMTP_SECRET" --from-literal="sms-secret=$SMS_SECRET" --dry-run=client  -o yaml | kubectl apply -f -
 
-  echo smtp and sms realted configurations set.
+  echo smtp and sms related configurations set.
   return 0
 }
 # set commands for error handling.
