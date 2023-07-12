@@ -1,6 +1,5 @@
 #!/bin/bash
 # Copy secrets from other namespaces
-<<<<<<< HEAD
 # DST_NS: Destination namespace
 
 function copying_secrets() {
@@ -17,9 +16,3 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
 copying_secrets   # calling function
-=======
-# DST_NS: Destination namespace 
-COPY_UTIL=../../utils/copy_cm_func.sh
-DST_NS=authdemo
-$COPY_UTIL secret keycloak-client-secrets keycloak $DST_NS
->>>>>>> [ MOSIP-26249 ] Added and updated scripts for DSLRIG and apitestrig (#1260)
