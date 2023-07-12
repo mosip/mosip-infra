@@ -1,10 +1,10 @@
 #!/bin/bash
 # Copy configmaps from other namespaces
-# DST_NS: Destination namespace
-
+  
 function copying_cm() {
   COPY_UTIL=../../utils/copy_cm_func.sh
-  DST_NS=config-server
+  DST_NS=config-server # DST_NS: Destination namespace
+
   $COPY_UTIL configmap global default $DST_NS
   $COPY_UTIL configmap keycloak-host keycloak $DST_NS
   $COPY_UTIL configmap activemq-activemq-artemis-share activemq $DST_NS
@@ -20,3 +20,4 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
 copying_cm   # calling function
+
