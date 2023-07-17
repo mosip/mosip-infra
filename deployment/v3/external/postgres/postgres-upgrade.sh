@@ -27,7 +27,7 @@ read_user_input(){
 }
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=12.0.2
+  CHART_VERSION=12.0.1
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
   while true; do
@@ -48,6 +48,7 @@ function initialize_db() {
           read_user_input SU_USER "Database super username";
 
           read_user_input SU_USER_PWD "Database super user password";
+          read_user_input DB_USER_PWD "Database user password";
 
           helm -n $NS install postgres-upgrade mosip/postgres-upgrade \
           --set database.host="$DB_SERVERIP" \
@@ -55,6 +56,7 @@ function initialize_db() {
           --set database.su.user="$SU_USER" \
           --set database.plangcode="$PRIMARY_LANGUAGE_CODE" \
           --set database.su.su_password="$SU_USER_PWD" \
+          --set database.dbu.dbu_password="$DB_USER_PWD" \
           --version $CHART_VERSION \
           --wait --wait-for-jobs
           break
