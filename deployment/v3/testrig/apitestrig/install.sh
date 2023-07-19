@@ -71,6 +71,20 @@ function installing_apitestrig() {
     exit 1;
   fi
 
+ valid_inputs=("yes" "no")
+ eSignetDeployed=""
+
+ while [[ ! " ${valid_inputs[@]} " =~ " ${eSignetDeployed} " ]]; do
+     read -p "Is the eSignet service deployed? (yes/no): " eSignetDeployed
+     eSignetDeployed=${eSignetDeployed,,}  # Convert input to lowercase
+ done
+
+ if [[ $eSignetDeployed == "yes" ]]; then
+     echo "eSignet service is deployed. Proceeding with installation..."
+ else
+     echo "eSignet service is not deployed. hence will be skipping esignet related test-cases..."
+ fi
+
   echo Installing apitestrig
   helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
@@ -86,6 +100,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
+  --set.apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
   $ENABLE_INSECURE
   
   echo Installed apitestrig.
