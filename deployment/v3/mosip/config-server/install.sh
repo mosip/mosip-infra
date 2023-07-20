@@ -38,7 +38,6 @@ if [ $yn = "Y" ]
     echo Installing config-server
     helm -n $NS install config-server mosip/config-server -f values.yaml --wait --version $CHART_VERSION
     echo Installed Config-server.
-    break
   else
     echo Exiting the MOSIP installation. Please meet the pre-requisites and than start again.
     kill -9 `ps --pid $$ -oppid=`; exit
