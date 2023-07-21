@@ -41,7 +41,7 @@ To initialized a specific db disable init of all others in `init_values.yaml` by
   psql -h <HOSTNAME> -p <PORT-NUMBER> -U <USERNAME> -f <BACKUP_FILE_NAME>.dump
   ```
 
-## DB Commons secret creation
+## DB Commons secret and postgres-postgresql secret creation
 
 * Base64 Encoding and YAML Creation Script:
 
@@ -58,12 +58,13 @@ This script prompts the user for a password, encodes it in Base64, and generates
 python3 generate-secret.py
 ```
 2. Enter the password when prompted.
-3. The script will create a ``db-common-secrets.yaml`` file in the same directory, containing the encoded password as a secret.
+3. The script will create a ``db-common-secrets.yaml`` and ``postgres-postgresql.yaml``file in the same directory, containing the encoded password as a secret.
 4. Then after the yaml file is created run the command:
 ```
 kubectl apply -f db-common-secrets.yaml
+kubectl apply -f postgres-postgresql.yaml
 ```
-5. After running the above command ``db-common-secrets`` will be created as ``secrets`` in ``postgres`` namespace.
+5. After running the above command ``db-common-secrets`` and ``postgres-postgresql`` will be created as ``secrets`` in ``postgres`` namespace.
 
 ## DB Upgrade
 * Used to upgrade the schemas and required data from one MOSIP version to another.
