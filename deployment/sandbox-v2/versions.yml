@@ -139,9 +139,9 @@ versions:
 
     admin:
       service:
-        'admin-service': 'mosipid/admin-service:1.1.5.3-P2'
+        'admin-service': 'mosipid/admin-service:1.1.5.3-P3'
       ui:
-        'admin-ui': 'mosipid/admin-ui:1.1.5'
+        'admin-ui': 'mosipid/admin-ui:1.1.5.1'
 
     packetmanager:
       service:
@@ -171,7 +171,7 @@ versions:
 
     artifactory:
       service:
-        'artifactory-service': 'mosipid/artifactory-server:1.1.5.5-P1'
+        'artifactory-service': 'mosipid/artifactory-server:1.1.5.5-P2'
       lts:
         'artifactory-service': 'mosipid/artifactory-server:1.2.0.1-B4'
 
