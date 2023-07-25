@@ -1,13 +1,13 @@
 import base64
 
 # Prompt the user for the password
-password = input("Enter the password: ")
+password = input("Enter the db-dbuser-password: ")
 
 # Encode the password in base64
-base64_password = base64.b64encode(password.encode()).decode()
+db_commons_base64_password = base64.b64encode(password.encode()).decode()
 
 # Create the YAML content
-yaml_content = f"""
+db_commons_yaml_content = f"""
 apiVersion: v1
 kind: Secret
 metadata:
@@ -15,9 +15,32 @@ metadata:
   namespace: postgres
 type: Opaque
 data:
-  db-dbuser-password: {base64_password}
+  db-dbuser-password: {db_commons_base64_password}
 """
 
 # Write the YAML content to a file
 with open("db-common-secrets.yaml", "w") as file:
-    file.write(yaml_content)
+    file.write(db_commons_yaml_content)
+
+
+# Prompt the user for the postgres password
+postgres_password = input("Enter postgres user password: ")
+
+# Encode the password in base64
+postgres_base64_password = base64.b64encode(postgres_password.encode()).decode()
+
+# Create the YAML content
+postgres_yaml_content = f"""
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-postgresql
+  namespace: postgres
+type: Opaque
+data:
+  postgresql-password: {postgres_base64_password}
+"""
+
+# Write the YAML content to a file
+with open("postgres-postgresql.yaml", "w") as file:
+    file.write(postgres_yaml_content)
