@@ -24,7 +24,7 @@ with open("db-common-secrets.yaml", "w") as file:
 
 
 # Prompt the user for the postgres password
-postgres_password = input("Enter the postgresql-password: ")
+postgres_password = input("Enter postgres user password: ")
 
 # Encode the password in base64
 postgres_base64_password = base64.b64encode(postgres_password.encode()).decode()
