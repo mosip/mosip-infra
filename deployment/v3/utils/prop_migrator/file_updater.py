@@ -127,7 +127,7 @@ with open(different_properties_csv, 'r') as file1:
 # Create manual-configuration.csv with comment "update-if-old-value-takes-priority"
 with open(manual_configuration_csv, 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Property file name', 'Key', 'Old Value', 'Latest Value', 'Configuration Action'])
+    writer.writerow(['Property file name', 'Key', 'Old Value', 'Latest Value', 'Property Category', 'Configuration Action'])
 
     # Iterate through the different_properties.csv and update values if combination matches
     with open(different_properties_csv, 'r') as file1:
