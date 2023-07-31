@@ -31,6 +31,8 @@ registration-processor-default.properties,packetmanager.provider.uingenerator.pr
 registration-processor-default.properties,packetmanager.provider.uingenerator.UIN
 registration-processor-default.properties,packetmanager.provider.uingenerator.zone
 registration-processor-default.properties,packetmanager.provider.uingenerator.gender
+registration-processor-default.properties,registration.processor.reprocess.minutes
+registration-processor-default.properties,registration.processor.queue.username
 registration-processor-default.properties,packetmanager.provider.uingenerator.phone
 registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfAddress
 registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine3
