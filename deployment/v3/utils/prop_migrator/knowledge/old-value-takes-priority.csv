@@ -31,6 +31,8 @@ registration-processor-default.properties,packetmanager.provider.uingenerator.pr
 registration-processor-default.properties,packetmanager.provider.uingenerator.UIN
 registration-processor-default.properties,packetmanager.provider.uingenerator.zone
 registration-processor-default.properties,packetmanager.provider.uingenerator.gender
+registration-processor-default.properties,registration.processor.reprocess.minutes
+registration-processor-default.properties,registration.processor.queue.username
 registration-processor-default.properties,packetmanager.provider.uingenerator.phone
 registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfAddress
 registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine3
@@ -46,13 +48,8 @@ registration-processor-default.properties,packetmanager.provider.uingenerator.pa
 registration-processor-default.properties,packetmanager.provider.uingenerator.parentOrGuardianRID
 registration-processor-default.properties,registration.processor.reprocess.elapse.time
 registration-processor-default.properties,registration.processor.reprocess.hours
-registration-processor-default.properties,mosip.registration.processor.database.port
 registration-processor-default.properties,registration.processor.LANDING_ZONE
 registration-processor-default.properties,mosip.regproc.packet.classifier.tagging.agegroup.ranges
-registration-processor-default.properties,mosip.kernel.virus-scanner.host
-registration-processor-default.properties,registration.processor.reprocess.minutes:
-registration-processor-default.properties,mosip.kernel.virus-scanner.port:
-registration-processor-default.properties,registration.processor.queue.username:
 registration-default.properties,mosip.registration.num_of_fingerprint_retries
 registration-default.properties,mosip.registration.num_of_iris_retries
 registration-default.properties,mosip.registration.num_of_face_retries
@@ -120,8 +117,6 @@ application-default.properties,mosip.kernel.machineid.length
 application-default.properties,mosip.kernel.rid.length
 application-default.properties,mosip.kernel.rid.timestamp-length
 application-default.properties,mosip.kernel.rid.sequence-length
-application-default.properties,mosip.kernel.virus-scanner.host
-application-default.properties,mosip.kernel.virus-scanner.port
 application-default.properties,mosip.kernel.otp.expiry-time
 application-default.properties,mosip.primary-language
 application-default.properties,mosip.secondary-language
