@@ -48,8 +48,6 @@ registration-processor-default.properties,registration.processor.reprocess.elaps
 registration-processor-default.properties,registration.processor.reprocess.hours
 registration-processor-default.properties,registration.processor.LANDING_ZONE
 registration-processor-default.properties,mosip.regproc.packet.classifier.tagging.agegroup.ranges
-registration-processor-default.properties,registration.processor.reprocess.minutes
-registration-processor-default.properties,registration.processor.queue.username
 registration-default.properties,mosip.registration.num_of_fingerprint_retries
 registration-default.properties,mosip.registration.num_of_iris_retries
 registration-default.properties,mosip.registration.num_of_face_retries
