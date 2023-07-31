@@ -284,6 +284,4 @@ resident-default.properties,CREDENTIAL_TYPES_URL
 resident-default.properties,PARTNER_API_URL
 resident-default.properties,resident.identityjson
 Syncdata-default.properties,licensekeymanager_database_password
-registration-processor-default.properties,registration.processor.reprocess.minutes
-registration-processor-default.properties,registration.processor.queue.username
 application-default.properties,mosip.supported-languages
