@@ -10,7 +10,6 @@ fi
 NS=captcha
 PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
 RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
-ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -24,13 +23,9 @@ function Prereg_Captcha() {
   read RSITE_KEY
   echo Please enter the recaptcha admin secret key for domain $RESIDENT_HOST
   read RSECRET_KEY
-  echo Please enter the recaptcha admin site key for domain $ESIGNET_HOST
-  read ESITE_KEY
-  echo Please enter the recaptcha admin secret key for domain $ESIGNET_HOST
-  read ESECRET_KEY
 
   echo Setting up captcha secrets
-  kubectl -n $NS create secret generic mosip-captcha --from-literal=prereg-captcha-site-key=$SITE_KEY --from-literal=prereg-captcha-secret-key=$SECRET_KEY --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --from-literal=esignet-captcha-site-key=$ESITE_KEY --from-literal=esignet-captcha-secret-key=$ESECRET_KEY --dry-run=client -o yaml | kubectl apply -f -
+  kubectl -n $NS create secret generic mosip-captcha --from-literal=prereg-captcha-site-key=$SITE_KEY --from-literal=prereg-captcha-secret-key=$SECRET_KEY --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --dry-run=client -o yaml | kubectl apply -f -
 }
 
 # set commands for error handling.
