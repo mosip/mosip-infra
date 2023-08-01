@@ -1,0 +1,61 @@
+- name: Install required packages for Docker on CentOS
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - git
+
+#- name: Update system packages
+#  yum:
+#    name: '*'
+#    state: latest
+#  become: true
+
+- name: Add Docker repository
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable - $basearch
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    gpgcheck: yes
+    enabled: yes
+    gpgkey: https://download.docker.com/linux/centos/gpg
+  become: true
+
+- name: Install Docker version 20.10.0
+  yum:
+    name: docker-ce-20.10.0
+    state: present
+  become: true
+
+- name: Create /etc/docker directory
+  become: yes
+  file:
+    path: /etc/docker
+    state: directory
+
+- name: Copy daemon.json to /etc/docker
+  template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+  become: yes
+
+- name: Start and enable Docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  become: true
+
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
+
+- name: Install Docker client version 20.10.0
+  yum:
+    name: docker-ce-cli-20.10.0
+    state: present
+  become: true
