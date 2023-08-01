@@ -29,6 +29,7 @@ function Deleting_all() {
                      "artifactory"
                      "websub"
                      "biosdk"
+                     "mock-smtp"
                      )
   echo Deleting MOSIP services.
 

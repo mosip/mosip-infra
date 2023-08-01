@@ -19,6 +19,8 @@ Install in the following order:
 * [WebSub](websub/README.md)
 * [Kernel](kernel/README.md)
 * [Masterdata-loader](masterdata-loader/)
+* [Mock Biosdk](biosdk/README.md)
+* [Mock-smtp](mock-smtp/README.md)
 * [Packet Manager](packetmanager/README.md)
 * [Datashare](datashare/README.md)
 * [Pre-registration](prereg/README.md)
