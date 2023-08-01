@@ -61,6 +61,7 @@ python3 generate-secret.py
 3. The script will create a ``db-common-secrets.yaml`` and ``postgres-postgresql.yaml``file in the same directory, containing the encoded password as a secret.
 4. Then after the yaml file is created run the command:
 ```
+kubectl create ns postgres
 kubectl apply -f db-common-secrets.yaml
 kubectl apply -f postgres-postgresql.yaml
 ```
