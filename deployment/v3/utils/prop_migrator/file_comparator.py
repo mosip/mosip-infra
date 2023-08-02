@@ -52,7 +52,7 @@ for old_filename, latest_filename in property_file_pairs:
                 if line.startswith('#') or "=" not in line:
                     continue  # Skip lines that start with '#' or don't contain '='
                 key, value = line.split("=", 1)
-                latest_properties[key] = value
+                latest_properties[key.strip()] = value.strip()
 
             for key, value in latest_properties.items():
                 latest_only_properties.append((latest_filename, key, value))
@@ -74,14 +74,14 @@ for old_filename, latest_filename in property_file_pairs:
         if line.startswith('#') or "=" not in line:
             continue  # Skip lines that start with '#' or don't contain '='
         key, value = line.split("=", 1)
-        old_properties[key] = value
+        old_properties[key.strip()] = value.strip()
 
     for line in latest_lines:
         line = line.strip()
         if line.startswith('#') or "=" not in line:
             continue  # Skip lines that start with '#' or don't contain '='
         key, value = line.split("=", 1)
-        latest_properties[key] = value
+        latest_properties[key.strip()] = value.strip()
 
     different_keys = set(old_properties.keys()) & set(latest_properties.keys())
 
