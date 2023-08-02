@@ -30,6 +30,7 @@ function Deleting_all() {
                      "websub"
                      "biosdk"
                      "partner-onboarder"
+                     "restart-cron"
                      )
 
   echo Deleting MOSIP services.
