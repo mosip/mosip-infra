@@ -26,6 +26,7 @@ function installing_restart-cron() {
   read -p "Is values.yaml for restart-cron chart set correctly as part of Pre-requisites?(Y/n) " yn;
   if [ $yn = "Y" ]; then
 
+  echo "To restart idgenerator service every four hours set the cronJob accordingly, and provide the time like.. ( EX. time: */4 )"
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
      echo "ERROT: Time cannot be empty; EXITING;";
@@ -46,7 +47,7 @@ function installing_restart-cron() {
 
   echo Installing restart-cron
   helm -n $NS install restart-cron mosip/restart-cron \
-  --set schedule.crontime="0 $time * * *" \
+  --set schedule.crontime="0 $time * * 1-5" \
   -f values.yaml \
   --version $CHART_VERSION
   echo Installed restart-cron.

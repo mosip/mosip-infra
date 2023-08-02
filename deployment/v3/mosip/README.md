@@ -34,6 +34,7 @@ Install in the following order:
 * [Mosip File Server](mosip-file-server/README.md)
 * [Resident Services](resident/README.md)
 * [Registration Client](regclient/README.md)
+* [Restart Cron](https://github.com/mosip/mosip-infra/tree/develop/deployment/v3/mosip/restart-cron)
 
 The same can be achieved by running `all/install-all.sh`.
 ```
