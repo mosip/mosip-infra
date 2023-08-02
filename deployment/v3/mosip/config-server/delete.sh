@@ -13,7 +13,7 @@ function config_server() {
       if [ $yn = "Y" ]
         then
           kubectl -n $NS delete configmap global keycloak-host activemq-activemq-artemis-share s3 msg-gateway
-          kubectl -n $NS delete secret db-common-secrets keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 msg-gateway prereg-captcha conf-secrets-various
+          kubectl -n $NS delete secret db-common-secrets keycloak keycloak-client-secrets activemq-activemq-artemis softhsm-kernel softhsm-ida s3 msg-gateway mosip-captcha conf-secrets-various
           helm -n $NS delete config-server
           break
         else
