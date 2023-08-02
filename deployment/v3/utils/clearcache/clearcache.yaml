@@ -1,0 +1,29 @@
+---
+- name: Clear Cache and Remove Unused Images
+  hosts: cluster
+  become: true
+
+  tasks:
+    - name: Clear cache on the nodes
+      shell: |
+        sync
+        echo 1 > /proc/sys/vm/drop_caches
+      ignore_errors: yes
+      register: clear_cache_result
+
+    - name: Check if cache was cleared successfully
+      debug:
+        msg: "Cache cleared successfully."
+      when: clear_cache_result.rc == 0
+      ignore_errors: yes
+
+    - name: Remove unused images from the nodes
+      shell: docker image prune -a -f
+      ignore_errors: yes
+      register: remove_images_result
+
+    - name: Check if unused images were removed successfully
+      debug:
+        msg: "Unused images removed successfully."
+      when: remove_images_result.rc == 0
+      ignore_errors: yes

@@ -14,4 +14,13 @@
    `* * * * * /bin/bash /root/clearcache.sh`
 
 ### NOTE: Please make sure to replace <pem-key> and <ip-of-the node> with the actual values specific to your environment. Additionally, remember to provide the correct path to the clearcache.sh script in the crontab entry if it's located elsewhere.
+
+(OR)
+
+1. Update hosts.ini with corresponding <ip-of-the-node> and <pem-key>
+
+   run the script
+
+   `clearcache.yaml`
+
    
