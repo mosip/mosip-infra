@@ -26,7 +26,7 @@ function installing_restart-cron() {
   read -p "Is values.yaml for restart-cron chart set correctly as part of Pre-requisites?(Y/n) " yn;
   if [ $yn = "Y" ]; then
 
-  echo "To restart idgenerator service every four hours set the cronJob accordingly, and provide the time like.. ( EX. time: */4 )"
+  echo "To restart Idgenerator service every four hours set the cronJob accordingly, and provide the time like.. ( EX. time: */4 )"
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
      echo "ERROT: Time cannot be empty; EXITING;";

@@ -8,8 +8,8 @@ For now this cronjob is being used to restart packetcreator and authdemo service
 For restart Idgenerator service every after four hour in a cluster, you need to provide time after running './install.sh' Ex. ( time: */4 )
 
 ## Prerequisites
-* Auth demo, Packetcreator, Idgenarator and DSLRIG to be running in the same cluster.
-* If Auth demo, Idgenarator and Packetcreator service is not running in the same cluster then update the values.yaml file by enabling the only service which is present or which you want to restart.
+* Auth demo, Packetcreator, Idgenerator and DSLRIG to be running in the same cluster.
+* If Auth demo, Idgenerator and Packetcreator service is not running in the same cluster then update the values.yaml file by enabling the only service which is present or which you want to restart.
 * Set `values.yaml` to run cronjob for restarting specific services.
 * run `./install.sh`.
 
