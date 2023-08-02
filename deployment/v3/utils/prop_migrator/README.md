@@ -77,6 +77,74 @@ This section lists the property files that were updated during the process. It i
 
 The script generates a log file (`logs.txt`) that provides detailed information about the update process. It includes information about matching combinations, unresolved combinations, similar latest values, and more. The log file helps you understand the changes made to the property files and allows you to review the update process.
 
-### Manual Configuration CSV
+### Manual Configuration CSV File - "manual-configuration.csv"
 
 The script creates or updates the `manual-configuration.csv` file. This file includes unresolved combinations and combinations that require further manual configuration. You can use this file to manually update the property files based on the required configuration actions mentioned in the file.
+
+The "manual-configuration.csv" file is a CSV (Comma-Separated Values) file that serves as a configuration guide for updating property files in the latest config branch. It contains information about specific combinations of properties found in different versions of config, where automatic resolution is not possible, and manual intervention is required.
+
+#### File Format :-
+The file has the following columns:
+
+* Property file name: The name of the property file where the property is defined.
+* Key: The key (or property name) that identifies the property.
+* Old Value: The value of the property in the old version of config.
+* Latest Value: The value of the property in the latest version of config.
+* Configuration Action: A comment indicating the required manual action for the property.
+  
+#### Comments Used in Configuration Action:
+The "Configuration Action" column includes comments that guide developers on how to handle specific combinations of properties during updates. The following comments are used in the file:
+
+#### 1. update-if-old-value-takes-priority:
+
+Description:
+This comment suggest that we have the same property in both old and the latest property files with different values, as a default behaviour utility has retained the latest property file value. If the old property file value is considered more appropriate, please manually update the same.
+
+Action:
+Users should manually update the property file in the latest version and set the property value to the old value indicated in the "Old Value" column of the CSV file. This will ensure that the desired configuration from the old version is preserved in the updated config branch.
+
+Use Case:
+This comment is useful when a property in the latest version has been changed, but the older value is still relevant for compatibility, stability, or other reasons. By updating the property file manually, users can maintain expected behavior in the updated version.
+
+#### 2. copy-property-if-required-in-lts:
+
+Description:
+This comment suggest that we have properties which are present only in old property files and not in latest property files, so the users need to go through these properties and check if these properties are needed in latest property files and if needed, please manually update the same.
+
+Action:
+Users should manually add the property along with its old value to the property file in the latest version of the config branch. This ensures that the required property is present in the LTS version, even if it was not part of the latest version's configuration.
+
+Use Case:
+Some properties might be essential for the LTS version due to backward compatibility or other critical reasons. The comment helps users identify and copy such properties from the old version to the latest version, ensuring their availability in the latest config branch.
+
+#### 3. update-if-value-needs-change:
+
+Description:
+This comment suggest that we have properties which are present only in latest property files and not in old property files because there might me some properties which are recently added, so the users need to go through these properties and check if they are needed in latest property files and if so, please manually update the same. 
+
+This comment advises users to update the properties in the latest version if these properties are required. It implies that the latest properties may not be suitable or required, and users should determine whether to take these properties in the latest version.
+
+Action:
+Users should manually review and update the property value in the latest version's property file based on the requirements and update the new properties which are suitable for latest config. This ensures that the required properties are present in the LTS version.
+
+#### Use Case:
+This comment is used when the properties which are present in the latest property files is no longer optimal or may not provide the desired behavior in the updated version of config. By manually updating these properties along with its desired value, users can ensure that the configuration aligns with the changes in the latest config branch.
+
+#### Purpose:
+* The "manual-configuration.csv" file is used as a tool to handle property updates that cannot be automatically resolved during the config version update process. It helps users keep track of specific combinations that require their attention and provides clear instructions on how to handle each case.
+
+* The script will populate the "manual-configuration.csv" file with unresolved combinations and relevant comments, guiding users on how to handle each case.
+
+* Users can review the "manual-configuration.csv" file and follow the instructions for manual updates to the property files in the latest config branch.
+
+* After making the necessary manual changes, ensure to update the property files in the latest version of the config based on the guidance provided in the "manual-configuration.csv" file.
+
+* Remember that careful review and validation of the CSV files and the resulting manual updates are essential to ensure the correctness and consistency of the  configuration. Always keep backups of the original property files and use version control systems to track changes during the update process.
+
+Note:
+
+- It is highly recommended to create backups of your property files before running this script, as it modifies the files in place.
+- The `manual-configuration.csv` file can be used to manually update the property files based on the required configuration actions mentioned in the file.
+
+----
+
