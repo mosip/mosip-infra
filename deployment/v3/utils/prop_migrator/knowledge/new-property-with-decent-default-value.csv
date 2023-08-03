@@ -1623,3 +1623,4 @@ resident-default.properties,mosip.scope.resident.postRequestShareCredWithPartner
 resident-default.properties,resident.template.support-docs-list
 resident-default.properties,resident.identity.info.version
 resident-default.properties,resident.template.email.content.failure.cust-and-down-my-card
+packet-manager-default.properties,auth.server.admin.allowed.audience
