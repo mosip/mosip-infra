@@ -21,6 +21,6 @@
 
    run the script
 
-   `clearcache.yaml`
+   `ansible-playbook -i hosts.ini clearcache.yaml`
 
    
