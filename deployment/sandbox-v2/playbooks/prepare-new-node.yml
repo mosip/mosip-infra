@@ -87,6 +87,12 @@
         mode: 0500
         remote_src: yes
 
+    - name: Stop firewalld service
+      systemd:
+        name: firewalld
+        enabled: no
+        state: stopped
+
   handlers:
     - name: Reboot Server
       command: shutdown -r now "Rebooting to apply hostname and swap changes"
