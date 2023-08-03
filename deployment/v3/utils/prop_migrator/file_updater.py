@@ -13,6 +13,7 @@ intentionally_removed_csv = 'knowledge/intentionally-removed-in-lts.csv'
 latest_file_only_csv = 'output/latest_file_only.csv'
 decent_default_value_csv = 'knowledge/new-property-with-decent-default-value.csv'
 log_file = 'logs.txt'
+property_categories_csv = 'knowledge/property-categories.csv'
 
 matching_combinations = []
 non_matching_combinations = []
@@ -28,6 +29,17 @@ existing_combinations = set()
 case2_existing_combinations = set()
 case3_existing_combinations = set()
 key_values = set()
+property_category_dict = {}
+
+# Read property-categories.csv
+with open(property_categories_csv, 'r') as property_category_file:
+    reader_cat = csv.DictReader(property_category_file)
+    for row_cat in reader_cat:
+        property_file_category = row_cat['Property file name']
+        key_category = row_cat['Key']
+        property_category = row_cat['Property Category']
+        combination_category = (property_file_category, key_category)
+        property_category_dict[combination_category] = property_category
 
 # Read different_properties.csv
 with open(different_properties_csv, 'r') as file:
@@ -127,7 +139,12 @@ with open(manual_configuration_csv, 'w', newline='') as file:
             latest_value = row1['Latest Value']
             combination = (property_file, key)
             if combination in unresolved_combinations:
-                writer.writerow([property_file, key, old_value, latest_value, 'update-if-old-value-takes-priority'])
+                # Check if the combination exists in the property_category_dict
+                if combination in property_category_dict:
+                    property_category = property_category_dict[combination]
+                else:
+                    property_category = "N/A"  # Set a default value if the combination is not found
+                writer.writerow([property_file, key, old_value, latest_value, property_category, 'update-if-old-value-takes-priority'])
 
 print("Manual configuration CSV file has been created.")
 
@@ -187,7 +204,12 @@ with open(manual_configuration_csv, 'a', newline='') as file:
                 key1 = row1['Key']
                 old_value1 = row1['Old Value']
                 if property_file_name1 == latest_property_file and key1 == key:
-                    writer.writerow([latest_property_file, key, old_value1, '', 'copy-property-if-required-in-lts'])
+                    # Check if the combination exists in the property_category_dict
+                    if combination in property_category_dict:
+                        property_category = property_category_dict[combination]
+                    else:
+                        property_category = "N/A"  # Set a default value if the combination is not found
+                    writer.writerow([latest_property_file, key, old_value1, '', property_category, 'copy-property-if-required-in-lts'])
                     break
 print("Manual configuration CSV file has been updated.")
 
@@ -247,7 +269,12 @@ with open(manual_configuration_csv, 'a', newline='') as file:
                 key2 = row2['Key']
                 latest_value2 = row2['Latest Value']
                 if property_file_name2 == latest_property_file and key2 == key:
-                    writer.writerow([latest_property_file, key, '', latest_value2, 'update-if-value-needs-change'])
+                    # Check if the combination exists in the property_category_dict
+                    if combination in property_category_dict:
+                        property_category = property_category_dict[combination]
+                    else:
+                        property_category = "N/A"  # Set a default value if the combination is not found
+                    writer.writerow([latest_property_file, key, '', latest_value2, property_category, 'update-if-value-needs-change'])
                     break
 print("Manual configuration CSV file has been updated.")
 
