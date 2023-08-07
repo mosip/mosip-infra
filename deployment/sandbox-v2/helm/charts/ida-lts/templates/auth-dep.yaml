@@ -49,7 +49,7 @@ spec:
           value: {{ .Values.isGlowroot }} 
         - name: PKCS11_PROXY_SOCKET
           value: {{ .Values.services.auth.hsmUrl }}
-        - name: zip_file_path
+        - name: hsm_zip_file_path
           value: {{ .Values.services.auth.hsmClientZipPath }}
 #        - name: mosip_biosdk_service
 #          value: {{ .Values.biosdkServiceUrl }}

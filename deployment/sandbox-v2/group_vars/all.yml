@@ -271,7 +271,7 @@ repos:
   ida:
     src: https://github.com/mosip/id-authentication
     dest: '{{tmp_dir}}/id-authentication'
-    tag: 1.1.5.5
+    tag: v1.2.0.1-B4
     githubuser: ''
     githubpassword: ''
   pms:
