@@ -115,20 +115,20 @@ Action:
 Users should manually add the property along with its old value to the property file in the latest version of the config branch. This ensures that the required property is present in the LTS version, even if it was not part of the latest version's configuration.
 
 Use Case:
-Some properties might be essential for the LTS version due to backward compatibility or other critical reasons. The comment helps users identify and copy such properties from the old version to the latest version, ensuring their availability in the latest config branch.
+Some properties might be essential for the LTS version due to backward compatibility of customized code. The comment helps users identify and copy such properties from the old version to the latest version, ensuring their availability in the latest config branch.
 
 #### 3. update-if-value-needs-change:
 
 Description:
-This comment suggest that we have properties which are present only in latest property files and not in old property files because there might me some properties which are recently added, so the users need to go through these properties and check if they are needed in latest property files and if so, please manually update the same. 
+This comment suggest that we have properties which are present only in latest property files and not in old property files because there might me some properties which are recently added, so the users need to go through these properties and check the default values given in the latest property files and check if these property values needs changes if so, please manually update the same. 
 
-This comment advises users to update the properties in the latest version if these properties are required. It implies that the latest properties may not be suitable or required, and users should determine whether to take these properties in the latest version.
+This comment advises users to update the properties in the latest version if the default property values needs an update. It implies that the latest properties may not be suitable or required, and users should determine whether the default value needs a change in the latest version.
 
 Action:
-Users should manually review and update the property value in the latest version's property file based on the requirements and update the new properties which are suitable for latest config. This ensures that the required properties are present in the LTS version.
+Users should manually review and if necessary update the property value in the latest version's property file based on the requirements which are suitable for latest config. This ensures that the properties are reviewed and updated with appropriate values in the LTS version.
 
 #### Use Case:
-This comment is used when the properties which are present in the latest property files is no longer optimal or may not provide the desired behavior in the updated version of config. By manually updating these properties along with its desired value, users can ensure that the configuration aligns with the changes in the latest config branch.
+This comment is used when the properties which are present in the latest property files may not provide the desired behavior in the updated version of config. By manually updating these properties along with its desired value, users can ensure that the configuration aligns with the changes in the latest config branch.
 
 #### Purpose:
 * The "manual-configuration.csv" file is used as a tool to handle property updates that cannot be automatically resolved during the config version update process. It helps users keep track of specific combinations that require their attention and provides clear instructions on how to handle each case.
@@ -137,7 +137,7 @@ This comment is used when the properties which are present in the latest propert
 
 * Users can review the "manual-configuration.csv" file and follow the instructions for manual updates to the property files in the latest config branch.
 
-* After making the necessary manual changes, ensure to update the property files in the latest version of the config based on the guidance provided in the "manual-configuration.csv" file.
+* After making the necessary manual changes, please commit the changes to the latest config branch.
 
 * Remember that careful review and validation of the CSV files and the resulting manual updates are essential to ensure the correctness and consistency of the  configuration. Always keep backups of the original property files and use version control systems to track changes during the update process.
 
