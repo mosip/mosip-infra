@@ -546,6 +546,11 @@ id-authentication-default.properties,mosip.role.keymanager.postvalidate
 id-authentication-default.properties,mosip.role.keymanager.postpdfsign
 id-authentication-default.properties,mosip.role.keymanager.postjwtsign
 id-authentication-default.properties,mosip.role.keymanager.postjwtverify
+id-authentication-default.properties,ida-topic-pmp-oidc-client-updated
+id-authentication-default.properties,idp.amr-acr.mapping.json.filename
+id-authentication-default.properties,ida.api.id.kycauth
+id-authentication-default.properties,ida-topic-pmp-oidc-client-created
+id-authentication-default.properties,ida-topic-pmp-ca-certificate-uploaded
 id-repository-default.properties,mosip.idrepo.auth.client-id
 id-repository-default.properties,mosip.idrepo.auth.secret-key
 id-repository-default.properties,mosip.idrepo.auth.app-id
@@ -626,6 +631,8 @@ id-repository-default.properties,mosip.role.idrepo.vid.postvidregenerate
 id-repository-default.properties,mosip.role.idrepo.vid.postviddeactivate
 id-repository-default.properties,mosip.role.idrepo.vid.postvidreactivate
 id-repository-default.properties,mosip.role.idrepo.vid.postdraftvid
+id-repository-default.properties,credential.batch.status
+id-repository-default.properties,mosip.role.idrepo.identity.getRidByIndividualId
 mock-abis-default.properties,secret_url
 partner-management-default.properties,auth.allowed.urls
 partner-management-default.properties,pmp.partner.mobileNumbe.max.length
@@ -1146,6 +1153,8 @@ resident-default.properties,auth.server.admin.issuer.uri
 resident-default.properties,mosip.service-context
 resident-default.properties,mosip.service.end-points
 resident-default.properties,mosip.service.exclude.auth.allowed.method
+resident-default.properties,resident.update-uin.machine-spec-id
+resident-default.properties,ida.online-verification-partner-id
 syncdata-default.properties,mosip.iam.role-based-user-url
 syncdata-default.properties,mosip.iam.adapter.clientid
 syncdata-default.properties,mosip.iam.adapter.clientsecret
@@ -1644,3 +1653,4 @@ packet-manager-default.properties,object.store.s3.readlimit
 packet-manager-default.properties,mosip.iam.adapter.appid
 packet-manager-default.properties,mosip.iam.adapter.clientid
 packet-manager-default.properties,mosip.iam.adapter.clientsecret
+credential-service-default.properties,credentialType.formatter.VERCRED
