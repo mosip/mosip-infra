@@ -13,7 +13,7 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_restart-cron() {
-  echo "This script installs cronjob which restarts packetcreator and authdemo service and other services based on configurations in value.yaml file, Do you want to install? (Y/n) "
+  echo "This script installs cronjob which restarts packetcreator, Idgenerator and authdemo service and other services based on configurations in value.yaml file, Do you want to install? (Y/n) "
   echo "Y: if you wish to install this cronjob in your cluster"
   echo "n: if you don't want to install this cronjob in your cluster"
   read -p "" flag
@@ -28,6 +28,16 @@ function installing_restart-cron() {
 
   echo "To restart Idgenerator service every four hours set the cronJob accordingly, and provide the time like.. ( EX. time: */4 )"
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
+  if [ "*/$time" ]; then
+     echo Installing restart-cron
+     helm -n $NS install restart-cron mosip/restart-cron \
+     --set schedule.crontime="0 $time * * 1-5" \
+     -f values.yaml \
+     --version $CHART_VERSION
+     echo Installed restart-cron.
+     return 0
+  fi
+
   if [ -z "$time" ]; then
      echo "ERROT: Time cannot be empty; EXITING;";
      exit 1;
