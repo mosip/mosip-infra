@@ -51,7 +51,7 @@ spec:
           value: {{ .Values.services.internal.hsmUrl }} 
         - name: iam_adapter_url_env
           value: {{ .Values.iamAdapterUrl }}
-        - name: zip_file_path
+        - name: hsm_zip_file_path
           value: {{ .Values.services.internal.hsmClientZipPath }}
         - name: mosip_biosdk_service
           value: {{ .Values.biosdkServiceUrl }}

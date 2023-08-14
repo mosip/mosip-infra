@@ -1,0 +1,37 @@
+---
+- name: Create Kubernetes join command token
+  hosts: mzmaster  # Replace with the initial host where you ran the command to get the join command
+  gather_facts: no         # We don't need to gather facts for this task
+
+  tasks:
+    - name: Run kubeadm command and capture output
+      become: yes           # Run the command with escalated privileges
+      command: "sudo kubeadm --v=5 token create --print-join-command"
+      register: kubeadm_output
+      changed_when: false   # We expect the command output to be the same on every run
+
+    - name: Extract the last line containing kubeadm join command
+      shell: "echo '{{ kubeadm_output.stdout }}' | grep -o 'kubeadm join.*'"
+      register: join_command
+      changed_when: false   # We don't want this task to be considered "changed"
+
+    - name: Display the kubeadm join command
+      debug:
+        var: join_command.stdout
+      changed_when: false   # We don't want this task to be considered "changed"
+
+    - name: Save join_command in fact cache
+      set_fact:
+        my_join_command: "{{ join_command.stdout }}"
+
+# Assuming your_new_worker_nodes contains the IP addresses or hostnames of the new worker nodes
+- name: Execute kubeadm join command on new worker nodes
+  hosts: newworker
+  gather_facts: yes
+
+  tasks:
+    - name: Run kubeadm join command on new worker nodes
+      become: yes
+      command: "{{ hostvars[groups.mzmaster.0].my_join_command }}"
+
+

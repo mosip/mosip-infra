@@ -1,0 +1,101 @@
+---
+- name: Prepare nodes to be added to existing k8 cluster.
+  hosts: newworker
+  become: yes
+
+  roles:
+     -  { role: packages/docker-20.10, tags: docker }
+
+  tasks:
+    - name: Add Kubernetes repository on CentOS
+      yum_repository:
+        name: kubernetes
+        description: Kubernetes Repository
+        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg
+                 https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+    - name: Install Kubernetes components on CentOS
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - kubelet-1.21.0-0.x86_64
+        - kubeadm-1.21.0-0.x86_64
+        - kubectl-1.21.0-0.x86_64
+
+    - name: Enable kubelet service
+      systemd:
+        name: kubelet
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: Disable Swap
+      command: swapoff -a
+      ignore_errors: yes
+
+    - name: Update /etc/fstab to disable swap permanently
+      lineinfile:
+        dest: /etc/fstab
+        regexp: '^(.*\sswap\s.*)$'
+        line: '# \1'
+        backrefs: yes
+      notify:
+        - Reboot Server
+
+    - name: Set hostname permanently on CentOS
+      hostname:
+        name: "{{ inventory_hostname }}"
+      become: yes
+
+    - name: Update /etc/hosts with the new hostname on CentOS
+      lineinfile:
+        path: /etc/hosts
+        line: "127.0.0.1 {{ inventory_hostname }}"
+        state: present
+        create: yes
+      become: yes
+
+    - name: Download flannel compressed file
+      get_url:
+        url: https://github.com/containernetworking/plugins/releases/download/v0.8.7/cni-plugins-linux-amd64-v0.8.7.tgz
+        dest: /tmp/cni-plugins-linux-amd64-v0.8.7.tgz
+
+    - name: create directory
+      file:
+        path: /tmp/cni-plugins/
+        state: directory
+
+    - name: UNZIPPING the files
+      unarchive:
+        src: /tmp/cni-plugins-linux-amd64-v0.8.7.tgz
+        dest: /tmp/cni-plugins
+        copy: no
+
+    - name: create directory for flannel
+      file:
+        path: /opt/cni/bin/
+        state: directory
+
+    - name: Copy flannel to /opt/cni/bin/
+      copy:
+        src: /tmp/cni-plugins/flannel
+        dest: /opt/cni/bin/flannel
+        mode: 0500
+        remote_src: yes
+
+    - name: Stop firewalld service
+      systemd:
+        name: firewalld
+        enabled: no
+        state: stopped
+
+  handlers:
+    - name: Reboot Server
+      command: shutdown -r now "Rebooting to apply hostname and swap changes"
+      async: 0
+      poll: 0
+      become: yes
