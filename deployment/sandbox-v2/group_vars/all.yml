@@ -12,7 +12,7 @@ artifactory_url: http://artifactory-service.default:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
-sandbox_domain_name: minibox.mosip.net
+sandbox_domain_name: qa-115.mosip.net
 internal_domain_name: '{{ansible_host}}'  # IP address of console
 site:
   sandbox_public_url: 'https://{{sandbox_domain_name}}'  # The public url needs to point to nginx on console
@@ -228,7 +228,18 @@ softhsm:
     conf_path: '{{install_root}}/roles/softhsm-prep/files/'
     tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens' 
     nfs_path: '{{nfs.folder}}/softhsm/ida/'
-
+  esignet:
+    label: esignet
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens'
+    nfs_path: '{{nfs.folder}}/softhsm/esignet/'
+  mock_relying_party:
+    label: mock-relying-party
+    conf_file: softhsm2.conf
+    conf_path: '{{install_root}}/roles/softhsm-prep/files/'
+    tokens_path: '{{install_root}}/roles/softhsm-prep/files/tokens'
+    nfs_path: '{{nfs.folder}}/softhsm/mock-relying-party/'
 reg_client:
   cert_file: mosip_cer.cer
   nfs_path: '{{nfs.folder}}/reg-client/'
@@ -254,6 +265,12 @@ repos:
     src: https://github.com/mosip/pre-registration
     dest: '{{tmp_dir}}/pre-registration'
     tag: 1.1.5
+    githubuser: ''
+    githubpassword: ''
+  esignet:
+    src: https://github.com/mosip/esignet
+    dest: '{{tmp_dir}}/esignet'
+    tag: 1.0.0
     githubuser: ''
     githubpassword: ''
   regproc:
@@ -365,6 +382,10 @@ databases:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
     release_path: '{{repos.websub.dest}}/db_release_scripts'
+  mosip_esignet:
+    user: esignetuser
+    sql_path: '{{repos.esignet.dest}}/db_scripts'
+    release_path: '{{repos.esignet.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
@@ -399,7 +420,7 @@ config_repo:
   # config server points to the same. Any changes done on local repo and will not  get reflected in 
   # the parent git repo. 
   git_repo_uri: https://github.com/mosip/mosip-config
-  version: 1.1.5.5
+  version: qa-115
   private: false #  true if repo is private
   gitusername: '' # if private==true set username here and password in secrets as below
   gitpassword: '{{secrets.config_repo.password}}'

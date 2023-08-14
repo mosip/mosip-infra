@@ -143,8 +143,20 @@ http {
            proxy_pass {{clusters.mz.ingress.base_url}}/v1/auditmanager/;
         }
    
+	location /idauthentication/v1/identity-key-binding/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/identity-key-binding/;
+        }
+   
         location /idauthentication/v1/auth/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/auth/;
+        }
+
+        location /idauthentication/v1/kyc-auth/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/kyc-auth/;
+        }
+
+        location /idauthentication/v1/kyc-exchange/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/idauthentication/v1/kyc-exchange/;
         }
 
         location /idauthentication/v1/kyc/ {
@@ -314,6 +326,22 @@ http {
            }
         }
 
+        location /mosip-certs/ {
+           if ($request_method = 'OPTIONS') {
+             add_header 'Access-Control-Allow-Origin' '*';
+             add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+             add_header 'Access-Control-Allow-Headers' 'Content-Type';
+             add_header 'Content-Type' 'application/json';
+             return 204;
+            }
+           autoindex  on;
+           add_header Access-Control-Allow-Origin *;
+           add_header Access-Control-Allow-Methods "GET, OPTIONS";
+           proxy_pass http://dmzworker0.sb:30080/mosip-certs/;
+           types { text/plain json cer log;}
+        }
+
+
         location /registration-client/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/registration-client/;
         }
@@ -361,6 +389,19 @@ http {
 	location /mz-kafka/ {
            proxy_pass {{clusters.mz.ingress.base_url}}/mz-kafka/;
         }
+
+        location /v1/esignet/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/v1/esignet/;
+        }
+
+        location /oidc-ui/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/oidc-ui/;
+        }
+
+        location /healthservices/ {
+           proxy_pass {{clusters.mz.ingress.base_url}}/healthservices/;
+        }
+
 
 	location /dmz-kafka/ {
            proxy_pass {{clusters.dmz.ingress.base_url}}/dmz-kafka/;

@@ -2,12 +2,12 @@
 # Inputs:
 # kube_config
 # Prepare folders on nfs
-- hosts: console
-  gather_facts: true
-  vars:
-    reg_prop: '{{mosip-file-server}}'
-  roles:
-    - {role: mosip-file-server}
+#- hosts: console
+#  gather_facts: true
+#  vars:
+#    reg_prop: '{{mosip-file-server}}'
+#  roles:
+#    - {role: mosip-file-server}
 
 # Convert helm template to helm values
 - hosts: console
