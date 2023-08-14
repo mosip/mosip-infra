@@ -1,0 +1,19 @@
+apiVersion: v2
+name: restart-cron
+description: A Helm chart to deploy cronjob to restart authdemo and packetcreator service and other services.
+type: application
+version: 12.0.2
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - mosip
+  - restart-cron
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP
