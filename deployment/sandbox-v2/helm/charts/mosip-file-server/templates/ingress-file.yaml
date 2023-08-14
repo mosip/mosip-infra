@@ -18,7 +18,15 @@ spec:
                 port:
                   number: 80
 
-          - path: {{ .Values.services.mosip_file_server.ingressPath_files }}
+          - path: {{ .Values.services.mosip_file_server.ingressPath_certs }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Values.serviceName }}
+                port:
+                  number: 80
+
+          - path: {{ .Values.services.mosip_file_server.ingressPath_inji }}
             pathType: ImplementationSpecific
             backend:
               service:
