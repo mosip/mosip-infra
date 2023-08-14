@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.services.relyingPartyUi.serviceName}}
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{.Values.services.relyingPartyUi.serviceName}}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{.Values.services.relyingPartyUi.serviceName}}
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{.Values.services.relyingPartyUi.serviceName}}
+        image: {{ .Values.services.relyingPartyUi.dockerImage  }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        env:
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }}
+        - name: ESIGNET_UI_BASE_URL
+          value: {{ .Values.services.relyingPartyUi.esignetUiBaseUrl }}
+        - name: MOCK_RELYING_PARTY_SERVER_URL
+          value: {{ .Values.services.relyingPartyUi.relyingPartyServerUrl }}
+        - name: REDIRECT_URI
+          value: {{ .Values.services.relyingPartyUi.redirectUri }}
+        - name: CLIENT_ID
+          value: {{ .Values.services.relyingPartyUi.clientId }}
+        - name: ACRS
+          value: {{ .Values.services.relyingPartyUi.acrs }}
+        - name: MOCK_RP_UI_PUBLIC_URL
+          value: {{ .Values.services.relyingPartyUi.mockRpPublicUri }}
+        - name: SIGN_IN_BUTTON_PLUGIN_URL
+          value: {{ .Values.services.relyingPartyUi.redirectUriRegistration }}
+        - name: REDIRECT_URI_REGISTRATION
+          value: {{ .Values.services.relyingPartyUi.signinButtonPluginUrl }}
+        ports:
+        - containerPort: {{ .Values.services.relyingPartyUi.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.relyingPartyUi.healthUrl }}
+            port: {{ .Values.services.relyingPartyUi.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.relyingPartyUi.healthUrl }}
+            port: {{ .Values.services.relyingPartyUi.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.relyingPartyUi.healthUrl }}
+            port: {{ .Values.services.relyingPartyUi.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: mock-relying-party-ui
+          items:
+          - key: nginx.conf
+            path: nginx.conf
+#        defaultMode: 420
+
