@@ -1,0 +1,26 @@
+# Playbook to install softhsm-esignet
+# Inputs:
+#   hsm_prop structure
+#   kube_config
+#
+
+# Prepare folders on remote node
+
+# Installs softhsm for esignet
+- import_playbook: softhsm.yml 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    hsm_prop: '{{softhsm.esignet}}'
+
+# Run all esignet service
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'esignet'
+    helm_chart: '{{charts_root}}/esignet'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/esignet/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}

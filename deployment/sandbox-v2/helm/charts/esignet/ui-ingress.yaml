@@ -1,0 +1,21 @@
+# We have written a separate ingress for esignet ui cause it requires
+# a different rewrite rule.  We want esignet url to be
+# https://public_server/esignet-ui/ rather than
+# https://public_server/
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: esignet-ui
+  namespace: {{ .Values.ingress.namespace }}
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /esignet-ui(/|$)(.*)
+        backend:
+          serviceName: {{ .Values.services.ui.serviceName }}
+          servicePort: {{ .Values.services.ui.ports.containerPort }}
