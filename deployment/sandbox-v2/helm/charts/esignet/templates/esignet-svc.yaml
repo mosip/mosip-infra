@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.esignet.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.esignet.ports.servicePort }}
+    targetPort: {{ .Values.services.esignet.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.esignet.serviceName }} 
+

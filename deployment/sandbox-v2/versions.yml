@@ -177,8 +177,21 @@ versions:
 
     mosip_file_server:
       service:
-        'mosip_file_server': 'mosipid/mosip-file-server:1.1.5_v2'
+        'mosip_file_server': 'mosipid/mosip-file-server:1.2.0.1-B3'
 
     resident_app_server:
       service:
         'resident-app-server': 'mosipid/mimoto:1.1.5'
+
+    esignet:
+      service:
+        'esignet': 'mosipid/esignet:1.0.0'
+      oidcui: 
+        'oidc-ui': 'mosipdev/oidc-ui:MOSIP-28660'
+
+    mock_relying_party:
+      service:
+        'mock-relying-party-service': 'mosipid/mock-relying-party-service:0.9.0'
+      ui:
+        'mock-relying-party-ui': 'mosipdev/mock-relying-party-ui:ES-222'
+

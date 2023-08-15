@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: wellknown-cm
+  namespace: {{ .Release.Namespace }}
+  labels:
+    name: mosip-file-server
+
+data:
+  public-key.json: |-
+    {
+      "@context": "https://w3id.org/security/v2",
+      "type": "RsaVerificationKey2018",
+      "id": "https://{{ .Values.host }}/.well-known/public-key.json",
+      "controller": "https://{{ .Values.host }}/.well-known/controller.json",
+      "publicKeyPem": "replace-public-key"
+    }

@@ -951,6 +951,63 @@ podconfig:
           cpu: 300m
           memory: 1.5Gi
 
+  esignet:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
+      #resources:
+        #requests:  
+          #cpu: 300m
+          #memory: 1.5Gi
+        #limits:
+          #cpu: 300m
+          #memory: 1.5Gi
+    ui:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
+      #resources:
+        #requests:  
+          #cpu: 300m
+          #memory: 1.5Gi
+        #limits:
+          #cpu: 300m
+          #memory: 1.5Gi
+
+  mock_relying_party:
+    service:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
+      #resources:
+        #requests:
+          #cpu: 300m
+          #memory: 1.5Gi
+        #limits:
+          #cpu: 300m
+          #memory: 1.5Gi
+
+    ui:
+      replicas: 1
+      maxSurge: 1
+      maxUnavailable: 0
+      minReadySeconds: 10
+      java_opts: "-Xms500M -Xmx500M"
+      #resources:
+        #requests:
+          #cpu: 300m
+          #memory: 1.5Gi
+        #limits:
+          #cpu: 300m
+          #memory: 1.5Gi
+
   ingress:
     nginx:
       replicas: 1

@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.services.relyingParty.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+  labels:
+    app: {{ .Values.services.relyingParty.serviceName }}
+    component: {{ .Values.component }} 
+    
+spec:
+  {{ $podconfig := .Values.services.relyingParty.podconfig }}
+  replicas: {{ $podconfig.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.services.relyingParty.serviceName }}
+  minReadySeconds: {{ $podconfig.minReadySeconds }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: {{ $podconfig.maxUnavailable }}
+      maxSurge: {{ $podconfig.maxSurge }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.services.relyingParty.serviceName }} 
+        component: {{ .Values.component }} 
+        exportLogs: {{ .Values.exportLogs }}
+    spec:
+      {{- include "dockerHubSecret" .  | indent 6}}
+      containers:
+      - name: {{ .Values.services.relyingParty.serviceName }} 
+        image: {{ .Values.services.relyingParty.dockerImage }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        {{- include "resourcesDefinition" (dict "res" $podconfig.resources) | indent 8 }}
+        env:
+        - name: active_profile_env
+          value: {{ .Values.activeProfileEnv }} 
+        - name: spring_config_label_env
+          value: {{ .Values.springConfigLabel }} 
+        - name: spring_config_url_env
+          value: {{ .Values.configServerUrl }} 
+        - name: artifactory_url_env
+          value: {{ .Values.artifactoryUrl }} 
+        - name: is_glowroot_env
+          value: {{ .Values.isGlowroot }} 
+        - name: iam_adapter_url_env
+          value: {{ .Values.iamAdapterUrl }}
+        - name: JDK_JAVA_OPTIONS
+          value: {{ $podconfig.java_opts }}
+        - name: PKCS11_PROXY_SOCKET
+          value: {{ .Values.services.relyingParty.hsmUrl }}
+        - name: ESIGNET_SERVICE_URL
+          value: {{ .Values.services.relyingParty.esignetServiceUrl }}
+        - name: ESIGNET_AUD_URL
+          value: {{ .Values.services.relyingParty.esignetAudUrl }}
+        - name: USERINFO_RESPONSE_TYPE
+          value: "jwt"
+        - name: JWE_USERINFO_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: jwe-userinfo-private-key
+              name: jwe-userinfo-service-secrets
+        - name: CLIENT_PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              key: client-private-key
+              name: mock-relying-party-service-secrets
+        ports:
+        - containerPort: {{ .Values.services.relyingParty.ports.containerPort }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.services.relyingParty.healthUrl }}
+            port: {{ .Values.services.relyingParty.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.period }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.services.relyingParty.healthUrl }}
+            port: {{ .Values.services.relyingParty.ports.containerPort }}
+          periodSeconds: {{ .Values.probe.livenessPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.services.relyingParty.healthUrl }}
+            port: {{ .Values.services.relyingParty.ports.containerPort }}
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.startupPeriod }}
+          timeoutSeconds: {{ .Values.probe.timeout }}
+          initialDelaySeconds: {{ .Values.probe.initialDelaySeconds }}

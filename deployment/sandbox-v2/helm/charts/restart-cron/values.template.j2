@@ -1,0 +1,31 @@
+# Default values for cronjob-rigs.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+cronjob:
+  name: {{ cronjob_name }}
+
+namespaces:
+{% for namespace in namespaces %}
+  - name: {{ namespace.name }}
+    enabled: {{ namespace.enabled | default(false) }}
+    deploymentName: {{ namespace.deploymentName }}
+{% endfor %}
+
+schedule:
+  crontime: {{ crontime }}   ## run cronjob every four hours (4h)
+
+serviceAccount:
+  create: {{ serviceAccount_create }}
+  name: {{ serviceAccount_name }}
+  namespace: {{ serviceAccount_namespace }}
+
+rbac:
+  create: {{ rbac_create }}
+  name: {{ rbac_name }}
+  namespace: {{ rbac_namespace }}
+  apiGroup: {{ rbac_apiGroup }}
+
+role:
+  create: {{ role_create }}
+  name: {{ rolename }}

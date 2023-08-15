@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mock-relying-party
+description: A Helm chart MOSIP's mock-relying-party's services 
+type: application
+version: 0.9.0
+appVersion: 0.9.0

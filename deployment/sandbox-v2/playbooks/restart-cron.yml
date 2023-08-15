@@ -1,0 +1,35 @@
+---
+- name: restart-cron-idegenerator
+  hosts: console
+  gather_facts: false
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'restart-cron'
+    is_template: true
+    helm_chart: 'mosip/restart-cron'
+    helm_namespace: 'infra-admin'
+    helm_values: '{{charts_root}}/restart-cron/values.template.j2'
+    helm_strings: ''
+    cronjob_name: "restart-cronjob"
+    namespaces:
+      - name: "default"
+        enabled: true
+        deploymentName: "kernel-idgenerator-service"
+    crontime: "'0 */4 * * *'"
+    serviceAccount_create: true
+    serviceAccount_name: "pod-deleter"
+    serviceAccount_namespace: "infra-admin"
+    rbac_create: true
+    rbac_name: "pod-deleter-rolebinding"
+    rbac_namespace: "infra-admin"
+    rbac_apiGroup: "rbac.authorization.k8s.io"
+    role_create: true
+    rolename: "pod-deleter-role"
+  roles:
+      - {role:  helm}
+
+  #tasks:
+  #  - name: restart-cron
+  #    ansible.builtin.template:
+  #      src: /home/mosipuser/mosip-infra/deployment/sandbox-v2/helm/charts/restart-cron/values.template.j2
+  #      dest: /home/mosipuser/mosip-infra/deployment/sandbox-v2/helm/charts/restart-cron/values.yaml

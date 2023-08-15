@@ -1,0 +1,26 @@
+# Playbook to install softhsm-mock_relying_party
+# Inputs:
+#   hsm_prop structure
+#   kube_config
+#
+
+# Prepare folders on remote node
+
+# Installs softhsm for mock_relying_party
+- import_playbook: softhsm.yml 
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    hsm_prop: '{{softhsm.mock_relying_party}}'
+
+# Install all mock-relying-party service
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'mock-relying-party'
+    helm_chart: '{{charts_root}}/mock-relying-party'
+    is_template: true
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/mock-relying-party/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}

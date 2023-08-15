@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.services.relyingParty.serviceName }} 
+  namespace: {{ .Release.Namespace }} 
+spec:
+  ports:
+  - port: {{ .Values.services.relyingParty.ports.servicePort }}
+    targetPort: {{ .Values.services.relyingParty.ports.containerPort }}
+  selector:
+    app: {{ .Values.services.relyingParty.serviceName }} 
+
