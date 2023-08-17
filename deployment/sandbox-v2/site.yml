@@ -49,3 +49,5 @@
 - import_playbook: playbooks/resident-app.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
+# Idgenerator Restart-cron
+- import_playbook: playbooks/restart-cron.yml
