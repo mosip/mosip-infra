@@ -1,0 +1,76 @@
+{{- if not .Values.cronjob.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+    {{- end }}
+  annotations:
+    "helm.sh/hook-delete-policy": hook-succeeded
+    {{- if .Values.commonAnnotations }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+    {{- end }}
+
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      labels: {{- include "common.labels.standard" . | nindent 8 }}
+        {{- if .Values.commonLabels }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 8 }}
+        {{- end }}
+        sidecar.istio.io/inject: "false"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "pms-migration-utility.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.jobSecurityContext | nindent 8 }}
+      restartPolicy: Never  # This is one time job
+      initContainers:
+        {{- if .Values.enable_insecure }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.initContainers "context" $) | nindent 12 }}
+        {{- end }}
+      containers:
+        - name: {{ template "pms-migration-utility.cronjob" . }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ template "pms-migration-utility.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: container_user
+              value: {{ .Values.containerSecurityContext.runAsUser }}
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.additionalResources.javaOpts }}
+            {{- if .Values.extraEnvVars }}
+            {{- include "common.tpvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- if .Values.extraEnvVarsCM }}
+              {{- range .Values.extraEnvVarsCM }}
+              - configMapRef:
+                  name: {{ . }}
+              {{- end }}
+              {{- end }}
+              {{- if .Values.extraEnvVarsSecret }}
+              {{- range .Values.extraEnvVarsSecret }}
+              - secretRef:
+                  name: {{ . }}
+              {{- end }}
+              {{- end }}
+          volumeMounts:
+          {{- if .Values.enable_insecure }}
+          - mountPath: /usr/local/openjdk-11/lib/security/cacerts
+            name: cacerts
+            subPath: cacerts
+          {{- end }}
+      volumes:
+      {{- if .Values.enable_insecure }}
+      - name: cacerts
+        emptyDir: {}
+      {{- end }}
+{{- end }}
