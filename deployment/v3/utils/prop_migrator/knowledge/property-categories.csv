@@ -19,7 +19,7 @@ admin-default.properties,mosip.kernel.audit.manager.api,URL
 admin-default.properties,mosip.kernel.masterdata.audit-url,URL
 admin-default.properties,mosip.admin-services.audit.manager.api,URL
 admin-default.properties,mosip.open-id.base-url,URL
-admin-default.properties,mosip.admin-services.open-id,clientsecret,Key
+admin-default.properties,mosip.admin-services.open-id.clientsecret,Key
 admin-default.properties,mosip.admin-services.redirecturi,URL
 admin-default.properties,mosip.admin-services.open-id.authorization_endpoint,URL
 admin-default.properties,mosip.admin-services.open-id.token_endpoint,URL
@@ -220,7 +220,7 @@ id-authentication-default.properties,mosip.kernel.keymanager.hsm.keystore-pass,K
 id-authentication-default.properties,mosip.iam.adapter.clientsecret,Key
 id-authentication-default.properties,keymanager_database_url,URL
 id-authentication-default.properties,keymanager_database_password,Key
-id-authentication-default.properties,cred-request-service-get-request-ids.rest.uri,Key
+id-authentication-default.properties,cred-request-service-get-request-ids.rest.uri,URL
 id-authentication-default.properties,cred-request-service-retrigger-cred-issuance.rest.uri,URL
 id-authentication-default.properties,auth.server.admin.issuer.uri,URL
 id-authentication-default.properties,auth.server.validate.url,URL
