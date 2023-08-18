@@ -1,0 +1,19 @@
+apiVersion: v2
+name: pms-migration-utility
+description: A Helm chart to deploy pms-migration-utility
+type: application
+version: 12.0.2
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - mosip
+  - pms-migration-utility
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

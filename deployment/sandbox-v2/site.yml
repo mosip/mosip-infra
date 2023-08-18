@@ -1,4 +1,5 @@
-# Master playbook
+#
+#Master playbook
 # Notes:
 # - Taints are applied only after monitoring tools have been installed on the pods.
 
@@ -49,3 +50,6 @@
 - import_playbook: playbooks/resident-app.yml
 # Regclient downloader
 - import_playbook: playbooks/reg-client-downloader.yml
+# Restart Idgenerator
+- import_playbook: playbooks/restart-cron.yml
+- import_playbook:playbooks/

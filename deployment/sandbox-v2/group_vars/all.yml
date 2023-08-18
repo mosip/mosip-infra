@@ -9,6 +9,7 @@ tmp_yamls: '{{tmp_dir}}/yaml'
 charts_root: '{{install_root}}/helm/charts'  # Helm charts root
 helm_cli_path: '{{user_home}}/bin'  # This path chosen as it is included in default $PATH in Centos 7.7
 artifactory_url: http://artifactory-service.default:80/
+artifactory_lts_url: http://artifactory-service.lts:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
 
@@ -463,7 +464,8 @@ coredns:
      dmzingress:
          alias: '{{clusters.dmz.ingress.node_alias}}'  
          node: '{{hostvars[groups.dmzworkers[0]]["ansible_host"]}}' # IP of any worker node
- 
+
+iam_adapter_lts_url: http://artifactory-service.lts:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar 
 
 iam_adapter_url: http://artifactory-service.default:80/artifactory/libs-release-local/io/mosip/kernel/kernel-auth-adapter.jar
 #The below auth adaptor is build with vertx 3.9.1 to be compatible with regproc stages and services
