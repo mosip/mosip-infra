@@ -107,11 +107,11 @@ versions:
       keygen:
         'ida-key-generator': 'mosipid/keys-generator:1.1.5'
       authlts:
-        'ida-auth-service': 'mosipdev/authentication-service:release-1.2.0.1'
+        'ida-auth-service': 'mosipid/authentication-service:1.2.0.1-B4'
       internallts:
-        'ida-internal-service': 'mosipdev/authentication-internal-service:release-1.2.0.1'
+        'ida-internal-service': 'mosipid/authentication-internal-service:1.2.0.1-B4'
       otplts:
-        'ida-otp-service': 'mosipdev/authentication-otp-service:release-1.2.0.1'
+        'ida-otp-service': 'mosipid/authentication-otp-service:1.2.0.1-B4'
 
     idrepo:
       identity:

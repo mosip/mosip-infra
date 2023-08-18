@@ -1,0 +1,11 @@
+# Add new node to existing cluster
+
+- import_playbook: console.yml
+
+- import_playbook: coredns.yml
+
+- import_playbook: nfs.yml
+
+- import_playbook: prepare-new-node.yml
+
+- import_playbook: join-cluster.yml
