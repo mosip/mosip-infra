@@ -13,7 +13,7 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_restart-cron() {
-  echo "This script installs cronjob which restarts packetcreator and authdemo service and other services based on configurations in value.yaml file, Do you want to install? (Y/n) "
+  echo "This script installs cronjob which restarts packetcreator, Idgenerator and authdemo service and other services based on configurations in value.yaml file, Do you want to install? (Y/n) "
   echo "Y: if you wish to install this cronjob in your cluster"
   echo "n: if you don't want to install this cronjob in your cluster"
   read -p "" flag
@@ -26,28 +26,13 @@ function installing_restart-cron() {
   read -p "Is values.yaml for restart-cron chart set correctly as part of Pre-requisites?(Y/n) " yn;
   if [ $yn = "Y" ]; then
 
-  echo "To restart Idgenerator service every four hours set the cronJob accordingly, and provide the time like.. ( EX. time: */4 )"
-  read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
-  if [ -z "$time" ]; then
-     echo "ERROT: Time cannot be empty; EXITING;";
-     exit 1;
-  fi
-  if ! [ $time -eq $time ] 2>/dev/null; then
-     echo "ERROR: Time $time is not a number; EXITING;";
-     exit 1;
-  fi
-  if [ $time -gt 23 ] || [ $time -lt 0 ] ; then
-     echo "ERROR: Time should be in range ( 0-23 ); EXITING;";
-     exit 1;
-  fi
-
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
-  echo Installing restart-cron
+  echo Installing restart-cron idgenerator
   helm -n $NS install restart-cron mosip/restart-cron \
-  --set schedule.crontime="0 $time * * 1-5" \
+  --set schedule.crontime="0 */4 * * 1-5" \
   -f values.yaml \
   --version $CHART_VERSION
   echo Installed restart-cron.
