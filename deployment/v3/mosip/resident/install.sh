@@ -25,6 +25,13 @@ function installing_resident() {
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
 
+  echo Setting up dummy values for Resident OIDC Client ID
+  kubectl create secret generic onboarder-keys -n $NS --from-literal=resident-oidc-clientid=111111 --dry-run=client -o yaml | kubectl apply -f -
+  ./copy_cm_func.sh secret onboarder-keys resident config-server
+
+  kubectl -n config-server set env --keys=resident-oidc-clientid --from secret/onboarder-keys deployment/config-server --prefix=SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_
+  kubectl -n config-server get deploy -o name | xargs -n1 -t kubectl -n config-server rollout status
+
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
   echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
