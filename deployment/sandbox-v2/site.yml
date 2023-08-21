@@ -52,4 +52,3 @@
 - import_playbook: playbooks/reg-client-downloader.yml
 # Restart Idgenerator
 - import_playbook: playbooks/restart-cron.yml
-- import_playbook:playbooks/
