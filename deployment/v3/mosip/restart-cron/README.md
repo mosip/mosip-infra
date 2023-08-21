@@ -3,9 +3,9 @@
 ## Introduction
 RESTART_CRON chart deploys a CronJob that runs on a schedule specified in the values.yaml file. The CronJob restarts deployments in the specified namespaces using the kubectl rollout restart command and waits for them to reach the desired state using the kubectl rollout status command..
 
-For now this cronjob is being used to restart packetcreator and authdemo service in a cluster, It can be used to restart other services as well.
+For now this cronjob is being used to restart idgenerator service in a cluster, It can be used to restart other services like packetcreator and authdemo as well.
 
-For restart Idgenerator service every after four hour in a cluster, you need to provide time after running './install.sh' Ex. ( time: */4 )
+Idgenerator service will restart every after four hour in a cluster.
 
 ## Prerequisites
 * Auth demo, Packetcreator, Idgenerator and DSLRIG to be running in the same cluster.
