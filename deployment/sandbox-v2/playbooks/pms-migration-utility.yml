@@ -1,0 +1,21 @@
+# Antivirus running on MZ. 
+#
+- hosts: console
+  tasks:
+  - name: PMS migrator dependency update
+    shell: |
+      cd {{charts_root}}/pms-migration-utility
+      helm dependency update
+
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}' 
+    install_name: 'pms-migration-utility' 
+    helm_chart: '{{charts_root}}/pms-migration-utility'
+    is_template: true  
+    helm_namespace: default
+    helm_values: '{{charts_root}}/pms-migration-utility/values.template.j2'
+    helm_strings: ""
+  roles:
+    - {role:  helm}
+
