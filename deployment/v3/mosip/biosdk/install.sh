@@ -17,6 +17,10 @@ function installing_biosdk() {
   kubectl label ns $NS istio-injection=enabled --overwrite
   helm repo update
 
+  echo Copy configmaps
+  sed -i 's/\r$//' copy_cm.sh
+  ./copy_cm.sh
+
   echo Installing Biosdk server
   helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
   echo Biosdk service installed sucessfully.
