@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function deleting_pmptest() {
-  NS=dslrig
+  NS=pmptest
   while true; do
       read -p "Are you sure you want to delete pmptest helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
