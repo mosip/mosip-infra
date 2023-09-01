@@ -1,0 +1,7 @@
+modules:
+  - name: adminui
+    enabled: false
+  - name: pmptest
+    enabled: true
+  - name: residentui
+    enabled: false

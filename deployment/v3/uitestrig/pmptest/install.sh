@@ -60,8 +60,9 @@ function installing_pmptest() {
 
 
   echo Installing pmptest
-  helm -n $NS install pmptest /home/techno-376/IdeaProjects/mosip-helm/charts/pmptest \
+  helm -n $NS install pmptest /home/techno-376/IdeaProjects/mosip-helm/charts/uitestrig/ \
   --set crontime="0 $time * * *" \
+  -f values.yaml  \
   --version $CHART_VERSION \
   --set pmptest.configmaps.s3.s3-host='http://minio.minio:9000' \
   --set pmptest.configmaps.s3.s3-user-key='uiautomation' \
@@ -71,7 +72,6 @@ function installing_pmptest() {
   --set pmptest.configmaps.db.db-port="5432" \
   --set pmptest.configmaps.pmptest.USER="$USER" \
   --set pmptest.configmaps.pmptest.ENDPOINT="https://$API_INTERNAL_HOST" \
-  --set pmptest.configmaps.pmptest.TESTLEVEL="full" \
 
   $ENABLE_INSECURE
   
