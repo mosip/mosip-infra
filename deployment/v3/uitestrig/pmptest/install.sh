@@ -1,19 +1,19 @@
 #!/bin/bash
-# Installs pmptest automation
+# Installs uitestrig automation
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=pmptest
+NS=uitestrig
 CHART_VERSION=12.0.1-B3
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 
-function installing_pmptest() {
+function installing_uitestrig() {
   ENV_NAME=$( kubectl -n default get cm global -o json |jq -r '.data."installation-domain"')
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
@@ -41,7 +41,7 @@ function installing_pmptest() {
   fi
   ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE='--set pmptest.configmaps.pmptest.ENABLE_INSECURE=true';
+    ENABLE_INSECURE='--set uitestrig.configmaps.uitestrig.ENABLE_INSECURE=true';
   fi
 
   echo Istio label
@@ -59,23 +59,22 @@ function installing_pmptest() {
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
 
-  echo Installing pmptest
-  helm -n $NS install pmptest /home/techno-376/IdeaProjects/mosip-helm/charts/uitestrig/ \
+  echo Installing uitestrig
+  helm -n $NS install uitestrig /home/techno-376/IdeaProjects/mosip-helm/charts/uitestrig/ \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
-  --set pmptest.configmaps.s3.s3-host='http://minio.minio:9000' \
-  --set pmptest.configmaps.s3.s3-user-key='uiautomation' \
-  --set pmptest.configmaps.s3.s3-region='' \
-  --set pmptest.configmaps.db.db-server="$DB_HOST" \
-  --set pmptest.configmaps.db.db-su-user="postgres" \
-  --set pmptest.configmaps.db.db-port="5432" \
-  --set pmptest.configmaps.pmptest.USER="$USER" \
-  --set pmptest.configmaps.pmptest.ENDPOINT="https://$API_INTERNAL_HOST" \
+  --set uitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
+  --set uitestrig.configmaps.s3.s3-user-key='admin' \
+  --set uitestrig.configmaps.s3.s3-region='' \
+  --set uitestrig.configmaps.db.db-server="$DB_HOST" \
+  --set uitestrig.configmaps.db.db-su-user="postgres" \
+  --set uitestrig.configmaps.db.db-port="5432" \
+  --set uitestrig.configmaps.uitestrig.USER="$USER" \
+  --set uitestrig.configmaps.uitestrig.ENDPOINT="https://$API_INTERNAL_HOST" \
 
   $ENABLE_INSECURE
   
-  echo Installed pmptest and ui reports will be moved to S3 under uiautomation bucket.
   return 0
 }
 
@@ -85,4 +84,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_pmptest   # calling function
+installing_uitestrig   # calling function
