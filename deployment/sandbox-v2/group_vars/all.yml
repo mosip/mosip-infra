@@ -12,6 +12,7 @@ artifactory_url: http://artifactory-service.default:80/
 artifactory_lts_url: http://artifactory-service.lts:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
+helm_args: ''
 
 sandbox_domain_name: minibox.mosip.net
 internal_domain_name: '{{ansible_host}}'  # IP address of console
