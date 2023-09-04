@@ -269,12 +269,6 @@ repos:
     tag: 1.1.5
     githubuser: ''
     githubpassword: ''
-  esignet:
-    src: https://github.com/mosip/esignet
-    dest: '{{tmp_dir}}/esignet'
-    tag: 1.0.0
-    githubuser: ''
-    githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
@@ -285,12 +279,6 @@ repos:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
     tag: 1.1.5.5
-    githubuser: ''
-    githubpassword: ''
-  ida:
-    src: https://github.com/mosip/id-authentication
-    dest: '{{tmp_dir}}/id-authentication'
-    tag: v1.2.0.1-B4
     githubuser: ''
     githubpassword: ''
   pms:
