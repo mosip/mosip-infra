@@ -358,11 +358,6 @@ databases:
     sql_path: '{{repos.regproc.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
     release_path: '{{repos.regproc.dest}}/db_release_scripts'
-  mosip_ida:
-    user: idauser
-    sql_path: '{{repos.ida.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
@@ -372,10 +367,6 @@ databases:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
     release_path: '{{repos.websub.dest}}/db_release_scripts'
-  mosip_esignet:
-    user: esignetuser
-    sql_path: '{{repos.esignet.dest}}/db_scripts'
-    release_path: '{{repos.esignet.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
