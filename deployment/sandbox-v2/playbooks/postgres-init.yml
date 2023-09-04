@@ -18,3 +18,22 @@
   roles:  # Run these roles only if db does not exist or if force_init is set to true or upgrade is required.
      - {role: postgres-init}
 
+## Helm installation section for ida and esignet db init.
+- hosts: console
+  vars:
+    kube_config: '{{clusters.mz.kube_config}}'
+    install_name: 'postgres-init-ida-esignet'
+    is_template: false
+    helm_chart: 'mosip/postgres-init'  # Assumed bitnami repo has already been added in Helm
+    helm_namespace: 'default'
+    helm_values: '{{charts_root}}/postgres-init/values.yaml'
+    helm_strings: 'dbUserPasswords.dbuserPassword={{secrets.postgres.dbuser}}'
+    helm_args: '--version=12.0.1-B3'
+    kafka_prop: '{{clusters.mz.kafka}}'
+  tasks:
+    - name: Delete postgres secret if already exist
+      shell: 'kubectl -n {{helm_namespace}} --kubeconfig={{kube_config}} delete --ignore-not-found=true secret postgres-postgresql'
+    - name: Create postgres secret
+      shell: "kubectl -n {{helm_namespace}} --kubeconfig={{kube_config}} create secret generic postgres-postgresql --from-literal=postgresql-password={{secrets.postgres.su}}"
+  roles:
+    - {role:  helm}
