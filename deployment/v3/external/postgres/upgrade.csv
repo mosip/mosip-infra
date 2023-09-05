@@ -14,7 +14,8 @@ mosip_idrepo,1.2.0.1-B1,1.2.0.1,upgrade
 mosip_ida,1.1.5.5,1.2.0.1-B1,upgrade
 mosip_ida,1.2.0.1-B1,1.2.0.1-B2,upgrade
 mosip_ida,1.2.0.1-B2,1.2.0.1-B3,upgrade
-mosip_ida,1.2.0.1-B3,1.2.0.1,upgrade
+mosip_ida,1.2.0.1-B3,1.2.0.1-B4,upgrade
+mosip_ida,1.2.0.1-B4,1.2.0.1,upgrade
 mosip_pms,1.1.5.5,1.2.0.1-B1,upgrade
 mosip_pms,1.2.0.1-B1,1.2.0.1-B2,upgrade
 mosip_pms,1.2.0.1-B2,1.2.0.1-B3,upgrade
