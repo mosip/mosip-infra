@@ -55,6 +55,7 @@ function installing_uitestrig() {
   ./copy_secrets.sh
 
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
+  PMP_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-pmp-host"')
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
@@ -72,7 +73,9 @@ function installing_uitestrig() {
   --set uitestrig.configmaps.db.db-port="5432" \
   --set uitestrig.configmaps.uitestrig.USER="$USER" \
   --set uitestrig.configmaps.uitestrig.ENDPOINT="https://$API_INTERNAL_HOST" \
-
+  --set uitestrig.configmaps.uitestrig.apiInternalEndPoint="https://$API_INTERNAL_HOST" \
+  --set uitestrig.configmaps.uitestrig.apiEnvUser="https://$API_INTERNAL_HOST" \
+  --set uitestrig.configmaps.uitestrig.PmpPortalPath="https://$PMP_HOST" \
   $ENABLE_INSECURE
   
   return 0

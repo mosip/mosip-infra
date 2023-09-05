@@ -1,7 +1,0 @@
-modules:
-  - name: adminui
-    enabled: true
-  - name: pmpui
-    enabled: true
-  - name: residentui
-    enabled: true

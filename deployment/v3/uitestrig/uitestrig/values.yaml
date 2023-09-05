@@ -1,0 +1,19 @@
+modules:
+  - name: adminui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipdev/admintest
+      tag: develop
+  - name: pmpui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipdev/pmptest
+      tag: develop
+  - name: residentui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipdev/residenttest
+      tag: develop
