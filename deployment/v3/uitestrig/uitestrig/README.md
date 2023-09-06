@@ -1,7 +1,7 @@
 # UITESTRIG
 
 ## Introduction
-UITESTRIG will test end-to-end functional flows involving multiple MOSIP modules.
+UITESTRIG will test end-to-end functional flows involving multiple UI modules.
 
 ## Install
 * Install
@@ -26,7 +26,7 @@ UITESTRIG will test end-to-end functional flows involving multiple MOSIP modules
   ```
   example: 
   ```
-  kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n UITESTRIG create job --from=cronjob/cronjob-dslorchestrator cronjob-dslorchestrator
+  kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n UITESTRIG create job --from=cronjob/cronjob-uitestrig cronjob-uitestrig
   ```
 
   

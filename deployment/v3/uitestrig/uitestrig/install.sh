@@ -61,7 +61,7 @@ function installing_uitestrig() {
 
 
   echo Installing uitestrig
-  helm -n $NS install uitestrig /home/techno-376/IdeaProjects/mosip-helm/charts/uitestrig/ \
+  helm -n $NS install mosip/uitestrig/ \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
