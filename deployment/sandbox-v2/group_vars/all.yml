@@ -12,6 +12,7 @@ artifactory_url: http://artifactory-service.default:80/
 artifactory_lts_url: http://artifactory-service.lts:80/
 versions_file: '{{install_root}}/versions.yml' 
 podconfig_file: '{{install_root}}/podconfig.yml'
+helm_args: ''
 
 sandbox_domain_name: minibox.mosip.net
 internal_domain_name: '{{ansible_host}}'  # IP address of console
@@ -268,12 +269,6 @@ repos:
     tag: 1.1.5
     githubuser: ''
     githubpassword: ''
-  esignet:
-    src: https://github.com/mosip/esignet
-    dest: '{{tmp_dir}}/esignet'
-    tag: 1.0.0
-    githubuser: ''
-    githubpassword: ''
   regproc:
     src: https://github.com/mosip/registration
     dest: '{{tmp_dir}}/registration'
@@ -284,12 +279,6 @@ repos:
     src: https://github.com/mosip/id-repository
     dest: '{{tmp_dir}}/id-repository'
     tag: 1.1.5.5
-    githubuser: ''
-    githubpassword: ''
-  ida:
-    src: https://github.com/mosip/id-authentication
-    dest: '{{tmp_dir}}/id-authentication'
-    tag: v1.2.0.1-B4
     githubuser: ''
     githubpassword: ''
   pms:
@@ -369,11 +358,6 @@ databases:
     sql_path: '{{repos.regproc.dest}}/db_scripts'
     dml_path: '{{repos.ref_impl.dest}}/data-dml'
     release_path: '{{repos.regproc.dest}}/db_release_scripts'
-  mosip_ida:
-    user: idauser
-    sql_path: '{{repos.ida.dest}}/db_scripts'
-    dml_path: '{{repos.ref_impl.dest}}/data-dml'
-    release_path: '{{repos.ida.dest}}/db_release_scripts'
   mosip_pms:
     user: pmpuser
     sql_path: '{{repos.pms.dest}}/db_scripts'
@@ -383,10 +367,6 @@ databases:
     user: websubuser
     sql_path: '{{repos.websub.dest}}/db_scripts'
     release_path: '{{repos.websub.dest}}/db_release_scripts'
-  mosip_esignet:
-    user: esignetuser
-    sql_path: '{{repos.esignet.dest}}/db_scripts'
-    release_path: '{{repos.esignet.dest}}/db_release_scripts'
 
 nfs:
   server: '{{inventory_hostname}}'
