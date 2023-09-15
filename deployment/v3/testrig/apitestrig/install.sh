@@ -100,7 +100,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
-  --set.apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
+  --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
   $ENABLE_INSECURE
   
   echo Installed apitestrig.
