@@ -8,18 +8,18 @@
 $ ./install.sh
 ```
 
-## Procedure to Backup & Restore Bitnami Kafka via Manually
+## Steps to Backup & Restore Bitnami Kafka manually
 
 #### Prerequisites
-* Zip & Unzip packages to installed on both backup/restore
+* Install `zip` & `unzip` packages on both backup/restore control plane nodes.
 
 #### Backup
-* Set websub and Kafka replicas to zero via the below command.
+* Set WebSub and Kafka replicas to zero via the below command.
   ```
   kc2 -n default scale --replicas=0 deploy consolidator-websub-service websub-service
   kc2 -n default scale --replicas=0 statefulset kafka kafka-zookeeper
   ```
-* Once websub & kafka pod are completely terminated, Goto `/srv/nfs/mosip/`.
+* Once Websub & Kafka pods are completely terminated, go to `/srv/nfs/mosip/`.
   ```
   cd /srv/nfs/mosip
   ```
@@ -27,7 +27,15 @@ $ ./install.sh
   ```
   sudo zip -r dmzkafka-backup.zip $( ls -d $( kc2 get pv | awk '/kafka/{print "*" $1}'))
   ```
-* Move the backup file to the machine where the restore cluster.
+* Move the backup file to the machine where the restore cluster is present.
+* Set the Kafka replicas to their original value via the below command.
+  ```
+  kc2 -n default scale --replicas=<no-of-replicas> statefulset kafka kafka-zookeeper
+  ```
+* Set the websub replicas to their original value via the below command.
+  ```
+  kc2 -n default scale --replicas= deploy consolidator-websub-service websub-service
+  ```
 
 #### Restore
 
@@ -43,8 +51,8 @@ $ ./install.sh
         {"op": "replace", "path": "/spec/template/spec/containers/0/startupProbe", "value": null}
   ]'
   ```
-* Wait till all changes applied & pods are up and running.
-* Update N value (i.e., number of replicas ) in the below command, to clear the data.
+* Wait until all changes are applied and the pods are up and running.
+* To clear the data, update N value (i.e., number of replicas) in the below command.
   ```
   for i in {0..N}; do kubectl -n kafka exec -it kafka-zookeeper-$i -- bash -c 'rm -rf /bitnami/zookeeper/data/*'; done
   for i in {0..N}; do kubectl -n kafka exec -it kafka-$i -- bash -c 'rm -rf /bitnami/kafka/data/*'; done
@@ -55,7 +63,7 @@ $ ./install.sh
   
   chown -R 1001:1001 kafka
   ```
-* Update N value (i.e., number of replicas ) in the below command, to copy data from backup.
+* To copy data from backup, update N value (i.e., number of replicas) in the below command.
   ```
   ## copy zookeeper data
   for i in {0..N}; do
