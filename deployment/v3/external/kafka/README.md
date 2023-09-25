@@ -14,7 +14,7 @@ $ ./install.sh
 * Install `zip` & `unzip` packages on both backup/restore control plane nodes.
 
 #### Backup
-* Set WebSub and Kafka replicas to zero via the below command.
+* Set WebSub and Kafka replicas to zero for V2 based existing env using the below command.
   ```
   kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas=0 deploy consolidator-websub-service websub-service
   kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas=0 statefulset kafka kafka-zookeeper
