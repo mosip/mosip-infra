@@ -16,8 +16,8 @@ $ ./install.sh
 #### Backup
 * Set WebSub and Kafka replicas to zero via the below command.
   ```
-  kc2 -n default scale --replicas=0 deploy consolidator-websub-service websub-service
-  kc2 -n default scale --replicas=0 statefulset kafka kafka-zookeeper
+  kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas=0 deploy consolidator-websub-service websub-service
+  kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas=0 statefulset kafka kafka-zookeeper
   ```
 * Once Websub & Kafka pods are completely terminated, go to `/srv/nfs/mosip/`.
   ```
@@ -30,12 +30,20 @@ $ ./install.sh
 * Move the backup file to the machine where the restore cluster is present.
 * Set the Kafka replicas to their original value via the below command.
   ```
-  kc2 -n default scale --replicas=<no-of-replicas> statefulset kafka kafka-zookeeper
+  kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas=<no-of-replicas> statefulset kafka kafka-zookeeper
   ```
 * Set the websub replicas to their original value via the below command.
   ```
-  kc2 -n default scale --replicas= deploy consolidator-websub-service websub-service
+  kubectl --kubeconfig /home/mosipuser/.kube/dmzcluster.config -n default scale --replicas= deploy consolidator-websub-service websub-service
   ```
+* Restart the websub dependent services:
+  * Kernel syncdata service
+  * IDREPO services
+  * IDA services
+  * PMS services
+  * RESIDENT services
+  * PRINT service
+  * Regproc notification service
 
 #### Restore
 
@@ -89,7 +97,7 @@ $ ./install.sh
   helm -n kafka delete kafka
   ```
 * Run `install.sh` to deploy kafka.
-* Once all kafka services are up, confirm the existence of topics, messages, etc... via kafka-ui.
+* Once all the kafka services are up, confirm the existence of topics, messages, etc., via the kafka-ui.
 
 ## Procedure to Backup & Restore Bitnami Kafka via Velero
 
