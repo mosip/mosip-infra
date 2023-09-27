@@ -26,7 +26,7 @@ function installing_resident() {
   ./copy_secrets.sh
 
   echo Setting up dummy values for Resident OIDC Client ID
-  kubectl create secret generic resident-oidc-onboarder-key -n $NS --from-literal=resident-oidc-clientid=111111 --dry-run=client -o yaml | kubectl apply -f -
+  kubectl create secret generic resident-oidc-onboarder-key -n $NS --from-literal=resident-oidc-clientid= --dry-run=client -o yaml | kubectl apply -f -
   ./copy_cm_func.sh secret resident-oidc-onboarder-key resident config-server
 
   kubectl -n config-server set env --keys=resident-oidc-clientid --from secret/resident-oidc-onboarder-key deployment/config-server --prefix=SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_
