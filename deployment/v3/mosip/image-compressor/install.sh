@@ -22,7 +22,20 @@ function installing_imagecompressor() {
   ./copy_cm.sh
 
   echo Installing imagecompressor server
-  helm -n $NS install image-compressor mosip/image-compressor -f values.yaml  --version $CHART_VERSION
+  helm -n $NS install image-compressor mosip/biosdk-service \
+  --set extraEnvVars[0].name="server_servlet_context_env" \
+  --set extraEnvVars[0].value="/image-compressor" \
+  --set extraEnvVars[1].name="spring_application_name_env" \
+  --set extraEnvVars[1].value="image-compressor" \
+  --set extraEnvVars[2].name="spring_cloud_config_name_env" \
+  --set extraEnvVars[2].value="image-compressor" \
+  --set startupProbe.httpGet.path="\/image-compressor/actuator/health" \
+  --set livenessProbe.httpGet.path="\/image-compressor/actuator/health" \
+  --set readinessProbe.httpGet.path="\/image-compressor/actuator/health" \
+  --set biosdk.zippedLibUrl="http://artifactory.artifactory/artifactory/libs-release-local/compressor/image-compressor.zip" \
+  --set biosdk.bioapiImpl="io.mosip.image.compressor.sdk.impl.ImageCompressorSDKV2" \
+  --set fullnameOverride="image-compressor" \
+  --version $CHART_VERSION
 
   echo imagecompressor service installed sucessfully.
   return 0

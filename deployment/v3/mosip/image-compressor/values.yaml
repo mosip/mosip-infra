@@ -1,5 +1,0 @@
-imagecompressor:
-  ## This is url of imagecompressor lib accessed from within cluster.  imagecompressor may be hosted outside the cluster
-  ## in which case change the URL accordingly.
-  zippedLibUrl: http://artifactory.artifactory/artifactory/libs-release-local/compressor/image-compressor.zip
-  bioapiImpl: io.mosip.image.compressor.sdk.impl.ImageCompressorSDKV2
