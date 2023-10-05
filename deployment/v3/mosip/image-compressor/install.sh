@@ -34,6 +34,7 @@ function installing_imagecompressor() {
   --set readinessProbe.httpGet.path="\/image-compressor/actuator/health" \
   --set biosdk.zippedLibUrl="http://artifactory.artifactory/artifactory/libs-release-local/compressor/image-compressor.zip" \
   --set biosdk.bioapiImpl="io.mosip.image.compressor.sdk.impl.ImageCompressorSDKV2" \
+  --set istio.prefix="\/image-compressor" \
   --set fullnameOverride="image-compressor" \
   --version $CHART_VERSION
 
