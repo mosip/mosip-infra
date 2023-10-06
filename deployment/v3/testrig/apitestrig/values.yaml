@@ -13,5 +13,5 @@ modules:
     enabled: true
   - name: esignet
     enabled: true
-  - name: mobileid
+  - name: mimoto
     enabled: true
