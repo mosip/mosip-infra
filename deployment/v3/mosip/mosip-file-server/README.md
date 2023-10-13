@@ -1,4 +1,4 @@
-# Regclient
+# mosip-file-server
 
 ## Introduction
 The chart here installs a mosip-file-server accessed over an https URL.
@@ -11,4 +11,4 @@ The chart here installs a mosip-file-server accessed over an https URL.
 ./install.sh
 ```
 ## Download
-The download URL will be available at `https://your-fileserver-host`. Example: `https://fileserver.sandbox.xyz.net`.
+The download URL will be available at https://api-host. Example: https://api.sandbox.xyz.net.
