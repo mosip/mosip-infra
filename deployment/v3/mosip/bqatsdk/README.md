@@ -9,7 +9,7 @@ The service expects **bqatsdk library** typically provided by a vendor.  Host th
 To run this BqatSDK service, you will need to provide URL that contains the Bqatsdk service library.
 
 ## Install 
-* Update `values.yaml` with your bqatsdk zipped library url and classpath.
+* Update `install.yaml` with your bqatsdk zipped library url and classpath.
 * Install
 ```sh
 ./install.sh
