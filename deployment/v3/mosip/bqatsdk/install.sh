@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=bqatsdk
-CHART_VERSION=1.0.0
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,21 @@ function installing_bqatsdk() {
   ./copy_cm.sh
 
   echo Installing Bqatsdk server
-  helm -n $NS install bqatsdk-service mosip/bqatsdk-service -f values.yaml --version $CHART_VERSION
+  helm -n $NS install bqatsdk-service mosip/biosdk-service \
+  --set extraEnvVars[0].name="server_servlet_context_env" \
+    --set extraEnvVars[0].value="/bqatsdk-service" \
+    --set extraEnvVars[1].name="spring_application_name_env" \
+    --set extraEnvVars[1].value="bqat-sdk" \
+    --set extraEnvVars[2].name="spring_cloud_config_name_env" \
+    --set extraEnvVars[2].value="bqat-sdk" \
+    --set startupProbe.httpGet.path="\/bqatsdk-service/actuator/health" \
+    --set livenessProbe.httpGet.path="\/bqatsdk-service/actuator/health" \
+    --set readinessProbe.httpGet.path="\/bqatsdk-service/actuator/health" \
+    --set biosdk.zippedLibUrl="http://artifactory.artifactory:80/bqat-sdk-0.0.1-SNAPSHOT-jar-with-dependencies.zip" \
+    --set biosdk.bioapiImpl="io.bqat.sdk.impl.BqatQualitySDKService" \
+    --set istio.prefix="\/bqatsdk-service" \
+    --set fullnameOverride="bqatsdk-service" \
+    --version $CHART_VERSION
 
   echo Bqatsdk service installed sucessfully.
   return 0
