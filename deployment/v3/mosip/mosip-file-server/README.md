@@ -1,14 +1,17 @@
-# Regclient 
+# mosip-file-server
 
 ## Introduction
-The chart here installs a mosip-file-server accessed over an https URL. 
+The chart here installs a mosip-file-server accessed over an https URL.
 
 ## Install
-* Make sure global configmap contains the url for mosip-file-server host e.g. `fileserver.sandbox.xyz.net`.
-* The url must point to your internal loadbalancer as regclient will typically not be open to public.
+* Mosip-file-server contains certs, json which will be used by partners to integrate with MOSIP services.
 * Install
 ```sh
 ./install.sh
 ```
-## Download
-The download URL will be available at `https://your-fileserver-host`. Example: `https://fileserver.sandbox.xyz.net`.
+## URL
+* The URL will be available at https://api-host.
+  Example:
+    * https://api.sandbox.xyz.net/.well-known/
+    * https://api.sandbox.xyz.net/inji/
+    * https://api.sandbox.xyz.net/mosip-certs/
