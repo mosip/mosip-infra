@@ -1,13 +1,13 @@
-resources:
-  limits: {}
-  #   cpu: 250m
-  #   memory: 1Gi
-  requests: 
-    cpu: 3000m
-    memory: 3000Mi
-
-postgresqlExtendedConf:
-   wal_level: logical
-   max_wal_senders: 20
-   max_replication_slots: 10
-   max_connections: 1000
+primary:
+  extendedConfiguration: |
+    max_connections=1000
+    wal_level=logical
+    max_wal_senders=20
+    max_replication_slots=10
+  resources:
+    limits: {}
+    #   cpu: 250m
+    #   memory: 1Gi
+    requests:
+      cpu: 3000m
+      memory: 3000Mi
