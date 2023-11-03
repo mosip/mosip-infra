@@ -41,6 +41,7 @@ function landing_page() {
   RESIDENT=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
   ESIGNET=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
   SMTP=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
+  HEALTHSERVICES=$(kubectl get cm global -o jsonpath={.data.mosip-healthservices-host})
 
   echo Installing landing page
   helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
@@ -63,6 +64,7 @@ function landing_page() {
   --set landing.resident=$RESIDENT \
   --set landing.esignet=$ESIGNET \
   --set landing.smtp=$SMTP \
+  --set landing.healthservices=$SMTP \
   --set istio.host=$DOMAIN
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
