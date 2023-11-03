@@ -64,7 +64,7 @@ function landing_page() {
   --set landing.resident=$RESIDENT \
   --set landing.esignet=$ESIGNET \
   --set landing.smtp=$SMTP \
-  --set landing.healthservices=$SMTP \
+  --set landing.healthservices=$HEALTHSERVICES \
   --set istio.host=$DOMAIN
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
