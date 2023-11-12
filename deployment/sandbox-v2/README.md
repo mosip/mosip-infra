@@ -4,7 +4,7 @@
 
 The Ansible scripts here run MOSIP on a multi Virtual Machine (VM) setup.  The sandbox may be used for development and testing.
 
-_**WARNING**: The sandbox is not intented to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._
+_**WARNING**: The sandbox is not intended to be used for serious pilots or production.  Further, do not run the sandbox with any confidential data._
 
 ## Sandbox architecture
 ![](https://github.com/mosip/mosip-infra/blob/master/deployment/sandbox-v2/docs/sandbox_architecture.png)
@@ -58,7 +58,7 @@ Before installing MOSIP modules you will have to set up your VMs as below:
 1. Make console machine accessible via a public domain name (e.g. sandbox.mycompany.com).  This step may be skipped if you do not plan to access the sandbox externally. 
 1. Make sure datetime on all machines is in UTC.
 1. Open ports 80, 443, 30090 (postgres), 30616 (activemq), 53 (coredns) on console machine for external access.
-1. Make sure UDP ports are not blcoked by your firewall(s).
+1. Make sure UDP ports are not blocked by your firewall(s).
 
 ## Terraform
 All the above is achieved using Terraform scripts available in `terraform/`.  At present, AWS scripts are being used and maintained.  It is highly recommended that you study the scripts in detail before running them. 
@@ -115,7 +115,7 @@ $ av edit secrets.yml
 Configure MOSIP as per [MOSIP Configuration Guide](docs/mosip_configuration_guide.md).
 
 ### Install MOSIP
-* Intall all MOSIP modules:
+* Install all MOSIP modules:
 ```
 $ an site.yml
 ```
@@ -123,13 +123,13 @@ Provide the vault password.  Default is 'foo'.
 
 ### Certificate Exchange
 Below are the necessary certificate exchange in Mosip.
-* The steps for the abis certificate exchange is mentoned in the [abiscert.md](docs/abiscert.md)
-* The steps for the ida certificate exchange is mentoned there in [idacert.md](docs/idacert.md)
-* The steps for the resident certificate exchange is mentoned there in [residentcert.md](docs/residentcert.md)
-* The steps for the print certificate exchange is mentoned there in [printcert.md](docs/printcert.md)
-* The steps for the MDS device and FTM certificate exchange is mentoned there in [MDSdevicecert.md](docs/MDSdevicecert.md)
+* The steps for the abis certificate exchange is mentioned in the [abiscert.md](docs/abiscert.md)
+* The steps for the ida certificate exchange is mentioned there in [idacert.md](docs/idacert.md)
+* The steps for the resident certificate exchange is mentioned there in [residentcert.md](docs/residentcert.md)
+* The steps for the print certificate exchange is mentioned there in [printcert.md](docs/printcert.md)
+* The steps for the MDS device and FTM certificate exchange is mentioned there in [MDSdevicecert.md](docs/MDSdevicecert.md)
 
-- Also we have a complete postman collection containing all the api's as mentioned abive we just need to update the Domain name an dfollow the instructions in the above docs. The collection is stored in [utils](utils/postman_collection/cert)
+- Also we have a complete postman collection containing all the api's as mentioned above we just need to update the Domain name and follow the instructions in the above docs. The collection is stored in [utils](utils/postman_collection/cert)
 
 ## Dashboards
 The links to various dashboards are available at 
