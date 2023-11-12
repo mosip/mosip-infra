@@ -30,6 +30,7 @@ function Deleting_all() {
                      "websub"
                      "biosdk"
                      "mock-smtp"
+                     "restart-cron"
                      )
   echo Deleting MOSIP services.
 
