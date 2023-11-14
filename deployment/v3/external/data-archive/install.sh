@@ -60,7 +60,7 @@ function installing_data-archive() {
       --version $CHART_VERSION
   elif [ "$archival_running" == "N" ]; then
     echo "Using individual secrets for db passwords"
-    helm -n $NS install archive-db /home/bhuminathan/upgrading-dataarc/mosip-helm/charts/data-archive  --set crontime="0 $time * * *" -f values.yaml --version $CHART_VERSION
+    helm -n $NS install data-archive mosip/data-archive  --set crontime="0 $time * * *" -f values.yaml --version $CHART_VERSION
   else
     echo "Incorrect input; EXITING;"
     exit 1;
