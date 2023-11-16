@@ -13,12 +13,15 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_data-archive() {
+  echo Updating repos
+  helm repo add mosip https://mosip.github.io/mosip-helm
+  helm repo update
+  
   read -p "Is values.yaml for data-archive chart set correctly as part of Pre-requisites?(Y/n) " yn;
   if [ "$yn" != "Y" ]; then
     echo "ERROR: values.yaml not set correctly; EXITING;";
     exit 1;
   fi
-  helm repo update
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -36,14 +39,12 @@ function installing_data-archive() {
 
   read -p "Is archival running for sandbox installation? (Y/N): " archival_running
   if [ "$archival_running" == "Y" ]; then
-    echo "Using super user postgres secrets to create archivedb "
+    echo "Sandbox installation selected. This will use superuser PostgreSQL secrets for creating archivedb."
     super_user_password=$(kubectl get secret --namespace postgres postgres-postgresql -o jsonpath={.data.postgres-password} | base64 --decode)
-    echo "Using common secrets as password for all the db users"
+    echo "Common secrets will be used as passwords for all the db users."
     db_common_password=$(kubectl get secret --namespace postgres db-common-secrets -o jsonpath={.data.db-dbuser-password} | base64 --decode)
     echo Installing data-archive
-    helm -n $NS install data-archive mosip/data-archive \
-      --set crontime="0 $time * * *" \
-      --set databases.archive_db.su_user_pwd=$super_user_password \
+    set_db_pwd="--set databases.archive_db.su_user_pwd=$super_user_password \
       --set databases.source_db.source_audit_db_pass=$db_common_password \
       --set databases.source_db.source_credential_db_pass=$db_common_password \
       --set databases.source_db.source_esignet_db_pass=$db_common_password \
@@ -55,9 +56,8 @@ function installing_data-archive() {
       --set databases.source_db.source_regprc_db_pass=$db_common_password \
       --set databases.source_db.source_resident_db_pass=$db_common_password \
       --set databases.archive_db.db_pwd=$db_common_password \
-      --set databases.archive_db.archive_db_password=$db_common_password \
-      -f values.yaml \
-      --version $CHART_VERSION
+      --set databases.archive_db.archive_db_password=$db_common_password"
+    helm -n $NS install data-archive mosip/data-archive $set_db_pwd --set crontime="0 $time * * *" -f values.yaml --version $CHART_VERSION
   elif [ "$archival_running" == "N" ]; then
     echo "Using individual secrets for db passwords"
     helm -n $NS install data-archive mosip/data-archive  --set crontime="0 $time * * *" -f values.yaml --version $CHART_VERSION
