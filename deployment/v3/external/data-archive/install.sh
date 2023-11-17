@@ -66,7 +66,7 @@ function installing_data-archive() {
   fi
 
   # Install data-archive
-  helm -n $NS install data-archive /home/bhuminathan/da/mosip-helm/charts/data-archive --set crontime="0 $time * * *" -f values.yaml $set_db_pwd --version $CHART_VERSION
+  helm -n $NS install data-archive mosip/data-archive --set crontime="0 $time * * *" -f values.yaml $set_db_pwd --version $CHART_VERSION
 
   echo Installed data-archive
   return 0
