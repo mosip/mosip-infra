@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=mosip-file-server
-CHART_VERSION=12.0-ES
+CHART_VERSION=12.0.1-B4
 
 echo Create $NS namespace
 kubectl create ns $NS

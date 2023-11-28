@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=artifactory
-CHART_VERSION=12.0-ES
+CHART_VERSION=12.0.1-B6
 
 echo Create $NS namespace
 kubectl create ns $NS 
