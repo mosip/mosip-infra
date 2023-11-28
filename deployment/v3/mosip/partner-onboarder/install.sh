@@ -1,5 +1,5 @@
 #!/bin/bash
-# Onboards default partners 
+# Onboards default partners
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -8,7 +8,7 @@ fi
 
 echo "Do you have public domain & valid SSL? (Y/n) "
 echo "Y: if you have public domain & valid ssl certificate"
-echo "n: if you don't have public domain & valid ssl certificate"
+echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
 read -p "" flag
 
 if [ -z "$flag" ]; then
@@ -17,11 +17,11 @@ if [ -z "$flag" ]; then
 fi
 ENABLE_INSECURE=''
 if [ "$flag" = "n" ]; then
-  ENABLE_INSECURE='--set onboarding.enableInsecure=true';
+  ENABLE_INSECURE='--set onboarding.configmaps.onboarding.ENABLE_INSECURE=true';
 fi
 
 NS=onboarder
-CHART_VERSION=12.0.1-B3
+CHART_VERSION=12.0.1-B4
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -43,13 +43,38 @@ function installing_onboarder() {
     sed -i 's/\r$//' copy_secrets.sh
     ./copy_secrets.sh
 
+    read -p "Provide onboarder bucket name : " s3_bucket
+    if [[ -z $s3_bucket ]]; then
+      echo "s3_bucket not provided; EXITING;";
+      exit 1;
+    fi
+    if [[ $s3_bucket == *[' !@#$%^&*()+']* ]]; then
+      echo "s3_bucket should not contain spaces / any special character; EXITING";
+      exit 1;
+    fi
+    read -p "Provide onboarder s3 bucket region : " s3_region
+    if [[ $s3_region == *[' !@#$%^&*()+']* ]]; then
+      echo "s3_region should not contain spaces / any special character; EXITING";
+      exit 1;
+    fi
+
+    read -p "Provide S3 URL : " s3_url
+    if [[ -z $s3_url ]]; then
+      echo "s3_url not provided; EXITING;"
+      exit 1;
+    fi
+
+    s3_user_key=$( kubectl -n s3 get cm s3 -o json | jq -r '.data."s3-user-key"' )
+
     echo Onboarding default partners
     helm -n $NS install partner-onboarder mosip/partner-onboarder \
-    --set onboarding.configmaps.s3.s3-host='http://minio.minio:9000' \
-    --set onboarding.configmaps.s3.s3-user-key='admin' \
-    --set onboarding.configmaps.s3.s3-region='' \
+    --set onboarding.configmaps.s3.s3-host="$s3_url" \
+    --set onboarding.configmaps.s3.s3-user-key="$s3_user_key" \
+    --set onboarding.configmaps.s3.s3-region="$s3_region" \
+    --set onboarding.configmaps.s3.s3-bucket-name="$s3_bucket" \
     $ENABLE_INSECURE \
     -f values.yaml \
+    --wait --wait-for-jobs \
     --version $CHART_VERSION
 
 echo "Reports are moved to S3 under onboarder bucket"
