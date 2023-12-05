@@ -12,16 +12,16 @@ echo Create $NS namespace
 kubectl create ns $NS
 kubectl label namespace $NS istio-injection=enabled --overwrite
 
-function installing_Activemq() {
-  echo Updating repos
-  helm repo add mosip https://mosip.github.io/mosip-helm
-  helm repo update
+#function installing_Activemq() {
+#  echo Updating repos
+#  helm repo add mosip https://mosip.github.io/mosip-helm
+#  helm repo update
 
-  echo Installing Activemq
-  ACTIVEMQ_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
-  echo Activemq host: $ACTIVEMQ_HOST
-  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --wait
-  return 0
+#  echo Installing Activemq
+#  ACTIVEMQ_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
+#  echo Activemq host: $ACTIVEMQ_HOST
+#  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --wait
+#  return 0
 }
 
 # set commands for error handling.

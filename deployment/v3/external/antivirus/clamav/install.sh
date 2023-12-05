@@ -12,17 +12,17 @@ CHART_VERSION=2.4.1
 echo Create $NS namespace
 kubectl create ns $NS 
 
-function installing_Clamav() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=enabled --overwrite
-  helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
-  helm repo update
+#function installing_Clamav() {
+#  echo Istio label
+#  kubectl label ns $NS istio-injection=enabled --overwrite
+#  helm repo add wiremind https://wiremind.github.io/wiremind-helm-charts
+#  helm repo update
 
-  echo Installing Clamav
-  helm -n $NS install clamav wiremind/clamav -f values.yaml --version $CHART_VERSION
+#  echo Installing Clamav
+#  helm -n $NS install clamav wiremind/clamav -f values.yaml --version $CHART_VERSION
 
-  echo ClamAV installed sucessfully
-  return 0
+#  echo ClamAV installed sucessfully
+#  return 0
 }
 
 # set commands for error handling.

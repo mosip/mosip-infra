@@ -3,13 +3,13 @@ onboarding:
     - name: ida
       enabled: true
     - name: print
-      enabled: true
+      enabled: false
     - name: abis
-      enabled: true
+      enabled: false
     - name: resident
-      enabled: true
+      enabled: false
     - name: mobileid
-      enabled: true
+      enabled: false
     - name: digitalcard
       enabled: false
     - name: esignet

@@ -22,8 +22,8 @@ function installing_print() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  echo Installing print service
-  helm -n $NS install print-service mosip/print-service --wait --version $CHART_VERSION
+  #echo Installing print service
+  #helm -n $NS install print-service mosip/print-service --wait --version $CHART_VERSION
   return 0
 }
 
