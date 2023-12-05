@@ -34,8 +34,8 @@ function installing_all() {
   #cd $ROOT_DIR/activemq
   #./install.sh
 
-  #cd $ROOT_DIR/kafka
-  #./install.sh
+  cd $ROOT_DIR/kafka
+  ./install.sh
 
   echo Biosdk services needed to be deployed separately in pilot or production setup. In testing environment will use biosdk services provided my MOSIP which will be installed as part of the MOSIP services installation.
 
