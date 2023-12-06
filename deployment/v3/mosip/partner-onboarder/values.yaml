@@ -5,11 +5,11 @@ onboarding:
     - name: print
       enabled: true
     - name: abis
-      enabled: true
+      enabled: false
     - name: resident
-      enabled: true
+      enabled: false
     - name: mobileid
-      enabled: true
+      enabled: false
     - name: digitalcard
       enabled: false
     - name: esignet
@@ -19,4 +19,4 @@ onboarding:
     - name: resident-oidc
       enabled: false
     - name: mimoto-keybinding
-      enabled: true
+      enabled: false

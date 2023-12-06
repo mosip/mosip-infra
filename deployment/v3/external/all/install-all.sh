@@ -28,11 +28,11 @@ function installing_all() {
   cd $ROOT_DIR/object-store
   ./cred.sh
 
-  cd $ROOT_DIR/antivirus/clamav
-  ./install.sh
+  #cd $ROOT_DIR/antivirus/clamav
+  #./install.sh
 
-  cd $ROOT_DIR/activemq
-  ./install.sh
+  #cd $ROOT_DIR/activemq
+  #./install.sh
 
   cd $ROOT_DIR/kafka
   ./install.sh
