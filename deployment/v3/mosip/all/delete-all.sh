@@ -9,19 +9,11 @@ fi
 function Deleting_all() {
   ROOT_DIR=`pwd`/../
 
-  declare -a module=(#"regproc"
-                     #"resident"
-                     #"prereg"
-                     #"admin"
+  declare -a module=(
                      "idrepo"
-                     #"print"
                      "ida"
-                     #"packetmanager"
                      "datashare"
                      "pms"
-                     #"mock-abis"
-                     #"mock-mv"
-                     #"regclient"
                      "mosip-file-server"
                      "keymanager"
                      "kernel"

@@ -18,21 +18,12 @@ function installing_all() {
                      "kernel"
                      "masterdata-loader"
                      "biosdk"
-                     #"packetmanager"
                      "datashare"
-                     #"prereg"
                      "idrepo"
                      "pms"
-                     #"mock-abis"
-                     #"mock-mv"
-                     #"regproc"
-                     #"admin"
                      "ida"
-                     #"print"
                      "partner-onboarder"
                      "mosip-file-server"
-                     #"resident"
-                     #"regclient"
                      )
 
   echo Installing MOSIP services

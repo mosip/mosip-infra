@@ -45,6 +45,7 @@ function installing_onboarder() {
 
     echo Onboarding default partners
     helm -n $NS install partner-onboarder mosip/partner-onboarder \
+    --set image.repository=mosipqa/partner-onboarder --set image.tag=develop \
     --set onboarding.configmaps.s3.s3-host='http://minio.minio:9000' \
     --set onboarding.configmaps.s3.s3-user-key='admin' \
     --set onboarding.configmaps.s3.s3-region='' \

@@ -16,20 +16,11 @@ function Restarting_all() {
                      "websub"
                      "kernel"
                      "biosdk"
-                     #"packetmanager"
                      "datashare"
-                     #"prereg"
                      "idrepo"
                      "pms"
-                     #"mock-abis"
-                     #"mock-mv"
-                     #"regproc"
-                     #"admin"
                      "ida"
-                     #"print"
                      "mosip-file-server"
-                     #"resident"
-                     #"regclient"
                      )
 
   echo Restarting MOSIP services

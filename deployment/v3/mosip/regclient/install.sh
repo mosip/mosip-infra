@@ -40,13 +40,13 @@ function installing_regclient() {
   HEALTH_URL=https://$INTERNAL_HOST/v1/syncdata/actuator/health
 
   echo Install reg client downloader. This may take a few minutes ..
-  #helm -n $NS install regclient mosip/regclient \
-  #  --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
-  #  --set regclient.healthCheckUrl=$HEALTH_URL \
-  #  --set regclient.hostName=$INTERNAL_HOST \
-  #  --set istio.host=$REGCLIENT_HOST \
-  #  --wait \
-  #  --version $CHART_VERSION
+  helm -n $NS install regclient mosip/regclient \
+    --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
+    --set regclient.healthCheckUrl=$HEALTH_URL \
+    --set regclient.hostName=$INTERNAL_HOST \
+    --set istio.host=$REGCLIENT_HOST \
+    --wait \
+    --version $CHART_VERSION
 
   echo Get your download url from here
   echo https://$REGCLIENT_HOST/
