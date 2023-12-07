@@ -19,21 +19,11 @@ Install in the following order:
 * [WebSub](websub/README.md)
 * [Kernel](kernel/README.md)
 * [Masterdata-loader](masterdata-loader/)
-* [Packet Manager](packetmanager/README.md)
 * [Datashare](datashare/README.md)
-* [Pre-registration](prereg/README.md)
 * [ID Repository](idrepo/README.md)
-* [Partner Management](pms/README.md)
-* [Mock ABIS](mock-abis/README.md)
-* [Mock MV](mock-mv/README.md)
-* [Registration Processor](regproc/README.md)
-* [Admin](admin/README.md)
 * [ID Authentication](ida/README.md)
-* [Print](print/README.md)
 * [Partner Onboarder](partner-onboarder/README.md)
 * [Mosip File Server](mosip-file-server/README.md)
-* [Resident Services](resident/README.md)
-* [Registration Client](regclient/README.md)
 ## Install
 The same can be achieved by running `all/install-all.sh`.
 ```
