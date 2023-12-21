@@ -90,7 +90,7 @@ databases:
           id_column: "log_id"
           date_column: "log_dtimes"
           retention_days: 30
-          need_archival: "archive"
+          operation_type: "archieve_delete"
     credential:
       tables_info:
       - source_table: "credential_transaction"
@@ -98,8 +98,7 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: 'archive'
-
+        operation_type: "archieve_delete"
     esignet:
       tables_info:
         - source_table: "consent_history"
@@ -107,7 +106,7 @@ databases:
           id_column: "id"
           date_column: "cr_dtimes"
           retention_days: 30
-          need_archival: "archive"
+          operation_type: "none"
     ida:
       tables_info:
       - source_table: "credential_event_store"
@@ -115,13 +114,13 @@ databases:
         id_column: "event_id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: 'archive'
+        operation_type: "archieve_delete"
       - source_table: "otp_transaction"
         archive_table: "mosip_ida_otp_transaction"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: 'delete'
+        operation_type: 'delete'
     idrepo:
       tables_info:
       - source_table: "anonymous_profile"
@@ -129,19 +128,19 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "credential_request_status"
         archive_table: "mosip_idrepo_credential_request_status"
         id_column: "individual_id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "uin_draft"
         archive_table: "mosip_idrepo_uin_draft"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: "archive"
+        operation_type: "archieve_delete"
     kernel:
       tables_info:
       - source_table: "otp_transaction"
@@ -149,7 +148,7 @@ databases:
         id_column: "id"
         date_column: "generated_dtimes"
         retension_days: 7
-        need_archival: "delete"
+        operation_type: "delete"
     master:
       tables_info:
       - source_table: "bulkupload_transaction"
@@ -157,37 +156,37 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 91
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "device_master_h"
         archive_table: "mosip_master_device_master_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 365
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "machine_master_h"
         archive_table: "mosip_master_machine_master_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "registration_center_h"
         archive_table: "mosip_master_registration_center_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 365
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "user_detail_h"
         archive_table: "mosip_master_user_detail_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "zone_user_h"
         archive_table: "mosip_master_zone_user_h"
         id_column: "usr_id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
     pms:
       tables_info:
       - source_table: "auth_policy_h"
@@ -195,19 +194,19 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "secure_biometric_interface_h"
         archive_table: "mosip_pms_secure_biometric_interface_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "partner_h"
         archive_table: "mosip_pms_partner_h"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
     prereg:
       tables_info:
       - source_table: "otp_transaction"
@@ -215,7 +214,7 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: "delete"
+        operation_type: "delete"
     regprc:
       tables_info:
       - source_table: "abis_response_det"
@@ -223,31 +222,31 @@ databases:
         id_column: "abis_resp_id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "abis_response"
         archive_table: "mosip_regprc_abis_response"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "abis_request"
         archive_table: "mosip_regprc_abis_request"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "reg_demo_dedupe_list"
         archive_table: "mosip_regprc_reg_demo_dedupe_list"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "registration_transaction"
         archive_table: "mosip_regprc_registration_transaction"
         id_column: "regtrn_id"
         date_column: "cr_dtimes"
         retension_days: 183
-        need_archival: "archive"
+        operation_type: "archieve_delete"
     resident:
       tables_info:
       - source_table: "otp_transaction"
@@ -255,28 +254,28 @@ databases:
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 30
-        need_archival: "delete"
+        operation_type: "delete"
       - source_table: "resident_grievance_ticket"
         archive_table: "mosip_resident_grievance_ticket"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 365
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "resident_session"
         archive_table: "mosip_resident_session"
         id_column: "session_id"
         date_column: "login_dtimes"
         retension_days: 30
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "resident_transaction"
         archive_table: "mosip_resident_transaction"
         id_column: "id"
         date_column: "cr_dtimes"
         retension_days: 365
-        need_archival: "archive"
+        operation_type: "archieve_delete"
       - source_table: "resident_user_actions"
         archive_table: "mosip_resident_user_actions"
         id_column: "ida_token"
         date_column: "last_bell_notif_click_dtimes"
         retension_days: 365
-        need_archival: "archive"
+        operation_type: "archieve_delete"
