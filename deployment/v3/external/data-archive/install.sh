@@ -52,6 +52,7 @@ function installing_data-archive() {
       --set databases.source_db.source_kernel_db_pass=$db_common_password \
       --set databases.source_db.source_master_db_pass=$db_common_password \
       --set databases.source_db.source_pms_db_pass=$db_common_password \
+      --set databases.source_db.source_prereg_db_pass=$db_common_password \
       --set databases.source_db.source_regprc_db_pass=$db_common_password \
       --set databases.source_db.source_resident_db_pass=$db_common_password \
       --set databases.archive_db.db_pwd=$db_common_password \
