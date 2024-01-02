@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.1-B4
 
 read -p "Is conf-secrets module installed?(Y/n) " yn
 if [ $yn = "Y" ]; then read -p "Is values.yaml for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn; fi
