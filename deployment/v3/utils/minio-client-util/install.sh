@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=minio-client-util
-CHART_VERSION=1.0.0
+CHART_VERSION=1.0.0-P1
 
 echo Create $NS namespace
 kubectl create ns $NS
