@@ -54,21 +54,21 @@ function installing_minio-client-util() {
       exit 1;
   fi
 
-  read -p "Please provide bucket name for which objects needs to be removed: " BUCKET_NAME
-  if [ -z "$BUCKET_NAME" ]; then
+  read -p "Please provide list of bucket names separated by double backward slash & comma (\\,) for which objects needs to be removed: (eg: bucket1\\,bucket2\\,bucket3\\,...\\,bucketN)" BUCKET_LIST
+  if [ -z "$BUCKET_LIST" ]; then
       echo "ERROR: Bucket name cannot be empty; EXITING;";
       exit 1;
   fi
 
   echo Installing minio-client-util
-  helm -n $NS install minio-client-util mosip/minio-client-util --set minioclient.retention_days=$S3_RETENTION_DAYS \
+  helm -n $NS install minio-client-util mosip/minio-client-util \
   --set crontime="0 $time * * *" \
-  --set minioclient.configmaps.s3.s3_bucket_name=$BUCKET_NAME \
-  --set minioclient.configmaps.s3.s3_host=$S3_SERVER_URL \
-  --set minioclient.configmaps.s3.s3_access_key=$S3_ACCESS_KEY \
-  --set minioclient.configmaps.s3.s3_secret_key=$S3_SECRET_KEY \
+  --set "minioclient.configmaps.s3.S3_BUCKET_LIST=$BUCKET_LIST" \
+  --set "minioclient.configmaps.s3.S3_SERVER_URL=$S3_SERVER_URL" \
+  --set "minioclient.configmaps.s3.S3_ACCESS_KEY=$S3_ACCESS_KEY" \
+  --set "minioclient.configmaps.s3.S3_RETENTION_DAYS=$S3_RETENTION_DAYS" \
+  --set "minioclient.secrets.s3.S3_SECRET_KEY=$S3_SECRET_KEY" \
   --version $CHART_VERSION
-
   
   echo Installed minio client utility
   return 0
