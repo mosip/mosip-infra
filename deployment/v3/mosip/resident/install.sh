@@ -7,8 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=resident
-CHART_VERSION=12.0.1
-MIMOTO_CHART_VERSION=0.9
+CHART_VERSION=12.0.1-B4
+MIMOTO_CHART_VERSION=0.10.0
 RESIDENT_UI_CHART_VERSION=0.0.1
 
 echo Create $NS namespace
