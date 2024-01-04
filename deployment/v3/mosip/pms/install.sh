@@ -8,7 +8,7 @@ fi
 
 NS=pms
 CHART_VERSION=12.0.1-B4
-PMP_UI_CHART_VERSION=12.0.1-B3
+PMP_UI_CHART_VERSION=12.0.1-B2
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
