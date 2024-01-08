@@ -46,7 +46,7 @@ function installing_uitestrig() {
 
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
-  #helm repo update
+  helm repo update
 
   echo Copy configmaps
   ./copy_cm.sh
