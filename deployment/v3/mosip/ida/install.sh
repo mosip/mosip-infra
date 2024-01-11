@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=ida
-CHART_VERSION=12.0.1-B4
+CHART_VERSION=12.0.1-B5
 KEYGEN_CHART_VERSION=12.0.1-B3
 
 echo Create $NS namespace
