@@ -22,20 +22,20 @@ function installing_kernel() {
   ./copy_cm.sh
 
   echo Installing authmanager
-  helm -n $NS install authmanager mosip/authmanager --set image.repository=mosipqa/kernel-auth-service --set image.tag=1.2.0.1-B2 --version $CHART_VERSION
+  helm -n $NS install authmanager mosip/authmanager --set image.repository=mosipqa/kernel-auth-service --set image.tag=develop --version $CHART_VERSION
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager mosip/auditmanager --set image.repository=mosipqa/kernel-auditmanager-service --set image.tag=1.2.0.1 --version $CHART_VERSION
+  helm -n $NS install auditmanager mosip/auditmanager --set image.repository=mosipqa/kernel-auditmanager-service --set image.tag=develop --version $CHART_VERSION
 
   echo Installing idgenerator
-  helm -n $NS install idgenerator mosip/idgenerator --set image.repository=mosipqa/kernel-idgenerator-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install idgenerator mosip/idgenerator --set image.repository=mosipqa/kernel-idgenerator-service --set image.tag=develop --version $CHART_VERSION
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata mosip/masterdata --set image.repository=mosipqa/kernel-masterdata-service --set image.tag=1.2.0.1-B1  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
+  helm -n $NS install masterdata mosip/masterdata --set image.repository=mosipqa/kernel-masterdata-service --set image.tag=develop  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager mosip/otpmanager --set image.repository=mosipqa/kernel-otpmanager-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install otpmanager mosip/otpmanager --set image.repository=mosipqa/kernel-otpmanager-service --set image.tag=develop--version $CHART_VERSION
 
   #echo Installing pridgenerator
   #helm -n $NS install pridgenerator mosip/pridgenerator --version $CHART_VERSION
