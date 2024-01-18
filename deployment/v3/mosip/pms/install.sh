@@ -7,8 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=pms
-CHART_VERSION=12.0.1-B3
-PMP_UI_CHART_VERSION=12.0.1-B2
+CHART_VERSION=12.0.2
+PMP_UI_CHART_VERSION=12.0.2
 
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
@@ -29,13 +29,13 @@ function installing_pms() {
   PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
 
   echo Installing partner manager
-  helm -n $NS install pms-partner mosip/pms-partner --set image.repository=mosipqa/partner-management-service --set image.tag=1.2.0.1-B3 --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-partner mosip/pms-partner --set image.repository=mosipqa/partner-management-service --set image.tag=develop --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
   echo Installing policy manager
-  helm -n $NS install pms-policy mosip/pms-policy --set image.repository=mosipqa/policy-management-service --set image.tag=1.2.0.1-B3 --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-policy mosip/pms-policy --set image.repository=mosipqa/policy-management-service --set image.tag=develop --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
 
   echo Installing pmp-ui
-  helm -n $NS install pmp-ui mosip/pmp-ui  --set image.repository=mosipqa/pmp-ui --set image.tag=1.2.0.1-B1 --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $PMP_UI_CHART_VERSION
+  helm -n $NS install pmp-ui mosip/pmp-ui  --set image.repository=mosipqa/pmp-ui --set image.tag=develop --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $PMP_UI_CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
