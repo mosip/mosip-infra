@@ -23,7 +23,7 @@ function installing_databreachdetector() {
   ./copy_cm.sh
 
   echo Installing databreachdetector
-  helm -n $NS install databreachdetector /home/siva/Mahesh_Helm_Chart_Creation/mosip-helm/charts/databreachdetector --set image.repository=maheshbinayak1/databreachdetector --set image.tag=latest --wait --version $CHART_VERSION
+  helm -n $NS install databreachdetector mosip/databreachdetector --set image.repository=maheshbinayak1/databreachdetector --set image.tag=latest --wait --version $CHART_VERSION
   return 0
 }
 

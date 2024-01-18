@@ -7,8 +7,6 @@ function copying_cm() {
   DST_NS=databreachdetector
 
   $COPY_UTIL configmap global default $DST_NS
-  $COPY_UTIL configmap artifactory-share artifactory $DST_NS
-  $COPY_UTIL configmap config-server-share config-server $DST_NS
   return 0
 }
 
