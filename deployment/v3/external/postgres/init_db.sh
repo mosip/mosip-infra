@@ -14,8 +14,8 @@ function initialize_db() {
       read -p "CAUTION: all existing data will be lost. Are you sure?(Y/n)" yn
       if [ $yn = "Y" ]
         then
-          #echo Removing any existing installation
-          #helm -n $NS delete postgres-init
+          echo Removing any existing installation
+          helm -n $NS delete postgres-init || true
           echo Initializing DB
           helm -n $NS install postgres-init mosip/postgres-init --set image.repository=mosipqa/postgres-init --set image.tag=develop -f init_values.yaml --version $CHART_VERSION --wait --wait-for-jobs
           break
