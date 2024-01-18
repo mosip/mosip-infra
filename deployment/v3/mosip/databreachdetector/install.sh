@@ -22,6 +22,10 @@ function installing_databreachdetector() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
+  echo Copy secrets
+  sed -i 's/\r$//' copy_secrets.sh
+  ./copy_secrets.sh
+
   echo Installing databreachdetector
   helm -n $NS install databreachdetector mosip/databreachdetector --wait --version $CHART_VERSION
   return 0
