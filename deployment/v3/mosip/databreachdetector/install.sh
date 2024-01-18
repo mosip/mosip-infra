@@ -15,7 +15,7 @@ kubectl create ns $NS
 
 function installing_databreachdetector() {
   echo Istio label
-  kubectl label ns $NS istio-injection=enabled --overwrite
+  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
   echo Copy configmaps
@@ -23,7 +23,7 @@ function installing_databreachdetector() {
   ./copy_cm.sh
 
   echo Installing databreachdetector
-  helm -n $NS install databreachdetector mosip/databreachdetector --set image.repository=maheshbinayak1/databreachdetector --set image.tag=latest --wait --version $CHART_VERSION
+  helm -n $NS install databreachdetector mosip/databreachdetector --wait --version $CHART_VERSION
   return 0
 }
 
