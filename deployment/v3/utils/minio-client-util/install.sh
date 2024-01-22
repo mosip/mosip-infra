@@ -12,14 +12,8 @@ CHART_VERSION=1.0.0
 echo Create $NS namespace
 kubectl create ns $NS
 
-
 function installing_minio-client-util() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
-
-  echo Copy secrets
-  ./copy_secrets.sh
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -35,22 +29,45 @@ function installing_minio-client-util() {
      exit 1;
   fi
 
-  read -p "Please provide number of days the apitestrig reports needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
+  read -p "Please provide S3 Server URL " S3_SERVER_URL
+  if [ -z "$S3_SERVER_URL" ]; then
+      echo "ERROR: S3 Server URL not Specified; EXITING;";
+      exit 1;
+  fi
+
+  read -p "Please provide S3 Access Key " S3_ACCESS_KEY
+  if [ -z "$S3_ACCESS_KEY" ]; then
+      echo "ERROR: Access Key not Specified; EXITING;";
+      exit 1;
+  fi
+
+  echo "Please provide S3 Secret Key"
+  read -s S3_SECRET_KEY
+  if [ -z "$S3_SECRET_KEY" ]; then
+      echo "ERROR: Secret Key not Specified; EXITING;";
+      exit 1;
+  fi
+
+  read -p "Please provide number of days the objects needed to be cleared from minio [format:'no_of_days'd](eg:3d) : " S3_RETENTION_DAYS
   if [ -z "$S3_RETENTION_DAYS" ]; then
       echo "ERROR: Number of days to clear the test report cannot be empty; EXITING;";
       exit 1;
   fi
 
-  read -p "Please provide bucket name for which objects needs to be removed: " BUCKET_NAME
-  if [ -z "$BUCKET_NAME" ]; then
+  read -p "Please provide list of bucket names separated by double backward slash & comma (\\,) for which objects needs to be removed: (eg: bucket1\\,bucket2\\,bucket3\\,...\\,bucketN)" BUCKET_LIST
+  if [ -z "$BUCKET_LIST" ]; then
       echo "ERROR: Bucket name cannot be empty; EXITING;";
       exit 1;
   fi
 
   echo Installing minio-client-util
-  helm -n $NS install minio-client-util mosip/minio-client-util --set minioclient.retention_days=$S3_RETENTION_DAYS \
+  helm -n $NS install minio-client-util mosip/minio-client-util \
   --set crontime="0 $time * * *" \
-  --set minioclient.bucket_name=$BUCKET_NAME \
+  --set "minioclient.configmaps.s3.S3_BUCKET_LIST=$BUCKET_LIST" \
+  --set "minioclient.configmaps.s3.S3_SERVER_URL=$S3_SERVER_URL" \
+  --set "minioclient.configmaps.s3.S3_ACCESS_KEY=$S3_ACCESS_KEY" \
+  --set "minioclient.configmaps.s3.S3_RETENTION_DAYS=$S3_RETENTION_DAYS" \
+  --set "minioclient.secrets.s3.S3_SECRET_KEY=$S3_SECRET_KEY" \
   --version $CHART_VERSION
   
   echo Installed minio client utility
