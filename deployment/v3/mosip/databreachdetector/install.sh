@@ -33,7 +33,6 @@ function installing_databreachdetector() {
 
   echo Installing databreachdetector
   helm -n $NS install databreachdetector mosip/databreachdetector --wait --version $CHART_VERSION \
-  --set image.repository="maheshbinayak1/databreachdetector" --set image.tag=latest \
   --set databreachdetector.configmaps.db.db-server="$DB_HOST" \
   --set databreachdetector.configmaps.s3.s3-bucket-name='secure-datarig' \
   --set databreachdetector.configmaps.s3.s3-region="$S3_REGION" \
