@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=uitestrig
-CHART_VERSION=12.0.1-B3
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -61,7 +61,7 @@ function installing_uitestrig() {
 
 
   echo Installing uitestrig
-  helm -n $NS install mosip/uitestrig/ \
+  helm -n $NS install uitestrig mosip/uitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
