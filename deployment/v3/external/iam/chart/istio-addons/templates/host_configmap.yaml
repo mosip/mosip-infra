@@ -8,4 +8,5 @@ data:
   keycloak-internal-url: {{ printf "http://%s" .Values.keycloakInternalHost }}
   keycloak-external-host: {{ .Values.keycloakExternalHost }}
   keycloak-external-url: {{ printf "https://%s" .Values.keycloakExternalHost }}
+  keycloak-internal-service-url: {{ printf "http://%s/auth/" .Values.keycloakInternalHost }}
 
