@@ -20,14 +20,25 @@ function installing_databreachdetector() {
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
+  kubectl -n $NS delete --ignore-not-found=true cm s3
   ./copy_cm.sh
 
   echo Copy secrets
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
 
+  DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-postgres-host"' )
+  S3_USER_KEY=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-user-key"' )
+  S3_REGION=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-region"' )
+
   echo Installing databreachdetector
-  helm -n $NS install databreachdetector mosip/databreachdetector --wait --version $CHART_VERSION
+  helm -n $NS install databreachdetector /home/siva/Mahesh_Helm_Chart_Creation/mosip-helm/charts/databreachdetector --wait --version $CHART_VERSION \
+  --set image.repository="maheshbinayak1/databreachdetector" --set image.tag=latest \
+  --set databreachdetector.configmaps.db.db-server="$DB_HOST" \
+  --set databreachdetector.configmaps.s3.s3-bucket-name='secure-datarig' \
+  --set databreachdetector.configmaps.s3.s3-region="$S3_REGION" \
+  --set databreachdetector.configmaps.s3.s3-host='minio.minio:9000' \
+  --set databreachdetector.configmaps.s3.s3-user-key="$S3_USER_KEY"
   return 0
 }
 
