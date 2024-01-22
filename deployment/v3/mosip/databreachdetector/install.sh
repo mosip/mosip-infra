@@ -32,7 +32,7 @@ function installing_databreachdetector() {
   S3_REGION=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-region"' )
 
   echo Installing databreachdetector
-  helm -n $NS install databreachdetector /home/siva/Mahesh_Helm_Chart_Creation/mosip-helm/charts/databreachdetector --wait --version $CHART_VERSION \
+  helm -n $NS install databreachdetector mosip/databreachdetector --wait --version $CHART_VERSION \
   --set image.repository="maheshbinayak1/databreachdetector" --set image.tag=latest \
   --set databreachdetector.configmaps.db.db-server="$DB_HOST" \
   --set databreachdetector.configmaps.s3.s3-bucket-name='secure-datarig' \
