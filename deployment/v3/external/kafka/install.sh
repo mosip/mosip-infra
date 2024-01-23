@@ -17,7 +17,7 @@ function installing_kafka() {
   kubectl label ns $NS istio-injection=enabled --overwrite
 
   echo Updating helm repos
-  helm repo add kafka-ui https://provectus.github.io/kafka-ui
+  helm repo add kafka-ui https://provectus.github.io/kafka-ui-charts
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo update
 

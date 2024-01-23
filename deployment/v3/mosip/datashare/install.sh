@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=datashare
-CHART_VERSION=12.0.1-B2
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS 
@@ -22,7 +22,7 @@ function installing_datashare() {
   ./copy_cm.sh
 
   echo Installing datashare
-  helm -n $NS install datashare mosip/datashare --set image.repository=mosipqa/data-share-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install datashare mosip/datashare --set image.repository=mosipid/data-share-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   return 0
