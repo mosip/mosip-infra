@@ -7,8 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=ida
-CHART_VERSION=12.0.1
-KEYGEN_CHART_VERSION=12.0.1
+CHART_VERSION=12.0.2
+KEYGEN_CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
