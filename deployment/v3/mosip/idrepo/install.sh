@@ -22,16 +22,16 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --set image.repository=mosipqa/id-repository-salt-generator --set image.tag=1.2.0.1-B1 --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --set image.repository=mosipid/id-repository-salt-generator --set image.tag=1.2.0.1-B1 --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Running credential
-  helm -n $NS install credential mosip/credential --set image.repository=mosipqa/credential-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install credential mosip/credential --set image.repository=mosipdev/credential-service --set image.tag=develop --version $CHART_VERSION
 
   echo Running credential request service
-  helm -n $NS install credentialrequest mosip/credentialrequest --set image.repository=mosipqa/credential-request-generator --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install credentialrequest mosip/credentialrequest --set image.repository=mosipdev/credential-request-generator --set image.tag=develop --version $CHART_VERSION
 
   echo Running identity service
-  helm -n $NS install identity mosip/identity --set image.repository=mosipqa/id-repository-identity-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
+  helm -n $NS install identity mosip/identity --set image.repository=mosipdev/id-repository-identity-service --set image.tag=develop --version $CHART_VERSION
 
   #echo Running vid service
   #helm -n $NS install vid mosip/vid --version $CHART_VERSION
