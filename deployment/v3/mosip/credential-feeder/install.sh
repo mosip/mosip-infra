@@ -22,7 +22,7 @@ function installing_credentialfeeder() {
   ./copy_cm.sh
 
   echo Running credentialfeeder job
-  helm -n $NS install credentialfeeder mosip/credential-feeder --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install credentialfeeder mosip/credentialfeeder --version $CHART_VERSION --wait --wait-for-jobs
 
   echo Installed credentialfeeder
   return 0
