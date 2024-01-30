@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=credentialfeeder
-CHART_VERSION=12.0.2
+CHART_VERSION=1.0.0
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -16,6 +16,7 @@ function installing_credentialfeeder() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
   helm repo update
+  helm repo add mosip
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
