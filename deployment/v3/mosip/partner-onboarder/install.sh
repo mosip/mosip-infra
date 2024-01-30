@@ -73,6 +73,7 @@ function installing_onboarder() {
     --set onboarding.configmaps.s3.s3-region="$s3_region" \
     --set onboarding.configmaps.s3.s3-bucket-name="$s3_bucket" \
     $ENABLE_INSECURE \
+     --set image.repository=mosipqa/partner-onboarder --set image.tag=develop \
     -f values.yaml \
     --wait --wait-for-jobs \
     --version $CHART_VERSION
