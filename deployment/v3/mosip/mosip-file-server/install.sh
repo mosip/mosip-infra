@@ -32,7 +32,7 @@ function installing_mfs() {
 
   echo Install mosip-file-server. This may take a few minutes ..
   helm -n $NS install mosip-file-server mosip/mosip-file-server      \
-    --set image.repository=mosipqa/mosip-file-server --set image.tag=develop \
+    --set image.repository=mosipid/mosip-file-server --set image.tag=1.2.0.1-B4 \
     --set mosipfileserver.host=$FILESERVER_HOST                      \
     --set mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET="$KEYCLOAK_CLIENT_SECRET" \
     --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$API_HOST \
