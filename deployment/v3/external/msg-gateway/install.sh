@@ -23,7 +23,7 @@ function msg_gateway() {
   SMS_USER=
   SMTP_SECRET="''"
   SMS_SECRET="''"
-  SMS_AUTHKEY="''"
+  SMS_AUTHKEY="authkey"
 
   read -p "Would you like to use mock-smtp (Y/N) [ Default: Y ] : " yn
   # Set yn to N if user input is null
