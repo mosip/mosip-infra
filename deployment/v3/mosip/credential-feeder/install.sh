@@ -15,8 +15,8 @@ kubectl create ns $NS
 function installing_credentialfeeder() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
-  helm repo update
   helm repo add mosip https://mosip.github.io/mosip-helm
+  helm repo update
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
