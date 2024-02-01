@@ -7,8 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=ida
-CHART_VERSION=12.0.1
-KEYGEN_CHART_VERSION=12.0.1
+CHART_VERSION=12.0.2
+KEYGEN_CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -26,13 +26,13 @@ function installing_ida() {
   helm -n $NS install ida-keygen mosip/keygen --set image.repository=mosipqa/keys-generator --set image.tag=develop --wait --wait-for-jobs  --version $KEYGEN_CHART_VERSION -f keygen_values.yaml
 
   echo Installing ida auth
-  helm -n $NS install ida-auth mosip/ida-auth --set image.repository=mosipqa/authentication-service --set image.tag=develop --version $CHART_VERSION
+  helm -n $NS install ida-auth mosip/ida-auth --set image.repository=mosipqa/authentication-service --set image.tag=release-1.2.0.1 --version $CHART_VERSION
 
   echo Installing ida internal
-  helm -n $NS install ida-internal mosip/ida-internal --set image.repository=mosipqa/authentication-internal-service --set image.tag=develop --version $CHART_VERSION
+  helm -n $NS install ida-internal mosip/ida-internal --set image.repository=mosipqa/authentication-internal-service --set image.tag=release-1.2.0.1 --version $CHART_VERSION
 
   echo Installing ida otp
-  helm -n $NS install ida-otp mosip/ida-otp --set image.repository=mosipqa/authentication-otp-service --set image.tag=develop --version $CHART_VERSION
+  helm -n $NS install ida-otp mosip/ida-otp --set image.repository=mosipqa/authentication-otp-service --set image.tag=release-1.2.0.1 --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Intalled ida services
