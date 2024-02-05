@@ -8,6 +8,7 @@ fi
 
 NS=prereg
 CHART_VERSION=12.0.1-B3
+PRE_REG_UI_CHART_VERSION=12.0.1-B2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -45,7 +46,7 @@ function installing_prereg() {
   helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $PRE_REG_UI_CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml
