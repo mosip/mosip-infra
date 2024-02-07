@@ -60,12 +60,9 @@ databases:
  
   mosip_digitalcard:
     enabled: false
-    branch: develop
 
   mosip_esignet:
     enabled: false
-    branch: rlease-1.1.0
 
   mosip_mockidentitysystem:
     enabled: false
-    branch: 0.9.0
