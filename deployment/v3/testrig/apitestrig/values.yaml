@@ -13,6 +13,6 @@ modules:
     enabled: true
   - name: idp
     enabled: true
-  - name: mobileid
+  - name: mimoto
     enabled: true
 
