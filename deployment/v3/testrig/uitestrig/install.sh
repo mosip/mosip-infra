@@ -18,7 +18,7 @@ function installing_uitestrig() {
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
-     echo "ERROT: Time cannot be empty; EXITING;";
+     echo "ERROR: Time cannot be empty; EXITING;";
      exit 1;
   fi
   if ! [ $time -eq $time ] 2>/dev/null; then
@@ -56,14 +56,13 @@ function installing_uitestrig() {
 
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   PMP_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-pmp-host"')
+  ADMIN_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-admin-host"')
+  RESIDENT_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-resident-host"')
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
-  USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
-
 
   echo Installing uitestrig
   helm -n $NS install uitestrig mosip/uitestrig \
   --set crontime="0 $time * * *" \
-  -f values.yaml  \
   --version $CHART_VERSION \
   --set uitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
   --set uitestrig.configmaps.s3.s3-user-key='admin' \
@@ -71,11 +70,11 @@ function installing_uitestrig() {
   --set uitestrig.configmaps.db.db-server="$DB_HOST" \
   --set uitestrig.configmaps.db.db-su-user="postgres" \
   --set uitestrig.configmaps.db.db-port="5432" \
-  --set uitestrig.configmaps.uitestrig.USER="$USER" \
-  --set uitestrig.configmaps.uitestrig.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set uitestrig.configmaps.uitestrig.apiInternalEndPoint="https://$API_INTERNAL_HOST" \
-  --set uitestrig.configmaps.uitestrig.apiEnvUser="https://$API_INTERNAL_HOST" \
+  --set uitestrig.configmaps.uitestrig.apiEnvUser="$API_INTERNAL_HOST" \
   --set uitestrig.configmaps.uitestrig.PmpPortalPath="https://$PMP_HOST" \
+  --set uitestrig.configmaps.uitestrig.adminPortalPath="https://$ADMIN_HOST" \
+  --set uitestrig.configmaps.uitestrig.residentPortalPath="https://$RESIDENT_HOST" \
   $ENABLE_INSECURE
   
   return 0
