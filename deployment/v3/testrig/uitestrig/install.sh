@@ -18,7 +18,7 @@ function installing_uitestrig() {
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
-     echo "ERROT: Time cannot be empty; EXITING;";
+     echo "ERROR: Time cannot be empty; EXITING;";
      exit 1;
   fi
   if ! [ $time -eq $time ] 2>/dev/null; then
