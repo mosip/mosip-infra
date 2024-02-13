@@ -9,7 +9,7 @@ fi
 
 function initialize_keycloak() {
   NS=keycloak
-  CHART_VERSION=12.0.1-B3
+  CHART_VERSION=12.0.2
 
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
