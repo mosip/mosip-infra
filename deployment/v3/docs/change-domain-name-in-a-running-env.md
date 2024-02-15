@@ -1,14 +1,14 @@
-# Change domain name in a running env ( v2 )
+# Change domain name in a running environment (V2)
 
 Follow the below steps to rename domain name in a running v2 env:
-1. Update the domain name in groups/all.yml
-2. Ran playbooks/nginx.yml
-3. Redeploy config-server, keycloak
-4. Update  the domain name in the  valid redirect URL & web origins of mosip keycloak-clients 
+1. Update the domain name in `groups/all.yml`.
+2. Run `playbooks/nginx.yml`.
+3. Re-deploy config-server, keycloak.
+4. Update the domain name in the valid redirect URL & web origins of MOSIP keycloak-clients.
 5. Updated domain name admin-ui, prereg-ui configmaps. 
-6. Restart mosip modules.
+6. Restart MOSIP modules.
 
-# Change domain name in a running env ( v3 )
+# Change domain name in a running environment (V3)
 
 Follow the below steps to rename domain name in a running v3 env:
 1. Update DNS records from the old DNS name to the new DNS name i.e., (from `*.country-data.mosip.net` to `*.data.mosip.net` ).
@@ -28,21 +28,26 @@ Follow the below steps to rename domain name in a running v3 env:
 3. Update ssl certs location and domain names in nginx config file `/etc/nginx/nginx.conf` and restart nginx service.
    ```
    ssl_certificate /etc/letsencrypt/live/data.mosip.net/fullchain.pem;   
+   
    ssl_certificate_key /etc/letsencrypt/live/data.mosip.net/privkey.pem;
    ```
+   
    ```
    ## public IP server section
    server{
-     listen 216.48.176.35:443 ssl;
-     server_name  api.data.mosip.net prereg.data.mosip.net resident.data.mosip.net esignet.data.mosip.net;
-     location / {
-        proxy_pass                      <http://myPublicIngressUpstream;>
-        proxy_http_version              1.1;
-        ....
-        ....
+       listen 216.48.176.35:443 ssl;
+       server_name  api.data.mosip.net prereg.data.mosip.net resident.data.mosip.net esignet.data.mosip.net;
+     
+       location / {
+          proxy_pass                      <http://myPublicIngressUpstream;>
+          proxy_http_version              1.1;
+          ....
+          ....
        }
+
    }
    ```
+   
    ```
    sudo systemctl restart nginx
    ```
@@ -63,7 +68,7 @@ Follow the below steps to rename domain name in a running v3 env:
       ./copy_cm_func.sh configmap keycloak-host keycloak $ns
    done
    ```
-8. Update the domains in gateways  & virtual service via the below commands:
+8. Update the domains in gateways & virtual service via the below commands:
    ```
    kubectl get gateways -A -o yaml > istio-gateways.yaml
    sed -i 's/country-data/data/g' istio-gateways.yaml
@@ -75,9 +80,9 @@ Follow the below steps to rename domain name in a running v3 env:
    kubectl apply -f istio-virtualservice.yaml
    ```
 9. Update the domain names in `landing-page-index` configmaps in the `landing-page` namespace and restart the landing-page service. 
-10. Update the domain name in all ui configmaps (i.e., admin-ui, prereg-ui, pmp ui, resident ui, esignet ui, compliance ui, healthservices UI, etc...). 
+10. Update the domain name in all UI configmaps (i.e., admin-ui, prereg-ui, pmp ui, resident ui, esignet ui, compliance ui, healthservices UI, etc...). 
 11. Update the iam domain url for the `Frontend URL` for the `mosip` realm. 
-12. Update the domain in `regclient-index` configmaps & env variables in regclient deployment  for `regclient`.
+12. Update the domain in `regclient-index` configmaps & env variables in regclient deployment for `regclient`.
     ```
       containers:
       - env:
@@ -90,7 +95,7 @@ Follow the below steps to rename domain name in a running v3 env:
         - name: host_name_env
           value: api-internal.data.mosip.net
     ```
-13. Restart config-server and all other mosip services. 
+13. Restart config-server and all other MOSIP services. 
 14. Update the domains in apitestrig, dslrig, uitestrig configmaps before running.
 
  
