@@ -22,6 +22,7 @@ Install in the following order:
 * [Masterdata-loader](masterdata-loader/README.md)
 * [Kernel](kernel/README.md)
 * [Masterdata-loader](masterdata-loader/)
+* [Kernel](kernel/README.md)
 * [Mock Biosdk](biosdk/README.md)
 * [Packet Manager](packetmanager/README.md)
 * [Datashare](datashare/README.md)
