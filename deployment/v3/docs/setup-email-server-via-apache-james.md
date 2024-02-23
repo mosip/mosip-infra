@@ -1,4 +1,4 @@
-# Setup email server via apache james on ubuntu
+# Setup email server via apache James on ubuntu
 
 * Ensure to install [docker](https://docs.docker.com/engine/install/ubuntu/) on ubuntu machine.
 * Create `MX`,`PTR`, & `TXT` DNS records which points to public IP of ubuntu machine.
@@ -19,7 +19,7 @@
   sudo ufw allow 143/tcp
   sudo ufw allow 587/tcp
   ```
-* Login to james docker to create domain & user to james server.
+* Login to James docker to create domain & user to James server.
   ```
   ubuntu@ip-172-31-15-176:~$ docker ps
   CONTAINER ID   IMAGE                     COMMAND          CREATED         STATUS         PORTS                                                                                                                                NAMES
@@ -52,7 +52,7 @@
 
 # Troubleshooting
 
-* If you are not able ot send / receive mail, this could be due to the sender/receiver mail server has blocked your mail server.
+If you are experiencing difficulties with sending or receiving emails, it is possible that the mail server of either the sender or receiver has blocked your mail server.
   For example:
   ```
   Hi. This is the James mail server at 0062d7fb41a3.
@@ -78,8 +78,10 @@
   550-5.7.26  For instructions on setting up authentication, go to
   550 5.7.26  https://support.google.com/mail/answer/81126#authentication d12-20020a170903230c00b001db420e7552si10082865plh.65 - gsmtp
   ```
-  Resolution for **Microsoft Office email accounts**:
-  * De-list your mail server IP via [Office 365 Anti-Spam IP De-list Portal](https://sender.office.com/)
-  * Provide your mail server Email ID, public IP, and click on Submit.
-  * You will receive a confirmation mail click on it.
-  * It will take 30 minutes to remove the IP from [Office 365 Anti-Spam IP De-list Portal](https://sender.office.com/).
+
+To remove your mail server IP from the Office 365 Anti-Spam IP De-list Portal, please follow these steps:
+
+1. Access the portal through this link: [Office 365 Anti-Spam IP De-list Portal](https://sender.office.com/)
+2. Enter your mail server Email ID, public IP, and click on the Submit button.
+3. Look out for a confirmation email and click on the provided link.
+4. The IP removal process typically takes around 30 minutes to complete.
