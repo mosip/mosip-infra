@@ -71,6 +71,13 @@ function installing_apitestrig() {
     exit 1;
   fi
 
+  read -p "Please provide slack webhook URL to notify server end issues on your slack channel : " slackWebhookUrl
+
+  if [ -z $slackWebhookUrl ]; then
+    echo "slack webhook URL not provided; EXITING;"
+    exit 1;
+  fi
+
  valid_inputs=("yes" "no")
  eSignetDeployed=""
 
@@ -86,7 +93,7 @@ function installing_apitestrig() {
  fi
 
   echo Installing apitestrig
-  helm -n $NS install apitestrig mosip/apitestrig \
+  helm -n $NS install apitestrig /home/techno-486/test/mosip-helm/charts/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
@@ -100,6 +107,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
+  --set apitestrig.secrets.apitestrig.slack-webhook-url="$slackWebhookUrl" \
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
   $ENABLE_INSECURE
   
