@@ -43,9 +43,9 @@ The process involves building the BQAT SDK jar locally and then adding it to the
    ```
 
 7. **Verify Jar in Pod**:
-   Access the pod and verify if the jar is successfully copied.
+   Access the pod using Execute shell and verify if the jar is successfully copied .
    ```bash
-   kubectl exec -it artifactory-bqatsdk-577459987c-67pht -n bqatsdk -- ls /usr/share/nginx/html
+   ls /usr/share/nginx/html
    ```
 
 8. **Login to Node**:
@@ -64,7 +64,7 @@ The process involves building the BQAT SDK jar locally and then adding it to the
     ```
 
 11. **Commit Changes**:
-    Commit the changes to Docker.
+    Commit the changes to Artifactory Docker image.
     ```bash
     docker commit CONTAINERID IMAGE
     ```
