@@ -93,7 +93,7 @@ function installing_apitestrig() {
  fi
 
   echo Installing apitestrig
-  helm -n $NS install apitestrig /home/techno-486/test/mosip-helm/charts/apitestrig \
+  helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \
