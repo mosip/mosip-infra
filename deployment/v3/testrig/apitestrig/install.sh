@@ -109,6 +109,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
   --set apitestrig.secrets.apitestrig.slack-webhook-url="$slackWebhookUrl" \
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
+  --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE
   
   echo Installed apitestrig.

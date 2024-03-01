@@ -101,6 +101,7 @@ function installing_dslrig() {
   --set persistence.nfs.server="$NFS_HOST" \
   --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
   --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
+  --set dslorchestrator.configmaps.dslorchestrator.NS="$NS" \
   $ENABLE_INSECURE
 
   echo Installed dslrig.
