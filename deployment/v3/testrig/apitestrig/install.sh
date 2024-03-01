@@ -101,6 +101,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
+  --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE
   
   echo Installed apitestrig.
