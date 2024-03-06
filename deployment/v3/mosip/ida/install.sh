@@ -7,8 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=ida
-CHART_VERSION=12.0.1-B5
-KEYGEN_CHART_VERSION=12.0.1-B3
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -37,7 +36,7 @@ function installing_ida() {
   fi
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs  --version $KEYGEN_CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
 
   echo Installing ida auth
   helm -n $NS install ida-auth mosip/ida-auth --version $CHART_VERSION $ENABLE_INSECURE

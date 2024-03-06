@@ -7,8 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regproc
-CHART_VERSION=12.0.1-B4
-SALTGEN_CHART_VERSION=12.0.1-B3
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS

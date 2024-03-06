@@ -75,7 +75,7 @@ function initialize_keycloak() {
   --set keycloak.realms.mosip.realm_config.smtpServer.starttls="$SMTP_STARTTLS"             \
   --set keycloak.realms.mosip.realm_config.smtpServer.ssl="$SMTP_SSL"                       \
   $SMTP_AUTH_SET \
-  --set keycloak.realms.mosip.realm_config.attributes.frontendUrl="https://$IAMHOST_URL/auth" --version 12.0.2
+  --set keycloak.realms.mosip.realm_config.attributes.frontendUrl="https://$IAMHOST_URL/auth" --version 12.0.1
   return 0
 }
 
