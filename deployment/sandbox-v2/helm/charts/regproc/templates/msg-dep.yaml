@@ -55,6 +55,10 @@ spec:
           containerPort: {{ .Values.services.msg.ports.hazelcastPort }}
         - name: verticle-port
           containerPort: {{ .Values.services.msg.ports.containerPort }}
+        - name: senderapi-port
+          containerPort: {{ .Values.services.msg.ports.senderapiPort }}
+        - name: senderapieventbus-port
+          containerPort: {{ .Values.services.msg.ports.senderapieventbusPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.msg.healthUrl }}
