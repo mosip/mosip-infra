@@ -57,8 +57,8 @@ spec:
           containerPort: {{ .Values.services.msg.ports.containerPort }}
         - name: senderapi-port
           containerPort: {{ .Values.services.msg.ports.senderapiPort }}
-        - name: senderapieventbus-port
-          containerPort: {{ .Values.services.msg.ports.senderapieventbusPort }}
+        - name: senderbus-port
+          containerPort: {{ .Values.services.msg.ports.senderbusPort }}
         readinessProbe:
           httpGet:
             path: {{ .Values.services.msg.healthUrl }}
