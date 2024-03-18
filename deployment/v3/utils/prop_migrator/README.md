@@ -1,6 +1,6 @@
 # Migrator script
 
-The script compares property files between an old repository and a latest repository, identifies the differences, and generates CSV files to summarize the results, then automates the process of updating property files based on information provided in knowledge base CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
+The script compares property files between old config branch and the latest config branch, identifies the differences, and generates CSV files to summarize the results, then automates the process of updating property files based on information provided in knowledge base CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
 
 This Bash script is designed to automate the process of comparing and updating configuration files based on a new set of configurations. It utilizes two Python scripts: `file_comparator.py` and `file_updater.py`.
 
@@ -45,7 +45,7 @@ Before running the script, ensure that you have the following:
 5. Run the script by executing the following command:
 
    ```shell
-   bash script.sh
+   bash migrator.sh
 
 6. The script will update the property files and generate a log file (logs.txt) with the details of the update process.
 
@@ -67,7 +67,7 @@ Note:
 
 ## Output
 
-The Property File Updater generates the following output:
+The Migrator script generates the following output:
 
 ### Updated Property Files
 
@@ -93,7 +93,7 @@ The file has the following columns:
 * Configuration Action: A comment indicating the required manual action for the property.
   
 #### Comments Used in Configuration Action:
-The "Configuration Action" column includes comments that guide developers on how to handle specific combinations of properties during updates. The following comments are used in the file:
+The "Configuration Action" column includes comments that guide users on how to handle specific combinations of properties during updates. The following comments are used in the file:
 
 #### 1. update-if-old-value-takes-priority:
 
@@ -101,7 +101,7 @@ Description:
 This comment suggest that we have the same property in both old and the latest property files with different values, as a default behaviour utility has retained the latest property file value. If the old property file value is considered more appropriate, please manually update the same.
 
 Action:
-Users should manually update the property file in the latest version and set the property value to the old value indicated in the "Old Value" column of the CSV file. This will ensure that the desired configuration from the old version is preserved in the updated config branch.
+Users should manually update the property file value in the latest version and set the property value to the old value indicated in the "Old Value" column of the CSV file only if old property file value is considered more appropriate. This will ensure that the desired configuration from the old version is preserved in the updated config branch.
 
 Use Case:
 This comment is useful when a property in the latest version has been changed, but the older value is still relevant for compatibility, stability, or other reasons. By updating the property file manually, users can maintain expected behavior in the updated version.
@@ -122,7 +122,7 @@ Some properties might be essential for the LTS version due to backward compatibi
 Description:
 This comment suggest that we have properties which are present only in latest property files and not in old property files because there might me some properties which are recently added, so the users need to go through these properties and check the default values given in the latest property files and check if these property values needs changes if so, please manually update the same. 
 
-This comment advises users to update the properties in the latest version if the default property values needs an update. It implies that the latest properties may not be suitable or required, and users should determine whether the default value needs a change in the latest version.
+This comment advises users to update the properties in the latest version if the default property values needs an update. It implies that the latest property values may not be suitable or required, and users should determine whether the default value needs a change in the latest version.
 
 Action:
 Users should manually review and if necessary update the property value in the latest version's property file based on the requirements which are suitable for latest config. This ensures that the properties are reviewed and updated with appropriate values in the LTS version.
