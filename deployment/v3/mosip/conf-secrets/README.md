@@ -1,6 +1,8 @@
 # Config Server Secrets
 
-This module generates and install secrets required by config-server.
+This module generates and install secrets required by config-server. 
+
+Note: The conf-secrets must not be deleted in any case of re-deployment, upgrade or migration process as we have separated the conf-secrets from config-server to ensure conf-secrets are not deleted.
 
 ## Install
 ```sh
