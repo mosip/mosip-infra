@@ -247,6 +247,7 @@ registration-processor-default.properties,mosip.registration.processor.database.
 registration-processor-default.properties,registration.processor.zone
 registration-processor-default.properties,cluster.manager.file.name
 registration-processor-default.properties,camel.secure.active.flows.file.names
+registration-processor-default.properties,mosip.regproc.workflow.complete.topic
 registration-processor-default.properties,token.request.secretKey
 registration-processor-default.properties,INTERNALAUTH
 registration-processor-default.properties,REVERSEDATASYNC
