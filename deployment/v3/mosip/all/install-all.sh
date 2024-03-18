@@ -17,7 +17,6 @@ function installing_all() {
                      "websub"
                      "mock-smtp"
                      "kernel"
-                     "biosdk"
                      "masterdata-loader"
                      "biosdk"
                      "packetmanager"
