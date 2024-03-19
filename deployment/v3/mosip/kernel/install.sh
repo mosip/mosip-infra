@@ -35,7 +35,7 @@ function installing_kernel() {
   helm -n $NS install masterdata mosip/masterdata --set image.repository=mosipid/kernel-masterdata-service --set image.tag=1.2.0.1-B2  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager mosip/otpmanager --set image.repository=mosipid/kernel-otpmanager-service --set image.tag=1.2.0.1-B1--version $CHART_VERSION
+  helm -n $NS install otpmanager mosip/otpmanager --set image.repository=mosipid/kernel-otpmanager-service --set image.tag=1.2.0.1-B1 --version $CHART_VERSION
 
   #echo Installing pridgenerator
   #helm -n $NS install pridgenerator mosip/pridgenerator --version $CHART_VERSION
