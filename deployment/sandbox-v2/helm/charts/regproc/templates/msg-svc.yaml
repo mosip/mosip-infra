@@ -6,6 +6,6 @@ metadata:
 spec:
   ports:
   - port: {{ .Values.services.msg.ports.servicePort }}
-    targetPort: {{ .Values.services.msg.ports.containerPort }}
+    targetPort: {{ .Values.services.msg.ports.senderapiPort }}
   selector:
     app: {{ .Values.services.msg.serviceName }} 
