@@ -17,7 +17,7 @@ function import_init() {
   IAM_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 
   echo Initializing keycloak
-  helm -n $NS install keycloak-init mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f import-init-values.yaml --version $CHART_VERSION
+  helm -n $NS install keycloak-import mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f import-init-values.yaml --version $CHART_VERSION
   return 0
 }
 
