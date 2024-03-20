@@ -69,7 +69,7 @@ kubectl apply -f postgres-postgresql.yaml
 
 ## DB Upgrade
 * Used to upgrade the schemas and required data from one MOSIP version to another.
-* At a time upgrade server performs upgrade from one DB version to another DB version.
+* The upgrade script facilitates the upgrade process from the previous version (n-1) to the current version (n). It follows the upgrade path if you are two versions away from the current version (n-2).
 * In case of upgrade of multiple versions of same DB, do update all the details sequentially in `upgrade.csv`.
 * Install in required Kubernetes cluster using below mentioned steps:
 ### Pre-requisites for upgrade
