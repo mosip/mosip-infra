@@ -24,8 +24,8 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
 ## MinIO Clone
 * Set `alias` for MinIO servers.
   ```
-    mc alias set <src-alias-name> http://<server>:9000 <minio-root-user> <minio-root-password> --api S3v2  ( old version )
-    mc alias set <dest-alias-name> https://<server>:9000 <minio-root-user> <minio-root-password> --api S3v2  ( latest versions )
+    mc alias set <src-alias-name> <source-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v2  ( old version )
+    mc alias set <dest-alias-name> <destination-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v2  ( latest versions )
     mc alias ls
   ```
 * Clone MINIO buckets from one MinIO server to another MinIO server.
@@ -36,17 +36,17 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
 ## Backup and restore MinIO
 
 * Set `alias` for MinIO servers using mc command line tool.
-*  The below commands is creating an alias named "<src-alias-name>" for a MinIO server located at "http://<server-name>:9000" with the username "<minio-root-user>" and password "<minio-root-password>", using the S3 API version 2.
+*  The below commands is creating an alias named "<src-alias-name>" for a MinIO server located at "<source-server-url>:<port>" with the username "<minio-root-user>" and password "<minio-root-password>", using the S3 API version 2.
 
 ### Note:
-* Make sure to replace <src-alias-name>, http://<server-name>:9000, <minio-root-user> and <minio-root-password> with your original values before exicuting the below commands.
+* Make sure to replace <src-alias-name>, <source-server-url>:<port>, <minio-root-user> and <minio-root-password> with your original values before exicuting the below commands.
 * --api S3v2: This specifies the API version being used. In this case, it's specifying version 2 of the S3 API, which is used for interacting with object storage systems like MinIO.
 * Set `alias` for MinIO servers.
 
 
   ```
-    mc alias set <src-alias-name> http://<server>:9001 <minio-root-user> <minio-root-password> --api S3v4  ( old version )
-    mc alias set <dest-alias-name> https://<server>:9100 <minio-root-user> <minio-root-password> --api S3v4  ( latest versions )
+    mc alias set <src-alias-name> <source-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v4  ( old version )
+    mc alias set <dest-alias-name> <destination-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v4  ( latest versions )
     mc alias ls
   ```
 
