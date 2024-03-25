@@ -4,28 +4,28 @@
 
 # Migrator script
 
-This script automates the process of comparing and updating configurations between an existing old configuration repository and a new based configuration repository. It helps ensure that the latest configurations are applied while preserving any customizations made in the old repository. 
+The migrator script automates the process of comparing and updating property files between two different versions of configuration. During the upgrade process from version 2 (v2) to version 3 (v3), we identified that v2 version environments were utilizing the '1.1.5.5' configuration branch which is referred here as "old config", while v3 version environments are using the '1.2.0.1' branch which is referred here as "latest config", so here the script compares between an existing old configuration branch (v2) and a latest configuration branch (v3). It helps us ensure that configurations are updated while preserving any customizations made in the previous version. 
 
-The script compares property files between an old repository and a latest repository, identifies the differences, and generates CSV files to summarize the results, then automates the process of updating property files based on information provided in knowledge base CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
+The script compares property files between two different versions of configuration, identifies the differences, and generates CSV files to summarize the results, then automates the process of updating property files based on information provided in knowledge base CSV files. It allows you to manage and prioritize property values, handle different versions of property files, and generate a manual configuration file for further customization.
 
 This scripts provide a convenient way to automate the process of comparing and updating configuration files, saving time and reducing errors. It runs two Python scripts i,e: `file_comparator.py` and `file_updater.py`.
 
 ### Overview
 
-When working with version-controlled repositories, it's common to have different versions of property files that contain configuration settings. This script helps you compare property files between two repositories (old and latest) and provides insights into the differences between them. It is particularly useful when migrating from an old version of a repository to a new version, ensuring that important configuration settings are maintained and updated correctly.
+When working with version-controlled branches, it's common to have different versions of property files that contain configuration settings. This script helps you compare property files between two different versions of configuration and provides insights into the differences between them. It is particularly useful when migrating from an old version of a config (v2) to a new version (v3), ensuring that important configuration settings are maintained and updated correctly.
 
 It performs the following steps:
-1. Cloning repositories: It clones the old and latest repositories using Git, allowing you to specify the repository URLs and branch names.
+1. Cloning branches: It clones the old and latest config branches using Git, allowing you to specify the repository URLs and branch names.
 
-2. Retrieving property file mapping: There is a CSV file (`property_file_mapping.csv`) that contains the mapping of property files between the old and latest repositories. Each row in the CSV file contains two columns: `Old Property File` and `Latest Property File`. The script reads this file to determine which property files should be compared.
-   [ Update this `property_file_mapping.csv` only incase necessary ]   
+2. Retrieving property file mapping: There is a CSV file (`property_file_mapping.csv`) that contains the mapping of property files between two different versions of config branch. Each row in the CSV file contains two columns: `Old Property File` and `Latest Property File`. The script reads this file to determine which property files should be compared.
+   [ Update this `property_file_mapping.csv` only incase necessary or else you can use the default file itself ]   
 
-3. Comparing property files: The script compares the property files specified in the CSV file pair by pair. It identifies properties with different values, properties that exist only in the old repository, and properties that exist only in the latest repository.
+3. Comparing property files: The script compares the property files specified in the CSV file pair by pair. It identifies properties with different values, properties that exist only in the old config, and properties that exist only in the latest config.
 
 4. Generating output files: After comparing the property files, the script generates three CSV files in the `output` directory:
-   - `different_properties.csv`: Contains the details of properties that have different values between the old and latest repositories.
-   - `old_file_only.csv`: Contains the details of properties that exist only in the old repository.
-   - `latest_file_only.csv`: Contains the details of properties that exist only in the latest repository.
+   - `different_properties.csv`: Contains the details of properties that have different values between the old and latest config.
+   - `old_file_only.csv`: Contains the details of properties that exist only in the old config.
+   - `latest_file_only.csv`: Contains the details of properties that exist only in the latest config.
 
 5. Then reads the CSV file (`different_properties.csv`) containing information about different property values. 
 
@@ -48,7 +48,7 @@ The structure of the resulting CSV files is as follows:
    | file2.properties  | file2.properties     | key2| value3    | value4       |
    | ...               | ...                 | ... | ...        | ...          |
 
-   This file contains the properties that have different values between the old and latest repositories. Each row represents a different property, with columns indicating the old property file, latest property file, key, old value, and latest value.
+   This file contains the properties which are present in both config version which we are comparing but the values of properties are different. Each row represents a different property, with columns indicating the old property file, latest property file, key, old value, and latest value.
 
 
 2. **old_file_only.csv**:
@@ -59,7 +59,7 @@ The structure of the resulting CSV files is as follows:
    | file1.properties  | key2| value2    |
    | ...               | ... | ...       |
 
-   This file contains the properties that are only found in the old repository. Each row represents a unique property, with columns indicating the old property file, key, and old value.
+   This file contains the properties that are only found in the old config version (v2). Each row represents a unique property, with columns indicating the old property file, key, and old value.
 
 
 3. **latest_file_only.csv**:
@@ -70,12 +70,12 @@ The structure of the resulting CSV files is as follows:
    | file2.properties     | key4| value4       |
    | ...                  | ... | ...          |
 
-   This file contains the properties that are only found in the latest repository. Each row represents a unique property, with columns indicating the latest property file, key, and latest value.
+   This file contains the properties that are only found in the lts config version (v3). Each row represents a unique property, with columns indicating the latest property file, key, and latest value.
 
 
 4. **old_value-takes-priority.csv**:
 
-This file prioritizes the old property values over the latest ones. It has the following structure:
+This is a knowledge base file which contains a list of property keys that necessitate older version values. It has the following structure:
 
 | Property File Name | Key  |
 |--------------------|------|
@@ -85,7 +85,7 @@ This file prioritizes the old property values over the latest ones. It has the f
 
 5. **latest_value-takes-priority.csv**:
 
-This file prioritizes the latest property values over the old ones. It has the following structure:
+This is a knowledge base file which contains a list of property keys that necessitate latest version values. It has the following structure:
 
 | Property File Name | Key  |
 |--------------------|------|
@@ -95,7 +95,7 @@ This file prioritizes the latest property values over the old ones. It has the f
 
 6. **intentionally_removed_in_lts.csv**:
 
-This file contains property combinations that were intentionally removed in the latest version. It has the following structure:
+This is a knowledge base file which contains a list of properties that were intentionally removed in the latest version. It has the following structure:
 
 | Property File Name | Key  |
 |--------------------|------|
@@ -105,7 +105,7 @@ This file contains property combinations that were intentionally removed in the 
 
 7. **decent_default_value.csv**:
 
-This file contains information about decent default property values for the latest property files. It has the following structure:
+This is a knowledge base file which contains a list of properties which were recently added in the latest config version with decent-default. It has the following structure:
 
 | Property File Name | Key  | Latest Value |
 |--------------------|------|--------------|
