@@ -1,0 +1,281 @@
+databases:
+  archive_db:
+    db_name: "mosip_archive"
+    host: "<DESTINATION_HOST>"
+    port: 5432
+    su_user: "postgres"
+    su_user_pwd: ""
+    db_pwd: ""
+    dml: 0
+    archivehost: "<DESTINATION_HOST>"
+    archiveport: 5432
+    archiveuname: "archiveuser"
+    archive_dbname: "mosip_archive"
+    archive_schemaname: "archive"
+    archive_db_password: ""
+  source_db:
+    provide_db_names_to_archive: "AUDIT,CREDENTIAL,IDA"
+    source_audit_host: "<SOURCE_HOST>"
+    source_audit_port: 5432
+    source_audit_uname: "audituser"
+    source_audit_dbname: "mosip_audit"
+    source_audit_schemaname: "audit"
+    source_audit_db_pass: ""
+    source_credential_host: "<SOURCE_HOST>"
+    source_credential_port: 5432
+    source_credential_uname: "credentialuser"
+    source_credential_dbname: "mosip_credential"
+    source_credential_schemaname: "credential"
+    source_credential_db_pass: ""
+    source_esignet_host: "<SOURCE_HOST>"
+    source_esignet_port: 5432
+    source_esignet_uname: "esignetuser"
+    source_esignet_dbname: "mosip_esignet"
+    source_esignet_schemaname: "esignet"
+    source_esignet_db_pass: ""
+    source_ida_host: "<SOURCE_HOST>"
+    source_ida_port: 5432
+    source_ida_uname: "idauser"
+    source_ida_dbname: "mosip_ida"
+    source_ida_schemaname: "ida"
+    source_ida_db_pass: ""
+    source_idrepo_host: "<SOURCE_HOST>"
+    source_idrepo_port: 5432
+    source_idrepo_uname: "idrepouser"
+    source_idrepo_dbname: "mosip_idrepo"
+    source_idrepo_schemaname: "idrepo"
+    source_idrepo_db_pass: ""
+    source_kernel_host: "<SOURCE_HOST>"
+    source_kernel_port: 5432
+    source_kernel_uname: "kerneluser"
+    source_kernel_dbname: "mosip_kernel"
+    source_kernel_schemaname: "kernel"
+    source_kernel_db_pass: ""
+    source_master_host: "<SOURCE_HOST>"
+    source_master_port: 5432
+    source_master_uname: "masteruser"
+    source_master_dbname: "mosip_master"
+    source_master_schemaname: "master"
+    source_master_db_pass: ""
+    source_pms_host: "<SOURCE_HOST>"
+    source_pms_port: 5432
+    source_pms_uname: "pmsuser"
+    source_pms_dbname: "mosip_pms"
+    source_pms_schemaname: "pms"
+    source_pms_db_pass: ""
+    source_prereg_host: "<SOURCE_HOST>"
+    source_prereg_port: 5432
+    source_prereg_uname: "prereguser"
+    source_prereg_dbname: "mosip_prereg"
+    source_prereg_schemaname: "prereg"
+    source_prereg_db_pass: ""
+    source_regprc_host: "<SOURCE_HOST>"
+    source_regprc_port: 5432
+    source_regprc_uname: "regprcuser"
+    source_regprc_dbname: "mosip_regprc"
+    source_regprc_schemaname: "regprc"
+    source_regprc_db_pass: ""
+    source_resident_host: "<SOURCE_HOST>"
+    source_resident_port: 5432
+    source_resident_uname: "residentuser"
+    source_resident_dbname: "mosip_resident"
+    source_resident_schemaname: "resident"
+    source_resident_db_pass: ""
+  container_volume_path: "/all-db-info-json"
+  all_db_tables_info:
+    audit:
+      tables_info:
+        - source_table: "app_audit_log"
+          archive_table: "mosip_audit_app_audit_log"
+          id_column: "log_id"
+          date_column: "log_dtimes"
+          retention_days: 30
+          operation_type: "archive_delete"
+    credential:
+      tables_info:
+      - source_table: "credential_transaction"
+        archive_table: "mosip_credential_credential_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+    esignet:
+      tables_info:
+        - source_table: "consent_history"
+          archive_table: "mosip_esignet_consent_history"
+          id_column: "id"
+          date_column: "cr_dtimes"
+          retention_days: 30
+          operation_type: "none"
+    ida:
+      tables_info:
+      - source_table: "credential_event_store"
+        archive_table: "mosip_ida_credential_event_store"
+        id_column: "event_id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+      - source_table: "otp_transaction"
+        archive_table: "mosip_ida_otp_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: 'delete'
+    idrepo:
+      tables_info:
+      - source_table: "anonymous_profile"
+        archive_table: "mosip_idrepo_anonymous_profile"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+      - source_table: "credential_request_status"
+        archive_table: "mosip_idrepo_credential_request_status"
+        id_column: "individual_id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+      - source_table: "uin_draft"
+        archive_table: "mosip_idrepo_uin_draft"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+    kernel:
+      tables_info:
+      - source_table: "otp_transaction"
+        archive_table: "mosip_kernel_otp_transaction"
+        id_column: "id"
+        date_column: "generated_dtimes"
+        retension_days: 7
+        operation_type: "delete"
+    master:
+      tables_info:
+      - source_table: "bulkupload_transaction"
+        archive_table: "mosip_master_bulkupload_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 91
+        operation_type: "archive_delete"
+      - source_table: "device_master_h"
+        archive_table: "mosip_master_device_master_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 365
+        operation_type: "archive_delete"
+      - source_table: "machine_master_h"
+        archive_table: "mosip_master_machine_master_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "registration_center_h"
+        archive_table: "mosip_master_registration_center_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 365
+        operation_type: "archive_delete"
+      - source_table: "user_detail_h"
+        archive_table: "mosip_master_user_detail_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "zone_user_h"
+        archive_table: "mosip_master_zone_user_h"
+        id_column: "usr_id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+    pms:
+      tables_info:
+      - source_table: "auth_policy_h"
+        archive_table: "mosip_pms_auth_policy_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "secure_biometric_interface_h"
+        archive_table: "mosip_pms_secure_biometric_interface_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "partner_h"
+        archive_table: "mosip_pms_partner_h"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+    prereg:
+      tables_info:
+      - source_table: "otp_transaction"
+        archive_table: "mosip_prereg_otp_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "delete"
+    regprc:
+      tables_info:
+      - source_table: "abis_response_det"
+        archive_table: "mosip_regprc_abis_response_det"
+        id_column: "abis_resp_id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "abis_response"
+        archive_table: "mosip_regprc_abis_response"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "abis_request"
+        archive_table: "mosip_regprc_abis_request"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "reg_demo_dedupe_list"
+        archive_table: "mosip_regprc_reg_demo_dedupe_list"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+      - source_table: "registration_transaction"
+        archive_table: "mosip_regprc_registration_transaction"
+        id_column: "regtrn_id"
+        date_column: "cr_dtimes"
+        retension_days: 183
+        operation_type: "archive_delete"
+    resident:
+      tables_info:
+      - source_table: "otp_transaction"
+        archive_table: "mosip_resident_otp_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 30
+        operation_type: "delete"
+      - source_table: "resident_grievance_ticket"
+        archive_table: "mosip_resident_grievance_ticket"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 365
+        operation_type: "archive_delete"
+      - source_table: "resident_session"
+        archive_table: "mosip_resident_session"
+        id_column: "session_id"
+        date_column: "login_dtimes"
+        retension_days: 30
+        operation_type: "archive_delete"
+      - source_table: "resident_transaction"
+        archive_table: "mosip_resident_transaction"
+        id_column: "id"
+        date_column: "cr_dtimes"
+        retension_days: 365
+        operation_type: "archive_delete"
+      - source_table: "resident_user_actions"
+        archive_table: "mosip_resident_user_actions"
+        id_column: "ida_token"
+        date_column: "last_bell_notif_click_dtimes"
+        retension_days: 365
+        operation_type: "archive_delete"
