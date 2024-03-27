@@ -11,3 +11,15 @@ primary:
     requests:
       cpu: 3000m
       memory: 3000Mi
+
+audit:
+  logHostname: true
+  logConnections: true
+  logDisconnections: true
+  pgAuditLog: ""
+  pgAuditLogCatalog: "off"
+  clientMinMessages: error
+  logLinePrefix: ""
+  logTimezone: ""
+image:
+  debug: true
