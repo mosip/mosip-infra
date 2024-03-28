@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=mock-smtp
-CHART_VERSION=12.0.1-B2
+CHART_VERSION=1.0.0
 
 echo Create $NS namespace
 kubectl create ns $NS

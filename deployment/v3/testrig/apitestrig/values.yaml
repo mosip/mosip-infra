@@ -14,4 +14,4 @@ modules:
   - name: esignet
     enabled: true
   - name: mimoto
-    enabled: true
+    enabled: false

@@ -11,7 +11,7 @@ onboarding:
     - name: mobileid
       enabled: true
     - name: digitalcard
-      enabled: true
+      enabled: false
     - name: esignet
       enabled: false
     - name: demo-oidc

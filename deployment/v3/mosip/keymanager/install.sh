@@ -29,7 +29,6 @@ function installing_keymanager() {
   helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
   echo Installed keymanager services
   return 0
 }

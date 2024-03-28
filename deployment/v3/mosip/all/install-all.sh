@@ -15,6 +15,7 @@ function Installing_all() {
                      "artifactory"
                      "keymanager"
                      "websub"
+                     "mock-smtp"
                      "kernel"
                      "masterdata-loader"
                      "biosdk"

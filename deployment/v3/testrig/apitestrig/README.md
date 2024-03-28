@@ -14,6 +14,12 @@ ApiTestRig will test the working of APIs of the MOSIP modules.
 * The init-container will proceed to download the server's self-signed SSL certificate and mount it to the specified location within the container's Java keystore (i.e., `cacerts`) file.
 * This particular functionality caters to scenarios where the script needs to be employed on a server utilizing self-signed SSL certificates.
 
+## Uninstall
+* To uninstall ApiTestRig, run `delete.sh` script.
+```sh
+./delete.sh 
+```
+
 ## Run apitestrig manually
 
 #### Rancher UI

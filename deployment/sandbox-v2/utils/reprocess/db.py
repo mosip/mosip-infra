@@ -10,8 +10,8 @@ class DB:
     def get_rids(self, query):
         cur = self.conn.cursor()
         cur.execute(query)
-        rids = cur.fetchall()   
+        registrations = cur.fetchall()
         cur.close()
-        return rids
+        return registrations
 
 

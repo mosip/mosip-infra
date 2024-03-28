@@ -1,0 +1,15 @@
+# Source: dmzregproc/templates/pktserver-pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pktserver-pvc
+  namespace: regproc
+  labels:
+    app: pktserver-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 5Gi

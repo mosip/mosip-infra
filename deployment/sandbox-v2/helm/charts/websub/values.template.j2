@@ -19,4 +19,13 @@ domain: {{ sandbox_domain_name }}
 hub:
   websub:
     port: 9191
+    healthUrl: /hub/actuator/health
     hub_config_file_url_env: "http://mz.ingress:30080/config/*/default/{{ config_repo.version }}/websub-service.toml"
+
+probe:
+  period: 10 # Seconds
+  timeout: 5
+  livenessPeriod: 10
+  failureThreshold: 30
+  startupPeriod: 10
+  initialDelaySeconds: 20

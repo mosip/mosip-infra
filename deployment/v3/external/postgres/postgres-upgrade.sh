@@ -27,11 +27,11 @@ read_user_input(){
 }
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=12.0.2
+  CHART_VERSION=12.0.1
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
   while true; do
-      read -p "Is 'upgrade.csv' for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn
+      read -p "Is 'upgrade.csv' for DB Upgrade set correctly as part of Pre-requisites?(Y/n) " yn
       if [ $yn = "Y" ]
         then
           echo "Creating upgrade-csv configmap"
@@ -47,8 +47,8 @@ function initialize_db() {
           read_user_input DB_PORT "Database server port";
           read_user_input SU_USER "Database super username";
 
-          read_user_input SU_USER_PWD "Database super user password";
-          read_user_input DB_USER_PWD "Database user password";
+          read -s -p "Enter Database super user password: " SU_USER_PWD
+          read -s -p "Enter Database user password: " DB_USER_PWD
 
           helm -n $NS install postgres-upgrade mosip/postgres-upgrade \
           --set database.host="$DB_SERVERIP" \

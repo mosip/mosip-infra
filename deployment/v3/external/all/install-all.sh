@@ -51,6 +51,7 @@ function installing_all() {
   ./install.sh
 
   cd $ROOT_DIR/landing-page
+
   ./install.sh
 
   cd $ROOT_DIR/captcha

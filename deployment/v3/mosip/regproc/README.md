@@ -2,17 +2,15 @@
 
 ## Prerequisites
 * Install Kafka as given [here](../../external/kafka/README.md)
-* Create websub topics:
-```sh
-cd topic
-./create_topics.sh
-```
-
 ## Install
 ```
-$ ./install.sh
+./install.sh
 ```
 ## To delete all modules
 ```
-$ ./delete.sh
+./delete.sh
+```
+## To restart all modules
+```
+./restart.sh
 ```

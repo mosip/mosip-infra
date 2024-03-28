@@ -12,27 +12,26 @@ CHART_VERSION=12.0.2
 echo Create $NS namespace
 kubectl create ns $NS
 
-
 function installing_apitestrig() {
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
-  
+
   echo Copy configmaps
   ./copy_cm.sh
-  
+
   echo Copy secrets
   ./copy_secrets.sh
-  
+
   echo "Delete s3, db, & apitestrig configmap if exists"
   kubectl -n $NS delete --ignore-not-found=true configmap s3
   kubectl -n $NS delete --ignore-not-found=true configmap db
   kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
-  
+
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   ENV_USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
-  
+
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
      echo "ERROT: Time cannot be empty; EXITING;";
@@ -111,7 +110,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
   --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE
-  
+
   echo Installed apitestrig.
   return 0
 }

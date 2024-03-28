@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=websub
-CHART_VERSION=12.0.1-B2
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -26,7 +26,6 @@ function installing_websub() {
   helm -n $NS install websub mosip/websub --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
   echo Installed websub services
   return 0
 }

@@ -60,16 +60,16 @@ python3 generate-secret.py
 3. The script will create a ``db-common-secrets.yaml`` and ``postgres-postgresql.yaml``file in the same directory, containing the encoded password as a secret.
 4. Then after the yaml file is created run the command:
 ```
+kubectl create ns postgres
 kubectl apply -f db-common-secrets.yaml
 kubectl apply -f postgres-postgresql.yaml
 ```
 5. After running the above command ``db-common-secrets`` and ``postgres-postgresql`` will be created as ``secrets`` in ``postgres`` namespace.
 
-  
 ## DB Upgrade
 * Used to upgrade the schemas and required data from one MOSIP version to another.
-* At a time upgrade server performs upgrade from one sequential version to another.
-* In case of upgrade of multiple versions, do update all the details sequentially in `upgrade.csv`.
+* The upgrade script facilitates the upgrade process from the previous version (n-1) to the current version (n). It follows the upgrade path if you are two versions away from the current version (n-2).
+* In case of upgrade of multiple versions of same DB, do update all the details sequentially in `upgrade.csv`.
 * Install in required Kubernetes cluster using below mentioned steps:
 ### Pre-requisites for upgrade
 * DB_SERVERIP : Ip to access the DB server to be upgraded.
@@ -97,4 +97,3 @@ helm delete postgres-upgrade -n postgres
   ```
   sed -i 's/LOCALE/LC_COLLATE/g' <BACKUP_FILE_NAME>.dump
   ```
-

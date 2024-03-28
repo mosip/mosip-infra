@@ -24,8 +24,8 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
 ## MinIO Clone
 * Set `alias` for MinIO servers.
   ```
-    mc alias set <src-alias-name> http://<server>:9001 <minio-root-user> <minio-root-password> --api S3v4  ( old version )
-    mc alias set <dest-alias-name> http://<server>:9100 <minio-root-user> <minio-root-password> --api S3v4  ( latest versions )
+    mc alias set <src-alias-name> <source-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v2  ( old version )
+    mc alias set <dest-alias-name> <destination-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v2  ( latest versions )
     mc alias ls
   ```
 * Clone MINIO buckets from one MinIO server to another MinIO server.
@@ -34,10 +34,19 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
   ```
 
 ## Backup and restore MinIO
+
+* Set `alias` for MinIO servers using mc command line tool.
+*  The below commands is creating an alias named "<src-alias-name>" for a MinIO server located at "<source-server-url>:<port>" with the username "<minio-root-user>" and password "<minio-root-password>", using the S3 API version 2.
+
+### Note:
+* Make sure to replace <src-alias-name>, <source-server-url>:<port>, <minio-root-user> and <minio-root-password> with your original values before exicuting the below commands.
+* --api S3v2: This specifies the API version being used. In this case, it's specifying version 2 of the S3 API, which is used for interacting with object storage systems like MinIO.
 * Set `alias` for MinIO servers.
+
+
   ```
-    mc alias set <src-alias-name> http://<server>:9001 <minio-root-user> <minio-root-password> --api S3v4  ( old version )
-    mc alias set <dest-alias-name> http://<server>:9100 <minio-root-user> <minio-root-password> --api S3v4  ( latest versions )
+    mc alias set <src-alias-name> <source-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v4  ( old version )
+    mc alias set <dest-alias-name> <destination-server-url>:<port> <minio-root-user> <minio-root-password> --api S3v4  ( latest versions )
     mc alias ls
   ```
 
@@ -51,6 +60,11 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
     mc mirror <src-alias-name> <backup-directory>
   ```
 
+#### Note:
+* the above mirror command is used to initiate the mirroring process.
+* So, essentially, when you execute the above command, it will start mirroring data from the source location specified by <src-alias-name> to the destination location specified by <dest-alias-name>.
+* do update your <src-alias-name> and <dest-alias-name> with the alias name you've set and then run the command.
+
 #### Restore
 
 * Set `MINIO_SERVER` and `MINIO_BACKUP_DIR`.
@@ -58,6 +72,7 @@ To install the MinIO client, follow the procedure from [here](https://docs.min.i
     MINIO_SERVER=<dest-alias-name>
     MINIO_BACKUP_DIR=<backup-directory>
   ```
+
 * Run below command to restore MinIO buckets from `<backup-directory>`.
   ```
     for bucket in $( ls $MINIO_BACKUP_DIR ); do

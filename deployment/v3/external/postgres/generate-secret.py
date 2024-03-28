@@ -38,7 +38,7 @@ metadata:
   namespace: postgres
 type: Opaque
 data:
-  postgresql-password: {postgres_base64_password}
+  postgres-password: {postgres_base64_password}
 """
 
 # Write the YAML content to a file

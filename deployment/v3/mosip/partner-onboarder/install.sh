@@ -6,6 +6,20 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
+echo "Do you have public domain & valid SSL? (Y/n) "
+echo "Y: if you have public domain & valid ssl certificate"
+echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
+read -p "" flag
+
+if [ -z "$flag" ]; then
+  echo "'flag' was provided; EXITING;"
+  exit 1;
+fi
+ENABLE_INSECURE=''
+if [ "$flag" = "n" ]; then
+  ENABLE_INSECURE='--set onboarding.configmaps.onboarding.ENABLE_INSECURE=true';
+fi
+
 NS=onboarder
 CHART_VERSION=12.0.2
 
@@ -77,7 +91,24 @@ function installing_onboarder() {
     --wait --wait-for-jobs \
     --version $CHART_VERSION
 
-    echo Reports are moved to S3 under onboarder bucket
+echo "Reports are moved to S3 under onboarder bucket"
+echo "Please follow the steps as mentioned in the document link below to configure mimoto-keybinding-partner:"
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+GITHUB_URL="https://github.com/mosip/mosip-infra/blob"
+FILE_PATH="/deployment/v3/mosip/partner-onboarder/README.md"
+FULL_URL="$GITHUB_URL/$BRANCH_NAME$FILE_PATH#configuration"
+
+echo -e  "\e[1m\e[4m\e[34m\e]8;\a$FULL_URL\e[0m\e[24m\e]8;;\a"
+
+echo -e "\e[1mHave you completed the changes mentioned in the onboarding document? (y/n)\e[0m"
+read answer
+
+if [[ "$answer" =~ [yY](es)* ]]; then
+  echo -e "\e[1m\e[32mPartners onboarded successfully.\e[0m"
+else
+  echo -e "\e[1m\e[31mPartner onboarding steps are pending. Please complete the configuration steps for onboarding partner.\e[0m"
+fi
+
     return 0
   fi
 }
