@@ -14,7 +14,7 @@ read -p "CAUTION: Do you still want to continue(Y/n)" yn
 if [ $yn = "Y" ]
   then
    NS=masterdata-loader
-   CHART_VERSION=12.0.1
+   CHART_VERSION=12.0.2
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    helm delete masterdata-loader -n $NS
@@ -36,7 +36,7 @@ if [ $yn = "Y" ]
    ./copy_secrets.sh
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=v1.2.0.1 --version $CHART_VERSION --wait
+   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=develop --version $CHART_VERSION --wait
 
    else
    break

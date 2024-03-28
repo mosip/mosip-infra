@@ -15,7 +15,7 @@ image:
   #   - myRegistryKeySecretName
 
 regclient:
-  version: 1.2.0.1-SNAPSHOT
+  version: 1.2.1-SNAPSHOT
   mountDir: /home/mosip/build_files/
   ## Currently this is hardcoded. Will change in the future
   cryptoKey: bBQX230Wskq6XpoZ1c+Ep1D+znxfT89NxLQ7P4KFkc4=
