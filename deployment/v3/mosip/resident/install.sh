@@ -8,6 +8,7 @@ fi
 
 NS=resident
 CHART_VERSION=12.0.2
+RESIDENT_UI_CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -24,14 +25,12 @@ function installing_resident() {
   echo Copy secrets
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
-
   echo Setting up dummy values for Resident OIDC Client ID
   kubectl create secret generic resident-oidc-onboarder-key -n $NS --from-literal=resident-oidc-clientid='' --dry-run=client -o yaml | kubectl apply -f -
   ./copy_cm_func.sh secret resident-oidc-onboarder-key resident config-server
 
   kubectl -n config-server set env --keys=resident-oidc-clientid --from secret/resident-oidc-onboarder-key deployment/config-server --prefix=SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_
   kubectl -n config-server get deploy -o name | xargs -n1 -t kubectl -n config-server rollout status
-
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
   echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
@@ -54,12 +53,13 @@ function installing_resident() {
   helm -n $NS install resident mosip/resident --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$RESIDENT_HOST --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing Resident UI
-  helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $CHART_VERSION
+  helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $RESIDENT_UI_CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed Resident services
   echo Installed Resident UI
+
 
   echo "resident-ui portal URL: https://$RESIDENT_HOST/"
   return 0

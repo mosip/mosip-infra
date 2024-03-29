@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Restarts the admin services
 ## Usage: ./restart.sh [kubeconfig]
 

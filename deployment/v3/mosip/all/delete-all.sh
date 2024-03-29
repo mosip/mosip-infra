@@ -31,6 +31,7 @@ function Deleting_all() {
                      "biosdk"
                      "partner-onboarder"
                      "restart-cron"
+                     "mock-smtp"
                      )
 
   echo Deleting MOSIP services.

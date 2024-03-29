@@ -12,13 +12,18 @@ The steps here install all MOSIP provided services - core and reference implemen
 
 ## Install
 Install in the following order:
-* [Config Server Secrets](conf-secrets/README.md)
+* [Landing page](landing-page/README.md)
+* [Docker secrets](docker-secrets/README.md)
+* [Prereg captcha](captcha/README.md)
 * [Config Server](config-server/README.md)
 * [Artifactory](artifactory/README.md)
 * [Key Manager](keymanager/README.md)
 * [WebSub](websub/README.md)
 * [Masterdata-loader](masterdata-loader/README.md)
 * [Kernel](kernel/README.md)
+* [Masterdata-loader](masterdata-loader/)
+* [Kernel](kernel/README.md)
+* [Mock Biosdk](biosdk/README.md)
 * [Packet Manager](packetmanager/README.md)
 * [Datashare](datashare/README.md)
 * [Pre-registration](prereg/README.md)
@@ -35,7 +40,6 @@ Install in the following order:
 * [Resident Services](resident/README.md)
 * [Registration Client](regclient/README.md)
 * [Restart Cron](https://github.com/mosip/mosip-infra/tree/develop/deployment/v3/mosip/restart-cron)
-
 The same can be achieved by running `all/install-all.sh`.
 ```
 cd all

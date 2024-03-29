@@ -14,16 +14,15 @@ probe:
 
 ingress:
    namespace: default
-artifactoryUrl: {{ artifactory_url }} 
+artifactoryUrl: {{ artifactory_url1 }}
 iamAdapterUrl: {{ iam_adapter_url }}
 sitePublicUrl: {{ site.sandbox_public_url }}
 imagePullPolicy: Always 
 isGlowroot: {{ is_glowroot }}
-preregistration_i18n_bundle_url: http://artifactory-service/artifactory/libs-release-local/i18n/pre-registration-i18n-bundle.zip
+preregistration_i18n_bundle_url: {{ artifactory_url1 }}/artifactory/libs-release-local/i18n/pre-registration-i18n-bundle.zip
 exportLogs: enabled  # Let filebeat export the logs
-virusscanner_url: http://artifactory-service/artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
+virusscanner_url: {{ artifactory_url1 }}/artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
 
-virusscanner_url: http://artifactory-service/artifactory/libs-release-local/clamav/kernel-virusscanner-clamav.jar
 
 dockerHub:
   private: {{ docker.hub.private }}  

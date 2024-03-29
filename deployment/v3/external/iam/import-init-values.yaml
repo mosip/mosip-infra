@@ -94,13 +94,86 @@ keycloak:
        - HOTLIST_ADMIN
        - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_COMPLETED_EVENT_GENERAL
        - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_PAUSED_FOR_ADDITIONAL_INFO_EVENT_GENERAL
-      clients: 
+       - SUBSCRIBE_IDENTITY_CREATED_GENERAL
+       - SUBSCRIBE_IDENTITY_UPDATED_GENERAL
+       - PUBLISH_OIDC_CLIENT_CREATED_GENERAL
+       - PUBLISH_OIDC_CLIENT_UPDATED_GENERAL
+       - SUBSCRIBE_OIDC_CLIENT_CREATED_GENERAL
+       - SUBSCRIBE_OIDC_CLIENT_UPDATED_GENERAL
+      client_scopes:
+       - name: add_oidc_client
+         description: Scope required to create OIDC client
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+       - name: update_oidc_client
+         description: ''
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+       - name: get_certificate
+         description: Scope required to create OIDC client
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+       - name: upload_certificate
+         description: ''
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+       - name: individual_id
+         description: Scope required to create resident client
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "true",
+           include.in.token.scope: "true"
+         }
+       - name: ida_token
+         description: ''
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "true",
+           include.in.token.scope: "true"
+         }
+       - name: send_binding_otp
+         description: Scope required to create mpartner-default-mobile client
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+       - name: wallet_binding
+         description: Scope required to create mpartner-default-mobile client
+         protocol: openid-connect
+         Include In Token Scope : on
+         attributes: {
+           display.on.consent.screen: "false",
+           include.in.token.scope: "true"
+         }
+
+      clients:
        - name: mosip-abis-client
          mappers: []
          saroles: []
+
        - name: mosip-admin-client
          mappers: []
-         saroles: 
+         saroles:
            - MASTERDATA_ADMIN
            - GLOBAL_ADMIN
            - PUBLISH_MASTERDATA_IDAUTHENTICATION_TEMPLATES_GENERAL
@@ -108,13 +181,16 @@ keycloak:
            - PUBLISH_MOSIP_HOTLIST_GENERAL
            - uma_authorization
            - PUBLISH_MASTERDATA_TITLES_GENERAL
+
        - name: mosip-admin-services-client
          mappers: []
          saroles: []
+
        - name: mosip-auth-client
          mappers: []
          saroles:
            - AUTH
+
        - name: mosip-crereq-client
          mappers: []
          saroles:
@@ -123,8 +199,8 @@ keycloak:
            - SUBSCRIBE_CREDENTIAL_STATUS_UPDATE_GENERAL
            - offline_access
            - uma_authorization
-    
-       - name: mosip-creser-client 
+
+       - name: mosip-creser-client
          mappers: []
          saroles:
            - CREDENTIAL_ISSUANCE
@@ -136,7 +212,7 @@ keycloak:
            - uma_authorization
        - name: mosip-creser-idpass-client
          mappers: []
-         saroles: 
+         saroles:
            - REGISTRATION_PROCESSOR
            - DATA_READ
            - DOCUMENT_READ
@@ -144,13 +220,14 @@ keycloak:
            - METADATA_READ
            - CREATE_SHARE
            - CREDENTIAL_REQUEST
+
        - name: mosip-datsha-client
          mappers: []
          saroles:
            - CREATE_SHARE
            - REGISTRATION_PROCESSOR
            - POLICYMANAGER
-    
+
        - name: mosip-ida-client
          mappers: []
          saroles:
@@ -158,11 +235,14 @@ keycloak:
            - GLOBAL_ADMIN
            - ID_AUTHENTICATION
            - PARTNERMANAGER  # Added only for cert upload using postman during install. Not required otherwise.
+           - SUBSCRIBE_OIDC_CLIENT_CREATED_GENERAL
+           - SUBSCRIBE_OIDC_CLIENT_UPDATED_GENERAL
        - name: mosip-misp-client
          mappers: []
          saroles: []
+
        - name: mosip-partner-client
-         mappers: 
+         mappers:
            - mapper_name: phoneNumber
              mapper_user_attribute: phoneNumber
              token_claim_name: phoneNumber
@@ -189,18 +269,55 @@ keycloak:
            - PUBLISH_APIKEY_UPDATED_GENERAL
            - PUBLISH_CA_CERTIFICATE_UPLOADED_GENERAL
            - PUBLISH_POLICY_UPDATED_GENERAL
+
        - name: mosip-partnermanager-client
          mappers: []
-         saroles: 
+         saroles:
            - PARTNERMANAGER
            - KEY_MAKER
+
        - name: mosip-pms-client
-         mappers: []
-         saroles: 
+         mappers:
+           - mapper_name: phoneNumber
+             mapper_user_attribute: phoneNumber
+             token_claim_name: phoneNumber
+           - mapper_name: organizationName
+             mapper_user_attribute: organizationName
+             token_claim_name: organizationName
+           - mapper_name: partnerType
+             mapper_user_attribute: partnerType
+             token_claim_name: partnerType
+           - mapper_name: addressTest
+             mapper_user_attribute: address
+             token_claim_name: addressTest
+         saroles:
            - PARTNER_ADMIN
+           - SUBSCRIBE_CA_CERTIFICATE_UPLOADED_GENERAL
+           - PUBLISH_OIDC_CLIENT_CREATED_GENERAL
+           - PUBLISH_OIDC_CLIENT_UPDATED_GENERAL
+           - PUBLISH_APIKEY_APPROVED_GENERAL
+           - PUBLISH_APIKEY_UPDATED_GENERAL
+           - PUBLISH_CA_CERTIFICATE_UPLOADED_GENERAL
+           - PUBLISH_MISP_LICENSE_GENERATED_GENERAL
+           - PUBLISH_MISP_LICENSE_UPDATED_GENERAL
+           - PUBLISH_PARTNER_UPDATED_GENERAL
+           - PUBLISH_POLICY_UPDATED_GENERAL
+           - ZONAL_ADMIN
+           - CREATE_SHARE
+           - DEVICE_PROVIDER
+           - PARTNER
+           - PMS_ADMIN
+           - PMS_USER
+           - REGISTRATION_PROCESSOR
+         assign_client_scopes:
+           - update_oidc_client
+           - add_oidc_client
+           - get_certificate
+           - upload_certificate
        - name: mosip-policymanager-client
          mappers: []
          saroles: []
+
        - name: mosip-reg-client
          mappers: []
          saroles:
@@ -209,6 +326,7 @@ keycloak:
            - REGISTRATION_OFFICER
            - REGISTRATION_OPERATOR
            - REGISTRATION_SUPERVISOR
+
        - name: mosip-regproc-client
          mappers: []
          saroles:
@@ -219,9 +337,18 @@ keycloak:
            - METADATA_READ
            - CREATE_SHARE
            - CREDENTIAL_REQUEST
+           - PARTNER
+           - PARTNER_ADMIN
+           - PMS_USER
+           - POLICYMANAGER
+           - PUBLISH_REGISTRATION_PROCESSOR_WORKFLOW_COMPLETED_EVENT_GENERAL
+           - PUBLISH_REGISTRATION_PROCESSOR_WORKFLOW_PAUSED_FOR_ADDITIONAL_INFO_EVENT_GENERAL
+           - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_COMPLETED_EVENT_GENERAL
+           - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_PAUSED_FOR_ADDITIONAL_INFO_EVENT_GENERAL
+
        - name: mpartner-default-mobile
          mappers: []
-         saroles: 
+         saroles:
            - CREDENTIAL_PARTNER
            - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_COMPLETED_EVENT_GENERAL
            - SUBSCRIBE_REGISTRATION_PROCESSOR_WORKFLOW_PAUSED_FOR_ADDITIONAL_INFO_EVENT_GENERAL
@@ -229,6 +356,9 @@ keycloak:
            - PUBLISH_CREDENTIAL_STATUS_UPDATE_GENERAL
            - PUBLISH_REGISTRATION_PROCESSOR_WORKFLOW_PAUSED_FOR_ADDITIONAL_INFO_EVENT_GENERAL
            - SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL
+         assign_client_scopes:
+           - send_binding_otp
+           - wallet_binding
        - name: mosip-resident-client
          mappers: []
          saroles:
@@ -237,17 +367,20 @@ keycloak:
            - CREDENTIAL_REQUEST
            - offline_access
            - uma_authorization
+         assign_client_scopes:
+           - individual_id
+           - ida_token
+
        - name: mosip-prereg-client
          mappers: []
-         del_saroles:
-           - INDIVIDUAL
          saroles:
            - PREREG
            - REGISTRATION_PROCESSOR
            - PRE_REGISTRATION_ADMIN
+
        - name: mosip-creser-idpass-client
          mappers: []
-         saroles: 
+         saroles:
            - REGISTRATION_PROCESSOR
            - DATA_READ
            - DOCUMENT_READ
@@ -255,20 +388,22 @@ keycloak:
            - METADATA_READ
            - CREATE_SHARE
            - CREDENTIAL_REQUEST
+
        - name: mosip-syncdata-client
          mappers: []
-         saroles: 
+         saroles:
            - REGISTRATION_ADMIN
            - GLOBAL_ADMIN
            - SUBSCRIBE_CA_CERTIFICATE_UPLOADED_GENERAL
            - REGISTRATION_SUPERVISOR
            - REGISTRATION_OFFICER
+
        - name: mpartner-default-auth
-         mappers: 
+         mappers:
            - mapper_name: langCode
-             mapper_user_attribute: langCode 
+             mapper_user_attribute: langCode
              token_claim_name: langCode
-         saroles: 
+         saroles:
            - SUBSCRIBE_AUTH_TYPE_STATUS_UPDATE_INDIVIDUAL
            - SUBSCRIBE_POLICY_UPDATED_GENERAL
            - SUBSCRIBE_MISP_LICENSE_GENERATED_GENERAL
@@ -294,9 +429,12 @@ keycloak:
            - SUBSCRIBE_CA_CERTIFICATE_UPLOADED_GENERAL
            - PUBLISH_AUTHENTICATION_TRANSACTION_STATUS_GENERAL
            - PUBLISH_IDA_FRAUD_ANALYTICS_GENERAL
+           - SUBSCRIBE_OIDC_CLIENT_CREATED_GENERAL
+           - SUBSCRIBE_OIDC_CLIENT_UPDATED_GENERAL
+
        - name: mosip-idrepo-client
          mappers: []
-         saroles: 
+         saroles:
            - PUBLISH_DEACTIVATE_ID_ALL_INDIVIDUAL
            - SUBSCRIBE_VID_CRED_STATUS_UPDATE_GENERAL
            - ID_REPOSITORY
@@ -307,19 +445,41 @@ keycloak:
            - uma_authorization
            - PUBLISH_VID_CRED_STATUS_UPDATE_GENERAL
            - PUBLISH_AUTH_TYPE_STATUS_UPDATE_ALL_INDIVIDUAL
+
        - name: mpartner-default-print
          mappers: []
-         saroles: 
+         saroles:
            - SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL
            - PUBLISH_CREDENTIAL_STATUS_UPDATE_GENERAL
            - CREATE_SHARE
            - PRINT_PARTNER
+
+       - name: mpartner-default-digitalcard
+         mappers: []
+         saroles:
+           - SUBSCRIBE_IDENTITY_CREATED_GENERAL
+           - SUBSCRIBE_IDENTITY_UPDATED_GENERAL
+           - PUBLISH_CREDENTIAL_STATUS_UPDATE_GENERAL
+           - CREATE_SHARE
+           - PRINT_PARTNER
+           - CREDENTIAL_REQUEST
+           - SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL
+
+       - name: mosip-digitalcard-client
+         saroles:
+           - CREATE_SHARE
+           - PUBLISH_CREDENTIAL_STATUS_UPDATE_GENERAL
+           - SUBSCRIBE_CREDENTIAL_ISSUED_INDIVIDUAL
+           - SUBSCRIBE_IDENTITY_CREATED_GENERAL
+           - SUBSCRIBE_IDENTITY_UPDATED_GENERAL
+
        - name: mosip-hotlist-client
          saroles:
            - HOTLIST_ADMIN
            - uma_authorization
            - offline_access
            - PUBLISH_MOSIP_HOTLIST_GENERAL
+
        # Used only for initial deployment purposes. Maybe deleted from installation later.
        - name: mosip-deployment-client
          saroles:
@@ -328,7 +488,7 @@ keycloak:
            - PARTNER_ADMIN
            - uma_authorization
            - offline_access
-    
+
        - name: mosip-testrig-client
          saroles:
            - ID_AUTHENTICATION
@@ -340,11 +500,10 @@ keycloak:
            - PMS_USER
            - uma_authorization
            - offline_access
-         sa_client_roles:
-           - realm-management:  ## realm-management client id
-               - view-users     # realm-management client roles
-               - view-clients
-               - view-realm
-               - manage-users
-    
+          sa_client_roles:
+            - realm-management:  ## realm-management client id
+                - view-users     # realm-management client roles
+                - view-clients
+                - view-realms
+                - manage-users
       users: []

@@ -11,9 +11,11 @@ CHART_VERSION=12.0.1-B2
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
 read -p "CAUTION: Do you still want to continue(Y/n)" yn
-if [ $yn = "Y" ] 
+if [ $yn = "Y" ]
   then
-
+   NS=masterdata-loader
+   CHART_VERSION=12.0.2
+   helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    helm delete masterdata-loader -n $NS
    kubectl create ns $NS

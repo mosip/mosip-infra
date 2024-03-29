@@ -22,6 +22,7 @@ function installing_artifactory() {
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
+  echo Installed artifactory service
   return 0
 }
 

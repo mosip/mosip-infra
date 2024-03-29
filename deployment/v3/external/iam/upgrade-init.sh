@@ -9,7 +9,7 @@ fi
 
 function upgrade_init() {
   NS=keycloak
-  CHART_VERSION=12.0.1-B2
+  CHART_VERSION=12.0.1
 
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
@@ -18,6 +18,8 @@ function upgrade_init() {
 
   echo Initializing keycloak
   helm -n $NS install keycloak-init mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f upgrade-init-values.yaml --version $CHART_VERSION
+  echo Initializing keycloak
+  helm -n $NS install keycloak-init mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f import-init-values.yaml --version $CHART_VERSION
   return 0
 }
 
@@ -27,4 +29,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-upgrade_init   # calling function
+import_init   # calling function

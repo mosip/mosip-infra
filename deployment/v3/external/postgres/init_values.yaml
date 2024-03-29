@@ -42,14 +42,6 @@ databases:
     enabled: true
     branch: develop
 
-  mosip_regdevice:
-    enabled: true
-    branch: develop
-   
-  mosip_authdevice:
-    enabled: true
-    branch: develop
-
   mosip_pms:
     enabled: true
     branch: develop
@@ -64,7 +56,7 @@ databases:
 
   mosip_toolkit:
     enabled: false
-    branch: develop
+    branch: v1.3.2
  
   mosip_digitalcard:
     enabled: false
@@ -72,8 +64,8 @@ databases:
 
   mosip_esignet:
     enabled: false
-    branch: develop
+    branch: v1.3.0
 
   mosip_mockidentitysystem:
     enabled: false
-    branch: develop
+    branch: v0.9.2

@@ -21,6 +21,7 @@ function Restarting_all() {
                      "prereg"
                      "idrepo"
                      "pms"
+                     "mock-smtp"
                      "mock-abis"
                      "mock-mv"
                      "regproc"

@@ -1,0 +1,398 @@
+property_file,property,value,classification,section,comment
+kernel-default.properties,mosip.kernel.sms.enabled,FALSE,1,4,inherited value
+kernel-default.properties,mosip.kernel.sms.country.code,91,1,4,inherited value
+kernel-default.properties,mosip.kernel.notification.email.from,info@mosip.io,1,4,inherited value
+kernel-default.properties,spring.mail.port,587,1,4,inherited value
+kernel-default.properties,spring.mail.properties.mail.transport.protocol,smtp,1,4,inherited value
+kernel-default.properties,spring.mail.properties.mail.smtp.starttls.required,TRUE,1,4,inherited value
+kernel-default.properties,spring.mail.properties.mail.smtp.starttls.enable,TRUE,1,4,inherited value
+kernel-default.properties,spring.mail.properties.mail.smtp.auth,TRUE,1,4,inherited value
+kernel-default.properties,spring.servlet.multipart.enabled,TRUE,1,4,inherited value
+kernel-default.properties,spring.servlet.multipart.max-file-size,5MB,1,4,inherited value
+kernel-default.properties,mosip.kernel.vid.min-unused-threshold,100000,1,4,inherited value
+kernel-default.properties,mosip.kernel.vid.vids-to-generate,200000,1,4,inherited value
+kernel-default.properties,mosip.kernel.vid.time-to-release-after-expir,5,1,4,inherited value
+kernel-default.properties,mosip.kernel.vid.pool-population-timeout,10000000,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-seconds,0,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-minutes,0,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-hours,23,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-days_of_month,*,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-months,*,1,4,inherited value
+kernel-default.properties,kernel.vid.revoke-scheduler-days_of_week,*,1,4,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-seconds,0,,,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-minutes,0,1,4,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-hours,*,1,4,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-days_of_month,*,1,4,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-months,*,1,4,inherited value
+kernel-default.properties,kernel.vid.isolator-scheduler-days_of_week,*,1,4,inherited value
+kernel-default.properties,mosip.kernel.prid.min-unused-threshold,1000,1,4,inherited value
+kernel-default.properties,mosip.kernel.prid.prids-to-generate,2000,1,4,inherited value
+kernel-default.properties,mosip.kernel.prid.pool-population-timeout,10000000,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-seconds,23,1,4,inherited value
+kernel-default.properties,mosip.kernel.prid.sequence-limit,3,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-minutes,0,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-hours,0,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-days_of_month,*,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-months,*,1,4,inherited value
+kernel-default.properties,kernel.prid.revoke-scheduler-days_of_week,*,1,4,inherited value
+kernel-default.properties,javax.persistence.jdbc.driver,org.postgresql.Driver,1,4,inherited value
+kernel-default.properties,hibernate.dialect,rg.hibernate.dialect.PostgreSQL95Dialect,1,4,inherited value
+kernel-default.properties,hibernate.jdbc.lob.non_contextual_creation,TRUE,1,4,inherited value
+kernel-default.properties,hibernate.hbm2ddl.auto,none,1,4,inherited value
+kernel-default.properties,hibernate.show_sql,FALSE,1,4,inherited value
+kernel-default.properties,hibernate.format_sql,FALSE,1,4,inherited value
+kernel-default.properties,hibernate.connection.charSet,utf8,1,4,inherited value
+kernel-default.properties,hibernate.cache.use_second_level_cache,FALSE,1,4,inherited value
+kernel-default.properties,hibernate.cache.use_query_cache,FALSE,1,4,inherited value
+kernel-default.properties,hibernate.cache.use_structured_entries,FALSE,1,4,inherited value
+kernel-default.properties,hibernate.generate_statistics,FALSE,1,4,inherited value
+kernel-default.properties,logging.level.org.hibernate.SQL,ERROR,1,4,inherited value
+kernel-default.properties,logging.level.org.hibernate.type,ERROR,1,4,inherited value
+kernel-default.properties,hibernate.current_session_context_class,org.springframework.orm.hibernate5.SpringSessionContext,1,4,inherited value
+kernel-default.properties,mosip.iam.impl.basepackage,io.mosip.kernel.auth.defaultimpl,1,4,inherited value
+kernel-default.properties,mosip.auth.adapter.impl.basepackage,io.mosip.kernel.auth.defaultadapter,1,4,inherited value
+kernel-default.properties,master.search.maximum.rows,50,1,4,inherited value
+kernel-default.properties,mosip.level,2,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-seconds,0,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-minutes,48,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-hours,17,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-days_of_month,*,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-months,*,1,4,inherited value
+kernel-default.properties,kernel.uin.transfer-scheduler-days_of_week,*,1,4,inherited value
+kernel-default.properties,mosip.kernel.auth.proxy-otp-value,111111,1,4,inherited value
+kernel-default.properties,mosip.security.csrf-enable,FALSE,1,4,inherited value
+kernel-default.properties,mosip.security.cors-enable,FALSE,1,4,inherited value
+kernel-default.properties,mosip.security.origins,localhost:8080,1,4,inherited value
+kernel-default.properties,mosip.security.secure-cookie,FALSE,1,4,inherited value
+kernel-default.properties,subscriptions-delay-on-startup,120000,1,1,inherited value
+registration-processor-default.properties,mosip.regproc.common.before-cbeff-others-attibute.reg-client-versions,"1.1.3,1.1.4,1.1.5,1.1.5.5,1.1.5.6",2,3,Country should set previous regclient versions used on the field for backward compatibiliy
+registration-processor-default.properties,packetmanager.provider.uingenerator.province,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.czone,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.dateOfBirth,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.middleName,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.email,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfRelationship,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.cpostalCode,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.firstName,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.postalCode,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfException,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine2,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.individualBiometrics[Finger],"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine1,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine4,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.caddressLine1,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.cregion,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.residenceStatus,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.maritalStatus,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.IDSchemaVersion,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.ccity,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.modeOfClaim,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfDateOfBirth,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.caddressLine3,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.referenceIdentityNumber,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.individualBiometrics[Iris],"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.region,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.lastName,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfIdentity,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.UIN,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.zone,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.gender,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.phone,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.proofOfAddress,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.addressLine3,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.bloodType,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.city,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.individualBiometrics[Face],"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.caddressLine2,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.caddressLine4,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.cprovince,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.suffix,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.registrationType,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.parentOrGuardianUIN,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,packetmanager.provider.uingenerator.parentOrGuardianRID,"source:REGISTRATION_CLIENT\/process:NEW|UPDATE|LOST,source:RESIDENT\/process:ACTIVATED|DEACTIVATED|RES_UPDATE|RES_REPRINT",1,1,Schama field specific implementation. Country should change according to schema
+registration-processor-default.properties,registration.processor.reprocess.elapse.time,300,1,1,Country specific configuration value should be considered
+registration-processor-default.properties,registration.processor.reprocess.hours,*,1,1,Country specific configuration value should be considered
+registration-processor-default.properties,mosip.registration.processor.database.port,5432,1,1,Country specific configuration value should be considered
+registration-processor-default.properties,registration.processor.LANDING_ZONE,/mnt/landing,1,1,country specific settings should take precedence
+registration-processor-default.properties,mosip.regproc.packet.classifier.tagging.agegroup.ranges,"{'INFANT':'0-5','MINOR':'6-17','ADULT':'18-200'}",1,1,country specific settings should take precedence
+registration-processor-default.properties,mosip.kernel.virus-scanner.host,,1,1,country specific settings should take precedence
+registration-processor-default.properties,registration.processor.reprocess.minutes:,0,1,1,country specific settings should take precedence
+registration-processor-default.properties,mosip.kernel.virus-scanner.port:,3310,1,1,country specific settings should take precedence
+registration-processor-default.properties,registration.processor.queue.username:,artemis,1,1,country specific settings should take precedence
+registration-default.properties,mosip.registration.num_of_fingerprint_retries,3,1,1,Country specific
+registration-default.properties,mosip.registration.num_of_iris_retries,3,1,1,Country specific
+registration-default.properties,mosip.registration.num_of_face_retries,3,1,1,Country specific
+registration-default.properties,mosip.registration.leftslap_fingerprint_threshold,40,1,1,Country specific
+registration-default.properties,mosip.registration.rightslap_fingerprint_threshold,40,1,1,Country specific
+registration-default.properties,mosip.registration.thumbs_fingerprint_threshold,40,1,1,Country specific
+registration-default.properties,mosip.registration.iris_threshold,60,1,1,Country specific
+registration-default.properties,mosip.registration.face_threshold,90,1,1,Country specific
+registration-default.properties,mosip.registration.document_size,2000000,1,1,Country specific (in bytes)
+registration-default.properties,mosip.registration.uin.update.configured.fields,,1,1,Country specific 
+registration-default.properties,mosip.registration.pre_reg_no_of_days_limit,7,1,1,Country specific 
+registration-default.properties,mosip.registration.capture_time_out,10000,1,1,Country specific 
+registration-default.properties,mosip.registration.reg_pak_max_cnt_apprv_limit,100,1,1,Country specific 
+registration-default.properties,mosip.registration.reg_pak_max_time_apprv_limit,100,1,1,Country specific 
+registration-default.properties,mosip.registration.audit_log_deletion_configured_days,10,1,1,Country specific 
+registration-default.properties,mosip.registration.reg_deletion_configured_days,1,1,1,Country specific 
+registration-default.properties,mosip.registration.pre_reg_deletion_configured_days,1,1,1,Country specific 
+registration-default.properties,mosip.registration.sync_transaction_no_of_days_limit,5,1,1,Country specific 
+registration-default.properties,mosip.registration.last_export_registration_config_time,100,1,1,Country specific 
+registration-default.properties,mosip.registration.registration_packet_store_location,..//PacketStore,1,1,Country specific 
+registration-default.properties,mosip.registration.registration_pre_reg_packet_location,..//PreRegPacketStore,1,1,Country specific 
+registration-default.properties,mosip.registration.document_scanner_enabled,No,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mds.deduplication.enable.flag,N,1,1,Country specific 
+registration-default.properties,mosip.registration.supervisor_approval_config_flag,Y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.max_age,150,1,1,Required for backward compatibility only
+registration-default.properties,mosip.registration.mdm.portRangeFrom,4501,1,1,Country specific 
+registration-default.properties,mosip.registration.mdm.portRangeTo,4600,1,1,Country specific 
+registration-default.properties,mosip.biometric.sdk.provider.finger.classname,io.mosip.mock.sdk.impl.SampleSDK,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.finger.version,0.9,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.finger.args,,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.finger.threshold,60,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.iris.classname,io.mosip.mock.sdk.impl.SampleSDK,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.iris.version,0.9,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.iris.args,,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.iris.threshold,60,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.face.classname,io.mosip.mock.sdk.impl.SampleSDK,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.face.version,0.9,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.face.args,,1,2,Required for backward compatibility only
+registration-default.properties,mosip.biometric.sdk.provider.face.threshold,60,1,2,Required for backward compatibility only
+registration-default.properties,mosip.kernel.idobjectvalidator.schema-name,mosip-identity-json-schema.json,1,2,Required for backward compatibility only
+registration-default.properties,mosip.kernel.idobjectvalidator.file-storage-uri,LOCAL,1,2,Required for backward compatibility only
+registration-default.properties,mosip.kernel.idobjectvalidator.property-source,LOCAL,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mdm.hostProtocol,http,1,2,Required for backward compatibility only
+registration-default.properties,mosip.mdm.enabled,TRUE,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.ui_sync_data,y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.Login_Credentials_Sync.frequency,190,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.consent_fra,"Je comprends que les données recueillies à mon sujet lors de la enregistrement par ladite autorité comprennent mon -  <br> &#x2022 nom <br>&#x2022 Date de naissance <br>&#x2022 genre <br>&#x2022 adresse <br>&#x2022 coordonnées <br>&#x2022 Documents <br>Je comprends également que ces informations seront stockées et traitées dans le but de vérifier mon identité afin d'accéder à divers services, ou de se conformer à une obligation légale. Je donne mon consentement pour la collecte de ces données à cette fin.
+",1,2,Required for backward compatibility only
+registration-default.properties,mosip.camera.resolution.width,2592,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.eod_process_config_flag,Y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.id.validation.identity.CNIENumber,"^([0-9]{10,30})$",1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.important_guidelines_eng,COUNTRY TO DEFINE THE TEXT OF GUIDELINES,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mds.iris.dedup.enable.flag,N,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mds.face.dedup.enable.flag,N,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.consent_eng,"I understand that the data collected about me during registration by the said authority includes my -<br>&#x2022 Name <br> &#x2022 Date of birth <br> &#x2022 Gender <br> &#x2022 Address <br> &#x2022 Contact details <br> &#x2022 Documents <br> I also understand that this information will be stored and processed for the purpose of verifying my identity in order to access various services, or to comply with a legal obligation. I give my consent for the collection of this data for this purpose. ",1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.cbeff_only_unique_tags,Y,1,2,Required for backward compatibility only
+registration-default.properties,current_mdm_spec,0.9.2,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.re_capture_time,10,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.fingerprint_enable_flag,Y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mds.fingerprint.dedup.enable.flag,N,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.important_guidelines_ara,COUNTRY TO DEFINE THE TEXT OF GUIDELINES,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.webcam_name,logitech,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.User_Role_Setup_Sync.frequency,190,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.face_recapture_time,5,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.key_policy_sync_threshold_value,1,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.send_notification_disable_flag,y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.mdm.contextPath,,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.face_enable_flag,Y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.important_guidelines_fra,COUNTRY TO DEFINE THE TEXT OF GUIDELINES,1,2,Required for backward compatibility only
+registration-default.properties,mosip.id.validation.identity.referenceIdentityNumber,"^([0-9]{10,30})$",1,2,Required for backward compatibility only
+registration-default.properties,mosip.camera.resolution.height,1944,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.consent_ara," أدرك أن البيانات التي تم جمعها عني أثناء التسجيل من قِبل السلطة المذكورة تتضمن بياناتي  -  <br> &#x2022 الاسم <br>&#x2022 تاريخ الميلاد <br>&#x2022 نوع الجنس <br>&#x2022 العنوان <br>&#x2022 تفاصيل الاتصال <br>&#x2022  الوثائق <br> كما أفهم أنه سيتم تخزين هذه المعلومات ومعالجتها بغرض التحقق من هويتي من أجل الوصول إلى خدمات مختلفة، أو الامتثال لالتزام قانوني. وأوافق على جمع هذه البيانات لهذا الغرض. 
+",1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.iris_enable_flag,Y,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.user_on_board_threshold_limit,1,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.quality_score,60,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.webcam_library_name,sarxos,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.DOCUMENT_SCANNER_DEPTH,100,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.document_scanner_dpi,75,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.document_scanner_brightness,10,1,2,Required for backward compatibility only
+registration-default.properties,mosip.registration.document_scanner_contrast,10,1,2,Required for backward compatibility only
+registration-default.properties,mosip.face_authentication.quality_score,30,2,3,Depends on the quality of biometrics returned by MDS
+registration-default.properties,mosip.fingerprint_authentication.quality_score,30,2,3,Depends on the quality of biometrics returned by MDS
+registration-default.properties,mosip.iris_authentication.quality_score,30,2,3,Depends on the quality of biometrics returned by MDS
+,,,,,
+registration-default.properties,mosip.biometric.sdk.providers.finger.mockvendor.version,0.9,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.finger.mockvendor.args,,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.finger.mockvendor.classname,io.mosip.mock.sdk.impl.SampleSDK,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.finger.mockvendor.threshold,30,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.iris.mockvendor.version,0.9,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.iris.mockvendor.args,,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.iris.mockvendor.classname,io.mosip.mock.sdk.impl.SampleSDK,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.iris.mockvendor.threshold,30,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.face.mockvendor.version,0.9,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.face.mockvendor.args,,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.face.mockvendor.classname,io.mosip.mock.sdk.impl.SampleSDK,2,3,Depends on the BIO SDK vendor implementation
+registration-default.properties,mosip.biometric.sdk.providers.face.mockvendor.threshold,30,2,3,Depends on the BIO SDK vendor implementation
+,,,,,
+registration-default.properties,mosip.registration.rid_sync_batch_size,5,2,3,Number of records to be considered for every trigger
+registration-default.properties,mosip.registration.packet_upload_batch_size,5,2,3,Number of records to be considered for every trigger
+registration-default.properties,mosip.registration.status_sync_batch_size,5,2,3,Number of records to be considered for every trigger
+registration-default.properties,mosip.registration.server_profile,PROD,1,1,Current env of the server
+registration-default.properties,mosip.regproc.packet.classifier.tagging.agegroup.ranges,"{'INFANT':'0-5','MINOR':'6-17','ADULT':'18-200'}",2,3,Age groups with age values
+registration-default.properties,mosip.registration.fields.to.retain.post.prid.fetch,"consent,consentText,preferredLang",2,3,Fields whose value should not be overridden with values downloaded in the pre-reg packet.
+application-default.properties,mosip.right_to_left_orientation,ara,1,1,Inherited Property
+application-default.properties,mosip.left_to_right_orientation,eng,1,1,Inherited Property
+application-default.properties,mosip.kernel.keygenerator.symmetric-key-length,256,1,1,Inherited Property
+application-default.properties,mosip.kernel.keygenerator.asymmetric-key-length,2048,1,1,Inherited Property
+application-default.properties,mosip.kernel.keygenerator.asymmetric-algorithm-name,RSA,1,1,Inherited Property
+application-default.properties,mosip.kernel.keygenerator.symmetric-algorithm-name,AES,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.symmetric-algorithm-name,AES/GCM/PKCS5Padding,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.asymmetric-algorithm-name,RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.gcm-tag-length,128,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.hash-symmetric-key-length,256,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.hash-algorithm-name,PBKDF2WithHmacSHA512,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.sign-algorithm-name,RS256,1,1,Inherited Property
+application-default.properties,mosip.kernel.crypto.hash-iteration,100000,1,1,Inherited Property
+application-default.properties,mosip.kernel.data-key-splitter,#KEY_SPLITTER#,1,1,Inherited Property
+application-default.properties,mosip.kernel.signature.signature-request-id,SIGNATURE.REQUEST,1,1,Inherited Property
+application-default.properties,mosip.kernel.signature.signature-version-id,v1.0,1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.restricted-numbers,"786,666",1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.length,14,1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.sequence-limit,3,1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.repeating-block-limit,3,1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.repeating-limit,2,1,1,Inherited Property
+application-default.properties,mosip.kernel.prid.not-start-with,"0,1",1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length,10,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.restricted-numbers,"786,666",1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.repeating-block-limit,2,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.sequence-limit,3,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.repeating-limit,2,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.conjugative-even-digits-limit,3,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.reverse-digits-limit,5,1,1,Inherited Property
+application-default.properties,mosip.kernel.uin.length.digits-limit,5,1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.restricted-numbers,"786,666",1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.not-start-with,"0,1",1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.length.repeating-limit,2,1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.length.repeating-block-limit,2,1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.length.sequence-limit,3,1,1,Inherited Property
+application-default.properties,mosip.kernel.vid.length,16,1,1,Inherited Property
+application-default.properties,mosip.kernel.registrationcenterid.length,5,1,1,Inherited Property
+application-default.properties,mosip.kernel.machineid.length,5,1,1,Inherited Property
+application-default.properties,mosip.kernel.rid.length,29,1,1,Inherited Property
+application-default.properties,mosip.kernel.rid.timestamp-length,14,1,1,Inherited Property
+application-default.properties,mosip.kernel.rid.sequence-length,5,1,1,Inherited Property
+application-default.properties,mosip.kernel.virus-scanner.host,clamav.clamav,1,1,Inherited Property
+application-default.properties,mosip.kernel.virus-scanner.port,3310,1,1,Inherited Property
+application-default.properties,mosip.kernel.otp.expiry-time,180,1,1,Inherited Property
+application-default.properties,mosip.primary-language,${mosip.primary-language},1,1,Inherited Property
+application-default.properties,mosip.secondary-language,${mosip.secondary-language},1,1,Inherited Property
+application-default.properties,mosip.kernel.applicant.type.age.limit,5,1,1,Inherited Property
+application-default.properties,mosip.idrepo.identity.allowedBioAttributes,individualBiometrics,1,1,Inherited Property
+application-default.properties,mosip.idrepo.identity.bioAttributes,"individualBiometrics,parentOrGuardianBiometrics",1,1,Inherited Property
+application-default.properties,mosip.supported-languages,"eng,ara,fra",1,1,Inherited Property
+application-default.properties,mosip.right_to_left_orientation,ara,1,1,Inherited Property
+application-default.properties,mosip.left_to_right_orientation,eng,1,1,Inherited Property
+application-default.properties,mosip.kernel.applicant.type.age.limit,,1,1,Inherited Property
+id-authentication-default.properties,ida.demo.common.normalization.regex.any[0],"[\\.|,|\\-|\\*|\\(|\\)|\\[|\\]|`|\\'|/|\\|#|\""]${ida.norm.sep} .",2,1,Updated for special chars to be replaced with space instead of getting removed in full address normalisation during authentication.
+id-authentication-default.properties,request.idtypes.allowed.internalauth,"UIN,VID",2,1,"Decision to be made by country to allow UIN, VID or both for authentication."
+id-authentication-default.properties,otp.request.flooding.duration,1,1,1,
+id-authentication-default.properties,mosip.ida.internal.hotlist.idtypes.allowed,"UIN,VID,PARTNER_ID,DEVICE,DEVICE_PROVIDER",2,1,Added device and device provider hotlisting
+id-authentication-default.properties,otp.request.flooding.max-count,100,1,1,
+id-authentication-default.properties,ida-zero-knowledge-unencrypted-credential-attributes,preferredLang,2,3,The attributes that are not needed to be ZK decrypted
+id-authentication-default.properties,mosip.biometric.sdk.providers.iris.mosip-ref-impl-sdk-client.version,0.9,2,3,Version of BIOSDK
+id-authentication-default.properties,cred-request-service-get-request-ids.pageSize,10,2,3,"page size for credential request. no. of ids to be taken in one run.
+Used to retrigger missing credential issuance in ida startup."
+id-authentication-default.properties,mosip.biometric.sdk.providers.finger.mosip-ref-impl-sdk-client.version,0.9,2,3,Version of BIOSDK
+id-authentication-default.properties,mosip.location.profile.attribute.name,locationHierarchyForProfiling,2,3,The attribute name in identity mapping json for Location Hierarchy used for Anonymous profile
+id-authentication-default.properties,mosip.demographic.sdk.api.classname,io.mosip.demosdk.client.impl.spec_1_0.Client_V_1_0,2,3,DemoSDK Class
+id-authentication-default.properties,authrequest.received-time-allowed.seconds,30,2,3,time in seconds after which created auth requests will be invalid.
+id-authentication-default.properties,ida.child-auth-filter.factors.denied,"otp,bio",2,3,Child auth methods denied
+id-authentication-default.properties,mosip.date-of-birth.pattern,yyyy/MM/dd,2,3,DOB pattern used in idschema. This should be inline with idschema.
+id-authentication-default.properties,ida.id.attribute.separator.fullAddress,",",2,3,charactre to seperate address line items in full address
+id-authentication-default.properties,mosip.preferred.language.attribute.name,preferredLanguage,2,3,A country can define a different name for preferred lang and can use it here
+id-authentication-default.properties,ida.child-auth-filter.child.max.age,5,2,3,max age for treating an individual as child for authentication
+id-authentication-default.properties,ida.mosip.internal.auth.filter.classes.in.execution.order,io.mosip.authentication.hotlistfilter.impl.IndividualIdHotlistFilterImpl,2,3,A country can choose to apply hotlist filter for Individual ID
+id-authentication-default.properties,mosip.biometric.sdk.providers.face.mosip-ref-impl-sdk-client.classname,io.mosip.biosdk.client.impl.spec_1_0.Client_V_1_0,2,3,BIOSDK classname
+id-authentication-default.properties,mosip.biometric.sdk.providers.face.mosip-ref-impl-sdk-client.version,0.9,2,3,Version of BIOSDK
+id-authentication-default.properties,mosip.hotlist.cleanup-schedule.fixed-delay-in-hours,24,2,3,Max delay for running hotlist cleanup job
+id-authentication-default.properties,mosip.normalizer.sdk.api.classname,io.mosip.demosdk.client.impl.spec_1_0.Normalizer_V_1_0,2,3,DEMOSDK classname
+id-authentication-default.properties,mosip.ida.allowed.enviromemnts,"Staging,Developer,Pre-Production,Production",2,3,Env's to be refered for authentication 
+id-authentication-default.properties,mosip.biometric.sdk.providers.finger.mosip-ref-impl-sdk-client.classname,io.mosip.biosdk.client.impl.spec_1_0.Client_V_1_0,2,3,BIOSDK classname
+id-authentication-default.properties,mosip.ida.fraud-analysis-enabled,TRUE,2,3,fraud analysis value. (TRUE/FALSE)
+id-authentication-default.properties,ida-max-credential-pull-window-days,2,2,3,no of days to be considered to  pullin missing credential
+id-authentication-default.properties,authrequest.biometrics.allowed-segment-time-difference-in-seconds,120,2,3,max time difference between sucessive biometric capture
+id-authentication-default.properties,ida-default-identity-filter-attributes,"phone,fullName,dateOfBirth,email,preferredLang",2,3,Any attribute additionally needed to be ZK decrypted additinally can be added here. This may be needed for any new filter added.
+id-authentication-default.properties,mosip.date-of-birth.attribute.name,dateOfBirth,2,3,DOB attribute name from idschema
+id-authentication-default.properties,notification.uin.masking.charcount,8,2,4,no of first char to be masked in notifications
+id-authentication-default.properties,notification.date.format,dd-MM-yyyy,2,4,date format prefered
+id-authentication-default.properties,notification.time.format,HH:mm:ss,2,4,time format preffered
+id-authentication-default.properties,auth.types.allowed,"demo,otp,bio-Finger,bio-Iris,bio-Face",2,4,allowed auth types
+id-authentication-default.properties,ekyc.auth.types.allowed,"demo,otp,bio-Finger,bio-Iris,bio-Face",2,4,allowed ekyc auth types
+id-authentication-default.properties,internal.auth.types.allowed,"otp,bio-Finger,bio-Iris,bio-Face",2,4,allowed internal auth types
+id-authentication-default.properties,request.idtypes.allowed,"VID,UIN",2,4,allowed id types for authentication
+id-authentication-default.properties,request.idtypes.allowed.internalauth,"UIN,VID",2,4,allowed id types for internal authentication
+pre-registration-default.properties,preregistration.availability.sync,,1,1,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.preregistration.captcha.enable,,1,1,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,latestidschema.service.contextpath,latestidschemafetch the latest ID Schema for the ID object validator,1,1,"invalid value in 1.2.0.1, property seems unused so this invalid value is not breaking code"
+pre-registration-default.properties,max.file.size,2,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.document.extention,"PDF,JPEG,PNG,JPG",1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.preregistration.document.scan,TRUE,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.kernel.objectstore.account-name,prereg,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.availability.noOfDays,140,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.booking.offset,2,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.timespan.rebook,0,6,4,"this should now be set to 0, as per 1.2.0.1 , irrespective of previous value by country"
+pre-registration-default.properties,preregistration.timespan.cancel,0,6,4,"this should now be set to 0, as per 1.2.0.1 , irrespective of previous value by country"
+pre-registration-default.properties,preregistration.job.schedule.cron.consumedStatusJob,0 0 0 * * ?,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.job.schedule.cron.slotavailability,0 0 0 * * ?,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.job.schedule.cron.expiredStatusJob,0 0 0 * * ?,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.job.schedule.cron.updateApplicationsBookingJob,0 0 * ? * *,2,3,"newly added in 1.2.0.1, country should customise"
+pre-registration-default.properties,preregistration.job.schedule.cron.purgeExpiredRegCenterSlots,0 0 0 * * ?,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,email.acknowledgement.template,Email-Acknowledgement,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,email.acknowledgement.subject.template,Acknowledgement-email-subject,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,sms.acknowledgement.template,SMS-Acknowledgement,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,cancel.appoinment.template,cancel-appointment,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,cancel.appointment.email.subject,cancel-appointment-email-subject,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,otp.request.flooding.duration,1,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,otp.request.flooding.max-count,3,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,pre.reg.login.otp.sms.template,pre-reg-login-otp-sms-template,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,pre.reg.login.otp.mail.subject.template,OTP-email-subject-template,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,pre.reg.login.otp.mail.content.template,OTP-email-content-template,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,prereg.auth.jwt.secret,Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E=,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,prereg.auth.jwt.token.expiration,3600,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.identity.name,fullName,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.recommended.centers.locCode,5,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,reregistration.nearby.centers,2000,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.documentupload.allowed.file.type,"application/pdf,image/jpeg,image/png,image/jpg",1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.documentupload.allowed.file.nameLength,50,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.documentupload.allowed.file.size,2000000,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.preregistration.auto.logout.idle,180,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.preregistration.auto.logout.timeout,60,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.contact.email,contact@dev.mosip.net,2,3,"newly added in 1.2.0.1, country should customise"
+pre-registration-default.properties,preregistration.contact.phone,9999999999,2,3,"newly added in 1.2.0.1, country should customise"
+pre-registration-default.properties,mosip.preregistration.auto.logout.ping,30,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.id.validation.identity.email,"^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-zA-Z]{2,})$",1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,mosip.id.validation.identity.phone,^([6-9]{1})([0-9]{9})$,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,preregistration.notification.nameFormat,fullName,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+pre-registration-default.properties,javax.persistence.jdbc.user,prereguser,1,4,"country must have customised value for this in 1.1.5, so it should take precedence"
+syncdata-default.properties,subscriptions-delay-on-startup,6000,1,1,Due to some issues this was changed to 120000
+application-default.properties,mosip.stage.environment,Staging,1,1,env used by reg-client in MDS request and response.
+,,,,,
+admin-default.properties,mosip.admin.packetupload.packetsync.phone,phone,2,3,Field id in id-schema which holds resident phone number
+admin-default.properties,mosip.admin.packetupload.packetsync.name,"fullName,name,firstName,middleName,lastName",2,3,Field id in id-schema which holds resident name.
+admin-default.properties,mosip.admin.packetupload.packetsync.email,email,2,3,Field id in id-schema which holds resident email address
+,,,,,
+application-default.properties,mosip.keycloak.max-no-of-users,100,1,1,"User in auth-manager getusers API, required for backward comaptibility."
+application-default.properties,mosip.recommended.centers.locCode,5,1,1,
+application-default.properties,mosip.country.code,MOR,1,1,Country specific
+application-default.properties,mosip.default.template-languages,"eng,ara,fra",2,3,These are default languages used for sending notifications
+application-default.properties,mosip.default.user-preferred-language-attribute,preferredLang,2,3,Config key to pick the preferred language for communicating to the Resident
+application-default.properties,mosip.notification.timezone,GMT+05:30,1,1,
+application-default.properties,mosip.kernel.applicant.type.age.limit,5,1,1,Required for backward comaptibility
+application-default.properties,mosip.kernel.filtervalue.max_columns,50,1,1,inherited property
+,,,,,inherited property
+kernel-default.properties,mosip.kernel.masterdata.code.validate.regex,[^a-z0-9\u0600-\u06FF],2,3,Need to update based on supported language
+kernel-default.properties,mosip.kernel.masterdata.name.validate.regex,[^a-z\u0600-\u06FF],2,3,Need to update based on supported language
+packet-manager-default.properties,mosip.regproc.common.before-cbeff-others-attibute.reg-client-versions,"1.1.3,1.1.4,1.1.5,1.1.5.5,1.1.5.6",2,3,Country should set previous regclient versions used on the field for backward compatibiliy
+resident-default.properties,resident.update-uin.machine-name-prefix,resident_machine_,2,3,"Default prefix for vitual  machine names used by resident service for generating regproc update packets, if needed can be changed."
+resident-default.properties,resident.update-uin.machine-zone-code,MOR,2,3,one of the zones present in the masterdata
+resident-default.properties,mosip.ida.env,Production,2,3,value should be one of values from (mosip.ida.allowed.enviromemnts) property from id-authentication property file.
+resident-default.properties,resident.update-uin.machine-spec-id,RESIDENT-1,2,3,create a spec in master.machine_spec with this spec id for resident update packet to be created.
+resident-default.properties,resident.center.id,10001,2,4,resident update packet virtual machine center id.
+resident-default.properties,resident.machine.id,10001,2,4,resident update packet virtual machine machine id.
+resident-default.properties,auth.types.allowed,"demo,bio-Finger,bio-Iris,bio-FACE",2,4,list of authentication types to be locked or unlocked by resident.
+resident-default.properties,mosip.id.validation.identity.phone,^([6-9]{1})([0-9]{9})$,2,4,allowed mobile no regex 
+resident-default.properties,mosip.id.validation.identity.email,"^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-zA-Z]{2,})$",2,4,allowed email id regex 
+resident-default.properties,IDSchema.Version,0.1,2,4,check if schema version is correct as per latest schema in mosip_master db.
+resident-default.properties,objectstore.adapter.name,PosixAdapter,2,4,adapter name for objectstore
+partner-management-default,mosip.kernel.idgenerator.misp.license-key-length,50,1,4,inherited property
+partner-management-default,mosip.pmp.misp.license.expiry.period.indays,90,1,4,inherited property
+partner-management-default,pmp.allowed.policy.types,"Auth,DataShare,CredentialIssuance",1,4,inherited property
+partner-management-default,pmp.partner.partnerId.max.length,36,1,4,Maximum length should not exceed length of column in db
+partner-management-default,pmp.partner.mobileNumbe.max.length,16,2,4,Manual adjudication
+partner-management-default,mosip.pms.misp.partner.type,MISP_Partner,2,4,Value should match with data present in partner_type table in mosip_pms db.
+print-default.properties,mosip.print.crypto.p12.filename,partner.p12,2,3,this value should provided based on p12 file data
+print-default.properties,mosip.print.crypto.p12.password,password@123,2,3,this value should provided based on p12 file data
+print-default.properties,mosip.print.crypto.p12.alias,partner,2,3,this value should provided based on p12 file data
