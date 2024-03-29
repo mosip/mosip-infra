@@ -62,7 +62,7 @@ databases:
     enabled: false
     branch: develop
 
-  mosip_idp:
+  mosip_esignet:
     enabled: false
     branch: v1.3.0
 
