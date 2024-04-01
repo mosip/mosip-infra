@@ -60,6 +60,13 @@ function installing_apitestrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
+  read -p "Please provide slack webhook URL to notify server end issues on your slack channel : " slackWebhookUrl
+
+  if [ -z $slackWebhookUrl ]; then
+    echo "slack webhook URL not provided; EXITING;"
+    exit 1;
+  fi
+
    valid_inputs=("yes" "no")
    eSignetDeployed=""
 
@@ -88,7 +95,9 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
+  --set apitestrig.secrets.apitestrig.slack-webhook-url="$slackWebhookUrl" \
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
+  --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE
 
   echo Installed apitestrig.

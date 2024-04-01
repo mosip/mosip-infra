@@ -75,6 +75,7 @@ function installing_uitestrig() {
   --set uitestrig.configmaps.uitestrig.PmpPortalPath="https://$PMP_HOST" \
   --set uitestrig.configmaps.uitestrig.adminPortalPath="https://$ADMIN_HOST" \
   --set uitestrig.configmaps.uitestrig.residentPortalPath="https://$RESIDENT_HOST" \
+  --set uitestrig.configmaps.uitestrig.NS="$NS" \
   $ENABLE_INSECURE
   
   return 0

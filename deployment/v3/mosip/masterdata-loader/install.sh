@@ -12,7 +12,7 @@ read -p "CAUTION: Do you still want to continue(Y/n)" yn
 if [ $yn = "Y" ]
   then
    NS=masterdata-loader
-   CHART_VERSION=12.0.1-B3
+   CHART_VERSION=12.0.1
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    kubectl create ns $NS
@@ -33,7 +33,7 @@ if [ $yn = "Y" ]
    ./copy_secrets.sh
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=1.2.0.1 --version $CHART_VERSION --wait
+   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=v1.2.0.1 --version $CHART_VERSION --wait
 
    else
    break
