@@ -2,12 +2,21 @@
 
 This module generates and install secrets required by config-server.
 
-Note: The conf-secrets must not be deleted in any case of re-deployment, upgrade or migration process as we have separated the conf-secrets from config-server to ensure conf-secrets are not deleted.
+Note: 
+* The conf-secrets must not be deleted in any case of re-deployment, upgrade or migration process as we have separated the conf-secrets from config-server to ensure conf-secrets are not deleted.
+* Incase if you have a scenario where you have to delete the conf-secrets from the environment make sure to run `delete.sh` script as the script delete's the helm chart and takes the backup of the existing `conf-secrets-various` secret.
+
 
 ## Install
 ```sh
 ./install.sh [kubeconfig]
 ```
+
+## Delete 
+```
+./delete.sh [kubeconfig]
+```
+
 ## Secrets to be updated for Migartion scenerios
 ### 1.1.5.5-P1 to 1.2.0.1
 * After installing Conf secrets in 1.2.0.1 update below mentioned keys with values from V2 configuration files.
