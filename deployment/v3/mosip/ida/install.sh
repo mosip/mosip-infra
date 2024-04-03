@@ -35,17 +35,54 @@ function installing_ida() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
+  default_keystore_type=PKCS11
+  read -p "Provide the type of keystore for IDA (PKCS11/PKCS12) : [ default : PKCS11 ] : " keystore_type
+  keystore_type=${keystore_type:-$default_keystore_type}
+
+  IDA_KEYGEN_HELM_ARGS='--set springConfigNameEnv="id-authentication" --set softHsmCM="softhsm-ida-share"'
+  IDA_HELM_ARGS=''
+  if [[ $keystore_type == 'PKCS12' ]]; then
+
+    default_volume_size=100M
+    read -p "Provide the volume size for PKCS12 volume [ default : 100M ]" volume_size
+    volume_size=${volume_size:-$default_volume_size}
+
+    default_volume_mount_path='/home/mosip/config/'
+    read -p "Provide the volume size for PKCS12 volume [ default : '/home/mosip/config/' ] : " volume_mount_path
+    volume_mount_path=${volume_mount_path:-$default_volume_mount_path}
+
+    PVC_CLAIM_NAME='ida-pkcs12-keys.p12'
+    IDA_KEYGEN_HELM_ARGS="--set persistence.enabled=true  \
+               --set volumePermissions.enabled=true \
+               --set persistence.size=\"$volume_size\" \
+               --set persistence.mountDir=\"$volume_mount_path\" \
+               --set springConfigNameEnv='id-authentication' \
+               --set activeProfileEnv=default     \
+               --set persistence.pvc_claim_name=\"$PVC_CLAIM_NAME\"  \
+              "
+    IDA_HELM_ARGS="--set persistence.enabled=true  \
+                   --set volumePermissions.enabled=true \
+                   --set persistence.mountDir=\"$volume_mount_path\" \
+                   --set springConfigNameEnv='id-authentication' \
+                   --set activeProfileEnv=default     \
+                   --set persistence.existingClaim=\"$PVC_CLAIM_NAME\"  \
+                   --set \"extraEnvVarsCM={'global','config-server-share','artifactory-share'}\" \
+                  "
+  fi
+  echo "IDA KEYGEN HELM ARGS $IDA_KEYGEN_HELM_ARGS"
+  echo "IDA HELM ARGS $IDA_HELM_ARGS"
+
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen --wait --wait-for-jobs  --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version $CHART_VERSION
 
   echo Installing ida auth
-  helm -n $NS install ida-auth mosip/ida-auth --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-auth mosip/ida-auth $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida internal
-  helm -n $NS install ida-internal mosip/ida-internal --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-internal mosip/ida-internal $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida otp
-  helm -n $NS install ida-otp mosip/ida-otp --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-otp mosip/ida-otp $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
