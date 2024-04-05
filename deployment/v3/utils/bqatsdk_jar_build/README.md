@@ -74,9 +74,10 @@ The process involves building the BQAT SDK jar locally and then adding it to the
     ```bash
     docker push IMAGE
     ```
+ **NOTE: Push the image to required docker hub**   
 
-13. **Restart Artifactory Pod**:
-    After pushing changes, restart the Artifactory pod in the `bqatsdk` namespace.
+13. **Deploy Artifactory Image**:
+    After pushing changes to docker hub, deploy the Artifactory pod in the `bqatsdk` namespace with the new image created.
 
 14. **Map New Artifactory zip_file_path **: 
    ```
