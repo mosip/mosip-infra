@@ -82,6 +82,8 @@ The process involves building the BQAT SDK jar locally and then adding it to the
    ```
     - name: biosdk_zip_file_path
               value: >-
-                http://artifactory-bqatsdk.bqatsdk:80/bqat-sdk-0.0.2-jar-with-dependencies.zip ```
+                http://artifactory-bqatsdk.bqatsdk:80/bqat-sdk-0.0.2-jar-with-dependencies.zip 
+   ```
+
 
 This standardizes the process for building and deploying the BQAT SDK jar.
