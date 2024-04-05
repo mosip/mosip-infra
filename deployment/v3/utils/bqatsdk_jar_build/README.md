@@ -78,4 +78,9 @@ The process involves building the BQAT SDK jar locally and then adding it to the
 13. **Restart Artifactory Pod**:
     After pushing changes, restart the Artifactory pod in the `bqatsdk` namespace.
 
+14. **Map New Artifactory zip_file_path **:
+    ```- name: biosdk_zip_file_path
+              value: >-
+                http://artifactory-bqatsdk.bqatsdk:80/bqat-sdk-0.0.2-jar-with-dependencies.zip ```
+
 This standardizes the process for building and deploying the BQAT SDK jar.
