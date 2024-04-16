@@ -35,23 +35,23 @@ function installing_ida() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
-  default_keystore_type=PKCS11
-  read -p "Provide the type of keystore for IDA (PKCS11/PKCS12) : [ default : PKCS11 ] : " keystore_type
-  keystore_type=${keystore_type:-$default_keystore_type}
+  default_enable_volume=false
+  read -p "Would you like to enable volume (true/false) : [ default : false ] : " enable_volume
+  enable_volume=${enable_volume:-$default_enable_volume}
 
   IDA_KEYGEN_HELM_ARGS='--set springConfigNameEnv="id-authentication" --set softHsmCM="softhsm-ida-share"'
   IDA_HELM_ARGS=''
-  if [[ $keystore_type == 'PKCS12' ]]; then
+  if [[ $enable_volume == 'true' ]]; then
 
     default_volume_size=100M
-    read -p "Provide the volume size for PKCS12 volume [ default : 100M ]" volume_size
+    read -p "Provide the size for volume [ default : 100M ]" volume_size
     volume_size=${volume_size:-$default_volume_size}
 
     default_volume_mount_path='/home/mosip/config/'
-    read -p "Provide the volume size for PKCS12 volume [ default : '/home/mosip/config/' ] : " volume_mount_path
+    read -p "Provide the mount path for volume [ default : '/home/mosip/config/' ] : " volume_mount_path
     volume_mount_path=${volume_mount_path:-$default_volume_mount_path}
 
-    PVC_CLAIM_NAME='ida-pkcs12-keys.p12'
+    PVC_CLAIM_NAME='ida-keygen-keymanager'
     IDA_KEYGEN_HELM_ARGS="--set persistence.enabled=true  \
                --set volumePermissions.enabled=true \
                --set persistence.size=\"$volume_size\" \
