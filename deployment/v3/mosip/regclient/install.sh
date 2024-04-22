@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regclient
-CHART_VERSION=12.0.2
+CHART_VERSION=0.0.1-develop
 
 ## GENERATE KEYSTORE PASSWORD
 KEYSTORE_PWD=$( openssl rand -base64 10 )
