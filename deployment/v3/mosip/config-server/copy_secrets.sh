@@ -11,7 +11,7 @@ function copying_secrets() {
   $COPY_UTIL secret softhsm-kernel softhsm $DST_NS
   $COPY_UTIL secret softhsm-ida softhsm $DST_NS
   $COPY_UTIL secret s3 s3 $DST_NS
-  $COPY_UTIL secret msg-gateways msg-gateways $DST_NS
+  $COPY_UTIL secret msg-gateway msg-gateways $DST_NS
   $COPY_UTIL secret mosip-captcha captcha $DST_NS
   $COPY_UTIL secret conf-secrets-various conf-secrets $DST_NS
   return 0
