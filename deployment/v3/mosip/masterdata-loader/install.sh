@@ -33,9 +33,9 @@ if [ $yn = "Y" ]
    ./copy_secrets.sh
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader mosip/masterdata-loader \ \
+   helm -n $NS install masterdata-loader mosip/masterdata-loader \
       --set mosipDataGithubBranch="develop" \
-      --set mosipDataGithubRepo="https://github.com/mosip/mosip-data"" \
+      --set mosipDataGithubRepo="https://github.com/mosip/mosip-data" \
       --set mosipDataXlsfolderPath="\/home/mosip/mosip-data/mosip_master/xlsx" \
       --version $CHART_VERSION --wait --wait-for-jobs
 
