@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=credentialfeeder
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.0.0
 
 echo Create $NS namespace
 kubectl create ns $NS
