@@ -41,7 +41,7 @@ function installing_keymanager() {
     PVC_CLAIM_NAME='kernel-keygen-keymanager'
     KERNEL_KEYGEN_HELM_ARGS="--set persistence.enabled=true  \
                --set volumePermissions.enabled=true \
-               --set persistence.size=\"$volume_size\" \
+               --set persistence.size=$volume_size \
                --set persistence.mountDir=\"$volume_mount_path\" \
                --set springConfigNameEnv='kernel' \
                --set activeProfileEnv=default     \
@@ -53,7 +53,7 @@ function installing_keymanager() {
                    --set springConfigNameEnv='kernel' \
                    --set activeProfileEnv=default     \
                    --set persistence.existingClaim=\"$PVC_CLAIM_NAME\"  \
-                   --set \"extraEnvVarsCM={'global','config-server-share','artifactory-share'}\" \
+                   --set extraEnvVarsCM={'global','config-server-share','artifactory-share'} \
                   "
   fi
   echo "KERNEL KEYGEN HELM ARGS $KERNEL_KEYGEN_HELM_ARGS"

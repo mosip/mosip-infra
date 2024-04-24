@@ -54,7 +54,7 @@ function installing_ida() {
     PVC_CLAIM_NAME='ida-keygen-keymanager'
     IDA_KEYGEN_HELM_ARGS="--set persistence.enabled=true  \
                --set volumePermissions.enabled=true \
-               --set persistence.size=\"$volume_size\" \
+               --set persistence.size=$volume_size \
                --set persistence.mountDir=\"$volume_mount_path\" \
                --set springConfigNameEnv='id-authentication' \
                --set activeProfileEnv=default     \
@@ -66,7 +66,7 @@ function installing_ida() {
                    --set springConfigNameEnv='id-authentication' \
                    --set activeProfileEnv=default     \
                    --set persistence.existingClaim=\"$PVC_CLAIM_NAME\"  \
-                   --set \"extraEnvVarsCM={'global','config-server-share','artifactory-share'}\" \
+                   --set extraEnvVarsCM={'global','config-server-share','artifactory-share'} \
                   "
   fi
   echo "IDA KEYGEN HELM ARGS $IDA_KEYGEN_HELM_ARGS"
