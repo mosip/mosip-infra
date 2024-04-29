@@ -15,9 +15,6 @@ KEYSTORE_PWD=$( openssl rand -base64 10 )
 sed -i 's/\r$//' create-signing-certs.sh
 ./create-signing-certs.sh $KEYSTORE_PWD
 
-## GENERATE KEYSTORE PASSWORD
-KEYSTORE_PWD=$( openssl rand -base64 10 )
-
 echo "Create secret for keystore-secret-env, delete if exists"
 kubectl -n $NS delete secrets keystore-secret-env
 kubectl -n regclient create secret generic keystore-secret-env --from-literal="keystore_secret_env=$KEYSTORE_PWD"
