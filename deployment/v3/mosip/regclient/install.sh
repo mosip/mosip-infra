@@ -24,7 +24,7 @@ INTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host
 HEALTH_URL=https://$INTERNAL_HOST/v1/syncdata/actuator/health
 
 echo Install reg client downloader. This may take a few minutes ..
-helm -n $NS install regclient mosip/regclient -f values.yaml \
+helm -n $NS install regclient mosip/regclient \
   --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
   --set regclient.healthCheckUrl=$HEALTH_URL \
   --set istio.host=$REGCLIENT_HOST \
