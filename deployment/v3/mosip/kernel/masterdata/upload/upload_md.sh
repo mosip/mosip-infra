@@ -16,7 +16,7 @@ XLS=xlsx
 
 while true; do
     read -p "WARNING: All existing masterdata will be erased. Are you sure?(Y/n) " yn
-    if [ $yn == "Y" ]
+    if [ $yn = "Y" ]
       then
         echo Uploading ..
         cd lib
