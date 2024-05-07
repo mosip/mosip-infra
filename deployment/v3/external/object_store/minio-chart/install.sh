@@ -16,7 +16,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 echo Installing minio
-helm -n $NS install minio bitnami/minio --version $CHART_VERSION
+helm -n $NS install minio mosip/minio --version $CHART_VERSION
 
 echo creating virtual service
 kubectl -n $NS apply -f ./vs.yaml
