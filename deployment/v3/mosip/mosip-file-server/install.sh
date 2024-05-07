@@ -43,8 +43,6 @@ function installing_mfs() {
 
   echo Get your download url from here
   echo https://$FILESERVER_HOST/.well-known/
-  echo https://$FILESERVER_HOST/inji/
-  echo https://$FILESERVER_HOST/mosip-certs/
   return 0
 }
 
