@@ -7,4 +7,4 @@ $COPY_UTIL configmap global default $DST_NS
 $COPY_UTIL configmap keycloak-host keycloak $DST_NS 
 $COPY_UTIL configmap activemq-activemq-artemis-share activemq $DST_NS
 $COPY_UTIL configmap s3 s3 $DST_NS
-$COPY_UTIL configmap email-gateway msg-gateways $DST_NS
+$COPY_UTIL configmap msg-gateway msg-gateways $DST_NS email-gateway
