@@ -10,4 +10,5 @@ $COPY_UTIL secret softhsm softhsm-kernel $DST_NS softhsm-kernel
 $COPY_UTIL secret activemq-activemq-artemis activemq $DST_NS
 $COPY_UTIL secret softhsm softhsm-ida $DST_NS softhsm-ida
 $COPY_UTIL secret s3 s3 $DST_NS
-$COPY_UTIL secret email-gateway msg-gateways $DST_NS
+$COPY_UTIL secret msg-gateway msg-gateways $DST_NS
+$COPY_UTIL secret msg-gateway msg-gateways $DST_NS email-gateway
