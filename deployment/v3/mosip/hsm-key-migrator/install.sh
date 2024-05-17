@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=hsm-key-migrator
-CHART_VERSION=12.0.2
+CHART_VERSION=0.0.1-develop
 
 echo Creating $NS namespace
 kubectl create ns $NS
@@ -35,7 +35,7 @@ function installing_keymanager() {
   ./copy_cm.sh $module
 
   echo Installing hsm-key-migrator
-  helm -n $NS install hsm-key-migrator-$module /home/techno-384/Desktop/MOSIP/mosip-helm/charts/hsm-key-migrator \
+  helm -n $NS install hsm-key-migrator-$module mosip/hsm-key-migrator \
   --set softHsmCM=softhsm-$module-share \
   --set springConfigNameEnv=$config_prop \
   --set activeProfileEnv=default \
