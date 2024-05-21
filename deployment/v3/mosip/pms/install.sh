@@ -10,6 +10,7 @@ NS=pms
 CHART_VERSION=0.0.1-develop
 API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
 PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
+PMP_NEW_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-reactjs-ui-host})
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -28,18 +29,16 @@ function installing_pms() {
   PMP_NEW_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-reactjs-ui-host})
 
   echo Installing partner manager
-  helm -n $NS install pms-partner mosip/pms-partner --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-partner mosip/pms-partner --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST --version $CHART_VERSION
 
   echo Installing policy manager
-  helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --version $CHART_VERSION
+  helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST --version $CHART_VERSION
 
   echo Installing pmp-ui
   helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
-    echo Installing pmp-reactjs-ui
-  helm -n $NS install pmp-reactjs-ui mosip/pmp-reactjs-ui  --set pmp_new.configmaps.pmp-reactjs-ui.REACT_APP_API_BASE_URL=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
+  echo Installing pmp-reactjs-ui
+  helm -n $NS install pmp-reactjs-ui /home/techno-467/IdeaProjects/mosip-helm/charts/pmp-reactjs-ui/ --set pmp_new.react_app_api_base_url=$INTERNAL_API_HOST --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
