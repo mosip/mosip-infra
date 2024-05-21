@@ -38,7 +38,7 @@ function installing_pms() {
   helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
   echo Installing pmp-reactjs-ui
-  helm -n $NS install pmp-reactjs-ui /home/techno-467/IdeaProjects/mosip-helm/charts/pmp-reactjs-ui/ --set pmp_new.react_app_api_base_url=$INTERNAL_API_HOST --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
+  helm -n $NS install pmp-reactjs-ui mosip/pmp-reactjs-ui --set pmp_new.react_app_api_base_url=$INTERNAL_API_HOST --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
