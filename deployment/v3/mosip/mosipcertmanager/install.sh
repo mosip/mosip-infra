@@ -7,13 +7,13 @@ if [ $# -ge 1 ] ; then
 fi
 
 
-NS=certvalidator
-CHART_VERSION=0.0.1-develop
+NS=mosipcertmanager
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS 
 
-function installing_certvalidator() {
+function installing_mosipcertmanager() {
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
@@ -27,17 +27,26 @@ function installing_certvalidator() {
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
 
-  DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-postgres-host"' )
+  DEFAULT_DB_HOST='postgres-postgresql.postgres'
   S3_USER_KEY=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-user-key"' )
   S3_REGION=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-region"' )
 
-  echo Installing certvalidator
-  helm -n $NS install certvalidator mosip/certvalidator --wait --version $CHART_VERSION \
-  --set certvalidator.configmaps.db.db-server="$DB_HOST" \
-  --set certvalidator.configmaps.s3.s3-bucket-name='secure-datarig' \
-  --set certvalidator.configmaps.s3.s3-region="$S3_REGION" \
-  --set certvalidator.configmaps.s3.s3-host='minio.minio:9000' \
-  --set certvalidator.configmaps.s3.s3-user-key="$S3_USER_KEY"
+  read  -p "Please provide DB host name ( Default: postgres-postgresql.postgres ) : " DB_HOST
+  DB_HOST=${DB_HOST:-$DEFAULT_DB_HOST}
+
+  if [ -z $DB_HOST ]; then
+    echo "Host name not provided; EXITING;"
+    exit 1;
+  fi
+
+
+
+  echo Installing mosipcertmanager
+  helm -n $NS install mosipcertmanager mosip/mosipcertmanager --wait --version $CHART_VERSION \
+  --set mosipcertmanager.configmaps.db.db-server="$DB_HOST" \
+  --set mosipcertmanager.configmaps.s3.s3-region="$S3_REGION" \
+  --set mosipcertmanager.configmaps.s3.s3-host='minio.minio:9000' \
+  --set mosipcertmanager.configmaps.s3.s3-user-key="$S3_USER_KEY"
   return 0
 }
 
@@ -47,4 +56,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_certvalidator   # calling function
+installing_mosipcertmanager   # calling function
