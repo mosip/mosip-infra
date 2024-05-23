@@ -20,33 +20,14 @@ function installing_mosipcertmanager() {
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
-  kubectl -n $NS delete --ignore-not-found=true cm s3
   ./copy_cm.sh
 
   echo Copy secrets
   sed -i 's/\r$//' copy_secrets.sh
   ./copy_secrets.sh
 
-  DEFAULT_DB_HOST='postgres-postgresql.postgres'
-  S3_USER_KEY=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-user-key"' )
-  S3_REGION=$( kubectl -n s3 get cm s3 -o json  |jq -r '.data."s3-region"' )
-
-  read  -p "Please provide DB host name ( Default: postgres-postgresql.postgres ) : " DB_HOST
-  DB_HOST=${DB_HOST:-$DEFAULT_DB_HOST}
-
-  if [ -z $DB_HOST ]; then
-    echo "Host name not provided; EXITING;"
-    exit 1;
-  fi
-
-
-
   echo Installing mosipcertmanager
-  helm -n $NS install mosipcertmanager mosip/mosipcertmanager --wait --version $CHART_VERSION \
-  --set mosipcertmanager.configmaps.db.db-server="$DB_HOST" \
-  --set mosipcertmanager.configmaps.s3.s3-region="$S3_REGION" \
-  --set mosipcertmanager.configmaps.s3.s3-host='minio.minio:9000' \
-  --set mosipcertmanager.configmaps.s3.s3-user-key="$S3_USER_KEY"
+  helm -n $NS install mosipcertmanager mosip/mosipcertmanager --wait --version $CHART_VERSION
   return 0
 }
 
