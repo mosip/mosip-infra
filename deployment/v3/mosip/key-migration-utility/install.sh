@@ -14,7 +14,7 @@ kubectl create ns $NS
 
 function installing_key_migration_utility() {
 
-  #helm repo update
+  helm repo update
 
   read -p "please provide module name for migration (ex: kernel, ida, esignet, etc.) : " module
 
@@ -35,7 +35,7 @@ function installing_key_migration_utility() {
   ./copy_cm.sh $module
 
   echo Installing key-migration-utility
-  helm -n $NS install key-migration-utility-$module /home/techno-384/Desktop/MOSIP/mosip-helm/charts/key-migration-utility \
+  helm -n $NS install key-migration-utility-$module mosip/key-migration-utility \
   --set softHsmCM=softhsm-$module-share \
   --set springConfigNameEnv=$config_prop \
   --wait --wait-for-jobs \
