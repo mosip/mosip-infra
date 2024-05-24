@@ -57,7 +57,7 @@ function installing_keymanager() {
   echo "KERNEL HELM ARGS $KERNEL_HELM_ARGS"
 
   echo Running keygenerator. This may take a few minutes..
-  helm -n $NS install kernel-keygen mosip/keygen $KERNEL_KEYGEN_HELM_ARGS --wait --wait-for-jobs --version $CHART_VERSION
+  helm -n $NS install kernel-keygen mosip/keygen  $KERNEL_KEYGEN_HELM_ARGS --wait --wait-for-jobs --version $CHART_VERSION
 
   echo Installing keymanager
   helm -n $NS install keymanager mosip/keymanager $KERNEL_HELM_ARGS --wait --version $CHART_VERSION
