@@ -1,18 +1,18 @@
 #!/bin/bash
-# Installs hsm-key-migrator
+# Installs key-migration-utility
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=hsm-key-migrator
+NS=key-migration-utility
 CHART_VERSION=0.0.1-develop
 
 echo Creating $NS namespace
 kubectl create ns $NS
 
-function installing_keymanager() {
+function installing_key_migration_utility() {
 
   #helm repo update
 
@@ -23,7 +23,7 @@ function installing_keymanager() {
     exit 0
   fi
 
-  read -p "please provide properties file name (ex: kernel, id-authentication, esignet, etc.) : " config_prop
+  read -p "please provide properties file name (ex: migration ) : " config_prop
 
   if [[ -z $config_prop ]]; then
     echo "config properties is empty; EXITING;"
@@ -34,15 +34,14 @@ function installing_keymanager() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh $module
 
-  echo Installing hsm-key-migrator
-  helm -n $NS install hsm-key-migrator-$module mosip/hsm-key-migrator \
+  echo Installing key-migration-utility
+  helm -n $NS install key-migration-utility-$module /home/techno-384/Desktop/MOSIP/mosip-helm/charts/key-migration-utility \
   --set softHsmCM=softhsm-$module-share \
   --set springConfigNameEnv=$config_prop \
-  --set activeProfileEnv=default \
   --wait --wait-for-jobs \
   --version $CHART_VERSION
 
-  echo Installed hsm-key-migrator services
+  echo Installed key-migration-utility services
   return 0
 }
 
@@ -52,4 +51,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_keymanager   # calling function
+installing_key_migration_utility   # calling function

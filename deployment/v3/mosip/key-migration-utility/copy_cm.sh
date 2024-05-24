@@ -4,7 +4,7 @@
 
 function copying_cm() {
   COPY_UTIL=../../utils/copy_cm_func.sh
-  DST_NS=hsm-key-migrator
+  DST_NS=key-migration-utility
 
   module=$1
   $COPY_UTIL configmap global default $DST_NS

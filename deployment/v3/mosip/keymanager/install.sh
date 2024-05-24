@@ -44,14 +44,11 @@ function installing_keymanager() {
                --set persistence.size=$volume_size \
                --set persistence.mountDir=\"$volume_mount_path\" \
                --set springConfigNameEnv='kernel' \
-               --set activeProfileEnv=default     \
                --set persistence.pvc_claim_name=\"$PVC_CLAIM_NAME\"  \
               "
     KERNEL_HELM_ARGS="--set persistence.enabled=true  \
                    --set volumePermissions.enabled=true \
                    --set persistence.mountDir=\"$volume_mount_path\" \
-                   --set springConfigNameEnv='kernel' \
-                   --set activeProfileEnv=default     \
                    --set persistence.existingClaim=\"$PVC_CLAIM_NAME\"  \
                    --set extraEnvVarsCM={'global','config-server-share','artifactory-share'} \
                   "

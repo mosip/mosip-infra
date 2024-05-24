@@ -1,20 +1,20 @@
 #!/bin/bash
-# Uninstalls hsm-key-migrator
+# Uninstalls key-migration-utility
 ## Usage: ./delete.sh [kubeconfig]
 
-if [ $# -ge 1 ] ; then
-  export KUBECONFIG=$1
+if [ $# -ge 2 ] ; then
+  export KUBECONFIG=$2
 fi
 
 function deleting_hsm_key_migrator() {
-  NS=hsm-key-migrator
+  NS=key-migration-utility
   module=$1
   while true; do
-      read -p "Are you sure you want to delete hsm-key-migrator helm chart?(Y/n) " yn
+      read -p "Are you sure you want to delete key-migration-utility helm chart?(Y/n) " yn
       if [ $yn = "Y" ]
         then
           helm -n $NS list
-          helm -n $NS delete "hsm-key-migrator-$module"
+          helm -n $NS delete "key-migration-utility-$module"
           break
         else
           break
