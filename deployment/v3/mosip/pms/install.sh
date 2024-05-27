@@ -38,7 +38,7 @@ function installing_pms() {
   helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
   echo Installing pmp-reactjs-ui
-  helm -n $NS template pmp-reactjs-ui mosip/pmp-reactjs-ui --set pmp_new.react_app_partner_manager_api_base_url=$INTERNAL_API_HOST \
+  helm -n $NS install pmp-reactjs-ui mosip/pmp-reactjs-ui --set pmp_new.react_app_partner_manager_api_base_url=$INTERNAL_API_HOST \
   --set pmp_new.react_app_policy_manager_api_base_url=$INTERNAL_API_HOST \
   --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
 
