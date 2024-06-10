@@ -54,6 +54,10 @@ databases:
     enabled: true
     branch: develop
 
+  mosip_otp:
+    enabled: true
+    branch: develop
+
   mosip_toolkit:
     enabled: false
     branch: v1.3.2
