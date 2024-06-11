@@ -37,18 +37,18 @@ The setup includes security groups, an NGINX server, and a Kubernetes (K8S) clus
   terraform init
   ```
 * Review and modify variable values:
-    * Ensure `aws.tfvars` contains correct values for your setup.
+    * Ensure `locals.tf` contains correct values for your setup.
     * Verify `variables.tf` for any additional configuration needs.
 * Terraform validate & plan the terraform scripts:
   ```
   terraform validate
   ```
   ```
-  terraform plan -var-file="aws.tfvars"
+  terraform plan -var MOSIP_DOMAIN=<MOSIP_DOMAIN> -var MOSIP_EMAIL_ID="<EMAIL-ID>" -var AWS_PROVIDER_REGION="<AWS_PROVIER_REGION>"
   ```
 * Apply the Terraform configuration:
   ```
-  terraform apply -var-file="aws.tfvars"
+  terraform apply -var MOSIP_DOMAIN=<MOSIP_DOMAIN> -var MOSIP_EMAIL_ID="<EMAIL-ID>" -var AWS_PROVIDER_REGION="<AWS_PROVIER_REGION>"
   ```
 
 ## Destroy
