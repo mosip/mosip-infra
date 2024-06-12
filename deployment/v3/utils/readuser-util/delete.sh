@@ -7,14 +7,13 @@ if [ $# -ge 1 ] ; then
 fi
 
 function deleting_readuser-util() {
-  NS=readuser-util
-  IAM_NS=keycloak
+  NS=util
   while true; do
       read -p "Are you sure you want to delete readuser-util helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
         then
           helm -n $NS delete readuser-util
-          helm -n $IAM_NS delete readuser-iam-init
+          helm -n $NS delete readuser-iam-init
           break
         else
           break

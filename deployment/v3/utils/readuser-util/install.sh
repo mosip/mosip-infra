@@ -6,8 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=readuser-util
-IAM_NS=keycloak
+NS=util
 CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
@@ -15,9 +14,17 @@ kubectl create ns $NS
 
 function installing_readuser-util() {
 
+  echo Copy secrets
+  sed -i 's/\r$//' copy_secrets.sh
+  ./copy_secrets.sh
+
+  echo Copy configmaps
+  sed -i 's/\r$//' copy_cm.sh
+  ./copy_cm.sh
+
   echo Installing readuser-util
-  helm -n $NS install readuser-util mosip/readuser-utill --version $CHART_VERSION -f values.yaml --wait
-  helm -n $IAM_NS install readuser-iam-init mosip/keycloak-init --version $CHART_VERSION -f readuser-init-values.yaml --wait
+  helm -n $NS install readuser-util mosip/readuser-util --version $CHART_VERSION -f values.yaml --wait
+  helm -n $NS install readuser-iam-init mosip/keycloak-init --version $CHART_VERSION -f readuser-init-values.yaml --wait
 
   echo Installed readuser-util
   return 0

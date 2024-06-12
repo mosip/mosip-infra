@@ -2,7 +2,9 @@
 
 This Utility is used for the creation of user with readonly privilages for postgres, minio and keycloak server.
 
-This utility is designed to initialize MinIO with user management and policy attachment based on the specified action (create or delete) and to run a script that creates a read-only user in a PostgreSQL database and also to initialize keycloak with user with readonly privilages.
+- This utility is designed to initialize MinIO with user management and policy attachment based on the specified action (create or delete).
+- Also runs a script that creates a read-only user in a PostgreSQL database. 
+- To Initialize keycloak with user with readonly privilages.
 
 ## Prerequisites
 Ensure the following prerequisites are met before deploying the utility:
