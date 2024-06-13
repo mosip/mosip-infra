@@ -185,7 +185,7 @@ EOF
     instance_type               = var.K8S_INSTANCE_TYPE
     associate_public_ip_address = true
     key_name                    = var.SSH_KEY_NAME
-    count                       = 2
+    count                       = 1
     tags = {
       Name    = "${var.CLUSTER_NAME}-node"
       Cluster = var.CLUSTER_NAME

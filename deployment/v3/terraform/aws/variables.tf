@@ -1,5 +1,6 @@
 variable "AWS_PROVIDER_REGION" { type = string }
-
+variable "CLUSTER_NAME" { type = string }
+variable "SSH_PRIVATE_KEY" { type = string }
 variable "MOSIP_DOMAIN" {
   description = "MOSIP DOMAIN : (ex: sandbox.xyz.net)"
   type        = string
@@ -17,3 +18,29 @@ variable "MOSIP_EMAIL_ID" {
     error_message = "The email address must be a valid email format (e.g., user@example.com)."
   }
 }
+
+variable "SSH_KEY_NAME" { type = string }
+variable "K8S_INSTANCE_TYPE" {
+  type = string
+  validation {
+    condition     = can(regex("^[a-z0-9]+\\..*", var.K8S_INSTANCE_TYPE))
+    error_message = "Invalid instance type format. Must be in the form 'series.type'."
+  }
+}
+
+variable "NGINX_INSTANCE_TYPE" {
+  type = string
+  validation {
+    condition     = can(regex("^[a-z0-9]+\\..*", var.NGINX_INSTANCE_TYPE))
+    error_message = "Invalid instance type format. Must be in the form 'series.type'."
+  }
+}
+variable "AMI" {
+  type = string
+  validation {
+    condition     = can(regex("^ami-[a-f0-9]{17}$", var.AMI))
+    error_message = "Invalid AMI format. It should be in the format 'ami-xxxxxxxxxxxxxxxxx'"
+  }
+}
+
+variable "ZONE_ID" { type = string }

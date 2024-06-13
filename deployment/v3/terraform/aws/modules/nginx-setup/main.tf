@@ -3,6 +3,7 @@ variable "MOSIP_DOMAIN" { type = string }
 variable "MOSIP_K8S_CLUSTER_NODES_PRIVATE_IP_LIST" { type = string }
 variable "MOSIP_PUBLIC_DOMAIN_LIST" { type = string }
 variable "CERTBOT_EMAIL" { type = string }
+variable "SSH_PRIVATE_KEY" { type = string }
 
 locals {
   NGINX_CONFIG = {
@@ -41,7 +42,7 @@ resource "null_resource" "Nginx-setup" {
     type        = "ssh"
     host        = var.NGINX_PUBLIC_IP
     user        = "ubuntu" # Change based on the AMI used
-    private_key = file("/home/techno-384/Downloads/pem-keys/mosip-aws.pem") # Path to your private key
+    private_key = var.SSH_PRIVATE_KEY # content of your private key
   }
   provisioner file {
     source = "./modules/nginx-setup/nginx-setup.sh"

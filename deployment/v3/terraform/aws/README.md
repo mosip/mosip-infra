@@ -23,6 +23,7 @@ The setup includes security groups, an NGINX server, and a Kubernetes (K8S) clus
   ```
   $ export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
   $ export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
+  $ export TF_VAR_SSH_PRIVATE_KEY=<EC2_SSH_PRIVATE_KEY>
   ```
 
 ## Files
@@ -32,30 +33,31 @@ The setup includes security groups, an NGINX server, and a Kubernetes (K8S) clus
 * `locals.tf`: Defines a local variable `SECURITY_GROUP` containing configuration parameters required for setting up security groups for Nginx and Kubernetes cluster nodes.
 
 ## Setup
-* Initialize Terraform
+* Initialize Terraform.
   ```
   terraform init
   ```
 * Review and modify variable values:
     * Ensure `locals.tf` contains correct values for your setup.
+    * Update values in `env.tfvars` as per your organization requirement.
     * Verify `variables.tf` for any additional configuration needs.
 * Terraform validate & plan the terraform scripts:
   ```
   terraform validate
   ```
   ```
-  terraform plan -var MOSIP_DOMAIN=<MOSIP_DOMAIN> -var MOSIP_EMAIL_ID="<EMAIL-ID>" -var AWS_PROVIDER_REGION="<AWS_PROVIER_REGION>"
+  terraform plan -var-file="./env.tfvars
   ```
 * Apply the Terraform configuration:
   ```
-  terraform apply -var MOSIP_DOMAIN=<MOSIP_DOMAIN> -var MOSIP_EMAIL_ID="<EMAIL-ID>" -var AWS_PROVIDER_REGION="<AWS_PROVIER_REGION>"
+  terraform apply -var-file="./env.tfvars
   ```
 
 ## Destroy
 To destroy AWS resources, follow the steps below:
 * Ensure to have `terraform.tfstate` file.
   ```
-  terraform destroy
+  terraform destroy -var-file=./env.tfvars
   ```
 
 ## Modules
@@ -83,6 +85,7 @@ This module sets up NGINX and configures it with the provided domain and SSL cer
   * `MOSIP_K8S_CLUSTER_NODES_PRIVATE_IP_LIST`: List of private IP addresses of the Kubernetes nodes.
   * `MOSIP_PUBLIC_DOMAIN_LIST`: List of public domain names.
   * `CERTBOT_EMAIL`: The email ID for SSL certificate generation.
+  * `SSH_KEY_NAME`: SSH private key used for login (i.e., file content of SSH pem key).
 
 ## Outputs
 The following outputs are provided:
