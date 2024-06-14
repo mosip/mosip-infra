@@ -31,6 +31,7 @@ The setup includes security groups, an NGINX server, and a Kubernetes (K8S) clus
 * `variables.tf`: Defines variables used in the Terraform scripts.
 * `outputs.tf`: Provides the output values.
 * `locals.tf`: Defines a local variable `SECURITY_GROUP` containing configuration parameters required for setting up security groups for Nginx and Kubernetes cluster nodes.
+* `env.tfvars`: tfvars file is used to set the actual values of the variables.
 
 ## Setup
 * Initialize Terraform.
@@ -40,7 +41,6 @@ The setup includes security groups, an NGINX server, and a Kubernetes (K8S) clus
 * Review and modify variable values:
     * Ensure `locals.tf` contains correct values for your setup.
     * Update values in `env.tfvars` as per your organization requirement.
-    * Verify `variables.tf` for any additional configuration needs.
 * Terraform validate & plan the terraform scripts:
   ```
   terraform validate
