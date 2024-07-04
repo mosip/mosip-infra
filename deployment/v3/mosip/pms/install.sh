@@ -8,9 +8,6 @@ fi
 
 NS=pms
 CHART_VERSION=0.0.1-develop
-API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
-PMP_NEW_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-reactjs-ui-host})
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -26,27 +23,39 @@ function installing_pms() {
 
   INTERNAL_API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
   PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
-  PMP_NEW_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-reactjs-ui-host})
+  PMP_NEW_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-reactjs-ui-new-host})
+
+  PARTNER_MANAGER_SERVICE_NAME="pms-partner"
+  POLICY_MANAGER_SERVICE_NAME="pms-policy"
 
   echo Installing partner manager
-  helm -n $NS install pms-partner mosip/pms-partner --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST --version $CHART_VERSION
+  helm -n $NS install $PARTNER_MANAGER_SERVICE_NAME mosip/pms-partner \
+  --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST \
+  --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST \
+  --version $CHART_VERSION
 
   echo Installing policy manager
-  helm -n $NS install pms-policy mosip/pms-policy --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST --version $CHART_VERSION
+  helm -n $NS install $POLICY_MANAGER_SERVICE_NAME mosip/pms-policy \
+  --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST \
+  --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_NEW_HOST \
+  --version $CHART_VERSION
 
   echo Installing pmp-ui
   helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
 
-  echo Installing pmp-reactjs-ui
-  helm -n $NS install pmp-reactjs-ui mosip/pmp-reactjs-ui --set pmp_new.react_app_partner_manager_api_base_url=https://$INTERNAL_API_HOST \
-  --set pmp_new.react_app_policy_manager_api_base_url=https://$INTERNAL_API_HOST \
+  echo Installing pmp-reactjs-ui-new
+  helm -n $NS install pmp-reactjs-ui /home/techno-384/Desktop/MOSIP/mosip-helm/charts/pmp-reactjs-ui \
+  --set pmp_new.react_app_partner_manager_api_base_url="https://$INTERNAL_API_HOST/v1/partnermanager" \
+  --set pmp_new.react_app_policy_manager_api_base_url="https://$INTERNAL_API_HOST/v1/policymanager" \
+  --set pmp_new.pms_partner_manager_internal_service_url="http://$PARTNER_MANAGER_SERVICE_NAME.$NS/v1/partnermanager" \
+  --set pmp_new.pms_policy_manager_internal_service_url="http://$POLICY_MANAGER_SERVICE_NAME.$NS/v1/policymanager" \
   --set istio.hosts=["$PMP_NEW_HOST"] --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed pms services
 
-  echo "Admin portal URL: https://$PMP_HOST/pmp-ui/"
+  echo "Partner management portal URL: https://$PMP_HOST/pmp-ui/"
   return 0
 }
 
