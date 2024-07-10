@@ -22,6 +22,6 @@ output "MOSIP_K8S_CLUSTER_NODES_PRIVATE_IP_LIST" {
 output "MOSIP_PUBLIC_DOMAIN_LIST" {
   value = join(",", concat(
     [local.MAP_DNS_TO_IP.API_DNS.name],
-    [for cname in local.MAP_DNS_TO_CNAME : cname.name if contains([cname.records], local.MAP_DNS_TO_IP.API_DNS.name)]
+    [for cname in var.DNS_RECORDS : cname.name if contains([cname.records], local.MAP_DNS_TO_IP.API_DNS.name)]
   ))
 }

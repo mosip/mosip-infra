@@ -45,7 +45,7 @@ resource "null_resource" "Nginx-setup" {
     private_key = var.SSH_PRIVATE_KEY # content of your private key
   }
   provisioner file {
-    source = "./modules/nginx-setup/nginx-setup.sh"
+    source = "${path.module}/nginx-setup.sh"
     destination = "/tmp/nginx-setup.sh"
   }
   provisioner "remote-exec" {

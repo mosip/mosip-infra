@@ -1,6 +1,7 @@
 variable "AWS_PROVIDER_REGION" { type = string }
 variable "CLUSTER_NAME" { type = string }
 variable "SSH_KEY_NAME" { type = string }
+variable "K8S_INSTANCE_COUNT" { type = number }
 variable "SECURITY_GROUP" {
   type = map(list(object({
     description      = string
@@ -36,15 +37,18 @@ variable "NGINX_INSTANCE_TYPE" {
 variable "MOSIP_DOMAIN" { type = string }
 variable "ZONE_ID" { type = string }
 
-# NGINX TAG NAME VARIABLE
-locals {
-  TAG_NAME = {
-    NGINX_TAG_NAME = "${var.CLUSTER_NAME}-NGINX-NODE"
-  }
+variable "DNS_RECORDS" {
+  description = "A map of DNS records to create"
+  type = map(object({
+    name             = string
+    type             = string
+    zone_id          = string
+    ttl              = number
+    records          = string
+    allow_overwrite  = bool
+    # health_check_id = string // Uncomment if using health checks
+  }))
 }
-
-
-# DNS CONFIGURATION
 locals {
   MAP_DNS_TO_IP = {
     API_DNS = {
@@ -67,53 +71,11 @@ locals {
     }
   }
 }
+
+# NGINX TAG NAME VARIABLE
 locals {
-  MAP_DNS_TO_CNAME = {
-    MOSIP_HOMEPAGE_DNS = {
-      name    = var.MOSIP_DOMAIN
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_INTERNAL_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    ADMIN_DNS = {
-      name    = "admin.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_INTERNAL_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    PREREG_DNS = {
-      name    = "prereg.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    RESIDENT_DNS = {
-      name    = "resident.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
-    ESIGNET_DNS = {
-      name    = "esignet.${var.MOSIP_DOMAIN}"
-      type    = "CNAME"
-      zone_id = var.ZONE_ID
-      ttl     = 300
-      records = local.MAP_DNS_TO_IP.API_DNS.name
-      #health_check_id = true
-      allow_overwrite = true
-    }
+  TAG_NAME = {
+    NGINX_TAG_NAME = "${var.CLUSTER_NAME}-NGINX-NODE"
   }
 }
 
@@ -185,7 +147,7 @@ EOF
     instance_type               = var.K8S_INSTANCE_TYPE
     associate_public_ip_address = true
     key_name                    = var.SSH_KEY_NAME
-    count                       = 1
+    count                       = var.K8S_INSTANCE_COUNT
     tags = {
       Name    = "${var.CLUSTER_NAME}-node"
       Cluster = var.CLUSTER_NAME
