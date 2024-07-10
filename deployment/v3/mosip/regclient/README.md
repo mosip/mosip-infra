@@ -35,3 +35,7 @@ helm -n $NS install regclient mosip/regclient \
   
 ## Set up of regclient
 Follow the guide [here](https://github.com/mosip/registration-client/blob/develop/README.md)
+
+
+## Note:
+Added pre-install-job for creation openssl certificate and passwords...After job completed successfully , it will take 3 min to deploy main regclient pod , so Be patient.
