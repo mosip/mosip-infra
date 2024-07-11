@@ -36,6 +36,7 @@ function installing_onboarder() {
 
     echo Copy configmaps
     kubectl -n $NS --ignore-not-found=true delete cm s3
+    kubectl -n $NS --ignore-not-found=true delete cm onboarder-namespace
     sed -i 's/\r$//' copy_cm.sh
     ./copy_cm.sh
 
