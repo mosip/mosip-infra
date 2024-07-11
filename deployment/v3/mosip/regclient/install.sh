@@ -31,6 +31,7 @@ function installing_regclient() {
     --set regclient.healthCheckUrl=$HEALTH_URL \
     --set regclient.hostName=$INTERNAL_HOST \
     --set istio.host=$REGCLIENT_HOST \
+    --wait \
     --version $CHART_VERSION
 
   echo Get your download url from here
