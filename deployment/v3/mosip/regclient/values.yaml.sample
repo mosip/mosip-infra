@@ -1,0 +1,3 @@
+extraEnvVars:
+  - name: client_certificate_env
+    value: mosip_cer.cer
