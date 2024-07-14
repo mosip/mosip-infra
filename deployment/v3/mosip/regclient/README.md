@@ -3,9 +3,6 @@
 ## Introduction
 The chart here installs a regclient downloader accessed over an http URL. 
 
-## Prerequisites
-* Make sure openssl package is installed in your machine.
-
 ## Install
 * Make sure global configmap contains the url for regclient host e.g. `regclient.sandbox.xyz.net`.
 * The url must point to your internal loadbalancer as regclient will typically not be open to public.
@@ -35,7 +32,3 @@ helm -n $NS install regclient mosip/regclient \
   
 ## Set up of regclient
 Follow the guide [here](https://github.com/mosip/registration-client/blob/develop/README.md)
-
-
-## Note:
-Added pre-install-job for creation openssl certificate and passwords...After job completed successfully , it will take 3 min to deploy main regclient pod , so Be patient.
