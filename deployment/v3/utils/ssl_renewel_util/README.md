@@ -55,6 +55,7 @@ The script performs the following steps:
 
    ```bash
    chmod +x certs_renew_cron.sh
+   ```
 
 2. **Run the script**
    
