@@ -54,14 +54,14 @@ The script performs the following steps:
    Before running the script, ensure it has executable permissions:
 
    ```bash
-   chmod +x schedule_expiry.sh
+   chmod +x certs_renew_cron.sh
 
 2. **Run the script**
    
    Run the script with the necessary permissions:
 
    ```sh
-   sudo ./renew_ssl_certs.sh
+   sudo ./certs_renew_cron.sh
    ```
    
 3. **Verify the Scheduled Cron Job**
