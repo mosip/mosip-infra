@@ -10,9 +10,6 @@ The chart here installs a regclient downloader accessed over an http URL.
 ```sh
 ./install.sh
 ```
-## Download
-The download URL will be available at `https://your-reglient-host`. Example: `https://reglient.sandbox.xyz.net`.
-
 ## Customization
 If you want to add extra environment variables to the regclient docker do follow the below mentioned steps.
 1. Add the variables in extraEnvVars section of the sample 'values.yaml.sample' file given.
