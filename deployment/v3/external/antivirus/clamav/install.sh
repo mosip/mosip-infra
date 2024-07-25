@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=clamav
-CHART_VERSION=2.4.1
+CHART_VERSION=3.1.0
 
 echo Create $NS namespace
 kubectl create ns $NS
