@@ -7,18 +7,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=packetcreator
-CHART_VERSION=12.0.2
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_packetcreator() {
-
-  read -p "Please provide NFS host : " NFS_HOST
-  read -p "Please provide NFS pem file for SSH login : " NFS_PEM_FILE
-  read -p "Please provide user for SSH login : " NFS_USER
-  echo -e "[nfs_server]\nnfsserver ansible_user=$NFS_USER ansible_host=$NFS_HOST ansible_ssh_private_key_file=$NFS_PEM_FILE" > hosts.ini
-  ansible-playbook -i hosts.ini nfs-server.yaml
 
   echo "Select the type of Ingress controller to be used (1/2): ";
   echo "1. Ingress";
@@ -67,7 +61,6 @@ function installing_packetcreator() {
   echo Installing packetcreator
   helm -n $NS install packetcreator mosip/packetcreator \
   $( echo $list ) \
-  --set persistence.nfs.server="$NFS_HOST" \
   --wait --version $CHART_VERSION $ENABLE_INSECURE
   echo Installed packetcreator.
   return 0
