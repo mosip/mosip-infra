@@ -16,6 +16,7 @@ Install in the following order:
 * [Docker secrets](docker-secrets/README.md)
 * [Prereg captcha](captcha/README.md)
 * [Config Server](config-server/README.md)
+* [captcha](../mosip/captcha/README.md)
 * [Artifactory](artifactory/README.md)
 * [Key Manager](keymanager/README.md)
 * [WebSub](websub/README.md)
