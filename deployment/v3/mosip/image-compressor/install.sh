@@ -23,7 +23,7 @@ function installing_imagecompressor() {
 
   echo Installing imagecompressor server
   helm -n $NS install image-compressor mosip/biosdk-service \
-  --set extraEnvVars[0].name="server_servlet_context_env" \
+  --set extraEnvVars[0].name="service_context_env" \
   --set extraEnvVars[0].value="/image-compressor" \
   --set extraEnvVars[1].name="spring_application_name_env" \
   --set extraEnvVars[1].value="image-compressor" \
