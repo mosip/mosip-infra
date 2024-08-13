@@ -23,7 +23,7 @@ function installing_bqatsdk() {
 
   echo Installing Bqatsdk server
   helm -n $NS install bqatsdk-service mosip/biosdk-service \
-  --set extraEnvVars[0].name="server_servlet_context_env" \
+  --set extraEnvVars[0].name="service_context_env" \
     --set extraEnvVars[0].value="/bqatsdk-service" \
     --set extraEnvVars[1].name="spring_application_name_env" \
     --set extraEnvVars[1].value="bqat-sdk" \
