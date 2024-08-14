@@ -1,23 +1,18 @@
 #!/bin/bash
-# Uninstalls deployment-info
-# Usage: ./delete.sh [kubeconfig]
+# Restart the info
+## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-function deleting_deployment-info() {
-  NS=deployment-info
-  while true; do
-      read -p "Are you sure you want to delete deployment-info helm chart?(Y/n) " yn
-      if [ $yn = "Y" ]
-        then
-          helm -n $NS delete deployment-info
-          break
-        else
-          break
-      fi
-  done
+function Restarting_info() {
+  NS=info
+  kubectl -n $NS rollout restart deploy
+
+  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+  echo Restarted info
   return 0
 }
 
@@ -27,4 +22,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-deleting_deployment-info   # calling function
+Restarting_info   # calling function
