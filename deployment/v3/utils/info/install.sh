@@ -18,8 +18,7 @@ function installing_info() {
   helm repo update
 
   echo Installing info
-  #helm -n $NS install info mosip/info --version $CHART_VERSION
-  helm -n $NS install info /d/mosip-helm/charts/info --version $CHART_VERSION
+  helm -n $NS install info mosip/info --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
