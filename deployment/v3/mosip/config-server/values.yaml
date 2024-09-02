@@ -7,3 +7,12 @@ gitRepo:
   ## User name of user who has access to the private repo. Ignore for public repo
   username: ""
   token: ""
+
+localRepo:
+  enabled: false       # Set this to "true" inorder to Enable config-server to pull configurations from local git repo.
+  spring_profiles_active: "default"       # Set this to "native" inorder to Enable config-server to pull configurations from local git repo.
+  spring_cloud_config_server_native_search_locations: ""        # Set this to "file:///var/lib/config_repo" inorder to Enable config-server to pull configurations from local git repo.
+  spring_cloud_config_server_accept_empty: false        # Set this to "true" inorder to Enable config-server to pull configurations from local git repo.
+  spring_cloud_config_server_git_force_pull: true        # Set this to "false" inorder to Enable config-server to pull configurations from local git repo.
+  spring_cloud_config_server_git_refreshRate: 5        # Set this to "0" inorder to Enable config-server to pull configurations from local git repo.
+  spring_cloud_config_server_git_cloneOnStart: true        # Set this to "false" inorder to Enable config-server to pull configurations from local git repo.
