@@ -17,12 +17,14 @@ if [[ -z $repo_enabled ]]; then
 fi
 
 if [ "$repo_enabled" = "Y" ]; then
+  LOCALREPO="true"
   read -p "Provide the NFS path where the local repository is cloned/maintained: " path
   NFS_PATH="$path"
 
   read -p "Provide the NFS IP address of the server where the local repository is cloned: " ip
   NFS_SERVER="$ip"
 else
+  LOCALREPO="false"
   NFS_PATH=""
   NFS_SERVER=""
 fi
@@ -54,6 +56,7 @@ if [ $yn = "Y" ]
 
     echo "Installing config-server"
     helm -n $NS install config-server mosip/config-server \
+    --set localRepo.enabled="$LOCALREPO" \
     --set volume.nfs.path="$NFS_PATH" \
     --set volume.nfs.server="$NFS_SERVER" \
     -f values.yaml \
