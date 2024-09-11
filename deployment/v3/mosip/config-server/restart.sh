@@ -6,7 +6,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 function config_server() {
   NS=config-server
   kubectl -n $NS rollout restart deploy

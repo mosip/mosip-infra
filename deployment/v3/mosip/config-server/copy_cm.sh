@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copy configmaps from other namespaces
-  
+
 function copying_cm() {
   COPY_UTIL=../../utils/copy_cm_func.sh
   DST_NS=config-server # DST_NS: Destination namespace
@@ -20,4 +20,3 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
 copying_cm   # calling function
-

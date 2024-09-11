@@ -85,6 +85,30 @@
         "attributes": {}
       },
       {
+        "id": "d9d0681c-a8e4-4a8f-bbc8-2bd15b8b5e93",
+        "name": "swagger_access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "istio",
+        "attributes": {}
+      },
+      {
+        "id": "d9d0681c-a8e4-4a8f-bbc8-2bd15b8b5e94",
+        "name": "kibana_access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "istio",
+        "attributes": {}
+      },
+      {
+        "id": "d9d0681c-a8e4-4a8f-bbc8-2bd15b8b5e95",
+        "name": "kafka_ui_access",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "istio",
+        "attributes": {}
+      },
+      {
         "id": "3ad79da3-1773-4f88-a1e2-965d7c3dbadf",
         "name": "uma_authorization",
         "description": "${role_uma_authorization}",

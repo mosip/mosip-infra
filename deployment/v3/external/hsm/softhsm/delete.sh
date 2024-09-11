@@ -14,6 +14,7 @@ function deleting_softhsm() {
         then
           helm -n $NS delete softhsm-kernel
           helm -n $NS delete softhsm-ida
+          helm -n $NS delete softhsm-idp
           break
         else
           break

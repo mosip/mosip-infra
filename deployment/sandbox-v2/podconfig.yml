@@ -5,154 +5,154 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     masterdata:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     idgen:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     prid:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     sync:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     audit :
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     key:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     notifier:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     otp:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     rid:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     keyMigrator:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   regproc:
     camel:
@@ -160,21 +160,21 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     group2:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -188,7 +188,7 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -202,21 +202,21 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     group5:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
@@ -230,84 +230,84 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     group7:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     trans:
       replicas: 1 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     workflow:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     reprocess:
       replicas: 1 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     notificationService: 
       replicas: 1 
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   dmzregproc:  
     group1:
@@ -315,56 +315,56 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     camel:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     status:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     pktserver:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   prereg:
     application:
@@ -372,83 +372,83 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     batch:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     booking:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 1
       maxSurge: 1
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
     datasync:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     captcha:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     ui:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1  
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   ida:
     auth:
@@ -456,42 +456,42 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     internal: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     otp: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   idrepo:
     identity:
@@ -499,56 +499,56 @@ podconfig:
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     vid: 
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     credentialreq:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1 
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     credentialservice:
       replicas: 1
       minReadySeconds: 10
       maxUnavailable: 0
       maxSurge: 1
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   pms:
     partner:
@@ -556,28 +556,28 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms2000M -Xmx2000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     policy:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   packetmanager:
     service:
@@ -585,28 +585,28 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
   resident:
     service:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1000M -Xmx1000M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   activemq:
     service:
@@ -617,38 +617,38 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
   admin:
     service:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     hotlist:
       replicas: 1
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   artifactory:
     service:
@@ -659,10 +659,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   clamav:
     service:
@@ -673,10 +673,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   config_server:
     service:
@@ -687,10 +687,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   datashare:
     service:
@@ -698,14 +698,14 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   docker_service:
     service:
@@ -723,10 +723,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 600m
-          memory: 3Gi
+          memory: 1.5Gi
   mockabis:
     service:
       replicas: 1
@@ -778,10 +778,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 1000m
-          memory: 6Gi
+          memory: 1.5Gi
   print:
     service:
       replicas: 1
@@ -791,10 +791,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   reg_client_downloader:
     service:
@@ -802,14 +802,14 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms1500M -Xmx1500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 300m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 500m
-          memory: 3Gi
+          memory: 1.5Gi
 
   websub:
     service:
@@ -820,10 +820,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
     consolidator:
       replicas: 1
@@ -833,10 +833,10 @@ podconfig:
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   mosip_file_server:
     service:
@@ -844,14 +844,14 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 1Gi
+          memory: 1.5Gi
 
   tusd:
     service:
@@ -859,14 +859,14 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 3Gi
+          memory: 1.5Gi
 
   resident_app_server:
     service:
@@ -874,14 +874,14 @@ podconfig:
       maxSurge: 1
       maxUnavailable: 0
       minReadySeconds: 10
-      java_opts: "-Xms500M -Xmx500M"
+      java_opts: "-Xms750M -Xmx750M"
       resources:
         requests:
           cpu: 200m
-          memory: 1Gi
+          memory: 1.5Gi
         limits:
           cpu: 300m
-          memory: 1Gi
+          memory: 1.5Gi
 
   ingress:
     nginx:

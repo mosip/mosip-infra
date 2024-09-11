@@ -14,7 +14,7 @@ function installing_secrets() {
   i=$((i+1))
   echo "Enter docker registry URL (e.g. https://index.docker.io/v1/ for dockerhub)"
   read DOCKER_REGISTRY_URL
-  echo Enter  docker registry username
+  echo Enter docker registry username
   read USERNAME
   echo Enter  docker registry Password/Token
   read PASSWORD

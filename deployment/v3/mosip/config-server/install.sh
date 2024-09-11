@@ -7,10 +7,29 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=12.0.1
+CHART_VERSION=0.0.1-develop
 
-read -p "Is conf-secrets module installed?(Y/n) " yn
-if [ $yn = "Y" ]; then read -p "Is values.yaml for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn; fi
+read -p "Is conf-secrets module installed?(Y/n) " conf_installed
+read -p "Do you want to enable config-server to pull configurations from local repository?(Y/n)( Default: n )" repo_enabled
+
+if [[ -z $repo_enabled ]]; then
+  repo_enabled=n
+fi
+
+if [ "$repo_enabled" = "Y" ]; then
+  LOCALREPO="true"
+  read -p "Provide the NFS path where the local repository is cloned/maintained: " path
+  NFS_PATH="$path"
+
+  read -p "Provide the NFS IP address of the server where the local repository is cloned: " ip
+  NFS_SERVER="$ip"
+else
+  LOCALREPO="false"
+  NFS_PATH=""
+  NFS_SERVER=""
+fi
+
+if [ $conf_installed = "Y" ]; then read -p "Is values.yaml for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn; fi
 if [ $yn = "Y" ]
   then
     echo Create $NS namespace
@@ -35,9 +54,14 @@ if [ $yn = "Y" ]
     sed -i 's/\r$//' copy_secrets.sh
     ./copy_secrets.sh
 
-    echo Installing config-server
-    helm -n $NS install config-server mosip/config-server -f values.yaml --wait --version $CHART_VERSION
-    echo Installed Config-server.
+    echo "Installing config-server"
+    helm -n $NS install config-server mosip/config-server \
+    --set localRepo.enabled="$LOCALREPO" \
+    --set volume.nfs.path="$NFS_PATH" \
+    --set volume.nfs.server="$NFS_SERVER" \
+    -f values.yaml \
+    --wait --version $CHART_VERSION
+    echo "Installed Config-server".
   else
     echo Exiting the MOSIP installation. Please meet the pre-requisites and than start again.
     kill -9 `ps --pid $$ -oppid=`; exit

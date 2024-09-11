@@ -8,7 +8,7 @@ fi
 
 
 NS=mosip-file-server
-CHART_VERSION=12.0.1
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS

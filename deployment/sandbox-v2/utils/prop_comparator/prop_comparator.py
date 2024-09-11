@@ -47,11 +47,17 @@ def diff_report(fname1, fname2):
             print('')
     print('=======================================================')
     print('\nNEW PROPERTIES in %s' % fname1)  
-    pp.pprint(set1 - set2)
+    print('')
+    diff = set1 - set2
+    for p in list(diff):
+        print('%s: %s' % (p, props1[p]))
     print('')
     print('=======================================================')
     print('\nNEW PROPERITES in %s' % fname2)  
-    pp.pprint(set2 - set1)
+    print('')
+    diff = set2 - set1
+    for p in list(diff):
+        print('%s: %s' % (p, props2[p]))
     print('')
 
 def main():

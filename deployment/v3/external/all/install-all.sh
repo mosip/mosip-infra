@@ -31,7 +31,7 @@ function installing_all() {
   cd $ROOT_DIR/antivirus/clamav
   ./install.sh
 
-  cd $ROOT_DIR/activemq
+  cd $ROOT_DIR/activemq/
   ./install.sh
 
   cd $ROOT_DIR/kafka
@@ -51,8 +51,9 @@ function installing_all() {
   ./install.sh
 
   cd $ROOT_DIR/landing-page
+
   ./install.sh
-  
+
   cd $ROOT_DIR/captcha
   ./install.sh
   
@@ -67,4 +68,3 @@ set -o nounset   ## set -u : exit the script if you try to use an uninitialised 
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
 installing_all   # calling function
-
