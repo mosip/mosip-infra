@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-function installing_all() {
+function Installing_all() {
   ROOT_DIR=`pwd`/../
 
   declare -a module=("conf-secrets"
@@ -30,10 +30,13 @@ function installing_all() {
                      "admin"
                      "ida"
                      "print"
+                     "mosip-file-server"
+                     "resident"
                      "partner-onboarder"
                      "mosip-file-server"
                      "resident"
                      "regclient"
+                     "restart-cron"
                      )
 
   echo Installing MOSIP services
@@ -55,4 +58,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_all   # calling function
+Installing_all   # calling function

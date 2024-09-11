@@ -9,7 +9,7 @@ sh install.sh
 * Keys are created in the mounted PV which gets mounted at `/softhsm/tokens` inside the container.
 * Random PIN generated if not specified. Set `securityPIN` in `values.yaml`.
 
-# Backup SoftHSM
+## Backup SoftHSM
 
 #### Backup 
 * Update the below variables
@@ -35,3 +35,4 @@ sh install.sh
 * Execute the following command to restore SoftHSM from backup.
   ```
   kubectl --kubeconfig=$KUBECONFIG -n $NS cp ./softhsm-kernel/tokens $POD_NAME:softhsm/tokens
+  ```

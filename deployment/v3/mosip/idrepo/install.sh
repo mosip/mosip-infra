@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=idrepo
-CHART_VERSION=12.0.1
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -37,6 +37,7 @@ function installing_idrepo() {
   helm -n $NS install vid mosip/vid --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
   echo Installed idrepo services
   return 0
 }

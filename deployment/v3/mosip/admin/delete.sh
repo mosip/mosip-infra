@@ -12,7 +12,7 @@ function deleting_admin() {
       read -p "Are you sure you want to delete ALL Admin helm charts?(Y/n) " yn
       if [ $yn = "Y" ]
         then
-          kubectl delete -n $NS -f admin-proxy.yaml
+	  kubectl delete -n $NS -f admin-proxy.yaml
           helm -n $NS delete admin-hotlist
           helm -n $NS delete admin-service
           helm -n $NS delete admin-ui

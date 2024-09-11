@@ -1,7 +1,10 @@
 namespaces:
   - name: packetcreator
-    enabled: true
+    enabled: false
     deploymentName: packetcreator
   - name: authdemo
-    enabled: true
+    enabled: false
     deploymentName: authdemo
+  - name: kernel
+    enabled: true
+    deploymentName: idgenerator

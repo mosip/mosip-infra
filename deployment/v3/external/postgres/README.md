@@ -40,7 +40,6 @@ To initialized a specific db disable init of all others in `init_values.yaml` by
   ```
   psql -h <HOSTNAME> -p <PORT-NUMBER> -U <USERNAME> -f <BACKUP_FILE_NAME>.dump
   ```
-
 ## DB Commons secret and postgres-postgresql secret creation
 
 * Base64 Encoding and YAML Creation Script:
@@ -98,4 +97,3 @@ helm delete postgres-upgrade -n postgres
   ```
   sed -i 's/LOCALE/LC_COLLATE/g' <BACKUP_FILE_NAME>.dump
   ```
-

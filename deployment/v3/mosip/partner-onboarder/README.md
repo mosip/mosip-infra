@@ -39,6 +39,3 @@ Loads certs for default partners for sandbox. Refer [mosip-onboarding repo](http
  3. Upload of certificate will not be allowed to update other domain certificate
  
     Resolution: This is expected when you try to upload `ida-cred` certificate twice. It should only run once and if you see this error while uploading a second      time it can be ignored as the cert is already present.
-
-
-

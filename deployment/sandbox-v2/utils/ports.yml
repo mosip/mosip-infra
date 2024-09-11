@@ -1,0 +1,47 @@
+#This is used for enabling ports in sandbox installation with firewall enabled
+##usage:  ansible-playbook -i hosts.ini ports.yml
+- name: FirewallD installation and ports addition to the nodes
+  hosts: cluster
+  vars:
+    port_list:
+      - { port: 8080/tcp, state: enabled }
+      - { port: 22/tcp, state: enabled }
+      - { port: 25/tcp, state: enabled }
+      - { port: 111/tcp, state: enabled }
+      - { port: 80/tcp, state: enabled }
+      - { port: 601/tcp, state: enabled }
+      - { port: 443/tcp, state: enabled }
+      - { port: 53/udp, state: enabled }
+      - { port: 7703-7726/tcp, state: enabled }
+      - { port: 2376/tcp, state: enabled }
+      - { port: 2379-2380/tcp, state: enabled }
+      - { port: 30000-32767/udp, state: enabled }
+      - { port: 10250-10252/tcp, state: enabled }
+      - { port: 6443/tcp, state: enabled }
+      - { port: 9100/tcp, state: enabled }
+      - { port: 2049/tcp, state: enabled }
+      - { port: 2048/tcp, state: enabled }
+      - { port: 41497-43774/tcp, state: enabled }
+      - { port: 25654-29933/tcp, state: enabled }
+  tasks:
+    - name: Install firewalld
+      yum:
+        name: firewalld
+        state: latest
+      notify:
+        - start firewalld
+    - name: start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      become: yes
+    - name: enable ports
+      firewalld:
+        zone: public
+        port: "{{ item.port }}"
+        permanent: true
+        state: "{{ item.state }}"
+      loop:
+        "{{ port_list }}"
+      become: yes

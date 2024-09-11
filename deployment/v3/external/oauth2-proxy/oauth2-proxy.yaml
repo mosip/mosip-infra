@@ -2,6 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: oauth2-proxy-confmap
+  labels:
+    app.kubernetes.io/name: oauth2-proxy
 data:
   oauth2_proxy.cfg: |
     email_domains = ["*"]
@@ -11,6 +13,7 @@ data:
     whitelist_domains = ["___ROOT_DOMAIN___"]
     cookie_domains = ["___ROOT_DOMAIN___"]
     cookie_name = "_oauth2_proxy____INSTALLATION_NAME___"
+    skip_jwt_bearer_tokens = true
   alpha.cfg: |
     injectRequestHeaders:
     - name: X-Forwarded-Groups
@@ -70,23 +73,33 @@ data:
         static: true
         staticCode: 200
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: oauth2-proxy-secret
+  labels:
+    app.kubernetes.io/name: oauth2-proxy
+type: Opaque
+data:
+  OAUTH2_PROXY_COOKIE_SECRET: ___COOKIE_SECRET___
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: oauth2-proxy
   labels:
-    app: oauth2-proxy
+    app.kubernetes.io/name: oauth2-proxy
 spec:
   replicas: 1
   strategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: oauth2-proxy
+      app.kubernetes.io/name: oauth2-proxy
   template:
     metadata:
       labels:
-        app: oauth2-proxy
+        app.kubernetes.io/name: oauth2-proxy
     spec:
       containers:
       - name: oauth2-proxy
@@ -95,9 +108,9 @@ spec:
         args:
         - --config=/bitnami/oauth2-proxy/conf/oauth2_proxy.cfg
         - --alpha-config=/bitnami/oauth2-proxy/conf/alpha.cfg
-        env:
-        - name: OAUTH2_PROXY_COOKIE_SECRET
-          value: "WFhYWFhYWFhYWFhYWFhYWA=="
+        envFrom:
+        - secretRef:
+            name: oauth2-proxy-secret
         ports:
         - containerPort: 4180
           name: http
@@ -139,11 +152,11 @@ kind: Service
 metadata:
   name: oauth2-proxy
   labels:
-    app: oauth2-proxy
+    app.kubernetes.io/name: oauth2-proxy
 spec:
   type: ClusterIP
   selector:
-    app: oauth2-proxy
+    app.kubernetes.io/name: oauth2-proxy
   ports:
     - name: http
       port: 80
