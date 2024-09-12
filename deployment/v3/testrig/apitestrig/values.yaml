@@ -15,3 +15,5 @@ modules:
     enabled: true
   mimoto:
     enabled: true
+  injicertify:
+    enabled: true
