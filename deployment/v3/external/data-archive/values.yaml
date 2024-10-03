@@ -1,13 +1,13 @@
 databases:
   archive_db:
     db_name: "mosip_archive"
-    host: "api-internal.dev.mosip.net"
+    host: "<SOURCE_HOST>"
     port: 5432
     su_user: "postgres"
     su_user_pwd: ""
     db_pwd: ""
     dml: 0
-    archivehost: "api-internal.dev.mosip.net"
+    archivehost: "<SOURCE_HOST>"
     archiveport: 5432
     archiveuname: "archiveuser"
     archive_dbname: "mosip_archive"
@@ -41,67 +41,67 @@ databases:
       container_volume_path: /resident-db-info-json  ## volume mount path for table info inside cronjob container
 
   source_db:
-    source_audit_host: "api-internal.dev.mosip.net"
+    source_audit_host: "<SOURCE_HOST>"
     source_audit_port: 5432
     source_audit_uname: "audituser"
     source_audit_dbname: "mosip_audit"
     source_audit_schemaname: "audit"
     source_audit_db_pass: ""
-    source_credential_host: "api-internal.dev.mosip.net"
+    source_credential_host: "<SOURCE_HOST>"
     source_credential_port: 5432
     source_credential_uname: "credentialuser"
     source_credential_dbname: "mosip_credential"
     source_credential_schemaname: "credential"
     source_credential_db_pass: ""
-    source_esignet_host: "api-internal.dev.mosip.net"
+    source_esignet_host: "<SOURCE_HOST>"
     source_esignet_port: 5432
     source_esignet_uname: "esignetuser"
     source_esignet_dbname: "mosip_esignet"
     source_esignet_schemaname: "esignet"
     source_esignet_db_pass: ""
-    source_ida_host: "api-internal.dev.mosip.net"
+    source_ida_host: "<SOURCE_HOST>"
     source_ida_port: 5432
     source_ida_uname: "idauser"
     source_ida_dbname: "mosip_ida"
     source_ida_schemaname: "ida"
     source_ida_db_pass: ""
-    source_idrepo_host: "api-internal.dev.mosip.net"
+    source_idrepo_host: "<SOURCE_HOST>"
     source_idrepo_port: 5432
     source_idrepo_uname: "idrepouser"
     source_idrepo_dbname: "mosip_idrepo"
     source_idrepo_schemaname: "idrepo"
     source_idrepo_db_pass: ""
-    source_kernel_host: "api-internal.dev.mosip.net"
+    source_kernel_host: "<SOURCE_HOST>"
     source_kernel_port: 5432
     source_kernel_uname: "kerneluser"
     source_kernel_dbname: "mosip_kernel"
     source_kernel_schemaname: "kernel"
     source_kernel_db_pass: ""
-    source_master_host: "api-internal.dev.mosip.net"
+    source_master_host: "<SOURCE_HOST>"
     source_master_port: 5432
     source_master_uname: "masteruser"
     source_master_dbname: "mosip_master"
     source_master_schemaname: "master"
     source_master_db_pass: ""
-    source_pms_host: "api-internal.dev.mosip.net"
+    source_pms_host: "<SOURCE_HOST>"
     source_pms_port: 5432
     source_pms_uname: "pmsuser"
     source_pms_dbname: "mosip_pms"
     source_pms_schemaname: "pms"
     source_pms_db_pass: ""
-    source_prereg_host: "api-internal.dev.mosip.net"
+    source_prereg_host: "<SOURCE_HOST>"
     source_prereg_port: 5432
     source_prereg_uname: "prereguser"
     source_prereg_dbname: "mosip_prereg"
     source_prereg_schemaname: "prereg"
     source_prereg_db_pass: ""
-    source_regprc_host: "api-internal.dev.mosip.net"
+    source_regprc_host: "<SOURCE_HOST>"
     source_regprc_port: 5432
     source_regprc_uname: "regprcuser"
     source_regprc_dbname: "mosip_regprc"
     source_regprc_schemaname: "regprc"
     source_regprc_db_pass: ""
-    source_resident_host: "api-internal.dev.mosip.net"
+    source_resident_host: "<SOURCE_HOST>"
     source_resident_port: 5432
     source_resident_uname: "residentuser"
     source_resident_dbname: "mosip_resident"
