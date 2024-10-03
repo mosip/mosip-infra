@@ -6,6 +6,14 @@
 * Some components may run inside the cluster itself, or outside depending on the choice of deployment. 
 
 ## External components
+* Global configmap: In MOSIP `global` configmap in `default` namespace contains Domain related information.
+  * Make sure kubeconfig file is already set and k8 cluster is accessible and kubectl is installed.
+  * Copy `global_configmap.yaml.sample` to `global_configmap.yaml`.
+  * Update the domain names in `global_configmap.yaml` and execute:
+    ```
+    kubectl apply -f global_configmap.yaml
+    ```
+* [Istio-gateway](istio-gateway/README.md)
 * [Postgres](postgres/README.md)
 * [IAM (Keycloak)](iam/README.md)
 * [HSM](hsm/README.md)
