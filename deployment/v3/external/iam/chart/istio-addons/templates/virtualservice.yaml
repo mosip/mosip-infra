@@ -9,6 +9,7 @@ spec:
   - keycloak
 
   http:
+  {{- if eq .Values.service "oauth2-proxy" }}
   - match:
       - uri:
           prefix: /oauth2
@@ -21,6 +22,7 @@ spec:
       request:
         set:
           x-forwarded-proto: https
+  {{- else if eq .Values.service "keycloak" }}
   - match:
       - uri:
           prefix: /
@@ -33,3 +35,4 @@ spec:
       request:
         set:
           x-forwarded-proto: https
+  {{- end }}
