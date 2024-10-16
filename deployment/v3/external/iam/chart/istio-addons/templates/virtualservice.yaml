@@ -6,30 +6,33 @@ spec:
   hosts:
     - "*"
   gateways:
-  - keycloak
+    - keycloak
 
   http:
+  {{- if eq .Values.service "oauth2-proxy" }}
   - match:
       - uri:
           prefix: /oauth2
     route:
-    - destination:
-        host: oauth2-proxy.oauth2-proxy.svc.cluster.local
-        port:
-          number: 80
+      - destination:
+          host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+          port:
+            number: 80
     headers:
       request:
         set:
           x-forwarded-proto: https
+  {{- else if eq .Values.service "keycloak" }}
   - match:
       - uri:
           prefix: /
     route:
-    - destination:
-        host: {{ .Values.service }}.{{ .Release.Namespace }}.svc.cluster.local
-        port:
-          number: 80
+      - destination:
+          host: {{ .Values.service }}.{{ .Release.Namespace }}.svc.cluster.local
+          port:
+            number: 80
     headers:
       request:
         set:
           x-forwarded-proto: https
+  {{- end }}
