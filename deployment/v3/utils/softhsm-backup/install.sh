@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=softhsm-backup
-CHART_VERSION=1.0.0
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -64,7 +64,7 @@ function installing_softhsm-backup() {
 
 
   echo Installing softhsm-backup
-  helm -n $NS install softhsm-backup mosip/softhsm-backup \
+  helm -n $NS install softhsm-backup mosip/softhsmbackup \
   --set crontime="0 $time * * *" \
   --set "softhsmbackup.configmaps.s3.S3_BUCKET=$S3_BUCKET" \
   --set "softhsmbackup.configmaps.s3.AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" \
@@ -72,7 +72,7 @@ function installing_softhsm-backup() {
   --set "softhsmbackup.configmaps.s3.S3_RETENTION_DAYS=$S3_RETENTION_DAYS" \
   --set "softhsmbackup.secrets.s3.AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
   --version $CHART_VERSION
-  
+
   echo Installed softhsm backup utility
   return 0
 }
