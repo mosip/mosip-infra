@@ -7,16 +7,25 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=0.0.2-develop
 
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
-read -p "Do you want to enable config-server to pull configurations from local repository?(Y/n)( Default: n )" repo_enabled
-
-if [[ -z $repo_enabled ]]; then
-  repo_enabled=n
+read -p "Do you want to enable config-server to pull configurations from multiple repositories?(Y/n)( Default: n )" comp_enabled
+if [[ -z $comp_enabled ]]; then
+  comp_enabled=n
+fi
+if [ "$comp_enabled" = "Y" ]; then
+  COMPOSITE_PROFILES="true"
+else
+  COMPOSITE_PROFILES="false"
 fi
 
-if [ "$repo_enabled" = "Y" ]; then
+read -p "Do you want to enable config-server to pull configurations from local repository?(Y/n)( Default: n )" local_enabled
+if [[ -z $local_enabled ]]; then
+  local_enabled=n
+fi
+
+if [ "$local_enabled" = "Y" ]; then
   LOCALREPO="true"
   read -p "Provide the NFS path where the local repository is cloned/maintained: " path
   NFS_PATH="$path"
@@ -56,6 +65,7 @@ if [ $yn = "Y" ]
 
     echo "Installing config-server"
     helm -n $NS install config-server mosip/config-server \
+    --set spring_profiles.enabled="$COMPOSITE_PROFILES" \
     --set localRepo.enabled="$LOCALREPO" \
     --set volume.nfs.path="$NFS_PATH" \
     --set volume.nfs.server="$NFS_SERVER" \
