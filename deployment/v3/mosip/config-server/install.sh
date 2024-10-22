@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=0.0.2-develop
 
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
 read -p "Do you want to enable config-server to pull configurations from local repository?(Y/n)( Default: n )" repo_enabled
