@@ -1,4 +1,0 @@
-﻿id,dprovider_id,dtype_code,dstype_code,make,model,partner_org_name,approval_status,is_active,cr_by,cr_dtimes
-10001,SmartX,Iris,Double,SmartX,IRISv101,SmartX ORG,APPROVED,TRUE,admin,now()
-10002,SmartX,Face,Full face,SmartX,FACEv101,SmartX ORG,APPROVED,TRUE,admin,now()
-10003,SmartX,Finger,Slab,SmartX,FPSv101,SmartX ORG,APPROVED,TRUE,admin,now()

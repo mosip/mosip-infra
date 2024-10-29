@@ -1,5 +1,0 @@
-apiVersion: v1
-appVersion: ""
-description: A Helm chart for Websub 
-name: websub-consolidator
-version: 1.2.0

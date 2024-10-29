@@ -1,6 +1,0 @@
-dockerConfigJson: ''  # base64 encoded. Passed directly from helm command
-name: {{ docker.hub.keyname }}
-
-services:
- docker-secrets:
-   podconfig: {{ podconfig.docker_service.service | to_yaml }} 

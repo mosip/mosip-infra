@@ -1,5 +1,0 @@
-- name: Install net-tools 
-  yum:
-    name: net-tools 
-    state: present
-  become: yes
