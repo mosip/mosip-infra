@@ -43,7 +43,7 @@ if [[ -n "$public_exists" && -n "$internal_exists" ]]; then
 else
   helm -n $NS install istio-addons . \
     $gateway_option \
-    --set proxyProtocol.enabled=false
+    --set proxyProtocol.enabled=false \
     --wait
 fi
 
