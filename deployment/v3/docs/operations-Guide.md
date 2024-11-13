@@ -17,7 +17,7 @@
 
 * Clone the particular github repo to local
 * Update the following environment variables in deploy properties file <br>
-  <img src="images/property file.png" width="500"><br> 
+  <img src="images/property-file.png" width="500"><br> 
 * After setting up all these values in the respective folder of github repo
 * Run the deploy.sh to deploy the db
    * **bash deploy.sh deploy.properties**

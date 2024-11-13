@@ -8,9 +8,9 @@ fi
 
 function Restarting_captcha() {
   NS=captcha
-  kubectl -n $NS rollout restart deploy
+  kubectl -n $NS rollout restart deploy captcha
 
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+  kubectl -n $NS  get deploy captcha -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Restarted captcha services
   return 0

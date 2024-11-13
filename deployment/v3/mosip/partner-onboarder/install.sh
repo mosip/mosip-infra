@@ -102,7 +102,7 @@ function installing_onboarder() {
   ./copy_secrets.sh
 
   echo Onboarding Platform partners
-  helm -n $NS install partner-onboarder ../../../../../mosip-onboarding/helm/partner-onboarder/ \
+  helm -n $NS install partner-onboarder mosip/partner-onboarder \
   $NFS_OPTION \
   $S3_OPTION \
   --set onboarding.variables.push_reports_to_s3=$push_reports_to_s3 \

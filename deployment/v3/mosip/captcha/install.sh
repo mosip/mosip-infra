@@ -1,6 +1,5 @@
 #!/bin/bash
-# Creates configmap and secrets for Prereg Captcha
-# Creates configmap and secrets for resident Captcha
+## Installing captcha validation server.
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -8,47 +7,52 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=captcha
-CHART_VERSION=0.0.1-develop
-
-PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
-RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
-ESIGNET_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
-
-echo Create $NS namespace
-kubectl create ns $NS
-
-function Prereg_Captcha() {
-  echo Please enter the recaptcha admin site key for domain $PREREG_HOST
-  read SITE_KEY
-  echo Please enter the recaptcha admin secret key for domain $PREREG_HOST
-  read SECRET_KEY
-  echo Please enter the recaptcha admin site key for domain $RESIDENT_HOST
-  read RSITE_KEY
-  echo Please enter the recaptcha admin secret key for domain $RESIDENT_HOST
-  read RSECRET_KEY
-  echo Please enter the recaptcha admin site key for domain $ESIGNET_HOST
-  read ESITE_KEY
-  echo Please enter the recaptcha admin secret key for domain $ESIGNET_HOST
-  read ESECRET_KEY
-
-  echo Setting up captcha secrets
-  kubectl -n $NS create secret generic mosip-captcha --from-literal=prereg-captcha-site-key=$SITE_KEY --from-literal=prereg-captcha-secret-key=$SECRET_KEY --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --from-literal=esignet-captcha-site-key=$ESITE_KEY --from-literal=esignet-captcha-secret-key=$ESECRET_KEY --dry-run=client -o yaml | kubectl apply -f -
-}
+CHART_VERSION=0.1.0-develop
 
 function installing_captcha() {
+
+  while true; do
+      read -p "Do you want to continue installing captcha validation service? (y/n): " ans
+      if [ "$ans" = "Y" ] || [ "$ans" = "y" ]; then
+          break
+      elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
+          exit 1
+      else
+          echo "Please provide a correct option (Y or N)"
+      fi
+  done
+
+  NS=captcha
+  CHART_VERSION=0.1.0-develop
+
+  echo Create $NS namespace
+  kubectl create ns $NS || true
+
   echo Istio label
 
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
-  echo Copy configmaps
-  sed -i 's/\r$//' copy_cm.sh
-  ./copy_cm.sh
+  while true; do
+    read -p "Is Prometheus Service Monitor Operator deployed in the k8s cluster? (y/n): " response
+    if [[ "$response" == "y" || "$response" == "Y" ]]; then
+      servicemonitorflag=true
+      break
+    elif [[ "$response" == "n" || "$response" == "N" ]]; then
+      servicemonitorflag=false
+      break
+    else
+      echo "Not a correct response. Please respond with y (yes) or n (no)."
+    fi
+  done
 
   echo Installing captcha
-  helm -n $NS install captcha mosip/captcha --version $CHART_VERSION
+  helm -n $NS install captcha mosip/captcha --version $CHART_VERSION --set metrics.serviceMonitor.enabled=$servicemonitorflag --wait
 
   echo Installed captcha service
+
+
+
   return 0
 }
 
@@ -58,6 +62,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-
-Prereg_Captcha   # calling function
-installing_captcha   # calling second function
+installing_captcha
