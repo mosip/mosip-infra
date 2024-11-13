@@ -44,6 +44,16 @@ function installing_prereg() {
   echo Installing prereg-ui
   helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
 
+  if [[ -z "$ENV_VAR_EXISTS" ]]; then
+      # If the environment variable does not exist, add it
+      echo "Environment variable 'MOSIP_CAPTCHA' does not exist. Adding it..."
+      kubectl patch deployment -n captcha captcha --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/env/-", "value": {"name": "MOSIP_CAPTCHA", "valueFrom": {"secretKeyRef": {"name": "mosip-captcha", "key": "prereg-captcha-secret-key"}}}}]'
+  else
+      # If the environment variable exists, update it
+      echo "Environment variable 'MOSIP_CAPTCHA' exists. Updating it..."
+      kubectl patch deployment -n captcha captcha --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/env[?(@.name==\"MOSIP_CAPTCHA\")]", "value": {"name": "MOSIP_CAPTCHA", "valueFrom": {"secretKeyRef": {"name": "mosip-captcha", "key": "prereg-captcha-secret-key"}}}}]'
+  fi
+
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml
 
