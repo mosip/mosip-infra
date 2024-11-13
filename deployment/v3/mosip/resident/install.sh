@@ -55,6 +55,16 @@ function installing_resident() {
   echo Installing Resident UI
   helm -n $NS install resident-ui mosip/resident-ui --set resident.apiHost=$API_HOST --set istio.hosts\[0\]=$RESIDENT_HOST --version $RESIDENT_UI_CHART_VERSION
 
+  if [[ -z "$ENV_VAR_EXISTS" ]]; then
+      # If the environment variable does not exist, add it
+      echo "Environment variable 'MOSIP_CAPTCHA' does not exist. Adding it..."
+      kubectl patch deployment -n captcha captcha --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/env/-", "value": {"name": "MOSIP_CAPTCHA", "valueFrom": {"secretKeyRef": {"name": "mosip-captcha", "key": "resident-captcha-secret-key"}}}}]'
+  else
+      # If the environment variable exists, update it
+      echo "Environment variable 'MOSIP_CAPTCHA' exists. Updating it..."
+      kubectl patch deployment -n captcha captcha --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/env[?(@.name==\"MOSIP_CAPTCHA\")]", "value": {"name": "MOSIP_CAPTCHA", "valueFrom": {"secretKeyRef": {"name": "mosip-captcha", "key": "resident-captcha-secret-key"}}}}]'
+  fi
+
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
   echo Installed Resident services
