@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=mock-smtp
+NS=mock-smtp test
 CHART_VERSION=12.0.x-develop
 
 echo Create $NS namespace
