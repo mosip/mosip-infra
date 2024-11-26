@@ -43,7 +43,7 @@ function installing_dslrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
-  read -p "Please provide packet Utility Base URL (eg: https://<host>:<port>/v1/packetcreator) : " packetUtilityBaseUrl
+  read -p "Please provide packet Utility Base URL (eg: http://<host>:<port>/v1/packetcreator) : " packetUtilityBaseUrl
 
   if [ -z $packetUtilityBaseUrl ]; then
     echo "Packet utility Base URL not provided; EXITING;"

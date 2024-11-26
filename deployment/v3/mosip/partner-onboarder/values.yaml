@@ -1,7 +1,7 @@
 image:
   registry: docker.io
-  repository: mosipdev/partner-onboarder
-  tag: MOSIP-35987
+  repository: mosipqa/partner-onboarder
+  tag: develop
 
 onboarding:
   modules:
@@ -12,10 +12,6 @@ onboarding:
     - name: abis
       enabled: true
     - name: resident
-      enabled: true
-    - name: resident-oidc
-      enabled: true
-    - name: digitalcard
       enabled: true
 #  configmaps:
 #    s3:

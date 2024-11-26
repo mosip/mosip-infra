@@ -4,6 +4,14 @@
 Loads certs for default partners for sandbox. Refer [mosip-onboarding repo](https://github.com/mosip/mosip-onboarding).
 
 ## Install 
+* Create a directory for onboarder on the NFS server at `/srv/nfs/<sandbox>/onboarder/`:
+```
+mkdir -p /srv/nfs/<sandbox>/onboarder/
+```
+* Ensure the directory has 777 permissions:
+```
+chmod 777 /srv/nfs/<sandbox>/onboarder
+```
 * Set `values.yaml` to run onboarder for specific modules.
 * run `./install.sh`.
 ```
