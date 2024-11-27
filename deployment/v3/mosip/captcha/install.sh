@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=captcha
-CHART_VERSION=0.1.0-develop
+CHART_VERSION=0.0.1-develop
 
 function installing_captcha() {
 

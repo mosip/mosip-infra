@@ -23,6 +23,7 @@ function secret_setup() {
         read -s PSITE_KEY
         echo Please enter the recaptcha admin secret key for domain $PREREG_HOST
         read -s PSECRET_KEY
+        break
       elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
         exit 1
       else
@@ -40,6 +41,7 @@ function secret_setup() {
         read -s ASITE_KEY
         echo Please enter the recaptcha admin secret key for domain $ADMIN_HOST
         read -s ASECRET_KEY
+        break
       elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
         exit 1
       else
@@ -57,6 +59,7 @@ function secret_setup() {
         read -s RSITE_KEY
         echo Please enter the recaptcha admin secret key for domain $RESIDENT_HOST
         read -s RSECRET_KEY
+        break
       elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
         exit 1
       else
