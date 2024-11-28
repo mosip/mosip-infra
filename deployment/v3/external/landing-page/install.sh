@@ -12,6 +12,9 @@ CHART_VERSION=12.0.2
 echo Create $NS namespace
 kubectl create ns $NS
 
+read -p "Select ConfigMap landing page (index or collab-index) [default: index]: " CONFIG_MAP_OPTION
+CONFIG_MAP_OPTION=${CONFIG_MAP_OPTION:-index} # Default to "index" if no input is provided
+
 function landing_page() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
@@ -69,7 +72,8 @@ function landing_page() {
   --set landing.healthservices=$HEALTHSERVICES \
   --set landing.injiweb=$INJIWEB \
   --set landing.injiverify=$INJIVERIFY \
-  --set istio.host=$DOMAIN
+  --set istio.host=$DOMAIN \
+  --set configMapOption=$CONFIG_MAP_OPTION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
