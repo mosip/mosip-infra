@@ -12,7 +12,7 @@ CHART_VERSION=12.0.2
 echo Create $NS namespace
 kubectl create ns $NS
 
-read -p "Select ConfigMap landing page (index or collab-index) [default: index]: " CONFIG_MAP_OPTION
+read -p "Select ConfigMap for landing page (index or collab-index) [default: index]: " CONFIG_MAP_OPTION
 CONFIG_MAP_OPTION=${CONFIG_MAP_OPTION:-index} # Default to "index" if no input is provided
 
 function landing_page() {
