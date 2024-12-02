@@ -5,7 +5,7 @@ primary:
     max_wal_senders=20
     max_replication_slots=10
   resources:
-    limits: {}
+    limits:
        cpu: 1500m
        memory: 2000Mi
     requests:

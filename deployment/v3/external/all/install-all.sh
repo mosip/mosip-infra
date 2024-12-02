@@ -47,9 +47,6 @@ function installing_all() {
   cd $ROOT_DIR/docker-secrets
   ./install.sh
 
-  cd $ROOT_DIR/conf-secrets
-  ./install.sh
-
   cd $ROOT_DIR/landing-page
 
   ./install.sh
