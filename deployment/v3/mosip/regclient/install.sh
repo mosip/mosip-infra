@@ -31,6 +31,8 @@ function installing_regclient() {
     --set regclient.healthCheckUrl=$HEALTH_URL \
     --set regclient.hostName=$INTERNAL_HOST \
     --set istio.host=$REGCLIENT_HOST \
+    --set mosipqa/registration-client \
+    --set image.tag=1.3.x \
     --wait \
     --version $CHART_VERSION
 

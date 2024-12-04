@@ -22,7 +22,7 @@ function installing_print() {
   ./copy_cm.sh
 
   echo Installing print service
-  helm -n $NS install print-service mosip/print-service --wait --version $CHART_VERSION
+  helm -n $NS install print-service mosip/print-service --wait --set image.repository=mosipqa/print --set image.tag=1.3.x --version $CHART_VERSION
   return 0
 }
 

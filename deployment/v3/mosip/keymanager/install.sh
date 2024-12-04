@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=keymanager
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1
 
 echo Creating $NS namespace
 kubectl create ns $NS
@@ -57,7 +57,7 @@ function installing_keymanager() {
   echo "KERNEL HELM ARGS $KERNEL_HELM_ARGS"
 
   echo Running keygenerator. This may take a few minutes..
-  helm -n $NS install kernel-keygen mosip/keygen  $KERNEL_KEYGEN_HELM_ARGS --wait --wait-for-jobs --version $CHART_VERSION
+  helm -n $NS install kernel-keygen mosip/keygen  $KERNEL_KEYGEN_HELM_ARGS --wait --wait-for-jobs --set image.repository=mosipid/keys-generator --set image.tag=1.2.0.1 --version $CHART_VERSION
 
   echo Installing keymanager
   helm -n $NS install keymanager mosip/keymanager $KERNEL_HELM_ARGS --wait --version $CHART_VERSION
