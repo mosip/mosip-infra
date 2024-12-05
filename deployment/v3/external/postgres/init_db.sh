@@ -8,7 +8,7 @@ fi
 
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=0.0.1-develop
+  CHART_VERSION=1.3.0-beta.1-develop
   helm repo update
   while true; do
       read -p "CAUTION: all existing data will be lost. Are you sure?(Y/n)" yn
@@ -17,7 +17,7 @@ function initialize_db() {
           echo Removing any existing installation
           helm -n $NS delete postgres-init || true
           echo Initializing DB
-          helm -n $NS install postgres-init mosip/postgres-init -f init_values.yaml --set image.repository=mosipqa/postgres-init --set image.tag=1.3.x --version $CHART_VERSION --wait --wait-for-jobs
+          helm -n $NS install postgres-init mosip/postgres-init -f init_values.yaml --version $CHART_VERSION --wait --wait-for-jobs
           break
         else
           break
