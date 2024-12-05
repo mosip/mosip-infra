@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -30,19 +30,19 @@ function installing_prereg() {
   helm -n $NS install prereg-gateway mosip/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
 
   echo Installing prereg-application
-  helm -n $NS install prereg-application mosip/prereg-application --set image.repository=mosipqa/pre-registration-application-service --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
 
   echo Installing prereg-booking
-  helm -n $NS install prereg-booking mosip/prereg-booking --set image.repository=mosipqa/pre-registration-booking-service --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install prereg-booking mosip/prereg-booking --version $CHART_VERSION
 
   echo Installing prereg-datasync
-  helm -n $NS install prereg-datasync mosip/prereg-datasync --set image.repository=mosipqa/pre-registration-datasync-service --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install prereg-datasync mosip/prereg-datasync --version $CHART_VERSION
 
   echo Installing prereg-batchjob
-  helm -n $NS install prereg-batchjob mosip/prereg-batchjob --set image.repository=mosipqa/pre-registration-batchjob --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --set image.repository=mosipqa/pre-registration-ui --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml

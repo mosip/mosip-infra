@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=abis
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_mockmv() {
   helm repo update
 
   echo Installing mock-mv
-  helm -n $NS install mock-mv mosip/mock-mv --set image.repository=mosipqa/mock-mv --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install mock-mv --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
