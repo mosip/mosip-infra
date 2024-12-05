@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=packetmanager
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS 
@@ -22,7 +22,7 @@ function installing_packetmanager() {
   ./copy_cm.sh
 
   echo Installing packetmanager
-  helm -n $NS install packetmanager mosip/packetmanager --set image.repository=mosipqa/commons-packet-service --set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install packetmanager mosip/packetmanager --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   return 0
