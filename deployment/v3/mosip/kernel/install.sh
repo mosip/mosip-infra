@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -46,7 +46,7 @@ function installing_kernel() {
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
+  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST --version $CHART_VERSION
 
   echo Installing otpmanager
   helm -n $NS install otpmanager mosip/otpmanager --version $CHART_VERSION

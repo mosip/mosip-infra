@@ -8,7 +8,7 @@ fi
 
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=0.0.1-develop
+  CHART_VERSION=1.3.0-beta.1-develop
   helm repo update
   while true; do
       read -p "CAUTION: all existing data will be lost. Are you sure?(Y/n)" yn

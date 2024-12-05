@@ -7,7 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=pms
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=12.0.1
+PMP_CHART_VERSION_UI=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -41,7 +42,7 @@ function installing_pms() {
   --version $CHART_VERSION
 
   echo Installing pmp-ui
-  helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
+  helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $PMP_CHART_VERSION_UI
 
   echo Installing pmp-reactjs-ui-new
   helm -n $NS install pmp-reactjs-ui mosip/pmp-reactjs-ui \

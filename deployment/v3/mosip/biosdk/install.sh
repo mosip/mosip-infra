@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=biosdk
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_biosdk() {
   ./copy_cm.sh
 
   echo Installing Biosdk server
-  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml  --version $CHART_VERSION
+  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
 
   echo Biosdk service installed sucessfully.
   return 0
