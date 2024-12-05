@@ -22,7 +22,7 @@ function installing_biosdk() {
   ./copy_cm.sh
 
   echo Installing Biosdk server
-  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --set image.repository=mosipqa/biosdk-server--set image.tag=1.3.x --version $CHART_VERSION
+  helm -n $NS install biosdk-service mosip/biosdk-service -f values.yaml --version $CHART_VERSION
 
   echo Biosdk service installed sucessfully.
   return 0
