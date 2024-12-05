@@ -39,7 +39,7 @@ function installing_kernel() {
   helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
   helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION
