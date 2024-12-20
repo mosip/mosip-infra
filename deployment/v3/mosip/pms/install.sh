@@ -52,8 +52,8 @@ function installing_pms() {
   # Ask if the user wants to install pmp-revamp-ui
   read -p "Do you want to install PMP-REVAMP-UI? (y/n): " install_pmp_revamp_ui
   if [[ "$install_pmp_revamp_ui" =~ ^[Yy]$ ]]; then
-    echo Installing pmp-revamp-ui 
-    helm -n $NS install pmp-reactjs-ui mosip/pmp-revamp-ui \
+    echo Installing pmp-revamp-ui
+    helm -n $NS install pmp-revamp-ui mosip/pmp-revamp-ui \
     --set pmp_revamp.react_app_partner_manager_api_base_url="https://$INTERNAL_API_HOST/v1/partnermanager" \
     --set pmp_revamp.react_app_policy_manager_api_base_url="https://$INTERNAL_API_HOST/v1/policymanager" \
     --set pmp_revamp.pms_partner_manager_internal_service_url="http://$PARTNER_MANAGER_SERVICE_NAME.$NS/v1/partnermanager" \
