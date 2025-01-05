@@ -1,2 +1,0 @@
-is_template: false  # Is give values file a j2 template?
-helm_namespace: default

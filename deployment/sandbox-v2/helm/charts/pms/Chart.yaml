@@ -1,6 +1,0 @@
-apiVersion: v2
-name: pms
-description: A Helm chart for MOSIP's Partner Management Services module.
-type: application
-version: 1.0.9
-appVersion: 1.0.9

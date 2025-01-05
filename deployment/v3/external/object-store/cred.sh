@@ -38,7 +38,6 @@ function installing_Cred() {
     read -p "Enter the S3 region" REGION
     read -p "Please provide pretext value : " PRETEXT_VALUE
     kubectl -n s3 create configmap s3 --from-literal=s3-user-key=$USER --from-literal=s3-region=$REGION --dry-run=client  -o yaml | kubectl apply -f -
-    kubectl -n s3 create secret generic s3 --from-literal=s3-user-secret=$PASS --dry-run=client  -o yaml | kubectl apply -f -
     kubectl -n s3 create secret generic s3 --from-literal=s3-user-secret=$PASS --from-literal=s3-pretext-value=$PRETEXT_VALUE --dry-run=client  -o yaml | kubectl apply -f -
     echo object-store secret and config map is set now.
     break

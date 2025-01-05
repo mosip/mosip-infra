@@ -5,12 +5,12 @@ primary:
     max_wal_senders=20
     max_replication_slots=10
   resources:
-    limits: {}
-    #   cpu: 250m
-    #   memory: 1Gi
+    limits:
+       cpu: 1500m
+       memory: 2000Mi
     requests:
-      cpu: 3000m
-      memory: 3000Mi
+      cpu: 1500m
+      memory: 2000Mi
 audit:
   logHostname: true
   logConnections: true

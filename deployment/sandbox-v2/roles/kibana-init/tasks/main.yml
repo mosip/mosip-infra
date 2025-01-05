@@ -1,7 +1,0 @@
-- name: load dashboards
-  shell: 'curl -X POST {{clusters.mz.ingress.base_url}}/kibana/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@{{item}}'
-  args:
-    warn: no 
-  with_fileglob: '../files/dashboards/*'
-
-

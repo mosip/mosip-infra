@@ -25,6 +25,7 @@
 * [ABIS](abis/README.md)
 * [Message Gateways](msg-gateway/README.md)
 * [docker secrets](docker-secrets/README.md)
+* [captcha](captcha/README.md)
 * [Landing page](landing-page/README.md)
 ## Install
 * Run `install-all.sh` script to install in defined sequence.

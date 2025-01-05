@@ -1,6 +1,0 @@
-- name: Install python netaddr
-  yum:
-    name: python-netaddr
-    state: present
-    version: 0.7.19
-  become: yes

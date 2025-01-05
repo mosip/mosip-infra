@@ -1,5 +1,0 @@
-*.log
-*.env
-*/__pycache__
-/generatedData/*
-!/generatedData/.gitkeep

@@ -1,8 +1,0 @@
-
-- name: Install python3 jinja2
-  pip:
-    name: jinja2
-    state: present
-    executable: /bin/pip3
-  become: yes
-

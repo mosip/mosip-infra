@@ -1,5 +1,0 @@
-apiVersion: v1
-name: activemq
-description: A Helm chart for activemq
-version: latest
-appVersion: latest
