@@ -4,7 +4,7 @@
 
 function copying_cm() {
   COPY_UTIL=../../utils/copy_cm_func.sh
-  DST_NS=apitestrig
+  DST_NS=apitestrig-qa
   $COPY_UTIL configmap global default $DST_NS
   $COPY_UTIL configmap keycloak-host keycloak $DST_NS
   $COPY_UTIL configmap artifactory-share artifactory $DST_NS

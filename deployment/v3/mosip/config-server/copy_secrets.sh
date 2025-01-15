@@ -3,7 +3,7 @@
 
 function copying_secrets() {
   COPY_UTIL=../../utils/copy_cm_func.sh
-  DST_NS=config-server  # DST_NS: Destination namespace
+  DST_NS=config-server1  # DST_NS: Destination namespace
   $COPY_UTIL secret db-common-secrets postgres $DST_NS
   $COPY_UTIL secret keycloak keycloak $DST_NS
   $COPY_UTIL secret keycloak-client-secrets keycloak $DST_NS

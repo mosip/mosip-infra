@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regproc
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -34,10 +34,10 @@ function installing_regproc() {
   helm -n $NS install regproc-camel mosip/regproc-camel --version $CHART_VERSION
 
   echo Installing regproc-pktserver
-  helm -n $NS install regproc-pktserver mosip/regproc-pktserver --version $CHART_VERSION
+  helm -n $NS install regproc-pktserver mosip/regproc-pktserver --set image.repository=mosipdev/registration-processor-dmz-packet-server --set image.tag=develop --version $CHART_VERSION
 
   echo Installing group1
-  helm -n $NS install regproc-group1 mosip/regproc-group1 --version $CHART_VERSION
+  helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1_values.yaml --set image.repository=mosipdev/registration-processor-stage-group-1 --set image.tag=release-1.2.0.x --version $CHART_VERSION
 
   echo Installing group2
   helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION
@@ -55,7 +55,7 @@ function installing_regproc() {
   helm -n $NS install regproc-group6 mosip/regproc-group6 --version $CHART_VERSION
 
   echo Installing group7
-  helm -n $NS install regproc-group7 mosip/regproc-group7 --version $CHART_VERSION
+  helm -n $NS install regproc-group7 mosip/regproc-group7 --set image.repository=khuddusshariff/registration-processor-stage-group-7 --set image.tag=v1.2.0.1-selectedHandels --version $CHART_VERSION
 
   echo Installing regproc-trans
   helm -n $NS install regproc-trans mosip/regproc-trans --version $CHART_VERSION

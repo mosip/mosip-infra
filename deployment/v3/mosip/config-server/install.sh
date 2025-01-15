@@ -6,8 +6,8 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=config-server
-CHART_VERSION=0.0.1-develop
+NS=config-server1
+CHART_VERSION=0.0.2-develop
 
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
 read -p "Do you want to enable config-server to pull configurations from multiple repositories?(Y/n)( Default: n )" comp_enabled
@@ -64,13 +64,13 @@ if [ $yn = "Y" ]
     ./copy_secrets.sh
 
     echo "Installing config-server"
-    helm -n $NS install config-server mosip/config-server \
+    helm -n $NS install config-server1 mosip/config-server \
     --set spring_profiles.enabled="$COMPOSITE_PROFILES" \
     --set localRepo.enabled="$LOCALREPO" \
     --set volume.nfs.path="$NFS_PATH" \
     --set volume.nfs.server="$NFS_SERVER" \
     -f values.yaml \
-    --wait --version $CHART_VERSION
+    --wait --set image.repository=mosipdev/kernel-config-server --set image.tag=develop --version $CHART_VERSION
     echo "Installed Config-server".
   else
     echo Exiting the MOSIP installation. Please meet the pre-requisites and than start again.

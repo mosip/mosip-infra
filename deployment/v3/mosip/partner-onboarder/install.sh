@@ -70,7 +70,7 @@ function installing_onboarder() {
     done
 
   NS=onboarder
-  CHART_VERSION=0.0.1-develop
+  CHART_VERSION=12.0.1
 
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"

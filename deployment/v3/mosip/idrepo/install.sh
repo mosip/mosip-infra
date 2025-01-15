@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=idrepo
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=12.1.0
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +22,7 @@ function installing_idrepo() {
   ./copy_cm.sh
 
   echo Running salt generator job
-  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install idrepo-saltgen  mosip/idrepo-saltgen --version 12.0.1-B2 --wait --wait-for-jobs
 
   echo Running credential
   helm -n $NS install credential mosip/credential --version $CHART_VERSION

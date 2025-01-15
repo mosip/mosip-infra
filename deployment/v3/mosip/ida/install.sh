@@ -70,16 +70,16 @@ function installing_ida() {
   echo "IDA HELM ARGS $IDA_HELM_ARGS"
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version $CHART_VERSION
+  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version 12.0.1-B3
 
   echo Installing ida auth
-  helm -n $NS install ida-auth mosip/ida-auth $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-auth mosip/ida-auth $IDA_HELM_ARGS --set image.repository=mosipdev/authentication-service --set image.tag=develop --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida internal
-  helm -n $NS install ida-internal mosip/ida-internal $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-internal mosip/ida-internal $IDA_HELM_ARGS --set image.repository=mosipdev/authentication-internal-service --set image.tag=develop --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida otp
-  helm -n $NS install ida-otp mosip/ida-otp $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install ida-otp mosip/ida-otp $IDA_HELM_ARGS --set image.repository=mosipdev/authentication-otp-service --set image.tag=develop --version $CHART_VERSION $ENABLE_INSECURE
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

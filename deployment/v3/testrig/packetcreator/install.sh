@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=packetcreator
+NS=packetcreator-dev
 CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
@@ -59,7 +59,7 @@ function installing_packetcreator() {
   fi
 
   echo Installing packetcreator
-  helm -n $NS install packetcreator mosip/packetcreator \
+  helm -n $NS install packetcreator-dev mosip/packetcreator \
   $( echo $list ) \
   --wait --version $CHART_VERSION $ENABLE_INSECURE
   echo Installed packetcreator.
