@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=apitestrig
+NS=apitestrig-qa
 CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
@@ -92,7 +92,7 @@ function installing_apitestrig() {
  fi
 
   echo Installing apitestrig
-  helm -n $NS install apitestrig mosip/apitestrig \
+  helm -n $NS install apitestrig-qa mosip/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \

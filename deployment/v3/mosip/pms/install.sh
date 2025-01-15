@@ -32,19 +32,21 @@ function installing_pms() {
   helm -n $NS install $PARTNER_MANAGER_SERVICE_NAME mosip/pms-partner \
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_REVAMP_UI_HOST \
+  --set image.repository=mosipdev/partner-management-service --set image.tag=develop-pmp-revamp \
   --version $CHART_VERSION
 
   echo Installing policy manager
   helm -n $NS install $POLICY_MANAGER_SERVICE_NAME mosip/pms-policy \
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_REVAMP_UI_HOST \
+  --set image.repository=mosipdev/policy-management-service --set image.tag=develop-pmp-revamp \
   --version $CHART_VERSION
   
   # Ask if the user wants to install pmp-ui
   read -p "Do you want to install PMP UI? (y/n): " install_pmp_ui
   if [[ "$install_pmp_ui" =~ ^[Yy]$ ]]; then
     echo Installing pmp-ui
-    helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
+    helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --set image.repository=mosipid/pmp-ui --set image.tag=1.2.0.2 --version $CHART_VERSION
   else
     echo Skipping pmp-ui installation
   fi
@@ -53,7 +55,7 @@ function installing_pms() {
   read -p "Do you want to install PMP-REVAMP-UI? (y/n): " install_pmp_revamp_ui
   if [[ "$install_pmp_revamp_ui" =~ ^[Yy]$ ]]; then
     echo Installing pmp-revamp-ui
-    helm -n $NS install pmp-revamp-ui mosip/pmp-revamp-ui \
+    helm -n $NS install pmp-revamp-ui mosip/pmp-revamp-ui --set image.repository=mosipdev/pmp-revamp-ui --set image.tag=develop \
     --set pmp_revamp.react_app_partner_manager_api_base_url="https://$INTERNAL_API_HOST/v1/partnermanager" \
     --set pmp_revamp.react_app_policy_manager_api_base_url="https://$INTERNAL_API_HOST/v1/policymanager" \
     --set pmp_revamp.pms_partner_manager_internal_service_url="http://$PARTNER_MANAGER_SERVICE_NAME.$NS/v1/partnermanager" \

@@ -1,0 +1,3 @@
+persistence:
+  storageClass: nfs-csi
+  size: 5Gi

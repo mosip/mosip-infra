@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=uitestrig
+NS=uitestrig-qa
 CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
@@ -61,7 +61,7 @@ function installing_uitestrig() {
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 
   echo Installing uitestrig
-  helm -n $NS install uitestrig mosip/uitestrig \
+  helm -n $NS install uitestrig-qa mosip/uitestrig \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION \
   --set uitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \

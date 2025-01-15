@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=biosdk
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS

@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=dslrig
+NS=dslrig-dev
 CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
@@ -80,7 +80,7 @@ function installing_dslrig() {
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
   echo Installing dslrig
-  helm -n $NS install dslorchestrator mosip/dslorchestrator \
+  helm -n $NS install dslorchestrator-dev mosip/dslorchestrator \
   --set crontime="0 $time * * *" \
   --version $CHART_VERSION \
   --set dslorchestrator.configmaps.s3.s3-host='http://minio.minio:9000' \
