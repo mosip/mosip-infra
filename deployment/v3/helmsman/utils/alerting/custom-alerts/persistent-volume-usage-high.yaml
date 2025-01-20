@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: persistent-volume-filling-up
+  namespace: cattle-monitoring-system
+spec:
+  groups:
+    - name: node
+      rules:
+        - alert: KubePersistentVolumeFilling-greater-than-90%
+          annotations:
+            description: The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is {{ $value | humanizePercentage }} occupied.
+            runbook_url: https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubepersistentvolumefillingup
+            summary: PersistentVolume filled up to 90% of the storage.
+          expr: >-
+            kubelet_volume_stats_used_bytes{job="kubelet",metrics_path="/metrics",namespace=~".*"} / 
+            kubelet_volume_stats_capacity_bytes{job="kubelet",metrics_path="/metrics",namespace=~".*"} > 0.90
+          for: 30s
+          labels:
+            severity: critical

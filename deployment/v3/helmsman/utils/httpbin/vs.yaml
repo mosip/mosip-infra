@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: httpbin
+  namespace: httpbin
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-system/internal
+  - istio-system/public
+  http:
+  - match:
+      - uri:
+          prefix: /httpbin/
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: httpbin
+        port:
+          number: 8000
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https
