@@ -86,4 +86,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "../hooks/post_logging-setup.sh"
-      
