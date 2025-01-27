@@ -16,15 +16,38 @@ on:
       - deployment/v3/helmsman/dsf/*
 
 jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine matrix based on event
+        id: set-matrix
+        run: |
+          echo "include:" > matrix.yaml
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
+            echo "    wg_conf: wg0" >> matrix.yaml
+            echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
+            echo "    wg_conf: wg1" >> matrix.yaml
+          else
+            changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E 'deployment/v3/helmsman/dsf/prereq-dsf.yaml|deployment/v3/helmsman/dsf/external-dsf.yaml' || true)
+            if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/prereq-dsf.yaml" ]]; then
+              echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
+              echo "    wg_conf: wg0" >> matrix.yaml
+            fi
+            if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/external-dsf.yaml" ]]; then
+              echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
+              echo "    wg_conf: wg1" >> matrix.yaml
+            fi
+          fi
+          echo "matrix=$(<matrix.yaml)" >> $GITHUB_ENV
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
   deploy:
     runs-on: ubuntu-latest
+    needs: set-matrix
     strategy:
-      matrix:
-        include:
-          - dsf_files: prereq-dsf.yaml
-            wg_conf: wg0
-          - dsf_files: external-dsf.yaml
-            wg_conf: wg1
+      matrix: |
+        ${{ needs.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
