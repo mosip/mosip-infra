@@ -19,6 +19,9 @@ jobs:
   set-matrix:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Determine matrix based on event
         id: set-matrix
         run: |
