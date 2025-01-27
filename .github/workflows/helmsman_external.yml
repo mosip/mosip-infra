@@ -32,6 +32,10 @@ jobs:
             echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
             echo "    wg_conf: wg1" >> matrix.yaml
           else
+            # Debugging commit references
+            echo "Before commit: ${{ github.event.before }}"
+            echo "Current commit: ${{ github.sha }}"
+          
             changed_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E 'deployment/v3/helmsman/dsf/prereq-dsf.yaml|deployment/v3/helmsman/dsf/external-dsf.yaml' || true)
             if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/prereq-dsf.yaml" ]]; then
               echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
