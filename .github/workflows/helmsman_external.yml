@@ -32,7 +32,7 @@ jobs:
             echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
             echo "    wg_conf: wg1" >> matrix.yaml
           else
-            changed_files=$(git diff --name-only HEAD^ HEAD | grep '^deployment/v3/helmsman/dsf/')
+            changed_files=$(git diff --name-only HEAD~1 HEAD -- | grep '^deployment/v3/helmsman/dsf/')
             if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/prereq-dsf.yaml" ]]; then
               echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
               echo "    wg_conf: wg0" >> matrix.yaml
