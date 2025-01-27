@@ -67,3 +67,22 @@ apps:
       KIBANA_NAME: "elasticsearch-kibana"
     wait: true
     priority: -1
+
+  rancher-logging-crd:
+    namespace: cattle-logging-system
+    enabled: true
+    version: 103.1.1+up4.4.0
+    chart: mosip/rancher-logging-crd
+    wait: true
+    priority: -20
+
+  rancher-logging:
+    namespace: cattle-logging-system
+    enabled: true
+    version: 103.1.1+up4.4.0
+    chart: mosip/rancher-logging
+    wait: true
+    priority: -19
+    timeout: 600
+    hooks:
+      postInstall: "../hooks/post_logging-setup.sh"
