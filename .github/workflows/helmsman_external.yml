@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: set-matrix
     strategy:
-      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
     steps:
       - name: Show matrix values
         run: |
