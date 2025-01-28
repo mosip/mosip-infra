@@ -40,6 +40,16 @@ databases:
     - name: resident
       enabled: true
       container_volume_path: /resident-db-info-json
+    - name: idrepo
+      enabled: true
+      container_volume_path: /idrepo-db-info-json
+    - name: prereg
+      enabled: true
+      container_volume_path: /prereg-db-info-json
+    - name: esignet
+      enabled: true
+      container_volume_path: /esignet-db-info-json
+
 
   source_db:
     source_audit_host: "<SOURCE_HOST>"  # Host address for the source audit database
