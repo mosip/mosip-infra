@@ -26,22 +26,30 @@ jobs:
         id: set-matrix
         run: |
           echo "include:" > matrix.yaml
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
-            echo "    wg_conf: wg0" >> matrix.yaml
-            echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
-            echo "    wg_conf: wg1" >> matrix.yaml
+  
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            cat <<EOF >> matrix.yaml
+            - dsf_files: prereq-dsf.yaml
+              wg_conf: wg0
+            - dsf_files: external-dsf.yaml
+              wg_conf: wg1
+          EOF
           else
-            changed_files=$(git diff --name-only HEAD~1 HEAD -- | grep '^deployment/v3/helmsman/dsf/')
-            if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/prereq-dsf.yaml" ]]; then
-              echo "  - dsf_files: prereq-dsf.yaml" >> matrix.yaml
-              echo "    wg_conf: wg0" >> matrix.yaml
+            changed_files=$(git diff --name-only HEAD~1 HEAD | grep '^deployment/v3/helmsman/dsf/')
+            if echo "$changed_files" | grep -q "deployment/v3/helmsman/dsf/prereq-dsf.yaml"; then
+              cat <<EOF >> matrix.yaml
+              - dsf_files: prereq-dsf.yaml
+                wg_conf: wg0
+              EOF
             fi
-            if [[ "$changed_files" =~ "deployment/v3/helmsman/dsf/external-dsf.yaml" ]]; then
-              echo "  - dsf_files: external-dsf.yaml" >> matrix.yaml
-              echo "    wg_conf: wg1" >> matrix.yaml
+            if echo "$changed_files" | grep -q "deployment/v3/helmsman/dsf/external-dsf.yaml"; then
+              cat <<EOF >> matrix.yaml
+              - dsf_files: external-dsf.yaml
+                wg_conf: wg1
+              EOF
             fi
           fi
+          # Export the matrix as a GitHub environment variable
           echo "matrix=$(<matrix.yaml)" >> $GITHUB_ENV
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
