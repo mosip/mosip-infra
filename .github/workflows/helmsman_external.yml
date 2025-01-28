@@ -21,43 +21,45 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - name: Checkout repository
+      - name: Checkout repository with full history
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Get full commit history
 
       - name: Generate workflow matrix
         id: set-matrix
         run: |
-          # Initialize JSON matrix structure
           matrix_json='{"include":[]}'
           
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            # Add both entries for manual trigger
             matrix_json='{"include":[
               {"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},
               {"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}
             ]}'
           else
-            # Check changed files in the specific directory
-            changed_files=$(git diff --name-only HEAD~1 HEAD -- 'deployment/v3/helmsman/dsf/*')
+            # Handle different event types properly
+            if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+              # For push events, use GitHub's provided SHAs
+              base_sha="${{ github.event.before}}"
+              head_sha="${{ github.sha }}"
+            elif [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+              # For PRs, compare against target branch
+              base_sha="${{ github.event.pull_request.base.sha }}"
+              head_sha="${{ github.event.pull_request.head.sha }}"
+            fi
+
+            # Get changed files safely
+            changed_files=$(git diff --name-only "$base_sha" "$head_sha" -- 'deployment/v3/helmsman/dsf/' || echo "")
+            
             entries=()
-          
-            # Check for prereq-dsf.yaml changes
-            if grep -q "prereq-dsf.yaml" <<< "$changed_files"; then
-              entries+=('{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"}')
-            fi
-          
-            # Check for external-dsf.yaml changes
-            if grep -q "external-dsf.yaml" <<< "$changed_files"; then
-              entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
-            fi
-          
-            # Create JSON array if entries exist
+            [[ "$changed_files" == *prereq-dsf.yaml* ]] && entries+=('{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"}')
+            [[ "$changed_files" == *external-dsf.yaml* ]] && entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
+            
             if [ ${#entries[@]} -gt 0 ]; then
               matrix_json="{\"include\":[$(IFS=,; echo "${entries[*]}")]}"
             fi
           fi
-          
-          # Set output using GitHub Actions syntax
+
           echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
   deploy:
     runs-on: ubuntu-latest
