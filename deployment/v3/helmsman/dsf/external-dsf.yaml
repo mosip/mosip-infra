@@ -13,23 +13,23 @@ namespaces:
   postgres:
     protected: false
   keycloak:
-    protected: false
+    protected: true
   softhsm:
-    protected: false
+    protected: true
   minio:
-    protected: false
+    protected: true
   clamav:
-    protected: false
+    protected: true
   activemq:
-    protected: false
+    protected: true
   kafka:
-    protected: false
+    protected: true
   s3:
-    protected: false
+    protected: true
   msg-gateways:
-    protected: false
+    protected: true
   captcha:
-    protected: false
+    protected: true
 
 apps:
   postgres:
@@ -47,7 +47,7 @@ apps:
     version: 0.1.0
     chart: ../utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
-      postgresHost: "<postgres-host>"
+      postgresHost: "postgres.soil.mosip.net"
     wait: true
     priority: -14
 
