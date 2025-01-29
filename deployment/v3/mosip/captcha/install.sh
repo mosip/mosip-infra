@@ -23,7 +23,7 @@ function installing_captcha() {
   done
 
   NS=captcha
-  CHART_VERSION=0.1.0-develop
+  CHART_VERSION=0.1.0
 
   echo Create $NS namespace
   kubectl create ns $NS || true
