@@ -52,8 +52,15 @@ jobs:
             changed_files=$(git diff --name-only "$base_sha" "$head_sha" -- 'deployment/v3/helmsman/dsf/' || echo "")
             
             entries=()
-            [[ "$changed_files" == *prereq-dsf.yaml* ]] && entries+=('{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"}')
-            [[ "$changed_files" == *external-dsf.yaml* ]] && entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
+            
+            # Check for exact file paths
+            if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/prereq-dsf.yaml'; then
+              entries+=('{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"}')
+            fi
+      
+            if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/external-dsf.yaml'; then
+              entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
+            fi
             
             if [ ${#entries[@]} -gt 0 ]; then
               matrix_json="{\"include\":[$(IFS=,; echo "${entries[*]}")]}"
