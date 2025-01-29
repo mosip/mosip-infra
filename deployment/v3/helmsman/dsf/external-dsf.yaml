@@ -11,11 +11,11 @@ helmRepos:
 
 namespaces:
   postgres:
-    protected: false
+    protected: true
   keycloak:
     protected: true
   softhsm:
-    protected: true
+    protected: false
   minio:
     protected: true
   clamav:
