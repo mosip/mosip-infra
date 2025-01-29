@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=masterdata-loader
-CHART_VERSION=1.3.0-beta.1-develop
+CHART_VERSION=1.3.0-beta.1
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
 read -p "CAUTION: Do you still want to continue(Y/n)" yn
