@@ -30,8 +30,8 @@ apps:
     chart: mosip/rancher-monitoring-crd
     wait: true
     priority: -4
-    hooks:
-      postInstall: "../hooks/install-istio-and-httpbin.sh"
+#    hooks:
+#      postInstall: "../hooks/install-istio-and-httpbin.sh"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
