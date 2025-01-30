@@ -7,9 +7,9 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=datashare
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.2
 echo Create $NS namespace
-kubectl create ns $NS 
+kubectl create ns $NS
 
 function installing_datashare() {
   echo Istio label
