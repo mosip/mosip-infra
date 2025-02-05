@@ -31,6 +31,7 @@ function Installing_all() {
                      "admin"
                      "ida"
                      "print"
+                     "DigitalCard"
                      "resident"
                      "partner-onboarder"
                      "mosip-file-server"
