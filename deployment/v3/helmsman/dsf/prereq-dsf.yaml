@@ -12,9 +12,9 @@ namespaces:
   kube-system:
     protected: true
   cattle-monitoring-system:
-    protected: false
-  cattle-logging-system:
     protected: true
+  cattle-logging-system:
+    protected: false
   istio-system:
     protected: true
   istio-operator:
@@ -50,7 +50,7 @@ apps:
 
   elasticsearch:
     namespace: cattle-logging-system
-    enabled: true
+    enabled: false
     version: 17.9.25
     chart: mosip/elasticsearch
     wait: true
@@ -86,4 +86,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "../hooks/post_logging-setup.sh"
-
