@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs sample print service
+# Installs digitalcard
 ## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
