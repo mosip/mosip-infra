@@ -14,7 +14,7 @@ istioctl operator init
 
 function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
-  envsubst < ../utils/global_configmap.tmpl.yaml | kubectl apply -f -
+  envsubst < ../utils/global_configmap.yaml | kubectl apply -f -
   echo "Installed Global Configmap"
 
   echo Create ingress gateways, load balancers and istio monitoring
