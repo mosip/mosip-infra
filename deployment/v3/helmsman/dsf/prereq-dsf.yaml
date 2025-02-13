@@ -31,7 +31,7 @@ apps:
     wait: true
     priority: -6
     hooks:
-      postInstall: "../hooks/install-istio-and-httpbin.sh soil"
+      postInstall: "/v3/helmsman/hooks/install-istio-and-httpbin.sh soil"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
