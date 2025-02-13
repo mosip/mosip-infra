@@ -12,24 +12,24 @@ metadata:
   name: global
   namespace: default
 data:
-  installation-name: sandbox
-  installation-domain: sandbox.mosip.net
-  mosip-version: develop
-  mosip-api-host: api.sandbox.mosip.net
-  mosip-api-internal-host: api-internal.sandbox.mosip.net
-  mosip-prereg-host: prereg.sandbox.mosip.net
-  mosip-activemq-host: activemq.sandbox.mosip.net
-  mosip-kibana-host: kibana.sandbox.mosip.net
-  mosip-admin-host: admin.sandbox.mosip.net
-  mosip-regclient-host: regclient.sandbox.mosip.net
-  mosip-minio-host: minio.sandbox.mosip.net
-  mosip-kafka-host: kafka.sandbox.mosip.net
-  mosip-iam-external-host: iam.sandbox.mosip.net
-  mosip-postgres-host: postgres.sandbox.mosip.net
-  mosip-pmp-host: pmp.sandbox.mosip.net
-  mosip-resident-host: resident.sandbox.mosip.net
-  mosip-compliance-host: compliance.sandbox.mosip.net
-  mosip-esignet-host: esignet.sandbox.mosip.net
-  mosip-smtp-host: smtp.sandbox.mosip.net
-  mosip-signup-host: signup.sandbox.mosip.net
+  installation-name: ${ENV}
+  installation-domain: ${ENV}.mosip.net
+  mosip-version: ${BRANCH}
+  mosip-api-host: api.${ENV}.mosip.net
+  mosip-api-internal-host: api-internal.${ENV}.mosip.net
+  mosip-prereg-host: prereg.${ENV}.mosip.net
+  mosip-activemq-host: activemq.${ENV}.mosip.net
+  mosip-kibana-host: kibana.${ENV}.mosip.net
+  mosip-admin-host: admin.${ENV}.mosip.net
+  mosip-regclient-host: regclient.${ENV}.mosip.net
+  mosip-minio-host: minio.${ENV}.mosip.net
+  mosip-kafka-host: kafka.${ENV}.mosip.net
+  mosip-iam-external-host: iam.${ENV}.mosip.net
+  mosip-postgres-host: postgres.${ENV}.mosip.net
+  mosip-pmp-host: pmp.${ENV}.mosip.net
+  mosip-resident-host: resident.${ENV}.mosip.net
+  mosip-compliance-host: compliance.${ENV}.mosip.net
+  mosip-esignet-host: esignet.${ENV}.mosip.net
+  mosip-smtp-host: smtp.${ENV}.mosip.net
+  mosip-signup-host: signup.${ENV}.mosip.net
   is_glowroot_env: absent
