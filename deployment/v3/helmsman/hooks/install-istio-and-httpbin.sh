@@ -15,7 +15,7 @@ istioctl operator init
 function installing_istio_and_httpbin() {
   echo "Current directory: $(pwd)"
   echo "Installing Global Configmap"
-  sed "s/sandbox/$ENV/g" $(pwd)/v3/helmsman/utils/global_configmap.yaml | kubectl apply -f -
+  sudo sed "s/sandbox/$ENV/g" $(pwd)/v3/helmsman/utils/global_configmap.yaml | kubectl apply -f -
   echo "Installed Global Configmap"
 
   echo Create ingress gateways, load balancers and istio monitoring
