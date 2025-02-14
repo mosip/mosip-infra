@@ -32,18 +32,3 @@ apps:
     priority: -6
     hooks:
       postInstall: "../hooks/install-istio-and-httpbin.sh soil develop"
-
-  rancher-monitoring:
-    namespace: cattle-monitoring-system
-    enabled: true
-    version: 103.1.0+up45.31.1
-    chart: mosip/rancher-monitoring
-    set:
-      grafana.global.cattle.clusterId: "c-m-97gp97hv"
-      global.cattle.clusterId: "c-m-97gp97hv"
-    wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
-    priority: -5
-    timeout: 600
-    hooks:
-      postInstall: "../hooks/alerting-setup.sh"
