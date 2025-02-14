@@ -47,4 +47,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "../hooks/alerting-setup.sh"
-      
