@@ -18,8 +18,7 @@ function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
   pwd
   ls
-  ls -l ../utils
-  envsubst < ../utils/global_configmap.tmpl.yaml > global_configmap.yaml
+  envsubst < ./deployment/v3/helmsman/utils/global_configmap.tmpl.yaml > global_configmap.yaml
   kubectl apply -f global_configmap.yaml
   echo "Installed Global Configmap"
 
