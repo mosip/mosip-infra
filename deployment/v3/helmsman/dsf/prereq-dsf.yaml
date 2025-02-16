@@ -46,7 +46,7 @@ apps:
     priority: -5
     timeout: 600
     hooks:
-      postInstall: "../hooks/alerting-setup.sh"
+      postInstall: "../hooks/alerting-setup.sh <slack_channel> <slack_api_url> <env_name>"
 
   elasticsearch:
     namespace: cattle-logging-system
