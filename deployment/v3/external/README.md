@@ -9,6 +9,15 @@
 * Global configmap: In MOSIP `global` configmap in `default` namespace contains Domain related information.
   * Make sure kubeconfig file is already set and k8 cluster is accessible and kubectl is installed.
   * Copy `global_configmap.yaml.sample` to `global_configmap.yaml`.
+  * Retrieve the Kibana Host Entered During Logging Deployment
+    To retrieve the Kibana Host that was entered by the user as part of the logging deployment, run the following command:
+    ```
+    kubectl -n <namespace> get configmap <cm-name> -o=jsonpath='{.data.mosip_kibana_host}'
+    ```
+    Replace <namespace> with the relevant Kubernetes namespace where the ConfigMap is stored.
+    Replace <cm-name> with the name of the ConfigMap that contains the Kibana Host data.
+    This command will extract and display the value of the mosip_kibana_host key from the specified ConfigMap.
+    Update the same host name in gobal_configmap and then apply.
   * Update the domain names in `global_configmap.yaml` and execute:
     ```
     kubectl apply -f global_configmap.yaml

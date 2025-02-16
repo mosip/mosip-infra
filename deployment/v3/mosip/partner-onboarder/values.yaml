@@ -13,6 +13,9 @@ onboarding:
       enabled: true
     - name: resident
       enabled: true
+    - name: digitalcard
+      enabled: true
+
 #  configmaps:
 #    s3:
 #      s3-host: 'http://minio.minio:9000'
