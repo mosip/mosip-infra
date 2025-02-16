@@ -30,8 +30,8 @@ The deployment is done in a matrix strategy to handle multiple configuration fil
 ### Secrets
 
 The following secrets are required to run this workflow:
-- `CLUSTER_WIREGUARD_WG0`: WireGuard configuration for `wg0`.
-- `CLUSTER_WIREGUARD_WG1`: WireGuard configuration for `wg1`.
+- `CLUSTER_WIREGUARD_WG0`: WireGuard configuration for `wg0` interface.
+- `CLUSTER_WIREGUARD_WG1`: WireGuard configuration for `wg1` interface.
 - `KUBECONFIG`: The Kubernetes configuration file for cluster access.
 
 ### Steps Performed:
@@ -54,6 +54,8 @@ The following secrets are required to run this workflow:
 
 6. **Start WireGuard**
 - Starts the WireGuard service for secure network communication.
+  we need two wireguard interface to make sure we can execute multiple dsf file changes together using multiple 
+  actions via matrix method. 
 
 7. **Setup Helm**
 - Installs Helm, a Kubernetes package manager.
