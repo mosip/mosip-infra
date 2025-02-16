@@ -42,7 +42,7 @@ apps:
       grafana.global.cattle.clusterId: "<cluster_id>"
       global.cattle.clusterId: "<cluster_id>"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
+    valuesFile: <values_file>  
     priority: -5
     timeout: 600
     hooks:
@@ -55,7 +55,7 @@ apps:
     chart: mosip/elasticsearch
     wait: true
     priority: -4
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/logging/es_values.yaml
+    valuesFile: <values_file>
 
   istio-addons-logging:
     namespace: cattle-logging-system 
