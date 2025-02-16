@@ -15,7 +15,7 @@ namespaces:
   keycloak:
     protected: true
   softhsm:
-    protected: false
+    protected: true
   minio:
     protected: true
   clamav:
