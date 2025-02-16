@@ -47,7 +47,7 @@ apps:
     version: 0.1.0
     chart: ../utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
-      postgresHost: "postgres.soil.mosip.net"
+      postgresHost: "<postgres-host>"
     wait: true
     priority: -4
 
@@ -193,4 +193,3 @@ apps:
     hooks:
       postInstall: "../hooks/msg-gateways-setup.sh"
     priority: -1
-
