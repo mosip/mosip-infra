@@ -7,17 +7,24 @@
 ISTIO_NS=istio-system
 HTTPBIN_NS=httpbin
 
+export ENV="${1:-sandbox}"
+export BRANCH="${2:-develop}"
+
 echo Operator init
 istioctl operator init
 
 function installing_istio_and_httpbin() {
+  echo "Current directory: $(pwd)"
   echo "Installing Global Configmap"
-  kubectl apply -f ./utils/global_configmap.yaml
+  pwd
+  ls
+  envsubst < ./deployment/v3/helmsman/utils/global_configmap.tmpl.yaml > global_configmap.yaml
+  kubectl apply -f global_configmap.yaml
   echo "Installed Global Configmap"
 
   echo Create ingress gateways, load balancers and istio monitoring
-  kubectl apply -f ./utils/istio-mesh/nodeport/iop-mosip.yaml
-  kubectl apply -f ./utils/istio-mesh/nodeport/istio-monitoring/
+  kubectl apply -f ./deployment/v3/helmsman/utils/istio-mesh/nodeport/iop-mosip.yaml
+  kubectl apply -f ./deployment/v3/helmsman/utils/istio-mesh/nodeport/istio-monitoring/
   echo Wait for all resources to come up
   sleep 10
   kubectl -n $ISTIO_NS rollout status deploy istiod
@@ -57,7 +64,7 @@ function installing_istio_and_httpbin() {
   if [[ -n "$public_exists" && -n "$internal_exists" ]]; then
     echo "Both public and internal gateways exist. Skipping installation."
   else
-    helm -n $ISTIO_NS install istio-addons ./utils/istio-gateway \
+    helm -n $ISTIO_NS install istio-addons ./deployment/v3/helmsman/utils/istio-gateway \
       $gateway_option \
       --set proxyProtocol.enabled=false \
       --wait
@@ -66,10 +73,10 @@ function installing_istio_and_httpbin() {
   echo "Installing utility httpbin"
   kubectl label ns $HTTPBIN_NS istio-injection=enabled --overwrite
 
-  kubectl -n $HTTPBIN_NS apply -f ./utils/httpbin/svc.yaml
-  kubectl -n $HTTPBIN_NS apply -f ./utils/httpbin/deployment.yaml
-  kubectl -n $HTTPBIN_NS apply -f ./utils/httpbin/deployment-busybox-curl.yaml
-  kubectl -n $HTTPBIN_NS apply -f ./utils/httpbin/vs.yaml
+  kubectl -n $HTTPBIN_NS apply -f ./deployment/v3/helmsman/utils/httpbin/svc.yaml
+  kubectl -n $HTTPBIN_NS apply -f ./deployment/v3/helmsman/utils/httpbin/deployment.yaml
+  kubectl -n $HTTPBIN_NS apply -f ./deployment/v3/helmsman/utils/httpbin/deployment-busybox-curl.yaml
+  kubectl -n $HTTPBIN_NS apply -f ./deployment/v3/helmsman/utils/httpbin/vs.yaml
   
   return 0
 }

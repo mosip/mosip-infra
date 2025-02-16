@@ -6,12 +6,12 @@ NS=cattle-monitoring-system
 function installing_alerting() {
 
   # Define the Slack channel, Slack_api_url and Cluster name dynamically
-  SLACK_CHANNEL="soil"
-  SLACK_API_URL="https://hooks.slack.com/services/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"
-  ENV_NAME="soil"
+  SLACK_CHANNEL="$1"
+  SLACK_API_URL="$2"
+  ENV_NAME="$3"
 
-  ALERTMANAGER_FILE="./utils/alerting/alertmanager.yaml"
-  PATCH_CLUSTER_NAME_FILE="./utils/alerting/patch-cluster-name.yaml"
+  ALERTMANAGER_FILE="./deployment/v3/helmsman/utils/alerting/alertmanager.yaml"
+  PATCH_CLUSTER_NAME_FILE="./deployment/v3/helmsman/utils/alerting/patch-cluster-name.yaml"
 
   # Update the channel using sed
   sed -i "s|<YOUR-CHANNEL-HERE>|$SLACK_CHANNEL|g" "$ALERTMANAGER_FILE"
@@ -21,13 +21,13 @@ function installing_alerting() {
   echo "Updated $ALERTMANAGER_FILE and $PATCH_CLUSTER_NAME_FILE"
 
   echo Patching alert manager secrets
-  kubectl patch secret alertmanager-rancher-monitoring-alertmanager -n $NS  --patch="{\"data\": { \"alertmanager.yaml\": \"$(cat ./utils/alerting/alertmanager.yaml |base64 |tr -d '\n' )\" }}"
+  kubectl patch secret alertmanager-rancher-monitoring-alertmanager -n $NS  --patch="{\"data\": { \"alertmanager.yaml\": \"$(cat ./deployment/v3/helmsman/utils/alerting/alertmanager.yaml |base64 |tr -d '\n' )\" }}"
   echo Regenerating secrets
   kubectl delete secret alertmanager-rancher-monitoring-alertmanager-generated -n $NS
   echo Adding cluster name
-  kubectl patch Prometheus rancher-monitoring-prometheus -n $NS --patch-file ./utils/alerting/patch-cluster-name.yaml --type=merge
+  kubectl patch Prometheus rancher-monitoring-prometheus -n $NS --patch-file ./deployment/v3/helmsman/utils/alerting/patch-cluster-name.yaml --type=merge
   echo Applying custom alerts
-  kubectl apply -f ./utils/alerting/custom-alerts/
+  kubectl apply -f ./deployment/v3/helmsman/utils/alerting/custom-alerts/
   return 0
 }
 

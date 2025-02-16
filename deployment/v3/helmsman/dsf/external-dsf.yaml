@@ -11,25 +11,25 @@ helmRepos:
 
 namespaces:
   postgres:
-    protected: false
+    protected: true
   keycloak:
-    protected: false
+    protected: true
   softhsm:
-    protected: false
+    protected: true
   minio:
-    protected: false
+    protected: true
   clamav:
-    protected: false
+    protected: true
   activemq:
-    protected: false
+    protected: true
   kafka:
-    protected: false
+    protected: true
   s3:
-    protected: false
+    protected: true
   msg-gateways:
-    protected: false
+    protected: true
   captcha:
-    protected: false
+    protected: true
 
 apps:
   postgres:
@@ -49,7 +49,7 @@ apps:
     set:
       postgresHost: "<postgres-host>"
     wait: true
-    priority: -14
+    priority: -4
 
   postgres-init:
     namespace: postgres
@@ -58,7 +58,7 @@ apps:
     chart: mosip/postgres-init
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/postgres/init_values.yaml
-    priority: -13
+    priority: -14
 
   keycloak:
     namespace: keycloak
@@ -71,7 +71,7 @@ apps:
       image.tag: "develop"
       image.pullPolicy: "Always"
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/iam/values.yaml
-    priority: -12
+    priority: -13
 
   istio-addons-iam:
     namespace: keycloak
@@ -83,7 +83,7 @@ apps:
       keycloakInternalHost: "keycloak.keycloak"
       service: "keycloak"
     wait: true
-    priority: -11
+    priority: -3
 
   keycloak-init:
     namespace: keycloak
@@ -100,7 +100,7 @@ apps:
       keycloak.realms.mosip.realm_config.smtpServer.from: "mosipqa@gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
       keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
-    priority: -10
+    priority: -12
 
   softhsm-kernel:
     namespace: softhsm
@@ -109,7 +109,7 @@ apps:
     chart: mosip/softhsm
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
-    priority: -9
+    priority: -11
 
   softhsm-ida:
     namespace: softhsm
@@ -118,7 +118,7 @@ apps:
     chart: mosip/softhsm
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
-    priority: -8
+    priority: -10
 
   minio:
     namespace: minio
@@ -127,7 +127,7 @@ apps:
     chart: mosip/minio
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/object-store/minio/values.yaml
-    priority: -7
+    priority: -9
 
   istio-addons-minio:
     namespace: minio
@@ -139,7 +139,7 @@ apps:
     wait: true
     hooks:
       postInstall: "../hooks/s3-setup.sh <pretext-value>"
-    priority: -6
+    priority: -2
 
   clamav:
     namespace: clamav
@@ -148,7 +148,7 @@ apps:
     chart: wiremind/clamav
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/antivirus/clamav/values.yaml
-    priority: -5
+    priority: -8
 
   activemq:
     namespace: activemq
@@ -159,7 +159,7 @@ apps:
     set: 
       istio.hosts[0]: "<activemq-host>"
     wait: true
-    priority: -4
+    priority: -7
     hooks:
       postInstall: "../hooks/captcha-setup.sh <prereg-captcha-site-key> <prereg-captcha-secret-key> <admin-captcha-site-key> <admin-captcha-secret-key> <resident-captcha-site-key> <resident-captcha-secret-key>"
   
@@ -170,7 +170,7 @@ apps:
     chart: mosip/kafka
     valuesFile:  https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/values.yaml
     wait: true
-    priority: -3
+    priority: -6
 
   kafka-ui:
     namespace: kafka
@@ -179,7 +179,7 @@ apps:
     chart: kafka-ui/kafka-ui
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/ui-values.yaml
     wait: true
-    priority: -2
+    priority: -5
 
   istio-addons-kafka:
     namespace: kafka

@@ -60,3 +60,8 @@ To run a dry-run:
 To limit execution to specific application:
 
 ```helmsman --debug --dry-run --target artifactory -f example.yaml```
+
+> **Note:**
+> - This directory is a **work-in-progress** and currently **experimental**.
+> - It is subject to changes as we continue to refine the deployment process.
+> - Contributions and feedback are welcome as part of ongoing development!

@@ -1,0 +1,35 @@
+## The data here is of generic interest to modules in different namespaces hence this is marked as global.
+## Replace your domain names here.
+## mosip-api-host:  External public access. (Typically required only in production rollouts).
+## mosip-api-internal-host: Internal secure access over Wireguard.
+## By default all domains and subdomains listed below point to mosip-api-internal-host. Modify this default behavior ONLY in production rollout as follows:
+##     mosip-prereg-host:  Points to mosip-api-host.
+##     mosip-pmp-host: Points to mosip-api-host.
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global
+  namespace: default
+data:
+  installation-name: ${ENV}
+  installation-domain: ${ENV}.mosip.net
+  mosip-version: ${BRANCH}
+  mosip-api-host: api.${ENV}.mosip.net
+  mosip-api-internal-host: api-internal.${ENV}.mosip.net
+  mosip-prereg-host: prereg.${ENV}.mosip.net
+  mosip-activemq-host: activemq.${ENV}.mosip.net
+  mosip-kibana-host: kibana.${ENV}.mosip.net
+  mosip-admin-host: admin.${ENV}.mosip.net
+  mosip-regclient-host: regclient.${ENV}.mosip.net
+  mosip-minio-host: minio.${ENV}.mosip.net
+  mosip-kafka-host: kafka.${ENV}.mosip.net
+  mosip-iam-external-host: iam.${ENV}.mosip.net
+  mosip-postgres-host: postgres.${ENV}.mosip.net
+  mosip-pmp-host: pmp.${ENV}.mosip.net
+  mosip-resident-host: resident.${ENV}.mosip.net
+  mosip-compliance-host: compliance.${ENV}.mosip.net
+  mosip-esignet-host: esignet.${ENV}.mosip.net
+  mosip-smtp-host: smtp.${ENV}.mosip.net
+  mosip-signup-host: signup.${ENV}.mosip.net
+  is_glowroot_env: absent

@@ -14,7 +14,12 @@ The deployment is done in a matrix strategy to handle multiple configuration fil
 
 ### Inputs to be provided to run workflow.
 
-### `mode`
+### Prerequisites
+
+- Ensure the necessary secrets (`CLUSTER_WIREGUARD_WG0`, `CLUSTER_WIREGUARD_WG1`, `KUBECONFIG`) are configured in the repository settings.
+- The target Kubernetes cluster should be accessible via the provided `KUBECONFIG`.
+
+### Mode
 - **Description**: Choose the mode in which Helmsman runs.
 - **Required**: Yes
 - **Default**: `dry-run`
@@ -68,11 +73,6 @@ The following secrets are required to run this workflow:
 
 ### Triggering on Push
 - Commit and push changes to `deployment/v3/helmsman/dsf/` to automatically trigger the workflow.
-
-## Prerequisites
-
-- Ensure the necessary secrets (`CLUSTER_WIREGUARD_WG0`, `CLUSTER_WIREGUARD_WG1`, `KUBECONFIG`) are configured in the repository settings.
-- The target Kubernetes cluster should be accessible via the provided `KUBECONFIG`.
 
 ---
 
