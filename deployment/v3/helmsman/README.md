@@ -17,17 +17,17 @@ Helmsman gets its directions to navigate from a declarative file called Desired 
 
 Helmsman interprets your wishes from the DSF and compares it to what’s running in the designated cluster. It is smart enough to figure out what changes need to be applied to make your wishes come true without maintaining/storing any additional information anywhere.
 
-Note: To get more information about desired state file(DSF) please check the README.md file located in dsf directory.
+**NOTE**: To get more information about desired state file(DSF) please check the README.md file located in dsf directory.
 
 ### Installation:
 
-Please make sure the following are installed prior to using helmsman as a binary:
+Before using Helmsman, ensure you have the following dependencies installed:
 
 * [kubectl](https://github.com/kubernetes/kubectl)
 * [helm](https://github.com/helm/helm) (helm >=v2.10.0 for helmsman >= 1.6.0, helm >=v3.0.0 for helmsman >=v3.0.0)
 * [helm-diff](https://github.com/databus23/helm-diff) (helmsman >= 1.6.0)
 
-Check the [releases](https://github.com/Praqma/Helmsman/releases) page for the different versions.
+Check the [releases](https://github.com/Praqma/Helmsman/releases) page for available versions.
 ```
 # on Linux
 curl -L https://github.com/Praqma/helmsman/releases/download/v3.17.0/helmsman_3.17.0_linux_amd64.tar.gz | tar zx
@@ -39,29 +39,29 @@ mv helmsman /usr/local/bin/helmsman
 
 ### Helmsman commands:
 
-The below commands can be exicuted manually via cmd terminal
+You can execute the following commands in your terminal:
 
-To plan without executing:
+Plan Without Execution:
 
 ```helmsman -f example.yaml```
 
-To plan and execute the plan:
+Plan and Execute:
 
 ```helmsman --apply -f example.yaml```
 
-To show debugging details:
+Show Debugging Details:
 
 ```helmsman --debug --apply -f example.yaml```
 
-To run a dry-run:
+Dry Run (Simulates Execution Without Applying Changes):
 
 ```helmsman --debug --dry-run -f example.yaml```
 
-To limit execution to specific application:
+Execute for a Specific Application Only:
 
 ```helmsman --debug --dry-run --target artifactory -f example.yaml```
 
-> **Note:**
-> - This directory is a **work-in-progress** and currently **experimental**.
-> - It is subject to changes as we continue to refine the deployment process.
-> - Contributions and feedback are welcome as part of ongoing development!
+> **NOTE:**
+> - This repository is a work in progress and is currently experimental.
+> - Expect changes as we refine the deployment process.
+> - Contributions and feedback are welcome!
