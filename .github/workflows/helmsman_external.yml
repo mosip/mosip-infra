@@ -1,0 +1,144 @@
+name: Deploy External services of mosip using Helmsman
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Choose Helmsman mode: dry-run or apply"
+        required: true
+        default: "dry-run"
+        type: choice
+        options:
+          - dry-run
+          - apply       
+  push:
+    paths:
+      - deployment/v3/helmsman/dsf/*
+
+jobs:
+  set-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout repository with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Get full commit history
+
+      - name: Generate workflow matrix
+        id: set-matrix
+        run: |
+          matrix_json='{"include":[]}'
+
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            matrix_json='{"include":[{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}]}'
+          else
+            # Handle different event types properly
+            if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+              # For push events, use GitHub's provided SHAs
+              base_sha="${{ github.event.before}}"
+              head_sha="${{ github.sha }}"
+            elif [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+              # For PRs, compare against target branch
+              base_sha="${{ github.event.pull_request.base.sha }}"
+              head_sha="${{ github.event.pull_request.head.sha }}"
+            fi
+
+            # Get changed files safely
+            changed_files=$(git diff --name-only "$base_sha" "$head_sha" -- 'deployment/v3/helmsman/dsf/' || echo "")
+            
+            entries=()
+            
+            # Check for exact file paths
+            if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/prereq-dsf.yaml'; then
+              entries+=('{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"}')
+            fi
+      
+            if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/external-dsf.yaml'; then
+              entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
+            fi
+            
+            if [ ${#entries[@]} -gt 0 ]; then
+              matrix_json="{\"include\":[$(IFS=,; echo "${entries[*]}")]}"
+            fi
+          fi
+
+          echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
+  deploy:
+    runs-on: ubuntu-latest
+    needs: set-matrix
+    strategy:
+      matrix: ${{ fromJson(needs.set-matrix.outputs.matrix) }}
+    steps:
+      - name: Show matrix values
+        run: |
+          echo "Processing ${{ matrix.dsf_files }}"
+          echo "Using WireGuard config: ${{ matrix.wg_conf }}"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set Default Mode
+        run: |
+          if [ -z "${{ github.event.inputs.mode }}" ]; then
+            echo "mode=apply" >> $GITHUB_ENV
+          else
+            echo "mode=${{ github.event.inputs.mode }}" >> $GITHUB_ENV
+          fi        
+
+      - name: Setup ufw firewall
+        run: |
+          sudo ufw enable
+          sudo ufw allow ssh
+          sudo ufw allow 51820/udp
+          sudo ufw status  
+
+      - name: Install WireGuard
+        run: sudo apt-get install -y wireguard
+
+      - name: Configure WireGuard
+        run: |
+          echo "${{ secrets.CLUSTER_WIREGUARD_WG0 }}" | sudo tee /etc/wireguard/wg0.conf
+          echo "${{ secrets.CLUSTER_WIREGUARD_WG1 }}" | sudo tee /etc/wireguard/wg1.conf
+
+      - name: Start WireGuard
+        run: |
+          sudo chmod 600 /etc/wireguard/${{ matrix.wg_conf }}.conf
+          sudo chmod 700 /etc/wireguard/
+          sudo chmod 644 /lib/systemd/system/wg-quick@.service
+          sudo systemctl daemon-reload
+          sudo wg-quick up ${{ matrix.wg_conf }}
+          sudo wg show ${{ matrix.wg_conf }}
+
+      - name: Setup Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          sudo chmod 700 get_helm.sh
+          sudo ./get_helm.sh
+          helm version --client
+
+      - name: Install Helmsman
+        run: |
+          curl -L https://github.com/Praqma/helmsman/releases/download/v3.17.1/helmsman_3.17.1_linux_amd64.tar.gz -o helmsman.tar.gz
+          tar xzf helmsman.tar.gz
+          sudo mv helmsman /usr/local/bin          
+
+      - name: Initiate helmsman to apply the DSF configurations.
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.22.0 TARGET_ARCH=x86_64 sh -
+          export PATH=$PWD/istio-1.22.0/bin:$PATH
+          curl -LO https://dl.k8s.io/release/v1.31.3/bin/linux/amd64/kubectl
+          chmod +x kubectl
+          mkdir -p ~/.local/bin
+          mv ./kubectl ~/.local/bin/kubectl
+          kubectl version --client        
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          chmod 400 $HOME/.kube/config
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl config view
+          kubectl get nodes
+          helmsman --debug --${{ env.mode }} -f deployment/v3/helmsman/dsf/${{ matrix.dsf_files }} 

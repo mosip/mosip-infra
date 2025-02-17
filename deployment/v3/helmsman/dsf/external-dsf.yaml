@@ -1,0 +1,195 @@
+helmDefaults:
+  tillerNamespace: kube-system
+  tillerless: true
+  install: true
+
+helmRepos:
+  bitnami: https://charts.bitnami.com/bitnami
+  mosip: https://mosip.github.io/mosip-helm
+  wiremind: https://wiremind.github.io/wiremind-helm-charts
+  kafka-ui: https://provectus.github.io/kafka-ui-charts
+
+namespaces:
+  postgres:
+    protected: true
+  keycloak:
+    protected: true
+  softhsm:
+    protected: true
+  minio:
+    protected: true
+  clamav:
+    protected: true
+  activemq:
+    protected: true
+  kafka:
+    protected: true
+  s3:
+    protected: true
+  msg-gateways:
+    protected: true
+  captcha:
+    protected: true
+
+apps:
+  postgres:
+    namespace: postgres
+    enabled: true
+    version: 13.1.5
+    chart: bitnami/postgresql
+    wait: true
+    priority: -15
+    valuesFile: <values_file>
+
+  istio-addons-psql:
+    namespace: postgres
+    enabled: true
+    version: 0.1.0
+    chart: ../utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    set:
+      postgresHost: "<postgres-host>"
+    wait: true
+    priority: -4
+
+  postgres-init:
+    namespace: postgres
+    enabled: true
+    version: 0.0.1-develop
+    chart: mosip/postgres-init
+    wait: true
+    valuesFile: <values_file>
+    priority: -14
+
+  keycloak:
+    namespace: keycloak
+    enabled: true
+    version: 7.1.18
+    chart: mosip/keycloak
+    wait: true
+    set:
+      image.repository: "mosipqa/mosip-artemis-keycloak"
+      image.tag: "develop"
+      image.pullPolicy: "Always"
+    valuesFile: <values_file>
+    priority: -13
+
+  istio-addons-iam:
+    namespace: keycloak
+    enabled: true
+    version: 0.1.0
+    chart: ../utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    set:
+      keycloakExternalHost: "<keycloak-host>"
+      keycloakInternalHost: "keycloak.keycloak"
+      service: "keycloak"
+    wait: true
+    priority: -3
+
+  keycloak-init:
+    namespace: keycloak
+    enabled: true
+    version: 12.0.2
+    chart: mosip/keycloak-init
+    wait: true
+    set:
+      IAMHOST_URL: "<keycloak-host>"
+      keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://<keycloak-host>/auth"
+      keycloak.realms.mosip.realm_config.smtpServer.auth: "false"
+      keycloak.realms.mosip.realm_config.smtpServer.host: "smtp.gmail.com"
+      keycloak.realms.mosip.realm_config.smtpServer.port: "465"
+      keycloak.realms.mosip.realm_config.smtpServer.from: "mosipqa@gmail.com"
+      keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
+      keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
+    priority: -12
+
+  softhsm-kernel:
+    namespace: softhsm
+    enabled: true
+    version: 12.0.1
+    chart: mosip/softhsm
+    wait: true
+    valuesFile: <values_file>
+    priority: -11
+
+  softhsm-ida:
+    namespace: softhsm
+    enabled: true
+    version: 12.0.1
+    chart: mosip/softhsm
+    wait: true
+    valuesFile: <values_file>
+    priority: -10
+
+  minio:
+    namespace: minio
+    enabled: true
+    version: 10.1.6
+    chart: mosip/minio
+    wait: true
+    valuesFile: <values_file>
+    priority: -9
+
+  istio-addons-minio:
+    namespace: minio
+    enabled: true
+    version: 1.2.0
+    chart: ../utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    set:
+      externalHost: "<minio-host>"
+    wait: true
+    hooks:
+      postInstall: "../hooks/s3-setup.sh <pretext-value>"
+    priority: -2
+
+  clamav:
+    namespace: clamav
+    enabled: true
+    version: 3.1.0
+    chart: wiremind/clamav
+    wait: true
+    valuesFile: <values_file>
+    priority: -8
+
+  activemq:
+    namespace: activemq
+    enabled: true
+    version: 0.0.2
+    chart: mosip/activemq-artemis
+    valuesFile: <values_file>
+    set: 
+      istio.hosts[0]: "<activemq-host>"
+    wait: true
+    priority: -7
+    hooks:
+      postInstall: "../hooks/captcha-setup.sh <prereg-captcha-site-key> <prereg-captcha-secret-key> <admin-captcha-site-key> <admin-captcha-secret-key> <resident-captcha-site-key> <resident-captcha-secret-key>"
+  
+  kafka: 
+    namespace: kafka
+    enabled: true
+    version: 18.3.1
+    chart: mosip/kafka
+    valuesFile:  <values_file>
+    wait: true
+    priority: -6
+
+  kafka-ui:
+    namespace: kafka
+    enabled: true
+    version: 0.4.2
+    chart: kafka-ui/kafka-ui
+    valuesFile: <values_file>
+    wait: true
+    priority: -5
+
+  istio-addons-kafka:
+    namespace: kafka
+    enabled: true
+    version: 1.2.0
+    chart: ../utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    set:
+      kafkaUiHost: "<kafka-host>"
+      installName: "kafka-ui"
+    wait: true
+    hooks:
+      postInstall: "../hooks/msg-gateways-setup.sh"
+    priority: -1

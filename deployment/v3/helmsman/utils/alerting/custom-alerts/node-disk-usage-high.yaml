@@ -1,0 +1,24 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-nodes-avarage-storage-high
+  namespace: cattle-monitoring-system
+spec:
+  groups:
+    - name: node-storage
+      rules:
+        - alert: NodeStorageUsageHigh
+          annotations:
+            description: >-
+              Node {{ $labels.instance }} storage usage is above 90%. 
+              Current usage: {{ $value | humanizePercentage }}.
+            runbook_url: >-
+              https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-nodestorageusagehigh
+            summary: High storage usage on node {{ $labels.instance }}.
+          expr: >-
+            (node_filesystem_size_bytes{fstype!="tmpfs",fstype!="rootfs"} -
+            node_filesystem_free_bytes{fstype!="tmpfs",fstype!="rootfs"}) /
+            node_filesystem_size_bytes{fstype!="tmpfs",fstype!="rootfs"} > 0.90
+          for: 30s
+          labels:
+            severity: critical

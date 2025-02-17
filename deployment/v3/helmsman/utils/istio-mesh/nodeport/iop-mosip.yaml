@@ -1,0 +1,93 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-operators-mosip
+spec:
+  profile: default
+  # This is done to merge multiple slashes in http URLs, otherwise, MOSIP APIs may not work
+  meshConfig:
+    accessLogFile: /dev/stdout
+    accessLogFormat:
+    pathNormalization:
+      normalization: MERGE_SLASHES
+    defaultConfig:
+      proxyMetadata:
+        ISTIO_META_IDLE_TIMEOUT: 0s
+      holdApplicationUntilProxyStarts: true
+      gatewayTopology:
+        numTrustedProxies: 2
+    extensionProviders:
+    - name: oauth2-proxy
+      envoyExtAuthzHttp:
+        service: oauth2-proxy.oauth2-proxy.svc.cluster.local
+        port: 80
+        headersToDownstreamOnDeny:
+        - content-type
+        - set-cookie
+        headersToUpstreamOnAllow:
+        - authorization
+        - path
+        - x-auth-access-token
+        - x-auth-request-user
+        - x-auth-request-email
+        - x-auth-request-preferred-username
+        - x-auth-request-groups
+        includeAdditionalHeadersInCheck:
+          X-Auth-Request-Redirect: https://%REQ(:authority)%%REQ(:path)%
+        includeRequestHeadersInCheck:
+        - authorization
+        - cookie
+  components:
+    ingressGateways:
+      ## Public access to external ingress gateway is disabled by default. Enable it in production.
+      - name: istio-ingressgateway
+        enabled: true
+        k8s:
+          service:
+            type: NodePort
+            ports:
+            - port: 15021
+              targetPort: 15021
+              nodePort: 30521
+              name: status-port
+              protocol: TCP
+            - port: 80
+              targetPort: 8080
+              nodePort: 30080
+              name: http2
+              protocol: TCP
+      - name: istio-ingressgateway-internal
+        enabled: true
+        label:
+            istio: ingressgateway-internal
+        k8s:
+          service:
+            type: NodePort
+            ports:
+            - port: 15021
+              targetPort: 15021
+              nodePort: 31521
+              name: status-port
+              protocol: TCP
+            - port: 80
+              targetPort: 8080
+              nodePort: 31080
+              name: http2
+              protocol: TCP
+            # additional ports
+            - port: 61616
+              targetPort: 61616
+              nodePort: 31616
+              name: activemq
+              protocol: TCP
+            - port: 5432
+              targetPort: 5432
+              nodePort: 31432
+              name: postgres
+              protocol: TCP
+            - port: 9000
+              targetPort: 9000
+              nodePort: 30900
+              name: minio
+              protocol: TCP
