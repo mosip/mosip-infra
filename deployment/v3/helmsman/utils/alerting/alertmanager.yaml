@@ -1,0 +1,126 @@
+---
+global:
+  resolve_timeout: 5m
+  slack_api_url: https://hooks.slack.com/services/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
+route:
+  group_by:
+    - namespace
+    - job
+  group_interval: 5m
+  group_wait: 5m
+  receiver: 'slack'
+  repeat_interval: 12h
+  routes:
+    - receiver: 'null'
+      match:
+        alertname: KubeStatefulSetReplicasMismatch
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: KubeDeploymentReplicasMismatch
+        severity: warning
+      continue: false
+    - receiver: 'slack'
+      match:
+        alertname: KubeContainerWaiting
+        severity: warning
+      continue: false
+    - receiver: 'slack'
+      match:
+        alertname: KubeJobFailed
+        severity: warning
+      continue: false
+    - receiver: 'slack'
+      match:
+        alertname: KubeHpaMaxedOut
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: InfoInhibitor
+        severity: none
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: etcdInsufficientMembers
+        severity: critical   
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: CPUThrottlingHigh
+        severity: info
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: KubeAggregatedAPIDown
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: KubeClientErrors
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: etcdHighNumberOfFailedGRPCRequests
+        severity: warning
+      continue: false
+#    - match:
+#        statefulset: activemq-activemq-artemis-slave
+#        receiver: 'null'
+    - receiver: 'null'
+      match:
+        alertname: Watchdog
+        severity: none
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: TargetDown
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        alertname: etcdMembersDown
+        severity: critical
+      continue: false
+    - receiver: 'slack'
+      match:
+        severity: critical
+      continue: false
+    - receiver: 'slack'
+      match:
+        severity: warning
+      continue: false
+    - receiver: 'null'
+      match:
+        severity: info
+      continue: false
+    - receiver: 'null'
+      match:
+        severity: none
+      continue: false
+receivers:
+  - name: 'null'
+  - name: 'slack'
+    slack_configs:
+      - channel: 'soil'
+        send_resolved: true
+        title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing |
+          len }}{{ end }}] Monitoring Event Notification'
+        text: >-
+          {{ range .Alerts }}
+
+          *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+
+          *Description:* {{ .Annotations.description }}
+
+          *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+
+          *Details:*
+
+          {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+
+          {{ end }}
+
+          {{ end }}

@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-nodes-avarage-load-high
+  namespace: cattle-monitoring-system
+spec:
+  groups:
+    - name: node
+      rules:
+        - alert: NodeAvarageCPULoadHigh
+          expr: node_load5 > node:node_num_cpu:sum
+          for: 300s
+          labels:
+            severity: critical
