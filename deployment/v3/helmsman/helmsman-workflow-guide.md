@@ -6,6 +6,11 @@ This repository contains a GitHub Actions workflow to deploy external services o
 
 ## Workflow Overview
 
+### Prerequisites
+
+- Ensure the necessary secrets (`CLUSTER_WIREGUARD_WG0`, `CLUSTER_WIREGUARD_WG1`, `KUBECONFIG`) are configured in the repository settings.
+- The target Kubernetes cluster should be accessible via the provided `KUBECONFIG`.
+
 The workflow is triggered by:
 - **Manual Dispatch**: Allowing users to select the mode (`dry-run` or `apply`).
 - **Push Events**: Monitoring changes in the `deployment/v3/helmsman/dsf/` directory.
@@ -13,11 +18,6 @@ The workflow is triggered by:
 The deployment is done in a matrix strategy to handle multiple configuration files for WireGuard and DSF (Deployment Specification Files).
 
 ### Inputs to be provided to run workflow.
-
-### Prerequisites
-
-- Ensure the necessary secrets (`CLUSTER_WIREGUARD_WG0`, `CLUSTER_WIREGUARD_WG1`, `KUBECONFIG`) are configured in the repository settings.
-- The target Kubernetes cluster should be accessible via the provided `KUBECONFIG`.
 
 ### Mode
 - **Description**: Choose the mode in which Helmsman runs.
