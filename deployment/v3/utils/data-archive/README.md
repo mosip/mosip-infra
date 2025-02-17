@@ -18,6 +18,57 @@ This configuration file is used for setting up database connections and defining
 - `archive_dbname`: Archive database name.
 - `archive_schemaname`: Archive schema name.
 - `archive_db_password`: Password for the archive database.
+- `batch_size`: Number of records processed in each batch.
+
+
+
+### Database Names
+
+A list of databases to be archived:
+
+```yaml
+  db_names:
+    - name: audit
+      enabled: true
+      container_volume_path: /audit-table-info  ## volume mount path for table info inside cronjob container
+    - name: ida
+      enabled: true
+      container_volume_path: /ida-table-info  ## volume mount path for table info inside cronjob container
+    - name: credential
+      enabled: true
+      container_volume_path: /credential-table-info  ## volume mount path for table info inside cronjob container
+    - name: kernel
+      enabled: true
+      container_volume_path: /kernek-table-info  ## volume mount path for table info inside cronjob container
+    - name: master
+      enabled: true
+      container_volume_path: /master-table-info  ## volume mount path for table info inside cronjob container
+    - name: pms
+      enabled: false
+      container_volume_path: /pms-table-info  ## volume mount path for table info inside cronjob container
+    - name: regprc
+      enabled: false
+      container_volume_path: /regprc-table-info  ## volume mount path for table info inside cronjob container
+    - name: resident
+      enabled: false
+      container_volume_path: /resident-table-info  ## volume mount path for table info inside cronjob container
+```
+Each entry includes a name and an enabled flag to indicate if the database should be included in the archival process.
+
+## Adding Another Database
+
+To add another database to the archival list, follow these steps:
+
+1. Update the `values.yaml` file.
+
+2. Under the `db_names` section, add a new entry with the following format:
+
+   ```yaml
+   - name: new_database_name
+     enabled: true  # or false, depending on whether you want to include it
+   ```
+3. Replace `new_database_name` with the desired name of the new database.
+4. Save the changes to the `values.yaml` file.
 
 ### Source Database Connections (source_db)
 
@@ -30,7 +81,7 @@ For each source database (audit, credential, esignet, ida, idrepo, kernel, maste
 - `source_<database>_schemaname`: Source schema name.
 - `source_<database>_db_pass`: Password for the source database.
 
-- `provide_db_names_to_archive`: Comma-separated list of database names to archive (e.g., "AUDIT,CREDENTIAL,IDA,.....").(in CAPS)
+
 
 
 ## Container Volume Path
@@ -49,14 +100,13 @@ audit:
       date_column: "log_dtimes"
       retention_days: 30
       operation_type: "archive_delete"
-
-source_table: Name of the table in the source database.
-archive_table: Name of the table in the archive database.
-id_column: Column representing the unique identifier.
-date_column: Column representing the date of the record.
-retention_days: Number of days to retain the archived data.
-operation_type: Type of operation for archiving (e.g., archive_delete, delete, none).
-- Delete: Delete records from the source table.
-- Archive and Delete: Archive records to an archive table and then delete them from the source table.
-- Archive (No Delete): Archive records to an archive table without deleting them from the source table.
-- None: Skip archival for the specified table.
+```
+`source_table`: Name of the table in the source database.
+`archive_table`: Name of the table in the archive database.
+`id_column`: Column representing the unique identifier.
+`date_column`: Column representing the date of the record.
+`retention_days`: Number of days to retain the archived data.
+`operation_type`: Type of operation for archiving (e.g., archive_delete, delete, none).
+- `delete`: Delete records from the source table.
+- `archive_delete`: Archive records to an archive table and then delete them from the source table.
+- `none`: Skip archival for the specified table.
