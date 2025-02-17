@@ -2,10 +2,12 @@
 ## Overview
 * Gateways are the medium to access the k8 services outside the cluster.
 * In MOSIP we create two Istio gateways by default for making services accessible.
-  * Internal: to make sure services are accessible using domain `api-internal.sandbox.xyz.net` over wireguard restriting private access.
-  * Public: to make sure services are accessible using domain `api.sandbox.xyz.net`
-* Script here picks up domain related values from confligmap `global` created in `default` namespace.
-## Install
+  * Internal Gateway: Ensures services are accessible using the domain api-internal.sandbox.xyz.net.
+                      Access is restricted via WireGuard, allowing only private access.
+  * Public Gateway: Ensures services are accessible using the domain api.sandbox.xyz.net.
+* The installation script retrieves domain-related values from the global ConfigMap, created in the default namespace.
+## Installation:
+Run the following command to install the Istio Gateway:
 ```
 ./install.sh
 ```
