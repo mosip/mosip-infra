@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-node-memry-usage-high
+  namespace: cattle-monitoring-system
+spec:
+  groups:
+    - name: node
+      rules:
+        - alert: NodeMemoryUsageHigh
+          expr: >-
+            1 - (node_memory_MemAvailable_bytes   / node_memory_MemTotal_bytes)  >
+            0.6
+          for: 300s
+          labels:
+            severity: warning
