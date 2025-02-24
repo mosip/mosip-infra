@@ -1,0 +1,35 @@
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: ClusterFlow
+metadata:
+  name: mosip-logs
+  namespace: cattle-logging-system
+spec:
+  filters:
+    # Parse any JSON object received in `log` field into individual fields.
+    - record_modifier:
+        replaces:
+          - expression: /"/
+            key: log
+            replace: \\"
+    - parser:
+        key_name: log
+        parse:
+          type: json
+        replace_invalid_sequence: true
+        reserve_data: true
+    # Filter all actuator health and actuator prometheus logs as we don't really need them later.
+    - grep:
+        exclude:
+          - key: log
+            pattern: /actuator\/health/
+    - grep:
+        exclude:
+          - key: log
+            pattern: /actuator\/prometheus/
+    # TODO: The below pattern is for unwanted errors from Activemq. We must fix this in Activemq config.
+    - grep:
+        exclude:
+          - key: log
+            pattern: /Temporary Store limit is 51200 mb, whilst the temporary data directory:/
+  globalOutputRefs:
+    - elasticsearch

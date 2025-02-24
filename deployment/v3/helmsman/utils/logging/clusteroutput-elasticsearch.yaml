@@ -1,0 +1,16 @@
+apiVersion: logging.banzaicloud.io/v1beta1
+kind: ClusterOutput
+metadata:
+  name: elasticsearch
+  namespace: cattle-logging-system
+spec:
+  elasticsearch:
+    buffer:
+      flush_interval: 10s
+      flush_mode: interval
+    host: elasticsearch-master
+    logstash_format: true
+    port: 9200
+    scheme: http
+    ssl_verify: true
+    ssl_version: TLSv1_2

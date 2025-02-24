@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-kubernetes-node-not-ready
+  namespace: cattle-monitoring-system
+spec:
+  groups:
+    - name: node
+      rules:
+        - alert: KubeNodeNotReady
+          annotations:
+            description: >-
+              Kubernetes node {{ $labels.node }} is not in a 'Ready' state for
+              more than 5 minutes.
+            runbook_url: >-
+              https://github.com/kubernetes-monitoring/kubernetes-mixin/tree/master/runbook.md#alert-name-kubenodenotready
+            summary: Kubernetes node {{ $labels.node }} is not ready.
+          expr: kube_node_status_condition{condition="Ready", status="false"} == 1
+          for: 5m
+          labels:
+            severity: critical
