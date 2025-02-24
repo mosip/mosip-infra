@@ -3,185 +3,185 @@ dbUserPasswords:
 
 databases:
   mosip_master:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 1
     repoUrl: https://github.com/mosip/admin-services.git
     branch: release-1.3.x
 
   mosip_audit:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/audit-manager.git
     branch: release-1.3.x
 
   mosip_keymgr:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 1
     repoUrl: https://github.com/mosip/keymanager.git
     branch: release-1.3.x
 
   mosip_kernel:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/commons.git
     branch: release-1.3.x
 
   mosip_idmap:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/id-repository.git
     branch: release-1.3.x
 
   mosip_prereg:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/pre-registration.git
     branch: release-1.3.x
 
   mosip_idrepo:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/id-repository.git
     branch: release-1.3.x
 
   mosip_ida:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 1
     repoUrl: https://github.com/mosip/id-authentication.git
     branch: release-1.3.x
 
   mosip_credential:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/id-repository.git
     branch: release-1.3.x
 
   mosip_regprc:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 1
     repoUrl: https://github.com/mosip/registration.git
     branch: release-1.3.x
 
   mosip_pms:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     # Note: This flag is used update datashare domain in partner policies according to deployment version( i.e v2/v3 )
-    # Set flag ENV_VERSION_FLAG to true for v2 envs and false to v3 envs.
-    ENV_VERSION_FLAG: false
+    # Set flag ENV_VERSION_FLAG to true for v2 envs and true to v3 envs.
+    ENV_VERSION_FLAG: true
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 1
     repoUrl: https://github.com/mosip/partner-management-services.git
     branch: release-1.3.x
 
   mosip_hotlist:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/admin-services.git
     branch: release-1.3.x
 
   mosip_resident:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/resident-services.git
     branch: release-1.3.x
 
   mosip_otp:
-    enabled: false
+    enabled: true
     host: "172.31.3.128"
     port: 5432
     su:
       user: postgres
       secret:
-        name: 172.31.3.128
+        name: postgres-postgresql
         key: postgres-password
     dml: 0
     repoUrl: https://github.com/mosip/otp-manager.git
