@@ -193,4 +193,3 @@ apps:
     hooks:
       postInstall: "deployment/v3/helmsman/hooks/msg-gateways-setup.sh"
     priority: -1
-
