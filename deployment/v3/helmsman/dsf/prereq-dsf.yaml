@@ -14,7 +14,7 @@ namespaces:
   cattle-monitoring-system:
     protected: true
   cattle-logging-system:
-    protected: false
+    protected: true
   istio-system:
     protected: true
   istio-operator:

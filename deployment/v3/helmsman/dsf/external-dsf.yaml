@@ -11,25 +11,25 @@ helmRepos:
 
 namespaces:
   postgres:
-    protected: true
+    protected: false
   keycloak:
-    protected: true
+    protected: false
   softhsm:
     protected: false
   minio:
-    protected: true
+    protected: false
   clamav:
-    protected: true
+    protected: false
   activemq:
-    protected: true
+    protected: false
   kafka:
-    protected: true
+    protected: false
   s3:
-    protected: true
+    protected: false
   msg-gateways:
-    protected: true
+    protected: false
   captcha:
-    protected: true
+    protected: false
 
 apps:
   postgres:
@@ -45,7 +45,7 @@ apps:
     namespace: postgres
     enabled: true
     version: 0.1.0
-    chart: ../utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    chart: deployment/v3/helmsman/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
       postgresHost: "postgres.soil.mosip.net"
     wait: true
@@ -77,9 +77,9 @@ apps:
     namespace: keycloak
     enabled: true
     version: 0.1.0
-    chart: ../utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    chart: deployment/v3/helmsman/utils/istio-addons/iam-istio-addons-0.1.0.tgz
     set:
-      keycloakExternalHost: "<keycloak-host>"
+      keycloakExternalHost: "iam.soil.mosip.net"
       keycloakInternalHost: "keycloak.keycloak"
       service: "keycloak"
     wait: true
@@ -92,8 +92,8 @@ apps:
     chart: mosip/keycloak-init
     wait: true
     set:
-      IAMHOST_URL: "<keycloak-host>"
-      keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://<keycloak-host>/auth"
+      IAMHOST_URL: "iam.soil.mosip.net"
+      keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://iam.soil.mosip.net/auth"
       keycloak.realms.mosip.realm_config.smtpServer.auth: "false"
       keycloak.realms.mosip.realm_config.smtpServer.host: "smtp.gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.port: "465"
@@ -133,12 +133,12 @@ apps:
     namespace: minio
     enabled: true
     version: 1.2.0
-    chart: ../utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    chart: deployment/v3/helmsman/utils/istio-addons/minio-istio-addons-1.2.0.tgz
     set:
-      externalHost: "<minio-host>"
+      externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "../hooks/s3-setup.sh <pretext-value>"
+      postInstall: "deployment/v3/helmsman/hooks/hooks/s3-setup.sh s3"
     priority: -6
 
   clamav:
@@ -157,11 +157,11 @@ apps:
     chart: mosip/activemq-artemis
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/activemq/values.yaml
     set: 
-      istio.hosts[0]: "<activemq-host>"
+      istio.hosts[0]: "activemq.soil.mosip.net"
     wait: true
     priority: -4
     hooks:
-      postInstall: "../hooks/captcha-setup.sh <prereg-captcha-site-key> <prereg-captcha-secret-key> <admin-captcha-site-key> <admin-captcha-secret-key> <resident-captcha-site-key> <resident-captcha-secret-key>"
+      postInstall: "deployment/v3/helmsman/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
   
   kafka: 
     namespace: kafka
@@ -185,12 +185,12 @@ apps:
     namespace: kafka
     enabled: true
     version: 1.2.0
-    chart: ../utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    chart: deployment/v3/helmsman/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
     set:
-      kafkaUiHost: "<kafka-host>"
+      kafkaUiHost: "kafka.soil.mosip.net"
       installName: "kafka-ui"
     wait: true
     hooks:
-      postInstall: "../hooks/msg-gateways-setup.sh"
+      postInstall: "deployment/v3/helmsman/hooks/msg-gateways-setup.sh"
     priority: -1
 

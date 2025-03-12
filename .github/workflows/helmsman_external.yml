@@ -78,6 +78,7 @@ jobs:
         run: |
           echo "Processing ${{ matrix.dsf_files }}"
           echo "Using WireGuard config: ${{ matrix.wg_conf }}"
+          pwd
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -139,7 +140,7 @@ jobs:
           mv ./kubectl ~/.local/bin/kubectl
           kubectl version --client        
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          echo "${{ secrets.KUBECONFIG_DEV }}" > $HOME/.kube/config
           chmod 400 $HOME/.kube/config
           export KUBECONFIG=$HOME/.kube/config
           kubectl config view
