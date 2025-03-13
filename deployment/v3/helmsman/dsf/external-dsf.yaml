@@ -77,7 +77,7 @@ apps:
     namespace: keycloak
     enabled: true
     version: 0.1.0
-    chart: deployment/v3/helmsman/utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/iam-istio-addons-0.1.0.tgz
     set:
       keycloakExternalHost: "iam.soil.mosip.net"
       keycloakInternalHost: "keycloak.keycloak"
@@ -133,7 +133,7 @@ apps:
     namespace: minio
     enabled: true
     version: 1.2.0
-    chart: deployment/v3/helmsman/utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/minio-istio-addons-1.2.0.tgz
     set:
       externalHost: "minio.soil.mosip.net"
     wait: true
@@ -161,7 +161,7 @@ apps:
     wait: true
     priority: -4
     hooks:
-      postInstall: "deployment/v3/helmsman/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
+      postInstall: "mosip-infra/deployment/v3/helmsman/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
   
   kafka: 
     namespace: kafka
@@ -185,12 +185,12 @@ apps:
     namespace: kafka
     enabled: true
     version: 1.2.0
-    chart: deployment/v3/helmsman/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
     set:
       kafkaUiHost: "kafka.soil.mosip.net"
       installName: "kafka-ui"
     wait: true
     hooks:
-      postInstall: "deployment/v3/helmsman/hooks/msg-gateways-setup.sh"
+      postInstall: "mosip-infra/deployment/v3/helmsman/hooks/msg-gateways-setup.sh"
     priority: -1
 
