@@ -36,11 +36,11 @@ function post_logging_setup() {
   }'
 
   echo "Configure Rancher FluentD"
-  kubectl apply -f deployment/v3/helmsman/utils/logging/clusteroutput-elasticsearch.yaml
-  kubectl apply -f deployment/v3/helmsman/utils/logging/clusterflow-elasticsearch.yaml
+  kubectl apply -f mosip-infra/deployment/v3/helmsman/utils/logging/clusteroutput-elasticsearch.yaml
+  kubectl apply -f mosip-infra/deployment/v3/helmsman/utils/logging/clusterflow-elasticsearch.yaml
 
   echo "Load Dashboards"
-  deployment/v3/helmsman/utils/logging/load_kibana_dashboards.sh deployment/v3/helmsman/utils/logging/dashboards ~/.kube/config
+  mosip-infra/deployment/v3/helmsman/utils/logging/load_kibana_dashboards.sh mosip-infra/deployment/v3/helmsman/utils/logging/dashboards ~/.kube/config
   echo "Dashboards loaded"
   return 0
 }
