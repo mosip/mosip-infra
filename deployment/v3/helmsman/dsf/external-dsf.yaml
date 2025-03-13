@@ -133,12 +133,12 @@ apps:
     namespace: minio
     enabled: true
     version: 1.2.0
-    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    chart: ../utils/istio-addons/minio-istio-addons-1.2.0.tgz
     set:
       externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "mosip-infra/deployment/v3/helmsman/hooks/hooks/s3-setup.sh s3"
+      postInstall: "../hooks/hooks/s3-setup.sh s3"
     priority: -6
 
   clamav:
@@ -161,7 +161,7 @@ apps:
     wait: true
     priority: -4
     hooks:
-      postInstall: "mosip-infra/deployment/v3/helmsman/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
+      postInstall: "../hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
   
   kafka: 
     namespace: kafka
@@ -185,11 +185,11 @@ apps:
     namespace: kafka
     enabled: true
     version: 1.2.0
-    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    chart: ../utils/istio-addons/kafka-istio-addons-1.2.0.tgz
     set:
       kafkaUiHost: "kafka.soil.mosip.net"
       installName: "kafka-ui"
     wait: true
     hooks:
-      postInstall: "mosip-infra/deployment/v3/helmsman/hooks/msg-gateways-setup.sh"
+      postInstall: "../hooks/msg-gateways-setup.sh"
     priority: -1
