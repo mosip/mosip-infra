@@ -45,7 +45,7 @@ apps:
     namespace: postgres
     enabled: true
     version: 0.1.0
-    chart: deployment/v3/helmsman/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    chart: mosip-infra/deployment/v3/helmsman/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
       postgresHost: "postgres.soil.mosip.net"
     wait: true
