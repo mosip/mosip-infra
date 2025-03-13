@@ -138,7 +138,7 @@ apps:
       externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "../hooks/hooks/s3-setup.sh s3"
+      postInstall: "../hooks/s3-setup.sh s3"
     priority: -6
 
   clamav:
@@ -193,4 +193,3 @@ apps:
     hooks:
       postInstall: "../hooks/msg-gateways-setup.sh"
     priority: -1
-
