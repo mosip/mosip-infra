@@ -36,12 +36,12 @@ function installing_onboarder() {
           echo "S3 access key not provided; EXITING;"
           exit 1;
         fi
-        read -p "Please provide S3 secret key: " s3_secret_key
-        if [[ -z $s3_secret_key ]]; then
-          echo "S3 secret key not provided; EXITING;"
-          exit 1;
-        fi
-        S3_OPTION="--set onboarding.configmaps.s3.s3-host=$s3_host --set onboarding.configmaps.s3.s3-user-key=$s3_user_key --set onboarding.configmaps.s3.s3-region=$s3_region --set onboarding.configmaps.s3.s3-bucket-name=$s3_bucket --set onboarding.secrets.s3.s3-user-secret=$s3_secret_key"
+        #read -p "Please provide S3 secret key: " s3_secret_key
+        #if [[ -z $s3_secret_key ]]; then
+          #echo "S3 secret key not provided; EXITING;"
+          #exit 1;
+        #fi
+        S3_OPTION="--set onboarding.configmaps.s3.s3-host=$s3_host --set onboarding.configmaps.s3.s3-user-key=$s3_user_key --set onboarding.configmaps.s3.s3-region=$s3_region --set onboarding.configmaps.s3.s3-bucket-name=$s3_bucket"
         push_reports_to_s3=true
         config_complete=true
       elif [[ "$ans" == "n" || "$ans" == "N" ]]; then

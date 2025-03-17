@@ -6,9 +6,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=captcha
-CHART_VERSION=0.0.1-develop
-
 function installing_captcha() {
 
   while true; do
@@ -23,7 +20,7 @@ function installing_captcha() {
   done
 
   NS=captcha
-  CHART_VERSION=0.1.0-develop
+  CHART_VERSION=0.1.0-beta.1
 
   echo Create $NS namespace
   kubectl create ns $NS || true

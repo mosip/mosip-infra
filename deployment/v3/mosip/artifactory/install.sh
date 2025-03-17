@@ -6,8 +6,8 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=artifactory
-CHART_VERSION=0.0.1-develop
+NS=artifactory-1202
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -18,7 +18,7 @@ function installing_artifactory() {
   helm repo update
 
   echo Installing artifactory
-  helm -n $NS install artifactory mosip/artifactory --version $CHART_VERSION
+  helm -n $NS install artifactory-1202 mosip/artifactory --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -1,17 +1,67 @@
 modules:
   prereg:
     enabled: true
+    image:
+      repository: mosipqa/apitest-prereg
+      tag: develop
+      pullPolicy: Always
   masterdata:
     enabled: true
+    image:
+      repository: mosipqa/apitest-masterdata
+      tag: develop
+      pullPolicy: Always
   idrepo:
     enabled: true
+    image:
+      repository: mosipqa/apitest-idrepo
+      tag: develop
+      pullPolicy: Always
   partner:
     enabled: true
+    image:
+      repository: mosipqa/apitest-pms
+      tag: develop
+      pullPolicy: Always
+  pms:
+    enabled: true
+    image:
+      repository: mosipqa/apitest-pms
+      tag: develop
+      pullPolicy: Always
   resident:
     enabled: true
+    image:
+      repository: mosipqa/apitest-resident
+      tag: develop
+      pullPolicy: Always
   auth:
     enabled: true
+    image:
+      repository: mosipqa/apitest-auth
+      tag: develop
+      pullPolicy: Always
   esignet:
     enabled: true
+    image:
+      repository: mosipqa/apitest-esignet
+      tag: develop
+      pullPolicy: Always
   mimoto:
-    enabled: true
+    enabled: false
+    image:
+      repository: mosipqa/apitest-mimoto
+      tag: develop
+      pullPolicy: Always
+  injicertify:
+    enabled: false
+    image:
+      repository: mosipqa/apitest-injicertify
+      tag: develop
+      pullPolicy: Always
+  esignet-signup:
+    enabled: false
+    image:
+      repository: mosipqa/apitest-esignet-signup
+      tag: develop
+      pullPolicy: Always

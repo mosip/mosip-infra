@@ -7,7 +7,7 @@ function copying_cm() {
   DST_NS=pms
 
   $COPY_UTIL configmap global default $DST_NS
-  $COPY_UTIL configmap artifactory-share artifactory $DST_NS
+  $COPY_UTIL configmap artifactory-1202-share artifactory-1202 $DST_NS
   $COPY_UTIL configmap config-server-share config-server $DST_NS
   return 0
 }
