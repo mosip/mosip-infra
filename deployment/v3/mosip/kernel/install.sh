@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.0-beta.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -42,7 +42,7 @@ function installing_kernel() {
   helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
-  helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION
+  helm -n $NS install idgenerator mosip/idgenerator --version 1.3.0-beta.2
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
@@ -52,16 +52,16 @@ function installing_kernel() {
   helm -n $NS install otpmanager mosip/otpmanager --version $CHART_VERSION
 
   echo Installing pridgenerator
-  helm -n $NS install pridgenerator mosip/pridgenerator --version $CHART_VERSION
+  helm -n $NS install pridgenerator mosip/pridgenerator --version 1.3.0-beta.2
 
   echo Installing ridgenerator
-  helm -n $NS install ridgenerator mosip/ridgenerator --version $CHART_VERSION
+  helm -n $NS install ridgenerator mosip/ridgenerator --version 1.3.0-beta.2
 
   echo Installing syncdata
   helm -n $NS install syncdata mosip/syncdata --version $CHART_VERSION
 
   echo Installing notifier
-  helm -n $NS install notifier mosip/notifier --version $CHART_VERSION
+  helm -n $NS install notifier mosip/notifier --version 1.3.0-beta.2
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
