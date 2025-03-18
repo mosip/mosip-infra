@@ -7,14 +7,15 @@
 ISTIO_NS=istio-system
 HTTPBIN_NS=httpbin
 
-ENV="${1:-sandbox}"
+export ENV="${1:-sandbox}"
+export VERSION="${2:-develop}"
 
 echo Operator init
 istioctl operator init
 
 function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
-  sed "s/sandbox/$ENV/g" ../utils/global_configmap.yaml > global_configmap_generated.yaml
+  envsubst < ../utils/global_configmap.yaml > global_configmap.generated.yaml
   kubectl apply -f global_configmap_generated.yaml
   echo "Installed Global Configmap"
 
