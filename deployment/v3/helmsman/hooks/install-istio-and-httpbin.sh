@@ -7,12 +7,15 @@
 ISTIO_NS=istio-system
 HTTPBIN_NS=httpbin
 
+ENV="${1:-sandbox}"
+
 echo Operator init
 istioctl operator init
 
 function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
-  kubectl apply -f ../utils/global_configmap.yaml
+  sed "s/sandbox/$ENV/g" ../utils/global_configmap.yaml > global_configmap_generated.yaml
+  kubectl apply -f global_configmap_generated.yaml
   echo "Installed Global Configmap"
 
   echo Create ingress gateways, load balancers and istio monitoring
