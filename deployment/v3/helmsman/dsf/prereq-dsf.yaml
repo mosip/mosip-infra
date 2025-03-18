@@ -12,15 +12,15 @@ namespaces:
   kube-system:
     protected: true
   cattle-monitoring-system:
-    protected: true
+    protected: false
   cattle-logging-system:
-    protected: true
+    protected: false
   istio-system:
-    protected: true
+    protected: false
   istio-operator:
-    protected: true
+    protected: false
   httpbin:
-    protected: true
+    protected: false
 
 apps:
   rancher-monitoring-crd:
@@ -30,8 +30,8 @@ apps:
     chart: mosip/rancher-monitoring-crd
     wait: true
     priority: -6
-#    hooks:
-#      postInstall: "../hooks/install-istio-and-httpbin.sh"
+    hooks:
+      postInstall: "../hooks/install-istio-and-httpbin.sh soil"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
@@ -39,8 +39,8 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "<cluster_Id>"
-      global.cattle.clusterId: "<cluster_Id>"
+      grafana.global.cattle.clusterId: "c-m-97gp97hv"
+      global.cattle.clusterId: "c-m-97gp97hv"
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
     priority: -5
@@ -63,7 +63,7 @@ apps:
     version: 0.1.0
     chart: ../utils/istio-addons/logging-istio-addons-0.1.0.tgz
     set:
-      KIBANA_HOST: "<kibana-host>"
+      KIBANA_HOST: "kibana.soil.mosip.net"
       KIBANA_NAME: "elasticsearch-kibana"
     wait: true
     priority: -3
@@ -86,4 +86,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "../hooks/post_logging-setup.sh"
-
