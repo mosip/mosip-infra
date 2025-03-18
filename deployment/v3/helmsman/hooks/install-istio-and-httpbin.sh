@@ -15,6 +15,8 @@ istioctl operator init
 
 function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
+  pwd
+  ls
   envsubst < ../utils/global_configmap.yaml > global_configmap.generated.yaml
   kubectl apply -f global_configmap_generated.yaml
   echo "Installed Global Configmap"
