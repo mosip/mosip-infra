@@ -6,7 +6,6 @@
 
 ISTIO_NS=istio-system
 HTTPBIN_NS=httpbin
-PATH=/home/runner/work/mosip-infra/mosip-infra
 
 export ENV="${1:-sandbox}"
 export VERSION="${2:-develop}"
@@ -17,8 +16,8 @@ istioctl operator init
 function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
   pwd
-  chmod +x $PATH/deployment/v3/helmsman/utils/global_configmap.yaml
-  envsubst < $PATH/deployment/v3/helmsman/utils/global_configmap.yaml > global_configmap.generated.yaml
+  chmod +x deployment/v3/helmsman/utils/global_configmap.yaml
+  envsubst < deployment/v3/helmsman/utils/global_configmap.yaml > global_configmap.generated.yaml
   kubectl apply -f global_configmap_generated.yaml
   echo "Installed Global Configmap"
 
