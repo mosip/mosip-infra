@@ -17,8 +17,9 @@ function installing_istio_and_httpbin() {
   echo "Installing Global Configmap"
   pwd
   chmod +x deployment/v3/helmsman/utils/global_configmap.yaml
-  envsubst < deployment/v3/helmsman/utils/global_configmap.yaml > global_configmap.generated.yaml
-  kubectl apply -f ./global_configmap_generated.yaml
+  envsubst < deployment/v3/helmsman/utils/global_configmap.yaml > ./global_configmap.generated.yaml
+  ls
+  kubectl apply -f global_configmap_generated.yaml
   echo "Installed Global Configmap"
 
   echo Create ingress gateways, load balancers and istio monitoring
