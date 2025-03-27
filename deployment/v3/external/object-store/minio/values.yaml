@@ -7,3 +7,5 @@ extraEnvVars:
     value: "http://rancher-monitoring-prometheus.cattle-monitoring-system:9090"
   - name: MINIO_PROMETHEUS_JOB_ID
     value: "minio"
+
+resourcesPreset: "none"
