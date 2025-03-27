@@ -7,8 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kafka
-CHART_VERSION=18.3.1
-UI_CHART_VERSION=0.4.2
+CHART_VERSION=26.11.4
+UI_CHART_VERSION=0.7.1
 
 echo Create $NS namespace
 kubectl create ns $NS

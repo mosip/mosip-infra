@@ -37,3 +37,30 @@ startupProbe:
   timeoutSeconds: 1
   failureThreshold: 30
   successThreshold: 1
+
+kraft:
+  ## @param kraft.enabled Switch to enable or disable the KRaft mode for Kafka
+  ##
+  enabled: false
+
+controller:
+  ## @param controller.replicaCount Number of Kafka controller-eligible nodes
+  ## Ignore this section if running in Zookeeper mode.
+  ##
+  replicaCount: 0
+
+broker:
+  ## @param broker.replicaCount Number of Kafka broker-only nodes
+  ##
+  replicaCount: 5
+
+listeners:
+  ## @param listeners.client.name Name for the Kafka client listener
+  ## @param listeners.client.containerPort Port for the Kafka client listener
+  ## @param listeners.client.protocol Security protocol for the Kafka client listener. Allowed values are 'PLAINTEXT', 'SASL_PLAINTEXT', 'SASL_SSL' and 'SSL'
+  ## @param listeners.client.sslClientAuth Optional. If SASL_SSL is enabled, configure mTLS TLS authentication type. If SSL protocol is enabled, overrides tls.authType for this listener. Allowed values are 'none', 'requested' and 'required'
+  client:
+    containerPort: 9092
+    protocol: PLAINTEXT
+    name: CLIENT
+    sslClientAuth: ""
