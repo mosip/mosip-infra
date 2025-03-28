@@ -23,7 +23,7 @@ function installing_kafka() {
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka mosip/kafka -f values.yaml --wait --version $CHART_VERSION
+  helm -n $NS install kafka bitnami/kafka -f values.yaml --wait --version $CHART_VERSION
 
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION
