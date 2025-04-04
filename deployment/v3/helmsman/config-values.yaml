@@ -1,0 +1,54 @@
+
+spring_profiles:
+  enabled: true
+  spring_profiles_active: composite
+  spring_compositeRepos:
+  # Based on the user requiremnt the number of multiple sources from where configuration needs to be pulled can be updated below as mentioned.
+    - type: git
+      uri: "https://github.com/mosip/inji-config"
+      version: develop
+      spring_cloud_config_server_git_cloneOnStart: true
+      spring_cloud_config_server_git_force_pull: true
+      spring_cloud_config_server_git_refreshRate: 5
+    - type: git
+      uri: "https://github.com/mosip/mosip-config"
+      version: soil-helmsman
+      spring_cloud_config_server_git_cloneOnStart: true
+      spring_cloud_config_server_git_force_pull: true
+      spring_cloud_config_server_git_refreshRate: 5
+  spring_fail_on_composite_error: false
+
+localRepo:
+  enabled: false       # Set this to "true" inorder to Enable config-server to pull configurations from local git repo.
+  spring_profiles_active: "native"
+  spring_cloud_config_server_native_search_locations: "file:///var/lib/config_repo"
+  spring_cloud_config_server_accept_empty: true
+  spring_cloud_config_server_git_force_pull: false
+  spring_cloud_config_server_git_refreshRate: 0
+  spring_cloud_config_server_git_cloneOnStart: false
+
+volume:
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack).
+  ##
+  # storageClass: "-"
+  ##
+  ## If you want to reuse an existing claim, you can pass the name of the PVC using
+  ## the existingClaim variable
+  # existingClaim: your-claim
+  ## ReadWriteMany not supported by AWS gp2
+  name: config-server
+  storageClass: nfs-client
+  accessModes:
+    - ReadWriteMany
+  size: 10Mi
+  existingClaim:
+  # Dir where config and keys are written inside container
+  mountDir: '/var/lib/config_repo'
+  nfs:
+    path: ''  # Dir within the nfs server where config repo is cloned/maintained locally.
+    server: ''  # Ip address of nfs server.
+    
