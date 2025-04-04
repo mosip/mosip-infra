@@ -1,0 +1,36 @@
+persistence:
+  enabled: false
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack).
+  ##
+  # storageClass: "-"
+  ##
+  ## If you want to reuse an existing claim, you can pass the name of the PVC using
+  ## the existingClaim variable
+  # existingClaim: your-claim
+  ## ReadWriteMany not supported by AWS gp2
+  storageClass:
+  accessModes:
+    - ReadWriteMany
+  size: 100M
+  existingClaim:
+  # Dir where config and keys are written inside container
+  mountDir: /home/mosip/config/
+  volume_name: config
+  # pvc_claim_name: pkcs12-keys.p12
+  pvc_claim_name: kernel-keygen-keymanager
+
+## Init containers parameters:
+## volumePermissions: Change the owner and group of the persistent volume mountpoint to runAsUser:fsGroup values from the securityContext section.
+volumePermissions:
+  enabled: false
+# kernel or id-authentication
+springConfigNameEnv: kernel
+
+## This param is to be set during installation.
+## For Kernel: softhsm-kernel-share
+## For IDA: softhsm-ida-share
+softHsmCM:
