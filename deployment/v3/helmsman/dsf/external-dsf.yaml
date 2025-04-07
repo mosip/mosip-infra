@@ -168,8 +168,8 @@ apps:
   kafka: 
     namespace: kafka
     enabled: true
-    version: 18.3.1
-    chart: mosip/kafka
+    version: 26.11.4
+    chart: bitnami/kafka
     valuesFile:  https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/values.yaml
     wait: true
     priority: -4
@@ -177,7 +177,7 @@ apps:
   kafka-ui:
     namespace: kafka
     enabled: true
-    version: 0.4.2
+    version: 0.7.1
     chart: kafka-ui/kafka-ui
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/ui-values.yaml
     wait: true
