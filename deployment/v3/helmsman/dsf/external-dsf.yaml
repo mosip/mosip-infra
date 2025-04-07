@@ -225,8 +225,7 @@ apps:
       landing.injiweb: "$INJIWEB"
       landing.injiverify: "$INJIVERIFY"
       istio.host: "$DOMAIN"
-      indexFile: "$indexfile"
     wait: true
     hooks:
-      postInstall: "../hooks/landing-page.sh"
+      preInstall: "../hooks/landing-page.sh"
     priority: -1
