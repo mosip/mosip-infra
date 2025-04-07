@@ -30,6 +30,8 @@ namespaces:
     protected: false
   captcha:
     protected: false
+  landing-page:
+    protected: false
 
 apps:
   postgres:
@@ -38,7 +40,7 @@ apps:
     version: 13.1.5
     chart: bitnami/postgresql
     wait: true
-    priority: -15
+    priority: -16
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/postgres/values.yaml
 
   istio-addons-psql:
@@ -49,7 +51,7 @@ apps:
     set:
       postgresHost: "postgres.soil.mosip.net"
     wait: true
-    priority: -14
+    priority: -15
 
   postgres-init:
     namespace: postgres
@@ -58,7 +60,7 @@ apps:
     chart: mosip/postgres-init
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/postgres/init_values.yaml
-    priority: -13
+    priority: -14
 
   keycloak:
     namespace: keycloak
@@ -71,7 +73,7 @@ apps:
       image.tag: "develop"
       image.pullPolicy: "Always"
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/iam/values.yaml
-    priority: -12
+    priority: -13
 
   istio-addons-iam:
     namespace: keycloak
@@ -83,12 +85,12 @@ apps:
       keycloakInternalHost: "keycloak.keycloak"
       service: "keycloak"
     wait: true
-    priority: -11
+    priority: -12
 
   keycloak-init:
     namespace: keycloak
     enabled: true
-    version: 12.0.2
+    version: 0.0.1-develop
     chart: mosip/keycloak-init
     wait: true
     set:
@@ -100,7 +102,7 @@ apps:
       keycloak.realms.mosip.realm_config.smtpServer.from: "mosipqa@gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
       keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
-    priority: -10
+    priority: -11
 
   softhsm-kernel:
     namespace: softhsm
@@ -109,7 +111,7 @@ apps:
     chart: mosip/softhsm
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
-    priority: -9
+    priority: -10
 
   softhsm-ida:
     namespace: softhsm
@@ -118,7 +120,7 @@ apps:
     chart: mosip/softhsm
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
-    priority: -8
+    priority: -9
 
   minio:
     namespace: minio
@@ -127,7 +129,7 @@ apps:
     chart: mosip/minio
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/object-store/minio/values.yaml
-    priority: -7
+    priority: -8
 
   istio-addons-minio:
     namespace: minio
@@ -139,7 +141,7 @@ apps:
     wait: true
     hooks:
       postInstall: "../hooks/s3-setup.sh s3"
-    priority: -6
+    priority: -7
 
   clamav:
     namespace: clamav
@@ -148,7 +150,7 @@ apps:
     chart: wiremind/clamav
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/antivirus/clamav/values.yaml
-    priority: -5
+    priority: -6
 
   activemq:
     namespace: activemq
@@ -159,7 +161,7 @@ apps:
     set: 
       istio.hosts[0]: "activemq.soil.mosip.net"
     wait: true
-    priority: -4
+    priority: -5
     hooks:
       postInstall: "../hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
   
@@ -170,7 +172,7 @@ apps:
     chart: mosip/kafka
     valuesFile:  https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/values.yaml
     wait: true
-    priority: -3
+    priority: -4
 
   kafka-ui:
     namespace: kafka
@@ -179,7 +181,7 @@ apps:
     chart: kafka-ui/kafka-ui
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/ui-values.yaml
     wait: true
-    priority: -2
+    priority: -3
 
   istio-addons-kafka:
     namespace: kafka
@@ -192,5 +194,39 @@ apps:
     wait: true
     hooks:
       postInstall: "../hooks/msg-gateways-setup.sh"
-    priority: -1
+    priority: -2
 
+  landing-page:
+    namespace: landing-page
+    enabled: true
+    version: 12.0.2
+    chart: mosip/landing-page
+    set:
+      landing.version: "$VERSION"
+      landing.name: "$NAME"
+      landing.api: "$API"
+      landing.apiInternal: "$API_INTERNAL"
+      landing.admin: "$ADMIN"
+      landing.prereg: "$PREREG"
+      landing.kafka: "$KAFKA"
+      landing.kibana: "$KIBANA"
+      landing.activemq: "$ACTIVEMQ"
+      landing.minio: "$MINIO"
+      landing.keycloak: "$KEYCLOAK"
+      landing.regclient: "$REGCLIENT"
+      landing.postgres.host: "$POSTGRES"
+      landing.postgres.port: "$POSTGRES_PORT"     
+      landing.compliance: "$COMPLIANCE"
+      landing.pmp: "$PMP"
+      landing.resident: "$RESIDENT"
+      landing.esignet: "$ESIGNET"
+      landing.smtp: "$SMTP"
+      landing.healthservices: "$HEALTHSERVICES"
+      landing.injiweb: "$INJIWEB"
+      landing.injiverify: "$INJIVERIFY"
+      istio.host: "$DOMAIN"
+      indexFile: "$indexfile"
+    wait: true
+    hooks:
+      postInstall: "../hooks/landing-page.sh"
+    priority: -1
