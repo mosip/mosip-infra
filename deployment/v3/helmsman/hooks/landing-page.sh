@@ -10,30 +10,6 @@ function landing_page_setup() {
   | sed 's/namespace: default/namespace: landing-page/' \
   | kubectl apply -f -
 
-  VERSION=$(kubectl get cm global -o jsonpath={.data.mosip-version})
-  NAME=$(kubectl get cm global -o jsonpath={.data.installation-name})
-  DOMAIN=$(kubectl get cm global -o jsonpath={.data.installation-domain})
-  API=$(kubectl get cm global -o jsonpath={.data.mosip-api-host})
-  API_INTERNAL=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-  ADMIN=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
-  PREREG=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
-  KAFKA=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
-  KIBANA=$(kubectl get cm global -o jsonpath={.data.mosip-kibana-host})
-  ACTIVEMQ=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
-  MINIO=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
-  KEYCLOAK=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
-  REGCLIENT=$(kubectl get cm global -o jsonpath={.data.mosip-regclient-host})
-  POSTGRES=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
-  POSTGRES_PORT=5432
-  PMP=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
-  COMPLIANCE=$(kubectl get cm global -o jsonpath={.data.mosip-compliance-host})
-  RESIDENT=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
-  ESIGNET=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
-  SMTP=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
-  HEALTHSERVICES=$(kubectl get cm global -o jsonpath={.data.mosip-healthservices-host})
-  INJIWEB=$(kubectl get cm global -o jsonpath={.data.mosip-injiweb-host})
-  INJIVERIFY=$(kubectl get cm global -o jsonpath={.data.mosip-injiverify-host})
-
   return 0
 }
 # Set commands for error handling.
