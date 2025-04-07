@@ -30,12 +30,8 @@ jobs:
         id: set-matrix
         run: |
           matrix_json='{"include":[]}'
-          
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            matrix_json='{"include":[
-              {"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},
-              {"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}
-            ]}'
+            matrix_json='{"include":[{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}]}'
           else
             # Handle different event types properly
             if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
