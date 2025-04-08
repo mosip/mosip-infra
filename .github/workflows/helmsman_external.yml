@@ -141,4 +141,5 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
           kubectl config view
           kubectl get nodes
-          helmsman --debug --${{ env.mode }} -f deployment/v3/helmsman/dsf/${{ matrix.dsf_files }} 
+          export WORKDIR="$HOME/deployment/v3/helmsman/dsf"
+          helmsman --debug --${{ env.mode }} -f $WORKDIR/${{ matrix.dsf_files }} 
