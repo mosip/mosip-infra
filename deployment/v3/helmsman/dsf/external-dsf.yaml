@@ -47,7 +47,7 @@ apps:
     namespace: postgres
     enabled: true
     version: 0.1.0
-    chart: ../utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    chart: $WORKDIR/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
       postgresHost: "postgres.soil.mosip.net"
     wait: true
@@ -79,7 +79,7 @@ apps:
     namespace: keycloak
     enabled: true
     version: 0.1.0
-    chart: ../utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    chart: $WORKDIR/utils/istio-addons/iam-istio-addons-0.1.0.tgz
     set:
       keycloakExternalHost: "iam.soil.mosip.net"
       keycloakInternalHost: "keycloak.keycloak"
@@ -103,7 +103,7 @@ apps:
       keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
       keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
     hooks:
-      postInstall: "../utils/host_configmap.yaml"
+      postInstall: "$WORKDIR/utils/host_configmap.yaml"
     priority: -13
 
   softhsm-kernel:
@@ -137,12 +137,12 @@ apps:
     namespace: minio
     enabled: true
     version: 1.2.0
-    chart: ../utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    chart: $WORKDIR/utils/istio-addons/minio-istio-addons-1.2.0.tgz
     set:
       externalHost: "minio.soil.mosip.net"
     wait: true
     hooks:
-      postInstall: "../hooks/s3-setup.sh s3"
+      postInstall: "$WORKDIR/hooks/s3-setup.sh s3"
     priority: -2
 
   clamav:
@@ -165,7 +165,7 @@ apps:
     wait: true
     priority: -8
     hooks:
-      postInstall: "../hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
+      postInstall: "$WORKDIR/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
   
   kafka: 
     namespace: kafka
@@ -189,13 +189,13 @@ apps:
     namespace: kafka
     enabled: true
     version: 1.2.0
-    chart: ../utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    chart: $WORKDIR/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
     set:
       kafkaUiHost: "kafka.soil.mosip.net"
       installName: "kafka-ui"
     wait: true
     hooks:
-      postInstall: "../hooks/msg-gateways-setup.sh"
+      postInstall: "$WORKDIR/hooks/msg-gateways-setup.sh"
     priority: -1
 
   landing-page:
@@ -229,5 +229,5 @@ apps:
       istio.host: "$(kubectl get cm global -o jsonpath={.data.mosip-api-host})"
     wait: true
     hooks:
-      preInstall: "../hooks/landing-page.sh"
+      preInstall: "$WORKDIR/hooks/landing-page.sh"
     priority: -5
