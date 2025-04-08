@@ -22,7 +22,7 @@ function installing_istio_and_httpbin() {
 
   echo Create ingress gateways, load balancers and istio monitoring
   kubectl apply -f $WORKDIR/utils/istio-mesh/nodeport/iop-mosip.yaml
-  kubectl apply -f $WORKDIR/utils/istio-monitoring/
+  kubectl apply -f $WORKDIR/utils/istio-mesh/nodeport/istio-monitoring
   echo Wait for all resources to come up
   sleep 10
   kubectl -n $ISTIO_NS rollout status deploy istiod
