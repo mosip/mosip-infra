@@ -102,6 +102,8 @@ apps:
       keycloak.realms.mosip.realm_config.smtpServer.from: "mosipqa@gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
       keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
+    hooks:
+      postInstall: "../utils/host_configmap.yaml"
     priority: -13
 
   softhsm-kernel:
