@@ -141,5 +141,6 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
           kubectl config view
           kubectl get nodes
+          export HOME="/home/runner/work/mosip-infra/mosip-infra"
           export WORKDIR="$HOME/deployment/v3/helmsman"
           helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }} 
