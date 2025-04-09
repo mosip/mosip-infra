@@ -502,8 +502,8 @@ apps:
     set:
       image.repository: "mosipdev/pmp-ui"
       image.tag: "develop"
-      pmp.apiUrl: https://api-internal.soil.mosip.net/ 
-      istio.hosts: pmp.soil.mosip.net
+      pmp.apiUrl: "https://api-internal.soil.mosip.net/"
+      istio.hosts[0]: "pmp.soil.mosip.net"
     priority: -19
   pmp-revamp-ui:
     namespace: pms
@@ -517,7 +517,7 @@ apps:
       pmp_revamp.react_app_policy_manager_api_base_url: "https://api-internal.soil.mosip.net/v1/policymanager"
       pmp_revamp.pms_partner_manager_internal_service_url: "http://pms-partner.pms/v1/partnermanager"
       pmp_revamp.pms_policy_manager_internal_service_url: "http://pms-policy.pms/v1/policymanager"
-      istio.hosts: pmp-revamp.soil.mosip.net 
+      istio.hosts[0]: "pmp-revamp.soil.mosip.net"
     priority: -19
   mock-abis:
     namespace: abis
