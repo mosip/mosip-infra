@@ -154,6 +154,9 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
+          export KUBECONFIG=$HOME/.kube/config
+          export HOME="/home/runner/work/mosip-infra/mosip-infra"
+          export WORKDIR="$HOME/deployment/v3/helmsman"
           kubectl config view
           kubectl get nodes
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
