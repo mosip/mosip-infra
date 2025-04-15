@@ -9,14 +9,14 @@ function installing_prereg() {
   kubectl label ns $NS istio-injection=disabled --overwrite
 
   echo Copying Resorces
-  COPY_UTIL=../utils/copy-cm-and-secrets/copy_cm_func.sh
+  COPY_UTIL=$WORKDIR/utils/copy-cm-and-secrets/copy_cm_func.sh
   #Copy configmaps
   $COPY_UTIL configmap global default $NS
   $COPY_UTIL configmap artifactory-share artifactory $NS
   $COPY_UTIL configmap config-server-share config-server $NS
 
   echo Installing prereg rate-control Envoyfilter
-  kubectl apply -n $NS -f ../utils/rate-control-envoyfilter.yaml
+  kubectl apply -n $NS -f $WORKDIR/utils/rate-control-envoyfilter.yaml
 
   return 0
 }
