@@ -57,6 +57,10 @@ jobs:
             if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/external-dsf.yaml'; then
               entries+=('{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}')
             fi
+
+            if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/mosip-dsf.yaml'; then
+              entries+=('{"dsf_files":"mosip-dsf.yaml","wg_conf":"wg3"}')
+            fi
             
             if [ ${#entries[@]} -gt 0 ]; then
               matrix_json="{\"include\":[$(IFS=,; echo "${entries[*]}")]}"
@@ -143,4 +147,7 @@ jobs:
           kubectl get nodes
           export HOME="/home/runner/work/mosip-infra/mosip-infra"
           export WORKDIR="$HOME/deployment/v3/helmsman"
-          helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }} 
+          helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }}
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/mosip-dsf.yaml
+          fi
