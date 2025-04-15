@@ -39,8 +39,8 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "c-m-4wndfx9b"
-      global.cattle.clusterId: "c-m-4wndfx9b"
+      grafana.global.cattle.clusterId: "c-m-7kxcpkdh"
+      global.cattle.clusterId: "c-m-7kxcpkdh"
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
     priority: -5
@@ -86,4 +86,3 @@ apps:
     timeout: 600
     hooks:
       postInstall: "$WORKDIR/hooks/post_logging-setup.sh"
-
