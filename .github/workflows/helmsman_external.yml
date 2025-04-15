@@ -59,7 +59,7 @@ jobs:
             fi
 
             if echo "$changed_files" | grep -qx 'deployment/v3/helmsman/dsf/mosip-dsf.yaml'; then
-              entries+=('{"dsf_files":"mosip-dsf.yaml","wg_conf":"wg3"}')
+              entries+=('{"dsf_files":"mosip-dsf.yaml","wg_conf":"wg2"}')
             fi
             
             if [ ${#entries[@]} -gt 0 ]; then
@@ -105,6 +105,7 @@ jobs:
         run: |
           echo "${{ secrets.CLUSTER_WIREGUARD_WG0 }}" | sudo tee /etc/wireguard/wg0.conf
           echo "${{ secrets.CLUSTER_WIREGUARD_WG1 }}" | sudo tee /etc/wireguard/wg1.conf
+          echo "${{ secrets.CLUSTER_WIREGUARD_WG2 }}" | sudo tee /etc/wireguard/wg2.conf
 
       - name: Start WireGuard
         run: |
