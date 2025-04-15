@@ -3,7 +3,7 @@ NS=masterdata-loader
 function installing_masterdata_loader() {
 
   echo Copying Resorces
-  COPY_UTIL=../utils/copy-cm-and-secrets/copy_cm_func.sh
+  COPY_UTIL=$WORKDIR/utils/copy-cm-and-secrets/copy_cm_func.sh
   #Copy secrets
   $COPY_UTIL secret db-common-secrets postgres $NS
 
