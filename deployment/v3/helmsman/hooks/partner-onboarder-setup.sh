@@ -7,7 +7,7 @@ function installing_onboarder() {
   echo Copy configmaps
   # kubectl -n $NS --ignore-not-found=true delete cm s3
   # kubectl -n $NS --ignore-not-found=true delete cm onboarder-namespace
-  COPY_UTIL=../utils/copy-cm-and-secrets/copy_cm_func.sh
+  COPY_UTIL=$WORKDIR/utils/copy-cm-and-secrets/copy_cm_func.sh
    #Copy configmaps
   $COPY_UTIL configmap global default $NS
   $COPY_UTIL configmap keycloak-env-vars keycloak $NS
