@@ -15,6 +15,7 @@ function Deleting_all() {
                      "admin"
                      "idrepo"
                      "print"
+                     "digitalcard"
                      "ida"
                      "packetmanager"
                      "datashare"
