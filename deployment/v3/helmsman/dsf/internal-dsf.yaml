@@ -250,6 +250,7 @@ apps:
       resources.limits.memory: 3500Mi
       resources.requests.cpu: 500m
       resources.requests.memory: 3500Mi
+      startupProbe.failureThreshold: 90
     timeout: 600
     priority: -30
   masterdata:
@@ -258,8 +259,8 @@ apps:
     version: 1.3.0-beta.1
     chart: mosip/masterdata
     set:
-      image.repository: "mosipdev2/kernel-masterdata-service"
-      image.tag: "release-1.3.x"
+      image.repository: "mosipdev/kernel-masterdata-service"
+      image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].exact: "https://admin.soil.mosip.net"
     priority: -30
   otpmanager:
@@ -295,8 +296,8 @@ apps:
     version: 1.3.0-beta.1
     chart: mosip/syncdata
     # set:
-    #   image.repository: ""
-    #   image.tag: ""
+    #   image.repository: "mosipdev/kernel-syncdata-service"
+    #   image.tag: "develop"
     priority: -30
   notifier:
     namespace: kernel
@@ -707,7 +708,13 @@ apps:
     set:
       image.repository: "mosipdev/hotlist-service"
       image.tag: "develop"
+      resources.limits.cpu: "300m"
+      resources.limits.memory: "1500Mi"
+      resources.requests.cpu: "300m"
+      resources.requests.memory: "1500Mi"
+      startupProbe.failureThreshold: 60
     wait: true
+    timeout: 600
     priority: -11
     hooks:
       preInstall: "../hooks/admin-setup.sh"
@@ -838,6 +845,7 @@ apps:
       enable_insecure: false
       istio.corsPolicy.allowOrigins[0].prefix: "https://resident.soil.mosip.net"
     wait: true
+    timeout: 600
     priority: -6
     hooks:
       preInstall: "../hooks/resident-setup.sh"
@@ -865,6 +873,7 @@ apps:
       onboarding.configmaps.s3.s3-user-key: "admin" 
       onboarding.configmaps.s3.s3-region: ""
       onboarding.configmaps.s3.s3-bucket-name: "onboarder"
+      onboarding.secrets.s3.s3-user-secret: "password"
       # onboarding.volumes.reports.nfs.server: "<nfs_server>"
       # # provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/onboarder/), make sure permission is 777 for the folder: " nfs_path
       # onboarding.volumes.reports.nfs.path: "<nfs_path>"
@@ -905,20 +914,21 @@ apps:
       image.repository: "mosipdev/mosip-file-server"
       image.tag: "release-1.3.x"
       mosipfileserver.host: "api.soil.mosip.net"
-      mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET: ""
+      # mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET: ""
       istio.corsPolicy.allowOrigins[0].prefix: "https://api.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://api-internal.soil.mosip.net"
       istio.corsPolicy.allowOrigins[2].prefix: "https://verifiablecredential.io"
     priority: -3
     hooks:
       preInstall: "../hooks/mosip-file-server-setup.sh"
+      postInstall: "../hooks/post-install-mosip-file-server-setup.sh"
   regclient:
     namespace: regclient
     enabled: true
     version: 1.3.0-beta.1-develop
     chart: mosip/regclient
     set:
-      startupProbe.failureThreshold: 60 
+      startupProbe.failureThreshold: 60
       image.repository: "mosipdev/registration-client"
       image.tag: "develop"
       regclient.version: "1.2.1-SNAPSHOT"

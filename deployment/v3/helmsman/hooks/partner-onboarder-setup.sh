@@ -14,6 +14,7 @@ function installing_onboarder() {
   $COPY_UTIL configmap keycloak-host keycloak $NS
 
   $COPY_UTIL secret s3 s3 $NS
+  #$COPY_UTIL secret s3-partner-onboarder s3 $NS
   $COPY_UTIL secret keycloak keycloak $NS
   $COPY_UTIL secret keycloak-client-secrets keycloak $NS
   return 0
