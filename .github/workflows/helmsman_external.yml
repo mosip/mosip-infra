@@ -150,7 +150,7 @@ jobs:
           export WORKDIR="$HOME/deployment/v3/helmsman"
           helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }}
 
-      - name: Initiate helmsman to apply the DSF configurations.
+      - name: Initiate helmsman to apply the MOSIP DSF configurations.
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
