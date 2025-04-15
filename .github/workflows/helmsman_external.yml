@@ -149,6 +149,13 @@ jobs:
           export HOME="/home/runner/work/mosip-infra/mosip-infra"
           export WORKDIR="$HOME/deployment/v3/helmsman"
           helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }}
+
+      - name: Initiate helmsman to apply the DSF configurations.
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          kubectl config view
+          kubectl get nodes
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/mosip-dsf.yaml
           fi
