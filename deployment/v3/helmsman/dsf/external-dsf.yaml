@@ -11,27 +11,27 @@ helmRepos:
 
 namespaces:
   postgres:
-    protected: false
+    protected: true
   keycloak:
-    protected: false
+    protected: true
   softhsm:
-    protected: false
+    protected: true
   minio:
-    protected: false
+    protected: true
   clamav:
-    protected: false
+    protected: true
   activemq:
-    protected: false
+    protected: true
   kafka:
-    protected: false
+    protected: true
   s3:
-    protected: false
+    protected: true
   msg-gateways:
-    protected: false
+    protected: true
   captcha:
-    protected: false
+    protected: true
   landing-page:
-    protected: false
+    protected: true
 
 apps:
   postgres:
