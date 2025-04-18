@@ -14,7 +14,7 @@ on:
   push:
     paths:
       - deployment/v3/helmsman/dsf/prerq-dsf.yaml
-      - deployment/v3/helmsman/dsf/mosip-dsf.yaml
+      - deployment/v3/helmsman/dsf/external-dsf.yaml
 
 jobs:
   set-matrix:
