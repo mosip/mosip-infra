@@ -231,4 +231,3 @@ apps:
     hooks:
       preInstall: "$WORKDIR/hooks/landing-page.sh"
     priority: -5
-
