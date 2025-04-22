@@ -43,6 +43,8 @@ function initialize_keycloak() {
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
+  # Read Keycloak service name (default: keycloak)
+  read_user_input KEYCLOAK_SERVICE_NAME "Provide the Keycloak service name [ Default: keycloak ]" keycloak
   read_user_input SMTP_HOST "'SMTP host' for keycloak"
   read_user_input SMTP_PORT "'SMTP port' for keycloak"
 
@@ -69,6 +71,8 @@ function initialize_keycloak() {
 
   echo Initializing keycloak-init
   helm -n $NS install keycloak-init mosip/keycloak-init   \
+  --set keycloakExternalHost="$IAMHOST_URL" \
+  --set keycloakInternalHost="$KEYCLOAK_SERVICE_NAME.$NS" \
   --set keycloak.realms.mosip.realm_config.smtpServer.host="$SMTP_HOST"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.port="$SMTP_PORT"                     \
   --set keycloak.realms.mosip.realm_config.smtpServer.from="$SMTP_FROM_ADDR"                \
