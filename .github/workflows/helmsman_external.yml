@@ -10,10 +10,11 @@ on:
         type: choice
         options:
           - dry-run
-          - apply       
+          - apply
   push:
     paths:
-      - deployment/v3/helmsman/dsf/*
+      - deployment/v3/helmsman/dsf/prereq-dsf.yaml
+      - deployment/v3/helmsman/dsf/external-dsf.yaml
 
 jobs:
   set-matrix:
@@ -30,12 +31,8 @@ jobs:
         id: set-matrix
         run: |
           matrix_json='{"include":[]}'
-          
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            matrix_json='{"include":[
-              {"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},
-              {"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}
-            ]}'
+            matrix_json='{"include":[{"dsf_files":"prereq-dsf.yaml","wg_conf":"wg0"},{"dsf_files":"external-dsf.yaml","wg_conf":"wg1"}]}'
           else
             # Handle different event types properly
             if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
@@ -145,4 +142,25 @@ jobs:
           export KUBECONFIG=$HOME/.kube/config
           kubectl config view
           kubectl get nodes
-          helmsman --debug --${{ env.mode }} -f deployment/v3/helmsman/dsf/${{ matrix.dsf_files }} 
+          export HOME="/home/runner/work/mosip-infra/mosip-infra"
+          export WORKDIR="$HOME/deployment/v3/helmsman"
+          helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }}
+
+      - name: Trigger helmsman mosip workflow via API
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+            curl -X PATCH \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              https://api.github.com/repos/$REPO \
+              -d '{"default_branch":"$BRANCH"}'  
+            curl -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              https://api.github.com/repos/$GITHUB_REPO/actions/workflows/helmsman_mosip.yml/dispatches \
+              -d '{"ref":"$BRANCH","inputs":{"mode":"apply"}}'
