@@ -11,27 +11,27 @@ helmRepos:
 
 namespaces:
   postgres:
-    protected: true
+    protected: false
   keycloak:
-    protected: true
+    protected: false
   softhsm:
-    protected: true
+    protected: false
   minio:
-    protected: true
+    protected: false
   clamav:
-    protected: true
+    protected: false
   activemq:
-    protected: true
+    protected: false
   kafka:
-    protected: true
+    protected: false
   s3:
-    protected: true
+    protected: false
   msg-gateways:
-    protected: true
+    protected: false
   captcha:
-    protected: true
+    protected: false
   landing-page:
-    protected: true
+    protected: false
 
 apps:
   postgres:
@@ -231,4 +231,3 @@ apps:
     hooks:
       preInstall: "$WORKDIR/hooks/landing-page.sh"
     priority: -5
-
