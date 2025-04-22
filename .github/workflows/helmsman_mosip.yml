@@ -46,7 +46,7 @@ jobs:
 
       - name: Start WireGuard
         run: |
-          sudo chmod 600 /etc/wireguard/${{ matrix.wg_conf }}.conf
+          sudo chmod 600 /etc/wireguard/wg0.conf
           sudo chmod 700 /etc/wireguard/
           sudo chmod 644 /lib/systemd/system/wg-quick@.service
           sudo systemctl daemon-reload
