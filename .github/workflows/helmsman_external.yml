@@ -152,7 +152,7 @@ jobs:
           helmsman --debug --${{ env.mode }} -f $WORKDIR/dsf/${{ matrix.dsf_files }}
 
       - name: Trigger helmsman mosip workflow via API
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
