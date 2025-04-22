@@ -13,8 +13,6 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_apitestrig() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
   echo Copy configmaps
