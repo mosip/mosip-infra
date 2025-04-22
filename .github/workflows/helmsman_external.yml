@@ -18,7 +18,7 @@ on:
         type: string    
   push:
     paths:
-      - deployment/v3/helmsman/dsf/prerq-dsf.yaml
+      - deployment/v3/helmsman/dsf/prereq-dsf.yaml
       - deployment/v3/helmsman/dsf/external-dsf.yaml
 
 jobs:
