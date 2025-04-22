@@ -151,7 +151,7 @@ jobs:
     needs: deploy
     steps:
       - name: Trigger helmsman mosip workflow via API
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         env:
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -168,4 +168,4 @@ jobs:
               -H "X-GitHub-Api-Version: 2022-11-28" \
               https://api.github.com/repos/$GITHUB_REPO/actions/workflows/helmsman_mosip.yml/dispatches \
               -d '{"ref":"'"$BRANCH"'","inputs":{"mode":"apply"}}'
-      
+              
