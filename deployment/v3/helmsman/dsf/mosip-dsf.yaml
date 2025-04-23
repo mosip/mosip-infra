@@ -65,7 +65,7 @@ apps:
     enabled: true
     version: 0.0.1-develop
     chart: mosip/conf-secrets
-    priority: -40
+    priority: -15
     
   config-server:
     namespace: config-server
@@ -117,10 +117,10 @@ apps:
     #valuesFile: "../config-values.yaml"
     wait: true
     timeout: 600
-    priority: -39
+    priority: -14
     hooks:
       preInstall: "$WORKDIR/hooks/config-server-setup.sh"
-      
+
   artifactory:
     namespace: artifactory
     enabled: true
@@ -131,10 +131,10 @@ apps:
       image.tag: "release-1.3.x"
       artifacts.kernelRefIdObjectValidator: /artifactory/libs-release-local/io/mosip/kernel/kernel-ref-idobjectvalidator/kernel-ref-idobjectvalidator.jar
     wait: true
-    priority: -38
+    priority: -13
     hooks:
       preInstall: "kubectl label ns artifactory istio-injection=enabled --overwrite"
-      
+
   captcha:
     namespace: captcha
     enabled: true
@@ -143,11 +143,36 @@ apps:
     set:
       image.repository: "mosipdev/captcha-validation-service"
       image.tag: "develop"
-    wait: true
-    priority: -37
+    priority: -13
     hooks:
-      preInstall: "kubectl label ns artifactory istio-injection=enabled --overwrite"
-      
+      preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"
+
+  mock-abis:
+    namespace: abis
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/mock-abis
+    set:
+      startupProbe.failureThreshold: 60
+    #   image.repository: ""
+    #   image.tag: ""
+    timeout: 420
+    priority: -12
+    hooks:
+      preInstall: "$WORKDIR/hooks/abis-setup.sh"
+
+  mock-mv:
+    namespace: abis
+    enabled: true
+    version: 12.0.1
+    chart: mosip/mock-mv
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -12
+    # hooks:
+    #   preInstall: "../hooks/abis-setup.sh"
+
   kernel-keygen:
     namespace: keymanager
     enabled: true
@@ -164,10 +189,10 @@ apps:
       persistence.mountDir: "<volume_mount_path>"
       persistence.pvc_claim_name: "<PVC_CLAIM_NAME>"
     wait: true
-    priority: -36
+    priority: -12
     hooks:
       preInstall: "$WORKDIR/hooks/keymanager-setup.sh"
-      
+
   keymanager:
     namespace: keymanager
     enabled: true
@@ -186,10 +211,10 @@ apps:
       extraEnvVarsCM[2]: "artifactory-share"
       extraEnvVarsCM[3]: "softhsm-kernel-share"
     wait: true
-    priority: -35
+    priority: -11
     hooks:
       preInstall: "$WORKDIR/hooks/wait-for-keygen.sh"
-      
+
   websub-consolidator:
     namespace: websub
     enabled: true
@@ -199,10 +224,10 @@ apps:
     #   image.repository: "mosipdev/consolidator-websub-service"
     #   image.tag: "release-1.3.x"
     wait: true
-    priority: -34
+    priority: -11
     hooks:
       preInstall: "$WORKDIR/hooks/websub-setup.sh"
-      
+
   websub:
     namespace: websub
     enabled: true
@@ -211,9 +236,8 @@ apps:
     # set:
     #   image.repository: "mosipdev/websub-service"
     #   image.tag: "release-1.3.x"
-    wait: true
-    priority: -33
-    
+    priority: -10
+
   mock-smtp:
     namespace: mock-smtp
     enabled: true
@@ -223,110 +247,10 @@ apps:
       image.repository: "mosipid/mock-smtp"
       image.tag: "1.0.0"
       istio.hosts[0]: "smtp.soil.mosip.net"
-    wait: true
-    priority: -32
+    priority: -10
     hooks:
       preInstall: "$WORKDIR/hooks/mock-smtp-setup.sh"
-      
-  authmanager:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/authmanager
-    set:
-      image.repository: "mosipdev/kernel-auth-service"
-      image.tag: "develop"
-    priority: -31
-    hooks:
-      preInstall: "$WORKDIR/hooks/kernel-setup.sh"
-      
-  auditmanager:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1-develop
-    chart: mosip/auditmanager
-    set:
-      image.repository: "mosipdev/kernel-auditmanager-service"
-      image.tag: "release-1.3.x"
-    priority: -30
-    
-  idgenerator:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/idgenerator
-    set:
-      # image.repository: ""
-      # image.tag: ""
-      resources.limits.cpu: 500m
-      resources.limits.memory: 3500Mi
-      resources.requests.cpu: 500m
-      resources.requests.memory: 3500Mi
-      startupProbe.failureThreshold: 90
-    timeout: 600
-    priority: -30
-    
-  masterdata:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/masterdata
-    set:
-      image.repository: "mosipdev/kernel-masterdata-service"
-      image.tag: "develop"
-      istio.corsPolicy.allowOrigins[0].exact: "https://admin.soil.mosip.net"
-    priority: -30
-    
-  otpmanager:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/otpmanager
-    # set:
-    #   image.repository: ""
-    #   image.tag: ""
-    priority: -30
-    
-  pridgenerator:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/pridgenerator
-    # set:
-    #   image.repository: ""
-    #   image.tag: ""
-    priority: -30
-    
-  ridgenerator:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/ridgenerator
-    # set:
-    #   image.repository: ""
-    #   image.tag: ""
-    priority: -30
-    
-  syncdata:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/syncdata
-    # set:
-    #   image.repository: "mosipdev/kernel-syncdata-service"
-    #   image.tag: "develop"
-    priority: -30
-    
-  notifier:
-    namespace: kernel
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/notifier
-    # set:
-    #   image.repository: ""
-    #   image.tag: ""
-    priority: -30
-    
+
   masterdata-loader:
     namespace: masterdata-loader
     enabled: true
@@ -339,10 +263,125 @@ apps:
       mosipDataGithubRepo: "https://github.com/mosip/mosip-data"
       mosipDataXlsfolderPath: "/home/mosip/mosip-data/mosip_master/xlsx"
     wait: true
-    priority: -29
+    priority: -10
     hooks:
       preInstall: "$WORKDIR/hooks/masterdata-loader.sh"
-      
+
+  authmanager:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/authmanager
+    set:
+      image.repository: "mosipdev/kernel-auth-service"
+      image.tag: "develop"
+    priority: -9
+    hooks:
+      preInstall: "$WORKDIR/hooks/kernel-setup.sh"
+  
+  auditmanager:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1-develop
+    chart: mosip/auditmanager
+    set:
+      image.repository: "mosipdev/kernel-auditmanager-service"
+      image.tag: "release-1.3.x"
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  idgenerator:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/idgenerator
+    set:
+      # image.repository: ""
+      # image.tag: ""
+      resources.limits.cpu: 500m
+      resources.limits.memory: 3500Mi
+      resources.requests.cpu: 500m
+      resources.requests.memory: 3500Mi
+      startupProbe.failureThreshold: 100
+    timeout: 600
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  masterdata:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/masterdata
+    set:
+      image.repository: "mosipdev/kernel-masterdata-service"
+      image.tag: "develop"
+      istio.corsPolicy.allowOrigins[0].exact: "https://admin.soil.mosip.net"
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  otpmanager:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/otpmanager
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  pridgenerator:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/pridgenerator
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  ridgenerator:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/ridgenerator
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  syncdata:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/syncdata
+    # set:
+    #   image.repository: "mosipdev/kernel-syncdata-service"
+    #   image.tag: "develop"
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+  
+  notifier:
+    namespace: kernel
+    enabled: true
+    version: 1.3.0-beta.1
+    chart: mosip/notifier
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+    # hooks:
+    #   preInstall: "../hooks/kernel-setup.sh"
+
   biosdk-service:
     namespace: biosdk
     enabled: true
@@ -353,11 +392,10 @@ apps:
       image.tag: "1.3.0-beta.1"
       biosdk.zippedLibUrl: "http://artifactory.artifactory/artifactory/libs-release-local/biosdk/biosdk-lib.zip"
       biosdk.bioapiImpl: "io.mosip.mock.sdk.impl.SampleSDKV2"
-    wait: true
-    priority: -28
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/biosdk-setup.sh"
-      
+  
   packetmanager:
     namespace: packetmanager
     enabled: true
@@ -366,11 +404,10 @@ apps:
     set:
       image.repository: "mosipdev/commons-packet-service"
       image.tag: "develop"
-    wait: true
-    priority: -27
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/packetmanager-setup.sh"
-      
+
   datashare:
     namespace: datashare
     enabled: true
@@ -379,11 +416,10 @@ apps:
     set:
       image.repository: "mosipid/data-share-service"
       image.tag: "1.3.0-beta.1"
-    wait: true
-    priority: -26
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/datashare-setup.sh"
-      
+
   prereg-gateway:
     namespace: prereg
     enabled: true
@@ -391,10 +427,10 @@ apps:
     chart: mosip/prereg-gateway
     set:
       istio.hosts[0]: "prereg.soil.mosip.net"
-    priority: -25
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/prereg-setup.sh"
-      
+
   prereg-application:
     namespace: prereg
     enabled: true
@@ -403,8 +439,8 @@ apps:
     set:
       image.repository: "mosipdev2/pre-registration-application-service"
       image.tag: "release-1.3.x"
-    priority: -24
-    
+    priority: -8
+
   prereg-booking:
     namespace: prereg
     enabled: true
@@ -413,8 +449,8 @@ apps:
     set:
       image.repository: "mosipdev2/pre-registration-booking-service"
       image.tag: "release-1.3.x"
-    priority: -24
-    
+    priority: -8
+
   prereg-datasync:
     namespace: prereg
     enabled: true
@@ -423,8 +459,8 @@ apps:
     set:
       image.repository: "mosipdev2/pre-registration-datasync-service"
       image.tag: "release-1.3.x"
-    priority: -20
-    
+    priority: -8
+
   prereg-batchjob:
     namespace: prereg
     enabled: true
@@ -433,8 +469,8 @@ apps:
     set:
       image.repository: "mosipdev2/pre-registration-batchjob"
       image.tag: "release-1.3.x"
-    priority: -24
-    
+    priority: -8
+
   prereg-ui:
     namespace: prereg
     enabled: true
@@ -444,8 +480,8 @@ apps:
       # image.repository: ""
       # image.tag: ""
       prereg.apiHost: "prereg.soil.mosip.net"
-    priority: -24
-    
+    priority: -8
+
   idrepo-saltgen:
     namespace: idrepo
     enabled: true
@@ -454,12 +490,11 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    wait: true
     timeout: 240
-    priority: -23
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/idrepo-setup.sh"
-      
+
   credential:
     namespace: idrepo
     enabled: true
@@ -468,11 +503,10 @@ apps:
     set:
       image.repository: "mosipdev/credential-service"
       image.tag: "release-1.3.x"
-    wait: true
-    priority: -22
+    priority: -7
     hooks:
       preInstall: "$WORKDIR/hooks/wait-for-idrepojob.sh"
-      
+
   credentialrequest:
     namespace: idrepo
     enabled: true
@@ -481,8 +515,9 @@ apps:
     set:
       image.repository: "mosipdev/credential-request-generator"
       image.tag: "release-1.3.x"
-    priority: -21
-    
+    priority: -6
+  
+
   identity:
     namespace: idrepo
     enabled: true
@@ -491,8 +526,8 @@ apps:
     set:
       image.repository: "mosipdev/id-repository-identity-service"
       image.tag: "release-1.3.x"
-    priority: -21
-    
+    priority: -6
+
   vid:
     namespace: idrepo
     enabled: true
@@ -501,8 +536,9 @@ apps:
     set:
       image.repository: "mosipdev/id-repository-vid-service"
       image.tag: "release-1.3.x"
-    priority: -21
-    
+    priority: -6
+
+
   pms-partner:
     namespace: pms
     enabled: true
@@ -513,11 +549,10 @@ apps:
       image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://pmp.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://<PMP_REVAMP_UI_HOST>"
-    wait: true
-    priority: -20
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/pms-setup.sh"
-      
+
   pms-policy:
     namespace: pms
     enabled: true
@@ -528,9 +563,9 @@ apps:
       image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://pmp.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://<PMP_REVAMP_UI_HOST>"
-    wait: true
-    priority: -19
-    
+    priority: -8
+
+
   pmp-ui:
     namespace: pms
     enabled: true
@@ -541,8 +576,9 @@ apps:
       image.tag: "develop"
       pmp.apiUrl: "https://api-internal.soil.mosip.net/"
       istio.hosts[0]: "pmp.soil.mosip.net"
-    priority: -19
-    
+    priority: -8
+
+
   pmp-revamp-ui:
     namespace: pms
     enabled: true
@@ -556,33 +592,9 @@ apps:
       pmp_revamp.pms_partner_manager_internal_service_url: "http://pms-partner.pms/v1/partnermanager"
       pmp_revamp.pms_policy_manager_internal_service_url: "http://pms-policy.pms/v1/policymanager"
       istio.hosts[0]: "pmp-revamp.soil.mosip.net"
-    priority: -19
-    
-  mock-abis:
-    namespace: abis
-    enabled: true
-    version: 1.3.0-beta.1
-    chart: mosip/mock-abis
-    set:
-      startupProbe.failureThreshold: 60
-    #   image.repository: ""
-    #   image.tag: ""
-    timeout: 420
-    wait: true
-    priority: -18
-    hooks:
-      preInstall: "$WORKDIR/hooks/abis-setup.sh"
-      
-  mock-mv:
-    namespace: abis
-    enabled: true
-    version: 12.0.1
-    chart: mosip/mock-mv
-    # set:
-    #   image.repository: ""
-    #   image.tag: ""
-    priority: -17
-    
+    priority: -8
+
+
   regproc-salt:
     namespace: regproc
     enabled: true
@@ -591,11 +603,10 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    wait: true
-    priority: -16
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/regproc-setup.sh"
-      
+  
   regproc-workflow:
     namespace: regproc
     enabled: true
@@ -604,11 +615,10 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    wait: true
-    priority: -15
+    priority: -7
     hooks:
       preInstall: "$WORKDIR/hooks/wait-for-regprocjob.sh"
-      
+
   regproc-status:
     namespace: regproc
     enabled: true
@@ -617,8 +627,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -14
-    
+    priority: -6
+
   regproc-camel:
     namespace: regproc
     enabled: true
@@ -627,8 +637,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -14
-    
+    priority: -6
+
   regproc-pktserver:
     namespace: regproc
     enabled: true
@@ -637,8 +647,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -14
-    
+    priority: -6
+
   regproc-group1:
     namespace: regproc
     enabled: true
@@ -649,9 +659,8 @@ apps:
       persistence.size: 5Gi
     #   image.repository: ""
     #   image.tag: ""
-    wait: true
-    priority: -13
-    
+    priority: -6
+
   regproc-group2:
     namespace: regproc
     enabled: true
@@ -660,8 +669,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-group3:
     namespace: regproc
     enabled: true
@@ -670,8 +679,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-group4:
     namespace: regproc
     enabled: true
@@ -680,8 +689,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-group5:
     namespace: regproc
     enabled: true
@@ -690,8 +699,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-group6:
     namespace: regproc
     enabled: true
@@ -700,8 +709,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-group7:
     namespace: regproc
     enabled: true
@@ -710,8 +719,8 @@ apps:
     set:
       image.repository: "mosipdev/registration-processor-stage-group-7"
       image.tag: "develop"
-    priority: -12
-    
+    priority: -5
+
   regproc-trans:
     namespace: regproc
     enabled: true
@@ -720,8 +729,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-notifier:
     namespace: regproc
     enabled: true
@@ -734,8 +743,8 @@ apps:
       resources.requests.memory: "1500Mi"
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-reprocess:
     namespace: regproc
     enabled: true
@@ -744,8 +753,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   regproc-landingzone:
     namespace: regproc
     enabled: true
@@ -754,8 +763,8 @@ apps:
     # set:
     #   image.repository: ""
     #   image.tag: ""
-    priority: -12
-    
+    priority: -5
+
   admin-hotlist:
     namespace: admin
     enabled: true
@@ -769,12 +778,11 @@ apps:
       resources.requests.cpu: "300m"
       resources.requests.memory: "1500Mi"
       startupProbe.failureThreshold: 60
-    wait: true
     timeout: 600
-    priority: -11
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/admin-setup.sh"
-      
+
   admin-service:
     namespace: admin
     enabled: true
@@ -784,9 +792,8 @@ apps:
       image.repository: "mosipdev/admin-service"
       image.tag: "develop"
       istio.corsPolicy.allowOrigins[0].prefix: "https://admin.soil.mosip.net"
-    wait: true
-    priority: -10
-    
+    priority: -8
+
   admin-ui:
     namespace: admin
     enabled: true
@@ -797,8 +804,8 @@ apps:
       image.tag: "release-1.3.x"
       admin.apiUrl: "https://api-internal.soil.mosip.net/v1"
       istio.hosts[0]: "admin.soil.mosip.net"
-    priority: -10
-    
+    priority: -8
+
   ida-keygen:
     namespace: ida
     enabled: true
@@ -812,11 +819,10 @@ apps:
       persistence.size: <volume_size>
       persistence.mountDir: "<volume_mount_path>"
       persistence.pvc_claim_name: "<PVC_CLAIM_NAME>"
-    wait: true
-    priority: -9
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/ida-setup.sh"
-      
+
   ida-auth:
     namespace: ida
     enabled: true
@@ -834,11 +840,10 @@ apps:
       extraEnvVarsCM[1]: "config-server-share"
       extraEnvVarsCM[2]: "artifactory-share"
       extraEnvVarsCM[3]: "softhsm-ida-share"
-    wait: true
-    priority: -8
+    priority: -7
     hooks:
       preInstall: "$WORKDIR/hooks/wait-for-idajob.sh"
-      
+
   ida-internal:
     namespace: ida
     enabled: true
@@ -856,8 +861,8 @@ apps:
       extraEnvVarsCM[1]: "config-server-share"
       extraEnvVarsCM[2]: "artifactory-share"
       extraEnvVarsCM[3]: "softhsm-ida-share"
-    priority: -7
-    
+    priority: -6
+
   ida-otp:
     namespace: ida
     enabled: true
@@ -875,8 +880,8 @@ apps:
       extraEnvVarsCM[1]: "config-server-share"
       extraEnvVarsCM[2]: "artifactory-share"
       extraEnvVarsCM[3]: "softhsm-ida-share"
-    priority: -7
-    
+    priority: -6
+
   print:
     namespace: print
     enabled: true
@@ -885,20 +890,19 @@ apps:
     set:
       image.repository: "mosipdev/print"
       image.tag: "release-1.3.x"
-    priority: -7
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/print-setup.sh"
-      
+
   digitalcard:
     namespace: digitalcard
     enabled: true
     version: 1.3.0-beta.1
     chart: mosip/digitalcard
-    wait: true
-    priority: -7
+    priority: -8
     hooks:
       preInstall: "$WORKDIR/hooks/digitalcard-setup.sh"
-      
+
   resident:
     namespace: resident
     enabled: true
@@ -909,12 +913,12 @@ apps:
       image.tag: "release-1.3.x"
       enable_insecure: false
       istio.corsPolicy.allowOrigins[0].prefix: "https://resident.soil.mosip.net"
-    wait: true
     timeout: 600
-    priority: -6
+    wait: true
+    priority: -4
     hooks:
       preInstall: "$WORKDIR/hooks/resident-setup.sh"
-      
+
   resident-ui:
     namespace: resident
     enabled: true
@@ -925,9 +929,8 @@ apps:
       image.tag: "develop"
       resident.apiHost: "api-internal.soil.mosip.net"
       istio.hosts[0]: "resident.soil.mosip.net"
-    wait: true
-    priority: -5
-    
+    priority: -3
+
   partner-onboarder:
     namespace: onboarder
     enabled: true
@@ -969,10 +972,10 @@ apps:
       onboarding.modules[9].enabled: false
     #valuesFile: "../onboarder-values.yaml"
     wait: true
-    priority: -4
+    priority: -2
     hooks:
       preInstall: "$WORKDIR/hooks/partner-onboarder-setup.sh"
-      
+  
   mosip-file-server:
     namespace: mosip-file-server
     enabled: true
@@ -986,11 +989,11 @@ apps:
       istio.corsPolicy.allowOrigins[0].prefix: "https://api.soil.mosip.net"
       istio.corsPolicy.allowOrigins[1].prefix: "https://api-internal.soil.mosip.net"
       istio.corsPolicy.allowOrigins[2].prefix: "https://verifiablecredential.io"
-    priority: -3
+    priority: -1
     hooks:
       preInstall: "$WORKDIR/hooks/mosip-file-server-setup.sh"
       postInstall: "$WORKDIR/hooks/post-install-mosip-file-server-setup.sh"
-      
+  
   regclient:
     namespace: regclient
     enabled: true
@@ -1005,6 +1008,6 @@ apps:
       regclient.healthCheckUrl: "https://api-internal.soil.mosip.net/v1/syncdata/actuator/health"
       regclient.hostName: "api-internal.soil.mosip.net"
       istio.host: "regclient.soil.mosip.net"
-    priority: -3
+    priority: -1
     hooks:
       preInstall: "$WORKDIR/hooks/regclient-setup.sh"
