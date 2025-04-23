@@ -3,6 +3,9 @@
 
 NS=idrepo
 function installing_idrepo() {
+
+  kubectl label ns $NS istio-injection=enabled --overwrite
+
   echo Copying Resorces
   COPY_UTIL=$WORKDIR/utils/copy-cm-and-secrets/copy_cm_func.sh
   #Copy configmaps
