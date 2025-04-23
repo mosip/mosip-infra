@@ -4,4 +4,3 @@ until kubectl get job kernel-keygen -n keymanager -o jsonpath='{.status.succeede
   echo "Waiting for keygen job to complete..."
   sleep 120
 done
-kubectl label ns keymanager istio-injection=enabled --overwrite
