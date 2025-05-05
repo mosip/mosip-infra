@@ -31,7 +31,7 @@ apps:
     wait: true
     priority: -6
     hooks:
-      postInstall: "$WORKDIR/hooks/install-istio-and-httpbin.sh soil develop"
+      postInstall: "$WORKDIR/hooks/install-istio-and-httpbin.sh <env-name> <version>"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
@@ -39,8 +39,8 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "c-m-b5dxknn9"
-      global.cattle.clusterId: "c-m-b5dxknn9"
+      grafana.global.cattle.clusterId: "<cluster-id>"
+      global.cattle.clusterId: "<cluster-id>"
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
     priority: -5
@@ -63,7 +63,7 @@ apps:
     version: 0.1.0
     chart: $WORKDIR/utils/istio-addons/logging-istio-addons-0.1.0.tgz
     set:
-      KIBANA_HOST: "kibana.soil.mosip.net"
+      KIBANA_HOST: "<kibana-host>"
       KIBANA_NAME: "elasticsearch-kibana"
     wait: true
     priority: -3

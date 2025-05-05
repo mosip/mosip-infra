@@ -49,7 +49,7 @@ apps:
     version: 0.1.0
     chart: $WORKDIR/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
     set:
-      postgresHost: "postgres.soil.mosip.net"
+      postgresHost: "<postgres-host>"
     wait: true
     priority: -4
 
@@ -81,7 +81,7 @@ apps:
     version: 0.1.0
     chart: $WORKDIR/utils/istio-addons/iam-istio-addons-0.1.0.tgz
     set:
-      keycloakExternalHost: "iam.soil.mosip.net"
+      keycloakExternalHost: "<iam-host>"
       keycloakInternalHost: "keycloak.keycloak"
       service: "keycloak"
     wait: true
@@ -94,16 +94,14 @@ apps:
     chart: mosip/keycloak-init
     wait: true
     set:
-      IAMHOST_URL: "iam.soil.mosip.net"
-      keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://iam.soil.mosip.net/auth"
+      IAMHOST_URL: "<iam-host>"
+      keycloak.realms.mosip.realm_config.attributes.frontendUrl: "https://<iam-host>/auth"
       keycloak.realms.mosip.realm_config.smtpServer.auth: "false"
       keycloak.realms.mosip.realm_config.smtpServer.host: "smtp.gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.port: "465"
       keycloak.realms.mosip.realm_config.smtpServer.from: "mosipqa@gmail.com"
       keycloak.realms.mosip.realm_config.smtpServer.starttls: "false"
       keycloak.realms.mosip.realm_config.smtpServer.ssl: "true"
-    hooks:
-      postInstall: "$WORKDIR/utils/host_configmap.yaml"
     priority: -13
 
   softhsm-kernel:
@@ -139,10 +137,10 @@ apps:
     version: 1.2.0
     chart: $WORKDIR/utils/istio-addons/minio-istio-addons-1.2.0.tgz
     set:
-      externalHost: "minio.soil.mosip.net"
+      externalHost: "<minio-host>"
     wait: true
     hooks:
-      postInstall: "$WORKDIR/hooks/s3-setup.sh s3"
+      postInstall: "$WORKDIR/hooks/s3-setup.sh <pretext-value>"
     priority: -2
 
   clamav:
@@ -161,11 +159,11 @@ apps:
     chart: mosip/activemq-artemis
     valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/activemq/values.yaml
     set: 
-      istio.hosts[0]: "activemq.soil.mosip.net"
+      istio.hosts[0]: "<activemq-host>"
     wait: true
     priority: -8
     hooks:
-      postInstall: "$WORKDIR/hooks/captcha-setup.sh mohan1234 shubham1234 praful1234 rakshith1234 abhi1234 bhumi1234"
+      postInstall: "$WORKDIR/hooks/captcha-setup.sh <prereg-captcha-site-key> <prereg-captcha-secret-key> <admin-captcha-site-key> <admin-captcha-secret-key> <resident-captcha-site-key> <resident-captcha-secret-key>"
   
   kafka: 
     namespace: kafka
@@ -191,7 +189,7 @@ apps:
     version: 1.2.0
     chart: $WORKDIR/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
     set:
-      kafkaUiHost: "kafka.soil.mosip.net"
+      kafkaUiHost: "<kafka-host>"
       installName: "kafka-ui"
     wait: true
     hooks:
@@ -204,29 +202,29 @@ apps:
     version: 12.0.2
     chart: mosip/landing-page
     set:
-      landing.version: "develop"
-      landing.name: "soil"
-      landing.api: "api.soil.mosip.net"
-      landing.apiInternal: "api-internal.soil.mosip.net"
-      landing.admin: "admin.soil.mosip.net"
-      landing.prereg: "prereg.soil.mosip.net"
-      landing.kafka: "kafka.soil.mosip.net"
-      landing.kibana: "kibana.soil.mosip.net"
-      landing.activemq: "activemq.soil.mosip.net"
-      landing.minio: "minio.soil.mosip.net"
-      landing.keycloak: "iam.soil.mosip.net"
-      landing.regclient: "regclient.soil.mosip.net"
-      landing.postgres.host: "postgres.soil.mosip.net"
-      landing.postgres.port: "5432" 
-      landing.compliance: "compliance.soil.mosip.net"
-      landing.pmp: "pmp.soil.mosip.net"
-      landing.resident: "resident.soil.mosip.net"
-      landing.esignet: "esignet.soil.mosip.net"
-      landing.smtp: "smtp.soil.mosip.net"
-      landing.healthservices: "healthservices.soil.mosip.net"
-      landing.injiweb: "injiweb.soil.mosip.net"
-      landing.injiverify: "injiverify.soil.mosip.net"
-      istio.host: "api.soil.mosip.net"
+      landing.version: "<version>"
+      landing.name: "<env-name>"
+      landing.api: "<api-host>"
+      landing.apiInternal: "<api-internal-host>"
+      landing.admin: "<admin-host>"
+      landing.prereg: "<prereg-host>"
+      landing.kafka: "<kafka-host>"
+      landing.kibana: "<kibana-host>"
+      landing.activemq: "<activemq-host>"
+      landing.minio: "<minio-host>"
+      landing.keycloak: "<iam-host>"
+      landing.regclient: "<regclient-host>"
+      landing.postgres.host: "<postgres-host>"
+      landing.postgres.port: "5432"
+      landing.compliance: "<compliance-host>"
+      landing.pmp: "<pmp-host>"
+      landing.resident: "<resident-host>"
+      landing.esignet: "<esignet-host>"
+      landing.smtp: "<smtp-host>"
+      landing.healthservices: "<healthservices-host>"
+      landing.injiweb: "<injiweb-host>"
+      landing.injiverify: "<injiverify-host>"
+      istio.host: "<api-host>"
     wait: true
     hooks:
       preInstall: "$WORKDIR/hooks/landing-page.sh"
