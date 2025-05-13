@@ -32,7 +32,7 @@ function installing_kafka() {
   KAFKA_UI_NAME=kafka-ui
 
   echo Install istio addons
-  helm -n $NS install istio-addons chart/istio-addons --set kafkaUiHost=$KAFKA_UI_HOST --set installName=$KAFKA_UI_NAME
+  helm -n $NS install istio-addons mosip/istio-addons --set kafkaUiHost=$KAFKA_UI_HOST --set installName=$KAFKA_UI_NAME -f istio-addons-values.yaml
 
   echo Installed kafka and kafka-ui services
   return 0

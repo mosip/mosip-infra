@@ -1,0 +1,38 @@
+istio:
+  name: minio
+  host: minio.sandbox.xyz.net
+  port:
+    protocol: HTTP
+
+  servers:
+    # HTTP on port 80
+    - port:
+        name: http
+        number: 80
+        protocol: HTTP
+      hosts:
+        - minio.sandbox.xyz.net
+    # MinIO API on port 9000
+    - port:
+        name: minio
+        number: 9000
+        protocol: HTTP
+      hosts:
+        - minio.sandbox.xyz.net
+
+  httpRoutes:
+    # match on port 9000, send to port 9000
+    - name: minio
+      match:
+        port: 9000
+      destination:
+        host: minio
+        port: 9000
+
+    # match on URI “/”, send to port 9001
+    - name: http
+      match:
+        uriPrefix: "/"
+      destination:
+        host: minio
+        port: 9001

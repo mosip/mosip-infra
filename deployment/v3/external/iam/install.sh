@@ -23,7 +23,7 @@ function installing_keycloak() {
 
   EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
   echo Install Istio gateway, virtual service
-  helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost="$SERVICE_NAME.$NS" --set service=$SERVICE_NAME
+  helm -n $NS install istio-addons mosip/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost="$SERVICE_NAME.$NS" --set service=$SERVICE_NAME -f istio-addons-values.yaml
   return 0
 }
 

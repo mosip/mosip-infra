@@ -1,0 +1,9 @@
+istio:
+  name: kafka-ui
+  host: kafka.sandbox.xyz.net
+  port:
+    name: kafka-ui
+    number: 80
+    protocol: HTTP
+  serviceHost: kafka-ui
+  servicePort: 80
