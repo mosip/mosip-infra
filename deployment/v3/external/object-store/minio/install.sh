@@ -20,7 +20,7 @@ function installing_minio() {
   EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
 
   echo host: $EXTERNAL_HOST
-  helm -n $NS install istio-addons chart/istio-addons --set externalHost=$EXTERNAL_HOST
+  helm -n $NS install istio-addons mosip/istio-addons --set externalHost=$EXTERNAL_HOST -f istio-addons-values.yaml
 
   echo Helm installed. Next step is to execute the cred.sh to update secrets in s3 namespace
   return 0

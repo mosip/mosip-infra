@@ -1,0 +1,9 @@
+istio:
+  name: keycloak
+  host: iam.sandbox.xyz.net
+  port:
+    name: http
+    number: 80
+    protocol: HTTP
+  serviceHost: keycloak
+  servicePort: 80

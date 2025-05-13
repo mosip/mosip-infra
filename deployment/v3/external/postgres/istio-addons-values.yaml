@@ -1,0 +1,9 @@
+istio:
+  name: postgres
+  host: postgres.sandbox.xyz.net
+  port:
+    name: postgres
+    number: 5432
+    protocol: TCP
+  serviceHost: postgres-postgresql
+  servicePort: 5432
