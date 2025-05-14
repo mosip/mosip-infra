@@ -1,6 +1,7 @@
 istio:
   name: kafka-ui
   host: kafka.sandbox.xyz.net
+  ingressController: <istio-ingressgateway>
   port:
     name: kafka-ui
     number: 80
