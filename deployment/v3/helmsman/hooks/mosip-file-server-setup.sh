@@ -3,10 +3,6 @@ NS=mosip-file-server
 
 function installing_mfs() {
 
-  echo Copy configmaps
-  COPY_UTIL=$WORKDIR/utils/copy-cm-and-secrets/copy_cm_func.sh
-  $COPY_UTIL configmap config-server-share config-server $NS
-
   kubectl -n $NS --ignore-not-found=true delete configmap mosip-file-server
   kubectl -n $NS --ignore-not-found=true delete secret keycloak-client-secret
 
