@@ -1,6 +1,7 @@
 istio:
   name: minio
   host: minio.sandbox.xyz.net
+  ingressController: <istio-ingressgateway>
   port:
     protocol: HTTP
 
