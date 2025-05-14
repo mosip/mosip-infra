@@ -1,6 +1,7 @@
 istio:
   name: keycloak
   host: iam.sandbox.xyz.net
+  ingressController: <istio-ingressgateway>
   port:
     name: http
     number: 80
