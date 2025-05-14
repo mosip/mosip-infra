@@ -1,6 +1,7 @@
 istio:
   name: postgres
   host: postgres.sandbox.xyz.net
+  ingressController: <istio-ingressgateway>
   port:
     name: postgres
     number: 5432
