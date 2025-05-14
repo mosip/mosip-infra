@@ -162,7 +162,10 @@ apps:
     priority: -8
     hooks:
       postInstall: "$WORKDIR/hooks/captcha-setup.sh <prereg-captcha-site-key> <prereg-captcha-secret-key> <admin-captcha-site-key> <admin-captcha-secret-key> <resident-captcha-site-key> <resident-captcha-secret-key>"
-  
+  # Note: Create a google recaptcha v2 ("I am not a Robot") from Google Recaptcha Admin.
+  # Pass the captcha site and secret key in the above post install script as an argument.To create site and secret key below is the link:
+  # https://cloud.google.com/security/products/recaptcha
+
   kafka: 
     namespace: kafka
     enabled: true
