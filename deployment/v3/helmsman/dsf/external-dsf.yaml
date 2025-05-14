@@ -9,29 +9,27 @@ helmRepos:
   wiremind: https://wiremind.github.io/wiremind-helm-charts
   kafka-ui: https://provectus.github.io/kafka-ui-charts
 
-namespaces:
-  postgres:
-    protected: false
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
   keycloak:
-    protected: false
+    protected: true
   softhsm:
-    protected: false
+    protected: true
   minio:
-    protected: false
+    protected: true
   clamav:
-    protected: false
+    protected: true
   activemq:
-    protected: false
+    protected: true
   kafka:
-    protected: false
+    protected: true
   s3:
-    protected: false
+    protected: true
   msg-gateways:
-    protected: false
+    protected: true
   captcha:
-    protected: false
+    protected: true
   landing-page:
-    protected: false
+    protected: true
 
 apps:
   postgres:

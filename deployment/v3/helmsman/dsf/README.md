@@ -27,16 +27,16 @@ To deploy Pre-requisites and External services of mosip we have two dsf files i,
 * `prereq-dsf.yaml`: Installs Pre-requisites such as monitoring, logging, alerting, istio, httpbin and global_configmap.  
 * `external-dsf.yaml`: Intsalls all the External services of mosip.
 
-Make sure to update the above three dsf files with the required configuration changes as per the environement and also update the `global_configmap.yaml` file with the required domain's then initiate the `helmsman_external.yml` workflow file.
+Make sure to update the above two dsf files with the required configuration changes as per the environement and also update the `global_configmap.yaml` file with the required domain's then initiate the `helmsman_external.yml` workflow file.
 
 ### Deploy Mosip core services
 
-## Overview
-This guide describes the key customizations made to the default MOSIP Deployment and Synchronization Framework (DSF) configuration.
+To deploy Mosip corde service we have below dsf file i,e 
+* `mosip-dsf.yaml`: Install all the Mosip core services .
 
 ---
 
-## Key Customization Areas
+## Key Customization Areas In mosip-dsf To Deploy Mosip Core Service
 
 ### 1. Helm Configuration
 **Default Configuration**  

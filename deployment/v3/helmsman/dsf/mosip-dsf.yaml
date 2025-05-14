@@ -7,6 +7,7 @@ helmRepos:
   bitnami: https://charts.bitnami.com/bitnami
   mosip: https://mosip.github.io/mosip-helm
 
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
   conf-secrets:
     protected: false
@@ -676,8 +677,6 @@ apps:
     #   image.tag: "develop"
     timeout: 600
     priority: -8
-    hooks:
-      preInstall: "$WORKDIR/hooks/admin-setup.sh"
 
   admin-service:
     namespace: admin

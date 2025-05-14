@@ -8,19 +8,20 @@ helmRepos:
   mosip: https://mosip.github.io/mosip-helm
   banzaicloud-stable: https://charts.helm.sh/stable
 
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
   kube-system:
     protected: true
   cattle-monitoring-system:
-    protected: false
+    protected: true
   cattle-logging-system:
-    protected: false
+    protected: true
   istio-system:
-    protected: false
+    protected: true
   istio-operator:
-    protected: false
+    protected: true
   httpbin:
-    protected: false
+    protected: true
 
 apps:
   rancher-monitoring-crd:
