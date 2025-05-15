@@ -10,6 +10,7 @@ helmRepos:
   kafka-ui: https://provectus.github.io/kafka-ui-charts
 
 # Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
+namespaces:
   keycloak:
     protected: true
   softhsm:
@@ -39,7 +40,26 @@ apps:
     chart: bitnami/postgresql
     wait: true
     priority: -16
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/postgres/values.yaml
+    set:
+      primary.extendedConfiguration: |
+        max_connections=1000
+        wal_level=logical
+        max_wal_senders=20
+        max_replication_slots=10
+      primary.resources.limits.cpu: "1500m"
+      primary.resources.limits.memory: "2000Mi"
+      primary.resources.requests.cpu: "1500m"
+      primary.resources.requests.memory: "2000Mi"
+      audit.logHostname: "true"
+      audit.logConnections: "true"
+      audit.logDisconnections: "true"
+      audit.pgAuditLog: ""
+      audit.pgAuditLogCatalog: "off"
+      audit.clientMinMessages: "error"
+      audit.logLinePrefix: ""
+      audit.logTimezone: ""
+      image.debug: "true"
+
 
   istio-addons-psql:
     namespace: postgres
@@ -57,7 +77,38 @@ apps:
     version: 0.0.1-develop
     chart: mosip/postgres-init
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/postgres/init_values.yaml
+    set:
+      dbUserPasswords.dbuserPassword: ""
+      databases.mosip_master.enabled: "true"
+      databases.mosip_master.branch: "develop"
+      databases.mosip_audit.enabled: "true"
+      databases.mosip_audit.branch: "develop"
+      databases.mosip_keymgr.enabled: "true"
+      databases.mosip_keymgr.branch: "develop"
+      databases.mosip_kernel.enabled: "true"
+      databases.mosip_kernel.branch: "develop"
+      databases.mosip_idmap.enabled: "true"
+      databases.mosip_idmap.branch: "develop"
+      databases.mosip_prereg.enabled: "true"
+      databases.mosip_prereg.branch: "develop"
+      databases.mosip_idrepo.enabled: "true"
+      databases.mosip_idrepo.branch: "develop"
+      databases.mosip_ida.enabled: "true"
+      databases.mosip_ida.branch: "develop"
+      databases.mosip_credential.enabled: "true"
+      databases.mosip_credential.branch: "develop"
+      databases.mosip_regprc.enabled: "true"
+      databases.mosip_regprc.branch: "develop"
+      databases.mosip_pms.enabled: "true"
+      databases.mosip_pms.branch: "develop"
+      databases.mosip_hotlist.enabled: "true"
+      databases.mosip_hotlist.branch: "develop"
+      databases.mosip_resident.enabled: "true"
+      databases.mosip_resident.branch: "develop"
+      databases.mosip_otp.enabled: "true"
+      databases.mosip_otp.branch: "develop"
+      databases.mosip_digitalcard.enabled: "true"
+      databases.mosip_digitalcard.branch: "develop"
     priority: -15
 
   keycloak:
@@ -70,7 +121,24 @@ apps:
       image.repository: "mosipqa/mosip-artemis-keycloak"
       image.tag: "develop"
       image.pullPolicy: "Always"
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/refs/heads/develop/deployment/v3/external/iam/values.yaml
+      service.type: "ClusterIP"
+      auth.adminUser: "admin"
+      extraEnvVars[0].name: "KEYCLOAK_EXTRA_ARGS"
+      extraEnvVars[0].value: "-Dkeycloak.profile.feature.upload_scripts=enabled -Dkeycloak.profile.feature.token_exchange=enabled -Dkeycloak.profile.feature.admin_fine_grained_authz=enabled"
+      ingress.enabled: "false"
+      ingress.hostname: ""
+      ingress.annotations.ingress\.kubernetes\.io/class: "nginx"
+      proxyAddressForwarding: "true"
+      replicaCount: "1"
+      serviceDiscovery.enabled: "true"
+      resources.limits: "{}"
+      resources.requests.cpu: "200m"
+      resources.requests.memory: "1000Mi"
+      rbac.create: "true"
+      rbac.rules[0].apiGroups[0]: ""
+      rbac.rules[0].resources[0]: "pods"
+      rbac.rules[0].verbs[0]: "get"
+      rbac.rules[0].verbs[1]: "list"
     priority: -14
 
   istio-addons-iam:
@@ -107,8 +175,13 @@ apps:
     enabled: true
     version: 12.0.1
     chart: mosip/softhsm
+    set:
+    resources.limits: "{}"
+    # resources.limits.cpu: "250m"
+    # resources.limits.memory: "1Gi"
+    resources.requests.cpu: "100m"
+    resources.requests.memory: "20Mi"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
     priority: -12
 
   softhsm-ida:
@@ -116,8 +189,13 @@ apps:
     enabled: true
     version: 12.0.1
     chart: mosip/softhsm
+    set:
+    resources.limits: "{}"
+    # resources.limits.cpu: "250m"
+    # resources.limits.memory: "1Gi"
+    resources.requests.cpu: "100m"
+    resources.requests.memory: "20Mi"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/hsm/softhsm/values.yaml
     priority: -11
 
   minio:
@@ -125,8 +203,14 @@ apps:
     enabled: true
     version: 10.1.6
     chart: mosip/minio
+    set:
+      metrics.serviceMonitor.enabled: "true"
+      extraEnvVars[0].name: "MINIO_PROMETHEUS_URL"
+      extraEnvVars[0].value: "http://rancher-monitoring-prometheus.cattle-monitoring-system:9090"
+      extraEnvVars[1].name: "MINIO_PROMETHEUS_JOB_ID"
+      extraEnvVars[1].value: "minio"
+      resourcesPreset: "none"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/object-store/minio/values.yaml
     priority: -10
 
   istio-addons-minio:
@@ -146,8 +230,14 @@ apps:
     enabled: true
     version: 3.1.0
     chart: wiremind/clamav
+    set:
+      replicaCount: "1"
+      # image.repository, image.tag, and image.pullPolicy are commented out in the original YAML
+      # Uncomment and update as needed:
+      # image.repository: "clamav/clamav"
+      # image.tag: "1.2"
+      # image.pullPolicy: "Always"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/antivirus/clamav/values.yaml
     priority: -9
 
   activemq:
@@ -155,9 +245,11 @@ apps:
     enabled: true
     version: 0.0.2
     chart: mosip/activemq-artemis
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/activemq/values.yaml
     set: 
+      istio.enabled: "true"
       istio.hosts[0]: "<activemq-host>"
+      istio.ingressController.name: "ingressgateway-internal"
+      istio.prefix: ""
     wait: true
     priority: -8
     hooks:
@@ -171,7 +263,40 @@ apps:
     enabled: true
     version: 26.11.4
     chart: bitnami/kafka
-    valuesFile:  https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/values.yaml
+    set:
+      clusterDomain: "cluster.local"
+      logRetentionBytes: "_1073741824"
+      defaultReplicationFactor: "3"
+      offsetsTopicReplicationFactor: "3"
+      transactionStateLogReplicationFactor: "3"
+      numPartitions: "20"
+      replicaCount: "5"
+      sidecars: "{}"
+      autoCreateTopicsEnable: "true"
+      deleteTopicEnable: "true"
+      persistence.enabled: "true"
+      persistence.accessModes[0]: "ReadWriteOnce"
+      persistence.size: "8Gi"
+      zookeeper.enabled: "true"
+      zookeeper.replicaCount: "5"
+      zookeeper.persistence.enabled: "true"
+      zookeeper.persistence.size: "2Gi"
+      resources.limits: "{}"
+      resources.requests.cpu: "200m"
+      resources.requests.memory: "2000Mi"
+      startupProbe.enabled: "true"
+      startupProbe.initialDelaySeconds: "30"
+      startupProbe.periodSeconds: "10"
+      startupProbe.timeoutSeconds: "1"
+      startupProbe.failureThreshold: "30"
+      startupProbe.successThreshold: "1"
+      kraft.enabled: "false"
+      controller.replicaCount: "0"
+      broker.replicaCount: "5"
+      listeners.client.containerPort: "9092"
+      listeners.client.protocol: "PLAINTEXT"
+      listeners.client.name: "CLIENT"
+      listeners.client.sslClientAuth: ""
     wait: true
     priority: -7
 
@@ -180,7 +305,15 @@ apps:
     enabled: true
     version: 0.7.1
     chart: kafka-ui/kafka-ui
-    valuesFile: https://raw.githubusercontent.com/mosip/mosip-infra/develop/deployment/v3/external/kafka/ui-values.yaml
+    set:
+      envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka.kafka:9092"
+      envs.config.KAFKA_CLUSTERS_0_NAME: "main_kafka"
+      envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER: "kafka-zookeeper.kafka:2181"
+      envs.config.KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: "http://debezium-service.reporting:8083"
+      envs.config.KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: "debezium"
+      envs.config.KAFKA_CLUSTERS_0_KAFKACONNECT_1_ADDRESS: "http://es-connect.reporting:8083"
+      envs.config.KAFKA_CLUSTERS_0_KAFKACONNECT_1_NAME: "es-connect"
+      image.pullPolicy: "Always"
     wait: true
     priority: -6
 
