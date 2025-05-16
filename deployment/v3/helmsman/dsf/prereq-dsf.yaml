@@ -8,13 +8,14 @@ helmRepos:
   mosip: https://mosip.github.io/mosip-helm
   banzaicloud-stable: https://charts.helm.sh/stable
 
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
   kube-system:
     protected: true
   cattle-monitoring-system:
     protected: true
   cattle-logging-system:
-    protected: false
+    protected: true
   istio-system:
     protected: true
   istio-operator:
@@ -30,8 +31,8 @@ apps:
     chart: mosip/rancher-monitoring-crd
     wait: true
     priority: -6
-#    hooks:
-#      postInstall: "../hooks/install-istio-and-httpbin.sh"
+    hooks:
+      postInstall: "$WORKDIR/hooks/install-istio-and-httpbin.sh <env-name> <version>"
 
   rancher-monitoring:
     namespace: cattle-monitoring-system
@@ -39,14 +40,14 @@ apps:
     version: 103.1.0+up45.31.1
     chart: mosip/rancher-monitoring
     set:
-      grafana.global.cattle.clusterId: "<cluster_Id>"
-      global.cattle.clusterId: "<cluster_Id>"
+      grafana.global.cattle.clusterId: "<cluster-id>"
+      global.cattle.clusterId: "<cluster-id>"
     wait: true
     valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
     priority: -5
     timeout: 600
     hooks:
-      postInstall: "../hooks/alerting-setup.sh"
+      postInstall: "$WORKDIR/hooks/alerting-setup.sh"
 
   elasticsearch:
     namespace: cattle-logging-system
@@ -61,7 +62,7 @@ apps:
     namespace: cattle-logging-system 
     enabled: true
     version: 0.1.0
-    chart: ../utils/istio-addons/logging-istio-addons-0.1.0.tgz
+    chart: $WORKDIR/utils/istio-addons/logging-istio-addons-0.1.0.tgz
     set:
       KIBANA_HOST: "<kibana-host>"
       KIBANA_NAME: "elasticsearch-kibana"
@@ -85,5 +86,5 @@ apps:
     priority: -1
     timeout: 600
     hooks:
-      postInstall: "../hooks/post_logging-setup.sh"
+      postInstall: "$WORKDIR/hooks/post_logging-setup.sh"
 

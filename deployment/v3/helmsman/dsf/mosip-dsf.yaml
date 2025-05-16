@@ -1,0 +1,931 @@
+helmDefaults:
+  tillerNamespace: kube-system
+  tillerless: true
+  install: true
+
+helmRepos:
+  bitnami: https://charts.bitnami.com/bitnami
+  mosip: https://mosip.github.io/mosip-helm
+
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
+namespaces:
+  conf-secrets:
+    protected: false
+  config-server:
+    protected: false
+  artifactory:
+    protected: false
+  captcha:
+    protected: false
+  keymanager:
+    protected: false
+  websub:
+    protected: false
+  mock-smtp:
+    protected: false
+  kernel:
+    protected: false
+  masterdata-loader:
+    protected: false
+  biosdk:
+    protected: false
+  packetmanager:
+    protected: false
+  datashare:
+    protected: false
+  prereg:
+    protected: false
+  idrepo:
+    protected: false
+  pms:
+    protected: false
+  abis:
+    protected: false
+  regproc:
+    protected: false
+  admin:
+    protected: false
+  ida:
+    protected: false
+  print:
+    protected: false
+  digitalcard:
+    protected: false
+  resident:
+    protected: false
+  onboarder:
+    protected: false
+  mosip-file-server:
+    protected: false
+  regclient:
+    protected: false
+    
+apps:
+  conf-secrets:
+    namespace: conf-secrets 
+    enabled: true
+    version: <chart-version>
+    chart: mosip/conf-secrets
+    priority: -15
+    
+  config-server:
+    namespace: config-server
+    enabled: true
+    version: <chart-version>
+    chart: mosip/config-server
+    set:
+      # image.repository: "mosipqa/kernel-config-server"
+      # image.tag: "develop"
+      spring_profiles.enabled: true
+      spring_profiles.spring_profiles_active: "composite"
+      spring_profiles.spring_compositeRepos[0].type: "git"
+      spring_profiles.spring_compositeRepos[0].uri: "https://github.com/mosip/mosip-config"
+      spring_profiles.spring_compositeRepos[0].version: "develop"
+      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_cloneOnStart: true
+      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_force_pull: true
+      spring_profiles.spring_compositeRepos[0].spring_cloud_config_server_git_refreshRate: 5
+      spring_profiles.spring_fail_on_composite_error: false
+    wait: true
+    timeout: 600
+    priority: -14
+    hooks:
+      preInstall: |
+        #!/bin/bash
+        # Copy configmaps and secrets from other namespaces
+        NS=config-server
+        echo Istio label
+        kubectl label ns $NS istio-injection=enabled --overwrite
+
+        # Function to copy ConfigMaps or Secrets
+        function copy_resource() {
+          local RESOURCE_TYPE="$1"
+          local RESOURCE_NAME="$2"
+          local SOURCE_NAMESPACE="$3"
+          local DESTINATION_NAMESPACE="$4"
+          local NEW_NAME="${5:-$RESOURCE_NAME}" 
+
+          if [ "$RESOURCE_TYPE" = "configmap" ]; then
+            RESOURCE="configmap"
+          elif [ "$RESOURCE_TYPE" = "secret" ]; then
+            RESOURCE="secret"
+          else
+            echo "Incorrect resource type: $RESOURCE_TYPE. Exiting..."
+            exit 1
+          fi
+
+          if [ "$NEW_NAME" != "$RESOURCE_NAME" ]; then
+            kubectl -n "$DESTINATION_NAMESPACE" delete --ignore-not-found=true "$RESOURCE" "$NEW_NAME"
+            kubectl -n "$SOURCE_NAMESPACE" get "$RESOURCE" "$RESOURCE_NAME" -o yaml | \
+              sed "s/namespace: $SOURCE_NAMESPACE/namespace: $DESTINATION_NAMESPACE/g" | \
+              sed "s/name: $RESOURCE_NAME/name: $NEW_NAME/g" | kubectl -n "$DESTINATION_NAMESPACE" create -f -
+          else
+            kubectl -n "$DESTINATION_NAMESPACE" delete --ignore-not-found=true "$RESOURCE" "$RESOURCE_NAME"
+            kubectl -n "$SOURCE_NAMESPACE" get "$RESOURCE" "$RESOURCE_NAME" -o yaml | \
+              sed "s/namespace: $SOURCE_NAMESPACE/namespace: $DESTINATION_NAMESPACE/g" | \
+              kubectl -n "$DESTINATION_NAMESPACE" create -f -
+          fi
+        }
+
+        # Function to copy multiple ConfigMaps and Secrets
+        function copy_resources() {
+          # Copy ConfigMaps
+          copy_resource "configmap" "global" "default" "$NS"
+          copy_resource "configmap" "keycloak-host" "keycloak" "$NS"
+          copy_resource "configmap" "activemq-activemq-artemis-share" "activemq" "$NS"
+          copy_resource "configmap" "s3" "s3" "$NS"
+          copy_resource "configmap" "msg-gateway" "msg-gateways" "$NS"
+
+          # Copy Secrets
+          copy_resource "secret" "db-common-secrets" "postgres" "$NS"
+          copy_resource "secret" "keycloak" "keycloak" "$NS"
+          copy_resource "secret" "keycloak-client-secrets" "keycloak" "$NS"
+          copy_resource "secret" "activemq-activemq-artemis" "activemq" "$NS"
+          copy_resource "secret" "softhsm-kernel" "softhsm" "$NS"
+          copy_resource "secret" "softhsm-ida" "softhsm" "$NS"
+          copy_resource "secret" "s3" "s3" "$NS"
+          copy_resource "secret" "msg-gateway" "msg-gateways" "$NS"
+          copy_resource "secret" "mosip-captcha" "captcha" "$NS"
+          copy_resource "secret" "conf-secrets-various" "conf-secrets" "$NS"
+        }
+
+        # Error handling settings
+        set -e
+        set -o errexit
+        set -o nounset
+        set -o errtrace
+        set -o pipefail
+
+        copy_resources
+
+  artifactory:
+    namespace: artifactory
+    enabled: true
+    version: <chart-version>
+    chart: mosip/artifactory
+    # set:
+    #   image.repository: "mosipdev/artifactory-server"
+    #   image.tag: "release-1.3.x"
+    wait: true
+    priority: -13
+    hooks:
+      preInstall: "kubectl label ns artifactory istio-injection=enabled --overwrite"
+      postInstall: "$WORKDIR/hooks/common-labeling-istio-and-sharing-cm-secrets-among-ns.sh"
+
+  captcha:
+    namespace: captcha
+    enabled: true
+    version: <chart-version>
+    chart: mosip/captcha
+    # set:
+    #   image.repository: "mosipdev/captcha-validation-service"
+    #   image.tag: "develop"
+    priority: -13
+    hooks:
+      preInstall: "kubectl label ns captcha istio-injection=enabled --overwrite"
+
+  mock-abis:
+    namespace: abis
+    enabled: true
+    version: <chart-version>
+    chart: mosip/mock-abis
+    set:
+      startupProbe.failureThreshold: 60
+    #   image.repository: ""
+    #   image.tag: ""
+    timeout: 420
+    priority: -12
+
+  mock-mv:
+    namespace: abis
+    enabled: true
+    version: <chart-version>
+    chart: mosip/mock-mv
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -12
+
+
+  kernel-keygen:
+    namespace: keymanager
+    enabled: true
+    version: <chart-version>
+    chart: mosip/keygen
+    set:
+      # image.repository: "mosipid/keys-generator"
+      # image.tag: "1.3.0-beta.2"
+      springConfigNameEnv: "kernel" 
+      softHsmCM: "softhsm-kernel-share"
+    wait: true
+    priority: -12
+
+
+  keymanager:
+    namespace: keymanager
+    enabled: true
+    version: <chart-version>
+    chart: mosip/keymanager
+    # set:
+    #   image.repository: "mosipdev/kernel-keymanager-service"
+    #   image.tag: "release-1.3.x"
+    wait: true
+    priority: -11
+    hooks:
+      preInstall: "$WORKDIR/hooks/wait-for-keygen.sh"
+
+  websub-consolidator:
+    namespace: websub
+    enabled: true
+    version: <chart-version>
+    chart: mosip/websub-consolidator
+    # set:
+    #   image.repository: "mosipdev/consolidator-websub-service"
+    #   image.tag: "release-1.3.x"
+    wait: true
+    priority: -11
+
+  websub:
+    namespace: websub
+    enabled: true
+    version: <chart-version>
+    chart: mosip/websub
+    # set:
+    #   image.repository: "mosipdev/websub-service"
+    #   image.tag: "release-1.3.x"
+    priority: -10
+
+  mock-smtp:
+    namespace: mock-smtp
+    enabled: true
+    version: <chart-version>
+    chart: mosip/mock-smtp
+    set:
+      # image.repository: "mosipid/mock-smtp"
+      # image.tag: "1.0.0"
+      istio.hosts[0]: "<smtp-host>"
+    priority: -10
+
+  masterdata-loader:
+    namespace: masterdata-loader
+    enabled: true
+    version: <chart-version>
+    chart: mosip/masterdata-loader
+    set:
+      # image.repository: "mosipqa/masterdata-loader"
+      # image.tag: "1.3.x"
+      mosipDataGithubBranch: "release-1.3.x"
+      mosipDataGithubRepo: "https://github.com/mosip/mosip-data"
+      mosipDataXlsfolderPath: "/home/mosip/mosip-data/mosip_master/xlsx"
+    wait: true
+    priority: -10
+
+  authmanager:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/authmanager
+    # set:
+    #   image.repository: "mosipdev/kernel-auth-service"
+    #   image.tag: "develop"
+    priority: -9
+ 
+  auditmanager:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/auditmanager
+    # set:
+    #   image.repository: "mosipdev/kernel-auditmanager-service"
+    #   image.tag: "release-1.3.x"
+    priority: -9
+  
+  idgenerator:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/idgenerator
+    set:
+      # image.repository: ""
+      # image.tag: ""
+    timeout: 600
+    priority: -9
+  
+  masterdata:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/masterdata
+    set:
+      # image.repository: "mosipdev/kernel-masterdata-service"
+      # image.tag: "develop"
+      istio.corsPolicy.allowOrigins[0].exact: "https://<admin-host>"
+    priority: -9
+  
+  otpmanager:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/otpmanager
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+  
+  pridgenerator:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/pridgenerator
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+  
+  ridgenerator:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/ridgenerator
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+  
+  syncdata:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/syncdata
+    # set:
+    #   image.repository: "mosipdev/kernel-syncdata-service"
+    #   image.tag: "develop"
+    priority: -9
+  
+  notifier:
+    namespace: kernel
+    enabled: true
+    version: <chart-version>
+    chart: mosip/notifier
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -9
+
+  biosdk-service:
+    namespace: biosdk
+    enabled: true
+    version: <chart-version>
+    chart: mosip/biosdk-service
+    set:
+      # image.repository: "mosipid/biosdk-server"
+      # image.tag: "1.3.0-beta.1"
+      biosdk.zippedLibUrl: "http://artifactory.artifactory/artifactory/libs-release-local/biosdk/biosdk-lib.zip"
+      biosdk.bioapiImpl: "io.mosip.mock.sdk.impl.SampleSDKV2"
+    priority: -8
+  
+  packetmanager:
+    namespace: packetmanager
+    enabled: true
+    version: <chart-version>
+    chart: mosip/packetmanager
+    set:
+      # image.repository: "mosipdev/commons-packet-service"
+      # image.tag: "develop"
+    priority: -8
+
+  datashare:
+    namespace: datashare
+    enabled: true
+    version: <chart-version>
+    chart: mosip/datashare
+    set:
+      # image.repository: "mosipid/data-share-service"
+      # image.tag: "1.3.0-beta.1"
+    priority: -8
+
+  prereg-gateway:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-gateway
+    set:
+      istio.hosts[0]: "<prereg-host>"
+    priority: -8
+
+  prereg-application:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-application
+    # set:
+    #   image.repository: "mosipdev2/pre-registration-application-service"
+    #   image.tag: "release-1.3.x"
+    priority: -8
+
+  prereg-booking:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-booking
+    # set:
+    #   image.repository: "mosipdev2/pre-registration-booking-service"
+    #   image.tag: "release-1.3.x"
+    priority: -8
+
+  prereg-datasync:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-datasync
+    # set:
+    #   image.repository: "mosipdev2/pre-registration-datasync-service"
+    #   image.tag: "release-1.3.x"
+    priority: -8
+
+  prereg-batchjob:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-batchjob
+    # set:
+    #   image.repository: "mosipdev2/pre-registration-batchjob"
+    #   image.tag: "release-1.3.x"
+    priority: -8
+
+  prereg-ui:
+    namespace: prereg
+    enabled: true
+    version: <chart-version>
+    chart: mosip/prereg-ui
+    set:
+      # image.repository: ""
+      # image.tag: ""
+      prereg.apiHost: "<prereg-host>"
+    priority: -8
+
+  idrepo-saltgen:
+    namespace: idrepo
+    enabled: true
+    version: <chart-version>
+    chart: mosip/idrepo-saltgen
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    timeout: 240
+    priority: -8
+
+  credential:
+    namespace: idrepo
+    enabled: true
+    version: <chart-version>
+    chart: mosip/credential
+    # set:
+    #   image.repository: "mosipdev/credential-service"
+    #   image.tag: "release-1.3.x"
+    priority: -7
+    hooks:
+      preInstall: "$WORKDIR/hooks/wait-for-idrepojob.sh"
+
+  credentialrequest:
+    namespace: idrepo
+    enabled: true
+    version: <chart-version>
+    chart: mosip/credentialrequest
+    # set:
+    #   image.repository: "mosipdev/credential-request-generator"
+    #   image.tag: "release-1.3.x"
+    priority: -6
+  
+  identity:
+    namespace: idrepo
+    enabled: true
+    version: <chart-version>
+    chart: mosip/identity
+    # set:
+    #   image.repository: "mosipdev/id-repository-identity-service"
+    #   image.tag: "release-1.3.x"
+    priority: -6
+
+  vid:
+    namespace: idrepo
+    enabled: true
+    version: <chart-version>
+    chart: mosip/vid
+    # set:
+    #   image.repository: "mosipdev/id-repository-vid-service"
+    #   image.tag: "release-1.3.x"
+    priority: -6
+
+  pms-partner:
+    namespace: pms
+    enabled: true
+    version: <chart-version>
+    chart: mosip/pms-partner
+    set:
+      # image.repository: "mosipdev/partner-management-service"
+      # image.tag: "develop"
+      istio.corsPolicy.allowOrigins[0].prefix: "https://<pmp-host>"
+      istio.corsPolicy.allowOrigins[1].prefix: "https://<PMP_REVAMP_UI_HOST>"
+    priority: -8
+
+  pms-policy:
+    namespace: pms
+    enabled: true
+    version: <chart-version>
+    chart: mosip/pms-policy
+    set:
+      # image.repository: "mosipdev/policy-management-service"
+      # image.tag: "develop"
+      istio.corsPolicy.allowOrigins[0].prefix: "https://<pmp-host>"
+      istio.corsPolicy.allowOrigins[1].prefix: "https://<PMP_REVAMP_UI_HOST>"
+    priority: -8
+
+  pmp-ui:
+    namespace: pms
+    enabled: true
+    version: <chart-version>
+    chart: mosip/pmp-ui
+    set:
+      # image.repository: "mosipdev/pmp-ui"
+      # image.tag: "develop"
+      pmp.apiUrl: "https://<api-internal-host>/"
+      istio.hosts[0]: "<pmp-host>"
+    priority: -8
+
+
+  pmp-revamp-ui:
+    namespace: pms
+    enabled: true
+    version: <chart-version>
+    chart: mosip/pmp-revamp-ui
+    set:
+      # image.repository: "mosipdev/pmp-revamp-ui"
+      # image.tag: "develop"
+      pmp_revamp.react_app_partner_manager_api_base_url: "https://<api-internal-host>/v1/partnermanager"
+      pmp_revamp.react_app_policy_manager_api_base_url: "https://<api-internal-host>/v1/policymanager"
+      pmp_revamp.pms_partner_manager_internal_service_url: "http://pms-partner.pms/v1/partnermanager"
+      pmp_revamp.pms_policy_manager_internal_service_url: "http://pms-policy.pms/v1/policymanager"
+      istio.hosts[0]: "<pmp-revamp-host>"
+    priority: -8
+
+  regproc-salt:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-salt
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -8
+    hooks:
+      preInstall: "$WORKDIR/hooks/regproc-setup.sh"
+  
+  regproc-workflow:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-workflow
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -7
+    hooks:
+      preInstall: "$WORKDIR/hooks/wait-for-regprocjob.sh"
+
+  regproc-status:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-status
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -6
+
+  regproc-camel:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-camel
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -6
+
+  regproc-pktserver:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-pktserver
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -6
+
+  regproc-group1:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group1
+    set:
+      persistence.storageClass: nfs-csi
+      persistence.size: 5Gi
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -6
+
+  regproc-group2:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group2
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-group3:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group3
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-group4:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group4
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-group5:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group5
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-group6:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group6
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-group7:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-group7
+    # set:
+    #   image.repository: "mosipdev/registration-processor-stage-group-7"
+    #   image.tag: "develop"
+    priority: -5
+
+  regproc-trans:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-trans
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-notifier:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-notifier
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-reprocess:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-reprocess
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  regproc-landingzone:
+    namespace: regproc
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regproc-landingzone
+    # set:
+    #   image.repository: ""
+    #   image.tag: ""
+    priority: -5
+
+  admin-hotlist:
+    namespace: admin
+    enabled: true
+    version: <chart-version>
+    chart: mosip/admin-hotlist
+    # set:
+    #   image.repository: "mosipdev/hotlist-service"
+    #   image.tag: "develop"
+    timeout: 600
+    priority: -8
+
+  admin-service:
+    namespace: admin
+    enabled: true
+    version: <chart-version>
+    chart: mosip/admin-service
+    set:
+      # image.repository: "mosipdev/admin-service"
+      # image.tag: "develop"
+      istio.corsPolicy.allowOrigins[0].prefix: "https://<admin-host>"
+    priority: -8
+
+  admin-ui:
+    namespace: admin
+    enabled: true
+    version: <chart-version>
+    chart: mosip/admin-ui
+    set:
+      # image.repository: "mosipdev/admin-ui"
+      # image.tag: "release-1.3.x"
+      admin.apiUrl: "https://<api-internal-host>/v1"
+      istio.hosts[0]: "<admin-host>"
+    priority: -8
+
+  ida-keygen:
+    namespace: ida
+    enabled: true
+    version: <chart-version>
+    chart: mosip/keygen
+    set:
+      springConfigNameEnv: "id-authentication" 
+      softHsmCM: "softhsm-ida-share"
+    priority: -8
+
+  ida-auth:
+    namespace: ida
+    enabled: true
+    version: <chart-version>
+    chart: mosip/ida-auth
+    # set:
+    #   image.repository: "mosipdev/authentication-service"
+    #   image.tag: "develop"
+    priority: -7
+    hooks:
+      preInstall: "$WORKDIR/hooks/wait-for-idajob.sh"
+
+  ida-internal:
+    namespace: ida
+    enabled: true
+    version: <chart-version>
+    chart: mosip/ida-internal
+    # set:
+    #   image.repository: "mosipdev/authentication-internal-service"
+    #   image.tag: "develop"
+    priority: -6
+
+  ida-otp:
+    namespace: ida
+    enabled: true
+    version: <chart-version>
+    chart: mosip/ida-otp
+    # set:
+    #   image.repository: "mosipdev/authentication-otp-service"
+    #   image.tag: "develop"
+    priority: -6
+
+  print:
+    namespace: print
+    enabled: true
+    version: <chart-version>
+    chart: mosip/print-service
+    # set:
+    #   image.repository: "mosipdev/print"
+    #   image.tag: "release-1.3.x"
+    priority: -8
+
+  digitalcard:
+    namespace: digitalcard
+    enabled: true
+    version: <chart-version>
+    chart: mosip/digitalcard
+    priority: -8
+
+  resident:
+    namespace: resident
+    enabled: true
+    version: <chart-version>
+    chart: mosip/resident
+    set:
+      # image.repository: "mosipdev/resident-service"
+      # image.tag: "release-1.3.x"
+      istio.corsPolicy.allowOrigins[0].prefix: "https://<resident-host>"
+    timeout: 600
+    wait: true
+    priority: -4
+    hooks:
+      preInstall: "$WORKDIR/hooks/resident-setup.sh"
+
+  resident-ui:
+    namespace: resident
+    enabled: true
+    version: <chart-version>
+    chart: mosip/resident-ui
+    set:
+      # image.repository: "mosipdev/resident-ui"
+      # image.tag: "develop"
+      resident.apiHost: "<api-internal-host>"
+      istio.hosts[0]: "<resident-host>"
+    wait: true
+    priority: -3
+
+  partner-onboarder:
+    namespace: onboarder
+    enabled: true
+    version: <chart-version>
+    chart: mosip/partner-onboarder
+    set:
+      # onboarding.configmaps.onboarding.enable_insecure: "false"
+      onboarding.variables.push_reports_to_s3: "true" 
+      onboarding.configmaps.s3.s3-host: "http://minio.minio:9000" 
+      onboarding.configmaps.s3.s3-user-key: "admin" 
+      onboarding.configmaps.s3.s3-region: ""
+      onboarding.configmaps.s3.s3-bucket-name: "onboarder"
+      onboarding.secrets.s3.s3-user-secret: "password"
+      # onboarding.volumes.reports.nfs.server: "<nfs_server>"
+      # # provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/onboarder/), make sure permission is 777 for the folder: " nfs_path
+      # onboarding.volumes.reports.nfs.path: "<nfs_path>"
+      onboarding.modules[0].name: "ida"
+      onboarding.modules[0].enabled: true
+      onboarding.modules[1].name: "print"
+      onboarding.modules[1].enabled: true
+      onboarding.modules[2].name: "abis"
+      onboarding.modules[2].enabled: true
+      onboarding.modules[3].name: "resident"
+      onboarding.modules[3].enabled: true
+      onboarding.modules[4].name: "mobileid"
+      onboarding.modules[4].enabled: false
+      onboarding.modules[5].name: "digitalcard"
+      onboarding.modules[5].enabled: true
+      onboarding.modules[6].name: "esignet"
+      onboarding.modules[6].enabled: false
+      onboarding.modules[7].name: "demo-oidc"
+      onboarding.modules[7].enabled: false
+      onboarding.modules[8].name: "resident-oidc"
+      onboarding.modules[8].enabled: false
+      onboarding.modules[9].name: "mimoto-keybinding"
+      onboarding.modules[9].enabled: false
+    wait: true
+    priority: -2
+    hooks:
+      preInstall: "$WORKDIR/hooks/partner-onboarder-setup.sh"
+  
+  mosip-file-server:
+    namespace: mosip-file-server
+    enabled: true
+    version: <chart-version>
+    chart: mosip/mosip-file-server
+    set:
+      # image.repository: "mosipdev/mosip-file-server"
+      # image.tag: "release-1.3.x"
+      mosipfileserver.host: "<api-host>"
+      # mosipfileserver.secrets.KEYCLOAK_CLIENT_SECRET: ""
+      istio.corsPolicy.allowOrigins[0].prefix: "https://<api-host>"
+      istio.corsPolicy.allowOrigins[1].prefix: "https://<api-internal-host>"
+      istio.corsPolicy.allowOrigins[2].prefix: "https://verifiablecredential.io"
+    priority: -1
+    hooks:
+      postInstall: "$WORKDIR/hooks/post-install-mosip-file-server-setup.sh"
+  
+  regclient:
+    namespace: regclient
+    enabled: true
+    version: <chart-version>
+    chart: mosip/regclient
+    set:
+      startupProbe.failureThreshold: 60
+      # image.repository: "mosipdev/registration-client"
+      # image.tag: "develop"
+      # regclient.version: "1.2.1-SNAPSHOT"
+      regclient.upgradeServerUrl: "https://<regclient-host>"
+      regclient.healthCheckUrl: "https://<api-internal-host>/v1/syncdata/actuator/health"
+      regclient.hostName: "<api-internal-host>"
+      istio.host: "https://<regclient-host>"
+    priority: -1
+    hooks:
+      preInstall: "$WORKDIR/hooks/regclient-setup.sh"
