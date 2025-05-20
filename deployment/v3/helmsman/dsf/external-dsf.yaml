@@ -182,7 +182,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "100Mi"
     wait: true
     priority: -12
 
@@ -195,7 +195,7 @@ apps:
       # resources.limits.cpu: "250m"
       # resources.limits.memory: "1Gi"
       resources.requests.cpu: "100m"
-      resources.requests.memory: "20Mi"
+      resources.requests.memory: "200Mi"
     wait: true
     priority: -11
 
@@ -282,7 +282,7 @@ apps:
       zookeeper.persistence.enabled: "true"
       zookeeper.persistence.size: "2Gi"
       # resources.limits.cpu: "250m"
-      # resources.limits.memory: "1Gi"
+      # resources.limits.memory: "2Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "2000Mi"
       startupProbe.enabled: "true"
