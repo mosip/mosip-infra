@@ -11,6 +11,8 @@ helmRepos:
 
 # Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
 namespaces:
+  postgres:
+    protected: true
   keycloak:
     protected: true
   softhsm:
@@ -131,7 +133,8 @@ apps:
       proxyAddressForwarding: "true"
       replicaCount: "1"
       serviceDiscovery.enabled: "true"
-      resources.limits: "{}"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "1000Mi"
       rbac.create: "true"
@@ -176,11 +179,10 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    resources.limits: "{}"
-    # resources.limits.cpu: "250m"
-    # resources.limits.memory: "1Gi"
-    resources.requests.cpu: "100m"
-    resources.requests.memory: "20Mi"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
+      resources.requests.cpu: "100m"
+      resources.requests.memory: "20Mi"
     wait: true
     priority: -12
 
@@ -190,11 +192,10 @@ apps:
     version: 12.0.1
     chart: mosip/softhsm
     set:
-    resources.limits: "{}"
-    # resources.limits.cpu: "250m"
-    # resources.limits.memory: "1Gi"
-    resources.requests.cpu: "100m"
-    resources.requests.memory: "20Mi"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
+      resources.requests.cpu: "100m"
+      resources.requests.memory: "20Mi"
     wait: true
     priority: -11
 
@@ -271,7 +272,6 @@ apps:
       transactionStateLogReplicationFactor: "3"
       numPartitions: "20"
       replicaCount: "5"
-      sidecars: "{}"
       autoCreateTopicsEnable: "true"
       deleteTopicEnable: "true"
       persistence.enabled: "true"
@@ -281,7 +281,8 @@ apps:
       zookeeper.replicaCount: "5"
       zookeeper.persistence.enabled: "true"
       zookeeper.persistence.size: "2Gi"
-      resources.limits: "{}"
+      # resources.limits.cpu: "250m"
+      # resources.limits.memory: "1Gi"
       resources.requests.cpu: "200m"
       resources.requests.memory: "2000Mi"
       startupProbe.enabled: "true"

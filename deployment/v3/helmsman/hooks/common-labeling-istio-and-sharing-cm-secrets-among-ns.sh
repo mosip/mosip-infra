@@ -21,13 +21,14 @@ declare -A NAMESPACES=(
     [PMS]="pms"
     [PRINT]="print"
     [REGPROC]="regproc"
+    [REGCLIENT]="regclient"
 )
 
 # Define namespaces with istio injection enabled or disabled
 ISTIO_ENABLED_NS=(
     "KEYMGR" "WEBSUB" "SMTP" "KERNEL" "DC" "BIOSDK" 
     "PACKETMANAGER" "DATASHARE" "ABIS" "ADMIN" "IDA" 
-    "IDREPO" "PMS" "PRINT" "REGPROC"
+    "IDREPO" "PMS" "PRINT" "REGPROC" "REGCLIENT"
 )
 ISTIO_DISABLED_NS=("PREREG")
 
@@ -43,6 +44,12 @@ COMMON_CONFIGMAPS=(
 SPECIAL_CONFIGMAPS=(
     "softhsm-kernel-share:softhsm:KEYMGR"
     "softhsm-ida-share:softhsm:IDA"
+)
+
+# Namespace-specific configmaps that only get certain configmaps
+# Format: "namespace_key:configmap_name:source_namespace"
+NAMESPACE_SPECIFIC_CONFIGMAPS=(
+    "REGCLIENT:artifactory-share:artifactory"
 )
 
 # Copy utility script path
@@ -63,13 +70,13 @@ function installing_all() {
 
     echo "Applying additional configurations..."
     # Apply additional configurations
-    kubectl apply -n ${NAMESPACES[KEYMGR]} -f ../utils/idle_timeout_envoyfilter.yaml
+    kubectl apply -n ${NAMESPACES[KEYMGR]} -f $WORKDIR/utils/idle_timeout_envoyfilter.yaml
     
     echo "Installing Admin-Proxy into Masterdata and Keymanager."
-    kubectl -n ${NAMESPACES[ADMIN]} apply -f ../utils/admin-proxy.yaml
+    kubectl -n ${NAMESPACES[ADMIN]} apply -f $WORKDIR/utils/admin-proxy.yaml
     
     echo "Installing prereg rate-control Envoyfilter"
-    kubectl apply -n ${NAMESPACES[PREREG]} -f ../utils/rate-control-envoyfilter.yaml
+    kubectl apply -n ${NAMESPACES[PREREG]} -f $WORKDIR/utils/rate-control-envoyfilter.yaml
     
     # Commented lines from original script (kept for reference)
     #kubectl -n ${NAMESPACES[MFS]} --ignore-not-found=true delete configmap mosip-file-server
@@ -80,10 +87,10 @@ function installing_all() {
     # SMTP special case (preserving the exact syntax from original)
     $COPY_UTIL "configmap" "global" "default" "${NAMESPACES[SMTP]}"
     
-    # Copy common configmaps to all namespaces (except source namespaces)
+    # Copy common configmaps to all namespaces (except source namespaces and special cases)
     for ns_key in "${!NAMESPACES[@]}"; do
-        # Skip MFS as it only needs config-server-share
-        if [[ "$ns_key" == "MFS" ]]; then
+        # Skip MFS and REGCLIENT as they have special handling
+        if [[ "$ns_key" == "MFS" || "$ns_key" == "REGCLIENT" ]]; then
             continue
         fi
         
@@ -101,6 +108,13 @@ function installing_all() {
     # Copy special configmaps
     for special_cm in "${SPECIAL_CONFIGMAPS[@]}"; do
         IFS=':' read -r cm_name src_ns target_ns_key <<< "$special_cm"
+        $COPY_UTIL configmap "$cm_name" "$src_ns" "${NAMESPACES[$target_ns_key]}"
+    done
+    
+    # Handle namespace-specific configmaps
+    for specific_cm in "${NAMESPACE_SPECIFIC_CONFIGMAPS[@]}"; do
+        IFS=':' read -r target_ns_key cm_name src_ns <<< "$specific_cm"
+        echo "Copying configmap $cm_name from $src_ns to ${NAMESPACES[$target_ns_key]}"
         $COPY_UTIL configmap "$cm_name" "$src_ns" "${NAMESPACES[$target_ns_key]}"
     done
     

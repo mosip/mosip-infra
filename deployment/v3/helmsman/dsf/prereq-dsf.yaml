@@ -43,7 +43,7 @@ apps:
       grafana.global.cattle.clusterId: "<cluster-id>"
       global.cattle.clusterId: "<cluster-id>"
     wait: true
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/monitoring/values.yaml    
+    valuesFile: "$WORKDIR/utils/monitoring_values.yaml"
     priority: -5
     timeout: 600
     hooks:
@@ -56,7 +56,17 @@ apps:
     chart: mosip/elasticsearch
     wait: true
     priority: -4
-    valuesFile: https://raw.githubusercontent.com/mosip/k8s-infra/refs/heads/develop/logging/es_values.yaml
+    set:
+      global.kibanaEnabled: "true"
+      data.heapSize: "728m"
+      data.persistence.enabled: "true"
+      data.persistence.size: "64Gi"
+      data.resources.requests.memory: "512Mi"
+      master.heapSize: "1024m"
+      master.persistence.enabled: "true"
+      master.persistence.size: "4Gi"
+      master.resources.requests.memory: "728Mi"
+      kibana.persistence.enabled: "false"
 
   istio-addons-logging:
     namespace: cattle-logging-system 
