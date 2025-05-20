@@ -69,13 +69,19 @@ apps:
       kibana.persistence.enabled: "false"
 
   istio-addons-logging:
-    namespace: cattle-logging-system 
+    namespace: cattle-logging-system
     enabled: true
-    version: 0.1.0
-    chart: $WORKDIR/utils/istio-addons/logging-istio-addons-0.1.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      KIBANA_HOST: "<kibana-host>"
-      KIBANA_NAME: "elasticsearch-kibana"
+      istio.name: "kibana"
+      istio.host: "kibana.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "kibana"
+      istio.port.number: 80
+      istio.port.protocol: "HTTP"
+      istio.serviceHost: "kibana"
+      istio.servicePort: 5601
     wait: true
     priority: -3
 
