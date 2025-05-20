@@ -66,10 +66,17 @@ apps:
   istio-addons-psql:
     namespace: postgres
     enabled: true
-    version: 0.1.0
-    chart: $WORKDIR/utils/istio-addons/postgres-istio-addons-0.1.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      postgresHost: "<postgres-host>"
+      istio.name: "postgres"
+      istio.host: "postgres.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "postgres"
+      istio.port.number: 5432
+      istio.port.protocol: "TCP"
+      istio.serviceHost: "postgres-postgresql"
+      istio.servicePort: 5432
     wait: true
     priority: -4
 
@@ -147,12 +154,17 @@ apps:
   istio-addons-iam:
     namespace: keycloak
     enabled: true
-    version: 0.1.0
-    chart: $WORKDIR/utils/istio-addons/iam-istio-addons-0.1.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      keycloakExternalHost: "<iam-host>"
-      keycloakInternalHost: "keycloak.keycloak"
-      service: "keycloak"
+      istio.name: "keycloak"
+      istio.host: "iam.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "http"
+      istio.port.number: 80
+      istio.port.protocol: "HTTP"
+      istio.serviceHost: "keycloak"
+      istio.servicePort: 80
     wait: true
     priority: -3
 
@@ -217,10 +229,29 @@ apps:
   istio-addons-minio:
     namespace: minio
     enabled: true
-    version: 1.2.0
-    chart: $WORKDIR/utils/istio-addons/minio-istio-addons-1.2.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      externalHost: "<minio-host>"
+      istio.name: "minio"
+      istio.host: "minio.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.protocol: "HTTP"
+      istio.servers[0].port.name: "http"
+      istio.servers[0].port.number: "80"
+      istio.servers[0].port.protocol: "HTTP"
+      istio.servers[0].hosts[0]: "minio.sandbox.xyz.net"
+      istio.servers[1].port.name: "minio"
+      istio.servers[1].port.number: "9000"
+      istio.servers[1].port.protocol: "HTTP"
+      istio.servers[1].hosts[0]: "minio.sandbox.xyz.net"
+      istio.httpRoutes[0].name: "minio"
+      istio.httpRoutes[0].match.port: 9000
+      istio.httpRoutes[0].destination.host: "minio"
+      istio.httpRoutes[0].destination.port: 9000
+      istio.httpRoutes[1].name: "http"
+      istio.httpRoutes[1].match.uriPrefix: "/"
+      istio.httpRoutes[1].destination.host: "minio"
+      istio.httpRoutes[1].destination.port: 9001
     wait: true
     hooks:
       postInstall: "$WORKDIR/hooks/s3-setup.sh <pretext-value>"
@@ -246,7 +277,7 @@ apps:
     enabled: true
     version: 0.0.2
     chart: mosip/activemq-artemis
-    set: 
+    set:
       istio.enabled: "true"
       istio.hosts[0]: "<activemq-host>"
       istio.ingressController.name: "ingressgateway-internal"
@@ -259,7 +290,7 @@ apps:
   # Pass the captcha site and secret key in the above post install script as an argument.To create site and secret key below is the link:
   # https://cloud.google.com/security/products/recaptcha
 
-  kafka: 
+  kafka:
     namespace: kafka
     enabled: true
     version: 26.11.4
@@ -321,11 +352,17 @@ apps:
   istio-addons-kafka:
     namespace: kafka
     enabled: true
-    version: 1.2.0
-    chart: $WORKDIR/utils/istio-addons/kafka-istio-addons-1.2.0.tgz
+    version: 0.0.1-develop
+    chart: mosip/istio-addons
     set:
-      kafkaUiHost: "<kafka-host>"
-      installName: "kafka-ui"
+      istio.name: "kafka-ui"
+      istio.host: "kafka.sandbox.xyz.net"
+      istio.ingressController: "ingressgateway-internal"
+      istio.port.name: "kafka-ui"
+      istio.port.number: 80
+      istio.port.protocol: "HTTP"
+      istio.serviceHost: "kafka-ui"
+      istio.servicePort: 80
     wait: true
     hooks:
       postInstall: "$WORKDIR/hooks/msg-gateways-setup.sh"
