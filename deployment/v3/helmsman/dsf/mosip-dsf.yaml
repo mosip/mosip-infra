@@ -89,73 +89,7 @@ apps:
     timeout: 600
     priority: -14
     hooks:
-      preInstall: |
-        #!/bin/bash
-        # Copy configmaps and secrets from other namespaces
-        NS=config-server
-        echo Istio label
-        kubectl label ns $NS istio-injection=enabled --overwrite
-
-        # Function to copy ConfigMaps or Secrets
-        function copy_resource() {
-          local RESOURCE_TYPE="$1"
-          local RESOURCE_NAME="$2"
-          local SOURCE_NAMESPACE="$3"
-          local DESTINATION_NAMESPACE="$4"
-          local NEW_NAME="${5:-$RESOURCE_NAME}" 
-
-          if [ "$RESOURCE_TYPE" = "configmap" ]; then
-            RESOURCE="configmap"
-          elif [ "$RESOURCE_TYPE" = "secret" ]; then
-            RESOURCE="secret"
-          else
-            echo "Incorrect resource type: $RESOURCE_TYPE. Exiting..."
-            exit 1
-          fi
-
-          if [ "$NEW_NAME" != "$RESOURCE_NAME" ]; then
-            kubectl -n "$DESTINATION_NAMESPACE" delete --ignore-not-found=true "$RESOURCE" "$NEW_NAME"
-            kubectl -n "$SOURCE_NAMESPACE" get "$RESOURCE" "$RESOURCE_NAME" -o yaml | \
-              sed "s/namespace: $SOURCE_NAMESPACE/namespace: $DESTINATION_NAMESPACE/g" | \
-              sed "s/name: $RESOURCE_NAME/name: $NEW_NAME/g" | kubectl -n "$DESTINATION_NAMESPACE" create -f -
-          else
-            kubectl -n "$DESTINATION_NAMESPACE" delete --ignore-not-found=true "$RESOURCE" "$RESOURCE_NAME"
-            kubectl -n "$SOURCE_NAMESPACE" get "$RESOURCE" "$RESOURCE_NAME" -o yaml | \
-              sed "s/namespace: $SOURCE_NAMESPACE/namespace: $DESTINATION_NAMESPACE/g" | \
-              kubectl -n "$DESTINATION_NAMESPACE" create -f -
-          fi
-        }
-
-        # Function to copy multiple ConfigMaps and Secrets
-        function copy_resources() {
-          # Copy ConfigMaps
-          copy_resource "configmap" "global" "default" "$NS"
-          copy_resource "configmap" "keycloak-host" "keycloak" "$NS"
-          copy_resource "configmap" "activemq-activemq-artemis-share" "activemq" "$NS"
-          copy_resource "configmap" "s3" "s3" "$NS"
-          copy_resource "configmap" "msg-gateway" "msg-gateways" "$NS"
-
-          # Copy Secrets
-          copy_resource "secret" "db-common-secrets" "postgres" "$NS"
-          copy_resource "secret" "keycloak" "keycloak" "$NS"
-          copy_resource "secret" "keycloak-client-secrets" "keycloak" "$NS"
-          copy_resource "secret" "activemq-activemq-artemis" "activemq" "$NS"
-          copy_resource "secret" "softhsm-kernel" "softhsm" "$NS"
-          copy_resource "secret" "softhsm-ida" "softhsm" "$NS"
-          copy_resource "secret" "s3" "s3" "$NS"
-          copy_resource "secret" "msg-gateway" "msg-gateways" "$NS"
-          copy_resource "secret" "mosip-captcha" "captcha" "$NS"
-          copy_resource "secret" "conf-secrets-various" "conf-secrets" "$NS"
-        }
-
-        # Error handling settings
-        set -e
-        set -o errexit
-        set -o nounset
-        set -o errtrace
-        set -o pipefail
-
-        copy_resources
+      preInstall: "$WORKDIR/hooks/config-server-setup.sh"
 
   artifactory:
     namespace: artifactory
@@ -927,5 +861,3 @@ apps:
       regclient.hostName: "<api-internal-host>"
       istio.host: "https://<regclient-host>"
     priority: -1
-    hooks:
-      preInstall: "$WORKDIR/hooks/regclient-setup.sh"
