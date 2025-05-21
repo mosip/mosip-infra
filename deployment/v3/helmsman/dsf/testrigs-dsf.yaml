@@ -1,0 +1,102 @@
+helmDefaults:
+  tillerNamespace: kube-system
+  tillerless: true
+  install: true
+
+helmRepos:
+  bitnami: https://charts.bitnami.com/bitnami
+  mosip: https://mosip.github.io/mosip-helm
+
+# Note: Based on your requirement disable the namespaces which you want to use, by default all the namespaces are protected.
+namespaces:
+  apitestrig:
+    protected: false
+  packetcreator:
+    protected: false
+  uitestrig:
+    protected: false
+
+apps:
+  apitestrig:
+    namespace: apitestrig
+    enabled: true
+    version: <chart version>
+    chart: mosip/apitestrig
+    set:
+      # image.repository: ""
+      # image.tag: "develop"
+      crontime: "0 2 * * *"
+      prereg.enabled: "true"
+      masterdata.enabled: "true"
+      idrepo.enabled: "true"
+      partner.enabled: "true"
+      resident.enabled: "true"
+      auth.enabled: "true"
+      esignet.enabled: "true"
+      mimoto.enabled: "true"
+      apitestrig.configmaps.s3.s3-host: 'http://minio.minio:9000'
+      apitestrig.configmaps.s3.s3-user-key: 'admin'
+      apitestrig.configmaps.s3.s3-region: ''
+      apitestrig.configmaps.db.db-server: "<DB_HOST_NAME>"
+      apitestrig.configmaps.db.db-su-user: "postgres"
+      apitestrig.configmaps.db.db-port: "5432"
+      apitestrig.configmaps.apitestrig.ENV_USER: "<ENV_USER>"
+      apitestrig.configmaps.apitestrig.ENV_ENDPOINT: "https://api-internal.sanbox.xyz.net"
+      apitestrig.configmaps.apitestrig.ENV_TESTLEVEL: "smokeAndRegression"
+      apitestrig.configmaps.apitestrig.reportExpirationInDays: "3"
+      apitestrig.configmaps.apitestrig.slack-webhook-url: "<slackWebhookUrl>"
+      apitestrig.configmaps.apitestrig.eSignetDeployed: "<yes or no>"
+      apitestrig.configmaps.apitestrig.NS: apitestrig
+    priority: -3
+    hooks:
+      preInstall: "$WORKDIR/hooks/apitestrig-setup.sh"
+
+  packetcreator:
+    namespace: packetcreator
+    enabled: true
+    version: <chart version>
+    chart: mosip/packetcreator
+    set:
+      # image.repository: ""
+      # image.tag: "develop"
+      enable_insecure: false
+      ingress.enabled: false
+      ## If ingress enabled, provide ingress host value i.e., PACKETCREATOR_HOST
+      ingress.host: "<PACKETCREATOR_HOST>"
+      istio.enabled: true
+    wait: true
+    timeout: 300
+    priority: -2
+    hooks:
+      preInstall: "$WORKDIR/hooks/packetcreator-setup.sh"
+
+  uitestrig:
+    namespace: uitestrig
+    enabled: true
+    version: <chart version>
+    chart: mosip/apitestrig
+    set:
+      # image.repository: ""
+      # image.tag: "develop"
+      crontime: "0 3 * * *"
+      uitestrig.configmaps.s3.s3-host: "http://minio.minio:9000"
+      uitestrig.configmaps.s3.s3-user-key: "admin"
+      uitestrig.configmaps.s3.s3-region: ""
+      uitestrig.configmaps.db.db-server: "<DB_HOST>"
+      uitestrig.configmaps.db.db-su-user: "postgres"
+      uitestrig.configmaps.db.db-port: "5432"
+      uitestrig.configmaps.uitestrig.apiInternalEndPoint: "https://api-internal.sandbox.xyz.net"
+      uitestrig.configmaps.uitestrig.apiEnvUser: "api-internal.sanbox.xyz.net"
+      uitestrig.configmaps.uitestrig.PmpPortalPath: "https://pmp.sandbox.xyz.net"
+      uitestrig.configmaps.uitestrig.adminPortalPath: "https://admin.sandbox.xyz.net"
+      uitestrig.configmaps.uitestrig.residentPortalPath: "https://resident.sandbox.xyz.net"
+      uitestrig.configmaps.uitestrig.NS: "uitestrig"
+    priority: -2
+    hooks:
+      preInstall: "$WORKDIR/hooks/uitestrig-setup.sh"
+
+
+
+      
+
+    
