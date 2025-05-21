@@ -7,6 +7,7 @@ if [ $# -ge 1 ]; then
 fi
 NS=keycloak
 SERVICE_NAME=keycloak
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 echo Creating $NS namespace
 kubectl create ns $NS
@@ -23,7 +24,7 @@ function installing_keycloak() {
 
   EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
   echo Install Istio gateway, virtual service
-  helm -n $NS install istio-addons mosip/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost="$SERVICE_NAME.$NS" --set service=$SERVICE_NAME -f istio-addons-values.yaml
+  helm -n $NS install istio-addons mosip/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost="$SERVICE_NAME.$NS" --set service=$SERVICE_NAME --version=$ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml
   return 0
 }
 
