@@ -13,6 +13,8 @@ namespaces:
     protected: false
   packetcreator:
     protected: false
+  dslrig:
+    protected: false
   uitestrig:
     protected: false
 
@@ -47,7 +49,7 @@ apps:
       apitestrig.configmaps.apitestrig.slack-webhook-url: "<slackWebhookUrl>"
       apitestrig.configmaps.apitestrig.eSignetDeployed: "<yes or no>"
       apitestrig.configmaps.apitestrig.NS: apitestrig
-    priority: -3
+    priority: -4
     hooks:
       preInstall: "$WORKDIR/hooks/apitestrig-setup.sh"
 
@@ -66,9 +68,34 @@ apps:
       istio.enabled: true
     wait: true
     timeout: 300
-    priority: -2
+    priority: -3
     hooks:
       preInstall: "$WORKDIR/hooks/packetcreator-setup.sh"
+
+  dslorchestrator:
+    namespace: dslrig
+    enabled: true
+    version: <chart version>
+    chart: mosip/dslorchestrator
+    set:
+      # image.repository: ""
+      # image.tag: "develop"
+      crontime: "0 4 * * *"
+      dslorchestrator.configmaps.s3.s3-host: 'http://minio.minio:9000'
+      dslorchestrator.configmaps.s3.s3-user-key: 'admin'
+      dslorchestrator.configmaps.s3.s3-region: ''
+      dslorchestrator.configmaps.db.db-server: "<DB_HOST>"
+      dslorchestrator.configmaps.db.db-su-user: "postgres"
+      dslorchestrator.configmaps.db.db-port: "5432"
+      dslorchestrator.configmaps.dslorchestrator.USER: "<api-internal.sandbox.xyz.net>"
+      dslorchestrator.configmaps.dslorchestrator.ENDPOINT: "https://api-internal.sandbox.xyz.net"
+      dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl: "http://packetcreator.packetcreator/v1/packetcreator"
+      dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays: "3"
+      dslorchestrator.configmaps.dslorchestrator.NS: "dslrig"
+      enable_insecure: false
+    priority: -2
+    hooks:
+      preInstall: "$WORKDIR/hooks/dslrig-setup.sh"
 
   uitestrig:
     namespace: uitestrig
@@ -91,7 +118,7 @@ apps:
       uitestrig.configmaps.uitestrig.adminPortalPath: "https://admin.sandbox.xyz.net"
       uitestrig.configmaps.uitestrig.residentPortalPath: "https://resident.sandbox.xyz.net"
       uitestrig.configmaps.uitestrig.NS: "uitestrig"
-    priority: -2
+    priority: -3
     hooks:
       preInstall: "$WORKDIR/hooks/uitestrig-setup.sh"
 
