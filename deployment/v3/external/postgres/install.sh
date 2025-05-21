@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=postgres
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 helm repo update
 echo Create $NS namespace
@@ -19,7 +20,7 @@ function installing_postgres() {
   echo Installed Postgres
   echo Installing gateways and virtual services
   POSTGRES_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
-  helm -n $NS install istio-addons mosip/istio-addons --set postgresHost=$POSTGRES_HOST -f istio-addons-values.yaml --wait
+  helm -n $NS install istio-addons mosip/istio-addons --set postgresHost=$POSTGRES_HOST --version=$ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml --wait
   return 0
 }
 
