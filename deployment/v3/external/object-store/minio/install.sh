@@ -18,7 +18,7 @@ function installing_minio() {
   helm -n minio install minio bitnami/minio -f values.yaml --version 15.0.6
 
   echo Installing gateways and virtualservice
-  helm -n $NS install istio-addons mosip/istio-addons --version=$ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml
+  helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml
 
   echo Helm installed. Next step is to execute the cred.sh to update secrets in s3 namespace
   return 0
