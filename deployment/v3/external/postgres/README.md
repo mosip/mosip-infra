@@ -4,7 +4,10 @@
 ```sh
 ./install.sh
 ```
-* A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
+
+Note:
+  * A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
+  * Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
 
 ## Test
 * Make sure docker is running from machine you are testing.

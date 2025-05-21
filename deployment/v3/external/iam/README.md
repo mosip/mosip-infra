@@ -16,6 +16,9 @@ The `install.sh` script here assumes that configmap `global` is already there in
 ```
 $ ./install.sh <kubeconfig file for this cluster>
 ```
+
+Note: 
+* Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
 * Bitnami keycloak chart here installs postgres too.  If you already have an external postgres DB, point to the same while installing.
 * For postgres persistence the chart uses default storage class available with the cluster.
 * While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before. Delete them explicity if you need to. CAUTION: all persistent data will be erased if you delete PV.

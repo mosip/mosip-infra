@@ -14,6 +14,9 @@ Recommended for sandbox installations:
 cd ..
 ./cred.sh
 ```
+
+Note: Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
+
 ## Operator based installation 
 Recommended for multi-tenant production based installation.
 See [MinIO Operator Based Installation Guide](operator/README.md).

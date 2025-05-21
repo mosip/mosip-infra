@@ -9,6 +9,7 @@ fi
 NS=kafka
 CHART_VERSION=26.11.4
 UI_CHART_VERSION=0.7.1
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -28,11 +29,8 @@ function installing_kafka() {
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION
 
-  KAFKA_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-kafka-host})
-  KAFKA_UI_NAME=kafka-ui
-
   echo Install istio addons
-  helm -n $NS install istio-addons mosip/istio-addons --set kafkaUiHost=$KAFKA_UI_HOST --set installName=$KAFKA_UI_NAME -f istio-addons-values.yaml
+  helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml
 
   echo Installed kafka and kafka-ui services
   return 0
