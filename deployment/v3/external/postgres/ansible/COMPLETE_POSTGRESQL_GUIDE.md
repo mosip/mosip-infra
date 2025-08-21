@@ -6,7 +6,7 @@ This tool automatically installs and sets up PostgreSQL database on your server 
 ## 🚀 Quick Start (The Easy Way)
 ```bash
 # 1. Go to the directory
-cd /home/bhuminathan/encryptstatefile/ansible
+cd /deployment/v3/external/postgres/ansible
 
 # 2. Set up your server inventory (NEW!)
 ./setup-vm-inventory.sh
