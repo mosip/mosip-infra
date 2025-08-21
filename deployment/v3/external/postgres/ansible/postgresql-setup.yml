@@ -1,0 +1,187 @@
+---
+# PostgreSQL Setup - Simple and Effective
+# Single playbook with minimal complexity for maximum clarity
+
+- name: PostgreSQL Setup
+  hosts: postgresql_servers
+  become: yes
+  vars:
+    # Default configuration - easily overridable
+    postgres_version: "{{ postgresql_version | default('15') }}"
+    postgres_port: "{{ postgresql_port | default('5433') }}"
+    postgres_device: "{{ storage_device | default('/dev/nvme2n1') }}"
+    postgres_mount: "{{ mount_point | default('/srv/postgres') }}"
+    postgres_data_dir: "{{ postgres_mount }}/postgresql/{{ postgres_version }}/main"
+    postgres_old_dir: "/var/lib/postgresql/{{ postgres_version }}/main"
+    postgres_config_dir: "/etc/postgresql/{{ postgres_version }}/main"
+    postgres_network_cidr: "{{ network_cidr | default('10.0.0.0/8') }}"
+    
+  tasks:
+    # Prerequisites Check
+    - name: Check if device exists
+      stat:
+        path: "{{ postgres_device }}"
+      register: device_check
+      failed_when: not device_check.stat.exists
+      
+    # Storage Setup
+    - name: Check if device is already mounted
+      command: mountpoint -q {{ postgres_mount }}
+      register: mount_check
+      failed_when: false
+      changed_when: false
+      
+    - name: Format device if not mounted
+      filesystem:
+        fstype: xfs
+        dev: "{{ postgres_device }}"
+        force: no
+      when: mount_check.rc != 0
+      
+    - name: Create mount point and mount device
+      mount:
+        path: "{{ postgres_mount }}"
+        src: "{{ postgres_device }}"
+        fstype: xfs
+        opts: defaults,noatime
+        state: mounted
+        
+    # Add PostgreSQL repository
+    - name: Install required packages for repository
+      apt:
+        name:
+          - wget
+          - ca-certificates
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+        
+    - name: Get Ubuntu codename
+      command: lsb_release -cs
+      register: ubuntu_codename
+      changed_when: false
+      
+    - name: Add PostgreSQL signing key
+      apt_key:
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        state: present
+        
+    - name: Add PostgreSQL APT repository
+      apt_repository:
+        repo: "deb http://apt.postgresql.org/pub/repos/apt {{ ubuntu_codename.stdout }}-pgdg main"
+        state: present
+        
+    - name: Update package cache after adding PostgreSQL repo
+      apt:
+        update_cache: yes
+        
+    # Install PostgreSQL
+    - name: Install PostgreSQL packages
+      apt:
+        name:
+          - "postgresql-{{ postgres_version }}"
+          - "postgresql-client-{{ postgres_version }}"
+        state: present
+        
+    - name: Stop PostgreSQL for data migration
+      systemd:
+        name: postgresql
+        state: stopped
+        
+    # Data Migration
+    - name: Check if old data directory exists
+      stat:
+        path: "{{ postgres_old_dir }}/PG_VERSION"
+      register: old_data_exists
+      
+    - name: Check if new data directory is empty
+      find:
+        paths: "{{ postgres_data_dir }}"
+        file_type: any
+      register: new_data_check
+      failed_when: false
+      
+    - name: Create new data directory
+      file:
+        path: "{{ postgres_data_dir }}"
+        state: directory
+        owner: postgres
+        group: postgres
+        mode: '0700'
+        recurse: yes
+        
+    - name: Copy data to new location
+      shell: |
+        sudo -u postgres cp -a {{ postgres_old_dir }}/* {{ postgres_data_dir }}/
+        sudo -u postgres cp -a {{ postgres_old_dir }}/.[^.]* {{ postgres_data_dir }}/ 2>/dev/null || true
+      when: 
+        - old_data_exists.stat.exists
+        - new_data_check.matched == 0
+        
+    - name: Fix permissions on data directory
+      file:
+        path: "{{ postgres_data_dir }}"
+        owner: postgres
+        group: postgres
+        mode: '0700'
+        recurse: yes
+        
+    # Configuration
+    - name: Configure PostgreSQL settings
+      lineinfile:
+        path: "{{ postgres_config_dir }}/postgresql.conf"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        backup: yes
+      loop:
+        - { regexp: '^#?data_directory\s*=', line: "data_directory = '{{ postgres_data_dir }}'" }
+        - { regexp: '^#?port\s*=', line: "port = {{ postgres_port }}" }
+        - { regexp: '^#?listen_addresses\s*=', line: "listen_addresses = '*'" }
+        - { regexp: '^#?max_connections\s*=', line: "max_connections = 1000" }
+      notify: restart postgresql
+      
+    - name: Configure pg_hba.conf for access
+      blockinfile:
+        path: "{{ postgres_config_dir }}/pg_hba.conf"
+        marker: "# {mark} ANSIBLE MANAGED"
+        block: |
+          local   all   postgres   peer
+          local   all   all        peer  
+          host    all   all        127.0.0.1/32   md5
+          host    all   all        {{ postgres_network_cidr }}   md5
+        backup: yes
+      notify: restart postgresql
+      
+    # Start Service
+    - name: Start and enable PostgreSQL
+      systemd:
+        name: postgresql
+        state: started
+        enabled: yes
+        
+    # Verification
+    - name: Wait for PostgreSQL to be ready
+      wait_for:
+        port: "{{ postgres_port }}"
+        timeout: 30
+        
+    - name: Test PostgreSQL connection
+      shell: sudo -u postgres psql -p {{ postgres_port }} -c "SELECT version();"
+      register: pg_test
+      changed_when: false
+      
+    - name: Display setup summary
+      debug:
+        msg: |
+          PostgreSQL {{ postgres_version }} Setup Complete
+          Port: {{ postgres_port }}
+          Data Directory: {{ postgres_data_dir }}
+          Mount Point: {{ postgres_mount }}
+          Connection Test: {{ 'PASSED' if pg_test.rc == 0 else 'FAILED' }}
+          
+  handlers:
+    - name: restart postgresql
+      systemd:
+        name: postgresql
+        state: restarted
