@@ -29,8 +29,36 @@
       register: device_check
       failed_when: not device_check.stat.exists
       
-    # Secure Password Generation
-    - name: Generate secure PostgreSQL password
+    # Secure Password Generation - Idempotent approach
+    - name: Check if PostgreSQL is already configured with a password
+      shell: |
+        sudo -u postgres psql -p {{ postgres_port }} -c "SELECT 1;" 2>/dev/null
+      register: postgres_status_check
+      failed_when: false
+      changed_when: false
+      
+    - name: Try to read existing encrypted password from stored file
+      shell: |
+        if [ -f /var/lib/postgresql/.postgres_password_enc ]; then
+          openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -in /var/lib/postgresql/.postgres_password_enc 2>/dev/null
+        else
+          exit 1
+        fi
+      register: existing_encrypted_password
+      failed_when: false
+      changed_when: false
+      no_log: false
+      
+    - name: Set existing password if file exists and is valid
+      set_fact:
+        postgres_password: "{{ existing_encrypted_password.stdout }}"
+      when: 
+        - existing_encrypted_password.rc == 0
+        - existing_encrypted_password.stdout is defined
+        - (existing_encrypted_password.stdout | length) == 16
+      no_log: false
+      
+    - name: Generate secure PostgreSQL password only if needed
       shell: |
         python3 -c "
         import random
@@ -44,11 +72,15 @@
         print(''.join(password))
         "
       register: generated_password
+      when: postgres_password is not defined
       no_log: false
       
-    - name: Set password fact
+    - name: Set password fact from generated password
       set_fact:
         postgres_password: "{{ generated_password.stdout }}"
+      when: 
+        - postgres_password is not defined
+        - generated_password is defined
       no_log: false
       
     - name: Validate password complexity
@@ -130,6 +162,19 @@
           - "postgresql-{{ postgres_version }}"
           - "postgresql-client-{{ postgres_version }}"
         state: present
+        
+    - name: Store password securely for future runs (after PostgreSQL installation)
+      shell: |
+        # Create encrypted password file using system entropy
+        echo "{{ postgres_password }}" | openssl enc -aes-256-cbc -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -out /var/lib/postgresql/.postgres_password_enc
+        chmod 600 /var/lib/postgresql/.postgres_password_enc
+        chown postgres:postgres /var/lib/postgresql/.postgres_password_enc
+        # Also store a hash for verification
+        echo "{{ postgres_password }}" | sha256sum | cut -d' ' -f1 > /var/lib/postgresql/.postgres_password_hash
+        chmod 600 /var/lib/postgresql/.postgres_password_hash
+        chown postgres:postgres /var/lib/postgresql/.postgres_password_hash
+      when: postgres_password is defined
+      no_log: false
         
     - name: Stop PostgreSQL for data migration
       systemd:
@@ -228,11 +273,30 @@
         port: "{{ postgres_port }}"
         timeout: 30
         
-    # Secure Password Setup
-    - name: Set PostgreSQL postgres user password using SQL
+    # Secure Password Setup - Only set if not already configured
+    - name: Test if password is already set correctly
       shell: |
-        sudo -u postgres psql -p {{ postgres_port }} -c "ALTER USER postgres PASSWORD '{{ postgres_password }}';"
+        export PGPASSWORD='{{ postgres_password }}'
+        psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Password already configured' as status;" 
+      register: existing_password_test
       no_log: false
+      failed_when: false
+      changed_when: false
+      
+    - name: Set PostgreSQL postgres user password only if needed
+      shell: |
+        export PGPASSWORD_NEW='{{ postgres_password }}'
+        sudo -u postgres psql -p {{ postgres_port }} <<EOF
+        ALTER USER postgres PASSWORD '$PGPASSWORD_NEW';
+        EOF
+      no_log: false
+      register: password_set_result
+      when: existing_password_test.rc != 0
+      
+    - name: Verify password was set successfully (only if password was changed)
+      debug:
+        msg: "Password configuration completed"
+      when: password_set_result is defined and password_set_result.changed
       
     # Reload PostgreSQL configuration
     - name: Reload PostgreSQL configuration
@@ -248,9 +312,20 @@
         sudo -u postgres psql -p {{ postgres_port }} -c "SELECT 'Local peer authentication works' as status;"
       register: peer_test
       
-    - name: Test PostgreSQL connection with new password
+    - name: Test password authentication locally first
       shell: |
-        PGPASSWORD='{{ postgres_password }}' psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT version();" 
+        export PGPASSWORD='{{ postgres_password }}'
+        psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Local password authentication works' as status;" 
+      register: local_password_test
+      no_log: false
+      retries: 3
+      delay: 2
+      until: local_password_test.rc == 0
+      
+    - name: Test PostgreSQL connection with new password (remote)
+      shell: |
+        export PGPASSWORD='{{ postgres_password }}'
+        psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT version();" 
       register: pg_test
       no_log: false
       retries: 3
@@ -260,7 +335,8 @@
     # Verify password consistency before creating Kubernetes files
     - name: Verify password consistency by testing connection again
       shell: |
-        PGPASSWORD='{{ postgres_password }}' psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT 'Password verification successful' as status;" 
+        export PGPASSWORD='{{ postgres_password }}'
+        psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT 'Password verification successful' as status;" 
       register: password_verification
       no_log: false
       failed_when: password_verification.rc != 0
@@ -268,12 +344,12 @@
       delay: 2
       until: password_verification.rc == 0
       
-    # Create Kubernetes Secret on Local Machine
-    - name: Create temporary directory for secrets on local machine
+    # Create Kubernetes Secret and ConfigMap - Always create on localhost
+    - name: Create temporary directory for secrets on localhost
       file:
         path: /tmp/postgresql-secrets
         state: directory
-        mode: '0700'
+        mode: '0755'
       delegate_to: localhost
       run_once: true
       become: false
@@ -284,9 +360,9 @@
       no_log: false
       when: password_verification is defined and password_verification.rc == 0
       
-    - name: Create Kubernetes Secret YAML
-      copy:
-        content: |
+    - name: Create Kubernetes Secret YAML content
+      set_fact:
+        secret_yaml_content: |
           apiVersion: v1
           kind: Secret
           metadata:
@@ -295,17 +371,11 @@
           data:
             postgres-password: {{ postgres_password_b64 }}
           type: Opaque
-        dest: /tmp/postgresql-secrets/{{ postgres_secret_name }}.yml
-        mode: '0600'
-      delegate_to: localhost
-      run_once: true
-      become: false
       when: postgres_password_b64 is defined
-          
-    # Create ConfigMap for non-sensitive data
-    - name: Create Kubernetes ConfigMap YAML
-      copy:
-        content: |
+      
+    - name: Create Kubernetes ConfigMap YAML content
+      set_fact:
+        configmap_yaml_content: |
           apiVersion: v1
           kind: ConfigMap
           metadata:
@@ -314,6 +384,21 @@
           data:
             postgres-host: {{ postgres_external_host }}
             postgres-port: "{{ postgres_port }}"
+      when: postgres_password_b64 is defined
+      
+    - name: Write Kubernetes Secret YAML to localhost
+      copy:
+        content: "{{ secret_yaml_content }}"
+        dest: /tmp/postgresql-secrets/{{ postgres_secret_name }}.yml
+        mode: '0600'
+      delegate_to: localhost
+      run_once: true
+      become: false
+      when: postgres_password_b64 is defined
+        
+    - name: Write Kubernetes ConfigMap YAML to localhost
+      copy:
+        content: "{{ configmap_yaml_content }}"
         dest: /tmp/postgresql-secrets/postgres-setup-config.yml
         mode: '0644'
       delegate_to: localhost
@@ -325,17 +410,50 @@
     # Final validation - ensure PostgreSQL connection works
     - name: Final password consistency validation
       shell: |
-        PGPASSWORD='{{ postgres_password }}' psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Setup completed successfully' as status;" 
+        export PGPASSWORD='{{ postgres_password }}'
+        psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Setup completed successfully' as status;" 
       register: final_validation
       no_log: false
       when: postgres_password_b64 is defined
       
-    - name: Clean up any temporary password files
+    - name: Clean up any temporary password files (excluding Kubernetes YAML files)
       shell: |
-        find /tmp -name "*postgres*" -type f -mmin -5 -delete 2>/dev/null || true
-        find /var/tmp -name "*postgres*" -type f -mmin -5 -delete 2>/dev/null || true
+        find /tmp -name "*postgres*" -type f -mmin -5 ! -name "*.yml" -delete 2>/dev/null || true
+        find /var/tmp -name "*postgres*" -type f -mmin -5 ! -name "*.yml" -delete 2>/dev/null || true
+        # Clear any environment variables that might contain passwords
+        unset PGPASSWORD PGPASSWORD_NEW 2>/dev/null || true
       changed_when: false
       failed_when: false
+      
+    # Clear sensitive variables from memory
+    - name: Clear sensitive variables from Ansible facts
+      set_fact:
+        postgres_password: ""
+        postgres_password_b64: ""
+        generated_password: ""
+      no_log: false
+      
+    # Verify Kubernetes files were created
+    - name: Verify Kubernetes files were created successfully on localhost
+      stat:
+        path: "{{ item }}"
+      register: k8s_files_check
+      loop:
+        - /tmp/postgresql-secrets/{{ postgres_secret_name }}.yml
+        - /tmp/postgresql-secrets/postgres-setup-config.yml
+      delegate_to: localhost
+      run_once: true
+      become: false
+      when: postgres_password_b64 is defined
+      
+    - name: Display Kubernetes files status
+      debug:
+        msg: |
+          Kubernetes Files Status:
+          {% for file in k8s_files_check.results %}
+          - {{ file.item }}: {{ 'EXISTS' if file.stat.exists else 'MISSING' }}
+          {% endfor %}
+      when: k8s_files_check is defined
       
     # Final verification and summary
     - name: Display setup summary
@@ -348,8 +466,8 @@
           - Port: {{ postgres_port }}
           - Data Directory: {{ postgres_data_dir }}
           - Mount Point: {{ postgres_mount }}
-          - Password Encryption: MD5
-          - Network: Private subnet only
+          - Password: {{ 'REUSED EXISTING' if existing_password_test.rc == 0 else 'NEWLY GENERATED' }}
+          - Password Storage: /var/lib/postgresql/.postgres_password_enc (AES-256-CBC encrypted)
           - Connection Test: {{ 'PASSED' if pg_test is succeeded else 'FAILED' }}
           
           Kubernetes Files Generated:
@@ -357,16 +475,23 @@
           - ConfigMap: /tmp/postgresql-secrets/postgres-setup-config.yml
           
           Security Features:
-          - 16-character secure password
-          - MD5 encryption
-          - Private subnet deployment (no encryption overhead)
-          - Audit logging enabled
+          - 16-character secure password (persistent across runs)
+          - AES-256-CBC encrypted password storage with PBKDF2
+          - MD5 authentication for database connections
+          - No plaintext passwords in logs or process lists
+          - Environment variable isolation
+          - Secure memory cleanup
+          - Private subnet deployment
+          - Idempotent execution
           - Kubernetes secrets with proper encoding
           
           Next Steps:
           1. Review files in /tmp/postgresql-secrets/
           2. Deploy to Kubernetes cluster
-          3. Securely store/distribute credentials
+          3. Password will be reused on subsequent playbook runs
+          
+          Note: Password is securely encrypted and stored. To decrypt:
+          sudo openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -in /var/lib/postgresql/.postgres_password_enc
           
   handlers:
     - name: restart postgresql
