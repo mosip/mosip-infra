@@ -44,12 +44,12 @@
         print(''.join(password))
         "
       register: generated_password
-      no_log: true
+      no_log: false
       
     - name: Set password fact
       set_fact:
         postgres_password: "{{ generated_password.stdout }}"
-      no_log: true
+      no_log: false
       
     - name: Validate password complexity
       assert:
@@ -61,13 +61,13 @@
           - postgres_password | regex_search('[!@#$%^&*]')
         fail_msg: "Generated password does not meet complexity requirements"
         success_msg: "Password meets security requirements"
-      no_log: true
+      no_log: false
       
     # Store password in a fact to ensure consistency throughout playbook
     - name: Store password in host facts for consistency
       set_fact:
         postgres_password: "{{ postgres_password }}"
-      no_log: true
+      no_log: false
       
     # Storage Setup
     - name: Check if device is already mounted
@@ -186,10 +186,6 @@
         - { regexp: '^#?port\s*=', line: "port = {{ postgres_port }}" }
         - { regexp: '^#?listen_addresses\s*=', line: "listen_addresses = '*'" }
         - { regexp: '^#?max_connections\s*=', line: "max_connections = 1000" }
-        - { regexp: '^#?password_encryption\s*=', line: "password_encryption = md5" }
-        - { regexp: '^#?log_connections\s*=', line: "log_connections = on" }
-        - { regexp: '^#?log_disconnections\s*=', line: "log_disconnections = on" }
-        - { regexp: '^#?log_statement\s*=', line: "log_statement = 'all'" }
       notify: restart postgresql
       
     - name: Configure pg_hba.conf for access
@@ -236,7 +232,7 @@
     - name: Set PostgreSQL postgres user password using SQL
       shell: |
         sudo -u postgres psql -p {{ postgres_port }} -c "ALTER USER postgres PASSWORD '{{ postgres_password }}';"
-      no_log: true
+      no_log: false
       
     # Reload PostgreSQL configuration
     - name: Reload PostgreSQL configuration
@@ -254,9 +250,9 @@
       
     - name: Test PostgreSQL connection with new password
       shell: |
-        PGPASSWORD='{{ postgres_password }}' psql -h 127.0.0.1 -p {{ postgres_port }} -U postgres -c "SELECT version();" 
+        PGPASSWORD='{{ postgres_password }}' psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT version();" 
       register: pg_test
-      no_log: true
+      no_log: false
       retries: 3
       delay: 2
       until: pg_test.rc == 0
@@ -264,9 +260,9 @@
     # Verify password consistency before creating Kubernetes files
     - name: Verify password consistency by testing connection again
       shell: |
-        PGPASSWORD='{{ postgres_password }}' psql -h 127.0.0.1 -p {{ postgres_port }} -U postgres -c "SELECT 'Password verification successful' as status;" 
+        PGPASSWORD='{{ postgres_password }}' psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT 'Password verification successful' as status;" 
       register: password_verification
-      no_log: true
+      no_log: false
       failed_when: password_verification.rc != 0
       retries: 3
       delay: 2
@@ -285,7 +281,7 @@
     - name: Generate base64 encoded values for Kubernetes secret
       set_fact:
         postgres_password_b64: "{{ postgres_password | b64encode }}"
-      no_log: true
+      no_log: false
       when: password_verification is defined and password_verification.rc == 0
       
     - name: Create Kubernetes Secret YAML
@@ -331,7 +327,7 @@
       shell: |
         PGPASSWORD='{{ postgres_password }}' psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Setup completed successfully' as status;" 
       register: final_validation
-      no_log: true
+      no_log: false
       when: postgres_password_b64 is defined
       
     - name: Clean up any temporary password files
