@@ -1,7 +1,0 @@
-localhost | FAILED! => {
-    "changed": false,
-    "module_stderr": "sudo: a password is required\n",
-    "module_stdout": "",
-    "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error",
-    "rc": 1
-}
