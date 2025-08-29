@@ -37,26 +37,38 @@
       failed_when: false
       changed_when: false
       
+    - name: Generate or retrieve encryption key for password storage
+      shell: |
+        if [ ! -f /var/lib/postgresql/.postgres_encryption_key ]; then
+          # Generate a secure random key for encryption
+          openssl rand -base64 32 > /var/lib/postgresql/.postgres_encryption_key
+          chmod 600 /var/lib/postgresql/.postgres_encryption_key
+          chown postgres:postgres /var/lib/postgresql/.postgres_encryption_key
+        fi
+        cat /var/lib/postgresql/.postgres_encryption_key
+      register: encryption_key
+      no_log: true
+      
     - name: Try to read existing encrypted password from stored file
       shell: |
         if [ -f /var/lib/postgresql/.postgres_password_enc ]; then
-          openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -in /var/lib/postgresql/.postgres_password_enc 2>/dev/null
+          openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"{{ encryption_key.stdout }}" -in /var/lib/postgresql/.postgres_password_enc 2>/dev/null
         else
           exit 1
         fi
       register: existing_encrypted_password
       failed_when: false
       changed_when: false
-      no_log: false
+      no_log: true
       
     - name: Set existing password if file exists and is valid
       set_fact:
         postgres_password: "{{ existing_encrypted_password.stdout }}"
-      when: 
+      when:
         - existing_encrypted_password.rc == 0
         - existing_encrypted_password.stdout is defined
         - (existing_encrypted_password.stdout | length) == 16
-      no_log: false
+      no_log: true
       
     - name: Generate secure PostgreSQL password only if needed
       shell: |
@@ -73,7 +85,7 @@
         "
       register: generated_password
       when: postgres_password is not defined
-      no_log: false
+      no_log: true
       
     - name: Set password fact from generated password
       set_fact:
@@ -81,7 +93,7 @@
       when: 
         - postgres_password is not defined
         - generated_password is defined
-      no_log: false
+      no_log: true
       
     - name: Validate password complexity
       assert:
@@ -93,13 +105,13 @@
           - postgres_password | regex_search('[!@#$%^&*]')
         fail_msg: "Generated password does not meet complexity requirements"
         success_msg: "Password meets security requirements"
-      no_log: false
+      no_log: true
       
     # Store password in a fact to ensure consistency throughout playbook
     - name: Store password in host facts for consistency
       set_fact:
         postgres_password: "{{ postgres_password }}"
-      no_log: false
+      no_log: true
       
     # Storage Setup
     - name: Check if device is already mounted
@@ -165,8 +177,8 @@
         
     - name: Store password securely for future runs (after PostgreSQL installation)
       shell: |
-        # Create encrypted password file using system entropy
-        echo "{{ postgres_password }}" | openssl enc -aes-256-cbc -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -out /var/lib/postgresql/.postgres_password_enc
+        # Create encrypted password file using secure encryption key
+        echo "{{ postgres_password }}" | openssl enc -aes-256-cbc -salt -pbkdf2 -pass pass:"{{ encryption_key.stdout }}" -out /var/lib/postgresql/.postgres_password_enc
         chmod 600 /var/lib/postgresql/.postgres_password_enc
         chown postgres:postgres /var/lib/postgresql/.postgres_password_enc
         # Also store a hash for verification
@@ -174,7 +186,7 @@
         chmod 600 /var/lib/postgresql/.postgres_password_hash
         chown postgres:postgres /var/lib/postgresql/.postgres_password_hash
       when: postgres_password is defined
-      no_log: false
+      no_log: true
         
     - name: Stop PostgreSQL for data migration
       systemd:
@@ -279,7 +291,7 @@
         export PGPASSWORD='{{ postgres_password }}'
         psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Password already configured' as status;" 
       register: existing_password_test
-      no_log: false
+      no_log: true
       failed_when: false
       changed_when: false
       
@@ -289,7 +301,7 @@
         sudo -u postgres psql -p {{ postgres_port }} <<EOF
         ALTER USER postgres PASSWORD '$PGPASSWORD_NEW';
         EOF
-      no_log: false
+      no_log: true
       register: password_set_result
       when: existing_password_test.rc != 0
       
@@ -317,7 +329,7 @@
         export PGPASSWORD='{{ postgres_password }}'
         psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Local password authentication works' as status;" 
       register: local_password_test
-      no_log: false
+      no_log: true
       retries: 3
       delay: 2
       until: local_password_test.rc == 0
@@ -327,7 +339,7 @@
         export PGPASSWORD='{{ postgres_password }}'
         psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT version();" 
       register: pg_test
-      no_log: false
+      no_log: true
       retries: 3
       delay: 2
       until: pg_test.rc == 0
@@ -338,7 +350,7 @@
         export PGPASSWORD='{{ postgres_password }}'
         psql -h {{ postgres_external_host }} -p {{ postgres_port }} -U postgres -c "SELECT 'Password verification successful' as status;" 
       register: password_verification
-      no_log: false
+      no_log: true
       failed_when: password_verification.rc != 0
       retries: 3
       delay: 2
@@ -357,7 +369,7 @@
     - name: Generate base64 encoded values for Kubernetes secret
       set_fact:
         postgres_password_b64: "{{ postgres_password | b64encode }}"
-      no_log: false
+      no_log: true
       when: password_verification is defined and password_verification.rc == 0
       
     - name: Create Kubernetes Secret YAML content
@@ -413,7 +425,7 @@
         export PGPASSWORD='{{ postgres_password }}'
         psql -h localhost -p {{ postgres_port }} -U postgres -c "SELECT 'Setup completed successfully' as status;" 
       register: final_validation
-      no_log: false
+      no_log: true
       when: postgres_password_b64 is defined
       
     - name: Clean up any temporary password files (excluding Kubernetes YAML files)
@@ -431,7 +443,7 @@
         postgres_password: ""
         postgres_password_b64: ""
         generated_password: ""
-      no_log: false
+      no_log: true
       
     # Verify Kubernetes files were created
     - name: Verify Kubernetes files were created successfully on localhost
@@ -477,6 +489,7 @@
           Security Features:
           - 16-character secure password (persistent across runs)
           - AES-256-CBC encrypted password storage with PBKDF2
+          - Cryptographically secure encryption key (randomly generated)
           - MD5 authentication for database connections
           - No plaintext passwords in logs or process lists
           - Environment variable isolation
@@ -490,8 +503,8 @@
           2. Deploy to Kubernetes cluster
           3. Password will be reused on subsequent playbook runs
           
-          Note: Password is securely encrypted and stored. To decrypt:
-          sudo openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"$(hostname -s)-$(date +%Y%m%d)" -in /var/lib/postgresql/.postgres_password_enc
+          Note: Password is securely encrypted with a randomly generated key stored at:
+          /var/lib/postgresql/.postgres_encryption_key
           
   handlers:
     - name: restart postgresql
