@@ -15,14 +15,7 @@ Production-grade PostgreSQL deployment with secure password generation, Kubernet
 ./check-postgresql-status.sh
 ```
 
-## 🎯 Core Features
-
-### Security Features
-- **16-character secure passwords** with mixed complexity
-- **MD5 encryption** for password security
-- **Private subnet optimized** deployment
-- **Audit logging** for connections and statements
-- **Kubernetes secrets** with proper base64 encoding
+## Core Features
 
 ### Deployment Features
 - **Streamlined deployment** for private networks
@@ -39,19 +32,16 @@ Production-grade PostgreSQL deployment with secure password generation, Kubernet
 ## Essential Scripts
 
 ### Production Scripts
-- **`run-postgresql-playbook.sh`** - Main secure deployment script ⭐
-- **`postgresql-setup.yml`** - Secure Ansible playbook ⭐
+- **`run-postgresql-playbook.sh`** - Main secure deployment script
+- **`postgresql-setup.yml`** - Secure Ansible playbook
 - **`check-postgresql-status.sh`** - Status monitoring and verification
 - **`cleanup-postgresql.sh`** - Safe cleanup with backups
 
-### 📁 Configuration Files
+### Configuration Files
 - **`hosts.ini`** - Ansible inventory configuration
 - **`postgresql-cleanup.yml`** - Cleanup playbook
 
-### 🧪 Testing Tools
-- **`test-postgresql-lifecycle.sh`** - Complete deployment testing
-
-## �� Configuration
+## Configuration
 
 Edit `hosts.ini` to configure your PostgreSQL server:
 
@@ -68,7 +58,7 @@ postgres-vm ansible_host=10.0.2.176 ansible_user=mosipuser ansible_ssh_private_k
 # Kubernetes Namespace: postgres
 ```
 
-## 🛠️ Advanced Usage
+## Advanced Usage
 
 ### Security Configuration
 ```bash
@@ -85,13 +75,20 @@ After deployment, Kubernetes files are generated in `/tmp/postgresql-secrets/`:
 - `postgres-setup-config.yml` - ConfigMap with connection details
 - `DEPLOYMENT_INSTRUCTIONS.md` - Deployment guide
 
+**Apply the generated secrets to Kubernetes:**
+```bash
+# Create the postgres namespace
+kubectl create ns postgres
+
+# Apply the generated YAML files
+kubectl apply -f /tmp/postgresql-secrets/postgres-postgresql.yml
+kubectl apply -f /tmp/postgresql-secrets/postgres-setup-config.yml
+```
+
 ### Monitoring and Maintenance
 ```bash
 # Check PostgreSQL status
 ./check-postgresql-status.sh
-
-# Test complete lifecycle
-./test-postgresql-lifecycle.sh
 
 # Safe cleanup (creates backups)
 ./cleanup-postgresql.sh --safe
@@ -109,16 +106,30 @@ After deployment, Kubernetes files are generated in `/tmp/postgresql-secrets/`:
 - Separation of sensitive and non-sensitive data
 - No plaintext passwords in logs or files
 
-## Requirements
+## Requirements Checklist
 
-- **Operating System**: Ubuntu 20.04+ server
-- **Access**: SSH key-based authentication
-- **Storage**: Dedicated device (e.g., `/dev/nvme2n1`)
-- **Memory**: 4GB+ RAM (8GB+ recommended)
-- **Network**: Private subnet (10.0.0.0/8)
-- **Dependencies**: Ansible, Python3-bcrypt, Python3-psycopg2
+### Server Requirements
 
-## 🎯 Workflow Overview
+- [ ] Ubuntu 20.04+ server
+- [ ] 4GB+ RAM (8GB+ recommended)
+- [ ] Dedicated storage device (e.g., `/dev/nvme2n1`)
+- [ ] SSH key-based access configured
+
+### Network Requirements
+
+- [ ] Private subnet (10.0.0.0/8 recommended)
+- [ ] SSH access on port 22
+- [ ] PostgreSQL port 5433 accessible
+- [ ] No encryption requirements (private network)
+
+### Software Dependencies
+
+- [ ] Ansible installed
+- [ ] Python3-bcrypt package
+- [ ] Python3-psycopg2 package
+- [ ] SSH keys configured for target server
+
+## Workflow Overview
 
 ```
 Edit hosts.ini → run-postgresql-playbook.sh → PostgreSQL Ready
