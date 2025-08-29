@@ -12,8 +12,10 @@
     postgres_device: "{{ storage_device | default('/dev/nvme2n1') }}"
     postgres_mount: "{{ mount_point | default('/srv/postgres') }}"
     postgres_data_dir: "{{ postgres_mount }}/postgresql/{{ postgres_version }}/main"
-    postgres_old_dir: "/var/lib/postgresql/{{ postgres_version }}/main"
-    postgres_config_dir: "/etc/postgresql/{{ postgres_version }}/main"
+    postgres_old_dir: "{% if ansible_os_family == 'Debian' %}/var/lib/postgresql/{{ postgres_version }}/main{% else %}/var/lib/pgsql/{{ postgres_version }}/data{% endif %}"
+    postgres_config_dir: "{% if ansible_os_family == 'Debian' %}/etc/postgresql/{{ postgres_version }}/main{% else %}/var/lib/pgsql/{{ postgres_version }}/data{% endif %}"
+    postgres_bin_dir: "{% if ansible_os_family == 'Debian' %}/usr/lib/postgresql/{{ postgres_version }}/bin{% else %}/usr/pgsql-{{ postgres_version }}/bin{% endif %}"
+    postgres_service_name: "{% if ansible_os_family == 'Debian' %}postgresql{% else %}postgresql-{{ postgres_version }}{% endif %}"
     postgres_network_cidr: "{{ network_cidr | default('10.0.0.0/8') }}"
     postgres_namespace: "{{ kubernetes_namespace | default('postgres') }}"
     postgres_secret_name: "{{ secret_name | default('postgres-postgresql') }}"
@@ -22,6 +24,26 @@
     postgres_external_host: "{{ ansible_host }}"
     
   tasks:
+    # OS Compatibility and Prerequisites
+    - name: Gather OS facts
+      setup:
+        gather_subset: 
+          - 'distribution'
+          - 'distribution_version'
+    
+    - name: Ensure Python3 is available (CentOS/RHEL compatibility)
+      package:
+        name: python3
+        state: present
+      when: ansible_os_family == "RedHat"
+      become: yes
+    
+    - name: Verify Python3 with secrets module availability
+      command: python3 -c "import secrets; print('Python secrets module available')"
+      register: python_secrets_check
+      failed_when: python_secrets_check.rc != 0
+      changed_when: false
+    
     # Prerequisites Check
     - name: Check if device exists
       stat:
@@ -70,29 +92,41 @@
         - (existing_encrypted_password.stdout | length) == 16
       no_log: true
       
-    - name: Generate secure PostgreSQL password only if needed
+    - name: Generate secure PostgreSQL password only if needed (OS-independent method)
       shell: |
+        # Primary Method: Python secrets (works on all OS with Python 3.6+)
         python3 -c "
-        import random
+        import secrets
         import string
-        uppercase = ''.join(random.choices(string.ascii_uppercase, k=4))
-        lowercase = ''.join(random.choices(string.ascii_lowercase, k=4))
-        digits = ''.join(random.choices(string.digits, k=4))
-        special = ''.join(random.choices('!@#$%^&*', k=4))
+        # Use cryptographically secure random generator
+        uppercase = ''.join(secrets.choice(string.ascii_uppercase) for _ in range(4))
+        lowercase = ''.join(secrets.choice(string.ascii_lowercase) for _ in range(4))
+        digits = ''.join(secrets.choice(string.digits) for _ in range(4))
+        special = ''.join(secrets.choice('!@#\$%^&*') for _ in range(4))
         password = list(uppercase + lowercase + digits + special)
-        random.shuffle(password)
+        secrets.SystemRandom().shuffle(password)
         print(''.join(password))
         "
-      register: generated_password
+      register: generated_password_primary
       when: postgres_password is not defined
       no_log: true
-      
-    - name: Set password fact from generated password
-      set_fact:
-        postgres_password: "{{ generated_password.stdout }}"
+
+    - name: Generate secure PostgreSQL password using OpenSSL fallback (Linux/macOS only)
+      shell: |
+        # Fallback Method: OpenSSL (Linux/macOS optimized)
+        openssl rand -base64 24 | tr -d "=+/" | cut -c1-16
+      register: generated_password_fallback
       when: 
         - postgres_password is not defined
-        - generated_password is defined
+        - generated_password_primary.failed is defined
+        - generated_password_primary.failed == true
+      no_log: true
+      failed_when: false
+
+    - name: Set password from OS-independent generation
+      set_fact:
+        postgres_password: "{{ generated_password_primary.stdout if generated_password_primary.stdout is defined else generated_password_fallback.stdout }}"
+      when: postgres_password is not defined
       no_log: true
       
     - name: Validate password complexity
@@ -135,8 +169,10 @@
         opts: defaults,noatime
         state: mounted
         
-    # Add PostgreSQL repository
-    - name: Install required packages for repository
+    # PostgreSQL Installation - Multi-OS Support
+    
+    # Ubuntu/Debian Installation
+    - name: Install required packages for repository (Ubuntu/Debian)
       apt:
         name:
           - wget
@@ -147,33 +183,70 @@
           - python3-psycopg2
         state: present
         update_cache: yes
-        
+      when: ansible_os_family == "Debian"
+    
+    # CentOS/RHEL Installation  
+    - name: Install PostgreSQL repository (CentOS/RHEL)
+      yum:
+        name: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+        state: present
+        disable_gpg_check: yes
+      when: ansible_os_family == "RedHat"
+    
+    - name: Install required packages (CentOS/RHEL)
+      yum:
+        name:
+          - postgresql{{ postgres_version }}-server
+          - postgresql{{ postgres_version }}
+          - python3-bcrypt
+          - python3-psycopg2
+          - wget
+          - ca-certificates
+        state: present
+      when: ansible_os_family == "RedHat"
+    
+    # Ubuntu/Debian Repository Setup
     - name: Get Ubuntu codename
       command: lsb_release -cs
       register: ubuntu_codename
       changed_when: false
+      when: ansible_os_family == "Debian"
       
     - name: Add PostgreSQL signing key
       apt_key:
         url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
         state: present
+      when: ansible_os_family == "Debian"
         
     - name: Add PostgreSQL APT repository
       apt_repository:
         repo: "deb http://apt.postgresql.org/pub/repos/apt {{ ubuntu_codename.stdout }}-pgdg main"
         state: present
+      when: ansible_os_family == "Debian"
         
     - name: Update package cache after adding PostgreSQL repo
       apt:
         update_cache: yes
+      when: ansible_os_family == "Debian"
         
-    # Install PostgreSQL
-    - name: Install PostgreSQL packages
+    # Install PostgreSQL (Ubuntu/Debian)
+    - name: Install PostgreSQL packages (Ubuntu/Debian)
       apt:
         name:
           - "postgresql-{{ postgres_version }}"
           - "postgresql-client-{{ postgres_version }}"
         state: present
+      when: ansible_os_family == "Debian"
+    
+    # Initialize PostgreSQL on CentOS/RHEL (required step)
+    - name: Initialize PostgreSQL database (CentOS/RHEL only)
+      command: "/usr/pgsql-{{ postgres_version }}/bin/postgresql-{{ postgres_version }}-setup initdb"
+      when: 
+        - ansible_os_family == "RedHat"
+      become: yes
+      register: postgres_init_result
+      failed_when: false
+      changed_when: postgres_init_result.rc == 0
         
     - name: Store password securely for future runs (after PostgreSQL installation)
       shell: |
@@ -443,6 +516,8 @@
         postgres_password: ""
         postgres_password_b64: ""
         generated_password: ""
+        generated_password_primary: ""
+        generated_password_fallback: ""
       no_log: true
       
     # Verify Kubernetes files were created
