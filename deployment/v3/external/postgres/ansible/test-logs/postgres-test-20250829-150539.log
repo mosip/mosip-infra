@@ -1,0 +1,3 @@
+test-vm | FAILED! => {
+    "msg": "Missing sudo password"
+}
