@@ -60,22 +60,11 @@
       failed_when: false
       changed_when: false
       
-    - name: Generate or retrieve encryption key for password storage
-      shell: |
-        if [ ! -f /var/lib/postgresql/.postgres_encryption_key ]; then
-          # Generate a secure random key for encryption
-          openssl rand -base64 32 > /var/lib/postgresql/.postgres_encryption_key
-          chmod 600 /var/lib/postgresql/.postgres_encryption_key
-          chown postgres:postgres /var/lib/postgresql/.postgres_encryption_key
-        fi
-        cat /var/lib/postgresql/.postgres_encryption_key
-      register: encryption_key
-      no_log: true
-      
     - name: Try to read existing encrypted password from stored file
       shell: |
-        if [ -f /var/lib/postgresql/.postgres_password_enc ]; then
-          openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"{{ encryption_key.stdout }}" -in /var/lib/postgresql/.postgres_password_enc 2>/dev/null
+        if [ -f /var/lib/postgresql/.postgres_password_enc ] && [ -f /var/lib/postgresql/.postgres_encryption_key ]; then
+          ENCRYPTION_KEY=$(cat /var/lib/postgresql/.postgres_encryption_key)
+          openssl enc -aes-256-cbc -d -salt -pbkdf2 -pass pass:"$ENCRYPTION_KEY" -in /var/lib/postgresql/.postgres_password_enc 2>/dev/null
         else
           exit 1
         fi
@@ -248,6 +237,19 @@
       register: postgres_init_result
       failed_when: false
       changed_when: postgres_init_result.rc == 0
+      
+    # Generate encryption key AFTER PostgreSQL installation (so postgres user and directories exist)
+    - name: Generate or retrieve encryption key for password storage
+      shell: |
+        if [ ! -f /var/lib/postgresql/.postgres_encryption_key ]; then
+          # Generate a secure random key for encryption
+          openssl rand -base64 32 > /var/lib/postgresql/.postgres_encryption_key
+          chmod 600 /var/lib/postgresql/.postgres_encryption_key
+          chown postgres:postgres /var/lib/postgresql/.postgres_encryption_key
+        fi
+        cat /var/lib/postgresql/.postgres_encryption_key
+      register: encryption_key
+      no_log: true
         
     - name: Store password securely for future runs (after PostgreSQL installation)
       shell: |
@@ -477,6 +479,16 @@
         content: "{{ configmap_yaml_content }}"
         dest: /tmp/postgresql-secrets/postgres-setup-config.yml
         mode: '0644'
+      delegate_to: localhost
+      run_once: true
+      become: false
+      when: postgres_password_b64 is defined
+      
+    - name: Write Kubernetes Secret YAML to localhost
+      copy:
+        content: "{{ secret_yaml_content }}"
+        dest: /tmp/postgresql-secrets/postgres-postgresql.yml
+        mode: '0600'
       delegate_to: localhost
       run_once: true
       become: false
