@@ -48,8 +48,9 @@
     - name: Check if device exists
       stat:
         path: "{{ postgres_device }}"
+        follow: yes
       register: device_check
-      failed_when: not device_check.stat.exists
+      failed_when: not device_check.stat.exists or not device_check.stat.isblk
       
     # Secure Password Generation - Idempotent approach
     - name: Check if PostgreSQL is already configured with a password
@@ -471,16 +472,6 @@
             postgres-port: "{{ postgres_port }}"
       when: postgres_password_b64 is defined
       
-    - name: Write Kubernetes Secret YAML to localhost
-      copy:
-        content: "{{ secret_yaml_content }}"
-        dest: /tmp/postgresql-secrets/{{ postgres_secret_name }}.yml
-        mode: '0600'
-      delegate_to: localhost
-      run_once: true
-      become: false
-      when: postgres_password_b64 is defined
-        
     - name: Write Kubernetes ConfigMap YAML to localhost
       copy:
         content: "{{ configmap_yaml_content }}"

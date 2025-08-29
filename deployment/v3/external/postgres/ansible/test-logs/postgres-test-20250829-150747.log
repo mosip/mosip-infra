@@ -1,0 +1,26 @@
+localhost | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [PostgreSQL Secure Setup] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Gather OS facts] *********************************************************
+ok: [localhost]
+
+TASK [Ensure Python3 is available (CentOS/RHEL compatibility)] *****************
+skipping: [localhost] => {"changed": false, "false_condition": "ansible_os_family == \"RedHat\"", "skip_reason": "Conditional result was False"}
+
+TASK [Verify Python3 with secrets module availability] *************************
+ok: [localhost] => {"changed": false, "cmd": ["python3", "-c", "import secrets; print('Python secrets module available')"], "delta": "0:00:00.019878", "end": "2025-08-29 15:07:50.441979", "failed_when_result": false, "msg": "", "rc": 0, "start": "2025-08-29 15:07:50.422101", "stderr": "", "stderr_lines": [], "stdout": "Python secrets module available", "stdout_lines": ["Python secrets module available"]}
+
+TASK [Check if device exists] **************************************************
+fatal: [localhost]: FAILED! => {"changed": false, "failed_when_result": true, "stat": {"exists": false}}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=3    changed=0    unreachable=0    failed=1    skipped=1    rescued=0    ignored=0   
+
