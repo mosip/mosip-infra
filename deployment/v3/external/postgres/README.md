@@ -11,6 +11,7 @@ Note:
   * A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
   * Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
 
+
 ### Option 2: External PostgreSQL Deployment using Ansible
 
 For production-grade external PostgreSQL deployment on dedicated VMs, use the **ansible** directory which provides automated, secure PostgreSQL installation with Kubernetes integration.
