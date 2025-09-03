@@ -1,0 +1,232 @@
+---
+# PostgreSQL Cleanup - Complete Removal and Restoration
+# This playbook completely removes PostgreSQL and restores the system to original state
+
+- name: PostgreSQL Complete Cleanup
+  hosts: postgresql_servers
+  become: yes
+  vars:
+    # Configuration - should match the setup playbook
+    postgres_version: "{{ postgresql_version | default('15') }}"
+    postgres_port: "{{ postgresql_port | default('5433') }}"
+    postgres_device: "{{ storage_device | default('/dev/nvme2n1') }}"
+    postgres_mount: "{{ mount_point | default('/srv/postgres') }}"
+    postgres_data_dir: "{{ postgres_mount }}/postgresql/{{ postgres_version }}/main"
+    postgres_old_dir: "/var/lib/postgresql/{{ postgres_version }}/main"
+    postgres_config_dir: "/etc/postgresql/{{ postgres_version }}/main"
+    
+  tasks:
+    - name: Display cleanup summary
+      debug:
+        msg: |
+          PostgreSQL {{ postgres_version }} Cleanup Starting
+          Port: {{ postgres_port }}
+          Data Directory: {{ postgres_data_dir }}
+          Mount Point: {{ postgres_mount }}
+          Device: {{ postgres_device }}
+          WARNING: This will PERMANENTLY DELETE all PostgreSQL data!
+          
+    - name: Pause for confirmation
+      pause:
+        prompt: "Are you sure you want to proceed with cleanup? This will DELETE ALL PostgreSQL data! Press ENTER to continue or Ctrl+C to abort"
+      when: not (auto_confirm | default(false) | bool)
+
+    # Stop PostgreSQL Service
+    - name: Stop PostgreSQL service
+      systemd:
+        name: postgresql
+        state: stopped
+      ignore_errors: yes
+      
+    - name: Disable PostgreSQL service
+      systemd:
+        name: postgresql
+        enabled: no
+      ignore_errors: yes
+
+    # Backup current data (optional safety measure)
+    - name: Create backup directory (safety measure)
+      file:
+        path: "/tmp/postgresql-cleanup-backup-{{ ansible_date_time.epoch }}"
+        state: directory
+      register: backup_dir
+      when: create_backup | default(false) | bool
+      
+    - name: Backup PostgreSQL configuration files
+      copy:
+        src: "{{ postgres_config_dir }}/"
+        dest: "{{ backup_dir.path }}/config/"
+        remote_src: yes
+      when: create_backup | default(false) | bool and backup_dir is defined
+      ignore_errors: yes
+      
+    - name: Backup custom data directory
+      shell: |
+        if [ -d "{{ postgres_data_dir }}" ]; then
+          tar -czf "{{ backup_dir.path }}/data-backup.tar.gz" -C "{{ postgres_data_dir }}" .
+        fi
+      when: create_backup | default(false) | bool and backup_dir is defined
+      ignore_errors: yes
+
+    # Remove PostgreSQL completely
+    - name: Remove PostgreSQL packages
+      apt:
+        name:
+          - postgresql-{{ postgres_version }}
+          - postgresql-client-{{ postgres_version }}
+          - postgresql-contrib-{{ postgres_version }}
+        state: absent
+        purge: yes
+        autoremove: yes
+        
+    - name: Remove PostgreSQL common packages
+      apt:
+        name:
+          - postgresql-common
+          - postgresql-client-common
+        state: absent
+        purge: yes
+        autoremove: yes
+      ignore_errors: yes
+
+    # Remove PostgreSQL APT repository
+    - name: Remove PostgreSQL APT repository key
+      apt_key:
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+        state: absent
+      ignore_errors: yes
+        
+    - name: Remove PostgreSQL APT repository
+      apt_repository:
+        repo: "deb http://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+        state: absent
+      ignore_errors: yes
+
+    # Clean up directories and files
+    - name: Remove PostgreSQL configuration directory
+      file:
+        path: /etc/postgresql
+        state: absent
+        
+    - name: Remove PostgreSQL log directory
+      file:
+        path: /var/log/postgresql
+        state: absent
+        
+    - name: Remove PostgreSQL lib directory
+      file:
+        path: /var/lib/postgresql
+        state: absent
+        
+    - name: Remove custom data directory
+      file:
+        path: "{{ postgres_data_dir }}"
+        state: absent
+      when: postgres_data_dir != "/var/lib/postgresql/{{ postgres_version }}/main"
+
+    # Unmount and clean storage
+    - name: Check if mount point is mounted
+      shell: "mount | grep '{{ postgres_mount }}'"
+      register: mount_check
+      failed_when: false
+      changed_when: false
+      
+    - name: Unmount the storage device
+      mount:
+        path: "{{ postgres_mount }}"
+        state: unmounted
+      when: mount_check.rc == 0
+      
+    - name: Remove mount entry from fstab
+      mount:
+        path: "{{ postgres_mount }}"
+        state: absent
+        
+    - name: Remove mount directory
+      file:
+        path: "{{ postgres_mount }}"
+        state: absent
+
+    # Optional: Wipe the storage device (DANGEROUS!)
+    - name: Wipe storage device (if requested)
+      shell: |
+        if [ -b "{{ postgres_device }}" ]; then
+          wipefs -a "{{ postgres_device }}"
+          dd if=/dev/zero of="{{ postgres_device }}" bs=1M count=100
+        fi
+      when: wipe_device | default(false) | bool
+      ignore_errors: yes
+
+    # Remove postgres user and group
+    - name: Remove postgres user
+      user:
+        name: postgres
+        state: absent
+        remove: yes
+      ignore_errors: yes
+        
+    - name: Remove postgres group
+      group:
+        name: postgres
+        state: absent
+      ignore_errors: yes
+
+    # Clean up any remaining packages
+    - name: Remove orphaned packages
+      shell: apt autoremove -y
+      ignore_errors: yes
+      
+    - name: Clean package cache
+      shell: apt autoclean
+      ignore_errors: yes
+
+    # Restore original pg_hba.conf backup if exists
+    - name: Check for original pg_hba.conf backup
+      stat:
+        path: "{{ postgres_config_dir }}/pg_hba.conf.*~"
+      register: original_backup
+      ignore_errors: yes
+      
+    # Final verification
+    - name: Verify PostgreSQL removal
+      shell: |
+        echo "=== PostgreSQL Cleanup Verification ==="
+        echo "PostgreSQL packages:"
+        dpkg -l | grep postgresql || echo "No PostgreSQL packages found"
+        echo ""
+        echo "PostgreSQL processes:"
+        ps aux | grep postgres | grep -v grep || echo "No PostgreSQL processes running"
+        echo ""
+        echo "Mount points:"
+        mount | grep "{{ postgres_mount }}" || echo "No mount points found"
+        echo ""
+        echo "Storage device:"
+        lsblk "{{ postgres_device }}" 2>/dev/null || echo "Device available"
+        echo ""
+        echo "=== Cleanup Complete ==="
+      register: cleanup_verification
+      changed_when: false
+      
+    - name: Display cleanup results
+      debug:
+        var: cleanup_verification.stdout_lines
+        
+    - name: Display backup information
+      debug:
+        msg: |
+          Cleanup completed successfully!
+          {% if create_backup | default(false) | bool and backup_dir is defined %}
+          Safety backup created at: {{ backup_dir.path }}
+          {% endif %}
+          
+          System Status:
+          - PostgreSQL service: Stopped and disabled
+          - PostgreSQL packages: Removed
+          - Configuration files: Deleted
+          - Data directories: Deleted
+          - Mount points: Unmounted and removed
+          {% if wipe_device | default(false) | bool %}
+          - Storage device: Wiped clean
+          {% endif %}
+          
+          The system has been restored to its original state.

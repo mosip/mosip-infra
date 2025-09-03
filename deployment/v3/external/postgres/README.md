@@ -1,6 +1,8 @@
 # Postgres installation on Kubernetes cluster
 
-## Install 
+## Installation Options
+
+### Option 1: Kubernetes-based Installation (Default)
 ```sh
 ./install.sh
 ```
@@ -8,6 +10,27 @@
 Note:
   * A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
   * Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
+
+
+### Option 2: External PostgreSQL Deployment using Ansible
+
+For production-grade external PostgreSQL deployment on dedicated VMs, use the **ansible** directory which provides automated, secure PostgreSQL installation with Kubernetes integration.
+
+#### Quick Start (3 Simple Steps)
+```bash
+cd ansible/
+
+# 1. Configure your VM inventory
+./setup-vm-inventory.sh
+
+# 2. Deploy PostgreSQL with secure setup
+./run-postgresql-playbook.sh
+
+# 3. Verify installation
+./check-postgresql-status.sh
+```
+
+For detailed instructions and advanced configuration options, see: [`ansible/README.md`](ansible/README.md)
 
 ## Test
 * Make sure docker is running from machine you are testing.
