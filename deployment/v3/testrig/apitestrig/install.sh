@@ -7,14 +7,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=apitestrig
-CHART_VERSION=12.0.1
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_apitestrig() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
   echo Copy configmaps
@@ -45,7 +43,7 @@ function installing_apitestrig() {
      echo "ERROR: Time should be in range ( 0-23 ); EXITING;";
      exit 1;
   fi
-
+  
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
   echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
@@ -60,6 +58,16 @@ function installing_apitestrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
+  read -p "Please provide the retention days to remove old reports ( Default: 3 )" reportExpirationInDays
+
+  if [[ -z $reportExpirationInDays ]]; then
+    reportExpirationInDays=3
+  fi
+  if ! [[ $reportExpirationInDays =~ ^[0-9]+$ ]]; then
+    echo "The variable \"reportExpirationInDays\" should contain only number; EXITING";
+    exit 1;
+  fi
+
   read -p "Please provide slack webhook URL to notify server end issues on your slack channel : " slackWebhookUrl
 
   if [ -z $slackWebhookUrl ]; then
@@ -67,24 +75,24 @@ function installing_apitestrig() {
     exit 1;
   fi
 
-   valid_inputs=("yes" "no")
-   eSignetDeployed=""
+ valid_inputs=("yes" "no")
+ eSignetDeployed=""
 
-   while [[ ! " ${valid_inputs[@]} " =~ " ${eSignetDeployed} " ]]; do
-       read -p "Is the eSignet service deployed? (yes/no): " eSignetDeployed
-       eSignetDeployed=${eSignetDeployed,,}  # Convert input to lowercase
-   done
+ while [[ ! " ${valid_inputs[@]} " =~ " ${eSignetDeployed} " ]]; do
+     read -p "Is the eSignet service deployed? (yes/no): " eSignetDeployed
+     eSignetDeployed=${eSignetDeployed,,}  # Convert input to lowercase
+ done
 
-   if [[ $eSignetDeployed == "yes" ]]; then
-       echo "eSignet service is deployed. Proceeding with installation..."
-   else
-       echo "eSignet service is not deployed. hence will be skipping esignet related test-cases..."
-   fi
+ if [[ $eSignetDeployed == "yes" ]]; then
+     echo "eSignet service is deployed. Proceeding with installation..."
+ else
+     echo "eSignet service is not deployed. hence will be skipping esignet related test-cases..."
+ fi
 
   echo Installing apitestrig
   helm -n $NS install apitestrig mosip/apitestrig \
   --set crontime="0 $time * * *" \
-  -f values.yaml \
+  -f values.yaml  \
   --version $CHART_VERSION \
   --set apitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
   --set apitestrig.configmaps.s3.s3-user-key='admin' \
@@ -95,7 +103,8 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
-  --set apitestrig.secrets.apitestrig.slack-webhook-url="$slackWebhookUrl" \
+  --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
+  --set apitestrig.configmaps.apitestrig.slack-webhook-url="$slackWebhookUrl" \
   --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
   --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE

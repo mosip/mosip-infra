@@ -6,12 +6,12 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 function Restarting_print() {
   NS=print
   kubectl -n $NS rollout restart deploy
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
   echo Restarted print services
   return 0
 }

@@ -19,4 +19,4 @@ onboarding:
     - name: resident-oidc
       enabled: false
     - name: mimoto-keybinding
-      enabled: false
+      enabled: true

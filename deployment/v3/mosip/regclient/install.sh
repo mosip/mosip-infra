@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regclient
-CHART_VERSION=12.0.2
+CHART_VERSION=1.3.0-beta.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -27,6 +27,10 @@ function installing_regclient() {
 
   echo Installing reg client downloader. This may take a few minutes ..
   helm -n $NS install regclient mosip/regclient \
+    --set startupProbe.failureThreshold="60" \
+    --set image.repository="mosipid/registration-client" \
+    --set image.tag="1.2.0.2" \
+    --set regclient.version="1.2.0.2" \
     --set regclient.upgradeServerUrl=https://$REGCLIENT_HOST \
     --set regclient.healthCheckUrl=$HEALTH_URL \
     --set regclient.hostName=$INTERNAL_HOST \

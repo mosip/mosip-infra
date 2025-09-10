@@ -1,6 +1,0 @@
-apiVersion: v2
-name: packetmanager
-description: A Helm chart MOSIP packetmanager 
-type: application
-version: 1.0.2
-appVersion: 1.0.2

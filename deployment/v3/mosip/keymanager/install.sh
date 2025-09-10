@@ -22,11 +22,45 @@ function installing_keymanager() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
+  default_enable_volume=false
+  read -p "Would you like to enable volume (true/false) : [ default : false ] : " enable_volume
+  enable_volume=${enable_volume:-$default_enable_volume}
+
+  KERNEL_KEYGEN_HELM_ARGS='--set springConfigNameEnv="kernel" --set softHsmCM="softhsm-kernel-share"'
+  KERNEL_HELM_ARGS=''
+  if [[ $enable_volume == 'true' ]]; then
+
+    default_volume_size=100M
+    read -p "Provide the size for volume [ default : 100M ]" volume_size
+    volume_size=${volume_size:-$default_volume_size}
+
+    default_volume_mount_path='/home/mosip/config/'
+    read -p "Provide the mount path for volume [ default : '/home/mosip/config/' ] : " volume_mount_path
+    volume_mount_path=${volume_mount_path:-$default_volume_mount_path}
+
+    PVC_CLAIM_NAME='kernel-keygen-keymanager'
+    KERNEL_KEYGEN_HELM_ARGS="--set persistence.enabled=true  \
+               --set volumePermissions.enabled=true \
+               --set persistence.size=$volume_size \
+               --set persistence.mountDir=\"$volume_mount_path\" \
+               --set springConfigNameEnv='kernel' \
+               --set persistence.pvc_claim_name=\"$PVC_CLAIM_NAME\"  \
+              "
+    KERNEL_HELM_ARGS="--set persistence.enabled=true  \
+                   --set volumePermissions.enabled=true \
+                   --set persistence.mountDir=\"$volume_mount_path\" \
+                   --set persistence.existingClaim=\"$PVC_CLAIM_NAME\"  \
+                   --set extraEnvVarsCM={'global','config-server-share','artifactory-share'} \
+                  "
+  fi
+  echo "KERNEL KEYGEN HELM ARGS $KERNEL_KEYGEN_HELM_ARGS"
+  echo "KERNEL HELM ARGS $KERNEL_HELM_ARGS"
+
   echo Running keygenerator. This may take a few minutes..
-  helm -n $NS install kernel-keygen mosip/keygen --wait --wait-for-jobs --version $CHART_VERSION -f keygen_values.yaml
+  helm -n $NS install kernel-keygen mosip/keygen  $KERNEL_KEYGEN_HELM_ARGS --wait --wait-for-jobs --version $CHART_VERSION
 
   echo Installing keymanager
-  helm -n $NS install keymanager mosip/keymanager --version $CHART_VERSION
+  helm -n $NS install keymanager mosip/keymanager $KERNEL_HELM_ARGS --wait --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
   echo Installed keymanager services

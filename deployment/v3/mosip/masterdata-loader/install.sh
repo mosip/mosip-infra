@@ -6,13 +6,13 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
+NS=masterdata-loader
+CHART_VERSION=12.0.1
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
-read -p "CAUTION: Do you still want to continue(Y/n)" yn
+read -p "CAUTION: Do you still want to continue? If yes update dbhost and port in values.yaml(Y/n)" yn
 if [ $yn = "Y" ]
   then
-   NS=masterdata-loader
-   CHART_VERSION=12.0.1
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
    kubectl create ns $NS
@@ -33,7 +33,12 @@ if [ $yn = "Y" ]
    ./copy_secrets.sh
 
    echo Loading masterdata
-   helm -n $NS install masterdata-loader  mosip/masterdata-loader --set mosipDataGithubBranch=v1.2.0.1 --version $CHART_VERSION --wait
+   helm -n $NS install masterdata-loader mosip/masterdata-loader \
+      --set mosipDataGithubBranch="v1.2.2.0" \
+      --set mosipDataGithubRepo="https://github.com/mosip/mosip-data" \
+      --set mosipDataXlsfolderPath="\/home/mosip/mosip-data/mosip_master/xlsx" \
+      -f values.yaml \
+      --version $CHART_VERSION --wait --wait-for-jobs
 
    else
    break

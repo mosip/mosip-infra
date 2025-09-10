@@ -1,0 +1,25 @@
+## YAML to create a users
+keycloak:
+  realms:
+    mosip: # realm
+      roles: []
+      clients: []
+      users:
+        - username: readuser
+          email: read_user15@xyz.com
+          firstName: read
+          lastName: user
+          password: mosip123
+          temporary: False
+          attributes: {}
+          realmRoles:
+            - offline_access
+            - uma_authorization
+          client: "realm-management"
+          clientRoles:
+            - "view-users"
+            - "view-authorization"
+            - "view-clients"
+            - "view-events"
+            - "view-realm"
+            - "view-identity-providers"

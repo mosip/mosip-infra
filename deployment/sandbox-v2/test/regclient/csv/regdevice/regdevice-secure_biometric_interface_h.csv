@@ -1,4 +1,0 @@
-﻿id,sw_binary_hash,sw_version,device_detail_id,sw_cr_dtimes,sw_expiry_dtimes,approval_status,is_active,cr_by,cr_dtimes,eff_dtimes
-ae153d67-fdc9-4858-b4b1-330c50400ef0,binary data,0.9.5,10001,now(),10/1/2021 12:03,Activated,TRUE,admin,now(),now()
-ff9cdbfb-9ddc-416f-b7e1-8fb7cd055b2c,binary data,0.9.5,10001,now(),10/8/2020 17:42,Activated,TRUE,admin,now(),now()
-080dc460-8c3d-45dc-a590-9171730bec60,binary data,0.9.5,10001,now(),10/1/2021 8:56,Activated,TRUE,admin,now(),now()

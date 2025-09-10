@@ -4,52 +4,89 @@ dbUserPasswords:
 databases:
   mosip_master:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.1.3"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_audit:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.0.1"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_keymgr:
-    enabled: true 
-    branch: v1.2.0.1
+    enabled: true
+    branch: "v1.2.1.0"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_kernel:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.0.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_idmap:
     enabled: true
-    branch: v1.2.0.1
-
+    branch: "release-1.2.2.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
   mosip_prereg:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.0.3"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_idrepo:
     enabled: true
-    branch: v1.2.0.1
+    branch: "release-1.2.2.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_ida:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.1.2-beta.1"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_credential:
     enabled: true
-    branch: v1.2.0.1
+    branch: "release-1.2.2.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_regprc:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.1.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_pms:
     enabled: true
-    branch: v1.2.0.1
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_hotlist:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.1.3"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_resident:
     enabled: true
-    branch: v1.2.0.1
+    branch: "v1.2.1.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  mosip_otp:
+    enabled: true
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  mosip_digitalcard:
+    enabled: true
+    branch: "v1.2.0.1"
+    host: "postgres-postgresql.postgres"
+    port: 5432

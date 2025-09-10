@@ -1,6 +1,5 @@
 #!/bin/bash
 # Uninstalls resident
-
 function deleting_resident() {
   NS=resident
   while true; do
@@ -9,6 +8,7 @@ function deleting_resident() {
         then
           helm -n $NS delete resident
           helm -n $NS delete resident-ui
+#         kubectl delete -n $NS -f resident-ui
           break
         else
           break

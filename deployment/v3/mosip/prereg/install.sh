@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.3
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -28,9 +28,6 @@ function installing_prereg() {
 
   echo Install prereg-gateway
   helm -n $NS install prereg-gateway mosip/prereg-gateway --set istio.hosts[0]=$PREREG_HOST --version $CHART_VERSION
-
-  echo Installing prereg-captcha
-  helm -n $NS install prereg-captcha mosip/prereg-captcha --version $CHART_VERSION
 
   echo Installing prereg-application
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION

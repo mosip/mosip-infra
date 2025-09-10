@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=minio
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -14,13 +15,10 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 
 function installing_minio() {
   echo Installing minio
-  helm -n minio install minio mosip/minio --version 10.1.6
+  helm -n minio install minio bitnami/minio -f values.yaml --version 10.1.6
 
   echo Installing gateways and virtualservice
-  EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
-
-  echo host: $EXTERNAL_HOST
-  helm -n $NS install istio-addons chart/istio-addons --set externalHost=$EXTERNAL_HOST
+  helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml
 
   echo Helm installed. Next step is to execute the cred.sh to update secrets in s3 namespace
   return 0

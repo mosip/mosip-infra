@@ -17,6 +17,7 @@ persistence:
   size: 8Gi
 
 zookeeper:
+  enabled: true
   replicaCount: 5
   persistence:
     enabled: true
