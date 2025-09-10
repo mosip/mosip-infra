@@ -15,6 +15,7 @@ function deleting_pms() {
           helm -n $NS delete pms-partner
           helm -n $NS delete pms-policy
           helm -n $NS delete pmp-ui
+          helm -n $NS delete pmp-reactjs-ui
           break
         else
           break

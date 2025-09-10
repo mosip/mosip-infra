@@ -1,10 +1,36 @@
 # Postgres installation on Kubernetes cluster
 
-## Install 
+## Installation Options
+
+### Option 1: Kubernetes-based Installation (Default)
 ```sh
 ./install.sh
 ```
-* A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
+
+Note:
+  * A random password will get assigned for `postgres` user if you have not specified a password. The password may be obtained from Rancher console.
+  * Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
+
+
+### Option 2: External PostgreSQL Deployment using Ansible
+
+For production-grade external PostgreSQL deployment on dedicated VMs, use the **ansible** directory which provides automated, secure PostgreSQL installation with Kubernetes integration.
+
+#### Quick Start (3 Simple Steps)
+```bash
+cd ansible/
+
+# 1. Configure your VM inventory
+./setup-vm-inventory.sh
+
+# 2. Deploy PostgreSQL with secure setup
+./run-postgresql-playbook.sh
+
+# 3. Verify installation
+./check-postgresql-status.sh
+```
+
+For detailed instructions and advanced configuration options, see: [`ansible/README.md`](ansible/README.md)
 
 ## Test
 * Make sure docker is running from machine you are testing.
@@ -40,7 +66,6 @@ To initialized a specific db disable init of all others in `init_values.yaml` by
   ```
   psql -h <HOSTNAME> -p <PORT-NUMBER> -U <USERNAME> -f <BACKUP_FILE_NAME>.dump
   ```
-
 ## DB Commons secret and postgres-postgresql secret creation
 
 * Base64 Encoding and YAML Creation Script:
@@ -98,4 +123,3 @@ helm delete postgres-upgrade -n postgres
   ```
   sed -i 's/LOCALE/LC_COLLATE/g' <BACKUP_FILE_NAME>.dump
   ```
-

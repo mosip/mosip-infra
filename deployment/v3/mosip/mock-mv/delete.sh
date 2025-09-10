@@ -1,6 +1,5 @@
 #!/bin/bash
 # Uninstalls mock mv
-
 function deleting_mockmv() {
   NS=abis
   while true; do

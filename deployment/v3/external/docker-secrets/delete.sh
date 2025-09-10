@@ -11,7 +11,7 @@ function deleting_secrets() {
       read -p "Are you sure you want to delete regsecret?(Y/n) " yn
       if [ $yn = "Y" ]
         then
-           kubectl delete secret regsecret
+          kubectl delete secret regsecret
           break
         else
           break

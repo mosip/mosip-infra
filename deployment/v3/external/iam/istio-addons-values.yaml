@@ -1,0 +1,15 @@
+istio:
+  name: keycloak
+  host: iam.sandbox.xyz.net
+# Note: If you have multiple ingressController then pass it in the form of list.
+  ingressController: ingressgateway-internal
+# Note : By default, if you do **not** specify any gateways, the chart will bind to a single Gateway whose name is derived from the metadata name. If you have mutiple gateways to specify then pass it in the form of list like below.
+# gateways:
+#   - public-gateway
+#   - internal-gateway 
+  port:
+    name: http
+    number: 80
+    protocol: HTTP
+  serviceHost: keycloak
+  servicePort: 80

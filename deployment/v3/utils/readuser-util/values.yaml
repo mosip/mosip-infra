@@ -1,0 +1,32 @@
+# Default values for readuser.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+postgres-readuser-util:
+  enabled: true
+  # Values for readuser creation.
+  # "action" key specifies whether you want to "create" or "delete" readuser.
+  # "username" key specifies the username of readuser creating.
+  # "password" key specifies the password for readuser.
+  # "dbport" key specifies the DB port number.
+  # "dbhost" key specifies the DB host.
+  user:
+    action: "create"
+    username: "readuser"
+    password: "mosip123"
+    dbport: 5432
+    dbhost: api-internal.xyz.mosip.net
+
+s3-readuser-util:
+  enabled: true
+  # Values for readuser creation.
+  # "action" key specifies whether you want to "create" or "delete" readuser.
+  # "username" key specifies the username of readuser creating.
+  # "password" key specifies the password for readuser.
+  # "policyName" key specifies the policyname creating.
+  s3user:
+    action: "create"
+    username: "readuser"
+    password: "mosip123"
+    policyName: "dataread"
+

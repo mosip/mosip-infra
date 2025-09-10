@@ -15,6 +15,7 @@ function Deleting_all() {
                      "admin"
                      "idrepo"
                      "print"
+                     "digitalcard"
                      "ida"
                      "packetmanager"
                      "datashare"
@@ -29,8 +30,11 @@ function Deleting_all() {
                      "artifactory"
                      "websub"
                      "biosdk"
+                     "partner-onboarder"
+                     "restart-cron"
                      "mock-smtp"
                      )
+
   echo Deleting MOSIP services.
 
   for i in "${module[@]}"

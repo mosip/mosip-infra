@@ -6,7 +6,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 function Restarting_regproc() {
   NS=regproc
   kubectl -n $NS rollout restart deploy

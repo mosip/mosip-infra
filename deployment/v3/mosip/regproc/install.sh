@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=regproc
-CHART_VERSION=12.0.1
+CHART_VERSION=12.1.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -37,7 +37,7 @@ function installing_regproc() {
   helm -n $NS install regproc-pktserver mosip/regproc-pktserver --version $CHART_VERSION
 
   echo Installing group1
-  helm -n $NS install regproc-group1 mosip/regproc-group1 -f group1_values.yaml --version $CHART_VERSION
+  helm -n $NS install regproc-group1 mosip/regproc-group1 --version $CHART_VERSION
 
   echo Installing group2
   helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION
@@ -70,7 +70,8 @@ function installing_regproc() {
   helm -n $NS install regproc-landingzone mosip/regproc-landingzone --version $CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-  echo Intalled regproc services
+
+  echo Installed regproc services
   return 0
 }
 

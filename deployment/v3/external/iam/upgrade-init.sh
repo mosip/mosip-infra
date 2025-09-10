@@ -9,7 +9,7 @@ fi
 
 function upgrade_init() {
   NS=keycloak
-  CHART_VERSION=12.0.1
+  CHART_VERSION=12.0.2
 
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
@@ -17,7 +17,7 @@ function upgrade_init() {
   IAM_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
 
   echo Initializing keycloak
-  helm -n $NS install keycloak-upgrade mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f upgrade-init-values.yaml --wait --wait-for-jobs --version $CHART_VERSION
+  helm -n $NS install keycloak-init mosip/keycloak-init --set frontend=https://$IAM_HOST/auth -f upgrade-init-values.yaml --version $CHART_VERSION
   return 0
 }
 

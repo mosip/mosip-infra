@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=postgres
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 helm repo update
 echo Create $NS namespace
@@ -15,12 +16,10 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 
 function installing_postgres() {
   echo Installing  Postgres
-  helm -n $NS install postgres bitnami/postgresql --version 12.11.1 -f values.yaml --wait
+  helm -n $NS install postgres bitnami/postgresql --version 13.1.5 -f values.yaml --wait
   echo Installed Postgres
-
   echo Installing gateways and virtual services
-  POSTGRES_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-postgres-host})
-  helm -n $NS install istio-addons chart/istio-addons --set postgresHost=$POSTGRES_HOST --wait
+  helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml --wait
   return 0
 }
 

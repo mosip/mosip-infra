@@ -7,10 +7,71 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=landing-page
-CHART_VERSION=12.0.1
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS
+
+function select_index_template() {
+  while true; do
+    echo "Do you want to use the default index HTML? Type 'Y' for (default) or 'N' for a custom index HTML [default: Y]:"
+    read -r use_default
+
+    # Set default to "Y" if input is empty
+    if [[ -z "$use_default" ]]; then
+      use_default="Y"
+    fi
+
+    # Check if the user selected "Y" or "N"
+    if [[ "$use_default" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+      echo "Using default-index.html"
+      indexfile="default-index.html"
+      customindexfile=""
+      return
+    elif [[ "$use_default" =~ ^[Nn]([Oo])?$ ]]; then
+      break
+    else
+      echo "Invalid input. Please enter 'Y' for default or 'N' for custom index."
+    fi
+  done
+
+  # Proceed to other options if the user selected "N"
+  echo "Select custom index file :"
+  echo "Enter 1 for collab-index.html"
+  echo "Enter 2 for inji-index.html"
+  echo "Enter 3 for a local custom index file"
+  read -r selected_option
+
+  case "$selected_option" in
+    1)
+      echo "Using collab-index.html"
+      indexfile="collab-index.html"
+      customindexfile=""
+      ;;
+    2)
+      echo "Using inji-index.html"
+      indexfile="inji-index.html"
+      customindexfile=""
+      ;;
+    3)
+      echo "Enter the full path of your custom index file:"
+      read -r custom_index
+      if [[ -f "$custom_index" ]]; then
+        echo "Using custom index: $custom_index"
+        customindexfile="$custom_index"
+        indexfile=""
+      else
+        echo "Error: File not found at $custom_index"
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Invalid option. Exiting."
+      exit 1
+      ;;
+  esac
+}
+
 
 function landing_page() {
   echo Istio label
@@ -42,6 +103,10 @@ function landing_page() {
   ESIGNET=$(kubectl get cm global -o jsonpath={.data.mosip-esignet-host})
   SMTP=$(kubectl get cm global -o jsonpath={.data.mosip-smtp-host})
   HEALTHSERVICES=$(kubectl get cm global -o jsonpath={.data.mosip-healthservices-host})
+  INJIWEB=$(kubectl get cm global -o jsonpath={.data.mosip-injiweb-host})
+  INJIVERIFY=$(kubectl get cm global -o jsonpath={.data.mosip-injiverify-host})
+
+select_index_template # calling function
 
   echo Installing landing page
   helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
@@ -59,15 +124,20 @@ function landing_page() {
   --set landing.regclient=$REGCLIENT  \
   --set landing.postgres.host=$POSTGRES \
   --set landing.postgres.port=$POSTGRES_PORT \
-  --set landing.pmp=$PMP \
   --set landing.compliance=$COMPLIANCE \
+  --set landing.pmp=$PMP \
   --set landing.resident=$RESIDENT \
   --set landing.esignet=$ESIGNET \
   --set landing.smtp=$SMTP \
   --set landing.healthservices=$HEALTHSERVICES \
-  --set istio.host=$DOMAIN
+  --set landing.injiweb=$INJIWEB \
+  --set landing.injiverify=$INJIVERIFY \
+  --set istio.host=$DOMAIN \
+  --set indexFile="$indexfile" \
+  --set-file customindexFile="$customindexfile"
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
   echo Installed landing page
   return 0
 }

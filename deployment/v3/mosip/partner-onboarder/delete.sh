@@ -10,7 +10,7 @@ function deleting_onboarder() {
   NS=onboarder
   while true; do
       read -p "Are you sure you want to delete all partner-onboarder ?(Y/n) " yn
-      if [ $yn = "Y" ]; then
+      if [[ $yn = "Y" ]] || [[ $yn = "y" ]]; then
         echo Deleting partner-onboarder helm
         helm -n $NS delete partner-onboarder
         break

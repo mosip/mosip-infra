@@ -6,7 +6,6 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-
 function deleting_kernel() {
   NS=kernel
   while true; do

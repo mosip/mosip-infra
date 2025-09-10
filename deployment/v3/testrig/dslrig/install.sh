@@ -7,19 +7,13 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=dslrig
-CHART_VERSION=12.0.1
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_dslrig() {
   ENV_NAME=$( kubectl -n default get cm global -o json |jq -r '.data."installation-domain"')
-
-  read -p "Please provide NFS host : " NFS_HOST
-  read -p "Please provide NFS pem file for SSH login : " NFS_PEM_FILE
-  read -p "Please provide user for SSH login : " NFS_USER
-  echo -e "[nfs_server]\nnfsserver ansible_user=$NFS_USER ansible_host=$NFS_HOST ansible_ssh_private_key_file=$NFS_PEM_FILE" env_name="$ENV_NAME" > hosts.ini
-  ansible-playbook -i hosts.ini nfs-server.yaml
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -49,7 +43,7 @@ function installing_dslrig() {
     ENABLE_INSECURE='--set enable_insecure=true';
   fi
 
-  read -p "Please provide packet Utility Base URL (eg: https://<host>:<port>/v1/packetcreator) : " packetUtilityBaseUrl
+  read -p "Please provide packet Utility Base URL (eg: http://<host>:<port>/v1/packetcreator) : " packetUtilityBaseUrl
 
   if [ -z $packetUtilityBaseUrl ]; then
     echo "Packet utility Base URL not provided; EXITING;"
@@ -98,8 +92,6 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.dslorchestrator.USER="$USER" \
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
-  --set persistence.nfs.server="$NFS_HOST" \
-  --set persistence.nfs.path="/srv/nfs/mosip/dsl-scenarios/$ENV_NAME" \
   --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
   --set dslorchestrator.configmaps.dslorchestrator.NS="$NS" \
   $ENABLE_INSECURE

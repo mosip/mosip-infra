@@ -16,9 +16,9 @@ function installing_Cred() {
   echo Istio label
   kubectl label ns $NS istio-injection=enabled --overwrite
 
-  echo Plesae select the type of object-store to be used:
-  echo 1: for minio native using helm charts
-  echo 2: for s3 object store
+  echo Select the type of object-store to be used:
+  echo 1: For minio native using helm charts
+  echo 2: For any other s3 object store like AWS
   while read -p "Please choose the correct option as mentioned above(1/2)" choice
   do
     if [ $choice = "1" ]
@@ -33,9 +33,9 @@ function installing_Cred() {
     break
     elif [ $choice = "2" ]
     then
-    read -p "Please enter the S3 user key " USER
-    read -p "Please enter the S3 secret key" PASS
-    read -p "Please enter the S3 region" REGION
+    read -p "Enter the S3 user key " USER
+    read -p "Enter the S3 secret key" PASS
+    read -p "Enter the S3 region" REGION
     read -p "Please provide pretext value : " PRETEXT_VALUE
     kubectl -n s3 create configmap s3 --from-literal=s3-user-key=$USER --from-literal=s3-region=$REGION --dry-run=client  -o yaml | kubectl apply -f -
     kubectl -n s3 create secret generic s3 --from-literal=s3-user-secret=$PASS --from-literal=s3-pretext-value=$PRETEXT_VALUE --dry-run=client  -o yaml | kubectl apply -f -
