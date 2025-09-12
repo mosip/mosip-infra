@@ -1,0 +1,18 @@
+apiVersion: v2
+name: config-server
+description: A Helm chart for configuration of MOSIP modules
+type: application
+version: 12.0.3-develop
+appVersion: 1.1.2
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - config-server
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

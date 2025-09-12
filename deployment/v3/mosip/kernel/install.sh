@@ -46,7 +46,7 @@ function installing_kernel() {
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
+  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version 12.1.3
 
   echo Installing otpmanager
   helm -n $NS install otpmanager mosip/otpmanager --version $CHART_VERSION
@@ -58,7 +58,7 @@ function installing_kernel() {
   helm -n $NS install ridgenerator mosip/ridgenerator --version 12.0.2
 
   echo Installing syncdata
-  helm -n $NS install syncdata mosip/syncdata --version $CHART_VERSION
+  helm -n $NS install syncdata mosip/syncdata --version 12.1.3
 
   echo Installing notifier
   helm -n $NS install notifier mosip/notifier --version 12.0.2

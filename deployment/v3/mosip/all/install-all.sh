@@ -11,9 +11,9 @@ function Installing_all() {
   ROOT_DIR=`pwd`/../
 
   declare -a module=("conf-secrets"
-                     "config-server"
-                     "artifactory"
                      "captcha"
+                     "config-server"
+                     "artifactory"  
                      "keymanager"
                      "websub"
                      "mock-smtp"

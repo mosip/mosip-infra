@@ -1,0 +1,19 @@
+apiVersion: v2
+name: key-migration-utility
+description: A Helm chart to migrate keys from any keystore type to any other supported format.
+type: application
+version: 12.0.3-develop
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - mosip
+  - key-migration-utility
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

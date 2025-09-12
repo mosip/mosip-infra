@@ -9,7 +9,7 @@ fi
 NS=kafka
 CHART_VERSION=18.3.1
 UI_CHART_VERSION=0.4.2
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
+ISTIO_ADDONS_CHART_VERSION=12.0.3-develop
 
 echo Create $NS namespace
 kubectl create ns $NS

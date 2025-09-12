@@ -42,7 +42,7 @@ function installing_prereg() {
   helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version 12.0.1
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml

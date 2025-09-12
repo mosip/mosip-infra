@@ -7,7 +7,7 @@ if [ $# -ge 1 ]; then
 fi
 NS=keycloak
 SERVICE_NAME=keycloak
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
+ISTIO_ADDONS_CHART_VERSION=12.0.3-develop
 
 echo Creating $NS namespace
 kubectl create ns $NS
@@ -20,7 +20,7 @@ function installing_keycloak() {
   helm repo update
 
   echo Installing
-  helm -n $NS install $SERVICE_NAME mosip/keycloak --version "7.1.18" --set image.repository=mosipqa/mosip-artemis-keycloak --set image.tag=develop --set image.pullPolicy=Always -f values.yaml --wait
+  helm -n $NS install $SERVICE_NAME mosip/keycloak --version "7.1.18" --set image.repository=mosipid/mosip-artemis-keycloak --set image.tag=1.2.0.1 --set image.pullPolicy=Always -f values.yaml --wait
 
   echo Install Istio gateway, virtual service
   helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml

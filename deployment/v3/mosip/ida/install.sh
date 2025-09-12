@@ -70,7 +70,7 @@ function installing_ida() {
   echo "IDA HELM ARGS $IDA_HELM_ARGS"
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version $CHART_VERSION
+  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version 12.0.1
 
   echo Installing ida auth
   helm -n $NS install ida-auth mosip/ida-auth $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE

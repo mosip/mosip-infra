@@ -1,0 +1,20 @@
+apiVersion: v2
+name: readuser-util
+description: A Helm chart to deploy multiple readuser helm charts.
+type: application
+version: 12.0.3-develop
+dependencies:
+  - name: postgres-readuser-util
+    version: 0.0.1-develop
+    condition: postgres-readuser-util.enabled
+  - name: s3-readuser-util
+    version: 0.0.1-develop
+    condition: s3-readuser-util.enabled
+home: https://mosip.io
+keywords:
+  - mosip
+  - readuser-util
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP
+appVersion: "1.16.0"

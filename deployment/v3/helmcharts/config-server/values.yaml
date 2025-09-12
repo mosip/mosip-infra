@@ -1,0 +1,708 @@
+# Default values for config-server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: mosipid/config-server
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 1.1.2
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+## Port on which this particular spring service module is running.
+springServicePort: 51000
+
+## Configure extra options for startup, liveness and readiness probes
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+##
+startupProbe:
+  enabled: true
+  httpGet:
+    path: "/config/*/*"
+    port: 51000
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: "/config/*/*"
+    port: 51000
+  initialDelaySeconds: 20
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: "/config/*/*"
+    port: 51000
+  initialDelaySeconds: 0
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+podAnnotations: {}
+
+## Config server docker runs as non-root user by default, so enabling the below may not be required.
+podSecurityContext:
+  enabled: false
+  runAsUser: 1001
+  runAsGroup: 2001
+  fsGroup: 3001
+
+## Config server docker runs as non-root user by default, so enabling the below may not be required.
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 200m
+    memory: 2500Mi
+  requests:
+    cpu: 300m
+    memory: 1500Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Git repository from where config server will read the properties etc.  This repo could public or private
+## For private repos access token is required.
+## version: branch/tag of the repo to be used
+gitRepo:
+  uri: https://github.com/mosip/mosip-config
+  version: 1.2.0-v3
+  ## Folders within the base repo where properties may be found.
+  searchFolders: ""
+  private: false
+  ## User name of user who has access to the private repo. Ignore for public repo
+  username: ""
+  token: ""
+
+
+# All env variables that are accessed from mosip config properties
+envVariables:
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_DATABASE_HOSTNAME_OVERRIDE
+    valueFrom:
+      configMapKeyRef:
+        key: mosip-database-hostname-override
+        name: postgres-setup-config
+    enabled: true
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_DATABASE_PORT_OVERRIDE
+    valueFrom:
+      configMapKeyRef:
+        key: mosip-database-port-override
+        name: postgres-setup-config
+    enabled: true
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_API_PUBLIC_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-api-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_API_INTERNAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-api-internal-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_ADMIN_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-admin-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_PREREG_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-prereg-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_RESIDENT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-resident-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_PMP_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-pmp-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_COMPLIANCE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-compliance-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_ESIGNET_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-esignet-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_SIGNUP_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: global
+        key: mosip-signup-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_DB_DBUSER_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: db-common-secrets
+        key: db-dbuser-password
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_INTERNAL_URL
+    valueFrom:
+      configMapKeyRef:
+        name: keycloak-host
+        key: keycloak-internal-url
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_EXTERNAL_URL
+    valueFrom:
+      configMapKeyRef:
+        name: keycloak-host
+        key: keycloak-external-url
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_INTERNAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: keycloak-host
+        key: keycloak-internal-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_EXTERNAL_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: keycloak-host
+        key: keycloak-external-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_ABIS_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_abis_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_SYNCDATA_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_syncdata_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_CRESER_IDPASS_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_creser_idpass_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MPARTNER_DEFAULT_AUTH_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mpartner_default_auth_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDREPO_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_idrepo_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MPARTNER_DEFAULT_PRINT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mpartner_default_print_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MPARTNER_DEFAULT_DIGITALCARD_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mpartner_default_digitalcard_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_ADMIN_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_admin_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_AUTH_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_auth_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_CREREQ_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_crereq_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_CRESER_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_creser_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_DATSHA_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_datsha_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDA_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_ida_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_MISP_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_misp_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_PMS_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_pms_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_POLICYMANAGER_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_policymanager_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_REG_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_reg_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_REGPROC_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_regproc_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_RESIDENT_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_resident_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_PREREG_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_prereg_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_HOTLIST_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_hotlist_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_DIGITALCARD_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mosip_digitalcard_client_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_KEYCLOAK_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: keycloak
+        key: admin-password
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SOFTHSM_KERNEL_SECURITY_PIN
+    valueFrom:
+      secretKeyRef:
+        name: softhsm-kernel
+        key: security-pin
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SOFTHSM_IDA_SECURITY_PIN
+    valueFrom:
+      secretKeyRef:
+        name: softhsm-ida
+        key: security-pin
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_ACTIVEMQ_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: activemq-activemq-artemis-share
+        key: activemq-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_ACTIVEMQ_CORE_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: activemq-activemq-artemis-share
+        key: activemq-core-port
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_ACTIVEMQ_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: activemq-activemq-artemis
+        key: artemis-password
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_AUTHTYPE_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-authtype-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_CREDENTIAL_ISSUE_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-credential-issue-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_PARTNER_SERVICE_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-partner-service-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_CA_CERTIFICATE_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-ca-certificate-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_HOTLIST_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-hotlist-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_MASTERDATA_TEMPLATES_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-masterdata-templates-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDA_WEBSUB_MASTERDATA_TITLES_CALLBACK_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: ida-websub-masterdata-titles-callback-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_IDREPO_WEBSUB_VID_CREDENTIAL_UPDATE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: idrepo-websub-vid-credential-update-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_WEBSUB_CREDENTIAL_STATUS_UPDATE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: resident-websub-credential-status-update-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_KERNEL_TOKENID_UIN_SALT
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: mosip-kernel-tokenid-uin-salt
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_KERNEL_TOKENID_PARTNERCODE_SALT
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: mosip-kernel-tokenid-partnercode-salt
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_PRINT_WEBSUB_HUB_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: print-websub-hub-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_HUB_SECRET_ENCRYPTION_KEY
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: hub-secret-encryption-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_S3_ACCESSKEY
+    valueFrom:
+      configMapKeyRef:
+        name: s3
+        key: s3-user-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_S3_REGION
+    valueFrom:
+      configMapKeyRef:
+        name: s3
+        key: s3-region
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_S3_SECRETKEY
+    valueFrom:
+      secretKeyRef:
+        name: s3
+        key: s3-user-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMTP_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: smtp-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: sms-host
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMTP_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: smtp-port
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMS_PORT
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: sms-port
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMTP_USERNAME
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: smtp-username
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMS_USERNAME
+    valueFrom:
+      configMapKeyRef:
+        name: msg-gateway
+        key: sms-username
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMTP_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: msg-gateway
+        key: smtp-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMS_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: msg-gateway
+        key: sms-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SMS_AUTHKEY
+    valueFrom:
+      secretKeyRef:
+        name: msg-gateway
+        key: sms-authkey
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_PREREG_CAPTCHA_SITE_KEY
+    valueFrom:
+      secretKeyRef:
+        name: mosip-captcha
+        key: prereg-captcha-site-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_PREREG_CAPTCHA_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: mosip-captcha
+        key: prereg-captcha-secret-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_CAPTCHA_SITE_KEY
+    valueFrom:
+      secretKeyRef:
+        name: mosip-captcha
+        key: resident-captcha-site-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_CAPTCHA_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: mosip-captcha
+        key: resident-captcha-secret-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_S3_PRETEXT_VALUE
+    valueFrom:
+      secretKeyRef:
+        name: s3
+        key: s3-pretext-value
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MPARTNER_DEFAULT_MOBILE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-client-secrets
+        key: mpartner_default_mobile_secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_WEBSUB_AUTHTYPE_STATUS_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: resident-websub-authtype-status-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_WEBSUB_AUTH_TRANSACTION_STATUS_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: resident-websub-auth-transaction-status-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDA_KYC_TOKEN_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: mosip-ida-kyc-token-secret
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_PARTNER_CRYPTO_P12_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: mosip-partner-crypto-p12-password
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_RESIDENT_REQUEST_CREDENTIAL_ENCRYPTION_KEY
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: mosip-resident-request-credential-encryption-key
+    enabled: true
+
+  - name: SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_RESIDENT_WEBSUB_REGPROC_WORKFLOW_COMPLETE_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: conf-secrets-various
+        key: resident-websub-regproc-workflow-complete-secret
+    enabled: true
+
+## The active profile env if you have another set of properties. Correspondingly, properties in Git repo will
+## have names of type "*-default.properties"
+activeProfileEnv: default

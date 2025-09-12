@@ -1,0 +1,19 @@
+apiVersion: v2
+name: softhsmbackup
+description: A Helm chart to deploy softhsmbackup
+type: application
+version: 12.0.3-develop
+appVersion: ""
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - mosip
+  - softhsmbackup
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

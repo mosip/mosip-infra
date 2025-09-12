@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: readuser-script
+  namespace: util
+data:
+  create-readuser.sh: |
+    #!/bin/bash
+
+    # Retrieve the PostgreSQL superuser password from the environment variable
+    export PGPASSWORD=$POSTGRES_PASSWORD
+
+    # List of schemas
+    SCHEMAS=("audit" "credential" "hotlist" "ida" "idmap" "idrepo" "kernel" "keymgr" "master" "pms" "prereg" "regprc" "resident")
+
+    if [ "{{ .Values.user.action }}" = "create" ]; then
+      # Create user and set connection limit
+      psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -c "CREATE USER {{ .Values.user.username }} WITH PASSWORD '{{ .Values.user.password }}';"
+      psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -c "ALTER USER {{ .Values.user.username }} WITH CONNECTION LIMIT -1;"
+
+      # Grant privileges
+      for SCHEMA in "${SCHEMAS[@]}"; do
+          psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -d "mosip_$SCHEMA" -c "GRANT USAGE ON SCHEMA $SCHEMA TO {{ .Values.user.username }};"
+          psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -d "mosip_$SCHEMA" -c "GRANT SELECT ON ALL TABLES IN SCHEMA $SCHEMA TO {{ .Values.user.username }};"
+          psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -d "mosip_$SCHEMA" -c "ALTER DEFAULT PRIVILEGES IN SCHEMA $SCHEMA GRANT SELECT ON TABLES TO {{ .Values.user.username }};"
+      done
+    elif [ "{{ .Values.user.action }}" = "delete" ]; then
+      # Reassign objects owned by the user to another user (e.g., postgres)
+      for DB in "mosip_audit" "mosip_credential" "mosip_hotlist" "mosip_ida" "mosip_idmap" "mosip_idrepo" "mosip_kernel" "mosip_keymgr" "mosip_master" "mosip_pms" "mosip_prereg" "mosip_regprc" "mosip_resident"; do
+        psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -d "$DB" -c "REASSIGN OWNED BY {{ .Values.user.username }} TO postgres;"
+        psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -d "$DB" -c "DROP OWNED BY {{ .Values.user.username }};"
+      done
+      # Drop user
+      psql -h "{{ .Values.user.dbhost }}" -p "{{ .Values.user.dbport }}" -U postgres -c "DROP USER IF EXISTS {{ .Values.user.username }};"
+    else
+      echo "Invalid action: $ACTION. Use 'create' or 'delete'."
+      exit 1
+    fi
