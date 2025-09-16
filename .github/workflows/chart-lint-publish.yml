@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
     paths:
-      - 'deployment/v3/helmcharts/**'
+      - 'helm/**'
   workflow_dispatch:
     inputs:
       IGNORE_CHARTS:
@@ -37,9 +37,10 @@ on:
       - 1.*
       - 0.*
       - develop
+      - MOSIP*
       - release*
     paths:
-      - 'deployment/v3/helmcharts/**'
+      - './helm/**'
 
 jobs:
   chart-lint-publish:
@@ -56,7 +57,6 @@ jobs:
       LINTING_LINTCONF_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/lintconf.yaml"
       LINTING_CHART_TESTING_CONFIG_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/chart-testing-config.yaml"
       LINTING_HEALTH_CHECK_SCHEMA_YAML_URL: "https://raw.githubusercontent.com/mosip/kattu/master/.github/helm-lint-configs/health-check-schema.yaml"
-      DEPENDENCIES: "mosip,https://mosip.github.io/mosip-helm;"
     secrets:
       TOKEN: ${{ secrets.ACTION_PAT }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
