@@ -8,6 +8,7 @@ fi
 
 NS=ida
 CHART_VERSION=12.1.2-beta.1
+IDA_KEYGEN_JOB_CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -70,7 +71,7 @@ function installing_ida() {
   echo "IDA HELM ARGS $IDA_HELM_ARGS"
 
   echo Running ida keygen
-  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version 12.0.1
+  helm -n $NS install ida-keygen mosip/keygen $IDA_KEYGEN_HELM_ARGS --wait --wait-for-jobs  --version $IDA_KEYGEN_JOB_CHART_VERSION $ENABLE_INSECURE
 
   echo Installing ida auth
   helm -n $NS install ida-auth mosip/ida-auth $IDA_HELM_ARGS --version $CHART_VERSION $ENABLE_INSECURE
