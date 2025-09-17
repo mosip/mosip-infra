@@ -26,27 +26,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - SERVICE_LOCATION: 'kafka-producer'
-            SERVICE_NAME: 'kafka-producer'
-            BASE_IMAGE_BUILD: false
-          - SERVICE_LOCATION: 'minio-client-util'
-            SERVICE_NAME: 'minio-client-util'
-            BASE_IMAGE_BUILD: true
-          - SERVICE_LOCATION: 'openssl'
-            SERVICE_NAME: 'openssl'
-            BASE_IMAGE_BUILD: true
-          - SERVICE_LOCATION: 'openjdk/17-jre'
-            SERVICE_NAME: 'openjdk-17-jre'
-            BASE_IMAGE_BUILD: true
-          - SERVICE_LOCATION: 'openjdk/21-jre'
-            SERVICE_NAME: 'openjdk-21-jre'
-            BASE_IMAGE_BUILD: true
-          - SERVICE_LOCATION: 'alpine'
-            SERVICE_NAME: 'alpine'
-            BASE_IMAGE_BUILD: true
-          - SERVICE_LOCATION: 'openjdk/21-jdk'
-            SERVICE_NAME: 'openjdk-21-jdk'
-            BASE_IMAGE_BUILD: true
           - SERVICE_LOCATION: 'softhsm-backup'
             SERVICE_NAME: 'softhsm-backup'
             BASE_IMAGE_BUILD: true
