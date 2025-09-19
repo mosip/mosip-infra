@@ -23,7 +23,24 @@ function installing_kafka() {
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka mosip/kafka -f values.yaml --wait --version $CHART_VERSION
+  helm -n $NS upgrade --install kafka mosip/kafka \
+    --version $CHART_VERSION \
+    --set image.repository=bitnamilegacy/kafka \
+    --set image.tag=3.6.1-debian-12-r12 \
+    --set jmx.metrics.image.repository=bitnamilegacy/jmx-exporter \
+    --set jmx.metrics.image.tag=0.20.0-debian-12-r11 \
+    --set kafkaExporter.image.repository=bitnamilegacy/kafka-exporter \
+    --set kafkaExporter.image.tag=1.7.0-debian-12-r19 \
+    --set kubectl.image.repository=bitnamilegacy/kubectl \
+    --set kubectl.image.tag=1.29.2-debian-12-r2 \
+    --set volumePermissions.image.repository=bitnamilegacy/os-shell \
+    --set volumePermissions.image.tag=12-debian-12-r16 \
+    --set zookeeper.image.repository=bitnamilegacy/zookeeper \
+    --set zookeeper.image.tag=3.9.2-debian-12-r16 \
+    --set global.security.allowInsecureImages=true \
+    -f values.yaml \
+    --wait
+
 
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION

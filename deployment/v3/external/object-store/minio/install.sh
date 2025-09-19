@@ -14,7 +14,15 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 
 function installing_minio() {
   echo Installing minio
-  helm -n minio install minio mosip/minio --version 10.1.6
+  helm -n minio upgrade --install minio mosip/minio \
+    --version 10.1.6 \
+    --set image.repository=bitnamilegacy/minio \
+    --set image.tag=2025.2.28-debian-12-r1 \
+    --set clientImage.repository=bitnamilegacy/minio-client \
+    --set clientImage.tag=2025.2.21-debian-12-r1 \
+    --set volumePermissions.image.repository=bitnamilegacy/os-shell \
+    --set volumePermissions.image.tag=12-debian-12-r39 \
+    --set global.security.allowInsecureImages=true
 
   echo Installing gateways and virtualservice
   EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-minio-host})
