@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=postgres
-ISTIO_ADDONS_CHART_VERSION=12.0.3-develop
+ISTIO_ADDONS_CHART_VERSION=1.0.0-develop
 
 helm repo update
 echo Create $NS namespace
