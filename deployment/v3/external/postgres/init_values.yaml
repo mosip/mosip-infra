@@ -28,7 +28,7 @@ databases:
 
   mosip_idmap:
     enabled: true
-    branch: "release-1.2.2.x"
+    branch: "v1.2.2.3"
     host: "postgres-postgresql.postgres"
     port: 5432
   mosip_prereg:
@@ -39,7 +39,7 @@ databases:
 
   mosip_idrepo:
     enabled: true
-    branch: "release-1.2.2.x"
+    branch: "v1.2.2.3"
     host: "postgres-postgresql.postgres"
     port: 5432
 
@@ -51,7 +51,7 @@ databases:
 
   mosip_credential:
     enabled: true
-    branch: "release-1.2.2.x"
+    branch: "v1.2.2.3"
     host: "postgres-postgresql.postgres"
     port: 5432
 
