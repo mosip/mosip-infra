@@ -2,7 +2,7 @@ apiVersion: v2
 name: s3-readuser-util
 description: A Helm chart for creation of s3 readonly user and policy.
 type: application
-version: 12.0.3-develop
+version: 1.0.0-develop
 appVersion: "1.16.0"
 home: https://mosip.io
 keywords:

@@ -26,11 +26,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - SERVICE_LOCATION: 'softhsm-backup'
+          - SERVICE_LOCATION: 'deployment/v3/utils/softhsm-backup'
             SERVICE_NAME: 'softhsm-backup'
             BASE_IMAGE_BUILD: true
             SQUASH_LAYERS: '15'
-          - SERVICE_LOCATION: 'postgres-backup'
+          - SERVICE_LOCATION: 'deployment/v3/utils/postgres-backup'
             SERVICE_NAME: 'postgres-backup'
             BASE_IMAGE_BUILD: true
             SQUASH_LAYERS: '18'
