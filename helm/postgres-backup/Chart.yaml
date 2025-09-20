@@ -2,7 +2,7 @@ apiVersion: v2
 name: postgresbackup
 description: A Helm chart to deploy postgresbackup
 type: application
-version: 0.0.1-develop
+version: 1.0.0-develop
 appVersion: ""
 dependencies:
   - name: common
