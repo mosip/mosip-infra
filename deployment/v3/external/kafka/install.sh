@@ -9,8 +9,7 @@ fi
 NS=kafka
 CHART_VERSION=18.3.1
 UI_CHART_VERSION=0.4.2
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
-
+ISTIO_ADDONS_CHART_VERSION=1.0.0.develop
 echo Create $NS namespace
 kubectl create ns $NS
 
@@ -24,7 +23,12 @@ function installing_kafka() {
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka bitnami/kafka -f values.yaml --wait --version $CHART_VERSION
+  helm -n $NS install kafka bitnami/kafka \
+  --set image.repository="mosipint/kafka" \
+  --set image.tag="3.2.1-debian-11-r9" \
+  --set zookeeper.image.repository="mosipint/zookeeper" \
+  --set zookeeper.image.tag="3.8.0-debian-11-r30" \
+  -f values.yaml --wait --version $CHART_VERSION
 
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION

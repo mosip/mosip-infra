@@ -22,7 +22,7 @@ function installing_regproc() {
   ./copy_cm.sh
 
   echo Running regproc-salt job
-  helm -n $NS install regproc-salt mosip/regproc-salt --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install regproc-salt mosip/regproc-salt --version $CHART_VERSION --set image.repository=mosipid/kernel-salt-generator --set image.tag=1.2.0.2 --wait
 
   echo Installing regproc-workflow
   helm -n $NS install regproc-workflow mosip/regproc-workflow --version $CHART_VERSION
@@ -37,7 +37,7 @@ function installing_regproc() {
   helm -n $NS install regproc-pktserver mosip/regproc-pktserver --version $CHART_VERSION
 
   echo Installing group1
-  helm -n $NS install regproc-group1 mosip/regproc-group1 --version $CHART_VERSION
+  helm -n $NS install regproc-group1 mosip/regproc-group1 --version $CHART_VERSION -f group1_values.yaml
 
   echo Installing group2
   helm -n $NS install regproc-group2 mosip/regproc-group2  --version $CHART_VERSION

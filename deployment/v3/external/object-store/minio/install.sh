@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=minio
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
+ISTIO_ADDONS_CHART_VERSION=1.0.0-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -15,7 +15,10 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 
 function installing_minio() {
   echo Installing minio
-  helm -n minio install minio bitnami/minio -f values.yaml --version 10.1.6
+  helm -n minio install minio mosip/minio \
+  --set image.repository="mosipint/minio" \
+  --set image.tag="2022.2.7-debian-10-r0" \
+  -f values.yaml --version 10.1.6
 
   echo Installing gateways and virtualservice
   helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml

@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: s3-init
+  namespace: util
+spec:
+  template:
+    metadata:
+      labels:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - name: minio-client
+          image: minio/mc
+          env:
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root-user
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio
+                  key: root-password
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mc alias set s3 http://minio.minio:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY;
+              if [ "{{ .Values.s3user.action }}" = "create" ]; then
+                echo "Creating user {{ .Values.s3user.username }}...";
+                mc admin policy create s3 {{.Values.s3user.policyName}} /config/readuser.json;
+                mc admin user add s3 {{.Values.s3user.username}} {{.Values.s3user.password}};
+                mc admin policy attach s3 {{.Values.s3user.policyName}} --user {{.Values.s3user.username}};
+              elif [ "{{ .Values.s3user.action }}" = "delete" ]; then
+                echo "Deleting user {{ .Values.s3user.username }}...";
+                mc admin user remove s3 {{ .Values.s3user.username }};
+              fi
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      restartPolicy: OnFailure
+      volumes:
+        - name: config-volume
+          configMap:
+            name: s3-policy

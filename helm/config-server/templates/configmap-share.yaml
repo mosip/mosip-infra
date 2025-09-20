@@ -1,0 +1,16 @@
+## The config map here defines env variables that are required by
+## other modules
+## sprint_config_url_env:  Internal url of config server.  Since config server is in its own namespace
+## full service url is given to access the same.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-share" (include "config-server.fullname" .) }}
+  namespace: {{ .Release.Namespace }}
+data:
+  active_profile_env : {{ .Values.activeProfileEnv }}
+  spring_config_label_env: {{ .Values.gitRepo.version }}
+  spring_config_url_env: {{ printf "http://%s.%s/config" (include "config-server.fullname" .) .Release.Namespace }}
+  cache_config_url_env: {{ printf "http://%s.%s/config/*/%s/%s/hazelcast_cache.xml" (include "config-server.fullname" .) .Release.Namespace .Values.activeProfileEnv .Values.gitRepo.version }}
+  hub_config_file_url_env: {{ printf "http://%s.%s/config/*/%s/%s/websub-service.toml" (include "config-server.fullname" .) .Release.Namespace .Values.activeProfileEnv .Values.gitRepo.version }}
+  consolidator_config_file_url_env: {{ printf "http://%s.%s/config/*/%s/%s/websub-consolidator.toml" (include "config-server.fullname" .) .Release.Namespace .Values.activeProfileEnv .Values.gitRepo.version }}

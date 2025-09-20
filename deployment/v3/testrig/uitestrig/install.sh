@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=uitestrig
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=12.0.2
 
 echo Create $NS namespace
 kubectl create ns $NS

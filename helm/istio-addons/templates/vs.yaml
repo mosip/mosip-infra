@@ -1,0 +1,79 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ .Values.istio.name }}
+spec:
+  hosts:
+  - "*"
+  gateways:
+  {{- if .Values.istio.gateways }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.istio.gateways "context" $ ) | nindent 4 }}
+  {{- else }}
+    - {{ .Values.istio.name }}
+  {{- end }}
+  {{- if eq .Values.istio.port.protocol "TCP" }}
+  tcp:
+  - match:
+    - port: {{ .Values.istio.port.number }}
+    route:
+    - destination:
+        host: {{ .Values.istio.serviceHost }}
+        port:
+          number: {{ .Values.istio.servicePort }}
+  {{- else if eq .Values.istio.port.protocol "HTTP" }}
+  http:
+  {{- if and (ne .Values.istio.serviceHost "keycloak") (ne .Values.istio.serviceHost "oauth2-proxy")  (ne .Values.istio.name "minio")}}
+  - route:
+    - destination:
+        host: {{ .Values.istio.serviceHost }}
+        port:
+          number: {{ .Values.istio.servicePort }}
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https
+  {{- end }}
+  {{- if eq .Values.istio.serviceHost "oauth2-proxy" }}
+  - match:
+      - uri:
+          prefix: /oauth2
+    route:
+      - destination:
+          host: oauth2-proxy.oauth2-proxy.svc.cluster.local
+          port:
+            number: 80
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https
+  {{- end }}
+  {{- if eq .Values.istio.serviceHost "keycloak" }}
+  - match:
+      - uri:
+          prefix: /
+    route:
+      - destination:
+          host: {{ .Values.istio.serviceHost }}.{{ .Release.Namespace }}.svc.cluster.local
+          port:
+            number: 80
+    headers:
+      request:
+        set:
+          x-forwarded-proto: https
+  {{- end }}
+  {{- range .Values.istio.httpRoutes }}
+  - name: {{ .name }}
+    match:
+      {{- if .match.port }}
+      - port: {{ .match.port }}
+      {{- else if .match.uriPrefix }}
+      - uri:
+          prefix: {{ .match.uriPrefix | quote }}
+      {{- end }}
+    route:
+      - destination:
+          host: {{ .destination.host }}
+          port:
+            number: {{ .destination.port }}
+  {{- end }}
+  {{- end }}

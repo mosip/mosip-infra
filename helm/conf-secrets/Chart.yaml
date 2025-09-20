@@ -1,0 +1,19 @@
+apiVersion: v2
+name: conf-secrets
+description: A Helm chart for deploying secrets required by MOSIP config-server
+type: application
+version: 12.0.3-develop
+appVersion: 1.1.2
+dependencies:
+  - name: common
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - bitnami-common
+    version: 1.x.x
+home: https://mosip.io
+keywords:
+  - config-server
+  - conf-secrets
+maintainers:
+  - email: info@mosip.io
+    name: MOSIP

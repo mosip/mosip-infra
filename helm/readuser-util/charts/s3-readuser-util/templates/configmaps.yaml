@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: s3-policy
+  namespace: util
+data:
+  readuser.json: |
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": [
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "s3:ListBucketMultipartUploads"
+          ],
+          "Effect": "Allow",
+          "Resource": [
+            "arn:aws:s3:::*"
+          ]
+        },
+        {
+          "Action": [
+            "s3:GetObject",
+            "s3:ListMultipartUploadParts"
+          ],
+          "Effect": "Allow",
+          "Resource": [
+            "arn:aws:s3:::*/*"
+          ]
+        }
+      ]
+    }
