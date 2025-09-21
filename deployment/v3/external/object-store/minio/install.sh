@@ -49,6 +49,7 @@ while true; do
                     break
                 else
                     echo "Invalid domain name. Please provide a valid domain."
+
                     echo ""
                     continue
                 fi
@@ -90,12 +91,15 @@ while true; do
                 break
                 ;;
             [Nn]|[Nn][Oo])
+
                 echo "Installation cancelled."
                 echo "Please update the 'istio-addons-values.yaml' file with the correct host configuration and run the script again."
                 exit 1
                 ;;
             *)
+
                 echo "Invalid response. Please enter 'yes' or 'no'."
+
                 echo ""
                 ;;
         esac

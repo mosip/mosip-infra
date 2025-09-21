@@ -63,12 +63,15 @@ while true; do
                     continue
                 else
                     echo "Configuration verified. Current host: $current_host"
+
                     echo ""
                     break
                 fi
                 ;;
             3)
                 echo "Installation cancelled."
+
+
                 echo "Please update the 'istio-addons-values.yaml' file with the correct host configuration and run the script again."
                 echo "Edit the file and change the host value from 'kafka.sandbox.xyz.net' to your actual domain."
                 exit 1
@@ -79,6 +82,7 @@ while true; do
                 ;;
         esac
     else
+
         echo "Host configuration appears to be updated: $current_host"
         echo ""
         echo "Do you want to proceed with this configuration? (yes/no):"
@@ -87,16 +91,23 @@ while true; do
         case "$user_response" in
             [Yy]|[Yy][Ee][Ss])
                 echo "Continuing with installation..."
+
                 echo ""
                 break
                 ;;
             [Nn]|[Nn][Oo])
+
                 echo "Installation cancelled."
+
+
                 echo "Please update the 'istio-addons-values.yaml' file with the correct host configuration and run the script again."
                 exit 1
                 ;;
             *)
+
                 echo "Invalid response. Please enter 'yes' or 'no'."
+
+
                 echo ""
                 ;;
         esac
