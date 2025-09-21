@@ -16,7 +16,7 @@ function secret_setup() {
   while true; do
     read -p "Do you want to continue configuring Captcha secrets for prereg ? (y/n) : " ans
       if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for esignet domain: prereg.sandbox.xyz.net"
+        echo "Please create captcha site and secret key for prereg domain: prereg.sandbox.xyz.net"
 
         PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
         echo Please enter the recaptcha admin site key for domain $PREREG_HOST
@@ -34,7 +34,7 @@ function secret_setup() {
   while true; do
     read -p "Do you want to continue configuring Captcha secrets for admin ? (y/n) : " ans
       if [ "$ans" ='Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for esignet domain: admin.sandbox.xyz.net"
+        echo "Please create captcha site and secret key for admin domain: admin.sandbox.xyz.net"
 
         ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
         echo Please enter the recaptcha admin site key for domain $ADMIN_HOST
@@ -52,7 +52,7 @@ function secret_setup() {
   while true; do
     read -p "Do you want to continue configuring Captcha secrets for resident ? (y/n) : " ans
       if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for esignet domain: resident.sandbox.xyz.net"
+        echo "Please create captcha site and secret key for resident domain: resident.sandbox.xyz.net"
 
         RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
         echo Please enter the recaptcha admin site key for domain $RESIDENT_HOST

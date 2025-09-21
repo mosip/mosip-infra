@@ -23,7 +23,7 @@ function installing_pms() {
 
   INTERNAL_API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
   PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
-  PMP_REVAMP_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-revamp-ui-host})
+  PMP_REVAMP_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
 
   PARTNER_MANAGER_SERVICE_NAME="pms-partner"
   POLICY_MANAGER_SERVICE_NAME="pms-policy"

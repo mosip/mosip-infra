@@ -1,6 +1,6 @@
 gitRepo:
   uri: https://github.com/mosip/mosip-config
-  version: release-1.2.5.0
+  version: testgrid
   ## Folders within the base repo where properties may be found.
   searchFolders: ""
   private: false
@@ -8,56 +8,15 @@ gitRepo:
   username: ""
   token: ""
 
-spring_profiles:
-  enabled: false
-  spring_profiles_active: composite
-  spring_compositeRepos:
-  # Based on the user requiremnt the number of multiple sources from where configuration needs to be pulled can be updated below as mentioned.
-    - type: git
-      uri: "< config-repo url >"
-      version: < branch-name >
-      spring_cloud_config_server_git_cloneOnStart: true
-      spring_cloud_config_server_git_force_pull: true
-      spring_cloud_config_server_git_refreshRate: 5
-    - type: git
-      uri: "< config-repo url >"
-      version: < branch-name >
-      spring_cloud_config_server_git_cloneOnStart: true
-      spring_cloud_config_server_git_force_pull: true
-      spring_cloud_config_server_git_refreshRate: 5
-  spring_fail_on_composite_error: false
 
-localRepo:
-  enabled: false       # Set this to "true" inorder to Enable config-server to pull configurations from local git repo.
-  spring_profiles_active: "native"
-  spring_cloud_config_server_native_search_locations: "file:///var/lib/config_repo"
-  spring_cloud_config_server_accept_empty: true
-  spring_cloud_config_server_git_force_pull: false
-  spring_cloud_config_server_git_refreshRate: 0
-  spring_cloud_config_server_git_cloneOnStart: false
-
-volume:
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack).
-  ##
-  # storageClass: "-"
-  ##
-  ## If you want to reuse an existing claim, you can pass the name of the PVC using
-  ## the existingClaim variable
-  # existingClaim: your-claim
-  ## ReadWriteMany not supported by AWS gp2
-  name: config-server
-  storageClass: nfs-client
-  accessModes:
-    - ReadWriteMany
-  size: 10Mi
-  existingClaim:
-  # Dir where config and keys are written inside container
-  mountDir: '/var/lib/config_repo'
-  nfs:
-    path: ''  # Dir within the nfs server where config repo is cloned/maintained locally.
-    server: ''  # Ip address of nfs server.
-    
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 500m
+    memory: 2500Mi
+  requests:
+    cpu: 300m
+    memory: 1500Mi

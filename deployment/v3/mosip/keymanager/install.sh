@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=keymanager
-CHART_VERSION=12.0.1
+CHART_VERSION=12.1.0
 
 echo Creating $NS namespace
 kubectl create ns $NS

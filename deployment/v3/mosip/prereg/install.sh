@@ -8,6 +8,8 @@ fi
 
 NS=prereg
 CHART_VERSION=12.0.3
+BOOKING_CHART_VERSION=12.0.1
+UI_CHART_VERSION=12.0.1
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -33,7 +35,7 @@ function installing_prereg() {
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
 
   echo Installing prereg-booking
-  helm -n $NS install prereg-booking mosip/prereg-booking --version $CHART_VERSION
+  helm -n $NS install prereg-booking mosip/prereg-booking --version $BOOKING_CHART_VERSION
 
   echo Installing prereg-datasync
   helm -n $NS install prereg-datasync mosip/prereg-datasync --version $CHART_VERSION
@@ -42,7 +44,7 @@ function installing_prereg() {
   helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version 12.0.1
+  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $UI_CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml
