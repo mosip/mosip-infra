@@ -61,7 +61,7 @@ function installing_regproc() {
   helm -n $NS install regproc-trans mosip/regproc-trans --version $CHART_VERSION
 
   echo Installing regproc-notifier
-  helm -n $NS install regproc-notifier mosip/regproc-notifier --version $CHART_VERSION
+  helm -n $NS install regproc-notifier mosip/regproc-notifier --set startupProbe.failureThreshold=60 --version $CHART_VERSION
 
   echo Installing regproc-reprocess
   helm -n $NS install regproc-reprocess mosip/regproc-reprocess --version $CHART_VERSION

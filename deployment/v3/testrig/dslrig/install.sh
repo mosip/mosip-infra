@@ -60,6 +60,54 @@ function installing_dslrig() {
     exit 1;
   fi
 
+  # Database port configuration
+  echo ""
+  echo "=============================================="
+  echo "Database Port Configuration"
+  echo "=============================================="
+  echo ""
+  echo "Default PostgreSQL port is 5432."
+  echo "If you're using:"
+  echo "  - Internal PostgreSQL (container): Keep default port 5432"
+  echo "  - External PostgreSQL: You may need to change the port"
+  echo ""
+  
+  default_db_port="5432"
+  echo "Current default database port: $default_db_port"
+  echo ""
+  echo "Options:"
+  echo "1. Keep default port 5432 (for internal PostgreSQL)"
+  echo "2. Change to custom port (for external PostgreSQL)"
+  echo ""
+  read -p "Enter your choice (1/2): " db_choice
+  
+  case "$db_choice" in
+    1)
+      db_port="$default_db_port"
+      echo "Using default PostgreSQL port: $db_port"
+      ;;
+    2)
+      read -p "Enter your external PostgreSQL port (e.g., 5433, 5434): " custom_db_port
+      if [[ -n "$custom_db_port" && "$custom_db_port" =~ ^[0-9]+$ ]]; then
+        if [ "$custom_db_port" -gt 0 ] && [ "$custom_db_port" -le 65535 ]; then
+          db_port="$custom_db_port"
+          echo "Using custom PostgreSQL port: $db_port"
+        else
+          echo "Invalid port range. Port should be between 1-65535. Using default port $default_db_port"
+          db_port="$default_db_port"
+        fi
+      else
+        echo "Invalid port number. Using default port $default_db_port"
+        db_port="$default_db_port"
+      fi
+      ;;
+    *)
+      echo "Invalid choice. Using default port $default_db_port"
+      db_port="$default_db_port"
+      ;;
+  esac
+  echo ""
+
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
@@ -88,12 +136,14 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.s3.s3-region='' \
   --set dslorchestrator.configmaps.db.db-server="$DB_HOST" \
   --set dslorchestrator.configmaps.db.db-su-user="postgres" \
-  --set dslorchestrator.configmaps.db.db-port="5432" \
+  --set dslorchestrator.configmaps.db.db-port="$db_port" \
   --set dslorchestrator.configmaps.dslorchestrator.USER="$USER" \
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \
   --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
   --set dslorchestrator.configmaps.dslorchestrator.NS="$NS" \
+  --set dslorchestrator.configmaps.dslorchestrator.eSignetDeployed="no"\
+  --set dslorchestrator.configmaps.dslorchestrator.threadCount="2"\
   $ENABLE_INSECURE
 
   echo Installed dslrig.

@@ -43,11 +43,13 @@ while true; do
                 if [[ -n "$new_host" && "$new_host" != "iam.sandbox.xyz.net" ]]; then
                     # Update the host in the YAML file
                     sed -i "s/host: $current_host/host: $new_host/" istio-addons-values.yaml
-                    echo "✅ Host updated to: $new_host"
+
+                    echo "Host updated to: $new_host"
                     echo ""
                     break
                 else
-                    echo "❌ Invalid domain name. Please provide a valid domain."
+                    echo "Invalid domain name. Please provide a valid domain."
+
                     echo ""
                     continue
                 fi
@@ -56,45 +58,54 @@ while true; do
                 # Re-read the current host to verify
                 current_host=$(grep -A1 "host:" istio-addons-values.yaml | grep -v "serviceHost" | head -1 | cut -d: -f2 | tr -d ' ')
                 if [[ "$current_host" == "iam.sandbox.xyz.net" ]]; then
-                    echo "❌ The configuration still shows the default host. Please update it first."
+
+                    echo "The configuration still shows the default host. Please update it first."
                     echo ""
                     continue
                 else
-                    echo "✅ Configuration verified. Current host: $current_host"
+                    echo "Configuration verified. Current host: $current_host"
                     echo ""
                     break
                 fi
                 ;;
             3)
-                echo "❌ Installation cancelled."
+
+                echo "Installation cancelled."
+
                 echo "Please update the 'istio-addons-values.yaml' file with the correct host configuration and run the script again."
                 echo "Edit the file and change the host value from 'iam.sandbox.xyz.net' to your actual domain."
                 exit 1
                 ;;
             *)
-                echo "❌ Invalid choice. Please enter 1, 2, or 3."
+
+                echo "Invalid choice. Please enter 1, 2, or 3."
+
                 echo ""
                 ;;
         esac
     else
-        echo "✅ Host configuration appears to be updated: $current_host"
+        echo "Host configuration appears to be updated: $current_host"
         echo ""
         echo "Do you want to proceed with this configuration? (yes/no):"
         read -r user_response
         
         case "$user_response" in
             [Yy]|[Yy][Ee][Ss])
-                echo "✅ Continuing with installation..."
+                echo "Continuing with installation..."
                 echo ""
                 break
                 ;;
             [Nn]|[Nn][Oo])
-                echo "❌ Installation cancelled."
+
+                echo "Installation cancelled."
+
                 echo "Please update the 'istio-addons-values.yaml' file with the correct host configuration and run the script again."
                 exit 1
                 ;;
             *)
-                echo "❌ Invalid response. Please enter 'yes' or 'no'."
+
+                echo "Invalid response. Please enter 'yes' or 'no'."
+
                 echo ""
                 ;;
         esac
