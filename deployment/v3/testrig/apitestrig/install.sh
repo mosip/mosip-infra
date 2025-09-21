@@ -92,25 +92,25 @@ function installing_apitestrig() {
   case "$db_choice" in
     1)
       db_port="$default_db_port"
-      echo "✅ Using default PostgreSQL port: $db_port"
+      echo "Using default PostgreSQL port: $db_port"
       ;;
     2)
       read -p "Enter your external PostgreSQL port (e.g., 5433, 5434): " custom_db_port
       if [[ -n "$custom_db_port" && "$custom_db_port" =~ ^[0-9]+$ ]]; then
         if [ "$custom_db_port" -gt 0 ] && [ "$custom_db_port" -le 65535 ]; then
           db_port="$custom_db_port"
-          echo "✅ Using custom PostgreSQL port: $db_port"
+          echo "Using custom PostgreSQL port: $db_port"
         else
-          echo "❌ Invalid port range. Port should be between 1-65535. Using default port $default_db_port"
+          echo "Invalid port range. Port should be between 1-65535. Using default port $default_db_port"
           db_port="$default_db_port"
         fi
       else
-        echo "❌ Invalid port number. Using default port $default_db_port"
+        echo "Invalid port number. Using default port $default_db_port"
         db_port="$default_db_port"
       fi
       ;;
     *)
-      echo "❌ Invalid choice. Using default port $default_db_port"
+      echo "Invalid choice. Using default port $default_db_port"
       db_port="$default_db_port"
       ;;
   esac

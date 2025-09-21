@@ -50,19 +50,19 @@ while true; do
                     # Update the database configuration in the YAML file
                     sed -i "s/host: \"$current_db_host\"/host: \"$new_db_host\"/" values.yaml
                     sed -i "s/port: $current_db_port/port: $new_db_port/" values.yaml
-                    echo "✅ Database configuration updated:"
+                    echo "Database configuration updated:"
                     echo "   Host: $new_db_host"
                     echo "   Port: $new_db_port"
                     echo ""
                     break
                 else
-                    echo "❌ Invalid database configuration. Please provide valid host and port."
+                    echo "Invalid database configuration. Please provide valid host and port."
                     echo ""
                     continue
                 fi
                 ;;
             2)
-                echo "✅ Continuing with internal PostgreSQL configuration..."
+                echo "Continuing with internal PostgreSQL configuration..."
                 echo "   Host: $current_db_host"
                 echo "   Port: $current_db_port"
                 echo ""
@@ -73,11 +73,11 @@ while true; do
                 current_db_host=$(grep -A1 "host:" values.yaml | head -1 | cut -d: -f2 | tr -d ' "')
                 current_db_port=$(grep -A1 "port:" values.yaml | head -1 | cut -d: -f2 | tr -d ' ')
                 if [[ "$current_db_host" == "postgres-postgresql.postgres" ]]; then
-                    echo "❌ The configuration still shows the default internal host. Please update it first or choose option 2."
+                    echo "The configuration still shows the default internal host. Please update it first or choose option 2."
                     echo ""
                     continue
                 else
-                    echo "✅ Configuration verified:"
+                    echo "Configuration verified:"
                     echo "   Host: $current_db_host"
                     echo "   Port: $current_db_port"
                     echo ""
@@ -85,18 +85,18 @@ while true; do
                 fi
                 ;;
             4)
-                echo "❌ Installation cancelled."
+                echo "Installation cancelled."
                 echo "Please update the 'values.yaml' file with the correct database configuration and run the script again."
                 echo "Update the db.host and db.port values in values.yaml file."
                 exit 1
                 ;;
             *)
-                echo "❌ Invalid choice. Please enter 1, 2, 3, or 4."
+                echo "Invalid choice. Please enter 1, 2, 3, or 4."
                 echo ""
                 ;;
         esac
     else
-        echo "✅ Database configuration appears to be updated:"
+        echo "Database configuration appears to be updated:"
         echo "   Host: $current_db_host"
         echo "   Port: $current_db_port"
         echo ""
@@ -105,17 +105,17 @@ while true; do
         
         case "$user_response" in
             [Yy]|[Yy][Ee][Ss])
-                echo "✅ Continuing with installation..."
+                echo "Continuing with installation..."
                 echo ""
                 break
                 ;;
             [Nn]|[Nn][Oo])
-                echo "❌ Installation cancelled."
+                echo "Installation cancelled."
                 echo "Please update the 'values.yaml' file with the correct database configuration and run the script again."
                 exit 1
                 ;;
             *)
-                echo "❌ Invalid response. Please enter 'yes' or 'no'."
+                echo "Invalid response. Please enter 'yes' or 'no'."
                 echo ""
                 ;;
         esac
