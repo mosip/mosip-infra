@@ -22,3 +22,16 @@ audit:
   logTimezone: ""
 image:
   debug: true
+# Custom resources using extraDeploy
+extraDeploy:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: postgres-setup-config
+      namespace: '{{ .Release.Namespace }}'
+      labels:
+        app.kubernetes.io/instance: '{{ .Release.Name }}'
+        app.kubernetes.io/managed-by: '{{ .Release.Service }}'
+    data:
+      mosip-database-hostname-override: "postgres-postgresql.postgres"
+      mosip-database-port-override: "5432"
