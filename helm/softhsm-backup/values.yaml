@@ -316,7 +316,7 @@ softhsmbackup:
       POD_TOKENS_PATH: '/softhsm/tokens'
       AWS_ACCESS_KEY_ID: ''
       AWS_REGION: ''
-      S3_RETENTION_DAYS: 15
+      S3_RETENTION_DAYS: 20
   secrets:
     s3:
       AWS_SECRET_ACCESS_KEY: ''
