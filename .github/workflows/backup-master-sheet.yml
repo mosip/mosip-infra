@@ -23,11 +23,11 @@ jobs:
       - name: Download Master_Testcases.xlsx
         uses: pnp/action-cli-runscript@v3.0.0
         with:
-          M365_CLI_SCRIPT: |
-            m365 spo file get \
-              --webUrl "https://cyberpwn-my.sharepoint.com/personal/ragini_cyberpwn_com" \
-              --url "/personal/ragini_cyberpwn_com/Documents/Master_Testcases.xlsx" \
-              --outputFilePath "./Master_Testcases.xlsx"
+          CLI_MICROSOFT365_SCRIPT: |
+            spo file get \
+            --webUrl "https://cyberpwn-my.sharepoint.com/personal/ragini_cyberpwn_com" \
+            --url "/personal/ragini_cyberpwn_com/Documents/Master_Testcases.xlsx" \
+            --outputFilePath "./Master_Testcases.xlsx"
 
       - name: Ensure target folder exists
         run: mkdir -p MasterTestcases
