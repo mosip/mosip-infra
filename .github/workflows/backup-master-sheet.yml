@@ -27,7 +27,7 @@ jobs:
             m365 spo file get \
             --webUrl "https://cyberpwn-my.sharepoint.com/personal/ragini_cyberpwn_com" \
             --url "/personal/ragini_cyberpwn_com/Documents/Master_Testcases.xlsx" \
-            --outputFilePath "./Master_Testcases.xlsx"
+            --asFile --path "./Master_Testcases.xlsx"
 
       - name: Ensure target folder exists
         run: mkdir -p MasterTestcases
