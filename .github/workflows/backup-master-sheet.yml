@@ -18,7 +18,7 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           CERTIFICATE_ENCODED: ${{ secrets.CERTIFICATE_ENCODED }}
           TENANT: ${{ secrets.TENANT_ID }}
-          # CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}  # If needed
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}  # If needed
 
       - name: Download Master_Testcases.xlsx
         uses: pnp/action-cli-runscript@v3.0.0
