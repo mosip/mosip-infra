@@ -27,9 +27,9 @@ function installing_kafka() {
   echo Installing kafka
   helm -n $NS install kafka bitnami/kafka \
   --set image.repository="mosipid/kafka" \
-  --set image.tag="3.2.1-debian-11-r9" \
+  --set image.tag="3.6.1-debian-12-r12" \
   --set zookeeper.image.repository="mosipid/zookeeper" \
-  --set zookeeper.image.tag="3.8.0-debian-11-r30" \
+  --set zookeeper.image.tag="3.9.1-debian-12-r13" \
   -f values.yaml --wait --timeout=10m --version $CHART_VERSION
 
   echo Installing kafka-ui
