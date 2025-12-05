@@ -139,3 +139,14 @@ registration-processor-default.properties,mosip.regproc.credentialrequestor.even
 registration-processor-default.properties,auth.server.admin.allowed.audience
 id-authentication-default.properties,hibernate.dialect
 id-authentication-default.properties,mosip.ida.mapping.json-uri
+resident-default.properties,mosip.resident.eventid.searchtext.length
+resident-default.properties,mosip.resident.phone.token.claim-phone
+resident-default.properties,mosip.resident.request.credential.encryption.key
+resident-default.properties,mosip.scope.resident.getNotificationCount
+resident-default.properties,resident-data-format-mvel-file-name
+resident-default.properties,resident.data.mask.function
+resident-default.properties,resident.message.allowed.special.char.regex
+resident-default.properties,resident.purpose.allowed.special.char.regex
+resident-default.properties,resident.ui.propertyKeys
+resident-default.properties,resident.validation.event-id.regex
+resident-default.properties,resident.view.history.status.filters

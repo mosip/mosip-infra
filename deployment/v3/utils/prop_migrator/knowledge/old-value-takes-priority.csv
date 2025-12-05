@@ -32,3 +32,9 @@ registration-processor-default.properties,mosip.registration.processor.database.
 registration-processor-default.properties,worker.pool.size
 id-authentication-default.properties,mosip.ida.database.hostname
 id-authentication-default.properties,mosip.ida.database.port
+resident-default.properties,mosip.resident.captcha.enable
+resident-default.properties,mosip.resident.database.hostname
+resident-default.properties,mosip.resident.database.port
+resident-default.properties,mosip.resident.request.credential.credentialType
+resident-default.properties,mosip.resident.update.service.status.job.enabled
+resident-default.properties,resident.service-history.download.max.count
