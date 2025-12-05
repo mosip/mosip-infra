@@ -1,25 +1,22 @@
 Old Property File,Latest Property File
-sandbox/packet-manager-mz.properties,packet-manager-default.properties
-sandbox/credential-request-mz.properties,credential-request-default.properties
-sandbox/id-repository-mz.properties,id-repository-default.properties
-sandbox/registration-mz.properties,registration-default.properties
-  -,id-authentication-external-default.properties
-sandbox/syncdata-mz.properties,syncdata-default.properties
-sandbox/resident-mz.properties,resident-default.properties
-sandbox/pre-registration-mz.properties,pre-registration-default.properties
-sandbox/id-authentication-mz.properties,id-authentication-default.properties
-sandbox/application-mz.properties,application-default.properties
-sandbox/print-mz.properties,print-default.properties
-sandbox/hotlist-mz.properties,hotlist-default.properties
-sandbox/mock-abis-mz.properties,mock-abis-default.properties
-sandbox/admin-mz.properties,admin-default.properties
-  -,id-authentication-internal-default.properties
-sandbox/kernel-mz.properties,kernel-default.properties
-sandbox/credential-service-mz.properties,credential-service-default.properties
-sandbox/data-share-mz.properties,data-share-default.properties
-sandbox/mimoto-mz.properties,mimoto-default.properties
-  -,id-authentication-otp-default.properties
-sandbox/partner-management-mz.properties,partner-management-default.properties
-sandbox/registration-processor-mz.properties,registration-processor-default.properties
-sandbox/digital-card-mz.properties,digital-card-default.properties
- -,mock-mv-default.properties
+admin-default.properties,admin-default.properties
+application-default.properties,application-default.properties
+credential-request-default.properties,credential-request-default.properties
+credential-service-default.properties,credential-service-default.properties
+data-share-default.properties,data-share-default.properties
+digital-card-default.properties,digital-card-default.properties
+esignet-default.properties,esignet-default.properties
+hotlist-default.properties,hotlist-default.properties
+id-authentication-default.properties,id-authentication-default.properties
+id-authentication-internal-default.properties,id-authentication-internal-default.properties
+id-repository-default.properties,id-repository-default.properties
+kernel-default.properties,kernel-default.properties
+mock-abis-default.properties,mock-abis-default.properties
+mock-identity-system-default.properties,mock-identity-system-default.properties
+packet-manager-default.properties,packet-manager-default.properties
+partner-management-default.properties,partner-management-default.properties
+pre-registration-default.properties,pre-registration-default.properties
+registration-default.properties,registration-default.properties
+registration-processor-default.properties,registration-processor-default.properties
+resident-default.properties,resident-default.properties
+syncdata-default.properties,syncdata-default.properties
