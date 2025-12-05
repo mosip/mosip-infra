@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=masterdata-loader
-CHART_VERSION=1.3.0-beta.1
+CHART_VERSION=1.3.0-develop
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
 read -p "CAUTION: Do you still want to continue(Y/n)" yn
@@ -34,7 +34,7 @@ if [ $yn = "Y" ]
 
    echo Loading masterdata
    helm -n $NS install masterdata-loader mosip/masterdata-loader \
-      --set mosipDataGithubBranch="develop" \
+      --set mosipDataGithubBranch="release-1.3.x" \
       --set mosipDataGithubRepo="https://github.com/mosip/mosip-data" \
       --set mosipDataXlsfolderPath="\/home/mosip/mosip-data/mosip_master/xlsx" \
       --version $CHART_VERSION --wait --wait-for-jobs

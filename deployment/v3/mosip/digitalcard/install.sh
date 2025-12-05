@@ -1,5 +1,5 @@
 #!/bin/bash
-# Installs sample print service
+# Installs digitalcard
 ## Usage: ./restart.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -7,27 +7,23 @@ if [ $# -ge 1 ] ; then
 fi
 
 
-NS=mosipcertmanager
-CHART_VERSION=0.0.1-develop
+NS=digitalcard
+CHART_VERSION=1.3.0-develop
 
 echo Create $NS namespace
-kubectl create ns $NS 
+kubectl create ns $NS
 
-function installing_mosipcertmanager() {
+function installing_digitalcard() {
   echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
+  kubectl label ns $NS istio-injection=enabled --overwrite
   helm repo update
 
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  echo Copy secrets
-  sed -i 's/\r$//' copy_secrets.sh
-  ./copy_secrets.sh
-
-  echo Installing mosipcertmanager
-  helm -n $NS install mosipcertmanager mosip/mosipcertmanager --wait --version $CHART_VERSION
+  echo Installing digital card service
+  helm -n $NS  install  digitalcard mosip/digitalcard --wait  --version $CHART_VERSION
   return 0
 }
 
@@ -37,4 +33,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-installing_mosipcertmanager   # calling function
+installing_digitalcard   # calling function

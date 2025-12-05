@@ -16,11 +16,20 @@ function installing_keycloak() {
   ## TODO: enable istio injection after testing well.
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
   echo Installing
-  helm -n $NS install $SERVICE_NAME mosip/keycloak --version "7.1.18" --set image.repository=mosipqa/mosip-artemis-keycloak --set image.tag=release-1.3.x --set image.pullPolicy=Always -f values.yaml --wait
-
+  helm -n $NS install $SERVICE_NAME mosip/keycloak \
+  --version "7.1.18" \
+  --set image.repository=mosipqa/mosip-artemis-keycloak \
+  --set image.tag=1.3.x \
+  --set image.pullPolicy=Always \
+  --set postgresql.image.repository=mosipid/postgresql \
+  --set postgresql.image.tag=14.2.0-debian-10-r70 \
+  -f values.yaml \
+  --wait
+  
   EXTERNAL_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-iam-external-host})
   echo Install Istio gateway, virtual service
   helm -n $NS install istio-addons chart/istio-addons --set keycloakExternalHost=$EXTERNAL_HOST --set keycloakInternalHost="$SERVICE_NAME.$NS" --set service=$SERVICE_NAME

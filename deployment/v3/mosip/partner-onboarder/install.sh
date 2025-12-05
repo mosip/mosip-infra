@@ -70,7 +70,7 @@ function installing_onboarder() {
     done
 
   NS=onboarder
-  CHART_VERSION=1.3.0-beta.1
+  CHART_VERSION=1.3.0-develop
 
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
@@ -111,6 +111,7 @@ function installing_onboarder() {
   --set extraEnvVarsCM[2]=keycloak-host \
   $ENABLE_INSECURE \
   -f values.yaml \
+  --version $CHART_VERSION \
   --wait-for-jobs
 
 echo "Reports are moved to S3/NFS under onboarder bucket"

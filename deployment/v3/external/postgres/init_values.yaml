@@ -4,60 +4,120 @@ dbUserPasswords:
 databases:
   mosip_master:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_audit:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_keymgr:
-    enabled: true 
-    branch: develop
+    enabled: true
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_kernel:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_idmap:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_prereg:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_idrepo:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_ida:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_credential:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_regprc:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_pms:
     enabled: true
-    branch: develop
+    branch: "v1.2.2.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_hotlist:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_resident:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_otp:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
 
   mosip_digitalcard:
     enabled: true
-    branch: develop
+    branch: "release-1.3.x"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  mosip_esignet:
+    enabled: false
+    branch: "v1.4.1"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  mosip_mockidentitysystem:
+    enabled: false
+    branch: "v0.9.3"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  inji_certify:
+    enabled: false
+    branch: "v0.12.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  inji_verify:
+    enabled: false
+    branch: "v0.15.1"
+    host: "postgres-postgresql.postgres"
+    port: 5432
+
+  inji_mimoto:
+    enabled: false
+    branch: "v0.19.2"
+    host: "postgres-postgresql.postgres"
+    port: 5432

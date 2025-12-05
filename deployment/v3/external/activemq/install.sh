@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=activemq
+CHART_VERSION=0.0.3
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -20,7 +21,7 @@ function installing_Activemq() {
   echo Installing Activemq
   ACTIVEMQ_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
   echo Activemq host: $ACTIVEMQ_HOST
-  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --wait
+  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --version $CHART_VERSION --wait
   return 0
 }
 

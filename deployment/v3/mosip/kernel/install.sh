@@ -7,8 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=1.3.0-beta.1
-AUDIT_CHART_VERSION=1.3.0-beta.1-develop
+CHART_VERSION=1.3.0-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -40,7 +39,7 @@ function installing_kernel() {
   helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager mosip/auditmanager --version $AUDIT_CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
   helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION

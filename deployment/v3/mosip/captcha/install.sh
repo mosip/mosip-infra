@@ -7,13 +7,16 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=captcha
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=0.1.0-develop
+
+echo Create $NS namespace
+kubectl create ns $NS || true
 
 function installing_captcha() {
 
   while true; do
       read -p "Do you want to continue installing captcha validation service? (y/n): " ans
-      if [ "$ans" = "Y" ] || [ "$ans" = "y" ]; then
+      if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
           break
       elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
           exit 1
@@ -21,12 +24,6 @@ function installing_captcha() {
           echo "Please provide a correct option (Y or N)"
       fi
   done
-
-  NS=captcha
-  CHART_VERSION=0.1.0
-
-  echo Create $NS namespace
-  kubectl create ns $NS || true
 
   echo Istio label
 
@@ -50,8 +47,6 @@ function installing_captcha() {
   helm -n $NS install captcha mosip/captcha --version $CHART_VERSION --set metrics.serviceMonitor.enabled=$servicemonitorflag --wait
 
   echo Installed captcha service
-
-
 
   return 0
 }

@@ -1,18 +1,18 @@
 #!/bin/bash
-# Uninstalls imagecompressor
+# Uninstalls digital-card-service
 ## Usage: ./delete.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-function deleting_imagecompressor() {
-  NS=image-compressor
+function Deleting_digitalcard() {
+  NS=digitalcard
   while true; do
-      read -p "Are you sure you want to delete imagecompressor Service helm chart?(Y/n) " yn
+      read -p "Are you sure you want to delete digital-card-service helm chart?(Y/n) " yn
       if [ $yn = "Y" ]
         then
-          helm -n $NS delete image-compressor
+          helm -n $NS delete digitalcard
           break
         else
           break
@@ -27,4 +27,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-deleting_imagecompressor   # calling function
+Deleting_digitalcard   # calling function

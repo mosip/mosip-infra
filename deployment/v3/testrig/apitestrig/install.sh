@@ -7,14 +7,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=apitestrig
-CHART_VERSION=1.3.1
+CHART_VERSION=1.3.5
 
 echo Create $NS namespace
 kubectl create ns $NS
 
 function installing_apitestrig() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
   echo Copy configmaps
@@ -45,7 +43,7 @@ function installing_apitestrig() {
      echo "ERROR: Time should be in range ( 0-23 ); EXITING;";
      exit 1;
   fi
-  
+
   echo "Do you have public domain & valid SSL? (Y/n) "
   echo "Y: if you have public domain & valid ssl certificate"
   echo "n: If you don't have a public domain and a valid SSL certificate. Note: It is recommended to use this option only in development environments."
