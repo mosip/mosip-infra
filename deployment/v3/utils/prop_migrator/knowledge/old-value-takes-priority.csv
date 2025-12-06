@@ -38,3 +38,8 @@ resident-default.properties,mosip.resident.database.port
 resident-default.properties,mosip.resident.request.credential.credentialType
 resident-default.properties,mosip.resident.update.service.status.job.enabled
 resident-default.properties,resident.service-history.download.max.count
+partner-management-default.properties,mosip.pmp.database.hostname
+partner-management-default.properties,mosip.pmp.database.port
+partner-management-default.properties,mosip.pmp.misp.license.expiry.period.indays
+partner-management-default.properties,mosip.pmp.partner.policy.expiry.period.indays
+partner-management-default.properties,mosip.pms.filtervalue.max_columns

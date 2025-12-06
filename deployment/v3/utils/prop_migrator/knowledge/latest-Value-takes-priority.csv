@@ -150,3 +150,11 @@ resident-default.properties,resident.purpose.allowed.special.char.regex
 resident-default.properties,resident.ui.propertyKeys
 resident-default.properties,resident.validation.event-id.regex
 resident-default.properties,resident.view.history.status.filters
+partner-management-default.properties,mosip.datasource.authdevice.hibernate.dialect
+partner-management-default.properties,mosip.datasource.regdevice.hibernate.dialect
+partner-management-default.properties,hibernate.dialect
+partner-management-default.properties,mosip.kernel.idgenerator.misp.license-key-length
+partner-management-default.properties,pmp.auth.policy.schema
+partner-management-default.properties,pmp.misp.policy.schema
+partner-management-default.properties,mosip.pms.required.roles
+partner-management-default.properties,mosip.role.pms.getpartnerspartnerid
