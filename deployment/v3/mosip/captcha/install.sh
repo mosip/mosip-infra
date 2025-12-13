@@ -30,6 +30,10 @@ function installing_captcha() {
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
 
+  echo Copy configmaps
+  sed -i 's/\r$//' copy_cm.sh
+  ./copy_cm.sh
+
   while true; do
     read -p "Is Prometheus Service Monitor Operator deployed in the k8s cluster? (y/n): " response
     if [[ "$response" == "y" || "$response" == "Y" ]]; then
