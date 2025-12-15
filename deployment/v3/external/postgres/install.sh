@@ -16,7 +16,12 @@ kubectl label ns $NS istio-injection=enabled --overwrite
 
 function installing_postgres() {
   echo Installing  Postgres
-  helm -n $NS install postgres bitnami/postgresql --version 13.1.5 -f values.yaml --wait
+  helm -n $NS install postgres bitnami/postgresql --version 13.1.5 \
+  -f values.yaml \
+  --set image.repository=mosipid/postgresql \
+  --set image.tag=14.2.0-debian-10-r70 \
+  --set image.pullPolicy=Always \
+  --wait
   echo Installed Postgres
   echo Installing gateways and virtual services
   helm -n $NS install istio-addons mosip/istio-addons --version $ISTIO_ADDONS_CHART_VERSION -f istio-addons-values.yaml --wait

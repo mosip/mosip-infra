@@ -21,10 +21,16 @@ function installing_kafka() {
   echo Updating helm repos
   helm repo add kafka-ui https://provectus.github.io/kafka-ui-charts
   helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
   echo Installing kafka
-  helm -n $NS install kafka bitnami/kafka -f values.yaml --wait --version $CHART_VERSION
+  helm -n $NS install kafka bitnami/kafka \
+  --set image.repository="mosipid/kafka" \
+  --set image.tag="3.6.1-debian-12-r12" \
+  --set zookeeper.image.repository="mosipid/zookeeper" \
+  --set zookeeper.image.tag="3.9.1-debian-12-r13" \
+  -f values.yaml --wait --timeout=10m --version $CHART_VERSION
 
   echo Installing kafka-ui
   helm -n $NS install kafka-ui kafka-ui/kafka-ui -f ui-values.yaml --wait --version $UI_CHART_VERSION
