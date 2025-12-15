@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
-CHART_VERSION=1.3.0-beta.1
+CHART_VERSION=1.3.0-develop
 PREREG_GATEWAY_CHART_VERSION=1.0.0-develop
 
 echo Create $NS namespace
