@@ -164,6 +164,11 @@ id-authentication-default.properties,webclient.response-timeout-seconds
 id-authentication-default.properties,mosip.ida.otp.notification.request.mode
 id-authentication-default.properties,mosip.ida.email.timeout
 id-authentication-default.properties,mosip.ida.sms.timeout
+id-authentication-default.properties,mosip.ida.authentication.error.eventing.enabled
+id-authentication-default.properties,ida-topic-authentication-error-eventing
+id-authentication-default.properties,mosip.ida.authentication.error.eventing.encrypt.partner.id
+id-authentication-default.properties,mosip.ida.kafka.bootstrap.servers
+id-authentication-default.properties,spring.kafka.admin.properties.allow.auto.create.topics
 id-authentication-internal-default.properties,ida.batch.credential.store.thread.count
 id-authentication-internal-default.properties,ida.batch.credential.store.page.size
 id-authentication-internal-default.properties,mosip.kernel.http.selftoken.restTemplate.max-connection-per-route
