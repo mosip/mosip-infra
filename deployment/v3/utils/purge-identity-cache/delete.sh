@@ -7,7 +7,7 @@ NAMESPACE="clear-identity-caches"
 
 # ====== CONFIRMATION ======
 echo "WARNING: This will delete the entire namespace '$NAMESPACE' and all resources inside it!"
-read -p "Are you sure you want to continue? [y/N]: " CONFIRM
+read -r -p "Are you sure you want to continue? [y/N]: " CONFIRM
 CONFIRM=${CONFIRM,,}  # convert to lowercase
 
 if [[ "$CONFIRM" != "y" ]]; then
