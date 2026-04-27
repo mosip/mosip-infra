@@ -11,7 +11,7 @@ CHART_VERSION=1.3.0
 PREREG_GATEWAY_CHART_VERSION=1.0.0
 
 # Static values from YAML
-PREREG_GATEWAY_HOST="prereg.soil01.mosip.net"
+PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
 PREREG_GATEWAY_SERVICE_HOST="service-hostname"
 
 echo Create $NS namespace
