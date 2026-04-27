@@ -5,6 +5,6 @@
 This repository contains various scripts and procedures to deploy [MOSIP](https://docs.mosip.io/1.2.0) in sandbox and production environments.
 
 ## License
-This project is licensed under the terms of [Mozilla Public License 2.0](LICENSE)...
+This project is licensed under the terms of [Mozilla Public License 2.0](LICENSE).
 
 
