@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip3 install truffleHog3
+          pip3 install -y truffleHog3
 
       # Create List of all repos
       - name: Create repo list
