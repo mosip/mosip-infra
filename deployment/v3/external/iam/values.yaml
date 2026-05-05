@@ -21,7 +21,7 @@ ingress:
 
 proxyAddressForwarding: true
 
-replicaCount: 1
+replicaCount: 2
 
 # Enable if replicaCount > 1
 serviceDiscovery:
