@@ -19,22 +19,22 @@ persistence:
 zookeeper:
   enabled: true
   resources:
-    limits: {}
-    #   cpu: 250m
-    #   memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 1200Mi
     requests:
-      cpu: 512m
-      memory: 250Mi
+      cpu: 150m
+      memory: 600Mi    
   replicaCount: 5
   persistence:
     enabled: true
     size: 2Gi
 
 resources:
-  limits: {}
-  #   cpu: 250m
-  #   memory: 1Gi
-  requests:
+  limits:
+    cpu: "1"
+    memory: 3500Mi
+  requests: 
     cpu: 500m
     memory: 2500Mi
 
