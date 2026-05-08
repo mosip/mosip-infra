@@ -64,5 +64,5 @@ jobs:
         run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request POST -F file=@./Reports_`date +%d%b%y`.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
 
       #Delete the reports from deployment server
-      - name: Create directory for reports
+      - name: Cleanup workspace
         run: rm -Rf ./*
