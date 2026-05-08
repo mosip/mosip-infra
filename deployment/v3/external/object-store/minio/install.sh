@@ -18,6 +18,7 @@ function installing_minio() {
   helm -n minio install minio mosip/minio \
   --set image.repository="mosipid/minio" \
   --set image.tag="2025.2.28-debian-12-r1" \
+  --set global.security.allowInsecureImages=true \
   -f values.yaml --version 15.0.6
 
   echo Installing gateways and virtualservice

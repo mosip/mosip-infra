@@ -10,29 +10,33 @@ NS=prereg
 CHART_VERSION=1.3.0
 PREREG_GATEWAY_CHART_VERSION=1.0.0
 
-echo Create $NS namespace
-kubectl create ns $NS
+# Static values from YAML
+PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
+PREREG_GATEWAY_SERVICE_HOST="service-hostname"
 
+echo Create $NS namespace
+kubectl create ns $NS || true
 function installing_prereg() {
   echo Istio label
-  ## TODO: Istio proxy disabled for now as prereui does not come up if
-  ## envoy filter container gets installed after prereg container.
   kubectl label ns $NS istio-injection=disabled --overwrite
   helm repo update
-
+  
   echo Copy configmaps
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
-
+  
   API_HOST=`kubectl get cm global -o jsonpath={.data.mosip-api-host}`
   PREREG_HOST=`kubectl get cm global -o jsonpath={.data.mosip-prereg-host}`
-
+  
+  # Prefer YAML host if defined, else fallback
+  FINAL_PREREG_HOST=${PREREG_GATEWAY_HOST:-$PREREG_HOST}
   echo Install prereg-gateway
   helm -n $NS install prereg-gateway mosip/istio-addons \
-  --set istio.name=prereg-gateway \
-  --set istio.ingressController=ingressgateway \
-  --set istio.host=$PREREG_HOST \
-  --version $PREREG_GATEWAY_CHART_VERSION
+    --set istio.name=prereg-gateway \
+    --set istio.ingressController=ingressgateway \
+    --set istio.host=$FINAL_PREREG_HOST \
+    --set istio.serviceHost=$PREREG_GATEWAY_SERVICE_HOST \
+    --version $PREREG_GATEWAY_CHART_VERSION
 
   echo Installing prereg-application
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
