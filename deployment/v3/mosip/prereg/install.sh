@@ -10,8 +10,8 @@ NS=prereg
 CHART_VERSION=0.0.1-develop
 
 # Static values from YAML
-PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
-PREREG_GATEWAY_SERVICE_HOST="service-hostname"
+PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
+PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
 
 echo Create $NS namespace
 kubectl create ns $NS || true
@@ -28,7 +28,7 @@ function installing_prereg() {
   PREREG_HOST=`kubectl get cm global -o jsonpath={.data.mosip-prereg-host}`
   
   # Prefer YAML host if defined, else fallback
-  FINAL_PREREG_HOST=${PREREG_GATEWAY_HOST:-$PREREG_HOST}
+  FINAL_PREREG_HOST="${PREREG_GATEWAY_HOST:-$PREREG_HOST}"
   echo Install prereg-gateway
   : "${PREREG_GATEWAY_CHART_VERSION:?PREREG_GATEWAY_CHART_VERSION must be set}"
 
