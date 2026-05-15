@@ -30,12 +30,14 @@ function installing_prereg() {
   # Prefer YAML host if defined, else fallback
   FINAL_PREREG_HOST=${PREREG_GATEWAY_HOST:-$PREREG_HOST}
   echo Install prereg-gateway
-  helm -n $NS install prereg-gateway mosip/istio-addons \
+  : "${PREREG_GATEWAY_CHART_VERSION:?PREREG_GATEWAY_CHART_VERSION must be set}"
+
+  helm -n "$NS" install prereg-gateway mosip/istio-addons \
     --set istio.name=prereg-gateway \
     --set istio.ingressController=ingressgateway \
-    --set istio.host=$FINAL_PREREG_HOST \
-    --set istio.serviceHost=$PREREG_GATEWAY_SERVICE_HOST \
-    --version $PREREG_GATEWAY_CHART_VERSION
+    --set "istio.host=$FINAL_PREREG_HOST" \
+    --set "istio.serviceHost=$PREREG_GATEWAY_SERVICE_HOST" \
+    --version "$PREREG_GATEWAY_CHART_VERSION"
 
   echo Installing prereg-application
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
