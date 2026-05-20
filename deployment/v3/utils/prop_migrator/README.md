@@ -24,12 +24,7 @@ Before running the script, ensure that you have the following:
 
 2. Open a terminal and navigate to the directory where the script is located.
 
-3. Install the required Python dependencies by running the following command:
-
-   ```shell
-   pip install -r requirements.txt
-
-4. Cross-check the CSV file containing the mapping of property files:
+3. Cross-check the CSV file containing the mapping of property files:
 
     - CSV file named `property_file_mapping.csv`.
     - Each row in the CSV file should contain two columns: `Old Property File` and `Latest Property File`.
@@ -44,14 +39,14 @@ Before running the script, ensure that you have the following:
 
 Note: Here the two different config version which we are comparing will be cloned in two separate directories named "old-config" and "latest-config" by the migrator script and the relative paths of the property files within these directories which we are trying to compare are passed in the `property_file_mapping.csv` file as mentioned in the above example. 
 
-5. Run the script by executing the following command:
+4. Run the script by executing the following command:
 
    ```shell
    bash migrator.sh
 
-6. The script will update the property files and generate a log file (logs.txt) with the details of the update process.
+5. The script will update the property files and generate a log file (logs.txt) with the details of the update process.
 
-7. It will also create or update the manual-configuration.csv file with unresolved combinations for further manual configuration.
+6. It will also create or update the manual-configuration.csv file with unresolved combinations for further manual configuration.
 
 
 Note:

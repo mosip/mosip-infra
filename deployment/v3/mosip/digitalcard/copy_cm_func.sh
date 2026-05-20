@@ -26,4 +26,7 @@ else
    kubectl -n $4 delete --ignore-not-found=true $RESOURCE $2
    kubectl -n $3 get $RESOURCE $2 -o yaml | sed "s/namespace: $3/namespace: $4/g" |  kubectl -n $4 create -f -
 fi
+<<<<<<< HEAD
 
+=======
+>>>>>>> release-1.2.1.x

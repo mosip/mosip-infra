@@ -38,7 +38,7 @@ read_user_input(){
 
 function initialize_keycloak() {
   NS=keycloak
-  CHART_VERSION=0.0.1-develop
+  CHART_VERSION=1.3.0
 
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update

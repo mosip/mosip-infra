@@ -3,8 +3,11 @@
 # DST_NS: Destination namespace
 
 function copying_cm() {
-  COPY_UTIL=../../utils/copy_cm_func.sh
+  UTIL_URL=https://raw.githubusercontent.com/mosip/mosip-infra/master/deployment/v3/utils/copy_cm_func.sh
+  COPY_UTIL=./copy_cm_func.sh
   DST_NS=regclient
+
+  wget -q $UTIL_URL -O copy_cm_func.sh && chmod +x copy_cm_func.sh
 
   $COPY_UTIL configmap artifactory-share artifactory $DST_NS
   return 0

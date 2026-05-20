@@ -1,3 +1,9 @@
 out/
 *.log
-
+latest-config/*
+latest-config
+old-config
+old-config/*
+logs.txt
+output
+manual_configuration.csv

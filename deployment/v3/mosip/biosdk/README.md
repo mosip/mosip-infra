@@ -10,8 +10,18 @@ To run this BioSDK service, you will need to first run the [artifactory](../../m
 
 ## Install
 * Update `values.yaml` with your biosdk zipped library url and classpath. 
-* Install
+* To install biosdk-service
 ```sh
 ./install.sh
 ``` 
+## Restart
+* To restart biosdk-service.
+```sh
+./restart.sh
+```
 
+## Delete
+* To delete biosdk-service.
+```sh
+./delete.sh
+```

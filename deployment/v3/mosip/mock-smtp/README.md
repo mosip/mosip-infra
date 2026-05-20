@@ -26,7 +26,18 @@ The chart here installs a Mock SMTP and Mock SMS accessed over an https URL.
   mosip.kernel.sms.authkey:dummy
   
   ```
-* Install
+## Install
+* To install mock-smtp.
 ```sh
 ./install.sh
+```
+## Restart
+* To restart mock-smtp.
+```sh
+./restart.sh
+```
+## Delete
+* To delete mock-smtp.
+```sh
+./delete.sh
 ```

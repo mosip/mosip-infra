@@ -9,7 +9,7 @@ fi
 NS=datashare
 CHART_VERSION=0.0.1-develop
 echo Create $NS namespace
-kubectl create ns $NS 
+kubectl create ns $NS
 
 function installing_datashare() {
   echo Istio label

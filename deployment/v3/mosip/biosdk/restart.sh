@@ -1,13 +1,18 @@
 #!/bin/bash
-# Copy secrets from other namespaces
-# DST_NS: Destination namespace
+# Restart the biosdk service
+## Usage: ./restart.sh [kubeconfig]
 
-function copying_secrets() {
-  COPY_UTIL=../../utils/copy_cm_func.sh
-  DST_NS=mosipcertmanager
-  $COPY_UTIL secret s3 s3 $DST_NS
-  $COPY_UTIL secret postgres-postgresql postgres $DST_NS
-  $COPY_UTIL secret keycloak-client-secrets keycloak $DST_NS
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
+fi
+
+function Restarting_biosdk() {
+  NS=biosdk
+  kubectl -n $NS rollout restart deploy
+
+  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+
+  echo Restarted biosdk services
   return 0
 }
 
@@ -17,4 +22,4 @@ set -o errexit   ## set -e : exit the script if any statement returns a non-true
 set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-copying_secrets   # calling function
+Restarting_biosdk   # calling function

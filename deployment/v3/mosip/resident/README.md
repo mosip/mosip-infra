@@ -1,8 +1,18 @@
-# Resident Services
-
+# Resident Services and resident-ui
 ## Install
+* To install resident Services and resident-ui.
 ```sh
 ./install.sh
+```
+## Restart
+* To restart resident Services and resident-ui.
+```sh
+./restart.sh
+```
+## Delete
+* To delete resident Services and resident-ui.
+```sh
+./delete.sh
 ```
 * During the execution of the `install.sh` script, a prompt appears requesting information regarding the presence of a public domain and a valid SSL certificate on the server.
 * If the server lacks a public domain and a valid SSL certificate, it is advisable to select the `n` option. Opting it will enable the `init-container` with an `emptyDir` volume and include it in the deployment process.
