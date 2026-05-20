@@ -111,6 +111,7 @@ function installing_onboarder() {
   --set extraEnvVarsCM[2]=keycloak-host \
   $ENABLE_INSECURE \
   -f values.yaml \
+  --version $CHART_VERSION \
   --wait-for-jobs
 
 echo "Reports are moved to S3/NFS under onboarder bucket"

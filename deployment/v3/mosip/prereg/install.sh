@@ -7,11 +7,20 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
+<<<<<<< HEAD
 CHART_VERSION=0.0.1-develop
 
 # Static values from YAML
 PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
 PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
+=======
+CHART_VERSION=1.3.0
+PREREG_GATEWAY_CHART_VERSION=1.0.0
+
+# Static values from YAML
+PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
+PREREG_GATEWAY_SERVICE_HOST="service-hostname"
+>>>>>>> release-1.2.1.x
 
 echo Create $NS namespace
 kubectl create ns $NS || true

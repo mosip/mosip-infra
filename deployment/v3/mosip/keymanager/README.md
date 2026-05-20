@@ -5,8 +5,17 @@
 
 ## Install
 The key generator job and Key Manager installation is done by running the below script:
-```
+```sh
 ./install.sh
 ```
-
+## Restart
+* To restart keymanager.
+```sh
+./restart.sh
+```
+## Delete
+* To delete keymanager.
+```sh
+./delete.sh
+```
 

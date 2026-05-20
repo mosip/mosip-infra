@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=uitestrig
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.5
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -76,6 +76,7 @@ function installing_uitestrig() {
   --set uitestrig.configmaps.uitestrig.adminPortalPath="https://$ADMIN_HOST" \
   --set uitestrig.configmaps.uitestrig.residentPortalPath="https://$RESIDENT_HOST" \
   --set uitestrig.configmaps.uitestrig.NS="$NS" \
+  -f values.yaml \
   $ENABLE_INSECURE
   
   return 0

@@ -3,6 +3,20 @@
 ## Introduction
 ApiTestRig will test the working of APIs of the MOSIP modules.
 
+## Prerequisites
+Before installing apitestrig, you must configure the config-server with required environment variable overrides. Run the prerequisite script to update config-server settings:
+```sh
+./prereq.sh
+```
+This script will:
+* Set required environment variable overrides for MOSIP modules (IDREPO, KERNEL, pre-registration, eSignet)
+* Configure authentication server allowed audiences
+* Enable convention-based ID for credential requests
+* Update captcha settings
+* Restart the config-server deployment and wait for rollout completion
+
+**Note:** The `prereq.sh` script must complete successfully before proceeding with apitestrig installation.
+
 ## Install
 * Review `values.yaml` and, Make sure to enable required modules for apitestrig operation.
 * Install
@@ -42,6 +56,3 @@ ApiTestRig will test the working of APIs of the MOSIP modules.
   ```
   kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n apitestrig create job --from=cronjob/cronjob-apitestrig-masterdata cronjob-apitestrig-masterdata
   ```
-
-  
-

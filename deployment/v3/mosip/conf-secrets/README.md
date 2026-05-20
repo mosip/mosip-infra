@@ -8,11 +8,13 @@ Note:
 
 
 ## Install
+* To install conf-secrets.
 ```sh
 ./install.sh [kubeconfig]
 ```
 
 ## Delete 
+* To delete conf-secrets.
 ```
 ./delete.sh [kubeconfig]
 ```

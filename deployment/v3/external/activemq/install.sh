@@ -21,7 +21,7 @@ function installing_Activemq() {
   echo Installing Activemq
   ACTIVEMQ_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-activemq-host})
   echo Activemq host: $ACTIVEMQ_HOST
-  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set istio.hosts[0]="$ACTIVEMQ_HOST" --version $CHART_VERSION --wait
+  helm -n $NS install activemq mosip/activemq-artemis -f values.yaml --set image.repository=mosipid/activemq-artemis --set image.tag=2.39.0 --set istio.hosts[0]="$ACTIVEMQ_HOST" --version $CHART_VERSION --wait
   return 0
 }
 
