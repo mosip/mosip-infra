@@ -1,3 +1,8 @@
+image:
+  registry: docker.io
+  repository: mosipqa/partner-onboarder
+  tag: develop
+
 onboarding:
   modules:
     - name: ida
@@ -10,6 +15,7 @@ onboarding:
       enabled: true
     - name: digitalcard
       enabled: true
+
 #  configmaps:
 #    s3:
 #      s3-host: 'http://minio.minio:9000'

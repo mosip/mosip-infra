@@ -8,6 +8,8 @@
 $ ./install.sh
 ```
 
+Note: Make sure that values.yaml and istio-addons-values.yaml files are updated before installation.
+
 ## Steps to Backup & Restore Bitnami Kafka manually
 
 #### Prerequisites

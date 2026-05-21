@@ -14,5 +14,5 @@ This repository contains various scripts and procedures to deploy [MOSIP](https:
 - For any GitHub issues: [Report here](https://github.com/mosip/mosip-infra/issues)
 
 ## License
-This project is licensed under the terms of [Mozilla Public License 2.0](LICENSE).
+This project is licensed under the terms of [Mozilla Public License 2.0](LICENSE)...
 

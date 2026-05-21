@@ -7,12 +7,20 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
+<<<<<<< HEAD
+CHART_VERSION=0.0.1-develop
+
+# Static values from YAML
+PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
+PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
+=======
 CHART_VERSION=1.3.0
 PREREG_GATEWAY_CHART_VERSION=1.0.0
 
 # Static values from YAML
 PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
 PREREG_GATEWAY_SERVICE_HOST="service-hostname"
+>>>>>>> release-1.2.1.x
 
 echo Create $NS namespace
 kubectl create ns $NS || true
@@ -29,14 +37,16 @@ function installing_prereg() {
   PREREG_HOST=`kubectl get cm global -o jsonpath={.data.mosip-prereg-host}`
   
   # Prefer YAML host if defined, else fallback
-  FINAL_PREREG_HOST=${PREREG_GATEWAY_HOST:-$PREREG_HOST}
+  FINAL_PREREG_HOST="${PREREG_GATEWAY_HOST:-$PREREG_HOST}"
   echo Install prereg-gateway
-  helm -n $NS install prereg-gateway mosip/istio-addons \
+  : "${PREREG_GATEWAY_CHART_VERSION:?PREREG_GATEWAY_CHART_VERSION must be set}"
+
+  helm -n "$NS" install prereg-gateway mosip/istio-addons \
     --set istio.name=prereg-gateway \
     --set istio.ingressController=ingressgateway \
-    --set istio.host=$FINAL_PREREG_HOST \
-    --set istio.serviceHost=$PREREG_GATEWAY_SERVICE_HOST \
-    --version $PREREG_GATEWAY_CHART_VERSION
+    --set "istio.host=$FINAL_PREREG_HOST" \
+    --set "istio.serviceHost=$PREREG_GATEWAY_SERVICE_HOST" \
+    --version "$PREREG_GATEWAY_CHART_VERSION"
 
   echo Installing prereg-application
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION

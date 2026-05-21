@@ -112,7 +112,6 @@ while true; do
     fi
 done
 
-
 echo Creating $NS namespace
 kubectl create ns $NS
 

@@ -39,7 +39,7 @@ function installing_pms() {
   --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$PMP_HOST \
   --set istio.corsPolicy.allowOrigins\[1\].prefix=https://$PMP_REVAMP_UI_HOST \
   --version $CHART_VERSION
-
+  
   # Ask if the user wants to install pmp-ui
   read -p "Do you want to install PMP UI? (y/n): " install_pmp_ui
   if [[ "$install_pmp_ui" =~ ^[Yy]$ ]]; then
@@ -49,6 +49,18 @@ function installing_pms() {
     echo Skipping pmp-ui installation
   fi
 
+<<<<<<< HEAD
+=======
+  # Ask if the user wants to install pmp-ui
+  read -p "Do you want to install PMP UI? (y/n): " install_pmp_ui
+  if [[ "$install_pmp_ui" =~ ^[Yy]$ ]]; then
+    echo Installing pmp-ui
+    helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
+  else
+    echo Skipping pmp-ui installation
+  fi
+
+>>>>>>> release-1.2.1.x
   # Ask if the user wants to install pmp-revamp-ui
   read -p "Do you want to install PMP-REVAMP-UI? (y/n): " install_pmp_revamp_ui
   if [[ "$install_pmp_revamp_ui" =~ ^[Yy]$ ]]; then
