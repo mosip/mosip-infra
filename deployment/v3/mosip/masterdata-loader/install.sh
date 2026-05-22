@@ -155,6 +155,6 @@ if [ $yn = "Y" ]
       --version $CHART_VERSION --wait --wait-for-jobs
 
    else
-   break
+   exit 0
 
 fi
