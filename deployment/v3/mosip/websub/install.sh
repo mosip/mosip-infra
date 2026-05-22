@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=websub
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=1.3.2-develop
 
 echo Create $NS namespace
 kubectl create ns $NS

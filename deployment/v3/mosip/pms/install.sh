@@ -7,7 +7,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=pms
-CHART_VERSION=12.2.2
+CHART_VERSION=12.2.3
+PMP_REVAMP_UI_CHART_VERSION=12.2.2
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -49,18 +50,6 @@ function installing_pms() {
     echo Skipping pmp-ui installation
   fi
 
-<<<<<<< HEAD
-=======
-  # Ask if the user wants to install pmp-ui
-  read -p "Do you want to install PMP UI? (y/n): " install_pmp_ui
-  if [[ "$install_pmp_ui" =~ ^[Yy]$ ]]; then
-    echo Installing pmp-ui
-    helm -n $NS install pmp-ui mosip/pmp-ui  --set pmp.apiUrl=https://$INTERNAL_API_HOST/ --set istio.hosts=["$PMP_HOST"] --version $CHART_VERSION
-  else
-    echo Skipping pmp-ui installation
-  fi
-
->>>>>>> release-1.2.1.x
   # Ask if the user wants to install pmp-revamp-ui
   read -p "Do you want to install PMP-REVAMP-UI? (y/n): " install_pmp_revamp_ui
   if [[ "$install_pmp_revamp_ui" =~ ^[Yy]$ ]]; then
@@ -70,7 +59,7 @@ function installing_pms() {
     --set pmp_revamp.react_app_policy_manager_api_base_url="https://$INTERNAL_API_HOST/v1/policymanager" \
     --set pmp_revamp.pms_partner_manager_internal_service_url="http://$PARTNER_MANAGER_SERVICE_NAME.$NS/v1/partnermanager" \
     --set pmp_revamp.pms_policy_manager_internal_service_url="http://$POLICY_MANAGER_SERVICE_NAME.$NS/v1/policymanager" \
-    --set istio.hosts=["$PMP_REVAMP_UI_HOST"] --version $CHART_VERSION
+    --set istio.hosts=["$PMP_REVAMP_UI_HOST"] --version $PMP_REVAMP_UI_CHART_VERSION
   else
     echo Skipping pmp-revamp-ui installation
   fi

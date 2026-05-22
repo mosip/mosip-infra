@@ -57,11 +57,11 @@ postgresql:
         - ReadWriteOnce
       size: 8Gi
     extendedConfiguration: |
-      max_connections = 200
-      shared_buffers = 256MB
-      work_mem = 4MB
-      maintenance_work_mem = 64MB
-      effective_cache_size = 768MB
+      max_connections = 1000
+      # shared_buffers = 256MB
+      # work_mem = 4MB
+      # maintenance_work_mem = 64MB
+      # effective_cache_size = 768MB
 ## External PostgreSQL configuration
 ## All of these values are only used when postgresql.enabled is set to false
 ## @param externalDatabase.host Database host
