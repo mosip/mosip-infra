@@ -79,6 +79,15 @@ function installing_dslrig() {
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"')
 
+  read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  if [ -z "$db_port" ]; then
+    db_port=5432
+  fi
+  if ! [[ "$db_port" =~ ^[0-9]+$ ]] || [ "$db_port" -lt 1 ] || [ "$db_port" -gt 65535 ]; then
+    echo "ERROR: Invalid port '$db_port'. Must be a number between 1 and 65535; EXITING;"
+    exit 1
+  fi
+
   echo Installing dslrig
   helm -n $NS install dslorchestrator mosip/dslorchestrator \
   --set crontime="0 $time * * *" \
@@ -88,7 +97,7 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.s3.s3-region='' \
   --set dslorchestrator.configmaps.db.db-server="$DB_HOST" \
   --set dslorchestrator.configmaps.db.db-su-user="postgres" \
-  --set dslorchestrator.configmaps.db.db-port="5432" \
+  --set dslorchestrator.configmaps.db.db-port="$db_port" \
   --set dslorchestrator.configmaps.dslorchestrator.USER="$USER" \
   --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
   --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$packetUtilityBaseUrl" \

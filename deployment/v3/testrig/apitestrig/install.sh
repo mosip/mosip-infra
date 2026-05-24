@@ -30,6 +30,15 @@ function installing_apitestrig() {
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   ENV_USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
 
+  read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  if [ -z "$db_port" ]; then
+    db_port=5432
+  fi
+  if ! [[ "$db_port" =~ ^[0-9]+$ ]] || [ "$db_port" -lt 1 ] || [ "$db_port" -gt 65535 ]; then
+    echo "ERROR: Invalid port '$db_port'. Must be a number between 1 and 65535; EXITING;"
+    exit 1
+  fi
+
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
      echo "ERROT: Time cannot be empty; EXITING;";
@@ -149,7 +158,7 @@ function installing_apitestrig() {
     --set apitestrig.variables.push_reports_to_s3=$push_reports_to_s3 \
     --set apitestrig.configmaps.db.db-server="$DB_HOST" \
     --set apitestrig.configmaps.db.db-su-user="postgres" \
-    --set apitestrig.configmaps.db.db-port="5432" \
+    --set apitestrig.configmaps.db.db-port="$db_port" \
     --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
     --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
     --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \

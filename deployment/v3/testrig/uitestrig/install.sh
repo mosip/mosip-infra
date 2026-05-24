@@ -114,6 +114,16 @@ function installing_uitestrig() {
   $COPY_UTIL secret postgres-postgresql postgres $NS
 
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
+
+  read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  if [ -z "$db_port" ]; then
+    db_port=5432
+  fi
+  if ! [[ "$db_port" =~ ^[0-9]+$ ]] || [ "$db_port" -lt 1 ] || [ "$db_port" -gt 65535 ]; then
+    echo "ERROR: Invalid port '$db_port'. Must be a number between 1 and 65535; EXITING;"
+    exit 1
+  fi
+
   PMP_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-pmp-host"')
   ADMIN_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-admin-host"')
   RESIDENT_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-resident-host"')
@@ -132,7 +142,7 @@ function installing_uitestrig() {
   --set uitestrig.configmaps.s3.s3-region='' \
   --set uitestrig.configmaps.db.db-server="$DB_HOST" \
   --set uitestrig.configmaps.db.db-su-user="postgres" \
-  --set uitestrig.configmaps.db.db-port="5432" \
+  --set uitestrig.configmaps.db.db-port="$db_port" \
   --set uitestrig.configmaps.uitestrig.apiInternalEndPoint="https://$API_INTERNAL_HOST" \
   --set uitestrig.configmaps.uitestrig.apiEnvUser="$API_INTERNAL_HOST" \
   --set uitestrig.configmaps.uitestrig.PmpPortalPath="https://$PMP_HOST" \

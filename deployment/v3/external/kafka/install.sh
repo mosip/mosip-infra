@@ -19,8 +19,21 @@ echo ""
 echo "Before proceeding with the installation, please ensure you have updated"
 echo "the 'istio-addons-values.yaml' file with the correct host configuration."
 echo ""
+validate_host() {
+  local host="$1"
+  if [[ -z "$host" ]]; then
+    echo "ERROR: Could not read host from istio-addons-values.yaml. Ensure the file exists and contains a 'host:' entry." >&2
+    exit 1
+  fi
+  if [[ ! "$host" =~ ^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?$ ]]; then
+    echo "ERROR: host value '$host' does not look like a valid hostname or IP." >&2
+    exit 1
+  fi
+}
+
 echo "Current host configuration:"
 current_host=$(grep -A1 "host:" istio-addons-values.yaml | grep -v "serviceHost" | head -1 | cut -d: -f2 | tr -d ' ')
+validate_host "$current_host"
 echo "Host: $current_host"
 echo ""
 
@@ -57,6 +70,7 @@ while true; do
             2)
                 # Re-read the current host to verify
                 current_host=$(grep -A1 "host:" istio-addons-values.yaml | grep -v "serviceHost" | head -1 | cut -d: -f2 | tr -d ' ')
+                validate_host "$current_host"
                 if [[ "$current_host" == "kafka.sandbox.xyz.net" ]]; then
                     echo "The configuration still shows the default host. Please update it first."
                     echo ""
