@@ -7,21 +7,11 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=prereg
-<<<<<<< HEAD
-CHART_VERSION=0.0.1-develop
 
-# Static values from YAML
-PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
-PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
-=======
 CHART_VERSION=1.3.0
 PREREG_GATEWAY_CHART_VERSION=1.0.0
-
-# Static values from YAML
-PREREG_GATEWAY_HOST="sandbox.xyz.mosip.net"
-PREREG_GATEWAY_SERVICE_HOST="service-hostname"
->>>>>>> release-1.2.1.x
-
+BOOKING_CHART_VERSION=1.3.1-develop
+UI_CHART_VERSION=1.3.0
 echo Create $NS namespace
 kubectl create ns $NS || true
 function installing_prereg() {
@@ -35,8 +25,12 @@ function installing_prereg() {
   
   API_HOST=`kubectl get cm global -o jsonpath={.data.mosip-api-host}`
   PREREG_HOST=`kubectl get cm global -o jsonpath={.data.mosip-prereg-host}`
-  
-  # Prefer YAML host if defined, else fallback
+
+  # Allow env overrides; fall back to ConfigMap-derived values
+  PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
+  PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-$PREREG_HOST}"
+
+  # Prefer gateway host if provided, else fall back to prereg host
   FINAL_PREREG_HOST="${PREREG_GATEWAY_HOST:-$PREREG_HOST}"
   echo Install prereg-gateway
   : "${PREREG_GATEWAY_CHART_VERSION:?PREREG_GATEWAY_CHART_VERSION must be set}"
@@ -52,7 +46,7 @@ function installing_prereg() {
   helm -n $NS install prereg-application mosip/prereg-application --version $CHART_VERSION
 
   echo Installing prereg-booking
-  helm -n $NS install prereg-booking mosip/prereg-booking --version $CHART_VERSION
+  helm -n $NS install prereg-booking mosip/prereg-booking --version $BOOKING_CHART_VERSION
 
   echo Installing prereg-datasync
   helm -n $NS install prereg-datasync mosip/prereg-datasync --version $CHART_VERSION
@@ -61,7 +55,7 @@ function installing_prereg() {
   helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set prereg.apiHost=$PREREG_HOST --version $CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set "prereg.apiHost=$PREREG_HOST" --version $UI_CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml

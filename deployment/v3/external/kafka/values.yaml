@@ -10,6 +10,7 @@ autoCreateTopicsEnable: true
 # CAUTION: Option to delete topics should be disabled in production. 
 deleteTopicEnable: true
 
+heapOpts: "-Xmx2275m -Xms2275m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
 persistence:
   enabled: true
   accessModes:

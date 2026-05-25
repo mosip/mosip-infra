@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=apitestrig
-CHART_VERSION=1.3.5
+CHART_VERSION=1.6.0
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -15,10 +15,10 @@ kubectl create ns $NS
 function installing_apitestrig() {
   helm repo update
 
-  echo Copy configmaps
+  echo Copy Configmaps
   ./copy_cm.sh
 
-  echo Copy secrets
+  echo  Copy Secrtes
   ./copy_secrets.sh
 
   echo "Delete s3, db, & apitestrig configmap if exists"
@@ -29,6 +29,15 @@ function installing_apitestrig() {
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
   ENV_USER=$( kubectl -n default get cm global -o json |jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
+
+  read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  if [ -z "$db_port" ]; then
+    db_port=5432
+  fi
+  if ! [[ "$db_port" =~ ^[0-9]+$ ]] || [ "$db_port" -lt 1 ] || [ "$db_port" -gt 65535 ]; then
+    echo "ERROR: Invalid port '$db_port'. Must be a number between 1 and 65535; EXITING;"
+    exit 1
+  fi
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -88,29 +97,80 @@ function installing_apitestrig() {
  else
      echo "eSignet service is not deployed. hence will be skipping esignet related test-cases..."
  fi
+  read -p "Is values.yaml for apitestrig chart set correctly as part of pre-requisites? (Y/n) : " yn;
+  if [[ $yn = "Y" ]] || [[ $yn = "y" ]] ; then
+    NFS_OPTION=''
+    S3_OPTION=''
+    config_complete=false  # flag to check if S3 or NFS is configured
+    while [ "$config_complete" = false ]; do
+      read -p "Do you have S3 details for storing apitestrig reports? (Y/n) : " ans
+      if [[ "$ans" == "y" || "$ans" == "Y" ]]; then
+        read -p "Please provide S3 host: " s3_host
+        if [[ -z $s3_host ]]; then
+          echo "S3 host not provided; EXITING;"
+          exit 1;
+        fi
+        read -p "Please provide S3 region: " s3_region
+        if [[ $s3_region == *[' !@#$%^&*()+']* ]]; then
+          echo "S3 region should not contain spaces or special characters; EXITING;"
+          exit 1;
+        fi
 
-  echo Installing apitestrig
-  helm -n $NS install apitestrig mosip/apitestrig \
-  --set crontime="0 $time * * *" \
-  -f values.yaml  \
-  --version $CHART_VERSION \
-  --set apitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
-  --set apitestrig.configmaps.s3.s3-user-key='admin' \
-  --set apitestrig.configmaps.s3.s3-region='' \
-  --set apitestrig.configmaps.db.db-server="$DB_HOST" \
-  --set apitestrig.configmaps.db.db-su-user="postgres" \
-  --set apitestrig.configmaps.db.db-port="5432" \
-  --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
-  --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
-  --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
-  --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
-  --set apitestrig.configmaps.apitestrig.slack-webhook-url="$slackWebhookUrl" \
-  --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
-  --set apitestrig.configmaps.apitestrig.NS="$NS" \
-  $ENABLE_INSECURE
+        read -p "Please provide S3 access key: " s3_user_key
+        if [[ -z $s3_user_key ]]; then
+          echo "S3 access key not provided; EXITING;"
+          exit 1;
+        fi
+        S3_OPTION="--set apitestrig.configmaps.s3.s3-host=$s3_host --set apitestrig.configmaps.s3.s3-user-key=$s3_user_key --set apitestrig.configmaps.s3.s3-region=$s3_region"
+        push_reports_to_s3="yes"
+        config_complete=true
+      elif [[ "$ans" == "n" || "$ans" == "N" ]]; then
+        push_reports_to_s3="no"
+        read -p "Since S3 details are not available, do you want to use NFS directory mount for storing reports? (y/n) : " answer
+        if [[ $answer == "Y" ]] || [[ $answer == "y" ]]; then
+          read -p "Please provide NFS Server IP: " nfs_server
+          if [[ -z $nfs_server ]]; then
+            echo "NFS server not provided; EXITING."
+            exit 1;
+          fi
+          read -p "Please provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/apitestrig/), make sure permission is 777 for the folder: " nfs_path
+          if [[ -z $nfs_path ]]; then
+            echo "NFS Path not provided; EXITING."
+            exit 1;
+          fi
+          NFS_OPTION="--set apitestrig.volumes.reports.nfs.server=$nfs_server --set apitestrig.volumes.reports.nfs.path=$nfs_path"
+          config_complete=true
+        else
+          echo "Please rerun the script with either S3 or NFS server details."
+          exit 1;
+        fi
+      else
+        echo "Invalid input. Please respond with Y (yes) or N (no)."
+      fi
+    done
+    echo Installing apitestrig
+    helm -n $NS install apitestrig mosip/apitestrig \
+    --set crontime="0 $time * * *" \
+    -f values.yaml  \
+    --version $CHART_VERSION \
+    $NFS_OPTION \
+    $S3_OPTION \
+    --set apitestrig.variables.push_reports_to_s3=$push_reports_to_s3 \
+    --set apitestrig.configmaps.db.db-server="$DB_HOST" \
+    --set apitestrig.configmaps.db.db-su-user="postgres" \
+    --set apitestrig.configmaps.db.db-port="$db_port" \
+    --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
+    --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
+    --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
+    --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
+    --set apitestrig.configmaps.apitestrig.slack-webhook-url="$slackWebhookUrl" \
+    --set apitestrig.configmaps.apitestrig.eSignetDeployed="$eSignetDeployed" \
+    --set apitestrig.configmaps.apitestrig.NS="$NS" \
+    $ENABLE_INSECURE
 
-  echo Installed apitestrig.
-  return 0
+    echo Installed apitestrig.
+    return 0
+  fi
 }
 
 # set commands for error handling.

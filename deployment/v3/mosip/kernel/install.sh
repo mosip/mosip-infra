@@ -7,8 +7,12 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kernel
-CHART_VERSION=1.3.0
-
+AUTH_CHART_VERSION=1.3.0
+CHART_VERSION=1.3.1-develop
+AUDIT_CHART_VERSION=1.3.1-develop
+MASTERDATA_CHART_VERSION=1.3.0
+OTPMANAGER_CHART_VERSION=1.3.0
+SYNCDATA_CHART_VERSION=1.3.0
 echo Create $NS namespace
 kubectl create ns $NS
 
@@ -36,20 +40,20 @@ function installing_kernel() {
   fi
 
   echo Installing authmanager
-  helm -n $NS install authmanager mosip/authmanager --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install authmanager mosip/authmanager --version $AUTH_CHART_VERSION $ENABLE_INSECURE
 
   echo Installing auditmanager
-  helm -n $NS install auditmanager mosip/auditmanager --version $CHART_VERSION $ENABLE_INSECURE
+  helm -n $NS install auditmanager mosip/auditmanager --version $AUDIT_CHART_VERSION $ENABLE_INSECURE
 
   echo Installing idgenerator
   helm -n $NS install idgenerator mosip/idgenerator --version $CHART_VERSION
 
   ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
   echo Installing masterdata and allowing Admin UI to access masterdata services.
-  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $CHART_VERSION
+  helm -n $NS install masterdata mosip/masterdata  --set istio.corsPolicy.allowOrigins\[0\].exact=https://$ADMIN_HOST  --version $MASTERDATA_CHART_VERSION
 
   echo Installing otpmanager
-  helm -n $NS install otpmanager mosip/otpmanager --version $CHART_VERSION
+  helm -n $NS install otpmanager mosip/otpmanager --version $OTPMANAGER_CHART_VERSION
 
   echo Installing pridgenerator
   helm -n $NS install pridgenerator mosip/pridgenerator --version $CHART_VERSION
@@ -58,7 +62,7 @@ function installing_kernel() {
   helm -n $NS install ridgenerator mosip/ridgenerator --version $CHART_VERSION
 
   echo Installing syncdata
-  helm -n $NS install syncdata mosip/syncdata --version $CHART_VERSION
+  helm -n $NS install syncdata mosip/syncdata --version $SYNCDATA_CHART_VERSION
 
   echo Installing notifier
   helm -n $NS install notifier mosip/notifier --version $CHART_VERSION

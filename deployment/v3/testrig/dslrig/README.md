@@ -39,11 +39,11 @@ DSLRIG will test end-to-end functional flows involving multiple MOSIP modules.
   ![apitestrig-1.png](../../docs/images/apitestrig-1.png)
 * Install `kubectl` package to your local machine.
 * Run dslrig manually via CLI by creating a new job from an existing k8s cronjob.
-  ```
+  ```bash
   kubectl --kubeconfig=<k8s-config-file> -n dslrig create job --from=cronjob/<cronjob-name> <job-name>
   ```
   example: 
-  ```
+  ```bash
   kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n dslrig create job --from=cronjob/cronjob-dslorchestrator cronjob-dslorchestrator
   ```
 
