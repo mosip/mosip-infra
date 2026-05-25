@@ -21,11 +21,11 @@ UITESTRIG will test end-to-end functional flows involving multiple UI modules.
 * Download Kubernetes cluster `kubeconfig` file from `rancher dashboard` to your local.
 * Install `kubectl` package to your local machine.
 * Run UITESTRIG manually via CLI by creating a new job from an existing k8s cronjob.
-  ```
+  ```bash
   kubectl --kubeconfig=<k8s-config-file> -n uitestrig create job --from=cronjob/<cronjob-name> <job-name>
   ```
   example: 
-  ```
+  ```bash
   kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n uitestrig create job --from=cronjob/cronjob-uitestrig cronjob-uitestrig
   ```
 
