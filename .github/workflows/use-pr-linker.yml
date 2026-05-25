@@ -2,7 +2,7 @@ name: Auto link PR to Issues
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, closed]
+    types: [opened, edited, synchronize, closed, reopened]
 
 permissions:
   contents: read
