@@ -23,17 +23,17 @@ validate_host() {
   local host="$1"
   if [[ -z "$host" ]]; then
     echo "ERROR: Could not read host from istio-addons-values.yaml. Ensure the file exists and contains a 'host:' entry." >&2
-    exit 1
+    return 1
   fi
   if [[ ! "$host" =~ ^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?$ ]]; then
     echo "ERROR: host value '$host' does not look like a valid hostname or IP." >&2
-    exit 1
+    return 1
   fi
 }
 
 echo "Current host configuration:"
 current_host=$(grep -A1 "host:" istio-addons-values.yaml | grep -v "serviceHost" | head -1 | cut -d: -f2 | tr -d ' ')
-validate_host "$current_host"
+validate_host "$current_host" || exit 1
 echo "Host: $current_host"
 echo ""
 
@@ -56,6 +56,11 @@ while true; do
                 echo "Enter your domain name for Kafka UI (e.g., kafka.yourdomain.com):"
                 read -r new_host
                 if [[ -n "$new_host" && "$new_host" != "kafka.sandbox.xyz.net" ]]; then
+                    if ! validate_host "$new_host"; then
+                        echo "Invalid domain name. Please provide a valid domain."
+                        echo ""
+                        continue
+                    fi
                     # Update the host in the YAML file
                     sed -i "s/host: $current_host/host: $new_host/" istio-addons-values.yaml
                     echo "Host updated to: $new_host"
@@ -70,7 +75,7 @@ while true; do
             2)
                 # Re-read the current host to verify
                 current_host=$(grep -A1 "host:" istio-addons-values.yaml | grep -v "serviceHost" | head -1 | cut -d: -f2 | tr -d ' ')
-                validate_host "$current_host"
+                validate_host "$current_host" || exit 1
                 if [[ "$current_host" == "kafka.sandbox.xyz.net" ]]; then
                     echo "The configuration still shows the default host. Please update it first."
                     echo ""
