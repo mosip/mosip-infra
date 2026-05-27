@@ -62,7 +62,8 @@ function installing_uitestrig() {
        exit 1;
     fi
 
-  read -p "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " token
+  read -r -s -p "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " token
+  echo
     if [ -z "$token" ]; then
        echo "ERROR: Google Refresh Token cannot be empty; EXITING;";
        exit 1;
@@ -74,7 +75,8 @@ function installing_uitestrig() {
        exit 1;
     fi
 
-  read -p "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " secret
+  read -r -s -p "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " secret
+  echo
     if [ -z "$secret" ]; then
        echo "ERROR: Google client secret cannot be empty; EXITING;";
        exit 1;
@@ -86,7 +88,8 @@ function installing_uitestrig() {
        exit 1;
     fi
 
-  read -p "Please enter the BROWSERSTACK ACCESS KEY : " Access_key
+  read -r -s -p "Please enter the BROWSERSTACK ACCESS KEY : " Access_key
+  echo
     if [ -z "$Access_key" ]; then
        echo "ERROR: BROWSERSTACK ACCESS KEY cannot be empty; EXITING;";
        exit 1;
