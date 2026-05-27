@@ -7,6 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=abis
+
 CHART_VERSION=1.3.1-develop
 
 echo Create $NS namespace

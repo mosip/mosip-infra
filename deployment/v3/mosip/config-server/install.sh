@@ -9,6 +9,7 @@ fi
 NS=config-server
 CHART_VERSION=1.3.1-develop
 
+
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
 read -p "Do you want to enable config-server to pull configurations from multiple repositories?(Y/n)( Default: n )" comp_enabled
 if [[ -z $comp_enabled ]]; then
