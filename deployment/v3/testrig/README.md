@@ -1,8 +1,5 @@
 # TESTRIG
 
-## Overview
-The steps here install Testrig components, which include APITESTRIG and DSLRIG.
-These components are used to test the working of APIs of MOSIP modules and the end-to-end functional flows involving multiple MOSIP modules.
 
 ## APITESTRIG Install
 Install in the following order:

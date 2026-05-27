@@ -133,8 +133,13 @@ select_index_template # calling function
   --set landing.injiweb=$INJIWEB \
   --set landing.injiverify=$INJIVERIFY \
   --set istio.host=$DOMAIN \
-  --set indexFile="$indexfile" \
-  --set-file customindexFile="$customindexfile"
+  --set indexFile="$indexfile"
+  
+  if [[ -n "$customindexfile" ]]; then
+    helm_args+=(--set-file "customindexFile=$customindexfile")
+  fi
+  
+  helm "${helm_args[@]}"
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
