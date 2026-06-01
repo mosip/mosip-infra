@@ -50,13 +50,13 @@ modules:
   mimoto:
     enabled: false
     image:
-      repository: mosipid/apitest-mimoto
+      repository: injistack/apitest-mimoto
       tag: 0.22.0
       pullPolicy: Always
   injicertify:
     enabled: false
     image:
-      repository: mosipid/apitest-injicertify
+      repository: injistack/apitest-injicertify
       tag: 0.14.0
       pullPolicy: Always
   esignet-signup:
