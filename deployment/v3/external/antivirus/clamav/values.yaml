@@ -6,3 +6,10 @@ image:
   repository: mosipid/clamav
   tag: 1.3.0_base
  # pullPolicy: Always
+ resources:
+  limits:
+    cpu: 4800m
+    memory: 3000Mi
+  requests:
+    cpu: 1000m
+    memory: 1000Mi
