@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=activemq
-CHART_VERSION=0.0.3
+CHART_VERSION=0.0.4
 
 echo Create $NS namespace
 kubectl create ns $NS
