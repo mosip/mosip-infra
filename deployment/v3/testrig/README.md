@@ -1,4 +1,4 @@
-# TESTRIG
+# UITESTRIG
 
 
 ## APITESTRIG Install

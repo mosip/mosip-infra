@@ -9,7 +9,7 @@ fi
 NS=kafka
 CHART_VERSION=18.3.1
 UI_CHART_VERSION=0.4.2
-ISTIO_ADDONS_CHART_VERSION=1.0.0
+ISTIO_ADDONS_CHART_VERSION=1.0.0-develop
 
 # Check if user has updated istio-addons-values.yaml with correct host
 echo "=============================================="
@@ -132,7 +132,6 @@ while true; do
         esac
     fi
 done
-
 
 echo Create $NS namespace
 kubectl create ns $NS
