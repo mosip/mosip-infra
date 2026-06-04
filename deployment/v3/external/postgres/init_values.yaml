@@ -4,31 +4,31 @@ dbUserPasswords:
 databases:
   mosip_master:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_audit:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.2-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_keymgr:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.4.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_kernel:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_idmap:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
@@ -40,37 +40,37 @@ databases:
 
   mosip_idrepo:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_ida:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_credential:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_regprc:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1-rc.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_pms:
     enabled: true
-    branch: "v1.2.2.2"
+    branch: "v1.2.2.3"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   mosip_hotlist:
     enabled: true
-    branch: "v1.3.0"
+    branch: "v1.3.1"
     host: "postgres-postgresql.postgres"
     port: 5432
 
@@ -112,18 +112,18 @@ databases:
 
   inji_certify:
     enabled: false
-    branch: "v0.12.2"
+    branch: "v0.14.0"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   inji_verify:
     enabled: false
-    branch: "v0.15.1"
+    branch: "v0.17.0"
     host: "postgres-postgresql.postgres"
     port: 5432
 
   inji_mimoto:
     enabled: false
-    branch: "v0.19.2"
+    branch: "v0.22.0"
     host: "postgres-postgresql.postgres"
     port: 5432

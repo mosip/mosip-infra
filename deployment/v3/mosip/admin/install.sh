@@ -8,7 +8,8 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=admin
-CHART_VERSION=1.3.0
+CHART_VERSION=1.3.1
+ADMIN_UI_CHART_VERSION=1.3.0
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -35,7 +36,7 @@ function installing_admin() {
   helm -n $NS install admin-service mosip/admin-service --set istio.corsPolicy.allowOrigins\[0\].prefix=https://$ADMIN_HOST --wait --version $CHART_VERSION
 
   echo Installing admin-ui
-  helm -n $NS install admin-ui mosip/admin-ui --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $CHART_VERSION
+  helm -n $NS install admin-ui mosip/admin-ui --set admin.apiUrl=https://$API_HOST/v1/ --set istio.hosts\[0\]=$ADMIN_HOST --version $ADMIN_UI_CHART_VERSION
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 

@@ -10,8 +10,13 @@ NS=prereg
 
 CHART_VERSION=1.3.0
 PREREG_GATEWAY_CHART_VERSION=1.0.0
-BOOKING_CHART_VERSION=1.3.1-develop
+BOOKING_CHART_VERSION=1.3.1-rc.1
 UI_CHART_VERSION=1.3.0
+
+# Static values from YAML
+PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
+PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
+
 echo Create $NS namespace
 kubectl create ns $NS || true
 function installing_prereg() {
