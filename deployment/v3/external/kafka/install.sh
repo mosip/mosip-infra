@@ -8,9 +8,9 @@ fi
 
 NS=kafka
 CHART_VERSION=0.0.1-develop
-UI_CHART_VERSION=0.4.2
+UI_CHART_VERSION=0.0.1-develop
 
-ISTIO_ADDONS_CHART_VERSION=1.0.0-develop
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 # Check if user has updated istio-addons-values.yaml with correct host
 echo "=============================================="

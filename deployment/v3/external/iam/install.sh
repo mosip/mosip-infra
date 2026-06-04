@@ -7,7 +7,7 @@ if [ $# -ge 1 ]; then
 fi
 NS=keycloak
 SERVICE_NAME=keycloak
-ISTIO_ADDONS_CHART_VERSION=1.0.0
+ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
 
 # Check if user has updated istio-addons-values.yaml with correct host
 echo "=============================================="
