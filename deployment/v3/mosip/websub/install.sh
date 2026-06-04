@@ -7,8 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=websub
-
-CHART_VERSION=1.3.2-develop
+CHART_VERSION=1.3.2-rc.1
 
 
 echo Create $NS namespace

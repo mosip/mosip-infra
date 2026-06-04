@@ -7,10 +7,9 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=kafka
-CHART_VERSION=0.0.1-develop
-UI_CHART_VERSION=0.0.1-develop
-
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
+CHART_VERSION=18.3.1
+UI_CHART_VERSION=0.4.2
+ISTIO_ADDONS_CHART_VERSION=1.0.0
 
 # Check if user has updated istio-addons-values.yaml with correct host
 echo "=============================================="
