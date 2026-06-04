@@ -86,5 +86,4 @@ extraEnvVars:
       configMapKeyRef:
         key: mosip-database-port-override
         name: postgres-setup-config
-
     enabled: true
