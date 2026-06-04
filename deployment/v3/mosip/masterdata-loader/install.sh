@@ -148,7 +148,8 @@ if [ $yn = "Y" ]
 
    echo Loading masterdata
    helm -n $NS install masterdata-loader mosip/masterdata-loader \
-      --set mosipDataGithubBranch="v1.3.2-rc.1" \
+
+      --set mosipDataGithubBranch="develop" \
       --set mosipDataGithubRepo="https://github.com/mosip/mosip-data" \
       --set mosipDataXlsfolderPath="\/home/mosip/mosip-data/mosip_master/xlsx" \
       -f values.yaml \

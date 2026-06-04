@@ -4,7 +4,8 @@ spring_profiles:
   # Based on the user requiremnt the number of multiple sources from where configuration needs to be pulled can be updated below as mentioned.
     - type: git
       uri: "https://github.com/mosip/mosip-config"
-      version: "v1.3.1-rc.1"
+
+      version: "develop"
       ## Folders within the base repo where properties may be found.
       searchFolders: ""
       private: false
@@ -85,4 +86,5 @@ extraEnvVars:
       configMapKeyRef:
         key: mosip-database-port-override
         name: postgres-setup-config
+
     enabled: true

@@ -3,7 +3,7 @@ modules:
     enabled: true
     image:
       repository: mosipid/apitest-prereg
-      tag: 1.3.0
+      tag: 1.2.0.3
       pullPolicy: Always
   masterdata:
     enabled: true
