@@ -128,8 +128,8 @@ done
 
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
-read -p "CAUTION: Do you still want to continue?(Y/n)" yn
-if [ $yn = "Y" ]
+read -r -p "CAUTION: Do you still want to continue? (Y/n) " yn
+if [[ "${yn:-}" =~ ^[Yy]$ ]]
   then
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace
