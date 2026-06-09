@@ -2,6 +2,8 @@
 # Installs postgres-backup
 ## Usage: ./install.sh [kubeconfig]
 
+set -euo pipefail
+
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
@@ -16,13 +18,13 @@ function installing_postgres-backup() {
   helm repo update
 
   read -p "Please provide S3 Bucket Name: " S3_BUCKET
-  if [ -z "S3_BUCKET" ]; then
+  if [ -z "$S3_BUCKET" ]; then
      echo "ERROR: S3 Bucket Name not Specified; EXITING;";
      exit 1;
   fi
 
   read -p "Please provide AWS ACCESS KEY ID: " AWS_ACCESS_KEY_ID
-  if [ -z "AWS_ACCESS_KEY_ID" ]; then
+  if [ -z "$AWS_ACCESS_KEY_ID" ]; then
       echo "ERROR: AWS ACCESS KEY ID not Specified; EXITING;";
       exit 1;
   fi
@@ -30,39 +32,39 @@ function installing_postgres-backup() {
 
   echo "Please provide AWS SECRET ACCESS KEY"
   read -s AWS_SECRET_ACCESS_KEY
-  if [ -z "AWS_SECRET_ACCESS_KEY" ]; then
+  if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
       echo "ERROR: AWS SECRET ACCESS KEY not Specified; EXITING;";
       exit 1;
   fi
 
 
   read -p "Please provide AWS REGION: " AWS_REGION
-  if [ -z "AWS_REGION" ]; then
+  if [ -z "$AWS_REGION" ]; then
       echo "ERROR: AWS REGION not Specified; EXITING;";
       exit 1;
   fi
 
   read -p "Please provide DB HOST: " DB_HOST
-  if [ -z "DB_HOST" ]; then
+  if [ -z "$DB_HOST" ]; then
               echo "ERROR: DB HOST not Specified; EXITING;";
               exit 1;
   fi
 
   read -p "Please provide DB USER: " DB_USER
-  if [ -z "DB_USER" ]; then
+  if [ -z "$DB_USER" ]; then
         echo "ERROR: DB USER not Specified; EXITING;";
         exit 1;
   fi
 
   read -p "Please provide DB PORT: " DB_PORT
-  if [ -z "DB_PORT" ]; then
+  if [ -z "$DB_PORT" ]; then
           echo "ERROR: DB PORT not Specified; EXITING;";
           exit 1;
   fi
 
   echo "Please provide DB PASSWORD"
   read -s DB_PASSWORD
-  if [ -z "DB_PASSWORD" ]; then
+  if [ -z "$DB_PASSWORD" ]; then
           echo "ERROR: DB PASSWORD not Specified; EXITING;";
           exit 1;
   fi
@@ -88,6 +90,17 @@ function installing_postgres-backup() {
   fi
 
 
+  TMPFILE=$(mktemp)
+  trap "rm -f $TMPFILE" EXIT
+  cat > "$TMPFILE" <<EOF
+postgresbackup:
+  secrets:
+    db:
+      DB_PASSWORD: "$DB_PASSWORD"
+    s3:
+      AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
+EOF
+
   echo Installing postgres-backup
   helm -n $NS install postgres-backup mosip/postgresbackup \
   --set crontime="0 $time * * *" \
@@ -98,18 +111,11 @@ function installing_postgres-backup() {
   --set "postgresbackup.configmaps.db.DB_USER=$DB_USER" \
   --set "postgresbackup.configmaps.db.DB_HOST=$DB_HOST" \
   --set "postgresbackup.configmaps.db.DB_PORT=$DB_PORT" \
-  --set "postgresbackup.secrets.db.DB_PASSWORD=$DB_PASSWORD" \
-  --set "postgresbackup.secrets.s3.AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" \
+  --values "$TMPFILE" \
   --version $CHART_VERSION
 
   echo Installed postgres backup utility
   return 0
 }
 
-# set commands for error handling.
-set -e
-set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
-set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
-set -o errtrace  # trace ERR through 'time command' and other functions
-set -o pipefail  # trace ERR through pipes
-installing_postgres-backup  # calling function
+installing_postgres-backup

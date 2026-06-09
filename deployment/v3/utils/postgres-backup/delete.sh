@@ -10,7 +10,7 @@ function deleting_postgres-backup() {
   NS=postgres-backup
   while true; do
       read -p "Are you sure you want to delete postgres-backup helm charts?(Y/n) " yn
-      if [ $yn = "Y" ]
+      if [[ "$yn" = "Y" ]]
         then
           helm -n $NS delete postgres-backup
           break

@@ -53,7 +53,7 @@ A list of databases to be archived:
       enabled: false
       container_volume_path: /resident-table-info  ## volume mount path for table info inside cronjob container
 ```
-Each entry includes a name and an enabled flag to indicate if the database should be included in the archival process.
+Each entry includes a `name`, an `enabled` flag to indicate if the database should be included in the archival process, and a `container_volume_path` specifying the volume mount path for table info inside the cronjob container.
 
 ## Adding Another Database
 
@@ -66,7 +66,14 @@ To add another database to the archival list, follow these steps:
    ```yaml
    - name: new_database_name
      enabled: true  # or false, depending on whether you want to include it
+     container_volume_path: /new-database-table-info  ## volume mount path for table info inside cronjob container
    ```
+
+   Each entry requires the following fields:
+   - `name`: Name of the database.
+   - `enabled`: Whether to include this database in the archival process.
+   - `container_volume_path`: Volume mount path for table info inside the cronjob container (e.g., `/new-database-table-info`).
+
 3. Replace `new_database_name` with the desired name of the new database.
 4. Save the changes to the `values.yaml` file.
 
