@@ -39,7 +39,7 @@ A list of databases to be archived:
       container_volume_path: /credential-table-info  ## volume mount path for table info inside cronjob container
     - name: kernel
       enabled: true
-      container_volume_path: /kernek-table-info  ## volume mount path for table info inside cronjob container
+      container_volume_path: /kernel-table-info  ## volume mount path for table info inside cronjob container
     - name: master
       enabled: true
       container_volume_path: /master-table-info  ## volume mount path for table info inside cronjob container
