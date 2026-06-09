@@ -73,10 +73,10 @@ function initialize_db() {
               echo "  Port: $external_port"
               
               # Update all host entries in init_values.yaml
-              sed -i "s/host: \"postgres-postgresql.postgres\"/host: \"$external_host\"/g" init_values.yaml
-              
+              sed -i "s/host: \".*\"/host: \"$external_host\"/g" init_values.yaml
+
               # Update all port entries in init_values.yaml
-              sed -i "s/port: 5432/port: $external_port/g" init_values.yaml
+              sed -i "s/port: [0-9]*/port: $external_port/g" init_values.yaml
               
               echo "✓ Updated init_values.yaml with external PostgreSQL host: $external_host and port: $external_port"
               echo ""

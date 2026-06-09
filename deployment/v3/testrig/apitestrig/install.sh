@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=apitestrig
-CHART_VERSION=1.6.0
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -18,7 +18,7 @@ function installing_apitestrig() {
   echo Copy Configmaps
   ./copy_cm.sh
 
-  echo  Copy Secrtes
+  echo Copy Secrets
   ./copy_secrets.sh
 
   echo "Delete s3, db, & apitestrig configmap if exists"

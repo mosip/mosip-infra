@@ -146,7 +146,10 @@ function landing_page() {
   echo Installing landing page
   helm "${helm_args[@]}"
 
-  kubectl -n $NS get deploy -o name | xargs -n1 -t kubectl -n $NS rollout status
+  deployments=$(kubectl -n $NS get deploy -o name)
+  if [[ -n "$deployments" ]]; then
+    echo "$deployments" | xargs -n1 -t kubectl -n $NS rollout status
+  fi
 
   echo Installed landing page
   return 0

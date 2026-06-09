@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=masterdata-loader
-CHART_VERSION=1.3.0
+CHART_VERSION=0.0.1-develop
 
 # Check if user has updated values.yaml with correct database configuration
 echo "=============================================="
