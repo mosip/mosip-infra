@@ -46,7 +46,11 @@ while true; do
                 echo "Enter your external database port (e.g., 5432):"
                 read -r new_db_port
                 
-                if [[ -n "$new_db_host" && -n "$new_db_port" && "$new_db_host" != "postgres-postgresql.postgres" ]]; then
+                if [[ -n "$new_db_host" \
+                      && "$new_db_host" != "postgres-postgresql.postgres" \
+                      && "$new_db_port" =~ ^[0-9]+$ \
+                      && "$new_db_port" -ge 1 \
+                      && "$new_db_port" -le 65535 ]]; then
                     # Update the database configuration in the YAML file
                     sed -i "s/host: \"$current_db_host\"/host: \"$new_db_host\"/" values.yaml
                     sed -i "s/port: $current_db_port/port: $new_db_port/" values.yaml
