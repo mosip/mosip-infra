@@ -17,8 +17,9 @@ function installing_data-archive() {
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
 
-  read -p "Is values.yaml for data-archive chart set correctly as part of Pre-requisites?(Y/n) " yn
-  if [[ "$yn" != "Y" ]]; then
+  read -r -p "Is values.yaml for data-archive chart set correctly as part of Pre-requisites? (Y/n) " yn
+  yn="${yn:-Y}"
+  if [[ ! "$yn" =~ ^[Yy]$ ]]; then
     echo "ERROR: values.yaml not set correctly; EXITING."
     exit 1
   fi

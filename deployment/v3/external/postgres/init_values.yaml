@@ -4,126 +4,297 @@ dbUserPasswords:
 databases:
   mosip_master:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_master
+    dbName: mosip_master
+    dbUser: masteruser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/admin-services.git
+    branch: "develop"
 
   mosip_audit:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_audit
+    dbName: mosip_audit
+    dbUser: audituser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/audit-manager.git
+    branch: "develop"
 
   mosip_keymgr:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_keymgr
+    dbName: mosip_keymgr
+    dbUser: keymgruser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/keymanager.git
+    branch: "develop"
 
   mosip_kernel:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_kernel
+    dbName: mosip_kernel
+    dbUser: kerneluser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/commons.git
+    branch: "develop"
 
   mosip_idmap:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_idmap
+    dbName: mosip_idmap
+    dbUser: idmapuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/id-repository.git
+    branch: "develop"
 
   mosip_prereg:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_prereg
+    dbName: mosip_prereg
+    dbUser: prereguser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/pre-registration.git
+    branch: "develop"
 
   mosip_idrepo:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_idrepo
+    dbName: mosip_idrepo
+    dbUser: idrepouser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/id-repository.git
+    branch: "develop"
 
   mosip_ida:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_ida
+    dbName: mosip_ida
+    dbUser: idauser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/id-authentication.git
+    branch: "develop"
 
   mosip_credential:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_credential
+    dbName: mosip_credential
+    dbUser: credentialuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/id-repository.git
+    branch: "develop"
 
   mosip_regprc:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_regprc
+    dbName: mosip_regprc
+    dbUser: regprcuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/registration.git
+    branch: "develop"
 
   mosip_pms:
     enabled: true
-    branch: "v1.2.2.2"
+    scriptsDir: mosip_pms
+    dbName: mosip_pms
+    dbUser: pmsuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    # Note: This flag is used to update datashare domain in partner policies according to deployment version (i.e v2/v3)
+    # Set flag ENV_VERSION_FLAG to true for v2 envs and false for v3 envs.
+    ENV_VERSION_FLAG: false
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/partner-management-services.git
+    branch: "develop"
 
   mosip_hotlist:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_hotlist
+    dbName: mosip_hotlist
+    dbUser: hotlistuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/admin-services.git
+    branch: "develop"
 
   mosip_resident:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_resident
+    dbName: mosip_resident
+    dbUser: residentuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/resident-services.git
+    branch: "develop"
 
   mosip_otp:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_otp
+    dbName: mosip_otp
+    dbUser: otpuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/otp-manager.git
+    branch: "develop"
 
   mosip_digitalcard:
     enabled: true
-    branch: "v1.3.0"
+    scriptsDir: mosip_digitalcard
+    dbName: mosip_digitalcard
+    dbUser: digitalcarduser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/digital-card-service.git
+    branch: "develop"
 
   mosip_esignet:
     enabled: false
-    branch: "v1.4.1"
+    scriptsDir: mosip_esignet
+    dbName: mosip_esignet
+    dbUser: esignetuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/esignet.git
+    branch: "develop"
 
   mosip_mockidentitysystem:
     enabled: false
-    branch: "v0.9.3"
+    scriptsDir: mosip_mockidentitysystem
+    dbName: mosip_mockidentitysystem
+    dbUser: mockidentityuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/esignet-mock-services.git
+    branch: "develop"
 
   mosip_toolkit:
     enabled: false
-    branch: "v1.4.2"
+    scriptsDir: mosip_toolkit
+    dbName: mosip_toolkit
+    dbUser: toolkituser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 0
+    repoUrl: https://github.com/mosip/mosip-compliance-toolkit.git
+    branch: "develop"
 
   inji_certify:
     enabled: false
-    branch: "v0.12.2"
+    scriptsDir: inji_certify
+    dbName: inji_certify
+    dbUser: injicertifyuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/inji-certify.git
+    branch: "develop"
 
   inji_verify:
     enabled: false
-    branch: "v0.15.1"
+    scriptsDir: inji_verify
+    dbName: inji_verify
+    dbUser: injiverifyuser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/inji-verify.git
+    branch: "develop"
 
   inji_mimoto:
     enabled: false
-    branch: "v0.19.2"
+    scriptsDir: inji_mimoto
+    dbName: inji_mimoto
+    dbUser: injimimotouser
+    defaultDb: postgres
     host: "postgres-postgresql.postgres"
     port: 5432
+    su:
+      user: postgres
+    dml: 1
+    repoUrl: https://github.com/mosip/mimoto.git
+    branch: "develop"

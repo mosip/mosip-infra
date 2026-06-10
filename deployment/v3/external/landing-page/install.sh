@@ -106,37 +106,50 @@ function landing_page() {
   INJIWEB=$(kubectl get cm global -o jsonpath={.data.mosip-injiweb-host})
   INJIVERIFY=$(kubectl get cm global -o jsonpath={.data.mosip-injiverify-host})
 
-select_index_template # calling function
+  select_index_template
+
+  # Build helm args array
+  helm_args=(
+    -n $NS install landing-page mosip/landing-page
+    --version $CHART_VERSION
+    --set landing.version=$VERSION
+    --set landing.name=$NAME
+    --set landing.api=$API
+    --set landing.apiInternal=$API_INTERNAL
+    --set landing.admin=$ADMIN
+    --set landing.prereg=$PREREG
+    --set landing.kafka=$KAFKA
+    --set landing.kibana=$KIBANA
+    --set landing.activemq=$ACTIVEMQ
+    --set landing.minio=$MINIO
+    --set landing.keycloak=$KEYCLOAK
+    --set landing.regclient=$REGCLIENT
+    --set landing.postgres.host=$POSTGRES
+    --set landing.postgres.port=$POSTGRES_PORT
+    --set landing.compliance=$COMPLIANCE
+    --set landing.pmp=$PMP
+    --set landing.resident=$RESIDENT
+    --set landing.esignet=$ESIGNET
+    --set landing.smtp=$SMTP
+    --set landing.healthservices=$HEALTHSERVICES
+    --set landing.injiweb=$INJIWEB
+    --set landing.injiverify=$INJIVERIFY
+    --set istio.host=$DOMAIN
+    --set indexFile="$indexfile"
+  )
+
+  # Append custom index file only if provided
+  if [[ -n "$customindexfile" ]]; then
+    helm_args+=(--set-file "customindexFile=$customindexfile")
+  fi
 
   echo Installing landing page
-  helm -n $NS install landing-page mosip/landing-page --version $CHART_VERSION  \
-  --set landing.version=$VERSION \
-  --set landing.name=$NAME \
-  --set landing.api=$API \
-  --set landing.apiInternal=$API_INTERNAL \
-  --set landing.admin=$ADMIN  \
-  --set landing.prereg=$PREREG  \
-  --set landing.kafka=$KAFKA \
-  --set landing.kibana=$KIBANA \
-  --set landing.activemq=$ACTIVEMQ  \
-  --set landing.minio=$MINIO \
-  --set landing.keycloak=$KEYCLOAK  \
-  --set landing.regclient=$REGCLIENT  \
-  --set landing.postgres.host=$POSTGRES \
-  --set landing.postgres.port=$POSTGRES_PORT \
-  --set landing.compliance=$COMPLIANCE \
-  --set landing.pmp=$PMP \
-  --set landing.resident=$RESIDENT \
-  --set landing.esignet=$ESIGNET \
-  --set landing.smtp=$SMTP \
-  --set landing.healthservices=$HEALTHSERVICES \
-  --set landing.injiweb=$INJIWEB \
-  --set landing.injiverify=$INJIVERIFY \
-  --set istio.host=$DOMAIN \
-  --set indexFile="$indexfile" \
-  --set-file customindexFile="$customindexfile"
+  helm "${helm_args[@]}"
 
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
+  deployments=$(kubectl -n $NS get deploy -o name)
+  if [[ -n "$deployments" ]]; then
+    echo "$deployments" | xargs -n1 -t kubectl -n $NS rollout status
+  fi
 
   echo Installed landing page
   return 0

@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=masterdata-loader
-CHART_VERSION=1.3.0
+CHART_VERSION=0.0.1-develop
 
 # Check if user has updated values.yaml with correct database configuration
 echo "=============================================="
@@ -46,7 +46,11 @@ while true; do
                 echo "Enter your external database port (e.g., 5432):"
                 read -r new_db_port
                 
-                if [[ -n "$new_db_host" && -n "$new_db_port" && "$new_db_host" != "postgres-postgresql.postgres" ]]; then
+                if [[ -n "$new_db_host" \
+                      && "$new_db_host" != "postgres-postgresql.postgres" \
+                      && "$new_db_port" =~ ^[0-9]+$ \
+                      && "$new_db_port" -ge 1 \
+                      && "$new_db_port" -le 65535 ]]; then
                     # Update the database configuration in the YAML file
                     sed -i "s/host: \"$current_db_host\"/host: \"$new_db_host\"/" values.yaml
                     sed -i "s/port: $current_db_port/port: $new_db_port/" values.yaml
@@ -124,8 +128,8 @@ done
 
 echo  WARNING: This need to be executed only once at the begining for masterdata deployment. If reexecuted in a working env this will reset the whole master_data DB tables resulting in data loss.
 echo  Please skip this if masterdata is already uploaded.
-read -p "CAUTION: Do you still want to continue?(Y/n)" yn
-if [ $yn = "Y" ]
+read -r -p "CAUTION: Do you still want to continue? (Y/n) " yn
+if [[ "${yn:-}" =~ ^[Yy]$ ]]
   then
    helm delete masterdata-loader -n $NS
    echo Create $NS namespace

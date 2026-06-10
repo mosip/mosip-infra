@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=apitestrig
-CHART_VERSION=1.6.0
+CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -18,7 +18,7 @@ function installing_apitestrig() {
   echo Copy Configmaps
   ./copy_cm.sh
 
-  echo  Copy Secrtes
+  echo Copy Secrets
   ./copy_secrets.sh
 
   echo "Delete s3, db, & apitestrig configmap if exists"
@@ -97,26 +97,27 @@ function installing_apitestrig() {
  else
      echo "eSignet service is not deployed. hence will be skipping esignet related test-cases..."
  fi
-  read -p "Is values.yaml for apitestrig chart set correctly as part of pre-requisites? (Y/n) : " yn;
-  if [[ $yn = "Y" ]] || [[ $yn = "y" ]] ; then
+  read -r -p "Is values.yaml for apitestrig chart set correctly as part of pre-requisites? (Y/n) : " yn
+  yn=${yn:-Y}
+  if [[ "$yn" == "Y" || "$yn" == "y" ]]; then
     NFS_OPTION=''
     S3_OPTION=''
     config_complete=false  # flag to check if S3 or NFS is configured
     while [ "$config_complete" = false ]; do
-      read -p "Do you have S3 details for storing apitestrig reports? (Y/n) : " ans
+      read -r -p "Do you have S3 details for storing apitestrig reports? (Y/n) : " ans
       if [[ "$ans" == "y" || "$ans" == "Y" ]]; then
-        read -p "Please provide S3 host: " s3_host
+        read -r -p "Please provide S3 host: " s3_host
         if [[ -z $s3_host ]]; then
           echo "S3 host not provided; EXITING;"
           exit 1;
         fi
-        read -p "Please provide S3 region: " s3_region
+        read -r -p "Please provide S3 region: " s3_region
         if [[ $s3_region == *[' !@#$%^&*()+']* ]]; then
           echo "S3 region should not contain spaces or special characters; EXITING;"
           exit 1;
         fi
 
-        read -p "Please provide S3 access key: " s3_user_key
+        read -r -p "Please provide S3 access key: " s3_user_key
         if [[ -z $s3_user_key ]]; then
           echo "S3 access key not provided; EXITING;"
           exit 1;
@@ -126,14 +127,14 @@ function installing_apitestrig() {
         config_complete=true
       elif [[ "$ans" == "n" || "$ans" == "N" ]]; then
         push_reports_to_s3="no"
-        read -p "Since S3 details are not available, do you want to use NFS directory mount for storing reports? (y/n) : " answer
+        read -r -p "Since S3 details are not available, do you want to use NFS directory mount for storing reports? (y/n) : " answer
         if [[ $answer == "Y" ]] || [[ $answer == "y" ]]; then
-          read -p "Please provide NFS Server IP: " nfs_server
+          read -r -p "Please provide NFS Server IP: " nfs_server
           if [[ -z $nfs_server ]]; then
             echo "NFS server not provided; EXITING."
             exit 1;
           fi
-          read -p "Please provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/apitestrig/), make sure permission is 777 for the folder: " nfs_path
+          read -r -p "Please provide NFS directory to store reports from NFS server (e.g. /srv/nfs/<sandbox>/apitestrig/), make sure permission is 777 for the folder: " nfs_path
           if [[ -z $nfs_path ]]; then
             echo "NFS Path not provided; EXITING."
             exit 1;
@@ -149,10 +150,10 @@ function installing_apitestrig() {
       fi
     done
     echo Installing apitestrig
-    helm -n $NS install apitestrig mosip/apitestrig \
+    helm -n "$NS" install apitestrig mosip/apitestrig \
     --set crontime="0 $time * * *" \
     -f values.yaml  \
-    --version $CHART_VERSION \
+    --version "$CHART_VERSION" \
     $NFS_OPTION \
     $S3_OPTION \
     --set apitestrig.variables.push_reports_to_s3=$push_reports_to_s3 \
@@ -170,6 +171,9 @@ function installing_apitestrig() {
 
     echo Installed apitestrig.
     return 0
+  else
+    echo "Prerequisites are not complete; EXITING;"
+    exit 1
   fi
 }
 

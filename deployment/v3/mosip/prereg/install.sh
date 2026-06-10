@@ -8,10 +8,15 @@ fi
 
 NS=prereg
 
-CHART_VERSION=1.3.0
-PREREG_GATEWAY_CHART_VERSION=1.0.0
-BOOKING_CHART_VERSION=1.3.1-develop
-UI_CHART_VERSION=1.3.0
+CHART_VERSION=0.0.1-develop
+PREREG_GATEWAY_CHART_VERSION=0.0.1-develop
+BOOKING_CHART_VERSION=0.0.1-develop
+UI_CHART_VERSION=0.0.1-develop
+
+# Static values from YAML
+PREREG_GATEWAY_HOST="${PREREG_GATEWAY_HOST:-}"
+PREREG_GATEWAY_SERVICE_HOST="${PREREG_GATEWAY_SERVICE_HOST:-service-hostname}"
+
 echo Create $NS namespace
 kubectl create ns $NS || true
 function installing_prereg() {
@@ -55,7 +60,7 @@ function installing_prereg() {
   helm -n $NS install prereg-batchjob mosip/prereg-batchjob --version $CHART_VERSION
 
   echo Installing prereg-ui
-  helm -n $NS install prereg-ui mosip/prereg-ui --set "prereg.apiHost=$PREREG_HOST" --version $UI_CHART_VERSION
+  helm -n $NS install prereg-ui mosip/prereg-ui --set "prereg.apiHost=$FINAL_PREREG_HOST" --version $UI_CHART_VERSION
 
   echo Installing prereg rate-control Envoyfilter
   kubectl apply -n $NS -f rate-control-envoyfilter.yaml
