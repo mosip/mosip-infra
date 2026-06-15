@@ -1,4 +1,4 @@
-# MOSIP Infra
+# MOSIP Infra...
 
 ## Overview
 We provide a reference implementation of a Kubernetes-based, **production grade** deployment of MOSIP, also referred to as the **V3 deployment**. This implementation supports both **sandbox** environments for evaluation and testing, as well as **full-scale production deployments**.
