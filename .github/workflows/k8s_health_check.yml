@@ -1,0 +1,597 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Kubernetes Cluster Health Check — All Environments
+# Runs every 6 hours across all 10 MOSIP environments in parallel
+# New checks: failing services, pod restarts (weekday/Monday window),
+#             disk space (NFS / Postgres / ActiveMQ) with 90% threshold
+# ═══════════════════════════════════════════════════════════════════════════════
+name: Kubernetes Cluster Health Check
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'       # Every 6 hours UTC
+  workflow_dispatch:
+    inputs:
+      environments:
+        description: |
+          Environments to check (comma-separated). Leave BLANK to run ALL.
+          Valid values: qajava21, integ, pilot
+        required: false
+        default: 'qajava21'         # blank = ALL (same behaviour as the cron trigger)
+      notify_slack:
+        description: 'Send Slack notifications?'
+        required: false
+        default: 'true'
+        type: boolean
+
+# ── One job per environment in parallel via matrix ──────────────────────────
+jobs:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 0  Build the environment matrix dynamically
+  # Each env needs its own KUBECONFIG secret named KUBECONFIG_<ENV_UPPER>
+  # e.g. KUBECONFIG_QA21, KUBECONFIG_QA22, KUBECONFIG_DEV1 ...
+  # ───────────────────────────────────────────────────────────────────────────
+  build-matrix:
+    name: Build Environment Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
+    steps:
+      - name: Resolve target environments
+        id: set-matrix
+        run: |
+          # ── Full list of your 10 environments ─────────────────────────────
+          # Format: "name:slack_channel"  (channel is optional, falls back to default)
+          # vm_host        → external VM hosting NFS + ActiveMQ (+ Postgres if postgres_mode=vm)
+          # postgres_mode  → "vm"        : postgres lives on vm_host, checked via SSH df
+          #                  "incluster" : postgres lives in k8s, checked via kubectl exec
+          ALL_ENVS='[
+            {"env":"qajava21",  "channel":"#cluster_health",  "vm_host":"postgres.qajava21.mosip.net",  "postgres_mode":"vm"},
+            {"env":"integ", "channel":"#mosip-integ", "vm_host":"integ-utils.mosip.net", "postgres_mode":"incluster"},
+            {"env":"pilot", "channel":"#mosip-pilot", "vm_host":"pilot-utils.mosip.net", "postgres_mode":"vm"}
+          ]'
+
+          INPUT="${{ github.event.inputs.environments }}"
+
+          if [ -z "$INPUT" ]; then
+            # No filter — run all
+            MATRIX=$(echo "$ALL_ENVS" | jq -c '{include: .}')
+          else
+            # Filter to requested envs only
+            IFS=',' read -ra REQ <<< "$INPUT"
+            FILTER=$(printf '%s\n' "${REQ[@]}" | jq -R . | jq -sc .)
+            MATRIX=$(echo "$ALL_ENVS" | jq -c --argjson f "$FILTER" \
+              '{include: [.[] | select(.env as $e | $f | index($e) != null)]}')
+          fi
+
+          echo "matrix=$MATRIX" >> $GITHUB_OUTPUT
+          echo "Running on: $(echo $MATRIX | jq -r '[.include[].env] | join(", ")')"
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 1  Per-environment health check (runs in parallel for all envs)
+  # ───────────────────────────────────────────────────────────────────────────
+  health-check:
+    name: "[${{ matrix.env }}] Health Check"
+    runs-on: ubuntu-latest
+    needs: build-matrix
+    if: needs.build-matrix.outputs.matrix != ''
+    strategy:
+      fail-fast: false          # Don't cancel other envs if one fails
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+
+    outputs:
+      all_healthy: ${{ steps.gate.outputs.all_healthy }}
+      summary_text: ${{ steps.gate.outputs.summary_text }}
+
+    steps:
+      # ── Tools ─────────────────────────────────────────────────────────────
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.28.0'
+
+      # ── Kubeconfig — secret per env ───────────────────────────────────────
+      # Secret naming convention: KUBECONFIG_QA21, KUBECONFIG_DEV1, etc.
+      - name: Write kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          ENV_UPPER=$(echo "${{ matrix.env }}" | tr '[:lower:]' '[:upper:]' | tr '-' '_')
+          SECRET_NAME="KUBECONFIG_${ENV_UPPER}"
+          # GitHub doesn't support dynamic secret access directly;
+          # we pass all secrets as env vars and pick the right one.
+          # See README for the secrets:set-all helper script.
+          echo "$KUBECONFIG_DATA" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+        env:
+          # Map every env's kubeconfig into a single variable using a wrapper secret
+          # KUBECONFIG_DATA is resolved by the per-env secret (see setup instructions)
+          KUBECONFIG_DATA: ${{ secrets[format('KUBECONFIG_{0}', matrix.env)] }}
+
+      # ── Compute restart lookback window ───────────────────────────────────
+      - name: Compute restart window
+        id: window
+        run: |
+          DOW=$(date -u +%u)   # 1=Mon ... 7=Sun
+          if [ "$DOW" -eq 1 ]; then
+            # Monday → check last 3 days (72 hours)
+            WINDOW_HOURS=72
+            WINDOW_LABEL="3 days (Monday rule)"
+          else
+            # Tue–Sun → check last 24 hours
+            WINDOW_HOURS=24
+            WINDOW_LABEL="24 hours"
+          fi
+          echo "window_hours=$WINDOW_HOURS"   >> $GITHUB_OUTPUT
+          echo "window_label=$WINDOW_LABEL"   >> $GITHUB_OUTPUT
+          echo "Restart window: $WINDOW_LABEL ($WINDOW_HOURS h)"
+
+      # ══════════════════════════════════════════════════════════════════════
+      # CHECK 1 — Failing / unhealthy services
+      # ══════════════════════════════════════════════════════════════════════
+      - name: "[C1] Failing Services"
+        id: failing
+        run: |
+          ENV="${{ matrix.env }}"
+          echo "## [$ENV] Health Check — $(date -u '+%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔴 Failing / Unhealthy Services" >> $GITHUB_STEP_SUMMARY
+
+          FAIL_REPORT=""
+
+          # 1a. Pods not in Running/Completed/Succeeded
+          BAD_PODS=$(kubectl get pods --all-namespaces --no-headers \
+            | grep -vE "\s(Running|Completed|Succeeded)\s" 2>/dev/null || true)
+
+          # 1b. CrashLoopBackOff specifically
+          CRASH_PODS=$(kubectl get pods --all-namespaces --no-headers \
+            | grep "CrashLoopBackOff" 2>/dev/null || true)
+
+          # 1c. Deployments with 0 available replicas
+          DEAD_DEPLOYS=$(kubectl get deployments --all-namespaces --no-headers \
+            | awk '$5 == "0" {print $1, $2, "available="$5"/"$3}' 2>/dev/null || true)
+
+          # 1d. Services with no endpoints
+          NO_EP=$(kubectl get endpoints --all-namespaces --no-headers 2>/dev/null \
+            | awk 'NF<3 || $3=="<none>" {print $1, $2}' || true)
+
+          if [ -z "$BAD_PODS" ] && [ -z "$DEAD_DEPLOYS" ]; then
+            echo "✅ No failing services detected" >> $GITHUB_STEP_SUMMARY
+            echo "failing_ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "failing_ok=false" >> $GITHUB_OUTPUT
+
+            if [ -n "$BAD_PODS" ]; then
+              echo "#### Unhealthy Pods" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              printf "%-45s %-20s %-15s %-8s\n" "NAMESPACE" "NAME" "STATUS" "RESTARTS" >> $GITHUB_STEP_SUMMARY
+              echo "$BAD_PODS" | awk '{printf "%-45s %-20s %-15s %-8s\n",$1,$2,$4,$5}' >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              FAIL_REPORT="$FAIL_REPORT\n• $(echo "$BAD_PODS" | wc -l) unhealthy pod(s)"
+            fi
+
+            if [ -n "$CRASH_PODS" ]; then
+              echo "::error::[$ENV] CrashLoopBackOff pods detected"
+              FAIL_REPORT="$FAIL_REPORT\n• CrashLoopBackOff detected"
+            fi
+
+            if [ -n "$DEAD_DEPLOYS" ]; then
+              echo "#### Deployments with 0 Available Replicas" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              echo "$DEAD_DEPLOYS" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              FAIL_REPORT="$FAIL_REPORT\n• $(echo "$DEAD_DEPLOYS" | wc -l) dead deployment(s)"
+            fi
+
+            if [ -n "$NO_EP" ]; then
+              echo "#### Services with No Endpoints" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+              echo "$NO_EP" >> $GITHUB_STEP_SUMMARY
+              echo '```' >> $GITHUB_STEP_SUMMARY
+            fi
+          fi
+
+          # Persist for Slack
+          printf '%s' "$FAIL_REPORT" > /tmp/fail_report.txt
+
+      # ══════════════════════════════════════════════════════════════════════
+      # CHECK 2 — Pod restarts within the computed time window
+      # ══════════════════════════════════════════════════════════════════════
+      - name: "[C2] Pod Restarts (window: ${{ steps.window.outputs.window_label }})"
+        id: restarts
+        run: |
+          ENV="${{ matrix.env }}"
+          WINDOW_H="${{ steps.window.outputs.window_hours }}"
+          WINDOW_LABEL="${{ steps.window.outputs.window_label }}"
+
+          echo "### 🔁 Pod Restarts — Last $WINDOW_LABEL" >> $GITHUB_STEP_SUMMARY
+
+          # kubectl doesn't expose restart timestamps directly.
+          # We use pod start-time as a proxy: if a pod started within the window
+          # AND has restarts > 0, it restarted within the window.
+          CUTOFF_EPOCH=$(date -u -d "-${WINDOW_H} hours" +%s)
+
+          RESTART_REPORT=""
+
+          while IFS= read -r line; do
+            NS=$(echo "$line" | awk '{print $1}')
+            POD=$(echo "$line" | awk '{print $2}')
+            RESTARTS=$(echo "$line" | awk '{print $5}')
+            START_RAW=$(echo "$line" | awk '{print $6}')
+
+            [ "$RESTARTS" = "0" ] && continue
+            [ -z "$START_RAW" ] || [ "$START_RAW" = "<unknown>" ] && continue
+
+            # Parse start time
+            START_EPOCH=$(date -u -d "$START_RAW" +%s 2>/dev/null || echo 0)
+            [ "$START_EPOCH" -lt "$CUTOFF_EPOCH" ] && continue
+
+            RESTART_REPORT="$RESTART_REPORT\n$(printf "%-40s %-45s %s restart(s) since %s" "$NS" "$POD" "$RESTARTS" "$START_RAW")"
+          done < <(kubectl get pods --all-namespaces --no-headers 2>/dev/null || true)
+
+          if [ -z "$RESTART_REPORT" ]; then
+            echo "✅ No pods restarted in last $WINDOW_LABEL" >> $GITHUB_STEP_SUMMARY
+            echo "restarts_ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "restarts_ok=false" >> $GITHUB_OUTPUT
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            printf "%-40s %-45s %s\n" "NAMESPACE" "POD" "RESTARTS / START-TIME" >> $GITHUB_STEP_SUMMARY
+            printf '%b\n' "$RESTART_REPORT" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            COUNT=$(printf '%b\n' "$RESTART_REPORT" | wc -l)
+            echo "::warning::[$ENV] $COUNT pod(s) restarted within last $WINDOW_LABEL"
+          fi
+
+          printf '%b' "$RESTART_REPORT" > /tmp/restart_report.txt
+
+      # ══════════════════════════════════════════════════════════════════════
+      # CHECK 3 — Disk space: NFS + ActiveMQ (always on VM) + Postgres
+      #           (VM via SSH, or in-cluster via kubectl exec, per matrix.postgres_mode)
+      # ══════════════════════════════════════════════════════════════════════
+
+      # ── SSH key setup (only needed if this env has a vm_host) ───────────────
+      - name: "[C3] Setup SSH key for VM checks"
+        if: matrix.vm_host != ''
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DISK_CHECK_SSH_KEY }}" > ~/.ssh/disk_check_key
+          chmod 600 ~/.ssh/disk_check_key
+          ssh-keyscan -H "${{ matrix.vm_host }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: "[C3] Disk Space Checks (NFS / Postgres / ActiveMQ)"
+        id: disk
+        run: |
+          ENV="${{ matrix.env }}"
+          THRESHOLD=90
+          VM_HOST="${{ matrix.vm_host }}"
+          PG_MODE="${{ matrix.postgres_mode }}"
+          SSH_USER="${SSH_USER_OVERRIDE:-mosip}"
+          SSH_OPTS="-i ~/.ssh/disk_check_key -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new"
+
+          echo "### 💽 Disk Space (alert threshold: ${THRESHOLD}%)" >> $GITHUB_STEP_SUMMARY
+          echo "| Storage Target | Mount | Size | Available | Used% | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|---|---|---|---|" >> $GITHUB_STEP_SUMMARY
+
+          DISK_ALERTS=""
+
+          # ── Helper: run df over SSH on the external VM, parse one mount ───────
+          check_vm_disk() {
+            local MOUNT="$1"
+            local DISPLAY_NAME="$2"
+
+            if [ -z "$VM_HOST" ]; then
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ no vm_host configured |" >> $GITHUB_STEP_SUMMARY
+              return
+            fi
+
+            DF_OUT=$(ssh $SSH_OPTS "${SSH_USER}@${VM_HOST}" "df -h ${MOUNT} 2>/dev/null" 2>/tmp/ssh_err.log || true)
+
+            if [ -z "$DF_OUT" ] || ! echo "$DF_OUT" | grep -q "%"; then
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ SSH/df failed |" >> $GITHUB_STEP_SUMMARY
+              echo "::warning::[$ENV] Could not read $DISPLAY_NAME ($MOUNT) on $VM_HOST — $(cat /tmp/ssh_err.log)"
+              return
+            fi
+
+            USE_PCT=$(echo "$DF_OUT" | awk 'NR==2 {gsub(/%/,"",$5); print $5}')
+            AVAIL=$(echo "$DF_OUT"   | awk 'NR==2 {print $4}')
+            SIZE=$(echo "$DF_OUT"    | awk 'NR==2 {print $2}')
+
+            if [ "$USE_PCT" -ge "$THRESHOLD" ] 2>/dev/null; then
+              STATUS="🔴 ALERT"
+              DISK_ALERTS="$DISK_ALERTS\n• $DISPLAY_NAME ($MOUNT) on $VM_HOST: ${USE_PCT}% used (${AVAIL} free of ${SIZE})"
+              echo "::error::[$ENV] $DISPLAY_NAME disk at ${USE_PCT}% on $VM_HOST — only ${AVAIL} free"
+            elif [ "$USE_PCT" -ge 80 ] 2>/dev/null; then
+              STATUS="🟡 WARNING"
+            else
+              STATUS="✅ OK"
+            fi
+
+            echo "| $DISPLAY_NAME | $MOUNT | $SIZE | $AVAIL | ${USE_PCT}% | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          }
+
+          # ── Helper: run df inside an in-cluster pod, parse one mount ──────────
+          check_incluster_disk() {
+            local LABEL_SEL="$1"
+            local NS="$2"
+            local MOUNT="$3"
+            local DISPLAY_NAME="$4"
+
+            POD=$(kubectl get pods -n "$NS" -l "$LABEL_SEL" \
+              --no-headers -o custom-columns=":metadata.name" 2>/dev/null | head -1)
+
+            if [ -z "$POD" ]; then
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ pod not found (ns=$NS) |" >> $GITHUB_STEP_SUMMARY
+              return
+            fi
+
+            DF_OUT=$(kubectl exec -n "$NS" "$POD" -- df -h "$MOUNT" 2>/dev/null || true)
+            if [ -z "$DF_OUT" ]; then
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ exec failed in $POD |" >> $GITHUB_STEP_SUMMARY
+              return
+            fi
+
+            USE_PCT=$(echo "$DF_OUT" | awk 'NR==2 {gsub(/%/,"",$5); print $5}')
+            AVAIL=$(echo "$DF_OUT"   | awk 'NR==2 {print $4}')
+            SIZE=$(echo "$DF_OUT"    | awk 'NR==2 {print $2}')
+
+            if [ "$USE_PCT" -ge "$THRESHOLD" ] 2>/dev/null; then
+              STATUS="🔴 ALERT"
+              DISK_ALERTS="$DISK_ALERTS\n• $DISPLAY_NAME (in-cluster, $POD): ${USE_PCT}% used (${AVAIL} free of ${SIZE})"
+              echo "::error::[$ENV] $DISPLAY_NAME disk at ${USE_PCT}% in pod $POD — only ${AVAIL} free"
+            elif [ "$USE_PCT" -ge 80 ] 2>/dev/null; then
+              STATUS="🟡 WARNING"
+            else
+              STATUS="✅ OK"
+            fi
+
+            echo "| $DISPLAY_NAME | $MOUNT | $SIZE | $AVAIL | ${USE_PCT}% | $STATUS |" >> $GITHUB_STEP_SUMMARY
+          }
+
+          # ── NFS — always on the external VM ────────────────────────────────
+          check_vm_disk "/srv/nfs"   "NFS Storage"
+
+          # ── ActiveMQ — always on the external VM ───────────────────────────
+          check_vm_disk "/srv/activemq" "ActiveMQ Data"
+
+          # ── Postgres — VM or in-cluster, depending on this env's mode ──────
+          if [ "$PG_MODE" = "vm" ]; then
+            check_vm_disk "/srv/postgres" "Postgres Data"
+          elif [ "$PG_MODE" = "incluster" ]; then
+            check_incluster_disk "app.kubernetes.io/name=postgresql" "mosip" \
+              "/bitnami/postgresql" "Postgres Data"
+          else
+            echo "| Postgres Data | - | - | - | - | ⚠️ postgres_mode not set for $ENV |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # ── Persist alert text for Slack ──────────────────────────────────
+          printf '%b' "$DISK_ALERTS" > /tmp/disk_alerts.txt
+
+          if [ -z "$DISK_ALERTS" ]; then
+            echo "disk_ok=true"  >> $GITHUB_OUTPUT
+          else
+            echo "disk_ok=false" >> $GITHUB_OUTPUT
+          fi
+
+      # ══════════════════════════════════════════════════════════════════════
+      # CHECK 4 — Node & cluster state (carried over + enhanced)
+      # ══════════════════════════════════════════════════════════════════════
+      - name: "[C4] Node Status"
+        id: nodes
+        run: |
+          echo "### 🖥️ Node Status" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          kubectl get nodes -o wide >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+          NOT_READY=$(kubectl get nodes --no-headers | grep -v " Ready" | wc -l)
+          TOTAL=$(kubectl get nodes --no-headers | wc -l)
+          echo "node_summary=Nodes: $((TOTAL-NOT_READY))/$TOTAL Ready" >> $GITHUB_OUTPUT
+
+          if [ "$NOT_READY" -gt 0 ]; then
+            echo "nodes_ok=false" >> $GITHUB_OUTPUT
+            echo "::error::[${{ matrix.env }}] $NOT_READY node(s) NOT Ready"
+          else
+            echo "nodes_ok=true" >> $GITHUB_OUTPUT
+          fi
+
+      # ── PVC check ─────────────────────────────────────────────────────────
+      - name: "[C4b] PVC Status"
+        run: |
+          echo "### 📦 PVC Status (non-Bound)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          UNBOUND=$(kubectl get pvc --all-namespaces | grep -v "Bound" || true)
+          [ -n "$UNBOUND" ] && echo "$UNBOUND" >> $GITHUB_STEP_SUMMARY \
+            || echo "All PVCs Bound ✔" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # ── Helm release status ───────────────────────────────────────────────
+      - name: "[C4c] Helm Release Status"
+        run: |
+          curl -sSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 \
+            | bash -s -- --version v3.14.0 > /dev/null 2>&1
+          echo "### ⎈ Failed/Pending Helm Releases" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          helm list --all-namespaces 2>/dev/null \
+            | grep -E "failed|pending-install|pending-upgrade" \
+            >> $GITHUB_STEP_SUMMARY \
+            || echo "No failed Helm releases ✔" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # ── Observability stack ───────────────────────────────────────────────
+      - name: "[C4d] Observability Stack (Loki / Alloy / Rancher Monitoring)"
+        run: |
+          echo "### 📊 Observability Stack" >> $GITHUB_STEP_SUMMARY
+          for NS in cattle-monitoring-system cattle-logging-system; do
+            EXISTS=$(kubectl get ns "$NS" --no-headers 2>/dev/null | wc -l)
+            [ "$EXISTS" -eq 0 ] && continue
+            echo "#### $NS" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            kubectl get pods -n "$NS" -o wide --no-headers \
+              | awk '{printf "%-50s %-12s %-5s\n",$1,$4,$3}' \
+              >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          done
+
+      # ── Recent warning events ─────────────────────────────────────────────
+      - name: "[C4e] Recent Warning Events (30 min)"
+        run: |
+          echo "### ⚠️ Warning Events (last 30 min)" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          kubectl get events --all-namespaces \
+            --field-selector type=Warning \
+            --sort-by='.lastTimestamp' 2>/dev/null \
+            | tail -20 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # ══════════════════════════════════════════════════════════════════════
+      # GATE — Aggregate health status
+      # ══════════════════════════════════════════════════════════════════════
+      - name: "Aggregate Health Gate"
+        id: gate
+        run: |
+          ENV="${{ matrix.env }}"
+          F="${{ steps.failing.outputs.failing_ok }}"
+          R="${{ steps.restarts.outputs.restarts_ok }}"
+          D="${{ steps.disk.outputs.disk_ok }}"
+          N="${{ steps.nodes.outputs.nodes_ok }}"
+
+          FAIL_TEXT=$(cat /tmp/fail_report.txt  2>/dev/null || true)
+          REST_TEXT=$(cat /tmp/restart_report.txt 2>/dev/null | head -5 || true)
+          DISK_TEXT=$(cat /tmp/disk_alerts.txt   2>/dev/null || true)
+
+          ISSUES=""
+          [ "$F" != "true" ] && ISSUES="$ISSUES\n*Failing services:*$FAIL_TEXT"
+          [ "$R" != "true" ] && ISSUES="$ISSUES\n*Restarts ($(date -u +%A)):*\n$(echo "$REST_TEXT" | head -5)"
+          [ "$D" != "true" ] && ISSUES="$ISSUES\n*Disk alerts:*$DISK_TEXT"
+          [ "$N" != "true" ] && ISSUES="$ISSUES\n*Node(s) NOT Ready*"
+
+          if [ -z "$ISSUES" ]; then
+            echo "all_healthy=true" >> $GITHUB_OUTPUT
+            echo "summary_text=✅ *[$ENV]* All checks passed" >> $GITHUB_OUTPUT
+            echo "### ✅ Overall: HEALTHY" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "all_healthy=false" >> $GITHUB_OUTPUT
+            SUMMARY="⚠️ *[$ENV]* Issues detected:$(printf '%b' "$ISSUES")"
+            # Escape for GitHub output
+            SUMMARY_ESCAPED="${SUMMARY//'%'/'%25'}"
+            SUMMARY_ESCAPED="${SUMMARY_ESCAPED//$'\n'/'%0A'}"
+            echo "summary_text=$SUMMARY_ESCAPED" >> $GITHUB_OUTPUT
+            echo "### ❌ Overall: UNHEALTHY" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ══════════════════════════════════════════════════════════════════════
+      # NOTIFY — Per-environment Slack notification
+      # ══════════════════════════════════════════════════════════════════════
+      - name: "Slack Notification — ${{ matrix.env }}"
+        if: always() && github.event.inputs.notify_slack != 'false'
+        run: |
+          ENV="${{ matrix.env }}"
+          CHANNEL="${{ matrix.channel }}"
+          ALL_HEALTHY="${{ steps.gate.outputs.all_healthy }}"
+          NODE_SUMMARY="${{ steps.nodes.outputs.node_summary }}"
+          WINDOW_LABEL="${{ steps.window.outputs.window_label }}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          FAIL_TEXT=$(cat /tmp/fail_report.txt   2>/dev/null || echo "")
+          REST_TEXT=$(cat /tmp/restart_report.txt 2>/dev/null | head -5 || echo "")
+          DISK_TEXT=$(cat /tmp/disk_alerts.txt    2>/dev/null || echo "")
+
+          if [ "$ALL_HEALTHY" = "true" ]; then
+            COLOR="#36a64f"
+            HEADER=":white_check_mark: [$ENV] All Services Healthy"
+            BODY="All checks passed. $NODE_SUMMARY"
+          else
+            COLOR="#e01e5a"
+            HEADER=":rotating_light: [$ENV] Health Issues Detected"
+
+            BODY=""
+            [ -n "$FAIL_TEXT" ] && BODY="$BODY\n:red_circle: *Failing Services:*$(printf '%b' "$FAIL_TEXT")"
+            [ -n "$REST_TEXT" ] && BODY="$BODY\n:arrows_counterclockwise: *Restarts (last $WINDOW_LABEL):*\n\`\`\`$(printf '%b' "$REST_TEXT")\`\`\`"
+            [ -n "$DISK_TEXT" ] && BODY="$BODY\n:floppy_disk: *Disk Alerts (>90%):*$(printf '%b' "$DISK_TEXT")"
+            BODY="$BODY\n$NODE_SUMMARY"
+          fi
+
+          PAYLOAD=$(jq -n \
+            --arg channel "$CHANNEL" \
+            --arg color "$COLOR" \
+            --arg header "$HEADER" \
+            --arg body "$BODY" \
+            --arg actor "${{ github.actor }}" \
+            --arg ts "$(date -u '+%Y-%m-%d %H:%M UTC')" \
+            --arg url "$RUN_URL" \
+            '{
+              channel: $channel,
+              attachments: [{
+                color: $color,
+                blocks: [
+                  { type: "header", text: { type: "plain_text", text: $header } },
+                  { type: "section", text: { type: "mrkdwn", text: $body } },
+                  { type: "section", fields: [
+                    { type: "mrkdwn", text: ("*Triggered by:*\n" + $actor) },
+                    { type: "mrkdwn", text: ("*Run at:*\n" + $ts) }
+                  ]},
+                  { type: "actions", elements: [{
+                    type: "button",
+                    text: { type: "plain_text", text: "View Full Report" },
+                    url: $url
+                  }]}
+                ]
+              }]
+            }')
+
+          curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
+            -H 'Content-Type: application/json' \
+            -d "$PAYLOAD"
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 2  Consolidated cross-environment summary notification
+  # ───────────────────────────────────────────────────────────────────────────
+  consolidated-summary:
+    name: Consolidated Summary
+    runs-on: ubuntu-latest
+    needs: [build-matrix, health-check]
+    if: always()
+
+    steps:
+      - name: Post consolidated Slack summary
+        if: github.event.inputs.notify_slack != 'false'
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          TS="$(date -u '+%Y-%m-%d %H:%M UTC')"
+
+          # health-check job result: success / failure / cancelled
+          HC_RESULT="${{ needs.health-check.result }}"
+
+          if [ "$HC_RESULT" = "success" ]; then
+            COLOR="#36a64f"
+            HEADER=":white_check_mark: All Environments Healthy — $TS"
+            BODY="All matrix environments passed their health checks."
+          else
+            COLOR="#e01e5a"
+            HEADER=":rotating_light: One or More Environments Have Issues — $TS"
+            BODY="Review individual environment notifications and the Actions run for details."
+          fi
+
+          PAYLOAD=$(jq -n \
+            --arg color "$COLOR" \
+            --arg header "$HEADER" \
+            --arg body "$BODY" \
+            --arg url "$RUN_URL" \
+            '{
+              attachments: [{
+                color: $color,
+                blocks: [
+                  { type: "header", text: { type: "plain_text", text: $header } },
+                  { type: "section", text: { type: "mrkdwn", text: $body } },
+                  { type: "actions", elements: [{
+                    type: "button",
+                    text: { type: "plain_text", text: "View All Environments" },
+                    url: $url
+                  }]}
+                ]
+              }]
+            }')
+
+          curl -s -X POST "${{ secrets.SLACK_WEBHOOK_URL }}" \
+            -H 'Content-Type: application/json' \
+            -d "$PAYLOAD"
