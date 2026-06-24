@@ -1,8 +1,19 @@
-# IDA
+# ID-authentication
 
 ## Install
-```
+* To install id-authentication.
+```sh
 ./install.sh
+```
+## Delete
+* To delete id-authentication.
+```sh
+./delete.sh
+```
+## Restart
+* To restart id-authentication.
+```sh
+./restart.sh
 ```
 * During the execution of the `install.sh` script, a prompt appears requesting information regarding the presence of a public domain and a valid SSL certificate on the server.
 * If the server lacks a public domain and a valid SSL certificate, it is advisable to select the `n` option. Opting it will enable the `init-container` with an `emptyDir` volume and include it in the deployment process.

@@ -7,7 +7,7 @@ if [ $# -ge 1 ]; then
 fi
 NS=keycloak
 SERVICE_NAME=keycloak
-ISTIO_ADDONS_CHART_VERSION=0.0.1-develop
+ISTIO_ADDONS_CHART_VERSION=1.0.0
 
 # Check if user has updated istio-addons-values.yaml with correct host
 echo "=============================================="
@@ -127,7 +127,7 @@ function installing_keycloak() {
   helm -n $NS install $SERVICE_NAME mosip/keycloak \
   --version "7.1.18" \
   --set image.repository=mosipid/mosip-artemis-keycloak \
-  --set image.tag=1.2.0.1 \
+  --set image.tag=1.3.0 \
   --set image.pullPolicy=Always \
   --set postgresql.image.repository=mosipid/postgresql \
   --set postgresql.image.tag=14.2.0-debian-10-r70 \

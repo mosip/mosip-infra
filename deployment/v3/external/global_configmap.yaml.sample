@@ -14,7 +14,7 @@ metadata:
 data:
   installation-name: sandbox
   installation-domain: sandbox.xyz.net
-  mosip-version: develop
+  mosip-version: v1.2.1.1
   mosip-api-host: api.sandbox.xyz.net
   mosip-api-internal-host: api-internal.sandbox.xyz.net
   mosip-prereg-host: prereg.sandbox.xyz.net
@@ -27,6 +27,7 @@ data:
   mosip-iam-external-host: iam.sandbox.xyz.net
   mosip-postgres-host: postgres.sandbox.xyz.net
   mosip-pmp-host: pmp.sandbox.xyz.net
+  mosip-pmp-revamp-ui-host: pmp-revamp.sandbox.xyz.net
   mosip-resident-host: resident.sandbox.xyz.net
   mosip-compliance-host: compliance.sandbox.xyz.net
   mosip-esignet-host: esignet.sandbox.xyz.net

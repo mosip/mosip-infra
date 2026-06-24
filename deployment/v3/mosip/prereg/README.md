@@ -4,13 +4,19 @@
 
 * Make sure your prereg UI domain name is set in [global configmap](../../cluster/global_configmap.yaml.sample)
 * Make sure this domain points to the public load balancer as PreReg UI is exposed to public.
-* Install
-  ```sh
-  ./install.sh
-  ```
 
-## Uninstall
-
+## Install
+* To install pre-registration and pre-registration-ui.
+```sh
+./install.sh
+```
+## Restart
+* To restart pre-registration and pre-registration-ui.
+```sh
+./restart.sh
+```
+## Delete
+* To delete pre-registration and pre-registration-ui.
 ```sh
 ./delete.sh
 ```

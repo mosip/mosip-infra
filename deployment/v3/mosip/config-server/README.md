@@ -8,17 +8,20 @@ Config server serves all properties required by MOSIP modules. This must be inst
 
 ## Install
 * Review `values.yaml` and make sure git repository parameters are as per your installation.
-* Install
+* To install config-server
 ```sh
 ./install.sh
 ```
-
 ## Delete
 * To delete config-server.
 ```sh
 ./delete.sh
 ```
-
+## Restart
+* To restart config-server.
+```sh
+./restart.sh
+```
 ## Enable config-server to pull configurations from local git repository.
 
 Enable Config-server to Pull Configurations from Local Repository:

@@ -7,36 +7,39 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=config-server
-CHART_VERSION=0.0.1-develop
+CHART_VERSION=0.0.2-develop
 
 read -p "Is conf-secrets module installed?(Y/n) " conf_installed
-read -p "Do you want to enable config-server to pull configurations from multiple repositories?(Y/n)( Default: n )" comp_enabled
-if [[ -z $comp_enabled ]]; then
-  comp_enabled=n
-fi
-if [ "$comp_enabled" = "Y" ]; then
-  COMPOSITE_PROFILES="true"
-else
-  COMPOSITE_PROFILES="false"
+
+echo "Please select the configuration source for config-server:"
+echo "1. Pull configurations from multiple remote repositories (Git)"
+echo "2. Pull configurations from local repository (NFS)"
+echo "3. Both (Remote Git and Local NFS)"
+read -p "Enter your choice (1/2/3) [Default: 1]: " repo_choice
+
+if [[ -z $repo_choice ]]; then
+  repo_choice=1
 fi
 
-read -p "Do you want to enable config-server to pull configurations from local repository?(Y/n)( Default: n )" local_enabled
-if [[ -z $local_enabled ]]; then
-  local_enabled=n
-fi
-
-if [ "$local_enabled" = "Y" ]; then
-  LOCALREPO="true"
-  read -p "Provide the NFS path where the local repository is cloned/maintained: " path
-  NFS_PATH="$path"
-
-  read -p "Provide the NFS IP address of the server where the local repository is cloned: " ip
-  NFS_SERVER="$ip"
-else
-  LOCALREPO="false"
-  NFS_PATH=""
-  NFS_SERVER=""
-fi
+case $repo_choice in
+  1)
+    SPRING_PROFILES="true"
+    LOCALREPO="false"
+    ;;
+  2)
+    SPRING_PROFILES="false"
+    LOCALREPO="true"
+    ;;
+  3)
+    SPRING_PROFILES="true"
+    LOCALREPO="true"
+    ;;
+  *)
+    echo "Invalid choice. Defaulting to option 1."
+    SPRING_PROFILES="true"
+    LOCALREPO="false"
+    ;;
+esac
 
 if [ $conf_installed = "Y" ]; then read -p "Is values.yaml for config-server chart set correctly as part of Pre-requisites?(Y/n) " yn; fi
 if [ $yn = "Y" ]
@@ -67,8 +70,6 @@ if [ $yn = "Y" ]
     helm -n $NS install config-server mosip/config-server \
     --set spring_profiles.enabled="$COMPOSITE_PROFILES" \
     --set localRepo.enabled="$LOCALREPO" \
-    --set volume.nfs.path="$NFS_PATH" \
-    --set volume.nfs.server="$NFS_SERVER" \
     -f values.yaml \
     --wait --version $CHART_VERSION
     echo "Installed Config-server".

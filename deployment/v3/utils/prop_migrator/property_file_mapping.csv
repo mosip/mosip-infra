@@ -1,0 +1,22 @@
+Old Property File,Latest Property File
+admin-default.properties,admin-default.properties
+application-default.properties,application-default.properties
+credential-request-default.properties,credential-request-default.properties
+credential-service-default.properties,credential-service-default.properties
+data-share-default.properties,data-share-default.properties
+digital-card-default.properties,digital-card-default.properties
+esignet-default.properties,esignet-default.properties
+hotlist-default.properties,hotlist-default.properties
+id-authentication-default.properties,id-authentication-default.properties
+id-authentication-internal-default.properties,id-authentication-internal-default.properties
+id-repository-default.properties,id-repository-default.properties
+kernel-default.properties,kernel-default.properties
+mock-abis-default.properties,mock-abis-default.properties
+mock-identity-system-default.properties,mock-identity-system-default.properties
+packet-manager-default.properties,packet-manager-default.properties
+partner-management-default.properties,partner-management-default.properties
+pre-registration-default.properties,pre-registration-default.properties
+registration-default.properties,registration-default.properties
+registration-processor-default.properties,registration-processor-default.properties
+resident-default.properties,resident-default.properties
+syncdata-default.properties,syncdata-default.properties

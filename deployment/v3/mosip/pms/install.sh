@@ -8,6 +8,7 @@ fi
 
 NS=pms
 CHART_VERSION=0.0.1-develop
+PMP_REVAMP_UI_CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -21,9 +22,9 @@ function installing_pms() {
   sed -i 's/\r$//' copy_cm.sh
   ./copy_cm.sh
 
-  INTERNAL_API_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-api-internal-host})
-  PMP_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-host})
-  PMP_REVAMP_UI_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-pmp-revamp-ui-host})
+  INTERNAL_API_HOST=$(kubectl get cm global -o jsonpath='{.data.mosip-api-internal-host}')
+  PMP_HOST=$(kubectl get cm global -o jsonpath='{.data.mosip-pmp-host}')
+  PMP_REVAMP_UI_HOST=$(kubectl get cm global -o jsonpath='{.data.mosip-pmp-revamp-ui-host}')
 
   PARTNER_MANAGER_SERVICE_NAME="pms-partner"
   POLICY_MANAGER_SERVICE_NAME="pms-policy"
@@ -58,7 +59,7 @@ function installing_pms() {
     --set pmp_revamp.react_app_policy_manager_api_base_url="https://$INTERNAL_API_HOST/v1/policymanager" \
     --set pmp_revamp.pms_partner_manager_internal_service_url="http://$PARTNER_MANAGER_SERVICE_NAME.$NS/v1/partnermanager" \
     --set pmp_revamp.pms_policy_manager_internal_service_url="http://$POLICY_MANAGER_SERVICE_NAME.$NS/v1/policymanager" \
-    --set istio.hosts=["$PMP_REVAMP_UI_HOST"] --version $CHART_VERSION
+    --set istio.hosts=["$PMP_REVAMP_UI_HOST"] --version $PMP_REVAMP_UI_CHART_VERSION
   else
     echo Skipping pmp-revamp-ui installation
   fi

@@ -17,7 +17,7 @@
     Replace <namespace> with the relevant Kubernetes namespace where the ConfigMap is stored.
     Replace <cm-name> with the name of the ConfigMap that contains the Kibana Host data.
     This command will extract and display the value of the mosip_kibana_host key from the specified ConfigMap.
-    Update the same host name in gobal_configmap and then apply.
+    Update the same host name in global_configmap.yaml and then apply.
   * Update the domain names in `global_configmap.yaml` and execute:
     ```
     kubectl apply -f global_configmap.yaml

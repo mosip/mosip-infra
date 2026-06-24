@@ -26,7 +26,7 @@ subprocess.run(["git", "clone", "--branch", latest_repo_branch, latest_repo_url,
 
 # Retrieve property file pairs from CSV
 property_file_pairs = []
-csv_file = "propert_file_mapping.csv"
+csv_file = "property_file_mapping.csv"
 with open(csv_file, 'r') as file:
     reader = csv.reader(file)
     for row in reader:

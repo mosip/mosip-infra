@@ -1,0 +1,3 @@
+db:
+  host: "postgres-postgresql.postgres"
+  port: 5432

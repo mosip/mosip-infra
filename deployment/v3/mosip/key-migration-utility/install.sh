@@ -10,7 +10,7 @@ NS=key-migration-utility
 CHART_VERSION=0.0.1-develop
 
 echo Creating $NS namespace
-kubectl create ns $NS
+kubectl get ns "$NS" || kubectl create ns "$NS"
 
 function installing_key_migration_utility() {
 

@@ -35,11 +35,11 @@ ApiTestRig will test the working of APIs of the MOSIP modules.
   ![apitestrig-1.png](../../docs/images/apitestrig-1.png)
 * Install `kubectl` package to your local machine.
 * Run apitestrig manually via CLI by creating a new job from an existing k8s cronjob.
-  ```
+  ```bash
   kubectl --kubeconfig=<k8s-config-file> -n apitestrig create job --from=cronjob/<cronjob-name> <job-name>
   ```
   example: 
-  ```
+  ```bash
   kubectl --kubeconfig=/home/xxx/Downloads/qa4.config -n apitestrig create job --from=cronjob/cronjob-apitestrig-masterdata cronjob-apitestrig-masterdata
   ```
 

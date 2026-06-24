@@ -8,6 +8,7 @@ fi
 
 NS=regproc
 CHART_VERSION=0.0.1-develop
+SALTGEN_CHART_VERSION=0.0.1-develop
 
 echo Create $NS namespace
 kubectl create ns $NS
@@ -22,7 +23,7 @@ function installing_regproc() {
   ./copy_cm.sh
 
   echo Running regproc-salt job
-  helm -n $NS install regproc-salt mosip/regproc-salt --version $CHART_VERSION --wait --wait-for-jobs
+  helm -n $NS install regproc-salt mosip/regproc-salt --version $SALTGEN_CHART_VERSION --wait --wait-for-jobs
 
   echo Installing regproc-workflow
   helm -n $NS install regproc-workflow mosip/regproc-workflow --version $CHART_VERSION
