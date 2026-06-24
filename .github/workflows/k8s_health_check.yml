@@ -112,8 +112,8 @@ jobs:
           sudo chmod 644 /lib/systemd/system/wg-quick@.service
           sudo systemctl daemon-reload
           sudo ls /etc/wireguard
-          sudo wg-quick up wg0.conf
-          sudo wg show wg0.conf
+          sudo wg-quick up wg0
+          sudo wg show wg0
 
       # ── Kubeconfig — secret per env ───────────────────────────────────────
       # Secret naming convention: KUBECONFIG_QA21, KUBECONFIG_DEV1, etc.
