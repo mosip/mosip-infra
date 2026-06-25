@@ -115,6 +115,23 @@ jobs:
           sudo wg-quick up wg0
           sudo wg show wg0
 
+      - name: Debug connectivity
+        run: |
+          echo "=== WireGuard status ==="
+          sudo wg show
+
+          echo "=== Routes ==="
+          ip route show
+
+          echo "=== DNS resolution ==="
+          nslookup rancher.mosip.net
+
+          echo "=== Ping private IP ==="
+          ping -c 3 172.31.15.240 || true
+
+          echo "=== Curl Rancher API ==="
+          curl -sk --max-time 10 https://172.31.15.240/ping || true
+
       # ── Kubeconfig — secret per env ───────────────────────────────────────
       # Secret naming convention: KUBECONFIG_QA21, KUBECONFIG_DEV1, etc.
       - name: Write kubeconfig
