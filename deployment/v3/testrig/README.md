@@ -15,6 +15,10 @@ Install in the following order:
 * [Authdemo](authdemo/README.md)
 * [DSLRIG](dslrig/README.md)
 
+### qajava21 (dev space)
+For the qajava21 Java 21 environment with `dev` in the `default` namespace global configmap, use the bundled installer:
+* [qajava21-dev](qajava21-dev/README.md)
+
 ## Delete
 * Follow the steps mentioned in the below links to uninstall DSLRIG.
     * [DSLRIG](dslrig/README.md#uninstall)
