@@ -1,0 +1,31 @@
+## Global configmap for qajava21 environment with dev space.
+## Apply to the default namespace before installing packetcreator and dslrig:
+##   kubectl --kubeconfig=<qajava21.config> apply -f global_configmap.qajava21-dev.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global
+  namespace: default
+data:
+  installation-name: dev
+  installation-domain: qajava21.mosip.net
+  mosip-version: develop
+  mosip-api-host: api.qajava21.mosip.net
+  mosip-api-internal-host: api-internal.qajava21.mosip.net
+  mosip-prereg-host: prereg.qajava21.mosip.net
+  mosip-activemq-host: activemq.qajava21.mosip.net
+  mosip-kibana-host: kibana.qajava21.mosip.net
+  mosip-admin-host: admin.qajava21.mosip.net
+  mosip-regclient-host: regclient.qajava21.mosip.net
+  mosip-minio-host: minio.qajava21.mosip.net
+  mosip-kafka-host: kafka.qajava21.mosip.net
+  mosip-iam-external-host: iam.qajava21.mosip.net
+  mosip-postgres-host: postgres.qajava21.mosip.net
+  mosip-pmp-host: pmp.qajava21.mosip.net
+  mosip-pmp-revamp-ui-host: pmp-revamp.qajava21.mosip.net
+  mosip-resident-host: resident.qajava21.mosip.net
+  mosip-compliance-host: compliance.qajava21.mosip.net
+  mosip-esignet-host: esignet.qajava21.mosip.net
+  mosip-smtp-host: smtp.qajava21.mosip.net
+  mosip-signup-host: signup.qajava21.mosip.net
+  is_glowroot_env: absent
