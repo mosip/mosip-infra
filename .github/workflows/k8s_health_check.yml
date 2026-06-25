@@ -306,7 +306,7 @@ jobs:
           THRESHOLD=90
           VM_HOST="${{ matrix.vm_host }}"
           PG_MODE="${{ matrix.postgres_mode }}"
-          SSH_USER="${SSH_USER_OVERRIDE:-mosip}"
+          SSH_USER="${SSH_USER_OVERRIDE:-ubuntu}"
           SSH_OPTS="-i ~/.ssh/disk_check_key -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new"
 
           echo "### 💽 Disk Space (alert threshold: ${THRESHOLD}%)" >> $GITHUB_STEP_SUMMARY
