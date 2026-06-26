@@ -55,6 +55,8 @@ jobs:
 
           INPUT="${{ github.event.inputs.environments }}"
 
+          INPUT=$(echo "$INPUT" | tr -d ' ')
+
           if [ -z "$INPUT" ]; then
             # No filter — run all
             MATRIX=$(echo "$ALL_ENVS" | jq -c '{include: .}')
