@@ -304,6 +304,7 @@ jobs:
 
       - name: "[C3] Disk Space Checks (NFS / Postgres / ActiveMQ)"
         id: disk
+        timeout-minutes: 3
         run: |
           ENV="${{ matrix.env }}"
           THRESHOLD=90
@@ -311,35 +312,46 @@ jobs:
           PG_MODE="${{ matrix.postgres_mode }}"
           SSH_USER="${SSH_USER_OVERRIDE:-ubuntu}"
           SSH_OPTS="-i ~/.ssh/disk_check_key -o ConnectTimeout=10 -o StrictHostKeyChecking=accept-new"
-
+        
           echo "### 💽 Disk Space (alert threshold: ${THRESHOLD}%)" >> $GITHUB_STEP_SUMMARY
           echo "| Storage Target | Mount | Size | Available | Used% | Status |" >> $GITHUB_STEP_SUMMARY
           echo "|---|---|---|---|---|---|" >> $GITHUB_STEP_SUMMARY
-
+        
           DISK_ALERTS=""
-
+        
           # ── Helper: run df over SSH on the external VM, parse one mount ───────
           check_vm_disk() {
             local MOUNT="$1"
             local DISPLAY_NAME="$2"
-
+        
             if [ -z "$VM_HOST" ]; then
               echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ no vm_host configured |" >> $GITHUB_STEP_SUMMARY
               return
             fi
-
-            DF_OUT=$(ssh $SSH_OPTS "${SSH_USER}@${VM_HOST}" "df -h ${MOUNT} 2>/dev/null" 2>/tmp/ssh_err.log || true)
-
+        
+            # ── Check if mount path exists on the VM before running df ──────
+            MOUNT_EXISTS=$(ssh $SSH_OPTS "${SSH_USER}@${VM_HOST}" \
+              "mountpoint -q ${MOUNT} && echo yes || echo no" 2>/dev/null || echo "no")
+        
+            if [ "$MOUNT_EXISTS" != "yes" ]; then
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⏭️ not mounted, skipped |" >> $GITHUB_STEP_SUMMARY
+              return
+            fi
+        
+            # ── Mount exists — run df with a 30s timeout ─────────────────────
+            DF_OUT=$(ssh $SSH_OPTS "${SSH_USER}@${VM_HOST}" \
+              "timeout 30 df -h ${MOUNT} 2>/dev/null" 2>/tmp/ssh_err.log || true)
+        
             if [ -z "$DF_OUT" ] || ! echo "$DF_OUT" | grep -q "%"; then
               echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ SSH/df failed |" >> $GITHUB_STEP_SUMMARY
               echo "::warning::[$ENV] Could not read $DISPLAY_NAME ($MOUNT) on $VM_HOST — $(cat /tmp/ssh_err.log)"
               return
             fi
-
+        
             USE_PCT=$(echo "$DF_OUT" | awk 'NR==2 {gsub(/%/,"",$5); print $5}')
             AVAIL=$(echo "$DF_OUT"   | awk 'NR==2 {print $4}')
             SIZE=$(echo "$DF_OUT"    | awk 'NR==2 {print $2}')
-
+        
             if [ "$USE_PCT" -ge "$THRESHOLD" ] 2>/dev/null; then
               STATUS="🔴 ALERT"
               DISK_ALERTS="$DISK_ALERTS\n• $DISPLAY_NAME ($MOUNT) on $VM_HOST: ${USE_PCT}% used (${AVAIL} free of ${SIZE})"
@@ -349,35 +361,39 @@ jobs:
             else
               STATUS="✅ OK"
             fi
-
+        
             echo "| $DISPLAY_NAME | $MOUNT | $SIZE | $AVAIL | ${USE_PCT}% | $STATUS |" >> $GITHUB_STEP_SUMMARY
           }
-
+        
           # ── Helper: run df inside an in-cluster pod, parse one mount ──────────
           check_incluster_disk() {
             local LABEL_SEL="$1"
             local NS="$2"
             local MOUNT="$3"
             local DISPLAY_NAME="$4"
-
+        
             POD=$(kubectl get pods -n "$NS" -l "$LABEL_SEL" \
               --no-headers -o custom-columns=":metadata.name" 2>/dev/null | head -1)
-
+        
             if [ -z "$POD" ]; then
               echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ pod not found (ns=$NS) |" >> $GITHUB_STEP_SUMMARY
               return
             fi
-
-            DF_OUT=$(kubectl exec -n "$NS" "$POD" -- df -h "$MOUNT" 2>/dev/null || true)
+        
+            # ── kubectl exec with 30s timeout — prevents hung NFS mounts blocking forever ──
+            DF_OUT=$(timeout 30s kubectl exec -n "$NS" "$POD" -- \
+              df -h "$MOUNT" 2>/dev/null || true)
+        
             if [ -z "$DF_OUT" ]; then
-              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ exec failed in $POD |" >> $GITHUB_STEP_SUMMARY
+              echo "| $DISPLAY_NAME | $MOUNT | - | - | - | ⚠️ exec timed out or failed in $POD |" >> $GITHUB_STEP_SUMMARY
+              echo "::warning::[$ENV] kubectl exec timed out for $DISPLAY_NAME in $POD — possible hung NFS mount"
               return
             fi
-
+        
             USE_PCT=$(echo "$DF_OUT" | awk 'NR==2 {gsub(/%/,"",$5); print $5}')
             AVAIL=$(echo "$DF_OUT"   | awk 'NR==2 {print $4}')
             SIZE=$(echo "$DF_OUT"    | awk 'NR==2 {print $2}')
-
+        
             if [ "$USE_PCT" -ge "$THRESHOLD" ] 2>/dev/null; then
               STATUS="🔴 ALERT"
               DISK_ALERTS="$DISK_ALERTS\n• $DISPLAY_NAME (in-cluster, $POD): ${USE_PCT}% used (${AVAIL} free of ${SIZE})"
@@ -387,16 +403,16 @@ jobs:
             else
               STATUS="✅ OK"
             fi
-
+        
             echo "| $DISPLAY_NAME | $MOUNT | $SIZE | $AVAIL | ${USE_PCT}% | $STATUS |" >> $GITHUB_STEP_SUMMARY
           }
-
+        
           # ── NFS — always on the external VM ────────────────────────────────
-          check_vm_disk "/srv/nfs"   "NFS Storage"
-
-          # ── ActiveMQ — always on the external VM ───────────────────────────
+          check_vm_disk "/srv/nfs" "NFS Storage"
+        
+          # ── ActiveMQ — always on the external VM (skipped if not mounted) ──
           check_vm_disk "/srv/activemq" "ActiveMQ Data"
-
+        
           # ── Postgres — VM or in-cluster, depending on this env's mode ──────
           if [ "$PG_MODE" = "vm" ]; then
             check_vm_disk "/srv/postgres" "Postgres Data"
@@ -406,10 +422,10 @@ jobs:
           else
             echo "| Postgres Data | - | - | - | - | ⚠️ postgres_mode not set for $ENV |" >> $GITHUB_STEP_SUMMARY
           fi
-
+        
           # ── Persist alert text for Slack ──────────────────────────────────
           printf '%b' "$DISK_ALERTS" > /tmp/disk_alerts.txt
-
+        
           if [ -z "$DISK_ALERTS" ]; then
             echo "disk_ok=true"  >> $GITHUB_OUTPUT
           else
