@@ -16,7 +16,7 @@ on:
           Environments to check (comma-separated). Leave BLANK to run ALL.
           Valid values: qajava21, integ, pilot
         required: false
-        default: 'qajava21'         # blank = ALL (same behaviour as the cron trigger)
+        default: 'qajava21, dev-int-inji'         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
         description: 'Send Slack notifications?'
         required: false
@@ -48,6 +48,7 @@ jobs:
           #                  "incluster" : postgres lives in k8s, checked via kubectl exec
           ALL_ENVS='[
             {"env":"qajava21",  "channel":"#cluster_health",  "vm_host":"postgres.qajava21.mosip.net",  "postgres_mode":"vm"},
+            {"env":"dev-int-inji",  "channel":"#cluster_health",  "vm_host":"postgres.dev-int-inji.mosip.net",  "postgres_mode":"incluster"},
             {"env":"integ", "channel":"#mosip-integ", "vm_host":"integ-utils.mosip.net", "postgres_mode":"incluster"},
             {"env":"pilot", "channel":"#mosip-pilot", "vm_host":"pilot-utils.mosip.net", "postgres_mode":"vm"}
           ]'
@@ -104,16 +105,17 @@ jobs:
       - name: Configure WireGuard
         run: |
           echo "${{ secrets.CLUSTER_WIREGUARD_WG0 }}" | sudo tee /etc/wireguard/wg0.conf
+          echo "${{ secrets.CLUSTER_WIREGUARD_WG1 }}" | sudo tee /etc/wireguard/wg1.conf
 
       - name: Start WireGuard
         run: |
-          sudo chmod 600 /etc/wireguard/wg0.conf
+          sudo chmod 600 /etc/wireguard/${{ matrix.wg_conf }}.conf
           sudo chmod 700 /etc/wireguard/
           sudo chmod 644 /lib/systemd/system/wg-quick@.service
           sudo systemctl daemon-reload
           sudo ls /etc/wireguard
-          sudo wg-quick up wg0
-          sudo wg show wg0
+          sudo wg-quick up ${{ matrix.wg_conf }}
+          sudo wg show ${{ matrix.wg_conf }}
 
       - name: Debug connectivity
         run: |
@@ -462,7 +464,7 @@ jobs:
       - name: "[C4d] Observability Stack (Loki / Alloy / Rancher Monitoring)"
         run: |
           echo "### 📊 Observability Stack" >> $GITHUB_STEP_SUMMARY
-          for NS in cattle-monitoring-system cattle-logging-system; do
+          for NS in cattle-monitoring-system loki-monitoring; do
             EXISTS=$(kubectl get ns "$NS" --no-headers 2>/dev/null | wc -l)
             [ "$EXISTS" -eq 0 ] && continue
             echo "#### $NS" >> $GITHUB_STEP_SUMMARY
