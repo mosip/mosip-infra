@@ -16,11 +16,11 @@ on:
           Environments to check (comma-separated). Leave BLANK to run ALL.
           Valid values: qajava21, integ, pilot
         required: false
-        default: 'qajava21, esperf'         # blank = ALL (same behaviour as the cron trigger)
+        default: 'ALL'         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
         description: 'Send Slack notifications?'
         required: false
-        default: 'false'
+        default: 'true'
         type: boolean
 
 # ── One job per environment in parallel via matrix ──────────────────────────
@@ -50,8 +50,13 @@ jobs:
             {"env":"qajava21",  "channel":"#cluster_health",  "vm_host":"postgres.qajava21.mosip.net",  "postgres_mode":"vm"},
             {"env":"esperf",  "channel":"#cluster_health",  "vm_host":"postgres.esperf.mosip.net",  "postgres_mode":"incluster"}, 
             {"env":"dev-int-inji",  "channel":"#cluster_health",  "vm_host":"postgres.dev-int-inji.mosip.net",  "postgres_mode":"incluster"},
-            {"env":"integ", "channel":"#mosip-integ", "vm_host":"integ-utils.mosip.net", "postgres_mode":"incluster"},
-            {"env":"pilot", "channel":"#mosip-pilot", "vm_host":"pilot-utils.mosip.net", "postgres_mode":"vm"}
+            {"env":"dev", "channel":"#cluster_health", "vm_host":"postgres.dev.mosip.net", "postgres_mode":"vm"},
+            {"env":"dev11", "channel":"#cluster_health", "vm_host":"postgres.dev11.mosip.net", "postgres_mode":"vm"}
+            {"env":"dev2",  "channel":"#cluster_health",  "vm_host":"postgres.dev2.mosip.net",  "postgres_mode":"vm"},
+            {"env":"esdev",  "channel":"#cluster_health",  "vm_host":"postgres.esdev.mosip.net",  "postgres_mode":"incluster"},
+            {"env":"esqa2",  "channel":"#cluster_health",  "vm_host":"postgres.esqa2.mosip.net",  "postgres_mode":"incluster"},
+            {"env":"qa11new",  "channel":"#cluster_health",  "vm_host":"postgres.qa11new.mosip.net",  "postgres_mode":"vm"},
+            {"env":"qainji",  "channel":"#cluster_health",  "vm_host":"postgres.qainji.mosip.net",  "postgres_mode":"incluster"},
           ]'
 
 
@@ -146,8 +151,13 @@ jobs:
           KUBECONFIG_QAJAVA21:     ${{ secrets.KUBECONFIG_QAJAVA21 }}
           KUBECONFIG_DEV_INT_INJI: ${{ secrets.KUBECONFIG_DEV_INT_INJI }}
           KUBECONFIG_ESPERF:       ${{ secrets.KUBECONFIG_ESPERF }}
-          KUBECONFIG_INTEG:        ${{ secrets.KUBECONFIG_INTEG }}
-          KUBECONFIG_PILOT:        ${{ secrets.KUBECONFIG_PILOT }}
+          KUBECONFIG_DEV:        ${{ secrets.KUBECONFIG_DEV }}
+          KUBECONFIG_DEV11:        ${{ secrets.KUBECONFIG_DEV11 }}
+          KUBECONFIG_DEV2:        ${{ secrets.KUBECONFIG_DEV2 }}
+          KUBECONFIG_ESDEV:        ${{ secrets.KUBECONFIG_ESDEV }}
+          KUBECONFIG_ESQA2:        ${{ secrets.KUBECONFIG_ESQA2 }}
+          KUBECONFIG_QA11NEW:        ${{ secrets.KUBECONFIG_QA11NEW }}
+          KUBECONFIG_QAINJI:        ${{ secrets.KUBECONFIG_QAINJI }}
           # ── Add a new line here for every new environment ──────────────
         run: |
           mkdir -p $HOME/.kube
