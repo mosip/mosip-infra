@@ -16,7 +16,7 @@ on:
           Environments to check (comma-separated). Leave BLANK to run ALL.
           Valid values: qajava21, integ, pilot
         required: false
-        default: 'qajava21, dev_int_inji'         # blank = ALL (same behaviour as the cron trigger)
+        default: 'qajava21, esperf'         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
         description: 'Send Slack notifications?'
         required: false
@@ -48,6 +48,7 @@ jobs:
           #                  "incluster" : postgres lives in k8s, checked via kubectl exec
           ALL_ENVS='[
             {"env":"qajava21",  "channel":"#cluster_health",  "vm_host":"postgres.qajava21.mosip.net",  "postgres_mode":"vm"},
+            {"env":"esperf",  "channel":"#cluster_health",  "vm_host":"postgres.esperf.mosip.net",  "postgres_mode":"incluster"}, 
             {"env":"dev-int-inji",  "channel":"#cluster_health",  "vm_host":"postgres.dev-int-inji.mosip.net",  "postgres_mode":"incluster"},
             {"env":"integ", "channel":"#mosip-integ", "vm_host":"integ-utils.mosip.net", "postgres_mode":"incluster"},
             {"env":"pilot", "channel":"#mosip-pilot", "vm_host":"pilot-utils.mosip.net", "postgres_mode":"vm"}
