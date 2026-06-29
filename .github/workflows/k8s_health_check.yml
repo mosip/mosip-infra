@@ -138,21 +138,40 @@ jobs:
           curl -sk --max-time 10 https://172.31.15.240/ping || true
 
       # ── Kubeconfig — secret per env ───────────────────────────────────────
-      # Secret naming convention: KUBECONFIG_QA21, KUBECONFIG_DEV1, etc.
+      # Secret naming convention: KUBECONFIG_QAJAVA21, KUBECONFIG_DEV_INT_INJI, etc.
+      # Rule: env name → uppercase + hyphens replaced with underscores
+      # e.g. dev-int-inji → KUBECONFIG_DEV_INT_INJI
       - name: Write kubeconfig
+        env:
+          KUBECONFIG_QAJAVA21:     ${{ secrets.KUBECONFIG_QAJAVA21 }}
+          KUBECONFIG_DEV_INT_INJI: ${{ secrets.KUBECONFIG_DEV_INT_INJI }}
+          KUBECONFIG_ESPERF:       ${{ secrets.KUBECONFIG_ESPERF }}
+          KUBECONFIG_INTEG:        ${{ secrets.KUBECONFIG_INTEG }}
+          KUBECONFIG_PILOT:        ${{ secrets.KUBECONFIG_PILOT }}
+          # ── Add a new line here for every new environment ──────────────
         run: |
           mkdir -p $HOME/.kube
-          ENV_UPPER=$(echo "${{ matrix.env }}" | tr '[:lower:]' '[:upper:]' | tr '-' '_')
-          SECRET_NAME="KUBECONFIG_${ENV_UPPER}"
-          # GitHub doesn't support dynamic secret access directly;
-          # we pass all secrets as env vars and pick the right one.
-          # See README for the secrets:set-all helper script.
+      
+          # Convert env name to secret key: dev-int-inji → KUBECONFIG_DEV_INT_INJI
+          ENV_KEY="KUBECONFIG_$(echo '${{ matrix.env }}' | tr '[:lower:]-' '[:upper:]_')"
+          echo "Resolving secret: $ENV_KEY"
+      
+          # Indirect variable expansion — picks the right env var at runtime
+          KUBECONFIG_DATA="${!ENV_KEY}"
+      
+          if [ -z "$KUBECONFIG_DATA" ]; then
+            echo "::error::Secret $ENV_KEY is empty or not set."
+            echo "::error::Create it with: gh secret set $ENV_KEY --body \"\$(base64 -w0 ~/.kube/config-${{ matrix.env }})\""
+            exit 1
+          fi
+      
           echo "$KUBECONFIG_DATA" | base64 -d > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
-        env:
-          # Map every env's kubeconfig into a single variable using a wrapper secret
-          # KUBECONFIG_DATA is resolved by the per-env secret (see setup instructions)
-          KUBECONFIG_DATA: ${{ secrets[format('KUBECONFIG_{0}', matrix.env)] }}
+      
+          # Verify the kubeconfig decoded correctly
+          echo "✅ kubeconfig written for ${{ matrix.env }}"
+          kubectl config view --minify 2>/dev/null | grep server \
+            || { echo "::error::kubeconfig decoded but has no server entry — check the secret value"; exit 1; }
 
       # ── Compute restart lookback window ───────────────────────────────────
       - name: Compute restart window
