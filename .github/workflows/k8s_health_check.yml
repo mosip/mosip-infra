@@ -16,11 +16,11 @@ on:
           Environments to check (comma-separated). Leave BLANK to run ALL.
           Valid values: qajava21, integ, pilot
         required: false
-        default: 'qajava21, dev-int-inji'         # blank = ALL (same behaviour as the cron trigger)
+        default: 'qajava21, dev_int_inji'         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
         description: 'Send Slack notifications?'
         required: false
-        default: 'true'
+        default: 'false'
         type: boolean
 
 # ── One job per environment in parallel via matrix ──────────────────────────
@@ -52,6 +52,7 @@ jobs:
             {"env":"integ", "channel":"#mosip-integ", "vm_host":"integ-utils.mosip.net", "postgres_mode":"incluster"},
             {"env":"pilot", "channel":"#mosip-pilot", "vm_host":"pilot-utils.mosip.net", "postgres_mode":"vm"}
           ]'
+
 
           INPUT="${{ github.event.inputs.environments }}"
 
