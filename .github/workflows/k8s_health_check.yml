@@ -51,12 +51,12 @@ jobs:
             {"env":"esperf",  "channel":"#cluster_health",  "vm_host":"postgres.esperf.mosip.net",  "postgres_mode":"incluster"}, 
             {"env":"dev-int-inji",  "channel":"#cluster_health",  "vm_host":"postgres.dev-int-inji.mosip.net",  "postgres_mode":"incluster"},
             {"env":"dev", "channel":"#cluster_health", "vm_host":"postgres.dev.mosip.net", "postgres_mode":"vm"},
-            {"env":"dev11", "channel":"#cluster_health", "vm_host":"postgres.dev11.mosip.net", "postgres_mode":"vm"}
+            {"env":"dev11", "channel":"#cluster_health", "vm_host":"postgres.dev11.mosip.net", "postgres_mode":"vm"},
             {"env":"dev2",  "channel":"#cluster_health",  "vm_host":"postgres.dev2.mosip.net",  "postgres_mode":"vm"},
             {"env":"esdev",  "channel":"#cluster_health",  "vm_host":"postgres.esdev.mosip.net",  "postgres_mode":"incluster"},
             {"env":"esqa2",  "channel":"#cluster_health",  "vm_host":"postgres.esqa2.mosip.net",  "postgres_mode":"incluster"},
             {"env":"qa11new",  "channel":"#cluster_health",  "vm_host":"postgres.qa11new.mosip.net",  "postgres_mode":"vm"},
-            {"env":"qainji",  "channel":"#cluster_health",  "vm_host":"postgres.qainji.mosip.net",  "postgres_mode":"incluster"},
+            {"env":"qainji",  "channel":"#cluster_health",  "vm_host":"postgres.qainji.mosip.net",  "postgres_mode":"incluster"}
           ]'
 
 
