@@ -88,6 +88,7 @@ jobs:
     if: needs.build-matrix.outputs.matrix != ''
     strategy:
       fail-fast: false          # Don't cancel other envs if one fails
+      max-parallel: 1
       matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
 
     outputs:
