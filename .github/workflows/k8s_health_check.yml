@@ -16,7 +16,7 @@ on:
           Environments to check (comma-separated). Leave BLANK to run ALL.
           Valid values: qajava21, integ, pilot
         required: false
-        default: 'ALL'         # blank = ALL (same behaviour as the cron trigger)
+        default: ''         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
         description: 'Send Slack notifications?'
         required: false
