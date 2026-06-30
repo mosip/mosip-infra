@@ -121,11 +121,12 @@ Environments are defined in the `build-matrix` job inside the workflow file:
 {"env":"qainji",       "channel":"#cluster_health", "vm_host":"postgres.qainji.mosip.net",       "postgres_mode":"incluster"}
 ```
 
+
 | Field | Description |
 |---|---|
 | `env` | Environment name — used in secret lookup, Slack messages, step headers |
 | `channel` | Slack channel for that environment's alert |
-| `vm_host` | External VM to SSH into for NFS / ActiveMQ / Postgres disk checks |
+|`vm_host` | External VM to SSH into for NFS and ActiveMQ disk checks (always), plus Postgres disk checks when `postgres_mode` is `vm`. When `postgres_mode` is `incluster`, Postgres disk usage is checked via `kubectl exec` instead. |
 | `postgres_mode` | `vm` = Postgres is on the external VM · `incluster` = Postgres runs inside Kubernetes |
 
 ---

@@ -14,7 +14,7 @@ on:
       environments:
         description: |
           Environments to check (comma-separated). Leave BLANK to run ALL.
-          Valid values: qajava21, integ, pilot
+          Valid values: qajava21, esperf, dev-int-inji, dev, dev11, dev2, esdev, esqa2, qa11new, qainji
         required: false
         default: ''         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
@@ -104,9 +104,9 @@ jobs:
 
       - name: Setup ufw firewall
         run: |
-          sudo ufw enable
           sudo ufw allow ssh
           sudo ufw allow 51820/udp
+          sudo ufw --force enable
           sudo ufw status  
 
       - name: Install WireGuard
