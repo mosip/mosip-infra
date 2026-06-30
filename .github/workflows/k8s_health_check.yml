@@ -14,7 +14,7 @@ on:
       environments:
         description: |
           Environments to check (comma-separated). Leave BLANK to run ALL.
-          Valid values: qajava21, esperf, dev-int-inji, dev, dev11, dev2, esdev, esqa2, qa11new, qainji
+          Valid values: qajava21, esperf, dev-int-inji, dev, dev11, dev2, esdev, esqa2, qa11new, qainji, collab, released, synergy1
         required: false
         default: ''         # blank = ALL (same behaviour as the cron trigger)
       notify_slack:
@@ -57,6 +57,9 @@ jobs:
             {"env":"esqa2",  "channel":"#cluster_health",  "vm_host":"postgres.esqa2.mosip.net",  "postgres_mode":"incluster"},
             {"env":"qa11new",  "channel":"#cluster_health",  "vm_host":"postgres.qa11new.mosip.net",  "postgres_mode":"vm"},
             {"env":"qainji",  "channel":"#cluster_health",  "vm_host":"postgres.qainji.mosip.net",  "postgres_mode":"incluster"}
+            {"env":"collab",  "channel":"#cluster_health",  "vm_host":"postgres.collab.mosip.net",  "postgres_mode":"vm"}
+            {"env":"released",  "channel":"#cluster_health",  "vm_host":"postgres.released.mosip.net",  "postgres_mode":"vm"}
+            {"env":"synergy1",  "channel":"#cluster_health",  "vm_host":"postgres.synergy.mosip.net",  "postgres_mode":"vm"}
           ]'
 
 
@@ -159,6 +162,10 @@ jobs:
           KUBECONFIG_ESQA2:        ${{ secrets.KUBECONFIG_ESQA2 }}
           KUBECONFIG_QA11NEW:        ${{ secrets.KUBECONFIG_QA11NEW }}
           KUBECONFIG_QAINJI:        ${{ secrets.KUBECONFIG_QAINJI }}
+          KUBECONFIG_COLLAB:        ${{ secrets.KUBECONFIG_COLLAB }}
+          KUBECONFIG_RELEASED:        ${{ secrets.KUBECONFIG_RELEASED }}
+          KUBECONFIG_SYNERGY1:        ${{ secrets.KUBECONFIG_SYNERGY1 }}
+
           # ── Add a new line here for every new environment ──────────────
         run: |
           mkdir -p $HOME/.kube
