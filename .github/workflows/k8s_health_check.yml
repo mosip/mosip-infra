@@ -286,45 +286,46 @@ jobs:
           ENV="${{ matrix.env }}"
           WINDOW_H="${{ steps.window.outputs.window_hours }}"
           WINDOW_LABEL="${{ steps.window.outputs.window_label }}"
-
+      
           echo "### 🔁 Pod Restarts — Last $WINDOW_LABEL" >> $GITHUB_STEP_SUMMARY
-
-          # kubectl doesn't expose restart timestamps directly.
-          # We use pod start-time as a proxy: if a pod started within the window
-          # AND has restarts > 0, it restarted within the window.
+      
+          # We detect restarts via container lastState.terminated.finishedAt — the
+          # actual time a container last died/restarted — rather than pod startTime,
+          # which only reflects when the pod was first scheduled.
           CUTOFF_EPOCH=$(date -u -d "-${WINDOW_H} hours" +%s)
-
+      
           RESTART_REPORT=""
-
-          while IFS= read -r line; do
-            NS=$(echo "$line" | awk '{print $1}')
-            POD=$(echo "$line" | awk '{print $2}')
-            RESTARTS=$(echo "$line" | awk '{print $5}')
-            START_RAW=$(echo "$line" | awk '{print $6}')
-
+      
+          while IFS=$'\t' read -r NS POD RESTARTS LAST_RESTART; do
             [ "$RESTARTS" = "0" ] && continue
-            [ -z "$START_RAW" ] || [ "$START_RAW" = "<unknown>" ] && continue
-
-            # Parse start time
-            START_EPOCH=$(date -u -d "$START_RAW" +%s 2>/dev/null || echo 0)
-            [ "$START_EPOCH" -lt "$CUTOFF_EPOCH" ] && continue
-
-            RESTART_REPORT="$RESTART_REPORT\n$(printf "%-40s %-45s %s restart(s) since %s" "$NS" "$POD" "$RESTARTS" "$START_RAW")"
-          done < <(kubectl get pods --all-namespaces --no-headers 2>/dev/null || true)
-
+            [ -z "$LAST_RESTART" ] || [ "$LAST_RESTART" = "null" ] && continue
+      
+            RESTART_EPOCH=$(date -u -d "$LAST_RESTART" +%s 2>/dev/null || echo 0)
+            [ "$RESTART_EPOCH" -lt "$CUTOFF_EPOCH" ] && continue
+      
+            RESTART_REPORT="$RESTART_REPORT\n$(printf "%-40s %-45s %s restart(s), last at %s" "$NS" "$POD" "$RESTARTS" "$LAST_RESTART")"
+          done < <(kubectl get pods --all-namespaces -o json 2>/dev/null \
+            | jq -r '.items[]
+                | .metadata.namespace as $ns
+                | .metadata.name as $pod
+                | ([.status.containerStatuses[]?.restartCount] | add // 0) as $restarts
+                | ([.status.containerStatuses[]?.lastState.terminated.finishedAt] | map(select(. != null)) | max) as $last
+                | "\($ns)\t\($pod)\t\($restarts)\t\($last // "null")"' \
+            || true)
+      
           if [ -z "$RESTART_REPORT" ]; then
             echo "✅ No pods restarted in last $WINDOW_LABEL" >> $GITHUB_STEP_SUMMARY
             echo "restarts_ok=true" >> $GITHUB_OUTPUT
           else
             echo "restarts_ok=false" >> $GITHUB_OUTPUT
             echo '```' >> $GITHUB_STEP_SUMMARY
-            printf "%-40s %-45s %s\n" "NAMESPACE" "POD" "RESTARTS / START-TIME" >> $GITHUB_STEP_SUMMARY
+            printf "%-40s %-45s %s\n" "NAMESPACE" "POD" "RESTARTS / LAST-RESTART" >> $GITHUB_STEP_SUMMARY
             printf '%b\n' "$RESTART_REPORT" >> $GITHUB_STEP_SUMMARY
             echo '```' >> $GITHUB_STEP_SUMMARY
             COUNT=$(printf '%b\n' "$RESTART_REPORT" | wc -l)
             echo "::warning::[$ENV] $COUNT pod(s) restarted within last $WINDOW_LABEL"
           fi
-
+      
           printf '%b' "$RESTART_REPORT" > /tmp/restart_report.txt
 
       # ══════════════════════════════════════════════════════════════════════
@@ -498,7 +499,7 @@ jobs:
         run: |
           echo "### 📦 PVC Status (non-Bound)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          UNBOUND=$(kubectl get pvc --all-namespaces | grep -v "Bound" || true)
+          UNBOUND=$(kubectl get pvc --all-namespaces --no-headers | awk '$3 != "Bound"' || true)
           [ -n "$UNBOUND" ] && echo "$UNBOUND" >> $GITHUB_STEP_SUMMARY \
             || echo "All PVCs Bound ✔" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
