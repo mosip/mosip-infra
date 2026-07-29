@@ -7,12 +7,15 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=apitestrig
+# Use a dedicated namespace so the existing apitestrig install is not disturbed.
+# Shared CM names (s3, db, apitestrig) would otherwise be deleted/overwritten.
+NS=${NS:-apitestrig1230}
 RELEASE_NAME=idrepo-apitestrig
 CHART_VERSION=1.5.0
 
 echo Create $NS namespace
 kubectl create ns $NS 2>/dev/null || true
+export NS
 
 function installing_apitestrig() {
   echo Istio label
@@ -127,7 +130,6 @@ function installing_apitestrig() {
 
   echo Installed $RELEASE_NAME.
   echo
-  echo "Run manually:"
   echo "  kubectl -n $NS create job --from=cronjob/cronjob-${RELEASE_NAME}-idrepo idrepo-apitestrig-manual-\$(date +%s)"
   return 0
 }

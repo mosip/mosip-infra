@@ -27,6 +27,14 @@ Only **retarget Istio VirtualService destinations** for idrepo path prefixes so 
    ./prereq.sh
    ```
 
+## Namespace
+
+Installs into **`apitestrig1230` by default**, not the existing `apitestrig` namespace.
+
+Do **not** reuse `apitestrig`: the install deletes/recreates shared configmaps (`s3`, `db`, `apitestrig`) and would break your current testrig. Helm release name is `idrepo-apitestrig`.
+
+Override if needed: `NS=apitestrig1230 ./install.sh`
+
 ## Install steps
 
 ```sh
@@ -40,7 +48,7 @@ chmod +x *.sh
 # kubectl -n idrepo1230 get virtualservice
 # kubectl -n idrepo1230 delete virtualservice --all
 
-# 2) Install idrepo-only apitestrig (tag 1.2.3.0)
+# 2) Install idrepo-only apitestrig (tag 1.2.3.0) into apitestrig1230
 ./install.sh
 ```
 
@@ -54,13 +62,13 @@ During `install.sh` prompts:
 ## Run manually
 
 ```sh
-kubectl -n apitestrig get cronjob | grep idrepo
+kubectl -n apitestrig1230 get cronjob | grep idrepo
 
-kubectl -n apitestrig create job --from=cronjob/cronjob-idrepo-apitestrig-idrepo \
+kubectl -n apitestrig1230 create job --from=cronjob/cronjob-idrepo-apitestrig-idrepo \
   idrepo-apitestrig-manual-$(date +%s)
 ```
 
-CronJob name can vary slightly by chart version; confirm with `kubectl -n apitestrig get cronjob`.
+CronJob name can vary slightly by chart version; confirm with `kubectl -n apitestrig1230 get cronjob`.
 
 ## Verify routes before running tests
 

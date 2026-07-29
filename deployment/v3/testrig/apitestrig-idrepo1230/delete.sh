@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 function deleting_apitestrig() {
-  NS=apitestrig
+  NS=${NS:-apitestrig1230}
   RELEASE_NAME=idrepo-apitestrig
   while true; do
       read -p "Are you sure you want to delete $RELEASE_NAME helm chart?(Y/n) " yn
