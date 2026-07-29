@@ -128,8 +128,9 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.apitestrig.NS="$NS" \
   $ENABLE_INSECURE
 
-  echo Installed $RELEASE_NAME.
+  echo Installed $RELEASE_NAME into namespace $NS.
   echo
+  echo "Run manually:"
   echo "  kubectl -n $NS create job --from=cronjob/cronjob-${RELEASE_NAME}-idrepo idrepo-apitestrig-manual-\$(date +%s)"
   return 0
 }
