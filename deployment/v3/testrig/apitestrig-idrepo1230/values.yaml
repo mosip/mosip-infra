@@ -1,0 +1,18 @@
+# Idrepo-only API TestRig for parallel idrepo1230 stack (v1.2.3.0)
+modules:
+  prereg:
+    enabled: false
+  masterdata:
+    enabled: false
+  idrepo:
+    enabled: true
+    image:
+      repository: mosipid/apitest-idrepo
+      tag: 1.2.3.0
+      pullPolicy: Always
+  partner:
+    enabled: false
+  resident:
+    enabled: false
+  auth:
+    enabled: false
