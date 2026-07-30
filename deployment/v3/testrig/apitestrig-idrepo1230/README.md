@@ -107,24 +107,33 @@ Identity logs show:
 
 inside `CredentialServiceManager.notifyUinCredential`. That means credential issuance never calls credentialrequest, so `mosip_credential1230` stays stuck.
 
-Cause: overrides set `spring.cache.type=simple` without cache names. Prefer Redis (remove the simple override). Quick workaround:
+Cause: parallel-stack overrides force `spring.cache.type=simple`. A custom/empty CacheManager then rejects `@Cacheable("Online_Verification_Partners")`.
+
+**Do not rely on `SPRING_CACHE_CACHE_NAMES` alone** — on qa11new those env vars were present in the pod (`printenv`) but errors continued every ~10s. Boot never registered the named caches on the active CacheManager.
 
 ```bash
-# Option 1 (preferred): stop forcing simple cache — use shared Redis like main idrepo
+# Apply NoOp cache (proven workaround) + strip the simple override
+./fix-cache.sh
+# then mount idrepo1230-cache on identity1230 if needed, and restart (script prints commands)
+
+# Prefer when shared Redis is reachable: only remove the simple override and omit type=none
 kubectl -n idrepo1230 get cm idrepo1230-overrides -o yaml \
   | sed '/SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SPRING_CACHE_TYPE/d' \
   | kubectl apply -f -
-
-# Option 2: keep simple, but declare cache names (also in patch-service-urls SPRING_APPLICATION_JSON)
-kubectl -n idrepo1230 create configmap idrepo1230-cache \
-  --from-literal=SPRING_CACHE_TYPE=simple \
-  --from-literal=SPRING_CACHE_CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics' \
-  --dry-run=client -o yaml | kubectl apply -f -
-# mount idrepo1230-cache on identity1230 (and credential*) via extraEnvVarsCM, then:
 kubectl -n idrepo1230 rollout restart deploy/identity1230
 ```
 
-After restart, identity logs must stop repeating `Online_Verification_Partners`. Then re-check `mosip_credential1230`.
+`patch-service-urls.sh` also sets `"spring.cache.type": "none"` in `SPRING_APPLICATION_JSON`.
+
+Acceptance:
+
+```bash
+kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
+  | grep -c "Cannot find cache named 'Online_Verification_Partners'"
+# expect 0
+```
+
+Then re-check `mosip_credential1230.credential_transaction` growth.
 
 WebSub `Publisher is not authorized` is a separate issue (topic registration); the cache error is what blocks credential_transaction inserts.
 
