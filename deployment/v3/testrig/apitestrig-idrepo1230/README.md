@@ -21,7 +21,8 @@ Only **retarget Istio VirtualService destinations** for idrepo path prefixes so 
 ## Prerequisites
 
 1. `idrepo1230` pods are Running (identity / credential / credentialrequest / vid).
-2. Run apitestrig prereq once (config-server audience overrides), if not already done:
+2. In-cluster URL overrides mounted on **all four** deploys (`identity1230`, `vid1230`, `credential1230`, `credentialrequest1230`) so identity does not call default `http://credentialrequest.idrepo`. See [Troubleshooting](#troubleshooting-mosip_credential1230-stuck-at-1-row).
+3. Run apitestrig prereq once (config-server audience overrides), if not already done:
    ```sh
    cd ../apitestrig
    ./prereq.sh
