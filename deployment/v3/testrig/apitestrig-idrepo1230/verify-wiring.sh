@@ -50,17 +50,22 @@ echo "  MOSIP_IDREPO_CREDENTIAL_SERVICE_URL / override → $EXPECTED_CREDENTIAL_
 kubectl -n "$NS" exec deploy/identity1230 -- printenv 2>/dev/null | grep -E 'CREDREQUEST|CREDENTIAL_SERVICE|IDENTITY_URL|VID_URL|IDREPO_' || true
 
 echo
-echo "=== 4) Actuator env hints (identity) ==="
+echo "=== 4) Actuator: effective REST URI (this is what identity actually calls) ==="
 API=$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}')
 curl -sk "https://${API}/idrepository/v1/identity/actuator/env" \
   | jq -r '
-      .propertySources[]?
-      | .properties
-      | to_entries[]?
-      | select(.key
-          | test("mosip\\.idrepo\\.(credrequest\\.generator|credential\\.service|identity|vid)\\.url"))
+      .. | objects | to_entries[]?
+      | select(.key == "mosip.idrepo.credential.request.rest.uri"
+            or .key == "mosip.idrepo.credrequest.generator.url"
+            or .key == "mosip.idrepo.credential.service.url")
       | "\(.key)=\(.value.value // .value)"
-    ' 2>/dev/null || echo "(actuator/env not readable or jq failed — check with kubectl logs)"
+    ' 2>/dev/null || echo "(actuator/env not readable — check with kubectl logs)"
+
+echo
+echo "If rest.uri still contains credentialrequest.idrepo (no 1230), run:"
+echo "  ./patch-service-urls.sh"
+echo "Overrides of only mosip.idrepo.credrequest.generator.url are not enough:"
+echo "RestRequestBuilder caches the expanded *.rest.uri from config-server."
 
 echo
 echo "=== 5) Quick DB checks (run in psql) ==="
