@@ -80,6 +80,51 @@ curl -sk "https://$API/v1/credentialrequest/actuator/health"
 curl -sk "https://$API/idrepository/v1/vid/actuator/health"
 ```
 
+## Troubleshooting: `mosip_credential1230` stuck at 1 row
+
+Gateway health hitting `credential1230` / `credentialrequest1230` is **not** enough.
+
+Identity create/update writes UINs to `mosip_idrepo1230`, then a background job calls:
+
+`mosip.idrepo.credrequest.generator.url` → `/v1/credentialrequest/requestgenerator`
+
+Default from config-server is `http://credentialrequest.idrepo` (old namespace). That writes `credential_transaction` into **`mosip_credential`**, not `mosip_credential1230`.
+
+Smoking gun from a parallel run:
+
+| DB | Signal |
+|---|---|
+| `mosip_idrepo1230` UINs | grow during testrig |
+| `mosip_credential` txns | `max(cr_dtimes)` moves at the same time |
+| `mosip_credential1230` txns | stuck (e.g. 1 row from an earlier smoke) |
+
+### Fix
+
+1. Confirm overrides CM uses Helm service names with `1230`:
+   - `http://credentialrequest1230.idrepo1230`
+   - `http://credential1230.idrepo1230`
+   - `http://identity1230.idrepo1230`
+   - `http://vid1230.idrepo1230`
+2. Mount `idrepo1230-overrides` on **identity1230** and **vid1230** as well (not only credential*).
+3. Rollout restart `identity1230`, re-check:
+
+```sh
+./verify-wiring.sh
+
+# Effective URL must NOT be http://credentialrequest.idrepo
+kubectl -n idrepo1230 exec deploy/identity1230 -- printenv \
+  | grep -E 'CREDREQUEST|CREDENTIAL_SERVICE'
+```
+
+4. Also check identity-side status table (often in idrepo DB):
+
+```sql
+\c mosip_idrepo1230
+SELECT count(*), max(cr_dtimes) FROM idrepo.credential_request_status;
+```
+
+5. Re-run testrig / create one identity; `mosip_credential1230.credential_transaction` `max(cr_dtimes)` should advance.
+
 ## Restore original idrepo routes
 
 ```sh
