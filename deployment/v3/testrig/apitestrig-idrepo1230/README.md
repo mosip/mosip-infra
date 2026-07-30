@@ -105,25 +105,25 @@ Identity logs show:
 
 `Cannot find cache named 'Online_Verification_Partners'`
 
-inside `CredentialServiceManager.notifyUinCredential`. That means credential issuance never calls credentialrequest, so `mosip_credential1230` stays stuck.
+inside `CredentialServiceManager.notifyUinCredential` → no call to credentialrequest → `mosip_credential1230` stuck.
 
-Cause: parallel-stack overrides force `spring.cache.type=simple`. A custom/empty CacheManager then rejects `@Cacheable("Online_Verification_Partners")`.
+**Root cause (case mismatch):** qa11new `id-repository-dev.properties` has:
 
-**Do not rely on `SPRING_CACHE_CACHE_NAMES` alone** — on qa11new those env vars were present in the pod (`printenv`) but errors continued every ~10s. Boot never registered the named caches on the active CacheManager.
-
-```bash
-# Apply NoOp cache (proven workaround) + strip the simple override
-./fix-cache.sh
-# then mount idrepo1230-cache on identity1230 if needed, and restart (script prints commands)
-
-# Prefer when shared Redis is reachable: only remove the simple override and omit type=none
-kubectl -n idrepo1230 get cm idrepo1230-overrides -o yaml \
-  | sed '/SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SPRING_CACHE_TYPE/d' \
-  | kubectl apply -f -
-kubectl -n idrepo1230 rollout restart deploy/identity1230
+```properties
+spring.cache.type=simple
+mosip.idrepo.cache.names=...,online_verification_partners,...
+spring.cache.cache-names=${mosip.idrepo.cache.names}
 ```
 
-`patch-service-urls.sh` also sets `"spring.cache.type": "none"` in `SPRING_APPLICATION_JSON`.
+But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`). With `simple`, `ConcurrentMapCacheManager` locks the configured names and rejects the Pascal/UPPER lookup. Redis (default profile) creates missing names at runtime, so this bug stays hidden there.
+
+`SPRING_CACHE_TYPE=none` / env `SPRING_CACHE_CACHE_NAMES` alone often **do not win** over config-server.
+
+```bash
+./fix-cache.sh
+# injects JAVA_TOOL_OPTIONS -Dspring.cache.cache-names=<exact Java names>,
+# merges the same into idrepo1230-rest-uris SPRING_APPLICATION_JSON, restarts identity
+```
 
 Acceptance:
 
@@ -131,11 +131,15 @@ Acceptance:
 kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
   | grep -c "Cannot find cache named 'Online_Verification_Partners'"
 # expect 0
+
+# should see PARTNERS_IDENTIFIED / requestgenerator traffic
+kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
+  | grep -E 'PARTNERS_IDENTIFIED|requestgenerator' | tail -20
 ```
 
-Then re-check `mosip_credential1230.credential_transaction` growth.
+Permanent fix in `mosip-config` (qa11new): set `mosip.idrepo.cache.names` to the exact `@Cacheable` names from id-repository 1.2.3.0.
 
-WebSub `Publisher is not authorized` is a separate issue (topic registration); the cache error is what blocks credential_transaction inserts.
+WebSub `Publisher is not authorized` is a separate issue; the cache error is what blocks credential_transaction inserts.
 
 ### Fix B — REST URI
 

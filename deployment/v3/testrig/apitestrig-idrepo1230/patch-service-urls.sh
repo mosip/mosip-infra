@@ -19,11 +19,14 @@ CM=${CM:-idrepo1230-rest-uris}
 set -euo pipefail
 
 # Build SPRING_APPLICATION_JSON so hyphenated keys bind correctly.
-# IMPORTANT: parallel stacks often set spring.cache.type=simple. That left an empty
-# CacheManager on qa11new even with SPRING_CACHE_CACHE_NAMES set — identity then
-# threw "Cannot find cache named 'Online_Verification_Partners'" and never called
-# credentialrequest. Use type=none (NoOpCacheManager) or shared Redis; see fix-cache.sh.
-REST_JSON=$(cat <<'EOF'
+#
+# Cache note (qa11new): id-repository-dev sets spring.cache.type=simple and
+# mosip.idrepo.cache.names=...online_verification_partners... (lowercase).
+# Java uses Online_Verification_Partners / DATASHARE_POLICIES / PARTNER_EXTRACTOR_FORMATS.
+# ConcurrentMapCacheManager locks names → "Cannot find cache named".
+# Override with exact @Cacheable names (also run ./fix-cache.sh for JAVA_TOOL_OPTIONS).
+CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics,credential_transaction'
+REST_JSON=$(cat <<EOF
 {
   "mosip.idrepo.credrequest.generator.url": "http://credentialrequest1230.idrepo1230",
   "mosip.idrepo.credential.service.url": "http://credential1230.idrepo1230",
@@ -34,7 +37,9 @@ REST_JSON=$(cat <<'EOF'
   "mosip.idrepo.credential-request-v2.rest.uri": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/v2/requestgenerator/{rid}",
   "CRDENTIALSERVICE": "http://credential1230.idrepo1230/v1/credentialservice/issue",
   "CALLBACKURL": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/callback/notifyStatus",
-  "spring.cache.type": "none"
+  "spring.cache.type": "simple",
+  "spring.cache.cache-names": "${CACHE_NAMES}",
+  "mosip.idrepo.cache.names": "${CACHE_NAMES}"
 }
 EOF
 )
@@ -58,7 +63,8 @@ helm -n $NS upgrade identity1230 mosip/identity --reuse-values \\
   --set 'extraEnvVarsCM[1]=config-server-share' \\
   --set 'extraEnvVarsCM[2]=artifactory-share' \\
   --set 'extraEnvVarsCM[3]=idrepo1230-overrides' \\
-  --set 'extraEnvVarsCM[4]=$CM'
+  --set 'extraEnvVarsCM[4]=$CM' \\
+  --set 'extraEnvVarsCM[5]=idrepo1230-cache'
 
 helm -n $NS upgrade vid1230 mosip/vid --reuse-values \\
   --set 'extraEnvVarsCM[0]=global' \\
@@ -88,6 +94,8 @@ kubectl -n $NS rollout status deploy/identity1230
 kubectl -n $NS rollout status deploy/credentialrequest1230
 EOF
 
+echo
+echo "If Online_Verification_Partners cache errors persist, run ./fix-cache.sh (type=none)."
 echo
 echo "After rollout, verify effective REST URI (must contain credentialrequest1230):"
 cat <<'EOF'
