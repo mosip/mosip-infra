@@ -67,20 +67,36 @@ kubectl -n "$NS" rollout restart deployment/"$DEPLOY"
 kubectl -n "$NS" rollout status deployment/"$DEPLOY" --timeout=180s
 
 echo
-echo "==> 4) Verify (wait ~40s for credential job cycles)"
-sleep 40
-echo "--- effective cache props (actuator) ---"
-API=$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}' 2>/dev/null || true)
-if [ -n "${API:-}" ]; then
-  curl -sk "https://$API/idrepository/v1/identity/actuator/env" \
-    | python3 - <<'PY'
+echo "==> 4) Verify pod env (must show Online_Verification_Partners, not lowercase)"
+kubectl -n "$NS" exec deploy/"$DEPLOY" -- printenv JAVA_TOOL_OPTIONS SPRING_CACHE_CACHE_NAMES SPRING_CACHE_TYPE 2>/dev/null || true
+
+echo
+echo "==> 5) Wait for credential job cycles, then check logs"
+sleep 45
+
+ERR_COUNT=$(kubectl -n "$NS" logs deploy/"$DEPLOY" --since=2m 2>/dev/null \
+  | grep -c "Cannot find cache named 'Online_Verification_Partners'" || true)
+echo "--- error count (expect 0): ${ERR_COUNT:-0} ---"
+
+echo "--- partners / requestgenerator ---"
+kubectl -n "$NS" logs deploy/"$DEPLOY" --since=2m 2>/dev/null \
+  | grep -E 'PARTNERS_IDENTIFIED|requestgenerator|Cannot find cache named' \
+  | tail -20 || true
+
+echo "--- in-cluster actuator (localhost; ignore if unauthorized) ---"
+# Hit the pod directly — gateway actuator/env often needs auth / returns empty HTML.
+kubectl -n "$NS" exec deploy/"$DEPLOY" -- \
+  wget -qO- --timeout=5 http://127.0.0.1:8090/idrepository/v1/identity/actuator/env 2>/dev/null \
+  | python3 -c '
 import json,sys
+raw=sys.stdin.read().strip()
+if not raw:
+  print("(empty actuator response)"); sys.exit(0)
 try:
-  env=json.load(sys.stdin)
+  env=json.loads(raw)
 except Exception as e:
-  print("actuator parse failed:", e); sys.exit(0)
+  print("actuator parse failed:", e, "head:", raw[:120]); sys.exit(0)
 want={"spring.cache.type","spring.cache.cache-names","mosip.idrepo.cache.names"}
-# Spring Boot actuator env: propertySources[].properties
 for ps in env.get("propertySources",[]):
   props=ps.get("properties") or {}
   hit={k:props[k] for k in want if k in props}
@@ -89,20 +105,13 @@ for ps in env.get("propertySources",[]):
     for k,v in hit.items():
       val=v.get("value") if isinstance(v,dict) else v
       print(f"  {k}={val}")
-PY
-fi
-
-echo "--- error count (expect 0) ---"
-kubectl -n "$NS" logs deploy/"$DEPLOY" --since=2m 2>/dev/null \
-  | grep -c "Cannot find cache named 'Online_Verification_Partners'" || echo 0
-
-echo "--- partners / requestgenerator ---"
-kubectl -n "$NS" logs deploy/"$DEPLOY" --since=2m 2>/dev/null \
-  | grep -E 'PARTNERS_IDENTIFIED|requestgenerator|Cannot find cache named' \
-  | tail -20 || true
+' || echo "(actuator check skipped)"
 
 echo
-echo "If count is still >0, confirm JAVA_TOOL_OPTIONS inside the pod:"
-echo "  kubectl -n $NS exec deploy/$DEPLOY -- printenv JAVA_TOOL_OPTIONS SPRING_CACHE_CACHE_NAMES"
-echo "Permanent config fix: in mosip-config qa11new id-repository-dev.properties set"
-echo "  mosip.idrepo.cache.names to the Java @Cacheable names (see CACHE_NAMES in this script)."
+if [ "${ERR_COUNT:-0}" != "0" ]; then
+  echo "STILL FAILING: config-server may still win. Confirm JAVA_TOOL_OPTIONS in printenv above"
+  echo "contains Online_Verification_Partners. Permanent fix: mosip-config qa11new"
+  echo "id-repository-dev.properties mosip.idrepo.cache.names → Java @Cacheable names."
+  exit 1
+fi
+echo "Cache name error cleared. Re-check mosip_credential1230.credential_transaction growth."
