@@ -99,7 +99,36 @@ Smoking gun from a parallel run:
 | `mosip_credential` txns | `max(cr_dtimes)` moves at the same time |
 | `mosip_credential1230` txns | stuck (e.g. 1 row from an earlier smoke) |
 
-### Fix
+### Fix A — cache (current blocker on qa11new)
+
+Identity logs show:
+
+`Cannot find cache named 'Online_Verification_Partners'`
+
+inside `CredentialServiceManager.notifyUinCredential`. That means credential issuance never calls credentialrequest, so `mosip_credential1230` stays stuck.
+
+Cause: overrides set `spring.cache.type=simple` without cache names. Prefer Redis (remove the simple override). Quick workaround:
+
+```bash
+# Option 1 (preferred): stop forcing simple cache — use shared Redis like main idrepo
+kubectl -n idrepo1230 get cm idrepo1230-overrides -o yaml \
+  | sed '/SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_SPRING_CACHE_TYPE/d' \
+  | kubectl apply -f -
+
+# Option 2: keep simple, but declare cache names (also in patch-service-urls SPRING_APPLICATION_JSON)
+kubectl -n idrepo1230 create configmap idrepo1230-cache \
+  --from-literal=SPRING_CACHE_TYPE=simple \
+  --from-literal=SPRING_CACHE_CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics' \
+  --dry-run=client -o yaml | kubectl apply -f -
+# mount idrepo1230-cache on identity1230 (and credential*) via extraEnvVarsCM, then:
+kubectl -n idrepo1230 rollout restart deploy/identity1230
+```
+
+After restart, identity logs must stop repeating `Online_Verification_Partners`. Then re-check `mosip_credential1230`.
+
+WebSub `Publisher is not authorized` is a separate issue (topic registration); the cache error is what blocks credential_transaction inserts.
+
+### Fix B — REST URI
 
 Mounting `SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDREPO_CREDREQUEST_GENERATOR_URL`
 is **not enough**. Identity’s `RestRequestBuilder` uses the already-expanded property:

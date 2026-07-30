@@ -19,6 +19,9 @@ CM=${CM:-idrepo1230-rest-uris}
 set -euo pipefail
 
 # Build SPRING_APPLICATION_JSON so hyphenated keys bind correctly.
+# IMPORTANT: if spring.cache.type=simple is set (common parallel-stack workaround),
+# SimpleCacheManager needs explicit cache-names. Missing Online_Verification_Partners
+# blocks CredentialServiceManager.notifyUinCredential → no rows in mosip_credential1230.
 REST_JSON=$(cat <<'EOF'
 {
   "mosip.idrepo.credrequest.generator.url": "http://credentialrequest1230.idrepo1230",
@@ -29,7 +32,8 @@ REST_JSON=$(cat <<'EOF'
   "mosip.idrepo.credential.cancel-request.rest.uri": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/cancel/{requestId}",
   "mosip.idrepo.credential-request-v2.rest.uri": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/v2/requestgenerator/{rid}",
   "CRDENTIALSERVICE": "http://credential1230.idrepo1230/v1/credentialservice/issue",
-  "CALLBACKURL": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/callback/notifyStatus"
+  "CALLBACKURL": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/callback/notifyStatus",
+  "spring.cache.cache-names": "Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics"
 }
 EOF
 )
