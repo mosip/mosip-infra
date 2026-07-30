@@ -101,30 +101,47 @@ Smoking gun from a parallel run:
 
 ### Fix
 
-1. Confirm overrides CM uses Helm service names with `1230`:
-   - `http://credentialrequest1230.idrepo1230`
-   - `http://credential1230.idrepo1230`
-   - `http://identity1230.idrepo1230`
-   - `http://vid1230.idrepo1230`
-2. Mount `idrepo1230-overrides` on **identity1230** and **vid1230** as well (not only credential*).
-3. Rollout restart `identity1230`, re-check:
+Mounting `SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDREPO_CREDREQUEST_GENERATOR_URL`
+is **not enough**. Identity’s `RestRequestBuilder` uses the already-expanded property:
+
+`mosip.idrepo.credential.request.rest.uri`
+→ default `http://credentialrequest.idrepo/v1/credentialrequest/requestgenerator`
+
+Override that URI (and related ones) via `SPRING_APPLICATION_JSON`:
 
 ```sh
-./verify-wiring.sh
-
-# Effective URL must NOT be http://credentialrequest.idrepo
-kubectl -n idrepo1230 exec deploy/identity1230 -- printenv \
-  | grep -E 'CREDREQUEST|CREDENTIAL_SERVICE'
+./patch-service-urls.sh
+# then run the helm upgrade commands it prints (identity/vid/credential/credentialrequest)
 ```
 
-4. Also check identity-side status table (often in idrepo DB):
+Verify the **effective** property (not just pod env):
+
+```sh
+API=$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}')
+curl -sk "https://$API/idrepository/v1/identity/actuator/env" \
+  | jq -r '.. | objects | to_entries[]? | select(.key=="mosip.idrepo.credential.request.rest.uri") | .value.value // .value'
+# must contain credentialrequest1230 — not credentialrequest.idrepo
+```
+
+Also check identity-side status table:
 
 ```sql
 \c mosip_idrepo1230
-SELECT count(*), max(cr_dtimes) FROM idrepo.credential_request_status;
+SELECT status, count(*), max(cr_dtimes)
+FROM idrepo.credential_request_status
+GROUP BY status;
 ```
 
-5. Re-run testrig / create one identity; `mosip_credential1230.credential_transaction` `max(cr_dtimes)` should advance.
+Optional isolation smoke (writes straight into credentialrequest1230 DB if auth works):
+
+```sh
+# After obtaining a token as mosip-crereq-client / idrepo client, POST
+# /v1/credentialrequest/requestgenerator — then:
+#   SELECT count(*), max(cr_dtimes) FROM credential.credential_transaction;
+# on mosip_credential1230
+```
+
+Re-run testrig / create one identity; `mosip_credential1230.credential_transaction` `max(cr_dtimes)` should advance.
 
 ## Restore original idrepo routes
 
