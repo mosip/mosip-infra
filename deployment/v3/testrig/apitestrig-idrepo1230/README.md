@@ -9,7 +9,16 @@ Keep:
 
 `ENV_ENDPOINT=https://api-internal.qa11new.mosip.net`
 
-Only **retarget Istio VirtualService destinations** for idrepo path prefixes so those paths hit `idrepo1230` services. No new Gateway is required.
+Two routing options:
+
+**A) Retarget shared `api-internal` paths** (default `./retarget-vs.sh`) — steals those prefixes from live `idrepo`.
+
+**B) Dedicated host (recommended for isolation)** — keep live idrepo on `api-internal`, expose parallel stack on e.g. `api-idrepo1230.<env>.mosip.net`:
+
+```bash
+DEDICATED_HOST=api-idrepo1230.qa11new.mosip.net ./create-dedicated-host-vs.sh
+# then DNS + Gateway host entry, and point apitestrig ENV_ENDPOINT at DEDICATED_HOST
+```
 
 | Path prefix | Target service |
 |---|---|
@@ -17,6 +26,8 @@ Only **retarget Istio VirtualService destinations** for idrepo path prefixes so 
 | `/v1/credentialservice` | `credential1230.idrepo1230` |
 | `/v1/credentialrequest` | `credentialrequest1230.idrepo1230` |
 | `/idrepository/v1` (vid) | `vid1230.idrepo1230` |
+
+In-cluster identity→credentialrequest must still use `*1230` service DNS (`./patch-service-urls.sh`); that is independent of the public host.
 
 ## Prerequisites
 
