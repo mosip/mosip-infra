@@ -117,13 +117,18 @@ spring.cache.cache-names=${mosip.idrepo.cache.names}
 
 But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`). With `simple`, `ConcurrentMapCacheManager` locks the configured names and rejects the Pascal/UPPER lookup. Redis (default profile) creates missing names at runtime, so this bug stays hidden there.
 
-`SPRING_CACHE_TYPE=none` / env `SPRING_CACHE_CACHE_NAMES` alone often **do not win** over config-server.
+**Env / `JAVA_TOOL_OPTIONS` / `SPRING_APPLICATION_JSON` are not enough** — config-server still wins on qa11new (errors continue with count ~24/2m).
 
 ```bash
+git pull
 ./fix-cache.sh
-# injects JAVA_TOOL_OPTIONS -Dspring.cache.cache-names=<exact Java names>,
-# merges the same into idrepo1230-rest-uris SPRING_APPLICATION_JSON, restarts identity
+# Patches identity1230 container args so java gets:
+#   --spring.cache.cache-names=Online_Verification_Partners,...
+# after the jar (Spring Boot highest precedence). Confirm cmdline grep before waiting.
 ```
+
+Permanent fix (preferred): in **mosip-config** branch `qa11new`, set
+`mosip.idrepo.cache.names` to the exact Java `@Cacheable` names (see `fix-cache.sh`).
 
 Acceptance:
 
