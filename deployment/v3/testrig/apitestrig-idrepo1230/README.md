@@ -117,18 +117,32 @@ spring.cache.cache-names=${mosip.idrepo.cache.names}
 
 But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`). With `simple`, `ConcurrentMapCacheManager` locks the configured names and rejects the Pascal/UPPER lookup. Redis (default profile) creates missing names at runtime, so this bug stays hidden there.
 
-**Env / `JAVA_TOOL_OPTIONS` / `SPRING_APPLICATION_JSON` are not enough** — config-server still wins on qa11new (errors continue with count ~24/2m).
+**Env / `JAVA_TOOL_OPTIONS` / `SPRING_APPLICATION_JSON` are not enough** — config-server still wins on qa11new (errors continue with count ~24/2m). A prior args-only patch also failed: `deploy/identity1230` kept an empty `command` and the stock image CMD.
 
 ```bash
 git pull
-./fix-cache.sh
-# Patches identity1230 container args so java gets:
-#   --spring.cache.cache-names=Online_Verification_Partners,...
-# after the jar (Spring Boot highest precedence). Confirm cmdline grep before waiting.
+./apply-cache-cmdline.sh
+# Sets BOTH command=["/bin/bash","-lc"] and args=[java ... --spring.cache.cache-names=Online_Verification_Partners,...]
 ```
 
-Permanent fix (preferred): in **mosip-config** branch `qa11new`, set
-`mosip.idrepo.cache.names` to the exact Java `@Cacheable` names (see `fix-cache.sh`).
+Verify (must show `/bin/bash` and `Online_Verification_Partners` on java):
+
+```bash
+kubectl -n idrepo1230 get deploy identity1230 \
+  -o jsonpath='{.spec.template.spec.containers[0].command}{"\n"}'
+kubectl -n idrepo1230 exec deploy/identity1230 -- \
+  bash -lc 'ps -o args -A | grep "[j]ava.*identity"'
+```
+
+Re-run after any `helm upgrade` of `identity1230` (helm resets command/args).
+
+Permanent fix (preferred): in **mosip-config** branch `qa11new` `id-repository-dev.properties`:
+
+```properties
+mosip.idrepo.cache.names=credential_transaction,PARTNER_EXTRACTOR_FORMATS,DATASHARE_POLICIES,topics,Online_Verification_Partners,uin_encrypt_salt,uin_hash_salt,id_attributes
+```
+
+Then refresh config-server / restart identity1230 — no command patch needed.
 
 Acceptance:
 
