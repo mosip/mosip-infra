@@ -126,7 +126,9 @@ mosip.idrepo.cache.names=...,online_verification_partners,...
 spring.cache.cache-names=${mosip.idrepo.cache.names}
 ```
 
-But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`). With `simple`, `ConcurrentMapCacheManager` locks the configured names and rejects the Pascal/UPPER lookup. Redis (default profile) creates missing names at runtime, so this bug stays hidden there.
+But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`).
+
+id-repository 1.2.3.x `SimpleCacheConfig` builds `SimpleCacheManager` **only** from `mosip.idrepo.cache.names` (not `spring.cache.cache-names`). Those names must also appear in `mosip.idrepo.cache.size` / `expire-in-seconds` maps. Redis profile hides this because RedisCacheManager uses the expire map keys and can still miss PascalCase lookups differently.
 
 **Env / `JAVA_TOOL_OPTIONS` / `SPRING_APPLICATION_JSON` are not enough** — config-server still wins on qa11new (errors continue with count ~24/2m). A prior args-only patch also failed: `deploy/identity1230` kept an empty `command` and the stock image CMD.
 
