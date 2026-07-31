@@ -8,15 +8,31 @@ fi
 
 NS=uitestrig
 CHART_VERSION=1.6.0
-COPY_UTIL=../copy_cm_func.sh
 
 echo Create $NS namespace
 kubectl create ns $NS
 
-function installing_uitestrig() {
-  ENV_NAME=$( kubectl -n default get cm global -o json |jq -r '.data."installation-domain"')
+function prompt_or_env() {
+  # usage: prompt_or_env VAR_NAME "Prompt text" [secret]
+  local var_name="$1"
+  local prompt_text="$2"
+  local secret="${3:-}"
+  local current="${!var_name:-}"
+  if [ -n "$current" ]; then
+    printf -v "$var_name" '%s' "$current"
+    return 0
+  fi
+  if [ "$secret" = "secret" ]; then
+    read -r -s -p "$prompt_text" current
+    echo
+  else
+    read -r -p "$prompt_text" current
+  fi
+  printf -v "$var_name" '%s' "$current"
+}
 
-  read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
+function installing_uitestrig() {
+  prompt_or_env time "Please enter the time(hr) to run the cronjob every day (time: 0-23) : "
   if [ -z "$time" ]; then
      echo "ERROR: Time cannot be empty; EXITING;";
      exit 1;
@@ -30,10 +46,12 @@ function installing_uitestrig() {
      exit 1;
   fi
 
-  echo "Do you have public domain & valid SSL? (Y/n) "
-  echo "Y: if you have public domain & valid ssl certificate"
-  echo "n: if you don't have public domain & valid ssl certificate"
-  read -p "" flag
+  if [ -z "${flag:-}" ]; then
+    echo "Do you have public domain & valid SSL? (Y/n) "
+    echo "Y: if you have public domain & valid ssl certificate"
+    echo "n: if you don't have public domain & valid ssl certificate"
+    read -p "" flag
+  fi
 
   if [ -z "$flag" ]; then
     echo "'flag' was provided; EXITING;"
@@ -41,61 +59,58 @@ function installing_uitestrig() {
   fi
   ENABLE_INSECURE=''
   if [ "$flag" = "n" ]; then
-    ENABLE_INSECURE='--set uitestrig.configmaps.uitestrig.ENABLE_INSECURE=true';
+    ENABLE_INSECURE='--set uitestrig.configmaps.uitestrig.ENABLE_INSECURE=true'
   fi
 
-  read -p "Please enter the env url : " env
+  prompt_or_env env "Please enter the env url : "
     if [ -z "$env" ]; then
        echo "ERROR: env url cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -p "Please enter the injiWebUi url : " injiWebUi
+  prompt_or_env injiWebUi "Please enter the injiWebUi url : "
     if [ -z "$injiWebUi" ]; then
        echo "ERROR: injiWebUi url cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -p "Please enter the TEST_URL : " TEST_URL
+  prompt_or_env TEST_URL "Please enter the TEST_URL : "
     if [ -z "$TEST_URL" ]; then
        echo "ERROR: Test url cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -r -s -p "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " token
-  echo
+  prompt_or_env token "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " secret
     if [ -z "$token" ]; then
        echo "ERROR: Google Refresh Token cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -p "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_ID : " client_id
+  prompt_or_env client_id "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_ID : "
     if [ -z "$client_id" ]; then
        echo "ERROR: Google Client ID cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -r -s -p "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " secret
-  echo
+  prompt_or_env secret "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " secret
     if [ -z "$secret" ]; then
        echo "ERROR: Google client secret cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -p "Please enter the BROWSERSTACK USERNAME : " User_name
+  prompt_or_env User_name "Please enter the BROWSERSTACK USERNAME : "
     if [ -z "$User_name" ]; then
        echo "ERROR: BROWSERSTACK USERNAME cannot be empty; EXITING;";
        exit 1;
     fi
 
-  read -r -s -p "Please enter the BROWSERSTACK ACCESS KEY : " Access_key
-  echo
+  prompt_or_env Access_key "Please enter the BROWSERSTACK ACCESS KEY : " secret
     if [ -z "$Access_key" ]; then
        echo "ERROR: BROWSERSTACK ACCESS KEY cannot be empty; EXITING;";
        exit 1;
     fi
 
-    read -p "Please enter the Env user : " Env_user
+  prompt_or_env Env_user "Please enter the Env user : "
       if [ -z "$Env_user" ]; then
          echo "ERROR: Env user cannot be empty; EXITING;";
          exit 1;
@@ -103,22 +118,25 @@ function installing_uitestrig() {
 
   echo Istio label
   kubectl label ns $NS istio-injection=disabled --overwrite
+  helm repo add mosip https://mosip.github.io/mosip-helm 2>/dev/null || true
   helm repo update
 
   echo Copy configmaps
-  $COPY_UTIL configmap global default $NS
-  $COPY_UTIL configmap keycloak-host keycloak $NS
-  $COPY_UTIL configmap artifactory-share artifactory $NS
-  $COPY_UTIL configmap config-server-share config-server $NS
+  ./copy_cm.sh
 
   echo Copy secrets
-  $COPY_UTIL secret keycloak-client-secrets keycloak $NS
-  $COPY_UTIL secret s3 s3 $NS
-  $COPY_UTIL secret postgres-postgresql postgres $NS
+  ./copy_secrets.sh
+
+  echo "Delete s3, db, & uitestrig configmap if exists"
+  kubectl -n $NS delete --ignore-not-found=true configmap s3
+  kubectl -n $NS delete --ignore-not-found=true configmap db
+  kubectl -n $NS delete --ignore-not-found=true configmap uitestrig
 
   DB_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 
-  read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  if [ -z "${db_port:-}" ]; then
+    read -p "Please enter the DB port (press Enter to use default 5432, or enter custom port for external PostgreSQL) : " db_port
+  fi
   if [ -z "$db_port" ]; then
     db_port=5432
   fi
@@ -135,8 +153,17 @@ function installing_uitestrig() {
   ESIGNET_HOST=$(kubectl -n default get cm global -o json  |jq -r '.data."mosip-esignet-host"')
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  |jq -r '.data."mosip-api-internal-host"' )
 
+  # Fall back to conventional hostnames when optional global keys are absent
+  INSTALLATION_DOMAIN=$(kubectl -n default get cm global -o json | jq -r '.data."installation-domain"')
+  if [ -z "$INJI_VERIFY_HOST" ] || [ "$INJI_VERIFY_HOST" = "null" ]; then
+    INJI_VERIFY_HOST="injiverify.${INSTALLATION_DOMAIN}"
+  fi
+  if [ -z "$INJI_WEB_HOST" ] || [ "$INJI_WEB_HOST" = "null" ]; then
+    INJI_WEB_HOST="injiweb.${INSTALLATION_DOMAIN}"
+  fi
+
   echo Installing uitestrig
-  helm -n $NS install uitestrig mosip/uitestrig \
+  helm -n $NS upgrade --install uitestrig mosip/uitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml  \
   --version $CHART_VERSION \

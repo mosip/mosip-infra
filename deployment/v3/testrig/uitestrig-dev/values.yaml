@@ -1,0 +1,27 @@
+# Module images for uitestrig on the MOSIP "dev" environment.
+# Chart 12.0.x uses adminui/pmpui/residentui keys.
+# Chart 1.6.x uses admin-ui/pmp-ui/resident-ui keys — override with
+# CHART_VERSION=1.6.0 and USE_LOCAL_VALUES=false or a matching values file.
+
+modules:
+  - name: adminui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipid/admintest
+      tag: 1.2.0.1
+      pullPolicy: Always
+  - name: pmpui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipid/pmptest
+      tag: 1.2.0.2
+      pullPolicy: Always
+  - name: residentui
+    enabled: true
+    image:
+      registry: docker.io
+      repository: mosipid/residenttest
+      tag: 0.9.1
+      pullPolicy: Always
