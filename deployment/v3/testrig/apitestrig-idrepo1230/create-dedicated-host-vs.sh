@@ -3,17 +3,20 @@
 # share api-internal routes with the live idrepo stack.
 #
 # After DNS/Gateway include the host, point apitestrig at:
-#   ENV_ENDPOINT=https://<DEDICATED_HOST>
-# (or keep shared ENV_ENDPOINT for auth and only override idrepo base URLs if your
-# testrig supports that).
+#   ENV_ENDPOINT=https://<DEDICATED_HOST> ./install.sh
+#
+# This VS routes idrepo1230 paths to the parallel stack, and proxies common
+# shared deps (authmanager/keymanager/...) to the live namespaces so a single
+# ENV_ENDPOINT still works for idrepo-only apitestrig.
 #
 # Usage:
 #   DEDICATED_HOST=api-idrepo1230.qa11new.mosip.net ./create-dedicated-host-vs.sh [kubeconfig]
 #
 # Prerequisites:
-#   1) DNS A/CNAME for DEDICATED_HOST → same LB as api-internal (or your ingress IP)
-#   2) Istio Gateway (default: istio-system/internal) lists DEDICATED_HOST in servers.hosts
-#      OR use a dedicated Gateway (set GATEWAY=idrepo1230/idrepo1230-gateway)
+#   1) DNS A/CNAME (or CoreDNS hosts) for DEDICATED_HOST → same LB as api-internal
+#      Run ./print-dns-hint.sh
+#   2) Istio Gateway (default: istio-system/internal) lists DEDICATED_HOST
+#      Run ./ensure-dedicated-gateway-host.sh
 
 if [ $# -ge 1 ]; then export KUBECONFIG=$1; fi
 
@@ -25,6 +28,17 @@ IDENTITY_SVC=${IDENTITY_SVC:-identity1230}
 CREDENTIAL_SVC=${CREDENTIAL_SVC:-credential1230}
 CREDENTIALREQUEST_SVC=${CREDENTIALREQUEST_SVC:-credentialrequest1230}
 VID_SVC=${VID_SVC:-vid1230}
+
+# Live shared services (used for non-idrepo paths on the dedicated host)
+AUTHMANAGER_DEST=${AUTHMANAGER_DEST:-authmanager.kernel.svc.cluster.local}
+KEYMANAGER_DEST=${KEYMANAGER_DEST:-keymanager.keymanager.svc.cluster.local}
+MASTERDATA_DEST=${MASTERDATA_DEST:-masterdata.masterdata.svc.cluster.local}
+AUDIT_DEST=${AUDIT_DEST:-auditmanager.kernel.svc.cluster.local}
+NOTIFIER_DEST=${NOTIFIER_DEST:-notifier.kernel.svc.cluster.local}
+OTPMANAGER_DEST=${OTPMANAGER_DEST:-otpmanager.kernel.svc.cluster.local}
+PRIDGENERATOR_DEST=${PRIDGENERATOR_DEST:-pridgenerator.kernel.svc.cluster.local}
+RIDGENERATOR_DEST=${RIDGENERATOR_DEST:-ridgenerator.kernel.svc.cluster.local}
+DATASHARE_DEST=${DATASHARE_DEST:-datashare.datashare.svc.cluster.local}
 
 set -euo pipefail
 
@@ -68,6 +82,7 @@ spec:
   gateways:
   - ${GATEWAY}
   http:
+  # --- parallel idrepo1230 stack (must be listed before shared /idrepository/v1) ---
   - match:
     - uri:
         prefix: /idrepository/v1/identity
@@ -92,15 +107,69 @@ spec:
     route:
     - destination:
         host: ${VID_SVC}.${NS}.svc.cluster.local
+  # --- shared live deps so ENV_ENDPOINT can be the dedicated host ---
+  - match:
+    - uri:
+        prefix: /v1/authmanager
+    route:
+    - destination:
+        host: ${AUTHMANAGER_DEST}
+  - match:
+    - uri:
+        prefix: /v1/keymanager
+    route:
+    - destination:
+        host: ${KEYMANAGER_DEST}
+  - match:
+    - uri:
+        prefix: /v1/masterdata
+    route:
+    - destination:
+        host: ${MASTERDATA_DEST}
+  - match:
+    - uri:
+        prefix: /v1/auditmanager
+    route:
+    - destination:
+        host: ${AUDIT_DEST}
+  - match:
+    - uri:
+        prefix: /v1/notifier
+    route:
+    - destination:
+        host: ${NOTIFIER_DEST}
+  - match:
+    - uri:
+        prefix: /v1/otpmanager
+    route:
+    - destination:
+        host: ${OTPMANAGER_DEST}
+  - match:
+    - uri:
+        prefix: /v1/pridgenerator
+    route:
+    - destination:
+        host: ${PRIDGENERATOR_DEST}
+  - match:
+    - uri:
+        prefix: /v1/ridgenerator
+    route:
+    - destination:
+        host: ${RIDGENERATOR_DEST}
+  - match:
+    - uri:
+        prefix: /v1/datashare
+    route:
+    - destination:
+        host: ${DATASHARE_DEST}
 EOF
 
 echo
-echo "Done. Next steps:"
-echo "  1) Ensure Gateway $GATEWAY includes host $DEDICATED_HOST"
-echo "  2) DNS: $DEDICATED_HOST → ingress / load balancer"
-echo "  3) Smoke:"
-echo "       curl -sk https://$DEDICATED_HOST/idrepository/v1/identity/actuator/health"
-echo "  4) Point idrepo apitestrig at this host (install.sh ENV_ENDPOINT or values)."
+echo "Done. Next steps (DNS is required — UnknownHostException without it):"
+echo "  1) ./print-dns-hint.sh"
+echo "  2) ./ensure-dedicated-gateway-host.sh"
+echo "  3) curl -sk https://$DEDICATED_HOST/idrepository/v1/identity/actuator/health"
+echo "  4) ENV_ENDPOINT=https://$DEDICATED_HOST ./install.sh"
 echo
 echo "Service-to-service (identity→credentialrequest) still uses in-cluster DNS"
 echo "  credentialrequest1230.idrepo1230 — run ./patch-service-urls.sh if needed."

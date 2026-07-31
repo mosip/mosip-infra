@@ -1,7 +1,15 @@
 #!/bin/bash
-# Installs idrepo-only apitestrig (image tag 1.2.3.0) against api-internal,
-# which should already be retargeted to idrepo1230 via ./retarget-vs.sh
-## Usage: ./install.sh [kubeconfig]
+# Installs idrepo-only apitestrig (image tag 1.2.3.0).
+#
+# Routing modes:
+#   A) Shared host (default): ENV_ENDPOINT=https://api-internal.<env>
+#      after ./retarget-vs.sh
+#   B) Dedicated host: ENV_ENDPOINT=https://api-idrepo1230.<env>.mosip.net
+#      after ./create-dedicated-host-vs.sh + DNS + ./ensure-dedicated-gateway-host.sh
+#
+# Usage:
+#   ./install.sh [kubeconfig]
+#   ENV_ENDPOINT=https://api-idrepo1230.qa11new.mosip.net ./install.sh
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
@@ -35,11 +43,27 @@ function installing_apitestrig() {
   kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
 
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  | jq -r '.data."mosip-api-internal-host"' )
-  DB_HOST=$API_INTERNAL_HOST
+  # DB host stays on shared api-internal hostname (or override DB_HOST); do not use dedicated API host for JDBC.
+  DB_HOST=${DB_HOST:-$API_INTERNAL_HOST}
   ENV_USER=$( kubectl -n default get cm global -o json | jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
+  # Allow dedicated-host installs without editing the script.
+  if [ -n "${ENV_ENDPOINT:-}" ]; then
+    TARGET_ENDPOINT="$ENV_ENDPOINT"
+  else
+    TARGET_ENDPOINT="https://$API_INTERNAL_HOST"
+  fi
 
-  echo "Target ENV_ENDPOINT will be: https://$API_INTERNAL_HOST"
-  echo "Ensure idrepo routes on this host already point to idrepo1230 (run ./retarget-vs.sh first)."
+  echo "Target ENV_ENDPOINT will be: $TARGET_ENDPOINT"
+  echo "DB host remains: $DB_HOST"
+  case "$TARGET_ENDPOINT" in
+    *api-idrepo1230*)
+      echo "Dedicated-host mode: ensure DNS resolves and Gateway lists the host."
+      echo "  ./print-dns-hint.sh && ./ensure-dedicated-gateway-host.sh"
+      ;;
+    *)
+      echo "Shared-host mode: ensure idrepo routes point to idrepo1230 (./retarget-vs.sh)."
+      ;;
+  esac
 
   read -p "Please enter the time(hr) to run the cronjob every day (time: 0-23) : " time
   if [ -z "$time" ]; then
@@ -120,7 +144,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.db.db-su-user="postgres" \
   --set apitestrig.configmaps.db.db-port="5432" \
   --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
-  --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="https://$API_INTERNAL_HOST" \
+  --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="$TARGET_ENDPOINT" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
   --set apitestrig.configmaps.apitestrig.reportExpirationInDays="$reportExpirationInDays" \
   --set apitestrig.configmaps.apitestrig.slack-webhook-url="$slackWebhookUrl" \

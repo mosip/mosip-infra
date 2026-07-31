@@ -2,23 +2,28 @@
 
 Point the **idrepo-only** API TestRig at the parallel `idrepo1230` stack, using image tag **`mosipid/apitest-idrepo:1.2.3.0`**.
 
-## Why not change ENV_ENDPOINT?
+## Routing options
 
-Apitestrig still needs Keycloak / authmanager / masterdata / etc. on the shared env.
-Keep:
+**A) Retarget shared `api-internal` paths** (default `./retarget-vs.sh`) — steals those prefixes from live `idrepo`. Keep:
 
 `ENV_ENDPOINT=https://api-internal.qa11new.mosip.net`
 
-Two routing options:
+**B) Dedicated host (isolation)** — keep live idrepo on `api-internal`, expose parallel stack on `api-idrepo1230.<env>.mosip.net`.
 
-**A) Retarget shared `api-internal` paths** (default `./retarget-vs.sh`) — steals those prefixes from live `idrepo`.
+**DNS is mandatory** for B. Without it apitestrig fails with:
 
-**B) Dedicated host (recommended for isolation)** — keep live idrepo on `api-internal`, expose parallel stack on e.g. `api-idrepo1230.<env>.mosip.net`:
+`java.net.UnknownHostException: api-idrepo1230.qa11new.mosip.net`
 
 ```bash
-DEDICATED_HOST=api-idrepo1230.qa11new.mosip.net ./create-dedicated-host-vs.sh
-# then DNS + Gateway host entry, and point apitestrig ENV_ENDPOINT at DEDICATED_HOST
+./create-dedicated-host-vs.sh          # VS (idrepo1230 + shared authmanager/etc proxies)
+./print-dns-hint.sh                    # find LB IP / CoreDNS hint
+# create DNS A/CNAME OR CoreDNS hosts entry for api-idrepo1230 → same IP as api-internal
+./ensure-dedicated-gateway-host.sh
+curl -sk https://api-idrepo1230.qa11new.mosip.net/idrepository/v1/identity/actuator/health
+ENV_ENDPOINT=https://api-idrepo1230.qa11new.mosip.net ./install.sh
 ```
+
+Keycloak still comes from the copied `keycloak-host` configmap. Authmanager/masterdata/etc. are proxied on the dedicated VS to live services so one `ENV_ENDPOINT` works.
 
 | Path prefix | Target service |
 |---|---|
