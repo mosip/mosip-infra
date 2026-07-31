@@ -8,7 +8,7 @@ Defaults match [mosip/infra](https://github.com/mosip/infra) Helmsman DSF on bra
 |---|---|
 | Domain | `dev.mosip.net` |
 | Env name | `dev` |
-| Chart | `mosip/uitestrig` `12.0.2` |
+| Chart | `mosip/uitestrig` `1.6.0` (override with `CHART_VERSION=12.0.2` for older Helmsman) |
 | Cron hour | `3` (daily `0 3 * * *`) |
 | DB port | `5433` |
 | API | `https://api-internal.dev.mosip.net` |
@@ -34,7 +34,8 @@ chmod +x install.sh
 |---|---|---|
 | `DOMAIN_NAME` | `dev.mosip.net` | Environment domain |
 | `ENV_NAME` | `dev` | Short env name used in `ENV_USER` |
-| `CHART_VERSION` | `12.0.2` | Helm chart version (Helmsman `dev` uses `12.0.2`; `release-1.2.1.x` scripts use `1.6.0`) |
+| `CHART_VERSION` | `1.6.0` | Helm chart version (`mosipdev/uitest-pmp-v2` needs 1.6.x module names) |
+| `ENV_TESTLEVEL` | `smokeAndRegression` | TestNG test level (was `null` in failing runs) |
 | `CRON_HOUR` | `3` | Daily cron hour (0–23) |
 | `DB_PORT` | `5433` | Postgres port |
 | `ENABLE_INSECURE` | `false` | `true` for self-signed SSL |

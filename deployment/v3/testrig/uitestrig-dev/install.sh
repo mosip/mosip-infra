@@ -22,11 +22,14 @@ COPY_UTIL="$INFRA_ROOT/utils/copy_cm_func.sh"
 NS=uitestrig
 DOMAIN_NAME="${DOMAIN_NAME:-dev.mosip.net}"
 ENV_NAME="${ENV_NAME:-dev}"
-CHART_VERSION="${CHART_VERSION:-12.0.2}"
+# 1.6.0 matches mosipdev/uitest-pmp-v2 and ENV_TESTLEVEL / module names used on dev.
+# Override with CHART_VERSION=12.0.2 if you need the older Helmsman chart.
+CHART_VERSION="${CHART_VERSION:-1.6.0}"
 CRON_HOUR="${CRON_HOUR:-3}"
 DB_PORT="${DB_PORT:-5433}"
 ENABLE_INSECURE="${ENABLE_INSECURE:-false}"
 USE_LOCAL_VALUES="${USE_LOCAL_VALUES:-true}"
+ENV_TESTLEVEL="${ENV_TESTLEVEL:-smokeAndRegression}"
 
 API_INTERNAL_HOST="${API_INTERNAL_HOST:-api-internal.${DOMAIN_NAME}}"
 ADMIN_HOST="${ADMIN_HOST:-admin.${DOMAIN_NAME}}"
@@ -134,6 +137,7 @@ function install_uitestrig() {
     --set "uitestrig.configmaps.uitestrig.injiverify=https://$INJI_VERIFY_HOST/" \
     --set "uitestrig.configmaps.uitestrig.ENV_ENDPOINT=https://$API_INTERNAL_HOST" \
     --set "uitestrig.configmaps.uitestrig.ENV_USER=$ENV_USER" \
+    --set "uitestrig.configmaps.uitestrig.ENV_TESTLEVEL=$ENV_TESTLEVEL" \
     "${extra_sets[@]}" \
     "${insecure_flag[@]}"
 
