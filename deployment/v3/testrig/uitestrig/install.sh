@@ -13,27 +13,33 @@ echo Create $NS namespace
 kubectl create ns $NS
 
 function prompt_or_env() {
-  # usage: prompt_or_env VAR_NAME "Prompt text" [secret]
+  # usage: prompt_or_env VAR_NAME "Prompt text" [sensitive]
+  # Do not name locals after caller variables (e.g. avoid local secret=...) —
+  # printf -v would otherwise write the local and leave the global unset under set -u.
   local var_name="$1"
   local prompt_text="$2"
-  local secret="${3:-}"
-  local current="${!var_name:-}"
+  local is_sensitive="${3:-}"
+  local current=""
+
+  if [ -n "${!var_name+x}" ]; then
+    current="${!var_name}"
+  fi
   if [ -n "$current" ]; then
-    printf -v "$var_name" '%s' "$current"
     return 0
   fi
-  if [ "$secret" = "secret" ]; then
+  if [ "$is_sensitive" = "sensitive" ]; then
     read -r -s -p "$prompt_text" current
     echo
   else
     read -r -p "$prompt_text" current
   fi
+  # Assign in caller scope via nameref when available, else eval-safe printf -v
   printf -v "$var_name" '%s' "$current"
 }
 
 function installing_uitestrig() {
   prompt_or_env time "Please enter the time(hr) to run the cronjob every day (time: 0-23) : "
-  if [ -z "$time" ]; then
+  if [ -z "${time:-}" ]; then
      echo "ERROR: Time cannot be empty; EXITING;";
      exit 1;
   fi
@@ -53,7 +59,7 @@ function installing_uitestrig() {
     read -p "" flag
   fi
 
-  if [ -z "$flag" ]; then
+  if [ -z "${flag:-}" ]; then
     echo "'flag' was provided; EXITING;"
     exit 1;
   fi
@@ -63,55 +69,55 @@ function installing_uitestrig() {
   fi
 
   prompt_or_env env "Please enter the env url : "
-    if [ -z "$env" ]; then
+    if [ -z "${env:-}" ]; then
        echo "ERROR: env url cannot be empty; EXITING;";
        exit 1;
     fi
 
   prompt_or_env injiWebUi "Please enter the injiWebUi url : "
-    if [ -z "$injiWebUi" ]; then
+    if [ -z "${injiWebUi:-}" ]; then
        echo "ERROR: injiWebUi url cannot be empty; EXITING;";
        exit 1;
     fi
 
   prompt_or_env TEST_URL "Please enter the TEST_URL : "
-    if [ -z "$TEST_URL" ]; then
+    if [ -z "${TEST_URL:-}" ]; then
        echo "ERROR: Test url cannot be empty; EXITING;";
        exit 1;
     fi
 
-  prompt_or_env token "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " secret
-    if [ -z "$token" ]; then
+  prompt_or_env token "Please enter the MOSIP_INJIWEB_GOOGLE_REFRESH_TOKEN : " sensitive
+    if [ -z "${token:-}" ]; then
        echo "ERROR: Google Refresh Token cannot be empty; EXITING;";
        exit 1;
     fi
 
   prompt_or_env client_id "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_ID : "
-    if [ -z "$client_id" ]; then
+    if [ -z "${client_id:-}" ]; then
        echo "ERROR: Google Client ID cannot be empty; EXITING;";
        exit 1;
     fi
 
-  prompt_or_env secret "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " secret
-    if [ -z "$secret" ]; then
+  prompt_or_env google_client_secret "Please enter the MOSIP_INJIWEB_GOOGLE_CLIENT_SECRET : " sensitive
+    if [ -z "${google_client_secret:-}" ]; then
        echo "ERROR: Google client secret cannot be empty; EXITING;";
        exit 1;
     fi
 
   prompt_or_env User_name "Please enter the BROWSERSTACK USERNAME : "
-    if [ -z "$User_name" ]; then
+    if [ -z "${User_name:-}" ]; then
        echo "ERROR: BROWSERSTACK USERNAME cannot be empty; EXITING;";
        exit 1;
     fi
 
-  prompt_or_env Access_key "Please enter the BROWSERSTACK ACCESS KEY : " secret
-    if [ -z "$Access_key" ]; then
+  prompt_or_env Access_key "Please enter the BROWSERSTACK ACCESS KEY : " sensitive
+    if [ -z "${Access_key:-}" ]; then
        echo "ERROR: BROWSERSTACK ACCESS KEY cannot be empty; EXITING;";
        exit 1;
     fi
 
   prompt_or_env Env_user "Please enter the Env user : "
-      if [ -z "$Env_user" ]; then
+      if [ -z "${Env_user:-}" ]; then
          echo "ERROR: Env user cannot be empty; EXITING;";
          exit 1;
       fi
