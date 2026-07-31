@@ -95,7 +95,8 @@ kubectl -n $NS rollout status deploy/credentialrequest1230
 EOF
 
 echo
-echo "If Online_Verification_Partners cache errors persist, run ./fix-cache.sh""
+echo "If Online_Verification_Partners cache errors persist, run ./fix-cache.sh"
+echo "(case mismatch: config has online_verification_partners, Java wants Online_Verification_Partners)."
 echo
 echo "After rollout, verify effective REST URI (must contain credentialrequest1230):"
 cat <<'EOF'
