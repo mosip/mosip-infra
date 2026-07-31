@@ -1,6 +1,8 @@
 #!/bin/bash
-# One-shot: force identity1230 java cmdline cache-names (beats config-server).
-# Paste-friendly. Does NOT use helm — re-run if a helm upgrade resets command/args.
+# Force correct spring.cache.cache-names on identity1230 WITHOUT skipping BioSDK.
+#
+# MUST keep image ENTRYPOINT ./configure_start.sh (installs biosdk client).
+# Only replace CMD via container args → configure_start.sh runs biosdk, then exec's our java.
 #
 # Usage: ./apply-cache-cmdline.sh [kubeconfig]
 
@@ -11,6 +13,7 @@ CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encryp
 
 set -euo pipefail
 
+echo "==> Build CMD wrapper (runs AFTER configure_start.sh biosdk install)"
 SCRIPT=$(cat <<EOF
 set -euo pipefail
 cd /home/mosip
@@ -34,13 +37,7 @@ exec java \\
 EOF
 )
 
-# Build JSON patch with python for safe escaping
-PATCH=$(SCRIPT="$SCRIPT" python3 -c 'import json,os; s=os.environ["SCRIPT"]; print(json.dumps([
-  {"op":"add","path":"/spec/template/spec/containers/0/command","value":["/bin/bash","-lc"]},
-  {"op":"add","path":"/spec/template/spec/containers/0/args","value":[s]},
-]))')
-
-# Prefer replace if fields already exist
+echo "==> Patch deployment: REMOVE command (keep ENTRYPOINT), SET args only"
 CUR=$(kubectl -n "$NS" get deploy "$DEPLOY" -o json)
 PATCH=$(CUR="$CUR" SCRIPT="$SCRIPT" python3 - <<'PY'
 import json, os
@@ -48,25 +45,24 @@ dep = json.loads(os.environ["CUR"])
 script = os.environ["SCRIPT"]
 c0 = dep["spec"]["template"]["spec"]["containers"][0]
 ops = []
-ops.append({
-  "op": "replace" if "command" in c0 and c0["command"] is not None else "add",
-  "path": "/spec/template/spec/containers/0/command",
-  "value": ["/bin/bash", "-lc"],
-})
-# args may be null
+# Critical: do NOT override command — image ENTRYPOINT must stay ./configure_start.sh
+if "command" in c0 and c0["command"] is not None:
+    ops.append({"op": "remove", "path": "/spec/template/spec/containers/0/command"})
 has_args = bool(c0.get("args"))
 ops.append({
   "op": "replace" if has_args else "add",
   "path": "/spec/template/spec/containers/0/args",
-  "value": [script],
+  "value": ["/bin/bash", "-lc", script],
 })
 print(json.dumps(ops))
 PY
 )
 
-echo "Patching $NS/$DEPLOY command+args ..."
+echo "Patch: $PATCH" | head -c 200; echo "..."
 kubectl -n "$NS" patch deployment "$DEPLOY" --type=json -p="$PATCH"
 
+# Prefer app args over JAVA_TOOL_OPTIONS for cache names (avoid double-binding confusion)
+kubectl -n "$NS" set env deployment/"$DEPLOY" JAVA_TOOL_OPTIONS- 2>/dev/null || true
 kubectl -n "$NS" set env deployment/"$DEPLOY" \
   SPRING_CLOUD_CONFIG_ALLOW_OVERRIDE=true \
   SPRING_CLOUD_CONFIG_OVERRIDE_NONE=true \
@@ -74,19 +70,31 @@ kubectl -n "$NS" set env deployment/"$DEPLOY" \
   SPRING_CACHE_TYPE=simple \
   SPRING_CACHE_CACHE_NAMES="$CACHE_NAMES"
 
-echo "Waiting for rollout..."
+echo "==> Rollout"
 kubectl -n "$NS" rollout status deployment/"$DEPLOY" --timeout=300s
 
-echo
-echo "=== verify deployment.command ==="
+echo "==> Verify"
+echo -n "command (must be empty): "
 kubectl -n "$NS" get deploy "$DEPLOY" -o jsonpath='{.spec.template.spec.containers[0].command}{"\n"}'
-echo "=== verify java cmdline ==="
-sleep 8
-JAVA_LINE=$(kubectl -n "$NS" exec deploy/"$DEPLOY" -- bash -lc 'ps -o args -A | grep "[j]ava.*id-repository-identity" | head -1' || true)
-echo "$JAVA_LINE"
-echo "$JAVA_LINE" | grep -q Online_Verification_Partners
+echo -n "args present: "
+kubectl -n "$NS" get deploy "$DEPLOY" -o json | python3 -c 'import json,sys; a=json.load(sys.stdin)["spec"]["template"]["spec"]["containers"][0].get("args") or []; print(bool(a), "Online_Verification_Partners" in " ".join(a))'
 
-echo "OK — Online_Verification_Partners is on the java process."
-echo "Next: sleep 40; then"
-echo "  kubectl -n $NS logs deploy/$DEPLOY --since=2m | grep -c \"Cannot find cache named 'Online_Verification_Partners'\""
-echo "(expect 0). Re-run this script after any helm upgrade of identity1230."
+sleep 15
+# wait until Running (biosdk download takes a bit)
+for i in 1 2 3 4 5 6 7 8 9 10; do
+  PHASE=$(kubectl -n "$NS" get pods -l app.kubernetes.io/name=identity,app.kubernetes.io/instance=identity1230 -o jsonpath='{.items[0].status.phase}' 2>/dev/null || \
+          kubectl -n "$NS" get pods -l app=identity1230 -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo Unknown)
+  echo "pod phase: $PHASE"
+  [ "$PHASE" = "Running" ] && break
+  sleep 10
+done
+
+JAVA_LINE=$(kubectl -n "$NS" exec deploy/"$DEPLOY" -- bash -lc 'ps -o args -A | grep "[j]ava.*id-repository-identity" | head -1' 2>/dev/null || true)
+echo "JAVA: $JAVA_LINE"
+echo "$JAVA_LINE" | grep -q Online_Verification_Partners
+echo "OK: cache-names on java AND biosdk entrypoint preserved"
+
+echo "==> Cache error count (expect 0 after ~45s)"
+sleep 45
+kubectl -n "$NS" logs deploy/"$DEPLOY" --since=2m 2>/dev/null \
+  | grep -c "Cannot find cache named 'Online_Verification_Partners'" || echo 0

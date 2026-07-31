@@ -134,7 +134,9 @@ kubectl -n idrepo1230 exec deploy/identity1230 -- \
   bash -lc 'ps -o args -A | grep "[j]ava.*identity"'
 ```
 
-Re-run after any `helm upgrade` of `identity1230` (helm resets command/args).
+Re-run after any `helm upgrade` of `identity1230` (helm resets args).
+
+**Do not set container `command`** — that replaces `./configure_start.sh` and causes CrashLoop (`BIO_SDK_007` / missing biosdk client). Only override `args` (CMD).
 
 Permanent fix (preferred): in **mosip-config** branch `qa11new` `id-repository-dev.properties`:
 
