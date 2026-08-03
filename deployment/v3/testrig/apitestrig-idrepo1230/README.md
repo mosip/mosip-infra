@@ -93,9 +93,13 @@ A healthy dedicated-host run looks like:
 
 ```text
 Application URI ======https://api-idrepo1230.qa11new.mosip.net
-Total tests run: 414, Passes: 315+, Failures: 0~few, Skips: ...
+Total tests run: 414, Passes: 316, Failures: 0, Skips: 98
+...full-report_T-414_P-316_S-0_F-0_I-78_KI-20.html
 ```
 
+That report name means: **0 failures**, **0 hard skips (S)**, **78 ignored (I)**
+(feature/schema/service gates), **20 known issues (KI)**. TestNG `Skips: 98` = I+KI.
+This is a successful parallel-stack result — not a wiring failure.
 Credential path OK (after cache fix) means `mosip_credential1230` rows move during the run
 (e.g. `count=23`, `max(cr_dtimes)` same day as the run). **Skips are a separate issue** —
 green credential DB does not imply zero skips.

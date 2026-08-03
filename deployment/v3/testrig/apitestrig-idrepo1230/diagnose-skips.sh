@@ -26,7 +26,7 @@ export LOG_FILE=${LOG_FILE:-/tmp/idrepo1230-apitestrig-skips.log}
 set -euo pipefail
 
 # If you still see `rg: command not found`, you are on an old copy — git pull.
-DIAG_VER=2026-08-03b
+DIAG_VER=2026-08-03c
 echo "diagnose-skips.sh $DIAG_VER (no ripgrep required)"
 echo
 
@@ -232,18 +232,46 @@ if m:
     print("--- health failure snippet ---")
     print(m.group(0)[:500])
     print()
+
+# EmailableReport rename: ...full-report_T-N_P-N_S-N_F-N_I-N_KI-N.html
+# S=skipped, F=failed, I=ignored (feature/service/schema gates), KI=known issues list
+rep = re.search(
+    r"full-report_T-(\d+)_P-(\d+)_S-(\d+)_F-(\d+)(?:_I-(\d+))?(?:_KI-(\d+))?\.html",
+    text,
+)
+if rep:
+    t, p, s, f = (int(rep.group(i)) for i in range(1, 5))
+    ign = int(rep.group(5) or 0)
+    ki = int(rep.group(6) or 0)
+    print("--- EmailableReport breakdown (authoritative) ---")
+    print(f"  Total={t}  Pass={p}  Fail={f}  Skip(S)={s}  Ignored(I)={ign}  KnownIssues(KI)={ki}")
+    print(f"  TestNG 'Skips' line usually = S+I+KI = {s + ign + ki}")
+    print()
+    if f == 0 and s == 0:
+        print("VERDICT: 0 failures, 0 hard skips.")
+        print(f"  {ki} known-issue cases (upstream testCaseSkippedList) — expected")
+        print(f"  {ign} ignored cases (feature/service/schema/not-in-scope) — env gates, not wiring")
+        print("  Parallel idrepo1230 + dedicated apitestrig wiring looks SUCCESSFUL.")
+    elif f > 0:
+        print(f"VERDICT: {f} FAILURES — open the MinIO HTML report for case details.")
+    else:
+        print(f"VERDICT: S={s} hard skips remain — check health deps / report HTML.")
+    print()
 PY
 echo
 
 echo "=== F) interpretation ==="
-echo "If check-health-deps was 14 OK and jar is 1.2.3.0:"
-echo "  • wiring/health are done — remaining skips are mostly known-issues / schema gates"
-echo "  • pod stdout often lacks per-case SkipException text; use the MinIO HTML report"
+echo "Report filename counters (from EmailableReport):"
+echo "  S  = hard SkipException skips (e.g. health) — want 0"
+echo "  I  = Ignored (feature not supported / service not deployed / schema / not in scope)"
+echo "  KI = Known Issues (upstream testCaseSkippedList.txt) — expected ~20"
+echo "  F  = Failures — want 0"
+echo "TestNG 'Skips: N' = S + I + KI."
 if kubectl -n "$NS" get cm s3 >/dev/null 2>&1; then
   S3_HOST=$(kubectl -n "$NS" get cm s3 -o jsonpath='{.data.s3-host}' 2>/dev/null || true)
   S3_USER=$(kubectl -n "$NS" get cm s3 -o jsonpath='{.data.s3-user-key}' 2>/dev/null || true)
-  echo "  s3-host: ${S3_HOST:-?}  s3-user-key: ${S3_USER:-?}"
-  echo "  Browse MinIO for apitestrig/idrepo report HTML from this run."
+  echo "MinIO: s3-host=${S3_HOST:-?} user=${S3_USER:-?} bucket=automation"
+  echo "Report key hint: mosip-api-internal.qa11new-idrepo-*-full-report_T-*_P-*_S-*_F-*_I-*_KI-*.html"
 fi
 echo
 echo "Credential path is independent — if mosip_credential1230 advanced, cache/REST wiring is OK."
