@@ -22,7 +22,10 @@ APPLY=${APPLY:-true}
 
 set -euo pipefail
 
-CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics,credential_transaction'
+# Cache: prefer type=none (NoOp). v1.2.3.0 Boot ConcurrentMapCacheManager locks
+# names via spring.cache.cache-names; lowercase config-server values break
+# @Cacheable("Online_Verification_Partners"). apply-cache-cmdline.sh is still
+# required — JSON alone often loses to config-server for cache.* keys.
 REST_JSON=$(cat <<EOF
 {
   "mosip.idrepo.credrequest.generator.url": "http://credentialrequest1230.idrepo1230",
@@ -34,9 +37,7 @@ REST_JSON=$(cat <<EOF
   "mosip.idrepo.credential-request-v2.rest.uri": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/v2/requestgenerator/{rid}",
   "CRDENTIALSERVICE": "http://credential1230.idrepo1230/v1/credentialservice/issue",
   "CALLBACKURL": "http://credentialrequest1230.idrepo1230/v1/credentialrequest/callback/notifyStatus",
-  "spring.cache.type": "simple",
-  "spring.cache.cache-names": "${CACHE_NAMES}",
-  "mosip.idrepo.cache.names": "${CACHE_NAMES}"
+  "spring.cache.type": "none"
 }
 EOF
 )
@@ -74,8 +75,8 @@ for dep in identity1230 vid1230 credential1230 credentialrequest1230; do
 done
 
 echo
-echo "NOTE: cache case-mismatch still needs ./apply-cache-cmdline.sh on identity1230"
-echo "(SPRING_APPLICATION_JSON alone often loses to config-server for SimpleCacheConfig)."
+echo "NOTE: cache still needs ./apply-cache-cmdline.sh on identity1230"
+echo "(default MODE=noop → spring.cache.type=none on java cmdline; JSON alone is not enough)."
 echo
 echo "Verify:"
 echo "  ./diagnose-credential-path.sh"

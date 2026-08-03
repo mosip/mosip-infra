@@ -28,10 +28,17 @@ check() {
 echo "=== A) identity1230 java cache override ==="
 JAVA_LINE=$(kubectl -n "$NS" exec deploy/"$DEPLOY" -- bash -lc \
   'ps -o args -A | grep "[j]ava.*id-repository-identity" | head -1' 2>/dev/null || true)
-if echo "$JAVA_LINE" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'; then
-  check "java has -Dmosip.idrepo.cache.names=Online_Verification_Partners" 1
+# v1.2.3.0 uses spring.cache.cache-names (Boot ConcurrentMapCacheManager).
+# Prefer type=none (NoOp) — cache name case becomes irrelevant.
+if echo "$JAVA_LINE" | grep -qE '\-Dspring.cache.type=none|--spring.cache.type=none'; then
+  check "java has spring.cache.type=none (NoOp cache)" 1
+elif echo "$JAVA_LINE" | grep -q '\-Dspring.cache.cache-names=Online_Verification_Partners'; then
+  check "java has -Dspring.cache.cache-names=Online_Verification_Partners" 1
+elif echo "$JAVA_LINE" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'; then
+  check "java has -Dmosip.idrepo.cache.names (SimpleCacheConfig path)" 1 \
+    "(prefer MODE=noop or spring.cache.cache-names for v1.2.3.0 images)"
 else
-  check "java has -Dmosip.idrepo.cache.names=Online_Verification_Partners" 0 \
+  check "java has cache override (type=none or cache-names)" 0 \
     "(run ./apply-cache-cmdline.sh — helm upgrade often wipes args)"
   echo "    java: ${JAVA_LINE:0:220}..."
 fi
@@ -47,6 +54,19 @@ fi
 PARTNERS=$(kubectl -n "$NS" logs deploy/"$DEPLOY" --since=10m 2>/dev/null \
   | grep -c 'PARTNERS_IDENTIFIED' || true)
 echo "INFO PARTNERS_IDENTIFIED log hits (10m): $PARTNERS"
+
+# Effective Boot property (not just cmdline) — config-server may still win for env/JSON.
+ACT_CACHE=$(curl -sk --max-time 15 \
+  "https://${DEDICATED_HOST}/idrepository/v1/identity/actuator/env" 2>/dev/null || true)
+if [ -n "$ACT_CACHE" ]; then
+  echo "$ACT_CACHE" | jq -r '
+    .. | objects | to_entries[]?
+    | select(.key == "spring.cache.type"
+          or .key == "spring.cache.cache-names"
+          or .key == "mosip.idrepo.cache.names")
+    | "\(.key)=\(.value.value // .value)"
+  ' 2>/dev/null | sort -u || true
+fi
 
 echo
 echo "=== B) identity → credentialrequest REST URI ==="
@@ -114,7 +134,8 @@ echo
 echo "=== E) Summary: $pass OK / $fail FAIL ==="
 if [ "$fail" -gt 0 ]; then
   echo "Fix order:"
-  echo "  1) ./apply-cache-cmdline.sh          # until cache error count is 0"
+  echo "  1) ./apply-cache-cmdline.sh          # default MODE=noop (spring.cache.type=none)"
+  echo "     MODE=names ./apply-cache-cmdline.sh   # alternative: PascalCase cache-names"
   echo "  2) ./patch-service-urls.sh           # applies SPRING_APPLICATION_JSON to deploys"
   echo "  3) create ONE identity via dedicated host, re-check mosip_credential1230 max(cr_dtimes)"
   exit 1

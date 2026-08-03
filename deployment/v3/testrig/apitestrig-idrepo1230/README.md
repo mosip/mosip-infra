@@ -152,7 +152,9 @@ Identity logs show:
 
 inside `CredentialServiceManager.notifyUinCredential` → no call to credentialrequest → `mosip_credential1230` stuck.
 
-**Root cause (case mismatch):** qa11new `id-repository-dev.properties` has:
+**Root cause (case mismatch + wrong property):**
+
+qa11new `id-repository-dev.properties` has lowercase names:
 
 ```properties
 spring.cache.type=simple
@@ -160,38 +162,34 @@ mosip.idrepo.cache.names=...,online_verification_partners,...
 spring.cache.cache-names=${mosip.idrepo.cache.names}
 ```
 
-But Java `@Cacheable` uses `Online_Verification_Partners` (and `DATASHARE_POLICIES` / `PARTNER_EXTRACTOR_FORMATS`).
+But id-repository **v1.2.3.0** uses `@Cacheable("Online_Verification_Partners")`.
 
-id-repository 1.2.3.x `SimpleCacheConfig` builds `SimpleCacheManager` **only** from `mosip.idrepo.cache.names` (not `spring.cache.cache-names`). Those names must also appear in `mosip.idrepo.cache.size` / `expire-in-seconds` maps. Redis profile hides this because RedisCacheManager uses the expire map keys and can still miss PascalCase lookups differently.
-
-**Env / `JAVA_TOOL_OPTIONS` / `SPRING_APPLICATION_JSON` are not enough** — config-server still wins on qa11new (errors continue with count ~24/2m). A prior args-only patch also failed: `deploy/identity1230` kept an empty `command` and the stock image CMD.
+That tag has **no** `SimpleCacheConfig`. Spring Boot’s `ConcurrentMapCacheManager` is locked to
+`spring.cache.cache-names`. Overriding only `mosip.idrepo.cache.names` (previous fix) leaves
+Boot’s list on lowercase → errors continue even when java shows `-Dmosip.idrepo.cache.names=...`.
 
 ```bash
 git pull
 ./apply-cache-cmdline.sh
-# Sets BOTH command=["/bin/bash","-lc"] and args=[java ... --spring.cache.cache-names=Online_Verification_Partners,...]
+# default MODE=noop → --spring.cache.type=none (NoOpCacheManager; QA-safe)
+# alternative: MODE=names ./apply-cache-cmdline.sh  # PascalCase spring.cache.cache-names
 ```
 
-Verify (must show `/bin/bash` and `Online_Verification_Partners` on java):
+Verify:
 
 ```bash
-kubectl -n idrepo1230 get deploy identity1230 \
-  -o jsonpath='{.spec.template.spec.containers[0].command}{"\n"}'
 kubectl -n idrepo1230 exec deploy/identity1230 -- \
   bash -lc 'ps -o args -A | grep "[j]ava.*identity"'
+# must show spring.cache.type=none  (or spring.cache.cache-names=Online_Verification_Partners)
 ```
 
 Re-run after any `helm upgrade` of `identity1230` (helm resets args).
 
 **Do not set container `command`** — that replaces `./configure_start.sh` and causes CrashLoop (`BIO_SDK_007` / missing biosdk client). Only override `args` (CMD).
 
-Permanent fix (preferred): in **mosip-config** branch `qa11new` `id-repository-dev.properties`:
-
-```properties
-mosip.idrepo.cache.names=credential_transaction,PARTNER_EXTRACTOR_FORMATS,DATASHARE_POLICIES,topics,Online_Verification_Partners,uin_encrypt_salt,uin_hash_salt,id_attributes
-```
-
-Then refresh config-server / restart identity1230 — no command patch needed.
+Permanent fix (preferred): in **mosip-config** branch `qa11new` `id-repository-dev.properties` set
+`spring.cache.cache-names` / `mosip.idrepo.cache.names` to the exact `@Cacheable` strings from
+the image you run (v1.2.3.0 → `Online_Verification_Partners`), **or** `spring.cache.type=none` for QA.
 
 Acceptance:
 
@@ -204,8 +202,6 @@ kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
 kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
   | grep -E 'PARTNERS_IDENTIFIED|requestgenerator' | tail -20
 ```
-
-Permanent fix in `mosip-config` (qa11new): set `mosip.idrepo.cache.names` to the exact `@Cacheable` names from id-repository 1.2.3.0.
 
 WebSub `Publisher is not authorized` is a separate issue; the cache error is what blocks credential_transaction inserts.
 
