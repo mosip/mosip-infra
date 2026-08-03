@@ -43,8 +43,11 @@ function installing_apitestrig() {
   kubectl -n $NS delete --ignore-not-found=true configmap apitestrig
 
   API_INTERNAL_HOST=$( kubectl -n default get cm global -o json  | jq -r '.data."mosip-api-internal-host"' )
-  # DB host stays on shared api-internal hostname (or override DB_HOST); do not use dedicated API host for JDBC.
+  # JDBC must reach Postgres directly — api-internal usually is NOT postgres:5432.
+  # Override if cleanup/DB checks fail, e.g.:
+  #   DB_HOST=172.31.15.40 DB_PORT=5433 ./install.sh
   DB_HOST=${DB_HOST:-$API_INTERNAL_HOST}
+  DB_PORT=${DB_PORT:-5432}
   ENV_USER=$( kubectl -n default get cm global -o json | jq -r '.data."mosip-api-internal-host"' | awk -F '.' '/api-internal/{print $1"."$2}')
   # Allow dedicated-host installs without editing the script.
   if [ -n "${ENV_ENDPOINT:-}" ]; then
@@ -54,7 +57,7 @@ function installing_apitestrig() {
   fi
 
   echo "Target ENV_ENDPOINT will be: $TARGET_ENDPOINT"
-  echo "DB host remains: $DB_HOST"
+  echo "DB JDBC target: ${DB_HOST}:${DB_PORT}"
   case "$TARGET_ENDPOINT" in
     *api-idrepo1230*)
       echo "Dedicated-host mode: ensure DNS resolves and Gateway lists the host."

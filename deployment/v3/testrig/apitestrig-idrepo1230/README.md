@@ -87,6 +87,35 @@ kubectl -n apitestrig1230 create job --from=cronjob/cronjob-idrepo-apitestrig-id
 
 CronJob name can vary slightly by chart version; confirm with `kubectl -n apitestrig1230 get cronjob`.
 
+## Interpreting a completed run
+
+A healthy dedicated-host run looks like:
+
+```text
+Application URI ======https://api-idrepo1230.qa11new.mosip.net
+Total tests run: 414, Passes: 315+, Failures: 0~few, Skips: ...
+```
+
+That is **not** the earlier `UnknownHostException` failure. Skips often come from health checks
+(`/biosdk-service`, `/hub`, `/v1/datashare`, `/v1/notifier`) or DB cleanup failing when
+`db-server` is set to `api-internal` instead of the real Postgres host/port.
+
+```bash
+# refresh shared proxies on dedicated VS (biosdk + websub hub included)
+./create-dedicated-host-vs.sh
+
+# if logs show JDBC errors to api-internal:5432, reinstall with real DB:
+DB_HOST=172.31.15.40 DB_PORT=5433 \
+  ENV_ENDPOINT=https://api-idrepo1230.qa11new.mosip.net ./install.sh
+```
+
+Confirm credential path still hits the parallel DB:
+
+```sql
+-- mosip_credential1230
+SELECT count(*), max(cr_dtimes) FROM credential.credential_transaction;
+```
+
 ## Verify routes before running tests
 
 ```sh

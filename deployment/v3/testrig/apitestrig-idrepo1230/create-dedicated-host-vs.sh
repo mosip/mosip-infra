@@ -39,6 +39,8 @@ OTPMANAGER_DEST=${OTPMANAGER_DEST:-otpmanager.kernel.svc.cluster.local}
 PRIDGENERATOR_DEST=${PRIDGENERATOR_DEST:-pridgenerator.kernel.svc.cluster.local}
 RIDGENERATOR_DEST=${RIDGENERATOR_DEST:-ridgenerator.kernel.svc.cluster.local}
 DATASHARE_DEST=${DATASHARE_DEST:-datashare.datashare.svc.cluster.local}
+BIOSDK_DEST=${BIOSDK_DEST:-biosdk-service.biosdk.svc.cluster.local}
+WEBSUB_DEST=${WEBSUB_DEST:-websub.websub.svc.cluster.local}
 
 set -euo pipefail
 
