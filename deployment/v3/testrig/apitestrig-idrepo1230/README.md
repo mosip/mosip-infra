@@ -130,13 +130,18 @@ Health paths that commonly FAIL on the dedicated host (must be proxied by VS):
 # 2) curl every idrepo health dep on the dedicated host
 ./check-health-deps.sh
 
-# 3) after a testrig run — histogram of skip reasons from pod logs
+# 3) after a testrig run — image/jar + SkipException histogram from pod logs
 ./diagnose-skips.sh
 
-# 4) if logs show JDBC errors to api-internal:5432, reinstall with real DB:
+# 4) if logs show JDBC errors to api-internal:5432, or jar is still 1.2.2.x:
 DB_HOST=172.31.15.40 DB_PORT=5433 \
   ENV_ENDPOINT=https://api-idrepo1230.qa11new.mosip.net ./install.sh
+# then create a NEW manual job (Succeeded pods keep the old image/jar)
 ```
+
+If `./check-health-deps.sh` is **14 OK / 0 FAIL** and config has `eSignetDeployed=yes` +
+real Postgres, remaining skips are mostly upstream known-issues / schema feature gates.
+Confirm the run used **`mosipid/apitest-idrepo:1.2.3.0`** (not a `1.2.2.4` jar).
 
 Confirm credential path still hits the parallel DB:
 

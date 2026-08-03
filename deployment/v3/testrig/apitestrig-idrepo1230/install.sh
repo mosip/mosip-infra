@@ -136,10 +136,15 @@ function installing_apitestrig() {
   fi
 
   echo "Installing/upgrading idrepo apitestrig (image mosipid/apitest-idrepo:1.2.3.0)"
+  # Force image on CLI as well as -f values.yaml so an older release cannot keep 1.2.2.x
   helm -n $NS $HELM_CMD $RELEASE_NAME mosip/apitestrig \
   --set crontime="0 $time * * *" \
   -f values.yaml \
   --version $CHART_VERSION \
+  --set modules.idrepo.enabled=true \
+  --set modules.idrepo.image.repository=mosipid/apitest-idrepo \
+  --set modules.idrepo.image.tag=1.2.3.0 \
+  --set modules.idrepo.image.pullPolicy=Always \
   --set apitestrig.configmaps.s3.s3-host='http://minio.minio:9000' \
   --set apitestrig.configmaps.s3.s3-user-key='admin' \
   --set apitestrig.configmaps.s3.s3-region='' \
@@ -157,7 +162,11 @@ function installing_apitestrig() {
 
   echo Installed $RELEASE_NAME into namespace $NS.
   echo
-  echo "Run manually:"
+  echo "Verify cronjob image is mosipid/apitest-idrepo:1.2.3.0 (not 1.2.2.x):"
+  echo "  kubectl -n $NS get cronjob -o wide"
+  echo "  kubectl -n $NS get cronjob -o jsonpath='{range .items[*]}{.metadata.name}{\"\\t\"}{.spec.jobTemplate.spec.template.spec.containers[0].image}{\"\\n\"}{end}'"
+  echo
+  echo "Run manually (new job required — old Succeeded pods keep the old image):"
   echo "  kubectl -n $NS create job --from=cronjob/cronjob-${RELEASE_NAME}-idrepo idrepo-apitestrig-manual-\$(date +%s)"
   return 0
 }
