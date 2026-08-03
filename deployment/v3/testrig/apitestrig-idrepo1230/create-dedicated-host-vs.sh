@@ -38,9 +38,13 @@ NOTIFIER_DEST=${NOTIFIER_DEST:-notifier.kernel.svc.cluster.local}
 OTPMANAGER_DEST=${OTPMANAGER_DEST:-otpmanager.kernel.svc.cluster.local}
 PRIDGENERATOR_DEST=${PRIDGENERATOR_DEST:-pridgenerator.kernel.svc.cluster.local}
 RIDGENERATOR_DEST=${RIDGENERATOR_DEST:-ridgenerator.kernel.svc.cluster.local}
+IDGENERATOR_DEST=${IDGENERATOR_DEST:-idgenerator.kernel.svc.cluster.local}
 DATASHARE_DEST=${DATASHARE_DEST:-datashare.datashare.svc.cluster.local}
 BIOSDK_DEST=${BIOSDK_DEST:-biosdk-service.biosdk.svc.cluster.local}
 WEBSUB_DEST=${WEBSUB_DEST:-websub.websub.svc.cluster.local}
+# Partner stack (idrepo apitestrig healthCheckEndpoint.properties includes these)
+PARTNERMANAGER_DEST=${PARTNERMANAGER_DEST:-pms-partner.pms.svc.cluster.local}
+POLICYMANAGER_DEST=${POLICYMANAGER_DEST:-pms-policy.pms.svc.cluster.local}
 
 set -euo pipefail
 
@@ -160,6 +164,24 @@ spec:
         host: ${RIDGENERATOR_DEST}
   - match:
     - uri:
+        prefix: /v1/idgenerator
+    route:
+    - destination:
+        host: ${IDGENERATOR_DEST}
+  - match:
+    - uri:
+        prefix: /v1/partnermanager
+    route:
+    - destination:
+        host: ${PARTNERMANAGER_DEST}
+  - match:
+    - uri:
+        prefix: /v1/policymanager
+    route:
+    - destination:
+        host: ${POLICYMANAGER_DEST}
+  - match:
+    - uri:
         prefix: /v1/datashare
     route:
     - destination:
@@ -182,7 +204,7 @@ echo
 echo "Done. Next steps (DNS is required — UnknownHostException without it):"
 echo "  1) ./print-dns-hint.sh"
 echo "  2) ./ensure-dedicated-gateway-host.sh"
-echo "  3) curl -sk https://$DEDICATED_HOST/idrepository/v1/identity/actuator/health"
+echo "  3) ./check-health-deps.sh          # curls idrepo health endpoints (skip drivers)"
 echo "  4) ENV_ENDPOINT=https://$DEDICATED_HOST ./install.sh"
 echo
 echo "Service-to-service (identity→credentialrequest) still uses in-cluster DNS"
