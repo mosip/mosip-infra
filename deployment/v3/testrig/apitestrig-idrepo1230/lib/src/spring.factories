@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+io.mosip.idrepo1230.CacheForceInitializer

@@ -152,44 +152,30 @@ Identity logs show:
 
 inside `CredentialServiceManager.notifyUinCredential` → no call to credentialrequest → `mosip_credential1230` stuck.
 
-**Root cause (case mismatch + wrong property):**
+**Root cause:** qa11new config has lowercase `online_verification_partners` while v1.2.3.0 uses
+`@Cacheable("Online_Verification_Partners")`. Config-server remote properties beat local
+`-D` / `--` / `SPRING_APPLICATION_JSON` (actuator shows both `spring.cache.type=none` and `=simple`).
 
-qa11new `id-repository-dev.properties` has lowercase names:
-
-```properties
-spring.cache.type=simple
-mosip.idrepo.cache.names=...,online_verification_partners,...
-spring.cache.cache-names=${mosip.idrepo.cache.names}
-```
-
-But id-repository **v1.2.3.0** uses `@Cacheable("Online_Verification_Partners")`.
-
-That tag has **no** `SimpleCacheConfig`. Spring Boot’s `ConcurrentMapCacheManager` is locked to
-`spring.cache.cache-names`. Overriding only `mosip.idrepo.cache.names` (previous fix) leaves
-Boot’s list on lowercase → errors continue even when java shows `-Dmosip.idrepo.cache.names=...`.
+**Fix:** `./apply-cache-cmdline.sh` installs `lib/idrepo1230-cache-force.jar` on `loader.path` and
+registers `CacheForceInitializer` via `-Dcontext.initializer.classes=...`. The initializer runs
+**after** config-server bootstrap, `addFirst`s overrides, and replaces `cacheManager` with a
+**dynamic** `ConcurrentMapCacheManager` (any cache name resolves).
 
 ```bash
 git pull
 ./apply-cache-cmdline.sh
-# default MODE=noop → --spring.cache.type=none (NoOpCacheManager; QA-safe)
-# alternative: MODE=names ./apply-cache-cmdline.sh  # PascalCase spring.cache.cache-names
-```
-
-Verify:
-
-```bash
-kubectl -n idrepo1230 exec deploy/identity1230 -- \
-  bash -lc 'ps -o args -A | grep "[j]ava.*identity"'
-# must show spring.cache.type=none  (or spring.cache.cache-names=Online_Verification_Partners)
+# logs must contain: idrepo1230CacheForce: property source installed
+./diagnose-credential-path.sh
 ```
 
 Re-run after any `helm upgrade` of `identity1230` (helm resets args).
 
-**Do not set container `command`** — that replaces `./configure_start.sh` and causes CrashLoop (`BIO_SDK_007` / missing biosdk client). Only override `args` (CMD).
+**Do not set container `command`** — that replaces `./configure_start.sh` and causes CrashLoop (`BIO_SDK_007`). Only override `args` (CMD).
 
-Permanent fix (preferred): in **mosip-config** branch `qa11new` `id-repository-dev.properties` set
-`spring.cache.cache-names` / `mosip.idrepo.cache.names` to the exact `@Cacheable` strings from
-the image you run (v1.2.3.0 → `Online_Verification_Partners`), **or** `spring.cache.type=none` for QA.
+Permanent fix (preferred): in **mosip-config** `qa11new` `id-repository-dev.properties`, set
+`spring.cache.cache-names` / `mosip.idrepo.cache.names` to the exact `@Cacheable` strings for the
+image you run, **or** set `spring.cloud.config.allowOverride=true` + `overrideNone=true` remotely
+so local overrides work without the jar.
 
 Acceptance:
 
@@ -198,9 +184,8 @@ kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
   | grep -c "Cannot find cache named 'Online_Verification_Partners'"
 # expect 0
 
-# should see PARTNERS_IDENTIFIED / requestgenerator traffic
 kubectl -n idrepo1230 logs deploy/identity1230 --since=2m \
-  | grep -E 'PARTNERS_IDENTIFIED|requestgenerator' | tail -20
+  | grep -E 'idrepo1230CacheForce|PARTNERS_IDENTIFIED|requestgenerator' | tail -20
 ```
 
 WebSub `Publisher is not authorized` is a separate issue; the cache error is what blocks credential_transaction inserts.

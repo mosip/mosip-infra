@@ -76,7 +76,7 @@ done
 
 echo
 echo "NOTE: cache still needs ./apply-cache-cmdline.sh on identity1230"
-echo "(default MODE=noop → spring.cache.type=none on java cmdline; JSON alone is not enough)."
+echo "(installs idrepo1230-cache-force.jar — cmdline alone loses to config-server on qa11new)."
 echo
 echo "Verify:"
 echo "  ./diagnose-credential-path.sh"

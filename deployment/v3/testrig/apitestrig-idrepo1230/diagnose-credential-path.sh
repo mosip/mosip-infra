@@ -28,19 +28,36 @@ check() {
 echo "=== A) identity1230 java cache override ==="
 JAVA_LINE=$(kubectl -n "$NS" exec deploy/"$DEPLOY" -- bash -lc \
   'ps -o args -A | grep "[j]ava.*id-repository-identity" | head -1' 2>/dev/null || true)
-# v1.2.3.0 uses spring.cache.cache-names (Boot ConcurrentMapCacheManager).
-# Prefer type=none (NoOp) — cache name case becomes irrelevant.
-if echo "$JAVA_LINE" | grep -qE '\-Dspring.cache.type=none|--spring.cache.type=none'; then
-  check "java has spring.cache.type=none (NoOp cache)" 1
-elif echo "$JAVA_LINE" | grep -q '\-Dspring.cache.cache-names=Online_Verification_Partners'; then
-  check "java has -Dspring.cache.cache-names=Online_Verification_Partners" 1
-elif echo "$JAVA_LINE" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'; then
-  check "java has -Dmosip.idrepo.cache.names (SimpleCacheConfig path)" 1 \
-    "(prefer MODE=noop or spring.cache.cache-names for v1.2.3.0 images)"
+
+FORCE_JAR=0
+kubectl -n "$NS" exec deploy/"$DEPLOY" -- \
+  test -f /home/mosip/additional_jars/idrepo1230-cache-force.jar 2>/dev/null && FORCE_JAR=1 || true
+if [ "$FORCE_JAR" = "1" ]; then
+  check "idrepo1230-cache-force.jar on loader.path" 1
 else
-  check "java has cache override (type=none or cache-names)" 0 \
+  check "idrepo1230-cache-force.jar on loader.path" 0 \
+    "(run ./apply-cache-cmdline.sh — embeds jar before java starts)"
+fi
+
+if echo "$JAVA_LINE" | grep -q 'context.initializer.classes=io.mosip.idrepo1230.CacheForceInitializer'; then
+  check "java has context.initializer.classes=CacheForceInitializer" 1
+elif echo "$JAVA_LINE" | grep -qE '\-Dspring.cache.type=none|--spring.cache.type=none'; then
+  check "java has spring.cache.type=none (cmdline only — may lose to config-server)" 1 \
+    "(prefer force jar + context.initializer.classes)"
+else
+  check "java has cache override" 0 \
     "(run ./apply-cache-cmdline.sh — helm upgrade often wipes args)"
   echo "    java: ${JAVA_LINE:0:220}..."
+fi
+
+INIT_HIT=$(kubectl -n "$NS" logs deploy/"$DEPLOY" --since=30m 2>/dev/null \
+  | grep -c 'idrepo1230CacheForce' || true)
+echo "INFO idrepo1230CacheForce log hits (30m): $INIT_HIT"
+if [ "${INIT_HIT:-0}" != "0" ]; then
+  check "CacheForceInitializer ran (log marker)" 1 "(hits=$INIT_HIT)"
+else
+  check "CacheForceInitializer ran (log marker)" 0 \
+    "(jar missing from classloader or initializer not invoked)"
 fi
 
 ERR=$(kubectl -n "$NS" logs deploy/"$DEPLOY" --since=10m 2>/dev/null \
@@ -66,6 +83,15 @@ if [ -n "$ACT_CACHE" ]; then
           or .key == "mosip.idrepo.cache.names")
     | "\(.key)=\(.value.value // .value)"
   ' 2>/dev/null | sort -u || true
+  # Prefer the property-source-aware view when present
+  echo "$ACT_CACHE" | jq -r '
+    .propertySources[]? | select(.name|test("idrepo1230CacheForce|commandLineArgs|systemProperties|configService"))
+    | .name as $n
+    | .properties
+    | to_entries[]?
+    | select(.key == "spring.cache.type" or .key == "spring.cache.cache-names")
+    | "\($n) \(.key)=\(.value.value // .value)"
+  ' 2>/dev/null | head -20 || true
 fi
 
 echo
@@ -134,9 +160,8 @@ echo
 echo "=== E) Summary: $pass OK / $fail FAIL ==="
 if [ "$fail" -gt 0 ]; then
   echo "Fix order:"
-  echo "  1) ./apply-cache-cmdline.sh          # default MODE=noop (spring.cache.type=none)"
-  echo "     MODE=names ./apply-cache-cmdline.sh   # alternative: PascalCase cache-names"
-  echo "  2) ./patch-service-urls.sh           # applies SPRING_APPLICATION_JSON to deploys"
+  echo "  1) ./apply-cache-cmdline.sh   # installs idrepo1230-cache-force.jar + initializer"
+  echo "  2) ./patch-service-urls.sh    # applies SPRING_APPLICATION_JSON to deploys"
   echo "  3) create ONE identity via dedicated host, re-check mosip_credential1230 max(cr_dtimes)"
   exit 1
 fi
