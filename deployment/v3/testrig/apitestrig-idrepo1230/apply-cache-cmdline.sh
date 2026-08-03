@@ -3,10 +3,10 @@
 #
 # id-repository (1.2.3.x) SimpleCacheConfig builds caches ONLY from:
 #   mosip.idrepo.cache.names
-# (NOT spring.cache.cache-names). Names must match @Cacheable exactly AND
-# exist as keys in mosip.idrepo.cache.size / expire-in-seconds maps.
+# Names must match @Cacheable exactly AND exist as keys in
+# mosip.idrepo.cache.size / expire-in-seconds maps.
 #
-# Keeps image ENTRYPOINT ./configure_start.sh (biosdk).
+# Keeps image ENTRYPOINT ./configure_start.sh (biosdk) — only overrides args/CMD.
 #
 # Usage: ./apply-cache-cmdline.sh [kubeconfig]
 
@@ -14,20 +14,23 @@ if [ $# -ge 1 ]; then export KUBECONFIG=$1; fi
 NS=${NS:-idrepo1230}
 DEPLOY=${DEPLOY:-identity1230}
 
-# Exact @Cacheable names used by id-repository
 CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics,credential_transaction'
-
-# SpEL maps — include BOTH Java names and legacy lowercase keys (safe for either)
 CACHE_SIZE_MAP="{ 'Online_Verification_Partners': 200, 'id_attributes': 200, 'uin_hash_salt': 100, 'uin_encrypt_salt': 100, 'DATASHARE_POLICIES': 200, 'PARTNER_EXTRACTOR_FORMATS': 200, 'topics': 200, 'credential_transaction': 200, 'online_verification_partners': 200, 'partner_extractor_formats': 200, 'datashare_policies': 200 }"
 CACHE_EXPIRE_MAP="{ 'Online_Verification_Partners': 86400, 'id_attributes': 86400, 'uin_hash_salt': 86400, 'uin_encrypt_salt': 86400, 'DATASHARE_POLICIES': 86400, 'PARTNER_EXTRACTOR_FORMATS': 86400, 'topics': 86400, 'credential_transaction': 86400, 'online_verification_partners': 86400, 'partner_extractor_formats': 86400, 'datashare_policies': 86400 }"
 
 set -euo pipefail
 
-SCRIPT=$(python3 - <<PY
-names = """$CACHE_NAMES"""
-size = """$CACHE_SIZE_MAP"""
-expire = """$CACHE_EXPIRE_MAP"""
-# Escape for embedding in shell single-quoted -D values: use double quotes in java -D
+# Build the in-container start script with python (quoted heredoc — no bash ${{}} expansion).
+SCRIPT=$(
+CACHE_NAMES="$CACHE_NAMES" \
+CACHE_SIZE_MAP="$CACHE_SIZE_MAP" \
+CACHE_EXPIRE_MAP="$CACHE_EXPIRE_MAP" \
+python3 - <<'PY'
+import os
+names = os.environ["CACHE_NAMES"]
+size = os.environ["CACHE_SIZE_MAP"]
+expire = os.environ["CACHE_EXPIRE_MAP"]
+# Triple-quoted template: {{ → literal { for the pod shell; {names} filled by python.
 print(f'''set -euo pipefail
 cd /home/mosip
 loader="${{loader_path_env:-/home/mosip/additional_jars/}}"
@@ -67,6 +70,9 @@ exec java \\
 PY
 )
 
+# Sanity: generated script must contain the cache system property for the pod shell
+echo "$SCRIPT" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'
+
 echo "==> Patch deploy $DEPLOY (ENTRYPOINT kept; args = CMD wrapper)"
 CUR=$(kubectl -n "$NS" get deploy "$DEPLOY" -o json)
 PATCH=$(CUR="$CUR" SCRIPT="$SCRIPT" python3 - <<'PY'
@@ -98,10 +104,13 @@ kubectl -n "$NS" set env deployment/"$DEPLOY" \
 kubectl -n "$NS" rollout status deployment/"$DEPLOY" --timeout=300s
 
 echo "==> Verify -Dmosip.idrepo.cache.names on java"
-sleep 12
+sleep 15
 JAVA_LINE=$(kubectl -n "$NS" exec deploy/"$DEPLOY" -- bash -lc 'ps -o args -A | grep "[j]ava.*id-repository-identity" | head -1' || true)
 echo "$JAVA_LINE"
-echo "$JAVA_LINE" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'
+if ! echo "$JAVA_LINE" | grep -q '\-Dmosip.idrepo.cache.names=Online_Verification_Partners'; then
+  echo "ERROR: java cmdline missing -Dmosip.idrepo.cache.names"
+  exit 1
+fi
 echo "OK: system property set"
 
 echo "==> Confirm properties file inside pod"
