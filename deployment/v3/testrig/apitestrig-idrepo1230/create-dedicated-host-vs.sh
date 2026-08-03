@@ -164,6 +164,18 @@ spec:
     route:
     - destination:
         host: ${DATASHARE_DEST}
+  - match:
+    - uri:
+        prefix: /biosdk-service
+    route:
+    - destination:
+        host: ${BIOSDK_DEST}
+  - match:
+    - uri:
+        prefix: /hub
+    route:
+    - destination:
+        host: ${WEBSUB_DEST}
 EOF
 
 echo

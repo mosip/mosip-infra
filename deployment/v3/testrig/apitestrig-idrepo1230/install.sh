@@ -145,7 +145,7 @@ function installing_apitestrig() {
   --set apitestrig.configmaps.s3.s3-region='' \
   --set apitestrig.configmaps.db.db-server="$DB_HOST" \
   --set apitestrig.configmaps.db.db-su-user="postgres" \
-  --set apitestrig.configmaps.db.db-port="5432" \
+  --set apitestrig.configmaps.db.db-port="$DB_PORT" \
   --set apitestrig.configmaps.apitestrig.ENV_USER="$ENV_USER" \
   --set apitestrig.configmaps.apitestrig.ENV_ENDPOINT="$TARGET_ENDPOINT" \
   --set apitestrig.configmaps.apitestrig.ENV_TESTLEVEL="smokeAndRegression" \
