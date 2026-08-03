@@ -206,6 +206,7 @@ echo "  1) ./print-dns-hint.sh"
 echo "  2) ./ensure-dedicated-gateway-host.sh"
 echo "  3) ./check-health-deps.sh          # curls idrepo health endpoints (skip drivers)"
 echo "  4) ENV_ENDPOINT=https://$DEDICATED_HOST ./install.sh"
+echo "  5) after a run: ./diagnose-skips.sh # SkipException reason histogram from pod logs"
 echo
 echo "Service-to-service (identity→credentialrequest) still uses in-cluster DNS"
 echo "  credentialrequest1230.idrepo1230 — run ./patch-service-urls.sh if needed."

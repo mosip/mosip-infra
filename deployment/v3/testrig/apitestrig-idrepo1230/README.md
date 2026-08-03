@@ -96,15 +96,44 @@ Application URI ======https://api-idrepo1230.qa11new.mosip.net
 Total tests run: 414, Passes: 315+, Failures: 0~few, Skips: ...
 ```
 
-That is **not** the earlier `UnknownHostException` failure. Skips often come from health checks
-(`/biosdk-service`, `/hub`, `/v1/datashare`, `/v1/notifier`) or DB cleanup failing when
-`db-server` is set to `api-internal` instead of the real Postgres host/port.
+Credential path OK (after cache fix) means `mosip_credential1230` rows move during the run
+(e.g. `count=23`, `max(cr_dtimes)` same day as the run). **Skips are a separate issue** —
+green credential DB does not imply zero skips.
+
+### What causes skips
+
+From `apitest-idrepo` 1.2.3.0:
+
+| Bucket | When | Action |
+|---|---|---|
+| `TARGET_ENV_HEALTH_CHECK_FAILED` | Any **DOWN** idrepo-tagged actuator on `ENV_ENDPOINT` | `./check-health-deps.sh` |
+| `KNOWN_ISSUES` | Case listed in upstream `testCaseSkippedList.txt` (~20) | Expected — ignore |
+| `feature not supported` | DOB/Email/handle not in ID schema; Invalid_BioVal without admin | Schema/env — not wiring |
+| `Service not deployed` | `eSignetDeployed=no` at install | Expected unless eSignet is live |
+| `VID feature not supported` | Actuator idTypes without VID | Check identity/vid config |
+
+Health paths that commonly FAIL on the dedicated host (must be proxied by VS):
+
+| Path | Typical dest |
+|---|---|
+| `/biosdk-service/actuator/health` | biosdk |
+| `/hub/actuator/health` | websub |
+| `/v1/datashare/actuator/health` | datashare |
+| `/v1/notifier/actuator/health` | notifier |
+| `/v1/idgenerator/actuator/health` | idgenerator |
+| `/v1/partnermanager/actuator/health` | pms-partner |
 
 ```bash
-# refresh shared proxies on dedicated VS (biosdk + websub hub included)
+# 1) refresh dedicated VS proxies (includes idgenerator + partnermanager)
 ./create-dedicated-host-vs.sh
 
-# if logs show JDBC errors to api-internal:5432, reinstall with real DB:
+# 2) curl every idrepo health dep on the dedicated host
+./check-health-deps.sh
+
+# 3) after a testrig run — histogram of skip reasons from pod logs
+./diagnose-skips.sh
+
+# 4) if logs show JDBC errors to api-internal:5432, reinstall with real DB:
 DB_HOST=172.31.15.40 DB_PORT=5433 \
   ENV_ENDPOINT=https://api-idrepo1230.qa11new.mosip.net ./install.sh
 ```

@@ -25,7 +25,8 @@ fi
 
 BASE="https://${DEDICATED_HOST}"
 
-# module_tag path  — module_tag includes "idrepo" in upstream healthCheckEndpoint.properties
+# Exact paths whose module tag includes "idrepo" in apitest-idrepo 1.2.3.0
+# healthCheckEndpoint.properties (any DOWN → HealthChecker can skip remaining cases).
 PATHS=(
   "idrepo|/idrepository/v1/identity/actuator/health"
   "idrepo|/idrepository/v1/actuator/health"
@@ -39,6 +40,7 @@ PATHS=(
   "idrepo|/hub/actuator/health"
   "idrepo|/v1/idgenerator/actuator/health"
   "idrepo|/v1/partnermanager/actuator/health"
+  # Parallel stack (not idrepo-tagged upstream, but needed for credential cases)
   "parallel|/v1/credentialservice/actuator/health"
   "parallel|/v1/credentialrequest/actuator/health"
 )
@@ -77,9 +79,11 @@ echo "Summary: $pass OK / $fail FAIL"
 echo
 echo "Skip drivers (beyond health):"
 echo "  • eSignet=no at install time → esignet-tagged cases skipped (expected)"
+echo "  • Upstream testCaseSkippedList.txt (~20 known-issue cases always skip)"
+echo "  • DOB/Email/handle schema mismatches → FEATURE_NOT_SUPPORTED skips"
 echo "  • JDBC cleanup fails if db-server is api-internal:5432 — reinstall with:"
 echo "      DB_HOST=172.31.15.40 DB_PORT=5433 ENV_ENDPOINT=https://$DEDICATED_HOST ./install.sh"
-echo "  • Report HTML in S3/MinIO shows which cases were skipped and why"
+echo "  • After a run: ./diagnose-skips.sh  (histogram of SkipException reasons from pod logs)"
 echo
 if [ "$fail" -gt 0 ]; then
   echo "Refresh dedicated VS proxies, then re-run this script:"
