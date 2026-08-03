@@ -50,8 +50,19 @@ echo "  MOSIP_IDREPO_CREDENTIAL_SERVICE_URL / override → $EXPECTED_CREDENTIAL_
 kubectl -n "$NS" exec deploy/identity1230 -- printenv 2>/dev/null | grep -E 'CREDREQUEST|CREDENTIAL_SERVICE|IDENTITY_URL|VID_URL|IDREPO_' || true
 
 echo
+echo "=== 3b) SPRING_APPLICATION_JSON on identity1230 (must contain credentialrequest1230) ==="
+kubectl -n "$NS" exec deploy/identity1230 -- printenv SPRING_APPLICATION_JSON 2>/dev/null \
+  | jq -r '
+      ."mosip.idrepo.credential.request.rest.uri",
+      ."mosip.idrepo.credrequest.generator.url"
+    ' 2>/dev/null \
+  || kubectl -n "$NS" exec deploy/identity1230 -- printenv SPRING_APPLICATION_JSON 2>/dev/null \
+  || echo "(SPRING_APPLICATION_JSON not set — run ./patch-service-urls.sh)"
+
+echo
 echo "=== 4) Actuator: effective REST URI (this is what identity actually calls) ==="
-API=$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}')
+DEDICATED_HOST=${DEDICATED_HOST:-api-idrepo1230.qa11new.mosip.net}
+API=${DEDICATED_HOST:-$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}')}
 curl -sk "https://${API}/idrepository/v1/identity/actuator/env" \
   | jq -r '
       .. | objects | to_entries[]?

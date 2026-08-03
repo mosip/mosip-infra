@@ -209,19 +209,26 @@ Permanent fix in `mosip-config` (qa11new): set `mosip.idrepo.cache.names` to the
 
 WebSub `Publisher is not authorized` is a separate issue; the cache error is what blocks credential_transaction inserts.
 
-### Fix B — REST URI
+### Fix B — REST URI (required even when apitestrig “passes”)
 
-Mounting `SPRING_CLOUD_CONFIG_SERVER_OVERRIDES_MOSIP_IDREPO_CREDREQUEST_GENERATOR_URL`
-is **not enough**. Identity’s `RestRequestBuilder` uses the already-expanded property:
-
-`mosip.idrepo.credential.request.rest.uri`
-→ default `http://credentialrequest.idrepo/v1/credentialrequest/requestgenerator`
-
-Override that URI (and related ones) via `SPRING_APPLICATION_JSON`:
+Apitestrig AddIdentity can pass while `mosip_credential1230` stays at 1 row.
+Identity’s background job must call `credentialrequest1230`; default config still
+points at `http://credentialrequest.idrepo` → writes go to **`mosip_credential`**.
 
 ```sh
-./patch-service-urls.sh
-# then run the helm upgrade commands it prints (identity/vid/credential/credentialrequest)
+./apply-cache-cmdline.sh     # cache errors block notify entirely
+./patch-service-urls.sh      # APPLIES SPRING_APPLICATION_JSON to the 4 deploys
+./diagnose-credential-path.sh
+```
+
+Smoking gun SQL after one new identity create:
+
+```sql
+\c mosip_credential1230
+SELECT count(*), max(cr_dtimes) FROM credential.credential_transaction;  -- must move
+
+\c mosip_credential
+SELECT count(*), max(cr_dtimes) FROM credential.credential_transaction;  -- if THIS moves, still on old NS
 ```
 
 Verify the **effective** property (not just pod env):

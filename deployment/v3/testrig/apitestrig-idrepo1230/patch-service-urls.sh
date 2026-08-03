@@ -7,6 +7,9 @@
 #   http://credentialrequest.idrepo/v1/credentialrequest/requestgenerator
 # Overriding only mosip.idrepo.credrequest.generator.url does NOT change the cached URI.
 #
+# This script CREATES the ConfigMap AND applies SPRING_APPLICATION_JSON onto the
+# four deployments (kubectl set env). Earlier versions only printed helm commands.
+#
 ## Usage: ./patch-service-urls.sh [kubeconfig]
 
 if [ $# -ge 1 ] ; then
@@ -15,16 +18,10 @@ fi
 
 NS=${NS:-idrepo1230}
 CM=${CM:-idrepo1230-rest-uris}
+APPLY=${APPLY:-true}
 
 set -euo pipefail
 
-# Build SPRING_APPLICATION_JSON so hyphenated keys bind correctly.
-#
-# Cache note (qa11new): id-repository-dev sets spring.cache.type=simple and
-# mosip.idrepo.cache.names=...online_verification_partners... (lowercase).
-# Java uses Online_Verification_Partners / DATASHARE_POLICIES / PARTNER_EXTRACTOR_FORMATS.
-# ConcurrentMapCacheManager locks names → "Cannot find cache named".
-# Override with exact @Cacheable names (also run ./fix-cache.sh for JAVA_TOOL_OPTIONS).
 CACHE_NAMES='Online_Verification_Partners,id_attributes,uin_hash_salt,uin_encrypt_salt,DATASHARE_POLICIES,PARTNER_EXTRACTOR_FORMATS,topics,credential_transaction'
 REST_JSON=$(cat <<EOF
 {
@@ -44,68 +41,42 @@ REST_JSON=$(cat <<EOF
 EOF
 )
 
-# Compact JSON to a single line for the ConfigMap
 REST_JSON_ONE_LINE=$(echo "$REST_JSON" | jq -c .)
 
-echo "Creating/updating ConfigMap $NS/$CM with SPRING_APPLICATION_JSON..."
+echo "Creating/updating ConfigMap $NS/$CM ..."
 kubectl -n "$NS" create configmap "$CM" \
   --from-literal=SPRING_APPLICATION_JSON="$REST_JSON_ONE_LINE" \
   --dry-run=client -o yaml | kubectl apply -f -
 
-echo
-echo "Mount $CM on identity1230 / vid1230 / credential1230 / credentialrequest1230"
-echo "(keep existing CMs; add this as an extraEnvVarsCM entry)."
-echo
-echo "Example for identity1230 (quote --set for zsh):"
-cat <<EOF
-helm -n $NS upgrade identity1230 mosip/identity --reuse-values \\
-  --set 'extraEnvVarsCM[0]=global' \\
-  --set 'extraEnvVarsCM[1]=config-server-share' \\
-  --set 'extraEnvVarsCM[2]=artifactory-share' \\
-  --set 'extraEnvVarsCM[3]=idrepo1230-overrides' \\
-  --set 'extraEnvVarsCM[4]=$CM' \\
-  --set 'extraEnvVarsCM[5]=idrepo1230-cache'
-
-helm -n $NS upgrade vid1230 mosip/vid --reuse-values \\
-  --set 'extraEnvVarsCM[0]=global' \\
-  --set 'extraEnvVarsCM[1]=config-server-share' \\
-  --set 'extraEnvVarsCM[2]=artifactory-share' \\
-  --set 'extraEnvVarsCM[3]=idrepo1230-overrides' \\
-  --set 'extraEnvVarsCM[4]=$CM'
-
-helm -n $NS upgrade credential1230 mosip/credential --reuse-values \\
-  --set 'extraEnvVarsCM[0]=global' \\
-  --set 'extraEnvVarsCM[1]=config-server-share' \\
-  --set 'extraEnvVarsCM[2]=artifactory-share' \\
-  --set 'extraEnvVarsCM[3]=idrepo1230-overrides' \\
-  --set 'extraEnvVarsCM[4]=idrepo1230-spring-datasource' \\
-  --set 'extraEnvVarsCM[5]=$CM'
-
-helm -n $NS upgrade credentialrequest1230 mosip/credentialrequest --reuse-values \\
-  --set 'extraEnvVarsCM[0]=global' \\
-  --set 'extraEnvVarsCM[1]=config-server-share' \\
-  --set 'extraEnvVarsCM[2]=artifactory-share' \\
-  --set 'extraEnvVarsCM[3]=idrepo1230-overrides' \\
-  --set 'extraEnvVarsCM[4]=idrepo1230-spring-datasource' \\
-  --set 'extraEnvVarsCM[5]=$CM'
-
-kubectl -n $NS rollout restart deploy/identity1230 deploy/vid1230 deploy/credential1230 deploy/credentialrequest1230
-kubectl -n $NS rollout status deploy/identity1230
-kubectl -n $NS rollout status deploy/credentialrequest1230
-EOF
+if [ "$APPLY" != "true" ]; then
+  echo "APPLY=false — ConfigMap only. Set APPLY=true to push env onto deploys."
+  exit 0
+fi
 
 echo
-echo "If Online_Verification_Partners cache errors persist, run ./fix-cache.sh"
-echo "(case mismatch: config has online_verification_partners, Java wants Online_Verification_Partners)."
+echo "Applying SPRING_APPLICATION_JSON onto identity/vid/credential/credentialrequest ..."
+for dep in identity1230 vid1230 credential1230 credentialrequest1230; do
+  if ! kubectl -n "$NS" get deploy "$dep" >/dev/null 2>&1; then
+    echo "SKIP missing deploy $dep"
+    continue
+  fi
+  # Direct env beats stale config-server expansion for RestRequestBuilder.
+  kubectl -n "$NS" set env deployment/"$dep" \
+    "SPRING_APPLICATION_JSON=$REST_JSON_ONE_LINE"
+  echo "  set env on $dep"
+done
+
 echo
-echo "After rollout, verify effective REST URI (must contain credentialrequest1230):"
-cat <<'EOF'
-API=$(kubectl -n default get cm global -o jsonpath='{.data.mosip-api-internal-host}')
-curl -sk "https://$API/idrepository/v1/identity/actuator/env" \
-  | jq -r '
-      .. | objects | to_entries[]?
-      | select(.key == "mosip.idrepo.credential.request.rest.uri"
-            or .key == "mosip.idrepo.credrequest.generator.url")
-      | "\(.key)=\(.value.value // .value)"
-    '
-EOF
+echo "Waiting for rollouts..."
+for dep in identity1230 vid1230 credential1230 credentialrequest1230; do
+  kubectl -n "$NS" get deploy "$dep" >/dev/null 2>&1 || continue
+  kubectl -n "$NS" rollout status deployment/"$dep" --timeout=300s
+done
+
+echo
+echo "NOTE: cache case-mismatch still needs ./apply-cache-cmdline.sh on identity1230"
+echo "(SPRING_APPLICATION_JSON alone often loses to config-server for SimpleCacheConfig)."
+echo
+echo "Verify:"
+echo "  ./diagnose-credential-path.sh"
+echo "  kubectl -n $NS exec deploy/identity1230 -- printenv SPRING_APPLICATION_JSON | jq ."
