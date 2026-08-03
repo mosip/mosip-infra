@@ -25,6 +25,11 @@ export LOG_FILE=${LOG_FILE:-/tmp/idrepo1230-apitestrig-skips.log}
 
 set -euo pipefail
 
+# If you still see `rg: command not found`, you are on an old copy — git pull.
+DIAG_VER=2026-08-03b
+echo "diagnose-skips.sh $DIAG_VER (no ripgrep required)"
+echo
+
 grep_lines() {
   # portable: no ripgrep required
   grep -E "$@" 2>/dev/null || true
@@ -122,8 +127,11 @@ if [ -n "$JAR_HIT" ]; then
 fi
 echo
 
-echo "=== D) run totals (if present) ==="
-grep_lines -n "Total tests run|Passes:|Failures:|Skips:|Application URI|Tests run:|Skipped:" "$LOG_FILE" | tail -30
+echo "=== D) run totals / report paths (if present) ==="
+grep_lines -n "Total tests run|Passes:|Failures:|Skips:|Application URI|Tests run:|Skipped:|Extent|emailable-report|push-reports|s3://|minio|Report|testng-results" "$LOG_FILE" | tail -40
+echo
+echo "--- log tail (last 40 lines; totals often land here) ---"
+tail -n 40 "$LOG_FILE" | sed 's/^/  /'
 echo
 
 echo "=== E) SkipException reason histogram ==="
@@ -227,16 +235,15 @@ if m:
 PY
 echo
 
-echo "=== F) interpretation (given your last check-health-deps = 14 OK) ==="
-echo "Health actuators are UP → large HEALTH_CHECK_FAILED skip storms should be gone."
-echo "Remaining skips are usually:"
-echo "  • known issue (~20 from upstream testCaseSkippedList.txt) — expected"
-echo "  • feature not supported (DOB/Email/handle schema) — env schema, not wiring"
-echo "  • wrong apitest image/jar (see section B/C) — fix with ./install.sh + new job"
-echo "  • HTML report in MinIO has the authoritative per-case skip list"
+echo "=== F) interpretation ==="
+echo "If check-health-deps was 14 OK and jar is 1.2.3.0:"
+echo "  • wiring/health are done — remaining skips are mostly known-issues / schema gates"
+echo "  • pod stdout often lacks per-case SkipException text; use the MinIO HTML report"
 if kubectl -n "$NS" get cm s3 >/dev/null 2>&1; then
   S3_HOST=$(kubectl -n "$NS" get cm s3 -o jsonpath='{.data.s3-host}' 2>/dev/null || true)
-  echo "  s3-host: ${S3_HOST:-?}"
+  S3_USER=$(kubectl -n "$NS" get cm s3 -o jsonpath='{.data.s3-user-key}' 2>/dev/null || true)
+  echo "  s3-host: ${S3_HOST:-?}  s3-user-key: ${S3_USER:-?}"
+  echo "  Browse MinIO for apitestrig/idrepo report HTML from this run."
 fi
 echo
 echo "Credential path is independent — if mosip_credential1230 advanced, cache/REST wiring is OK."
