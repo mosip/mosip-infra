@@ -14,6 +14,12 @@ NS=captcha
 SECRET_ARGS=()
 SERVICES=("prereg:mosip-prereg-host" "admin:mosip-admin-host" "resident:mosip-resident-host")
 
+SECRET_DIR=
+function cleanup_secret_dir() {
+  [ -z "$SECRET_DIR" ] || rm -rf -- "$SECRET_DIR"
+}
+trap cleanup_secret_dir EXIT
+
 function ask_yes_no() {
   local ans
   while true; do
@@ -41,8 +47,8 @@ function secret_setup() {
 
     ask_yes_no "$label" || continue
 
-    echo "Please create captcha site and secret key for $label domain: $label.sandbox.xyz.net"
     host=$(get_global_cm_value "$cm_key")
+    echo "Please create captcha site and secret key for $label domain: $host"
 
     echo "Please enter the recaptcha $label site key for domain $host"
     read -r -s site_key
@@ -51,8 +57,14 @@ function secret_setup() {
 
     [ -n "$site_key" ] && [ -n "$secret_key" ] || { echo "ERROR: Site key / secret key for $label cannot be empty." >&2; exit 1; }
 
-    SECRET_ARGS+=("--from-literal=${label}-captcha-site-key=${site_key}")
-    SECRET_ARGS+=("--from-literal=${label}-captcha-secret-key=${secret_key}")
+    if [ -z "$SECRET_DIR" ]; then
+      SECRET_DIR="$(mktemp -d)"
+      chmod 700 "$SECRET_DIR"
+    fi
+    printf '%s' "$site_key" > "$SECRET_DIR/${label}-captcha-site-key"
+    printf '%s' "$secret_key" > "$SECRET_DIR/${label}-captcha-secret-key"
+    SECRET_ARGS+=("--from-file=${label}-captcha-site-key=$SECRET_DIR/${label}-captcha-site-key")
+    SECRET_ARGS+=("--from-file=${label}-captcha-secret-key=$SECRET_DIR/${label}-captcha-secret-key")
   done
 
   [ "${#SECRET_ARGS[@]}" -eq 0 ] && { echo "No captcha keys were provided; nothing to do."; return 0; }
