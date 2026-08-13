@@ -1,82 +1,67 @@
 #!/bin/bash
-
 # Creates captcha secrets for MOSIP services (prereg, admin, resident).
 ## Usage: ./install.sh [kubeconfig]
 
-if [ $# -ge 1 ] ; then
-  export KUBECONFIG=$1
-fi
-
-ROOT_DIR=`pwd`
-NS=captcha
-
-function secret_setup() {
-
-  kubectl create ns $NS || true
-  while true; do
-    read -p "Do you want to continue configuring Captcha secrets for prereg ? (y/n) : " ans
-      if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for prereg domain: prereg.sandbox.xyz.net"
-
-        PREREG_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-prereg-host})
-        echo Please enter the recaptcha prereg site key for domain $PREREG_HOST
-        read -s PSITE_KEY
-        echo Please enter the recaptcha prereg secret key for domain $PREREG_HOST
-        read -s PSECRET_KEY
-        break
-      elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
-        exit 1
-      else
-        echo "Please provide a correct option (Y or N)"
-      fi
-  done
-
-  while true; do
-    read -p "Do you want to continue configuring Captcha secrets for admin ? (y/n) : " ans
-      if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for admin domain: admin.sandbox.xyz.net"
-
-        ADMIN_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-admin-host})
-        echo Please enter the recaptcha admin site key for domain $ADMIN_HOST
-        read -s ASITE_KEY
-        echo Please enter the recaptcha admin secret key for domain $ADMIN_HOST
-        read -s ASECRET_KEY
-        break
-      elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
-        exit 1
-      else
-        echo "Please provide a correct option (Y or N)"
-      fi
-  done
-
-  while true; do
-    read -p "Do you want to continue configuring Captcha secrets for resident ? (y/n) : " ans
-      if [ "$ans" = 'Y' ] || [ "$ans" = 'y' ]; then
-        echo "Please create captcha site and secret key for resident domain: resident.sandbox.xyz.net"
-
-        RESIDENT_HOST=$(kubectl get cm global -o jsonpath={.data.mosip-resident-host})
-        echo Please enter the recaptcha resident site key for domain $RESIDENT_HOST
-        read -s RSITE_KEY
-        echo Please enter the recaptcha resident secret key for domain $RESIDENT_HOST
-        read -s RSECRET_KEY
-        break
-      elif [ "$ans" = "N" ] || [ "$ans" = "n" ]; then
-        exit 1
-      else
-        echo "Please provide a correct option (Y or N)"
-      fi
-  done
-
-  echo "Setting up captcha secrets"
-  kubectl -n $NS create secret generic mosip-captcha --from-literal=prereg-captcha-site-key=$PSITE_KEY --from-literal=prereg-captcha-secret-key=$PSECRET_KEY --from-literal=admin-captcha-site-key=$ASITE_KEY --from-literal=admin-captcha-secret-key=$ASECRET_KEY --from-literal=resident-captcha-site-key=$RSITE_KEY --from-literal=resident-captcha-secret-key=$RSECRET_KEY --dry-run=client -o yaml | kubectl apply -f -
-  echo "Captcha secrets for mosip configured sucessfully"
-
-  return 0
-}
-# Set commands for error handling.
 set -e
 set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
 set -o nounset   ## set -u : exit the script if you try to use an uninitialized variable
 set -o errtrace  # trace ERR through 'time command' and other functions
 set -o pipefail  # trace ERR through pipes
-secret_setup   # calling function
+
+[ $# -ge 1 ] && export KUBECONFIG="$1"
+
+NS=captcha
+SECRET_ARGS=()
+SERVICES=("prereg:mosip-prereg-host" "admin:mosip-admin-host" "resident:mosip-resident-host")
+
+function ask_yes_no() {
+  local ans
+  while true; do
+    read -r -p "Do you want to continue configuring Captcha secrets for $1 ? (y/n) : " ans
+    case "$ans" in
+      Y|y) return 0 ;;
+      N|n) return 1 ;;
+      *) echo "Please provide a correct option (Y or N)" ;;
+    esac
+  done
+}
+
+function get_global_cm_value() {
+  kubectl get cm global >/dev/null 2>&1 || { echo "ERROR: ConfigMap 'global' not found in the current namespace/context." >&2; exit 1; }
+  local value
+  value=$(kubectl get cm global -o jsonpath="{.data.$1}")
+  [ -n "$value" ] || { echo "ERROR: Key '$1' not found (or empty) in ConfigMap 'global'." >&2; exit 1; }
+  echo "$value"
+}
+
+function secret_setup() {
+  kubectl get ns "$NS" >/dev/null 2>&1 || kubectl create ns "$NS"
+
+  for svc in "${SERVICES[@]}"; do
+    label="${svc%%:*}"
+    cm_key="${svc##*:}"
+
+    ask_yes_no "$label" || continue
+
+    echo "Please create captcha site and secret key for $label domain: $label.sandbox.xyz.net"
+    host=$(get_global_cm_value "$cm_key")
+
+    echo "Please enter the recaptcha $label site key for domain $host"
+    read -r -s site_key
+    echo "Please enter the recaptcha $label secret key for domain $host"
+    read -r -s secret_key
+
+    [ -n "$site_key" ] && [ -n "$secret_key" ] || { echo "ERROR: Site key / secret key for $label cannot be empty." >&2; exit 1; }
+
+    SECRET_ARGS+=("--from-literal=${label}-captcha-site-key=${site_key}")
+    SECRET_ARGS+=("--from-literal=${label}-captcha-secret-key=${secret_key}")
+  done
+
+  [ "${#SECRET_ARGS[@]}" -eq 0 ] && { echo "No captcha keys were provided; nothing to do."; return 0; }
+
+  echo "Setting up captcha secrets"
+  kubectl -n "$NS" create secret generic mosip-captcha "${SECRET_ARGS[@]}" --dry-run=client -o yaml | kubectl apply -f -
+  echo "Captcha secrets for mosip configured sucessfully"
+}
+
+secret_setup
