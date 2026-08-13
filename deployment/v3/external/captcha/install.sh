@@ -35,8 +35,6 @@ function get_global_cm_value() {
 }
 
 function secret_setup() {
-  kubectl get ns "$NS" >/dev/null 2>&1 || kubectl create ns "$NS"
-
   for svc in "${SERVICES[@]}"; do
     label="${svc%%:*}"
     cm_key="${svc##*:}"
@@ -58,6 +56,8 @@ function secret_setup() {
   done
 
   [ "${#SECRET_ARGS[@]}" -eq 0 ] && { echo "No captcha keys were provided; nothing to do."; return 0; }
+
+  kubectl get ns "$NS" >/dev/null 2>&1 || kubectl create ns "$NS"
 
   echo "Setting up captcha secrets"
   kubectl -n "$NS" create secret generic mosip-captcha "${SECRET_ARGS[@]}" --dry-run=client -o yaml | kubectl apply -f -
