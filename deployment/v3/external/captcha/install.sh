@@ -80,8 +80,11 @@ function secret_setup() {
   # Fix 2 (critical): merge into the existing secret instead of replacing it wholesale,
   # so services skipped in this run keep their previously configured keys.
   if kubectl -n "$NS" get secret mosip-captcha >/dev/null 2>&1; then
-    patch=$(kubectl -n "$NS" create secret generic mosip-captcha "${SECRET_ARGS[@]}" --dry-run=client -o json)
-    kubectl -n "$NS" patch secret mosip-captcha --type=merge -p "$patch"
+    # Fix 5: write the patch to a protected file instead of passing it as a process
+    # argument (-p), which would expose the base64-encoded keys via `ps`.
+    patch_file="$SECRET_DIR/mosip-captcha-patch.json"
+    kubectl -n "$NS" create secret generic mosip-captcha "${SECRET_ARGS[@]}" --dry-run=client -o json > "$patch_file"
+    kubectl -n "$NS" patch secret mosip-captcha --type=merge --patch-file "$patch_file"
   else
     kubectl -n "$NS" create secret generic mosip-captcha "${SECRET_ARGS[@]}"
   fi
