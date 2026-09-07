@@ -21,10 +21,22 @@ WARNINGS=()
 # may run more than one replica).
 declare -A WEBSUB_REPLICAS=()
 
+# Print a timestamped progress line.
 log()  { echo -e "\n==> [$(date '+%H:%M:%S')] $*"; }
+
+# Record a non-fatal problem and carry on. Every warning is reprinted in the
+# summary at the end of the run.
 warn() {
   echo -e "!!  [$(date '+%H:%M:%S')] WARNING: $* — continuing anyway"
   WARNINGS+=("$*")
+}
+
+# Abort the run. Only used for pre-flight failures, before any cluster state
+# has been touched, so it is always safe to simply re-run the script.
+fatal() {
+  echo -e "\n!!  [$(date '+%H:%M:%S')] FATAL: $*"
+  echo "    Nothing has been modified — no service was scaled down or restarted."
+  exit 1
 }
 
 # Wait for one rollout; warn (don't fail) on timeout
@@ -54,14 +66,19 @@ restart_one_and_wait() {
   wait_rollout "${ns}" "${kind}" "${name}"
 }
 
-# Scale a deployment back to the replica count it had before the scale-down.
-# Falls back to 1 if nothing was captured, or if it was already at 0.
+# Scale a deployment back to the exact replica count recorded before the
+# scale-down. A deployment that was already at 0 is left down: restoring it to
+# 1 would change cluster state the operator did not ask us to change.
 scale_up_and_wait() {
   local ns="$1" name="$2"
-  local reps="${WEBSUB_REPLICAS[${name}]:-1}"
-  if ! [[ "${reps}" =~ ^[0-9]+$ ]] || [ "${reps}" -eq 0 ]; then
-    warn "no usable pre-restart replica count for ${name} in ns=${ns} (got '${reps}') — defaulting to 1"
-    reps=1
+  local reps="${WEBSUB_REPLICAS[${name}]:-}"
+  if ! [[ "${reps}" =~ ^[0-9]+$ ]]; then
+    warn "no recorded replica count for ${name} in ns=${ns} — leaving it scaled down"
+    return
+  fi
+  if [ "${reps}" -eq 0 ]; then
+    log "${name} in ns=${ns} was at 0 replicas before the restart — leaving it down"
+    return
   fi
   log "Scaling ${name} back to ${reps} replica(s) in ns=${ns}"
   kubectl scale deployment "${name}" --replicas="${reps}" -n "${ns}" \
@@ -72,16 +89,24 @@ scale_up_and_wait() {
 ##############################################################################
 # 1. Scale down websub (protects its PVC during the Kafka restart)
 ##############################################################################
+# Record what is running before anything is scaled down. This is a hard
+# pre-condition: scaling websub to zero without a record of what to restore
+# would strand deployments at zero replicas with no way to recover them, so a
+# failure here aborts the run rather than proceeding on a guess.
 log "Recording current websub replica counts"
+if ! websub_rows="$(kubectl get deployment -n websub \
+      -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.replicas}{"\n"}{end}')"; then
+  fatal "could not read websub deployment replica counts in ns=websub. Check cluster connectivity, the current kubectl context and RBAC, then re-run."
+fi
+
 while read -r _name _reps; do
   [ -n "${_name}" ] || continue
   WEBSUB_REPLICAS["${_name}"]="${_reps}"
   echo "    ${_name} = ${_reps}"
-done < <(kubectl get deployment -n websub \
-           -o jsonpath='{range .items[*]}{.metadata.name}{" "}{.spec.replicas}{"\n"}{end}' 2>/dev/null)
+done <<< "${websub_rows}"
 
 if [ ${#WEBSUB_REPLICAS[@]} -eq 0 ]; then
-  warn "could not read any websub deployment replica counts — scale-up will default to 1 replica each"
+  fatal "no deployments found in ns=websub. Confirm you are pointed at the right cluster: kubectl config current-context"
 fi
 
 log "Scaling down all websub deployments to 0"
@@ -107,8 +132,10 @@ wait_rollout kafka deployment kafka-ui
 ##############################################################################
 # 3. Bring websub back up (consolidator first, then websub, then any others)
 ##############################################################################
-scale_up_and_wait websub websub-consolidator
-scale_up_and_wait websub websub
+# Consolidator first, then websub, then anything else that was recorded.
+for name in websub-consolidator websub; do
+  [ -n "${WEBSUB_REPLICAS[${name}]:-}" ] && scale_up_and_wait websub "${name}"
+done
 
 for name in "${!WEBSUB_REPLICAS[@]}"; do
   case "${name}" in
