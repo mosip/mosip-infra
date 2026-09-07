@@ -1,0 +1,25 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: controllers
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  replicas: 3
+
+  roles:
+    - controller
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2500Mi
+    limits:
+      cpu: '1'
+      memory: 3500Mi
+
+  storage:
+    type: persistent-claim
+    size: 2Gi
+    class: nfs-csi
+    deleteClaim: false

@@ -1,0 +1,25 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaNodePool
+metadata:
+  name: brokers
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  replicas: 3
+
+  roles:
+    - broker
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2500Mi
+    limits:
+      cpu: '1'
+      memory: 3500Mi
+
+  storage:
+    type: persistent-claim
+    size: 8Gi
+    class: nfs-csi
+    deleteClaim: false
