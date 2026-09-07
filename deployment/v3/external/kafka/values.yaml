@@ -12,7 +12,7 @@ deleteTopicEnable: true
 
 heapOpts: "-Xmx2275m -Xms2275m -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
 persistence:
-  enabled: true
+  enabled: false
   accessModes:
     - ReadWriteOnce
   size: 8Gi
@@ -28,7 +28,7 @@ zookeeper:
       memory: 600Mi    
   replicaCount: 5
   persistence:
-    enabled: true
+    enabled: false
     size: 2Gi
 
 resources:
