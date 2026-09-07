@@ -27,7 +27,7 @@ read_user_input(){
 }
 function initialize_db() {
   NS=postgres
-  CHART_VERSION=12.0.1
+  CHART_VERSION=1.3.0
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
   while true; do
