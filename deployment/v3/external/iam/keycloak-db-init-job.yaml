@@ -49,10 +49,19 @@ spec:
 
               ROLE_EXISTS=$(psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -tAc \
                 "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'")
+              # DB_USER_PWD comes from a Secret and must never be concatenated into a
+              # SQL string literal (a password containing a quote could otherwise
+              # terminate the literal and run arbitrary SQL as $SU_USER). psql's
+              # `:'var'`/`:"var"` interpolation handles quoting safely, but only when
+              # the SQL is read as a script/stdin -- verified directly that `-c`
+              # does NOT perform this substitution, so these two statements are
+              # piped in via a heredoc instead of `-c`.
               if [ "$ROLE_EXISTS" != "1" ]; then
                 echo "Creating role $DB_USER"
                 psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
-                  -c "CREATE ROLE \"$DB_USER\" WITH LOGIN PASSWORD '$DB_USER_PWD'"
+                  -v db_user="$DB_USER" -v db_user_pwd="$DB_USER_PWD" <<'SQL'
+              CREATE ROLE :"db_user" WITH LOGIN PASSWORD :'db_user_pwd';
+              SQL
               else
                 # Role already exists, but DB_USER_PWD (from keycloak-db-credentials)
                 # may have been regenerated since it was created -- always sync the
@@ -60,7 +69,9 @@ spec:
                 # externalDatabase config and the actual DB role never drift apart.
                 echo "Role $DB_USER already exists, syncing password"
                 psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
-                  -c "ALTER ROLE \"$DB_USER\" WITH LOGIN PASSWORD '$DB_USER_PWD'"
+                  -v db_user="$DB_USER" -v db_user_pwd="$DB_USER_PWD" <<'SQL'
+              ALTER ROLE :"db_user" WITH LOGIN PASSWORD :'db_user_pwd';
+              SQL
               fi
 
               echo "Ensuring grants (idempotent, always re-applied)"
