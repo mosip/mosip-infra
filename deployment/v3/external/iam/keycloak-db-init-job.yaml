@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: keycloak-db-init
-  namespace: keycloak
 spec:
   backoffLimit: 0
   template:

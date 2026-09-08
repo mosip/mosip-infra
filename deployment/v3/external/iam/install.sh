@@ -173,14 +173,22 @@ function configuring_keycloak_db() {
         -e "s/__SU_SECRET_KEY__/$SU_SECRET_KEY/g" \
         -e "s/__DBUSER_SECRET_NAME__/$DBUSER_SECRET_NAME/g" \
         -e "s/__DBUSER_SECRET_KEY__/$DBUSER_SECRET_KEY/g" \
-        keycloak-db-init-job.yaml | kubectl apply -f -
+        keycloak-db-init-job.yaml | kubectl apply -n $NS -f -
 
     # The Job itself is left in place either way (no auto-cleanup, no retry)
     # for inspection, same as other one-shot jobs in this repo. But the
     # install must NOT proceed past a failed initialization -- an
     # incompletely provisioned database is not safe to point Keycloak at,
     # and the copied superuser Secret below must only be removed on success.
-    if kubectl wait --for=condition=complete job/keycloak-db-init -n $NS --timeout=120s; then
+    #
+    # `kubectl wait` alone is not reliable here: for a Job that completes
+    # very quickly, the condition can already be true before `wait` attaches
+    # its watch, causing a spurious timeout even though the Job succeeded.
+    # So treat `kubectl wait`'s result as informational only, and make the
+    # actual decision from the Job's own status afterward.
+    kubectl wait --for=condition=complete job/keycloak-db-init -n $NS --timeout=120s || true
+    JOB_SUCCEEDED=$(kubectl get job keycloak-db-init -n $NS -o jsonpath='{.status.succeeded}' 2>/dev/null)
+    if [ "${JOB_SUCCEEDED:-0}" -ge 1 ]; then
       if [ "$copied_superuser_secret" = true ]; then
         echo "Removing copied superuser Secret $SU_SECRET_NAME from $NS namespace (no longer needed after DB initialization)."
         kubectl delete secret "$SU_SECRET_NAME" -n $NS --ignore-not-found
