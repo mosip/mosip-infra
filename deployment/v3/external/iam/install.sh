@@ -130,11 +130,13 @@ function configuring_keycloak_db() {
     DB_USER="bn_keycloak"
     SU_SECRET_NAME="postgres-postgresql"
     SU_SECRET_KEY="postgres-password"
+    copied_superuser_secret=false
 
     read -p "Reuse this cluster's existing DB host/port config and superuser credential (postgres-setup-config / postgres-postgresql)? (Y/n): " reuse
     if [[ "$reuse" =~ ^[Yy]|^$ ]]; then
       ./copy_cm.sh
       ./copy_secrets.sh
+      copied_superuser_secret=true
       DB_HOST=$(kubectl get configmap postgres-setup-config -n $NS -o jsonpath='{.data.mosip-database-hostname-override}')
       DB_PORT=$(kubectl get configmap postgres-setup-config -n $NS -o jsonpath='{.data.mosip-database-port-override}')
       SU_USER="postgres"
@@ -173,10 +175,21 @@ function configuring_keycloak_db() {
         -e "s/__DBUSER_SECRET_KEY__/$DBUSER_SECRET_KEY/g" \
         keycloak-db-init-job.yaml | kubectl apply -f -
 
-    # Let it error and sit like other one-shot jobs in this repo -- no forced
-    # abort of the install, no auto-cleanup on failure.
-    kubectl wait --for=condition=complete job/keycloak-db-init -n $NS --timeout=120s \
-      || echo "WARNING: keycloak-db-init did not complete -- check 'kubectl logs -n $NS job/keycloak-db-init' before continuing."
+    # The Job itself is left in place either way (no auto-cleanup, no retry)
+    # for inspection, same as other one-shot jobs in this repo. But the
+    # install must NOT proceed past a failed initialization -- an
+    # incompletely provisioned database is not safe to point Keycloak at,
+    # and the copied superuser Secret below must only be removed on success.
+    if kubectl wait --for=condition=complete job/keycloak-db-init -n $NS --timeout=120s; then
+      if [ "$copied_superuser_secret" = true ]; then
+        echo "Removing copied superuser Secret $SU_SECRET_NAME from $NS namespace (no longer needed after DB initialization)."
+        kubectl delete secret "$SU_SECRET_NAME" -n $NS --ignore-not-found
+      fi
+    else
+      echo "ERROR: keycloak-db-init did not complete -- check 'kubectl logs -n $NS job/keycloak-db-init'."
+      echo "The failed Job has been left in place for troubleshooting. Aborting install."
+      exit 1
+    fi
 
     HELM_DB_FLAGS="--set postgresql.enabled=false \
       --set externalDatabase.host=$DB_HOST \
