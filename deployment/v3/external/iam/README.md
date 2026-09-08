@@ -24,6 +24,17 @@ Note:
 * While deleting helm chart note that PVC, PV do not get removed for Statefulset. This also means that passwords will be same as before. Delete them explicity if you need to. CAUTION: all persistent data will be erased if you delete PV.
 * To retain data even after PV deletion use a storage class that supports "Retain".  On AWS, you may install `gp2-retain` storage class given here and specify the same while installing Keycloak helm chart.
 
+## External PostgreSQL Database
+`install.sh` prompts for the database to use before installing the chart:
+1. **Bundled in-cluster PostgreSQL** (default) -- unchanged behavior, installed as part of the `mosip/keycloak` chart.
+2. **Existing shared external PostgreSQL server** -- points Keycloak at the same external Postgres server the rest of MOSIP's modules use (see [../postgres/README.md](../postgres/README.md)), instead of running a dedicated in-cluster Postgres pod for Keycloak.
+
+If you choose option 2, you're then asked whether to reuse this cluster's existing DB host/port config and superuser credential (`postgres-setup-config` ConfigMap / `postgres-postgresql` Secret, copied from the `postgres` namespace via `copy_cm.sh`/`copy_secrets.sh`), or provide your own host/port/superuser details plus an existing Secret already present in the `keycloak` namespace.
+
+Either way, a **dedicated password** for the Keycloak database user is always generated fresh (stored in a new `keycloak-db-credentials` Secret) -- it is never the same password shared by other MOSIP modules' database users (`db-common-secrets`).
+
+The database, role, and grants are then created via a one-shot Job (`keycloak-db-init-job.yaml`), which checks whether the database/role already exist and skips creating them if so (safe to re-run). If this Job fails, it is left as `Failed` for inspection (`kubectl logs -n keycloak job/keycloak-db-init`) rather than the install script attempting to recover automatically -- same behavior as other one-shot init jobs in this repo.
+
 ## Existing Keycloak
 * In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
   ```

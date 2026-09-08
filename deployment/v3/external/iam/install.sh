@@ -115,6 +115,80 @@ done
 echo Creating $NS namespace
 kubectl create ns $NS
 
+function configuring_keycloak_db() {
+  HELM_DB_FLAGS=""
+
+  echo ""
+  echo "Keycloak Database Configuration:"
+  echo "1. Bundled in-cluster PostgreSQL (default, current behavior)"
+  echo "2. Existing shared external PostgreSQL server"
+  read -p "Choose (1/2) [1]: " db_choice
+  db_choice=${db_choice:-1}
+
+  if [ "$db_choice" == "2" ]; then
+    DB_NAME="bitnami_keycloak"
+    DB_USER="bn_keycloak"
+    SU_SECRET_NAME="postgres-postgresql"
+    SU_SECRET_KEY="postgres-password"
+
+    read -p "Reuse this cluster's existing DB host/port config and superuser credential (postgres-setup-config / postgres-postgresql)? (Y/n): " reuse
+    if [[ "$reuse" =~ ^[Yy]|^$ ]]; then
+      ./copy_cm.sh
+      ./copy_secrets.sh
+      DB_HOST=$(kubectl get configmap postgres-setup-config -n $NS -o jsonpath='{.data.mosip-database-hostname-override}')
+      DB_PORT=$(kubectl get configmap postgres-setup-config -n $NS -o jsonpath='{.data.mosip-database-port-override}')
+      SU_USER="postgres"
+    else
+      read -p "External DB host: " DB_HOST
+      read -p "External DB port [5432]: " DB_PORT
+      DB_PORT=${DB_PORT:-5432}
+      read -p "Superuser username [postgres]: " SU_USER
+      SU_USER=${SU_USER:-postgres}
+      read -p "Existing Secret name in '$NS' ns holding the superuser password: " SU_SECRET_NAME
+      read -p "Key within that secret: " SU_SECRET_KEY
+    fi
+
+    # Always generate a dedicated password for the Keycloak DB user -- never
+    # reused from db-common-secrets or any other MOSIP module's DB password.
+    DBUSER_SECRET_NAME="keycloak-db-credentials"
+    DBUSER_SECRET_KEY="password"
+    if ! kubectl get secret "$DBUSER_SECRET_NAME" -n $NS >/dev/null 2>&1; then
+      KC_DB_PWD=$(openssl rand -base64 24)
+      kubectl create secret generic "$DBUSER_SECRET_NAME" -n $NS \
+        --from-literal="$DBUSER_SECRET_KEY=$KC_DB_PWD"
+    else
+      echo "Secret $DBUSER_SECRET_NAME already exists in $NS, reusing it as-is."
+    fi
+
+    echo "Running one-shot job to ensure Keycloak DB/user/grants exist (safe to re-run -- skips what already exists)..."
+    kubectl delete job keycloak-db-init -n $NS --ignore-not-found
+    sed -e "s/__DB_HOST__/$DB_HOST/g" \
+        -e "s/__DB_PORT__/$DB_PORT/g" \
+        -e "s/__DB_NAME__/$DB_NAME/g" \
+        -e "s/__DB_USER__/$DB_USER/g" \
+        -e "s/__SU_USER__/$SU_USER/g" \
+        -e "s/__SU_SECRET_NAME__/$SU_SECRET_NAME/g" \
+        -e "s/__SU_SECRET_KEY__/$SU_SECRET_KEY/g" \
+        -e "s/__DBUSER_SECRET_NAME__/$DBUSER_SECRET_NAME/g" \
+        -e "s/__DBUSER_SECRET_KEY__/$DBUSER_SECRET_KEY/g" \
+        keycloak-db-init-job.yaml | kubectl apply -f -
+
+    # Let it error and sit like other one-shot jobs in this repo -- no forced
+    # abort of the install, no auto-cleanup on failure.
+    kubectl wait --for=condition=complete job/keycloak-db-init -n $NS --timeout=120s \
+      || echo "WARNING: keycloak-db-init did not complete -- check 'kubectl logs -n $NS job/keycloak-db-init' before continuing."
+
+    HELM_DB_FLAGS="--set postgresql.enabled=false \
+      --set externalDatabase.host=$DB_HOST \
+      --set externalDatabase.port=$DB_PORT \
+      --set externalDatabase.database=$DB_NAME \
+      --set externalDatabase.user=$DB_USER \
+      --set externalDatabase.existingSecret=$DBUSER_SECRET_NAME \
+      --set externalDatabase.existingSecretPasswordKey=$DBUSER_SECRET_KEY"
+  fi
+  return 0
+}
+
 function installing_keycloak() {
   echo Istio label
   ## TODO: enable istio injection after testing well.
@@ -122,6 +196,8 @@ function installing_keycloak() {
   helm repo add bitnami https://charts.bitnami.com/bitnami
   helm repo add mosip https://mosip.github.io/mosip-helm
   helm repo update
+
+  configuring_keycloak_db
 
   echo Installing
   helm -n $NS install $SERVICE_NAME mosip/keycloak \
@@ -131,6 +207,7 @@ function installing_keycloak() {
   --set image.pullPolicy=Always \
   --set postgresql.image.repository=mosipid/postgresql \
   --set postgresql.image.tag=14.2.0-debian-10-r70 \
+  $HELM_DB_FLAGS \
   -f values.yaml \
   --wait
 
