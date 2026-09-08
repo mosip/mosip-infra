@@ -35,6 +35,15 @@ Either way, a **dedicated password** for the Keycloak database user is always ge
 
 The database, role, and grants are then created via a one-shot Job (`keycloak-db-init-job.yaml`), which checks whether the database/role already exist and skips creating them if so (safe to re-run). If this Job fails, it is left as `Failed` for inspection (`kubectl logs -n keycloak job/keycloak-db-init`) rather than the install script attempting to recover automatically -- same behavior as other one-shot init jobs in this repo.
 
+The Job only creates an empty database, role, and grants -- it does not copy any existing data from the bundled PostgreSQL PVC.
+
+### Migration from bundled PostgreSQL
+Before selecting external PostgreSQL for an existing Keycloak installation:
+1. Export the bundled Keycloak PostgreSQL database.
+2. Restore the export into the target external `bitnami_keycloak` database.
+3. Validate the restored Keycloak schema and required realm data.
+4. Run `install.sh` with external PostgreSQL only after validation succeeds.
+
 ## Existing Keycloak
 * In case you have not installed Keycloak by above method, and already have an instance running, make sure Kubernetes configmap and secret is created in namespace `keycloak` as expected in [keycloak-init](https://github.com/mosip/mosip-helm/blob/develop/charts/keycloak-init/values.yaml):
   ```
