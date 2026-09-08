@@ -1,0 +1,81 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: keycloak-db-init
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: keycloak-db-init
+          image: mosipid/postgresql:14.2.0-debian-10-r70
+          env:
+            - name: DB_HOST
+              value: "__DB_HOST__"
+            - name: DB_PORT
+              value: "__DB_PORT__"
+            - name: DB_NAME
+              value: "__DB_NAME__"
+            - name: DB_USER
+              value: "__DB_USER__"
+            - name: SU_USER
+              value: "__SU_USER__"
+            - name: SU_USER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: "__SU_SECRET_NAME__"
+                  key: "__SU_SECRET_KEY__"
+            - name: DB_USER_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: "__DBUSER_SECRET_NAME__"
+                  key: "__DBUSER_SECRET_KEY__"
+          command: ["bash", "-c"]
+          args:
+            - |
+              set -e
+              export PGPASSWORD="$SU_USER_PWD"
+
+              DB_EXISTS=$(psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -tAc \
+                "SELECT 1 FROM pg_database WHERE datname='$DB_NAME'")
+              if [ "$DB_EXISTS" != "1" ]; then
+                echo "Creating database $DB_NAME"
+                psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
+                  -c "CREATE DATABASE \"$DB_NAME\" ENCODING 'UTF8'"
+              else
+                echo "Database $DB_NAME already exists, skipping"
+              fi
+
+              ROLE_EXISTS=$(psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -tAc \
+                "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'")
+              # DB_USER_PWD comes from a Secret and must never be concatenated into a
+              # SQL string literal (a password containing a quote could otherwise
+              # terminate the literal and run arbitrary SQL as $SU_USER). psql's
+              # `:'var'`/`:"var"` interpolation handles quoting safely, but only when
+              # the SQL is read as a script/stdin -- verified directly that `-c`
+              # does NOT perform this substitution, so these two statements are
+              # piped in via a heredoc instead of `-c`.
+              if [ "$ROLE_EXISTS" != "1" ]; then
+                echo "Creating role $DB_USER"
+                psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
+                  -v db_user="$DB_USER" -v db_user_pwd="$DB_USER_PWD" <<'SQL'
+              CREATE ROLE :"db_user" WITH LOGIN PASSWORD :'db_user_pwd';
+              SQL
+              else
+                # Role already exists, but DB_USER_PWD (from keycloak-db-credentials)
+                # may have been regenerated since it was created -- always sync the
+                # role's password to whatever the current Secret holds, so Helm's
+                # externalDatabase config and the actual DB role never drift apart.
+                echo "Role $DB_USER already exists, syncing password"
+                psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
+                  -v db_user="$DB_USER" -v db_user_pwd="$DB_USER_PWD" <<'SQL'
+              ALTER ROLE :"db_user" WITH LOGIN PASSWORD :'db_user_pwd';
+              SQL
+              fi
+
+              echo "Ensuring grants (idempotent, always re-applied)"
+              psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
+                -c "GRANT ALL PRIVILEGES ON DATABASE \"$DB_NAME\" TO \"$DB_USER\""
+              psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d "$DB_NAME" -v ON_ERROR_STOP=1 \
+                -c "GRANT ALL ON SCHEMA public TO \"$DB_USER\""
