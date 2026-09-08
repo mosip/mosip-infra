@@ -55,7 +55,13 @@ spec:
                 psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
                   -c "CREATE ROLE \"$DB_USER\" WITH LOGIN PASSWORD '$DB_USER_PWD'"
               else
-                echo "Role $DB_USER already exists, skipping"
+                # Role already exists, but DB_USER_PWD (from keycloak-db-credentials)
+                # may have been regenerated since it was created -- always sync the
+                # role's password to whatever the current Secret holds, so Helm's
+                # externalDatabase config and the actual DB role never drift apart.
+                echo "Role $DB_USER already exists, syncing password"
+                psql -h "$DB_HOST" -p "$DB_PORT" -U "$SU_USER" -d postgres -v ON_ERROR_STOP=1 \
+                  -c "ALTER ROLE \"$DB_USER\" WITH LOGIN PASSWORD '$DB_USER_PWD'"
               fi
 
               echo "Ensuring grants (idempotent, always re-applied)"
