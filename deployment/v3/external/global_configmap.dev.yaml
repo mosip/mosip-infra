@@ -1,0 +1,34 @@
+## Global configmap for the MOSIP "dev" environment.
+## Apply to the default namespace before installing packetcreator and dslrig:
+##   kubectl --kubeconfig=<dev.config> apply -f global_configmap.dev.yaml
+##
+## If default/global already exists on the cluster, prefer patching installation-name
+## instead of overwriting the full configmap.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: global
+  namespace: default
+data:
+  installation-name: dev
+  installation-domain: dev.mosip.net
+  mosip-version: develop
+  mosip-api-host: api.dev.mosip.net
+  mosip-api-internal-host: api-internal.dev.mosip.net
+  mosip-prereg-host: prereg.dev.mosip.net
+  mosip-activemq-host: activemq.dev.mosip.net
+  mosip-kibana-host: kibana.dev.mosip.net
+  mosip-admin-host: admin.dev.mosip.net
+  mosip-regclient-host: regclient.dev.mosip.net
+  mosip-minio-host: minio.dev.mosip.net
+  mosip-kafka-host: kafka.dev.mosip.net
+  mosip-iam-external-host: iam.dev.mosip.net
+  mosip-postgres-host: postgres.dev.mosip.net
+  mosip-pmp-host: pmp.dev.mosip.net
+  mosip-pmp-revamp-ui-host: pmp-revamp.dev.mosip.net
+  mosip-resident-host: resident.dev.mosip.net
+  mosip-compliance-host: compliance.dev.mosip.net
+  mosip-esignet-host: esignet.dev.mosip.net
+  mosip-smtp-host: smtp.dev.mosip.net
+  mosip-signup-host: signup.dev.mosip.net
+  is_glowroot_env: absent
