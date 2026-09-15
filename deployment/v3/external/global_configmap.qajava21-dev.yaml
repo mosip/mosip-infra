@@ -1,6 +1,6 @@
-## Global configmap for qajava21 environment with dev space.
-## Apply to the default namespace before installing packetcreator and dslrig:
-##   kubectl --kubeconfig=<qajava21.config> apply -f global_configmap.qajava21-dev.yaml
+## Reference global configmap for qajava21.mosip.net (bootstrap default only if missing).
+## For testrig in namespace "dev", use deployment/v3/testrig/qajava21-dev/install.sh instead;
+## it copies global from default into dev and does not require applying this file to default.
 apiVersion: v1
 kind: ConfigMap
 metadata:

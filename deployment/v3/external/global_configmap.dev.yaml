@@ -1,9 +1,6 @@
-## Global configmap for the MOSIP "dev" environment.
-## Apply to the default namespace before installing packetcreator and dslrig:
-##   kubectl --kubeconfig=<dev.config> apply -f global_configmap.dev.yaml
-##
-## If default/global already exists on the cluster, prefer patching installation-name
-## instead of overwriting the full configmap.
+## Reference global configmap for dev.mosip.net (bootstrap default only if missing).
+## For testrig in namespace "dev", use deployment/v3/testrig/dev/install.sh instead;
+## it copies global from default into the dev namespace without modifying default/global.
 apiVersion: v1
 kind: ConfigMap
 metadata:

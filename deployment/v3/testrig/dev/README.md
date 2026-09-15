@@ -1,27 +1,27 @@
-# dev environment testrig deployment
+# Testrig in namespace `dev`
 
-Deploy **packetcreator** and **dslrig** (dslorchestrator) on the MOSIP **dev** environment (`dev.mosip.net`), with `installation-name: dev` in the `default` namespace global configmap.
+Deploy **packetcreator** and **dslorchestrator** into a **new Kubernetes namespace `dev`**, not into `packetcreator` / `dslrig`.
+
+## Namespace layout
+
+| Namespace | Role |
+|---|---|
+| `default` | Existing `global` configmap — **not modified** |
+| `dev` | Both packetcreator and dslorchestrator |
+
+`global` is copied from `default` → `dev`; `installation-name: dev` is set **only** on `dev/global`.
 
 ## Prerequisites
 
-* `dev` Kubernetes cluster is accessible via kubeconfig (e.g. `dev.config`)
-* MOSIP external and core services are already running (postgres, keycloak, minio, config-server, artifactory, etc.)
-* `kubectl`, `helm`, and `jq` are installed locally
-* Helm repo: `helm repo add mosip https://mosip.github.io/mosip-helm`
-
-## What this script does
-
-1. Ensures `default/global` has `installation-name: dev` (patches existing configmap; applies full template only if missing)
-2. Installs **packetcreator** in the `packetcreator` namespace
-3. Installs **dslorchestrator** in the `dslrig` namespace (copies `global` and related configmaps/secrets from `default` and peer namespaces)
-
-Chart/image defaults match [mosip/infra](https://github.com/mosip/infra) `dev` branch `Helmsman/dsf/testrigs-dsf.yaml`.
+* Cluster kubeconfig (e.g. `dev.config` for `dev.mosip.net`)
+* `default/global` configmap exists
+* MOSIP prerequisites running
+* `kubectl`, `helm`, `jq`
 
 ## Install
 
 ```sh
 cd deployment/v3/testrig/dev
-chmod +x install.sh
 ./install.sh /path/to/dev.config
 ```
 
@@ -29,46 +29,23 @@ chmod +x install.sh
 
 | Variable | Default | Description |
 |---|---|---|
+| `TARGET_NS` | `dev` | Namespace for both services |
+| `INSTALLATION_NAME` | `dev` | `installation-name` on copied `global` in `TARGET_NS` |
 | `CHART_VERSION` | `0.0.1-develop` | Helm chart version |
-| `PACKETCREATOR_IMAGE_REPO` | `mosipdev/dsl-packetcreator` | Packetcreator image repo |
-| `PACKETCREATOR_IMAGE_TAG` | `develop` | Packetcreator image tag |
-| `DSLORCHESTRATOR_IMAGE_REPO` | `mosipdev/dsl-orchestrator` | DSL image repo |
-| `DSLORCHESTRATOR_IMAGE_TAG` | `develop` | DSL image tag |
-| `CRON_HOUR` | `4` | Daily cron hour (0-23) |
-| `REPORT_RETENTION_DAYS` | `3` | Report retention days |
-| `PACKET_UTILITY_BASE_URL` | `http://packetcreator.packetcreator:80/v1/packetcreator` | Packetcreator URL |
-| `ENABLE_INSECURE` | `true` | Self-signed SSL init-container |
-| `DB_PORT` | `5433` | Postgres port used by dslrig |
-| `THREAD_COUNT` | `2` | DSL parallel thread count |
-| `ESIGNET_DEPLOYED` | `no` | Whether eSignet is deployed |
-| `SERVICES_NOT_DEPLOYED` | `esignet` | Services to skip in DSL |
+| `PACKET_UTILITY_BASE_URL` | `http://packetcreator.dev:80/v1/packetcreator` | Packetcreator service URL |
+| `DB_PORT` | `5433` | Postgres port for dslorchestrator |
 
-Example:
-
-```sh
-PACKETCREATOR_IMAGE_TAG=MOSIP-42917 DSLORCHESTRATOR_IMAGE_TAG=MOSIP-42917 ./install.sh ~/dev.config
-```
-
-## Helmsman / mosip-infra rapid deployment (alternative)
-
-If the cluster was created with [mosip/infra](https://github.com/mosip/infra) on branch `dev`, run **Deploy Testrigs of mosip using Helmsman** with:
-
-* **Branch**: `dev`
-* **Mode**: `apply`
-* **domain_name**: `dev.mosip.net`
-* **env_name**: `dev`
+See `install.sh` for image repo/tag overrides aligned with mosip/infra `dev` branch testrigs DSF.
 
 ## Verify
 
 ```sh
-kubectl --kubeconfig=/path/to/dev.config -n default get cm global
-kubectl --kubeconfig=/path/to/dev.config -n packetcreator get pods
-kubectl --kubeconfig=/path/to/dev.config -n dslrig get pods,cronjob
+kubectl --kubeconfig=/path/to/dev.config -n dev get pods,cronjob,cm global
 ```
 
 ## Uninstall
 
 ```sh
-cd deployment/v3/testrig/packetcreator && ./delete.sh /path/to/dev.config
-cd ../dslrig && ./delete.sh /path/to/dev.config
+helm --kubeconfig=/path/to/dev.config -n dev uninstall packetcreator dslorchestrator
+kubectl --kubeconfig=/path/to/dev.config delete ns dev
 ```

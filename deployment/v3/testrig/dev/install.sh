@@ -1,6 +1,6 @@
 #!/bin/bash
-# Deploy packetcreator and dslrig for the MOSIP "dev" environment.
-# Both services read domain values from the global configmap in the default namespace.
+# Deploy packetcreator and dslrig into a dedicated "dev" namespace (not packetcreator/dslrig).
+# Domain values are copied from the global configmap in default (default is not modified).
 ## Usage: ./install.sh [kubeconfig]
 
 if [ $# -ge 1 ]; then
@@ -15,11 +15,8 @@ set -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INFRA_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-GLOBAL_CM="$INFRA_ROOT/external/global_configmap.dev.yaml"
 
-PACKETCREATOR_NS=packetcreator
-DSLRIG_NS=dslrig
-# Align with mosip/infra Helmsman/dsf/testrigs-dsf.yaml on the "dev" branch
+TARGET_NS="${TARGET_NS:-dev}"
 CHART_VERSION="${CHART_VERSION:-0.0.1-develop}"
 PACKETCREATOR_IMAGE_REPO="${PACKETCREATOR_IMAGE_REPO:-mosipdev/dsl-packetcreator}"
 PACKETCREATOR_IMAGE_TAG="${PACKETCREATOR_IMAGE_TAG:-develop}"
@@ -27,12 +24,13 @@ DSLORCHESTRATOR_IMAGE_REPO="${DSLORCHESTRATOR_IMAGE_REPO:-mosipdev/dsl-orchestra
 DSLORCHESTRATOR_IMAGE_TAG="${DSLORCHESTRATOR_IMAGE_TAG:-develop}"
 CRON_HOUR="${CRON_HOUR:-4}"
 REPORT_RETENTION_DAYS="${REPORT_RETENTION_DAYS:-3}"
-PACKET_UTILITY_BASE_URL="${PACKET_UTILITY_BASE_URL:-http://packetcreator.packetcreator:80/v1/packetcreator}"
+PACKET_UTILITY_BASE_URL="${PACKET_UTILITY_BASE_URL:-http://packetcreator.${TARGET_NS}:80/v1/packetcreator}"
 ENABLE_INSECURE="${ENABLE_INSECURE:-true}"
 DB_PORT="${DB_PORT:-5433}"
 THREAD_COUNT="${THREAD_COUNT:-2}"
 ESIGNET_DEPLOYED="${ESIGNET_DEPLOYED:-no}"
 SERVICES_NOT_DEPLOYED="${SERVICES_NOT_DEPLOYED:-esignet}"
+INSTALLATION_NAME="${INSTALLATION_NAME:-dev}"
 
 function require_command() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -41,33 +39,43 @@ function require_command() {
   fi
 }
 
-function apply_global_configmap() {
-  echo "Ensuring global configmap in default namespace has installation-name=dev..."
-  if kubectl -n default get cm global >/dev/null 2>&1; then
-    # Existing env: only ensure the "dev" space marker; do not overwrite host domains.
-    kubectl -n default patch cm global --type merge -p '{"data":{"installation-name":"dev"}}'
-  else
-    kubectl apply -f "$GLOBAL_CM"
+function require_default_global() {
+  if ! kubectl -n default get cm global >/dev/null 2>&1; then
+    echo "ERROR: configmap global must exist in namespace default; EXITING."
+    exit 1
   fi
-  kubectl -n default get cm global -o jsonpath='{.data.installation-name}{" / "}{.data.installation-domain}{"\n"}'
+  kubectl -n default get cm global -o jsonpath='default/global: {.data.installation-domain}{"\n"}'
+}
+
+function prepare_target_namespace() {
+  COPY_UTIL="$INFRA_ROOT/utils/copy_cm_func.sh"
+
+  echo "Create namespace $TARGET_NS"
+  kubectl create ns "$TARGET_NS" --dry-run=client -o yaml | kubectl apply -f -
+
+  echo "Istio label (packetcreator expects injection enabled)"
+  kubectl label ns "$TARGET_NS" istio-injection=enabled --overwrite
+
+  echo "Copy global configmap from default into $TARGET_NS"
+  "$COPY_UTIL" configmap global default "$TARGET_NS"
+  kubectl -n "$TARGET_NS" patch cm global --type merge \
+    -p "{\"data\":{\"installation-name\":\"$INSTALLATION_NAME\"}}"
+
+  echo "Copy configmaps and secrets required by dslorchestrator"
+  kubectl -n "$TARGET_NS" delete --ignore-not-found=true configmap s3
+  kubectl -n "$TARGET_NS" delete --ignore-not-found=true configmap db
+  kubectl -n "$TARGET_NS" delete --ignore-not-found=true configmap dslrig
+  "$COPY_UTIL" configmap keycloak-host keycloak "$TARGET_NS"
+  "$COPY_UTIL" configmap artifactory-share artifactory "$TARGET_NS"
+  "$COPY_UTIL" configmap config-server-share config-server "$TARGET_NS"
+  "$COPY_UTIL" secret keycloak-client-secrets keycloak "$TARGET_NS"
+  "$COPY_UTIL" secret s3 s3 "$TARGET_NS"
+  "$COPY_UTIL" secret postgres-postgresql postgres "$TARGET_NS"
+
+  kubectl -n "$TARGET_NS" get cm global -o jsonpath='{"'"$TARGET_NS"'/global: installation-name="}{.data.installation-name}{" domain="}{.data.installation-domain}{"\n"}'
 }
 
 function install_packetcreator() {
-  echo "Create $PACKETCREATOR_NS namespace"
-  kubectl create ns "$PACKETCREATOR_NS" --dry-run=client -o yaml | kubectl apply -f -
-
-  echo "Istio label"
-  kubectl label ns "$PACKETCREATOR_NS" istio-injection=enabled --overwrite
-
-  api_internal_host=$(kubectl -n default get cm global -o json | jq -rc '.data."mosip-api-internal-host"')
-  if [[ -z "$api_internal_host" || "$api_internal_host" == "null" ]]; then
-    echo "ERROR: mosip-api-internal-host missing in default/global configmap; EXITING."
-    exit 1
-  fi
-  kubectl -n "$PACKETCREATOR_NS" create cm global \
-    --from-literal="mosip-api-internal-host=$api_internal_host" \
-    --dry-run=client -o yaml | kubectl apply -f -
-
   helm repo add mosip https://mosip.github.io/mosip-helm 2>/dev/null || true
   helm repo update
 
@@ -76,8 +84,8 @@ function install_packetcreator() {
     insecure_flag="--set enable_insecure=true"
   fi
 
-  echo "Installing packetcreator"
-  helm -n "$PACKETCREATOR_NS" upgrade --install packetcreator mosip/packetcreator \
+  echo "Installing packetcreator in namespace $TARGET_NS"
+  helm -n "$TARGET_NS" upgrade --install packetcreator mosip/packetcreator \
     --set istio.enabled=true \
     --set ingress.enabled=false \
     --set image.repository="$PACKETCREATOR_IMAGE_REPO" \
@@ -88,38 +96,17 @@ function install_packetcreator() {
 }
 
 function install_dslrig() {
-  echo "Create $DSLRIG_NS namespace"
-  kubectl create ns "$DSLRIG_NS" --dry-run=client -o yaml | kubectl apply -f -
-
-  echo "Istio label"
-  kubectl label ns "$DSLRIG_NS" istio-injection=disabled --overwrite
-
-  COPY_UTIL="$INFRA_ROOT/utils/copy_cm_func.sh"
-  echo "Copy configmaps from default namespace"
-  kubectl -n "$DSLRIG_NS" delete --ignore-not-found=true configmap s3
-  kubectl -n "$DSLRIG_NS" delete --ignore-not-found=true configmap db
-  kubectl -n "$DSLRIG_NS" delete --ignore-not-found=true configmap dslrig
-  "$COPY_UTIL" configmap global default "$DSLRIG_NS"
-  "$COPY_UTIL" configmap keycloak-host keycloak "$DSLRIG_NS"
-  "$COPY_UTIL" configmap artifactory-share artifactory "$DSLRIG_NS"
-  "$COPY_UTIL" configmap config-server-share config-server "$DSLRIG_NS"
-
-  echo "Copy secrets"
-  "$COPY_UTIL" secret keycloak-client-secrets keycloak "$DSLRIG_NS"
-  "$COPY_UTIL" secret s3 s3 "$DSLRIG_NS"
-  "$COPY_UTIL" secret postgres-postgresql postgres "$DSLRIG_NS"
-
-  DB_HOST=$(kubectl -n default get cm global -o json | jq -r '.data."mosip-api-internal-host"')
-  API_INTERNAL_HOST=$(kubectl -n default get cm global -o json | jq -r '.data."mosip-api-internal-host"')
-  USER=$(kubectl -n default get cm global -o json | jq -r '.data."mosip-api-internal-host"')
+  DB_HOST=$(kubectl -n "$TARGET_NS" get cm global -o json | jq -r '.data."mosip-api-internal-host"')
+  API_INTERNAL_HOST=$(kubectl -n "$TARGET_NS" get cm global -o json | jq -r '.data."mosip-api-internal-host"')
+  USER=$(kubectl -n "$TARGET_NS" get cm global -o json | jq -r '.data."mosip-api-internal-host"')
 
   insecure_flag=""
   if [[ "$ENABLE_INSECURE" == "true" ]]; then
     insecure_flag="--set enable_insecure=true"
   fi
 
-  echo "Installing dslorchestrator"
-  helm -n "$DSLRIG_NS" upgrade --install dslorchestrator mosip/dslorchestrator \
+  echo "Installing dslorchestrator in namespace $TARGET_NS"
+  helm -n "$TARGET_NS" upgrade --install dslorchestrator mosip/dslorchestrator \
     --set image.repository="$DSLORCHESTRATOR_IMAGE_REPO" \
     --set image.tag="$DSLORCHESTRATOR_IMAGE_TAG" \
     --set crontime="0 $CRON_HOUR * * *" \
@@ -134,21 +121,22 @@ function install_dslrig() {
     --set dslorchestrator.configmaps.dslorchestrator.ENDPOINT="https://$API_INTERNAL_HOST" \
     --set dslorchestrator.configmaps.dslorchestrator.packetUtilityBaseUrl="$PACKET_UTILITY_BASE_URL" \
     --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$REPORT_RETENTION_DAYS" \
-    --set dslorchestrator.configmaps.dslorchestrator.NS="$DSLRIG_NS" \
+    --set dslorchestrator.configmaps.dslorchestrator.NS="$TARGET_NS" \
     --set dslorchestrator.configmaps.dslorchestrator.threadCount="$THREAD_COUNT" \
     --set dslorchestrator.configmaps.dslorchestrator.eSignetDeployed="$ESIGNET_DEPLOYED" \
     --set dslorchestrator.configmaps.dslorchestrator.servicesNotDeployed="$SERVICES_NOT_DEPLOYED" \
     $insecure_flag
-  echo "Installed dslrig."
+  echo "Installed dslorchestrator."
 }
 
 require_command kubectl
 require_command helm
 require_command jq
 
-apply_global_configmap
+require_default_global
+prepare_target_namespace
 install_packetcreator
 install_dslrig
 
-echo "dev environment testrig deployment complete."
-echo "Packetcreator and dslrig both use global configmap from default namespace (installation-name=dev)."
+echo "Testrig deployment complete in namespace $TARGET_NS."
+echo "default/global was left unchanged; $TARGET_NS/global carries installation-name=$INSTALLATION_NAME."
