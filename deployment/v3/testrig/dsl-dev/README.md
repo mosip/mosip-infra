@@ -55,8 +55,23 @@ kubectl -n packetcreator-dev get pods
 kubectl --kubeconfig=<kubeconfig> -n dsl-dev create job --from=cronjob/<cronjob-name> <job-name>
 ```
 
-## Uninstall
+## Troubleshooting: `configmap "global" not found`
+
+The dslorchestrator pod (and `enable_insecure` init with `rancher/curl`) mounts `configmap/global` in **`dsl-dev`**. If it is missing:
 
 ```sh
-./delete.sh /path/to/kubeconfig
+cd deployment/v3/testrig/dsl-dev
+chmod +x fix-global.sh
+./fix-global.sh /path/to/kubeconfig
 ```
+
+Or manually:
+
+```sh
+./copy_cm.sh
+kubectl -n dsl-dev get cm global
+kubectl -n dsl-dev delete job --all
+# re-trigger cronjob job
+```
+
+This does **not** change your existing `dslrig` namespace.
