@@ -12,7 +12,7 @@ CHART_VERSION=1.5.0
 DEFAULT_PACKET_UTILITY_BASE_URL="http://packetcreator.packetcreator-dev:80/v1/packetcreator"
 
 echo Create $NS namespace
-kubectl create ns $NS
+kubectl create ns $NS --dry-run=client -o yaml | kubectl apply -f -
 
 function installing_dslrig() {
   ENV_NAME=$( kubectl -n default get cm global -o json |jq -r '.data."installation-domain"')
