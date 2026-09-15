@@ -71,7 +71,8 @@ function installing_dslrig() {
   echo Copy secrets
   ./copy_secrets.sh
 
-  echo "Delete s3, db, & dslrig configmap if exists"
+  # Only clears stale configmaps in $NS (dsl-dev). Existing dslrig in other namespaces is untouched.
+  echo "Delete s3, db, & dslrig configmap if exists in namespace $NS only"
   kubectl -n $NS delete --ignore-not-found=true configmap s3
   kubectl -n $NS delete --ignore-not-found=true configmap db
   kubectl -n $NS delete --ignore-not-found=true configmap dslrig
@@ -105,6 +106,15 @@ function installing_dslrig() {
   --set dslorchestrator.configmaps.dslorchestrator.reportExpirationInDays="$reportExpirationInDays" \
   --set dslorchestrator.configmaps.dslorchestrator.NS="$NS" \
   $ENABLE_INSECURE
+
+  # Helm chart mounts configmap "global" (e.g. for enable_insecure init). Ensure it exists in $NS.
+  echo "Ensuring configmap global exists in namespace $NS"
+  ./copy_cm.sh
+  if ! kubectl -n $NS get cm global >/dev/null 2>&1; then
+    echo "Copy failed; creating minimal global configmap in $NS"
+    kubectl -n $NS create cm global --from-literal="mosip-api-internal-host=$API_INTERNAL_HOST"
+  fi
+  kubectl -n $NS get cm global
 
   echo Installed dslrig in namespace $NS \(env: ${ENV_NAME:-unknown}\).
   return 0
