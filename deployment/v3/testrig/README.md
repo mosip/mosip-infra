@@ -15,10 +15,9 @@ Install in the following order:
 * [Authdemo](authdemo/README.md)
 * [DSLRIG](dslrig/README.md)
 
-### Environment-specific installers (namespace `dev`)
-Both deploy packetcreator and dslorchestrator into a **new namespace `dev`**, copying `global` from `default` without changing `default/global`:
-* [dev](dev/README.md) — for clusters such as `dev.mosip.net`
-* [qajava21-dev](qajava21-dev/README.md) — for qajava21 (`qajava21.mosip.net`)
+### Environment-specific installers
+* [dsl-dev](dsl-dev/README.md) — deploy **dslorchestrator** into namespace **`dsl-dev`**, using existing **packetcreator** in **`packetcreator-dev`**
+* [dev](dev/README.md) / [qajava21-dev](qajava21-dev/README.md) — older combined helpers (prefer `dsl-dev` when packetcreator-dev already exists)
 
 ## Delete
 * Follow the steps mentioned in the below links to uninstall DSLRIG.
