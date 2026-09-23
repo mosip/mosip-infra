@@ -7,7 +7,7 @@ if [ $# -ge 1 ] ; then
 fi
 
 NS=packetcreator
-CHART_VERSION=1.4.0
+CHART_VERSION=1.5.0
 
 echo Create $NS namespace
 kubectl create ns $NS

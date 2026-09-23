@@ -1,5 +1,6 @@
 mosip_kernel,1.2.0.1,1.2.0.2,upgrade
 mosip_kernel,1.2.0.2,1.3.0,upgrade
+mosip_kernel,1.3.0,1.3.1,upgrade
 mosip_prereg,1.2.0.1,1.2.0.2,upgrade
 mosip_prereg,1.2.0.2,1.2.0.3,upgrade
 mosip_prereg,1.2.0.3,1.3.0,upgrade
@@ -8,6 +9,7 @@ mosip_regprc,1.2.0.2,1.2.1.0,upgrade
 mosip_regprc,1.2.1.0,1.2.1.1,upgrade
 mosip_regprc,1.2.1.1,1.2.1.2,upgrade
 mosip_regprc,1.2.1.2,1.3.0,upgrade
+mosip_regprc,1.3.0,1.3.1,upgrade
 mosip_credential,1.2.0.1,1.2.1.0,upgrade
 mosip_credential,1.2.1.0,1.2.2.0,upgrade
 mosip_credential,1.2.2.0,1.2.2.1,upgrade
@@ -15,6 +17,7 @@ mosip_credential,1.2.2.1,1.2.2.2,upgrade
 mosip_credential,1.2.2.2,1.2.2.3,upgrade
 mosip_credential,1.2.2.3,1.2.2.4,upgrade
 mosip_credential,1.2.2.4,1.3.0,upgrade
+mosip_credential,1.3.0,1.3.1,upgrade
 mosip_idmap,1.2.0.1,1.2.1.0,upgrade
 mosip_idmap,1.2.1.0,1.2.2.0,upgrade
 mosip_idmap,1.2.2.0,1.2.2.1,upgrade
@@ -22,6 +25,7 @@ mosip_idmap,1.2.2.1,1.2.2.2,upgrade
 mosip_idmap,1.2.2.2,1.2.2.3,upgrade
 mosip_idmap,1.2.2.3,1.2.2.4,upgrade
 mosip_idmap,1.2.2.4,1.3.0,upgrade
+mosip_idmap,1.3.0,1.3.1,upgrade
 mosip_idrepo,1.2.0.1,1.2.1.0,upgrade
 mosip_idrepo,1.2.1.0,1.2.2.0,upgrade
 mosip_idrepo,1.2.2.0,1.2.2.1,upgrade
@@ -29,10 +33,12 @@ mosip_idrepo,1.2.2.1,1.2.2.2,upgrade
 mosip_idrepo,1.2.2.2,1.2.2.3,upgrade
 mosip_idrepo,1.2.2.3,1.2.2.4,upgrade
 mosip_idrepo,1.2.2.4,1.3.0,upgrade
+mosip_idrepo,1.3.0,1.3.1,upgrade
 mosip_ida,1.2.0.1,1.2.1.0,upgrade
 mosip_ida,1.2.1.0,1.2.1.1,upgrade
 mosip_ida,1.2.1.1,1.2.1.2,upgrade
 mosip_ida,1.2.1.2,1.3.0,upgrade
+mosip_ida,1.3.0,1.3.1,upgrade
 mosip_pms,1.2.0.1,1.2.1.0,upgrade
 mosip_pms,1.2.1.0,1.2.2.0,upgrade
 mosip_pms,1.2.2.0,1.2.2.1,upgrade
@@ -45,7 +51,12 @@ mosip_master,1.2.1.3,1.2.1.4,upgrade
 mosip_master,1.2.1.4,1.3.0,upgrade
 mosip_keymgr,1.2.0.1,1.2.1.0,upgrade
 mosip_keymgr,1.2.1.0,1.3.0,upgrade
+mosip_keymgr,1.3.0,1.4.0,upgrade
+mosip_keymgr,1.4.0,1.4.1,upgrade
 mosip_audit,1.2.0.1,1.3.0,upgrade
+mosip_audit,1.2.0.1,1.3.0,upgrade
+mosip_audit,1.3.0,1.3.1,upgrade
+mosip_audit,1.3.1,1.3.2,upgrade
 mosip_resident,1.2.0.1,1.2.1.0,upgrade
 mosip_resident,1.2.1.0,1.2.1.1,upgrade
 mosip_resident,1.2.1.1,1.2.1.2,upgrade

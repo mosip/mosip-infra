@@ -8,7 +8,7 @@ fi
 
 NS=abis
 
-CHART_VERSION=v1.3.1-rc.1
+CHART_VERSION=v1.3.1
 
 echo Create $NS namespace
 kubectl create ns $NS 

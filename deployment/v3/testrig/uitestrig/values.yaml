@@ -12,7 +12,7 @@ modules:
     image:
       registry: docker.io
       repository: mosipid/uitest-pmp
-      tag: 1.2.2.2
+      tag: 1.2.2.3
       pullPolicy: Always
   - name: resident-ui
     enabled: true
