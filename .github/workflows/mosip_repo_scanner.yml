@@ -25,7 +25,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     strategy:
       matrix:
-        python-version: [3.6]
+        python-version: [3.11]
 
     steps:
       - uses: actions/checkout@v2
@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip3 install -y truffleHog3
+          pip3 install truffleHog3
 
       # Create List of all repos
       - name: Create repo list
@@ -64,5 +64,5 @@ jobs:
         run: 'curl  args: -u ''${{secrets.reporting_user}}:${{secrets.reporting_user_secret}}'' --request POST -F file=@./Reports_`date +%d%b%y`.zip -H ''Accept: application/json'' -H ''X-Atlassian-Token: no-check'' --url https://mosip.atlassian.net/wiki/rest/api/content/45285493/child/attachment'
 
       #Delete the reports from deployment server
-      - name: Create directory for reports
+      - name: Cleanup workspace
         run: rm -Rf ./*
