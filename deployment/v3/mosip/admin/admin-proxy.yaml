@@ -15,6 +15,12 @@ spec:
         app: admin-proxy
     spec:
       containers:
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+
       - name: admin-proxy
         image: nginxinc/nginx-unprivileged:1.21.6-alpine
         ports:

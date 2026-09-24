@@ -5,6 +5,12 @@ metadata:
   name: busybox-curl
 spec:
   containers:
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop: ["ALL"]
+
   - name: busybox-curl
     image: yauritux/busybox-curl:latest 
     args:
