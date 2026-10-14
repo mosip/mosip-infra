@@ -1,0 +1,214 @@
+# "info" stack: a daily CronJob collects workloads/images into ConfigMap "info-output",
+# and nginx serves it at /info (HTML dashboard for browsers, plain text for curl).
+# Deploy through an overlay: kubectl apply -k ../overlays/<env>
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: info
+  namespace: info
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: info
+rules:
+  - apiGroups: [""]
+    resources: ["namespaces", "pods"]
+    verbs: ["get", "list"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets"]
+    verbs: ["get", "list"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: info
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: info
+subjects:
+  - kind: ServiceAccount
+    name: info
+    namespace: info
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: info-output-writer
+  namespace: info
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    resourceNames: ["info-output"]
+    verbs: ["get", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: info-output-writer
+  namespace: info
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: info-output-writer
+subjects:
+  - kind: ServiceAccount
+    name: info
+    namespace: info
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: info
+  namespace: info
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        metadata:
+          annotations:
+            # An Istio sidecar never exits, which would leave every Job pod running forever.
+            sidecar.istio.io/inject: "false"
+        spec:
+          serviceAccountName: info
+          restartPolicy: Never
+          containers:
+            - name: fetch-info
+              image: alpine/k8s:1.22.15
+              env:
+                - name: ENV_NAME
+                  value: ""
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -eu
+                  sh /scripts/fetch-info.sh /tmp/out
+                  # Server-side apply: client-side apply would copy the whole payload into an
+                  # annotation, which is capped at 256 KiB.
+                  kubectl -n info create configmap info-output --from-file=/tmp/out \
+                    --dry-run=client -o yaml | kubectl apply --server-side --force-conflicts -f -
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
+              volumeMounts:
+                - name: script-file
+                  mountPath: /scripts
+          volumes:
+            - name: script-file
+              configMap:
+                name: info-script-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: info
+  namespace: info
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: info
+  template:
+    metadata:
+      labels:
+        app: info
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27-alpine
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          volumeMounts:
+            # No subPath: kubelet only refreshes ConfigMap volumes mounted as a directory.
+            - name: site
+              mountPath: /usr/share/nginx/html/info
+              readOnly: true
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+              readOnly: true
+      volumes:
+        - name: site
+          projected:
+            sources:
+              - configMap:
+                  name: info-web
+              - configMap:
+                  name: info-output
+                  optional: true
+        - name: nginx-conf
+          configMap:
+            name: info-nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: info
+  namespace: info
+spec:
+  selector:
+    app: info
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: info
+  namespace: info
+spec:
+  hosts: ["*"]
+  gateways: ["istio-system/public"]
+  http:
+    - match:
+        - uri:
+            exact: /info
+        - uri:
+            prefix: /info/
+      headers:
+        request:
+          set:
+            x-forwarded-proto: https
+      route:
+        - destination:
+            host: info
+            port:
+              number: 80
