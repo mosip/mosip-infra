@@ -1,15 +1,9 @@
 #!/bin/bash
 # Uninstalls the info CronJob + dashboard
-## Usage: ./delete.sh <environment> [kubeconfig]
+## Usage: ./delete.sh [kubeconfig]
 
-if [ $# -lt 1 ] ; then
-  echo "Usage: $0 <environment> [kubeconfig]"
-  exit 1
-fi
-
-ENV_NAME=$1
-if [ $# -ge 2 ] ; then
-  export KUBECONFIG=$2
+if [ $# -ge 1 ] ; then
+  export KUBECONFIG=$1
 fi
 
 NS=info
@@ -17,10 +11,10 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 function deleting_info_cronjob() {
   while true; do
-      read -p "Are you sure you want to delete the info CronJob for $ENV_NAME?(Y/n) " yn
+      read -p "Are you sure you want to delete the info CronJob?(Y/n) " yn
       if [ "$yn" = "Y" ]
         then
-          kubectl delete -k "$DIR/overlays/$ENV_NAME" --ignore-not-found
+          kubectl delete -k "$DIR/base" --ignore-not-found
           kubectl -n $NS delete configmap info-output --ignore-not-found
           break
         else

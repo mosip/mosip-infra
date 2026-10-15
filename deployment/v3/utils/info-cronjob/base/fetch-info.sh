@@ -1,11 +1,12 @@
 #!/bin/sh
 # Writes info.json (consumed by index.html) and info.txt (plain-text view) into $1.
-# ENV_NAME labels the report (e.g. collab, released); it is set per environment by the overlays.
+# ENV_NAME labels the report; EXCLUDED_NAMESPACE is a regex of namespaces to leave out.
+# Both are set at install time (see install.sh).
 set -eu
 
 OUT_DIR="${1:-/tmp/out}"
 ENV_NAME="${ENV_NAME:-}"
-EXCLUDED_NAMESPACE='^(istio|cattle|kube|info)'
+EXCLUDED_NAMESPACE="${EXCLUDED_NAMESPACE:-^(istio|cattle|kube|info)}"
 
 mkdir -p "$OUT_DIR"
 kubectl get namespaces -o json > /tmp/namespaces.json
