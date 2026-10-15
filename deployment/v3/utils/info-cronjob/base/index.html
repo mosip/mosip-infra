@@ -108,6 +108,8 @@
   .img:hover { color: var(--text); }
   .img .tag { color: var(--accent2); }
   .img .tag.floating { color: var(--warn); }
+  .img.init { opacity: .7; }
+  .img.init::before { content: "init"; font-size: 10px; padding: 0 5px; margin-right: 6px; border: 1px solid var(--border); border-radius: 5px; }
   .meta { grid-column: 2 / 4; font-size: 11.5px; color: var(--muted); }
   mark { background: rgba(124,92,255,.35); color: inherit; border-radius: 3px; padding: 0 1px; }
 
@@ -257,7 +259,7 @@
     if (!state.q) return true;
     const q = state.q.toLowerCase();
     return w.namespace.toLowerCase().includes(q) || w.name.toLowerCase().includes(q)
-      || w.images.some((i) => i.toLowerCase().includes(q));
+      || w.allImages.some((i) => i.toLowerCase().includes(q));
   }
 
   function saveHash() {
@@ -270,7 +272,7 @@
   function renderStats() {
     const W = data.workloads;
     const count = (st) => st === "all" ? W.length : st === "floating" ? W.filter((w) => w.floating).length : W.filter((w) => w.status === st).length;
-    const uniq = new Set(W.flatMap((w) => w.images)).size;
+    const uniq = new Set(W.flatMap((w) => w.allImages)).size;
     const cards = [
       `<div class="stat" style="--c:var(--accent2)" data-ns><div class="k">Namespaces</div><div class="v">${data.namespaces.length}</div></div>`,
       ...Object.entries(STATUS).map(([k, s]) =>
@@ -292,9 +294,9 @@
     $("#kinds").querySelectorAll(".chip").forEach((el) => el.onclick = () => { state.kind = el.dataset.k; render(); });
   }
 
-  function imageHtml(ref) {
+  function imageHtml(ref, init) {
     const p = parseImage(ref);
-    return `<div class="img" data-copy="${esc(ref)}" title="${esc(ref)}">${hl(p.repo)}${p.sep}<span class="tag ${isFloating(p.tag) ? "floating" : ""}">${hl(shortTag(p))}</span></div>`;
+    return `<div class="img ${init ? "init" : ""}" data-copy="${esc(ref)}" title="${esc(ref)}">${hl(p.repo)}${p.sep}<span class="tag ${isFloating(p.tag) ? "floating" : ""}">${hl(shortTag(p))}</span></div>`;
   }
 
   function rowHtml(w) {
@@ -305,7 +307,7 @@
       ? `<div class="meta">⏱ <code>${esc(w.schedule)}</code> · last run ${ago(w.lastSchedule)}</div>` : "";
     return `<div class="row"><span class="kind ${esc(w.kind)}" title="${esc(w.kind)}">${esc(KIND_SHORT[w.kind] || w.kind)}</span>
       <span class="wname" title="${esc(w.name)}">${hl(w.name)}</span>${pill}
-      <div class="imgs">${w.images.map(imageHtml).join("")}</div>${meta}</div>`;
+      <div class="imgs">${w.images.map((i) => imageHtml(i, false)).join("")}${w.initImages.map((i) => imageHtml(i, true)).join("")}</div>${meta}</div>`;
   }
 
   function renderNamespaces(list) {
@@ -334,7 +336,7 @@
 
   function renderImages(list) {
     const repos = new Map();
-    for (const w of list) for (const ref of w.images) {
+    for (const w of list) for (const ref of w.allImages) {
       const p = parseImage(ref);
       const r = repos.get(p.repo) || repos.set(p.repo, { tags: new Map(), users: [] }).get(p.repo);
       const t = r.tags.get(p.tag) || r.tags.set(p.tag, { p, count: 0 }).get(p.tag);
@@ -386,9 +388,10 @@
   $("#view").onclick = (e) => { if (e.target.dataset.v) { state.view = e.target.dataset.v; render(); } };
   $("#collapse").onclick = () => { state.collapsed = !state.collapsed; render(); };
   $("#csv").onclick = () => {
-    const rows = [["namespace", "kind", "name", "status", "ready", "desired", "schedule", "images"]];
+    const rows = [["namespace", "kind", "name", "status", "ready", "desired", "schedule", "images", "init_images"]];
     for (const w of data.workloads.filter(matches))
-      rows.push([w.namespace, w.kind, w.name, w.status, w.ready ?? "", w.desired ?? "", w.schedule ?? "", w.images.join(" ")]);
+      rows.push([w.namespace, w.kind, w.name, w.status, w.ready ?? "", w.desired ?? "", w.schedule ?? "",
+        w.images.join(" "), w.initImages.join(" ")]);
     const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
     const a = Object.assign(document.createElement("a"), {
       href: URL.createObjectURL(new Blob([csv], { type: "text/csv" })), download: `${env}-workloads.csv` });
@@ -410,6 +413,8 @@
         if (data && d.generatedAt === data.generatedAt) return showUpdated();
         d.workloads.forEach((w) => {
           w.status = statusOf(w);
+          w.initImages = w.initImages || [];
+          w.allImages = [...w.images, ...w.initImages];
           w.floating = w.images.some((i) => isFloating(parseImage(i).tag));
         });
         data = d;

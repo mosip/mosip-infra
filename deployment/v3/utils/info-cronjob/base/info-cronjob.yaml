@@ -1,6 +1,7 @@
 # "info" stack: a daily CronJob collects workloads/images into ConfigMap "info-output",
 # and nginx serves it at /info (HTML dashboard for browsers, plain text for curl).
-# Deploy with ../install.sh, which sets the environment name, schedule, gateway and excluded namespaces.
+# Deploy with ../install.sh, which sets the environment/cluster name, schedule, gateway, kubectl image
+# and excluded namespaces.
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -14,13 +15,13 @@ metadata:
   name: info
 rules:
   - apiGroups: [""]
-    resources: ["namespaces", "pods"]
+    resources: ["namespaces"]
     verbs: ["get", "list"]
   - apiGroups: ["apps"]
     resources: ["deployments", "statefulsets", "daemonsets"]
     verbs: ["get", "list"]
   - apiGroups: ["batch"]
-    resources: ["jobs", "cronjobs"]
+    resources: ["cronjobs"]
     verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -84,11 +85,27 @@ spec:
         spec:
           serviceAccountName: info
           restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
           containers:
             - name: fetch-info
+              # install.sh replaces this with the alpine/k8s release matching the cluster version.
               image: alpine/k8s:1.22.15
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
               env:
+                - name: HOME
+                  value: /tmp
                 - name: ENV_NAME
+                  value: ""
+                - name: CLUSTER_NAME
                   value: ""
                 - name: EXCLUDED_NAMESPACE
                   value: "^(istio|cattle|kube|info)"
@@ -112,10 +129,14 @@ spec:
               volumeMounts:
                 - name: script-file
                   mountPath: /scripts
+                - name: tmp
+                  mountPath: /tmp
           volumes:
             - name: script-file
               configMap:
                 name: info-script-config
+            - name: tmp
+              emptyDir: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -139,12 +160,12 @@ spec:
             - containerPort: 80
           readinessProbe:
             httpGet:
-              path: /
+              path: /info/index.html
               port: 80
             periodSeconds: 30
           livenessProbe:
             httpGet:
-              path: /
+              path: /info/index.html
               port: 80
             initialDelaySeconds: 10
             periodSeconds: 60
@@ -196,7 +217,7 @@ metadata:
   namespace: info
 spec:
   hosts: ["*"]
-  gateways: ["istio-system/public"]
+  gateways: ["istio-system/internal"]
   http:
     - match:
         - uri:
