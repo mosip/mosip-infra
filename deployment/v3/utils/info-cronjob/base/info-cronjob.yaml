@@ -41,10 +41,8 @@ kind: Role
 metadata:
   name: info-output-writer
   namespace: info
+# No "create": RBAC cannot scope create by name, so install.sh pre-creates info-output.
 rules:
-  - apiGroups: [""]
-    resources: ["configmaps"]
-    verbs: ["create"]
   - apiGroups: [""]
     resources: ["configmaps"]
     resourceNames: ["info-output"]

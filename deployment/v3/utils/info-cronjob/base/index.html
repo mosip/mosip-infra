@@ -220,11 +220,12 @@
 
   function parseImage(ref) {
     const at = ref.indexOf("@");
-    if (at > -1) return { repo: ref.slice(0, at), tag: ref.slice(at + 1, at + 20) + "…", digest: true };
+    if (at > -1) return { repo: ref.slice(0, at), tag: ref.slice(at + 1), sep: "@" };
     const slash = ref.lastIndexOf("/"), colon = ref.lastIndexOf(":");
-    if (colon > slash) return { repo: ref.slice(0, colon), tag: ref.slice(colon + 1) };
-    return { repo: ref, tag: "latest" };
+    if (colon > slash) return { repo: ref.slice(0, colon), tag: ref.slice(colon + 1), sep: ":" };
+    return { repo: ref, tag: "latest", sep: ":" };
   }
+  const shortTag = (p) => p.sep === "@" && p.tag.length > 20 ? `${p.tag.slice(0, 19)}…` : p.tag;
   const isFloating = (tag) => /^(latest|develop|dev|master|main|nightly)$/i.test(tag) || /^release-/i.test(tag)
     || /SNAPSHOT/i.test(tag) || /^[A-Z][A-Z0-9]+-\d+/.test(tag);
 
@@ -293,16 +294,16 @@
 
   function imageHtml(ref) {
     const p = parseImage(ref);
-    return `<div class="img" data-copy="${esc(ref)}" title="${esc(ref)}">${hl(p.repo)}:<span class="tag ${isFloating(p.tag) ? "floating" : ""}">${hl(p.tag)}</span></div>`;
+    return `<div class="img" data-copy="${esc(ref)}" title="${esc(ref)}">${hl(p.repo)}${p.sep}<span class="tag ${isFloating(p.tag) ? "floating" : ""}">${hl(shortTag(p))}</span></div>`;
   }
 
   function rowHtml(w) {
     const pill = w.kind === "CronJob"
       ? `<span class="pill ${w.status}">${w.suspend ? "suspended" : "active"}</span>`
-      : `<span class="pill ${w.status}">${w.ready}/${w.desired}</span>`;
+      : `<span class="pill ${w.status}">${esc(w.ready)}/${esc(w.desired)}</span>`;
     const meta = w.kind === "CronJob"
       ? `<div class="meta">⏱ <code>${esc(w.schedule)}</code> · last run ${ago(w.lastSchedule)}</div>` : "";
-    return `<div class="row"><span class="kind ${w.kind}" title="${w.kind}">${KIND_SHORT[w.kind]}</span>
+    return `<div class="row"><span class="kind ${esc(w.kind)}" title="${esc(w.kind)}">${esc(KIND_SHORT[w.kind] || w.kind)}</span>
       <span class="wname" title="${esc(w.name)}">${hl(w.name)}</span>${pill}
       <div class="imgs">${w.images.map(imageHtml).join("")}</div>${meta}</div>`;
   }
@@ -336,15 +337,16 @@
     for (const w of list) for (const ref of w.images) {
       const p = parseImage(ref);
       const r = repos.get(p.repo) || repos.set(p.repo, { tags: new Map(), users: [] }).get(p.repo);
-      r.tags.set(p.tag, (r.tags.get(p.tag) || 0) + 1);
+      const t = r.tags.get(p.tag) || r.tags.set(p.tag, { p, count: 0 }).get(p.tag);
+      t.count++;
       r.users.push(`${w.namespace}/${w.name}`);
     }
     if (!repos.size) return empty();
     const rows = [...repos.entries()].sort((a, b) => b[1].tags.size - a[1].tags.size || a[0].localeCompare(b[0]));
     return `<table><thead><tr><th>Image</th><th>Tags in use</th><th>Used by</th></tr></thead><tbody>${rows.map(([repo, r]) => `
       <tr><td class="repo">${hl(repo)}${r.tags.size > 1 ? `<span class="drift">⚠ ${r.tags.size} versions</span>` : ""}</td>
-      <td><div class="tags">${[...r.tags.entries()].map(([t, c]) =>
-        `<span class="tagchip ${isFloating(t) ? "floating" : ""}" data-copy="${esc(repo)}:${esc(t)}" title="${c} workload(s)">${hl(t)}${c > 1 ? ` ×${c}` : ""}</span>`).join("")}</div></td>
+      <td><div class="tags">${[...r.tags.values()].map(({ p, count }) =>
+        `<span class="tagchip ${isFloating(p.tag) ? "floating" : ""}" data-copy="${esc(repo + p.sep + p.tag)}" title="${count} workload(s)">${hl(shortTag(p))}${count > 1 ? ` ×${count}` : ""}</span>`).join("")}</div></td>
       <td class="users">${r.users.slice(0, 6).map(hl).join(", ")}${r.users.length > 6 ? ` <b>+${r.users.length - 6} more</b>` : ""}</td></tr>`).join("")}
     </tbody></table>`;
   }
@@ -393,26 +395,39 @@
     a.click(); URL.revokeObjectURL(a.href);
   };
 
-  fetch("/info/info.json", { cache: "no-cache" })
-    .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-    .then((d) => {
-      d.workloads.forEach((w) => {
-        w.status = statusOf(w);
-        w.floating = w.images.some((i) => isFloating(parseImage(i).tag));
+  function showUpdated(refreshError) {
+    const stale = Date.now() - new Date(data.generatedAt) > 26 * 3600 * 1000;
+    $("#pulse").classList.toggle("stale", stale || !!refreshError);
+    $("#updated").innerHTML = `Updated <b title="${esc(data.generatedAt)}">${ago(data.generatedAt)}</b> · ${esc(new Date(data.generatedAt).toLocaleString())}`
+      + (stale ? " · <span style='color:var(--warn)'>data is older than a day</span>" : "")
+      + (refreshError ? ` · <span style='color:var(--warn)'>refresh failed (${esc(refreshError)})</span>` : "");
+  }
+
+  function loadReport() {
+    fetch("/info/info.json", { cache: "no-cache" })
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then((d) => {
+        if (data && d.generatedAt === data.generatedAt) return showUpdated();
+        d.workloads.forEach((w) => {
+          w.status = statusOf(w);
+          w.floating = w.images.some((i) => isFloating(parseImage(i).tag));
+        });
+        data = d;
+        if (d.environment) setEnv(d.environment);
+        showUpdated();
+        render();
+      })
+      .catch((err) => {
+        if (data) return showUpdated(err.message);
+        $("#updated").textContent = "No data yet";
+        $("#pulse").classList.add("stale");
+        $("#main").innerHTML = `<div class="error"><div class="big">🛠️</div>Couldn't load <code>info.json</code> (${esc(err.message)}).<br>
+          The CronJob may not have run yet — trigger it with<br><code>kubectl -n info create job --from=cronjob/info info-manual</code></div>`;
       });
-      data = d;
-      if (d.environment) setEnv(d.environment);
-      const stale = Date.now() - new Date(d.generatedAt) > 26 * 3600 * 1000;
-      $("#pulse").classList.toggle("stale", stale);
-      $("#updated").innerHTML = `Updated <b title="${esc(d.generatedAt)}">${ago(d.generatedAt)}</b> · ${new Date(d.generatedAt).toLocaleString()}${stale ? " · <span style='color:var(--warn)'>data is older than a day</span>" : ""}`;
-      render();
-    })
-    .catch((err) => {
-      $("#updated").textContent = "No data yet";
-      $("#pulse").classList.add("stale");
-      $("#main").innerHTML = `<div class="error"><div class="big">🛠️</div>Couldn't load <code>info.json</code> (${esc(err.message)}).<br>
-        The CronJob may not have run yet — trigger it with<br><code>kubectl -n info create job --from=cronjob/info info-manual</code></div>`;
-    });
+  }
+
+  loadReport();
+  setInterval(loadReport, 60 * 1000);
 })();
 </script>
 </body>

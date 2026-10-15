@@ -15,8 +15,9 @@ kubectl get deployments,statefulsets,daemonsets,cronjobs -A -o json > /tmp/workl
 jq -n --arg excl "$EXCLUDED_NAMESPACE" --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --arg env "$ENV_NAME" \
   --slurpfile ns /tmp/namespaces.json --slurpfile w /tmp/workloads.json '
   def containers:
-    if .kind == "CronJob" then .spec.jobTemplate.spec.template.spec.containers
-    else .spec.template.spec.containers end;
+    (if .kind == "CronJob" then .spec.jobTemplate.spec.template.spec
+     else .spec.template.spec end)
+    | ((.initContainers // []) + (.containers // []));
   {
     environment: $env,
     generatedAt: $now,

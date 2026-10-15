@@ -131,6 +131,9 @@ function installing_info_cronjob() {
 
   kubectl apply -k "$OVERLAY"
 
+  # The collector may only update this ConfigMap, not create it.
+  kubectl -n $NS get configmap info-output >/dev/null 2>&1 || kubectl -n $NS create configmap info-output
+
   kubectl -n $NS rollout status deploy/info --timeout=300s \
     || echo "WARNING: rollout status timed out; check 'kubectl -n $NS get pods'"
 
