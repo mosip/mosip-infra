@@ -48,15 +48,19 @@ function is_tty() {
   [ -t 0 ]
 }
 
-# Prompt that works under set -e. On EOF / non-TTY, leaves the variable empty.
+# Prompt that works under set -e. Returns 1 on EOF so callers abort instead of
+# treating an empty reply as "yes" / a default.
 function prompt() {
   local __var=$1 __msg=$2 __reply=
   if ! is_tty; then
     printf -v "$__var" '%s' ""
-    return 0
+    return 1
   fi
-  # read returns 1 on EOF; do not let that abort the script.
-  read -r -p "$__msg" __reply || true
+  if ! read -r -p "$__msg" __reply; then
+    echo "ERROR: input ended before the prompt was answered; aborting." >&2
+    printf -v "$__var" '%s' ""
+    return 1
+  fi
   printf -v "$__var" '%s' "$__reply"
 }
 
@@ -68,7 +72,10 @@ function read_settings() {
     if [ "$ASSUME_YES" = "1" ]; then
       ENV_NAME=$default
     elif is_tty; then
-      prompt ENV_NAME "Environment name shown on the dashboard [${default}]: "
+      if ! prompt ENV_NAME "Environment name shown on the dashboard [${default}]: "; then
+        echo "ERROR: ENV_NAME is required (or set ASSUME_YES=1 to use the kube context name '${default}'); EXITING;"
+        exit 1
+      fi
       ENV_NAME=${ENV_NAME:-$default}
     else
       echo "ERROR: ENV_NAME is required when there is no terminal (or set ASSUME_YES=1 to use the kube context name '${default}'); EXITING;"
@@ -174,7 +181,10 @@ function confirm_uninstall_helm() {
     echo "Re-run with ASSUME_YES=1 to uninstall it, or remove it yourself: helm -n $NS uninstall info"
     exit 1
   fi
-  prompt yn "The old 'info' helm release exists in namespace $NS and must be removed first. Uninstall it? [Y/n] "
+  if ! prompt yn "The old 'info' helm release exists in namespace $NS and must be removed first. Uninstall it? [Y/n] "; then
+    echo "Aborting; no confirmation received (EOF). Re-run with ASSUME_YES=1 to uninstall without prompting."
+    exit 1
+  fi
   # Enter / empty / y / Y all mean yes; only an explicit n/N aborts.
   case "${yn:-Y}" in
     [Yy]|[Yy][Ee][Ss]) return 0 ;;

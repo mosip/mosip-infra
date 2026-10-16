@@ -1,7 +1,7 @@
 #!/bin/bash
 # Deprecated: the Helm-based "info" chart conflicts with info-cronjob (same namespace and names).
 # Use ../info-cronjob/install.sh instead. See that directory's README.
-## Usage: ./install.sh [kubeconfig]   (forwards to info-cronjob when ASSUME_YES=1 or ENV_NAME is set)
+## Deprecated: invoke ../info-cronjob/install.sh [kubeconfig] directly.
 
 set -euo pipefail
 
