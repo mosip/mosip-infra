@@ -222,7 +222,13 @@
 
   function parseImage(ref) {
     const at = ref.indexOf("@");
-    if (at > -1) return { repo: ref.slice(0, at), tag: ref.slice(at + 1), sep: "@" };
+    if (at > -1) {
+      let name = ref.slice(0, at), digest = ref.slice(at + 1);
+      // repo:tag@sha256:… — strip the tag so Images view groups by repository.
+      const slash = name.lastIndexOf("/"), colon = name.lastIndexOf(":");
+      if (colon > slash) name = name.slice(0, colon);
+      return { repo: name, tag: digest, sep: "@" };
+    }
     const slash = ref.lastIndexOf("/"), colon = ref.lastIndexOf(":");
     if (colon > slash) return { repo: ref.slice(0, colon), tag: ref.slice(colon + 1), sep: ":" };
     return { repo: ref, tag: "latest", sep: ":" };
@@ -246,10 +252,17 @@
   }
 
   function hl(text) {
-    const t = esc(text);
-    if (!state.q) return t;
-    const q = esc(state.q).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return t.replace(new RegExp(q, "ig"), (m) => `<mark>${m}</mark>`);
+    const raw = String(text ?? "");
+    if (!state.q) return esc(raw);
+    const q = state.q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(q, "ig");
+    let out = "", last = 0, m;
+    while ((m = re.exec(raw))) {
+      out += esc(raw.slice(last, m.index)) + `<mark>${esc(m[0])}</mark>`;
+      last = m.index + m[0].length;
+      if (!m[0].length) re.lastIndex++;
+    }
+    return out + esc(raw.slice(last));
   }
 
   function matches(w) {
@@ -387,22 +400,47 @@
   $("#sort").onchange = (e) => { state.sort = e.target.value; render(); };
   $("#view").onclick = (e) => { if (e.target.dataset.v) { state.view = e.target.dataset.v; render(); } };
   $("#collapse").onclick = () => { state.collapsed = !state.collapsed; render(); };
+  function csvCell(v) {
+    let s = String(v ?? "");
+    // Neutralise spreadsheet formula injection for cells starting with = + - @.
+    if (/^[=+\-@]/.test(s)) s = "'" + s;
+    return `"${s.replace(/"/g, '""')}"`;
+  }
   $("#csv").onclick = () => {
     const rows = [["namespace", "kind", "name", "status", "ready", "desired", "schedule", "images", "init_images"]];
     for (const w of data.workloads.filter(matches))
       rows.push([w.namespace, w.kind, w.name, w.status, w.ready ?? "", w.desired ?? "", w.schedule ?? "",
         w.images.join(" "), w.initImages.join(" ")]);
-    const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const csv = rows.map((r) => r.map(csvCell).join(",")).join("\n");
     const a = Object.assign(document.createElement("a"), {
       href: URL.createObjectURL(new Blob([csv], { type: "text/csv" })), download: `${env}-workloads.csv` });
     a.click(); URL.revokeObjectURL(a.href);
   };
 
+  // Upper bound on how long between collector runs, from a 5-field cron expression.
+  // Falls back to 26h (daily + margin) when the schedule is missing or unparseable.
+  function staleAfterMs(schedule) {
+    const parts = String(schedule || "").trim().split(/\s+/);
+    if (parts.length !== 5) return 26 * 3600 * 1000;
+    const [min, hour, dom, mon, dow] = parts;
+    const isStar = (f) => f === "*";
+    const step = (f) => { const m = /^\*\/(\d+)$/.exec(f); return m ? +m[1] : null; };
+    if (!isStar(dow) || step(dow)) return 8 * 86400 * 1000; // weekly-ish
+    if (!isStar(dom) || step(dom) || !isStar(mon) || step(mon)) return 40 * 86400 * 1000; // monthly-ish
+    if (step(hour)) return (step(hour) + 2) * 3600 * 1000;
+    if (!isStar(hour)) return 26 * 3600 * 1000; // once a day
+    if (step(min)) return (step(min) + 5) * 60 * 1000;
+    if (!isStar(min)) return 70 * 60 * 1000; // once an hour
+    return 15 * 60 * 1000;
+  }
+
   function showUpdated(refreshError) {
-    const stale = Date.now() - new Date(data.generatedAt) > 26 * 3600 * 1000;
+    const limit = staleAfterMs(data.collectorSchedule);
+    const age = Date.now() - new Date(data.generatedAt);
+    const stale = age > limit;
     $("#pulse").classList.toggle("stale", stale || !!refreshError);
     $("#updated").innerHTML = `Updated <b title="${esc(data.generatedAt)}">${ago(data.generatedAt)}</b> · ${esc(new Date(data.generatedAt).toLocaleString())}`
-      + (stale ? " · <span style='color:var(--warn)'>data is older than a day</span>" : "")
+      + (stale ? " · <span style='color:var(--warn)'>data is older than expected for this schedule</span>" : "")
       + (refreshError ? ` · <span style='color:var(--warn)'>refresh failed (${esc(refreshError)})</span>` : "");
   }
 
@@ -415,7 +453,7 @@
           w.status = statusOf(w);
           w.initImages = w.initImages || [];
           w.allImages = [...w.images, ...w.initImages];
-          w.floating = w.images.some((i) => isFloating(parseImage(i).tag));
+          w.floating = w.allImages.some((i) => isFloating(parseImage(i).tag));
         });
         data = d;
         if (d.environment) setEnv(d.environment);

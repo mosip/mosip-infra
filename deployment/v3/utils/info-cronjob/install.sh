@@ -5,6 +5,8 @@
 ## Settings (environment variables):
 ##   ENV_NAME            Name shown on the dashboard and written to info.json, e.g. collab.
 ##                       Prompted for when not set (default: current kube context name).
+##                       Required (or use the context default) when there is no TTY; set ASSUME_YES=1
+##                       to take the context default without prompting.
 ##   CLUSTER_NAME        Cluster name written to info.json (default: current kube context name, else ENV_NAME).
 ##   SCHEDULE            Cron schedule, in cluster time (default: "0 2 * * *").
 ##   GATEWAY             Istio gateway(s) serving /info, comma separated (default: istio-system/internal).
@@ -12,10 +14,13 @@
 ##   KUBECTL_IMAGE       Collector image with kubectl, jq and sh (default: newest alpine/k8s release
 ##                       matching the cluster's Kubernetes minor version, looked up on Docker Hub).
 ##   EXCLUDED_NAMESPACE  Regex of namespaces left out of the report (default: ^(istio|cattle|kube|info)).
+##   ASSUME_YES=1        Skip confirmation prompts (needed for CI / Helmsman). Also accepts the
+##                       kube-context default for ENV_NAME when that variable is unset.
 ##   DRY_RUN=1           Print the rendered manifests instead of applying them.
 ##
 ## Example:
 ##   ENV_NAME=synergy SCHEDULE="30 3 * * *" ./install.sh ~/.kube/synergy.yaml
+##   ASSUME_YES=1 ENV_NAME=collab ./install.sh ~/.kube/collab.yaml
 
 if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
@@ -29,6 +34,7 @@ SCHEDULE=${SCHEDULE:-"0 2 * * *"}
 GATEWAY=${GATEWAY:-istio-system/internal}
 KUBECTL_IMAGE=${KUBECTL_IMAGE:-}
 EXCLUDED_NAMESPACE=${EXCLUDED_NAMESPACE:-'^(istio|cattle|kube|info)'}
+ASSUME_YES=${ASSUME_YES:-0}
 DRY_RUN=${DRY_RUN:-0}
 
 # Renders a value as a single-quoted YAML scalar.
@@ -37,20 +43,44 @@ function yaml_quote() {
   printf "'%s'" "${1//$q/$q$q}"
 }
 
+# True when stdin is a terminal (interactive install).
+function is_tty() {
+  [ -t 0 ]
+}
+
+# Prompt that works under set -e. On EOF / non-TTY, leaves the variable empty.
+function prompt() {
+  local __var=$1 __msg=$2 __reply=
+  if ! is_tty; then
+    printf -v "$__var" '%s' ""
+    return 0
+  fi
+  # read returns 1 on EOF; do not let that abort the script.
+  read -r -p "$__msg" __reply || true
+  printf -v "$__var" '%s' "$__reply"
+}
+
 function read_settings() {
+  local default
+  default=$(kubectl config current-context 2>/dev/null || true)
+
   if [ -z "$ENV_NAME" ]; then
-    local default
-    default=$(kubectl config current-context 2>/dev/null || true)
-    read -p "Environment name shown on the dashboard [${default}]: " ENV_NAME
-    ENV_NAME=${ENV_NAME:-$default}
+    if [ "$ASSUME_YES" = "1" ]; then
+      ENV_NAME=$default
+    elif is_tty; then
+      prompt ENV_NAME "Environment name shown on the dashboard [${default}]: "
+      ENV_NAME=${ENV_NAME:-$default}
+    else
+      echo "ERROR: ENV_NAME is required when there is no terminal (or set ASSUME_YES=1 to use the kube context name '${default}'); EXITING;"
+      exit 1
+    fi
   fi
   if ! [[ "$ENV_NAME" =~ ^[A-Za-z0-9._-]+$ ]]; then
     echo "ERROR: ENV_NAME '$ENV_NAME' must be non-empty and contain only letters, digits, '.', '_' or '-'; EXITING;"
     exit 1
   fi
   if [ -z "$CLUSTER_NAME" ]; then
-    CLUSTER_NAME=$(kubectl config current-context 2>/dev/null || true)
-    CLUSTER_NAME=${CLUSTER_NAME:-$ENV_NAME}
+    CLUSTER_NAME=${default:-$ENV_NAME}
   fi
   if [ "$(echo "$SCHEDULE" | wc -w)" -ne 5 ]; then
     echo "ERROR: SCHEDULE '$SCHEDULE' is not a 5-field cron expression; EXITING;"
@@ -109,6 +139,8 @@ spec:
                   value: $(yaml_quote "$ENV_NAME")
                 - name: CLUSTER_NAME
                   value: $(yaml_quote "$CLUSTER_NAME")
+                - name: COLLECTOR_SCHEDULE
+                  value: $(yaml_quote "$SCHEDULE")
                 - name: EXCLUDED_NAMESPACE
                   value: $(yaml_quote "$EXCLUDED_NAMESPACE")
 EOF
@@ -129,6 +161,28 @@ EOF
       fi
     done
   } > "$out/virtualservice-patch.yaml"
+}
+
+function confirm_uninstall_helm() {
+  local yn=
+  if [ "$ASSUME_YES" = "1" ]; then
+    echo "ASSUME_YES=1: uninstalling the old 'info' Helm release in namespace $NS"
+    return 0
+  fi
+  if ! is_tty; then
+    echo "ERROR: the old 'info' Helm release exists in namespace $NS and must be removed first."
+    echo "Re-run with ASSUME_YES=1 to uninstall it, or remove it yourself: helm -n $NS uninstall info"
+    exit 1
+  fi
+  prompt yn "The old 'info' helm release exists in namespace $NS and must be removed first. Uninstall it? [Y/n] "
+  # Enter / empty / y / Y all mean yes; only an explicit n/N aborts.
+  case "${yn:-Y}" in
+    [Yy]|[Yy][Ee][Ss]) return 0 ;;
+    *)
+      echo "Aborting; the helm release and this utility manage the same resources."
+      exit 1
+      ;;
+  esac
 }
 
 function installing_info_cronjob() {
@@ -152,11 +206,7 @@ function installing_info_cronjob() {
   kubectl label ns $NS istio-injection=enabled --overwrite
 
   if command -v helm >/dev/null && helm -n $NS status info >/dev/null 2>&1; then
-    read -p "The old 'info' helm release exists in namespace $NS and must be removed first. Uninstall it? (Y/n) " yn
-    if [ "$yn" != "Y" ]; then
-      echo "Aborting; the helm release and this utility manage the same resources."
-      exit 1
-    fi
+    confirm_uninstall_helm
     helm -n $NS uninstall info
   fi
 

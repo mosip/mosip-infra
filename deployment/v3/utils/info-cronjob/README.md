@@ -23,7 +23,8 @@ It works in any environment: nothing environment-specific is stored in the manif
 
 ```json
 {
-  "environment": "collab", "cluster": "collab", "generatedAt": "2026-10-15T02:00:00Z",
+  "environment": "collab", "cluster": "collab", "collectorSchedule": "0 2 * * *",
+  "generatedAt": "2026-10-15T02:00:00Z",
   "namespaces": ["..."],
   "workloads": [{
     "namespace": "websub", "kind": "Deployment", "name": "websub", "helmChart": "websub-1.3.0",
@@ -61,6 +62,7 @@ Compared with the older Helm chart's text, there are no `Helm Chart Version:`, `
 | `GATEWAY` | `istio-system/internal` | Istio gateway(s) serving `/info`, comma separated. The report is a full map of workloads and image tags, so only set `istio-system/public` deliberately. |
 | `KUBECTL_IMAGE` | newest `alpine/k8s` tag for the cluster's Kubernetes minor version | Collector image; needs `kubectl`, `jq` and `sh`. Set it when Docker Hub is unreachable from where you run `install.sh`. |
 | `EXCLUDED_NAMESPACE` | `^(istio\|cattle\|kube\|info)` | Regex of namespaces left out of the report. |
+| `ASSUME_YES` | unset | `1` skips confirmation prompts and, when `ENV_NAME` is unset, uses the kube context name. Required for non-interactive / CI installs. |
 | `DRY_RUN` | unset | `1` prints the rendered manifests instead of applying them. |
 
 Examples:
@@ -68,11 +70,14 @@ Examples:
 ```sh
 ./install.sh ~/.kube/collab.yaml                       # prompts for the environment name
 ENV_NAME=released ./install.sh ~/.kube/released.yaml
+ASSUME_YES=1 ENV_NAME=collab ./install.sh ~/.kube/collab.yaml   # CI / Helmsman
 ENV_NAME=synergy SCHEDULE="30 3 * * 1-5" ./install.sh ~/.kube/synergy.yaml
 ENV_NAME=qa DRY_RUN=1 ./install.sh                     # review before applying
 ```
 
-The script creates the `info` namespace with Istio injection, removes the old `info` Helm release if present (after confirmation), creates the empty `info-output` ConfigMap, applies the manifests and runs the collector once. Re-run it with new settings to change them.
+The script creates the `info` namespace with Istio injection, removes the old `info` Helm release if present (after confirmation, or immediately with `ASSUME_YES=1`), creates the empty `info-output` ConfigMap, applies the manifests and runs the collector once. Re-run it with new settings to change them.
+
+The older [`../info`](../info) Helm installer is deprecated and refuses to run, so it cannot overwrite this deployment.
 
 ## Run the collector on demand
 

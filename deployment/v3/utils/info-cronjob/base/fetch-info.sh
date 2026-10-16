@@ -7,6 +7,7 @@ set -eu
 OUT_DIR="${1:-/tmp/out}"
 ENV_NAME="${ENV_NAME:-}"
 CLUSTER_NAME="${CLUSTER_NAME:-$ENV_NAME}"
+COLLECTOR_SCHEDULE="${COLLECTOR_SCHEDULE:-0 2 * * *}"
 EXCLUDED_NAMESPACE="${EXCLUDED_NAMESPACE:-^(istio|cattle|kube|info)}"
 
 mkdir -p "$OUT_DIR"
@@ -14,13 +15,14 @@ kubectl get namespaces -o json > /tmp/namespaces.json
 kubectl get deployments,statefulsets,daemonsets,cronjobs -A -o json > /tmp/workloads.json
 
 jq -n --arg excl "$EXCLUDED_NAMESPACE" --arg now "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  --arg env "$ENV_NAME" --arg cluster "$CLUSTER_NAME" \
+  --arg env "$ENV_NAME" --arg cluster "$CLUSTER_NAME" --arg schedule "$COLLECTOR_SCHEDULE" \
   --slurpfile ns /tmp/namespaces.json --slurpfile w /tmp/workloads.json '
   def podspec:
     if .kind == "CronJob" then .spec.jobTemplate.spec.template.spec else .spec.template.spec end;
   {
     environment: $env,
     cluster: $cluster,
+    collectorSchedule: $schedule,
     generatedAt: $now,
     namespaces: [$ns[0].items[].metadata.name | select(test($excl) | not)],
     workloads: [

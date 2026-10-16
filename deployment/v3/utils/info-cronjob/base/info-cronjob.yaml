@@ -107,6 +107,8 @@ spec:
                   value: ""
                 - name: CLUSTER_NAME
                   value: ""
+                - name: COLLECTOR_SCHEDULE
+                  value: "0 2 * * *"
                 - name: EXCLUDED_NAMESPACE
                   value: "^(istio|cattle|kube|info)"
               command:
