@@ -1,9 +1,11 @@
-# info
+# info (deprecated)
 
-Displays the image, imageId and Helm chart versions used for every deployment in the cluster across all namespaces.
+This Helm-based utility is **deprecated**. It installs into the same `info` namespace with the same resource names as [`../info-cronjob`](../info-cronjob), so running `./install.sh` here after info-cronjob causes Helm ownership conflicts.
 
-Host: <internal-url>/info
-## Install
+Use **[info-cronjob](../info-cronjob)** instead:
+
 ```sh
-./install.sh
+ENV_NAME=<env> ../info-cronjob/install.sh [kubeconfig]
 ```
+
+`./install.sh` in this directory exits with an error pointing at that path. `delete.sh` / `restart.sh` remain only for cleaning up an old Helm release if one is still present.
