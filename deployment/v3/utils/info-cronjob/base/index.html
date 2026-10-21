@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cluster Info</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛰️</text></svg>">
+<style>
+  :root {
+    --bg: #0b1020; --bg2: #11182d; --card: rgba(255,255,255,.04); --card-hover: rgba(255,255,255,.07);
+    --border: rgba(255,255,255,.08); --text: #e6e9f2; --muted: #8b93a7; --accent: #7c5cff; --accent2: #22d3ee;
+    --ok: #22c55e; --warn: #f59e0b; --bad: #ef4444; --idle: #64748b; --info: #38bdf8;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  :root.light {
+    --bg: #f5f7fb; --bg2: #ffffff; --card: #ffffff; --card-hover: #f8f9ff; --border: #e4e7f0;
+    --text: #141a2e; --muted: #5f6880; --shadow: 0 8px 24px rgba(20,26,46,.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--text);
+    background: radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,.25), transparent 60%),
+                radial-gradient(900px 500px at 100% 0%, rgba(34,211,238,.15), transparent 60%), var(--bg);
+    background-attachment: fixed; min-height: 100vh;
+  }
+  :root.light body { background: radial-gradient(1200px 600px at 10% -10%, rgba(124,92,255,.12), transparent 60%), var(--bg); }
+  .wrap { max-width: 1500px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  header { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; font-size: 24px;
+          background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 8px 24px rgba(124,92,255,.4); }
+  h1 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+  h1 .env { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: var(--muted); font-size: 13px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(34,197,94,.6); animation: pulse 2s infinite; }
+  .pulse.stale { background: var(--warn); box-shadow: none; animation: none; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .btn { border: 1px solid var(--border); background: var(--card); color: var(--text); padding: 8px 12px; border-radius: 10px;
+         cursor: pointer; font: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: .15s; }
+  .btn:hover { background: var(--card-hover); border-color: var(--accent); }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; cursor: pointer;
+          transition: transform .15s, border-color .15s; position: relative; overflow: hidden; backdrop-filter: blur(8px); }
+  .stat:hover { transform: translateY(-2px); border-color: var(--c, var(--accent)); }
+  .stat.active { border-color: var(--c, var(--accent)); box-shadow: 0 0 0 1px var(--c, var(--accent)) inset; }
+  .stat::after { content: ""; position: absolute; inset: auto -20px -30px auto; width: 90px; height: 90px; border-radius: 50%;
+                 background: var(--c, var(--accent)); opacity: .12; }
+  .stat .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  .stat .v { font-size: 28px; font-weight: 700; letter-spacing: -.02em; margin-top: 2px; }
+
+  .toolbar { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+             padding: 12px; margin: 0 -12px 18px; border-radius: 16px; backdrop-filter: blur(14px);
+             background: color-mix(in srgb, var(--bg) 75%, transparent); border: 1px solid var(--border); }
+  .search { flex: 1 1 280px; position: relative; }
+  .search input { width: 100%; padding: 10px 14px 10px 36px; border-radius: 12px; border: 1px solid var(--border);
+                  background: var(--bg2); color: var(--text); font: inherit; outline: none; }
+  .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,.25); }
+  .search::before { content: "⌕"; position: absolute; left: 12px; top: 50%; transform: translateY(-52%); color: var(--muted); font-size: 18px; }
+  .search kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+  kbd { font: 11px var(--mono); padding: 2px 6px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { padding: 6px 11px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--muted);
+          cursor: pointer; font-size: 12.5px; user-select: none; transition: .15s; }
+  .chip:hover { color: var(--text); }
+  .chip.on { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; background: var(--card); color: var(--muted); padding: 7px 12px; cursor: pointer; font: inherit; }
+  .seg button.on { background: var(--accent); color: #fff; }
+  select { background: var(--bg2); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 7px 10px; font: inherit; }
+
+  .grid { columns: 3 420px; column-gap: 16px; }
+  .ns { break-inside: avoid; margin-bottom: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+        overflow: hidden; box-shadow: var(--shadow); animation: rise .35s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .ns-head { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; user-select: none; }
+  .ns-head .name { font-weight: 650; font-size: 15px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ns-head .count { color: var(--muted); font-size: 12px; }
+  .ns-head .caret { color: var(--muted); transition: transform .2s; }
+  .ns.collapsed .caret { transform: rotate(-90deg); }
+  .ns.collapsed .rows { display: none; }
+  .bar { height: 3px; display: flex; background: var(--border); }
+  .bar span { display: block; height: 100%; }
+  .rows { padding: 4px 0 6px; }
+  .row { padding: 9px 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: center; border-top: 1px solid var(--border); }
+  .row:hover { background: var(--card-hover); }
+  .kind { font: 600 10px var(--mono); padding: 3px 6px; border-radius: 6px; letter-spacing: .04em; min-width: 50px; text-align: center; }
+  .kind.Deployment { background: rgba(124,92,255,.18); color: #a996ff; }
+  .kind.StatefulSet { background: rgba(34,211,238,.15); color: #4fd8ef; }
+  .kind.DaemonSet { background: rgba(245,158,11,.15); color: #f7b955; }
+  .kind.CronJob { background: rgba(236,72,153,.15); color: #f472b6; }
+  :root.light .kind.Deployment { color: #5b3fd9; } :root.light .kind.StatefulSet { color: #0e8ea3; }
+  :root.light .kind.DaemonSet { color: #b26b00; } :root.light .kind.CronJob { color: #c0287a; }
+  .wname { font-weight: 550; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pill { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; display: inline-flex; gap: 5px; align-items: center; }
+  .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .pill.healthy { color: var(--ok); background: rgba(34,197,94,.12); }
+  .pill.degraded { color: var(--bad); background: rgba(239,68,68,.12); }
+  .pill.scaled { color: var(--idle); background: rgba(100,116,139,.15); }
+  .pill.suspended { color: var(--warn); background: rgba(245,158,11,.12); }
+  .pill.scheduled { color: var(--info); background: rgba(56,189,248,.12); }
+  .imgs { grid-column: 2 / 4; display: flex; flex-direction: column; gap: 3px; }
+  .img { font: 12px var(--mono); color: var(--muted); cursor: copy; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .img:hover { color: var(--text); }
+  .img .tag { color: var(--accent2); }
+  .img .tag.floating { color: var(--warn); }
+  .img.init { opacity: .7; }
+  .img.init::before { content: "init"; font-size: 10px; padding: 0 5px; margin-right: 6px; border: 1px solid var(--border); border-radius: 5px; }
+  .meta { grid-column: 2 / 4; font-size: 11.5px; color: var(--muted); }
+  mark { background: rgba(124,92,255,.35); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+  table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--card); border: 1px solid var(--border);
+          border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); background: var(--bg2); }
+  tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: var(--card-hover); }
+  td.repo { font: 12.5px var(--mono); min-width: 340px; overflow-wrap: anywhere; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tagchip { font: 11.5px var(--mono); padding: 2px 8px; border-radius: 6px; background: rgba(34,211,238,.12); color: var(--accent2); }
+  .tagchip.floating { background: rgba(245,158,11,.14); color: var(--warn); }
+  .drift { display: block; font: 11px system-ui, sans-serif; color: var(--warn); margin-top: 3px; }
+  .users { color: var(--muted); font-size: 12.5px; }
+
+  .empty, .error { text-align: center; padding: 70px 20px; color: var(--muted); }
+  .empty .big, .error .big { font-size: 44px; margin-bottom: 8px; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 20px); opacity: 0; transition: .25s;
+           background: var(--text); color: var(--bg); padding: 9px 16px; border-radius: 10px; font-size: 13px; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  footer { margin-top: 30px; text-align: center; color: var(--muted); font-size: 12px; }
+  footer a { color: inherit; }
+  .skeleton { height: 140px; border-radius: 16px; margin-bottom: 16px; break-inside: avoid;
+              background: linear-gradient(90deg, var(--card) 25%, var(--card-hover) 50%, var(--card) 75%); background-size: 200% 100%; animation: shimmer 1.2s infinite; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">🛰️</div>
+      <div>
+        <h1>MOSIP · <span class="env" id="env">cluster</span> workloads</h1>
+        <div class="sub"><span class="pulse" id="pulse"></span><span id="updated">Loading…</span></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="csv" title="Download the current view as CSV">⬇ CSV</button>
+      <a class="btn" href="/info/info.txt" target="_blank" rel="noopener">📄 Text</a>
+      <a class="btn" href="/info/info.json" target="_blank" rel="noopener">{ } JSON</a>
+      <button class="btn" id="theme" title="Toggle theme">🌓</button>
+    </div>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <section class="toolbar">
+    <label class="search"><input id="q" placeholder="Search namespace, workload or image…" autocomplete="off"><kbd>/</kbd></label>
+    <div class="chips" id="kinds"></div>
+    <select id="sort" title="Sort namespaces">
+      <option value="name">Sort: A → Z</option>
+      <option value="problems">Sort: problems first</option>
+      <option value="size">Sort: most workloads</option>
+    </select>
+    <div class="seg" id="view">
+      <button data-v="ns" class="on">Namespaces</button>
+      <button data-v="img">Images</button>
+    </div>
+    <button class="btn" id="collapse" title="Collapse / expand all">⇕</button>
+  </section>
+
+  <main id="main"><div class="grid"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div></main>
+  <footer>Refreshed daily by the <code>info</code> CronJob · Click an image to copy it · Press <kbd>/</kbd> to search</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KINDS = ["Deployment", "StatefulSet", "DaemonSet", "CronJob"];
+  const KIND_SHORT = { Deployment: "DEPLOY", StatefulSet: "STS", DaemonSet: "DS", CronJob: "CRON" };
+  const STATUS = {
+    all:       { label: "Workloads",  color: "var(--accent)" },
+    healthy:   { label: "Healthy",    color: "var(--ok)" },
+    degraded:  { label: "Not ready",  color: "var(--bad)" },
+    scaled:    { label: "Scaled to 0", color: "var(--idle)" },
+    suspended: { label: "Suspended",  color: "var(--warn)" },
+    floating:  { label: "Non-release tags", color: "var(--warn)" },
+  };
+
+  const host = location.hostname.split(".");
+  let env = /^api(-internal)?$/.test(host[0]) ? host[1] : host[0];
+  const setEnv = (name) => {
+    env = name || "cluster";
+    $("#env").textContent = env;
+    document.title = `${env} · cluster info`;
+  };
+  setEnv(env);
+
+  const theme = localStorage.getItem("info-theme") || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  document.documentElement.classList.toggle("light", theme === "light");
+  $("#theme").onclick = () => {
+    const light = document.documentElement.classList.toggle("light");
+    localStorage.setItem("info-theme", light ? "light" : "dark");
+  };
+
+  const params = new URLSearchParams(location.hash.slice(1));
+  const state = {
+    q: params.get("q") || "",
+    kind: params.get("kind") || "all",
+    status: params.get("status") || "all",
+    sort: params.get("sort") || "name",
+    view: params.get("view") || "ns",
+    collapsed: false,
+  };
+  let data = null;
+
+  function parseImage(ref) {
+    const at = ref.indexOf("@");
+    if (at > -1) {
+      let name = ref.slice(0, at), digest = ref.slice(at + 1);
+      // repo:tag@sha256:… — strip the tag so Images view groups by repository.
+      const slash = name.lastIndexOf("/"), colon = name.lastIndexOf(":");
+      if (colon > slash) name = name.slice(0, colon);
+      return { repo: name, tag: digest, sep: "@" };
+    }
+    const slash = ref.lastIndexOf("/"), colon = ref.lastIndexOf(":");
+    if (colon > slash) return { repo: ref.slice(0, colon), tag: ref.slice(colon + 1), sep: ":" };
+    return { repo: ref, tag: "latest", sep: ":" };
+  }
+  const shortTag = (p) => p.sep === "@" && p.tag.length > 20 ? `${p.tag.slice(0, 19)}…` : p.tag;
+  const isFloating = (tag) => /^(latest|develop|dev|master|main|nightly)$/i.test(tag) || /^release-/i.test(tag)
+    || /SNAPSHOT/i.test(tag) || /^[A-Z][A-Z0-9]+-\d+/.test(tag);
+
+  function statusOf(w) {
+    if (w.kind === "CronJob") return w.suspend ? "suspended" : "scheduled";
+    if (!w.desired) return "scaled";
+    return w.ready >= w.desired ? "healthy" : "degraded";
+  }
+
+  function ago(iso) {
+    if (!iso) return "never";
+    const s = Math.round((Date.now() - new Date(iso)) / 1000);
+    if (s < 60) return "just now";
+    const units = [["d", 86400], ["h", 3600], ["m", 60]];
+    for (const [u, n] of units) if (s >= n) return `${Math.floor(s / n)}${u} ago`;
+  }
+
+  function hl(text) {
+    const raw = String(text ?? "");
+    if (!state.q) return esc(raw);
+    const q = state.q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const re = new RegExp(q, "ig");
+    let out = "", last = 0, m;
+    while ((m = re.exec(raw))) {
+      out += esc(raw.slice(last, m.index)) + `<mark>${esc(m[0])}</mark>`;
+      last = m.index + m[0].length;
+      if (!m[0].length) re.lastIndex++;
+    }
+    return out + esc(raw.slice(last));
+  }
+
+  function matches(w) {
+    if (state.kind !== "all" && w.kind !== state.kind) return false;
+    if (state.status === "floating" && !w.floating) return false;
+    if (!["all", "floating"].includes(state.status) && w.status !== state.status) return false;
+    if (!state.q) return true;
+    const q = state.q.toLowerCase();
+    return w.namespace.toLowerCase().includes(q) || w.name.toLowerCase().includes(q)
+      || w.allImages.some((i) => i.toLowerCase().includes(q));
+  }
+
+  function saveHash() {
+    const p = new URLSearchParams();
+    for (const [k, def] of [["q", ""], ["kind", "all"], ["status", "all"], ["sort", "name"], ["view", "ns"]])
+      if (state[k] !== def) p.set(k, state[k]);
+    history.replaceState(null, "", p.toString() ? `#${p}` : location.pathname);
+  }
+
+  function renderStats() {
+    const W = data.workloads;
+    const count = (st) => st === "all" ? W.length : st === "floating" ? W.filter((w) => w.floating).length : W.filter((w) => w.status === st).length;
+    const uniq = new Set(W.flatMap((w) => w.allImages)).size;
+    const cards = [
+      `<div class="stat" style="--c:var(--accent2)" data-ns><div class="k">Namespaces</div><div class="v">${data.namespaces.length}</div></div>`,
+      ...Object.entries(STATUS).map(([k, s]) =>
+        `<div class="stat ${state.status === k ? "active" : ""}" style="--c:${s.color}" data-status="${k}"><div class="k">${s.label}</div><div class="v">${count(k)}</div></div>`),
+      `<div class="stat" style="--c:var(--info)" data-img><div class="k">Unique images</div><div class="v">${uniq}</div></div>`,
+    ];
+    $("#stats").innerHTML = cards.join("");
+    $("#stats").querySelectorAll("[data-status]").forEach((el) => el.onclick = () => {
+      state.status = state.status === el.dataset.status ? "all" : el.dataset.status; render();
+    });
+    $("#stats [data-img]").onclick = () => { state.view = "img"; render(); };
+    $("#stats [data-ns]").onclick = () => { state.view = "ns"; state.status = "all"; render(); };
+  }
+
+  function renderKinds() {
+    const counts = Object.fromEntries(KINDS.map((k) => [k, data.workloads.filter((w) => w.kind === k).length]));
+    $("#kinds").innerHTML = ["all", ...KINDS].map((k) =>
+      `<span class="chip ${state.kind === k ? "on" : ""}" data-k="${k}">${k === "all" ? "All kinds" : k} ${k === "all" ? "" : `<b>${counts[k]}</b>`}</span>`).join("");
+    $("#kinds").querySelectorAll(".chip").forEach((el) => el.onclick = () => { state.kind = el.dataset.k; render(); });
+  }
+
+  function imageHtml(ref, init) {
+    const p = parseImage(ref);
+    return `<div class="img ${init ? "init" : ""}" data-copy="${esc(ref)}" title="${esc(ref)}">${hl(p.repo)}${p.sep}<span class="tag ${isFloating(p.tag) ? "floating" : ""}">${hl(shortTag(p))}</span></div>`;
+  }
+
+  function rowHtml(w) {
+    const pill = w.kind === "CronJob"
+      ? `<span class="pill ${w.status}">${w.suspend ? "suspended" : "active"}</span>`
+      : `<span class="pill ${w.status}">${esc(w.ready)}/${esc(w.desired)}</span>`;
+    const meta = w.kind === "CronJob"
+      ? `<div class="meta">⏱ <code>${esc(w.schedule)}</code> · last run ${ago(w.lastSchedule)}</div>` : "";
+    return `<div class="row"><span class="kind ${esc(w.kind)}" title="${esc(w.kind)}">${esc(KIND_SHORT[w.kind] || w.kind)}</span>
+      <span class="wname" title="${esc(w.name)}">${hl(w.name)}</span>${pill}
+      <div class="imgs">${w.images.map((i) => imageHtml(i, false)).join("")}${w.initImages.map((i) => imageHtml(i, true)).join("")}</div>${meta}</div>`;
+  }
+
+  function renderNamespaces(list) {
+    const byNs = new Map();
+    for (const w of list) (byNs.get(w.namespace) || byNs.set(w.namespace, []).get(w.namespace)).push(w);
+    const nsNames = [...byNs.keys()];
+    const problems = (ns) => byNs.get(ns).filter((w) => w.status === "degraded").length;
+    nsNames.sort((a, b) => state.sort === "problems" ? problems(b) - problems(a) || a.localeCompare(b)
+      : state.sort === "size" ? byNs.get(b).length - byNs.get(a).length || a.localeCompare(b) : a.localeCompare(b));
+    if (!nsNames.length) return empty();
+    return `<div class="grid">${nsNames.map((ns, i) => {
+      const ws = byNs.get(ns), n = ws.length;
+      const seg = ["healthy", "scheduled", "scaled", "suspended", "degraded"].map((s) => {
+        const c = ws.filter((w) => w.status === s).length;
+        const color = { healthy: "var(--ok)", scheduled: "var(--info)", scaled: "var(--idle)", suspended: "var(--warn)", degraded: "var(--bad)" }[s];
+        return c ? `<span style="width:${(c / n) * 100}%;background:${color}"></span>` : "";
+      }).join("");
+      const bad = problems(ns);
+      return `<div class="ns ${state.collapsed ? "collapsed" : ""}" style="animation-delay:${Math.min(i, 20) * 15}ms">
+        <div class="bar">${seg}</div>
+        <div class="ns-head"><span class="caret">▾</span><span class="name">${hl(ns)}</span>
+          ${bad ? `<span class="pill degraded">${bad} not ready</span>` : ""}<span class="count">${n} workload${n > 1 ? "s" : ""}</span></div>
+        <div class="rows">${ws.map(rowHtml).join("")}</div></div>`;
+    }).join("")}</div>`;
+  }
+
+  function renderImages(list) {
+    const repos = new Map();
+    for (const w of list) for (const ref of w.allImages) {
+      const p = parseImage(ref);
+      const r = repos.get(p.repo) || repos.set(p.repo, { tags: new Map(), users: [] }).get(p.repo);
+      const t = r.tags.get(p.tag) || r.tags.set(p.tag, { p, count: 0 }).get(p.tag);
+      t.count++;
+      r.users.push(`${w.namespace}/${w.name}`);
+    }
+    if (!repos.size) return empty();
+    const rows = [...repos.entries()].sort((a, b) => b[1].tags.size - a[1].tags.size || a[0].localeCompare(b[0]));
+    return `<table><thead><tr><th>Image</th><th>Tags in use</th><th>Used by</th></tr></thead><tbody>${rows.map(([repo, r]) => `
+      <tr><td class="repo">${hl(repo)}${r.tags.size > 1 ? `<span class="drift">⚠ ${r.tags.size} versions</span>` : ""}</td>
+      <td><div class="tags">${[...r.tags.values()].map(({ p, count }) =>
+        `<span class="tagchip ${isFloating(p.tag) ? "floating" : ""}" data-copy="${esc(repo + p.sep + p.tag)}" title="${count} workload(s)">${hl(shortTag(p))}${count > 1 ? ` ×${count}` : ""}</span>`).join("")}</div></td>
+      <td class="users">${r.users.slice(0, 6).map(hl).join(", ")}${r.users.length > 6 ? ` <b>+${r.users.length - 6} more</b>` : ""}</td></tr>`).join("")}
+    </tbody></table>`;
+  }
+
+  const empty = () => `<div class="empty"><div class="big">🔭</div>Nothing matches these filters.</div>`;
+
+  function render() {
+    saveHash();
+    renderStats();
+    renderKinds();
+    $("#sort").value = state.sort;
+    $("#view").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.v === state.view));
+    const list = data.workloads.filter(matches);
+    $("#main").innerHTML = state.view === "img" ? renderImages(list) : renderNamespaces(list);
+    $("#main").querySelectorAll(".ns-head").forEach((h) => h.onclick = () => h.parentElement.classList.toggle("collapsed"));
+  }
+
+  function toast(msg) {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 1600);
+  }
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-copy]");
+    if (!el) return;
+    navigator.clipboard?.writeText(el.dataset.copy).then(() => toast(`Copied ${el.dataset.copy}`), () => toast(el.dataset.copy));
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== $("#q")) { e.preventDefault(); $("#q").focus(); }
+    if (e.key === "Escape" && document.activeElement === $("#q")) { $("#q").value = ""; state.q = ""; render(); $("#q").blur(); }
+  });
+
+  let debounce;
+  $("#q").value = state.q;
+  $("#q").oninput = (e) => { clearTimeout(debounce); debounce = setTimeout(() => { state.q = e.target.value.trim(); render(); }, 120); };
+  $("#sort").onchange = (e) => { state.sort = e.target.value; render(); };
+  $("#view").onclick = (e) => { if (e.target.dataset.v) { state.view = e.target.dataset.v; render(); } };
+  $("#collapse").onclick = () => { state.collapsed = !state.collapsed; render(); };
+  function csvCell(v) {
+    let s = String(v ?? "");
+    // Neutralise spreadsheet formula injection for cells starting with = + - @.
+    if (/^[=+\-@]/.test(s)) s = "'" + s;
+    return `"${s.replace(/"/g, '""')}"`;
+  }
+  $("#csv").onclick = () => {
+    const rows = [["namespace", "kind", "name", "status", "ready", "desired", "schedule", "images", "init_images"]];
+    for (const w of data.workloads.filter(matches))
+      rows.push([w.namespace, w.kind, w.name, w.status, w.ready ?? "", w.desired ?? "", w.schedule ?? "",
+        w.images.join(" "), w.initImages.join(" ")]);
+    const csv = rows.map((r) => r.map(csvCell).join(",")).join("\n");
+    const a = Object.assign(document.createElement("a"), {
+      href: URL.createObjectURL(new Blob([csv], { type: "text/csv" })), download: `${env}-workloads.csv` });
+    a.click(); URL.revokeObjectURL(a.href);
+  };
+
+  // Upper bound on how long between collector runs, from a 5-field cron expression.
+  // Falls back to 26h (daily + margin) when the schedule is missing or unparseable.
+  function staleAfterMs(schedule) {
+    const parts = String(schedule || "").trim().split(/\s+/);
+    if (parts.length !== 5) return 26 * 3600 * 1000;
+    const [min, hour, dom, mon, dow] = parts;
+    const isStar = (f) => f === "*";
+    const step = (f) => { const m = /^\*\/(\d+)$/.exec(f); return m ? +m[1] : null; };
+    if (!isStar(dow) || step(dow)) return 8 * 86400 * 1000; // weekly-ish
+    if (!isStar(dom) || step(dom) || !isStar(mon) || step(mon)) return 40 * 86400 * 1000; // monthly-ish
+    if (step(hour)) return (step(hour) + 2) * 3600 * 1000;
+    if (!isStar(hour)) return 26 * 3600 * 1000; // once a day
+    if (step(min)) return (step(min) + 5) * 60 * 1000;
+    if (!isStar(min)) return 70 * 60 * 1000; // once an hour
+    return 15 * 60 * 1000;
+  }
+
+  function showUpdated(refreshError) {
+    const limit = staleAfterMs(data.collectorSchedule);
+    const age = Date.now() - new Date(data.generatedAt);
+    const stale = age > limit;
+    $("#pulse").classList.toggle("stale", stale || !!refreshError);
+    $("#updated").innerHTML = `Updated <b title="${esc(data.generatedAt)}">${ago(data.generatedAt)}</b> · ${esc(new Date(data.generatedAt).toLocaleString())}`
+      + (stale ? " · <span style='color:var(--warn)'>data is older than expected for this schedule</span>" : "")
+      + (refreshError ? ` · <span style='color:var(--warn)'>refresh failed (${esc(refreshError)})</span>` : "");
+  }
+
+  function loadReport() {
+    fetch("/info/info.json", { cache: "no-cache" })
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then((d) => {
+        if (data && d.generatedAt === data.generatedAt) return showUpdated();
+        d.workloads.forEach((w) => {
+          w.status = statusOf(w);
+          w.initImages = w.initImages || [];
+          w.allImages = [...w.images, ...w.initImages];
+          w.floating = w.allImages.some((i) => isFloating(parseImage(i).tag));
+        });
+        data = d;
+        if (d.environment) setEnv(d.environment);
+        showUpdated();
+        render();
+      })
+      .catch((err) => {
+        if (data) return showUpdated(err.message);
+        $("#updated").textContent = "No data yet";
+        $("#pulse").classList.add("stale");
+        $("#main").innerHTML = `<div class="error"><div class="big">🛠️</div>Couldn't load <code>info.json</code> (${esc(err.message)}).<br>
+          The CronJob may not have run yet — trigger it with<br><code>kubectl -n info create job --from=cronjob/info info-manual</code></div>`;
+      });
+  }
+
+  loadReport();
+  setInterval(loadReport, 60 * 1000);
+})();
+</script>
+</body>
+</html>

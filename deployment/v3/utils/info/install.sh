@@ -1,35 +1,15 @@
 #!/bin/bash
-# Installs info
-## Usage: ./install.sh [kubeconfig]
+# Deprecated: the Helm-based "info" chart conflicts with info-cronjob (same namespace and names).
+# Use ../info-cronjob/install.sh instead. See that directory's README.
+## Deprecated: invoke ../info-cronjob/install.sh [kubeconfig] directly.
 
-if [ $# -ge 1 ] ; then
-  export KUBECONFIG=$1
-fi
+set -euo pipefail
 
-NS=info
-CHART_VERSION=0.0.1-develop
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NEW="$DIR/../info-cronjob/install.sh"
 
-echo Create $NS namespace
-kubectl create ns $NS
-
-function installing_info() {
-  echo Istio label
-  kubectl label ns $NS istio-injection=enabled --overwrite
-  helm repo update
-
-  echo Installing info
-  helm -n $NS install info mosip/info --version $CHART_VERSION
-
-  kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
-
-  echo Installed info service
-  return 0
-}
-
-# set commands for error handling.
-set -e
-set -o errexit   ## set -e : exit the script if any statement returns a non-true return value
-set -o nounset   ## set -u : exit the script if you try to use an uninitialised variable
-set -o errtrace  # trace ERR through 'time command' and other functions
-set -o pipefail  # trace ERR through pipes
-installing_info   # calling function
+echo "ERROR: deployment/v3/utils/info is deprecated and would conflict with info-cronjob."
+echo "Install with:"
+echo "  ENV_NAME=<env> [ASSUME_YES=1] $NEW [kubeconfig]"
+echo "See $DIR/../info-cronjob/README.md"
+exit 1
