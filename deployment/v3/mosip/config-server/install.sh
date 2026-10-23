@@ -68,7 +68,7 @@ if [ $yn = "Y" ]
 
     echo "Installing config-server"
     helm -n $NS install config-server mosip/config-server \
-    --set spring_profiles.enabled="$COMPOSITE_PROFILES" \
+    --set spring_profiles.enabled="$SPRING_PROFILES" \
     --set localRepo.enabled="$LOCALREPO" \
     -f values.yaml \
     --wait --version $CHART_VERSION
